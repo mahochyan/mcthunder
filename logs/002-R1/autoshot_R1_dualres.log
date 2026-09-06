@@ -1,0 +1,34 @@
+﻿[002-R1 autoshot dual-res]
+[cmd] godot --path E:\AIprogram\mcthunder --resolution 1280x720 -- --autoshot
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_1_thirdperson.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_2_sight.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_3_moved.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_4_paused.png
+[T002-04] paused: mouse_mode=0 (0=VISIBLE) shots=1 cooldown=1.96
+[T002-04] resumed: mouse_mode=2 (2=CAPTURED) grace=0.25
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_5_resumed.png
+[T002-04] after resume+hold: shots=1（应与暂停期间一致，无补射）
+[T002-05] after 3 resets: mouse_mode=2 paused=false (2=CAPTURED, false)
+[autoshot] done: shots_saved=5 errors=0
+
+
+[cmd] godot --path E:\AIprogram\mcthunder --resolution 1920x1080 -- --autoshot
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_1_thirdperson.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_2_sight.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_3_moved.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_4_paused.png
+[T002-04] paused: mouse_mode=0 (0=VISIBLE) shots=1 cooldown=1.93
+[T002-04] resumed: mouse_mode=2 (2=CAPTURED) grace=0.25
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_5_resumed.png
+[T002-04] after resume+hold: shots=1（应与暂停期间一致，无补射）
+[T002-05] after 3 resets: mouse_mode=2 paused=false (2=CAPTURED, false)
+[autoshot] done: shots_saved=5 errors=0
+
