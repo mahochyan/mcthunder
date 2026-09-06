@@ -1,0 +1,13 @@
+# Godot 导入缓存（不入库）
+.godot/
+
+# 引擎本体不入库；但保留 tools/godot/.gdignore（防止 Godot 扫描引擎目录）
+tools/godot/*
+!tools/godot/.gdignore
+
+# 备份目录不入库
+backups/
+
+# 系统杂项
+Thumbs.db
+Desktop.ini
