@@ -1,0 +1,113 @@
+﻿[cmd] godot --headless --path E:\AIprogram\mcthunder --import
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 正在扫描动作…… (3 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | autoshot_1_thirdperson.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | autoshot_2_sight.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | autoshot_3_moved.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (3 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  25% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的前置操作……[39m[0m
+[   0% ] [90m[1mreimport[22m | autoshot_1_thirdperson.png[39m[0m
+[  25% ] [90m[1mreimport[22m | autoshot_2_sight.png[39m[0m
+[  50% ] [90m[1mreimport[22m | autoshot_3_moved.png[39m[0m
+[  75% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (3 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+[cmd] godot --headless --path E:\AIprogram\mcthunder -s res://tests/run_checks.gd
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== PixelArmor 自动检查 ===
+engine=4.7.2-stable (official)  os=Windows
+font_cjk_support=false  (默认字体中文字形能力 → 决定 HUD 语言)
+[PASS] 默认字体 CJK 能力已记录
+[PASS] 脚本可解析加载: game_config.gd
+[PASS] 脚本可解析加载: world_builder.gd
+[PASS] 脚本可解析加载: target_board.gd
+[PASS] 脚本可解析加载: tank.gd
+[PASS] 脚本可解析加载: turret_rig.gd
+[PASS] 脚本可解析加载: camera_rig.gd
+[PASS] 脚本可解析加载: gunner.gd
+[PASS] 脚本可解析加载: hud.gd
+[PASS] 脚本可解析加载: main.gd
+[PASS] 输入动作存在: move_forward
+[PASS] 输入动作存在: move_back
+[PASS] 输入动作存在: turn_left
+[PASS] 输入动作存在: turn_right
+[PASS] 输入动作存在: fire
+[PASS] 输入动作存在: aim
+[PASS] 输入动作存在: reset
+[PASS] 输入动作存在: pause
+[PASS] 主场景资源可加载
+[PASS] 主场景可实例化
+[PASS] 必要节点: 坦克存在
+[PASS] 必要节点: 炮塔存在
+[PASS] 必要节点: 相机存在
+[PASS] 必要节点: 射击控制存在
+[PASS] 必要节点: 界面存在
+[PASS] 三块靶板存在 (实际=3)
+[PASS] 首次开火成功
+[PASS] 冷却期内第二次开火被拒
+[PASS] 冷却期内未产生额外射击 (shots=1)
+[PASS] 按住开火键不绕过冷却 (shots=1)
+[PASS] 冷却自然结束
+[PASS] 暂停恢复宽限期内开火被拒
+[PASS] 无遮挡时开火成功
+[PASS] 遮挡墙后靶板未被命中 (hits=0)
+[PASS] 移除墙后同一射击代码命中靶板 (hits=1)
+[PASS] 命中后靶板变色反馈触发
+[PASS] 炮管穿墙时开火被阻止
+[PASS] 穿墙开火未产生射击
+[PASS] 穿墙未命中墙后靶板 (hits=0)
+[PASS] 前进加速有效 (v=8.00)
+[PASS] 前进限速 8m/s (v=8.00)
+[PASS] 车辆沿 -Z 前进 (z=-2.73)
+[PASS] 松开按键滑行停车 (v=0.00)
+[PASS] 倒车限速 3m/s (v=-3.00)
+[PASS] 倒车位移有效 (z=-6.93)
+[PASS] A 键原地转向有效
+[PASS] 无左右平移 (x=0.32)
+[PASS] 重置清零靶板命中
+[PASS] 重置清零装填状态
+[PASS] 重置恢复出生位置
+[PASS] Esc 暂停生效并显示暂停界面
+[PASS] 恢复生效且带开炮宽限
+=== 结果: 52 项检查, 0 失败 ===
+CHECKS_PASS
+
+
+[cmd] godot --path E:\AIprogram\mcthunder --resolution 1280x720 -- --autoshot
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_1_thirdperson.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_2_sight.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/autoshot_3_moved.png
+

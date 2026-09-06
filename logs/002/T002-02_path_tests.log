@@ -1,0 +1,86 @@
+﻿[T002-02] spaced-path launch
+Engine: E:\AIprogram\mcthunder 002 path test\project copy\tools\godot\Godot_v4.7.2-stable_win64.exe
+First run: importing project resources, please wait ...
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (10 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | CameraRig[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | GameConfig[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Gunner[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | HUD[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | Main[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | TankVehicle[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | TargetBoard[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | TurretRig[39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | WorldBuilder[39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的前置操作……[39m[0m
+[   0% ] [90m[1mreimport[22m | icon.svg[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+cmd : ERROR: Can't save PNG at path: 'E:/AIprogram/mcthunder 002 path test/project 
+copy/docs/autoshot_1_thirdperson.png'.
+At line:1 char:808
++ ... s")"; $o1 = cmd /c ('echo.| "' + "$sp\START_GAME.bat" + '" -- --autos ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERROR: Can't sa...irdperson.png'.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] _shot (res://scripts/main.gd:163)
+       [1] _autoshot_step (res://scripts/main.gd:146)
+       [2] _process (res://scripts/main.gd:99)
+[autoshot] saved E:/AIprogram/mcthunder 002 path test/project copy/docs/autoshot_1_thirdperson.png
+ERROR: Can't save PNG at path: 'E:/AIprogram/mcthunder 002 path test/project copy/docs/autoshot_2_sight.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] _shot (res://scripts/main.gd:163)
+       [1] _autoshot_step (res://scripts/main.gd:149)
+       [2] _process (res://scripts/main.gd:99)
+[autoshot] saved E:/AIprogram/mcthunder 002 path test/project copy/docs/autoshot_2_sight.png
+ERROR: Can't save PNG at path: 'E:/AIprogram/mcthunder 002 path test/project copy/docs/autoshot_3_moved.png'.
+   at: save_image (drivers/png/resource_saver_png.cpp:56)
+   GDScript backtrace (most recent call first):
+       [0] _shot (res://scripts/main.gd:163)
+       [1] _autoshot_step (res://scripts/main.gd:155)
+       [2] _process (res://scripts/main.gd:99)
+[autoshot] saved E:/AIprogram/mcthunder 002 path test/project copy/docs/autoshot_3_moved.png
+
+[exit] 0
+
+[T002-02] engine-less from spaced path
+[ERROR] Godot engine not found.
+Expected folder: E:\AIprogram\no engine 002 test\project\tools\godot
+Please extract Godot 4.x stable win64 (normal version, not .NET) there,
+e.g. Godot_v4.7.2-stable_win64.exe directly inside that folder.
+[中文] 未找到 Godot 引擎：请将 Godot 4.x 稳定普通版 win64 解压到上述目录后重试。
+Press any key to continue . . . 
+
+[exit] 1

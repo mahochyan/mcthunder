@@ -43,4 +43,4 @@ const LAYER_VEHICLE := 2      # bit2：本车（CharacterBody3D）
 const VIS_LAYER_VEHICLE := 2  # 视觉层 bit：本车网格；炮镜相机 cull_mask 剔除该位
 
 # --- 输入动作名（project.godot 已注册全部映射） ---
-const ACTIONS := ["move_forward", "move_back", "turn_left", "turn_right", "fire", "aim", "reset", "pause"]
+const ACTIONS := ["move_forward", "move_back", "turn_left", "turn_right", "fire", "aim", "reset", "pause", "debug_toggle"]

@@ -12,6 +12,7 @@ var hud: HUD
 var targets: Array = []
 var _paused := false
 var _autoshot := false
+var _debug_on := false
 var _shot_step := 0
 var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相机中心）
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
@@ -54,6 +55,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			_pause()
 	elif event.is_action_pressed("reset"):
 		_reset_all()
+	elif event.is_action_pressed("debug_toggle"):
+		_debug_on = not _debug_on
+		hud.set_debug_visible(_debug_on)
 
 func _pause() -> void:
 	if _paused:
@@ -69,7 +73,8 @@ func _resume() -> void:
 	_paused = false
 	get_tree().paused = false
 	hud.show_pause(false)
-	if not _autoshot and DisplayServer.get_name() != "headless":
+	# 鼠标重捕获：仅无窗口模式跳过；autoshot 模式也执行以便窗口证据（002 T002-04）
+	if DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	gunner.resume_grace = GameConfig.RESUME_GRACE   # 恢复点击不得意外开炮
 
@@ -94,6 +99,7 @@ func _process(_delta: float) -> void:
 	for t in targets:
 		hits.append(t.hit_count)
 	hud.update_hud(tank.forward_speed, gunner.cooldown_left, gunner.blocked_reason, hits, cam_rig.sight)
+	hud.update_debug(Engine.get_frames_per_second(), tank.forward_speed, rad_to_deg(turret.global_rotation.y), rad_to_deg(turret.barrel_pivot.rotation.x), gunner.cooldown_left)
 	_update_markers()
 	if _autoshot:
 		_autoshot_step()
@@ -139,7 +145,8 @@ func _update_markers() -> void:
 		_marker_actual.global_position = a
 
 func _autoshot_step() -> void:
-	# 截图自检模式（仅 -- --autoshot 启动时）：有限帧、真实抓帧、自动退出
+	# 截图自检模式（仅 -- --autoshot 启动时）：有限帧、真实抓帧、自动退出。
+	# 002 扩展：附带 T002-04 的窗口模式证据（持火跨越暂停/恢复、鼠标重捕获）。
 	_shot_step += 1
 	match _shot_step:
 		40:
@@ -149,18 +156,36 @@ func _autoshot_step() -> void:
 			_shot("docs/autoshot_2_sight.png")
 			Input.action_release("aim")
 			Input.action_press("move_forward")
-		160:
-			Input.action_release("move_forward")
-		170:
+		150:
 			_shot("docs/autoshot_3_moved.png")
+			Input.action_release("move_forward")
+			Input.action_press("fire")   # 持火跨越暂停（T002-04）
+		160:
+			_pause()
+		170:
+			_shot("docs/autoshot_4_paused.png")
+			print("[T002-04] paused: mouse_mode=", Input.mouse_mode, " (0=VISIBLE) shots=", gunner.shots_fired, " cooldown=", "%.2f" % gunner.cooldown_left)
 		180:
+			_resume()
+			print("[T002-04] resumed: mouse_mode=", Input.mouse_mode, " (2=CAPTURED) grace=", "%.2f" % gunner.resume_grace)
+		190:
+			Input.action_release("fire")
+			_shot("docs/autoshot_5_resumed.png")
+			print("[T002-04] after resume+hold: shots=", gunner.shots_fired, "（应与暂停期间一致，无补射）")
+		200:
 			get_tree().quit()
 
 func _shot(rel: String) -> void:
 	var img := get_viewport().get_texture().get_image()
-	if img != null and not img.is_empty():
-		var path := ProjectSettings.globalize_path("res://" + rel)
-		img.save_png(path)
+	if img == null or img.is_empty():
+		print("[autoshot] FAILED to capture ", rel)
+		return
+	var path := ProjectSettings.globalize_path("res://" + rel)
+	var dir := path.get_base_dir()
+	if dir != "" and not DirAccess.dir_exists_absolute(dir):
+		DirAccess.make_dir_recursive_absolute(dir)
+	var err := img.save_png(path)
+	if err == OK:
 		print("[autoshot] saved ", path)
 	else:
-		print("[autoshot] FAILED to capture ", rel)
+		print("[autoshot] FAILED (err=", err, ") to save ", path)

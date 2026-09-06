@@ -149,6 +149,117 @@ func _run() -> void:
 	_ok(gunner.cooldown_left == 0.0, "重置清零装填状态")
 	_ok(tank.global_position.distance_to(Vector3(0, 0, 8)) < 0.1, "重置恢复出生位置")
 
+	# --- T002-03a：相机可见但炮管被挡（矮墙：相机视线越过、炮射线被挡） ---
+	board.reset()
+	tank.reset()
+	tank.rotation = Vector3.ZERO
+	tank.global_position = Vector3(0, 0, 8)
+	turret_snap(main)
+	var low_wall = main.world.build_wall(Vector3(0, 1.0, -6.0), Vector3(6, 2.0, 1.0))
+	for i in 5:
+		await physics_frame
+	var see_point: Vector3 = main.cam_rig.get_aim_point()
+	_ok(see_point.z < -10.0, "T002-03a 前提：相机视线越过矮墙看到远处靶板 (aim_z=%.1f)" % see_point.z)
+	gunner.cooldown_left = 0.0
+	var fa: bool = gunner.try_fire()
+	_ok(fa, "T002-03a 开火（炮根→炮口无遮挡）")
+	_ok(board.hit_count == 0, "T002-03a 矮墙挡住炮射线，墙后靶板未被命中 (hits=%d)" % board.hit_count)
+	low_wall.queue_free()
+	for i in 3:
+		await physics_frame
+
+	# --- T002-03b：炮口进入墙体 ---
+	board.reset()
+	tank.reset()
+	tank.rotation = Vector3.ZERO
+	tank.global_position = Vector3(0, 0, 0)
+	turret_snap(main)
+	var body_wall = main.world.build_wall(Vector3(0, 1.5, -2.8), Vector3(6, 3, 1.2))
+	for i in 5:
+		await physics_frame
+	var mz: Vector3 = main.turret.muzzle.global_position
+	_ok(mz.z > -3.4 and mz.z < -2.2, "T002-03b 前提：炮口位于墙体内部 (muzzle_z=%.2f, 墙 -2.2..-3.4)" % mz.z)
+	gunner.cooldown_left = 0.0
+	var fb: bool = gunner.try_fire()
+	_ok(not fb and gunner.blocked_reason == "barrel_occluded", "T002-03b 炮口入墙时开火被阻止")
+	_ok(board.hit_count == 0, "T002-03b 未命中墙后靶板 (hits=%d)" % board.hit_count)
+	body_wall.queue_free()
+	for i in 3:
+		await physics_frame
+
+	# --- T002-03c：贴墙开炮（炮口越过墙体远面） ---
+	board.reset()
+	tank.reset()
+	tank.rotation = Vector3.ZERO
+	tank.global_position = Vector3(0, 0, 2.2)
+	turret_snap(main)
+	var hug_wall = main.world.build_wall(Vector3(0, 1.5, -0.4), Vector3(6, 3, 0.6))
+	for i in 5:
+		await physics_frame
+	var mz2: Vector3 = main.turret.muzzle.global_position
+	_ok(mz2.z < -0.7, "T002-03c 前提：炮口越过墙体远面 (muzzle_z=%.2f < -0.7)" % mz2.z)
+	gunner.cooldown_left = 0.0
+	var fc: bool = gunner.try_fire()
+	_ok(not fc and gunner.blocked_reason == "barrel_occluded", "T002-03c 贴墙开炮被阻止（炮根→炮口线段被墙截断）")
+	_ok(board.hit_count == 0, "T002-03c 未命中墙后靶板 (hits=%d)" % board.hit_count)
+	hug_wall.queue_free()
+	for i in 3:
+		await physics_frame
+
+	# --- 相机贴墙防穿：期望机位在墙外时被压回 ---
+	tank.reset()
+	tank.rotation = Vector3.ZERO
+	tank.global_position = Vector3(0, 0, 27)   # 贴近南侧内墙（内面 29.0）
+	main.cam_rig.aim_yaw = 0.0                  # 朝 -Z 看 → 相机机位被推到墙外
+	for i in 5:
+		await physics_frame
+	await process_frame
+	var camz: float = main.cam_rig.cam.global_position.z
+	_ok(camz < 28.8, "第三人称相机贴墙防穿 (cam_z=%.2f < 29.0 内墙面)" % camz)
+
+	# --- 瞄点标记屏幕后方过滤（单元逻辑） ---
+	_ok(not main._in_front(Vector3.ZERO, Vector3(0, 0, -1), Vector3(0, 0, 5)), "屏幕后方瞄点标记隐藏（点积过滤）")
+	_ok(main._in_front(Vector3.ZERO, Vector3(0, 0, -1), Vector3(0, 0, -5)), "屏幕前方瞄点标记保留")
+
+	# --- T002-04：暂停前持火；恢复/失焦不补射；驾驶与装填按暂停规则停止 ---
+	board.reset()
+	tank.reset()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	Input.action_press("move_forward")
+	Input.action_press("fire")
+	for i in 6:
+		await process_frame
+	var s_hold := gunner.shots_fired
+	_ok(s_hold >= 1, "T002-04 前提：持火已产生一次射击 (shots=%d)" % s_hold)
+	for i in 20:
+		await physics_frame
+	var pos_at_pause: Vector3 = tank.global_position
+	main.notification(Node.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	_ok(paused, "T002-04 窗口失焦通知触发自动暂停")
+	await create_timer(0.6).timeout
+	_ok(gunner.cooldown_left > GameConfig.RELOAD_TIME - 0.4, "T002-04 暂停期间装填计时冻结 (cd=%.2f)" % gunner.cooldown_left)
+	_ok(tank.global_position.distance_to(pos_at_pause) < 0.001, "T002-04 暂停期间驾驶停止")
+	main._resume()
+	for i in 30:
+		await process_frame
+	_ok(gunner.shots_fired == s_hold, "T002-04 恢复后持火未补射 (shots=%d)" % gunner.shots_fired)
+	Input.action_release("fire")
+	Input.action_release("move_forward")
+
+	# --- T002-05：连续 20 次重置 ---
+	var reset_ok := true
+	for i in 20:
+		board.hit_count = i
+		gunner.cooldown_left = 1.0
+		tank.forward_speed = 5.0
+		main._reset_all()
+		await physics_frame
+		if board.hit_count != 0 or gunner.cooldown_left != 0.0 or absf(tank.forward_speed) > 0.001:
+			reset_ok = false
+	_ok(reset_ok, "T002-05 连续 20 次重置后靶板/冷却/速度均复位")
+
 	# --- 暂停/恢复状态切换（无窗口下只验证逻辑状态） ---
 	main._pause()
 	_ok(paused and main.hud._pause_root.visible, "Esc 暂停生效并显示暂停界面")
