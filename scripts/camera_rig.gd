@@ -71,3 +71,17 @@ func get_aim_point() -> Vector3:
 	if not hit.is_empty():
 		return hit.position
 	return from + dir * 60.0
+
+func intent_point() -> Vector3:
+	# 002-R2：输入意图射线 → 期望世界瞄点 P（炮塔按 P 求目标角）。
+	# 第三人称：相机中心射线；炮镜：沿意图方向从炮根发出（独立输入意图，
+	# 不以实际炮管方向反向锁死——否则炮塔会跟随自己、无法继续改变目标）。
+	if sight and turret != null:
+		var pivot := turret.barrel_pivot.global_position
+		var cp := cos(aim_pitch)
+		var dir3d := Vector3(-sin(aim_yaw) * cp, sin(aim_pitch), -cos(aim_yaw) * cp)
+		var hit := _ray(pivot, pivot + dir3d * 150.0)
+		if not hit.is_empty():
+			return hit.position
+		return pivot + dir3d * 60.0
+	return get_aim_point()

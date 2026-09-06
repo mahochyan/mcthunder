@@ -60,12 +60,18 @@ func _process(delta: float) -> void:
 	if cam_rig != null:
 		var hull = get_parent()
 		var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
-		var desired_local := wrapf(cam_rig.aim_yaw - hull_yaw, -PI, PI)
+		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
+		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
+		var P := cam_rig.intent_point()
+		var pivot := barrel_pivot.global_position
+		var d := P - pivot
+		var target_yaw_global := atan2(d.x, -d.z)   # 炮管 -Z 轴旋转约定：θ=atan2(dx,-dz)
+		var target_pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
+		var desired_local := wrapf(target_yaw_global - hull_yaw, -PI, PI)
 		var max_step := deg_to_rad(GameConfig.TURRET_YAW_SPEED) * delta
 		var cur := rotation.y
 		rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
-		var pitch_target := clampf(cam_rig.aim_pitch, deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
-		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, pitch_target, deg_to_rad(GameConfig.TURRET_PITCH_SPEED) * delta)
+		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target_pitch, deg_to_rad(GameConfig.TURRET_PITCH_SPEED) * delta)
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
 	barrel_mesh.position.z = BARREL_BASE_Z + _recoil
 	if _flash_left > 0.0:
@@ -74,13 +80,16 @@ func _process(delta: float) -> void:
 			_flash.visible = false
 
 func snap_to_aim() -> void:
-	# 立即对齐瞄准角（重置与自动检查使用；正常运行靠有限转速追随）
+	# 立即对齐期望世界瞄点 P（重置与自动检查使用；正常运行靠有限转速追随）
 	if cam_rig == null:
 		return
 	var hull = get_parent()
 	var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
-	rotation.y = wrapf(cam_rig.aim_yaw - hull_yaw, -PI, PI)
-	barrel_pivot.rotation.x = clampf(cam_rig.aim_pitch, deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
+	var P := cam_rig.intent_point()
+	var pivot := barrel_pivot.global_position
+	var d := P - pivot
+	rotation.y = wrapf(atan2(d.x, -d.z) - hull_yaw, -PI, PI)
+	barrel_pivot.rotation.x = clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
 
 func kick_recoil() -> void:
 	_recoil = 0.22

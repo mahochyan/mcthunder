@@ -73,6 +73,8 @@ func _run() -> void:
 	tank.reset()
 	tank.rotation = Vector3.ZERO
 	tank.global_position = Vector3(0, 0, 8)   # 面向 -Z，正对中间靶板
+	main.cam_rig.aim_yaw = 0.0
+	main.cam_rig.aim_pitch = deg_to_rad(-2.0)   # 相机视线落在靶板上（002-R2 点瞄准）
 	turret_snap(main)
 	for i in 5:
 		await physics_frame
@@ -149,22 +151,28 @@ func _run() -> void:
 	_ok(gunner.cooldown_left == 0.0, "重置清零装填状态")
 	_ok(tank.global_position.distance_to(Vector3(0, 0, 8)) < 0.1, "重置恢复出生位置")
 
-	# --- T002-03a：相机可见但炮管被挡（矮墙：相机视线越过、炮射线被挡） ---
+	# --- T002-03a：相机可见但炮管被挡（近置高墙：相机视线越过、炮管仰角不足） ---
 	board.reset()
 	tank.reset()
 	tank.rotation = Vector3.ZERO
 	tank.global_position = Vector3(0, 0, 8)
+	var tgt := TargetBoard.new()
+	tgt.position = Vector3(5.06, 0.21, -28)   # 相机射线与碰撞盒中心交点（身份验证用临时靶板）
+	main.world.add_child(tgt)
+	main.cam_rig.aim_yaw = deg_to_rad(-8.0)   # 相机视线穿过中/右靶板间隙对准墙后靶板
+	main.cam_rig.aim_pitch = deg_to_rad(-3.19)
 	turret_snap(main)
-	var low_wall = main.world.build_wall(Vector3(0, 1.0, -6.0), Vector3(6, 2.0, 1.0))
+	var tall_wall = main.world.build_wall(Vector3(0.71, 1.5, 2.5), Vector3(6, 3, 1.0))
 	for i in 5:
 		await physics_frame
 	var see_point: Vector3 = main.cam_rig.get_aim_point()
-	_ok(see_point.z < -10.0, "T002-03a 前提：相机视线越过矮墙看到远处靶板 (aim_z=%.1f)" % see_point.z)
+	_ok(see_point.distance_to(tgt.global_position) < 2.0, "T002-03a 前提：相机视线越过近墙并选中墙后靶板（身份验证，dist=%.2f）" % see_point.distance_to(tgt.global_position))
 	gunner.cooldown_left = 0.0
 	var fa: bool = gunner.try_fire()
 	_ok(fa, "T002-03a 开火（炮根→炮口无遮挡）")
-	_ok(board.hit_count == 0, "T002-03a 矮墙挡住炮射线，墙后靶板未被命中 (hits=%d)" % board.hit_count)
-	low_wall.queue_free()
+	_ok(tgt.hit_count == 0, "T002-03a 近墙挡住炮射线，墙后靶板未被命中 (hits=%d)" % tgt.hit_count)
+	tall_wall.queue_free()
+	tgt.queue_free()
 	for i in 3:
 		await physics_frame
 
@@ -217,19 +225,76 @@ func _run() -> void:
 	var camz: float = main.cam_rig.cam.global_position.z
 	_ok(camz < 28.8, "第三人称相机贴墙防穿 (cam_z=%.2f < 29.0 内墙面)" % camz)
 
-	# --- R1-A（002-R1）：第三人称相机前向与炮管指向的俯仰一致性 ---
+	# --- R2-A（002-R2）：相机响应鼠标意图（下压/水平/上抬；逻辑级，真实事件见窗口证据） ---
 	tank.reset()
 	main.cam_rig.aim_yaw = 0.0
-	main.cam_rig.aim_pitch = deg_to_rad(10.0)
-	turret_snap(main)   # 先设俯仰再对齐（避免有限转速追赶期干扰测量）
-	for i in 5:
-		await physics_frame
-	await process_frame
-	var cam_fwd: Vector3 = -main.cam_rig.cam.global_transform.basis.z
-	var bdir: Vector3 = main.turret.barrel_direction()
-	var aim_diff: float = rad_to_deg(cam_fwd.angle_to(bdir))
-	_ok(aim_diff < 5.0, "R1-A 相机前向与炮管指向俯仰一致（鼠标俯仰→瞄点→炮管须一致）(diff=%.1f°)" % aim_diff)
+	for p in [-10.0, 0.0, 10.0]:
+		main.cam_rig.aim_pitch = deg_to_rad(p)
+		await process_frame
+		await process_frame
+		var fwd: Vector3 = -main.cam_rig.cam.global_transform.basis.z
+		var fwd_pitch: float = rad_to_deg(asin(fwd.y))
+		_ok(absf(fwd_pitch - p) < 0.5, "R2-A 相机前向俯仰响应意图（意图=%.0f° 实际=%.1f°）" % [p, fwd_pitch])
 	main.cam_rig.aim_pitch = 0.0
+
+	# --- R2-A（002-R2）：两距离靶板——意图选中→自然追赶→实射命中（不用 snap 跳过追赶） ---
+	var b1 := TargetBoard.new()
+	b1.position = Vector3(0, 0.0, -12)
+	main.world.add_child(b1)
+	var b2 := TargetBoard.new()
+	b2.position = Vector3(6.53, 0.0, -24)   # 中/右靶板间隙（相机射线可达、炮管可达）
+	main.world.add_child(b2)
+	# 近靶 B1（12m）
+	main.cam_rig.aim_yaw = 0.0
+	main.cam_rig.aim_pitch = deg_to_rad(-5.5)   # 相机视线对准 B1 碰撞盒中心
+	await process_frame
+	await process_frame
+	var p1: Vector3 = main.cam_rig.get_aim_point()
+	_ok(p1.distance_to(b1.global_position) < 2.0, "R2-A 意图射线选中近靶 B1 (dist=%.2f)" % p1.distance_to(b1.global_position))
+	main.turret.rotation.y = 1.0   # 摆偏炮塔，验证自然追赶
+	main.turret.barrel_pivot.rotation.x = 0.0
+	var converged := false
+	for i in 240:
+		await physics_frame
+		var bdir: Vector3 = main.turret.barrel_direction()
+		var want: Vector3 = (p1 - main.turret.barrel_pivot.global_position).normalized()   # 收敛目标 = 意图瞄点 P
+		if bdir.angle_to(want) < deg_to_rad(0.5):
+			converged = true
+			break
+	_ok(converged, "R2-A 炮塔有限速自然追赶近靶 B1")
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var ok1: bool = gunner.try_fire()
+	_ok(ok1 and b1.hit_count == 1 and b2.hit_count == 0, "R2-A 实射命中近靶 B1 且未误中远靶 (b1=%d b2=%d)" % [b1.hit_count, b2.hit_count])
+	var b1_hits: int = b1.hit_count
+	b1.queue_free()   # 释放近靶，避免遮挡远靶选择射线
+	for i in 3:
+		await physics_frame
+	# 远靶 B2（24m，中/右靶板间隙；相机环绕偏移已计入：x(z)=tanθ·(8−z)）
+	main.cam_rig.aim_yaw = deg_to_rad(-11.54)
+	main.cam_rig.aim_pitch = deg_to_rad(-3.83)
+	await process_frame
+	await process_frame
+	var p2: Vector3 = main.cam_rig.get_aim_point()
+	_ok(p2.distance_to(b2.global_position) < 2.0, "R2-A 意图射线选中远靶 B2 (dist=%.2f)" % p2.distance_to(b2.global_position))
+	main.turret.rotation.y = -1.0
+	main.turret.barrel_pivot.rotation.x = 0.0
+	converged = false
+	for i in 240:
+		await physics_frame
+		var bdir2: Vector3 = main.turret.barrel_direction()
+		var want2: Vector3 = (p2 - main.turret.barrel_pivot.global_position).normalized()   # 收敛目标 = 意图瞄点 P
+		if bdir2.angle_to(want2) < deg_to_rad(0.5):
+			converged = true
+			break
+	_ok(converged, "R2-A 炮塔有限速自然追赶远靶 B2")
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var ok2: bool = gunner.try_fire()
+	_ok(ok2 and b2.hit_count == 1 and b1_hits == 1, "R2-A 实射命中远靶 B2 (b1=%d b2=%d)" % [b1_hits, b2.hit_count])
+	b2.queue_free()
+	for i in 3:
+		await physics_frame
 
 	# --- 瞄点标记屏幕后方过滤（单元逻辑） ---
 	_ok(not main._in_front(Vector3.ZERO, Vector3(0, 0, -1), Vector3(0, 0, 5)), "屏幕后方瞄点标记隐藏（点积过滤）")
@@ -257,9 +322,12 @@ func _run() -> void:
 	_ok(absf(gunner.cooldown_left - cd_at_pause) < 0.0001, "T002-04 暂停期间装填计时真正冻结（暂停前=%.3f，暂停0.6s后=%.3f）" % [cd_at_pause, gunner.cooldown_left])
 	_ok(tank.global_position.distance_to(pos_at_pause) < 0.001, "T002-04 暂停期间驾驶停止")
 	main._resume()
+	var cd_frozen: float = gunner.cooldown_left
 	for i in 30:
 		await process_frame
 	_ok(gunner.shots_fired == s_hold, "T002-04 恢复后持火未补射 (shots=%d)" % gunner.shots_fired)
+	await create_timer(0.5).timeout
+	_ok(gunner.cooldown_left < cd_frozen - 0.3, "R2-B 恢复后装填计时继续推进 (%.2f → %.2f)" % [cd_frozen, gunner.cooldown_left])
 	Input.action_release("fire")
 	Input.action_release("move_forward")
 
@@ -268,12 +336,14 @@ func _run() -> void:
 	turret_snap(main)
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
+	await process_frame   # 与上一段 release 隔帧，保证 just_pressed 边沿
 	var s0: int = gunner.shots_fired
 	Input.action_press("fire")
 	for i in 2:
 		await process_frame
 	_ok(gunner.shots_fired == s0 + 1, "R1-B 前提：无冷却持火立即合法射击 (shots=%d)" % gunner.shots_fired)
 	await create_timer(GameConfig.RELOAD_TIME + 0.25).timeout   # 装填完成，火仍按住
+	_ok(gunner.cooldown_left == 0.0, "R1-B 前提：装填完成、无冷却遮掩 (cd=%.2f)" % gunner.cooldown_left)
 	var s1: int = gunner.shots_fired
 	main._pause()
 	await process_frame
@@ -331,6 +401,66 @@ func _run() -> void:
 				reset_ok = false
 	_ok(reset_ok, "T002-05 连续 20 次重置：3 块靶板/位置/朝向/速度/冷却全部复位")
 
+	# --- R2-B（002-R2）：持续持火经真实 Esc 暂停/恢复；关键点断言 fire 仍按住 ---
+	main._reset_all()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var sh0: int = gunner.shots_fired
+	Input.action_press("fire")
+	for i in 2:
+		await process_frame
+	_ok(gunner.shots_fired == sh0 + 1, "R2-B 前提：无冷却持火立即合法射击 (shots=%d)" % gunner.shots_fired)
+	_ok(Input.is_action_pressed("fire"), "R2-B 前提：fire 处于按住状态")
+	_key(KEY_ESCAPE)   # 真实 Esc 事件 → 暂停
+	await process_frame
+	_ok(paused, "R2-B 真实 Esc 事件触发暂停")
+	_ok(Input.is_action_pressed("fire"), "R2-B 暂停期间 fire 仍按住")
+	await create_timer(0.5).timeout
+	_ok(Input.is_action_pressed("fire"), "R2-B 暂停 0.5s 后 fire 仍按住")
+	_key(KEY_ESCAPE)   # 真实 Esc 事件 → 恢复
+	await process_frame
+	_ok(not paused, "R2-B 真实 Esc 事件触发恢复")
+	_ok(Input.is_action_pressed("fire"), "R2-B 恢复后 fire 仍按住")
+	await create_timer(GameConfig.RELOAD_TIME + GameConfig.RESUME_GRACE + 0.3).timeout
+	_ok(gunner.shots_fired == sh0 + 1, "R2-B 持续持火跨暂停/恢复/装填/宽限后无额外射击 (shots=%d)" % gunner.shots_fired)
+	Input.action_release("fire")
+	await process_frame
+	Input.action_press("fire")
+	for i in 2:
+		await process_frame
+	_ok(gunner.shots_fired == sh0 + 2, "R2-B 释放后重新按下可合法射击 (shots=%d)" % gunner.shots_fired)
+	Input.action_release("fire")
+
+	# --- R2-B（002-R2）：真实 R 事件——运行中重置保持运行与鼠标捕获；暂停中重置保持暂停 ---
+	main._reset_all()
+	await physics_frame
+	var spawn_r: Vector3 = tank.global_position
+	tank.global_position = spawn_r + Vector3(4.0, 0.0, 3.0)
+	_key(KEY_R)
+	await process_frame
+	await process_frame   # 事件在下一帧输入阶段冲刷；物理阶段调用需隔两帧
+	_ok(not paused, "R2-B 运行中真实 R 事件重置且不暂停")
+	_ok(tank.global_position.distance_to(spawn_r) < 0.1, "R2-B 运行中 R 重置位置 (dist=%.2f)" % tank.global_position.distance_to(spawn_r))
+	main._pause()
+	tank.global_position = spawn_r + Vector3(4.0, 0.0, 3.0)
+	_key(KEY_R)
+	await process_frame
+	await process_frame
+	_ok(paused, "R2-B 暂停中真实 R 事件重置且保持暂停")
+	_ok(tank.global_position.distance_to(spawn_r) < 0.1, "R2-B 暂停中 R 重置位置 (dist=%.2f)" % tank.global_position.distance_to(spawn_r))
+	main._resume()
+
+	# --- R2-B（002-R2）：真实 F3 事件切换调试显示 ---
+	_key(KEY_F3)
+	await process_frame
+	await process_frame
+	_ok(main._debug_on and main.hud.debug_label.visible, "R2-B 真实 F3 事件开启调试显示")
+	_key(KEY_F3)
+	await process_frame
+	await process_frame
+	_ok(not main._debug_on and not main.hud.debug_label.visible, "R2-B 再次 F3 关闭调试显示")
+
 	# --- 暂停/恢复状态切换（无窗口下只验证逻辑状态） ---
 	main._pause()
 	_ok(paused and main.hud._pause_root.visible, "Esc 暂停生效并显示暂停界面")
@@ -341,6 +471,19 @@ func _run() -> void:
 
 func turret_snap(main) -> void:
 	main.turret.snap_to_aim()
+
+func _key(k: Key) -> void:
+	# 002-R2：真实按键事件（按下+释放）经 Input.parse_input_event 走完整输入管线
+	var ev := InputEventKey.new()
+	ev.keycode = k
+	ev.physical_keycode = k
+	ev.pressed = true
+	Input.parse_input_event(ev)
+	var ev2 := InputEventKey.new()
+	ev2.keycode = k
+	ev2.physical_keycode = k
+	ev2.pressed = false
+	Input.parse_input_event(ev2)
 
 func _check_fonts() -> void:
 	var f := ThemeDB.fallback_font

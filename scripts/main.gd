@@ -16,12 +16,17 @@ var _debug_on := false
 var _shot_step := 0
 var _shot_errors := 0    # 002-R1：截图失败汇总（必需截图失败 → 自检退出码非 0）
 var _shots_saved := 0
+var _shot_dir := "docs"  # 002-R2：--shot-dir <路径> 指定归档目录（分分辨率独立保存）
 var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相机中心）
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_autoshot = OS.get_cmdline_user_args().has("--autoshot")
+	var ua := OS.get_cmdline_user_args()
+	for i in ua.size():
+		if ua[i] == "--shot-dir" and i + 1 < ua.size():
+			_shot_dir = ua[i + 1]
 	world = WorldBuilder.new()
 	world.name = "World"
 	add_child(world)
@@ -137,7 +142,7 @@ func _update_markers() -> void:
 		_marker_actual = _make_marker(false, Color(1.0, 0.55, 0.1))
 	var cam_pos := cam_rig.cam.global_position
 	var cam_fwd := -cam_rig.cam.global_transform.basis.z
-	var d := cam_rig.get_aim_point()
+	var d := cam_rig.intent_point()   # 002-R2：期望瞄点 = 输入意图射线命中点
 	var a := gunner.actual_hit_point
 	_marker_desired.visible = _in_front(cam_pos, cam_fwd, d)
 	_marker_actual.visible = _in_front(cam_pos, cam_fwd, a)
@@ -148,31 +153,48 @@ func _update_markers() -> void:
 
 func _autoshot_step() -> void:
 	# 截图自检模式（仅 -- --autoshot 启动时）：有限帧、真实抓帧、自动退出。
-	# 002 扩展：附带 T002-04 的窗口模式证据（持火跨越暂停/恢复、鼠标重捕获）。
+	# 002 扩展：T002-04 窗口证据（持火跨越暂停/恢复、鼠标重捕获）；
+	# 002-R2 扩展：真实鼠标事件验证俯仰响应（下压/水平/上抬）。
 	_shot_step += 1
 	match _shot_step:
 		40:
-			_shot("docs/autoshot_1_thirdperson.png")
+			_shot("autoshot_1_thirdperson.png")
 			Input.action_press("aim")
 		100:
-			_shot("docs/autoshot_2_sight.png")
+			_shot("autoshot_2_sight.png")
 			Input.action_release("aim")
 			Input.action_press("move_forward")
 		150:
-			_shot("docs/autoshot_3_moved.png")
+			_shot("autoshot_3_moved.png")
 			Input.action_release("move_forward")
 			Input.action_press("fire")   # 持火跨越暂停（T002-04）
 		160:
 			_pause()
 		170:
-			_shot("docs/autoshot_4_paused.png")
+			_shot("autoshot_4_paused.png")
 			print("[T002-04] paused: mouse_mode=", Input.mouse_mode, " (0=VISIBLE) shots=", gunner.shots_fired, " cooldown=", "%.2f" % gunner.cooldown_left)
 		180:
 			_resume()
 			print("[T002-04] resumed: mouse_mode=", Input.mouse_mode, " (2=CAPTURED) grace=", "%.2f" % gunner.resume_grace)
+		185:
+			var ev_dn := InputEventMouseMotion.new()
+			ev_dn.relative = Vector2(0, 60)   # 下压
+			Input.parse_input_event(ev_dn)
+		186:
+			var ev_lv := InputEventMouseMotion.new()
+			ev_lv.relative = Vector2(0, -60)   # 回水平
+			Input.parse_input_event(ev_lv)
+			call_deferred("_print_aim", "after mouse down")
+		187:
+			var ev_up := InputEventMouseMotion.new()
+			ev_up.relative = Vector2(0, -60)   # 上抬
+			Input.parse_input_event(ev_up)
+			call_deferred("_print_aim", "after mouse level")
+		188:
+			call_deferred("_print_aim", "after mouse up")
 		190:
 			Input.action_release("fire")
-			_shot("docs/autoshot_5_resumed.png")
+			_shot("autoshot_5_resumed.png")
 			print("[T002-04] after resume+hold: shots=", gunner.shots_fired, "（应与暂停期间一致，无补射）")
 			for i in 3:
 				_reset_all()   # T002-05 窗口证据：重置不得暂停或释放鼠标
@@ -181,13 +203,17 @@ func _autoshot_step() -> void:
 			print("[autoshot] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
 			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 5) else 0)   # 002-R1：截图失败 → 自检非零
 
+func _print_aim(label: String) -> void:
+	# 002-R2：帧末（相机 _process 之后）打印意图俯仰与相机前向俯仰的匹配对
+	print("[R2-A] ", label, ": aim_pitch=", "%.2f" % rad_to_deg(cam_rig.aim_pitch), " cam_fwd_pitch=", "%.2f" % rad_to_deg(asin(-cam_rig.cam.global_transform.basis.z.y)))
+
 func _shot(rel: String) -> void:
 	var img := get_viewport().get_texture().get_image()
 	if img == null or img.is_empty():
 		print("[autoshot] FAILED to capture ", rel)
 		_shot_errors += 1
 		return
-	var path := ProjectSettings.globalize_path("res://" + rel)
+	var path := ProjectSettings.globalize_path("res://" + _shot_dir + "/" + rel)
 	var dir := path.get_base_dir()
 	if dir != "" and not DirAccess.dir_exists_absolute(dir):
 		DirAccess.make_dir_recursive_absolute(dir)
