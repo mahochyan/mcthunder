@@ -217,6 +217,20 @@ func _run() -> void:
 	var camz: float = main.cam_rig.cam.global_position.z
 	_ok(camz < 28.8, "第三人称相机贴墙防穿 (cam_z=%.2f < 29.0 内墙面)" % camz)
 
+	# --- R1-A（002-R1）：第三人称相机前向与炮管指向的俯仰一致性 ---
+	tank.reset()
+	main.cam_rig.aim_yaw = 0.0
+	main.cam_rig.aim_pitch = deg_to_rad(10.0)
+	turret_snap(main)   # 先设俯仰再对齐（避免有限转速追赶期干扰测量）
+	for i in 5:
+		await physics_frame
+	await process_frame
+	var cam_fwd: Vector3 = -main.cam_rig.cam.global_transform.basis.z
+	var bdir: Vector3 = main.turret.barrel_direction()
+	var aim_diff: float = rad_to_deg(cam_fwd.angle_to(bdir))
+	_ok(aim_diff < 5.0, "R1-A 相机前向与炮管指向俯仰一致（鼠标俯仰→瞄点→炮管须一致）(diff=%.1f°)" % aim_diff)
+	main.cam_rig.aim_pitch = 0.0
+
 	# --- 瞄点标记屏幕后方过滤（单元逻辑） ---
 	_ok(not main._in_front(Vector3.ZERO, Vector3(0, 0, -1), Vector3(0, 0, 5)), "屏幕后方瞄点标记隐藏（点积过滤）")
 	_ok(main._in_front(Vector3.ZERO, Vector3(0, 0, -1), Vector3(0, 0, -5)), "屏幕前方瞄点标记保留")
@@ -236,10 +250,11 @@ func _run() -> void:
 	for i in 20:
 		await physics_frame
 	var pos_at_pause: Vector3 = tank.global_position
+	var cd_at_pause: float = gunner.cooldown_left
 	main.notification(Node.NOTIFICATION_APPLICATION_FOCUS_OUT)
 	_ok(paused, "T002-04 窗口失焦通知触发自动暂停")
 	await create_timer(0.6).timeout
-	_ok(gunner.cooldown_left > GameConfig.RELOAD_TIME - 0.4, "T002-04 暂停期间装填计时冻结 (cd=%.2f)" % gunner.cooldown_left)
+	_ok(absf(gunner.cooldown_left - cd_at_pause) < 0.0001, "T002-04 暂停期间装填计时真正冻结（暂停前=%.3f，暂停0.6s后=%.3f）" % [cd_at_pause, gunner.cooldown_left])
 	_ok(tank.global_position.distance_to(pos_at_pause) < 0.001, "T002-04 暂停期间驾驶停止")
 	main._resume()
 	for i in 30:
@@ -248,17 +263,73 @@ func _run() -> void:
 	Input.action_release("fire")
 	Input.action_release("move_forward")
 
-	# --- T002-05：连续 20 次重置 ---
+	# --- R1-B（002-R1）：真实鼠标事件点击“继续”按钮（无冷却遮掩场景） ---
+	main._reset_all()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var s0: int = gunner.shots_fired
+	Input.action_press("fire")
+	for i in 2:
+		await process_frame
+	_ok(gunner.shots_fired == s0 + 1, "R1-B 前提：无冷却持火立即合法射击 (shots=%d)" % gunner.shots_fired)
+	await create_timer(GameConfig.RELOAD_TIME + 0.25).timeout   # 装填完成，火仍按住
+	var s1: int = gunner.shots_fired
+	main._pause()
+	await process_frame
+	var btn: Button = main.hud.resume_btn
+	_ok(btn != null and btn.visible, "R1-B 前提：继续按钮存在且可见")
+	var center: Vector2 = btn.get_global_rect().get_center()
+	var press_ev := InputEventMouseButton.new()
+	press_ev.button_index = MOUSE_BUTTON_LEFT
+	press_ev.pressed = true
+	press_ev.button_mask = MOUSE_BUTTON_MASK_LEFT
+	press_ev.position = center
+	press_ev.global_position = center
+	Input.parse_input_event(press_ev)
+	await process_frame
+	var rel_ev := InputEventMouseButton.new()
+	rel_ev.button_index = MOUSE_BUTTON_LEFT
+	rel_ev.pressed = false
+	rel_ev.position = center
+	rel_ev.global_position = center
+	Input.parse_input_event(rel_ev)
+	await process_frame
+	_ok(not paused, "R1-B 真实鼠标事件点击“继续”按钮 → 恢复")
+	_ok(gunner.shots_fired == s1, "R1-B 恢复瞬间无误射 (shots=%d)" % gunner.shots_fired)
+	await create_timer(GameConfig.RESUME_GRACE + 0.2).timeout
+	_ok(gunner.shots_fired == s1, "R1-B 宽限结束后无延迟补射（火持续按住）(shots=%d)" % gunner.shots_fired)
+	Input.action_release("fire")
+	await process_frame
+	Input.action_press("fire")
+	for i in 2:
+		await process_frame
+	_ok(gunner.shots_fired == s1 + 1, "R1-B 宽限结束后重新按下可合法射击 (shots=%d)" % gunner.shots_fired)
+	Input.action_release("fire")
+
+	# --- T002-05：连续 20 次重置（全靶板/位置/朝向/速度/冷却） ---
+	main._reset_all()
+	await physics_frame
+	var spawn_pos: Vector3 = tank.global_position
 	var reset_ok := true
 	for i in 20:
-		board.hit_count = i
+		for t in main.targets:
+			t.hit_count = i
 		gunner.cooldown_left = 1.0
+		gunner.resume_grace = 0.5
 		tank.forward_speed = 5.0
+		tank.global_position = spawn_pos + Vector3(3.0, 0.0, 2.0)
+		tank.rotation.y = 0.7
 		main._reset_all()
 		await physics_frame
 		if board.hit_count != 0 or gunner.cooldown_left != 0.0 or absf(tank.forward_speed) > 0.001:
 			reset_ok = false
-	_ok(reset_ok, "T002-05 连续 20 次重置后靶板/冷却/速度均复位")
+		if tank.global_position.distance_to(spawn_pos) > 0.01 or absf(tank.rotation.y) > 0.001:
+			reset_ok = false
+		for t in main.targets:
+			if t.hit_count != 0:
+				reset_ok = false
+	_ok(reset_ok, "T002-05 连续 20 次重置：3 块靶板/位置/朝向/速度/冷却全部复位")
 
 	# --- 暂停/恢复状态切换（无窗口下只验证逻辑状态） ---
 	main._pause()

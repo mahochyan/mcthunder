@@ -14,6 +14,7 @@ var blocked_label: Label
 var hint_label: Label
 var crosshair: Label
 var debug_label: Label
+var resume_btn: Button           # 002-R1：真实鼠标事件点击测试使用
 var font_cjk := false
 var S := {}
 var _pause_root: Control
@@ -106,6 +107,7 @@ func _build() -> void:
 	btn.custom_minimum_size = Vector2(160, 44)
 	btn.pressed.connect(func() -> void: resume_requested.emit())
 	vb.add_child(btn)
+	resume_btn = btn
 	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 
 func show_pause(p: bool) -> void:

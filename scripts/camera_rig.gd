@@ -42,14 +42,19 @@ func _process(_delta: float) -> void:
 		cam.cull_mask &= ~GameConfig.VIS_LAYER_VEHICLE
 	else:
 		var pivot_pos := global_position
-		var dir := Vector3(-sin(aim_yaw), 0.0, -cos(aim_yaw))
-		var desired := pivot_pos - dir * GameConfig.CAM_DISTANCE + Vector3.UP * GameConfig.CAM_HEIGHT
+		var dir_h := Vector3(-sin(aim_yaw), 0.0, -cos(aim_yaw))
+		# 002-R1：视线随 aim_pitch 同步俯仰——相机中心射线（=玩家想瞄方向）与炮管
+		# 指向一致；机位仍沿水平方向绕 pivot（保持固定高度），防穿墙查询不变
+		var cp := cos(aim_pitch)
+		var dir3d := Vector3(dir_h.x * cp, sin(aim_pitch), dir_h.z * cp)
+		var desired := pivot_pos - dir_h * GameConfig.CAM_DISTANCE + Vector3.UP * GameConfig.CAM_HEIGHT
 		var from := pivot_pos + Vector3.UP * 0.3
 		var hit := _ray(from, desired)
 		if not hit.is_empty():
 			desired = hit.position + hit.normal * 0.3   # 防穿墙：贴墙缩距
 		cam.global_position = desired
-		cam.look_at(pivot_pos + dir * 12.0 + Vector3.UP * 1.0)
+		# 002-R1：相机前向 ≡ dir3d（从相机位置沿瞄准方向看）→ 中心射线与炮管指向精确一致
+		cam.look_at(cam.global_position + dir3d * 12.0)
 		cam.fov = GameConfig.MAIN_FOV
 		cam.cull_mask |= GameConfig.VIS_LAYER_VEHICLE
 

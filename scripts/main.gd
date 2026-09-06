@@ -14,6 +14,8 @@ var _paused := false
 var _autoshot := false
 var _debug_on := false
 var _shot_step := 0
+var _shot_errors := 0    # 002-R1：截图失败汇总（必需截图失败 → 自检退出码非 0）
+var _shots_saved := 0
 var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相机中心）
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
@@ -172,13 +174,18 @@ func _autoshot_step() -> void:
 			Input.action_release("fire")
 			_shot("docs/autoshot_5_resumed.png")
 			print("[T002-04] after resume+hold: shots=", gunner.shots_fired, "（应与暂停期间一致，无补射）")
+			for i in 3:
+				_reset_all()   # T002-05 窗口证据：重置不得暂停或释放鼠标
+			print("[T002-05] after 3 resets: mouse_mode=", Input.mouse_mode, " paused=", _paused, " (2=CAPTURED, false)")
 		200:
-			get_tree().quit()
+			print("[autoshot] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
+			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 5) else 0)   # 002-R1：截图失败 → 自检非零
 
 func _shot(rel: String) -> void:
 	var img := get_viewport().get_texture().get_image()
 	if img == null or img.is_empty():
 		print("[autoshot] FAILED to capture ", rel)
+		_shot_errors += 1
 		return
 	var path := ProjectSettings.globalize_path("res://" + rel)
 	var dir := path.get_base_dir()
@@ -187,5 +194,7 @@ func _shot(rel: String) -> void:
 	var err := img.save_png(path)
 	if err == OK:
 		print("[autoshot] saved ", path)
+		_shots_saved += 1
 	else:
 		print("[autoshot] FAILED (err=", err, ") to save ", path)
+		_shot_errors += 1

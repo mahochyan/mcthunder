@@ -1,0 +1,86 @@
+﻿[R1-A repro BEFORE fix]
+[source-sha] 5b53e0dc311534b6529db64e198f7b1c6fe5491f
+[cmd] godot --headless --path E:\AIprogram\mcthunder -s res://tests/run_checks.gd
+[expect] 恰 1 条 R1-A 断言失败（相机俯仰未同步）→ 退出码 1
+[exit] 1
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== PixelArmor 自动检查 ===
+engine=4.7.2-stable (official)  os=Windows
+font_cjk_support=false  (默认字体中文字形能力 → 决定 HUD 语言)
+[PASS] 默认字体 CJK 能力已记录
+[PASS] 脚本可解析加载: game_config.gd
+[PASS] 脚本可解析加载: world_builder.gd
+[PASS] 脚本可解析加载: target_board.gd
+[PASS] 脚本可解析加载: tank.gd
+[PASS] 脚本可解析加载: turret_rig.gd
+[PASS] 脚本可解析加载: camera_rig.gd
+[PASS] 脚本可解析加载: gunner.gd
+[PASS] 脚本可解析加载: hud.gd
+[PASS] 脚本可解析加载: main.gd
+[PASS] 输入动作存在: move_forward
+[PASS] 输入动作存在: move_back
+[PASS] 输入动作存在: turn_left
+[PASS] 输入动作存在: turn_right
+[PASS] 输入动作存在: fire
+[PASS] 输入动作存在: aim
+[PASS] 输入动作存在: reset
+[PASS] 输入动作存在: pause
+[PASS] 输入动作存在: debug_toggle
+[PASS] 主场景资源可加载
+[PASS] 主场景可实例化
+[PASS] 必要节点: 坦克存在
+[PASS] 必要节点: 炮塔存在
+[PASS] 必要节点: 相机存在
+[PASS] 必要节点: 射击控制存在
+[PASS] 必要节点: 界面存在
+[PASS] 三块靶板存在 (实际=3)
+[PASS] 首次开火成功
+[PASS] 冷却期内第二次开火被拒
+[PASS] 冷却期内未产生额外射击 (shots=1)
+[PASS] 按住开火键不绕过冷却 (shots=1)
+[PASS] 冷却自然结束
+[PASS] 暂停恢复宽限期内开火被拒
+[PASS] 无遮挡时开火成功
+[PASS] 遮挡墙后靶板未被命中 (hits=0)
+[PASS] 移除墙后同一射击代码命中靶板 (hits=1)
+[PASS] 命中后靶板变色反馈触发
+[PASS] 炮管穿墙时开火被阻止
+[PASS] 穿墙开火未产生射击
+[PASS] 穿墙未命中墙后靶板 (hits=0)
+[PASS] 前进加速有效 (v=8.00)
+[PASS] 前进限速 8m/s (v=8.00)
+[PASS] 车辆沿 -Z 前进 (z=-2.73)
+[PASS] 松开按键滑行停车 (v=0.00)
+[PASS] 倒车限速 3m/s (v=-3.00)
+[PASS] 倒车位移有效 (z=-6.93)
+[PASS] A 键原地转向有效
+[PASS] 无左右平移 (x=0.32)
+[PASS] 重置清零靶板命中
+[PASS] 重置清零装填状态
+[PASS] 重置恢复出生位置
+[PASS] T002-03a 前提：相机视线越过矮墙看到远处靶板 (aim_z=-21.8)
+[PASS] T002-03a 开火（炮根→炮口无遮挡）
+[PASS] T002-03a 矮墙挡住炮射线，墙后靶板未被命中 (hits=0)
+[PASS] T002-03b 前提：炮口位于墙体内部 (muzzle_z=-3.20, 墙 -2.2..-3.4)
+[PASS] T002-03b 炮口入墙时开火被阻止
+[PASS] T002-03b 未命中墙后靶板 (hits=0)
+[PASS] T002-03c 前提：炮口越过墙体远面 (muzzle_z=-1.00 < -0.7)
+[PASS] T002-03c 贴墙开炮被阻止（炮根→炮口线段被墙截断）
+[PASS] T002-03c 未命中墙后靶板 (hits=0)
+[PASS] 第三人称相机贴墙防穿 (cam_z=28.70 < 29.0 内墙面)
+[FAIL] R1-A 相机前向与炮管指向俯仰一致（鼠标俯仰→瞄点→炮管须一致）(diff=6.7°)
+[PASS] 屏幕后方瞄点标记隐藏（点积过滤）
+[PASS] 屏幕前方瞄点标记保留
+[PASS] T002-04 前提：持火已产生一次射击 (shots=5)
+[PASS] T002-04 窗口失焦通知触发自动暂停
+[PASS] T002-04 暂停期间装填计时冻结 (cd=1.64)
+[PASS] T002-04 暂停期间驾驶停止
+[PASS] T002-04 恢复后持火未补射 (shots=5)
+[PASS] T002-05 连续 20 次重置后靶板/冷却/速度均复位
+[PASS] Esc 暂停生效并显示暂停界面
+[PASS] 恢复生效且带开炮宽限
+=== 结果: 72 项检查, 1 失败 ===
+  失败项: R1-A 相机前向与炮管指向俯仰一致（鼠标俯仰→瞄点→炮管须一致）(diff=6.7°)
+CHECKS_FAIL
+
