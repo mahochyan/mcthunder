@@ -26,7 +26,7 @@ func _finish() -> void:
 	quit(0 if _failures.is_empty() else 1)
 
 
-func _init() -> void:
+func _initialize() -> void:
 	var evidence := PackedStringArray(["EV-TEST-FIXTURE"])
 
 	# --- T004-02：部件变换（GPT 指定独立数值真值，不用待测函数生成期望） ---
@@ -330,7 +330,109 @@ func _init() -> void:
 	vd.validate()
 	_ok(vd.layout_id == "", "004-c VehicleDefinition.layout_id defaults empty (backward compatible)")
 
+	# --- T004-07/08/09：查看器隔离 / 进入退出 / 显示与来源（完整主场景集成） ---
+	var ps := load("res://scenes/main.tscn") as PackedScene
+	var main = ps.instantiate()
+	root.add_child(main)
+	await process_frame
+	await process_frame
+	_ok(main._initialized and main._can_use_gameplay(), "T004-07 premise: main initialized (A/B entities ready)")
+	var pos_a_before: Vector3 = main.actor_a.tank.global_position
+	var pos_b_before: Vector3 = main.actor_b.tank.global_position
+	var trial_before: int = main.trial_hits
+	var shots_before: int = main.gunner.shots_fired
+	# 进入：真实信号链（暂停菜单按钮按下即发 inspect_requested）
+	main._pause()
+	main.hud.inspect_requested.emit()
+	_ok(main._inspector_open, "T004-08 inspector opens via inspect_requested signal")
+	_ok(paused, "T004-08 tree stays paused while inspector open")
+	var insp_main: VehicleInspector = main._inspector
+	var pv := insp_main._viewport.find_child("PreviewModel", true, false) as VehiclePreviewModel
+	_ok(pv != null and pv.is_inside_tree(), "T004-07 preview model exists in inspector")
+	_ok(insp_main._viewport.own_world_3d, "T004-07 preview uses own world (isolated)")
+	# 窗口内交互：三模式切换 + 姿态滑杆 + 相机轨道（拖动/滚轮参数路径）
+	var pos_a_mid: Vector3 = main.actor_a.tank.global_position
+	for m in ["armor", "interior", "appearance"]:
+		pv.set_mode(m)
+	insp_main._yaw_slider.value = 180.0
+	insp_main._on_pose_changed(180.0)
+	pv.set_pose(45.0, -10.0)
+	insp_main._orbit_yaw += 30.0
+	insp_main._orbit_dist += 1.0
+	insp_main._update_camera()
+	await process_frame
+	_ok(pos_a_mid.is_equal_approx(pos_a_before), "T004-07 A not moved by UI interaction (pre-slider)")
+	var trial_mid: int = main.trial_hits
+	var shots_mid: int = main.gunner.shots_fired
+	_ok(trial_mid == trial_before and shots_mid == shots_before, "T004-07 no firing/trial state change from inspector interaction")
+	# 检视期间 Esc → 返回暂停菜单（不恢复游戏）
+	var esc_ev := InputEventAction.new()
+	esc_ev.action = "pause"
+	esc_ev.pressed = true
+	main._unhandled_input(esc_ev)
+	_ok(not main._inspector_open, "T004-07 Esc during inspector returns to pause menu")
+	_ok(paused, "T004-07 game still paused after Esc (no resume)")
+	_ok(trial_hits_stable(main, trial_before), "T004-07 trial state unchanged after Esc")
+	# T004-09：选中 ID 与详情一致；未知提示可见；控件不出屏
+	main.hud.inspect_requested.emit()
+	_ok(main._inspector_open, "T004-08 reopen inspector")
+	var insp2: VehicleInspector = main._inspector
+	insp2.show_selected_details({"id": "hull_front_upper", "kind": "patch"})
+	_ok(insp2._details.text.contains("hull_front_upper"), "T004-09 rendered selection ID matches detail panel")
+	_ok(insp2._details.text.contains("UNKNOWN"), "T004-09 unknown hint visible in details")
+	insp2.show_selected_details({"id": "engine_main", "kind": "module"})
+	_ok(insp2._details.text.contains("engine_main"), "T004-09 module details follow selection")
+	# T004-09 双分辨率控件不重叠/不出屏（布局 rect 计算；insp2 存活期内）
+	for res_size in [Vector2i(1280, 720), Vector2i(1920, 1080)]:
+		root.size = res_size
+		await process_frame
+		var in_bounds := true
+		for ctrl_name in ["PreviewContainer", "PartsTree", "DetailsLabel"]:
+			var c := insp2.find_child(ctrl_name, true, false) as Control
+			if c == null:
+				continue
+			var gp := c.get_global_rect()
+			if gp.position.x < 0 or gp.position.y < 0 or gp.end.x > res_size.x + 1 or gp.end.y > res_size.y + 1:
+				in_bounds = false
+				print("T004-09 DEBUG %s @%dx%d: %s end=(%.0f,%.0f)" % [ctrl_name, res_size.x, res_size.y, gp, gp.end.x, gp.end.y])
+		_ok(in_bounds, "T004-09 main widgets inside screen at %dx%d" % [res_size.x, res_size.y])
+	root.size = Vector2i(1280, 720)
+	await process_frame
+	# T004-08：重复打开关闭 20 次无残留
+	var leak := false
+	for i in 20:
+		main.hud.inspect_requested.emit()
+		if not main._inspector_open:
+			leak = true
+			break
+		main.close_vehicle_inspector()
+		if main._inspector_open:
+			leak = true
+			break
+	_ok(not leak, "T004-08 20x open/close cycle stable")
+	await process_frame
+	await process_frame
+	var leftover_preview := main.find_children("PreviewModel", "", true, false)
+	var leftover_inspector := main.find_children("*", "", true, false).filter(func(n: Node) -> bool: return n is VehicleInspector)
+	_ok(leftover_preview.is_empty() and leftover_inspector.is_empty(), "T004-08 no preview/inspector node leftovers after cycles")
+	# 返回后继续靶场可正常操作（继续按钮同一信号链恢复）
+	main.hud.resume_requested.emit()
+	_ok(not paused, "T004-08 resume signal resumes gameplay")
+	Input.action_press("move_forward")
+	for i in 30:
+		await physics_frame
+	Input.action_release("move_forward")
+	_ok(main.actor_a.tank.forward_speed > 0.5, "T004-08 range operable after return (v=%.2f)" % main.actor_a.tank.forward_speed)
+	_ok(main.actor_a.tank.global_position.distance_to(pos_a_before) > 0.1, "T004-08 A moved after resume")
+	main.close_vehicle_inspector()
+	root.remove_child(main)
+	main.free()
+
 	_finish()
+
+
+func trial_hits_stable(main, before: int) -> bool:
+	return main.trial_hits == before
 
 
 func _apply_scaled_part(layout: VehicleLayoutDefinition) -> void:

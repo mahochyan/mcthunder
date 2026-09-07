@@ -118,7 +118,7 @@ func _build_ui() -> void:
 	var vp_container := SubViewportContainer.new()
 	vp_container.name = "PreviewContainer"
 	vp_container.position = Vector2(360, 14)
-	vp_container.custom_minimum_size = Vector2(880, 620)
+	vp_container.custom_minimum_size = Vector2(880, 560)
 	vp_container.stretch = true
 	add_child(vp_container)
 	_viewport = SubViewport.new()
@@ -153,8 +153,8 @@ func _build_ui() -> void:
 	_details = Label.new()
 	_details.name = "DetailsLabel"
 	_details.text = "Select an item to see details."
-	_details.position = Vector2(360, 644)
-	_details.custom_minimum_size = Vector2(880, 80)
+	_details.position = Vector2(360, 582)
+	_details.custom_minimum_size = Vector2(880, 130)   # 1280x720 下不越界（T004-09；多行文本含 evidence keys）
 	_details.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(_details)
 
