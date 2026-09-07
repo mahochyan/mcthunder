@@ -56,7 +56,10 @@ Note "clean copy boots normally (--quit-after 10 exit=0)"
 
 # 5) 仅修改副本配置：verified 无实质来源 → validate 必拒（ascii 写出无 BOM）
 $cfg = Join-Path $proj 'configs\player_tank_vehicle.tres'
-$orig = Get-Content $cfg -Raw
+if ([string]::IsNullOrEmpty($cfg)) { Note "FAIL: cfg path is null (proj=[$proj])"; exit 1 }
+if (-not (Test-Path -LiteralPath $cfg)) { Note "FAIL: cfg missing in copy (cfg=[$cfg])"; exit 1 }
+Note "cfg=[$cfg]"
+$orig = Get-Content -LiteralPath $cfg -Raw
 if (-not $orig.Contains('verification = "unknown"')) { Note "FAIL: marker not found in copy config"; exit 1 }
 $bad = $orig.Replace('verification = "unknown"', 'verification = "verified"')
 Set-Content -Path $cfg -Value $bad -Encoding ascii -NoNewline
