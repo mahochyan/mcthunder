@@ -20,6 +20,7 @@ $godot = Join-Path $root 'tools\godot\Godot_v4.7.2-stable_win64_console.exe'
 $fail = @()
 
 function Note($m) { Write-Host "[abort-check] $m" }
+Note "runner-version=RUNNER_C_interp_20260907"
 
 # 0) 引擎存在（缺失 = FAIL，不是跳过）
 if (-not (Test-Path $godot)) { Note "FAIL: godot exe not found at $godot"; exit 1 }
