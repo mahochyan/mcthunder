@@ -806,6 +806,62 @@ func _run() -> void:
 	for i in 3:
 		await physics_frame
 
+	# --- T003-08（003-R1）：多车碰撞与坐标 ---
+	# A 开向 B 不穿过 B（稳定阻挡，无碰撞伤害/推挤）
+	var c_actor: VehicleActor = main.spawn_vehicle("player_tank", "C", Vector3(8, 0, 6))
+	_ok(c_actor != null, "T003-08 C 实体生成")
+	c_actor.set_physics_process(false)
+	var b_pos0_c: Vector3 = main.actor_b.tank.global_position
+	var cmd_fwd := VehicleCommand.new()
+	cmd_fwd.throttle = 1.0
+	for i in 120:
+		c_actor.apply_command(cmd_fwd, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	var c_pos: Vector3 = c_actor.tank.global_position
+	_ok(c_pos.z > b_pos0_c.z + 2.0, "T003-08 C 被 B 阻挡不穿过 (c.z=%.2f b.z=%.2f)" % [c_pos.z, b_pos0_c.z])
+	_ok(main.actor_b.tank.global_position.distance_to(b_pos0_c) < 0.01, "T003-08 B 未被推动")
+	main.despawn_vehicle(c_actor)
+	for i in 3:
+		await physics_frame
+	# 非原点 + 非零 Y 旋转出生：实际移动沿车头方向，重置回正确世界出生变换
+	var rot_tf := Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), Vector3(-10, 0, -10))
+	var r_actor := VehicleActor.new()
+	main.add_child(r_actor)
+	var r_res := r_actor.setup(main.defs, "player_tank", "ROT", 9, rot_tf, GameConfig.VIS_LAYER_VEHICLE_B, null)
+	_ok(r_res.ok, "T003-08 旋转出生实体 setup 成功")
+	r_actor.set_physics_process(false)
+	var r_pos0: Vector3 = r_actor.tank.global_position
+	var r_yaw0: float = r_actor.tank.global_rotation.y
+	for i in 60:
+		r_actor.apply_command(cmd_fwd, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	var moved: Vector3 = r_actor.tank.global_position - r_pos0
+	# 移动方向必须与车头方向（-global basis.z）一致（非零 Y 旋转出生）
+	var fwd_dir: Vector3 = -r_actor.tank.global_transform.basis.z
+	var move_dir: Vector3 = moved.normalized()
+	_ok(moved.length() > 1.0 and fwd_dir.dot(move_dir) > 0.9, "T003-08 旋转出生下移动沿车头方向 (dist=%.2f dot=%.2f)" % [moved.length(), fwd_dir.dot(move_dir)])
+	r_actor.reset_vehicle()
+	_ok(r_actor.tank.global_position.distance_to(r_pos0) < 0.1, "T003-08 重置回正确世界出生变换")
+	_ok(absf(r_actor.tank.global_rotation.y - r_yaw0) < 0.01, "T003-08 重置回正确出生朝向")
+	r_actor.queue_free()
+	for i in 3:
+		await physics_frame
+	# 示踪线世界坐标：起点 = 真实炮口世界位置；不随射击后车辆运动拖动
+	main._reset_all()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	var pts: Array = gunner.tracer_points()
+	_ok(pts.size() == 2, "T003-08 示踪线端点可读")
+	var muz_w: Vector3 = main.actor_a.turret.muzzle.global_position
+	_ok(pts[0].distance_to(muz_w) < 0.5, "T003-08 示踪线起点 = 真实炮口世界位置")
+	var pts_before: Array = pts.duplicate()
+	tank.global_position += Vector3(0, 0, 2)
+	await physics_frame
+	var pts_after: Array = gunner.tracer_points()
+	_ok(pts_after.size() == 2 and pts_after[0].distance_to(pts_before[0]) < 0.01 and pts_after[1].distance_to(pts_before[1]) < 0.01, "T003-08 旧示踪线不随车辆运动拖动")
+
 	_finish()
 
 func turret_snap(main) -> void:

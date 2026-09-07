@@ -77,13 +77,14 @@ func _on_b_hit() -> void:
 	if trial_hits < TRIAL_TARGET:
 		trial_hits += 1
 
-func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: Node = null, defs_override: VehicleDefs = null) -> VehicleActor:
-	# 003：统一实体生成入口（T003-04 生命周期测试用）；003-R1：可指定配置注册表
+func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: Node = null, defs_override: VehicleDefs = null, spawn_tf: Transform3D = Transform3D()) -> VehicleActor:
+	# 003：统一实体生成入口（T003-04 生命周期测试用）；003-R1：可指定配置注册表与出生变换
 	var d: VehicleDefs = defs_override if defs_override != null else defs
+	var tf: Transform3D = spawn_tf if spawn_tf != Transform3D() else Transform3D(Basis.IDENTITY, pos)
 	var a := VehicleActor.new()
 	a.name = "Spawned_" + entity_id
 	add_child(a)
-	var r := a.setup(d, vehicle_id, entity_id, 9, Transform3D(Basis.IDENTITY, pos), GameConfig.VIS_LAYER_VEHICLE_B, ctrl)
+	var r := a.setup(d, vehicle_id, entity_id, 9, tf, GameConfig.VIS_LAYER_VEHICLE_B, ctrl)
 	if not r.ok:
 		a.queue_free()
 		return null

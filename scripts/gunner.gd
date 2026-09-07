@@ -114,7 +114,23 @@ func _ensure_tracer() -> void:
 	_tracer.mesh = _tracer_mesh
 	_tracer.material_override = _tracer_mat
 	_tracer.layers = 1
+	# 003-R1：示踪线在世界空间管理（top_level 脱离父级变换）——
+	# 顶点直接用世界坐标，不重复叠加父变换，也不随射击后车辆运动拖动旧线段
+	_tracer.top_level = true
 	add_child(_tracer)
+
+func tracer_points() -> Array:
+	# 003-R1：示踪线世界端点（测试/调试用；不可见时返回空）
+	if _tracer == null or not _tracer.visible:
+		return []
+	var arr := _tracer_mesh.surface_get_arrays(0)
+	if arr.is_empty() or not (arr[0] is PackedVector3Array):
+		return []
+	var verts: PackedVector3Array = arr[0]
+	var out: Array = []
+	for v in verts:
+		out.append(v)
+	return out
 
 func _spawn_tracer(a: Vector3, b: Vector3) -> void:
 	_ensure_tracer()

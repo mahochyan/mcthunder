@@ -16,7 +16,8 @@ signal hit_registered        # 003：真实生产命中事件（register_hit 每
 
 func _ready() -> void:
 	collision_layer = GameConfig.LAYER_VEHICLE
-	collision_mask = GameConfig.LAYER_WORLD
+	# 003-R1：行驶碰撞包含其他车辆——A 开向 B 不穿过 B（稳定阻挡，无碰撞伤害/推挤）
+	collision_mask = GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE
 	floor_snap_length = 0.3
 	_spawn = transform
 	_build()
@@ -77,7 +78,9 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	else:
 		forward_speed = move_toward(forward_speed, 0.0, coast * delta)
 	rotation.y += deg_to_rad(turn) * steer * delta
-	var fwd := -transform.basis.z
+	# 003-R1：前向用 global basis——actor 带非零 Y 旋转出生时移动沿车头方向
+	# （velocity 是全局坐标；local basis 在旋转父级下会丢失出生朝向）
+	var fwd := -global_transform.basis.z
 	velocity.x = fwd.x * forward_speed
 	velocity.z = fwd.z * forward_speed
 	if is_on_floor():
