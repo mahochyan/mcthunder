@@ -24,146 +24,419 @@
       "origin": "test_fixture",
       "title": "Engineering test fixture (closed box + 9 test plates) - NOT historical",
       "applies_to": "test fixtures only",
-      "read_state": "engineering reference; must never back a verified historical field"
+      "read_state": "engineering reference; must never back a verified historical field",
+      "applies_to_identity_ids": [],
+      "excluded_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ]
     },
     {
       "key": "EV-TM9759-IDENTITY",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "TM 9-759 cover + paras 1/4 (model variants)",
-      "pdf_pages": [1, 2, 3, 9, 14],
-      "printed_pages": ["cover", "1", "2", "4"],
+      "pdf_pages": [
+        1,
+        2,
+        3,
+        9,
+        14
+      ],
+      "printed_pages": [
+        "cover",
+        "1",
+        "2",
+        "4"
+      ],
       "printed_page_status": "REVIEWED_VIA_EXPORT",
       "section": "cover; para 1; para 4 b-h",
       "applies_to": "M4A3 (75mm wet stowage)",
       "not_applicable_to": "75mm dry / 76mm / 105mm / M4A3E2 / HVSS",
-      "read_state": "text verified (cover + para 4 variant descriptions)"
+      "read_state": "text verified (cover + para 4 variant descriptions)",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-SPECS",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 5a Vehicle Specifications table",
-      "pdf_pages": [14, 15],
-      "printed_pages": ["5"],
+      "pdf_pages": [
+        14,
+        15
+      ],
+      "printed_pages": [
+        "5"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION (public transcript places specs near printed p.9; reconcile against exported original page)",
       "section": "para 5a",
       "applies_to": "M4A3 (75mm wet stowage; 75mm column used)",
-      "read_state": "text verified: length 20ft7in, width 8ft9in, height 132-7/8in, tread 83in, crew 5, weight empty 63097 lb"
+      "read_state": "text verified: length 20ft7in, width 8ft9in, height 132-7/8in, tread 83in, crew 5, weight empty 63097 lb",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-ENGINE",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 1 (rear engine) + para 5b (Ford GAA data)",
-      "pdf_pages": [9, 15],
-      "printed_pages": ["2-3", "5"],
+      "pdf_pages": [
+        9,
+        15
+      ],
+      "printed_pages": [
+        "2-3",
+        "5"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 1; para 5b",
       "applies_to": "M4A3 all variants (GAA engine)",
-      "read_state": "text verified: rear of hull; Ford GAA 8-cyl 60-deg V, 500 hp @ 2600 rpm"
+      "read_state": "text verified: rear of hull; Ford GAA 8-cyl 60-deg V, 500 hp @ 2600 rpm",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-TRANS",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 39g gearshift lever position (transmission forward)",
-      "pdf_pages": [39],
-      "printed_pages": ["24-25"],
+      "pdf_pages": [
+        39
+      ],
+      "printed_pages": [
+        "24-25"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 39g",
       "applies_to": "M4A3",
-      "read_state": "text verified: gearshift on left side of transmission, to the right of the driver (front-mounted transmission)"
+      "read_state": "text verified: gearshift on left side of transmission, to the right of the driver (front-mounted transmission)",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-TURRET-FLOOR",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 4f/4h wet stowage turret floor",
-      "pdf_pages": [14],
-      "printed_pages": ["5"],
+      "pdf_pages": [
+        14
+      ],
+      "printed_pages": [
+        "5"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 4f, 4h",
       "applies_to": "M4A3 75mm wet stowage",
-      "read_state": "text verified: full turret floor bracket-mounted to turret; pierced water-storage jacket around ammunition"
+      "read_state": "text verified: full turret floor bracket-mounted to turret; pierced water-storage jacket around ammunition",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-STOWAGE",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 9a/9b ammunition stowage lists",
-      "pdf_pages": [24, 25, 26],
-      "printed_pages": ["13-14"],
+      "pdf_pages": [
+        24,
+        25,
+        26
+      ],
+      "printed_pages": [
+        "13-14"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 9",
       "applies_to": "75mm gun vehicles",
-      "read_state": "text verified: 104x 75mm (4 basket floor + 100 vertical racks hull floor); .30 16 boxes right front sponson + 7 boxes left sponson over battery; .50 6 boxes right rear sponson"
+      "read_state": "text verified: 104x 75mm (4 basket floor + 100 vertical racks hull floor); .30 16 boxes right front sponson + 7 boxes left sponson over battery; .50 6 boxes right rear sponson",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-GEN",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 57a auxiliary generator position",
-      "pdf_pages": [57],
-      "printed_pages": ["38"],
+      "pdf_pages": [
+        57
+      ],
+      "printed_pages": [
+        "38"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 57a",
       "applies_to": "M4A3",
-      "read_state": "text verified: auxiliary generator at rear end of LEFT sponson in fighting compartment"
+      "read_state": "text verified: auxiliary generator at rear end of LEFT sponson in fighting compartment",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-RADIO",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "para 5d communications equipment",
-      "pdf_pages": [15],
-      "printed_pages": ["5"],
+      "pdf_pages": [
+        15
+      ],
+      "printed_pages": [
+        "5"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 5d",
       "applies_to": "M4A3",
-      "read_state": "text verified: SCR-508/528/538 FM radio; exact radio set mounting position in turret NOT located in text (position estimated)"
+      "read_state": "text verified: SCR-508/528/538 FM radio; exact radio set mounting position in turret NOT located in text (position estimated)",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-FM1767-CREW",
       "source_id": "SRC-FM17-67",
       "origin": "historical_primary",
       "title": "para 3 Composition + para 4b Mounted posts",
-      "pdf_pages": [6],
-      "printed_pages": ["2"],
+      "pdf_pages": [
+        6
+      ],
+      "printed_pages": [
+        "2"
+      ],
       "printed_page_status": "REVIEWED (GPT visual check of printed p.2 confirmed)",
       "section": "paras 3, 4b",
       "applies_to": "Medium Tank M4 series (5-man crew)",
-      "read_state": "text verified: commander in turret; gunner on right of gun; loader (cannoneer) on left of gun; driver and bow gunner in hull front seats; supports role placement, NOT meter-precise seat coordinates"
+      "read_state": "text verified: commander in turret; gunner on right of gun; loader (cannoneer) on left of gun; driver and bow gunner in hull front seats; supports role placement, NOT meter-precise seat coordinates",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     },
     {
       "key": "EV-TM9759-TRAVERSE",
       "source_id": "SRC-TM9-759",
       "origin": "historical_primary",
       "title": "stowage list mention of Oilgear hydraulic traverse",
-      "pdf_pages": [23],
-      "printed_pages": ["11-12"],
+      "pdf_pages": [
+        23
+      ],
+      "printed_pages": [
+        "11-12"
+      ],
       "printed_page_status": "NEEDS_VERIFICATION",
       "section": "para 6c stowage (TM 9-1727K manual for hydraulic traverse Oilgear)",
       "applies_to": "75mm gun M34/M34A1 mount",
-      "read_state": "text verified existence of hydraulic turret traverse; drive mechanism box position NOT located in text (estimated)"
+      "read_state": "text verified existence of hydraulic turret traverse; drive mechanism box position NOT located in text (estimated)",
+      "applies_to_identity_ids": [
+        "us_m4a3_75w_vvss_1944"
+      ],
+      "excluded_identity_ids": []
     }
   ],
   "fields": [
-    { "field_path": "overall.length_m", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-SPECS"], "original_value": "20 ft 7 in", "original_unit": "imperial", "derivation": "20.583 ft * 0.3048 = 6.274 m (with sand shield)", "uncertainty_note": "" },
-    { "field_path": "overall.width_m", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-SPECS"], "original_value": "8 ft 9 in", "original_unit": "imperial", "derivation": "8.75 ft * 0.3048 = 2.667 m (with sand shield)", "uncertainty_note": "" },
-    { "field_path": "overall.height_m", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-SPECS"], "original_value": "132 7/8 in (over A.A. gun pintle stand, 75-mm)", "original_unit": "imperial", "derivation": "132.875 in * 0.0254 = 3.375 m", "uncertainty_note": "height reference point is the AA pintle; hull/turret roof heights NOT separately given in text; do not use to set turret roof height" },
-    { "field_path": "track.center_to_center_m", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-SPECS"], "original_value": "83 in", "original_unit": "imperial", "derivation": "83 * 0.0254 = 2.108 m", "uncertainty_note": "" },
-    { "field_path": "crew.count", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-SPECS", "EV-FM1767-CREW"], "original_value": "5 men", "original_unit": "count", "derivation": "", "uncertainty_note": "" },
-    { "field_path": "engine.model", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-ENGINE"], "original_value": "Ford GAA", "original_unit": "", "derivation": "", "uncertainty_note": "" },
-    { "field_path": "engine.location", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-ENGINE"], "original_value": "rear of the hull", "original_unit": "", "derivation": "", "uncertainty_note": "" },
-    { "field_path": "transmission.location", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-TRANS"], "original_value": "front (gearshift right of driver, left side of transmission)", "original_unit": "", "derivation": "", "uncertainty_note": "transmission housing extents not given in text" },
-    { "field_path": "armor_patches.*.thickness_mm", "origin": "historical_primary", "status": "unknown", "source_refs": [], "original_value": null, "original_unit": "mm", "derivation": "", "uncertainty_note": "TM 9-759 text contains no armor thickness table; armor plates are shown in figures (scan-only pages). Figure-based plate verification NOT completed; original-page export batch pending review.", "review_note": "所有装甲面片厚度 unknown（has_thickness=false）；未完成图板目视核验前不得填数" },
-    { "field_path": "armor_patches.*.vertices", "origin": "historical_primary", "status": "estimated", "source_refs": ["EV-TM9759-SPECS"], "original_value": null, "original_unit": "m", "derivation": "boxy low-poly hull fitted to verified overall dimensions (L 6.274, W 2.667, tread 2.108); hull interior width derived from tread minus track width, not directly given", "uncertainty_note": "面片边界按有尺度参考（总尺寸+履带中心距）拟合；未见实测顶点记录" },
-    { "field_path": "turret.ring_center", "origin": "historical_primary", "status": "estimated", "source_refs": ["EV-TM9759-SPECS"], "original_value": null, "original_unit": "m", "derivation": "ring center placed mid-hull; exact station not given in text", "uncertainty_note": "根原点定义=炮塔回转轴接地投影（GEOMETRY_NOTES.md）" },
-    { "field_path": "modules.ammo_75.location", "origin": "historical_primary", "status": "estimated", "source_refs": ["EV-TM9759-STOWAGE", "EV-TM9759-TURRET-FLOOR"], "original_value": "100 rounds in vertical racks on hull floor", "original_unit": "rounds", "derivation": "hull-floor vertical racks box centered under fighting compartment; exact rack coordinates not given", "uncertainty_note": "" },
-    { "field_path": "modules.generator_aux.location", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-TM9759-GEN"], "original_value": "rear end of left sponson in fighting compartment", "original_unit": "", "derivation": "", "uncertainty_note": "box size estimated" },
-    { "field_path": "crew_stations.*.role_placement", "origin": "historical_primary", "status": "verified", "source_refs": ["EV-FM1767-CREW"], "original_value": "commander: turret; gunner: right of gun; loader: left of gun; driver/bow gunner: hull front seats", "original_unit": "", "derivation": "", "uncertainty_note": "supports station assignment and relative position only; seat-side assignment (driver left / bow gunner right) follows standard M4 layout" },
-    { "field_path": "crew_stations.*.position", "origin": "historical_primary", "status": "estimated", "source_refs": ["EV-FM1767-CREW"], "original_value": null, "original_unit": "m", "derivation": "box centers estimated from verified role placement; FM does not support meter-precise seat centers", "uncertainty_note": "004-R1: position (coordinates) is estimated even though role placement is verified" },
-    { "field_path": "crew_stations.*.box", "origin": "historical_primary", "status": "estimated", "source_refs": ["EV-FM1767-CREW"], "original_value": null, "original_unit": "m", "derivation": "standing/seat volume approximations", "uncertainty_note": "" }
+    {
+      "field_path": "overall.length_m",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": "20 ft 7 in",
+      "original_unit": "imperial",
+      "derivation": "20.583 ft * 0.3048 = 6.274 m (with sand shield)",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "overall.width_m",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": "8 ft 9 in",
+      "original_unit": "imperial",
+      "derivation": "8.75 ft * 0.3048 = 2.667 m (with sand shield)",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "overall.height_m",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": "132 7/8 in (over A.A. gun pintle stand, 75-mm)",
+      "original_unit": "imperial",
+      "derivation": "132.875 in * 0.0254 = 3.375 m",
+      "uncertainty_note": "height reference point is the AA pintle; hull/turret roof heights NOT separately given in text; do not use to set turret roof height"
+    },
+    {
+      "field_path": "track.center_to_center_m",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": "83 in",
+      "original_unit": "imperial",
+      "derivation": "83 * 0.0254 = 2.108 m",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "crew.count",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-SPECS",
+        "EV-FM1767-CREW"
+      ],
+      "original_value": "5 men",
+      "original_unit": "count",
+      "derivation": "",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "engine.model",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-ENGINE"
+      ],
+      "original_value": "Ford GAA",
+      "original_unit": "",
+      "derivation": "",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "engine.location",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-ENGINE"
+      ],
+      "original_value": "rear of the hull",
+      "original_unit": "",
+      "derivation": "",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "transmission.location",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-TRANS"
+      ],
+      "original_value": "front (gearshift right of driver, left side of transmission)",
+      "original_unit": "",
+      "derivation": "",
+      "uncertainty_note": "transmission housing extents not given in text"
+    },
+    {
+      "field_path": "armor_patches.*.thickness_mm",
+      "origin": "historical_primary",
+      "status": "unknown",
+      "source_refs": [],
+      "original_value": null,
+      "original_unit": "mm",
+      "derivation": "",
+      "uncertainty_note": "TM 9-759 text contains no armor thickness table; armor plates are shown in figures (scan-only pages). Figure-based plate verification NOT completed; original-page export batch pending review.",
+      "review_note": "所有装甲面片厚度 unknown（has_thickness=false）；未完成图板目视核验前不得填数"
+    },
+    {
+      "field_path": "armor_patches.*.vertices",
+      "origin": "historical_primary",
+      "status": "estimated",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": null,
+      "original_unit": "m",
+      "derivation": "boxy low-poly hull fitted to verified overall dimensions (L 6.274, W 2.667, tread 2.108); hull interior width derived from tread minus track width, not directly given",
+      "uncertainty_note": "面片边界按有尺度参考（总尺寸+履带中心距）拟合；未见实测顶点记录"
+    },
+    {
+      "field_path": "turret.ring_center",
+      "origin": "historical_primary",
+      "status": "estimated",
+      "source_refs": [
+        "EV-TM9759-SPECS"
+      ],
+      "original_value": null,
+      "original_unit": "m",
+      "derivation": "ring center placed mid-hull; exact station not given in text",
+      "uncertainty_note": "根原点定义=炮塔回转轴接地投影（GEOMETRY_NOTES.md）"
+    },
+    {
+      "field_path": "modules.ammo_75.location",
+      "origin": "historical_primary",
+      "status": "estimated",
+      "source_refs": [
+        "EV-TM9759-STOWAGE",
+        "EV-TM9759-TURRET-FLOOR"
+      ],
+      "original_value": "100 rounds in vertical racks on hull floor",
+      "original_unit": "rounds",
+      "derivation": "hull-floor vertical racks box centered under fighting compartment; exact rack coordinates not given",
+      "uncertainty_note": ""
+    },
+    {
+      "field_path": "modules.generator_aux.location",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-TM9759-GEN"
+      ],
+      "original_value": "rear end of left sponson in fighting compartment",
+      "original_unit": "",
+      "derivation": "",
+      "uncertainty_note": "box size estimated"
+    },
+    {
+      "field_path": "crew_stations.*.role_placement",
+      "origin": "historical_primary",
+      "status": "verified",
+      "source_refs": [
+        "EV-FM1767-CREW"
+      ],
+      "original_value": "commander: turret; gunner: right of gun; loader: left of gun; driver/bow gunner: hull front seats",
+      "original_unit": "",
+      "derivation": "",
+      "uncertainty_note": "supports station assignment and relative position only; seat-side assignment (driver left / bow gunner right) follows standard M4 layout"
+    },
+    {
+      "field_path": "crew_stations.*.local_box_transform",
+      "origin": "historical_primary",
+      "status": "estimated",
+      "source_refs": [
+        "EV-FM1767-CREW"
+      ],
+      "original_value": null,
+      "original_unit": "m",
+      "derivation": "box centers estimated from verified role placement; FM does not support meter-precise seat centers",
+      "uncertainty_note": "004-R1: position (coordinates) is estimated even though role placement is verified"
+    },
+    {
+      "field_path": "crew_stations.*.size_m",
+      "origin": "historical_primary",
+      "status": "estimated",
+      "source_refs": [
+        "EV-FM1767-CREW"
+      ],
+      "original_value": null,
+      "original_unit": "m",
+      "derivation": "standing/seat volume approximations",
+      "uncertainty_note": ""
+    }
   ]
 }

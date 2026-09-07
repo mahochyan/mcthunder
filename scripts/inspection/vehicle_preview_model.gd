@@ -235,6 +235,31 @@ func _find_joint(kind: String) -> LayoutPartDefinition:
 	return null
 
 
+func get_visual_center() -> Vector3:
+	# 004-R2-A：当前预览几何包围盒中心（面片+模块+乘员；地面/灯光不是本模型子节点，天然排除）。
+	# 切换布局后观察中心跟随模型，不固定在某车型的炮塔环上方。
+	var mn := Vector3.INF
+	var mx := -Vector3.INF
+	for n in _part_nodes.values():
+		var node := n as Node3D
+		if node == null:
+			continue
+		for child in node.get_children():
+			if child is MeshInstance3D:
+				var mi := child as MeshInstance3D
+				var aabb := mi.get_aabb()
+				if aabb.size == Vector3.ZERO:
+					continue
+				var g := mi.global_transform
+				for i in range(8):
+					var w: Vector3 = g * aabb.get_endpoint(i)
+					mn = mn.min(w)
+					mx = mx.max(w)
+	if mn == Vector3.INF:
+		return Vector3(0, 1.0, 0)
+	return (mn + mx) * 0.5
+
+
 func select_patch(patch_id: String) -> void:
 	if selected_patch_id != "" and _patch_nodes.has(selected_patch_id):
 		_restore_patch_color(_patch_nodes[selected_patch_id] as MeshInstance3D, selected_patch_id)

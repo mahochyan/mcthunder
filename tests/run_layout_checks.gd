@@ -504,9 +504,130 @@ func _initialize() -> void:
 	Input.action_release("move_forward")
 	_ok(main.actor_a.tank.forward_speed > 0.5, "T004-08 range operable after return (v=%.2f)" % main.actor_a.tank.forward_speed)
 	_ok(main.actor_a.tank.global_position.distance_to(pos_a_before) > 0.1, "T004-08 A moved after resume")
+
+	# --- 004-R2-A：相机联合约束（真实滚轮缩远 + 恢复视图 + 切换布局 + 保留旧模型） ---
+	var pause_ev := InputEventAction.new()
+	pause_ev.action = "pause"
+	pause_ev.pressed = true
+	main._unhandled_input(pause_ev)
+	await process_frame
+	_ok(paused, "T004-R2 paused before inspector reopen")
+	main.hud.inspect_requested.emit()
+	await process_frame
+	await process_frame
+	var insp_r2: VehicleInspector = main._inspector
+	var cam_r2: Camera3D = insp_r2._camera
+	var pv_rect2: Rect2 = (insp_r2.find_child("PreviewContainer", true, false) as Control).get_global_rect()
+	var center2: Vector2 = pv_rect2.get_center()
+	for i in 6:
+		_wheel_over(center2, MOUSE_BUTTON_WHEEL_DOWN)
+		await process_frame
+		await process_frame
+	_ok(cam_r2.global_position.y >= 0.13 - 0.001, "T004-R2 camera above ground after real wheel zoom-out (y=%.3f)" % cam_r2.global_position.y)
+	insp_r2._on_reset_view()
+	await process_frame
+	_ok(cam_r2.global_position.y >= 0.13 - 0.001, "T004-R2 camera above ground after reset view (y=%.3f)" % cam_r2.global_position.y)
+	var focus_before: Vector3 = insp_r2._preview_focus
+	insp_r2._layout_opt.item_selected.emit(panels_idx)
+	await process_frame
+	await process_frame
+	_ok(insp_r2._preview_focus != focus_before, "T004-R2 preview focus follows switched model (%.2f,%.2f,%.2f)" % [insp_r2._preview_focus.x, insp_r2._preview_focus.y, insp_r2._preview_focus.z])
+	_ok(cam_r2.global_position.y >= 0.13 - 0.001, "T004-R2 camera above ground after layout switch (y=%.3f)" % cam_r2.global_position.y)
+	var good_model: VehiclePreviewModel = insp_r2._model
+	var bad_layout := _clone(good_model.layout)
+	bad_layout.armor_patches[0].id = bad_layout.armor_patches[1].id
+	var accepted := insp_r2.load_layout(bad_layout)
+	_ok(not accepted and insp_r2._model == good_model, "T004-R2 load_layout rejects invalid layout and keeps current model")
+	insp_r2._layout_opt.item_selected.emit(hist_idx)
+	await process_frame
+	await process_frame
 	main.close_vehicle_inspector()
 	root.remove_child(main)
 	main.free()
+
+	# --- 004-R2-A：solve_orbit 纯函数（距离 3/9/30 × 负/水平/正俯仰） ---
+	var math_ok := true
+	for dist in [3.0, 9.0, 30.0]:
+		for pitch_deg in [-30.0, 0.0, 18.0]:
+			var s := PreviewCameraMath.solve_orbit(Vector3(0, 1.7, 0), 35.0, pitch_deg, dist, 0.13)
+			if not s.get("ok", false) or float(s["position"].y) < 0.13 - 0.001:
+				math_ok = false
+	_ok(math_ok, "T004-R2 solve_orbit keeps camera above min_y for dist 3/9/30 x pitch -30/0/18")
+	var s30 := PreviewCameraMath.solve_orbit(Vector3(0, 1.7, 0), 35.0, -10.0, 30.0, 0.13)
+	_ok(float(s30["pitch_deg"]) > -10.0 and float(s30["position"].y) >= 0.13 - 0.001, "T004-R2 solve_orbit raises pitch floor at 30m (applied %.1f)" % float(s30["pitch_deg"]))
+	var s_bad := PreviewCameraMath.solve_orbit(Vector3(0, -5.0, 0), 0.0, 0.0, 3.0, 0.13)
+	_ok(not s_bad.get("ok", false), "T004-R2 solve_orbit reports infeasible orbit when focus too low")
+
+	# --- 004-R2-B：开口相邻边 / 非流形不可豁免 / 非法索引短路 / 包含语义 ---
+	var l_diag := _r2_mini_layout("r2_diag", [
+		{"id": "p1", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 2]},
+		{"id": "p2", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 1), Vector3(0, 0, 1)], "tris": [0, 1, 2]},
+		{"id": "p3", "verts": [Vector3(1, 0, 0), Vector3(1, 0, 2), Vector3(0, 0, 1)], "tris": [0, 1, 2]},
+	], [{"id": "o1", "part": "p", "boundary_loop": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1), Vector3(0, 0, 1)]}])
+	var e_diag := PackedStringArray()
+	var w_diag := PackedStringArray()
+	LayoutValidator.check_declared_openings(l_diag, e_diag, w_diag)
+	_ok(e_diag.size() > 0, "T004-R2 loop diagonal edge is NOT exempted (undeclared boundary reported)")
+	var l_dup := _r2_mini_layout("r2_dup", [
+		{"id": "p1", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 2]},
+		{"id": "p2", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 2]},
+	], [{"id": "o1", "part": "p", "boundary_loop": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)]}])
+	var e_dup := PackedStringArray()
+	var w_dup := PackedStringArray()
+	LayoutValidator.check_declared_openings(l_dup, e_dup, w_dup)
+	_ok(e_dup.size() > 0, "T004-R2 duplicate triangle (non-manifold) is NOT exempted by opening")
+	var l_ok := _r2_mini_layout("r2_ok", [
+		{"id": "p1", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 2]},
+		{"id": "p2", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 1), Vector3(0, 0, 1)], "tris": [0, 1, 2]},
+	], [{"id": "o1", "part": "p", "boundary_loop": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1), Vector3(0, 0, 1)]}])
+	var e_ok := PackedStringArray()
+	var w_ok := PackedStringArray()
+	LayoutValidator.check_declared_openings(l_ok, e_ok, w_ok)
+	_ok(e_ok.is_empty(), "T004-R2 legal opening loop passes (adjacent-pair coverage)")
+	var l_badidx := _r2_mini_layout("r2_badidx", [
+		{"id": "p1", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 9]},
+	], [])
+	var e_badidx := PackedStringArray()
+	var w_badidx := PackedStringArray()
+	LayoutValidator.check_declared_openings(l_badidx, e_badidx, w_badidx)
+	_ok(e_badidx.size() > 0, "T004-R2 out-of-range triangle index yields field error (no crash)")
+	var corners_out := PackedVector3Array([
+		Vector3(-0.05, 0, 0), Vector3(0.45, 0, 0), Vector3(-0.05, 0.5, 0), Vector3(0.45, 0.5, 0),
+		Vector3(-0.05, 0, 0.5), Vector3(0.45, 0, 0.5), Vector3(-0.05, 0.5, 0.5), Vector3(0.45, 0.5, 0.5)])
+	_ok(not LayoutValidator._inside_bounds(corners_out, {"min": Vector3(0, 0, 0), "max": Vector3(10, 10, 10)}),
+		"T004-R2 _inside_bounds uses containment (mostly-outside box is outside)")
+
+	# --- 004-R2-C：来源身份/字段/状态绑定 + 登记缺失 ---
+	var r2_doc := {
+		"evidence_keys": [
+			{"key": "EV-OTHER-TANK", "origin": "historical_primary", "applies_to": "M4A2 (75mm dry stowage)", "applies_to_identity_ids": ["us_m4a2_75w_dry"], "excluded_identity_ids": [], "title": "other vehicle manual"},
+			{"key": "EV-FM1767-CREW", "origin": "historical_primary", "applies_to": "Medium Tank M4 series (5-man crew)", "applies_to_identity_ids": ["us_m4a3_75w_vvss_1944"], "excluded_identity_ids": [], "title": "crew drill"},
+		],
+		"fields": [
+			{"field_path": "crew_stations.*.role_placement", "status": "verified", "source_refs": ["EV-FM1767-CREW"]},
+		]
+	}
+	var l_ev := _r2_mini_layout("r2_ev", [
+		{"id": "p1", "verts": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 1)], "tris": [0, 1, 2]},
+	], [])
+	l_ev.historical_identity_id = "us_m4a3_75w_vvss_1944"
+	l_ev.armor_patches[0].evidence_keys = PackedStringArray(["EV-OTHER-TANK"])
+	var e_ev1 := PackedStringArray()
+	LayoutValidator.check_evidence_consistency(l_ev, r2_doc, e_ev1)
+	_ok(e_ev1.size() > 0, "T004-R2 evidence for another vehicle identity is rejected")
+	l_ev.armor_patches[0].evidence_keys = PackedStringArray(["EV-FM1767-CREW"])
+	l_ev.armor_patches[0].thickness_status = "verified"
+	l_ev.armor_patches[0].has_thickness = true
+	l_ev.armor_patches[0].thickness_mm = 50.0
+	var e_ev2 := PackedStringArray()
+	LayoutValidator.check_evidence_consistency(l_ev, r2_doc, e_ev2)
+	_ok(e_ev2.size() > 0, "T004-R2 crew source cannot back armor thickness claim (field binding)")
+	var e_missing := PackedStringArray()
+	LayoutValidator.check_evidence_consistency(l_ev, {}, e_missing)
+	_ok(e_missing.size() > 0, "T004-R2 missing field evidence registry is a data error for research layout")
+	var e_test := PackedStringArray()
+	LayoutValidator.check_evidence_consistency(_clone(panels), {}, e_test)
+	_ok(e_test.is_empty(), "T004-R2 test layout allows missing field evidence registry")
 
 	_finish()
 
@@ -591,3 +712,35 @@ func _dup_id(layout: VehicleLayoutDefinition) -> VehicleLayoutDefinition:
 	dup.id = "test_invalid_dup"
 	dup.armor_patches[1].id = dup.armor_patches[0].id
 	return dup
+
+
+# --- 004-R2：构造最小 research 布局（单部件 + 面片 + 可选开口声明） ---
+func _r2_mini_layout(id: String, patches: Array, openings: Array) -> VehicleLayoutDefinition:
+	var l := VehicleLayoutDefinition.new()
+	l.id = id
+	l.content_tier = "research"
+	l.display_name = id
+	l.historical_identity_id = "us_m4a3_75w_vvss_1944"
+	var part := LayoutPartDefinition.new()
+	part.id = "p"
+	part.parent_id = ""
+	part.joint_kind = "fixed"
+	part.bind_local = Transform3D.IDENTITY
+	l.parts = [part]
+	for p in patches:
+		var patch := ArmorPatchDefinition.new()
+		patch.id = p["id"]
+		patch.part_id = "p"
+		patch.vertices_local_m = PackedVector3Array(p["verts"])
+		patch.triangles = PackedInt32Array(p["tris"])
+		patch.outward_normal_local = Vector3(0, -1, 0)
+		patch.has_thickness = false
+		patch.thickness_status = "unknown"
+		patch.material_kind = "unknown"
+		patch.geometry_status = "estimated"
+		l.armor_patches.append(patch)
+	var declared: Array[Dictionary] = []
+	for o in openings:
+		declared.append({"id": o["id"], "part": o["part"], "boundary_loop": PackedVector3Array(o["boundary_loop"]), "note": "r2 fixture"})
+	l.declared_openings = declared
+	return l

@@ -81,10 +81,12 @@ static func load_layout(layout_id: String) -> VehicleLayoutDefinition:
 		push_error("LayoutCatalog: id mismatch file=%s vs resource=%s" % [layout_id, layout.id])
 		return null
 
-	# 004-R1 组C：按 identity 加载字段依据字典（存在才接入；不阻塞非历史布局）
+	# 004-R1 组C：按 identity 加载字段依据字典。
+	# 004-R2-C：文件不存在时不 push_error（test 布局允许无来源文件；
+	# research/production 缺失由 validate 报"registry missing"数据错误并拒绝加载）。
 	var doc_path := "res://configs/evidence/%s.json" % layout_id
 	var field_doc: Dictionary = {}
-	if register_field_evidence_file(doc_path):
+	if FileAccess.file_exists(doc_path) and register_field_evidence_file(doc_path):
 		field_doc = field_evidence[doc_path]
 
 	var validation := LayoutValidator.validate(layout, registered_evidence, field_doc)

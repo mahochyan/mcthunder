@@ -194,16 +194,19 @@ func _build_ui() -> void:
 
 
 func _update_camera() -> void:
-	# 004-R1 组A：注视 _preview_focus（模型质量中心）；俯仰限幅——
-	# 相机永远在地面平面(y=-0.02)上方，不穿地观察；距离/高度由限位参数唯一决定。
-	var pitch := clampf(_orbit_pitch, -10.0, 80.0)
-	var rad_yaw := deg_to_rad(_orbit_yaw)
-	var rad_pitch := deg_to_rad(pitch)
-	var offset := Vector3(
-		cos(rad_pitch) * sin(rad_yaw),
-		sin(rad_pitch),
-		cos(rad_pitch) * cos(rad_yaw)) * _orbit_dist
-	_camera.position = _preview_focus + offset
+	# 004-R2-A：统一走 PreviewCameraMath.solve_orbit——俯仰下限随
+	# focus 高度/距离/最低相机高度动态计算（固定 -10° 在 30m 处会钻地）。
+	# 拖动、滚轮、恢复视图、切换模型都经此函数；成功后同步实际俯仰/距离。
+	var min_camera_y := -0.02 + 0.15   # 地面平面 + 安全余量
+	var solved := PreviewCameraMath.solve_orbit(
+		_preview_focus, _orbit_yaw, _orbit_pitch, _orbit_dist, min_camera_y)
+	if not solved.get("ok", false):
+		# 不可行轨道（理论上 focus 过低且距离过大）——保持现状并记录
+		push_warning("PreviewCamera: %s" % str(solved.get("error", "unknown")))
+		return
+	_orbit_pitch = float(solved["pitch_deg"])
+	_orbit_dist = float(solved["distance"])
+	_camera.position = solved["position"]
 	if _camera.is_inside_tree():
 		_camera.look_at(_preview_focus, Vector3.UP)
 	else:
@@ -228,13 +231,17 @@ func _on_reset_view() -> void:
 func load_layout(layout: VehicleLayoutDefinition) -> bool:
 	# 004-R1 组A：切换可靠化——先校验新布局（有错保持旧模型并返回 false），
 	# 旧模型从树移除再排队释放，新模型存 _model，同步滑杆范围/模式/详情。
+	# 004-R2-C：校验在移除旧模型之前执行（占位 pass 移除）——统一走
+	# LayoutCatalog 已验证加载结果；直接传入的布局也先过同一校验入口。
 	if layout == null:
 		return false
 	if layout == _layout:
 		return true
-	var keys := PackedStringArray()
-	for ek_any in [layout]:
-		pass   # 证据 key 在 LayoutCatalog 校验时已核；此处不做重复校验
+	var field_doc := LayoutCatalog.get_field_evidence_doc("res://configs/evidence/%s.json" % layout.id)
+	var validation := LayoutValidator.validate(layout, LayoutCatalog.registered_evidence, field_doc)
+	if validation["errors"].size() > 0:
+		push_warning("VehicleInspector: layout '%s' rejected (%d errors); keeping current model" % [layout.id, validation["errors"].size()])
+		return false
 	var old := _model
 	if old != null:
 		_viewport.remove_child(old)
@@ -263,6 +270,8 @@ func load_layout(layout: VehicleLayoutDefinition) -> bool:
 	_pitch_slider.value = 0.0
 
 	_title_label.text = "Vehicle Inspector - %s [%s]" % [layout.display_name, layout.content_tier]
+	# 004-R2-A：观察中心跟随当前预览几何包围盒（切换标准板不再盯着谢尔曼炮塔环上方）
+	_preview_focus = preview.get_visual_center()
 	_update_camera()
 	_fill_parts_tree()
 	set_mode(_mode)   # 模式状态同步到新模型

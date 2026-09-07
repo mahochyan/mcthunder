@@ -1,0 +1,81 @@
+{
+  "bounds": {
+    "box_min": "(-0.05, 0.0, 0.0)",
+    "claim": "_inside_bounds uses intersection, not containment: a box mostly outside the vehicle is judged inside",
+    "containment_verdict_expected": false,
+    "current_inside_verdict": false,
+    "vehicle_min": "(0.0, 0.0, 0.0)"
+  },
+  "camera": {
+    "claim": "fixed -10 deg pitch floor is unsafe at long distance: y = focus.y + dist*sin(pitch); at 30m/-10deg camera sinks below ground clearance 0.13m",
+    "min_camera_y": 0.13,
+    "rows": [
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 1.17905546699921,
+        "dist": 3.0,
+        "pitch_deg": -10.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 1.7,
+        "dist": 3.0,
+        "pitch_deg": 0.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 2.62705098312484,
+        "dist": 3.0,
+        "pitch_deg": 18.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 0.137166400997627,
+        "dist": 9.0,
+        "pitch_deg": -10.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 1.7,
+        "dist": 9.0,
+        "pitch_deg": 0.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 4.48115294937453,
+        "dist": 9.0,
+        "pitch_deg": 18.0
+      },
+      {
+        "below_min_y_0_13": true,
+        "camera_y": -3.50944533000791,
+        "dist": 30.0,
+        "pitch_deg": -10.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 1.7,
+        "dist": 30.0,
+        "pitch_deg": 0.0
+      },
+      {
+        "below_min_y_0_13": false,
+        "camera_y": 10.9705098312484,
+        "dist": 30.0,
+        "pitch_deg": 18.0
+      }
+    ]
+  },
+  "evidence": {
+    "crew_for_thickness_claim": "crew placement source used as armor thickness backing; current check has no field binding",
+    "crew_for_thickness_errors": 1,
+    "wrong_vehicle_claim": "applies_to is non-empty text for another vehicle; current check does not reject",
+    "wrong_vehicle_errors": 1
+  },
+  "openings": {
+    "diagonal_claim": "boundary edge BD (diagonal of loop A->B->C->D->A) is exempted because B and D are both loop vertices (not adjacent pair)",
+    "diagonal_errors": 3,
+    "duplicate_errors": 3,
+    "duplicate_triangle_claim": "duplicate same-direction triangle edge counts f+r=3; current code treats as boundary edge and can exempt via loop"
+  }
+}

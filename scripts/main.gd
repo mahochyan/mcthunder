@@ -380,6 +380,31 @@ func _inspect_demo_step() -> void:
 			var pv4 := _preview_model()
 			if pv4 != null:
 				pv4.select_patch("")
+		97:
+			# 004-R2-A：真实滚轮缩远后相机高度（联合约束证据；不另写高度修正）
+			var vp_container := _inspector.find_child("PreviewContainer", true, false) as Control
+			if vp_container != null:
+				var wpos := vp_container.get_global_rect().get_center()
+				for i in 6:
+					var evd := InputEventMouseButton.new()
+					evd.position = wpos
+					evd.global_position = wpos
+					evd.button_index = MOUSE_BUTTON_WHEEL_DOWN
+					evd.pressed = true
+					Input.parse_input_event(evd)
+					var evu := InputEventMouseButton.new()
+					evu.position = wpos
+					evu.global_position = wpos
+					evu.button_index = MOUSE_BUTTON_WHEEL_DOWN
+					evu.pressed = false
+					Input.parse_input_event(evu)
+		98:
+			_shot("inspect_7_zoomed_out.png")
+			var cam7 := _inspector._camera
+			print("[004-d] zoomed-out camera y=", cam7.global_position.y, " (min 0.13)")
+			if cam7.global_position.y < 0.13 - 0.001:
+				_shot_errors += 1
+				printerr("[004-d] FAIL: camera below ground after zoom-out")
 		100:
 			if _inspector != null:
 				_inspector.close_requested.emit()   # Back/Esc 同一信号链
@@ -390,7 +415,7 @@ func _inspect_demo_step() -> void:
 			_shot("inspect_6_back_to_pause.png")   # 返回暂停菜单（游戏仍暂停）
 			print("[004-d] back-to-pause: inspector_open=", _inspector_open, " paused=", get_tree().paused)
 			print("[inspect-demo] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
-			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 6) else 0)
+			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 7) else 0)
 
 func _preview_model() -> VehiclePreviewModel:
 	if _inspector == null:
