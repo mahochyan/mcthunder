@@ -67,6 +67,7 @@ Set-Content -LiteralPath $cfg -Value $bad -Encoding ascii -NoNewline
 Note "bad config injected into COPY only"
 
 # 6) subprocess: real main scene with the copy as --path (timeout + full output + reliable exit code)
+$so = Join-Path $tmp 'stdout.log'; $se = Join-Path $tmp 'stderr.log'
 $codeFile = Join-Path $tmp 'exitcode.txt'
 $job = Start-Job -ScriptBlock {
 	param($g, $prj, $so, $se, $codeFile)
