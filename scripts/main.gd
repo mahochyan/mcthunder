@@ -16,10 +16,9 @@ var cam_rig: CameraRig       # 兼容引用 → actor_a.cam_rig
 var gunner: Gunner           # 兼容引用 → actor_a.gunner
 var hud: HUD
 var targets: Array = []
-var trial_hits := 0           # 003：试射目标计数（只由 B 的真实生产命中事件推进）
+var trial_hits := 0           # 003：试射目标计数（gate.accept_hit 接受后同步；任务状态单一来源 = _gate）
 const TRIAL_TARGET := 3
-var _round_id := 0            # 003-R1：任务轮次/生命周期标识（reset_range 递增；旧轮次命中无效）
-var _round_shots := {}        # 003-R2：本回合已计分射击编号（重开清空；旧事件由轮次+生命周期拒绝）
+var _gate := TrialHitGate.new()   # 003-R2：任务收分唯一来源（轮次/命中数/去重集合都在 gate 维护，Main 只读）
 var _paused := false
 var _aborted := false         # 003-R2：启动失败短路标志（true = 停止正常帧/输入处理）
 var _abort_reason := ""
@@ -78,11 +77,14 @@ func _ready() -> void:
 	hud.name = "HUD"
 	add_child(hud)
 	hud.resume_requested.connect(_resume)
-	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit）
+	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
 	actor_a.gunner.round_provider = Callable(self, "get_round_id")
 	actor_b.gunner.round_provider = Callable(self, "get_round_id")
+	# 003-R2：任务开始——gate 锁定双方身份并推进轮次（唯一来源初始化）
+	if not _gate.begin_round(actor_a.entity_id, actor_a.life_id, actor_b.entity_id, actor_b.life_id, TRIAL_TARGET):
+		push_error("003-R2: task gate init rejected")
 	if not _autoshot and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -112,8 +114,8 @@ func _abort_initialization(reason: String, errors: Array) -> void:
 		get_tree().quit(1)   # 非零退出 = 自动验收可见
 
 func get_round_id() -> int:
-	# 003-R2：gunner 发射身份的轮次来源（开火时刻冻结）
-	return _round_id
+	# 003-R2：gunner 发射身份的轮次来源（开火时刻冻结；轮次唯一来源 = _gate）
+	return _gate.round_id
 
 func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: Node = null, defs_override: VehicleDefs = null, spawn_tf: Transform3D = Transform3D()) -> VehicleActor:
 	# 003：统一实体生成入口（T003-04 生命周期测试用）；003-R1：可指定配置注册表与出生变换
@@ -151,6 +153,14 @@ func _pause() -> void:
 	if _paused:
 		return
 	_paused = true
+	# 003-R2：暂停在状态切换入口显式清理——两车暂存 + 控制者待发 fire 边沿；
+	# 不指望已停止物理回调的 actor 自己清掉（NOTIFICATION_PAUSED 仅作兜底）
+	if actor_a != null:
+		actor_a.pause_block(true)
+	if actor_b != null:
+		actor_b.pause_block(true)
+	if controller != null and controller.has_method("reset_pending"):
+		controller.reset_pending()
 	get_tree().paused = true
 	hud.show_pause(true)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -160,6 +170,11 @@ func _resume() -> void:
 		return
 	_paused = false
 	get_tree().paused = false
+	# 003-R2：解除阻塞（暂存已在暂停时清空——不恢复旧请求）
+	if actor_a != null:
+		actor_a.pause_block(false)
+	if actor_b != null:
+		actor_b.pause_block(false)
 	hud.show_pause(false)
 	# 鼠标重捕获：仅无窗口模式跳过；autoshot 模式也执行以便窗口证据（002 T002-04）
 	if DisplayServer.get_name() != "headless":
@@ -172,15 +187,20 @@ func _reset_all() -> void:
 
 func reset_range() -> void:
 	# 003：整场重开——两车 + 靶板 + 试射目标全部复位
-	# 003-R1：轮次递增——重开后旧轮次命中事件无效
-	# 003-R2：只清本回合去重集合（旧事件已由轮次+生命周期拒绝，无需无限保留历史编号）
+	# 003-R2：先停止接收旧输入（清两车暂存 + 控制者待发 fire 边沿），
+	# 推进任务轮次（gate 是轮次/进度的唯一来源，begin_round 清进度与去重集合），
+	# 再复位实体与靶场
+	actor_a.clear_commands()
+	actor_b.clear_commands()
+	if controller != null and controller.has_method("reset_pending"):
+		controller.reset_pending()
+	if not _gate.begin_round(actor_a.entity_id, actor_a.life_id, actor_b.entity_id, actor_b.life_id, TRIAL_TARGET):
+		push_error("003-R2: task gate begin_round rejected")
 	actor_a.reset_vehicle()
 	actor_b.reset_vehicle()
 	for t in targets:
 		t.reset()
-	trial_hits = 0
-	_round_id += 1
-	_round_shots.clear()
+	trial_hits = _gate.hits
 
 func reset_vehicle(actor: VehicleActor) -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
@@ -194,27 +214,14 @@ func _notification(what: int) -> void:
 			_pause()
 
 func _on_b_hit(identity: Dictionary) -> void:
-	# 003-R2：任务只接受——当前轮次、正确射手、正确目标、双方生命周期存续的唯一命中。
-	# 轮次/生命周期在开火时刻冻结进事件（不在接收时补填）：旧轮次迟到事件
-	# （含重开后才首次送达的旧事件）与同名车重建后的旧身份事件都会被拒绝。
-	if _aborted or identity.is_empty():
+	# 003-R2：任务收分唯一来源 = _gate（轮次/射手/目标/双方生命周期/去重/完成上限
+	# 全部由 gate 校验）；事件字典用独立副本传递，监听者不会改到其他接收者所见。
+	# 轮次/生命周期在开火时刻冻结进事件（不在接收时补填）。
+	if _aborted:
 		return
-	if int(identity.get("round_id", -1)) != _round_id:
-		return   # 旧轮次事件（开火时的轮次 ≠ 当前轮次）
-	if identity.get("shooter_id", "") != actor_a.entity_id:
-		return   # 射手必须是玩家车 A
-	if identity.get("target_id", "") != actor_b.entity_id:
-		return   # 目标必须是 B（靶板/墙/空射不产生车辆命中事件）
-	if int(identity.get("shooter_life_id", 0)) != actor_a.life_id:
-		return   # 射手生命周期不匹配（同名 A 销毁重建后旧事件）
-	if int(identity.get("target_life_id", 0)) != actor_b.life_id:
-		return   # 目标生命周期不匹配（B 重生后旧事件）
-	var sid := int(identity.get("shot_id", 0))
-	if _round_shots.has(sid):
-		return   # 同一发重复投递不重复计分
-	_round_shots[sid] = true
-	if trial_hits < TRIAL_TARGET:
-		trial_hits += 1
+	var res := _gate.accept_hit(identity.duplicate(true))
+	if res.accepted:
+		trial_hits = _gate.hits
 
 func _process(_delta: float) -> void:
 	if _aborted:
@@ -433,7 +440,7 @@ func _autoshot_step() -> void:
 			pass
 		345:
 			_shot("autoshot_10_trial_restarted.png")   # R 重开后计数归零
-			print("[003-R1] after R: trial_hits=", trial_hits, " round=", _round_id)
+			print("[003-R1] after R: trial_hits=", trial_hits, " round=", _gate.round_id)
 			if trial_hits != 0:
 				_shot_errors += 1
 				print("[003-R1] FAIL: R restart did not reset trial")

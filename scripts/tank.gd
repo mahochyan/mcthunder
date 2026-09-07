@@ -103,9 +103,10 @@ func set_spawn(t: Transform3D) -> void:
 
 func register_hit(identity: Dictionary) -> void:
 	# 003：真实生产命中事件（由 gunner 命中结算调用；每发只调一次）
-	# 003-R2：事件携带发射时冻结的完整身份（round_id/shooter_id/shooter_life_id/shot_id/target_id/target_life_id）
+	# 003-R2：事件携带发射时冻结的完整身份；用独立副本传递，
+	# 多个监听者之间不会互相改写对方看到的结果
 	hits_taken += 1
-	hit_registered.emit(identity)
+	hit_registered.emit(identity.duplicate(true))
 
 func reset() -> void:
 	transform = _spawn

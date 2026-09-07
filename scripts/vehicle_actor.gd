@@ -96,9 +96,19 @@ func set_controller(ctrl: Node) -> void:
 		cam_rig.set_local_control(false)
 
 func _notification(what: int) -> void:
-	# 003-R2：暂停瞬间清空暂存——恢复时不补执行上一轮待发请求
+	# 003-R2：暂停瞬间清空暂存——恢复时不补执行上一轮待发请求（自动兜底；
+	# 暂停/重置/解绑路径另有显式清理，见 pause_block/clear_commands）
 	if what == NOTIFICATION_PAUSED:
 		_mailbox.clear()
+
+func pause_block(value: bool) -> void:
+	# 003-R2：暂停/恢复等状态切换的显式清理入口（main._pause/_resume 调用）——
+	# 不指望已停止物理回调的 actor 自己清掉暂存
+	_mailbox.set_blocked(value)
+
+func clear_commands() -> void:
+	# 003-R2：重开/解绑路径显式清空暂存
+	_mailbox.clear()
 
 func _exit_tree() -> void:
 	# 003-R1：销毁后引用清理（控制者不再指向已释放组件）
