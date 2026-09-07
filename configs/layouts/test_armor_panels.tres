@@ -1,0 +1,155 @@
+[gd_resource type="Resource" script_class="VehicleLayoutDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/layout/armor_patch_definition.gd" id="1_wpjtu"]
+[ext_resource type="Script" path="res://scripts/layout/crew_station_definition.gd" id="2_0t5vp"]
+[ext_resource type="Script" path="res://scripts/layout/module_volume_definition.gd" id="3_mnc1c"]
+[ext_resource type="Script" path="res://scripts/layout/layout_part_definition.gd" id="4_e1ar0"]
+[ext_resource type="Script" path="res://scripts/layout/vehicle_layout_definition.gd" id="5_ayj1f"]
+
+[sub_resource type="Resource" id="Resource_dwoq0"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_20mm_0deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-4.5, 0, 0, -3.5, 0, 0, -3.5, 1, 0, -4.5, 1, 0)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, -1)
+has_thickness = true
+thickness_mm = 20.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_52fha"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_40mm_0deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-4.5, 0, 0, -3.5, 0, 0, -3.5, 1, 0, -4.5, 1, 0)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, -1)
+has_thickness = true
+thickness_mm = 40.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_fjts1"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_80mm_0deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-4.5, 0, 0, -3.5, 0, 0, -3.5, 1, 0, -4.5, 1, 0)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, -1)
+has_thickness = true
+thickness_mm = 80.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_sex0p"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_20mm_30deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-3.3, 0.066987306, -0.25, -2.3, 0.066987306, -0.25, -2.3, 0.9330127, 0.25, -3.3, 0.9330127, 0.25)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.5, -0.8660254)
+has_thickness = true
+thickness_mm = 20.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_wnatq"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_40mm_30deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-3.3, 0.066987306, -0.25, -2.3, 0.066987306, -0.25, -2.3, 0.9330127, 0.25, -3.3, 0.9330127, 0.25)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.5, -0.8660254)
+has_thickness = true
+thickness_mm = 40.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_pkm6q"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_80mm_30deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-3.3, 0.066987306, -0.25, -2.3, 0.066987306, -0.25, -2.3, 0.9330127, 0.25, -3.3, 0.9330127, 0.25)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.5, -0.8660254)
+has_thickness = true
+thickness_mm = 80.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_7g5cb"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_20mm_60deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-2.1, 0.25, -0.43301272, -1.1, 0.25, -0.43301272, -1.1, 0.75, 0.43301272, -2.1, 0.75, 0.43301272)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.86602545, -0.49999997)
+has_thickness = true
+thickness_mm = 20.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_tpesg"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_40mm_60deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-2.1, 0.25, -0.43301272, -1.1, 0.25, -0.43301272, -1.1, 0.75, 0.43301272, -2.1, 0.75, 0.43301272)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.86602545, -0.49999997)
+has_thickness = true
+thickness_mm = 40.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_60agq"]
+script = ExtResource("1_wpjtu")
+id = "test_panel_80mm_60deg"
+plate_group_id = "test_panels"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-2.1, 0.25, -0.43301272, -1.1, 0.25, -0.43301272, -1.1, 0.75, 0.43301272, -2.1, 0.75, 0.43301272)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.86602545, -0.49999997)
+has_thickness = true
+thickness_mm = 80.0
+material_kind = "rolled"
+geometry_status = "estimated"
+thickness_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_d08nb"]
+script = ExtResource("4_e1ar0")
+id = "hull"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 20)
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[resource]
+script = ExtResource("5_ayj1f")
+id = "test_armor_panels"
+display_name = "TEST ONLY: armor panel fixture (dev fixture, no historical basis)"
+parts = Array[ExtResource("4_e1ar0")]([SubResource("Resource_d08nb")])
+armor_patches = Array[ExtResource("1_wpjtu")]([SubResource("Resource_dwoq0"), SubResource("Resource_52fha"), SubResource("Resource_fjts1"), SubResource("Resource_sex0p"), SubResource("Resource_wnatq"), SubResource("Resource_pkm6q"), SubResource("Resource_7g5cb"), SubResource("Resource_tpesg"), SubResource("Resource_60agq")])
