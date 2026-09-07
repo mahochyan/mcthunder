@@ -73,7 +73,7 @@
 | R3-A 身份验证 | 意图射线选中改用 collider 身份验证（独立查询，与生产同 mask/exclude），distance<2 仅辅助；T002-03a 与 001 遮挡前提均升级为 collider 验证 | 同上 |
 | R3-C 证据 | 新源码 SHA 双分辨率独立目录 `docs/evidence/002-R3/5232261…/{1280x720,1920x1080}` + manifest（实际宽高+SHA256+场景+命令+源码 SHA）；旧变异/旧失败负例未重跑未改标 | `logs/002-R3/evidence_manifest.txt`、`autoshot_R3_720p.log`、`autoshot_R3_1080p.log` |
 | R3-D 文档勘误 | DELIVERY_002_R2.md 追加勘误：证据目录名=源码 SHA，存储证据的提交号不同（源码 96f199b / 证据 b6eec1c / 最终回归 db24e43） | `docs/DELIVERY_002_R2.md` |
-| R2-D 规划包 | 继续 BLOCKED_TRANSFER（需人工下载 ZIP 提供本地路径，不阻塞本单） | `docs/DELIVERY_002_R3.md` |
+| R2-D 规划包 | ✔ 已装配（002-R3 收尾后人工转存）：完整交接包 55 文件全部到位（MASTER_PLAN/WO002 与本地 SHA256 一致未覆盖；其余补齐），review/ 与 source/（原 ZIP 字节备份）归档 docs/planning/；TASK_STATUS/NEXT_CODEX/TEST_MATRIX 为最初计划仅存档不执行；README_先看这里.txt 合并版含装配记录 | `docs/planning/`、`docs/DELIVERY_002_R3.md` |
 
 ## 002 收尾（GPT 关闭瞄准阻断后签发，2026-09）
 

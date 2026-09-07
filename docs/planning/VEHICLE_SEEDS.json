@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "kind": "design_seeds_not_runtime_config",
+  "status": "proposed_not_implemented_not_balanced",
+  "note": "架空游戏初值；厚度是主区域示意，不能替代完整装甲面/内构布局。002不修改为这些数值，020以实际演示调参。",
+  "units": {
+    "speed": "m/s",
+    "armor": "mm",
+    "penetration": "mm",
+    "angles": "degree",
+    "reload": "s"
+  },
+  "vehicles": [
+    {
+      "id": "scout_01",
+      "role": "轻型侦察",
+      "speed_forward": 12,
+      "speed_reverse": 5,
+      "turret_speed": 45,
+      "gun_yaw_limit": 180,
+      "reload": 2.4,
+      "armor_front_seed": 25,
+      "armor_side_seed": 15,
+      "armor_rear_seed": 12,
+      "ap_pen_seed_at_100m": 60,
+      "ammo_capacity": 36
+    },
+    {
+      "id": "medium_01",
+      "role": "均衡中型",
+      "speed_forward": 8,
+      "speed_reverse": 3,
+      "turret_speed": 35,
+      "gun_yaw_limit": 180,
+      "reload": 3.0,
+      "armor_front_seed": 50,
+      "armor_side_seed": 30,
+      "armor_rear_seed": 20,
+      "ap_pen_seed_at_100m": 90,
+      "ammo_capacity": 30
+    },
+    {
+      "id": "heavy_01",
+      "role": "重型突击",
+      "speed_forward": 5.5,
+      "speed_reverse": 2.5,
+      "turret_speed": 20,
+      "gun_yaw_limit": 180,
+      "reload": 4.2,
+      "armor_front_seed": 85,
+      "armor_side_seed": 45,
+      "armor_rear_seed": 30,
+      "ap_pen_seed_at_100m": 105,
+      "ammo_capacity": 24
+    },
+    {
+      "id": "destroyer_01",
+      "role": "固定战斗室歼击",
+      "speed_forward": 7,
+      "speed_reverse": 3,
+      "turret_speed": 18,
+      "gun_yaw_limit": 12,
+      "reload": 3.8,
+      "armor_front_seed": 70,
+      "armor_side_seed": 20,
+      "armor_rear_seed": 15,
+      "ap_pen_seed_at_100m": 120,
+      "ammo_capacity": 24
+    }
+  ],
+  "validation_notes": [
+    "全部定义需补有限装甲面、炮口和模块局部坐标，不能只用前侧后标签结算。",
+    "APHE初始穿深系数0.8；不是真实弹药数据。",
+    "测试脚本冷却期应读取车型配置；保留001冷却限制不变量而不是永久写死2秒。"
+  ]
+}

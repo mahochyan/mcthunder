@@ -1,0 +1,283 @@
+{
+  "package": "mcthunder_v1_execution_plan",
+  "date": "2026-09-07",
+  "work_order_count": 35,
+  "automated_or_integration_test_targets": 156,
+  "manual_or_graphical_test_targets": 39,
+  "all_test_targets_status": "NOT_RUN",
+  "contains_game_code": false,
+  "contains_game_binary": false,
+  "repository_modified": false,
+  "files": [
+    {
+      "path": "docs/planning/.gdignore",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "docs/planning/ALL_WORK_ORDERS.md",
+      "bytes": 138057,
+      "sha256": "f082042f972b561166d7c85566dd44de7181dde48b003bb96cdc0d8e54e422ee"
+    },
+    {
+      "path": "docs/planning/ARCHITECTURE_CONTRACTS.md",
+      "bytes": 5805,
+      "sha256": "1192135085f13b94baa28c390b8159493b23f0459545958c3efa75f0018308dc"
+    },
+    {
+      "path": "docs/planning/DECISIONS_AND_CUTS.md",
+      "bytes": 1307,
+      "sha256": "b9375145aa0d711101b0c5470768b8d05f3525d75ade52a401b70e30776b0246"
+    },
+    {
+      "path": "docs/planning/EXECUTION_PROTOCOL.md",
+      "bytes": 5476,
+      "sha256": "a25270f78c66116ead3ca1abc0815d1d2d14da461960bbdda07c8ba5128fdb85"
+    },
+    {
+      "path": "docs/planning/GAME_RULES.md",
+      "bytes": 9630,
+      "sha256": "b0212c76a0a6a12d3944c1b6a7da0ffbf9e1b54f6758bcaea1f1ebbf6b46a263"
+    },
+    {
+      "path": "docs/planning/MASTER_PLAN.md",
+      "bytes": 13190,
+      "sha256": "f8c1749618259bd4664f2ac2c3f1a07fcb5a5085c5998f9b2e8c2c6e406c4e35"
+    },
+    {
+      "path": "docs/planning/NEXT_CODEX_MESSAGE.txt",
+      "bytes": 1639,
+      "sha256": "064d1208540cf4c18b6676de4d41d90d365a1b157aa6a29b48d20fde1641aa75"
+    },
+    {
+      "path": "docs/planning/README_先看这里.txt",
+      "bytes": 1397,
+      "sha256": "1cf01e9c611da0c39c86829d9180a6ea4d2460f57300c3cd89981844593ffe11"
+    },
+    {
+      "path": "docs/planning/RELEASE_CHECKLIST.md",
+      "bytes": 2515,
+      "sha256": "45d95ddd194d0be54ccc2bd3192626f18550f227fb00c600bd69d51d844f4f1b"
+    },
+    {
+      "path": "docs/planning/SOURCE_NOTES.md",
+      "bytes": 2262,
+      "sha256": "ae2086904bf796b61bae9a2f6a3ffb50ad9c270007ece793c2ff07d76870a60d"
+    },
+    {
+      "path": "docs/planning/TASK_STATUS.json",
+      "bytes": 12823,
+      "sha256": "802bb7c3f19ac41efb88f142051d77511779516760d173505811c8da22f63e2a"
+    },
+    {
+      "path": "docs/planning/TEST_MATRIX.md",
+      "bytes": 25120,
+      "sha256": "373e0fadadf7fdb5c76c6abe067e826ae6359deb61c6069731433ef1fab4e72c"
+    },
+    {
+      "path": "docs/planning/VEHICLE_SEEDS.json",
+      "bytes": 2126,
+      "sha256": "1d6228f2a53cf717bd74dfd77ffda5e9ce6d79903dd1facd6f536d2b8b404738"
+    },
+    {
+      "path": "docs/planning/reference/PixelArmor_Codex_Work_Order_001.txt",
+      "bytes": 7893,
+      "sha256": "0dc9873c7dd37cb733b2fd98984ad996fd4c18c54857555b61b29d0d06a41224"
+    },
+    {
+      "path": "docs/planning/templates/AGENTS_ADDENDUM.md",
+      "bytes": 767,
+      "sha256": "cb8324cdedda12b230e9911de62e090cd5d62a7ca179b651d9c5e4ca768e2880"
+    },
+    {
+      "path": "docs/planning/templates/BUG_REPORT_TEMPLATE.md",
+      "bytes": 534,
+      "sha256": "5d90ba5a270eb1cf919d7d12550bab3bcfeac02ca55c5a66186a3e8cb9f21842"
+    },
+    {
+      "path": "docs/planning/templates/DELIVERY_TEMPLATE.md",
+      "bytes": 1026,
+      "sha256": "d454a4f091187f27cdd047b5c00ba4985488c9d221d5771afb815b77d5d40bb2"
+    },
+    {
+      "path": "docs/planning/templates/SIGNOFF_TEMPLATE.md",
+      "bytes": 516,
+      "sha256": "ea1617e9d6666bb45df21f1c86a07f1bff2f632977b429a60e40692b1a997e77"
+    },
+    {
+      "path": "docs/planning/work_orders/WO002.md",
+      "bytes": 5197,
+      "sha256": "65f1bf99f8ee44e3ef5e58e2df703ec0df489549ccb006affe9321c6c6d78014"
+    },
+    {
+      "path": "docs/planning/work_orders/WO003.md",
+      "bytes": 4416,
+      "sha256": "bc9a3c389eb9b6db2c728054059611b238d88dc2552fc0b8a5e63d2784d2f51d"
+    },
+    {
+      "path": "docs/planning/work_orders/WO004.md",
+      "bytes": 4012,
+      "sha256": "943b170be0617b9605e00ec36ab936d231b29ef697a9dfa2ccbb57a2adfdcc79"
+    },
+    {
+      "path": "docs/planning/work_orders/WO005.md",
+      "bytes": 4064,
+      "sha256": "e9f398338737ad1916c888ae1d3d4bd68ebf77c93bd0b3f63fc48a9993f909d2"
+    },
+    {
+      "path": "docs/planning/work_orders/WO006.md",
+      "bytes": 4127,
+      "sha256": "f1cbb1d19a2cdd67ef5b4dd34c0db5b98a3200af5279696a4b1df502aace1b7d"
+    },
+    {
+      "path": "docs/planning/work_orders/WO007.md",
+      "bytes": 4051,
+      "sha256": "029a63b1ee196c1934afdedd20125170d5c3febaa9e6b79e957309f393855341"
+    },
+    {
+      "path": "docs/planning/work_orders/WO008.md",
+      "bytes": 4199,
+      "sha256": "690c95c46b04bc199471d97fb2f449bda08fee0d29dd7cfa5d578347c46a1fe9"
+    },
+    {
+      "path": "docs/planning/work_orders/WO009.md",
+      "bytes": 4374,
+      "sha256": "98b721dd67ed4661dd850046c8ab9830f905f2d9d58ea6caa4367f5f4a032271"
+    },
+    {
+      "path": "docs/planning/work_orders/WO010.md",
+      "bytes": 3862,
+      "sha256": "a0f12395fa46170925e7e68ea05f30e16fa047a0677e4019191021ee36ace45c"
+    },
+    {
+      "path": "docs/planning/work_orders/WO011.md",
+      "bytes": 3971,
+      "sha256": "895e620a370c3b1a6990b84cb0ebe5568cd023d9258d704a7fa38c5283e0930d"
+    },
+    {
+      "path": "docs/planning/work_orders/WO012.md",
+      "bytes": 3626,
+      "sha256": "9bd88d7673f4b33434ccda1208220f7dcef015d011a8235d9a20a7de8e6402eb"
+    },
+    {
+      "path": "docs/planning/work_orders/WO013.md",
+      "bytes": 3729,
+      "sha256": "920200cc65ac33c3a8d12842a8044908c5046caa687462b6712915a9d4cbb765"
+    },
+    {
+      "path": "docs/planning/work_orders/WO014.md",
+      "bytes": 3895,
+      "sha256": "8d97c8fb4b43b85f8aa50b7f88206266f16f091d942d9c48445f004da4cb0e7c"
+    },
+    {
+      "path": "docs/planning/work_orders/WO015.md",
+      "bytes": 3649,
+      "sha256": "133f2c959970134b6274ee7b5d82805637fc0d444b54564797fb46e2a431d467"
+    },
+    {
+      "path": "docs/planning/work_orders/WO016.md",
+      "bytes": 4156,
+      "sha256": "b3d1566b27c4448a35fe6157b07018baba7d99d46a0a6d7d70ad7de5ed4882cd"
+    },
+    {
+      "path": "docs/planning/work_orders/WO017.md",
+      "bytes": 3560,
+      "sha256": "76257554a293dc0c95cb000f5219cd5d34e7575bdba834f064a06d8ab517ddc8"
+    },
+    {
+      "path": "docs/planning/work_orders/WO018.md",
+      "bytes": 3649,
+      "sha256": "04555f370ef8c2486a96957b2261f632bec4350022194025c68d573959ff45aa"
+    },
+    {
+      "path": "docs/planning/work_orders/WO019.md",
+      "bytes": 3933,
+      "sha256": "44b2b59a767aaa29cf24a2b6dd1b5679e66cfe1341ccc0dc978bd573241f0edc"
+    },
+    {
+      "path": "docs/planning/work_orders/WO020.md",
+      "bytes": 3897,
+      "sha256": "a0d8ce2b02433ae11734f871df0f3a72f2f5d0bc6fc69316a064074b04534d20"
+    },
+    {
+      "path": "docs/planning/work_orders/WO021.md",
+      "bytes": 4035,
+      "sha256": "bb0b7be1514c85800147ab59e2ba4ecc39bb4f0be63a4d7b4ee8ec001afe401e"
+    },
+    {
+      "path": "docs/planning/work_orders/WO022.md",
+      "bytes": 3784,
+      "sha256": "40a6ef396b7ddb339e61d167970b59df6fb0f2ff2be6f426c4e08c399761141e"
+    },
+    {
+      "path": "docs/planning/work_orders/WO023.md",
+      "bytes": 3461,
+      "sha256": "194654ef4bc72ab466262a13433d6f1e511f3c18578ae6166cceadc0bbf68212"
+    },
+    {
+      "path": "docs/planning/work_orders/WO024.md",
+      "bytes": 3687,
+      "sha256": "ae7f880cc38ce43065cadc51f2a98eb1fbd03139da0047ac52ebc4fe396a381d"
+    },
+    {
+      "path": "docs/planning/work_orders/WO025.md",
+      "bytes": 3903,
+      "sha256": "42a1bdf71e8e485dbf0585c7c10d3c664e387b170c515a5e97e9da160778f0a9"
+    },
+    {
+      "path": "docs/planning/work_orders/WO026.md",
+      "bytes": 3632,
+      "sha256": "7446351a64e51f940b1d569dba1c22eba7d8623ccf5a047c3e2fb0939436e00e"
+    },
+    {
+      "path": "docs/planning/work_orders/WO027.md",
+      "bytes": 3960,
+      "sha256": "4e05bf50db0b2b722f1cf64b5ec255906561020d214dd32eb32529fcf1012124"
+    },
+    {
+      "path": "docs/planning/work_orders/WO028.md",
+      "bytes": 3652,
+      "sha256": "263deebdf278b2f26e5182dc8d59d878ebad37e0bef25604e6d0848d4dbcd211"
+    },
+    {
+      "path": "docs/planning/work_orders/WO029.md",
+      "bytes": 4018,
+      "sha256": "f392a2467d5a33b964feb96b7cb5ceb3a5ed807f6186678ccb8d25a1174d125b"
+    },
+    {
+      "path": "docs/planning/work_orders/WO030.md",
+      "bytes": 3784,
+      "sha256": "635684a1cdc0049ca47d44efc89d9693938ee3b295887cfdda81f78b44d8a84b"
+    },
+    {
+      "path": "docs/planning/work_orders/WO031.md",
+      "bytes": 4028,
+      "sha256": "51f022b3ee00e2b23397f9bd34d9d0bea0964563db5c8978f011ebc2daf9fafb"
+    },
+    {
+      "path": "docs/planning/work_orders/WO032.md",
+      "bytes": 3755,
+      "sha256": "1ac6ff285ba8f7dd50e2e783e847e260812332c5baab19cf6db725a0b222facf"
+    },
+    {
+      "path": "docs/planning/work_orders/WO033.md",
+      "bytes": 3960,
+      "sha256": "d88c3c9e74ec56ca052b3714f733c3412759789ce156e6f248065efaa2a9f1a6"
+    },
+    {
+      "path": "docs/planning/work_orders/WO034.md",
+      "bytes": 3826,
+      "sha256": "2bacf0176f051ee8c528aa25c9a20dbbd3c42ee476b536ce1ee527effe9925dd"
+    },
+    {
+      "path": "docs/planning/work_orders/WO035.md",
+      "bytes": 3939,
+      "sha256": "c2b1d52f3693ff2177e841d0648a30f8072978f453f2d6cae41c2018863cc47c"
+    },
+    {
+      "path": "docs/planning/work_orders/WO036.md",
+      "bytes": 3906,
+      "sha256": "910d8741eea397d207605164aa0771ea062a70bbf4b502bd571b9d8a3364cb32"
+    }
+  ]
+}

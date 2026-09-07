@@ -130,3 +130,16 @@ GPT 独立数学复核：本工程炮管 -Z 前向、右手系、无镜像 → �
   真人未做项目一律 NOT_RUN，不代签；
 - 试玩候选：`work/002-baseline @ a412494`（与 002-R3 被审代码一致，收尾仅改测试）；
 - 规划包：继续 BLOCKED_TRANSFER（需真人下载对话附件 ZIP 提供本地路径）；
+
+### 规划包装配（002-R3 收尾后，人工转存完成）
+
+- 真人已将 `MCTHUNDER_002_R2_Handoff.zip` 转存至 `order/` 并告知路径；
+- 解压到临时目录校验后装配：`docs/planning/` 55 个文件全部到位（MASTER_PLAN.md、
+  WO002.md 与本地已有版本 SHA256 一致，未覆盖改动；其余为补齐）；
+  `review/`（审核记录 4 件）与 `source/`（原 ZIP 字节备份）归档至 `docs/planning/`；
+- 逐文件 SHA256 与解压内容核对：55/55 一致、0 差异（README_先看这里.txt 为合并版，
+  保留官方原版 + 原缺口记录 + 002-R2 更正 + 装配记录）；
+- `TASK_STATUS.json`、`NEXT_CODEX_MESSAGE.txt`、`TEST_MATRIX.md` 为**最初计划**，
+  仅存档不执行（NEXT_CODEX_MESSAGE 与 order/ 旧授权一致）；当前进度以
+  `docs/QA_BASELINE_002.md` 与 `docs/DELIVERY_*.md` 为准；
+- 当前授权：`review/WO002-R2.txt` 为唯一新增授权；003 未授权、不合并 main。

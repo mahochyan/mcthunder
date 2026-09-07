@@ -1,0 +1,14 @@
+{
+  "source_archive": "MCTHUNDER_Full_Development_Plan_002-036.zip",
+  "source_archive_sha256": "e9063a6b7bec7a3ccf074b0138dd9db7388415d3a7eac3246f730cfed4b42458",
+  "zip_crc_check": "PASS",
+  "file_count": 55,
+  "manifest_entries_checked": 54,
+  "manifest_checks": "PASS",
+  "work_order_count": 35,
+  "repository_write_attempt": "403; no branch created; no repository changes made",
+  "reviewed_source_sha": "f87de0e9a9f060e3903083f4b52b2eebee9f162f",
+  "reviewed_delivery_sha": "7e658bc684e9700082891960177b100a3c7a71b3",
+  "godot_run_by_reviewer": false,
+  "png_visual_review_by_reviewer": false
+}
