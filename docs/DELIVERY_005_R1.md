@@ -101,3 +101,77 @@
 
 - 历史装甲厚度目视核验（保持 UNKNOWN）；7 张史料原页转送 ChatGPT；真人体验验收（最迟 011 前）。
 - 面板车辆过滤 B 时模块行仍显示（调试候选语义，按设计）。
+
+---
+
+# 8. 005-R1 有限收尾（2026-09-07 GPT 裁决：沿用 005-R1、不新开 R2；范围锁定 A/B/C 三项）
+
+> 本收尾追加于 5671401 交付之上；旧内容与旧日志归属不重写、不补造。测试数量变化如实记录
+> （run_query_checks 106→140：新增收尾边界断言；run_checks 209→213：005-F-A 火键门 4 项）。
+
+## 8.1 A 世界接触的边界处理
+
+- `scripts/query/world_query_adapter.gd` 重写为参考实现全语义：`{ok, hit, reason, contact}`；
+  ok=false 明确区分 no_space / invalid_input / invalid_endpoint / invalid_world_result / world_result_out_of_segment
+  （**null 空间 ≠ 有效空间零方向**，各归各的原因码）；
+  `hit_from_inside=true`；contact 含 distance_m / t（clamp）/ point_world / normal_world / normal_known / at_start /
+  at_end / collider / face_index。
+- 经验校准（Godot 4.7.2 本地实跑，非推断）：向内命中（hit_from_inside）返回**射线原点接触、零法线**；
+  整段在盒内行为相同——故无需 intersect_point 兜底；"未取得法线 ≠ 没有墙"。面板旧
+  `world_stop_distance_m` 兼容重建（finite point、t≈0、normal_known=false；负值/超段长 → 明确失败原因码）。
+- 测试（`_finale_cases`/`_finale_panel_cases`）：普通命中 t/法线/at_start；内起点（distance≈0、t≈0、法线未知）；
+  整段在墙盒内（面板 rows==1 世界行 ~0m；墙远离车辆防物理推挤）；墙移除后自动重跑清空。
+
+## 8.2 B 查询快照的采样时点
+
+- 面板提交模型收紧：`run_query` 只冻结输入（from/to/seg_length/vehicle_filter/include_modules/include_crew），
+  下一物理帧统一采样当前快照 + 世界接触并执行；完成时不重采样。
+- 姿态签名 `_pose_hash_of(实际参与快照, _wall_version)`：B 筛选下移动 A → 不 STALE；只转 B 炮塔 → STALE；
+  重跑后清除。实测发现：B 炮塔 rig 自带相机跟随（每帧向瞄点收敛），测试里旋转后必须断开
+  `turret_rig.cam_rig` 才能保持旋转姿态（否则签名持续漂移、STALE 永不消除）。
+- 时点测试：提交后、执行前 `+=` 移动 B → 结果只用执行时快照（B 移出 → 仅 A 事件 0.424m）；
+  提交后切换筛选框不改变已提交请求（仍按 B 执行）。
+
+## 8.3 C 统一排序
+
+- 服务是**唯一**排序方：结果 `ordered_contacts` = 全部事件 + 最近世界接触（世界行补
+  entity_id/part_id/surface_id="world_contact"）；`event_less` 严格距离序（da≠db 先比距离，再 event_key 确定性
+  tie-break）；`event_key` 以 kind+entity+life+part+surface/module/crew+event_type 为身份。面板**只读不排序**，
+  `_merged_from_result` 直接取 ordered_contacts；容差分组只许在排序后（显示层）。
+- 服务健壮性：`_first_invalid_part` 用 LayoutMath.is_rigid（零/非正交基拒绝）；盒收集失败 → 诊断 + complete=false。
+- 测试：6 置换同距稳定序；完全同距（5.0==5.0）身份序确定性；世界行 6.5m 中段插入（前驱 ≤ 6.5 < 后继）；
+  选择器政策不变——墙 4.9 严格先于装甲面 5.0 → world、墙 6.5 严格后于装甲面 5.0 → vehicle、同距 → world（TIE_EPS）。
+
+## 8.4 被测源码与测试结果（真实命令 + 实际输出；全部在 fde3924 上运行）
+
+被测源码 SHA：**`fde3924`**（6 文件：gunner/query_debug_panel/shot_query_service/world_query_adapter + run_checks + run_query_checks）。
+
+命令（Godot 4.7.2-stable console，`Start-Process -Redirect*` 实跑；`--headless -s` 异步退出使进程 ExitCode
+打印为空——框架既有特征，以 PASS 标记与结果行为准；日志见 `logs/005-R1/fde3924/`）：
+
+| 命令 | 实际结果 |
+|---|---|
+| `Godot_v4.7.2-stable_win64_console.exe --headless --path <工程根> -s res://tests/run_query_checks.gd` | `=== 结果: 140 项检查, 0 失败 ===` / QUERY_CHECKS_PASS |
+| `... -s res://tests/run_checks.gd` | `=== 结果: 213 项检查, 0 失败 ===` / CHECKS_PASS |
+| `... -s res://tests/run_layout_checks.gd` | `=== 结果: 123 项检查, 0 失败 ===` / LAYOUT_CHECKS_PASS |
+| `... --resolution 1280x720 -- --query-demo --shot-dir docs/evidence/005-R1/fde3924/1280x720`（真实窗口） | `done: shots_saved=6 errors=0`；run1 events=3 first=6.49m（B）；run2 world=5.09m 先于 armor=6.57m；ammo/task untouched |
+| `... --resolution 1920x1080 -- --query-demo --shot-dir docs/evidence/005-R1/fde3924/1920x1080`（真实窗口） | `done: shots_saved=6 errors=0`；同上 |
+
+三套件 .err 与两个 demo .err：SCRIPT ERROR 计数全部为 0（扫描记录在日志文件）。
+截图：`docs/evidence/005-R1/fde3924/{1280x720,1920x1080}/query_debug_{1..6}.png`——仅受影响画面重拍
+（面板列表 = 世界接触行/统一排序/时点行为的唯一显示载体），未重拍 001-004 旧截图；像素校验尺寸正确、
+mean_luma 106..165（非空白真渲染帧）。
+
+**未验证项（如实声明）**：本会话模型不可读图，无窗口内逐像素目视比对（以 demo 断言链 + 像素统计代替）；
+B 时点与整段在墙盒内属无头自动检查覆盖（140 项含），无新增静态截图。
+
+## 8.5 提交链（源码 / 证据 / 交付 HEAD 各自独立）
+
+- 源码 SHA：`fde3924`（005-R1 收尾 A/B/C 实现 + 测试）
+- 证据提交：`b7d6d56`（logs/005-R1/fde3924/ + docs/evidence/005-R1/fde3924/ 共 12 张截图）
+- 交付 HEAD：本文件所在提交（追加链 eafdcf0 → fde3924 → b7d6d56 → 交付，链尾即交付 HEAD；
+  见 `git log --oneline -4`；未 merge main、覆盖前未强推）
+
+## 8.6 保留项（不变）
+
+- 历史装甲厚度 UNKNOWN；7 张史料原页人工转送；真人体验验收（最迟 011）；面板 B 筛选下模块行仍显示。
