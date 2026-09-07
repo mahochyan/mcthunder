@@ -11,6 +11,8 @@ extends Node3D
 var tank: TankVehicle = null
 var turret: TurretRig = null
 var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
+var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
+var shot_id := 0                      # 003-R1：本实体射击编号（每发 +1，命中事件携带）
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
@@ -87,7 +89,8 @@ func try_fire() -> bool:
 		end = ghit.position
 		var col: Object = ghit.collider
 		if col != null and col.has_method("register_hit"):
-			col.register_hit()
+			shot_id += 1   # 003-R1：射击编号（命中事件携带；同一发只投递一次）
+			col.register_hit(shooter_id, shot_id)
 			hit_vehicle = true
 	last_shot_result = "hit" if hit_vehicle else "miss"
 	_spawn_tracer(muz, end)

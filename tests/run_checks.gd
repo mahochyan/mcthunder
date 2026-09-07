@@ -862,6 +862,72 @@ func _run() -> void:
 	var pts_after: Array = gunner.tracer_points()
 	_ok(pts_after.size() == 2 and pts_after[0].distance_to(pts_before[0]) < 0.01 and pts_after[1].distance_to(pts_before[1]) < 0.01, "T003-08 旧示踪线不随车辆运动拖动")
 
+	# --- T003-09（003-R1）：真实任务闭环——射手/射击编号/轮次；正常输入链路 ---
+	# C 射击 B：B 可被命中，但不能替 A 得分
+	var c2: VehicleActor = main.spawn_vehicle("player_tank", "C2", Vector3(8, 0, 6))
+	_ok(c2 != null, "T003-09 C2 实体生成")
+	c2.set_physics_process(false)
+	var cmd_aim_c := VehicleCommand.new()
+	cmd_aim_c.has_aim_point = true
+	cmd_aim_c.aim_world_point = main.actor_b.tank.global_position + Vector3(0, 1.0, 0)
+	for i in 30:
+		c2.apply_command(cmd_aim_c, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	var b_hits0_c2: int = main.actor_b.tank.hits_taken
+	var t_hits0: int = main.trial_hits
+	var cmd_fire_c := VehicleCommand.new()
+	cmd_fire_c.fire_requested = true
+	c2.apply_command(cmd_fire_c, 1.0 / Engine.physics_ticks_per_second)
+	_ok(main.actor_b.tank.hits_taken == b_hits0_c2 + 1, "T003-09 C 射击 B 可命中 (b_hits=%d)" % main.actor_b.tank.hits_taken)
+	_ok(main.trial_hits == t_hits0, "T003-09 C 命中不替 A 得分 (trial=%d)" % main.trial_hits)
+	main.despawn_vehicle(c2)
+	for i in 3:
+		await physics_frame
+	# 同一射击编号重复投递不重复计分
+	var h1: int = main.trial_hits
+	main._on_b_hit("A", 999001)
+	_ok(main.trial_hits == h1 + 1, "T003-09 新射击编号推进 (trial=%d)" % main.trial_hits)
+	main._on_b_hit("A", 999001)
+	_ok(main.trial_hits == h1 + 1, "T003-09 同一射击编号重复投递不重复计分 (trial=%d)" % main.trial_hits)
+	# 重开后旧射击编号无效（轮次递增）
+	main._reset_all()
+	var h2: int = main.trial_hits
+	main._on_b_hit("A", 999001)
+	_ok(main.trial_hits == h2, "T003-09 重开后旧轮次射击编号无效 (trial=%d)" % main.trial_hits)
+	# 正常输入链路：Input 开火 → 命令入口 → 真实命中 → 自然装填 → 推进（不清零冷却）
+	main._reset_all()
+	var d_ab9: Vector3 = main.actor_b.tank.global_position - main.actor_a.tank.global_position
+	main.cam_rig.aim_yaw = atan2(-d_ab9.x, -d_ab9.z)
+	await process_frame
+	await process_frame
+	var cam9: Vector3 = main.actor_a.cam_rig.cam.global_position
+	var b_center9: Vector3 = main.actor_b.tank.global_position + Vector3(0, 1.0, 0)
+	var horiz9: float = Vector3(cam9.x - b_center9.x, 0, cam9.z - b_center9.z).length()
+	main.cam_rig.aim_pitch = atan2(1.0 - cam9.y, horiz9)
+	await process_frame
+	turret_snap(main)
+	await physics_frame
+	await physics_frame
+	var t0: int = main.trial_hits
+	Input.action_press("fire")
+	for i in 2:
+		await physics_frame
+	Input.action_release("fire")
+	_ok(main.trial_hits == t0 + 1, "T003-09 正常输入链路真实命中推进 (trial=%d)" % main.trial_hits)
+	# 自然装填等待（不清零冷却）
+	while main.actor_a.gunner.cooldown_left > 0.0:
+		await physics_frame
+	Input.action_press("fire")
+	for i in 2:
+		await physics_frame
+	Input.action_release("fire")
+	_ok(main.trial_hits == t0 + 2, "T003-09 自然装填后第二次命中推进 (trial=%d)" % main.trial_hits)
+	# 真实 R 事件重开（整场重开，计数归零）
+	_key(KEY_R)
+	await process_frame
+	await process_frame
+	_ok(main.trial_hits == 0, "T003-09 真实 R 事件整场重开归零 (trial=%d)" % main.trial_hits)
+
 	_finish()
 
 func turret_snap(main) -> void:

@@ -41,7 +41,8 @@ func _ready() -> void:
 	_board_mesh.position = Vector3(0, 1.9, 0)
 	add_child(_board_mesh)
 
-func register_hit() -> void:
+func register_hit(_shooter_id: String = "", _shot_id: int = 0) -> void:
+	# 003-R1：接受 gunner 统一命中调用（射手/射击编号参数；靶板不消费）
 	hit_count += 1
 	_flash_left = FLASH_TIME
 

@@ -12,7 +12,7 @@ var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层�
 var hits_taken := 0           # 003：被命中计数（试射目标计数来源；无装甲/伤害判定）
 var defs: VehicleDefinition = null   # 003-R1：由 VehicleActor 注入——驾驶参数唯一来源（null 时回退 GameConfig 常量）
 
-signal hit_registered        # 003：真实生产命中事件（register_hit 每发只触发一次）
+signal hit_registered(shooter_id: String, shot_id: int)   # 003-R1：真实生产命中事件（射手/射击编号；每发只触发一次）
 
 func _ready() -> void:
 	collision_layer = GameConfig.LAYER_VEHICLE
@@ -93,10 +93,11 @@ func set_spawn(t: Transform3D) -> void:
 	# 003：由 VehicleActor 在装配后记录真实出生点（reset 回到该点）
 	_spawn = t
 
-func register_hit() -> void:
+func register_hit(shooter_id: String, shot_id: int) -> void:
 	# 003：真实生产命中事件（由 gunner 命中结算调用；每发只调一次）
+	# 003-R1：携带射手与射击编号——任务只接受当前轮次唯一 A→B 命中
 	hits_taken += 1
-	hit_registered.emit()
+	hit_registered.emit(shooter_id, shot_id)
 
 func reset() -> void:
 	transform = _spawn

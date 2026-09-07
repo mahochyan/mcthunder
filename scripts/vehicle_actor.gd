@@ -10,6 +10,7 @@ var definition: VehicleDefinition
 var weapon: WeaponDefinition
 var shell: ShellDefinition
 var state: VehicleRuntimeState
+var entity_id := ""   # 003-R1：实体标识（HUD 提示/命中事件来源）
 var tank: TankVehicle
 var turret: TurretRig
 var cam_rig: CameraRig
@@ -30,6 +31,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	state.entity_id = entity_id
 	state.team_id = team_id
 	state.definition_id = definition.id
+	self.entity_id = entity_id   # 003-R1：实体标识（HUD 提示/命中事件来源）
 	controller = ctrl
 	transform = spawn
 	var ps: PackedScene = load("res://scenes/tank.tscn")
@@ -51,13 +53,15 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	gunner.name = "Gunner"
 	add_child(gunner)
 	gunner.setup(tank, turret, weapon)   # 003-R1：装填/射程唯一来源
+	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
 	process_mode = Node.PROCESS_MODE_PAUSABLE   # 003：暂停时整实体（驱动/武器）冻结
 	tank.process_mode = Node.PROCESS_MODE_PAUSABLE
 	gunner.process_mode = Node.PROCESS_MODE_PAUSABLE
 	set_controller(ctrl)   # 003-R1：统一控制者绑定入口（含相机 current 管理）
 	# 003：A/PLAYER 与 B/TEST TARGET 明确标识（不改共享配置伪造实例状态）
+	# 003-R1：提示来自实际状态（控制者绑定是实际状态，不是写死的标签文字）
 	label3d = Label3D.new()
-	label3d.text = entity_id
+	label3d.text = entity_id + (" (PLAYER)" if controller != null else " (TEST TARGET)")
 	label3d.position = Vector3(0, 2.7, 0)
 	label3d.font_size = 48
 	label3d.outline_size = 10
