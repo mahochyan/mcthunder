@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5t4l0efjmwew"
-path="res://.godot/imported/autoshot_12_sight_sees_b_r1.png-d6b1fb474517cbd34fc15f8f3447ead9.ctex"
+path="res://.godot/imported/autoshot_12_sight_sees_b_r1.png-bdb36e5c53308ed3f6ee6b3ccf40937d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/evidence/003-R2/autoshot_12_sight_sees_b_r1.png"
-dest_files=["res://.godot/imported/autoshot_12_sight_sees_b_r1.png-d6b1fb474517cbd34fc15f8f3447ead9.ctex"]
+source_file="res://docs/evidence/003-R2/81c4698/1280x720/autoshot_12_sight_sees_b_r1.png"
+dest_files=["res://.godot/imported/autoshot_12_sight_sees_b_r1.png-bdb36e5c53308ed3f6ee6b3ccf40937d.ctex"]
 
 [params]
 

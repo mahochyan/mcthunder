@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8w44q0e7hj2s"
-path="res://.godot/imported/autoshot_6_two_vehicles.png-e7c2c31ec7535eaba6d26a8ca02cca4e.ctex"
+uid="uid://4k2cwndc2ykj"
+path="res://.godot/imported/autoshot_8_trial_complete.png-8aa97767202a14c94162f044308f74f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/evidence/003-R2/81c4698/1280x720/autoshot_6_two_vehicles.png"
-dest_files=["res://.godot/imported/autoshot_6_two_vehicles.png-e7c2c31ec7535eaba6d26a8ca02cca4e.ctex"]
+source_file="res://docs/evidence/003-R2/022c3ae/1280x720/autoshot_8_trial_complete.png"
+dest_files=["res://.godot/imported/autoshot_8_trial_complete.png-8aa97767202a14c94162f044308f74f7.ctex"]
 
 [params]
 

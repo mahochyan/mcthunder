@@ -950,6 +950,27 @@ func _run() -> void:
 	await process_frame
 	_ok(main.trial_hits == 0, "T003-09 真实 R 事件整场重开归零 (trial=%d)" % main.trial_hits)
 
+	# --- T003-10（003-R2 收尾）：初始化失败守卫——失焦通知不得访问空 HUD/实体 ---
+	# 程序注入通知验证代码路径（不冒充操作系统级 Alt+Tab 真人测试）
+	var was_aborted: bool = main._aborted
+	var was_inited: bool = main._initialized
+	var paused_before: bool = main._paused
+	# ① 终止态（abort 后）：失焦通知 → 不进入正常暂停、不访问空 HUD（无脚本错误即通过）
+	main._aborted = true
+	main._notification(NOTIFICATION_APPLICATION_FOCUS_OUT)
+	_ok(main._paused == paused_before, "T003-10 失败终止态收失焦通知不进入正常暂停")
+	# ② 初始化中态（未完成初始化）：失焦通知 → 同样被守卫拦截
+	main._aborted = false
+	main._initialized = false
+	main._notification(NOTIFICATION_APPLICATION_FOCUS_OUT)
+	_ok(main._paused == paused_before, "T003-10 初始化未完成态收失焦通知被守卫拦截")
+	# ③ 恢复正常态：失焦自动暂停行为保持（002 行为不回退）
+	main._aborted = was_aborted
+	main._initialized = was_inited
+	main._notification(NOTIFICATION_APPLICATION_FOCUS_OUT)
+	_ok(main._paused, "T003-10 正常态失焦自动暂停保持（002 行为）")
+	main._resume()
+
 	_finish()
 
 func turret_snap(main) -> void:

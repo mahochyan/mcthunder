@@ -22,6 +22,8 @@ var _gate := TrialHitGate.new()   # 003-R2：任务收分唯一来源（轮次/�
 var _paused := false
 var _aborted := false         # 003-R2：启动失败短路标志（true = 停止正常帧/输入处理）
 var _abort_reason := ""
+var _initialized := false     # 003-R2：初始化完成标记（全部成功后才允许正常暂停/恢复/重置）
+var _err_label: Label = null  # 003-R2：abort 错误画面引用（幂等：不重复创建）
 var _autoshot := false
 var _debug_on := false
 var _shot_step := 0
@@ -82,15 +84,24 @@ func _ready() -> void:
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
 	actor_a.gunner.round_provider = Callable(self, "get_round_id")
 	actor_b.gunner.round_provider = Callable(self, "get_round_id")
-	# 003-R2：任务开始——gate 锁定双方身份并推进轮次（唯一来源初始化）
+	# 003-R2：任务开始——gate 锁定双方身份并推进轮次（唯一来源初始化）；
+	# 失败 = 初始化失败，走同一短路（不只打印后继续）
 	if not _gate.begin_round(actor_a.entity_id, actor_a.life_id, actor_b.entity_id, actor_b.life_id, TRIAL_TARGET):
-		push_error("003-R2: task gate init rejected")
+		_abort_initialization("task gate init rejected", ["begin_round rejected: shooter/target identity invalid"])
+		return
 	if not _autoshot and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# 003-R2：全部初始化成功（A/B/HUD/信号/gate）——允许正常暂停/恢复/重置
+	_initialized = true
 
 func _abort_initialization(reason: String, errors: Array) -> void:
-	# 003-R2：启动失败受控短路——关闭正常帧与输入处理、清理本次已建实体、
-	# 显示实际错误；无窗口/截图自检模式以非零码退出（自动验收可见）。
+	# 003-R2：启动失败受控短路——先设终止状态再清理（幂等：重复调用不重复创建错误画面）；
+	# 关闭正常帧与输入处理、清理本次已建实体、显示实际错误；
+	# 无窗口/截图自检模式以非零码退出（自动验收可见）。
+	_initialized = false
+	if _aborted:
+		push_error("003-R2 ABORT (repeat, ignored): %s" % reason)
+		return
 	_aborted = true
 	_abort_reason = reason
 	push_error("003-R2 ABORT: %s: %s" % [reason, ", ".join(errors)])
@@ -104,11 +115,12 @@ func _abort_initialization(reason: String, errors: Array) -> void:
 			c.queue_free()
 	actor_a = null
 	actor_b = null
-	# 可见错误显示（不建正式菜单系统）
-	var err_label := Label.new()
-	err_label.text = "INIT FAILED: %s\n%s" % [reason, "\n".join(errors)]
-	err_label.position = Vector2(40, 40)
-	add_child(err_label)
+	# 可见错误显示（不建正式菜单系统；不依赖正常 HUD——它可能尚未创建）
+	if _err_label == null:
+		_err_label = Label.new()
+		_err_label.text = "INIT FAILED: %s\n%s" % [reason, "\n".join(errors)]
+		_err_label.position = Vector2(40, 40)
+		add_child(_err_label)
 	if DisplayServer.get_name() == "headless" or _autoshot:
 		print("[003-R2] ABORT exit: initialization failed (headless/autoshot)")
 		get_tree().quit(1)   # 非零退出 = 自动验收可见
@@ -149,7 +161,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		_debug_on = not _debug_on
 		hud.set_debug_visible(_debug_on)
 
+func _can_use_gameplay() -> bool:
+	# 003-R2：正常玩法入口统一守卫——初始化完成且未终止、实体与 HUD 有效。
+	# 初始化失败后，失焦通知/暂停/恢复/重置不得再访问正常 HUD 或实体。
+	return (
+		_initialized
+		and not _aborted
+		and is_instance_valid(actor_a)
+		and is_instance_valid(actor_b)
+		and is_instance_valid(hud)
+	)
+
 func _pause() -> void:
+	if not _can_use_gameplay():
+		return
 	if _paused:
 		return
 	_paused = true
@@ -166,6 +191,8 @@ func _pause() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _resume() -> void:
+	if not _can_use_gameplay():
+		return
 	if not _paused:
 		return
 	_paused = false
@@ -187,7 +214,10 @@ func _reset_all() -> void:
 
 func reset_range() -> void:
 	# 003：整场重开——两车 + 靶板 + 试射目标全部复位
-	# 003-R2：先停止接收旧输入（清两车暂存 + 控制者待发 fire 边沿），
+	# 003-R2：统一守卫——初始化失败后不得重置（空实体访问）
+	if not _can_use_gameplay():
+		return
+	# 先停止接收旧输入（清两车暂存 + 控制者待发 fire 边沿），
 	# 推进任务轮次（gate 是轮次/进度的唯一来源，begin_round 清进度与去重集合），
 	# 再复位实体与靶场
 	actor_a.clear_commands()
@@ -209,9 +239,12 @@ func reset_vehicle(actor: VehicleActor) -> void:
 
 func _notification(what: int) -> void:
 	# 窗口失去焦点自动暂停，避免切回后车辆仍在移动
+	# 003-R2：失焦通知与常规帧处理是独立入口——必须单独守卫：
+	# 初始化失败（HUD 未创建/实体已清）后不得进入正常暂停流程访问空对象
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
-		if not _paused and not _autoshot:
-			_pause()
+		if not _can_use_gameplay() or _paused or _autoshot:
+			return
+		_pause()
 
 func _on_b_hit(identity: Dictionary) -> void:
 	# 003-R2：任务收分唯一来源 = _gate（轮次/射手/目标/双方生命周期/去重/完成上限
