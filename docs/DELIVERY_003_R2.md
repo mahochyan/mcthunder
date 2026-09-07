@@ -9,12 +9,14 @@
 
 | 用途 | SHA | 说明 |
 |---|---|---|
-| 被测实现（源码） | 见 `git log dfdcd1a..HEAD` 实现提交 | 四项关闭的代码与测试 |
-| 被测证据（截图/日志） | 见证据提交 | 13 张截图 + autoshot 日志 + 回归/abort 日志 |
+| 被测实现 v1 | `81c4698` | 四项关闭初版（截图已按此 SHA 归档） |
+| 被测实现 v2（最终） | `022c3ae` | 对齐 GPT 指导包参考实现（邮箱合并策略/TrialHitGate/显式暂停清理） |
+| 被测证据（截图/日志） | `de1f094` | 两轮截图按被测 SHA 目录归档 + autoshot/回归/abort 日志 |
 | 交付 HEAD | 见 `git rev-parse HEAD` | 文档提交 |
 
-提交链：`dfdcd1a`（R1 交付）→ 003-R2 实现 → 003-R2 证据 → 003-R2 文档（HEAD）。
-被测版本 = 实现提交（代码+测试同提交）；证据提交与实现提交不同 —— 截图/日志由**实现提交检出**运行产生。
+提交链：`dfdcd1a`（R1 交付）→ `81c4698` 实现 → `dc1d1a1` 证据 → `08874fb` 文档 →
+`7178e2b` uid → `022c3ae` 对齐参考实现 → `de1f094` 证据（SHA 目录）→ 文档（HEAD）。
+最终被测版本 = `022c3ae`；205 项回归与 13 张截图均为该版本时点产出。
 
 ## 2. 四项关闭（对应 GPT 工作单 §二/§三/§四/§五）
 
@@ -56,16 +58,33 @@
 ## 3. 测试与证据
 
 - 无窗口回归：**205 项检查，0 失败，CHECKS_PASS，exit=0**（003-R1 的 200 项行为要求全部保留；新增 5 项 R2 断言：单次物理消费 / 提交不立即执行 / 暂停拒绝提交 / 同名车重建 life_id / 旧轮次迟到事件拒绝——以实测记录为准，日志 `logs/003-R2/checks.log`）。旧测试行为要求未删；不以维持或增加 200 项为目标。
-- 截图自检：`--autoshot` **13/13 张，0 错误，exit=0**，日志 `logs/003-R2/autoshot_1280.log`：
+- 截图自检：`--autoshot` **13/13 张，0 错误，exit=0**，日志 `logs/003-R2/autoshot_1280.log`（两轮被测 SHA 各一套，归档于 `docs/evidence/003-R2/<tested_sha>/1280x720/`）：
   - `autoshot_9_trial_normal_complete.png`：正常输入完整演示（自然瞄准 → Input 开火 ×3 → 自然装填 → TRIAL COMPLETE 3/3；normal trial: trial_hits=3 b_hits=3）——本轮起瞄准为**自然追赶**（无 snap）；
   - `autoshot_10_trial_restarted.png`：真实 R 事件整场重开（TRIAL 0/3）；
   - `autoshot_11/12/13`：演示后两车同框 / 炮镜见 B / HUD；
   - `autoshot_1~8`：002-R1/003 回归画面（R1 版原样保留）。
 - 启动失败验收：`logs/003-R2/abort_check.log`（见 §2③）。
 
-## 4. 与 GPT 技术指导包的关系（如实披露）
+## 4. 与 GPT 技术指导包的对照（已对齐）
 
-GPT 工作单附带技术指导包（`reference/command_mailbox.gd` / `reference/trial_hit_gate.gd`），但桥接端仅保留链接文字、href 丢失，**参考实现未获取**；本交付按工作单文字规格与示意代码实现（`submit_command`/`_physics_process` 结构、事件字段表、`_abort_initialization` 短路结构均按工作单）。已知命名差异：暂存器类名 `CommandMailbox`（工作单示意 `ReviewCommandMailbox`）；无效瞄点处理为"整条拒绝"（工作单示意改为丢弃瞄点标记）。如 GPT 复审要求对照原参考实现，请提供纯文本 URL 或直接贴出两个 .gd 全文，我将逐行对照差异并补改。
+初版（81c4698）按工作单文字规格实现，GPT 随后通过正文提供了两个参考 .gd 全文与
+接入要点；`022c3ae` 已逐项对齐，残余差异仅命名（本地化去掉 Review 前缀）：
+
+| 参考要点 | 本工程落地 |
+|---|---|
+| `ReviewCommandMailbox` 合并策略（同一步多提交：驾驶最新样本 / fire 逻辑或 / 保留显式瞄点） | `CommandMailbox` 同语义 |
+| submit 验证：非有限油门/转向整条拒绝、瞄点非有限拒绝、aim+clear 冲突拒绝 | 同 |
+| `set_blocked()` 供暂停状态切换显式调用（不指望已停止回调自清） | 同；`main._pause/_resume` 显式对两车 `pause_block` + 控制者 `reset_pending()`（`NOTIFICATION_PAUSED` 仅作兜底） |
+| `ReviewTrialHitGate`：轮次/命中数/去重唯一来源，Main 只读 | 新增 `scripts/trial_hit_gate.gd`（`TrialHitGate`）；`main._on_b_hit` → `gate.accept_hit`；`_round_id/_round_shots` 删除 |
+| `begin_round()` 任务开始/整场重开调用（不在单车重置调用） | `_ready` A/B 装配后调用一次；`reset_range()` 调用 |
+| 同一车不得玩家+脚本争抢输入；零命令只在消费时产生 | B 无控制器时不额外提交零命令（consume 无暂存才生成） |
+| 事件字典传独立副本 | `tank.register_hit` emit 前 `duplicate(true)`；`main` 侧 `gate.accept_hit(identity.duplicate(true))` |
+| 演示去 snap + 有限超时 | 已做（§2④） |
+| 截图按被测 SHA 目录 `docs/evidence/003-R2/<tested_sha>/1280x720` | `81c4698/` 与 `022c3ae/` 两轮归档 |
+| 不要访问正常 HUD 显示 HUD 创建前的错误 | `_abort_initialization` 自建 Label（不依赖 hud） |
+
+说明：本工程 gate 校验在"车辆命中事件真实来自生产射击路径"的前提下使用
+（参考实现同此边界）；集成测试的加分路径全部来自真实开火（见 §2②）。
 
 ## 5. NOT_RUN / 保留项
 
