@@ -66,12 +66,16 @@ $bad = $orig.Replace('verification = "unknown"', 'verification = "verified"')
 Set-Content -LiteralPath $cfg -Value $bad -Encoding ascii -NoNewline
 Note "bad config injected into COPY only"
 
-# 6) subprocess: real main scene with the copy as --path (timeout + full output)
-$so = Join-Path $tmp 'stdout.log'; $se = Join-Path $tmp 'stderr.log'
-$p = Start-Process -FilePath $godot -ArgumentList @('--headless', '--path', $proj) -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -NoNewWindow
-if (-not $p.WaitForExit(60000)) { $p.Kill(); Note "FAIL: subprocess TIMEOUT (not a pass)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
-$p.WaitForExit() | Out-Null   # flush exit code (timed overload keeps handle open)
-$code = $p.ExitCode
+# 6) subprocess: real main scene with the copy as --path (timeout + full output + reliable exit code)
+$codeFile = Join-Path $tmp 'exitcode.txt'
+$job = Start-Job -ScriptBlock {
+	param($g, $prj, $so, $se, $codeFile)
+	& $g --headless --path $prj 1> $so 2> $se
+	$LASTEXITCODE | Set-Content -LiteralPath $codeFile -Encoding ascii
+} -ArgumentList $godot, $proj, $so, $se, $codeFile
+if (Wait-Job $job -Timeout 60) { Remove-Job $job -Force } else { Stop-Job $job; Remove-Job $job -Force; Note "FAIL: subprocess TIMEOUT (not a pass)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
+if (-not (Test-Path -LiteralPath $codeFile)) { Note "FAIL: exit code file missing (cannot verify nonzero)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
+$code = (Get-Content -LiteralPath $codeFile -Raw).Trim()
 if ([string]::IsNullOrEmpty($code)) { Note "FAIL: exit code unavailable (cannot verify nonzero)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
 $full = ''
 if (Test-Path $so) { $full += Get-Content $so -Raw }
