@@ -27,6 +27,7 @@ var _abort_reason := ""
 var _initialized := false     # 003-R2：初始化完成标记（全部成功后才允许正常暂停/恢复/重置）
 var _err_label: Label = null  # 003-R2：abort 错误画面引用（幂等：不重复创建）
 var _autoshot := false
+var _inspect_demo := false   # 004-d：--inspect-demo 检视窗口可见证据模式
 var _debug_on := false
 var _shot_step := 0
 var _shot_errors := 0    # 002-R1：截图失败汇总（必需截图失败 → 自检退出码非 0）
@@ -40,6 +41,7 @@ var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_autoshot = OS.get_cmdline_user_args().has("--autoshot")
+	_inspect_demo = OS.get_cmdline_user_args().has("--inspect-demo")   # 004-d：检视窗口可见证据
 	var ua := OS.get_cmdline_user_args()
 	for i in ua.size():
 		if ua[i] == "--shot-dir" and i + 1 < ua.size():
@@ -322,6 +324,69 @@ func _process(_delta: float) -> void:
 	_update_markers()
 	if _autoshot:
 		_autoshot_step()
+	if _inspect_demo:
+		_inspect_demo_step()
+
+func _inspect_demo_step() -> void:
+	# 004-d：检视窗口可见证据模式（-- --inspect-demo）：真实窗口、有限帧、自动退出。
+	# 走真实入口链（暂停菜单按钮信号 → open_vehicle_inspector），不绕过 UI。
+	if _autoshot_wait > 0:
+		_autoshot_wait -= 1
+		return
+	_shot_step += 1
+	match _shot_step:
+		40:
+			_pause()
+		50:
+			_shot("inspect_1_pause_menu.png")   # 暂停菜单含 Vehicle Inspector 按钮
+			hud.inspect_requested.emit()        # 真实信号链（HUD 按钮按下即发此信号）
+		60:
+			if not _inspector_open:
+				_shot_errors += 1
+				printerr("[004-d] FAIL: inspector did not open")
+			_shot("inspect_2_appearance.png")   # 外观模式：低模轮廓+履带+炮管
+			print("[004-d] inspector open=", _inspector_open, " paused=", get_tree().paused, " (应为 true)")
+		70:
+			var pv := _preview_model()
+			if pv != null:
+				pv.set_mode("armor")
+			else:
+				_shot_errors += 1
+				printerr("[004-d] FAIL: preview model not found")
+		75:
+			_shot("inspect_3_armor.png")        # 装甲模式：状态着色+线框
+		80:
+			var pv2 := _preview_model()
+			if pv2 != null:
+				pv2.set_mode("interior")
+		85:
+			_shot("inspect_4_interior.png")     # 内构模式：模块+乘员
+		90:
+			# 选中面片（装甲详情面板内容：未知厚度不得显示 0mm）
+			var pv3 := _preview_model()
+			if pv3 != null:
+				pv3.select_patch("hull_front_upper")
+		95:
+			_shot("inspect_5_details_selected.png")
+			var pv4 := _preview_model()
+			if pv4 != null:
+				pv4.select_patch("")
+		100:
+			if _inspector != null:
+				_inspector.close_requested.emit()   # Back/Esc 同一信号链
+		105:
+			if _inspector_open or not _paused:
+				_shot_errors += 1
+				printerr("[004-d] FAIL: return-to-pause flow broken (open=", _inspector_open, " paused=", get_tree().paused, ")")
+			_shot("inspect_6_back_to_pause.png")   # 返回暂停菜单（游戏仍暂停）
+			print("[004-d] back-to-pause: inspector_open=", _inspector_open, " paused=", get_tree().paused)
+			print("[inspect-demo] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
+			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 6) else 0)
+
+func _preview_model() -> VehiclePreviewModel:
+	if _inspector == null:
+		return null
+	return _inspector._viewport.find_child("PreviewModel", true, false) as VehiclePreviewModel
 
 func _make_marker(sphere: bool, color: Color) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()

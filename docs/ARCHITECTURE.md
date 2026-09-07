@@ -1,4 +1,4 @@
-# PixelArmor 架构说明（003 版）
+# PixelArmor 架构说明（004 版）
 
 > 本文档描述当前获批工作单（003 多车辆基础、数据配置与控制接口）落地后的工程架构。
 > 前序基线见 `docs/DELIVERY_002_R3.md` 与 `docs/QA_BASELINE_002.md`。
@@ -148,3 +148,56 @@ GPT 003-R1 复审：配置驱动/碰撞坐标/射手过滤/自然装填演示**�
 B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车血条）；
 无内构/穿甲/科技树/正式菜单/网络/大量美术。历史车型数据核验自 004 起。
 见 `docs/DELIVERY_003_R1.md`。
+
+## 9. 004 增量：装甲/内构数据层与检视窗口（不接入命中）
+
+### 9.1 布局 schema（scripts/layout/，004-a）
+
+- `VehicleLayoutDefinition`（schema_version=1）：content_tier / historical_identity_id /
+  parts / armor_patches / modules / crew_stations / declared_openings /
+  allowed_overlaps / source_catalog_id / field_evidence_id。
+- `LayoutPartDefinition`：bind_local 刚体变换（无缩放/镜像/剪切）+ joint_kind
+  fixed/yaw/pitch + 限位；`ArmorPatchDefinition`（顶点+三角形，绕向与
+  outward_normal_local 一致；厚度 verified/estimated/unknown 三态——
+  unknown 必须显示"未知"不得显示 0mm）；`ModuleVolumeDefinition`（oriented box +
+  external 标志）；`CrewStationDefinition`（五乘员 role 枚举，无四人模板）。
+- `LayoutMath`（GPT 参考实现逐字采纳）：is_rigid / posed_local（绕部件自身
+  bind 原点旋转+限位 clamp）/ compose_world / box_world_corners。
+- `ArmorPatchMesh`（GPT 参考实现）：几何校验（共面≤0.0001m/单位法线/
+  绕向一致/退化拒绝）、build_surface（Godot 渲染序反转索引，**不翻转历史法线**）、
+  build_wire（PRIMITIVE_LINES——gl_compatibility 无线框 debug）、weld_patches。
+- `LayoutValidator`：三级 errors/warnings/infos + suspicious_overlaps +
+  边缘邻接（T004-04 封闭性：每条无向边恰好两个方向各一次）。
+- `LayoutCatalog`：evidence key 注册表 + load_layout 校验 + 缓存。
+
+### 9.2 历史研究布局（004-b）
+
+- `configs/layouts/us_m4a3_75w_vvss_1944.tres`（tests/m4a3_builder.gd 生成）：
+  hull→turret→gun 层级；根原点=炮塔回转轴接地投影；content_tier=research。
+- 依据链：`docs/vehicles/us_m4a3_75w_vvss_1944/`（IDENTITY/SOURCES/FIELD_EVIDENCE/
+  GEOMETRY_NOTES/OPEN_QUESTIONS）。字段级 origin 分类（historical_primary /
+  test_fixture）与三态 status（verified/estimated/unknown）。
+- 诚实边界：装甲厚度**全部 unknown**（TM 9-759 无厚度表；图板未目视核验）；
+  几何 estimated（verified 总尺寸拟合）；FM 17-67 五乘员岗位 verified。
+
+### 9.3 检视窗口（004-c）
+
+- `VehiclePreviewModel`：布局→部件层级 Node3D（bind_local）；三模式
+  外观/装甲/内构；姿态经 LayoutMath.posed_local（不绕父部件、不改共享定义）；
+  选中高亮=实例材质覆盖；厚度分档着色（真实数据映射）。
+- `VehicleInspector`（scenes/inspection/vehicle_inspector.tscn）：SubViewport
+  own_world_3d 独立世界（不接靶场场景）；布局选择器/部件树/详情面板/姿态滑杆/
+  轨道相机；Back 与 Esc 同一 close_requested 信号链。
+- 接入：HUD 暂停菜单按钮（inspect_requested）→ Main.open_vehicle_inspector
+  （树保持 paused）→ close 返回暂停菜单；检视期间 Esc 路由优先、
+  靶场输入（R/F3 等）隔离；**检视窗口不依赖 VehicleActor/Gunner/PlayerController/
+  命中信号，不含 005 命中查询**。
+- `VehicleDefinition.layout_id`（String，缺省空）为唯一向后兼容改动。
+
+### 9.4 测试与证据（004-d）
+
+- `tests/run_layout_checks.gd`：70 项（T004-02..07 + 004-b 历史布局 +
+  004-c 查看器断言）。
+- `--inspect-demo`：真实窗口 6 步证据（暂停菜单→窗口→三模式→选中详情→
+  返回暂停），必需截图失败退出码非 0；证据归档 docs/evidence/004/<sha>/<resolution>/。
+- 边界：不做 005 命中查询；不合并 main；不强推；003 签收内容未重写。
