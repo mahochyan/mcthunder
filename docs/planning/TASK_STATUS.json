@@ -41,7 +41,7 @@
                        "prerequisites":  [
                                              "002"
                                          ],
-                       "status":  "needs_revision",
+                       "status":  "accepted",
                        "implementation_sha":  "4fe8797382a25b6dac66e0e054db5b29ad317c1d",
                        "tested_sha":  "003-R2 定向收尾追加提交（命令单一物理消费/发射时轮次+生命周期身份/启动失败短路/自然瞄准演示；205 项回归 exit=0 + abort_check 验收 exit=0）；此前 003-R1 已测 0c8e6f7（200 项）；复审保留部分未回退",
                        "reviewer_acceptance":  [
@@ -52,10 +52,17 @@
                                                        "reviewer":  "GPT",
                                                        "round":  "003-R2 授权",
                                                        "verdict":  "003-R1 部分保留（配置驱动/碰撞坐标/射手过滤/自然装填演示），四组全部关闭不签收；授权 003-R2 定向收尾：命令单一物理消费、发射时轮次/生命周期身份、启动失败真正停止装配、自然瞄准演示去 snap；同分支追加提交"
+                                                   },
+                                                   {
+                                                       "reviewer":  "GPT",
+                                                       "round":  "003-R2 收尾复审",
+                                                       "verdict":  "签收：status=accepted（development_baseline_with_carryover）；启动失败路径两项问题确认关闭（测试隔离化 + 生命周期守卫）；保留 U003-01/OS 级 Alt+Tab/人工画面手感/TOOL-003-01；recommended_next_order=004（仅登记）"
                                                    }
                                                ],
                        "user_acceptance":  "NOT_RUN（人工逐项试玩待人工验收，不代签）",
-                       "file":  "work_orders/WO003.md"
+                       "file":  "work_orders/WO003.md",
+                       "accepted_sha":  "eb63540e399e5ce3d5c46224e2e19bcd5b6464bd",
+                       "acceptance_scope":  "development_baseline_with_carryover"
                    },
                    {
                        "id":  "004",
