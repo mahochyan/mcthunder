@@ -9,16 +9,22 @@ extends Node
 
 var cam_rig: CameraRig = null   # 由 actor 注入（本地控制者设置时）
 var gunner: Gunner = null       # 由 actor 注入（仅用于状态查询，不直接调用开火）
+var commands_enabled := true    # 005-d：调试面板打开时禁用意图生成（面板不消费弹药/任务，也不得被点击误触开火）
 var _fire_pending := false
 
 func _process(_delta: float) -> void:
 	if get_tree().paused:
 		_fire_pending = false   # 003-R1：暂停清空待发请求，恢复后不补发
 		return
+	if not commands_enabled:
+		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
+		return
 	if Input.is_action_just_pressed("fire"):
 		_fire_pending = true
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not commands_enabled:
+		return   # 005-d：面板打开期间不响应鼠标瞄准（避免炮塔随鼠标转向、姿态漂移）
 	if cam_rig == null:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -29,6 +35,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func poll() -> VehicleCommand:
 	# 每物理帧由 VehicleActor 调用；fire 请求在此消费一次（不重复射击）
 	var cmd := VehicleCommand.new()
+	if not commands_enabled:
+		return cmd   # 005-d：空命令（零油门/零转向/无开火）——车辆滑行自然减速
 	cmd.throttle = (1.0 if Input.is_action_pressed("move_forward") else 0.0) - (1.0 if Input.is_action_pressed("move_back") else 0.0)
 	cmd.steer = Input.get_axis("turn_right", "turn_left")
 	cmd.aim_held = Input.is_action_pressed("aim")

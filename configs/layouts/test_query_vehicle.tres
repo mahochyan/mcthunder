@@ -1,0 +1,173 @@
+[gd_resource type="Resource" script_class="VehicleLayoutDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/layout/armor_patch_definition.gd" id="1_wpjtu"]
+[ext_resource type="Script" path="res://scripts/layout/module_volume_definition.gd" id="3_mnc1c"]
+[ext_resource type="Script" path="res://scripts/layout/layout_part_definition.gd" id="4_e1ar0"]
+[ext_resource type="Script" path="res://scripts/layout/vehicle_layout_definition.gd" id="5_ayj1f"]
+
+[sub_resource type="Resource" id="Resource_front"]
+script = ExtResource("1_wpjtu")
+id = "hull_front"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0.55, 0, 1.15, 0.55, 0, 1.15, 1.35, 0, -1.15, 1.35, 0)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 0, 1)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_rear"]
+script = ExtResource("1_wpjtu")
+id = "hull_rear"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0.55, 3, 1.15, 0.55, 3, 1.15, 1.35, 3, -1.15, 1.35, 3)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, -1)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_left"]
+script = ExtResource("1_wpjtu")
+id = "hull_left"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0.55, 0, -1.15, 0.55, 3, -1.15, 1.35, 3, -1.15, 1.35, 0)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(-1, 0, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_right"]
+script = ExtResource("1_wpjtu")
+id = "hull_right"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(1.15, 0.55, 0, 1.15, 0.55, 3, 1.15, 1.35, 3, 1.15, 1.35, 0)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(1, 0, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_top"]
+script = ExtResource("1_wpjtu")
+id = "hull_top"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 1.35, 0, 1.15, 1.35, 0, 1.15, 1.35, 3, -1.15, 1.35, 3)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 1, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_bottom"]
+script = ExtResource("1_wpjtu")
+id = "hull_bottom"
+plate_group_id = "query_fixture"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0.55, 0, 1.15, 0.55, 0, 1.15, 0.55, 3, -1.15, 0.55, 3)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, -1, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_tfront"]
+script = ExtResource("1_wpjtu")
+id = "turret_front"
+plate_group_id = "query_fixture"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.75, 0, -0.75, 0.75, 0, -0.75, 0.75, 0.55, -0.75, -0.75, 0.55, -0.75)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 0, 1)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_engine"]
+script = ExtResource("3_mnc1c")
+id = "engine"
+kind = "engine"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
+size_m = Vector3(1, 1, 1)
+external = false
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_barrel"]
+script = ExtResource("3_mnc1c")
+id = "barrel_box"
+kind = "breech"
+part_id = "barrel"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2)
+size_m = Vector3(0.22, 0.22, 2.4)
+external = false
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_hull"]
+script = ExtResource("4_e1ar0")
+id = "hull"
+parent_id = ""
+joint_kind = "fixed"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_turret"]
+script = ExtResource("4_e1ar0")
+id = "turret"
+parent_id = "hull"
+joint_kind = "yaw"
+min_angle_deg = -180.0
+max_angle_deg = 180.0
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_barrelp"]
+script = ExtResource("4_e1ar0")
+id = "barrel"
+parent_id = "turret"
+joint_kind = "pitch"
+min_angle_deg = -8.0
+max_angle_deg = 20.0
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -0.75)
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[resource]
+script = ExtResource("5_ayj1f")
+id = "test_query_vehicle"
+display_name = "TEST ONLY: shot-query fixture (dev fixture, no historical basis)"
+content_tier = "test"
+historical_identity_id = ""
+source_catalog_id = ""
+field_evidence_id = ""
+parts = Array[ExtResource("4_e1ar0")]([SubResource("Resource_hull"), SubResource("Resource_turret"), SubResource("Resource_barrelp")])
+armor_patches = Array[ExtResource("1_wpjtu")]([SubResource("Resource_front"), SubResource("Resource_rear"), SubResource("Resource_left"), SubResource("Resource_right"), SubResource("Resource_top"), SubResource("Resource_bottom"), SubResource("Resource_tfront")])
+modules = Array[ExtResource("3_mnc1c")]([SubResource("Resource_engine"), SubResource("Resource_barrel")])

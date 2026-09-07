@@ -29,6 +29,12 @@ var _initialized := false     # 003-R2：初始化完成标记（全部成功后
 var _err_label: Label = null  # 003-R2：abort 错误画面引用（幂等：不重复创建）
 var _autoshot := false
 var _inspect_demo := false   # 004-d：--inspect-demo 检视窗口可见证据模式
+var _query_demo := false     # 005-d：--query-demo 查询调试面板可见证据模式
+var _query_panel: QueryDebugPanel = null        # 005-d：统一命中查询调试面板
+var _query_panel_layer: CanvasLayer = null      # 005-d：面板专用层（Control 锚点需要 CanvasLayer 父）
+var _query_panel_open := false                  # 005-d：面板打开标志（输入隔离/路由）
+var _demo_s0 := 0    # 005-d：演示中面板使用前弹药计数（证明调试查询不消耗）
+var _demo_t0 := 0    # 005-d：演示中面板使用前任务计数
 var _debug_on := false
 var _shot_step := 0
 var _shot_errors := 0    # 002-R1：截图失败汇总（必需截图失败 → 自检退出码非 0）
@@ -43,6 +49,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_autoshot = OS.get_cmdline_user_args().has("--autoshot")
 	_inspect_demo = OS.get_cmdline_user_args().has("--inspect-demo")   # 004-d：检视窗口可见证据
+	_query_demo = OS.get_cmdline_user_args().has("--query-demo")   # 005-d：查询面板可见证据
 	var ua := OS.get_cmdline_user_args()
 	for i in ua.size():
 		if ua[i] == "--shot-dir" and i + 1 < ua.size():
@@ -90,6 +97,9 @@ func _ready() -> void:
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
 	actor_a.gunner.round_provider = Callable(self, "get_round_id")
 	actor_b.gunner.round_provider = Callable(self, "get_round_id")
+	# 005：统一命中查询的快照来源（A/B 与后续 spawn 的实体都纳入）
+	actor_a.gunner.snapshot_provider = Callable(self, "query_snapshots")
+	actor_b.gunner.snapshot_provider = Callable(self, "query_snapshots")
 	# 003-R2：任务开始——gate 锁定双方身份并推进轮次（唯一来源初始化）；
 	# 失败 = 初始化失败，走同一短路（不只打印后继续）
 	if not _gate.begin_round(actor_a.entity_id, actor_a.life_id, actor_b.entity_id, actor_b.life_id, TRIAL_TARGET):
@@ -135,6 +145,21 @@ func get_round_id() -> int:
 	# 003-R2：gunner 发射身份的轮次来源（开火时刻冻结；轮次唯一来源 = _gate）
 	return _gate.round_id
 
+func query_snapshots() -> Array:
+	# 005：统一命中查询快照来源——遍历本场景全部 VehicleActor，
+	# 有布局关联的实体构建当前姿态快照（变换只读一次，不持有 Node 引用）。
+	var out: Array = []
+	for c in get_children():
+		if c is VehicleActor and c.tank != null and is_instance_valid(c.tank) and c.definition != null:
+			var layout_id: String = c.definition.layout_id
+			if layout_id.is_empty():
+				continue
+			var layout := LayoutCatalog.load_layout(layout_id)
+			if layout == null:
+				continue
+			out.append(QuerySnapshotBuilder.build_from_vehicle(c.tank, layout))
+	return out
+
 func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: Node = null, defs_override: VehicleDefs = null, spawn_tf: Transform3D = Transform3D()) -> VehicleActor:
 	# 003：统一实体生成入口（T003-04 生命周期测试用）；003-R1：可指定配置注册表与出生变换
 	var d: VehicleDefs = defs_override if defs_override != null else defs
@@ -147,6 +172,7 @@ func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: No
 		a.queue_free()
 		return null
 	a.gunner.round_provider = Callable(self, "get_round_id")   # 003-R2：发射身份轮次来源
+	a.gunner.snapshot_provider = Callable(self, "query_snapshots")   # 005：统一命中查询快照来源
 	return a
 
 func despawn_vehicle(a: VehicleActor) -> void:
@@ -161,12 +187,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _inspector_open:
 			close_vehicle_inspector()
 			return
+		# 005-d：查询调试面板打开时 Esc = 关闭面板（不暂停、不恢复）
+		if _query_panel_open:
+			close_query_debug()
+			return
 		if _paused:
 			_resume()
 		else:
 			_pause()
 	elif _inspector_open:
 		return   # 004-c：检视期间不触发靶场输入（重置/开火/调试）
+	elif event.is_action_pressed("query_debug_toggle"):
+		# 005-d：F6 开关查询调试面板（暂停菜单打开时不弹出）
+		if _query_panel_open:
+			close_query_debug()
+		elif not _paused:
+			open_query_debug()
+	elif _query_panel_open:
+		return   # 005-d：面板打开期间不触发靶场输入（重置/调试/开火）
 	elif event.is_action_pressed("reset"):
 		_reset_all()
 	elif event.is_action_pressed("debug_toggle"):
@@ -245,6 +283,42 @@ func close_vehicle_inspector() -> void:
 	if _can_use_gameplay():
 		hud.show_pause(true)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func open_query_debug() -> void:
+	# 005-d：统一命中查询调试面板（GEOMETRY ONLY）。
+	# 范围入口（不暂停）：打开时禁用控制器意图（不误触开火/驾驶/瞄准）并释放鼠标；
+	# 关闭时恢复。面板所有查询纯几何，不消耗弹药/任务、不触碰 Gunner。
+	if not _can_use_gameplay() or _paused or _inspector_open or _query_panel_open:
+		return
+	_query_panel_open = true
+	controller.commands_enabled = false
+	if DisplayServer.get_name() != "headless":
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_query_panel_layer = CanvasLayer.new()
+	_query_panel_layer.layer = 20
+	add_child(_query_panel_layer)
+	_query_panel = QueryDebugPanel.new()
+	_query_panel.name = "QueryDebugPanel"
+	_query_panel.main = self
+	_query_panel.close_requested.connect(close_query_debug)
+	_query_panel_layer.add_child(_query_panel)
+
+func close_query_debug() -> void:
+	# 005-d：关闭面板——恢复控制器意图与鼠标捕获（仅在游戏未暂停时重捕获）。
+	if not _query_panel_open:
+		return
+	_query_panel_open = false
+	controller.commands_enabled = true
+	controller.reset_pending()
+	if is_instance_valid(_query_panel):
+		_query_panel.free_world_art()
+		_query_panel.queue_free()
+	_query_panel = null
+	if is_instance_valid(_query_panel_layer):
+		_query_panel_layer.queue_free()
+	_query_panel_layer = null
+	if not _paused and DisplayServer.get_name() != "headless":
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _resume() -> void:
 	if not _can_use_gameplay():
@@ -335,6 +409,8 @@ func _process(_delta: float) -> void:
 		_autoshot_step()
 	if _inspect_demo:
 		_inspect_demo_step()
+	if _query_demo:
+		_query_demo_step()
 
 func _inspect_demo_step() -> void:
 	# 004-d：检视窗口可见证据模式（-- --inspect-demo）：真实窗口、有限帧、自动退出。
@@ -416,6 +492,156 @@ func _inspect_demo_step() -> void:
 			print("[004-d] back-to-pause: inspector_open=", _inspector_open, " paused=", get_tree().paused)
 			print("[inspect-demo] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
 			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 7) else 0)
+
+func _query_demo_step() -> void:
+	# 005-d：查询调试面板可见证据模式（-- --query-demo）：真实窗口、有限帧、自动退出。
+	# 走真实入口链（真实 F6 键 → open_query_debug；真实鼠标点击按钮 → run/add/clear/remove），
+	# 不绕过 UI；自然收敛炮塔（同 autoshot 332 模式）。
+	if _autoshot_wait > 0:
+		_autoshot_wait -= 1
+		return
+	_shot_step += 1
+	match _shot_step:
+		20:
+			# 相机意图指向 B（真实输入意图路径同 autoshot 330/331）
+			var d_ab: Vector3 = actor_b.tank.global_position - actor_a.tank.global_position
+			cam_rig.aim_yaw = atan2(-d_ab.x, -d_ab.z)
+			_autoshot_wait = 2
+		21:
+			var b_center2: Vector3 = actor_b.tank.global_position + Vector3(0, 1.0, 0)
+			var cam_pos2: Vector3 = cam_rig.cam.global_position
+			var horiz2: float = Vector3(cam_pos2.x - b_center2.x, 0, cam_pos2.z - b_center2.z).length()
+			cam_rig.aim_pitch = atan2(1.0 - cam_pos2.y, horiz2)
+			_autoshot_wait = 2
+		22:
+			# 自然收敛（有限转速追赶，不清零、不 snap）
+			if turret.aim_error_deg() > 0.5:
+				_demo_poll += 1
+				if _demo_poll > 900:
+					_shot_errors += 1
+					printerr("[query-demo] FAIL: natural aim timeout (err=%.2f°)" % turret.aim_error_deg())
+					_demo_poll = 0
+				_shot_step -= 1
+			else:
+				print("[query-demo] barrel locked: err=%.2f° polls=%d" % [turret.aim_error_deg(), _demo_poll])
+				_demo_poll = 0
+		40:
+			_demo_s0 = gunner.shots_fired
+			_demo_t0 = trial_hits
+			_key_event(KEY_F6)   # 真实 F6 → open_query_debug
+			_autoshot_wait = 2
+		42:
+			if not _query_panel_open:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: F6 did not open query panel")
+			print("[query-demo] panel open: commands_enabled=", controller.commands_enabled)
+			_shot("query_debug_1_panel_open.png")
+			_query_panel_click("RunQueryButton")
+		52:
+			var qr: Dictionary = _query_panel.last_result()
+			var evs: Array = _query_panel.last_events()
+			if not qr.get("ok", false):
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: run query not ok")
+			if evs.size() < 2:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: expected >=2 events, got ", evs.size())
+			elif str(evs[0].get("entity_id", "")) != "B":
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: first event entity != B: ", str(evs[0]))
+			_shot("query_debug_2_barrel_events.png")
+			print("[query-demo] run1: events=", evs.size(), " first_dist=", ("%.2f" % float(evs[0].get("distance_m", 0.0)) if evs.size() > 0 else "-"))
+		60:
+			# 测试墙：置于首个交点前 1.2m、垂直炮管（显式几何方盒 + LAYER_WORLD 物理体）
+			var seg: Dictionary = _query_panel.probe_geometry()
+			var fv: Vector3 = seg["from_world"]
+			var tv: Vector3 = seg["to_world"]
+			var ddir: Vector3 = (tv - fv).normalized()
+			var evs2: Array = _query_panel.last_events()
+			var first_dist: float = float(evs2[0].get("distance_m", 0.0)) if evs2.size() > 0 else 0.0
+			if first_dist <= 1.5:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: first event too close for wall placement")
+			var wall_pos: Vector3 = fv + ddir * (first_dist - 1.2)
+			var wall_yaw: float = rad_to_deg(atan2(ddir.x, -ddir.z))
+			_query_panel.set_wall_geometry(wall_pos, Vector3(0.4, 3.0, 3.0), wall_yaw)
+			_query_panel_click("AddWallButton")
+		62:
+			if not _query_panel.has_wall():
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: Add Test Wall did not add wall")
+			_query_panel_click("RunQueryButton")
+		72:
+			var wall_evs: Array = []
+			var armor_evs: Array = []
+			for ev in _query_panel.last_events():
+				if str(ev.get("kind", "")) == "wall":
+					wall_evs.append(ev)
+				elif str(ev.get("kind", "")) == "armor":
+					armor_evs.append(ev)
+			if wall_evs.is_empty():
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: wall crossing missing")
+			elif armor_evs.size() > 0 and float(wall_evs[0].get("distance_m", 0.0)) >= float(armor_evs[0].get("distance_m", 0.0)):
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: wall not before B armor (wall=%.2f armor=%.2f)" % [float(wall_evs[0].get("distance_m", 0.0)), float(armor_evs[0].get("distance_m", 0.0))])
+			_shot("query_debug_3_test_wall_before_b.png")
+			print("[query-demo] run2: wall_enter=", ("%.2f" % float(wall_evs[0].get("distance_m", 0.0)) if wall_evs.size() > 0 else "-"), " armor_first=", ("%.2f" % float(armor_evs[0].get("distance_m", 0.0)) if armor_evs.size() > 0 else "-"))
+			# 调试查询不得消耗弹药/任务（面板全程未触碰 Gunner/任务计数）
+			if gunner.shots_fired != _demo_s0 or trial_hits != _demo_t0:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: debug queries consumed ammo/task (shots=%d->%d trial=%d->%d)" % [_demo_s0, gunner.shots_fired, _demo_t0, trial_hits])
+		80:
+			_query_panel_click("ClearButton")
+		82:
+			if _query_panel.last_events().size() != 0 or _query_panel.marker_count() != 0:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: Clear did not clear results/markers")
+			_shot("query_debug_4_cleared.png")
+		90:
+			_query_panel_click("AddWallButton")   # 按钮已变 Remove Test Wall
+		92:
+			if _query_panel.has_wall():
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: Remove Test Wall did not remove wall")
+			_shot("query_debug_5_wall_removed.png")
+			print("[query-demo] ammo/task untouched: shots=", gunner.shots_fired, " trial=", trial_hits)
+			_key_event(KEY_ESCAPE)   # 真实 Esc → close_query_debug
+			_autoshot_wait = 2
+		94:
+			if _query_panel_open:
+				_shot_errors += 1
+				printerr("[query-demo] FAIL: Esc did not close query panel")
+			print("[query-demo] panel closed: commands_enabled=", controller.commands_enabled)
+			_shot("query_debug_6_panel_closed.png")
+			print("[query-demo] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
+			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 6) else 0)
+
+func _query_panel_click(button_name: String) -> void:
+	# 005-d：真实鼠标事件点击面板按钮（GUI 事件管线；与 R1-B 继续按钮同一模式）
+	if _query_panel == null:
+		_shot_errors += 1
+		printerr("[query-demo] FAIL: panel not open for button ", button_name)
+		return
+	var btn := _query_panel.find_child(button_name, true, false) as Button
+	if btn == null:
+		_shot_errors += 1
+		printerr("[query-demo] FAIL: button not found: ", button_name)
+		return
+	var center: Vector2 = btn.get_global_rect().get_center()
+	var press_ev := InputEventMouseButton.new()
+	press_ev.button_index = MOUSE_BUTTON_LEFT
+	press_ev.pressed = true
+	press_ev.button_mask = MOUSE_BUTTON_MASK_LEFT
+	press_ev.position = center
+	press_ev.global_position = center
+	Input.parse_input_event(press_ev)
+	var rel_ev := InputEventMouseButton.new()
+	rel_ev.button_index = MOUSE_BUTTON_LEFT
+	rel_ev.pressed = false
+	rel_ev.position = center
+	rel_ev.global_position = center
+	Input.parse_input_event(rel_ev)
 
 func _preview_model() -> VehiclePreviewModel:
 	if _inspector == null:

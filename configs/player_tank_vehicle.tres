@@ -22,3 +22,4 @@ turret_pitch_speed = 30.0
 barrel_pitch_min = -8.0
 barrel_pitch_max = 20.0
 weapon_id = "player_tank_gun"
+layout_id = "test_query_vehicle"

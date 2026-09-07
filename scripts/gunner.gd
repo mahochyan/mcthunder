@@ -14,12 +14,14 @@ var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/�
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
 var shot_id := 0                      # 003-R2：本实体射击编号——每次成功发射 +1（含空射/打墙），发射时分配
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
+var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
 var blocked_reason := ""          # "" / "cooldown" / "grace" / "barrel_occluded"
 var last_shot_result := ""        # 003："" / "hit" / "miss" / "blocked:cooldown" / "blocked:grace" / "blocked:barrel_occluded"
 var actual_hit_point := Vector3.ZERO   # 炮管实际指向命中点（供实际指向标记）
+var last_query_events: Array = []      # 005：最近一次开火的统一查询事件（调试/证据用；只读展示）
 
 var _tracer: MeshInstance3D
 var _tracer_mesh: ImmediateMesh
@@ -98,20 +100,50 @@ func try_fire() -> bool:
 	}
 	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
 	var dir := turret.barrel_direction()
-	var ghit := _ray(muz, dir, range)
 	var end := muz + dir * range
+	# 005：统一命中查询——世界遮挡（物理阶段，LAYER_WORLD）+ 车辆几何（同一服务）。
+	# 服务不修改弹药/模块/任务计数；每发最多一条任务计分事件（register_hit 至多一次）。
+	var world_stop := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state, muz, dir, range, _exclude())
+	var world_stop_m := -1.0
+	var world_collider: Object = null
+	if not world_stop.is_empty():
+		world_stop_m = muz.distance_to(world_stop.position)
+		world_collider = world_stop.collider
+		end = world_stop.position
+	var snapshots: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
+	var qr := ShotQueryService.query({
+		"query_id": "shot_%s_%d" % [shooter_id, shot_id],
+		"physics_tick": Engine.get_physics_frames(),
+		"from_world": muz,
+		"to_world": end,
+		"excluded_instances": [{"entity_id": tank.entity_id, "life_id": tank.life_id}],
+		"include_modules": true,
+		"include_crew": false,
+		"world_stop_distance_m": world_stop_m,
+	}, snapshots)
+	last_query_events = qr.get("events", []) if qr.get("ok", false) else []
 	var hit_vehicle := false
-	if not ghit.is_empty():
-		end = ghit.position
-		var col: Object = ghit.collider
-		if col is TankVehicle:
-			# 车辆命中：补齐目标身份（来自实际碰撞对象）→ 发出完整事件
-			identity["target_id"] = col.entity_id
-			identity["target_life_id"] = col.life_id
-			col.register_hit(identity)
-			hit_vehicle = true
-		elif col != null and col.has_method("register_hit"):
-			col.register_hit({})   # 靶板等非车辆对象：只触发自身反馈，不产生任务事件
+	if qr.get("ok", false):
+		var first: Dictionary = {}
+		for ev in qr["events"]:
+			if ev.get("kind", "") in ["armor", "module", "crew"]:
+				first = ev
+				break
+		if not first.is_empty():
+			var ev_dist := float(first["distance_m"])
+			if world_stop_m < 0.0 or ev_dist < world_stop_m - 0.001:
+				# 首个有效外部接触在墙前 → 命中该实体（几何查询结果，非物理粗碰撞）
+				var target := _find_vehicle(str(first.get("entity_id", "")), int(first.get("life_id", 0)))
+				if target != null:
+					identity["target_id"] = target.entity_id
+					identity["target_life_id"] = target.life_id
+					target.register_hit(identity)
+					hit_vehicle = true
+			elif world_collider != null and world_collider.has_method("register_hit"):
+				world_collider.register_hit({})   # 靶板等世界对象：只触发自身反馈，不产生任务事件
+		elif world_collider != null and world_collider.has_method("register_hit"):
+			world_collider.register_hit({})
+	# 查询失败（如超实体数）→ 保守 miss（不伪造命中）
 	last_shot_result = "hit" if hit_vehicle else "miss"
 	_spawn_tracer(muz, end)
 	turret.kick_recoil()
@@ -119,6 +151,24 @@ func try_fire() -> bool:
 	shots_fired += 1
 	blocked_reason = ""
 	return true
+
+func _find_vehicle(entity_id: String, life_id: int) -> TankVehicle:
+	# 005：按快照事件身份找实际车辆实例（临时查找，不持有 Node 引用）。
+	# 递归遍历整棵树（-s 脚本模式下 current_scene 可能为 null，实体可能在任意层级）。
+	var tree := get_tree()
+	if tree == null:
+		return null
+	return _find_vehicle_in(tree.root, entity_id, life_id)
+
+func _find_vehicle_in(node: Node, entity_id: String, life_id: int) -> TankVehicle:
+	for c in node.get_children():
+		if c is VehicleActor and c.tank != null and is_instance_valid(c.tank) \
+				and c.tank.entity_id == entity_id and c.tank.life_id == life_id:
+			return c.tank
+		var r := _find_vehicle_in(c, entity_id, life_id)
+		if r != null:
+			return r
+	return null
 
 func _ray(from: Vector3, dir: Vector3, dist: float) -> Dictionary:
 	var space := get_world_3d().direct_space_state

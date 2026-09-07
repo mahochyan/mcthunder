@@ -234,11 +234,13 @@ static func check_evidence_consistency(
 		_check_keys(part, "parts[%d]" % idx, keys_in_doc, layout, errors)
 		idx += 1
 
-	# 字段级绑定：声明的字段状态必须有字段记录背书（状态一致 + 来源可解析 + 身份适用）
+	# 字段级绑定：声明的字段状态必须有字段记录背书（状态一致 + 来源可解析 + 身份适用）。
+	# 005-a：字段请求用具体 ID（armor_patches.hull_front_upper.thickness_mm）；
+	# 通配符只属于来源记录的匹配模式，不属于待验证对象的身份。
 	idx = 0
 	for patch in layout.armor_patches:
 		if patch != null and patch.thickness_status != "unknown":
-			validate_field_claim(layout.historical_identity_id, "armor_patches.*.thickness_mm",
+			validate_field_claim(layout.historical_identity_id, "armor_patches.%s.thickness_mm" % patch.id,
 				patch.thickness_status, fields_in_doc, keys_in_doc, patch.evidence_keys,
 				"armor_patches[%d].thickness_status" % idx, errors)
 		idx += 1
@@ -248,15 +250,15 @@ static func check_evidence_consistency(
 			idx += 1
 			continue
 		if station.role_placement_status != "unknown":
-			validate_field_claim(layout.historical_identity_id, "crew_stations.*.role_placement",
+			validate_field_claim(layout.historical_identity_id, "crew_stations.%s.role_placement" % station.id,
 				station.role_placement_status, fields_in_doc, keys_in_doc, station.evidence_keys,
 				"crew_stations[%d].role_placement_status" % idx, errors)
 		if station.position_status != "unknown":
-			validate_field_claim(layout.historical_identity_id, "crew_stations.*.local_box_transform",
+			validate_field_claim(layout.historical_identity_id, "crew_stations.%s.local_box_transform" % station.id,
 				station.position_status, fields_in_doc, keys_in_doc, station.evidence_keys,
 				"crew_stations[%d].position_status" % idx, errors)
 		if station.volume_status != "unknown":
-			validate_field_claim(layout.historical_identity_id, "crew_stations.*.size_m",
+			validate_field_claim(layout.historical_identity_id, "crew_stations.%s.size_m" % station.id,
 				station.volume_status, fields_in_doc, keys_in_doc, station.evidence_keys,
 				"crew_stations[%d].volume_status" % idx, errors)
 		idx += 1
@@ -274,14 +276,29 @@ static func validate_field_claim(
 	) -> void:
 	# 004-R2-C：固定顺序——字段记录存在并覆盖 → 状态一致 → source_refs 可解析 →
 	# 身份适用（包含+排除）→ 历史 verified 不能由 game_rule/test_fixture/warthunder_reference 背书。
-	var field_record: Dictionary = {}
+	# 005-a：字段请求是具体路径（armor_patches.<id>.thickness_mm）；来源记录可用通配
+	# （armor_patches.*.thickness_mm）。精确记录优先于通配记录；同等具体程度的冲突记录报错。
+	var matches: Array = []
 	for f in fields_in_doc:
 		if f is Dictionary and _field_path_matches(str(f.get("field_path", "")), field_path):
-			field_record = f
-			break
-	if field_record.is_empty():
+			matches.append(f)
+	if matches.is_empty():
 		errors.append(_err(claim_path, "no field evidence record covers '%s'" % field_path))
 		return
+	# 具体程度 = 记录路径中通配段数（0 = 最具体）
+	matches.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return _wildcard_count(str(a.get("field_path", ""))) < _wildcard_count(str(b.get("field_path", "")))
+	)
+	var best: Dictionary = matches[0]
+	var best_wild := _wildcard_count(str(best.get("field_path", "")))
+	var conflicts: Array = []
+	for f in matches:
+		if _wildcard_count(str(f.get("field_path", ""))) == best_wild and f != best:
+			conflicts.append(str(f.get("field_path", "")))
+	if not conflicts.is_empty():
+		errors.append(_err(claim_path, "conflicting field records at same specificity for '%s': %s" % [field_path, ", ".join(conflicts)]))
+		return
+	var field_record: Dictionary = best
 	if str(field_record.get("status", "")) != declared_status:
 		errors.append(_err(claim_path, "declared status '%s' conflicts with field record status '%s' for '%s'" % [declared_status, str(field_record.get("status", "")), field_path]))
 		return
@@ -307,15 +324,23 @@ static func validate_field_claim(
 			errors.append(_err(claim_path, "evidence key '%s' does not apply to identity '%s'" % [key, identity_id]))
 
 
+static func _wildcard_count(path: String) -> int:
+	var count := 0
+	for seg in path.split("."):
+		if seg == "*":
+			count += 1
+	return count
+
+
 static func _identity_applies(identity_id: String, ek: Dictionary) -> bool:
 	# 机器可检查的身份适用：applies_to_identity_ids 包含 + excluded_identity_ids 不包含。
-	# 旧条目（无列表）回退到 applies_to 文本非空且非 "test fixtures only"。
+	# 005-a：research/production 缺机器身份列表 → 不适用（不回退自由文本匹配）；
+	# 调用方（_check_keys / validate_field_claim）据此报错。
 	var includes: Array = ek.get("applies_to_identity_ids", [])
 	var excludes: Array = ek.get("excluded_identity_ids", [])
-	if not includes.is_empty() or not excludes.is_empty():
-		return includes.has(identity_id) and not excludes.has(identity_id)
-	var applies: String = str(ek.get("applies_to", ""))
-	return applies != "" and not applies.to_lower().contains("test fixtures only")
+	if includes.is_empty() and excludes.is_empty():
+		return false
+	return includes.has(identity_id) and not excludes.has(identity_id)
 
 
 static func _field_path_matches(pattern: String, path: String) -> bool:
@@ -683,8 +708,10 @@ static func check_declared_openings(
 	if boundary_by_part.is_empty():
 		return
 
-	# --- declared_edges：只由 boundary_loop 相邻顶点对生成 ---
-	var declared_edges: Dictionary = {}   # "a_key>b_key" -> opening id
+	# --- declared_edges：只由 boundary_loop 相邻顶点对生成（按 part 隔离） ---
+	# 005-a：declared_edges_by_part[part_id][edge_key]——不同部件的局部坐标可能相同，
+	# 车体上的开口声明不得豁免炮塔上的同坐标边。
+	var declared_edges_by_part: Dictionary = {}   # part_id -> {edge_key -> opening id}
 	for opening in layout.declared_openings:
 		if opening == null:
 			continue
@@ -715,11 +742,12 @@ static func check_declared_openings(
 				break
 		if bad:
 			continue
+		var part_edges: Dictionary = declared_edges_by_part.get_or_add(pid, {})
 		for i in range(pts.size()):
 			var a := _coord_key(pts[i])
 			var b := _coord_key(pts[(i + 1) % pts.size()])
-			declared_edges[a + ">" + b] = oid
-			declared_edges[b + ">" + a] = oid
+			part_edges[a + ">" + b] = oid
+			part_edges[b + ">" + a] = oid
 		# 声明边必须确实对应模型边界（该 part 存在边界边集合）
 		if not boundary_by_part.has(pid):
 			warnings.append(_warn("declared_openings.%s" % oid, "declared on part '%s' which has no boundary edges (shell closed there)" % pid))
@@ -727,18 +755,19 @@ static func check_declared_openings(
 		var part_boundary: Array = boundary_by_part[pid]
 		var any_matched := false
 		for e in part_boundary:
-			if declared_edges.has(_coord_key(e["a"]) + ">" + _coord_key(e["b"])):
+			if part_edges.has(_coord_key(e["a"]) + ">" + _coord_key(e["b"])):
 				any_matched = true
 				break
 		if not any_matched:
 			warnings.append(_warn("declared_openings.%s" % oid, "declared boundary_loop does not match any actual boundary edge on part '%s'" % pid))
 
-	# --- 边界边必须被声明覆盖 ---
+	# --- 边界边必须被声明覆盖（按 part 隔离查表） ---
 	for pid in boundary_by_part.keys():
 		var edges: Array = boundary_by_part[pid]
+		var part_edges: Dictionary = declared_edges_by_part.get(pid, {})
 		for e in edges:
 			var ek := _coord_key(e["a"]) + ">" + _coord_key(e["b"])
-			if not declared_edges.has(ek):
+			if not part_edges.has(ek):
 				errors.append(_err("armor_patches(part %s)" % pid, "undeclared boundary edge (%s -> %s)" % [str(e["a"]), str(e["b"])]))
 
 

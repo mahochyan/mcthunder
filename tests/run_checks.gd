@@ -376,7 +376,7 @@ func _run() -> void:
 	var s0: int = gunner.shots_fired
 	Input.action_press("fire")
 	for i in 2:
-		await process_frame
+		await physics_frame   # 003-R1：fire 请求在物理步消费（headless 下 process 帧率高于物理步，process 窗口可能恰好无物理 tick；用 physics 等待保证确定性，断言不变）
 	_ok(gunner.shots_fired == s0 + 1, "R1-B 前提：无冷却持火立即合法射击 (shots=%d)" % gunner.shots_fired)
 	await create_timer(GameConfig.RELOAD_TIME + 0.25).timeout   # 装填完成，火仍按住
 	_ok(gunner.cooldown_left == 0.0, "R1-B 前提：装填完成、无冷却遮掩 (cd=%.2f)" % gunner.cooldown_left)
