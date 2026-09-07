@@ -10,6 +10,8 @@
 #   6. PASS 判据：非零退出 + 输出含 003-R2 ABORT + 无意外 SCRIPT ERROR；
 #      超时 / 缺引擎 / 意外脚本异常一律 FAIL
 #   7. 原工程只读核对（前后 git status 一致）；发现 user:// 旧备份只报告不覆盖
+# 注：只用 cmdlet 与实例方法，不用 .NET 静态调用（受限模式兼容）；
+#     配置内容为纯 ASCII，ascii 写出无 BOM。
 
 $ErrorActionPreference = 'Stop'
 $testsDir = $PSScriptRoot
@@ -34,7 +36,7 @@ $legacyBak = Join-Path $env:APPDATA "Godot\app_userdata\$projName\abort_check_ba
 if (Test-Path $legacyBak) { Note "NOTICE: legacy user:// backup found (left by old in-place test), reported only, NOT auto-restored: $legacyBak" }
 
 # 3) 导出已提交候选到工程外临时目录
-$tmp = Join-Path ([IO.Path]::GetTempPath()) ("mcthunder-abort-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
+$tmp = Join-Path $env:TEMP ("mcthunder-abort-" + (Get-Random -Maximum 999999999))
 New-Item -ItemType Directory -Force -Path $tmp | Out-Null
 $zip = Join-Path $tmp 'source.zip'
 git -C $root archive --format=zip --output=$zip $sha
@@ -50,22 +52,22 @@ if ($LASTEXITCODE -ne 0) { Note "FAIL: import failed on clean copy"; exit 1 }
 if ($LASTEXITCODE -ne 0) { Note "FAIL: clean copy did not boot normally"; exit 1 }
 Note "clean copy boots normally (--quit-after 10 exit=0)"
 
-# 5) 仅修改副本配置：verified 无实质来源 → validate 必拒
+# 5) 仅修改副本配置：verified 无实质来源 → validate 必拒（ascii 写出无 BOM）
 $cfg = Join-Path $proj 'configs\player_tank_vehicle.tres'
-$orig = [IO.File]::ReadAllText($cfg)
+$orig = Get-Content $cfg -Raw
 if (-not $orig.Contains('verification = "unknown"')) { Note "FAIL: marker not found in copy config"; exit 1 }
 $bad = $orig.Replace('verification = "unknown"', 'verification = "verified"')
-[IO.File]::WriteAllText($cfg, $bad, [Text.UTF8Encoding]::new($false))
+Set-Content -Path $cfg -Value $bad -Encoding ascii -NoNewline
 Note "bad config injected into COPY only"
 
 # 6) 子进程以副本为 --path 启动真实主场景（带超时，完整输出）
 $so = Join-Path $tmp 'stdout.log'; $se = Join-Path $tmp 'stderr.log'
-$p = Start-Process -FilePath $godot -ArgumentList @('--headless', "--path", $proj) -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -NoNewWindow
-if (-not $p.WaitForExit(60000)) { $p.Kill(); Note "FAIL: subprocess TIMEOUT (not a pass)"; Remove-Item $tmp -Recurse -Force; exit 1 }
+$p = Start-Process -FilePath $godot -ArgumentList @('--headless', '--path', $proj) -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -NoNewWindow
+if (-not $p.WaitForExit(60000)) { $p.Kill(); Note "FAIL: subprocess TIMEOUT (not a pass)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
 $code = $p.ExitCode
 $full = ''
-if (Test-Path $so) { $full += [IO.File]::ReadAllText($so) }
-if (Test-Path $se) { $full += [IO.File]::ReadAllText($se) }
+if (Test-Path $so) { $full += Get-Content $so -Raw }
+if (Test-Path $se) { $full += Get-Content $se -Raw }
 $aborted = $full.Contains('003-R2 ABORT')
 $scriptErr = $full.Contains('SCRIPT ERROR')
 Note "subprocess exit=$code abort_log=$aborted unexpected_script_error=$scriptErr"
