@@ -11,8 +11,15 @@ var _spawn := Transform3D()
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层（A=2，B=4；炮镜只剔除本车层）
 var hits_taken := 0           # 003：被命中计数（试射目标计数来源；无装甲/伤害判定）
 var defs: VehicleDefinition = null   # 003-R1：由 VehicleActor 注入——驾驶参数唯一来源（null 时回退 GameConfig 常量）
+var entity_id := ""   # 003-R2：实体标识注入（命中事件 target 身份来源）
+var life_id := 0      # 003-R2：实体生命周期标识（同名车销毁重建后不同）
+var _drive_calls := 0 # 003-R2：apply_drive 调用计数（命令单次物理消费断言用）
 
-signal hit_registered(shooter_id: String, shot_id: int)   # 003-R1：真实生产命中事件（射手/射击编号；每发只触发一次）
+signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
+
+func drive_call_count() -> int:
+	# 003-R2：驾驶执行次数（验证每物理步恰好一次，不存在双路径并行）
+	return _drive_calls
 
 func _ready() -> void:
 	collision_layer = GameConfig.LAYER_VEHICLE
@@ -59,6 +66,7 @@ func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	# 003：统一命令驱动（throttle ∈ [-1,1]，steer ∈ [-1,1] 正 = 右转）
 	# 003-R1：参数来自 VehicleDefinition（defs 注入）；null 时回退 GameConfig 常量
+	_drive_calls += 1   # 003-R2：执行计数（提交≠执行的验证证据）
 	var fwd_max: float = defs.forward_max_speed if defs != null else GameConfig.FORWARD_MAX_SPEED
 	var rev_max: float = defs.reverse_max_speed if defs != null else GameConfig.REVERSE_MAX_SPEED
 	var fwd_acc: float = defs.forward_accel if defs != null else GameConfig.FORWARD_ACCEL
@@ -93,11 +101,11 @@ func set_spawn(t: Transform3D) -> void:
 	# 003：由 VehicleActor 在装配后记录真实出生点（reset 回到该点）
 	_spawn = t
 
-func register_hit(shooter_id: String, shot_id: int) -> void:
+func register_hit(identity: Dictionary) -> void:
 	# 003：真实生产命中事件（由 gunner 命中结算调用；每发只调一次）
-	# 003-R1：携带射手与射击编号——任务只接受当前轮次唯一 A→B 命中
+	# 003-R2：事件携带发射时冻结的完整身份（round_id/shooter_id/shooter_life_id/shot_id/target_id/target_life_id）
 	hits_taken += 1
-	hit_registered.emit(shooter_id, shot_id)
+	hit_registered.emit(identity)
 
 func reset() -> void:
 	transform = _spawn

@@ -19,8 +19,10 @@ var targets: Array = []
 var trial_hits := 0           # 003：试射目标计数（只由 B 的真实生产命中事件推进）
 const TRIAL_TARGET := 3
 var _round_id := 0            # 003-R1：任务轮次/生命周期标识（reset_range 递增；旧轮次命中无效）
-var _shot_rounds := {}        # 003-R1：射击编号 → 首次投递轮次（同一发重复投递不重复计分；重开后旧编号仍无效）
+var _round_shots := {}        # 003-R2：本回合已计分射击编号（重开清空；旧事件由轮次+生命周期拒绝）
 var _paused := false
+var _aborted := false         # 003-R2：启动失败短路标志（true = 停止正常帧/输入处理）
+var _abort_reason := ""
 var _autoshot := false
 var _debug_on := false
 var _shot_step := 0
@@ -28,6 +30,7 @@ var _shot_errors := 0    # 002-R1：截图失败汇总（必需截图失败 → 
 var _shots_saved := 0
 var _shot_dir := "docs"  # 002-R2：--shot-dir <路径> 指定归档目录（分分辨率独立保存）
 var _autoshot_wait := 0   # 003-R1：正常演示跨帧等待（>0 每帧递减，纯等待后推进到下一步；装填轮询用 _shot_step -= 1 原地驻留）
+var _demo_poll := 0       # 003-R2：自然瞄准/装填轮询帧计数（有限超时判据）
 var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相机中心）
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
@@ -46,7 +49,9 @@ func _ready() -> void:
 	defs = VehicleDefs.new()
 	var lr := defs.load_defaults()
 	if not lr.ok:
-		push_error("003: default defs load failed: " + ", ".join(lr.errors))
+		# 003-R2：启动失败受控短路——打印错误后真正停止装配，不继续使用半初始化组件
+		_abort_initialization("default defs load failed", lr.errors)
+		return
 	controller = PlayerController.new()
 	controller.name = "PlayerController"
 	add_child(controller)
@@ -55,13 +60,15 @@ func _ready() -> void:
 	add_child(actor_a)
 	var ra := actor_a.setup(defs, "player_tank", "A", 1, Transform3D(Basis.IDENTITY, Vector3(0, 0, 8)), GameConfig.VIS_LAYER_VEHICLE, controller)
 	if not ra.ok:
-		push_error("003: actor A setup failed: " + ", ".join(ra.errors))
+		_abort_initialization("actor A setup failed", ra.errors)
+		return
 	actor_b = VehicleActor.new()
 	actor_b.name = "ActorB"
 	add_child(actor_b)
 	var rb := actor_b.setup(defs, "player_tank", "B", 2, Transform3D(Basis.IDENTITY, Vector3(8, 0, 0)), GameConfig.VIS_LAYER_VEHICLE_B, null)
 	if not rb.ok:
-		push_error("003: actor B setup failed: " + ", ".join(rb.errors))
+		_abort_initialization("actor B setup failed", rb.errors)
+		return
 	# 兼容引用（指向 A 组件）
 	tank = actor_a.tank
 	turret = actor_a.turret
@@ -71,10 +78,42 @@ func _ready() -> void:
 	hud.name = "HUD"
 	add_child(hud)
 	hud.resume_requested.connect(_resume)
-	# 试射目标：B 的真实生产命中事件推进计数（同一发命中不重复记分）
+	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
+	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
+	actor_a.gunner.round_provider = Callable(self, "get_round_id")
+	actor_b.gunner.round_provider = Callable(self, "get_round_id")
 	if not _autoshot and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _abort_initialization(reason: String, errors: Array) -> void:
+	# 003-R2：启动失败受控短路——关闭正常帧与输入处理、清理本次已建实体、
+	# 显示实际错误；无窗口/截图自检模式以非零码退出（自动验收可见）。
+	_aborted = true
+	_abort_reason = reason
+	push_error("003-R2 ABORT: %s: %s" % [reason, ", ".join(errors)])
+	set_process(false)
+	set_physics_process(false)
+	set_process_unhandled_input(false)
+	set_process_input(false)
+	# 清理半建对象（装配边界失败时可能有已加入树的实体）
+	for c in get_children():
+		if c is VehicleActor:
+			c.queue_free()
+	actor_a = null
+	actor_b = null
+	# 可见错误显示（不建正式菜单系统）
+	var err_label := Label.new()
+	err_label.text = "INIT FAILED: %s\n%s" % [reason, "\n".join(errors)]
+	err_label.position = Vector2(40, 40)
+	add_child(err_label)
+	if DisplayServer.get_name() == "headless" or _autoshot:
+		print("[003-R2] ABORT exit: initialization failed (headless/autoshot)")
+		get_tree().quit(1)   # 非零退出 = 自动验收可见
+
+func get_round_id() -> int:
+	# 003-R2：gunner 发射身份的轮次来源（开火时刻冻结）
+	return _round_id
 
 func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: Node = null, defs_override: VehicleDefs = null, spawn_tf: Transform3D = Transform3D()) -> VehicleActor:
 	# 003：统一实体生成入口（T003-04 生命周期测试用）；003-R1：可指定配置注册表与出生变换
@@ -87,6 +126,7 @@ func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: No
 	if not r.ok:
 		a.queue_free()
 		return null
+	a.gunner.round_provider = Callable(self, "get_round_id")   # 003-R2：发射身份轮次来源
 	return a
 
 func despawn_vehicle(a: VehicleActor) -> void:
@@ -132,13 +172,15 @@ func _reset_all() -> void:
 
 func reset_range() -> void:
 	# 003：整场重开——两车 + 靶板 + 试射目标全部复位
-	# 003-R1：轮次递增——重开后旧轮次命中事件无效（_shot_rounds 保留历史编号）
+	# 003-R1：轮次递增——重开后旧轮次命中事件无效
+	# 003-R2：只清本回合去重集合（旧事件已由轮次+生命周期拒绝，无需无限保留历史编号）
 	actor_a.reset_vehicle()
 	actor_b.reset_vehicle()
 	for t in targets:
 		t.reset()
 	trial_hits = 0
 	_round_id += 1
+	_round_shots.clear()
 
 func reset_vehicle(actor: VehicleActor) -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
@@ -151,18 +193,32 @@ func _notification(what: int) -> void:
 		if not _paused and not _autoshot:
 			_pause()
 
-func _on_b_hit(shooter_id: String, shot_id: int) -> void:
-	# 003-R1：任务只接受当前轮次唯一 A→B 命中——
-	# 射手必须是 A；同一射击编号重复投递不重复计分；重开后旧编号仍无效
-	if shooter_id != "A":
+func _on_b_hit(identity: Dictionary) -> void:
+	# 003-R2：任务只接受——当前轮次、正确射手、正确目标、双方生命周期存续的唯一命中。
+	# 轮次/生命周期在开火时刻冻结进事件（不在接收时补填）：旧轮次迟到事件
+	# （含重开后才首次送达的旧事件）与同名车重建后的旧身份事件都会被拒绝。
+	if _aborted or identity.is_empty():
 		return
-	if _shot_rounds.has(shot_id):
-		return
-	_shot_rounds[shot_id] = _round_id
+	if int(identity.get("round_id", -1)) != _round_id:
+		return   # 旧轮次事件（开火时的轮次 ≠ 当前轮次）
+	if identity.get("shooter_id", "") != actor_a.entity_id:
+		return   # 射手必须是玩家车 A
+	if identity.get("target_id", "") != actor_b.entity_id:
+		return   # 目标必须是 B（靶板/墙/空射不产生车辆命中事件）
+	if int(identity.get("shooter_life_id", 0)) != actor_a.life_id:
+		return   # 射手生命周期不匹配（同名 A 销毁重建后旧事件）
+	if int(identity.get("target_life_id", 0)) != actor_b.life_id:
+		return   # 目标生命周期不匹配（B 重生后旧事件）
+	var sid := int(identity.get("shot_id", 0))
+	if _round_shots.has(sid):
+		return   # 同一发重复投递不重复计分
+	_round_shots[sid] = true
 	if trial_hits < TRIAL_TARGET:
 		trial_hits += 1
 
 func _process(_delta: float) -> void:
+	if _aborted:
+		return   # 003-R2：启动失败短路——正常帧已停止（错误画面静态显示）
 	var hits := []
 	for t in targets:
 		hits.append(t.hit_count)
@@ -325,8 +381,18 @@ func _autoshot_step() -> void:
 			cam_rig.aim_pitch = atan2(1.0 - cam_pos2.y, horiz2)
 			_autoshot_wait = 2
 		332:
-			turret.snap_to_aim()   # 炮塔立即指向相机意图（与测试 turret_snap 同逻辑）
-			_autoshot_wait = 2
+			# 003-R2：自然瞄准——不 snap（snap 证明的是"程序预先对齐"），等待炮塔
+			# 以有限转速真实追赶意图瞄点并稳定对准；有限超时（900 帧）判失败
+			if turret.aim_error_deg() > 0.5:
+				_demo_poll += 1
+				if _demo_poll > 900:
+					_shot_errors += 1
+					print("[003-R2] FAIL: natural aim timeout (err=%.2f°)" % turret.aim_error_deg())
+					_demo_poll = 0
+				_shot_step -= 1   # 原地驻留，继续等待追赶
+			else:
+				print("[003-R2] natural aim locked: err=%.2f° polls=%d" % [turret.aim_error_deg(), _demo_poll])
+				_demo_poll = 0
 		333:
 			Input.action_press("fire")   # 正常输入开火（第 1 发：Input 边沿 → 命令入口 → 生产命中）
 			_autoshot_wait = 2   # 给控制器/物理帧时间消费开火

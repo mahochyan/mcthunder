@@ -533,36 +533,43 @@ func _run() -> void:
 	_ok(main.actor_a.tank.forward_speed > 1.0, "T003-02 键盘输入只驱动 A (v=%.2f)" % main.actor_a.tank.forward_speed)
 	_ok(main.actor_b.tank.forward_speed < 0.01, "T003-02 B 零命令不响应键盘 (v=%.2f)" % main.actor_b.tank.forward_speed)
 	_ok(main.actor_b.tank.global_position.distance_to(b_pos0) < 0.01, "T003-02 B 位置不动")
-	# 统一命令：脚本命令经同一 apply_command 通道驱动 B 炮塔（目标在 B 右侧 → yaw 需转）
+	# 统一命令：脚本命令经同一提交入口驱动 B 炮塔（目标在 B 右侧 → yaw 需转）
+	# 003-R2：submit 只暂存不执行——提交后下一物理步由 B 自己的 _physics_process 消费
 	var b_yaw0: float = main.actor_b.turret.global_rotation.y
 	var cmd_b := VehicleCommand.new()
 	cmd_b.has_aim_point = true
 	cmd_b.aim_world_point = main.actor_b.tank.global_position + Vector3(10, 0, 0)
-	main.actor_b.apply_command(cmd_b, 1.0 / Engine.physics_ticks_per_second)
+	main.actor_b.submit_command(cmd_b)
 	for i in 30:
 		await physics_frame
 	_ok(absf(main.actor_b.turret.global_rotation.y - b_yaw0) > 0.01, "T003-02 脚本命令经统一通道驱动 B 炮塔 (Δyaw=%.2f°)" % rad_to_deg(absf(main.actor_b.turret.global_rotation.y - b_yaw0)))
-	# 003-R1：脚本持续命令驱动 B 真实移动（不只证明炮塔转了一点）；
-	# 暂停 B 的自动零命令，避免与测试命令交替抵消
-	main.actor_b.set_physics_process(false)
+	# 003-R2：脚本持续命令驱动 B 真实移动——不关闭 actor 物理更新，
+	# 每帧经同一提交入口提交，B 的物理回调每步消费恰好一次
 	var b_pos1: Vector3 = main.actor_b.tank.global_position
+	var b_drive0: int = main.actor_b.tank.drive_call_count()
 	var cmd_move := VehicleCommand.new()
 	cmd_move.throttle = 1.0
 	for i in 60:
-		main.actor_b.apply_command(cmd_move, 1.0 / Engine.physics_ticks_per_second)
+		main.actor_b.submit_command(cmd_move)
 		await physics_frame
-	main.actor_b.set_physics_process(true)
+	_ok(main.actor_b.tank.drive_call_count() - b_drive0 == 60, "T003-02 每物理步恰好消费一次（无双路径并行，drive=%d）" % (main.actor_b.tank.drive_call_count() - b_drive0))
 	_ok(main.actor_b.tank.global_position.distance_to(b_pos1) > 1.0, "T003-02 脚本持续命令驱动 B 真实移动 (dist=%.2f)" % main.actor_b.tank.global_position.distance_to(b_pos1))
-	# 003-R1：入口合法性——暂停时命令被拒绝
+	# 003-R2：提交≠执行——提交后未到消费步不产生移动
+	var b_pos_now: Vector3 = main.actor_b.tank.global_position
+	main.actor_b.submit_command(cmd_move)
+	_ok(main.actor_b.tank.global_position.distance_to(b_pos_now) < 0.001, "T003-02 提交命令不立即执行（等物理步消费）")
+	# 003-R1：入口合法性——暂停时提交被拒绝
 	main._pause()
 	var b_pos_pause: Vector3 = main.actor_b.tank.global_position
-	main.actor_b.apply_command(cmd_move, 1.0 / Engine.physics_ticks_per_second)
+	var paused_ok: bool = main.actor_b.submit_command(cmd_move)
+	_ok(not paused_ok, "T003-02 暂停时命令提交被拒绝")
 	_ok(main.actor_b.tank.global_position.distance_to(b_pos_pause) < 0.001, "T003-02 暂停时命令入口拒绝执行")
 	main._resume()
 	# 003-R1：非有限输入被钳制为 0（不产生 NaN 速度）
 	var cmd_nan := VehicleCommand.new()
 	cmd_nan.throttle = NAN
-	main.actor_b.apply_command(cmd_nan, 1.0 / Engine.physics_ticks_per_second)
+	main.actor_b.submit_command(cmd_nan)
+	await physics_frame
 	_ok(is_finite(main.actor_b.tank.forward_speed), "T003-02 非有限输入不产生 NaN 状态")
 
 	# --- T003-03：自身命中排除 / A 命中 B / 墙挡不命中 / 炮镜不隐藏 B ---
@@ -769,8 +776,8 @@ func _run() -> void:
 	var cmd_fast := VehicleCommand.new()
 	cmd_fast.throttle = 1.0
 	for i in 120:
-		slow_a.apply_command(cmd_slow, 1.0 / Engine.physics_ticks_per_second)
-		fast_a.apply_command(cmd_fast, 1.0 / Engine.physics_ticks_per_second)
+		slow_a.submit_command(cmd_slow)
+		fast_a.submit_command(cmd_fast)
 		await physics_frame
 	_ok(slow_a.tank.forward_speed < fast_a.tank.forward_speed - 2.0, "T003-07 慢车/快车真实速度不同 (slow=%.2f fast=%.2f)" % [slow_a.tank.forward_speed, fast_a.tank.forward_speed])
 	_ok(absf(slow_a.tank.forward_speed - 4.0) < 0.5, "T003-07 慢车速度接近配置上限 4 m/s (v=%.2f)" % slow_a.tank.forward_speed)
@@ -785,8 +792,8 @@ func _run() -> void:
 	var yaw0_s: float = slow_a.turret.global_rotation.y
 	var yaw0_f: float = fast_a.turret.global_rotation.y
 	for i in 30:
-		slow_a.apply_command(cmd_turn_s, 1.0 / Engine.physics_ticks_per_second)
-		fast_a.apply_command(cmd_turn_f, 1.0 / Engine.physics_ticks_per_second)
+		slow_a.submit_command(cmd_turn_s)
+		fast_a.submit_command(cmd_turn_f)
 		await physics_frame
 	var d_s: float = absf(slow_a.turret.global_rotation.y - yaw0_s)
 	var d_f: float = absf(fast_a.turret.global_rotation.y - yaw0_f)
@@ -810,12 +817,11 @@ func _run() -> void:
 	# A 开向 B 不穿过 B（稳定阻挡，无碰撞伤害/推挤）
 	var c_actor: VehicleActor = main.spawn_vehicle("player_tank", "C", Vector3(8, 0, 6))
 	_ok(c_actor != null, "T003-08 C 实体生成")
-	c_actor.set_physics_process(false)
 	var b_pos0_c: Vector3 = main.actor_b.tank.global_position
 	var cmd_fwd := VehicleCommand.new()
 	cmd_fwd.throttle = 1.0
 	for i in 120:
-		c_actor.apply_command(cmd_fwd, 1.0 / Engine.physics_ticks_per_second)
+		c_actor.submit_command(cmd_fwd)
 		await physics_frame
 	var c_pos: Vector3 = c_actor.tank.global_position
 	_ok(c_pos.z > b_pos0_c.z + 2.0, "T003-08 C 被 B 阻挡不穿过 (c.z=%.2f b.z=%.2f)" % [c_pos.z, b_pos0_c.z])
@@ -829,11 +835,10 @@ func _run() -> void:
 	main.add_child(r_actor)
 	var r_res := r_actor.setup(main.defs, "player_tank", "ROT", 9, rot_tf, GameConfig.VIS_LAYER_VEHICLE_B, null)
 	_ok(r_res.ok, "T003-08 旋转出生实体 setup 成功")
-	r_actor.set_physics_process(false)
 	var r_pos0: Vector3 = r_actor.tank.global_position
 	var r_yaw0: float = r_actor.tank.global_rotation.y
 	for i in 60:
-		r_actor.apply_command(cmd_fwd, 1.0 / Engine.physics_ticks_per_second)
+		r_actor.submit_command(cmd_fwd)
 		await physics_frame
 	var moved: Vector3 = r_actor.tank.global_position - r_pos0
 	# 移动方向必须与车头方向（-global basis.z）一致（非零 Y 旋转出生）
@@ -862,38 +867,55 @@ func _run() -> void:
 	var pts_after: Array = gunner.tracer_points()
 	_ok(pts_after.size() == 2 and pts_after[0].distance_to(pts_before[0]) < 0.01 and pts_after[1].distance_to(pts_before[1]) < 0.01, "T003-08 旧示踪线不随车辆运动拖动")
 
-	# --- T003-09（003-R1）：真实任务闭环——射手/射击编号/轮次；正常输入链路 ---
+	# --- T003-09（003-R1/R2）：真实任务闭环——射手/射击编号/轮次/生命周期；正常输入链路 ---
 	# C 射击 B：B 可被命中，但不能替 A 得分
+	# 003-R2：C2 经同一提交入口提交命令，由 C2 自己的物理回调消费（不关闭任何生产回调）
 	var c2: VehicleActor = main.spawn_vehicle("player_tank", "C2", Vector3(8, 0, 6))
 	_ok(c2 != null, "T003-09 C2 实体生成")
-	c2.set_physics_process(false)
 	var cmd_aim_c := VehicleCommand.new()
 	cmd_aim_c.has_aim_point = true
 	cmd_aim_c.aim_world_point = main.actor_b.tank.global_position + Vector3(0, 1.0, 0)
 	for i in 30:
-		c2.apply_command(cmd_aim_c, 1.0 / Engine.physics_ticks_per_second)
+		c2.submit_command(cmd_aim_c)
 		await physics_frame
 	var b_hits0_c2: int = main.actor_b.tank.hits_taken
 	var t_hits0: int = main.trial_hits
 	var cmd_fire_c := VehicleCommand.new()
 	cmd_fire_c.fire_requested = true
-	c2.apply_command(cmd_fire_c, 1.0 / Engine.physics_ticks_per_second)
+	c2.submit_command(cmd_fire_c)
+	await physics_frame
+	await physics_frame
 	_ok(main.actor_b.tank.hits_taken == b_hits0_c2 + 1, "T003-09 C 射击 B 可命中 (b_hits=%d)" % main.actor_b.tank.hits_taken)
 	_ok(main.trial_hits == t_hits0, "T003-09 C 命中不替 A 得分 (trial=%d)" % main.trial_hits)
+	# 同名车销毁重建：entity_id 相同，life_id 必须不同（生命周期身份）
+	var c2_old_life: int = c2.life_id
 	main.despawn_vehicle(c2)
 	for i in 3:
 		await physics_frame
-	# 同一射击编号重复投递不重复计分
+	var c2b: VehicleActor = main.spawn_vehicle("player_tank", "C2", Vector3(8, 0, 6))
+	_ok(c2b != null and c2b.life_id != c2_old_life, "T003-09 同名车重建后 life_id 不同 (%d→%d)" % [c2_old_life, c2b.life_id])
+	main.despawn_vehicle(c2b)
+	for i in 3:
+		await physics_frame
+	# 同一射击编号重复投递不重复计分（完整合法身份）
 	var h1: int = main.trial_hits
-	main._on_b_hit("A", 999001)
+	var id_ok := _task_identity(main, 999001)
+	main._on_b_hit(id_ok)
 	_ok(main.trial_hits == h1 + 1, "T003-09 新射击编号推进 (trial=%d)" % main.trial_hits)
-	main._on_b_hit("A", 999001)
+	main._on_b_hit(id_ok)
 	_ok(main.trial_hits == h1 + 1, "T003-09 同一射击编号重复投递不重复计分 (trial=%d)" % main.trial_hits)
-	# 重开后旧射击编号无效（轮次递增）
-	main._reset_all()
+	# 003-R2 强反例①：旧回合产生、任务接收器尚未收到的事件——重开后才首次送达 → 不计分
+	# （接收器用开火时冻结的 round_id 校验，不用"是否见过该编号"判断）
+	var id_stale := _task_identity(main, 999002)   # 冻结于当前（旧）轮次
+	main._reset_all()   # 轮次递增 + 本回合去重清空——旧事件此刻才首次送达
 	var h2: int = main.trial_hits
-	main._on_b_hit("A", 999001)
-	_ok(main.trial_hits == h2, "T003-09 重开后旧轮次射击编号无效 (trial=%d)" % main.trial_hits)
+	main._on_b_hit(id_stale)
+	_ok(main.trial_hits == h2, "T003-09 旧轮次事件重开后首次送达不计分 (trial=%d)" % main.trial_hits)
+	# 003-R2 强反例②：同名车重建后的旧生命周期事件 → 不计分
+	var id_old_life := _task_identity(main, 999003)
+	id_old_life["shooter_life_id"] = c2_old_life + 99999   # 模拟旧实体已销毁的生命周期身份
+	main._on_b_hit(id_old_life)
+	_ok(main.trial_hits == h2, "T003-09 旧生命周期身份事件不计分 (trial=%d)" % main.trial_hits)
 	# 正常输入链路：Input 开火 → 命令入口 → 真实命中 → 自然装填 → 推进（不清零冷却）
 	main._reset_all()
 	var d_ab9: Vector3 = main.actor_b.tank.global_position - main.actor_a.tank.global_position
@@ -932,6 +954,17 @@ func _run() -> void:
 
 func turret_snap(main) -> void:
 	main.turret.snap_to_aim()
+
+func _task_identity(m: Node, sid: int) -> Dictionary:
+	# 003-R2：构造完整合法任务命中身份（round/shooter/life/shot/target 来自实际状态）
+	return {
+		"round_id": m.get_round_id(),
+		"shooter_id": m.actor_a.entity_id,
+		"shooter_life_id": m.actor_a.life_id,
+		"shot_id": sid,
+		"target_id": m.actor_b.entity_id,
+		"target_life_id": m.actor_b.life_id,
+	}
 
 func _key(k: Key) -> void:
 	# 002-R2：真实按键事件（按下+释放）经 Input.parse_input_event 走完整输入管线

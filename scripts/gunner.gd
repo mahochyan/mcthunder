@@ -12,7 +12,8 @@ var tank: TankVehicle = null
 var turret: TurretRig = null
 var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
-var shot_id := 0                      # 003-R1：本实体射击编号（每发 +1，命中事件携带）
+var shot_id := 0                      # 003-R2：本实体射击编号——每次成功发射 +1（含空射/打墙），发射时分配
+var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
@@ -47,6 +48,10 @@ func request_fire() -> bool:
 	# 不再由本脚本直接读取全局 fire 键）
 	return try_fire()
 
+func _current_round() -> int:
+	# 003-R2：开火那一刻的任务轮次（发射身份冻结来源；未注入 = -1，任务侧必拒）
+	return round_provider.call() if round_provider.is_valid() else -1
+
 func _update_actual_aim() -> void:
 	if turret == null:
 		return
@@ -80,6 +85,17 @@ func try_fire() -> bool:
 			last_shot_result = "blocked:barrel_occluded"
 			return false
 	# 炮口实际方向命中查询（003-R1：射程来自 WeaponDefinition）
+	# 003-R2：通过全部开火检查后先分配射击身份、冻结发射上下文——
+	# round_id 取开火时刻（不在命中送达时补填）；每次成功发射消耗一个编号
+	shot_id += 1
+	var identity := {
+		"round_id": _current_round(),
+		"shooter_id": shooter_id,
+		"shooter_life_id": tank.life_id,
+		"shot_id": shot_id,
+		"target_id": "",
+		"target_life_id": 0,
+	}
 	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
 	var dir := turret.barrel_direction()
 	var ghit := _ray(muz, dir, range)
@@ -88,10 +104,14 @@ func try_fire() -> bool:
 	if not ghit.is_empty():
 		end = ghit.position
 		var col: Object = ghit.collider
-		if col != null and col.has_method("register_hit"):
-			shot_id += 1   # 003-R1：射击编号（命中事件携带；同一发只投递一次）
-			col.register_hit(shooter_id, shot_id)
+		if col is TankVehicle:
+			# 车辆命中：补齐目标身份（来自实际碰撞对象）→ 发出完整事件
+			identity["target_id"] = col.entity_id
+			identity["target_life_id"] = col.life_id
+			col.register_hit(identity)
 			hit_vehicle = true
+		elif col != null and col.has_method("register_hit"):
+			col.register_hit({})   # 靶板等非车辆对象：只触发自身反馈，不产生任务事件
 	last_shot_result = "hit" if hit_vehicle else "miss"
 	_spawn_tracer(muz, end)
 	turret.kick_recoil()

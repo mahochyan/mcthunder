@@ -124,6 +124,16 @@ func snap_to_aim() -> void:
 	rotation.y = wrapf(target.y - hull_yaw, -PI, PI)
 	barrel_pivot.rotation.x = target.x
 
+func aim_error_deg() -> float:
+	# 003-R2：炮塔当前指向与意图瞄点的最大角偏差（度）——
+	# 自然瞄准演示/测试用：有限速追赶到位的判据（不修改炮塔角，只读）
+	if cam_rig == null and not _has_aim_override:
+		return 0.0
+	var target := _target_angles(_aim_point())
+	var dy := absf(wrapf(target.y - global_rotation.y, -PI, PI))
+	var dp := absf(target.x - barrel_pivot.rotation.x)
+	return rad_to_deg(maxf(dy, dp))
+
 func kick_recoil() -> void:
 	_recoil = 0.22
 	_flash.visible = true

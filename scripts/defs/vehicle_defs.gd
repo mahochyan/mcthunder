@@ -46,6 +46,9 @@ func get_shell(id: String) -> ShellDefinition:
 
 func resolve_vehicle(id: String) -> Dictionary:
 	# 装配用：解析车辆定义及其武器/弹种引用；缺引用 → 失败并定位字段
+	# 003-R2：装配边界再次校验三个定义本体——手工注册进注册表的定义
+	# 不经 load_defaults() 也会在此被拦截（引用存在 ≠ 定义有效）
+	var errors: Array[String] = []
 	var v := get_vehicle(id)
 	if v == null:
 		return {"ok": false, "errors": ["vehicle_id: unknown vehicle '%s'" % id]}
@@ -55,4 +58,15 @@ func resolve_vehicle(id: String) -> Dictionary:
 	var s := get_shell(w.shell_id)
 	if s == null:
 		return {"ok": false, "errors": ["shell_id: unknown shell '%s' referenced by weapon '%s'" % [w.shell_id, w.id]]}
+	var vv := v.validate()
+	if not vv.ok:
+		errors.append("vehicle %s: %s" % [v.id, ", ".join(vv.errors)])
+	var wv := w.validate()
+	if not wv.ok:
+		errors.append("weapon %s: %s" % [w.id, ", ".join(wv.errors)])
+	var sv := s.validate()
+	if not sv.ok:
+		errors.append("shell %s: %s" % [s.id, ", ".join(sv.errors)])
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors}
 	return {"ok": true, "vehicle": v, "weapon": w, "shell": s}
