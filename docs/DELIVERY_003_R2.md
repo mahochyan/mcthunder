@@ -86,13 +86,64 @@
 说明：本工程 gate 校验在"车辆命中事件真实来自生产射击路径"的前提下使用
 （参考实现同此边界）；集成测试的加分路径全部来自真实开火（见 §2②）。
 
-## 5. NOT_RUN / 保留项
+## 7. 收尾节（GPT 复审 3d410a6 后的启动失败路径收尾）
+
+GPT 复审结论（3d410a6）：命令单一物理消费 / 发射轮次与生命周期身份 /
+自然瞄准演示三项**关闭**；CommandMailbox / TrialHitGate 类名接受；
+本轮只收尾启动失败路径（仍属 003-R2，未新开 R3）。
+
+### 7.1 负例测试隔离化（旧入口停用）
+- **删除** `tests/abort_check.gd`（旧脚本在正常工程内原地写 configs + user://
+  备份自动恢复——测试不得覆盖开发文件；自动恢复无法区分"遗留坏文件"与
+  "用户合法修改"）。若发现 user:// 遗留备份，新运行器**只报告，不自动覆盖**。
+- **新增** `tests/abort_check.ps1`（隔离副本模式，原工程只读）：
+  git archive 导出**已提交候选**（工作区不干净直接 FAIL，logs/ 豁免为运行产物）
+  → 工程外临时目录解压 → 副本 `--import` + `--quit-after 10` 确认正常启动 →
+  仅副本注入坏配置（verified 无实质来源）→ 子进程 `--path <副本>` 启动真实主场景
+  （Start-Job + Wait-Job -Timeout 60s，退出码落文件，完整 stdout/stderr）→
+  PASS 判据：子进程非零退出 + 输出含 `003-R2 ABORT` + 无意外 `SCRIPT ERROR` +
+  原工程前后 git status 一致（变化只报告不自动恢复）。
+- 实测（被测候选 `b2784ca`）：副本正常启动确认通过；注坏配置后子进程
+  **exit=1**、abort_log=True、unexpected_script_error=False、原工程未动 →
+  **PASS**（`logs/003-R2/abort_check.log`）。运行入口：
+  `powershell -ExecutionPolicy Bypass -File tests\abort_check.ps1`（工程根）。
+
+### 7.2 Main 生命周期守卫
+- 新增 `_initialized` 标记 + `_can_use_gameplay()` 统一守卫（_initialized 且
+  非 _aborted 且 actor_a/actor_b/hud 有效）；`_notification` 失焦分支、
+  `_pause()`、`_resume()`、`reset_range()` 开头全部接入——初始化失败后
+  失焦通知（与常规帧处理相互独立的入口）不得再访问空 HUD/实体。
+- `_abort_initialization` 幂等：先设 `_initialized=false`/`_aborted=true`
+  再清理；重复调用只记日志不重复创建错误画面；错误画面为独立 Label
+  （不依赖可能尚未创建的正常 HUD）。
+- `begin_round()` 失败走同一 `_abort_initialization` 短路（不只打印后继续）。
+
+### 7.3 验证与记录
+- 守卫路径验证（T003-10，程序注入通知，不冒充 OS 级 Alt+Tab 真人测试）：
+  终止态/初始化未完成态收失焦通知被守卫拦截（不进入正常暂停、无空对象访问）；
+  正常态失焦自动暂停保持（002 行为不回退）。
+- 完整回归：**208 项检查，0 失败，CHECKS_PASS，exit=0**（205 + 3 项 T003-10；
+  `logs/003-R2/checks.log`，被测实现提交 `2244cda`（Main 守卫）→
+  `b2784ca`（负例运行器修正，不含生产代码变更））。不重跑旧变异、
+  未重拍 13 张正常演示图（仍属 `022c3ae` 时点）。
+- **旧负例日志归属说明**：`logs/003-R2/abort_check.log` 现为隔离副本模式
+  （`b2784ca` 时点）的运行记录；此前同名的原地修改测试记录已随旧脚本删除，
+  不重新标成隔离测试。
+
+### 7.4 未验证项
+- U003-01 人工逐项试玩：**NOT_RUN**（不代签）；
+- 操作系统级 Alt+Tab 失焦真人测试：NOT_RUN（T003-10 为程序注入通知验证）；
+- GPT 侧未运行 Godot、未目视 PNG——与此前各轮一致，如实保留。
+
+## 8. NOT_RUN / 保留项
 
 - U003-01 人工逐项试玩与人工截图：**NOT_RUN**（待人工验收，不代签）；
 - 自动截图 ≠ 人工验收；
+- 操作系统级 Alt+Tab 失焦真人测试：NOT_RUN（T003-10 为程序注入通知验证）；
+- GPT 侧未运行 Godot、未目视 PNG——与此前各轮一致，如实保留；
 - 003-R1 已交付且被 GPT 复审确认保留的部分（配置驱动 / 碰撞与坐标 / 射手过滤与基本去重 / 自然装填演示）本轮未重做、未回退；
-- GPT 技术指导包原始参考实现：未获取（见 §4）。
+- GPT 技术指导包参考实现已通过正文获取并对齐（见 §4）。
 
-## 6. 约束合规
+## 9. 约束合规
 
 同分支追加提交、不强推、不合并 main、不退回 002、不开始 004；未接入外部 API/联网；未新增历史车型/装甲/AI/正式菜单；引擎 Godot 4.7.2-stable 未更换；`tools/` 与 `.godot/` 不入库；旧日志归属未改动（R1 时点日志原样）。
