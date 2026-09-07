@@ -254,8 +254,37 @@ func _autoshot_step() -> void:
 				_reset_all()   # T002-05 窗口证据：重置不得暂停或释放鼠标
 			print("[T002-05] after 3 resets: mouse_mode=", Input.mouse_mode, " paused=", _paused, " (2=CAPTURED, false)")
 		200:
+			print("[autoshot] phase1 done: shots_saved=", _shots_saved, " errors=", _shot_errors)
+		210:
+			# 003 演示：重置后把相机转向 B（A 在 (0,0,8)，B 在 (8,0,0) → -45°），
+			# 炮塔以有限转速收敛（35°/s × 45° ≈ 77 帧）
+			_reset_all()
+			cam_rig.aim_yaw = atan2(-8.0, 8.0)
+			cam_rig.aim_pitch = 0.0
+		290:
+			_shot("autoshot_6_two_vehicles.png")   # 第三人称：两辆车同框（A 近景，B 在画面中央）
+			print("[003] two_vehicles: B screen=", cam_rig.cam.unproject_position(actor_b.tank.global_position), " A screen=", cam_rig.cam.unproject_position(actor_a.tank.global_position))
+			Input.action_press("aim")
+		300:
+			_shot("autoshot_7_sight_sees_b.png")   # 炮镜：B 可见（cull_mask 只剔除 A 自身视觉层）
+			print("[003] sight: B screen=", cam_rig.cam.unproject_position(actor_b.tank.global_position), " sight=", cam_rig.sight, " cull_mask=", cam_rig.cam.cull_mask)
+			Input.action_release("aim")
+			# 试射目标：三次真实生产命中（try_fire 即 PlayerController 调用的同一生产路径）
+			gunner.cooldown_left = 0.0
+			gunner.resume_grace = 0.0
+			gunner.try_fire()
+			gunner.cooldown_left = 0.0
+			gunner.resume_grace = 0.0
+			gunner.try_fire()
+			gunner.cooldown_left = 0.0
+			gunner.resume_grace = 0.0
+			gunner.try_fire()
+		310:
+			_shot("autoshot_8_trial_complete.png")   # 试射完成：TRIAL COMPLETE 3/3
+			print("[003] trial_hits=", trial_hits, " b_hits=", actor_b.tank.hits_taken)
+		320:
 			print("[autoshot] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
-			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 5) else 0)   # 002-R1：截图失败 → 自检非零
+			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 8) else 0)   # 必需截图失败 → 自检非零
 
 func _print_aim(label: String) -> void:
 	# 002-R2：帧末（相机 _process 之后）打印意图俯仰与相机前向俯仰的匹配对
