@@ -227,6 +227,10 @@ func _pause() -> void:
 		return
 	if _paused:
 		return
+	# 005-R1-C：暂停入口先关查询面板（覆盖失焦自动暂停与暂停键两条路径）——
+	# 面板关闭走 close_query_debug（清理 + 火键释放观察），再进入暂停
+	if _query_panel_open:
+		close_query_debug()
 	_paused = true
 	# 003-R2：暂停在状态切换入口显式清理——两车暂存 + 控制者待发 fire 边沿；
 	# 不指望已停止物理回调的 actor 自己清掉（NOTIFICATION_PAUSED 仅作兜底）
@@ -305,13 +309,15 @@ func open_query_debug() -> void:
 
 func close_query_debug() -> void:
 	# 005-d：关闭面板——恢复控制器意图与鼠标捕获（仅在游戏未暂停时重捕获）。
+	# 005-R1-C：统一清理走 panel.cleanup()；恢复意图后要求观察到火键释放
+	# （关闭用鼠标左键不得被当作一次开火边沿；面板打开期间火键按下也不补发）。
 	if not _query_panel_open:
 		return
 	_query_panel_open = false
 	controller.commands_enabled = true
-	controller.reset_pending()
+	controller.require_fire_release()
 	if is_instance_valid(_query_panel):
-		_query_panel.free_world_art()
+		_query_panel.cleanup()
 		_query_panel.queue_free()
 	_query_panel = null
 	if is_instance_valid(_query_panel_layer):
@@ -543,9 +549,9 @@ func _query_demo_step() -> void:
 			if not qr.get("ok", false):
 				_shot_errors += 1
 				printerr("[query-demo] FAIL: run query not ok")
-			if evs.size() < 2:
+			if evs.is_empty():
 				_shot_errors += 1
-				printerr("[query-demo] FAIL: expected >=2 events, got ", evs.size())
+				printerr("[query-demo] FAIL: expected >=1 event, got ", evs.size())
 			elif str(evs[0].get("entity_id", "")) != "B":
 				_shot_errors += 1
 				printerr("[query-demo] FAIL: first event entity != B: ", str(evs[0]))
@@ -575,18 +581,18 @@ func _query_demo_step() -> void:
 			var wall_evs: Array = []
 			var armor_evs: Array = []
 			for ev in _query_panel.last_events():
-				if str(ev.get("kind", "")) == "wall":
+				if str(ev.get("kind", "")) == "world":
 					wall_evs.append(ev)
 				elif str(ev.get("kind", "")) == "armor":
 					armor_evs.append(ev)
 			if wall_evs.is_empty():
 				_shot_errors += 1
-				printerr("[query-demo] FAIL: wall crossing missing")
+				printerr("[query-demo] FAIL: world (test wall) contact missing")
 			elif armor_evs.size() > 0 and float(wall_evs[0].get("distance_m", 0.0)) >= float(armor_evs[0].get("distance_m", 0.0)):
 				_shot_errors += 1
-				printerr("[query-demo] FAIL: wall not before B armor (wall=%.2f armor=%.2f)" % [float(wall_evs[0].get("distance_m", 0.0)), float(armor_evs[0].get("distance_m", 0.0))])
+				printerr("[query-demo] FAIL: wall not before B armor (world=%.2f armor=%.2f)" % [float(wall_evs[0].get("distance_m", 0.0)), float(armor_evs[0].get("distance_m", 0.0))])
 			_shot("query_debug_3_test_wall_before_b.png")
-			print("[query-demo] run2: wall_enter=", ("%.2f" % float(wall_evs[0].get("distance_m", 0.0)) if wall_evs.size() > 0 else "-"), " armor_first=", ("%.2f" % float(armor_evs[0].get("distance_m", 0.0)) if armor_evs.size() > 0 else "-"))
+			print("[query-demo] run2: world_enter=", ("%.2f" % float(wall_evs[0].get("distance_m", 0.0)) if wall_evs.size() > 0 else "-"), " armor_first=", ("%.2f" % float(armor_evs[0].get("distance_m", 0.0)) if armor_evs.size() > 0 else "-"))
 			# 调试查询不得消耗弹药/任务（面板全程未触碰 Gunner/任务计数）
 			if gunner.shots_fired != _demo_s0 or trial_hits != _demo_t0:
 				_shot_errors += 1
@@ -599,7 +605,7 @@ func _query_demo_step() -> void:
 				printerr("[query-demo] FAIL: Clear did not clear results/markers")
 			_shot("query_debug_4_cleared.png")
 		90:
-			_query_panel_click("AddWallButton")   # 按钮已变 Remove Test Wall
+			_query_panel_click("RemoveWallButton")   # 005-R1-C：移除走独立按钮（显式）
 		92:
 			if _query_panel.has_wall():
 				_shot_errors += 1

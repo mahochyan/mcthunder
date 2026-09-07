@@ -22,6 +22,7 @@ var blocked_reason := ""          # "" / "cooldown" / "grace" / "barrel_occluded
 var last_shot_result := ""        # 003："" / "hit" / "miss" / "blocked:cooldown" / "blocked:grace" / "blocked:barrel_occluded"
 var actual_hit_point := Vector3.ZERO   # 炮管实际指向命中点（供实际指向标记）
 var last_query_events: Array = []      # 005：最近一次开火的统一查询事件（调试/证据用；只读展示）
+var _aim_query_cache: Dictionary = {}  # 005-R1：物理阶段统一查询缓存（实际指向标记同源）
 
 var _tracer: MeshInstance3D
 var _tracer_mesh: ImmediateMesh
@@ -45,6 +46,53 @@ func _process(delta: float) -> void:
 	_update_actual_aim()
 	_update_effects(delta)
 
+func _physics_process(_delta: float) -> void:
+	# 005-R1：实际指向标记的统一查询在物理阶段执行（世界遮挡 + 同一车辆几何服务），
+	# 结果缓存给 _process 读取——与开火判定路径同源（不再用旧 _ray 粗碰撞）。
+	if turret == null or tank == null:
+		return
+	if not snapshot_provider.is_valid():
+		return
+	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
+	var muz := turret.muzzle.global_position
+	var dir := turret.barrel_direction()
+	if not muz.is_finite() or not dir.is_finite():
+		return
+	var ws_result := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state, muz, dir, range, _exclude())
+	var world_contact: Dictionary = ws_result.get("contact", {}) if ws_result.get("hit", false) else {}
+	var snapshots: Array = snapshot_provider.call()
+	_aim_query_cache = ShotQueryService.query({
+		"query_id": "aim_%s_%d" % [shooter_id, Engine.get_physics_frames()],
+		"physics_tick": Engine.get_physics_frames(),
+		"from_world": muz,
+		"to_world": muz + dir * range,
+		"excluded_instances": [{"entity_id": tank.entity_id, "life_id": tank.life_id}],
+		"include_modules": true,
+		"include_crew": false,
+		"world_stop": world_contact,
+	}, snapshots)
+	if not ws_result.get("ok", false):
+		_aim_query_cache["__world_ok"] = false
+		_aim_query_cache["__world_reason"] = str(ws_result.get("reason", "no_space"))
+
+func _update_actual_aim() -> void:
+	if turret == null:
+		return
+	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
+	var muz := turret.muzzle.global_position
+	var dir := turret.barrel_direction()
+	if _aim_query_cache.get("__world_ok", true) == false:
+		actual_hit_point = muz + dir * 60.0
+		return
+	var sel := ExternalContactSelector.select_contact(_aim_query_cache)
+	match sel.get("status", "unresolved"):
+		"vehicle":
+			actual_hit_point = sel["event"].get("point_world", muz + dir * 60.0)
+		"world":
+			actual_hit_point = sel["contact"].get("point_world", muz + dir * 60.0)
+		_:
+			actual_hit_point = muz + dir * 60.0
+
 func request_fire() -> bool:
 	# 003：统一开火请求入口（PlayerController 边沿 → VehicleCommand → 本方法；
 	# 不再由本脚本直接读取全局 fire 键）
@@ -53,18 +101,6 @@ func request_fire() -> bool:
 func _current_round() -> int:
 	# 003-R2：开火那一刻的任务轮次（发射身份冻结来源；未注入 = -1，任务侧必拒）
 	return round_provider.call() if round_provider.is_valid() else -1
-
-func _update_actual_aim() -> void:
-	if turret == null:
-		return
-	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
-	var muz := turret.muzzle.global_position
-	var dir := turret.barrel_direction()
-	var hit := _ray(muz, dir, range)
-	if not hit.is_empty():
-		actual_hit_point = hit.position
-	else:
-		actual_hit_point = muz + dir * 60.0
 
 func try_fire() -> bool:
 	if cooldown_left > 0.0:
@@ -101,15 +137,23 @@ func try_fire() -> bool:
 	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
 	var dir := turret.barrel_direction()
 	var end := muz + dir * range
-	# 005：统一命中查询——世界遮挡（物理阶段，LAYER_WORLD）+ 车辆几何（同一服务）。
-	# 服务不修改弹药/模块/任务计数；每发最多一条任务计分事件（register_hit 至多一次）。
-	var world_stop := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state, muz, dir, range, _exclude())
-	var world_stop_m := -1.0
-	var world_collider: Object = null
-	if not world_stop.is_empty():
-		world_stop_m = muz.distance_to(world_stop.position)
-		world_collider = world_stop.collider
-		end = world_stop.position
+	# 005-R1：统一命中查询——保留原始完整线段（世界遮挡作为结果接触，不提前截断 to_world，
+	# 墙后候选保留并标注遮挡）；有效外部接触由 ExternalContactSelector 统一选取：
+	# 车辆命中只认"首个有效装甲外表面接触"；模块/乘员是内部候选，不参与本轮计分；
+	# 查询不完整/失败 → 保守未决（unresolved），不产生车辆命中，也不假装畅通。
+	var ws_result := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state, muz, dir, range, _exclude())
+	var world_contact: Dictionary = ws_result.get("contact", {}) if ws_result.get("hit", false) else {}
+	var world_collider: Object = world_contact.get("collider", null) if not world_contact.is_empty() else null
+	if not ws_result.get("ok", false):
+		# 输入或物理空间无效 → 未决：不伪造命中、也不当没有墙
+		last_query_events = []
+		last_shot_result = "unresolved"
+		_spawn_tracer(muz, end)
+		turret.kick_recoil()
+		cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
+		shots_fired += 1
+		blocked_reason = ""
+		return true
 	var snapshots: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
 	var qr := ShotQueryService.query({
 		"query_id": "shot_%s_%d" % [shooter_id, shot_id],
@@ -119,33 +163,32 @@ func try_fire() -> bool:
 		"excluded_instances": [{"entity_id": tank.entity_id, "life_id": tank.life_id}],
 		"include_modules": true,
 		"include_crew": false,
-		"world_stop_distance_m": world_stop_m,
+		"world_stop": world_contact,
 	}, snapshots)
-	last_query_events = qr.get("events", []) if qr.get("ok", false) else []
+	last_query_events = qr.get("events", [])
+	var sel := ExternalContactSelector.select_contact(qr)
+	var contact_end := end
 	var hit_vehicle := false
-	if qr.get("ok", false):
-		var first: Dictionary = {}
-		for ev in qr["events"]:
-			if ev.get("kind", "") in ["armor", "module", "crew"]:
-				first = ev
-				break
-		if not first.is_empty():
-			var ev_dist := float(first["distance_m"])
-			if world_stop_m < 0.0 or ev_dist < world_stop_m - 0.001:
-				# 首个有效外部接触在墙前 → 命中该实体（几何查询结果，非物理粗碰撞）
-				var target := _find_vehicle(str(first.get("entity_id", "")), int(first.get("life_id", 0)))
-				if target != null:
-					identity["target_id"] = target.entity_id
-					identity["target_life_id"] = target.life_id
-					target.register_hit(identity)
-					hit_vehicle = true
-			elif world_collider != null and world_collider.has_method("register_hit"):
-				world_collider.register_hit({})   # 靶板等世界对象：只触发自身反馈，不产生任务事件
-		elif world_collider != null and world_collider.has_method("register_hit"):
-			world_collider.register_hit({})
-	# 查询失败（如超实体数）→ 保守 miss（不伪造命中）
-	last_shot_result = "hit" if hit_vehicle else "miss"
-	_spawn_tracer(muz, end)
+	match sel.get("status", "unresolved"):
+		"vehicle":
+			# 首个有效装甲外表面接触在墙前 → 命中该实体（几何查询结果，非物理粗碰撞）
+			var ev: Dictionary = sel["event"]
+			var target := _find_vehicle(str(ev.get("entity_id", "")), int(ev.get("life_id", 0)))
+			if target != null:
+				identity["target_id"] = target.entity_id
+				identity["target_life_id"] = target.life_id
+				target.register_hit(identity)
+				hit_vehicle = true
+				contact_end = ev.get("point_world", end)
+		"world":
+			# 最近世界遮挡：靶板等世界对象只触发自身反馈，不产生任务事件
+			if world_collider != null and world_collider.has_method("register_hit"):
+				world_collider.register_hit({})
+			contact_end = sel["contact"].get("point_world", end)
+		_:
+			pass   # miss / unresolved：不产生计分事件；示踪线终点 = 完整线段终点
+	last_shot_result = "hit" if hit_vehicle else ("unresolved" if sel.get("status", "") == "unresolved" else "miss")
+	_spawn_tracer(muz, contact_end)
 	turret.kick_recoil()
 	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
 	shots_fired += 1

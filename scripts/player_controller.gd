@@ -11,6 +11,7 @@ var cam_rig: CameraRig = null   # 由 actor 注入（本地控制者设置时）
 var gunner: Gunner = null       # 由 actor 注入（仅用于状态查询，不直接调用开火）
 var commands_enabled := true    # 005-d：调试面板打开时禁用意图生成（面板不消费弹药/任务，也不得被点击误触开火）
 var _fire_pending := false
+var _need_fire_release := false   # 005-R1-C：面板关闭/暂停后必须观察到火键释放才重新允许捕获
 
 func _process(_delta: float) -> void:
 	if get_tree().paused:
@@ -19,6 +20,11 @@ func _process(_delta: float) -> void:
 	if not commands_enabled:
 		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
 		return
+	if _need_fire_release:
+		if Input.is_action_pressed("fire"):
+			_fire_pending = false
+			return
+		_need_fire_release = false
 	if Input.is_action_just_pressed("fire"):
 		_fire_pending = true
 
@@ -45,6 +51,14 @@ func poll() -> VehicleCommand:
 	_fire_pending = false
 	return cmd
 
+func require_fire_release() -> void:
+	# 005-R1-C：重新允许意图前调用——关闭调试面板用的鼠标左键/暂停中按下的 fire
+	# 不得被当作开火边沿；若火键此刻仍按住则等到真实释放（保守门）。
+	_fire_pending = false
+	_need_fire_release = true
+
 func reset_pending() -> void:
-	# 003-R1：重置清理待发命令（由 VehicleActor.reset_vehicle 调用）
+	# 003-R1：重置清理待发命令（由 VehicleActor.reset_vehicle 与暂停入口调用）；
+	# 只清待发边沿，不臂释放门（002 语义：无冷却时 按下→立即合法射击；
+	# 门仅由 close_query_debug 的 require_fire_release 臂起，防面板关闭瞬时的按住误射）。
 	_fire_pending = false

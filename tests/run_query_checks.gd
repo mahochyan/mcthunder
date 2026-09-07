@@ -149,10 +149,10 @@ func _hand_calculated_cases() -> void:
 		_ok(_ev(events[1], "module", "enter", "engine") and _near(events[1], 6.0), "005-b event2 engine enter at 6m (got %.3f)" % _dist(events[1]))
 		_ok(_ev(events[2], "module", "exit", "engine") and _near(events[2], 7.0), "005-b event3 engine exit at 7m (got %.3f)" % _dist(events[2]))
 		_ok(_ev(events[3], "armor", "surface", "hull_rear") and _near(events[3], 8.0), "005-b event4 rear plate at 8m (got %.3f)" % _dist(events[3]))
-	# 法线已知且朝外（前板 +z）
+	# 法线已知且朝外（005-R1：前板外法线 −Z）
 	if events.size() > 0:
 		var n: Vector3 = events[0]["normal_world"]
-		_ok(events[0].get("normal_known", false) and n.z > 0.99, "005-b front plate normal +z (got %s)" % str(n))
+		_ok(events[0].get("normal_known", false) and n.z < -0.99, "005-b front plate normal -z (got %s)" % str(n))
 	# 射线从面片旁边经过（y=2 高于车顶 1.35）→ 无命中
 	var r2 := ShotQueryService.query({
 		"query_id": "q_side", "physics_tick": 2,
@@ -179,22 +179,44 @@ func _hand_calculated_cases() -> void:
 func _world_occlusion_cases() -> void:
 	var snap := _identity_snapshot("B", 1, Transform3D.IDENTITY)
 	# 挡墙 center=(0,1,-2.5) size=(3,3,1) → 最近墙面 2m
+	var wall_contact := {
+		"kind": "world", "event_type": "surface", "distance_m": 2.0,
+		"point_world": Vector3(0, 1, -2.0), "normal_world": Vector3(0, 0, 1), "normal_known": true,
+	}
 	var r := ShotQueryService.query({
 		"query_id": "q_wall", "physics_tick": 5,
 		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
-		"world_stop_distance_m": 2.0,
+		"world_stop": wall_contact,
 	}, [snap])
 	_ok(absf(float(r["world_stop_distance_m"]) - 2.0) < 0.001, "005-b wall stop at 2m (got %.3f)" % float(r["world_stop_distance_m"]))
-	# 墙后候选仍在 events 中（遮挡标记由上层/面板处理，服务不删除候选）
+	_ok(r.get("world_stop", {}) == wall_contact, "005-b result echoes world_stop contact dict")
+	# 墙后候选仍在 events 中（遮挡只是标注，服务不删除候选）
 	_ok((r["events"] as Array).size() == 4, "005-b wall-behind candidates remain in events (occlusion is a display/rule concern)")
-	# 移墙后（无 world_stop）→ 前板仍 5m
+	# 墙后事件带 occluded_by_world 标注；墙前（无）不留
+	for ev in r["events"]:
+		var occluded: bool = float(ev.get("distance_m", 0.0)) > 2.0 + 1e-5
+		_ok(bool(ev.get("occluded_by_world", false)) == occluded, "005-b occluded_by_world matches distance vs world stop (ev %.2fm occluded=%s)" % [float(ev.get("distance_m", 0.0)), str(ev.get("occluded_by_world", false))])
+	# 移墙后（无 world_stop）→ 前板仍 5m；无 occluded 标注
 	var r2 := ShotQueryService.query({
 		"query_id": "q_nowall", "physics_tick": 6,
 		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
 	}, [snap])
 	_ok(float(r2["world_stop_distance_m"]) < 0.0 and (r2["events"] as Array).size() == 4, "005-b no wall: front plate first again")
+	for ev in r2["events"]:
+		_ok(not bool(ev.get("occluded_by_world", false)), "005-b no world stop: no occluded flags")
+	# 旧字段兼容：只有 world_stop_distance_m（无数值 contact）也可用
+	var r3 := ShotQueryService.query({
+		"query_id": "q_wall_legacy", "physics_tick": 7,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop_distance_m": 2.0,
+	}, [snap])
+	_ok(absf(float(r3["world_stop_distance_m"]) - 2.0) < 0.001, "005-b legacy world_stop_distance_m still accepted")
+	for ev in r3["events"]:
+		var occluded3: bool = float(ev.get("distance_m", 0.0)) > 2.0 + 1e-5
+		_ok(bool(ev.get("occluded_by_world", false)) == occluded3, "005-b legacy wall: occlusion flags consistent (ev %.2fm)" % float(ev.get("distance_m", 0.0)))
 
 
 func _pose_cases() -> void:
@@ -213,7 +235,7 @@ func _pose_cases() -> void:
 		# 车体 yaw90 后 hull_front（局部 z=0）在世界 x=0；探测线沿 x 从 -5 到 5 → 前板 5m
 		_ok(_near(events[0], 5.0) and _ev(events[0], "armor", "surface", "hull_front"), "005-b yaw90 front at 5m (got %.3f)" % _dist(events[0]))
 		var n: Vector3 = events[0]["normal_world"]
-		_ok(n.x > 0.99, "005-b yaw90 front normal rotated to +x (got %s)" % str(n))
+		_ok(n.x < -0.99, "005-b yaw90 front normal rotated to -x (got %s)" % str(n))
 	# 炮塔单独旋转 90°（turret part 变换旋转，hull 不变）：turret_front 面片交点随炮塔转
 	var hull_t := Transform3D.IDENTITY
 	var turret_t := Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), Vector3(0, 1.35, 0))
@@ -308,13 +330,12 @@ func _endpoint_cases() -> void:
 
 func _seam_and_multi_layer_cases() -> void:
 	var snap := _identity_snapshot("B", 1, Transform3D.IDENTITY)
-	# 同面片对角线：hull_front 是 quad（两三角形共享对角线 (0,0,0)-(1.15,1.35,0)？不——
-	# hull_front 顶点 (-1.15,0.55,0),(1.15,0.55,0),(1.15,1.35,0),(-1.15,1.35,0)，
-	# 三角形 (0,1,2),(0,2,3) 共享边 0-2（对角线）。探测线沿 z 穿过 z=0 平面——
-	# 与两个三角形都相交于同一点 → 去重后只报一次。
+	# 同面片共享对角线：hull_front 顶点 (-1.15,0.55,0),(1.15,0.55,0),(1.15,1.35,0),(-1.15,1.35,0)，
+	# 三角形 (0,1,2),(0,2,3) 共享边 0-2（对角线）：探针沿 z 在 y=0.95 ——
+	# 与对角线交于同一点 → 去重后只报一次（on_edge 标记）。
 	var r := ShotQueryService.query({
 		"query_id": "q_seam", "physics_tick": 14,
-		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"from_world": Vector3(0, 0.95, -5), "to_world": Vector3(0, 0.95, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
 	}, [snap])
 	var front_count := 0
@@ -322,13 +343,18 @@ func _seam_and_multi_layer_cases() -> void:
 		if ev.get("surface_id", "") == "hull_front":
 			front_count += 1
 	_ok(front_count == 1, "005-b shared diagonal of one patch reported once (got %d)" % front_count)
+	var on_edge := false
+	for ev in r["events"]:
+		if ev.get("surface_id", "") == "hull_front" and ev.get("on_edge", false):
+			on_edge = true
+	_ok(on_edge, "005-b shared diagonal crossing flagged on_edge")
 	# 不同面片保留：front 与 rear 是两个 surface_id → 各报一次
 	var rear_count := 0
 	for ev in r["events"]:
 		if ev.get("surface_id", "") == "hull_rear":
 			rear_count += 1
 	_ok(rear_count == 1, "005-b distinct patches kept separate")
-	# 共面：探测线在 hull_top 平面内（y=1.35 沿 z）→ coplanar_unresolved 诊断，不无限循环
+	# 共面：探测线在 hull_top 平面内（y=1.35 沿 z）→ coplanar_unresolved 诊断 + complete=false
 	var r2 := ShotQueryService.query({
 		"query_id": "q_coplanar", "physics_tick": 15,
 		"from_world": Vector3(0, 1.35, -5), "to_world": Vector3(0, 1.35, 5),
@@ -339,6 +365,7 @@ func _seam_and_multi_layer_cases() -> void:
 		if str(d).contains("coplanar_unresolved"):
 			has_diag = true
 	_ok(has_diag, "005-b coplanar segment yields explicit diagnostic (no infinite loop)")
+	_ok(not r2.get("complete", true), "005-b coplanar unresolved marks query incomplete (conservative)")
 
 
 func _identity_and_perf_cases() -> void:
@@ -359,28 +386,154 @@ func _identity_and_perf_cases() -> void:
 		if ev.get("entity_id", "") == "B":
 			b_hits += 1
 	_ok(a_hits == 0 and b_hits == 4, "005-b A excluded, same-definition B still hit (A=%d B=%d)" % [a_hits, b_hits])
-	# 旧快照不读取后来变化的姿态：快照变换固定（构造后改布局/节点不影响已建快照）
-	var snap_fixed := _identity_snapshot("B", 1, Transform3D.IDENTITY)
-	var moved := Transform3D(Basis.IDENTITY, Vector3(10, 0, 0))
-	var r2 := ShotQueryService.query({
-		"query_id": "q_fixed", "physics_tick": 17,
+	# 快照副本隔离：构造后修改源变换字典不得影响已建快照（固定姿态语义）
+	var src_transforms := {
+		"hull": Transform3D.IDENTITY,
+		"turret": Transform3D(Basis.IDENTITY, Vector3(0, 1.35, 0)),
+		"barrel": Transform3D(Basis.IDENTITY, Vector3(0, 1.5, -0.75)),
+	}
+	var snap_iso := QuerySnapshotBuilder.build_identity_snapshot("B", 1, "player_tank", _layout, src_transforms)
+	src_transforms["hull"] = Transform3D(Basis.IDENTITY, Vector3(10, 0, 0))
+	var r_iso := ShotQueryService.query({
+		"query_id": "q_iso", "physics_tick": 17,
 		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
-	}, [snap_fixed])
-	_ok((r2["events"] as Array).size() == 4, "005-b snapshot transform fixed at build time (later pose changes not read)")
+	}, [snap_iso])
+	_ok((r_iso["events"] as Array).size() == 4, "005-b snapshot transform dict duplicated at build time (later mutation not read)")
+	# 缺失部件变换：明确失败（complete=false + 诊断），不使用单位变换伪装
+	var snap_missing := QuerySnapshotBuilder.build_identity_snapshot("B", 1, "player_tank", _layout, {
+		"hull": Transform3D.IDENTITY,
+	})
+	var r_missing := ShotQueryService.query({
+		"query_id": "q_missing", "physics_tick": 18,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [snap_missing])
+	_ok(not r_missing.get("complete", true) and (r_missing["events"] as Array).is_empty(), "005-b missing part transform: entity skipped entirely (incomplete, no fake identity transforms)")
+	# 非有限变换：同样明确失败
+	var r_nan := ShotQueryService.query({
+		"query_id": "q_nan", "physics_tick": 19,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [QuerySnapshotBuilder.build_identity_snapshot("B", 1, "player_tank", _layout, {
+		"hull": Transform3D(Basis(), Vector3(NAN, 0, 0)),
+	})])
+	_ok(not r_nan.get("complete", true), "005-b non-finite transform: incomplete")
+	var r_nan2 := ShotQueryService.query({
+		"query_id": "q_nan2", "physics_tick": 20,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [{"entity_id": "B", "life_id": 1, "layout": _layout, "layout_revision": _layout.schema_version,
+		"part_world_transforms": {"hull": Transform3D.IDENTITY}}])
+	_ok(not r_nan2.get("complete", true), "005-b snapshot missing turret/barrel transforms: incomplete")
+	# 模块局部旋转（部件未转、模块盒绕 Y 90°）：size (0.5,1,2) yaw90 → 世界 x±1.0、z±0.25。
+	# 探针沿 +z 在 x=0.8：未旋转盒（x±0.25）不命中；旋转盒（x±1.0）命中 2 次（进/出）
+	var rotated := _layout.duplicate(true)
+	rotated.id = "rotated_fixture"
+	var eng_rot: ModuleVolumeDefinition = rotated.modules[0]
+	eng_rot.local_box_transform = Transform3D(Basis(Vector3.UP, deg_to_rad(90.0)), eng_rot.local_box_transform.origin)
+	eng_rot.size_m = Vector3(0.5, 1.0, 2.0)
+	rotated.modules.clear()
+	rotated.modules.append(eng_rot)
+	var r_rot := ShotQueryService.query({
+		"query_id": "q_modrot", "physics_tick": 21,
+		"from_world": Vector3(0.8, 1, -5), "to_world": Vector3(0.8, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [QuerySnapshotBuilder.build_identity_snapshot("B", 1, "player_tank", rotated, {
+		"hull": Transform3D.IDENTITY, "turret": Transform3D(Basis.IDENTITY, Vector3(0, 1.35, 0)),
+		"barrel": Transform3D(Basis.IDENTITY, Vector3(0, 1.5, -0.75)),
+	})])
+	var rot_engine_hits := 0
+	for ev in r_rot["events"]:
+		if ev.get("module_id", "") == "engine":
+			rot_engine_hits += 1
+	_ok(rot_engine_hits == 2, "005-b module local rotation applied (yaw90 box hit by x=0.8 probe) (hits=%d)" % rot_engine_hits)
+	# 非旋转对照：同一探针不命中
+	var r_unrot := ShotQueryService.query({
+		"query_id": "q_modunrot", "physics_tick": 22,
+		"from_world": Vector3(0.8, 1, -5), "to_world": Vector3(0.8, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [snap_b])
+	var unrot_engine_hits := 0
+	for ev in r_unrot["events"]:
+		if ev.get("module_id", "") == "engine":
+			unrot_engine_hits += 1
+	_ok(unrot_engine_hits == 0, "005-b unrotated module control: x=0.8 probe misses (hits=%d)" % unrot_engine_hits)
+	# 法线-内点独立校验：每个面片外法线 · (面中心 − 盒内部点) > 0
+	_ok(_normals_point_outward(), "005-b all fixture patch normals point outward vs interior point")
+	# 模块-only 外部接触：命中 barrel_box（车体装甲外，y=1.5 越过车顶）→ 选择器 = miss（不判车辆）
+	var r_ext := ShotQueryService.query({
+		"query_id": "q_ext", "physics_tick": 23,
+		"from_world": Vector3(0, 1.5, -5), "to_world": Vector3(0, 1.5, -1),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [snap_b])
+	var sel_ext := ExternalContactSelector.select_contact(r_ext)
+	_ok(sel_ext.get("status", "") == "miss", "005-b module-only external contact is NOT a vehicle hit (status=%s)" % str(sel_ext.get("status", "")))
+	# 不完全查询 → 选择器 = unresolved（保守未决，不计命中）
+	var sel_cop := ExternalContactSelector.select_contact({})
+	_ok(sel_cop.get("status", "") == "unresolved", "005-b failed query selects unresolved")
+	var sel_missing := ExternalContactSelector.select_contact(r_missing)
+	_ok(sel_missing.get("status", "") == "unresolved", "005-b incomplete query selects unresolved")
+	# 正常完整命中 → vehicle（首个有效装甲外表面）
+	var sel_ok := ExternalContactSelector.select_contact(r)
+	_ok(sel_ok.get("status", "") == "vehicle" and str(sel_ok.get("event", {}).get("surface_id", "")) == "hull_front", "005-b complete query selects first armor surface (status=%s)" % str(sel_ok.get("status", "")))
+	# 墙（world stop）在装甲前 → world 优先；同距 → 墙优先（TIE_EPS）
+	var r_wall_first := ShotQueryService.query({
+		"query_id": "q_selwall", "physics_tick": 24,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop": {"kind": "world", "event_type": "surface", "distance_m": 4.9, "point_world": Vector3(0, 1, -0.1), "normal_known": false},
+	}, [snap_b])
+	_ok(ExternalContactSelector.select_contact(r_wall_first).get("status", "") == "world", "005-b wall before armor selects world")
+	var r_wall_tie := ShotQueryService.query({
+		"query_id": "q_seltie", "physics_tick": 25,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop": {"kind": "world", "event_type": "surface", "distance_m": 5.0, "point_world": Vector3(0, 1, 0.0), "normal_known": false},
+	}, [snap_b])
+	_ok(ExternalContactSelector.select_contact(r_wall_tie).get("status", "") == "world", "005-b wall vs armor tie prefers wall (TIE_EPS)")
+	# 世界适配器 ok/hit/reason 语义（真实物理空间来自主场景；null 空间 = no_space）
+	var wa_null := WorldQueryAdapter.query_world_stop(null, Vector3.ZERO, Vector3.UP, 10.0)
+	_ok(not wa_null.get("ok", true) and wa_null.get("reason", "") == "no_space", "005-b world adapter null space: ok=false no_space")
+	var wa_bad := WorldQueryAdapter.query_world_stop(null, Vector3(NAN, 0, 0), Vector3.UP, 10.0)
+	_ok(not wa_bad.get("ok", true), "005-b world adapter invalid input: ok=false")
 	# 性能边界：9 实体 → 明确失败
 	var many: Array = []
 	for i in range(9):
 		many.append(_identity_snapshot("E%d" % i, 1, Transform3D.IDENTITY))
 	var r3 := ShotQueryService.query({
-		"query_id": "q_many", "physics_tick": 18,
+		"query_id": "q_many", "physics_tick": 26,
 		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
 	}, many)
 	_ok(not r3.get("ok", false) and str(r3.get("diagnostics", [""])[0]).contains("too_many_entities"), "005-b >8 entities fails explicitly (no silent truncation)")
 
 
-# --- 005-d：查询调试面板（范围入口/纯几何/弹药任务隔离/墙/陈旧） ---
+func _normals_point_outward() -> bool:
+	# 独立校验（不经过查询）：每面片 外法线 ·（面中心 − 所属部件内部点）> 0
+	var bad := ""
+	for patch in _layout.armor_patches:
+		var center := Vector3.ZERO
+		for v in patch.vertices_local_m:
+			center += v
+		center /= patch.vertices_local_m.size()
+		var part_t := Transform3D.IDENTITY
+		if patch.part_id == "turret":
+			part_t = Transform3D(Basis.IDENTITY, Vector3(0, 1.35, 0))
+		elif patch.part_id == "barrel":
+			part_t = Transform3D(Basis.IDENTITY, Vector3(0, 1.5, -0.75))
+		var interior := Vector3(0, 0.95, 1.5)   # 车体装甲盒内部点
+		if patch.part_id != "hull":
+			interior = part_t * (Vector3(0, 0.275, 0.1))   # 炮塔/炮管盒内部点
+		var world_center: Vector3 = part_t * center
+		var world_normal: Vector3 = part_t.basis * patch.outward_normal_local
+		var dot: float = world_normal.dot(world_center - interior)
+		if dot <= 0.0:
+			bad += "%s(dot=%.3f) " % [patch.id, dot]
+	return bad.is_empty()
+
+
+# --- 005-d/005-R1-C：查询调试面板（范围入口/纯几何/弹药任务隔离/墙/陈旧/火键门/暂停先关面板） ---
 
 func _debug_panel_cases() -> void:
 	var main: Main = load("res://scenes/main.tscn").instantiate()
@@ -394,59 +547,131 @@ func _debug_panel_cases() -> void:
 	_ok(panel != null and panel.main == main, "005-d panel wired to main")
 	var shots0: int = main.gunner.shots_fired
 	var trial0: int = main.trial_hits
-	# 探针 A 中心 → B 中心：B 车体局部 z 0..3、x 6.85..9.15——
-	# 射线穿 hull_left（x=6.85, 9.69m）再达 hull_front（z=0, 终点 11.31m）
+	# 005-R1：a_to_b = A 中心(0,1,8) → B 车体中心(8,0.95,0)（段长 11.314）：
+	# A 发动机盒出口 0.424m（起点在盒内→仅 exit）→ A hull_right 出口 1.626m →
+	# B hull_left 入口 9.687m → B 发动机盒入口 10.465m（模块仅调试候选）
 	panel.set_probe("a_to_b")
-	# ALL 过滤：服务报告全部实体几何（含射手自身——排除是开火路径的责任）
 	panel.set_vehicle_filter("ALL")
-	var qr_all: Dictionary = panel.run_query()
+	panel.run_query()
+	for i in 2:
+		await physics_frame
+	var qr_all: Dictionary = panel.last_result()
 	var evs_all: Array = panel.last_events()
-	_ok(qr_all.get("ok", false) and evs_all.size() == 3, "005-d a_to_b ALL filter: 3 events (A front at_start + B left + B front), got %d" % evs_all.size())
-	if evs_all.size() == 3:
-		_ok(str(evs_all[0].get("entity_id", "")) == "A" and str(evs_all[0].get("surface_id", "")) == "hull_front" and _near(evs_all[0], 0.0), "005-d ALL filter reports shooter-own geometry at segment start (at_start)")
-	# 车辆过滤 B：只见 B 的 2 个装甲事件
+	_ok(qr_all.get("ok", false) and qr_all.get("complete", false), "005-d a_to_b ALL run ok+complete")
+	_ok(evs_all.size() == 4, "005-d a_to_b ALL filter: 4 events (A engine exit + hull_right + B hull_left + B engine enter), got %d" % evs_all.size())
+	if evs_all.size() == 4:
+		_ok(_ev(evs_all[0], "module", "exit", "engine") and str(evs_all[0].get("entity_id", "")) == "A" and absf(_dist(evs_all[0]) - 0.424) < 0.01, "005-d ALL first = A engine exit ~0.424m (got %.3f)" % _dist(evs_all[0]))
+		_ok(_ev(evs_all[1], "armor", "surface", "hull_right") and str(evs_all[1].get("entity_id", "")) == "A" and absf(_dist(evs_all[1]) - 1.626) < 0.01, "005-d ALL second = A hull_right exit ~1.626m (got %.3f)" % _dist(evs_all[1]))
+		_ok(_ev(evs_all[2], "armor", "surface", "hull_left") and str(evs_all[2].get("entity_id", "")) == "B" and absf(_dist(evs_all[2]) - 9.687) < 0.01, "005-d ALL third = B hull_left enter ~9.687m (got %.3f)" % _dist(evs_all[2]))
+		_ok(_ev(evs_all[3], "module", "enter", "engine") and str(evs_all[3].get("entity_id", "")) == "B", "005-d ALL fourth = B engine enter")
+	_ok(panel.current_run_marker_count() == evs_all.size(), "005-d world markers match current-run events")
+	# 车辆过滤 B：只见 B 的 2 个事件（装甲 + 模块——模块是调试候选，不参与计分）
 	panel.set_vehicle_filter("B")
-	var qr: Dictionary = panel.run_query()
+	panel.run_query()
+	for i in 2:
+		await physics_frame
 	var evs: Array = panel.last_events()
-	_ok(qr.get("ok", false) and evs.size() == 2, "005-d a_to_b B filter: 2 armor events (got %d)" % evs.size())
+	_ok(evs.size() == 2, "005-d a_to_b B filter: 2 events (got %d)" % evs.size())
 	if evs.size() == 2:
-		_ok(_ev(evs[0], "armor", "surface", "hull_left") and str(evs[0].get("entity_id", "")) == "B", "005-d a_to_b first event = B hull_left")
-		_ok(_ev(evs[1], "armor", "surface", "hull_front") and _near(evs[1], Vector3(0, 1, 8).distance_to(Vector3(8, 1, 0))), "005-d a_to_b front at segment end (at_end hit, got %.3f)" % _dist(evs[1]))
-	_ok(panel.current_run_marker_count() == evs.size(), "005-d world markers match current-run events")
+		_ok(_ev(evs[0], "armor", "surface", "hull_left") and str(evs[0].get("entity_id", "")) == "B", "005-d a_to_b B first = hull_left")
 	_ok(main.gunner.shots_fired == shots0 and main.trial_hits == trial0, "005-d debug query consumed no ammo/task (shots=%d trial=%d)" % [main.gunner.shots_fired, main.trial_hits])
-	# 显式测试墙（纯几何）：置于线段中点 (4,1,4)，yaw45——先于 B 任何装甲
-	panel.set_wall_geometry(Vector3(4, 1, 4), Vector3(0.4, 3.0, 3.0), 45.0)
-	_ok(panel.add_wall(), "005-d add test wall ok")
-	var qr2: Dictionary = panel.run_query()
+	# 显式测试墙（物理体 + 世界接触）：置于线段的 (4,1,4)（薄轴沿 x、yaw 0）→
+	# 世界接触 ~5.374m、先于 B 装甲 9.687m；B 装甲标 occluded
+	panel.set_vehicle_filter("ALL")
+	panel.set_wall_geometry(Vector3(4, 1, 4), Vector3(0.4, 3.0, 3.0), 0.0)
+	_ok(panel.apply_wall(), "005-d apply test wall ok")
+	_ok(panel.has_wall(), "005-d wall applied (has wall)")
+	panel.run_query()
+	for i in 2:
+		await physics_frame
 	var evs2: Array = panel.last_events()
-	_ok(evs2.size() == 4, "005-d wall run: 4 events (wall enter/exit + 2 armor), got %d" % evs2.size())
-	if evs2.size() == 4:
-		_ok(str(evs2[0].get("kind", "")) == "wall" and str(evs2[0].get("event_type", "")) == "enter", "005-d wall enter first")
-		_ok(_dist(evs2[0]) < _dist(evs2[2]), "005-d wall enter before B armor (%.2f < %.2f)" % [_dist(evs2[0]), _dist(evs2[2])])
-		_ok(str(evs2[3].get("kind", "")) == "armor", "005-d armor still reported after wall (candidate retention)")
+	_ok(evs2.size() == 5, "005-d wall run: 5 rows (2 A + world + 2 B incl. occluded), got %d" % evs2.size())
+	if evs2.size() == 5:
+		_ok(str(evs2[2].get("kind", "")) == "world" and absf(_dist(evs2[2]) - 5.374) < 0.01, "005-d world contact ~5.374m (got %.3f)" % _dist(evs2[2]))
+		_ok(_dist(evs2[2]) < _dist(evs2[3]), "005-d wall before B armor (%.2f < %.2f)" % [_dist(evs2[2]), _dist(evs2[3])])
+		_ok(bool(evs2[3].get("occluded_by_world", false)) and bool(evs2[4].get("occluded_by_world", false)), "005-d B events after wall flagged occluded")
 	var rows: Array = panel.current_rows()
 	_ok(rows.size() == evs2.size(), "005-d row metadata matches events")
 	var tags: Array = []
 	for row in rows:
 		tags.append(row.get("tag", ""))
-	_ok(tags.size() == 4 and tags[0] == "WALL" and tags[1] == ">wall" and tags[3] == ">wall", "005-d occlusion tags before/after wall (%s)" % str(tags))
-	# 移除墙 → 墙事件消失（剩余 2 装甲事件）
+	_ok(tags.size() == 5 and tags[2] == "WALL" and tags[3] == ">wall" and tags[4] == ">wall", "005-d occlusion tags (world WALL / after >wall): %s" % str(tags))
+	# 非法墙参数拒绝应用（负尺寸/非有限）
+	panel.set_wall_geometry(Vector3(4, 1, 4), Vector3(-0.4, 3.0, 3.0), 0.0)
+	_ok(not panel.apply_wall(), "005-d invalid wall size rejected")
+	_ok(panel.has_wall(), "005-d applied wall kept after rejected update")
+	panel.set_wall_geometry(Vector3(NAN, 1, 4), Vector3(0.4, 3.0, 3.0), 0.0)
+	_ok(not panel.apply_wall(), "005-d non-finite wall pos rejected")
+	# 移除墙 → 墙接触消失（自动重跑同一线段：剩余 4 行）
 	_ok(panel.remove_wall(), "005-d remove test wall ok")
+	_ok(not panel.has_wall(), "005-d wall gone after remove")
+	for i in 2:
+		await physics_frame
+	_ok(panel.last_events().size() == 4, "005-d after wall removal: wall row gone (got %d)" % panel.last_events().size())
+	# 标记只保留最近一组：新运行清除旧标记
+	panel.set_vehicle_filter("B")
 	panel.run_query()
-	_ok(panel.last_events().size() == 2, "005-d after wall removal: wall events gone (got %d)" % panel.last_events().size())
+	for i in 2:
+		await physics_frame
+	_ok(panel.marker_count() == 2, "005-d markers keep only most recent run (markers=%d)" % panel.marker_count())
 	# 陈旧标记：面板打开期间车辆姿态变化 → 结果标记 STALE（不伪造当前姿态）
 	main.actor_b.tank.global_position += Vector3(0, 0, 0.6)
 	for i in 2:
 		await process_frame
 	_ok(panel.is_stale(), "005-d pose change marks results STALE")
 	panel.run_query()
+	for i in 2:
+		await physics_frame
 	_ok(not panel.is_stale(), "005-d re-run clears STALE")
 	# 清空：结果/标记/线段全清
 	panel.clear_results()
 	_ok(panel.last_events().is_empty() and panel.marker_count() == 0, "005-d clear removes results and markers")
-	# 关闭：恢复控制器意图；再开再关幂等
+	# 005-R1-C 火键释放门：面板期间按下的 fire 不得被当作开火边沿；关闭臂门；释放后新按被捕获
+	Input.action_press("fire")
+	for i in 2:
+		await process_frame
 	main.close_query_debug()
 	_ok(not main._query_panel_open and main.controller.commands_enabled, "005-d close restores controller intent")
+	_ok(main.controller._need_fire_release, "005-d close arms fire-release gate")
+	Input.action_press("fire")
+	main.controller._process.call(0.016)
+	_ok(not main.controller._fire_pending, "005-d fire held across panel close is not captured as a shot request")
+	Input.action_release("fire")
+	main.controller._process.call(0.016)
+	_ok(not main.controller._need_fire_release, "005-d gate cleared after release observed")
+	Input.action_press("fire")
+	main.controller._process.call(0.016)
+	_ok(main.controller._fire_pending, "005-d new press captured after release")
+	main.controller.reset_pending()
+	Input.action_release("fire")
+	for i in 2:
+		await process_frame
+	# 005-R1-C 暂停先关面板：面板开着进暂停 → 面板先关闭、再暂停，统一清理生效
+	main.open_query_debug()
+	for i in 2:
+		await process_frame
+	var panel2: QueryDebugPanel = main._query_panel
+	panel2.set_probe("a_to_b")
+	panel2.set_vehicle_filter("ALL")
+	panel2.set_wall_geometry(Vector3(4, 1, 4), Vector3(0.4, 3.0, 3.0), 0.0)
+	_ok(panel2.apply_wall(), "005-d reopen: wall applied")
+	panel2.run_query()
+	for i in 2:
+		await physics_frame
+	_ok(panel2.marker_count() >= 5, "005-d reopen run produced markers")
+	main._pause()
+	_ok(not main._query_panel_open and paused, "005-d pause with panel open closes panel first, then pauses")
+	for i in 2:
+		await process_frame   # queue_free 延迟释放生效（暂停期间帧照常派发）
+	_ok(main.get_node_or_null("QueryDebugMarkers") == null, "005-d pause-close cleanup freed world markers")
+	var tw_left := 0
+	for c in main.world.get_children():
+		if c.name == "TestWall":
+			tw_left += 1
+	_ok(tw_left == 0, "005-d pause-close cleanup removed test wall")
+	main._resume()
+	for i in 2:
+		await process_frame
 	main.close_query_debug()
 	_ok(not main._query_panel_open, "005-d close idempotent")
 	main.queue_free()

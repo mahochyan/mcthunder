@@ -597,7 +597,8 @@ func _run() -> void:
 	_ok(fired_b, "T003-03 A 开火成功")
 	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 A 命中 B（自身排除生效）(hits=%d)" % main.actor_b.tank.hits_taken)
 	_ok(main.actor_a.tank.hits_taken == 0, "T003-03 A 未被自身命中")
-	# 墙挡不命中
+	# 墙挡不命中（005-R1：墙置于炮轴线上、炮口前方 2.5m——必须真实拦截
+	# 弹道（world contact）才能挡住：装甲面 hull_rear 在 ~6.2m）
 	var t003_wall := StaticBody3D.new()
 	t003_wall.collision_layer = GameConfig.LAYER_WORLD
 	var wall_shape := CollisionShape3D.new()
@@ -605,9 +606,10 @@ func _run() -> void:
 	box.size = Vector3(6, 4, 0.5)
 	wall_shape.shape = box
 	t003_wall.add_child(wall_shape)
-	var dir_ab: Vector3 = (main.actor_b.tank.global_position - main.actor_a.tank.global_position).normalized()
-	t003_wall.position = main.actor_a.tank.global_position + dir_ab * 4.0
-	t003_wall.rotation.y = atan2(dir_ab.x, dir_ab.z)
+	var w_muz: Vector3 = main.actor_a.turret.muzzle.global_position
+	var bdir: Vector3 = main.actor_a.turret.barrel_direction()
+	t003_wall.position = w_muz + bdir * 2.5
+	t003_wall.look_at(w_muz, Vector3.UP)   # 薄轴（0.5）朝炮口：射线垂直贯穿 0.5 厚
 	main.add_child(t003_wall)
 	await physics_frame
 	await physics_frame
@@ -616,6 +618,7 @@ func _run() -> void:
 	var fired_wall: bool = gunner.try_fire()
 	_ok(fired_wall, "T003-03 墙挡时开火仍成功（命中墙）")
 	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 墙挡不命中 B (hits=%d)" % main.actor_b.tank.hits_taken)
+	_ok(main.actor_a.gunner.last_shot_result == "miss", "T003-03 墙挡结果 = miss（世界接触优先）(result=%s)" % main.actor_a.gunner.last_shot_result)
 	t003_wall.queue_free()
 	for i in 3:
 		await physics_frame

@@ -8,9 +8,9 @@
 [sub_resource type="Resource" id="Resource_front"]
 script = ExtResource("1_wpjtu")
 id = "hull_front"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(1.15, 0.55, 0, -1.15, 0.55, 0, -1.15, 1.35, 0, 1.15, 1.35, 0)
+vertices_local_m = PackedVector3Array(1.15, 0.55, -1.7, -1.15, 0.55, -1.7, -1.15, 1.35, -1.7, 1.15, 1.35, -1.7)
 triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(0, 0, -1)
 has_thickness = false
@@ -23,9 +23,9 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_rear"]
 script = ExtResource("1_wpjtu")
 id = "hull_rear"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 0.55, 3, 1.15, 0.55, 3, 1.15, 1.35, 3, -1.15, 1.35, 3)
+vertices_local_m = PackedVector3Array(-1.15, 0.55, 1.7, 1.15, 0.55, 1.7, 1.15, 1.35, 1.7, -1.15, 1.35, 1.7)
 triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(0, 0, 1)
 has_thickness = false
@@ -38,9 +38,9 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_left"]
 script = ExtResource("1_wpjtu")
 id = "hull_left"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 0.55, 0, -1.15, 0.55, 3, -1.15, 1.35, 3, -1.15, 1.35, 0)
+vertices_local_m = PackedVector3Array(-1.15, 0.55, -1.7, -1.15, 0.55, 1.7, -1.15, 1.35, 1.7, -1.15, 1.35, -1.7)
 triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(-1, 0, 0)
 has_thickness = false
@@ -53,10 +53,10 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_right"]
 script = ExtResource("1_wpjtu")
 id = "hull_right"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(1.15, 0.55, 0, 1.15, 0.55, 3, 1.15, 1.35, 3, 1.15, 1.35, 0)
-triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+vertices_local_m = PackedVector3Array(1.15, 0.55, 1.7, 1.15, 0.55, -1.7, 1.15, 1.35, -1.7, 1.15, 1.35, 1.7)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(1, 0, 0)
 has_thickness = false
 thickness_mm = 0.0
@@ -68,10 +68,10 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_top"]
 script = ExtResource("1_wpjtu")
 id = "hull_top"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 1.35, 0, 1.15, 1.35, 0, 1.15, 1.35, 3, -1.15, 1.35, 3)
-triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+vertices_local_m = PackedVector3Array(-1.15, 1.35, 1.7, 1.15, 1.35, 1.7, 1.15, 1.35, -1.7, -1.15, 1.35, -1.7)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(0, 1, 0)
 has_thickness = false
 thickness_mm = 0.0
@@ -83,9 +83,9 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_bottom"]
 script = ExtResource("1_wpjtu")
 id = "hull_bottom"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 0.55, 0, 1.15, 0.55, 0, 1.15, 0.55, 3, -1.15, 0.55, 3)
+vertices_local_m = PackedVector3Array(-1.15, 0.55, -1.7, 1.15, 0.55, -1.7, 1.15, 0.55, 1.7, -1.15, 0.55, 1.7)
 triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(0, -1, 0)
 has_thickness = false
@@ -98,11 +98,86 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 [sub_resource type="Resource" id="Resource_tfront"]
 script = ExtResource("1_wpjtu")
 id = "turret_front"
-plate_group_id = "query_fixture"
+plate_group_id = "player_test_turret"
 part_id = "turret"
 vertices_local_m = PackedVector3Array(0.75, 0, -0.75, -0.75, 0, -0.75, -0.75, 0.55, -0.75, 0.75, 0.55, -0.75)
 triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
 outward_normal_local = Vector3(0, 0, -1)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_trear"]
+script = ExtResource("1_wpjtu")
+id = "turret_rear"
+plate_group_id = "player_test_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.75, 0, 0.95, 0.75, 0, 0.95, 0.75, 0.55, 0.95, -0.75, 0.55, 0.95)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 0, 1)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_tleft"]
+script = ExtResource("1_wpjtu")
+id = "turret_left"
+plate_group_id = "player_test_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.75, 0, -0.75, -0.75, 0, 0.95, -0.75, 0.55, 0.95, -0.75, 0.55, -0.75)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(-1, 0, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_tright"]
+script = ExtResource("1_wpjtu")
+id = "turret_right"
+plate_group_id = "player_test_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(0.75, 0, 0.95, 0.75, 0, -0.75, 0.75, 0.55, -0.75, 0.75, 0.55, 0.95)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(1, 0, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_ttop"]
+script = ExtResource("1_wpjtu")
+id = "turret_top"
+plate_group_id = "player_test_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.75, 0.55, 0.95, 0.75, 0.55, 0.95, 0.75, 0.55, -0.75, -0.75, 0.55, -0.75)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 1, 0)
+has_thickness = false
+thickness_mm = 0.0
+thickness_status = "unknown"
+material_kind = "unknown"
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
+
+[sub_resource type="Resource" id="Resource_tbottom"]
+script = ExtResource("1_wpjtu")
+id = "turret_bottom"
+plate_group_id = "player_test_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.75, 0, -0.75, 0.75, 0, -0.75, 0.75, 0, 0.95, -0.75, 0, 0.95)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, -1, 0)
 has_thickness = false
 thickness_mm = 0.0
 thickness_status = "unknown"
@@ -115,8 +190,8 @@ script = ExtResource("3_mnc1c")
 id = "engine"
 kind = "engine"
 part_id = "hull"
-local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
-size_m = Vector3(1, 1, 1)
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.3)
+size_m = Vector3(1.2, 0.5, 1.2)
 external = false
 geometry_status = "estimated"
 evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
@@ -162,12 +237,12 @@ evidence_keys = PackedStringArray("EV-TEST-FIXTURE")
 
 [resource]
 script = ExtResource("5_ayj1f")
-id = "test_query_vehicle"
-display_name = "TEST ONLY: shot-query fixture (dev fixture, no historical basis)"
+id = "test_player_vehicle_layout"
+display_name = "TEST ONLY: block test vehicle (matches visible TankVehicle mesh; no historical basis)"
 content_tier = "test"
 historical_identity_id = ""
 source_catalog_id = ""
 field_evidence_id = ""
 parts = Array[ExtResource("4_e1ar0")]([SubResource("Resource_hull"), SubResource("Resource_turret"), SubResource("Resource_barrelp")])
-armor_patches = Array[ExtResource("1_wpjtu")]([SubResource("Resource_front"), SubResource("Resource_rear"), SubResource("Resource_left"), SubResource("Resource_right"), SubResource("Resource_top"), SubResource("Resource_bottom"), SubResource("Resource_tfront")])
+armor_patches = Array[ExtResource("1_wpjtu")]([SubResource("Resource_front"), SubResource("Resource_rear"), SubResource("Resource_left"), SubResource("Resource_right"), SubResource("Resource_top"), SubResource("Resource_bottom"), SubResource("Resource_tfront"), SubResource("Resource_trear"), SubResource("Resource_tleft"), SubResource("Resource_tright"), SubResource("Resource_ttop"), SubResource("Resource_tbottom")])
 modules = Array[ExtResource("3_mnc1c")]([SubResource("Resource_engine"), SubResource("Resource_barrel")])
