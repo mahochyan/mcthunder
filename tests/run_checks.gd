@@ -264,17 +264,17 @@ func _run() -> void:
 	main.turret.rotation.y = 1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
 	var stab := await _stable_converge(main)
-	_ok(stab.converged, "R3-A 近靶 B1 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	_ok(stab.converged, "R3-A 近靶 B1 稳定收敛（首次过线=%d 帧，保持 %.2f 秒，最大误差=%.2f°，结束误差=%.2f°）" % [stab.first_cross, stab.hold_time, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok1: bool = gunner.try_fire()
 	_ok(ok1 and b1.hit_count == 1 and b2.hit_count == 0 and b3.hit_count == 0, "R3-A 稳定后实射命中近靶 B1 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
-	# 保持意图，等真实装填结束再打一炮，仍应命中
+	# 保持意图，等真实装填自然结束再打一炮——不手动恢复开火条件，
+	# 先断言开火条件已自然满足，再调用生产 try_fire 验证命中
 	await create_timer(GameConfig.RELOAD_TIME + 0.2).timeout
-	gunner.cooldown_left = 0.0
-	gunner.resume_grace = 0.0
+	_ok(gunner.cooldown_left <= 0.0 and gunner.resume_grace <= 0.0, "R3-A 第二炮前开火条件已自然满足 (cooldown=%.2f grace=%.2f)" % [gunner.cooldown_left, gunner.resume_grace])
 	var ok1b: bool = gunner.try_fire()
-	_ok(ok1b and b1.hit_count == 2, "R3-A 装填结束后第二炮仍命中近靶 B1 (b1=%d)" % b1.hit_count)
+	_ok(ok1b and b1.hit_count == 2, "R3-A 装填自然结束后第二炮仍命中近靶 B1 (b1=%d)" % b1.hit_count)
 	# 右侧远靶 B2（24m；相机环绕偏移已计入：x(z)=tanθ·(8−z)）
 	main.cam_rig.aim_yaw = deg_to_rad(-11.54)
 	main.cam_rig.aim_pitch = deg_to_rad(-3.83)
@@ -286,7 +286,7 @@ func _run() -> void:
 	main.turret.rotation.y = -1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
 	stab = await _stable_converge(main)
-	_ok(stab.converged, "R3-A 右侧远靶 B2 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	_ok(stab.converged, "R3-A 右侧远靶 B2 稳定收敛（首次过线=%d 帧，保持 %.2f 秒，最大误差=%.2f°，结束误差=%.2f°）" % [stab.first_cross, stab.hold_time, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok2: bool = gunner.try_fire()
@@ -302,7 +302,7 @@ func _run() -> void:
 	main.turret.rotation.y = 1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
 	stab = await _stable_converge(main)
-	_ok(stab.converged, "R3-A 左侧远靶 B3 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	_ok(stab.converged, "R3-A 左侧远靶 B3 稳定收敛（首次过线=%d 帧，保持 %.2f 秒，最大误差=%.2f°，结束误差=%.2f°）" % [stab.first_cross, stab.hold_time, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok3: bool = gunner.try_fire()
@@ -320,7 +320,7 @@ func _run() -> void:
 	main.turret.rotation.y = 1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
 	stab = await _stable_converge(main)
-	_ok(stab.converged, "R3-A 车体非零 yaw 下近靶 B1 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	_ok(stab.converged, "R3-A 车体非零 yaw 下近靶 B1 稳定收敛（首次过线=%d 帧，保持 %.2f 秒，最大误差=%.2f°，结束误差=%.2f°）" % [stab.first_cross, stab.hold_time, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok4: bool = gunner.try_fire()
@@ -530,15 +530,18 @@ func _camera_ray_hit(main) -> Dictionary:
 	return space.intersect_ray(q)
 
 func _stable_converge(main) -> Dictionary:
-	# 002-R3：稳定收敛验收——真值 = 期望世界点 P - 炮根位置（不复制生产 atan2 公式）。
+	# 002-R3 收尾版：稳定收敛验收——真值 = 期望世界点 P - 炮根位置（不复制生产 atan2）。
 	# 炮根（barrel_pivot）随炮塔转动而绕车体中心移动，故每帧取当前 pivot 计算 want；
 	# 收敛后 pivot 稳定，want 稳定，夹角应保持 0。
-	# 首次进入 0.5° 误差区后不结束测试：连续保持至少 1 秒（60 帧）全程误差 ≤0.5°，
-	# 中途转离即失败；记录首次过线帧、保持期最大误差、结束误差。
+	# 首次达标（进入 0.5° 误差区）时保持时间从零开始、最大误差初始化为当前误差；
+	# 之后按模拟更新时间（physics delta）累计，至少持续 1.0 秒，全程误差 ≤0.5°，
+	# 任何一次超过 0.5° 即失败（继续生产更新，不暂停）。
+	# 输出：首次过线帧、实际保持时长、最大误差、结束误差。
 	var P: Vector3 = main.cam_rig.get_aim_point()
 	var first_cross := -1
-	var hold_frames := 0
+	var hold_time := 0.0
 	var max_err := 0.0
+	var final_err := 0.0
 	for i in 240:
 		await physics_frame
 		var bdir: Vector3 = main.turret.barrel_direction()
@@ -547,15 +550,17 @@ func _stable_converge(main) -> Dictionary:
 		if first_cross < 0:
 			if err <= 0.5:
 				first_cross = i
-				hold_frames = 1
+				hold_time = 0.0
+				max_err = err
 			continue
-		if err > 0.5:
-			return {"converged": false, "first_cross": first_cross, "max_err": maxf(max_err, err), "final_err": err}
-		hold_frames += 1
+		hold_time += 1.0 / Engine.physics_ticks_per_second   # 模拟时间（物理固定步长）
 		max_err = maxf(max_err, err)
-		if hold_frames >= 60:
-			return {"converged": true, "first_cross": first_cross, "max_err": max_err, "final_err": err}
-	return {"converged": false, "first_cross": first_cross, "max_err": max_err, "final_err": 0.0}
+		final_err = err
+		if err > 0.5:
+			return {"converged": false, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": err}
+		if hold_time >= 1.0:
+			return {"converged": true, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": err}
+	return {"converged": false, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": final_err}
 
 func _check_fonts() -> void:
 	var f := ThemeDB.fallback_font
