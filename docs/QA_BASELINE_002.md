@@ -1,6 +1,6 @@
 # QA 基线验收表 — 工作单 002（001 补验收与基线冻结）
 
-- 被测源码：`work/002-baseline @ 96f199b8eb140bb1c2e644bd35b61f0fe3492155`（002-R2 后）
+- 被测源码：`work/002-baseline @ 52322611dc6ee58a8658e50b9ad608b1709f7c62`（002-R3 后）
 - 基线参考：`main @ 29376e20e5675bd15747ac4bfd6b24382d6c3b15`（与计划参考一致，无漂移）
 - 引擎：Godot 4.7.2.stable.official.ed1daf0bf（`tools/godot/`，未升级未换栈）
 - 图例：✔=本轮已实跑通过（证据在 logs/002/）｜⏳=待用户签收/人工验收｜NOT_RUN=未执行且如实标注
@@ -63,7 +63,19 @@
 | R2-C 截图与证据 | 必需截图失败负例（隔离副本 docs 变文件 → 5 张 FAILED、errors=5、exit=1）；双分辨率独立目录 `docs/evidence/002-R2/<SHA>/1280x720|1920x1080`（旧同 blob 截图已删）；manifest 逐文件实际宽高+SHA256+场景+命令+源码 SHA | `logs/002-R2/shot_failure_negative.log`、`evidence_manifest.txt` |
 | R2-D 规划文件 | README_先看这里.txt 更正已提交（保留原缺口记录+追加"本地未装配全"）；规划包转存 BLOCKED_TRANSFER（需人工从 ChatGPT 页面下载 ZIP 提供本地路径，不阻塞 A/B/C） | `docs/planning/README_先看这里.txt`、`docs/DELIVERY_002_R2.md` |
 
+## 002-R3 修订（GPT 审核签发，2026-09）
+
+| 项 | 结论 | 证据 |
+|---|---|---|
+| R3-A 水平目标角符号 | 生产代码修复：炮管 -Z 前向右手系下世界 yaw = atan2(-d.x, -d.z)（旧 atan2(d.x,-d.z) 符号相反）；抽取共用 `_target_angles()`，正常追赶与 snap_to_aim 两路径一致；未反转鼠标/镜像模型/挪靶/相机判伤 | `scripts/turret_rig.gd` |
+| R3-A 测试能抓住旧错误 | 修复前源码实跑：B2/B3 稳定收敛失败（78 帧过线后转离 0.60°/0.58°），exit=1——正是"首次掠过即通过"漏检 | `logs/002-R3/checks_R3_prefix.log` |
+| R3-A 稳定收敛验收 | 首次进入 0.5° 后不结束测试，连续保持 1 秒（60 帧）全程 ≤0.5°，中途转离即失败；左右目标（B2 +X / B3 -X）+ 车体非零 yaw（0.5 rad）；稳定后生产 try_fire 实射命中，等真实装填结束第二炮仍命中；真值 = P - 炮根（每帧当前炮根），不复制生产 atan2；未放大靶板 | `logs/002-R3/checks_R3_postfix.log`（115/115，exit=0） |
+| R3-A 身份验证 | 意图射线选中改用 collider 身份验证（独立查询，与生产同 mask/exclude），distance<2 仅辅助；T002-03a 与 001 遮挡前提均升级为 collider 验证 | 同上 |
+| R3-C 证据 | 新源码 SHA 双分辨率独立目录 `docs/evidence/002-R3/5232261…/{1280x720,1920x1080}` + manifest（实际宽高+SHA256+场景+命令+源码 SHA）；旧变异/旧失败负例未重跑未改标 | `logs/002-R3/evidence_manifest.txt`、`autoshot_R3_720p.log`、`autoshot_R3_1080p.log` |
+| R3-D 文档勘误 | DELIVERY_002_R2.md 追加勘误：证据目录名=源码 SHA，存储证据的提交号不同（源码 96f199b / 证据 b6eec1c / 最终回归 db24e43） | `docs/DELIVERY_002_R2.md` |
+| R2-D 规划包 | 继续 BLOCKED_TRANSFER（需人工下载 ZIP 提供本地路径，不阻塞本单） | `docs/DELIVERY_002_R3.md` |
+
 ## 签收状态
 
-- 自动检查：✔ 全部通过（证据齐；002-R2 后 103 项，exit=0）
+- 自动检查：✔ 全部通过（证据齐；002-R3 后 115 项，exit=0）
 - 人工验收：⏳ 未签收 —— **本基线状态=“实现完成待签收”，不等于 accepted**

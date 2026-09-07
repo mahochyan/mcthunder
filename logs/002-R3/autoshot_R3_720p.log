@@ -1,0 +1,21 @@
+﻿[R3 evidence 720p]
+[cmd] godot --path E:\AIprogram\mcthunder --resolution 1280x720 -- --autoshot --shot-dir docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720
+[source_sha] 52322611dc6ee58a8658e50b9ad608b1709f7c62
+[exit] 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_1_thirdperson.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_2_sight.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_3_moved.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_4_paused.png
+[T002-04] paused: mouse_mode=0 (0=VISIBLE) shots=1 cooldown=1.96
+[T002-04] resumed: mouse_mode=2 (2=CAPTURED) grace=0.25
+[R2-A] after mouse down: aim_pitch=-12.03 cam_fwd_pitch=-12.03
+[R2-A] after mouse level: aim_pitch=0.00 cam_fwd_pitch=-0.00
+[R2-A] after mouse up: aim_pitch=12.03 cam_fwd_pitch=12.03
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_5_resumed.png
+[T002-04] after resume+hold: shots=1（应与暂停期间一致，无补射）
+[T002-05] after 3 resets: mouse_mode=2 paused=false (2=CAPTURED, false)
+[autoshot] done: shots_saved=5 errors=0
+
