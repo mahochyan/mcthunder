@@ -66,11 +66,46 @@ main.gd (Main, ALWAYS)
 
 ## 7. 测试
 
-`godot --headless --path <工程根> -s res://tests/run_checks.gd`（155 项，exit=0）：
-001/002 全部回归 + T003-01~06（独立状态/输入隔离与统一命令/自身排除与命中 B/
-20 次生成销毁/坏配置定位/试射目标真实命中推进）。
+`godot --headless --path <工程根> -s res://tests/run_checks.gd`（200 项，exit=0）：
+001/002 全部回归 + T003-01~09（独立状态/输入隔离与统一命令/自身排除与命中 B/
+20 次生成销毁/坏配置定位/试射目标真实命中推进/配置驱动真实表现/多车碰撞与坐标/
+真实任务闭环与射手-射击编号-轮次）。
 
-## 8. 仍然没有（003 边界）
+## 7.5 003-R1 修订（needs_revision → 交付待验收）
+
+GPT 复核提出 RC-001 变更与四组关闭项，003-R1 在同一分支以四个顺序子提交完成：
+
+- **A 配置驱动真实表现（6186d12）**：`VehicleActor` 注入 `VehicleDefinition`/
+  `WeaponDefinition` 到 tank/turret/gunner，驾驶速度/炮塔转速/俯仰限位/装填/射程
+  全部读配置（GameConfig 常量仅作缺省后备）。T003-07 用两套不同配置实测
+  速度/转速/装填/射程差异。`validate()` 硬校验：production 必须 verified、
+  verified 必须有实质 source_refs（空/TEST ONLY 拒绝）；测试车显式
+  `content_tier="test"` + `source_refs=["TEST ONLY: ..."]` + `verification="unknown"`。
+- **B 统一命令与生命周期（d2082ef）**：PlayerController 不再直呼 Gunner——
+  只生成 `VehicleCommand`（含 fire 边沿 → fire_requested），统一由
+  `VehicleActor.apply_command` 消费（每物理帧一次；入口检查暂停/实体有效/
+  有限值/输入范围钳制）。脚本控制与玩家控制走同一入口（T003-02）。
+  `reset_vehicle` 清瞄点覆盖/待发命令/炮镜请求/瞬态；`set_controller` 统一
+  绑定/解绑（相机 current 随控制者走，未控制车辆不抢相机）。
+- **C 多车碰撞与坐标（4144be4）**：`tank.collision_mask = WORLD|VEHICLE`——
+  A 行驶撞 B 稳定阻挡不互穿、不推移（CharacterBody3D move_and_slide）。
+  `apply_drive` 前向改用 `-global_transform.basis.z`（速度是世界量，
+  非ZeroY旋转出生时仍沿车头行驶，重置回正确世界出生变换，T003-08）。
+  示踪线 `_tracer.top_level = true`——顶点即世界坐标，无双重父变换、
+  不随车辆运动拖动。
+- **D 真实任务闭环（0c8e6f7）**：命中事件携带 `shooter_id`/`shot_id`
+  （gunner 按发递增）；main 记录 射击编号→轮次（`_shot_rounds`，
+  整场重开 `_round_id` 递增且不清历史）——任务只接受 A→B 命中、
+  同一发重复投递不重复计分、重开后旧编号无效（T003-09）。
+  C 射击 B 可命中但不替 A 得分。HUD 车辆标识来自实际状态
+  （entity_id + PLAYER/TEST TARGET + content_tier TEST ONLY 提示）。
+  autoshot 320-350 为**正常输入完整演示**：自然瞄准 → Input 开火 →
+  自然装填 → 3/3 → 真实 R 事件整场重开 → 两车/炮镜/HUD 截图
+  （autoshot_9~13；不清零冷却、不直接写任务计数、不绕过命令入口）。
+  autoshot_8 保留为构造状态演示并已注明。
+
+## 8. 仍然没有（003/003-R1 边界）
 
 B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车血条）；
-无内构/穿甲/科技树/正式菜单/网络/大量美术。见 `docs/DELIVERY_003.md`。
+无内构/穿甲/科技树/正式菜单/网络/大量美术。历史车型数据核验自 004 起。
+见 `docs/DELIVERY_003_R1.md`。

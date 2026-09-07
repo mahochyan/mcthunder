@@ -41,11 +41,11 @@
                        "prerequisites":  [
                                              "002"
                                          ],
-                       "status":  "authorized",
-                       "implementation_sha":  null,
-                       "tested_sha":  null,
-                       "reviewer_acceptance":  null,
-                       "user_acceptance":  null,
+                       "status":  "needs_revision",
+                       "implementation_sha":  "4fe8797382a25b6dac66e0e054db5b29ad317c1d",
+                       "tested_sha":  "0c8e6f7 (003-R1 revision chain 6186d12 A / d2082ef B / 4144be4 C / 0c8e6f7 D; 200 checks)",
+                       "reviewer_acceptance":  "GPT authorized 003 then issued RC-001 revision; 003 status=needs_revision; 003-R1 four sub-commit groups delivered on work/003-vehicle-foundation, awaiting re-review (docs/DELIVERY_003_R1.md)",
+                       "user_acceptance":  "NOT_RUN (human itemized playtest pending; auto screenshots are not human acceptance)",
                        "file":  "work_orders/WO003.md"
                    },
                    {
