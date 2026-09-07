@@ -11,6 +11,9 @@ var speed_label: Label
 var reload_label: Label
 var hits_label: Label
 var blocked_label: Label
+var control_label: Label      # 003：当前控制车
+var result_label: Label       # 003：最后射击结果
+var trial_label: Label        # 003：试射目标
 var hint_label: Label
 var crosshair: Label
 var debug_label: Label
@@ -32,6 +35,10 @@ func _strings(zh: bool) -> Dictionary:
 			"reloading": "装填中 %.1f s",
 			"hits": "命中",
 			"blocked": "炮管被遮挡，无法开火",
+			"control": "控制: A (玩家)",
+			"result": "上次射击: %s",
+			"trial": "试射: A 命中 B %d/%d",
+			"trial_done": "试射完成: A 命中 B 3/3（按 R 重开）",
 			"hint": "W/S 前进/后退   A/D 车体转向\n鼠标 瞄准   右键(按住) 炮镜   左键 开炮\nR 重置   Esc 暂停",
 			"paused": "已暂停",
 			"resume": "继续",
@@ -42,6 +49,10 @@ func _strings(zh: bool) -> Dictionary:
 		"reloading": "RELOADING %.1fs",
 		"hits": "Hit",
 		"blocked": "BARREL BLOCKED",
+		"control": "CONTROL: A (PLAYER)",
+		"result": "LAST SHOT: %s",
+		"trial": "TRIAL: A HIT B %d/%d",
+		"trial_done": "TRIAL COMPLETE: A HIT B 3/3 (R to restart)",
 		"hint": "W/S forward/back  A/D turn\nMouse aim  RMB(hold) sight  LMB fire\nR reset  Esc pause",
 		"paused": "PAUSED",
 		"resume": "Resume",
@@ -60,6 +71,11 @@ func _build() -> void:
 	hits_label = _mk_label(Vector2(16, 68), 20)
 	blocked_label = _mk_label(Vector2(16, 96), 20)
 	blocked_label.modulate = Color(1.0, 0.5, 0.3)
+	control_label = _mk_label(Vector2(16, 124), 20)
+	control_label.modulate = Color(0.4, 1.0, 0.4)
+	result_label = _mk_label(Vector2(16, 152), 20)
+	trial_label = _mk_label(Vector2(16, 180), 20)
+	trial_label.modulate = Color(1.0, 0.85, 0.3)
 	hint_label = _mk_label(Vector2(16, 630), 17)
 	hint_label.text = S.hint
 	# 底部左锚定（002 §2.4）：720p/1080p/窗口拉伸时提示始终贴底
@@ -113,7 +129,7 @@ func _build() -> void:
 func show_pause(p: bool) -> void:
 	_pause_root.visible = p
 
-func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Array, sight_on: bool) -> void:
+func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Array, sight_on: bool, control_text: String, result_text: String, trial_text: String) -> void:
 	speed_label.text = "%s: %.1f m/s" % [S.speed, speed_mps]
 	if reload_left > 0.0:
 		reload_label.text = S.reloading % reload_left
@@ -124,6 +140,9 @@ func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Arr
 		parts.append("%s %d: %d" % [S.hits, i + 1, hits[i]])
 	hits_label.text = " | ".join(parts)
 	blocked_label.text = S.blocked if blocked == "barrel_occluded" else ""
+	control_label.text = control_text
+	result_label.text = result_text
+	trial_label.text = trial_text
 	crosshair.visible = sight_on
 
 func set_debug_visible(v: bool) -> void:

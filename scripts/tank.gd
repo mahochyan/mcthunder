@@ -1,12 +1,17 @@
 class_name TankVehicle
 extends CharacterBody3D
-## 车辆运动（职责：驾驶）。W 前进 / S 后退 / A·D 车体原地转向；无左右平移。
+## 车辆运动（职责：驾驶）。003：命令驱动——不再直接读取全局键鼠；
+## throttle/steer 由 VehicleActor 经 VehicleCommand 传入（PlayerController 是唯一输入入口）。
 ## CharacterBody3D + 简化重力；速度/加速度全部来自 GameConfig。
 
 var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
 var turret_rig: TurretRig
 var camera_rig: CameraRig
 var _spawn := Transform3D()
+var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层（A=2，B=4；炮镜只剔除本车层）
+var hits_taken := 0           # 003：被命中计数（试射目标计数来源；无装甲/伤害判定）
+
+signal hit_registered        # 003：真实生产命中事件（register_hit 每发只触发一次）
 
 func _ready() -> void:
 	collision_layer = GameConfig.LAYER_VEHICLE
@@ -28,10 +33,12 @@ func _build() -> void:
 	turret_rig = TurretRig.new()
 	turret_rig.name = "TurretPivot"
 	turret_rig.position = Vector3(0, 1.35, 0)
+	turret_rig.visual_layer = visual_layer
 	add_child(turret_rig)
 	camera_rig = CameraRig.new()
 	camera_rig.name = "CameraPivot"
 	camera_rig.position = Vector3(0, 1.6, 0)
+	camera_rig.visual_layer = visual_layer
 	add_child(camera_rig)
 
 func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
@@ -43,16 +50,12 @@ func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 	mesh.material = mat
 	mi.mesh = mesh
 	mi.position = pos
-	mi.layers = GameConfig.VIS_LAYER_VEHICLE
+	mi.layers = visual_layer
 	add_child(mi)
 	return mi
 
-func _physics_process(delta: float) -> void:
-	var throttle := 0.0
-	if Input.is_action_pressed("move_forward"):
-		throttle += 1.0
-	if Input.is_action_pressed("move_back"):
-		throttle -= 1.0
+func apply_drive(throttle: float, steer: float, delta: float) -> void:
+	# 003：统一命令驱动（throttle ∈ [-1,1]，steer ∈ [-1,1] 正 = 右转）
 	var target := 0.0
 	if throttle > 0.0:
 		target = throttle * GameConfig.FORWARD_MAX_SPEED
@@ -64,8 +67,7 @@ func _physics_process(delta: float) -> void:
 		forward_speed = move_toward(forward_speed, target, rate * delta)
 	else:
 		forward_speed = move_toward(forward_speed, 0.0, GameConfig.COAST_DECEL * delta)
-	var turn := Input.get_axis("turn_right", "turn_left")
-	rotation.y += deg_to_rad(GameConfig.HULL_TURN_SPEED) * turn * delta
+	rotation.y += deg_to_rad(GameConfig.HULL_TURN_SPEED) * steer * delta
 	var fwd := -transform.basis.z
 	velocity.x = fwd.x * forward_speed
 	velocity.z = fwd.z * forward_speed
@@ -75,7 +77,17 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= GameConfig.GRAVITY * delta
 	move_and_slide()
 
+func set_spawn(t: Transform3D) -> void:
+	# 003：由 VehicleActor 在装配后记录真实出生点（reset 回到该点）
+	_spawn = t
+
+func register_hit() -> void:
+	# 003：真实生产命中事件（由 gunner 命中结算调用；每发只调一次）
+	hits_taken += 1
+	hit_registered.emit()
+
 func reset() -> void:
 	transform = _spawn
 	forward_speed = 0.0
 	velocity = Vector3.ZERO
+	hits_taken = 0

@@ -1,14 +1,18 @@
 class_name CameraRig
 extends Node3D
-## 相机（职责：观察/瞄准视角）。鼠标控制全局瞄准角；车体转向不甩回视角。
-## 第三人称防穿墙（射线查询排除本车）；按住右键进入炮镜（沿炮管实际方向，剔除自身网格）。
+## 相机（职责：观察/瞄准视角）。003：鼠标输入由 PlayerController 读取并 set_aim；
+## 本脚本不再直接读取全局键鼠。第三人称防穿墙（射线查询排除本车）；
+## 炮镜沿炮管实际方向，cull_mask 只剔除本车视觉层（不隐藏其他车）。
 
 var cam: Camera3D
-var turret: TurretRig = null    # 由 main 注入
-var tank: TankVehicle = null    # 由 main 注入
+var turret: TurretRig = null    # 由 actor 注入
+var tank: TankVehicle = null    # 由 actor 注入
 var aim_yaw := 0.0              # 全局观察朝向（弧度，0 = -Z）
 var aim_pitch := 0.0            # 观察俯仰（弧度，正 = 抬头）
 var sight := false
+var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
+
+var _sight_requested := false
 
 func _ready() -> void:
 	cam = Camera3D.new()
@@ -19,10 +23,17 @@ func _ready() -> void:
 	cam.current = true
 	cam.position = Vector3(0, 1.0, 6.5)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		aim_yaw = wrapf(aim_yaw - event.relative.x * GameConfig.MOUSE_SENS, -PI, PI)
-		aim_pitch = clampf(aim_pitch - event.relative.y * GameConfig.MOUSE_SENS, deg_to_rad(GameConfig.CAM_PITCH_MIN), deg_to_rad(GameConfig.CAM_PITCH_MAX))
+func set_aim(yaw: float, pitch: float) -> void:
+	# 003：PlayerController 唯一入口（不再由本脚本读鼠标）
+	aim_yaw = wrapf(yaw, -PI, PI)
+	aim_pitch = clampf(pitch, deg_to_rad(GameConfig.CAM_PITCH_MIN), deg_to_rad(GameConfig.CAM_PITCH_MAX))
+
+func set_local_control(on: bool) -> void:
+	# 003：本地控制者设置——只有被控制的车拥有有效本地游戏相机
+	cam.current = on
+
+func set_sight_requested(on: bool) -> void:
+	_sight_requested = on
 
 func _exclude() -> Array[RID]:
 	var ex: Array[RID] = []
@@ -31,15 +42,15 @@ func _exclude() -> Array[RID]:
 	return ex
 
 func _process(_delta: float) -> void:
-	sight = Input.is_action_pressed("aim") and turret != null
+	sight = _sight_requested and turret != null
 	if sight:
-		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 剔除本车视觉层
+		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 只剔除本车视觉层
 		var bdir := turret.barrel_direction()
 		var bp := turret.barrel_pivot.global_position
 		cam.global_position = bp + Vector3.UP * 0.45 - bdir * 0.35
 		cam.look_at(cam.global_position + bdir * 50.0)
 		cam.fov = GameConfig.SIGHT_FOV
-		cam.cull_mask &= ~GameConfig.VIS_LAYER_VEHICLE
+		cam.cull_mask &= ~visual_layer
 	else:
 		var pivot_pos := global_position
 		var dir_h := Vector3(-sin(aim_yaw), 0.0, -cos(aim_yaw))
@@ -56,18 +67,20 @@ func _process(_delta: float) -> void:
 		# 002-R1：相机前向 ≡ dir3d（从相机位置沿瞄准方向看）→ 中心射线与炮管指向精确一致
 		cam.look_at(cam.global_position + dir3d * 12.0)
 		cam.fov = GameConfig.MAIN_FOV
-		cam.cull_mask |= GameConfig.VIS_LAYER_VEHICLE
+		cam.cull_mask |= visual_layer
 
-func _ray(from: Vector3, to: Vector3) -> Dictionary:
+func _ray(from: Vector3, to: Vector3, mask: int = GameConfig.LAYER_WORLD) -> Dictionary:
 	var space := get_world_3d().direct_space_state
-	var q := PhysicsRayQueryParameters3D.create(from, to, GameConfig.LAYER_WORLD, _exclude())
+	var q := PhysicsRayQueryParameters3D.create(from, to, mask, _exclude())
 	return space.intersect_ray(q)
 
 func get_aim_point() -> Vector3:
-	# 玩家想瞄的点：相机中心射线（第三人称下即屏幕中心方向）
+	# 玩家想瞄的点：相机中心射线（第三人称下即屏幕中心方向）。
+	# 003：意图射线查 WORLD|VEHICLE（排除本车）——B 等车辆可被瞄准，
+	# 否则炮塔会越过车辆对准其后方世界点，炮管射线从目标上方掠过。
 	var from := cam.global_position
 	var dir := -cam.global_transform.basis.z
-	var hit := _ray(from, from + dir * 150.0)
+	var hit := _ray(from, from + dir * 150.0, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE)
 	if not hit.is_empty():
 		return hit.position
 	return from + dir * 60.0
@@ -80,7 +93,7 @@ func intent_point() -> Vector3:
 		var pivot := turret.barrel_pivot.global_position
 		var cp := cos(aim_pitch)
 		var dir3d := Vector3(-sin(aim_yaw) * cp, sin(aim_pitch), -cos(aim_yaw) * cp)
-		var hit := _ray(pivot, pivot + dir3d * 150.0)
+		var hit := _ray(pivot, pivot + dir3d * 150.0, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE)
 		if not hit.is_empty():
 			return hit.position
 		return pivot + dir3d * 60.0

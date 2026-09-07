@@ -14,6 +14,7 @@ var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
 var blocked_reason := ""          # "" / "cooldown" / "grace" / "barrel_occluded"
+var last_shot_result := ""        # 003："" / "hit" / "miss" / "blocked:cooldown" / "blocked:grace" / "blocked:barrel_occluded"
 var actual_hit_point := Vector3.ZERO   # 炮管实际指向命中点（供实际指向标记）
 
 var _tracer: MeshInstance3D
@@ -35,9 +36,12 @@ func _process(delta: float) -> void:
 	cooldown_left = maxf(0.0, cooldown_left - delta)
 	resume_grace = maxf(0.0, resume_grace - delta)
 	_update_actual_aim()
-	if Input.is_action_just_pressed("fire"):
-		try_fire()
 	_update_effects(delta)
+
+func request_fire() -> bool:
+	# 003：统一开火请求入口（PlayerController 边沿 → VehicleCommand → 本方法；
+	# 不再由本脚本直接读取全局 fire 键）
+	return try_fire()
 
 func _update_actual_aim() -> void:
 	if turret == null:
@@ -53,9 +57,11 @@ func _update_actual_aim() -> void:
 func try_fire() -> bool:
 	if cooldown_left > 0.0:
 		blocked_reason = "cooldown"
+		last_shot_result = "blocked:cooldown"
 		return false
 	if resume_grace > 0.0:
 		blocked_reason = "grace"
+		last_shot_result = "blocked:grace"
 		return false
 	# 炮根 → 炮口 遮挡检查：炮管穿墙时禁止开火
 	var root := turret.barrel_pivot.global_position
@@ -66,16 +72,20 @@ func try_fire() -> bool:
 		var block_hit := _ray(root, seg / seg_len, seg_len + 0.05)
 		if not block_hit.is_empty() and root.distance_to(block_hit.position) < seg_len - 0.02:
 			blocked_reason = "barrel_occluded"
+			last_shot_result = "blocked:barrel_occluded"
 			return false
 	# 炮口实际方向命中查询
 	var dir := turret.barrel_direction()
 	var ghit := _ray(muz, dir, GameConfig.GUN_RANGE)
 	var end := muz + dir * GameConfig.GUN_RANGE
+	var hit_vehicle := false
 	if not ghit.is_empty():
 		end = ghit.position
 		var col: Object = ghit.collider
 		if col != null and col.has_method("register_hit"):
 			col.register_hit()
+			hit_vehicle = true
+	last_shot_result = "hit" if hit_vehicle else "miss"
 	_spawn_tracer(muz, end)
 	turret.kick_recoil()
 	cooldown_left = GameConfig.RELOAD_TIME
@@ -123,6 +133,7 @@ func reset_state() -> void:
 	cooldown_left = 0.0
 	resume_grace = 0.0
 	blocked_reason = ""
+	last_shot_result = ""
 	_tracer_left = 0.0
 	if _tracer != null:
 		_tracer.visible = false

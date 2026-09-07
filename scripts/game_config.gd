@@ -41,6 +41,7 @@ const RESUME_GRACE := 0.25       # 暂停恢复后的开炮宽限 s（防误击�
 const LAYER_WORLD := 1        # bit1：地面 / 围墙 / 箱子 / 靶板等静态世界
 const LAYER_VEHICLE := 2      # bit2：本车（CharacterBody3D）
 const VIS_LAYER_VEHICLE := 2  # 视觉层 bit：本车网格；炮镜相机 cull_mask 剔除该位
+const VIS_LAYER_VEHICLE_B := 4  # 003：B 车视觉层 bit——炮镜只剔除本车层，不隐藏其他车
 
 # --- 输入动作名（project.godot 已注册全部映射） ---
 const ACTIONS := ["move_forward", "move_back", "turn_left", "turn_right", "fire", "aim", "reset", "pause", "debug_toggle"]

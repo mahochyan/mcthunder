@@ -5,13 +5,16 @@ extends Node3D
 
 const BARREL_BASE_Z := -1.2
 
-var cam_rig: CameraRig = null   # 由 main 注入（瞄准角来源）
+var cam_rig: CameraRig = null   # 由 actor 注入（默认瞄准角来源）
+var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层（A=2，B=4）
 var barrel_pivot: Node3D
 var muzzle: Node3D
 var barrel_mesh: MeshInstance3D
 var _flash: MeshInstance3D
 var _flash_left := 0.0
 var _recoil := 0.0
+var _aim_override: Vector3 = Vector3.ZERO   # 003：脚本命令瞄准点（B 测试用）
+var _has_aim_override := false
 
 func _ready() -> void:
 	var tm := MeshInstance3D.new()
@@ -22,7 +25,7 @@ func _ready() -> void:
 	box.material = mat
 	tm.mesh = box
 	tm.position = Vector3(0, 0.275, 0.1)
-	tm.layers = GameConfig.VIS_LAYER_VEHICLE
+	tm.layers = visual_layer
 	add_child(tm)
 	barrel_pivot = Node3D.new()
 	barrel_pivot.name = "BarrelPivot"
@@ -36,7 +39,7 @@ func _ready() -> void:
 	bm.material = bmat
 	barrel_mesh.mesh = bm
 	barrel_mesh.position = Vector3(0, 0, BARREL_BASE_Z)
-	barrel_mesh.layers = GameConfig.VIS_LAYER_VEHICLE
+	barrel_mesh.layers = visual_layer
 	barrel_pivot.add_child(barrel_mesh)
 	muzzle = Node3D.new()
 	muzzle.name = "Muzzle"
@@ -56,15 +59,30 @@ func _ready() -> void:
 	_flash.visible = false
 	barrel_pivot.add_child(_flash)
 
-func _process(delta: float) -> void:
+func set_aim_point(p: Vector3) -> void:
+	# 003：脚本命令瞄准点（B 测试目标用；A 由 PlayerController 经 cam_rig 意图）
+	_aim_override = p
+	_has_aim_override = true
+
+func clear_aim_point() -> void:
+	_has_aim_override = false
+
+func _aim_point() -> Vector3:
+	if _has_aim_override:
+		return _aim_override
 	if cam_rig != null:
+		return cam_rig.intent_point()
+	return Vector3.ZERO
+
+func _process(delta: float) -> void:
+	if cam_rig != null or _has_aim_override:
 		var hull = get_parent()
 		var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
 		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
 		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
 		# 前向 = (-sin yaw, 0, -cos yaw)，故世界 yaw = atan2(-dx, -dz)
-		var P := cam_rig.intent_point()
+		var P := _aim_point()
 		var target := _target_angles(P)
 		var desired_local := wrapf(target.y - hull_yaw, -PI, PI)
 		var max_step := deg_to_rad(GameConfig.TURRET_YAW_SPEED) * delta
@@ -91,11 +109,11 @@ func _target_angles(P: Vector3) -> Vector2:
 
 func snap_to_aim() -> void:
 	# 立即对齐期望世界瞄点 P（重置与自动检查使用；正常运行靠有限转速追随）
-	if cam_rig == null:
+	if cam_rig == null and not _has_aim_override:
 		return
 	var hull = get_parent()
 	var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
-	var target := _target_angles(cam_rig.intent_point())
+	var target := _target_angles(_aim_point())
 	rotation.y = wrapf(target.y - hull_yaw, -PI, PI)
 	barrel_pivot.rotation.x = target.x
 

@@ -503,6 +503,175 @@ func _run() -> void:
 	main._resume()
 	_ok(not paused and gunner.resume_grace > 0.0, "恢复生效且带开炮宽限")
 
+	# --- T003-01：共享配置独立状态（A/B 各自 VehicleRuntimeState） ---
+	_ok(main.actor_a.state != main.actor_b.state, "T003-01 A/B 状态实例独立")
+	_ok(main.actor_a.state.definition_id == main.actor_b.state.definition_id, "T003-01 A/B 共享同一配置定义 (id=%s)" % main.actor_a.state.definition_id)
+	main.actor_a.state.forward_speed = 5.0
+	_ok(main.actor_b.state.forward_speed == 0.0, "T003-01 修改 A 状态不影响 B")
+	main.actor_a.state.forward_speed = 0.0
+
+	# --- T003-02：A/B 输入隔离与统一命令 ---
+	main._reset_all()
+	await physics_frame
+	var b_pos0: Vector3 = main.actor_b.tank.global_position
+	Input.action_press("move_forward")
+	for i in 30:
+		await physics_frame
+	Input.action_release("move_forward")
+	_ok(main.actor_a.tank.forward_speed > 1.0, "T003-02 键盘输入只驱动 A (v=%.2f)" % main.actor_a.tank.forward_speed)
+	_ok(main.actor_b.tank.forward_speed < 0.01, "T003-02 B 零命令不响应键盘 (v=%.2f)" % main.actor_b.tank.forward_speed)
+	_ok(main.actor_b.tank.global_position.distance_to(b_pos0) < 0.01, "T003-02 B 位置不动")
+	# 统一命令：脚本命令经同一 apply_command 通道驱动 B 炮塔（目标在 B 右侧 → yaw 需转）
+	var b_yaw0: float = main.actor_b.turret.global_rotation.y
+	var cmd_b := VehicleCommand.new()
+	cmd_b.has_aim_point = true
+	cmd_b.aim_world_point = main.actor_b.tank.global_position + Vector3(10, 0, 0)
+	main.actor_b.apply_command(cmd_b, 1.0 / Engine.physics_ticks_per_second)
+	for i in 30:
+		await physics_frame
+	_ok(absf(main.actor_b.turret.global_rotation.y - b_yaw0) > 0.01, "T003-02 脚本命令经统一通道驱动 B 炮塔 (Δyaw=%.2f°)" % rad_to_deg(absf(main.actor_b.turret.global_rotation.y - b_yaw0)))
+
+	# --- T003-03：自身命中排除 / A 命中 B / 墙挡不命中 / 炮镜不隐藏 B ---
+	main._reset_all()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	await physics_frame
+	var b_hits0: int = main.actor_b.tank.hits_taken
+	var d_ab: Vector3 = main.actor_b.tank.global_position - main.actor_a.tank.global_position
+	main.cam_rig.aim_yaw = atan2(-d_ab.x, -d_ab.z)
+	await process_frame
+	await process_frame
+	var cam_pos: Vector3 = main.cam_rig.cam.global_position
+	var b_center: Vector3 = main.actor_b.tank.global_position + Vector3(0, 1.0, 0)
+	var horiz: float = Vector3(cam_pos.x - b_center.x, 0, cam_pos.z - b_center.z).length()
+	main.cam_rig.aim_pitch = atan2(1.0 - cam_pos.y, horiz)
+	await process_frame   # 相机 look_at 按新 pitch 更新后再 snap（否则 intent 用旧前向）
+	turret_snap(main)
+	await physics_frame
+	await physics_frame
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var fired_b: bool = gunner.try_fire()
+	_ok(fired_b, "T003-03 A 开火成功")
+	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 A 命中 B（自身排除生效）(hits=%d)" % main.actor_b.tank.hits_taken)
+	_ok(main.actor_a.tank.hits_taken == 0, "T003-03 A 未被自身命中")
+	# 墙挡不命中
+	var t003_wall := StaticBody3D.new()
+	t003_wall.collision_layer = GameConfig.LAYER_WORLD
+	var wall_shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(6, 4, 0.5)
+	wall_shape.shape = box
+	t003_wall.add_child(wall_shape)
+	var dir_ab: Vector3 = (main.actor_b.tank.global_position - main.actor_a.tank.global_position).normalized()
+	t003_wall.position = main.actor_a.tank.global_position + dir_ab * 4.0
+	t003_wall.rotation.y = atan2(dir_ab.x, dir_ab.z)
+	main.add_child(t003_wall)
+	await physics_frame
+	await physics_frame
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var fired_wall: bool = gunner.try_fire()
+	_ok(fired_wall, "T003-03 墙挡时开火仍成功（命中墙）")
+	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 墙挡不命中 B (hits=%d)" % main.actor_b.tank.hits_taken)
+	t003_wall.queue_free()
+	for i in 3:
+		await physics_frame
+	# 炮镜不隐藏 B（cull_mask 只剔除 A 自身视觉层；经真实输入通道开炮镜）
+	Input.action_press("aim")
+	for i in 2:
+		await process_frame
+	var mask: int = main.cam_rig.cam.cull_mask
+	_ok((mask & GameConfig.VIS_LAYER_VEHICLE) == 0, "T003-03 炮镜剔除 A 自身视觉层")
+	_ok((mask & GameConfig.VIS_LAYER_VEHICLE_B) != 0, "T003-03 炮镜保留 B 视觉层（B 可见）")
+	Input.action_release("aim")
+	await process_frame
+
+	# --- T003-04：20 次生成/销毁（实体/相机/信号清理） ---
+	var spawn_ok := true
+	for i in 20:
+		var sv: VehicleActor = main.spawn_vehicle("player_tank", "S%02d" % i, Vector3(12, 0, 20 + i * 1.5), null)
+		if sv == null or sv.tank == null:
+			spawn_ok = false
+			break
+		await physics_frame
+		await physics_frame
+		if sv.cam_rig.cam.current:
+			spawn_ok = false
+			break
+		main.despawn_vehicle(sv)
+		await physics_frame
+		await physics_frame
+		if is_instance_valid(sv):
+			spawn_ok = false
+			break
+	_ok(spawn_ok, "T003-04 20 次生成/销毁：实体/相机/信号清理干净")
+
+	# --- T003-06：试射目标（真实命中才推进；空射/冷却拒绝不推进；重启可重复；单车重置不污染） ---
+	main._reset_all()
+	turret_snap(main)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	await physics_frame
+	_ok(main.trial_hits == 0, "T003-06 重置后试射计数归零")
+	# 空射不推进
+	main.cam_rig.aim_yaw = 0.0
+	main.cam_rig.aim_pitch = deg_to_rad(20.0)
+	await process_frame
+	turret_snap(main)
+	for i in 30:
+		await physics_frame
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 0, "T003-06 空射不推进试射计数")
+	# 冷却拒绝不推进
+	gunner.cooldown_left = 5.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 0, "T003-06 冷却拒绝不推进试射计数")
+	gunner.cooldown_left = 0.0
+	# 真实命中推进（B 移到 A 正前方）
+	var b_orig: Vector3 = main.actor_b.tank.global_position
+	main.actor_b.tank.global_position = Vector3(0, 0, -6)
+	await physics_frame
+	await physics_frame
+	main.cam_rig.aim_yaw = 0.0
+	await process_frame
+	await process_frame
+	var cam_pos2: Vector3 = main.cam_rig.cam.global_position
+	var b_center2: Vector3 = main.actor_b.tank.global_position + Vector3(0, 1.0, 0)
+	var horiz2: float = Vector3(cam_pos2.x - b_center2.x, 0, cam_pos2.z - b_center2.z).length()
+	main.cam_rig.aim_pitch = atan2(1.0 - cam_pos2.y, horiz2)
+	await process_frame   # 相机 look_at 按新 pitch 更新后再 snap
+	turret_snap(main)
+	await physics_frame
+	await physics_frame
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 1, "T003-06 真实命中推进试射计数 (hits=%d)" % main.trial_hits)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 2, "T003-06 第二次命中推进 (hits=%d)" % main.trial_hits)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 3, "T003-06 第三次命中完成试射 (hits=%d)" % main.trial_hits)
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	gunner.try_fire()
+	_ok(main.trial_hits == 3, "T003-06 完成后再命中不超计 (hits=%d)" % main.trial_hits)
+	# 单车重置不污染试射目标
+	main.reset_vehicle(main.actor_a)
+	_ok(main.trial_hits == 3, "T003-06 单车重置不污染试射计数 (hits=%d)" % main.trial_hits)
+	# 整场重置可重复
+	main._reset_all()
+	_ok(main.trial_hits == 0, "T003-06 整场重置后试射计数归零（可重复）")
+	main.actor_b.tank.global_position = b_orig
+	await physics_frame
+
 	_finish()
 
 func turret_snap(main) -> void:
