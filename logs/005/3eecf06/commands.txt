@@ -1,0 +1,13 @@
+tested sha: 3eecf06cf7e4f363f1858ac04430b9559f0c0335
+branch: work/005-shot-query (base 84c8b8d9d6e3add45840499442087ce9284af8c4c)
+
+headless suites (all exit 0, QUERY_CHECKS_PASS/CHECKS_PASS):
+  godot --headless --path E:\AIprogram\mcthunder -s res://tests/run_checks.gd        -> 208 pass, 0 fail
+  godot --headless --path E:\AIprogram\mcthunder -s res://tests/run_layout_checks.gd -> 123 pass, 0 fail
+  godot --headless --path E:\AIprogram\mcthunder -s res://tests/run_query_checks.gd  -> 58 pass, 0 fail
+
+windowed evidence (real frames, --query-demo):
+  godot --path E:\AIprogram\mcthunder --resolution 1280x720  -- --query-demo --shot-dir docs/evidence/005/3eecf06/1280x720  -> 6 shots, errors=0
+  godot --path E:\AIprogram\mcthunder --resolution 1920x1080 -- --query-demo --shot-dir docs/evidence/005/3eecf06/1920x1080 -> 6 shots, errors=0
+
+stderr: no SCRIPT ERROR in any suite log.

@@ -1,0 +1,9 @@
+WARNING: LayoutCatalog: test_query_vehicle: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] query_snapshots (res://scripts/main.gd:157)
+       [2] _refresh_vehicle_list (res://scripts/inspection/query_debug_panel.gd:892)
+       [3] _ready (res://scripts/inspection/query_debug_panel.gd:84)
+       [4] open_query_debug (res://scripts/main.gd:304)
+       [5] _unhandled_input (res://scripts/main.gd:205)

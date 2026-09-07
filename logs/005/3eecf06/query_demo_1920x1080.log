@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[query-demo] barrel locked: err=0.39° polls=211
+[query-demo] panel open: commands_enabled=false
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_1_panel_open.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_2_barrel_events.png
+[query-demo] run1: events=2 first_dist=6.49
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_3_test_wall_before_b.png
+[query-demo] run2: wall_enter=5.09 armor_first=6.49
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_4_cleared.png
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_5_wall_removed.png
+[query-demo] ammo/task untouched: shots=0 trial=0
+[query-demo] panel closed: commands_enabled=true
+[autoshot] saved E:/AIprogram/mcthunder/docs/evidence/005/3eecf06/1920x1080/query_debug_6_panel_closed.png
+[query-demo] done: shots_saved=6 errors=0
