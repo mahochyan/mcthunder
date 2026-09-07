@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShellDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/defs/shell_definition.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+id = "ap_75"
+schema_version = 1
+caliber_mm = 75.0
+muzzle_velocity_mps = 0.0
+penetration_mm = 0.0

@@ -20,6 +20,7 @@ func _run() -> void:
 	_check_fonts()
 	_check_scripts()
 	_check_actions()
+	_check_defs()
 	var ps: PackedScene = load("res://scenes/main.tscn")
 	_ok(ps != null, "主场景资源可加载")
 	if ps == null:
@@ -572,6 +573,46 @@ func _check_scripts() -> void:
 	for p in ["game_config", "world_builder", "target_board", "tank", "turret_rig", "camera_rig", "gunner", "hud", "main"]:
 		var s = load("res://scripts/%s.gd" % p)
 		_ok(s != null, "脚本可解析加载: %s.gd" % p)
+	for p in ["defs/vehicle_definition", "defs/weapon_definition", "defs/shell_definition", "defs/vehicle_defs", "defs/vehicle_runtime_state", "defs/vehicle_command"]:
+		var s = load("res://scripts/%s.gd" % p)
+		_ok(s != null, "脚本可解析加载: %s.gd" % p)
+
+func _check_defs() -> void:
+	# --- T003-05（003）：错误配置校验失败并定位字段，不悄悄给默认值 ---
+	var v_bad := VehicleDefinition.new()
+	v_bad.id = ""
+	var vres := v_bad.validate()
+	_ok(not vres.ok and "id" in vres.errors[0], "T003-05 缺 ID 校验失败并定位 id 字段")
+	v_bad.id = "bad"
+	v_bad.forward_max_speed = -5.0
+	vres = v_bad.validate()
+	_ok(not vres.ok and "forward_max_speed" in vres.errors[0], "T003-05 非法速度校验失败并定位 forward_max_speed 字段")
+	v_bad.forward_max_speed = 8.0
+	v_bad.weapon_id = ""
+	vres = v_bad.validate()
+	_ok(not vres.ok and "weapon_id" in vres.errors[0], "T003-05 缺武器引用校验失败并定位 weapon_id 字段")
+	var w_bad := WeaponDefinition.new()
+	w_bad.id = ""
+	var wres := w_bad.validate()
+	_ok(not wres.ok and "id" in wres.errors[0], "T003-05 武器缺 ID 校验失败并定位 id 字段")
+	var s_bad := ShellDefinition.new()
+	s_bad.id = ""
+	var sres := s_bad.validate()
+	_ok(not sres.ok and "id" in sres.errors[0], "T003-05 弹种缺 ID 校验失败并定位 id 字段")
+	# 默认配置 .tres 加载 + 校验 + 引用解析
+	var defs := VehicleDefs.new()
+	var lr := defs.load_defaults()
+	_ok(lr.ok, "T003-05 默认配置 .tres 加载并校验通过")
+	var v_ok := defs.get_vehicle("player_tank")
+	_ok(v_ok != null and v_ok.validate().ok, "T003-05 默认车辆定义校验通过")
+	var res_missing := defs.resolve_vehicle("no_such_vehicle")
+	_ok(not res_missing.ok and "vehicle_id" in res_missing.errors[0], "T003-05 未知车辆引用失败并定位 vehicle_id")
+	var v_missing_weapon := VehicleDefinition.new()
+	v_missing_weapon.id = "bad_vehicle"
+	v_missing_weapon.weapon_id = "no_such_weapon"
+	defs.vehicles["bad_vehicle"] = v_missing_weapon
+	var res_w := defs.resolve_vehicle("bad_vehicle")
+	_ok(not res_w.ok and "weapon_id" in res_w.errors[0], "T003-05 缺武器引用解析失败并定位 weapon_id 字段")
 
 func _check_actions() -> void:
 	for a in GameConfig.ACTIONS:

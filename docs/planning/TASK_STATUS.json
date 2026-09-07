@@ -1,513 +1,514 @@
 {
-  "schema_version": 1,
-  "created_date": "2026-09-07",
-  "repository": "mahochyan/mcthunder",
-  "reference_branch": "main",
-  "reference_sha": "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
-  "repository_writes_performed_by_this_plan": false,
-  "game_executed_by_this_plan": false,
-  "authorized_order": null,
-  "recommended_next_order": "002",
-  "baseline_001_status": "implementation_report_exists_not_independently_accepted",
-  "allowed_statuses": [
-    "planned",
-    "authorized",
-    "in_progress",
-    "implementation_complete_pending_review",
-    "needs_revision",
-    "blocked",
-    "accepted"
-  ],
-  "orders": [
-    {
-      "id": "002",
-      "title": "001 补验收、缺陷修整与基线冻结",
-      "stage": "A",
-      "prerequisites": [
-        "001"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO002.md"
-    },
-    {
-      "id": "003",
-      "title": "多车辆基础、数据配置与控制接口",
-      "stage": "A",
-      "prerequisites": [
-        "002"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO003.md"
-    },
-    {
-      "id": "004",
-      "title": "装甲与内构布局工具、可见调试模型",
-      "stage": "A",
-      "prerequisites": [
-        "003"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO004.md"
-    },
-    {
-      "id": "005",
-      "title": "统一命中查询与多层交点排序",
-      "stage": "A",
-      "prerequisites": [
-        "004"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO005.md"
-    },
-    {
-      "id": "006",
-      "title": "有限速度炮弹、重力与连续路径检测",
-      "stage": "B",
-      "prerequisites": [
-        "005"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO006.md"
-    },
-    {
-      "id": "007",
-      "title": "分区装甲、入射角、跳弹与剩余穿透",
-      "stage": "B",
-      "prerequisites": [
-        "006"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO007.md"
-    },
-    {
-      "id": "008",
-      "title": "车内命中、模块受损与乘员功能",
-      "stage": "B",
-      "prerequisites": [
-        "007"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO008.md"
-    },
-    {
-      "id": "009",
-      "title": "起火、殉爆、维修与乘员替补",
-      "stage": "B",
-      "prerequisites": [
-        "008"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO009.md"
-    },
-    {
-      "id": "010",
-      "title": "真实命中记录与穿透回放",
-      "stage": "B",
-      "prerequisites": [
-        "009"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO010.md"
-    },
-    {
-      "id": "011",
-      "title": "装甲靶场整合与核心体验闸门",
-      "stage": "B",
-      "prerequisites": [
-        "010"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO011.md"
-    },
-    {
-      "id": "012",
-      "title": "坡地驾驶、障碍与损伤行驶整合",
-      "stage": "C",
-      "prerequisites": [
-        "011"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO012.md"
-    },
-    {
-      "id": "013",
-      "title": "电脑驾驶、路点规划与脱困",
-      "stage": "C",
-      "prerequisites": [
-        "012"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO013.md"
-    },
-    {
-      "id": "014",
-      "title": "电脑感知、瞄准与交战状态",
-      "stage": "C",
-      "prerequisites": [
-        "013"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO014.md"
-    },
-    {
-      "id": "015",
-      "title": "一对一完整交战与第二道验收",
-      "stage": "C",
-      "prerequisites": [
-        "014"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO015.md"
-    },
-    {
-      "id": "016",
-      "title": "队伍、占点、票数、重生与胜负",
-      "stage": "D",
-      "prerequisites": [
-        "015"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO016.md"
-    },
-    {
-      "id": "017",
-      "title": "战斗界面、队伍信息与可读性",
-      "stage": "D",
-      "prerequisites": [
-        "016"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO017.md"
-    },
-    {
-      "id": "018",
-      "title": "第一张战斗地图：丘陵村庄",
-      "stage": "D",
-      "prerequisites": [
-        "017"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO018.md"
-    },
-    {
-      "id": "019",
-      "title": "4对4整合、可玩性验收与早期导出探路",
-      "stage": "D",
-      "prerequisites": [
-        "018"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO019.md"
-    },
-    {
-      "id": "020",
-      "title": "四款正式车型与差异化验证",
-      "stage": "E",
-      "prerequisites": [
-        "019"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO020.md"
-    },
-    {
-      "id": "021",
-      "title": "第二弹种与装填、弹药架联动",
-      "stage": "E",
-      "prerequisites": [
-        "020"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO021.md"
-    },
-    {
-      "id": "022",
-      "title": "车库、装甲查看与战前配置",
-      "stage": "E",
-      "prerequisites": [
-        "021"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO022.md"
-    },
-    {
-      "id": "023",
-      "title": "第二张战斗地图：工业边缘",
-      "stage": "E",
-      "prerequisites": [
-        "022"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO023.md"
-    },
-    {
-      "id": "024",
-      "title": "三个固定挑战任务与轻量重玩目标",
-      "stage": "E",
-      "prerequisites": [
-        "023"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO024.md"
-    },
-    {
-      "id": "025",
-      "title": "低模方块美术统一与资产生产线",
-      "stage": "F",
-      "prerequisites": [
-        "024"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO025.md"
-    },
-    {
-      "id": "026",
-      "title": "音效、特效与重量感",
-      "stage": "F",
-      "prerequisites": [
-        "025"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO026.md"
-    },
-    {
-      "id": "027",
-      "title": "中文界面、输入改绑与基础易用性",
-      "stage": "F",
-      "prerequisites": [
-        "026"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO027.md"
-    },
-    {
-      "id": "028",
-      "title": "交互教学与失败提示",
-      "stage": "F",
-      "prerequisites": [
-        "027"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO028.md"
-    },
-    {
-      "id": "029",
-      "title": "设置与战绩存档、损坏恢复",
-      "stage": "F",
-      "prerequisites": [
-        "028"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO029.md"
-    },
-    {
-      "id": "030",
-      "title": "主菜单到结算的完整流程",
-      "stage": "F",
-      "prerequisites": [
-        "029"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO030.md"
-    },
-    {
-      "id": "031",
-      "title": "Windows独立构建与可复现打包",
-      "stage": "G",
-      "prerequisites": [
-        "030"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO031.md"
-    },
-    {
-      "id": "032",
-      "title": "车辆、弹种与地图平衡",
-      "stage": "G",
-      "prerequisites": [
-        "031"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO032.md"
-    },
-    {
-      "id": "033",
-      "title": "性能、长局稳定性与资源预算",
-      "stage": "G",
-      "prerequisites": [
-        "032"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO033.md"
-    },
-    {
-      "id": "034",
-      "title": "全量回归、陌生玩家测试与发布候选",
-      "stage": "G",
-      "prerequisites": [
-        "033"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO034.md"
-    },
-    {
-      "id": "035",
-      "title": "发行资料、素材来源与诚实展示",
-      "stage": "G",
-      "prerequisites": [
-        "034"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO035.md"
-    },
-    {
-      "id": "036",
-      "title": "v1.0签收、版本冻结与补丁流程",
-      "stage": "G",
-      "prerequisites": [
-        "035"
-      ],
-      "status": "planned",
-      "implementation_sha": null,
-      "tested_sha": null,
-      "reviewer_acceptance": null,
-      "user_acceptance": null,
-      "file": "work_orders/WO036.md"
-    }
-  ]
+    "schema_version":  1,
+    "created_date":  "2026-09-07",
+    "repository":  "mahochyan/mcthunder",
+    "reference_branch":  "main",
+    "reference_sha":  "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
+    "repository_writes_performed_by_this_plan":  false,
+    "game_executed_by_this_plan":  false,
+    "authorized_order":  "003",
+    "recommended_next_order":  "003",
+    "baseline_001_status":  "implementation_report_exists_not_independently_accepted",
+    "allowed_statuses":  [
+                             "planned",
+                             "authorized",
+                             "in_progress",
+                             "implementation_complete_pending_review",
+                             "needs_revision",
+                             "blocked",
+                             "accepted"
+                         ],
+    "orders":  [
+                   {
+                       "id":  "002",
+                       "title":  "001 补验收、缺陷修整与基线冻结",
+                       "stage":  "A",
+                       "prerequisites":  [
+                                             "001"
+                                         ],
+                       "status":  "accepted",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  "accepted as development baseline with carryover (human itemized ops / alt-tab / feel / manual screenshots deferred to 011 core-experience acceptance; not signed as full user acceptance)",
+                       "user_acceptance":  "partial: human playtest feedback registered (controls OK; art/gameplay/UI absent = v0.0.1 scope); itemized confirmation NOT_RUN",
+                       "file":  "work_orders/WO002.md",
+                       "acceptance_scope":  "development_baseline_with_carryover"
+                   },
+                   {
+                       "id":  "003",
+                       "title":  "多车辆基础、数据配置与控制接口",
+                       "stage":  "A",
+                       "prerequisites":  [
+                                             "002"
+                                         ],
+                       "status":  "authorized",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO003.md"
+                   },
+                   {
+                       "id":  "004",
+                       "title":  "装甲与内构布局工具、可见调试模型",
+                       "stage":  "A",
+                       "prerequisites":  [
+                                             "003"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO004.md"
+                   },
+                   {
+                       "id":  "005",
+                       "title":  "统一命中查询与多层交点排序",
+                       "stage":  "A",
+                       "prerequisites":  [
+                                             "004"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO005.md"
+                   },
+                   {
+                       "id":  "006",
+                       "title":  "有限速度炮弹、重力与连续路径检测",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "005"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO006.md"
+                   },
+                   {
+                       "id":  "007",
+                       "title":  "分区装甲、入射角、跳弹与剩余穿透",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "006"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO007.md"
+                   },
+                   {
+                       "id":  "008",
+                       "title":  "车内命中、模块受损与乘员功能",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "007"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO008.md"
+                   },
+                   {
+                       "id":  "009",
+                       "title":  "起火、殉爆、维修与乘员替补",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "008"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO009.md"
+                   },
+                   {
+                       "id":  "010",
+                       "title":  "真实命中记录与穿透回放",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "009"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO010.md"
+                   },
+                   {
+                       "id":  "011",
+                       "title":  "装甲靶场整合与核心体验闸门",
+                       "stage":  "B",
+                       "prerequisites":  [
+                                             "010"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO011.md"
+                   },
+                   {
+                       "id":  "012",
+                       "title":  "坡地驾驶、障碍与损伤行驶整合",
+                       "stage":  "C",
+                       "prerequisites":  [
+                                             "011"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO012.md"
+                   },
+                   {
+                       "id":  "013",
+                       "title":  "电脑驾驶、路点规划与脱困",
+                       "stage":  "C",
+                       "prerequisites":  [
+                                             "012"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO013.md"
+                   },
+                   {
+                       "id":  "014",
+                       "title":  "电脑感知、瞄准与交战状态",
+                       "stage":  "C",
+                       "prerequisites":  [
+                                             "013"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO014.md"
+                   },
+                   {
+                       "id":  "015",
+                       "title":  "一对一完整交战与第二道验收",
+                       "stage":  "C",
+                       "prerequisites":  [
+                                             "014"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO015.md"
+                   },
+                   {
+                       "id":  "016",
+                       "title":  "队伍、占点、票数、重生与胜负",
+                       "stage":  "D",
+                       "prerequisites":  [
+                                             "015"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO016.md"
+                   },
+                   {
+                       "id":  "017",
+                       "title":  "战斗界面、队伍信息与可读性",
+                       "stage":  "D",
+                       "prerequisites":  [
+                                             "016"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO017.md"
+                   },
+                   {
+                       "id":  "018",
+                       "title":  "第一张战斗地图：丘陵村庄",
+                       "stage":  "D",
+                       "prerequisites":  [
+                                             "017"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO018.md"
+                   },
+                   {
+                       "id":  "019",
+                       "title":  "4对4整合、可玩性验收与早期导出探路",
+                       "stage":  "D",
+                       "prerequisites":  [
+                                             "018"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO019.md"
+                   },
+                   {
+                       "id":  "020",
+                       "title":  "四款正式车型与差异化验证",
+                       "stage":  "E",
+                       "prerequisites":  [
+                                             "019"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO020.md"
+                   },
+                   {
+                       "id":  "021",
+                       "title":  "第二弹种与装填、弹药架联动",
+                       "stage":  "E",
+                       "prerequisites":  [
+                                             "020"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO021.md"
+                   },
+                   {
+                       "id":  "022",
+                       "title":  "车库、装甲查看与战前配置",
+                       "stage":  "E",
+                       "prerequisites":  [
+                                             "021"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO022.md"
+                   },
+                   {
+                       "id":  "023",
+                       "title":  "第二张战斗地图：工业边缘",
+                       "stage":  "E",
+                       "prerequisites":  [
+                                             "022"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO023.md"
+                   },
+                   {
+                       "id":  "024",
+                       "title":  "三个固定挑战任务与轻量重玩目标",
+                       "stage":  "E",
+                       "prerequisites":  [
+                                             "023"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO024.md"
+                   },
+                   {
+                       "id":  "025",
+                       "title":  "低模方块美术统一与资产生产线",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "024"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO025.md"
+                   },
+                   {
+                       "id":  "026",
+                       "title":  "音效、特效与重量感",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "025"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO026.md"
+                   },
+                   {
+                       "id":  "027",
+                       "title":  "中文界面、输入改绑与基础易用性",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "026"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO027.md"
+                   },
+                   {
+                       "id":  "028",
+                       "title":  "交互教学与失败提示",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "027"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO028.md"
+                   },
+                   {
+                       "id":  "029",
+                       "title":  "设置与战绩存档、损坏恢复",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "028"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO029.md"
+                   },
+                   {
+                       "id":  "030",
+                       "title":  "主菜单到结算的完整流程",
+                       "stage":  "F",
+                       "prerequisites":  [
+                                             "029"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO030.md"
+                   },
+                   {
+                       "id":  "031",
+                       "title":  "Windows独立构建与可复现打包",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "030"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO031.md"
+                   },
+                   {
+                       "id":  "032",
+                       "title":  "车辆、弹种与地图平衡",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "031"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO032.md"
+                   },
+                   {
+                       "id":  "033",
+                       "title":  "性能、长局稳定性与资源预算",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "032"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO033.md"
+                   },
+                   {
+                       "id":  "034",
+                       "title":  "全量回归、陌生玩家测试与发布候选",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "033"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO034.md"
+                   },
+                   {
+                       "id":  "035",
+                       "title":  "发行资料、素材来源与诚实展示",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "034"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO035.md"
+                   },
+                   {
+                       "id":  "036",
+                       "title":  "v1.0签收、版本冻结与补丁流程",
+                       "stage":  "G",
+                       "prerequisites":  [
+                                             "035"
+                                         ],
+                       "status":  "planned",
+                       "implementation_sha":  null,
+                       "tested_sha":  null,
+                       "reviewer_acceptance":  null,
+                       "user_acceptance":  null,
+                       "file":  "work_orders/WO036.md"
+                   }
+               ]
 }

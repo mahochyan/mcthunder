@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="VehicleDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/defs/vehicle_definition.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+id = "player_tank"
+schema_version = 1
+display_name_key = "PLAYER_TANK"
+forward_max_speed = 8.0
+reverse_max_speed = 3.0
+forward_accel = 6.0
+reverse_accel = 4.0
+brake_decel = 10.0
+coast_decel = 3.0
+hull_turn_speed = 75.0
+turret_yaw_speed = 35.0
+turret_pitch_speed = 30.0
+barrel_pitch_min = -8.0
+barrel_pitch_max = 20.0
+weapon_id = "player_tank_gun"
