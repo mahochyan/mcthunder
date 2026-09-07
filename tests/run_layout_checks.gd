@@ -262,6 +262,74 @@ func _init() -> void:
 				yaw_joint = true
 		_ok(yaw_joint, "004-b turret yaw joint exists")
 
+	# --- 004-c：检视查看器（不依赖 VehicleActor / Gunner / PlayerController / 命中信号） ---
+	var insp := VehicleInspector.new()
+	var src := load("res://scripts/inspection/vehicle_inspector.gd") as GDScript
+	var banned := ["VehicleActor", "Gunner", "PlayerController", "accept_hit", "fire_shell"]
+	var combat_ok := true
+	for b in banned:
+		for ln in src.source_code.split("\n"):
+			var stripped := ln.strip_edges()
+			if stripped.begins_with("#") or stripped.begins_with("##"):
+				continue   # 注释里的职责边界说明不算代码依赖
+			if ln.contains(b):
+				combat_ok = false
+	_ok(combat_ok, "004-c inspector script has no combat dependencies")
+	insp.queue_free()
+	var preview := VehiclePreviewModel.new()
+	preview.setup(m4a3)
+	_ok(preview._part_nodes.has("hull") and preview._part_nodes.has("turret") and preview._part_nodes.has("gun"), "004-c preview builds part nodes from layout")
+	var pose := preview.set_pose(90.0, -30.0)
+	_ok(pose.get("yaw_applied", 0.0) == 90.0, "004-c set_pose applies yaw 90 via LayoutMath")
+	_ok(pose.get("pitch_applied", 0.0) == -25.0, "004-c set_pose clamps pitch to joint limit -25")
+	var pose_bad := preview.set_pose(400.0, 99.0)
+	_ok(absf(pose_bad.get("yaw_applied", 0.0)) <= 360.0, "004-c set_pose clamps yaw beyond limits")
+	var hit_turret := false
+	for part in m4a3.parts:
+		if part.id == "turret":
+			var n: Node3D = preview._part_nodes[part.id]
+			# 炮塔 bind 原点 = (0,1.72,0)：yaw 后位置不变（绕自身 bind 原点旋转）
+			hit_turret = n.transform.origin.distance_to(Vector3(0, 1.72, 0)) < 0.001
+	_ok(hit_turret, "004-c posed turret rotates about its own bind origin")
+	preview.set_mode("armor")
+	var any_wire := false
+	for w in preview._extra_nodes:
+		if w.name.begins_with("Wire_") and w.visible:
+			any_wire = true
+	_ok(any_wire, "004-c armor mode shows patch wires")
+	preview.set_mode("interior")
+	var module_visible := false
+	for mid in preview._module_nodes.keys():
+		if (preview._module_nodes[mid] as MeshInstance3D).visible:
+			module_visible = true
+	_ok(module_visible, "004-c interior mode shows module volumes")
+	preview.set_mode("appearance")
+	var thick_unknown := true
+	for patch in m4a3.armor_patches:
+		if patch.has_thickness:
+			thick_unknown = false
+	var unknown_color := true
+	if thick_unknown:
+		for patch in m4a3.armor_patches:
+			var mi: MeshInstance3D = preview._patch_nodes[patch.id]
+			var mat := mi.material_override as StandardMaterial3D
+			if mat.albedo_color != VehiclePreviewModel.COLOR_UNKNOWN:
+				unknown_color = false
+	_ok(unknown_color, "004-c unknown-thickness patches render UNKNOWN color (not 0 mm)")
+	preview.select_patch("hull_front_upper")
+	var sel_mi: MeshInstance3D = preview._patch_nodes["hull_front_upper"]
+	var sel_mat := sel_mi.material_override as StandardMaterial3D
+	_ok(sel_mat != null and sel_mat.albedo_color == VehiclePreviewModel.COLOR_HIGHLIGHT, "004-c selection highlight uses instance material override")
+	preview.select_patch("")
+	var restored := sel_mi.material_override as StandardMaterial3D
+	_ok(restored.albedo_color == VehiclePreviewModel.COLOR_UNKNOWN, "004-c deselect restores per-patch color")
+	preview.queue_free()
+	# layout_id 向后兼容：默认空串不破坏校验
+	var vd := VehicleDefinition.new()
+	vd.id = "compat_probe"
+	vd.validate()
+	_ok(vd.layout_id == "", "004-c VehicleDefinition.layout_id defaults empty (backward compatible)")
+
 	_finish()
 
 

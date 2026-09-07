@@ -20,6 +20,8 @@ var trial_hits := 0           # 003：试射目标计数（gate.accept_hit 接�
 const TRIAL_TARGET := 3
 var _gate := TrialHitGate.new()   # 003-R2：任务收分唯一来源（轮次/命中数/去重集合都在 gate 维护，Main 只读）
 var _paused := false
+var _inspector_open := false   # 004-c：车辆检视窗口打开标志（Esc 路由 / 靶场输入隔离）
+var _inspector: VehicleInspector = null   # 004-c：检视窗口实例引用
 var _aborted := false         # 003-R2：启动失败短路标志（true = 停止正常帧/输入处理）
 var _abort_reason := ""
 var _initialized := false     # 003-R2：初始化完成标记（全部成功后才允许正常暂停/恢复/重置）
@@ -79,6 +81,7 @@ func _ready() -> void:
 	hud.name = "HUD"
 	add_child(hud)
 	hud.resume_requested.connect(_resume)
+	hud.inspect_requested.connect(open_vehicle_inspector)   # 004-c：暂停菜单检视入口
 	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
@@ -151,10 +154,16 @@ func despawn_vehicle(a: VehicleActor) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		# 004-c：检视窗口打开时 Esc = 返回暂停菜单（真实返回流程），不恢复游戏
+		if _inspector_open:
+			close_vehicle_inspector()
+			return
 		if _paused:
 			_resume()
 		else:
 			_pause()
+	elif _inspector_open:
+		return   # 004-c：检视期间不触发靶场输入（重置/开火/调试）
 	elif event.is_action_pressed("reset"):
 		_reset_all()
 	elif event.is_action_pressed("debug_toggle"):
@@ -189,6 +198,42 @@ func _pause() -> void:
 	get_tree().paused = true
 	hud.show_pause(true)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func open_vehicle_inspector() -> void:
+	# 004-c：暂停菜单 -> 独立检视窗口（不恢复游戏；树仍 paused）
+	if not _can_use_gameplay() or not _paused or _inspector_open:
+		return
+	_inspector_open = true
+	hud.show_pause(false)
+	var packed: PackedScene = load("res://scenes/inspection/vehicle_inspector.tscn")
+	if packed == null:
+		push_error("004-c: vehicle_inspector.tscn load failed")
+		_inspector_open = false
+		hud.show_pause(true)
+		return
+	_inspector = packed.instantiate()
+	add_child(_inspector)
+	_inspector.close_requested.connect(close_vehicle_inspector)
+	# 载入默认历史研究布局（失败不阻塞窗口打开——空树可返回）
+	LayoutCatalog.register_evidence(PackedStringArray([
+		"EV-TM9759-IDENTITY", "EV-TM9759-SPECS", "EV-TM9759-ENGINE", "EV-TM9759-TRANS",
+		"EV-TM9759-TURRET-FLOOR", "EV-TM9759-STOWAGE", "EV-TM9759-GEN",
+		"EV-TM9759-RADIO", "EV-TM9759-TRAVERSE", "EV-FM1767-CREW"]))
+	var l := LayoutCatalog.load_layout("us_m4a3_75w_vvss_1944")
+	if l != null:
+		_inspector.load_layout(l)
+
+func close_vehicle_inspector() -> void:
+	# 004-c：检视窗口 -> 暂停菜单（真实返回流程；游戏保持暂停）
+	if not _inspector_open:
+		return
+	_inspector_open = false
+	if is_instance_valid(_inspector):
+		_inspector.queue_free()
+	_inspector = null
+	if _can_use_gameplay():
+		hud.show_pause(true)
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _resume() -> void:
 	if not _can_use_gameplay():

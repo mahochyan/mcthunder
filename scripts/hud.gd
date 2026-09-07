@@ -4,6 +4,7 @@ extends CanvasLayer
 ## （工作单 §E：不随意下载/分发字体；中文操作说明固定写在 开始试玩.txt）。
 
 signal resume_requested
+signal inspect_requested   # 004-c：暂停菜单"车辆检视"按钮
 
 const CJK_PROBE := 0x4E2D   # '中'
 
@@ -124,6 +125,12 @@ func _build() -> void:
 	btn.pressed.connect(func() -> void: resume_requested.emit())
 	vb.add_child(btn)
 	resume_btn = btn
+	# 004-c：车辆检视入口（暂停菜单 -> 独立检视窗口，真实返回流程）
+	var inspect_btn := Button.new()
+	inspect_btn.text = "Vehicle Inspector"
+	inspect_btn.custom_minimum_size = Vector2(160, 44)
+	inspect_btn.pressed.connect(func() -> void: inspect_requested.emit())
+	vb.add_child(inspect_btn)
 	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 
 func show_pause(p: bool) -> void:

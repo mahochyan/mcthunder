@@ -14,6 +14,8 @@ extends Resource
 @export var source_refs: Array[String] = []
 # verification: "verified"（有依据）/ "estimated"（估算，标估算）/ "unknown"（未知，不编造）
 @export var verification: String = "unknown"
+# 004-c：关联布局 id（us_m4a3_75w_vvss_1944 等）；空 = 无布局关联（向后兼容：旧资源缺省空串不破坏校验）
+@export var layout_id: String = ""
 
 # --- movement（m/s、m/s²、deg/s） ---
 @export var forward_max_speed: float = 8.0
