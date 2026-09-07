@@ -335,6 +335,8 @@ func _initialize() -> void:
 	var main = ps.instantiate()
 	root.add_child(main)
 	await process_frame
+	root.size = Vector2i(1280, 720)   # headless -s 模式初始窗口 64x64；场景激活后设置才生效
+	await process_frame
 	await process_frame
 	_ok(main._initialized and main._can_use_gameplay(), "T004-07 premise: main initialized (A/B entities ready)")
 	var pos_a_before: Vector3 = main.actor_a.tank.global_position
@@ -350,21 +352,81 @@ func _initialize() -> void:
 	var pv := insp_main._viewport.find_child("PreviewModel", true, false) as VehiclePreviewModel
 	_ok(pv != null and pv.is_inside_tree(), "T004-07 preview model exists in inspector")
 	_ok(insp_main._viewport.own_world_3d, "T004-07 preview uses own world (isolated)")
-	# 窗口内交互：三模式切换 + 姿态滑杆 + 相机轨道（拖动/滚轮参数路径）
-	var pos_a_mid: Vector3 = main.actor_a.tank.global_position
-	for m in ["armor", "interior", "appearance"]:
-		pv.set_mode(m)
-	insp_main._yaw_slider.value = 180.0
-	insp_main._on_pose_changed(180.0)
-	pv.set_pose(45.0, -10.0)
-	insp_main._orbit_yaw += 30.0
-	insp_main._orbit_dist += 1.0
-	insp_main._update_camera()
+	# 窗口内交互：004-R1 组A——全部用真实鼠标/滚轮事件驱动（不是直接 set_mode/参数调用）
+	var mode_btn := insp_main._mode_buttons[1]   # Armor
+	var mpos := mode_btn.get_global_rect().get_center()
+	var mv0 := InputEventMouseMotion.new()
+	mv0.position = mpos
+	mv0.global_position = mpos
+	Input.parse_input_event(mv0)
 	await process_frame
-	_ok(pos_a_mid.is_equal_approx(pos_a_before), "T004-07 A not moved by UI interaction (pre-slider)")
-	var trial_mid: int = main.trial_hits
-	var shots_mid: int = main.gunner.shots_fired
-	_ok(trial_mid == trial_before and shots_mid == shots_before, "T004-07 no firing/trial state change from inspector interaction")
+	await _click_center(mode_btn)
+	await process_frame
+	await process_frame
+	_ok(pv.mode == "armor", "T004-07 real mouse click switches preview to Armor mode")
+	var yaw_slider := insp_main._yaw_slider
+	var yr := yaw_slider.get_global_rect()
+	_mouse_drag(Vector2(yr.position.x + 4, yr.get_center().y), Vector2(yr.end.x - 4, yr.get_center().y))
+	await process_frame
+	await process_frame
+	_ok(absf(yaw_slider.value - yaw_slider.min_value) > 1.0, "T004-07 real slider drag moves yaw value to %.0f" % yaw_slider.value)
+	var pv_container := insp_main._viewport.get_parent() as Control
+	var dist_before := insp_main._orbit_dist
+	_wheel_over(pv_container.get_global_rect().get_center(), MOUSE_BUTTON_WHEEL_DOWN)
+	await process_frame
+	await process_frame
+	_ok(insp_main._orbit_dist > dist_before, "T004-07 real wheel over preview zooms camera out")
+	# 相机反例回归（004-R1 组A）：负俯仰限幅不钻地；注视 _preview_focus
+	insp_main._orbit_pitch = -18.0
+	insp_main._update_camera()
+	_ok(insp_main._camera.global_position.y > 0.0, "T004-07 camera stays above ground at pitch -18 (R1 counterexample fixed)")
+	_ok(insp_main._camera.global_position.distance_to(insp_main._preview_focus) > insp_main._orbit_dist - 0.01, "T004-07 camera orbits around preview focus")
+	insp_main._orbit_pitch = 18.0
+	insp_main._update_camera()
+	# 模型切换流程：布局选择器真实打开 popup，历史 → 标准板 → 历史
+	var pv_before := pv
+	var opt := insp_main._layout_opt
+	await _click_center(opt)
+	await process_frame
+	await process_frame
+	var popup := opt.get_popup()
+	_ok(popup != null and popup.visible, "T004-07 layout selector popup opens via real click")
+	# 菜单项选择：headless 下 popup 子窗口键盘/点击路由不可达（DisplayServer 限制），
+	# 用 item_selected（用户在 popup 中确认后 OptionButton 发出的同一公共信号）；
+	# popup 打开本身是真实点击。
+	var ids := LayoutCatalog.list_available()
+	var panels_idx := ids.find("test_armor_panels")
+	opt.item_selected.emit(panels_idx)
+	await process_frame
+	await process_frame
+	var pv_mid := insp_main._viewport.find_child("PreviewModel", true, false) as VehiclePreviewModel
+	_ok(pv_mid != null and pv_mid != pv_before and not is_instance_valid(pv_before), "T004-07 model switch to test panels via selector (old model removed)")
+	_ok(pv_mid != null and pv_mid.layout.id == "test_armor_panels", "T004-07 switched layout is test_armor_panels")
+	# 切回历史布局，姿态/选中延续可用
+	await _click_center(opt)
+	await process_frame
+	await process_frame
+	await process_frame
+	var hist_idx := ids.find("us_m4a3_75w_vvss_1944")
+	opt.item_selected.emit(hist_idx)
+	await process_frame
+	await process_frame
+	var pv_back := insp_main._viewport.find_child("PreviewModel", true, false) as VehiclePreviewModel
+	_ok(pv_back != null and pv_back != pv_mid and pv_back.layout.id == "us_m4a3_75w_vvss_1944", "T004-07 switch back to historical layout (new model built)")
+	var pose_ret := pv_back.set_pose(120.0, -10.0)
+	_ok(absf(float(pose_ret.get("yaw_applied", 0.0)) - 120.0) < 0.01, "T004-07 pose still applicable after switch-back (flow continues)")
+	pv_back.select_patch("turret_front")
+	var back_mat := (pv_back._patch_nodes["turret_front"] as MeshInstance3D).material_override as StandardMaterial3D
+	_ok(back_mat != null and back_mat.albedo_color == VehiclePreviewModel.COLOR_HIGHLIGHT, "T004-07 patch selection highlight works after switch-back")
+	# 交互后重读实时状态（004-R1：不与交互前快照比对——交互完成且帧推进后再采样）
+	await process_frame
+	await process_frame
+	await physics_frame
+	var pos_a_after: Vector3 = main.actor_a.tank.global_position
+	var pos_b_after: Vector3 = main.actor_b.tank.global_position
+	_ok(pos_a_after.is_equal_approx(pos_a_before), "T004-07 A not moved by inspector interaction (re-read after frames)")
+	_ok(pos_b_after.is_equal_approx(pos_b_before), "T004-07 B not moved by inspector interaction (re-read after frames)")
+	_ok(main.trial_hits == trial_before and main.gunner.shots_fired == shots_before, "T004-07 no firing/trial state change (re-read after frames)")
 	# 检视期间 Esc → 返回暂停菜单（不恢复游戏）
 	var esc_ev := InputEventAction.new()
 	esc_ev.action = "pause"
@@ -383,11 +445,13 @@ func _initialize() -> void:
 	insp2.show_selected_details({"id": "engine_main", "kind": "module"})
 	_ok(insp2._details.text.contains("engine_main"), "T004-09 module details follow selection")
 	# T004-09 双分辨率控件不重叠/不出屏（布局 rect 计算；insp2 存活期内）
+	# 004-R1 组A：DetailsLabel 在 ScrollContainer 内全尺寸展开属预期（被裁剪滚动），
+	# 出界断言测滚动容器 DetailsScroll；并新增兄弟控件重叠断言（容器布局保证无像素重叠）。
 	for res_size in [Vector2i(1280, 720), Vector2i(1920, 1080)]:
 		root.size = res_size
 		await process_frame
 		var in_bounds := true
-		for ctrl_name in ["PreviewContainer", "PartsTree", "DetailsLabel"]:
+		for ctrl_name in ["PreviewContainer", "PartsTree", "DetailsScroll"]:
 			var c := insp2.find_child(ctrl_name, true, false) as Control
 			if c == null:
 				continue
@@ -396,6 +460,22 @@ func _initialize() -> void:
 				in_bounds = false
 				print("T004-09 DEBUG %s @%dx%d: %s end=(%.0f,%.0f)" % [ctrl_name, res_size.x, res_size.y, gp, gp.end.x, gp.end.y])
 		_ok(in_bounds, "T004-09 main widgets inside screen at %dx%d" % [res_size.x, res_size.y])
+		# 兄弟控件两两不重叠（模式按钮行 vs 姿态滑杆等历史反例——004-R1 修复回归）
+		var no_overlap := true
+		var left_col := insp2.find_child("LeftColumn", true, false) as Container
+		if left_col != null:
+			var kids: Array[Control] = []
+			for ch in left_col.get_children():
+				if ch is Control:
+					kids.append(ch)
+			for i in range(kids.size()):
+				for j in range(i + 1, kids.size()):
+					if kids[i].get_global_rect().intersects(kids[j].get_global_rect()):
+						no_overlap = false
+						print("T004-09 OVERLAP: %s <-> %s" % [kids[i].name, kids[j].name])
+		else:
+			no_overlap = false
+		_ok(no_overlap, "T004-09 left column sibling widgets do not overlap at %dx%d" % [res_size.x, res_size.y])
 	root.size = Vector2i(1280, 720)
 	await process_frame
 	# T004-08：重复打开关闭 20 次无残留
@@ -433,6 +513,60 @@ func _initialize() -> void:
 
 func trial_hits_stable(main, before: int) -> bool:
 	return main.trial_hits == before
+
+
+# --- 004-R1 组A：真实输入事件辅助（点击控件中心 / 滑杆拖动 / 滚轮） ---
+func _click_center(ctrl: Control) -> void:
+	var pos := (ctrl as Control).get_global_rect().get_center()
+	var mv := InputEventMouseMotion.new()
+	mv.position = pos
+	mv.global_position = pos
+	Input.parse_input_event(mv)
+	await process_frame
+	_mouse_button(pos, MOUSE_BUTTON_LEFT, true)
+	await process_frame
+	_mouse_button(pos, MOUSE_BUTTON_LEFT, false)
+	await process_frame
+
+
+func _mouse_button(pos: Vector2, index: MouseButton, pressed: bool) -> void:
+	var ev := InputEventMouseButton.new()
+	ev.position = pos
+	ev.global_position = pos
+	ev.button_index = index
+	ev.pressed = pressed
+	Input.parse_input_event(ev)
+
+
+func _mouse_drag(from: Vector2, to: Vector2) -> void:
+	_mouse_button(from, MOUSE_BUTTON_LEFT, true)
+	var steps := 8
+	for i in range(1, steps + 1):
+		var mv := InputEventMouseMotion.new()
+		mv.position = from.lerp(to, float(i) / float(steps))
+		mv.global_position = mv.position
+		mv.relative = (to - from) / float(steps)
+		Input.parse_input_event(mv)
+	_mouse_button(to, MOUSE_BUTTON_LEFT, false)
+
+
+func _wheel_over(pos: Vector2, index: MouseButton) -> void:
+	_mouse_button(pos, index, true)
+	_mouse_button(pos, index, false)
+
+
+func _popup_key_nav(popup: PopupMenu, key: Key) -> void:
+	# Popup 键盘导航：Key 事件直接发给 PopupWindow（焦点窗口），经真实输入管线
+	var dn := InputEventKey.new()
+	dn.keycode = key
+	dn.physical_keycode = key
+	dn.pressed = true
+	Input.parse_input_event(dn)
+	var up := InputEventKey.new()
+	up.keycode = key
+	up.physical_keycode = key
+	up.pressed = false
+	Input.parse_input_event(up)
 
 
 func _apply_scaled_part(layout: VehicleLayoutDefinition) -> void:

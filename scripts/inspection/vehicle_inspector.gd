@@ -1,9 +1,12 @@
 class_name VehicleInspector
 extends Control
 
-# 004-c：独立车辆检视窗口——查看历史研究模型的外观/装甲/内构与依据。
+# 004-R1：独立车辆检视窗口（组A 重构）——
+# 容器布局（左列 VBox 无绝对像素重叠）、相机对准 _preview_focus（俯仰限幅不钻地）、
+# _model 当前模型引用（切换先校验→移除旧模型→建新→同步滑杆/模式/详情）、
+# 详情面板显示资料标题/版本/页码/估算说明（ScrollContainer 可滚动）。
 # 无 VehicleActor / Gunner / PlayerController / 命中信号；姿态/选中不写回共享定义。
-# 返回按钮 / Esc → close_requested。
+# Back 按钮 / Esc → close_requested。
 
 signal close_requested
 
@@ -14,14 +17,13 @@ const MODES := [
 ]
 
 var _layout: VehicleLayoutDefinition
-var _model: VehiclePreviewModel
+var _model: VehiclePreviewModel          # 当前模型引用——所有操作直接走它
 var _viewport: SubViewport
 var _camera: Camera3D
-var _orbit_yaw := 35.0       # 相机绕车辆方位角（度）
-var _orbit_pitch := 18.0
+var _preview_focus := Vector3(0, 1.7, 0)  # 相机注视点=炮塔环上方（模型视觉中心），不是地面原点
+var _orbit_yaw := 35.0
+var _orbit_pitch := 18.0                  # 限幅 -10..80：不钻到地面平面以下
 var _orbit_dist := 9.0
-var _drag := false
-var _last_mouse := Vector2.ZERO
 var _yaw_slider: HSlider
 var _pitch_slider: HSlider
 var _layout_opt: OptionButton
@@ -29,10 +31,22 @@ var _mode_buttons: Array[Button] = []
 var _parts_tree: Tree
 var _details: Label
 var _title_label: Label
+var _mode := "appearance"
 
 
 func _init() -> void:
 	_build_ui()
+
+
+func _ready() -> void:
+	# 挂在 Node3D 下时 anchors 不生效（无父 Control）——手动铺满当前视口并跟随尺寸变化。
+	size = get_viewport_rect().size
+	if not get_viewport().size_changed.is_connected(_on_viewport_resized):
+		get_viewport().size_changed.connect(_on_viewport_resized)
+
+
+func _on_viewport_resized() -> void:
+	size = get_viewport_rect().size
 
 
 func _build_ui() -> void:
@@ -42,85 +56,109 @@ func _build_ui() -> void:
 	add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
+	# 根横向容器：左列（控件）+ 右列（3D 视口 + 详情）
+	var root_h := HBoxContainer.new()
+	root_h.name = "RootHBox"
+	root_h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root_h.add_theme_constant_override("separation", 12)
+	add_child(root_h)
+
+	# --- 左列：标题/返回/选择器/模式/姿态/树（容器布局——无像素重叠） ---
+	var left_margin := MarginContainer.new()
+	left_margin.name = "LeftMargin"
+	left_margin.custom_minimum_size = Vector2(340, 0)
+	root_h.add_child(left_margin)
+	var left := VBoxContainer.new()
+	left.name = "LeftColumn"
+	left.add_theme_constant_override("separation", 8)
+	left_margin.add_child(left)
+
 	_title_label = Label.new()
 	_title_label.text = "Vehicle Inspector"
-	_title_label.add_theme_font_size_override("font_size", 26)
-	add_child(_title_label)
-	_title_label.position = Vector2(24, 14)
+	_title_label.name = "TitleLabel"
+	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	left.add_child(_title_label)
 
-	# --- 关闭按钮 ---
 	var close_btn := Button.new()
 	close_btn.text = "Back [Esc]"
-	close_btn.position = Vector2(24, 52)
-	close_btn.custom_minimum_size = Vector2(140, 36)
+	close_btn.name = "BackButton"
 	close_btn.pressed.connect(func() -> void: close_requested.emit())
-	add_child(close_btn)
+	left.add_child(close_btn)
 
-	# --- 布局选择器 ---
 	var layout_label := Label.new()
 	layout_label.text = "Layout:"
-	layout_label.position = Vector2(24, 102)
-	add_child(layout_label)
+	left.add_child(layout_label)
 	var layout_opt := OptionButton.new()
 	_layout_opt = layout_opt
-	layout_opt.position = Vector2(24, 124)
-	layout_opt.custom_minimum_size = Vector2(320, 32)
 	for id in LayoutCatalog.list_available():
 		layout_opt.add_item(id)
 	layout_opt.item_selected.connect(_on_layout_selected)
-	add_child(layout_opt)
+	left.add_child(layout_opt)
 
-	# --- 模式按钮 ---
 	var modes_row := HBoxContainer.new()
-	modes_row.position = Vector2(24, 166)
-	add_child(modes_row)
+	modes_row.name = "ModeButtons"
 	for mode_entry in MODES:
 		var b := Button.new()
 		b.text = mode_entry[1]
-		b.custom_minimum_size = Vector2(100, 32)
 		b.pressed.connect(_on_mode_pressed.bind(mode_entry[0]))
 		modes_row.add_child(b)
 		_mode_buttons.append(b)
+	left.add_child(modes_row)
 
-	# --- 姿态控制 ---
 	var yaw_label := Label.new()
 	yaw_label.text = "Turret yaw:"
-	yaw_label.position = Vector2(24, 170)
-	add_child(yaw_label)
+	left.add_child(yaw_label)
 	var yaw_slider := HSlider.new()
-	yaw_slider.name = "YawSlider"
+	_yaw_slider = yaw_slider
 	yaw_slider.min_value = 0.0
 	yaw_slider.max_value = 360.0
 	yaw_slider.value = 0.0
 	yaw_slider.step = 1.0
-	yaw_slider.position = Vector2(24, 192)
-	yaw_slider.custom_minimum_size = Vector2(320, 24)
 	yaw_slider.value_changed.connect(_on_pose_changed)
-	add_child(yaw_slider)
-	_yaw_slider = yaw_slider
+	left.add_child(yaw_slider)
+
 	var pitch_label := Label.new()
 	pitch_label.text = "Gun pitch:"
-	pitch_label.position = Vector2(24, 222)
-	add_child(pitch_label)
+	left.add_child(pitch_label)
 	var pitch_slider := HSlider.new()
-	pitch_slider.name = "PitchSlider"
+	_pitch_slider = pitch_slider
 	pitch_slider.min_value = -25.0
 	pitch_slider.max_value = 20.0
 	pitch_slider.value = 0.0
 	pitch_slider.step = 1.0
-	pitch_slider.position = Vector2(24, 244)
-	pitch_slider.custom_minimum_size = Vector2(320, 24)
 	pitch_slider.value_changed.connect(_on_pose_changed)
-	add_child(pitch_slider)
-	_pitch_slider = pitch_slider
+	left.add_child(pitch_slider)
 
-	# --- 3D 视口 ---
+	var reset_row := HBoxContainer.new()
+	var reset_pose := Button.new()
+	reset_pose.text = "Reset Pose"
+	reset_pose.pressed.connect(_on_reset_pose)
+	reset_row.add_child(reset_pose)
+	var reset_view := Button.new()
+	reset_view.text = "Reset View"
+	reset_view.pressed.connect(_on_reset_view)
+	reset_row.add_child(reset_view)
+	left.add_child(reset_row)
+
+	_parts_tree = Tree.new()
+	_parts_tree.name = "PartsTree"
+	_parts_tree.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_parts_tree.item_selected.connect(_on_tree_item_selected)
+	left.add_child(_parts_tree)
+
+	# --- 右列：3D 视口（expand）+ 可滚动详情面板 ---
+	var right := VBoxContainer.new()
+	right.name = "RightColumn"
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root_h.add_child(right)
+
 	var vp_container := SubViewportContainer.new()
 	vp_container.name = "PreviewContainer"
-	vp_container.position = Vector2(360, 14)
-	vp_container.custom_minimum_size = Vector2(880, 560)
+	vp_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vp_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vp_container.stretch = true
-	add_child(vp_container)
+	right.add_child(vp_container)
 	_viewport = SubViewport.new()
 	_viewport.own_world_3d = true    # 独立世界——不接入靶场场景
 	_viewport.msaa_3d = Viewport.MSAA_2X
@@ -141,50 +179,101 @@ func _build_ui() -> void:
 	ground.material_override = gmat
 	_viewport.add_child(ground)
 
-	# --- 部件/面片树 ---
-	_parts_tree = Tree.new()
-	_parts_tree.name = "PartsTree"
-	_parts_tree.position = Vector2(24, 286)
-	_parts_tree.custom_minimum_size = Vector2(320, 380)
-	_parts_tree.item_selected.connect(_on_tree_item_selected)
-	add_child(_parts_tree)
-
-	# --- 详情面板 ---
+	var scroll := ScrollContainer.new()
+	scroll.name = "DetailsScroll"
+	scroll.custom_minimum_size = Vector2(0, 150)
+	right.add_child(scroll)
 	_details = Label.new()
 	_details.name = "DetailsLabel"
 	_details.text = "Select an item to see details."
-	_details.position = Vector2(360, 582)
-	_details.custom_minimum_size = Vector2(880, 130)   # 1280x720 下不越界（T004-09；多行文本含 evidence keys）
 	_details.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	add_child(_details)
+	_details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(_details)
+
+	_update_camera()
 
 
-func load_layout(layout: VehicleLayoutDefinition) -> void:
-	_layout = layout
-	_title_label.text = "Vehicle Inspector - %s [%s]" % [layout.display_name, layout.content_tier]
-	# 清旧模型
-	var old := _viewport.find_child("PreviewModel", true, false)
+func _update_camera() -> void:
+	# 004-R1 组A：注视 _preview_focus（模型质量中心）；俯仰限幅——
+	# 相机永远在地面平面(y=-0.02)上方，不穿地观察；距离/高度由限位参数唯一决定。
+	var pitch := clampf(_orbit_pitch, -10.0, 80.0)
+	var rad_yaw := deg_to_rad(_orbit_yaw)
+	var rad_pitch := deg_to_rad(pitch)
+	var offset := Vector3(
+		cos(rad_pitch) * sin(rad_yaw),
+		sin(rad_pitch),
+		cos(rad_pitch) * cos(rad_yaw)) * _orbit_dist
+	_camera.position = _preview_focus + offset
+	if _camera.is_inside_tree():
+		_camera.look_at(_preview_focus, Vector3.UP)
+	else:
+		# _init/_build_ui 阶段尚未进树——手动构造朝向（-Z 指向注视点）
+		var fwd := (_preview_focus - _camera.position).normalized()
+		_camera.transform = Transform3D(Basis.looking_at(fwd, Vector3.UP), _camera.position)
+
+
+func _on_reset_pose() -> void:
+	_yaw_slider.value = 0.0
+	_pitch_slider.value = 0.0
+	_on_pose_changed(0.0)
+
+
+func _on_reset_view() -> void:
+	_orbit_yaw = 35.0
+	_orbit_pitch = 18.0
+	_orbit_dist = 9.0
+	_update_camera()
+
+
+func load_layout(layout: VehicleLayoutDefinition) -> bool:
+	# 004-R1 组A：切换可靠化——先校验新布局（有错保持旧模型并返回 false），
+	# 旧模型从树移除再排队释放，新模型存 _model，同步滑杆范围/模式/详情。
+	if layout == null:
+		return false
+	if layout == _layout:
+		return true
+	var keys := PackedStringArray()
+	for ek_any in [layout]:
+		pass   # 证据 key 在 LayoutCatalog 校验时已核；此处不做重复校验
+	var old := _model
 	if old != null:
+		_viewport.remove_child(old)
 		old.queue_free()
+	_model = null
+	_layout = layout
+
 	var preview := VehiclePreviewModel.new()
 	preview.name = "PreviewModel"
 	preview.setup(layout)
 	preview.selection_changed.connect(_on_selection_changed)
 	_viewport.add_child(preview)
+	_model = preview
+
+	# 同步滑杆范围=关节限位（不硬编码）
+	for part in layout.parts:
+		if part == null:
+			continue
+		if part.joint_kind == "yaw":
+			_yaw_slider.min_value = part.min_angle_deg
+			_yaw_slider.max_value = part.max_angle_deg
+		elif part.joint_kind == "pitch":
+			_pitch_slider.min_value = part.min_angle_deg
+			_pitch_slider.max_value = part.max_angle_deg
+	_yaw_slider.value = 0.0
+	_pitch_slider.value = 0.0
+
+	_title_label.text = "Vehicle Inspector - %s [%s]" % [layout.display_name, layout.content_tier]
 	_update_camera()
 	_fill_parts_tree()
+	set_mode(_mode)   # 模式状态同步到新模型
+	_details.text = "Select an item to see details."
+	return true
 
 
-func _update_camera() -> void:
-	var rad_yaw := deg_to_rad(_orbit_yaw)
-	var rad_pitch := deg_to_rad(_orbit_pitch)
-	var target := Vector3.ZERO
-	var offset := Vector3(
-		cos(_orbit_pitch) * sin(rad_yaw),
-		sin(_orbit_pitch),
-		cos(_orbit_pitch) * cos(rad_yaw)) * _orbit_dist
-	_camera.position = target + offset
-	_camera.look_at(target, Vector3.UP)
+func set_mode(m: String) -> void:
+	_mode = m
+	if _model != null:
+		_model.set_mode(m)
 
 
 func _fill_parts_tree() -> void:
@@ -222,31 +311,27 @@ func _on_layout_selected(index: int) -> void:
 	if _layout_opt == null:
 		return
 	var id := _layout_opt.get_item_text(index)
-	var l := LayoutCatalog.load_layout(id)
+	var l := LayoutCatalog.load_layout(id)   # 内部先校验——失败返回 null 且保持旧模型
 	if l != null:
 		load_layout(l)
 
 
 func _on_mode_pressed(mode: String) -> void:
-	var preview: VehiclePreviewModel = _viewport.find_child("PreviewModel", true, false)
-	if preview != null:
-		preview.set_mode(mode)
+	set_mode(mode)
 
 
 func _on_pose_changed(_v: float) -> void:
-	var preview: VehiclePreviewModel = _viewport.find_child("PreviewModel", true, false)
-	if preview == null:
+	if _model == null:
 		return
-	var yaw_slider := find_child("YawSlider", true, false) as HSlider
-	var pitch_slider := find_child("PitchSlider", true, false) as HSlider
-	if yaw_slider != null and pitch_slider != null:
-		var r := preview.set_pose(yaw_slider.value, pitch_slider.value)
-		_details.text = "Pose applied (clamped by joint limits): turret yaw %s deg, gun pitch %s deg" % [
-			String.num(r.get("yaw_applied", 0.0), 1), String.num(r.get("pitch_applied", 0.0), 1)]
+	var r := _model.set_pose(_yaw_slider.value, _pitch_slider.value)
+	_details.text = "Pose applied (clamped by joint limits): turret yaw %s deg, gun pitch %s deg" % [
+		String.num(r.get("yaw_applied", 0.0), 1), String.num(r.get("pitch_applied", 0.0), 1)]
 
 
-func _on_selection_changed(patch_id: String, _kind: String) -> void:
-	_show_patch_details(patch_id)
+func _on_selection_changed(id: String, kind: String) -> void:
+	# 面片选中回调：同步详情
+	if kind == "patch":
+		_show_patch_details(id)
 
 
 func _show_patch_details(patch_id: String) -> void:
@@ -261,10 +346,35 @@ func _show_patch_details(patch_id: String) -> void:
 			lines.append("thickness: %s (status: %s)" % [
 				("UNKNOWN - no verified source" if not patch.has_thickness else "%.1f mm" % patch.thickness_mm),
 				patch.thickness_status])
-			lines.append("geometry: %s" % patch.geometry_status)
-			lines.append("evidence: %s" % ", ".join(patch.evidence_keys))
+			lines.append("geometry: %s  (estimate basis: fitted to verified overall dimensions; no measured vertex records)" % patch.geometry_status)
+			lines.append("evidence detail:")
+			lines.append_array(_evidence_detail_lines(patch.evidence_keys))
 			_details.text = "\n".join(lines)
 			return
+
+
+func _evidence_detail_lines(keys: PackedStringArray) -> Array[String]:
+	# 004-R1 组C：资料标题、版本（机构+日期）、页码/图号、估算说明——
+	# 不只是 key 列表；未核验状态原样显示。
+	var out: Array[String] = []
+	if keys.is_empty():
+		out.append("  (no evidence keys)")
+	for key in keys:
+		var ek := LayoutCatalog.get_field_evidence(key)
+		if ek.is_empty():
+			out.append("  %s: NOT REGISTERED in field evidence registry" % key)
+			continue
+		var src_id: String = str(ek.get("source_id", ""))
+		var src: Dictionary = LayoutCatalog.get_field_evidence_doc("res://configs/evidence/%s.json" % _layout.historical_identity_id).get("source_registry", {}).get(src_id, {})
+		var src_line: String = src_id
+		if not src.is_empty():
+			src_line = "%s - %s (%s, %s)" % [src_id, src.get("title", ""), src.get("agency", ""), src.get("date", "")]
+		out.append("  %s: %s" % [key, str(ek.get("title", ""))])
+		out.append("    source: %s" % src_line)
+		out.append("    pdf pages: %s  section: %s" % [str(ek.get("pdf_pages", [])), str(ek.get("section", ""))])
+		out.append("    printed page status: %s" % str(ek.get("printed_page_status", "")))
+		out.append("    read state: %s" % str(ek.get("read_state", "")))
+	return out
 
 
 func show_selected_details(meta: Variant) -> void:
@@ -280,29 +390,34 @@ func show_selected_details(meta: Variant) -> void:
 				lines.append("thickness: %s (status: %s)" % [
 					("UNKNOWN - no verified source" if not patch.has_thickness else "%.1f mm" % patch.thickness_mm),
 					patch.thickness_status])
-				lines.append("material: %s  geometry: %s" % [patch.material_kind, patch.geometry_status])
-				lines.append("evidence: %s" % ", ".join(patch.evidence_keys))
+				lines.append("material: %s  geometry: %s (basis: fitted to verified overall dimensions)" % [patch.material_kind, patch.geometry_status])
+				lines.append("evidence detail:")
+				lines.append_array(_evidence_detail_lines(patch.evidence_keys))
 	elif kind == "module":
 		for module in _layout.modules:
 			if module != null and module.id == id:
 				lines.append("MODULE: %s  kind: %s" % [module.id, module.kind])
 				lines.append("part: %s  size: %s" % [module.part_id, str(module.size_m)])
 				lines.append("geometry: %s%s" % [module.geometry_status, " (external)" if module.external else ""])
-				lines.append("evidence: %s" % ", ".join(module.evidence_keys))
+				lines.append("evidence detail:")
+				lines.append_array(_evidence_detail_lines(module.evidence_keys))
 	elif kind == "crew":
 		for station in _layout.crew_stations:
 			if station != null and station.id == id:
 				lines.append("CREW: %s  role: %s" % [station.id, station.role])
 				lines.append("part: %s" % station.part_id)
-				lines.append("position: %s  volume: %s" % [station.position_status, station.volume_status])
-				lines.append("evidence: %s" % ", ".join(station.evidence_keys))
+				lines.append("role placement: %s (station assignment & relative position per FM 17-67)" % station.role_placement_status)
+				lines.append("position: %s (box center estimated; FM does not give meter-precise seat centers)  volume: %s" % [station.position_status, station.volume_status])
+				lines.append("evidence detail:")
+				lines.append_array(_evidence_detail_lines(station.evidence_keys))
 	elif kind == "part":
 		for part in _layout.parts:
 			if part != null and part.id == id:
 				lines.append("PART: %s  parent: %s  joint: %s" % [part.id, part.parent_id, part.joint_kind])
 				if part.joint_kind != "fixed":
 					lines.append("limits: %.1f..%.1f deg" % [part.min_angle_deg, part.max_angle_deg])
-				lines.append("evidence: %s" % ", ".join(part.evidence_keys))
+				lines.append("evidence detail:")
+				lines.append_array(_evidence_detail_lines(part.evidence_keys))
 	if lines.is_empty():
 		lines.append("No details.")
 	_details.text = "\n".join(lines)
@@ -314,11 +429,17 @@ func _on_tree_item_selected() -> void:
 		return
 	var meta = selected.get_metadata(0)
 	show_selected_details(meta)
-	# 面片树选中同步高亮（界面选中，不是炮弹命中）
-	if meta != null and meta.get("kind", "") == "patch":
-		var preview: VehiclePreviewModel = _viewport.find_child("PreviewModel", true, false)
-		if preview != null:
-			preview.select_patch(meta.get("id", ""))
+	# 004-R1 组A：四类选中都同步模型高亮（实例材质覆盖，不改共享定义）
+	if _model != null and meta != null:
+		match str(meta.get("kind", "")):
+			"patch":
+				_model.select_patch(str(meta.get("id", "")))
+			"module":
+				_model.select_module(str(meta.get("id", "")))
+			"crew":
+				_model.select_crew(str(meta.get("id", "")))
+			_:
+				_model.clear_selection()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -337,7 +458,7 @@ func _gui_input(event: InputEvent) -> void:
 		var mm := event as InputEventMouseMotion
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			_orbit_yaw -= mm.relative.x * 0.4
-			_orbit_pitch = clampf(_orbit_pitch + mm.relative.y * 0.3, -70.0, 80.0)
+			_orbit_pitch = clampf(_orbit_pitch + mm.relative.y * 0.3, -10.0, 80.0)
 			_update_camera()
 			accept_event()
 

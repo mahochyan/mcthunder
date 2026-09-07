@@ -27,7 +27,7 @@ static func _info(path: String, msg: String) -> String:
 	return "INFO %s: %s" % [path, msg]
 
 
-static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStringArray = []) -> Dictionary:
+static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStringArray = [], field_evidence_doc: Dictionary = {}) -> Dictionary:
 	var errors := PackedStringArray()
 	var warnings := PackedStringArray()
 	var infos := PackedStringArray()
@@ -49,6 +49,10 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 	if layout.historical_identity_id.is_empty() and layout.content_tier != "test":
 		errors.append(_err("historical_identity_id", "required for non-test content_tier"))
 
+	# --- 004-R1 组B：全局 ID 唯一登记表（四类对象共用；空值/重复/跨类别冲突） ---
+	var global_ids: Dictionary = {}   # id -> first field path
+	_register_id(global_ids, "layout.id", layout.id, errors)
+
 	# --- 部件：身份与引用 ---
 	var part_ids: PackedStringArray = []
 	var roots: PackedStringArray = []
@@ -65,6 +69,7 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 			errors.append(_err(path + ".id", "duplicate id '%s'" % part.id))
 		else:
 			part_ids.append(part.id)
+		_register_id(global_ids, path + ".id", part.id, errors)
 
 		if part.parent_id.is_empty():
 			roots.append(part.id)
@@ -127,6 +132,7 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 			errors.append(_err(path + ".id", "duplicate id '%s'" % patch.id))
 		else:
 			patch_ids.append(patch.id)
+		_register_id(global_ids, path + ".id", patch.id, errors)
 		if patch.part_id == "" or not part_ids.has(patch.part_id):
 			errors.append(_err(path + ".part_id", "unknown part '%s'" % patch.part_id))
 		if patch.plate_group_id.is_empty():
@@ -161,11 +167,19 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 		idx += 1
 
 	# --- 模块与乘员 ---
-	validate_volumes(layout, part_ids, evidence_keys, errors, warnings, infos)
-	validate_crew(layout, part_ids, evidence_keys, errors, warnings)
+	validate_volumes(layout, part_ids, evidence_keys, global_ids, errors, warnings, infos)
+	validate_crew(layout, part_ids, evidence_keys, global_ids, errors, warnings)
 
-	# --- 空间布局：内部模块明显越界提示 + 可疑重叠 ---
+	# --- 004-R1 组C：来源一致性（research 布局引用的字段依据必须登记、适用、非夹具冒充） ---
+	check_evidence_consistency(layout, field_evidence_doc, errors)
+
+	# --- 空间布局：完整父链变换 + 实际部件范围 AABB 粗筛 + 可疑/已声明重叠区分 ---
 	check_spatial(layout, part_ids, suspicious, warnings)
+
+	# --- 004-R1 组B：declared_openings 必须指向具体边界环（research/production 布局；
+	# test 夹具是独立浮动测试板，豁免——其边界全部是工程边界而非历史缺口） ---
+	if layout.content_tier != "test":
+		check_declared_openings(layout, errors, warnings)
 
 	var result := {
 		"errors": errors,
@@ -183,6 +197,64 @@ static func _find_part(layout: VehicleLayoutDefinition, part_id: String) -> Layo
 	return null
 
 
+static func check_evidence_consistency(
+		layout: VehicleLayoutDefinition,
+		field_evidence_doc: Dictionary,
+		errors: PackedStringArray
+	) -> void:
+	# 004-R1 组C：research 布局的每个 evidence key 必须在字段依据字典中登记，
+	# 且 origin 不是 test_fixture（夹具依据不得冒充历史 verified 来源），
+	# applies_to 不得与历史身份冲突（"test fixtures only" 即不适用）。
+	# 程序只检查记录一致性，不宣布史料事实正确（原文核验靠原页目视）。
+	if layout.content_tier != "research" or field_evidence_doc.is_empty():
+		return
+	var keys_in_doc: Dictionary = {}
+	for ek in field_evidence_doc.get("evidence_keys", []):
+		if ek is Dictionary and ek.has("key"):
+			keys_in_doc[str(ek["key"])] = ek
+	var idx := 0
+	for patch in layout.armor_patches:
+		_check_keys(patch, "armor_patches[%d]" % idx, keys_in_doc, layout, errors)
+		idx += 1
+	idx = 0
+	for module in layout.modules:
+		_check_keys(module, "modules[%d]" % idx, keys_in_doc, layout, errors)
+		idx += 1
+	idx = 0
+	for station in layout.crew_stations:
+		_check_keys(station, "crew_stations[%d]" % idx, keys_in_doc, layout, errors)
+		idx += 1
+	idx = 0
+	for part in layout.parts:
+		_check_keys(part, "parts[%d]" % idx, keys_in_doc, layout, errors)
+		idx += 1
+
+
+static func _check_keys(item: Resource, path: String, keys_in_doc: Dictionary, layout: VehicleLayoutDefinition, errors: PackedStringArray) -> void:
+	if item == null:
+		return
+	for key in item.evidence_keys:
+		if not keys_in_doc.has(key):
+			errors.append(_err(path + ".evidence_keys", "evidence key '%s' not present in field evidence registry" % key))
+			continue
+		var ek: Dictionary = keys_in_doc[key]
+		if str(ek.get("origin", "")) == "test_fixture":
+			errors.append(_err(path + ".evidence_keys", "test-fixture evidence '%s' must not back historical layout content" % key))
+		var applies: String = str(ek.get("applies_to", ""))
+		if applies == "" or applies.to_lower().contains("test fixtures only"):
+			errors.append(_err(path + ".evidence_keys", "evidence '%s' does not apply to identity '%s'" % [key, layout.historical_identity_id]))
+
+
+static func _register_id(global_ids: Dictionary, path: String, id: String, errors: PackedStringArray) -> void:
+	# 004-R1 组B：全局唯一登记。空值/重复均报错；重复时报告第一次与第二次出现的字段路径。
+	if id.is_empty():
+		return
+	if global_ids.has(id):
+		errors.append(_err(path, "duplicate id '%s' (first occurrence at %s)" % [id, global_ids[id]]))
+	else:
+		global_ids[id] = path
+
+
 static func geo_err_paths(path: String, geo_errors: PackedStringArray) -> PackedStringArray:
 	var out := PackedStringArray()
 	for e in geo_errors:
@@ -194,6 +266,7 @@ static func validate_volumes(
 		layout: VehicleLayoutDefinition,
 		part_ids: PackedStringArray,
 		evidence_keys: PackedStringArray,
+		global_ids: Dictionary,
 		errors: PackedStringArray,
 		warnings: PackedStringArray,
 		infos: PackedStringArray
@@ -208,6 +281,7 @@ static func validate_volumes(
 			continue
 		if module.id.is_empty():
 			errors.append(_err(path + ".id", "empty"))
+		_register_id(global_ids, path + ".id", module.id, errors)
 		if module.kind.is_empty():
 			errors.append(_err(path + ".kind", "empty"))
 		if module.part_id == "" or not part_ids.has(module.part_id):
@@ -230,6 +304,7 @@ static func validate_crew(
 		layout: VehicleLayoutDefinition,
 		part_ids: PackedStringArray,
 		evidence_keys: PackedStringArray,
+		global_ids: Dictionary,
 		errors: PackedStringArray,
 		warnings: PackedStringArray
 	) -> void:
@@ -244,6 +319,7 @@ static func validate_crew(
 			continue
 		if station.id.is_empty():
 			errors.append(_err(path + ".id", "empty"))
+		_register_id(global_ids, path + ".id", station.id, errors)
 		if station.role.is_empty():
 			errors.append(_err(path + ".role", "empty"))
 		elif roles.has(station.role):
@@ -258,8 +334,16 @@ static func validate_crew(
 			errors.append(_err(path + ".local_box_transform", "not a finite rigid transform"))
 		if station.position_status not in STATUS_VALUES:
 			errors.append(_err(path + ".position_status", "unknown status '%s'" % station.position_status))
+		if station.role_placement_status not in STATUS_VALUES:
+			errors.append(_err(path + ".role_placement_status", "unknown status '%s'" % station.role_placement_status))
 		if station.volume_status not in STATUS_VALUES:
 			errors.append(_err(path + ".volume_status", "unknown status '%s'" % station.volume_status))
+		# 004-R1 组C：research 布局要求岗位/相对方位有资料核验；
+		# 坐标（position_status）不因岗位核验而自动升级——FM 只支持岗位方位。
+		if layout.content_tier == "research" and station.role_placement_status != "verified":
+			errors.append(_err(path + ".role_placement_status", "research layout requires verified role placement, got '%s'" % station.role_placement_status))
+		if layout.content_tier == "research" and station.position_status == "verified" and station.role_placement_status != "verified":
+			errors.append(_err(path + ".position_status", "verified coordinates require verified role placement"))
 		for key in station.evidence_keys:
 			if not evidence_keys.has(key):
 				errors.append(_err(path + ".evidence_keys", "unknown evidence key '%s'" % key))
@@ -279,41 +363,208 @@ static func check_spatial(
 		warnings: PackedStringArray
 	) -> void:
 
-	# 内部模块包围盒与车辆根空间的大致范围检查：明显越界（离根原点 > 20 m）提示。
-	# 用布局根（唯一根部件）的 bind 变换作为车辆局部参考。
-	var root := _find_root(layout)
-	if root == null:
-		return
-	var root_world := root.bind_local
+	# 004-R1 组B：模块/乘员方盒 = 所属部件沿父链组合的 bind 变换 × 局部方盒（零姿态）。
+	# 越界粗筛用实际部件范围（本布局全部面片顶点的 AABB 外扩余量），不是统一 20 米球。
+	# AABB 相交仅作可疑提示；allowed_overlaps 声明的配对归入"已声明"，与未声明区分。
+	var vehicle_bounds := _vehicle_bounds(layout)
+	var boxes: Dictionary = {}    # label(类别:id) -> corners
+	var declared: Dictionary = {} # 配对 key "a|b"(sorted) -> reason
+	for ov in layout.allowed_overlaps:
+		if ov == null or not ov.has("a") or not ov.has("b"):
+			continue
+		var pair := [str(ov["a"]), str(ov["b"])]
+		pair.sort()
+		declared[pair[0] + "|" + pair[1]] = str(ov.get("reason", ""))
 
-	var boxes: Dictionary = {}
 	var idx := 0
 	for module in layout.modules:
 		if module == null or module.external:
 			idx += 1
 			continue
-		var corners := LayoutMath.box_world_corners(root_world, module.local_box_transform, module.size_m)
+		var corners := _module_world_corners(layout, module)
 		if corners.is_empty():
 			warnings.append(_warn("modules[%d]" % idx, "box corners unavailable (invalid transform or size)"))
 			idx += 1
 			continue
-		boxes[module.id] = corners
-		var far := false
-		for corner in corners:
-			if corner.length() > 20.0:
-				far = true
-				break
-		if far:
-			warnings.append(_warn("modules[%d].%s" % [idx, module.id], "interior module appears far outside vehicle bounds (> 20 m from origin)"))
+		boxes["module:" + module.id] = corners
+		if vehicle_bounds.size() > 0 and not _inside_bounds(corners, vehicle_bounds):
+			warnings.append(_warn("modules[%d].%s" % [idx, module.id], "module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)"))
 		idx += 1
 
-	# 可疑重叠（包围盒相交，仅提示不断言真实穿插）
+	var cidx := 0
+	for station in layout.crew_stations:
+		if station == null:
+			cidx += 1
+			continue
+		var corners2 := _crew_world_corners(layout, station)
+		if corners2.is_empty():
+			warnings.append(_warn("crew_stations[%d]" % cidx, "box corners unavailable (invalid transform or size)"))
+			cidx += 1
+			continue
+		boxes["crew:" + station.id] = corners2
+		if vehicle_bounds.size() > 0 and not _inside_bounds(corners2, vehicle_bounds):
+			warnings.append(_warn("crew_stations[%d].%s" % [cidx, station.id], "crew box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)"))
+		cidx += 1
+
+	# 可疑重叠（包围盒相交，仅提示不断言真实穿插）；已声明配对单独归类
 	var ids := boxes.keys()
 	ids.sort()
 	for i in range(ids.size()):
 		for j in range(i + 1, ids.size()):
-			if _boxes_overlap(ids[i], boxes[ids[i]], ids[j], boxes[ids[j]]):
+			if not _boxes_overlap(ids[i], boxes[ids[i]], ids[j], boxes[ids[j]]):
+				continue
+			var a: String = (ids[i] as String).split(":")[1]
+			var b: String = (ids[j] as String).split(":")[1]
+			var pair: Array = [a, b]
+			pair.sort()
+			var dkey: String = "%s|%s" % [pair[0], pair[1]]
+			if declared.has(dkey):
+				suspicious.append("DECLARED_OVERLAP %s <-> %s (allowed_overlaps: %s)" % [ids[i], ids[j], declared[dkey]])
+			else:
 				suspicious.append("SUSPICIOUS_OVERLAP %s <-> %s (bounding boxes intersect; confirm intentional via allowed_overlaps or refine geometry)" % [ids[i], ids[j]])
+
+
+static func _part_world_bind(layout: VehicleLayoutDefinition, part_id: String) -> Transform3D:
+	# 沿父链组合 bind_local（零姿态）；根的 bind 即其自身。
+	var chain: Array[Transform3D] = []
+	var cur := _find_part(layout, part_id)
+	var hops := 0
+	while cur != null and hops <= 32:
+		chain.append(cur.bind_local)
+		if cur.parent_id == "":
+			break
+		cur = _find_part(layout, cur.parent_id)
+		hops += 1
+	var out := Transform3D.IDENTITY
+	for i in range(chain.size() - 1, -1, -1):
+		out = out * chain[i]
+	return out
+
+
+static func _module_world_corners(layout: VehicleLayoutDefinition, module: ModuleVolumeDefinition) -> PackedVector3Array:
+	return LayoutMath.box_world_corners(_part_world_bind(layout, module.part_id), module.local_box_transform, module.size_m)
+
+
+static func _crew_world_corners(layout: VehicleLayoutDefinition, station: CrewStationDefinition) -> PackedVector3Array:
+	return LayoutMath.box_world_corners(_part_world_bind(layout, station.part_id), station.local_box_transform, station.size_m)
+
+
+static func _vehicle_bounds(layout: VehicleLayoutDefinition) -> Dictionary:
+	# 实际车体范围 = 全部装甲面片顶点（各自 part 局部 → 根空间）的 AABB 外扩 0.1 m。
+	var mn := Vector3.INF
+	var mx := -Vector3.INF
+	for patch in layout.armor_patches:
+		if patch == null:
+			continue
+		var pw := _part_world_bind(layout, patch.part_id)
+		for v in patch.vertices_local_m:
+			var w: Vector3 = pw * v
+			mn = mn.min(w)
+			mx = mx.max(w)
+	if mn == Vector3.INF:
+		return {}
+	return {"min": mn - Vector3(0.1, 0.1, 0.1), "max": mx + Vector3(0.1, 0.1, 0.1)}
+
+
+static func _inside_bounds(corners: PackedVector3Array, bounds: Dictionary) -> bool:
+	# 粗筛：方盒 AABB 与车辆范围 AABB 相交即视为"在界内"（不是精确包含判定）
+	var mn := corners[0]
+	var mx := corners[0]
+	for c in corners:
+		mn = mn.min(c)
+		mx = mx.max(c)
+	var bmin: Vector3 = bounds["min"]
+	var bmax: Vector3 = bounds["max"]
+	return mn.x <= bmax.x and mx.x >= bmin.x \
+		and mn.y <= bmax.y and mx.y >= bmin.y \
+		and mn.z <= bmax.z and mx.z >= bmin.z
+
+
+static func check_declared_openings(
+		layout: VehicleLayoutDefinition,
+		errors: PackedStringArray,
+		warnings: PackedStringArray
+	) -> void:
+	# 004-R1 组B：收集全部面片边界边（按坐标焊合——面片间不共享索引），
+	# 每 part 一组；每个 declared opening 必须给出 boundary_loop（开口内环顶点坐标），
+	# 且其顶点能覆盖该 part 上的边界边；存在不被任何 opening 覆盖的边界边 → ERROR。
+	var boundary_by_part: Dictionary = {}   # part_id -> Array of {"a": Vector3, "b": Vector3}
+	for part in layout.parts:
+		if part == null:
+			continue
+		var forward: Dictionary = {}   # 坐标 key "a_key>b_key" -> count（有向）
+		var coord_of: Dictionary = {}  # key -> Vector3
+		for patch in layout.armor_patches:
+			if patch == null or patch.part_id != part.id:
+				continue
+			var vkeys: Array[String] = []
+			for v in patch.vertices_local_m:
+				var k := "%0.4f|%0.4f|%0.4f" % [v.x, v.y, v.z]
+				vkeys.append(k)
+				coord_of[k] = v
+			var tris := patch.triangles
+			for start in range(0, tris.size(), 3):
+				for offset in range(3):
+					var a: String = vkeys[tris[start + offset]]
+					var b: String = vkeys[tris[start + ((offset + 1) % 3)]]
+					forward[a + ">" + b] = int(forward.get(a + ">" + b, 0)) + 1
+		var seen := {}
+		var edges: Array = []
+		for fwd_key in forward.keys():
+			if seen.has(fwd_key):
+				continue
+			var pp := (fwd_key as String).split(">")
+			var ak: String = pp[0]
+			var bk: String = pp[1]
+			var bwd_key: String = bk + ">" + ak
+			seen[fwd_key] = true
+			seen[bwd_key] = true
+			var f := int(forward.get(fwd_key, 0))
+			var r := int(forward.get(bwd_key, 0))
+			if f != 1 or r != 1:
+				edges.append({"a": coord_of[ak], "b": coord_of[bk]})
+		if not edges.is_empty():
+			boundary_by_part[part.id] = edges
+
+	if boundary_by_part.is_empty():
+		return
+
+	# opening 的内环顶点集合（按 part）
+	var opening_cover: Dictionary = {}   # part_id -> Array of PackedVector3Array
+	for opening in layout.declared_openings:
+		if opening == null:
+			continue
+		var pid: String = str(opening.get("part", ""))
+		var loop: Array = opening.get("boundary_loop", [])
+		if loop.is_empty():
+			errors.append(_err("declared_openings.%s" % str(opening.get("id", "?")), "missing boundary_loop (must reference concrete opening loop vertices)"))
+			continue
+		var pts := PackedVector3Array()
+		for p in loop:
+			pts.append(p)
+		if not boundary_by_part.has(pid):
+			warnings.append(_warn("declared_openings.%s" % str(opening.get("id", "?")), "declared on part '%s' which has no boundary edges (shell closed there)" % pid))
+			continue
+		opening_cover.get_or_add(pid, []).append(pts)
+
+	for pid in boundary_by_part.keys():
+		var edges: Array = boundary_by_part[pid]
+		var loops: Array = opening_cover.get(pid, [])
+		for e in edges:
+			var covered := false
+			for pts in loops:
+				var has_a := false
+				var has_b := false
+				for p in pts:
+					if (p as Vector3).is_equal_approx(e["a"]):
+						has_a = true
+					if (p as Vector3).is_equal_approx(e["b"]):
+						has_b = true
+				if has_a and has_b:
+					covered = true
+					break
+			if not covered:
+				errors.append(_err("armor_patches(part %s)" % pid, "boundary edge (%s -> %s) is not covered by any declared opening boundary_loop" % [str(e["a"]), str(e["b"])]))
 
 
 static func _find_root(layout: VehicleLayoutDefinition) -> LayoutPartDefinition:

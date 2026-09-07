@@ -22,6 +22,7 @@ var _gate := TrialHitGate.new()   # 003-R2：任务收分唯一来源（轮次/�
 var _paused := false
 var _inspector_open := false   # 004-c：车辆检视窗口打开标志（Esc 路由 / 靶场输入隔离）
 var _inspector: VehicleInspector = null   # 004-c：检视窗口实例引用
+var _inspector_layer: CanvasLayer = null  # 004-R1：检视窗口专用层（Control 锚点需要 CanvasLayer 父）
 var _aborted := false         # 003-R2：启动失败短路标志（true = 停止正常帧/输入处理）
 var _abort_reason := ""
 var _initialized := false     # 003-R2：初始化完成标记（全部成功后才允许正常暂停/恢复/重置）
@@ -214,7 +215,12 @@ func open_vehicle_inspector() -> void:
 		hud.show_pause(true)
 		return
 	_inspector = packed.instantiate()
-	add_child(_inspector)
+	# 004-R1 组A：inspector 是全屏 Control——挂独立 CanvasLayer（与 HUD 同机制），
+	# anchors/容器布局在 CanvasLayer 下才正确铺满视口（挂 Node3D 下锚点系统不生效）。
+	_inspector_layer = CanvasLayer.new()
+	_inspector_layer.layer = 20
+	add_child(_inspector_layer)
+	_inspector_layer.add_child(_inspector)
 	_inspector.close_requested.connect(close_vehicle_inspector)
 	# 载入默认历史研究布局（失败不阻塞窗口打开——空树可返回）
 	LayoutCatalog.register_evidence(PackedStringArray([
@@ -233,6 +239,9 @@ func close_vehicle_inspector() -> void:
 	if is_instance_valid(_inspector):
 		_inspector.queue_free()
 	_inspector = null
+	if is_instance_valid(_inspector_layer):
+		_inspector_layer.queue_free()
+	_inspector_layer = null
 	if _can_use_gameplay():
 		hud.show_pause(true)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

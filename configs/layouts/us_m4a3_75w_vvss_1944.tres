@@ -44,8 +44,8 @@ script = ExtResource("1_tbhn2")
 id = "hull_left"
 plate_group_id = "m4a3_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 0, 2.92, -1.15, 0, -2.95, -1.15, 1.72, -2.45, -1.15, 1.72, 2.92)
-triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+vertices_local_m = PackedVector3Array(-1.15, 0, 2.92, -1.15, 0, -2.95, -1.15, 1, -2.95, -1.15, 1.72, -2.45, -1.15, 1.72, 2.92)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2, 0, 4, 3)
 outward_normal_local = Vector3(-1, 0, 0)
 geometry_status = "estimated"
 evidence_keys = PackedStringArray("EV-TM9759-SPECS")
@@ -55,8 +55,8 @@ script = ExtResource("1_tbhn2")
 id = "hull_right"
 plate_group_id = "m4a3_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(1.15, 0, 2.92, 1.15, 0, -2.95, 1.15, 1.72, -2.45, 1.15, 1.72, 2.92)
-triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+vertices_local_m = PackedVector3Array(1.15, 0, 2.92, 1.15, 0, -2.95, 1.15, 1, -2.95, 1.15, 1.72, -2.45, 1.15, 1.72, 2.92)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3, 0, 3, 4)
 outward_normal_local = Vector3(1, 0, 0)
 geometry_status = "estimated"
 evidence_keys = PackedStringArray("EV-TM9759-SPECS")
@@ -66,8 +66,8 @@ script = ExtResource("1_tbhn2")
 id = "hull_top"
 plate_group_id = "m4a3_hull"
 part_id = "hull"
-vertices_local_m = PackedVector3Array(-1.15, 1.72, 2.92, 1.15, 1.72, 2.92, 1.15, 1.72, -2.45, -1.15, 1.72, -2.45)
-triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+vertices_local_m = PackedVector3Array(-1.15, 1.72, 2.92, 1.15, 1.72, 2.92, 1.15, 1.72, -2.45, -1.15, 1.72, -2.45, -0.95, 1.72, 0.95, 0.95, 1.72, 0.95, 0.95, 1.72, -0.95, -0.95, 1.72, -0.95)
+triangles = PackedInt32Array(0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5, 2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7)
 outward_normal_local = Vector3(0, 1, 0)
 geometry_status = "estimated"
 evidence_keys = PackedStringArray("EV-TM9759-SPECS")
@@ -88,8 +88,8 @@ script = ExtResource("1_tbhn2")
 id = "turret_front"
 plate_group_id = "m4a3_turret"
 part_id = "turret"
-vertices_local_m = PackedVector3Array(-0.9, 0, -1.1, 0.9, 0, -1.1, 0.9, 0.95, -0.9, -0.9, 0.95, -0.9)
-triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+vertices_local_m = PackedVector3Array(-0.9, 0, -1.1, -0.9, 0.95, -0.9, 0.9, 0.95, -0.9, 0.9, 0, -1.1, -0.35, 0.07, -1.0852631, -0.35, 0.57, -0.98, 0.35, 0.57, -0.98, 0.35, 0.07, -1.0852631)
+triangles = PackedInt32Array(0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5, 2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7)
 outward_normal_local = Vector3(0, 0.20601049, -0.9785498)
 geometry_status = "estimated"
 evidence_keys = PackedStringArray("EV-TM9759-SPECS")
@@ -145,7 +145,8 @@ role = "commander"
 part_id = "turret"
 local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.15, 0.5)
 size_m = Vector3(0.55, 1.15, 0.5)
-position_status = "verified"
+role_placement_status = "verified"
+position_status = "estimated"
 volume_status = "estimated"
 evidence_keys = PackedStringArray("EV-FM1767-CREW")
 
@@ -156,7 +157,8 @@ role = "gunner"
 part_id = "turret"
 local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0)
 size_m = Vector3(0.5, 1, 0.6)
-position_status = "verified"
+role_placement_status = "verified"
+position_status = "estimated"
 volume_status = "estimated"
 evidence_keys = PackedStringArray("EV-FM1767-CREW")
 
@@ -167,7 +169,8 @@ role = "loader"
 part_id = "turret"
 local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, 0)
 size_m = Vector3(0.5, 1, 0.6)
-position_status = "verified"
+role_placement_status = "verified"
+position_status = "estimated"
 volume_status = "estimated"
 evidence_keys = PackedStringArray("EV-FM1767-CREW")
 
@@ -178,7 +181,8 @@ role = "driver"
 part_id = "hull"
 local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.65, -2.5)
 size_m = Vector3(0.5, 1.1, 0.5)
-position_status = "verified"
+role_placement_status = "verified"
+position_status = "estimated"
 volume_status = "estimated"
 evidence_keys = PackedStringArray("EV-FM1767-CREW")
 
@@ -189,7 +193,8 @@ role = "assistant_driver_bow_gunner"
 part_id = "hull"
 local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.65, -2.5)
 size_m = Vector3(0.5, 1, 0.5)
-position_status = "verified"
+role_placement_status = "verified"
+position_status = "estimated"
 volume_status = "estimated"
 evidence_keys = PackedStringArray("EV-FM1767-CREW")
 
@@ -372,12 +377,19 @@ crew_stations = Array[ExtResource("2_mlhe5")]([SubResource("Resource_0tnrx"), Su
 source_catalog_id = "SRC-TM9-759"
 field_evidence_id = "FIELD-EVIDENCE-US-M4A3-75W-1944"
 declared_openings = Array[Dictionary]([{
+"boundary_loop": [Vector3(-0.95, 1.72, 0.95), Vector3(0.95, 1.72, 0.95), Vector3(0.95, 1.72, -0.95), Vector3(-0.95, 1.72, -0.95)],
 "id": "turret_ring",
-"note": "turret ring opening in hull top plate (ring diameter unverified)",
+"note": "turret ring opening in hull top plate (ring diameter unverified; square approximation of circular ring)",
 "part": "hull"
 }, {
+"boundary_loop": [Vector3(-0.35, 0.07, -1.0852631), Vector3(-0.35, 0.57, -0.98), Vector3(0.35, 0.57, -0.98), Vector3(0.35, 0.07, -1.0852631)],
 "id": "gun_mount_front",
 "note": "gun mount opening in turret front (M34/M34A1 mount; shield split unmodeled)",
+"part": "turret"
+}, {
+"boundary_loop": [Vector3(-0.9, 0, -1.1), Vector3(-0.9, 0, 0.9), Vector3(0.9, 0, 0.9), Vector3(0.9, 0, -1.1)],
+"id": "turret_bottom_ring",
+"note": "turret shell bottom edge where shell meets hull top plate at the ring (turret shell has no floor plate of its own; 75mm wet stowage has full turret floor bracket-mounted inside)",
 "part": "turret"
 }])
 allowed_overlaps = Array[Dictionary]([{

@@ -1,0 +1,41 @@
+{
+  "camera": {
+    "claim": "orbit pitch -18 deg places camera below the ground plane (y=-0.02) that the preview adds; the ground mesh occludes the vehicle from below; focus point is the ground origin instead of the model center",
+    "ground_plane_y": -0.02,
+    "rows": [
+      {
+        "below_ground_plane_y_minus_002": false,
+        "camera_pos": "(5.162188, 0.0, 7.372368)",
+        "camera_y": 0.0,
+        "look_target": "(0, 0, 0) (ground origin; vehicle body spans y 0..3.375, mass center ~y 1.2)",
+        "pitch_deg": 0.0
+      },
+      {
+        "below_ground_plane_y_minus_002": false,
+        "camera_pos": "(4.909533, 2.781153, 7.011539)",
+        "camera_y": 2.78115296363831,
+        "look_target": "(0, 0, 0) (ground origin; vehicle body spans y 0..3.375, mass center ~y 1.2)",
+        "pitch_deg": 18.0
+      },
+      {
+        "below_ground_plane_y_minus_002": true,
+        "camera_pos": "(4.909533, -2.781153, 7.011539)",
+        "camera_y": -2.78115296363831,
+        "look_target": "(0, 0, 0) (ground origin; vehicle body spans y 0..3.375, mass center ~y 1.2)",
+        "pitch_deg": -18.0
+      }
+    ]
+  },
+  "hull_boundary": {
+    "error": "layout not loaded (register evidence first)"
+  },
+  "widget_overlap": {
+    "claim": "mode buttons row (y 166..198) overlaps yaw label (y 170) and yaw slider (y 192..216); slider row ends y=216 > 198 so button row also crosses slider",
+    "modes_row": "[P: (24.0, 166.0), S: (300.0, 32.0)]",
+    "modes_row_intersects_yaw_slider": true,
+    "pitch_label_y": 222.0,
+    "pitch_slider": "[P: (24.0, 244.0), S: (320.0, 24.0)]",
+    "yaw_label_y": 170.0,
+    "yaw_slider": "[P: (24.0, 192.0), S: (320.0, 24.0)]"
+  }
+}

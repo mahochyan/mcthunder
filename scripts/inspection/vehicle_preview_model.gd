@@ -250,6 +250,53 @@ func select_patch(patch_id: String) -> void:
 	selection_changed.emit(patch_id, "patch")
 
 
+func _select_box(id: String, nodes: Dictionary, restore_func: Callable) -> void:
+	# 004-R1 组A：模块/乘员选中高亮（四类统一；实例材质覆盖，不改共享定义）
+	if selected_patch_id != "":
+		if _patch_nodes.has(selected_patch_id):
+			_restore_patch_color(_patch_nodes[selected_patch_id] as MeshInstance3D, selected_patch_id)
+		selected_patch_id = ""
+	for key in nodes.keys():
+		var mi: MeshInstance3D = nodes[key]
+		if key == id:
+			var mat := StandardMaterial3D.new()
+			mat.albedo_color = COLOR_HIGHLIGHT
+			mat.emission_enabled = true
+			mat.emission = Color(0.35, 0.32, 0.05)
+			mi.material_override = mat
+		else:
+			restore_func.call(mi)
+	selection_changed.emit(id, "")
+
+
+func select_module(module_id: String) -> void:
+	_select_box(module_id, _module_nodes, _restore_module_color)
+
+
+func select_crew(station_id: String) -> void:
+	_select_box(station_id, _crew_nodes, _restore_crew_color)
+
+
+func clear_selection() -> void:
+	select_patch("")
+
+
+func _restore_module_color(mi: MeshInstance3D) -> void:
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = COLOR_MODULE
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.albedo_color.a = 0.85
+	mi.material_override = mat
+
+
+func _restore_crew_color(mi: MeshInstance3D) -> void:
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = COLOR_CREW
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.albedo_color.a = 0.9
+	mi.material_override = mat
+
+
 func _restore_patch_color(mi: MeshInstance3D, patch_id: String) -> void:
 	for patch in layout.armor_patches:
 		if patch != null and patch.id == patch_id:

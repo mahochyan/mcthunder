@@ -96,17 +96,38 @@ func _module(id: String, kind: String, part: String, origin: Vector3, size: Vect
 	return m
 
 
-func _crew(id: String, role: String, part: String, origin: Vector3, box_size: Vector3, pos_status: String) -> CrewStationDefinition:
+func _crew(id: String, role: String, part: String, origin: Vector3, box_size: Vector3) -> CrewStationDefinition:
 	var c := CrewStationDefinition.new()
 	c.id = id
 	c.role = role
 	c.part_id = part
 	c.local_box_transform = _rigid(origin)
 	c.size_m = box_size
-	c.position_status = pos_status
+	# 004-R1 组C：岗位/相对方位 verified（FM 17-67 §3/§4b 文字核验）；
+	# 方盒实际中心坐标 estimated（手册不支持精确到米的座位中心）。
+	c.role_placement_status = "verified"
+	c.position_status = "estimated"
 	c.volume_status = "estimated"
 	c.evidence_keys = PackedStringArray([E_CREW])
 	return c
+
+
+func _append_polygon(layout: VehicleLayoutDefinition, id: String, part_id: String, verts: PackedVector3Array, tris: PackedInt32Array, normal: Vector3, keys: Array) -> void:
+	# 004-R1 组B：任意多边形面片（带折点/带孔）；绕向由调用方保证与外法线一致。
+	var patch := ArmorPatchDefinition.new()
+	patch.id = id
+	patch.plate_group_id = "m4a3_hull" if part_id == "hull" else "m4a3_turret"
+	patch.part_id = part_id
+	patch.vertices_local_m = verts
+	patch.triangles = tris
+	patch.outward_normal_local = normal
+	patch.has_thickness = false
+	patch.thickness_mm = 0.0
+	patch.thickness_status = "unknown"
+	patch.material_kind = "unknown"
+	patch.geometry_status = "estimated"
+	patch.evidence_keys = PackedStringArray(keys)
+	layout.armor_patches.append(patch)
 
 
 func _build() -> VehicleLayoutDefinition:
@@ -155,23 +176,33 @@ func _build() -> VehicleLayoutDefinition:
 		Vector3(-hw, 0.0, zr),
 		Vector3(-hw, roof, zr),
 		Vector3(hw, roof, zr)]), Vector3(0, 0, 1), [E_SPECS])
-	# 左右侧垂直面
-	_append_patch(layout, "hull_left", "hull", PackedVector3Array([
+	# 左右侧板（004-R1 组B：5 顶点含前甲折点 (±1.15, 1.0, -2.95)——修复每侧 0.25m² 三角缺口）
+	_append_polygon(layout, "hull_left", "hull", PackedVector3Array([
 		Vector3(-hw, 0.0, 2.92),
 		Vector3(-hw, 0.0, -zf),
+		Vector3(-hw, 1.0, -zf),
 		Vector3(-hw, roof, -zf + 0.5),
-		Vector3(-hw, roof, 2.92)]), Vector3(-1, 0, 0), [E_SPECS])
-	_append_patch(layout, "hull_right", "hull", PackedVector3Array([
+		Vector3(-hw, roof, 2.92)]), PackedInt32Array([0, 2, 1, 0, 3, 2, 0, 4, 3]), Vector3(-1, 0, 0), [E_SPECS])
+	_append_polygon(layout, "hull_right", "hull", PackedVector3Array([
 		Vector3(hw, 0.0, 2.92),
 		Vector3(hw, 0.0, -zf),
+		Vector3(hw, 1.0, -zf),
 		Vector3(hw, roof, -zf + 0.5),
-		Vector3(hw, roof, 2.92)]), Vector3(1, 0, 0), [E_SPECS])
-	# 顶板（炮塔环开口在 declared_openings 声明）
-	_append_patch(layout, "hull_top", "hull", PackedVector3Array([
+		Vector3(hw, roof, 2.92)]), PackedInt32Array([0, 1, 2, 0, 2, 3, 0, 3, 4]), Vector3(1, 0, 0), [E_SPECS])
+	# 顶板（004-R1 组B：挖炮塔环开口——内环方形近似 ±0.95，环径未核验登记 OPEN_QUESTIONS）
+	var ring_loop := PackedVector3Array([
+		Vector3(-0.95, roof, 0.95),
+		Vector3(0.95, roof, 0.95),
+		Vector3(0.95, roof, -0.95),
+		Vector3(-0.95, roof, -0.95)])
+	_append_polygon(layout, "hull_top", "hull", PackedVector3Array([
 		Vector3(-hw, roof, 2.92),
 		Vector3(hw, roof, 2.92),
 		Vector3(hw, roof, -zf + 0.5),
-		Vector3(-hw, roof, -zf + 0.5)]), Vector3(0, 1, 0), [E_SPECS])
+		Vector3(-hw, roof, -zf + 0.5),
+		ring_loop[0], ring_loop[1], ring_loop[2], ring_loop[3]]),
+		PackedInt32Array([0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5, 2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7]),
+		Vector3(0, 1, 0), [E_SPECS])
 	# 底板
 	_append_patch(layout, "hull_bottom", "hull", PackedVector3Array([
 		Vector3(-hw, 0.0, -zf),
@@ -181,10 +212,21 @@ func _build() -> VehicleLayoutDefinition:
 
 	# --- 炮塔简化平面壳（estimated；真实为铸造曲面，OPEN_QUESTIONS 登记） ---
 	# 炮塔局部：bind 原点=环心（y=0 为环面）。宽 ±0.9，长 -1.1..+0.9，顶 +0.95
-	# 炮塔前片：斜面（z 变化 0.2 / y 变化 0.95）→ 外法线 (0,0.2,-0.95) 归一化
-	_append_patch(layout, "turret_front", "turret", PackedVector3Array([
-		Vector3(-0.9, 0.0, -1.1), Vector3(0.9, 0.0, -1.1),
-		Vector3(0.9, 0.95, -0.9), Vector3(-0.9, 0.95, -0.9)]), Vector3(0, 0.2, -0.95).normalized(), [E_SPECS])
+	# 炮塔前片（004-R1 组B：挖炮盾/火炮安装开口——内环 y 0.07..0.57, x ±0.35，随板斜面）
+	var z_at := func(y: float) -> float: return -1.1 + (y / 0.95) * 0.2
+	var mount_loop := PackedVector3Array([
+		Vector3(-0.35, 0.07, z_at.call(0.07)),
+		Vector3(-0.35, 0.57, z_at.call(0.57)),
+		Vector3(0.35, 0.57, z_at.call(0.57)),
+		Vector3(0.35, 0.07, z_at.call(0.07))])
+	_append_polygon(layout, "turret_front", "turret", PackedVector3Array([
+		Vector3(-0.9, 0.0, -1.1),
+		Vector3(-0.9, 0.95, -0.9),
+		Vector3(0.9, 0.95, -0.9),
+		Vector3(0.9, 0.0, -1.1),
+		mount_loop[0], mount_loop[1], mount_loop[2], mount_loop[3]]),
+		PackedInt32Array([0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5, 2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7]),
+		Vector3(0, 0.2, -0.95).normalized(), [E_SPECS])
 	_append_patch(layout, "turret_right", "turret", PackedVector3Array([
 		Vector3(0.9, 0.0, -1.1), Vector3(0.9, 0.0, 0.9),
 		Vector3(0.9, 0.95, 0.9), Vector3(0.9, 0.95, -0.9)]), Vector3(1, 0, 0), [E_SPECS])
@@ -228,19 +270,20 @@ func _build() -> VehicleLayoutDefinition:
 	mods.append(trk_r)
 	layout.modules = mods
 
-	# --- 五名乘员（FM 17-67 verified 归属；方盒 estimated） ---
+	# --- 五名乘员（FM 17-67 岗位/相对方位 verified；方盒中心与大小 estimated——004-R1 组C 拆分） ---
 	var crew: Array[CrewStationDefinition] = []
-	crew.append(_crew("crew_commander", "commander", "turret", Vector3(0.5, 0.15, 0.5), Vector3(0.55, 1.15, 0.5), "verified"))
-	crew.append(_crew("crew_gunner", "gunner", "turret", Vector3(0.55, 0.0, 0.0), Vector3(0.5, 1.0, 0.6), "verified"))
-	crew.append(_crew("crew_loader", "loader", "turret", Vector3(-0.55, 0.0, 0.0), Vector3(0.5, 1.0, 0.6), "verified"))
-	crew.append(_crew("crew_driver", "driver", "hull", Vector3(-0.4, 0.65, -2.5), Vector3(0.5, 1.1, 0.5), "verified"))
-	crew.append(_crew("crew_bow_gunner", "assistant_driver_bow_gunner", "hull", Vector3(0.4, 0.65, -2.5), Vector3(0.5, 1.0, 0.5), "verified"))
+	crew.append(_crew("crew_commander", "commander", "turret", Vector3(0.5, 0.15, 0.5), Vector3(0.55, 1.15, 0.5)))
+	crew.append(_crew("crew_gunner", "gunner", "turret", Vector3(0.55, 0.0, 0.0), Vector3(0.5, 1.0, 0.6)))
+	crew.append(_crew("crew_loader", "loader", "turret", Vector3(-0.55, 0.0, 0.0), Vector3(0.5, 1.0, 0.6)))
+	crew.append(_crew("crew_driver", "driver", "hull", Vector3(-0.4, 0.65, -2.5), Vector3(0.5, 1.1, 0.5)))
+	crew.append(_crew("crew_bow_gunner", "assistant_driver_bow_gunner", "hull", Vector3(0.4, 0.65, -2.5), Vector3(0.5, 1.0, 0.5)))
 	layout.crew_stations = crew
 
-	# --- 真实结构开口声明 ---
+	# --- 真实结构开口声明（004-R1 组B：必须指向具体边界环顶点） ---
 	layout.declared_openings = [
-		{"id": "turret_ring", "part": "hull", "note": "turret ring opening in hull top plate (ring diameter unverified)"},
-		{"id": "gun_mount_front", "part": "turret", "note": "gun mount opening in turret front (M34/M34A1 mount; shield split unmodeled)"}
+		{"id": "turret_ring", "part": "hull", "boundary_loop": [ring_loop[0], ring_loop[1], ring_loop[2], ring_loop[3]], "note": "turret ring opening in hull top plate (ring diameter unverified; square approximation of circular ring)"},
+		{"id": "gun_mount_front", "part": "turret", "boundary_loop": [mount_loop[0], mount_loop[1], mount_loop[2], mount_loop[3]], "note": "gun mount opening in turret front (M34/M34A1 mount; shield split unmodeled)"},
+		{"id": "turret_bottom_ring", "part": "turret", "boundary_loop": [Vector3(-0.9, 0.0, -1.1), Vector3(-0.9, 0.0, 0.9), Vector3(0.9, 0.0, 0.9), Vector3(0.9, 0.0, -1.1)], "note": "turret shell bottom edge where shell meets hull top plate at the ring (turret shell has no floor plate of its own; 75mm wet stowage has full turret floor bracket-mounted inside)"}
 	]
 	layout.allowed_overlaps = [
 		{"a": "fuel_tank", "b": "engine_main", "reason": "fuel tank at rear area adjacent to engine compartment; wet-stowage tank position estimated (capacity 168 gal verified only)"}
