@@ -55,7 +55,7 @@ if ($LASTEXITCODE -ne 0) { Note "FAIL: clean copy did not boot normally"; exit 1
 Note "clean copy boots normally (--quit-after 10 exit=0)"
 
 # 5) 仅修改副本配置：verified 无实质来源 → validate 必拒（ascii 写出无 BOM）
-$cfg = Join-Path $proj 'configs\player_tank_vehicle.tres'
+$cfg = "$proj" + "\configs\player_tank_vehicle.tres"
 if ([string]::IsNullOrEmpty($cfg)) { Note "FAIL: cfg path is null (proj=[$proj])"; exit 1 }
 if (-not (Test-Path -LiteralPath $cfg)) { Note "FAIL: cfg missing in copy (cfg=[$cfg])"; exit 1 }
 Note "cfg=[$cfg]"
