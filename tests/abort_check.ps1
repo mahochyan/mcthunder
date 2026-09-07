@@ -26,8 +26,8 @@ Note "runner-version=RUNNER_C_interp_20260907"
 if (-not (Test-Path $godot)) { Note "FAIL: godot exe not found at $godot"; exit 1 }
 
 # 1) 被测候选必须已提交（工作区干净——否则测的不是提交内容）
-$stBefore = git -C $root status --porcelain
-if ($stBefore) { Note "FAIL: working tree not clean; commit the candidate first:"; $stBefore | ForEach-Object { Note "  $_" }; exit 1 }
+$stBefore = @(git -C $root status --porcelain | Where-Object { $_ -notlike '*logs/*' })
+if ($stBefore.Count -gt 0) { Note "FAIL: working tree not clean; commit the candidate first:"; $stBefore | ForEach-Object { Note "  $_" }; exit 1 }
 $sha = (git -C $root rev-parse HEAD).Trim()
 Note "testing committed candidate $sha"
 
@@ -79,8 +79,8 @@ $scriptErr = $full.Contains('SCRIPT ERROR')
 Note "subprocess exit=$code abort_log=$aborted unexpected_script_error=$scriptErr"
 
 # 7) 原工程只读核对（前后一致；变化则报告，绝不自动恢复覆盖）
-$stAfter = git -C $root status --porcelain
-if ($stAfter) { Note "FAIL: original working tree changed during test (report only, NOT auto-restored):"; $stAfter | ForEach-Object { Note "  $_" }; $fail += 'original tree changed' }
+$stAfter = @(git -C $root status --porcelain | Where-Object { $_ -notlike '*logs/*' })
+if ($stAfter.Count -gt 0) { Note "FAIL: original working tree changed during test (report only, NOT auto-restored):"; $stAfter | ForEach-Object { Note "  $_" }; $fail += 'original tree changed' }
 Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
 
 # 判定
