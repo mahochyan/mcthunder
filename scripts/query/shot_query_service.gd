@@ -33,12 +33,24 @@ static func query(request: Dictionary, snapshots: Array) -> Dictionary:
 	var include_crew: bool = request.get("include_crew", false)
 	var excluded := _excluded_set(request.get("excluded_instances", []))
 
-	# 世界遮挡：优先取标准化接触 dict（world_stop_distance_m 保留为兼容旧调用）
+	# 世界遮挡：优先取标准化接触 dict；旧 world_stop_distance_m 字段兼容——
+	# 按线段重建有限坐标（t/point_world），非法（非有限/超段）明确拒绝，不生成 INF 坐标。
 	var world_contact: Dictionary = request.get("world_stop", {})
 	if world_contact.is_empty() and request.get("world_stop_distance_m", -1.0) >= 0.0:
-		world_contact = {"kind": "world", "event_type": "surface",
-			"distance_m": float(request["world_stop_distance_m"]), "point_world": Vector3.INF,
-			"normal_known": false}
+		var legacy_dist := float(request["world_stop_distance_m"])
+		if not is_finite(legacy_dist) or legacy_dist < 0.0 or legacy_dist > seg_length:
+			return _fail(query_id, "invalid_legacy_world_stop_distance (%.3f vs seg %.3f)" % [legacy_dist, seg_length])
+		var dir_unit := seg / seg_length
+		world_contact = {
+			"kind": "world", "event_type": "surface",
+			"distance_m": legacy_dist,
+			"t": clampf(legacy_dist / seg_length, 0.0, 1.0),
+			"point_world": from_world + dir_unit * legacy_dist,
+			"normal_world": Vector3.ZERO,
+			"normal_known": false,
+			"at_start": legacy_dist <= QueryGeometry.EPS_M,
+			"at_end": absf(legacy_dist - seg_length) <= QueryGeometry.EPS_M,
+		}
 	var world_ws: float = float(world_contact.get("distance_m", -1.0))
 
 	var events: Array = []
@@ -78,14 +90,10 @@ static func query(request: Dictionary, snapshots: Array) -> Dictionary:
 	# 去重：只合并同一个面片的重复三角形交点（同 entity/life/part/surface + 接近位置）
 	events = _dedupe_patch_events(events)
 
-	# 排序：先按真实 distance_m，再按稳定身份处理完全相同距离；容差分组在排序之后
-	events.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
-		var da: float = a.get("distance_m", 0.0)
-		var db: float = b.get("distance_m", 0.0)
-		if absf(da - db) > 0.0:
-			return da < db
-		return _event_sort_key(a) < _event_sort_key(b)
-	)
+	# 排序：统一严格排序（收尾 C）——真实 distance_m 严格比较 + 确定性 tie-break
+	# event_key（JSON 数组 [kind, entity_id, life_id, part_id, item_id, event_type]）；
+	# 容差分组只允许发生在排序之后（显示层），比较器本身不得使用容差。
+	events.sort_custom(event_less)
 
 	# 墙后候选标注（遮挡是规则/显示层关心的事，服务不删除候选）
 	if world_ws >= 0.0:
@@ -95,11 +103,31 @@ static func query(request: Dictionary, snapshots: Array) -> Dictionary:
 		for ev in events:
 			ev["occluded_by_world"] = false
 
+	# 统一有序接触列表（收尾 C）：事件 + 最近世界接触合并为单一严格排序序列。
+	# 面板/展示直接读取本顺序，不得自带排序规则；选择器墙优先仍是接触选择政策。
+	var ordered_contacts: Array = []
+	for ev in events:
+		ordered_contacts.append(ev)
+	if world_ws >= 0.0:
+		var wrow := world_contact.duplicate(true)
+		if not wrow.has("entity_id"):
+			wrow["entity_id"] = "world"
+		if not wrow.has("part_id"):
+			wrow["part_id"] = "world"
+		if not wrow.has("surface_id"):
+			wrow["surface_id"] = "world_contact"
+		if not wrow.has("event_type"):
+			wrow["event_type"] = "surface"
+		wrow["occluded_by_world"] = false
+		ordered_contacts.append(wrow)
+	ordered_contacts.sort_custom(event_less)
+
 	return {
 		"ok": true,
 		"complete": complete,
 		"query_id": query_id,
 		"events": events,
+		"ordered_contacts": ordered_contacts,
 		"volume_intervals": intervals,
 		"world_stop": world_contact,
 		"world_stop_distance_m": world_ws,
@@ -119,7 +147,8 @@ static func _fail(query_id: String, reason: String) -> Dictionary:
 static func _first_invalid_part(
 		layout: VehicleLayoutDefinition, transforms: Dictionary, snapshot: Dictionary
 	) -> String:
-	# 布局每个部件必须有有效（有限）变换；快照自身登记的 missing_parts 一并视为缺失。
+	# 布局每个部件必须有有效刚体变换（005-R1 收尾：复用 LayoutMath.is_rigid——
+	# 仅 is_finite 不足以排除全零/不可逆基底）；快照自身登记的 missing_parts 一并视为缺失。
 	var missing: Array = snapshot.get("missing_parts", [])
 	for p in missing:
 		return str(p)
@@ -129,7 +158,7 @@ static func _first_invalid_part(
 		if not transforms.has(part.id):
 			return part.id
 		var t: Transform3D = transforms[part.id]
-		if not (t is Transform3D) or not t.is_finite():
+		if not (t is Transform3D) or not LayoutMath.is_rigid(t):
 			return part.id
 	return ""
 
@@ -239,6 +268,9 @@ static func _collect_boxes(
 		var local_to: Vector3 = inv * to_world
 		var r := QueryGeometry.segment_box_local(local_from, local_to, item.size_m)
 		if not r.get("ok", false):
+			# 005-R1 收尾 A：盒查询错误不得静默忽略——追加诊断并整体未决（complete=false）
+			diagnostics.append("%s %s: box query error: %s" % [kind, item.id, str(r.get("error", "unknown"))])
+			complete = false
 			continue
 		if not r.get("hit", false):
 			continue
@@ -323,10 +355,23 @@ static func _dedupe_patch_events(events: Array) -> Array:
 	return out
 
 
-static func _event_sort_key(ev: Dictionary) -> String:
-	# 稳定身份排序键（同距时确定性顺序）
-	return "%s:%d:%s:%s:%s" % [
-		str(ev.get("kind", "")), int(ev.get("life_id", 0)),
-		str(ev.get("entity_id", "")), str(ev.get("part_id", "")),
+static func event_less(ev_a: Dictionary, ev_b: Dictionary) -> bool:
+	# 005-R1 收尾 C：唯一权威排序比较器——真实 distance_m 严格比较（无容差），
+	# 完全相同距离用确定性 event_key 打破平局。供服务排序与 ordered_contacts 使用。
+	var da: float = float(ev_a.get("distance_m", 0.0))
+	var db: float = float(ev_b.get("distance_m", 0.0))
+	if da != db:
+		return da < db
+	return event_key(ev_a) < event_key(ev_b)
+
+
+static func event_key(ev: Dictionary) -> String:
+	# 确定性身份键：[kind, entity_id, life_id, part_id, item_id, event_type]
+	return JSON.stringify([
+		str(ev.get("kind", "")),
+		str(ev.get("entity_id", "")),
+		int(ev.get("life_id", 0)),
+		str(ev.get("part_id", "")),
 		str(ev.get("surface_id", ev.get("module_id", ev.get("crew_id", "")))),
-	]
+		str(ev.get("event_type", "")),
+	])

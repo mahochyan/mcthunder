@@ -622,6 +622,36 @@ func _run() -> void:
 	t003_wall.queue_free()
 	for i in 3:
 		await physics_frame
+
+	# --- 005-F-A（005-R1 收尾）：炮根/炮口位于实体测试墙内（hit_from_inside）——
+	# 不得产生穿墙车辆计分，也不得假想"没墙"；移墙后的正常开火仍可用 ---
+	var rt_in: Vector3 = main.actor_a.turret.barrel_pivot.global_position
+	var mz_in: Vector3 = main.actor_a.turret.muzzle.global_position
+	var mn_in: Vector3 = rt_in.min(mz_in)
+	var mx_in: Vector3 = rt_in.max(mz_in)
+	var c_in: Vector3 = (mn_in + mx_in) / 2.0
+	var sz_in: Vector3 = mx_in - mn_in + Vector3(0.2, 0.2, 0.2)
+	var inner_wall = main.world.build_wall(c_in, sz_in)
+	for i in 2:
+		await physics_frame
+	var b_hits_in: int = main.actor_b.tank.hits_taken
+	var s_in: int = gunner.shots_fired
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var fired_inside: bool = gunner.try_fire()
+	_ok(not fired_inside and gunner.last_shot_result == "blocked:barrel_occluded",
+		"005-F-A 整根炮管在实体墙内：开火被阻止 (result=%s)" % gunner.last_shot_result)
+	_ok(gunner.shots_fired == s_in, "005-F-A 墙内开火不消耗射击编号")
+	_ok(main.actor_b.tank.hits_taken == b_hits_in,
+		"005-F-A 墙内开火不产生穿墙车辆计分 (hits=%d)" % main.actor_b.tank.hits_taken)
+	inner_wall.queue_free()
+	for i in 3:
+		await physics_frame
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var fired_after: bool = gunner.try_fire()
+	_ok(fired_after and gunner.last_shot_result != "blocked:barrel_occluded",
+		"005-F-A 移墙后正常开火可用 (result=%s)" % gunner.last_shot_result)
 	# 炮镜不隐藏 B（cull_mask 只剔除 A 自身视觉层；经真实输入通道开炮镜）
 	Input.action_press("aim")
 	for i in 2:

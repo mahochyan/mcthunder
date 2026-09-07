@@ -57,6 +57,7 @@ var _marker_seq := 0
 var _runs := 0
 var _stale := false
 var _last_pose_hash := 0
+var _last_filter := "ALL"   # 005-R1 收尾 B：上次运行实际的筛选（陈旧比较与重跑同口径）
 var _last_result := {}           # 最近一次执行的服务结果（ok/complete/events/diagnostics）
 var _last_world_contact := {}    # 最近一次执行的世界接触（kind=world；空=无墙）
 var _merged_events: Array = []   # 服务事件 + 世界接触行（展示排序）
@@ -404,14 +405,17 @@ func remove_wall() -> bool:
 
 
 func _refresh_show() -> void:
-	# 墙应用/移除后按同一冻结线段重跑（世界接触来自物理阶段，与当前墙一致）
+	# 墙应用/移除后按同一冻结线段重跑（世界接触来自物理阶段，与当前墙一致）。
+	# 005-R1 收尾 B：同样只冻结输入，快照在执行时统一采样；筛选沿用上次运行的筛选。
 	if _seg_length <= QueryGeometry.EPS_M:
 		return
 	_pending_request = {
 		"from_world": _from_world,
 		"to_world": _to_world,
 		"seg_length": _seg_length,
-		"snapshots": _filtered_snapshots(),
+		"vehicle_filter": _last_filter,
+		"include_modules": _include_modules,
+		"include_crew": _include_crew,
 	}
 	_status.text = "Wall changed — re-running query on next physics tick..."
 	set_physics_process(true)
@@ -505,7 +509,9 @@ func run_query() -> Dictionary:
 		"from_world": _from_world,
 		"to_world": _to_world,
 		"seg_length": _seg_length,
-		"snapshots": _filtered_snapshots(),
+		"vehicle_filter": _vehicle_filter,
+		"include_modules": _include_modules,
+		"include_crew": _include_crew,
 	}
 	_status.text = "Query submitted — executing on next physics tick..."
 	set_physics_process(true)
@@ -528,6 +534,11 @@ func _physics_process(_delta: float) -> void:
 	var to: Vector3 = req["to_world"]
 	var seg_len: float = req["seg_length"]
 	var dir: Vector3 = (to - from) / seg_len
+	# 005-R1 收尾 B：执行时统一采样——提交只冻结输入（线段/筛选/开关），
+	# 车辆快照与世界接触都在同一次物理执行内取得，姿态签名来自实际使用的快照。
+	var used_snapshots := _select_snapshots(
+		main.query_snapshots(), str(req.get("vehicle_filter", _vehicle_filter)))
+	_last_filter = str(req.get("vehicle_filter", _vehicle_filter))
 	# 世界遮挡（物理阶段）：统一 WorldQueryAdapter——ok=false 时按空间无效标记未决
 	var ws := WorldQueryAdapter.query_world_stop(
 		main.get_world_3d().direct_space_state, from, dir, seg_len, [])
@@ -538,19 +549,19 @@ func _physics_process(_delta: float) -> void:
 		"from_world": from,
 		"to_world": to,
 		"excluded_instances": [],
-		"include_modules": _include_modules,
-		"include_crew": _include_crew,
+		"include_modules": bool(req.get("include_modules", _include_modules)),
+		"include_crew": bool(req.get("include_crew", _include_crew)),
 		"world_stop": world_contact,
-	}, req["snapshots"])
+	}, used_snapshots)
 	if not ws.get("ok", false):
 		qr["ok"] = false
 		qr["complete"] = false
 		qr["diagnostics"] = qr.get("diagnostics", []).duplicate()
 		qr["diagnostics"].append("world space query failed: %s" % str(ws.get("reason", "no_space")))
-	_finalize_run(qr)
+	_finalize_run(qr, _pose_hash_of(used_snapshots, _wall_version))
 
 
-func _finalize_run(qr: Dictionary) -> void:
+func _finalize_run(qr: Dictionary, used_signature: int) -> void:
 	# 清除上一运行标记（只保留最近一组）
 	for m in _markers:
 		if is_instance_valid(m.get("mi", null)):
@@ -559,7 +570,8 @@ func _finalize_run(qr: Dictionary) -> void:
 	_last_result = qr
 	_last_world_contact = qr.get("world_stop", {})
 	_world_enter_dist = float(_last_world_contact.get("distance_m", -1.0)) if not _last_world_contact.is_empty() else -1.0
-	_merged_events = _merge_display(qr.get("events", []), _last_world_contact)
+	# 005-R1 收尾 C：展示行直接读取服务权威有序列表（ordered_contacts），面板不排序
+	_merged_events = _merged_from_result(qr)
 	_runs += 1
 	_row_meta = []
 	_results.clear()
@@ -575,19 +587,32 @@ func _finalize_run(qr: Dictionary) -> void:
 		_results.add_item("(no intersections)")
 		_row_meta.append({"index": -1, "event": {}, "tag": ""})
 	_stale = false
-	_last_pose_hash = _pose_hash()
+	# 005-R1 收尾 B：姿态签名来自实际使用的快照（执行时点），完成时不重采样
+	_last_pose_hash = used_signature
 	_update_status(qr)
 	set_physics_process(false)
 
 
 # ---------------------------------------------------------------- 查询组装
 
-func _filtered_snapshots() -> Array:
-	var all: Array = main.query_snapshots()
+func _select_snapshots(all: Array, filter: String) -> Array:
+	# 005-R1 收尾 B：提交只冻结输入；执行时统一采样——本函数在执行与陈旧比较时共用。
 	var out: Array = []
 	for s in all:
-		if _vehicle_filter == "ALL" or str(s.get("entity_id", "")) == _vehicle_filter:
+		if filter == "ALL" or str(s.get("entity_id", "")) == filter:
 			out.append(s)
+	return out
+
+
+func _merged_from_result(qr: Dictionary) -> Array:
+	# 005-R1 收尾 C：展示行直接读取服务权威排序（ordered_contacts = 事件 + 最近世界接触，
+	# 单一严格距离序 + 确定性 tie-break）；面板不携带任何排序/容差比较器。
+	var ordered: Array = qr.get("ordered_contacts", [])
+	if not ordered.is_empty():
+		return ordered
+	var out: Array = []
+	for ev in qr.get("events", []):
+		out.append(ev)
 	return out
 
 
@@ -625,38 +650,6 @@ func _parse_vec3(text: String, fallback: Vector3) -> Vector3:
 			f = float(p.strip_edges())
 		values.append(f)
 	return Vector3(values[0], values[1], values[2])
-
-
-func _merge_display(service_events: Array, world_contact: Dictionary) -> Array:
-	# 展示排序：服务事件（已按距离排序）+ 世界接触行（来自 WorldQueryAdapter）。
-	# 纯展示合并——不参与任何判定；世界行距离与服务事件同单位（米）。
-	var merged: Array = []
-	for ev in service_events:
-		merged.append(ev)
-	if not world_contact.is_empty() and world_contact.get("distance_m", -1.0) >= 0.0:
-		var wrow := world_contact.duplicate(true)
-		wrow["kind"] = "world"
-		wrow["event_type"] = str(wrow.get("event_type", "surface"))
-		wrow["entity_id"] = "world"
-		wrow["part_id"] = "world"
-		wrow["surface_id"] = "world_contact"
-		merged.append(wrow)
-	merged.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
-		var da: float = float(a.get("distance_m", 0.0))
-		var db: float = float(b.get("distance_m", 0.0))
-		if absf(da - db) > QueryGeometry.EPS_M:
-			return da < db
-		return _sort_key(a) < _sort_key(b)
-	)
-	return merged
-
-
-func _sort_key(ev: Dictionary) -> String:
-	return "%s:%d:%s:%s:%s" % [
-		str(ev.get("kind", "")), int(ev.get("life_id", 0)),
-		str(ev.get("entity_id", "")), str(ev.get("part_id", "")),
-		str(ev.get("surface_id", ev.get("module_id", ev.get("crew_id", "")))),
-	]
 
 
 func _row_identity(ev: Dictionary) -> String:
@@ -774,10 +767,12 @@ func _clear_segment_line() -> void:
 
 # ---------------------------------------------------------------- 状态/陈旧
 
-func _pose_hash() -> int:
-	# 005-R1-C：STALE 至少比较 entity+life+全部部件变换+layout_revision+已应用墙版本。
+func _pose_hash_of(snapshots: Array, wall_version: int) -> int:
+	# 005-R1 收尾 B：姿态签名描述"实际参与该次查询的数据"——由调用方传入
+	# 执行时采样的快照集合（与喂给服务的集合一致），外加已应用墙版本。
+	# 至少比较 entity+life+全部部件变换+layout_revision+已应用墙版本，只转炮塔也触发。
 	var parts: Array = []
-	for s in main.query_snapshots():
+	for s in snapshots:
 		var tr: Dictionary = s.get("part_world_transforms", {})
 		var t: Transform3D = tr.get("hull", Transform3D.IDENTITY)
 		var q: Quaternion = t.basis.get_rotation_quaternion()
@@ -798,7 +793,7 @@ func _pose_hash() -> int:
 				pq.x, pq.y, pq.z, pq.w,
 			])
 	parts.append("wallV%d|%.2f,%.2f,%.2f|%.2f,%.2f,%.2f|%.1f" % [
-		_wall_version, _wall_applied_pos.x, _wall_applied_pos.y, _wall_applied_pos.z,
+		wall_version, _wall_applied_pos.x, _wall_applied_pos.y, _wall_applied_pos.z,
 		_wall_applied_size.x, _wall_applied_size.y, _wall_applied_size.z, _wall_applied_yaw_deg])
 	return hash(",".join(parts))
 
@@ -806,7 +801,10 @@ func _pose_hash() -> int:
 func _process(_delta: float) -> void:
 	if main == null or _runs == 0 or _stale:
 		return
-	if _pose_hash() != _last_pose_hash:
+	# 005-R1 收尾 B：与上次运行同口径比较——按该次运行的筛选取当前快照
+	var current := _pose_hash_of(
+		_select_snapshots(main.query_snapshots(), _last_filter), _wall_version)
+	if current != _last_pose_hash:
 		_stale = true
 		for m in _markers:
 			if int(m.get("run", 0)) == _runs:

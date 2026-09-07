@@ -214,8 +214,11 @@ func _find_vehicle_in(node: Node, entity_id: String, life_id: int) -> TankVehicl
 	return null
 
 func _ray(from: Vector3, dir: Vector3, dist: float) -> Dictionary:
+	# 005-R1 收尾 A：hit_from_inside=true——炮根/炮口位于实体墙内部时仍识别遮挡
+	# （命中点在起点、法线为零；"未取得法线"不等于"没有墙"）。
 	var space := get_world_3d().direct_space_state
 	var q := PhysicsRayQueryParameters3D.create(from, from + dir * dist, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE, _exclude())
+	q.hit_from_inside = true
 	return space.intersect_ray(q)
 
 func _ensure_tracer() -> void:

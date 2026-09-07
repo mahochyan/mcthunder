@@ -32,6 +32,8 @@ func _initialize() -> void:
 	_seam_and_multi_layer_cases()
 	_identity_and_perf_cases()
 	await _debug_panel_cases()
+	_finale_cases()
+	await _finale_panel_cases()
 
 	print("=== 结果: %d 项检查, %d 失败 ===" % [_pass + _fail, _fail])
 	if _fail > 0:
@@ -674,6 +676,250 @@ func _debug_panel_cases() -> void:
 		await process_frame
 	main.close_query_debug()
 	_ok(not main._query_panel_open, "005-d close idempotent")
+	main.queue_free()
+	for i in 2:
+		await process_frame
+
+
+# --- 005-R1 收尾：A 世界接触边界（纯函数）+ C 统一排序 ---
+
+func _finale_cases() -> void:
+	var mk := func(d: float, id: String) -> Dictionary:
+		return {"distance_m": d, "kind": "armor", "entity_id": "E", "life_id": 1,
+			"part_id": "hull", "surface_id": id, "event_type": "surface"}
+	var a: Dictionary = mk.call(5.0, "s_a")
+	var b: Dictionary = mk.call(5.000005, "s_b")
+	var c: Dictionary = mk.call(5.00001, "s_c")
+	var canonical: Array = [a, b, c]
+	var perms: Array = [[a, b, c], [a, c, b], [b, a, c], [b, c, a], [c, a, b], [c, b, a]]
+	for perm in perms:
+		var sorted: Array = perm.duplicate()
+		sorted.sort_custom(ShotQueryService.event_less)
+		_ok(_same_events(sorted, canonical), "005-F-C six permutations of 3 close events sort identically")
+	_ok(ShotQueryService.event_less(a, b) and not ShotQueryService.event_less(b, a)
+		and ShotQueryService.event_less(b, c) and not ShotQueryService.event_less(c, b)
+		and ShotQueryService.event_less(a, c) and not ShotQueryService.event_less(c, a),
+		"005-F-C strict weak ordering across 3 close events")
+	# 完全同距：确定性 tie-break（event_key 身份序）
+	var t1: Dictionary = mk.call(5.0, "z_ee")
+	var t2: Dictionary = mk.call(5.0, "a_w")
+	_ok(ShotQueryService.event_key(t1) > ShotQueryService.event_key(t2),
+		"005-F-C exact-tie key ordering is deterministic and identity-based")
+	var tie_sorted: Array = [t1, t2]
+	tie_sorted.sort_custom(ShotQueryService.event_less)
+	_ok(_same_events(tie_sorted, [t2, t1]), "005-F-C exact-tie sort follows event_key (identity)")
+	var wrow := {"distance_m": 5.0, "kind": "world", "entity_id": "world", "life_id": 0,
+		"part_id": "world", "surface_id": "world_contact", "event_type": "surface"}
+	var mix: Array = [wrow, t1]
+	mix.sort_custom(ShotQueryService.event_less)
+	_ok(_same_events(mix, [wrow, t1]) or _same_events(mix, [t1, wrow]),
+		"005-F-C world/armor exact tie sorts deterministically")
+	# 服务结果：ordered_contacts 权威统一序（事件 + 最近世界接触，面板直接读取）
+	# 固定车体在原点：x=0 线段穿过车体——事件 [车首 5.0, 引擎进入 6.0, 引擎退出 7.0, 车尾 8.0]；
+	# 世界 stop 6.5 应作为中段行插入（前驱 ≤ 6.5 < 后继），列表仍为单一严格距离序
+	var snap_b := _identity_snapshot("B", 1, Transform3D(Basis.IDENTITY, Vector3.ZERO))
+	var rc := ShotQueryService.query({
+		"query_id": "q_oc", "physics_tick": 31,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop": {"kind": "world", "event_type": "surface", "distance_m": 6.5,
+			"point_world": Vector3(0, 1, 1.5), "normal_known": false},
+	}, [snap_b])
+	var oc: Array = rc.get("ordered_contacts", [])
+	var oc_world := -1
+	for i in oc.size():
+		if str(oc[i].get("kind", "")) == "world":
+			oc_world = i
+	var oc_sorted := true
+	for i in oc.size() - 1:
+		if ShotQueryService.event_less(oc[i + 1], oc[i]):
+			oc_sorted = false
+	_ok(oc_world == 2 and oc_sorted
+		and _dist(oc[oc_world - 1]) <= _dist(oc[oc_world]) and _dist(oc[oc_world]) < _dist(oc[oc_world + 1]),
+		"005-F-C ordered_contacts merges world row at its true distance (world idx %d of %d)"
+		% [oc_world, oc.size()])
+	_ok(ExternalContactSelector.select_contact(rc).get("status", "") == "vehicle",
+		"005-F-C selector policy unchanged (armor-surface 5.0m strictly before wall 6.5m)")
+	# 完全同距（world 5.0 = armor 5.0）→ 列表确定性 + 选择器仍墙优先（政策不变）
+	var rt := ShotQueryService.query({
+		"query_id": "q_octie", "physics_tick": 32,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop": {"kind": "world", "event_type": "surface", "distance_m": 5.0,
+			"point_world": Vector3(0, 1, 0.0), "normal_known": false},
+	}, [snap_b])
+	_ok(ExternalContactSelector.select_contact(rt).get("status", "") == "world",
+		"005-F-C exact tie: selector still prefers wall (TIE_EPS policy)")
+	var oct: Array = rt.get("ordered_contacts", [])
+	var oct_sorted := true
+	for i in oct.size() - 1:
+		if not ShotQueryService.event_less(oct[i], oct[i + 1]):
+			oct_sorted = false
+	var mix2: Array = [wrow, t1]
+	mix2.shuffle()
+	mix2.sort_custom(ShotQueryService.event_less)
+	_ok(oct.size() >= 3 and oct_sorted and _same_events(mix2, [t1, wrow]),
+		"005-F-C exact tie ordered list consistent with service comparator (n=%d)" % oct.size())
+
+	# A：legacy world_stop_distance_m 兼容——有限坐标重建（无 INF）；非法距离明确拒绝
+	var snap_b2 := _identity_snapshot("B", 1, Transform3D(Basis.IDENTITY, Vector3(8, 0, 0)))
+	var rl := ShotQueryService.query({
+		"query_id": "q_legacy", "physics_tick": 33,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop_distance_m": 2.0,
+	}, [snap_b2])
+	var wc_l: Dictionary = rl.get("world_stop", {})
+	var wp_l: Vector3 = wc_l.get("point_world", Vector3.INF)
+	_ok(rl.get("ok", false) and wp_l.is_finite()
+		and wp_l.is_equal_approx(Vector3(0, 1, -3.0)),
+		"005-F-A legacy world_stop_distance_m rebuilds finite point (got %s)" % str(wp_l))
+	_ok(absf(float(wc_l.get("distance_m", -1.0)) - 2.0) < 0.0001
+		and absf(float(wc_l.get("t", 0.0)) - 0.2) < 0.0001 and not wc_l.get("normal_known", true),
+		"005-F-A legacy world stop carries t + normal_known=false (t=%.3f)" % float(wc_l.get("t", 0.0)))
+	var rl_bad := ShotQueryService.query({
+		"query_id": "q_legacy_bad", "physics_tick": 34,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+		"world_stop_distance_m": 100.0,
+	}, [snap_b2])
+	_ok(not rl_bad.get("ok", true) and str(rl_bad.get("diagnostics", [""])[0]).contains("invalid_legacy_world_stop_distance"),
+		"005-F-A legacy distance beyond segment rejected explicitly")
+	# A：不可逆变换（零基底）→ 整实体明确未决（LayoutMath.is_rigid），不报告完整成功
+	var degenerate := _identity_snapshot("D1", 1,
+		Transform3D(Basis(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO), Vector3(4, 0, 0)))
+	var rd := ShotQueryService.query({
+		"query_id": "q_degen", "physics_tick": 35,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [degenerate])
+	_ok(not rd.get("complete", true) and rd.get("events", []).is_empty() and rd.get("diagnostics", []).size() > 0,
+		"005-F-A non-rigid (zero basis) part transform fails the entity (no fake success)")
+	_ok(str(rd.get("diagnostics", [""])[0]).find("invalid part transform") >= 0,
+		"005-F-A diagnostic names the invalid part transform")
+	# A：盒查询错误（无效模块尺寸）→ 诊断 + complete=false，不静默忽略
+	var layout_bad: VehicleLayoutDefinition = _layout.duplicate(true)
+	layout_bad.modules[0].size_m = Vector3(0.0, 0.5, 1.2)
+	var rb := QuerySnapshotBuilder.build_identity_snapshot("E2", 1, "player_tank", layout_bad, {
+		"hull": Transform3D(Basis.IDENTITY, Vector3.ZERO),
+		"turret": Transform3D(Basis.IDENTITY, Vector3(0, 1.35, 0)),
+		"barrel": Transform3D(Basis.IDENTITY, Vector3(0, 1.5, -0.75)),
+	})
+	var rq := ShotQueryService.query({
+		"query_id": "q_boxerr", "physics_tick": 36,
+		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
+		"excluded_instances": [], "include_modules": true, "include_crew": false,
+	}, [rb])
+	_ok(not rq.get("complete", true) and rq.get("diagnostics", []).size() >= 1
+		and str(rq.get("diagnostics", [""])[0]).contains("box query error"),
+		"005-F-A box query error appended to diagnostics and flips complete=false")
+
+
+func _same_events(a: Array, b: Array) -> bool:
+	if a.size() != b.size():
+		return false
+	for i in a.size():
+		var ea: Dictionary = a[i]
+		var eb: Dictionary = b[i]
+		if ShotQueryService.event_key(ea) != ShotQueryService.event_key(eb):
+			return false
+		if float(ea.get("distance_m", 0.0)) != float(eb.get("distance_m", 0.0)):
+			return false
+	return true
+
+
+# --- 005-R1 收尾：A 世界适配器边界（真实物理空间）+ B 快照采样时点（面板） ---
+
+func _finale_panel_cases() -> void:
+	var main: Main = load("res://scenes/main.tscn").instantiate()
+	root.add_child(main)
+	for i in 2:
+		await process_frame
+	main.open_query_debug()
+	var panel: QueryDebugPanel = main._query_panel
+	panel.set_probe("a_to_b")
+	panel.set_vehicle_filter("ALL")
+	var space := main.get_world_3d().direct_space_state
+	# A：适配器边界——普通命中 t 正确 / 内部起点 / 整段在墙盒内
+	panel.set_wall_geometry(Vector3(4, 1, 4), Vector3(0.4, 3.0, 3.0), 0.0)
+	_ok(panel.apply_wall(), "005-F-A apply boundary wall")
+	var d_ab := Vector3(8, -0.05, -8).normalized()
+	var wa := WorldQueryAdapter.query_world_stop(space, Vector3(0, 1, 8), d_ab, 11.314)
+	var wa_c: Dictionary = wa.get("contact", {}) if wa.get("hit", false) else {}
+	_ok(wa.get("ok", false) and wa.get("hit", false)
+		and absf(float(wa_c.get("distance_m", -1.0)) - 5.374) < 0.02,
+		"005-F-A wall hit carries real distance (got %.3f)" % float(wa_c.get("distance_m", -1.0)))
+	_ok(absf(float(wa_c.get("t", -1.0)) - 5.374 / 11.314) < 0.005 and wa_c.get("normal_known", false)
+		and not wa_c.get("at_start", true),
+		"005-F-A wall hit carries t/normal_known/at_start (t=%.4f)" % float(wa_c.get("t", -1.0)))
+	var wi := WorldQueryAdapter.query_world_stop(space, Vector3(4, 1, 4), Vector3(1, 0, 0), 3.0)
+	var wi_c: Dictionary = wi.get("contact", {}) if wi.get("hit", false) else {}
+	_ok(wi.get("ok", false) and wi.get("hit", false) and float(wi_c.get("distance_m", -1.0)) <= 0.001
+		and float(wi_c.get("t", -1.0)) <= 0.001 and not wi_c.get("normal_known", true)
+		and wi_c.get("at_start", false),
+		"005-F-A from-inside wall start: contact at origin, t~0, normal unknown")
+	# A：整段在墙盒内——自定义线段（z=20）远离车辆，避免墙盒包住车辆引发物理推挤
+	panel._custom_from.text = "0, 1, 20"
+	panel._custom_to.text = "6, 1, 20"
+	panel.set_probe("custom")
+	panel.set_wall_geometry(Vector3(2, 1, 20), Vector3(8, 3, 3), 0.0)
+	_ok(panel.apply_wall(), "005-F-A apply wall covering whole custom probe")
+	var ww := WorldQueryAdapter.query_world_stop(space, Vector3(0, 1, 20), Vector3(1, 0, 0), 4.0)
+	var ww_c: Dictionary = ww.get("contact", {}) if ww.get("hit", false) else {}
+	_ok(ww.get("ok", false) and ww.get("hit", false) and float(ww_c.get("distance_m", -1.0)) <= 0.001
+		and not ww_c.get("normal_known", true) and ww_c.get("at_start", false),
+		"005-F-A whole segment inside wall box: contact at origin (t=%.3f)" % float(ww_c.get("t", -1.0)))
+	# 面板级：自定义线段整段在墙盒内 → 世界行排第一（距离≈0）；墙移除后线段恢复无接触
+	panel.run_query()
+	for i in 2:
+		await physics_frame
+	var evs_whole: Array = panel.last_events()
+	_ok(evs_whole.size() == 1 and str(evs_whole[0].get("kind", "")) == "world" and _dist(evs_whole[0]) < 0.01,
+		"005-F-A panel whole-inside run: world row first at ~0m (rows=%d first=%.3f)" % [evs_whole.size(), _dist(evs_whole[0])])
+	panel.remove_wall()
+	for i in 2:
+		await physics_frame
+	_ok(panel.last_events().is_empty(),
+		"005-F-A wall removal re-run clears probe (rows=%d)" % panel.last_events().size())
+	panel.set_probe("a_to_b")
+	# B：提交只冻结输入——提交后、执行前 += 移动 B → 结果用执行时快照（B 移出命中区 → 无 B 事件）
+	panel.run_query()
+	main.actor_b.tank.global_position += Vector3(0, 0, 3)   # 执行前移动（无 await 中间步）
+	for i in 2:
+		await physics_frame
+	var evs_t0: Array = panel.last_events()
+	_ok(evs_t0.size() == 2 and str(evs_t0[0].get("entity_id", "")) == "A",
+		"005-F-B submit-then-move: result uses execution-time snapshot (B missed, got %d)" % evs_t0.size())
+	_ok(_near(evs_t0[0], 0.424), "005-F-B A events match execution-time pose (first=%.3f)" % _dist(evs_t0[0]))
+	# B 移回原位；提交后切换筛选框 → 不改变已提交请求（仍按 B 执行）
+	main.actor_b.tank.global_position += Vector3(0, 0, -3)
+	for i in 2:
+		await physics_frame
+	panel.set_vehicle_filter("B")
+	panel.run_query()
+	panel.set_vehicle_filter("ALL")   # 提交后切换（执行前）
+	for i in 2:
+		await physics_frame
+	var evs_t1: Array = panel.last_events()
+	_ok(evs_t1.size() == 2 and str(evs_t1[0].get("entity_id", "")) == "B" and _dist(evs_t1[0]) > 9.0,
+		"005-F-B filter switch after submit does not mutate the submitted request (got %d)" % evs_t1.size())
+	# 签名只覆盖实际参与的快照：B 筛选下移动 A → 不 STALE
+	main.actor_a.tank.global_position += Vector3(0, 0, 0.5)
+	for i in 2:
+		await process_frame
+	_ok(not panel.is_stale(), "005-F-B signature covers only snapshots actually used (A move not stale under B filter)")
+	# 只转炮塔（B）→ STALE（签名包含全部部件变换，不止车体位置）
+	# 断开 B 炮塔对自身相机 rig 的跟随：否则 rig 每帧向瞄点收敛，旋转不会保持、签名持续漂移
+	main.actor_b.tank.turret_rig.cam_rig = null
+	main.actor_b.tank.turret_rig.rotation.y += deg_to_rad(25.0)
+	for i in 2:
+		await process_frame
+	_ok(panel.is_stale(), "005-F-B turret-only rotation marks result STALE")
+	panel.run_query()
+	for i in 2:
+		await physics_frame
+	_ok(not panel.is_stale(), "005-F-B re-run clears STALE after turret rotation")
+	main.close_query_debug()
 	main.queue_free()
 	for i in 2:
 		await process_frame
