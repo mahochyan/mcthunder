@@ -18,7 +18,8 @@ var controller: Node = null   # PlayerController（本地控制者）或 null（
 var label3d: Label3D
 
 func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: int, spawn: Transform3D, visual_layer: int, ctrl: Node) -> Dictionary:
-	# 返回 {ok, errors}；定义引用解析失败 → 明确报错并定位字段
+	# 返回 {ok, errors}；定义引用解析失败 → 明确报错并定位字段；
+	# 003-R1：校验失败受控停止——不继续生成半有效实体（调用方负责释放本节点）
 	var res := defs.resolve_vehicle(vehicle_id)
 	if not res.ok:
 		return res
@@ -35,19 +36,21 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank = ps.instantiate()
 	tank.name = "Tank"
 	tank.visual_layer = visual_layer
+	tank.defs = definition   # 003-R1：驾驶参数唯一来源
 	add_child(tank)
 	tank.position = Vector3.ZERO   # 003：位置由 actor.transform 统一管理（tank.tscn 根自带偏移清零）
 	tank.set_spawn(tank.transform)   # 003：局部出生点（世界位置 = actor 全局变换）
 	turret = tank.turret_rig
 	cam_rig = tank.camera_rig
 	turret.cam_rig = cam_rig
+	turret.defs = definition   # 003-R1：炮塔转速/俯仰限位唯一来源
 	cam_rig.turret = turret
 	cam_rig.tank = tank
 	cam_rig.visual_layer = visual_layer
 	gunner = Gunner.new()
 	gunner.name = "Gunner"
 	add_child(gunner)
-	gunner.setup(tank, turret)
+	gunner.setup(tank, turret, weapon)   # 003-R1：装填/射程唯一来源
 	process_mode = Node.PROCESS_MODE_PAUSABLE   # 003：暂停时整实体（驱动/武器）冻结
 	tank.process_mode = Node.PROCESS_MODE_PAUSABLE
 	gunner.process_mode = Node.PROCESS_MODE_PAUSABLE

@@ -7,6 +7,7 @@ const BARREL_BASE_Z := -1.2
 
 var cam_rig: CameraRig = null   # 由 actor 注入（默认瞄准角来源）
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层（A=2，B=4）
+var defs: VehicleDefinition = null   # 003-R1：由 actor 注入——转速/俯仰限位唯一来源（null 回退 GameConfig）
 var barrel_pivot: Node3D
 var muzzle: Node3D
 var barrel_mesh: MeshInstance3D
@@ -82,13 +83,16 @@ func _process(delta: float) -> void:
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
 		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
 		# 前向 = (-sin yaw, 0, -cos yaw)，故世界 yaw = atan2(-dx, -dz)
+		# 003-R1：转速/限位来自 VehicleDefinition（defs 注入）
+		var yaw_speed: float = defs.turret_yaw_speed if defs != null else GameConfig.TURRET_YAW_SPEED
+		var pitch_speed: float = defs.turret_pitch_speed if defs != null else GameConfig.TURRET_PITCH_SPEED
 		var P := _aim_point()
 		var target := _target_angles(P)
 		var desired_local := wrapf(target.y - hull_yaw, -PI, PI)
-		var max_step := deg_to_rad(GameConfig.TURRET_YAW_SPEED) * delta
+		var max_step := deg_to_rad(yaw_speed) * delta
 		var cur := rotation.y
 		rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
-		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(GameConfig.TURRET_PITCH_SPEED) * delta)
+		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(pitch_speed) * delta)
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
 	barrel_mesh.position.z = BARREL_BASE_Z + _recoil
 	if _flash_left > 0.0:
@@ -101,10 +105,13 @@ func _target_angles(P: Vector3) -> Vector2:
 	# 返回 (pitch, yaw_global)：由期望世界瞄点 P 与炮根位置反推武器目标方向。
 	# 炮管 -Z 前向、右手系、无镜像：前向 = (-sin yaw, 0, -cos yaw)，
 	# 目标方向 d = P - 炮根 → yaw = atan2(-d.x, -d.z)（负号不能省略）。
+	# 003-R1：俯仰限位来自 VehicleDefinition（defs 注入）
+	var p_min: float = defs.barrel_pitch_min if defs != null else GameConfig.BARREL_PITCH_MIN
+	var p_max: float = defs.barrel_pitch_max if defs != null else GameConfig.BARREL_PITCH_MAX
 	var pivot := barrel_pivot.global_position
 	var d := P - pivot
 	var yaw_global := atan2(-d.x, -d.z)
-	var pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
+	var pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(p_min), deg_to_rad(p_max))
 	return Vector2(pitch, yaw_global)
 
 func snap_to_aim() -> void:

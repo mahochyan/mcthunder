@@ -10,6 +10,7 @@ extends Node3D
 
 var tank: TankVehicle = null
 var turret: TurretRig = null
+var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
@@ -22,9 +23,10 @@ var _tracer_mesh: ImmediateMesh
 var _tracer_mat: StandardMaterial3D
 var _tracer_left := 0.0
 
-func setup(t: TankVehicle, tr: TurretRig) -> void:
+func setup(t: TankVehicle, tr: TurretRig, w: WeaponDefinition = null) -> void:
 	tank = t
 	turret = tr
+	weapon = w
 
 func _exclude() -> Array[RID]:
 	var ex: Array[RID] = []
@@ -46,9 +48,10 @@ func request_fire() -> bool:
 func _update_actual_aim() -> void:
 	if turret == null:
 		return
+	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
 	var muz := turret.muzzle.global_position
 	var dir := turret.barrel_direction()
-	var hit := _ray(muz, dir, GameConfig.GUN_RANGE)
+	var hit := _ray(muz, dir, range)
 	if not hit.is_empty():
 		actual_hit_point = hit.position
 	else:
@@ -74,10 +77,11 @@ func try_fire() -> bool:
 			blocked_reason = "barrel_occluded"
 			last_shot_result = "blocked:barrel_occluded"
 			return false
-	# 炮口实际方向命中查询
+	# 炮口实际方向命中查询（003-R1：射程来自 WeaponDefinition）
+	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
 	var dir := turret.barrel_direction()
-	var ghit := _ray(muz, dir, GameConfig.GUN_RANGE)
-	var end := muz + dir * GameConfig.GUN_RANGE
+	var ghit := _ray(muz, dir, range)
+	var end := muz + dir * range
 	var hit_vehicle := false
 	if not ghit.is_empty():
 		end = ghit.position
@@ -88,7 +92,7 @@ func try_fire() -> bool:
 	last_shot_result = "hit" if hit_vehicle else "miss"
 	_spawn_tracer(muz, end)
 	turret.kick_recoil()
-	cooldown_left = GameConfig.RELOAD_TIME
+	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
 	shots_fired += 1
 	blocked_reason = ""
 	return true

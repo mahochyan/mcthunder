@@ -68,4 +68,14 @@ func validate() -> Dictionary:
 		errors.append("verification: must be verified/estimated/unknown")
 	if content_tier == "production" and verification != "verified":
 		errors.append("verification: production vehicle must be verified")
+	# 003-R1：正式/已核验条目必须有实质来源（非空、非空白、非仅 TEST ONLY 声明）
+	if verification == "verified":
+		var has_source := false
+		for s in source_refs:
+			var t := s.strip_edges()
+			if not t.is_empty() and "TEST ONLY" not in t:
+				has_source = true
+				break
+		if not has_source:
+			errors.append("verification: verified requires a substantive source_refs entry (not TEST ONLY)")
 	return {"ok": errors.is_empty(), "errors": errors}

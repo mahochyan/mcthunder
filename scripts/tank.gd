@@ -10,6 +10,7 @@ var camera_rig: CameraRig
 var _spawn := Transform3D()
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：实例视觉层（A=2，B=4；炮镜只剔除本车层）
 var hits_taken := 0           # 003：被命中计数（试射目标计数来源；无装甲/伤害判定）
+var defs: VehicleDefinition = null   # 003-R1：由 VehicleActor 注入——驾驶参数唯一来源（null 时回退 GameConfig 常量）
 
 signal hit_registered        # 003：真实生产命中事件（register_hit 每发只触发一次）
 
@@ -56,18 +57,26 @@ func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 
 func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	# 003：统一命令驱动（throttle ∈ [-1,1]，steer ∈ [-1,1] 正 = 右转）
+	# 003-R1：参数来自 VehicleDefinition（defs 注入）；null 时回退 GameConfig 常量
+	var fwd_max: float = defs.forward_max_speed if defs != null else GameConfig.FORWARD_MAX_SPEED
+	var rev_max: float = defs.reverse_max_speed if defs != null else GameConfig.REVERSE_MAX_SPEED
+	var fwd_acc: float = defs.forward_accel if defs != null else GameConfig.FORWARD_ACCEL
+	var rev_acc: float = defs.reverse_accel if defs != null else GameConfig.REVERSE_ACCEL
+	var brake: float = defs.brake_decel if defs != null else GameConfig.BRAKE_DECEL
+	var coast: float = defs.coast_decel if defs != null else GameConfig.COAST_DECEL
+	var turn: float = defs.hull_turn_speed if defs != null else GameConfig.HULL_TURN_SPEED
 	var target := 0.0
 	if throttle > 0.0:
-		target = throttle * GameConfig.FORWARD_MAX_SPEED
+		target = throttle * fwd_max
 	elif throttle < 0.0:
-		target = throttle * GameConfig.REVERSE_MAX_SPEED
+		target = throttle * rev_max
 	if throttle != 0.0:
 		var braking: bool = signf(forward_speed) != signf(throttle) and absf(forward_speed) > 0.05
-		var rate := GameConfig.BRAKE_DECEL if braking else (GameConfig.FORWARD_ACCEL if throttle > 0.0 else GameConfig.REVERSE_ACCEL)
+		var rate := brake if braking else (fwd_acc if throttle > 0.0 else rev_acc)
 		forward_speed = move_toward(forward_speed, target, rate * delta)
 	else:
-		forward_speed = move_toward(forward_speed, 0.0, GameConfig.COAST_DECEL * delta)
-	rotation.y += deg_to_rad(GameConfig.HULL_TURN_SPEED) * steer * delta
+		forward_speed = move_toward(forward_speed, 0.0, coast * delta)
+	rotation.y += deg_to_rad(turn) * steer * delta
 	var fwd := -transform.basis.z
 	velocity.x = fwd.x * forward_speed
 	velocity.z = fwd.z * forward_speed

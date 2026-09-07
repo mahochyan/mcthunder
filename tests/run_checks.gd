@@ -503,12 +503,22 @@ func _run() -> void:
 	main._resume()
 	_ok(not paused and gunner.resume_grace > 0.0, "恢复生效且带开炮宽限")
 
-	# --- T003-01：共享配置独立状态（A/B 各自 VehicleRuntimeState） ---
+	# --- T003-01：共享配置独立状态（003-R1：真实行动验证，不直接改状态副本） ---
 	_ok(main.actor_a.state != main.actor_b.state, "T003-01 A/B 状态实例独立")
 	_ok(main.actor_a.state.definition_id == main.actor_b.state.definition_id, "T003-01 A/B 共享同一配置定义 (id=%s)" % main.actor_a.state.definition_id)
-	main.actor_a.state.forward_speed = 5.0
-	_ok(main.actor_b.state.forward_speed == 0.0, "T003-01 修改 A 状态不影响 B")
-	main.actor_a.state.forward_speed = 0.0
+	_ok(main.actor_a.definition == main.actor_b.definition, "T003-01 A/B 共享同一 VehicleDefinition 实例")
+	var def_fwd: float = main.actor_a.definition.forward_max_speed
+	main._reset_all()
+	await physics_frame
+	Input.action_press("move_forward")
+	for i in 30:
+		await physics_frame
+	Input.action_release("move_forward")
+	_ok(main.actor_a.tank.forward_speed > 1.0, "T003-01 A 真实驾驶产生速度 (v=%.2f)" % main.actor_a.tank.forward_speed)
+	_ok(main.actor_b.tank.forward_speed < 0.01, "T003-01 B 真实状态不受 A 驾驶影响 (v=%.2f)" % main.actor_b.tank.forward_speed)
+	_ok(absf(main.actor_a.state.forward_speed - main.actor_a.tank.forward_speed) < 0.001, "T003-01 A 状态快照与真实组件一致")
+	_ok(main.actor_b.state.forward_speed == 0.0, "T003-01 B 状态快照保持 0")
+	_ok(main.actor_a.definition.forward_max_speed == def_fwd, "T003-01 共享配置未被 A 行动修改")
 
 	# --- T003-02：A/B 输入隔离与统一命令 ---
 	main._reset_all()
@@ -672,6 +682,106 @@ func _run() -> void:
 	main.actor_b.tank.global_position = b_orig
 	await physics_frame
 
+	# --- T003-07（003-R1）：两套不同测试配置跑出不同真实表现（不修改 GameConfig） ---
+	var defs2 := VehicleDefs.new()
+	var slow_v := VehicleDefinition.new()
+	slow_v.id = "test_slow"
+	slow_v.weapon_id = "test_slow_gun"
+	slow_v.forward_max_speed = 4.0
+	slow_v.forward_accel = 4.0
+	slow_v.reverse_max_speed = 2.0
+	slow_v.reverse_accel = 3.0
+	slow_v.brake_decel = 8.0
+	slow_v.coast_decel = 2.0
+	slow_v.hull_turn_speed = 30.0
+	slow_v.turret_yaw_speed = 20.0
+	slow_v.turret_pitch_speed = 15.0
+	slow_v.barrel_pitch_min = -8.0
+	slow_v.barrel_pitch_max = 20.0
+	var slow_w := WeaponDefinition.new()
+	slow_w.id = "test_slow_gun"
+	slow_w.shell_id = "test_slow_shell"
+	slow_w.reload_time = 3.0
+	slow_w.gun_range = 100.0
+	slow_w.barrel_pitch_min = -8.0
+	slow_w.barrel_pitch_max = 20.0
+	var slow_s := ShellDefinition.new()
+	slow_s.id = "test_slow_shell"
+	defs2.vehicles["test_slow"] = slow_v
+	defs2.weapons["test_slow_gun"] = slow_w
+	defs2.shells["test_slow_shell"] = slow_s
+	var fast_v := VehicleDefinition.new()
+	fast_v.id = "test_fast"
+	fast_v.weapon_id = "test_fast_gun"
+	fast_v.forward_max_speed = 12.0
+	fast_v.forward_accel = 10.0
+	fast_v.reverse_max_speed = 5.0
+	fast_v.reverse_accel = 6.0
+	fast_v.brake_decel = 14.0
+	fast_v.coast_decel = 4.0
+	fast_v.hull_turn_speed = 120.0
+	fast_v.turret_yaw_speed = 60.0
+	fast_v.turret_pitch_speed = 45.0
+	fast_v.barrel_pitch_min = -8.0
+	fast_v.barrel_pitch_max = 20.0
+	var fast_w := WeaponDefinition.new()
+	fast_w.id = "test_fast_gun"
+	fast_w.shell_id = "test_fast_shell"
+	fast_w.reload_time = 1.0
+	fast_w.gun_range = 300.0
+	fast_w.barrel_pitch_min = -8.0
+	fast_w.barrel_pitch_max = 20.0
+	var fast_s := ShellDefinition.new()
+	fast_s.id = "test_fast_shell"
+	defs2.vehicles["test_fast"] = fast_v
+	defs2.weapons["test_fast_gun"] = fast_w
+	defs2.shells["test_fast_shell"] = fast_s
+	var slow_a: VehicleActor = main.spawn_vehicle("test_slow", "SLOW", Vector3(0, 0, 30), null, defs2)
+	var fast_a: VehicleActor = main.spawn_vehicle("test_fast", "FAST", Vector3(0, 0, 40), null, defs2)
+	_ok(slow_a != null and fast_a != null, "T003-07 两套配置实体生成成功")
+	# 脚本持续命令驱动真实移动（慢车 vs 快车，120 物理帧 = 2s）
+	var cmd_slow := VehicleCommand.new()
+	cmd_slow.throttle = 1.0
+	var cmd_fast := VehicleCommand.new()
+	cmd_fast.throttle = 1.0
+	for i in 120:
+		slow_a.apply_command(cmd_slow, 1.0 / Engine.physics_ticks_per_second)
+		fast_a.apply_command(cmd_fast, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	_ok(slow_a.tank.forward_speed < fast_a.tank.forward_speed - 2.0, "T003-07 慢车/快车真实速度不同 (slow=%.2f fast=%.2f)" % [slow_a.tank.forward_speed, fast_a.tank.forward_speed])
+	_ok(absf(slow_a.tank.forward_speed - 4.0) < 0.5, "T003-07 慢车速度接近配置上限 4 m/s (v=%.2f)" % slow_a.tank.forward_speed)
+	_ok(absf(fast_a.tank.forward_speed - 12.0) < 0.5, "T003-07 快车速度接近配置上限 12 m/s (v=%.2f)" % fast_a.tank.forward_speed)
+	# 炮塔转速不同（脚本命令驱动真实转动，目标在各自右侧 20m）
+	var cmd_turn_s := VehicleCommand.new()
+	cmd_turn_s.has_aim_point = true
+	cmd_turn_s.aim_world_point = slow_a.tank.global_position + Vector3(20, 0, 0)
+	var cmd_turn_f := VehicleCommand.new()
+	cmd_turn_f.has_aim_point = true
+	cmd_turn_f.aim_world_point = fast_a.tank.global_position + Vector3(20, 0, 0)
+	var yaw0_s: float = slow_a.turret.global_rotation.y
+	var yaw0_f: float = fast_a.turret.global_rotation.y
+	for i in 30:
+		slow_a.apply_command(cmd_turn_s, 1.0 / Engine.physics_ticks_per_second)
+		fast_a.apply_command(cmd_turn_f, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	var d_s: float = absf(slow_a.turret.global_rotation.y - yaw0_s)
+	var d_f: float = absf(fast_a.turret.global_rotation.y - yaw0_f)
+	_ok(d_f > d_s + 0.05, "T003-07 快车炮塔转速快于慢车 (slow=%.1f° fast=%.1f°)" % [rad_to_deg(d_s), rad_to_deg(d_f)])
+	# 装填时间不同（真实冷却来自各自武器配置）
+	slow_a.gunner.cooldown_left = 0.0
+	slow_a.gunner.resume_grace = 0.0
+	fast_a.gunner.cooldown_left = 0.0
+	fast_a.gunner.resume_grace = 0.0
+	slow_a.gunner.try_fire()
+	fast_a.gunner.try_fire()
+	_ok(absf(slow_a.gunner.cooldown_left - 3.0) < 0.01, "T003-07 慢车装填 3s 来自配置 (cd=%.2f)" % slow_a.gunner.cooldown_left)
+	_ok(absf(fast_a.gunner.cooldown_left - 1.0) < 0.01, "T003-07 快车装填 1s 来自配置 (cd=%.2f)" % fast_a.gunner.cooldown_left)
+	_ok(slow_a.gunner.weapon.gun_range == 100.0 and fast_a.gunner.weapon.gun_range == 300.0, "T003-07 射程来自各自武器配置")
+	main.despawn_vehicle(slow_a)
+	main.despawn_vehicle(fast_a)
+	for i in 3:
+		await physics_frame
+
 	_finish()
 
 func turret_snap(main) -> void:
@@ -794,7 +904,13 @@ func _check_defs() -> void:
 	tres = v_tier.validate()
 	_ok(not tres.ok and "verification" in tres.errors[0], "T003-05 production 未核验校验失败并定位 verification 字段")
 	v_tier.verification = "verified"
-	_ok(v_tier.validate().ok, "T003-05 production+verified 校验通过")
+	tres = v_tier.validate()
+	_ok(not tres.ok and "verification" in tres.errors[0], "T003-05 verified 无实质来源校验失败并定位 verification 字段")
+	v_tier.source_refs = ["TEST ONLY: development fixture, no historical basis"]
+	tres = v_tier.validate()
+	_ok(not tres.ok, "T003-05 verified 仅 TEST ONLY 声明仍不通过")
+	v_tier.source_refs = ["Hunnicutt, Sherman: A History of the American Medium Tank, p.120"]
+	_ok(v_tier.validate().ok, "T003-05 production+verified+实质来源校验通过")
 	# 默认测试车必须显式 TEST ONLY（不冒充历史车型）
 	_ok(v_ok.content_tier == "test", "T003-05 默认测试车 content_tier=test")
 	_ok(v_ok.verification == "unknown", "T003-05 默认测试车 verification=unknown")
