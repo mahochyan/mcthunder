@@ -139,3 +139,4 @@ func reset_state() -> void:
 	_flash_left = 0.0
 	_flash.visible = false
 	barrel_mesh.position.z = BARREL_BASE_Z
+	_has_aim_override = false   # 003-R1：重置清理旧瞄点（不继续追赶旧脚本目标）

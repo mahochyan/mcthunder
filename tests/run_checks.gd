@@ -409,7 +409,7 @@ func _run() -> void:
 	await process_frame
 	Input.action_press("fire")
 	for i in 2:
-		await process_frame
+		await physics_frame   # 003-R1：fire 请求在物理步消费
 	_ok(gunner.shots_fired == s1 + 1, "R1-B 宽限结束后重新按下可合法射击 (shots=%d)" % gunner.shots_fired)
 	Input.action_release("fire")
 
@@ -445,16 +445,18 @@ func _run() -> void:
 	var sh0: int = gunner.shots_fired
 	Input.action_press("fire")
 	for i in 2:
-		await process_frame
+		await physics_frame   # 003-R1：fire 请求在物理步消费（PlayerController 只生成命令）
 	_ok(gunner.shots_fired == sh0 + 1, "R2-B 前提：无冷却持火立即合法射击 (shots=%d)" % gunner.shots_fired)
 	_ok(Input.is_action_pressed("fire"), "R2-B 前提：fire 处于按住状态")
 	_key(KEY_ESCAPE)   # 真实 Esc 事件 → 暂停
 	await process_frame
+	await process_frame   # 事件在下一帧输入阶段冲刷；物理阶段调用需隔两帧
 	_ok(paused, "R2-B 真实 Esc 事件触发暂停")
 	_ok(Input.is_action_pressed("fire"), "R2-B 暂停期间 fire 仍按住")
 	await create_timer(0.5).timeout
 	_ok(Input.is_action_pressed("fire"), "R2-B 暂停 0.5s 后 fire 仍按住")
 	_key(KEY_ESCAPE)   # 真实 Esc 事件 → 恢复
+	await process_frame
 	await process_frame
 	_ok(not paused, "R2-B 真实 Esc 事件触发恢复")
 	_ok(Input.is_action_pressed("fire"), "R2-B 恢复后 fire 仍按住")
@@ -464,7 +466,7 @@ func _run() -> void:
 	await process_frame
 	Input.action_press("fire")
 	for i in 2:
-		await process_frame
+		await physics_frame   # 003-R1：fire 请求在物理步消费
 	_ok(gunner.shots_fired == sh0 + 2, "R2-B 释放后重新按下可合法射击 (shots=%d)" % gunner.shots_fired)
 	Input.action_release("fire")
 
@@ -540,6 +542,28 @@ func _run() -> void:
 	for i in 30:
 		await physics_frame
 	_ok(absf(main.actor_b.turret.global_rotation.y - b_yaw0) > 0.01, "T003-02 脚本命令经统一通道驱动 B 炮塔 (Δyaw=%.2f°)" % rad_to_deg(absf(main.actor_b.turret.global_rotation.y - b_yaw0)))
+	# 003-R1：脚本持续命令驱动 B 真实移动（不只证明炮塔转了一点）；
+	# 暂停 B 的自动零命令，避免与测试命令交替抵消
+	main.actor_b.set_physics_process(false)
+	var b_pos1: Vector3 = main.actor_b.tank.global_position
+	var cmd_move := VehicleCommand.new()
+	cmd_move.throttle = 1.0
+	for i in 60:
+		main.actor_b.apply_command(cmd_move, 1.0 / Engine.physics_ticks_per_second)
+		await physics_frame
+	main.actor_b.set_physics_process(true)
+	_ok(main.actor_b.tank.global_position.distance_to(b_pos1) > 1.0, "T003-02 脚本持续命令驱动 B 真实移动 (dist=%.2f)" % main.actor_b.tank.global_position.distance_to(b_pos1))
+	# 003-R1：入口合法性——暂停时命令被拒绝
+	main._pause()
+	var b_pos_pause: Vector3 = main.actor_b.tank.global_position
+	main.actor_b.apply_command(cmd_move, 1.0 / Engine.physics_ticks_per_second)
+	_ok(main.actor_b.tank.global_position.distance_to(b_pos_pause) < 0.001, "T003-02 暂停时命令入口拒绝执行")
+	main._resume()
+	# 003-R1：非有限输入被钳制为 0（不产生 NaN 速度）
+	var cmd_nan := VehicleCommand.new()
+	cmd_nan.throttle = NAN
+	main.actor_b.apply_command(cmd_nan, 1.0 / Engine.physics_ticks_per_second)
+	_ok(is_finite(main.actor_b.tank.forward_speed), "T003-02 非有限输入不产生 NaN 状态")
 
 	# --- T003-03：自身命中排除 / A 命中 B / 墙挡不命中 / 炮镜不隐藏 B ---
 	main._reset_all()

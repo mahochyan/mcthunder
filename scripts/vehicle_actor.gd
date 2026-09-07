@@ -54,12 +54,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	process_mode = Node.PROCESS_MODE_PAUSABLE   # 003：暂停时整实体（驱动/武器）冻结
 	tank.process_mode = Node.PROCESS_MODE_PAUSABLE
 	gunner.process_mode = Node.PROCESS_MODE_PAUSABLE
-	if controller != null:
-		controller.cam_rig = cam_rig
-		controller.gunner = gunner
-		cam_rig.set_local_control(true)
-	else:
-		cam_rig.set_local_control(false)
+	set_controller(ctrl)   # 003-R1：统一控制者绑定入口（含相机 current 管理）
 	# 003：A/PLAYER 与 B/TEST TARGET 明确标识（不改共享配置伪造实例状态）
 	label3d = Label3D.new()
 	label3d.text = entity_id
@@ -70,6 +65,25 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank.add_child(label3d)
 	return {"ok": true}
 
+func set_controller(ctrl: Node) -> void:
+	# 003-R1：统一控制者绑定/解绑——解绑清理引用；只有被控制的车拥有有效本地游戏相机
+	if controller != null:
+		controller.cam_rig = null
+		controller.gunner = null
+	controller = ctrl
+	if controller != null:
+		controller.cam_rig = cam_rig
+		controller.gunner = gunner
+		cam_rig.set_local_control(true)
+	else:
+		cam_rig.set_local_control(false)
+
+func _exit_tree() -> void:
+	# 003-R1：销毁后引用清理（控制者不再指向已释放组件）
+	if controller != null:
+		controller.cam_rig = null
+		controller.gunner = null
+
 func _physics_process(delta: float) -> void:
 	var cmd := VehicleCommand.new()
 	if controller != null:
@@ -77,8 +91,15 @@ func _physics_process(delta: float) -> void:
 	apply_command(cmd, delta)
 
 func apply_command(cmd: VehicleCommand, delta: float) -> void:
-	# 统一命令入口：驱动/炮塔/武器走同一套限制（冷却/俯仰限位/遮挡由生产逻辑把关）
-	tank.apply_drive(cmd.throttle, cmd.steer, delta)
+	# 统一命令入口：驱动/炮塔/武器走同一套限制（冷却/俯仰限位/遮挡由生产逻辑把关）。
+	# 003-R1：入口合法性约束——暂停拒绝、实体无效拒绝、有限值、输入范围钳制
+	if get_tree().paused:
+		return
+	if not is_instance_valid(tank) or not is_instance_valid(gunner) or not is_instance_valid(turret):
+		return
+	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
+	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
+	tank.apply_drive(throttle, steer, delta)
 	if cmd.has_aim_point:
 		turret.set_aim_point(cmd.aim_world_point)
 	elif cmd.clear_aim:
@@ -98,10 +119,15 @@ func apply_command(cmd: VehicleCommand, delta: float) -> void:
 
 func reset_vehicle() -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
+	# 003-R1：清理旧瞄点/待发命令/炮镜请求/瞬时状态
 	tank.reset()
 	cam_rig.aim_yaw = 0.0
 	cam_rig.aim_pitch = 0.0
+	cam_rig.set_sight_requested(false)
+	turret.clear_aim_point()   # 先清旧瞄点再 snap（否则 snap 会追旧脚本目标）
 	turret.snap_to_aim()
 	gunner.reset_state()
 	turret.reset_state()
+	if controller != null and controller.has_method("reset_pending"):
+		controller.reset_pending()
 	state.reset()
