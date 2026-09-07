@@ -9,6 +9,10 @@ extends Resource
 @export var muzzle_velocity_mps: float = 0.0
 @export var penetration_mm: float = 0.0
 
+# --- RC-001 来源与核验（003 最小入口；测试夹具显式声明无历史依据） ---
+@export var source_refs: Array[String] = []
+@export var verification: String = "unknown"
+
 func validate() -> Dictionary:
 	var errors: Array[String] = []
 	if id.is_empty():
@@ -19,4 +23,6 @@ func validate() -> Dictionary:
 		errors.append("muzzle_velocity_mps: must be finite and >= 0")
 	if not is_finite(penetration_mm) or penetration_mm < 0.0:
 		errors.append("penetration_mm: must be finite and >= 0")
+	if verification not in ["verified", "estimated", "unknown"]:
+		errors.append("verification: must be verified/estimated/unknown")
 	return {"ok": errors.is_empty(), "errors": errors}

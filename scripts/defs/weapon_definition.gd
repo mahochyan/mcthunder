@@ -10,6 +10,10 @@ extends Resource
 @export var barrel_pitch_min: float = -8.0
 @export var barrel_pitch_max: float = 20.0
 
+# --- RC-001 来源与核验（003 最小入口；测试夹具显式声明无历史依据） ---
+@export var source_refs: Array[String] = []
+@export var verification: String = "unknown"
+
 func validate() -> Dictionary:
 	var errors: Array[String] = []
 	if id.is_empty():
@@ -22,4 +26,6 @@ func validate() -> Dictionary:
 		errors.append("gun_range: must be finite and > 0")
 	if not is_finite(barrel_pitch_min) or not is_finite(barrel_pitch_max) or barrel_pitch_min >= barrel_pitch_max:
 		errors.append("barrel_pitch: min must be < max")
+	if verification not in ["verified", "estimated", "unknown"]:
+		errors.append("verification: must be verified/estimated/unknown")
 	return {"ok": errors.is_empty(), "errors": errors}

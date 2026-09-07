@@ -782,6 +782,27 @@ func _check_defs() -> void:
 	defs.vehicles["bad_vehicle"] = v_missing_weapon
 	var res_w := defs.resolve_vehicle("bad_vehicle")
 	_ok(not res_w.ok and "weapon_id" in res_w.errors[0], "T003-05 缺武器引用解析失败并定位 weapon_id 字段")
+	# RC-001：车型身份/来源/核验字段校验
+	var v_tier := VehicleDefinition.new()
+	v_tier.id = "t"
+	v_tier.weapon_id = "w"
+	v_tier.content_tier = "bogus"
+	var tres := v_tier.validate()
+	_ok(not tres.ok and "content_tier" in tres.errors[0], "T003-05 非法 content_tier 校验失败并定位字段")
+	v_tier.content_tier = "production"
+	v_tier.verification = "estimated"
+	tres = v_tier.validate()
+	_ok(not tres.ok and "verification" in tres.errors[0], "T003-05 production 未核验校验失败并定位 verification 字段")
+	v_tier.verification = "verified"
+	_ok(v_tier.validate().ok, "T003-05 production+verified 校验通过")
+	# 默认测试车必须显式 TEST ONLY（不冒充历史车型）
+	_ok(v_ok.content_tier == "test", "T003-05 默认测试车 content_tier=test")
+	_ok(v_ok.verification == "unknown", "T003-05 默认测试车 verification=unknown")
+	_ok(v_ok.source_refs.size() > 0 and "TEST ONLY" in v_ok.source_refs[0], "T003-05 默认测试车 source_refs 显式 TEST ONLY 声明")
+	var w_ok := defs.get_weapon("player_tank_gun")
+	_ok(w_ok != null and w_ok.source_refs.size() > 0 and "TEST ONLY" in w_ok.source_refs[0], "T003-05 默认测试武器 source_refs 显式 TEST ONLY 声明")
+	var s_ok := defs.get_shell("ap_75")
+	_ok(s_ok != null and s_ok.source_refs.size() > 0 and "TEST ONLY" in s_ok.source_refs[0], "T003-05 默认测试弹种 source_refs 显式 TEST ONLY 声明")
 
 func _check_actions() -> void:
 	for a in GameConfig.ACTIONS:

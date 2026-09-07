@@ -41,6 +41,22 @@
 - 没有内构/穿甲/科技树/正式菜单/网络/大量美术。
 - 数值（速度/装填/口径/穿深）是游戏设计初值，不是真实车辆性能。
 
+## RC-001 需求变更（随 003 交付的最小增量）
+
+GPT 已发布 RC-001 总要求（完整 UI/完整陆战流程/有史料依据的具体历史改型，
+以战争雷霆陆战为机制对照，原创低模方块风）。003 不推倒重来，本交付包含：
+
+- **最小车型身份入口**：VehicleDefinition 增加 `content_tier`（test/research/production）、
+  `source_refs`（资料来源）、`verification`（verified/estimated/unknown）字段级校验；
+  WeaponDefinition / ShellDefinition 增加 `source_refs` / `verification`。
+- **A/B 测试车明确 TEST ONLY**：默认配置 `content_tier="test"`、
+  `source_refs=["TEST ONLY: development fixture, no historical basis"]`、
+  `verification="unknown"`；HUD 控制文本带 [TEST ONLY]——不冒充历史车型。
+- **计划冲突记录**：`docs/planning/DECISIONS_AND_CUTS.md` 新增 RC-001 冲突记录
+  （被覆盖的旧条款、003 内新增要求、未授权范围）。
+- 历史数据 / 战雷参考行为 / 本作游戏化规则分开记录；没有来源标未知或估算，
+  不编造史料和页码（正式车型档案自 004 起按此执行）。
+
 ## 测试与证据
 
 - 无窗口自动检查 155 项全过（exit=0）：`logs/003/checks_003b.log`。

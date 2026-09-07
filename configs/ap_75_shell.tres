@@ -9,3 +9,5 @@ schema_version = 1
 caliber_mm = 75.0
 muzzle_velocity_mps = 0.0
 penetration_mm = 0.0
+source_refs = Array[String](["TEST ONLY: development fixture, no historical basis"])
+verification = "unknown"

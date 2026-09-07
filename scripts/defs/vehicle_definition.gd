@@ -7,6 +7,14 @@ extends Resource
 @export var schema_version: int = 1
 @export var display_name_key: String = ""
 
+# --- RC-001 车型身份（003 最小入口） ---
+# content_tier: "test"（开发测试夹具，非历史车型）/ "research"（资料研究区）/ "production"（正式车型）
+@export var content_tier: String = "test"
+# source_refs: 资料来源（公开可核验史料；测试夹具必须显式声明无历史依据）
+@export var source_refs: Array[String] = []
+# verification: "verified"（有依据）/ "estimated"（估算，标估算）/ "unknown"（未知，不编造）
+@export var verification: String = "unknown"
+
 # --- movement（m/s、m/s²、deg/s） ---
 @export var forward_max_speed: float = 8.0
 @export var reverse_max_speed: float = 3.0
@@ -54,4 +62,10 @@ func validate() -> Dictionary:
 		errors.append("barrel_pitch: min must be < max")
 	if weapon_id.is_empty():
 		errors.append("weapon_id: empty")
+	if content_tier not in ["test", "research", "production"]:
+		errors.append("content_tier: must be test/research/production")
+	if verification not in ["verified", "estimated", "unknown"]:
+		errors.append("verification: must be verified/estimated/unknown")
+	if content_tier == "production" and verification != "verified":
+		errors.append("verification: production vehicle must be verified")
 	return {"ok": errors.is_empty(), "errors": errors}

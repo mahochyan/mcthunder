@@ -152,7 +152,7 @@ func _process(_delta: float) -> void:
 	var hits := []
 	for t in targets:
 		hits.append(t.hit_count)
-	var control_text := "CONTROL: A (PLAYER)"
+	var control_text := "CONTROL: A (PLAYER) [TEST ONLY]"
 	var result_text := ""
 	if gunner.last_shot_result != "":
 		result_text = "LAST SHOT: " + gunner.last_shot_result.to_upper()
