@@ -70,7 +70,9 @@ Note "bad config injected into COPY only"
 $so = Join-Path $tmp 'stdout.log'; $se = Join-Path $tmp 'stderr.log'
 $p = Start-Process -FilePath $godot -ArgumentList @('--headless', '--path', $proj) -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -NoNewWindow
 if (-not $p.WaitForExit(60000)) { $p.Kill(); Note "FAIL: subprocess TIMEOUT (not a pass)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
+$p.WaitForExit() | Out-Null   # flush exit code (timed overload keeps handle open)
 $code = $p.ExitCode
+if ([string]::IsNullOrEmpty($code)) { Note "FAIL: exit code unavailable (cannot verify nonzero)"; Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue; exit 1 }
 $full = ''
 if (Test-Path $so) { $full += Get-Content $so -Raw }
 if (Test-Path $se) { $full += Get-Content $se -Raw }
