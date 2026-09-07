@@ -81,6 +81,8 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	var wall = main.world.build_wall(Vector3(0, 1.5, -6.0), Vector3(6, 3, 1.0))
 	await physics_frame
+	var see_hit0 := _camera_ray_hit(main)
+	_ok(see_hit0.collider == board, "遮挡前提：相机确实看见指定靶板（collider 身份验证）")
 	var rf: bool = gunner.try_fire()
 	_ok(rf, "无遮挡时开火成功")
 	_ok(board.hit_count == 0, "遮挡墙后靶板未被命中 (hits=%d)" % board.hit_count)
@@ -165,8 +167,9 @@ func _run() -> void:
 	var tall_wall = main.world.build_wall(Vector3(0.71, 1.5, 2.5), Vector3(6, 3, 1.0))
 	for i in 5:
 		await physics_frame
-	var see_point: Vector3 = main.cam_rig.get_aim_point()
-	_ok(see_point.distance_to(tgt.global_position) < 2.0, "T002-03a 前提：相机视线越过近墙并选中墙后靶板（身份验证，dist=%.2f）" % see_point.distance_to(tgt.global_position))
+	var see_hit := _camera_ray_hit(main)
+	_ok(see_hit.collider == tgt, "T002-03a 前提：相机视线越过近墙并选中墙后靶板（collider 身份验证）")
+	_ok(see_hit.position.distance_to(tgt.global_position) < 2.0, "T002-03a 前提：距离辅助 (dist=%.2f)" % see_hit.position.distance_to(tgt.global_position))
 	gunner.cooldown_left = 0.0
 	var fa: bool = gunner.try_fire()
 	_ok(fa, "T002-03a 开火（炮根→炮口无遮挡）")
@@ -237,62 +240,94 @@ func _run() -> void:
 		_ok(absf(fwd_pitch - p) < 0.5, "R2-A 相机前向俯仰响应意图（意图=%.0f° 实际=%.1f°）" % [p, fwd_pitch])
 	main.cam_rig.aim_pitch = 0.0
 
-	# --- R2-A（002-R2）：两距离靶板——意图选中→自然追赶→实射命中（不用 snap 跳过追赶） ---
+	# --- R3-A（002-R3）：稳定收敛——左右目标 + 车体非零 yaw + 延迟开火 ---
+	# 修复前实跑本段应失败（旧公式 atan2(dx,-dz) 使炮塔掠过正确方向后继续转离，
+	# 稳定保持检查会抓住"首次过线即 break"的漏检；见 logs/002-R3/checks_R3_prefix.log）
 	var b1 := TargetBoard.new()
 	b1.position = Vector3(0, 0.0, -12)
 	main.world.add_child(b1)
 	var b2 := TargetBoard.new()
-	b2.position = Vector3(6.53, 0.0, -24)   # 中/右靶板间隙（相机射线可达、炮管可达）
+	b2.position = Vector3(6.53, 0.0, -24)   # 右侧远靶（+X）
 	main.world.add_child(b2)
-	# 近靶 B1（12m）
+	var b3 := TargetBoard.new()
+	b3.position = Vector3(-6.53, 0.0, -24)  # 左侧远靶（-X）
+	main.world.add_child(b3)
+	# 近靶 B1（12m）：意图射线选中（collider 身份验证 + 距离辅助）
 	main.cam_rig.aim_yaw = 0.0
 	main.cam_rig.aim_pitch = deg_to_rad(-5.5)   # 相机视线对准 B1 碰撞盒中心
 	await process_frame
 	await process_frame
-	var p1: Vector3 = main.cam_rig.get_aim_point()
-	_ok(p1.distance_to(b1.global_position) < 2.0, "R2-A 意图射线选中近靶 B1 (dist=%.2f)" % p1.distance_to(b1.global_position))
-	main.turret.rotation.y = 1.0   # 摆偏炮塔，验证自然追赶
+	var sel1 := _camera_ray_hit(main)
+	_ok(sel1.collider == b1, "R3-A 意图射线选中近靶 B1（collider 身份验证）")
+	_ok(sel1.position.distance_to(b1.global_position) < 2.0, "R3-A 近靶 B1 距离辅助 (dist=%.2f)" % sel1.position.distance_to(b1.global_position))
+	# 稳定收敛：摆偏炮塔，首次过线后连续保持 1 秒（60 帧），中途转离即失败
+	main.turret.rotation.y = 1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
-	var converged := false
-	for i in 240:
-		await physics_frame
-		var bdir: Vector3 = main.turret.barrel_direction()
-		var want: Vector3 = (p1 - main.turret.barrel_pivot.global_position).normalized()   # 收敛目标 = 意图瞄点 P
-		if bdir.angle_to(want) < deg_to_rad(0.5):
-			converged = true
-			break
-	_ok(converged, "R2-A 炮塔有限速自然追赶近靶 B1")
+	var stab := await _stable_converge(main)
+	_ok(stab.converged, "R3-A 近靶 B1 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok1: bool = gunner.try_fire()
-	_ok(ok1 and b1.hit_count == 1 and b2.hit_count == 0, "R2-A 实射命中近靶 B1 且未误中远靶 (b1=%d b2=%d)" % [b1.hit_count, b2.hit_count])
-	var b1_hits: int = b1.hit_count
-	b1.queue_free()   # 释放近靶，避免遮挡远靶选择射线
-	for i in 3:
-		await physics_frame
-	# 远靶 B2（24m，中/右靶板间隙；相机环绕偏移已计入：x(z)=tanθ·(8−z)）
+	_ok(ok1 and b1.hit_count == 1 and b2.hit_count == 0 and b3.hit_count == 0, "R3-A 稳定后实射命中近靶 B1 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
+	# 保持意图，等真实装填结束再打一炮，仍应命中
+	await create_timer(GameConfig.RELOAD_TIME + 0.2).timeout
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var ok1b: bool = gunner.try_fire()
+	_ok(ok1b and b1.hit_count == 2, "R3-A 装填结束后第二炮仍命中近靶 B1 (b1=%d)" % b1.hit_count)
+	# 右侧远靶 B2（24m；相机环绕偏移已计入：x(z)=tanθ·(8−z)）
 	main.cam_rig.aim_yaw = deg_to_rad(-11.54)
 	main.cam_rig.aim_pitch = deg_to_rad(-3.83)
 	await process_frame
 	await process_frame
-	var p2: Vector3 = main.cam_rig.get_aim_point()
-	_ok(p2.distance_to(b2.global_position) < 2.0, "R2-A 意图射线选中远靶 B2 (dist=%.2f)" % p2.distance_to(b2.global_position))
+	var sel2 := _camera_ray_hit(main)
+	_ok(sel2.collider == b2, "R3-A 意图射线选中右侧远靶 B2（collider 身份验证）")
+	_ok(sel2.position.distance_to(b2.global_position) < 2.0, "R3-A 远靶 B2 距离辅助 (dist=%.2f)" % sel2.position.distance_to(b2.global_position))
 	main.turret.rotation.y = -1.0
 	main.turret.barrel_pivot.rotation.x = 0.0
-	converged = false
-	for i in 240:
-		await physics_frame
-		var bdir2: Vector3 = main.turret.barrel_direction()
-		var want2: Vector3 = (p2 - main.turret.barrel_pivot.global_position).normalized()   # 收敛目标 = 意图瞄点 P
-		if bdir2.angle_to(want2) < deg_to_rad(0.5):
-			converged = true
-			break
-	_ok(converged, "R2-A 炮塔有限速自然追赶远靶 B2")
+	stab = await _stable_converge(main)
+	_ok(stab.converged, "R3-A 右侧远靶 B2 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok2: bool = gunner.try_fire()
-	_ok(ok2 and b2.hit_count == 1 and b1_hits == 1, "R2-A 实射命中远靶 B2 (b1=%d b2=%d)" % [b1_hits, b2.hit_count])
+	_ok(ok2 and b2.hit_count == 1 and b1.hit_count == 2 and b3.hit_count == 0, "R3-A 稳定后实射命中右侧远靶 B2 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
+	# 左侧远靶 B3（24m）
+	main.cam_rig.aim_yaw = deg_to_rad(11.54)
+	main.cam_rig.aim_pitch = deg_to_rad(-3.83)
+	await process_frame
+	await process_frame
+	var sel3 := _camera_ray_hit(main)
+	_ok(sel3.collider == b3, "R3-A 意图射线选中左侧远靶 B3（collider 身份验证）")
+	_ok(sel3.position.distance_to(b3.global_position) < 2.0, "R3-A 远靶 B3 距离辅助 (dist=%.2f)" % sel3.position.distance_to(b3.global_position))
+	main.turret.rotation.y = 1.0
+	main.turret.barrel_pivot.rotation.x = 0.0
+	stab = await _stable_converge(main)
+	_ok(stab.converged, "R3-A 左侧远靶 B3 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var ok3: bool = gunner.try_fire()
+	_ok(ok3 and b3.hit_count == 1 and b2.hit_count == 1, "R3-A 稳定后实射命中左侧远靶 B3 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
+	# 车体转过非零角度：局部角 = 目标全局角 - 车体 yaw 的扣除逻辑
+	tank.rotation.y = 0.5
+	await physics_frame
+	await physics_frame
+	main.cam_rig.aim_yaw = 0.0
+	main.cam_rig.aim_pitch = deg_to_rad(-5.5)
+	await process_frame
+	await process_frame
+	var sel4 := _camera_ray_hit(main)
+	_ok(sel4.collider == b1, "R3-A 车体转过非零角度后意图射线仍选中近靶 B1（collider 身份验证）")
+	main.turret.rotation.y = 1.0
+	main.turret.barrel_pivot.rotation.x = 0.0
+	stab = await _stable_converge(main)
+	_ok(stab.converged, "R3-A 车体非零 yaw 下近靶 B1 稳定收敛（首次过线=%d 帧，保持期最大误差=%.2f°，稍后误差=%.2f°）" % [stab.first_cross, stab.max_err, stab.final_err])
+	gunner.cooldown_left = 0.0
+	gunner.resume_grace = 0.0
+	var ok4: bool = gunner.try_fire()
+	_ok(ok4 and b1.hit_count == 3, "R3-A 车体非零 yaw 下实射命中近靶 B1 (b1=%d)" % b1.hit_count)
+	b1.queue_free()
 	b2.queue_free()
+	b3.queue_free()
 	for i in 3:
 		await physics_frame
 
@@ -484,6 +519,43 @@ func _key(k: Key) -> void:
 	ev2.physical_keycode = k
 	ev2.pressed = false
 	Input.parse_input_event(ev2)
+
+func _camera_ray_hit(main) -> Dictionary:
+	# 002-R3：独立射线查询（与生产相同的 mask/exclude），返回 collider 供身份验证
+	var cam: Camera3D = main.cam_rig.cam
+	var from: Vector3 = cam.global_position
+	var dir: Vector3 = -cam.global_transform.basis.z
+	var space: PhysicsDirectSpaceState3D = main.get_world_3d().direct_space_state
+	var q := PhysicsRayQueryParameters3D.create(from, from + dir * 150.0, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE, [main.tank.get_rid()])
+	return space.intersect_ray(q)
+
+func _stable_converge(main) -> Dictionary:
+	# 002-R3：稳定收敛验收——真值 = 期望世界点 P - 炮根位置（不复制生产 atan2 公式）。
+	# 炮根（barrel_pivot）随炮塔转动而绕车体中心移动，故每帧取当前 pivot 计算 want；
+	# 收敛后 pivot 稳定，want 稳定，夹角应保持 0。
+	# 首次进入 0.5° 误差区后不结束测试：连续保持至少 1 秒（60 帧）全程误差 ≤0.5°，
+	# 中途转离即失败；记录首次过线帧、保持期最大误差、结束误差。
+	var P: Vector3 = main.cam_rig.get_aim_point()
+	var first_cross := -1
+	var hold_frames := 0
+	var max_err := 0.0
+	for i in 240:
+		await physics_frame
+		var bdir: Vector3 = main.turret.barrel_direction()
+		var want: Vector3 = (P - main.turret.barrel_pivot.global_position).normalized()
+		var err: float = rad_to_deg(bdir.angle_to(want))
+		if first_cross < 0:
+			if err <= 0.5:
+				first_cross = i
+				hold_frames = 1
+			continue
+		if err > 0.5:
+			return {"converged": false, "first_cross": first_cross, "max_err": maxf(max_err, err), "final_err": err}
+		hold_frames += 1
+		max_err = maxf(max_err, err)
+		if hold_frames >= 60:
+			return {"converged": true, "first_cross": first_cross, "max_err": max_err, "final_err": err}
+	return {"converged": false, "first_cross": first_cross, "max_err": max_err, "final_err": 0.0}
 
 func _check_fonts() -> void:
 	var f := ThemeDB.fallback_font

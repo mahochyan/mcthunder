@@ -62,16 +62,15 @@ func _process(delta: float) -> void:
 		var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
 		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
+		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
+		# 前向 = (-sin yaw, 0, -cos yaw)，故世界 yaw = atan2(-dx, -dz)
 		var P := cam_rig.intent_point()
-		var pivot := barrel_pivot.global_position
-		var d := P - pivot
-		var target_yaw_global := atan2(d.x, -d.z)   # 炮管 -Z 轴旋转约定：θ=atan2(dx,-dz)
-		var target_pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
-		var desired_local := wrapf(target_yaw_global - hull_yaw, -PI, PI)
+		var target := _target_angles(P)
+		var desired_local := wrapf(target.y - hull_yaw, -PI, PI)
 		var max_step := deg_to_rad(GameConfig.TURRET_YAW_SPEED) * delta
 		var cur := rotation.y
 		rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
-		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target_pitch, deg_to_rad(GameConfig.TURRET_PITCH_SPEED) * delta)
+		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(GameConfig.TURRET_PITCH_SPEED) * delta)
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
 	barrel_mesh.position.z = BARREL_BASE_Z + _recoil
 	if _flash_left > 0.0:
@@ -79,17 +78,26 @@ func _process(delta: float) -> void:
 		if _flash_left <= 0.0:
 			_flash.visible = false
 
+func _target_angles(P: Vector3) -> Vector2:
+	# 002-R3：共用目标角计算（正常追赶与 snap_to_aim 两条路径必须一致）。
+	# 返回 (pitch, yaw_global)：由期望世界瞄点 P 与炮根位置反推武器目标方向。
+	# 炮管 -Z 前向、右手系、无镜像：前向 = (-sin yaw, 0, -cos yaw)，
+	# 目标方向 d = P - 炮根 → yaw = atan2(-d.x, -d.z)（负号不能省略）。
+	var pivot := barrel_pivot.global_position
+	var d := P - pivot
+	var yaw_global := atan2(-d.x, -d.z)
+	var pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
+	return Vector2(pitch, yaw_global)
+
 func snap_to_aim() -> void:
 	# 立即对齐期望世界瞄点 P（重置与自动检查使用；正常运行靠有限转速追随）
 	if cam_rig == null:
 		return
 	var hull = get_parent()
 	var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
-	var P := cam_rig.intent_point()
-	var pivot := barrel_pivot.global_position
-	var d := P - pivot
-	rotation.y = wrapf(atan2(d.x, -d.z) - hull_yaw, -PI, PI)
-	barrel_pivot.rotation.x = clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(GameConfig.BARREL_PITCH_MIN), deg_to_rad(GameConfig.BARREL_PITCH_MAX))
+	var target := _target_angles(cam_rig.intent_point())
+	rotation.y = wrapf(target.y - hull_yaw, -PI, PI)
+	barrel_pivot.rotation.x = target.x
 
 func kick_recoil() -> void:
 	_recoil = 0.22
