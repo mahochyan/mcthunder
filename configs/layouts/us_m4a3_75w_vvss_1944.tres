@@ -1,0 +1,387 @@
+[gd_resource type="Resource" script_class="VehicleLayoutDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/layout/armor_patch_definition.gd" id="1_tbhn2"]
+[ext_resource type="Script" path="res://scripts/layout/crew_station_definition.gd" id="2_mlhe5"]
+[ext_resource type="Script" path="res://scripts/layout/module_volume_definition.gd" id="3_sfq0u"]
+[ext_resource type="Script" path="res://scripts/layout/layout_part_definition.gd" id="4_eq1du"]
+[ext_resource type="Script" path="res://scripts/layout/vehicle_layout_definition.gd" id="5_pj32s"]
+
+[sub_resource type="Resource" id="Resource_eim6v"]
+script = ExtResource("1_tbhn2")
+id = "hull_front_upper"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 1, -2.95, 1.15, 1, -2.95, 1.15, 1.72, -2.45, -1.15, 1.72, -2.45)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.5703958, -0.82137)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_oirtx"]
+script = ExtResource("1_tbhn2")
+id = "hull_front_lower"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0, -2.95, 1.15, 0, -2.95, 1.15, 1, -2.95, -1.15, 1, -2.95)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, -1)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_dr7o0"]
+script = ExtResource("1_tbhn2")
+id = "hull_rear"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(1.15, 0, 2.92, -1.15, 0, 2.92, -1.15, 1.72, 2.92, 1.15, 1.72, 2.92)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0, 1)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_7tbtr"]
+script = ExtResource("1_tbhn2")
+id = "hull_left"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0, 2.92, -1.15, 0, -2.95, -1.15, 1.72, -2.45, -1.15, 1.72, 2.92)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(-1, 0, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_qlet2"]
+script = ExtResource("1_tbhn2")
+id = "hull_right"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(1.15, 0, 2.92, 1.15, 0, -2.95, 1.15, 1.72, -2.45, 1.15, 1.72, 2.92)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(1, 0, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_x7em1"]
+script = ExtResource("1_tbhn2")
+id = "hull_top"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 1.72, 2.92, 1.15, 1.72, 2.92, 1.15, 1.72, -2.45, -1.15, 1.72, -2.45)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 1, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_w6jto"]
+script = ExtResource("1_tbhn2")
+id = "hull_bottom"
+plate_group_id = "m4a3_hull"
+part_id = "hull"
+vertices_local_m = PackedVector3Array(-1.15, 0, -2.95, 1.15, 0, -2.95, 1.15, 0, 2.92, -1.15, 0, 2.92)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, -1, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_rt434"]
+script = ExtResource("1_tbhn2")
+id = "turret_front"
+plate_group_id = "m4a3_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.9, 0, -1.1, 0.9, 0, -1.1, 0.9, 0.95, -0.9, -0.9, 0.95, -0.9)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(0, 0.20601049, -0.9785498)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_0yg2i"]
+script = ExtResource("1_tbhn2")
+id = "turret_right"
+plate_group_id = "m4a3_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(0.9, 0, -1.1, 0.9, 0, 0.9, 0.9, 0.95, 0.9, 0.9, 0.95, -0.9)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(1, 0, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_ttg6q"]
+script = ExtResource("1_tbhn2")
+id = "turret_left"
+plate_group_id = "m4a3_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.9, 0, 0.9, -0.9, 0, -1.1, -0.9, 0.95, -0.9, -0.9, 0.95, 0.9)
+triangles = PackedInt32Array(0, 2, 1, 0, 3, 2)
+outward_normal_local = Vector3(-1, 0, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_id25n"]
+script = ExtResource("1_tbhn2")
+id = "turret_back"
+plate_group_id = "m4a3_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.9, 0, 0.9, 0.9, 0, 0.9, 0.9, 0.95, 0.9, -0.9, 0.95, 0.9)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 0, 1)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_22lyf"]
+script = ExtResource("1_tbhn2")
+id = "turret_top"
+plate_group_id = "m4a3_turret"
+part_id = "turret"
+vertices_local_m = PackedVector3Array(-0.9, 0.95, 0.9, 0.9, 0.95, 0.9, 0.9, 0.95, -0.9, -0.9, 0.95, -0.9)
+triangles = PackedInt32Array(0, 1, 2, 0, 2, 3)
+outward_normal_local = Vector3(0, 1, 0)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_0tnrx"]
+script = ExtResource("2_mlhe5")
+id = "crew_commander"
+role = "commander"
+part_id = "turret"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.15, 0.5)
+size_m = Vector3(0.55, 1.15, 0.5)
+position_status = "verified"
+volume_status = "estimated"
+evidence_keys = PackedStringArray("EV-FM1767-CREW")
+
+[sub_resource type="Resource" id="Resource_nuqr7"]
+script = ExtResource("2_mlhe5")
+id = "crew_gunner"
+role = "gunner"
+part_id = "turret"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0)
+size_m = Vector3(0.5, 1, 0.6)
+position_status = "verified"
+volume_status = "estimated"
+evidence_keys = PackedStringArray("EV-FM1767-CREW")
+
+[sub_resource type="Resource" id="Resource_2efm6"]
+script = ExtResource("2_mlhe5")
+id = "crew_loader"
+role = "loader"
+part_id = "turret"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, 0)
+size_m = Vector3(0.5, 1, 0.6)
+position_status = "verified"
+volume_status = "estimated"
+evidence_keys = PackedStringArray("EV-FM1767-CREW")
+
+[sub_resource type="Resource" id="Resource_sevaq"]
+script = ExtResource("2_mlhe5")
+id = "crew_driver"
+role = "driver"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.65, -2.5)
+size_m = Vector3(0.5, 1.1, 0.5)
+position_status = "verified"
+volume_status = "estimated"
+evidence_keys = PackedStringArray("EV-FM1767-CREW")
+
+[sub_resource type="Resource" id="Resource_fh1hd"]
+script = ExtResource("2_mlhe5")
+id = "crew_bow_gunner"
+role = "assistant_driver_bow_gunner"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.65, -2.5)
+size_m = Vector3(0.5, 1, 0.5)
+position_status = "verified"
+volume_status = "estimated"
+evidence_keys = PackedStringArray("EV-FM1767-CREW")
+
+[sub_resource type="Resource" id="Resource_1cyrs"]
+script = ExtResource("3_sfq0u")
+id = "engine_main"
+kind = "engine"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 1.9)
+size_m = Vector3(1.4, 0.9, 1.6)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-ENGINE")
+
+[sub_resource type="Resource" id="Resource_ithf7"]
+script = ExtResource("3_sfq0u")
+id = "transmission"
+kind = "transmission"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, -2.55)
+size_m = Vector3(1, 0.7, 0.8)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-TRANS")
+
+[sub_resource type="Resource" id="Resource_dg5s0"]
+script = ExtResource("3_sfq0u")
+id = "driveshaft"
+kind = "driveshaft"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.2)
+size_m = Vector3(0.3, 0.3, 2.6)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-TRANS")
+
+[sub_resource type="Resource" id="Resource_0lvw7"]
+script = ExtResource("3_sfq0u")
+id = "ammo_75_floor_racks"
+kind = "ammo"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.4)
+size_m = Vector3(1.2, 0.7, 1.8)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-STOWAGE", "EV-TM9759-TURRET-FLOOR")
+
+[sub_resource type="Resource" id="Resource_goid7"]
+script = ExtResource("3_sfq0u")
+id = "ammo_30_right_front"
+kind = "ammo"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 1.35, -1.6)
+size_m = Vector3(0.5, 0.6, 1.2)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-STOWAGE")
+
+[sub_resource type="Resource" id="Resource_grr2c"]
+script = ExtResource("3_sfq0u")
+id = "ammo_30_left_sponson"
+kind = "ammo"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.35, -0.5)
+size_m = Vector3(0.35, 0.6, 0.9)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-STOWAGE")
+
+[sub_resource type="Resource" id="Resource_f2p0o"]
+script = ExtResource("3_sfq0u")
+id = "ammo_50_right_rear"
+kind = "ammo"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 1.35, 0.9)
+size_m = Vector3(0.35, 0.6, 0.9)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-STOWAGE")
+
+[sub_resource type="Resource" id="Resource_0qq3n"]
+script = ExtResource("3_sfq0u")
+id = "generator_aux"
+kind = "electrical"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.35, 1.15)
+size_m = Vector3(0.4, 0.55, 0.55)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-GEN")
+
+[sub_resource type="Resource" id="Resource_i3cst"]
+script = ExtResource("3_sfq0u")
+id = "radio_scr508"
+kind = "radio"
+part_id = "turret"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.75)
+size_m = Vector3(0.6, 0.5, 0.6)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-RADIO")
+
+[sub_resource type="Resource" id="Resource_ayfab"]
+script = ExtResource("3_sfq0u")
+id = "turret_drive_hydraulic"
+kind = "turret_drive"
+part_id = "turret"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.25, 0.3)
+size_m = Vector3(0.7, 0.4, 0.7)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-TRAVERSE")
+
+[sub_resource type="Resource" id="Resource_c18ys"]
+script = ExtResource("3_sfq0u")
+id = "breech_75mm"
+kind = "breech"
+part_id = "gun"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+size_m = Vector3(0.55, 0.6, 0.55)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-IDENTITY")
+
+[sub_resource type="Resource" id="Resource_hdgvc"]
+script = ExtResource("3_sfq0u")
+id = "fuel_tank"
+kind = "fuel"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.5, 1.95)
+size_m = Vector3(0.7, 0.7, 1.3)
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_r47v5"]
+script = ExtResource("3_sfq0u")
+id = "track_left"
+kind = "track"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 0.38, 0)
+size_m = Vector3(0.5, 0.76, 4.6)
+external = true
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_i457o"]
+script = ExtResource("3_sfq0u")
+id = "track_right"
+kind = "track"
+part_id = "hull"
+local_box_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 0.38, 0)
+size_m = Vector3(0.5, 0.76, 4.6)
+external = true
+geometry_status = "estimated"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_ttxta"]
+script = ExtResource("4_eq1du")
+id = "hull"
+evidence_keys = PackedStringArray("EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_hu6v0"]
+script = ExtResource("4_eq1du")
+id = "turret"
+parent_id = "hull"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72, 0)
+joint_kind = "yaw"
+max_angle_deg = 360.0
+evidence_keys = PackedStringArray("EV-TM9759-TRAVERSE", "EV-TM9759-SPECS")
+
+[sub_resource type="Resource" id="Resource_vb1i4"]
+script = ExtResource("4_eq1du")
+id = "gun"
+parent_id = "turret"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, -0.3)
+joint_kind = "pitch"
+min_angle_deg = -25.0
+max_angle_deg = 20.0
+evidence_keys = PackedStringArray("EV-TM9759-IDENTITY")
+
+[resource]
+script = ExtResource("5_pj32s")
+id = "us_m4a3_75w_vvss_1944"
+historical_identity_id = "us_m4a3_75w_vvss_1944"
+content_tier = "research"
+display_name = "M4A3 (75) W Sherman - 1944 reference configuration (VVSS, wet stowage)"
+parts = Array[ExtResource("4_eq1du")]([SubResource("Resource_ttxta"), SubResource("Resource_hu6v0"), SubResource("Resource_vb1i4")])
+armor_patches = Array[ExtResource("1_tbhn2")]([SubResource("Resource_eim6v"), SubResource("Resource_oirtx"), SubResource("Resource_dr7o0"), SubResource("Resource_7tbtr"), SubResource("Resource_qlet2"), SubResource("Resource_x7em1"), SubResource("Resource_w6jto"), SubResource("Resource_rt434"), SubResource("Resource_0yg2i"), SubResource("Resource_ttg6q"), SubResource("Resource_id25n"), SubResource("Resource_22lyf")])
+modules = Array[ExtResource("3_sfq0u")]([SubResource("Resource_1cyrs"), SubResource("Resource_ithf7"), SubResource("Resource_dg5s0"), SubResource("Resource_0lvw7"), SubResource("Resource_goid7"), SubResource("Resource_grr2c"), SubResource("Resource_f2p0o"), SubResource("Resource_0qq3n"), SubResource("Resource_i3cst"), SubResource("Resource_ayfab"), SubResource("Resource_c18ys"), SubResource("Resource_hdgvc"), SubResource("Resource_r47v5"), SubResource("Resource_i457o")])
+crew_stations = Array[ExtResource("2_mlhe5")]([SubResource("Resource_0tnrx"), SubResource("Resource_nuqr7"), SubResource("Resource_2efm6"), SubResource("Resource_sevaq"), SubResource("Resource_fh1hd")])
+source_catalog_id = "SRC-TM9-759"
+field_evidence_id = "FIELD-EVIDENCE-US-M4A3-75W-1944"
+declared_openings = Array[Dictionary]([{
+"id": "turret_ring",
+"note": "turret ring opening in hull top plate (ring diameter unverified)",
+"part": "hull"
+}, {
+"id": "gun_mount_front",
+"note": "gun mount opening in turret front (M34/M34A1 mount; shield split unmodeled)",
+"part": "turret"
+}])
+allowed_overlaps = Array[Dictionary]([{
+"a": "fuel_tank",
+"b": "engine_main",
+"reason": "fuel tank at rear area adjacent to engine compartment; wet-stowage tank position estimated (capacity 168 gal verified only)"
+}])

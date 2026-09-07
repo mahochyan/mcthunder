@@ -220,6 +220,48 @@ func _init() -> void:
 	_ok(absf(hull_layout.armor_patches[0].thickness_mm - shared_thickness) < 0.01,
 		"T004-01 shared definition thickness unchanged")
 
+	# --- 004-b：历史研究布局（us_m4a3_75w_vvss_1944） ---
+	LayoutCatalog.register_evidence(PackedStringArray([
+		"EV-TM9759-IDENTITY", "EV-TM9759-SPECS", "EV-TM9759-ENGINE", "EV-TM9759-TRANS",
+		"EV-TM9759-TURRET-FLOOR", "EV-TM9759-STOWAGE", "EV-TM9759-GEN",
+		"EV-TM9759-RADIO", "EV-TM9759-TRAVERSE", "EV-FM1767-CREW"]))
+	var m4a3 := LayoutCatalog.load_layout("us_m4a3_75w_vvss_1944")
+	_ok(m4a3 != null and m4a3.id == "us_m4a3_75w_vvss_1944", "004-b M4A3 layout loads via catalog with validation")
+	if m4a3 != null:
+		_ok(m4a3.content_tier == "research", "004-b M4A3 content_tier=research")
+		var roles_seen: PackedStringArray = []
+		for st in m4a3.crew_stations:
+			if not roles_seen.has(st.role):
+				roles_seen.append(st.role)
+		var crew_ok := true
+		for required in ["commander", "gunner", "loader", "driver", "assistant_driver_bow_gunner"]:
+			if not roles_seen.has(required):
+				crew_ok = false
+		_ok(crew_ok, "004-b M4A3 has all five crew roles (no 4-man template)")
+		var all_unknown := true
+		for patch in m4a3.armor_patches:
+			if patch.has_thickness:
+				all_unknown = false
+		_ok(all_unknown, "004-b M4A3 armor thickness all unknown (no faked values)")
+		var gunner_right := false
+		var loader_left := false
+		for st2 in m4a3.crew_stations:
+			if st2.role == "gunner" and st2.local_box_transform.origin.x > 0.0:
+				gunner_right = true
+			if st2.role == "loader" and st2.local_box_transform.origin.x < 0.0:
+				loader_left = true
+		_ok(gunner_right and loader_left, "004-b FM 17-67: gunner right of gun, loader left of gun")
+		var engine_rear := false
+		for m in m4a3.modules:
+			if m.id == "engine_main" and m.local_box_transform.origin.z > 0.0:
+				engine_rear = true
+		_ok(engine_rear, "004-b TM 9-759: engine in rear of hull")
+		var yaw_joint := false
+		for part in m4a3.parts:
+			if part.id == "turret" and part.joint_kind == "yaw":
+				yaw_joint = true
+		_ok(yaw_joint, "004-b turret yaw joint exists")
+
 	_finish()
 
 
