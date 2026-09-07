@@ -43,9 +43,18 @@
                                          ],
                        "status":  "needs_revision",
                        "implementation_sha":  "4fe8797382a25b6dac66e0e054db5b29ad317c1d",
-                       "tested_sha":  "0c8e6f7 (003-R1 revision chain 6186d12 A / d2082ef B / 4144be4 C / 0c8e6f7 D; 200 checks)",
-                       "reviewer_acceptance":  "GPT authorized 003 then issued RC-001 revision; 003 status=needs_revision; 003-R1 four sub-commit groups delivered on work/003-vehicle-foundation, awaiting re-review (docs/DELIVERY_003_R1.md)",
-                       "user_acceptance":  "NOT_RUN (human itemized playtest pending; auto screenshots are not human acceptance)",
+                       "tested_sha":  "003-R2 定向收尾追加提交（命令单一物理消费/发射时轮次+生命周期身份/启动失败短路/自然瞄准演示；205 项回归 exit=0 + abort_check 验收 exit=0）；此前 003-R1 已测 0c8e6f7（200 项）；复审保留部分未回退",
+                       "reviewer_acceptance":  [
+                                                   {
+                                                       "record":  "GPT authorized 003 then issued RC-001 revision; 003 status=needs_revision; 003-R1 four sub-commit groups delivered on work/003-vehicle-foundation, awaiting re-review (docs/DELIVERY_003_R1.md)"
+                                                   },
+                                                   {
+                                                       "reviewer":  "GPT",
+                                                       "round":  "003-R2 授权",
+                                                       "verdict":  "003-R1 部分保留（配置驱动/碰撞坐标/射手过滤/自然装填演示），四组全部关闭不签收；授权 003-R2 定向收尾：命令单一物理消费、发射时轮次/生命周期身份、启动失败真正停止装配、自然瞄准演示去 snap；同分支追加提交"
+                                                   }
+                                               ],
+                       "user_acceptance":  "NOT_RUN（人工逐项试玩待人工验收，不代签）",
                        "file":  "work_orders/WO003.md"
                    },
                    {

@@ -38,8 +38,13 @@ main.gd (Main, ALWAYS)
 - `PlayerController`：唯一输入入口。鼠标 → `cam_rig.set_aim`；键鼠 → `poll()` 生成命令。
   fire 边沿用 `Input.is_action_just_pressed`（Input 系统内部跟踪按下边沿，
   跨帧 release→press 不会被 `_process` 轮询间隔吞掉）。
-- `VehicleActor.apply_command(cmd, delta)`：统一命令入口——驱动/炮塔/武器
-  走同一套限制（冷却/俯仰限位/遮挡由生产逻辑把关）。B 无控制器时每帧零命令。
+- `VehicleActor.submit_command(cmd) -> bool`：唯一命令**提交**入口（003-R2）——
+  验证/复制/暂存（`CommandMailbox`），不移动/不射击；暂停拒绝并清空、
+  实体无效拒绝、`aim_world_point` 非有限整条拒绝。
+- `VehicleActor._physics_process`：每车唯一物理**执行器**（003-R2）——
+  消费暂存恰好一次 → `_apply_command_once`（驱动/炮塔/武器走同一套限制：
+  冷却/俯仰限位/遮挡由生产逻辑把关）。无输入=零命令静止；
+  玩家输入与脚本命令走同一提交入口，不存在第二执行路径。
 
 ## 4. 实体生命周期（003-b）
 
@@ -66,10 +71,12 @@ main.gd (Main, ALWAYS)
 
 ## 7. 测试
 
-`godot --headless --path <工程根> -s res://tests/run_checks.gd`（200 项，exit=0）：
+`godot --headless --path <工程根> -s res://tests/run_checks.gd`（205 项，exit=0）：
 001/002 全部回归 + T003-01~09（独立状态/输入隔离与统一命令/自身排除与命中 B/
 20 次生成销毁/坏配置定位/试射目标真实命中推进/配置驱动真实表现/多车碰撞与坐标/
-真实任务闭环与射手-射击编号-轮次）。
+真实任务闭环与射手-射击编号-轮次-生命周期）。
+另有独立验收：`-s res://tests/abort_check.gd`（启动失败受控短路——坏配置下
+真实主场景子进程非零退出 + 配置恢复字节一致）。
 
 ## 7.5 003-R1 修订（needs_revision → 交付待验收）
 
@@ -82,8 +89,9 @@ GPT 复核提出 RC-001 变更与四组关闭项，003-R1 在同一分支以四�
   verified 必须有实质 source_refs（空/TEST ONLY 拒绝）；测试车显式
   `content_tier="test"` + `source_refs=["TEST ONLY: ..."]` + `verification="unknown"`。
 - **B 统一命令与生命周期（d2082ef）**：PlayerController 不再直呼 Gunner——
-  只生成 `VehicleCommand`（含 fire 边沿 → fire_requested），统一由
-  `VehicleActor.apply_command` 消费（每物理帧一次；入口检查暂停/实体有效/
+  只生成 `VehicleCommand`（含 fire 边沿 → fire_requested），经
+  `VehicleActor.submit_command` 提交、由车辆唯一 `_physics_process` 消费
+  （003-R2 起邮箱化：验证/复制/暂存与执行分离；入口检查暂停/实体有效/
   有限值/输入范围钳制）。脚本控制与玩家控制走同一入口（T003-02）。
   `reset_vehicle` 清瞄点覆盖/待发命令/炮镜请求/瞬态；`set_controller` 统一
   绑定/解绑（相机 current 随控制者走，未控制车辆不抢相机）。
@@ -104,7 +112,38 @@ GPT 复核提出 RC-001 变更与四组关闭项，003-R1 在同一分支以四�
   （autoshot_9~13；不清零冷却、不直接写任务计数、不绕过命令入口）。
   autoshot_8 保留为构造状态演示并已注明。
 
-## 8. 仍然没有（003/003-R1 边界）
+## 7.6 003-R2 定向收尾（003-R1 部分保留，四项关闭）
+
+GPT 003-R1 复审：配置驱动/碰撞坐标/射手过滤/自然装填演示**保留**，但"四组全部
+关闭"不签收——授权 003-R2 定向收尾（同分支追加提交，基准 dfdcd1a）：
+
+- **命令单一物理消费**：新增 `CommandMailbox`——`submit_command` 只验证/复制/
+  暂存（暂停拒绝并清空、实体无效拒绝、`aim_world_point` 非有限整条拒绝），
+  每车唯一 `_physics_process` 每步 consume 恰好一次（无输入=零命令），
+  `_apply_command_once` 执行（原 apply_command 执行体改名，算法未重写；
+  旧 apply_command 双路径删除）。脚本不再传 delta；测试不再关闭生产物理回调
+  （断言 `drive_call_count` 增量=提交帧数：每物理步恰好一次）。
+  暂停（NOTIFICATION_PAUSED）/重置/解绑清暂存，恢复不补执行旧请求。
+- **发射时轮次/生命周期身份**：`try_fire` 通过全部检查后先 `shot_id += 1`
+  并冻结 `{round_id(开火时刻, round_provider 注入), shooter_id, shooter_life_id,
+  shot_id, target_id, target_life_id}`——空射/打墙同样消耗编号；命中车辆时
+  目标身份来自实际碰撞对象。`_on_b_hit(identity)` 校验当前轮次+射手 A+目标 B+
+  **双方 life_id 存续**+本回合去重（`_round_shots` 重开清空）。强反例实测：
+  旧轮次事件重开后首次送达不计分、旧生命周期事件不计分、同名车重建 life_id 不同
+  （`VehicleActor` static 计数器）。
+- **启动失败短路**：`_ready` 三处失败点 → `_abort_initialization`（关正常帧/输入、
+  清理半建实体、显示错误画面、headless/autoshot 非零退出）；
+  `resolve_vehicle` 装配边界再次校验三定义本体（手工注册绕过 load_defaults 也拦截）。
+  独立验收 `tests/abort_check.gd`：坏配置 → 子进程真实启动主场景 → 非零退出 +
+  ABORT 日志 + 生产配置恢复字节一致（user:// 自愈备份防中断污染）。
+- **自然瞄准演示**：autoshot 332 去掉 `turret.snap_to_aim()`，改等待炮塔有限速
+  真实追赶（`aim_error_deg()` 只读判据 >0.5° 驻留，900 帧有限超时）——
+  实测 6 帧收敛 0.05°。阈值未放宽、历史截图未重拍。
+
+测试 200 → **205**（R1 行为要求全保留 + 5 项 R2 断言）。交付
+`docs/DELIVERY_003_R2.md`；证据 `docs/evidence/003-R2/`、`logs/003-R2/`。
+
+## 8. 仍然没有（003/003-R1/003-R2 边界）
 
 B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车血条）；
 无内构/穿甲/科技树/正式菜单/网络/大量美术。历史车型数据核验自 004 起。
