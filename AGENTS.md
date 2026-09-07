@@ -5,13 +5,13 @@
 （总计划 002→036，见 `docs/planning/MASTER_PLAN.md`）。当前状态：001（可驾驶、可瞄准、
 可射击的 3D 坦克靶场 v0.0.1）已实现；002 已按"开发基线、带保留项"签收
 （`docs/REVIEW_002_ACCEPTANCE.md`；人工逐项/截图等保留项延期至 011 核心体验验收，
-不代签）；**当前状态：003 已签收（status=accepted，
-scope=development_baseline_with_carryover，accepted_sha=eb63540；
-见 `docs/REVIEW_003_ACCEPTANCE.md`。003-R2 修订循环结束。
-保留项：U003-01 人工试玩、OS 级 Alt+Tab、人工画面手感（最迟 011 前）；
-TOOL-003-01 运行器原始输出保存与全阶段超时（下次使用运行器前维护）。
-recommended_next_order=004（仅登记；004 实现前需按 RC-001 设计清楚
-车型/数据结构/关键函数/工具流程）**。
+不代签）；**当前状态：004 已签收（status=accepted，
+scope=geometry_and_inspector_baseline_with_carryover，accepted_sha=84c8b8d；
+见 `docs/DELIVERY_004_R2.md` 与 GPT 签收裁决。004-R1/R2 修订循环结束。
+保留项：历史装甲厚度（图板目视核验未完成，保持 UNKNOWN）、史料原页目视
+（7 张 PNG 待人工转送 ChatGPT）、真人体验验收（最迟 011 前）。
+recommended_next_order=005（已授权：统一命中查询与多层交点排序，
+新分支 work/005-shot-query，起点 84c8b8d）**。
 每张工作单完成即停、签收后才进入下一单；未获批的范围一律不实现。
 
 ## 技术栈
@@ -48,13 +48,11 @@ recommended_next_order=004（仅登记；004 实现前需按 RC-001 设计清楚
 - 所有速度 / 加速度 / 转速 / 冷却参数集中在 GameConfig
 
 ## 工作单边界（002 修订，替代原"仅限 001"条款）
-- 按“当前获批工作单”逐步推进；003 已签收（status=accepted，
-  scope=development_baseline_with_carryover，accepted_sha=eb63540；
-  003-R2 修订循环结束，见 `docs/REVIEW_003_ACCEPTANCE.md` 与
-  `docs/DELIVERY_003_R2.md`）；下一单 004 已登记为 recommended_next_order，
-  但实现前需按 RC-001 先设计（车型/数据结构/关键函数/工具流程），
-  未获批不实现。
-- 003 范围：多车辆（A 玩家 / B 测试目标）、VehicleDefinition/WeaponDefinition/
+- 按“当前获批工作单”逐步推进；004 已签收（status=accepted，
+  scope=geometry_and_inspector_baseline_with_carryover，accepted_sha=84c8b8d；
+  见 `docs/DELIVERY_004_R2.md` 与 GPT 签收裁决）；当前单 005 已授权
+  （统一命中查询与多层交点排序，分支 work/005-shot-query，起点 84c8b8d）。
+- 003 范围（已签收，行为保留）：多车辆（A 玩家 / B 测试目标）、VehicleDefinition/WeaponDefinition/
   ShellDefinition 数据定义与校验、独立 VehicleRuntimeState、统一 VehicleCommand、
   本地玩家控制器（单车驱动与武器不再直接读全局键鼠）、统一实体生成/销毁/控制者设置、
   自身命中排除按实体（A 可命中 B、墙挡不可命中、炮镜不隐藏 B）、reset_vehicle 与
