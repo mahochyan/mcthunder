@@ -1,0 +1,6 @@
+﻿
+[abort-check] bad config injected; launching real main scene in subprocess...
+[abort-check] subprocess exit=1 abort_log=true config_restored=true
+[abort-check] PASS: bad config → real main scene aborts with nonzero exit; production config intact
+
+
