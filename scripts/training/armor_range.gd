@@ -141,6 +141,9 @@ func _on_armor_contact(record: Dictionary) -> void:
 		_details.text += "\n"
 		for r in contact_history:
 			_details.text += "\n%s: %s" % [r.surface_id, str(r.result).to_upper()]
+	if str(record.result) in ["unknown_armor","grazing_unresolved","invalid"]:
+		_details.text = "Shot #%d · %s\nArmor: %s\nNo penetration decision is possible.\nThe projectile stops conservatively." % [
+			record.shot_id, record.surface_id, thickness]
 
 func _process(delta: float) -> void:
 	super._process(delta)

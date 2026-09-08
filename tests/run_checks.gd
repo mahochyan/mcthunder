@@ -15,6 +15,11 @@ func _initialize() -> void:
 	_run()
 
 func _run() -> void:
+	# -s SceneTree headless defaults to a 64x64 viewport, which cannot contain a real menu.
+	# Use the project's actual configured window size for physical mouse event checks.
+	root.size = Vector2i(
+		int(ProjectSettings.get_setting("display/window/size/viewport_width",1280)),
+		int(ProjectSettings.get_setting("display/window/size/viewport_height",720)))
 	print("=== PixelArmor 自动检查 ===")
 	print("engine=", Engine.get_version_info()["string"], "  os=", OS.get_name())
 	_check_fonts()
@@ -394,6 +399,7 @@ func _run() -> void:
 	var btn: Button = main.hud.resume_btn
 	_ok(btn != null and btn.visible, "R1-B 前提：继续按钮存在且可见")
 	var center: Vector2 = btn.get_global_rect().get_center()
+	_ok(Rect2(Vector2.ZERO,Vector2(root.size)).has_point(center),"007 baseline: actual menu click lies inside configured viewport")
 	var press_ev := InputEventMouseButton.new()
 	press_ev.button_index = MOUSE_BUTTON_LEFT
 	press_ev.pressed = true

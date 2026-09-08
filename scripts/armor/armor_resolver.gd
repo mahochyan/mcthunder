@@ -37,6 +37,7 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 	if cos_angle <= GameConfig.ARMOR_GRAZING_COS:
 		out.result = "grazing_unresolved"
 		return out
+	out.effective_mm = thickness / cos_angle
 	if float(out.angle_deg) >= GameConfig.ARMOR_RICOCHET_DEG - 1e-5:
 		if int(out.ricochets) >= GameConfig.ARMOR_MAX_RICOCHETS:
 			out.result = "ricochet_limit"

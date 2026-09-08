@@ -60,6 +60,7 @@ func _unit() -> void:
 	r = _resolve(1,80,100,40)
 	_ok(r.result == "ricochet" and _near(r.scale,0.5) and _near(r.consumed_mm,20) and _near(r.after_mm,30),"bounce scales k AND consumed; residual60 becomes30")
 	_ok(_near((r.direction as Vector3).length(),1) and _near(r.speed_scale,0.6),"reflection normalized and speed scale0.6")
+	_ok(float(r.effective_mm) > 5.7 and float(r.effective_mm) < 5.8,"ricochet detail retains geometric LOS thickness")
 	_ok((r.direction as Vector3).dot(_contact(1,80).normal_world) > 0,"reflection leaves surface")
 	r = _resolve(1,80,100,0,1,1)
 	_ok(r.result == "ricochet_limit" and not r.continue_flight,"second ricochet stops")
