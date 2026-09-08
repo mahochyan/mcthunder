@@ -1,5 +1,5 @@
 param(
-    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks'),
+    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks'),
     [int]$TimeoutSeconds = 240,
     [string]$Order = '007'
 )
@@ -14,7 +14,7 @@ $engineVersion = (& $engine --version).Trim()
 $summary = [System.Collections.Generic.List[object]]::new()
 $steps = @(@{Name='import'; Args='--headless --path "' + $projectRoot + '" --editor --import'})
 foreach ($suite in $Suites) {
-    $simulationClock = if ($suite -in @('run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks')) { ' --fixed-fps 60' } else { '' }
+    $simulationClock = if ($suite -in @('run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks')) { ' --fixed-fps 60' } else { '' }
     $steps += @{Name=$suite; Args='--headless --path "' + $projectRoot + '"' + $simulationClock + ' -s "res://tests/' + $suite + '.gd"'}
 }
 foreach ($step in $steps) {

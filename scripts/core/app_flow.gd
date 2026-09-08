@@ -21,7 +21,7 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if profile == null:
 		var isolated := DisplayServer.get_name() == "headless"
-		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check"]:
+		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check"]:
 			if args.has(flag): isolated = true
 		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
 	progression = ProgressionService.new(profile)
@@ -54,6 +54,10 @@ func _ready() -> void:
 		demo.call_deferred("run",self)
 	elif args.has("--garage-play-check"):
 		var demo := load("res://tests/run_garage_demo.gd").new() as Node
+		add_child(demo)
+		demo.call_deferred("run",self)
+	elif args.has("--industrial-play-check"):
+		var demo := load("res://tests/run_industrial_demo.gd").new() as Node
 		add_child(demo)
 		demo.call_deferred("run",self)
 
@@ -128,7 +132,7 @@ func enter_laboratory(id: String) -> void:
 	if not pending_reward.is_empty():
 		_settle_match(pending_reward.token,pending_reward.result)
 		if not pending_reward.is_empty(): return
-	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn","team":"res://scenes/maps/map_hill_village.tscn"}
+	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn","team":MapRegistry.scene_path("hill_village")}
 	allowed["historical"] = "res://scenes/training/ballistics_range.tscn"
 	allowed["shells"] = "res://scenes/training/shell_range.tscn"
 	if not allowed.has(id): return
@@ -144,6 +148,7 @@ func enter_laboratory(id: String) -> void:
 			var registered := progression.register_match(match_config)
 			if not registered.ok: garage.error_label.text = registered.reason; return
 			match_token = registered.token
+	if id == "team": allowed[id] = MapRegistry.scene_path(match_config.map_id() if match_config != null else "hill_village")
 	var prepared := garage.build_loadout()
 	if prepared.ok: settings = prepared.loadout
 	_transitioning = true
@@ -162,7 +167,9 @@ func restart_match() -> void:
 			return
 		match_token = registered.token
 	_transitioning = true
-	call_deferred("_enter_lab","res://scenes/maps/map_hill_village.tscn" if training is VillageRange else "res://scenes/battle/team_range.tscn" if training is TeamRange else "res://scenes/battle/duel_range.tscn")
+	var path := "res://scenes/battle/team_range.tscn" if training is TeamRange else "res://scenes/battle/duel_range.tscn"
+	if training is VillageRange: path = MapRegistry.scene_path(match_config.map_id() if match_config != null else "hill_village")
+	call_deferred("_enter_lab",path)
 
 func _enter_lab(path: String) -> void:
 	_clear_training()
@@ -174,7 +181,7 @@ func _enter_lab(path: String) -> void:
 		_show_error("实验室资源不可用。")
 		return
 	training = scene.instantiate()
-	if path in ["res://scenes/training/ballistics_range.tscn","res://scenes/maps/map_hill_village.tscn","res://scenes/battle/team_range.tscn"]:
+	if training is TeamRange or path == "res://scenes/training/ballistics_range.tscn":
 		training.selected_vehicle_id = selected_vehicle_id
 	if training is BallisticsRange: training.prepared_match = match_config
 	add_child(training)

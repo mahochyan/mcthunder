@@ -26,6 +26,9 @@ static func create() -> MapDefinition:
 				for side in ["w","e"]: edges.append({"a":key,"b":"hub%d_"%team+side,"width":12})
 		map.spawns[team] = poses
 		map.supply_reservations.append(Vector3(0,0,sign*143))
+		var supply := "supply%d"%team
+		nodes[supply] = map.supply_reservations[team-1]
+		for i in [1,2]: edges.append({"a":supply,"b":"spawn%d_1_%d"%[team,i],"width":12})
 		for side in [-1,1]:
 			var suffix := "w" if side<0 else "e"
 			var hub := "hub%d_"%team+suffix

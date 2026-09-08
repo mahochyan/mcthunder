@@ -4,6 +4,8 @@ var garage: GarageShell
 var store: ProfileStore
 var mode_choice: OptionButton
 var difficulty_choice: OptionButton
+var map_choice: OptionButton
+var map_note: Label
 var research_label: Label
 var research_button: Button
 var settings_button: Button
@@ -46,7 +48,13 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 		check.text = ["M4A3 · 中型","M24 · 轻型","M26 · 重型 / 中型","M36 · 坦克歼击车"][i]
 		details.add_child(check); lineup_checks[id] = check
 		check.toggled.connect(func(on: bool) -> void: _lineup_changed(id,on))
-	CoreUI.label(details,"地图：丘陵村庄 · 4对4占点",15)
+	CoreUI.label(details,"地图 · 4对4占点",15)
+	map_choice = OptionButton.new(); details.add_child(map_choice)
+	for id in MapRegistry.IDS: map_choice.add_item(MapRegistry.ENTRIES[id].title)
+	map_choice.select(MapRegistry.IDS.find(saved.map))
+	map_note = CoreUI.label(details,MapRegistry.ENTRIES[saved.map].description,13)
+	map_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	map_choice.item_selected.connect(func(index: int) -> void: map_note.text = MapRegistry.ENTRIES[MapRegistry.IDS[index]].description)
 	difficulty_choice = OptionButton.new()
 	for title in ["简单 AI","普通 AI","困难 AI"]: difficulty_choice.add_item(title)
 	difficulty_choice.select(["easy","normal","hard"].find(saved.difficulty))
@@ -165,7 +173,7 @@ func apply_rack_preview() -> void:
 		if garage.preview._module_nodes.has(id): garage.preview._module_nodes[id].visible = garage._view_mode == 2 and checked.inventory.racks[id] > 0
 
 func build_match() -> Dictionary:
-	return MatchConfig.build({"mode":mode(),"selected_vehicle_id":current_id,"map":"hill_village","difficulty":["easy","normal","hard"][difficulty_choice.selected],"lineup":lineup_ids,"loadouts":loadouts},store.service,store.snapshot().unlocked)
+	return MatchConfig.build({"mode":mode(),"selected_vehicle_id":current_id,"map":MapRegistry.IDS[map_choice.selected],"difficulty":["easy","normal","hard"][difficulty_choice.selected],"lineup":lineup_ids,"loadouts":loadouts},store.service,store.snapshot().unlocked)
 
 func save_settings() -> Dictionary:
 	var checked := build_match()

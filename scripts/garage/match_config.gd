@@ -6,7 +6,7 @@ var _data: Dictionary = {}
 static func build(value: Dictionary, service: GarageService, unlocked: Array) -> Dictionary:
 	for field in ["mode","selected_vehicle_id","map","difficulty"]:
 		if not value.get(field) is String: return {"ok":false,"reason":"出战设置格式无效"}
-	if value.map != "hill_village" or value.difficulty not in ["easy","normal","hard"]: return {"ok":false,"reason":"地图或难度不可用"}
+	if not MapRegistry.contains(value.map) or value.difficulty not in ["easy","normal","hard"]: return {"ok":false,"reason":"地图或难度不可用"}
 	if not value.get("lineup") is Array or not value.get("loadouts") is Dictionary: return {"ok":false,"reason":"缺少编成或配弹"}
 	var lineup := Lineup.validate(value.lineup,value.selected_vehicle_id,value.mode,unlocked)
 	if not lineup.ok: return lineup
@@ -27,3 +27,4 @@ func vehicle_ids() -> Array: return _data.get("lineup",[]).duplicate()
 func selected() -> String: return str(_data.get("selected_vehicle_id",""))
 func difficulty() -> String: return str(_data.get("difficulty","normal"))
 func mode() -> String: return str(_data.get("mode","training"))
+func map_id() -> String: return str(_data.get("map","hill_village"))
