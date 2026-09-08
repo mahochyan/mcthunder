@@ -282,3 +282,6 @@ ProjectileManager在实际推进采样路径，接触前冻结同物理步QueryS
 
 ## 012 地形与车型外形
 GroundProbe读取WORLD真实法线，VehiclePose生成刚性车体基，Tank负责速度投影/坡度门与碰撞。Turret用完整父基解局部瞄准，QuerySnapshot仍读同一实际变换。M4EngineeringProfile按实例复制定义、共用可见装甲面和查询面；M4VoxelDetails/M4TrackMotion是只读视觉细节。TerrainRange通过AppFlow正常进入；旧测试车默认参数保持，车型相机/碰撞尺寸由VehicleDefinition提供。
+
+## 013 AI命令与low-poly
+DriveNavigator提供有宽度限制的确定性路点图；AIPathDriver只产生命令，StuckDetector根据实际位移触发有界脱困。VehicleActor保留单次执行并以代次/绑定检查阻断poll重入旧命令，相机仅授予本地控制者。M4LowPolyDetails的分面圆柱/锥形炮管替代阶梯圆件，装甲查询几何和规则不变。

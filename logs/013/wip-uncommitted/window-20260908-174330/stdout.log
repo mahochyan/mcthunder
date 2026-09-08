@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage scroll reveals AI laboratory entry
+[PASS] normal mouse click starts real AI driving trial
+[PASS] normal AI spawn keeps intended observer camera
+[PASS] actual window capture 01_ai_departure
+[PASS] real-time AI physically takes side route around box
+[PASS] actual window capture 02_ai_corner
+[PASS] real-time route completes by parking at goal
+[PASS] actual window capture 03_ai_arrived
+[PASS] normal case key displays actual narrow-road refusal
+[PASS] actual window capture 04_narrow_rejected
+[PASS] actual parked player vehicle makes AI reverse after bounded wait
+[PASS] actual window capture 05_ai_reverse
+[PASS] AI replans after reverse and reaches goal without teleport
+[PASS] actual window capture 06_recovery_arrived
+[PASS] normal Tab drives player vehicle while AI ownership stays independent
+[PASS] normal W moves player only after AI has parked
+[PASS] normal menu pauses AI laboratory
+[PASS] normal return frees AI trial and keeps garage usable
+=== 结果: 18 项检查, 0 失败 ===
+[render] fps=58
+AI_DRIVE_PLAYER_CHECKS_PASS
