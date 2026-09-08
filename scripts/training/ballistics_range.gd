@@ -21,8 +21,8 @@ var _last_impact: Dictionary = {}   # 006：最近飞弹终止（HUD 展示）
 var _demo := false
 var _demo_dir := "docs/evidence/006/demo"
 var _demo_step := 0
-var _demo_wait := 0              # 空闲帧等待（暂停段使用；物理冻结时空闲帧仍走）
-var _demo_wait_pf := -1          # 目标 Engine.get_physics_frames()（物理帧等待，与渲染限帧无关）
+var _demo_wait := 0              # 自增物理 tick 等待（与渲染限帧无关；暂停期间 ALWAYS 仍走）
+var _demo_ticks := 0             # 演示自增 tick（_physics_process 驱动）
 var _demo_errors := 0
 var _demo_saved := 0
 var _demo_sample_a := {}         # 飞行中采样 A
@@ -72,6 +72,10 @@ func _ready() -> void:
 	for i in ua.size():
 		if ua[i] == "--shot-dir" and i + 1 < ua.size():
 			_demo_dir = ua[i + 1]
+	if _demo:
+		# 演示步进机跑在物理回调里（本节点优先级 200 > 管理器 100 → 看到推进后状态）；
+		# 自增 tick 计数等待与渲染限帧（--max-fps）无关，暂停期间 ALWAYS 节点仍走。
+		process_physics_priority = 200
 
 func _build_world() -> void:
 	# 地面：沿 -Z 长 180m（车辆在 z=0，靶板在 z=-30/-150，墙后 2m 背板）
@@ -185,10 +189,17 @@ func _on_projectile_finished(record: Dictionary) -> void:
 		"flight_time_s": float(record.get("flight_time_s", 0.0)),
 		"travelled_m": float(record.get("travelled_m", 0.0)),
 	}
+	if _demo:
+		print("[bdemo] finish record: proj=%d shot=%d reason=%s travelled=%.3fm t=%.4fs point=%s detail=%s" % [
+			int(record.get("projectile_id", 0)), int(record.get("shot_id", 0)), reason,
+			float(record.get("travelled_m", 0.0)), float(record.get("flight_time_s", 0.0)),
+			str(record.get("impact_point", Vector3.ZERO)), str(record.get("detail", ""))])
 
 func _process(_delta: float) -> void:
-	if _demo:
-		_demo_tick()
+	# 演示实际渲染帧率采样（物理 tick 驱动的步进机走到重开段后开始累计）
+	if _demo and _demo_step >= 30 and _demo_fps_n < 60:
+		_demo_fps_sum += float(Engine.get_frames_per_second())
+		_demo_fps_n += 1
 	if not _initialized or actor == null or hud == null:
 		return
 	var result_text := ""
@@ -270,81 +281,97 @@ func _return_to_range() -> void:
 # 自然装填不清冷却；截图归档 --shot-dir；断言失败退出码非 0。
 # =====================================================================
 
-func _demo_tick() -> void:
-	if _demo_wait_pf >= 0:
-		if Engine.get_physics_frames() < _demo_wait_pf:
+func _physics_process(_delta: float) -> void:
+	# 006-d：演示步进机跑在物理回调（优先级 200 > 管理器 100 → 看到推进后状态）；
+	# 自增 tick 等待与渲染限帧无关；暂停期间 ALWAYS 节点仍走。
+	if _demo:
+		_demo_ticks += 1
+		if _demo_ticks > 6000:   # 看门狗：演示总时长上限（~100s 物理时间），防永久挂起
+			print("[bdemo] FAIL: watchdog: demo_ticks=%d step=%d" % [_demo_ticks, _demo_step])
+			print("[bdemo] shots_saved=%d errors=%d" % [_demo_saved, _demo_errors])
+			print("BALLISTICS_DEMO_FAIL")
+			get_tree().quit(1)
 			return
-		_demo_wait_pf = -1
+		_demo_tick()
+
+func _demo_tick() -> void:
+	# 006-d 弹道演示（-- --ballistics-demo）：同一训练装配 + 生产发射路径，
+	# 记录五个时间点：刚发射未命中 / 实际飞行中 / 接触后 / 暂停冻结 / 重开已清空。
+	# 飞行时长 ~5.3 物理步（25.8m / 5m 每步@60Hz）——采样点均赶在撞板前。
 	if _demo_wait > 0:
 		_demo_wait -= 1
 		return
 	_demo_step += 1
+	# 步进机标签必须连续（match 自动 +1 推进；空号会白耗 tick）
 	match _demo_step:
 		10:
 			seed(20250606)   # 固定随机状态（命中判定不含随机；kick_recoil 仅视觉）
 			print("[bdemo] engine=%s" % Engine.get_version_info().string)
 			print("[bdemo] max_fps_requested=%d physics_tps=%d seed=20250606" % [Engine.max_fps, Engine.physics_ticks_per_second])
-			_demo_wait_pf = Engine.get_physics_frames() + 30
-		20:   # 瞄准近靶板中心（生产意图路径：相机 aim → 炮塔自然收敛）
+			_demo_wait = 30
+		11:   # 瞄准近靶板中心（生产意图路径：相机 aim → 炮塔自然收敛）
 			_demo_aim_yaw(Vector3(0, 1.4, NEAR_Z))
-			_demo_wait_pf = Engine.get_physics_frames() + 6
-		25:
+			_demo_wait = 6
+		12:
 			_demo_aim_pitch(Vector3(0, 1.4, NEAR_Z))
-			_demo_wait_pf = Engine.get_physics_frames() + 104
-		30:
+			_demo_wait = 104   # 自然收敛预算（炮塔有限转速上限 ~77 tick）
+		13:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (near board)" % actor.turret.aim_error_deg())
 				return
 			print("[bdemo] t_pf=%d aim locked near board (err=%.2f deg)" % [Engine.get_physics_frames(), actor.turret.aim_error_deg()])
 			_demo_aim_yaw(Vector3(0, 3.6, NEAR_Z - 2.0))   # 抬瞄越过靶板上缘(2.8) → 未命中
-			_demo_wait_pf = Engine.get_physics_frames() + 6
-		35:
+			_demo_wait = 6
+		14:
 			_demo_aim_pitch(Vector3(0, 3.6, NEAR_Z - 2.0))
-			_demo_wait_pf = Engine.get_physics_frames() + 104
-		40:
+			_demo_wait = 104
+		15:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (above board)" % actor.turret.aim_error_deg())
 				return
 			if not _demo_fire("shot1"):
 				return
 			print("[bdemo] shot1 aim above board top -> expected MISS board, WORLD backwall")
-			_demo_wait_pf = Engine.get_physics_frames() + 2
-		50:
+			_demo_wait = 2   # 飞行 ~5.3 步，截图须在撞板前
+		16:
 			_demo_shot("demo_1_just_fired_miss.png")   # 刚发射未命中
-			_demo_wait_pf = Engine.get_physics_frames() + 30   # 飞行 + 终止预算
-		60:
+			_demo_wait = 30   # 飞行 + 终止预算
+		17:
 			if projectiles.active_count() > 0:
 				_demo_fail("shot1 still active after wait (active=%d)" % projectiles.active_count())
 				return
 			if not _demo_check_record("shot1", "WORLD", 27.5, 31.5):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + int(actor.gunner.cooldown_left * float(Engine.physics_ticks_per_second)) + 5
-		70:
+			_demo_wait = _demo_reload_ticks()
+		18:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot2 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
 			print("[bdemo] t_pf=%d natural reload done (cooldown=%.2f)" % [Engine.get_physics_frames(), actor.gunner.cooldown_left])
 			_demo_aim_yaw(Vector3(0, 1.4, NEAR_Z))
-			_demo_wait_pf = Engine.get_physics_frames() + 6
-		75:
+			_demo_wait = 6
+		19:
 			_demo_aim_pitch(Vector3(0, 1.4, NEAR_Z))
-			_demo_wait_pf = Engine.get_physics_frames() + 104
-		80:
+			_demo_wait = 104
+		20:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (near board #2)" % actor.turret.aim_error_deg())
 				return
 			if not _demo_fire("shot2"):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + 3
-		90:
+			_demo_wait = 2   # 飞行仅 ~5.3 物理步（26.6m），采样须赶在撞板前
+		21:
 			_demo_sample_a = _demo_sample()
 			if _demo_sample_a.is_empty():
+				for stx in projectiles.active_states():
+					print("[bdemo] DBG active st: id=%d status=%s age=%.4f trav=%.3f born=%d now=%d" % [stx.projectile_id, stx.status, stx.age_s, stx.travelled_m, stx.born_physics_tick, Engine.get_physics_frames()])
+				print("[bdemo] DBG sample tick=%d last_impact=%s" % [Engine.get_physics_frames(), str(_last_impact)])
 				_demo_fail("shot2 in-flight sample failed (active=%d)" % projectiles.active_count())
 				return
 			print("[bdemo] t_pf=%d shot2 IN FLIGHT: age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), _demo_sample_a["age"], _demo_sample_a["trav"], str(_demo_sample_a["pos"])])
 			_demo_shot("demo_2_in_flight.png")   # 实际飞行中
-			_demo_wait_pf = Engine.get_physics_frames() + 2
-		95:
+			_demo_wait = 1
+		22:
 			var sb := _demo_sample()
 			if sb.is_empty():
 				_demo_fail("shot2 second sample failed (active=%d)" % projectiles.active_count())
@@ -353,22 +380,23 @@ func _demo_tick() -> void:
 				_demo_fail("shot2 not advancing (trav %.3f -> %.3f)" % [float(_demo_sample_a["trav"]), float(sb["trav"])])
 				return
 			print("[bdemo] t_pf=%d shot2 advanced: travelled %.3f -> %.3f m" % [Engine.get_physics_frames(), float(_demo_sample_a["trav"]), float(sb["trav"])])
-			_demo_wait_pf = Engine.get_physics_frames() + 20
-		100:
+			_demo_wait = 20
+		23:
 			if projectiles.active_count() > 0:
 				_demo_fail("shot2 still active after wait (active=%d)" % projectiles.active_count())
 				return
 			if not _demo_check_record("shot2", "WORLD", 24.0, 27.0):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + int(actor.gunner.cooldown_left * float(Engine.physics_ticks_per_second)) + 5
-		110:
+			_demo_shot("demo_3_after_impact.png")   # 接触后（HUD LAST IMPACT + 靶板反馈）
+			_demo_wait = _demo_reload_ticks()
+		24:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot3 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
 			if not _demo_fire("shot3"):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + 4
-		120:
+			_demo_wait = 2   # 飞行 ~5.3 步，暂停采样须在撞板前
+		25:
 			var sf := _demo_sample()
 			if sf.is_empty():
 				_demo_fail("shot3 pre-pause sample failed (active=%d)" % projectiles.active_count())
@@ -376,8 +404,8 @@ func _demo_tick() -> void:
 			_demo_frozen = sf
 			print("[bdemo] t_pf=%d shot3 in flight, pausing: age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), sf["age"], sf["trav"], str(sf["pos"])])
 			_pause()
-			_demo_wait = 30   # 空闲帧等待（物理已冻结；暂停菜单可见）
-		130:
+			_demo_wait = 30   # 暂停期间 ALWAYS 节点物理回调仍走；飞弹 PAUSABLE 冻结
+		26:
 			var sr := _demo_sample()
 			if sr.is_empty():
 				_demo_fail("paused sample failed (active=%d)" % projectiles.active_count())
@@ -385,25 +413,25 @@ func _demo_tick() -> void:
 			if sr["pos"] != _demo_frozen["pos"] or sr["age"] != _demo_frozen["age"] or sr["trav"] != _demo_frozen["trav"]:
 				_demo_fail("pause not frozen: pos %s vs %s" % [str(_demo_frozen["pos"]), str(sr["pos"])])
 				return
-			print("[bdemo] pause frozen verified: pos/age/travelled identical over 30 idle frames")
+			print("[bdemo] pause frozen verified: pos/age/travelled identical over 30 demo ticks")
 			_demo_shot("demo_4_paused_frozen.png")   # 暂停冻结
 			_resume()
-			_demo_wait_pf = Engine.get_physics_frames() + 30
-		140:
+			_demo_wait = 30   # 恢复后剩余飞行 ~3 步 + 终止
+		27:
 			if projectiles.active_count() > 0:
 				_demo_fail("shot3 still active after resume wait (active=%d)" % projectiles.active_count())
 				return
 			if not _demo_check_record("shot3", "WORLD", 24.0, 27.0):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + int(actor.gunner.cooldown_left * float(Engine.physics_ticks_per_second)) + 5
-		150:
+			_demo_wait = _demo_reload_ticks()
+		28:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot4 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
 			if not _demo_fire("shot4"):
 				return
-			_demo_wait_pf = Engine.get_physics_frames() + 2
-		160:
+			_demo_wait = 2
+		29:
 			if projectiles.active_count() != 1:
 				_demo_fail("shot4 expected 1 in flight before reset (active=%d)" % projectiles.active_count())
 				return
@@ -414,14 +442,17 @@ func _demo_tick() -> void:
 			print("[bdemo] t_pf=%d reset: in-flight 1 -> 0 (重开已清空)" % Engine.get_physics_frames())
 			_demo_shot("demo_5_reset_cleared.png")
 			_demo_wait = 30
-		170:
-			_demo_fps_sum += float(Engine.get_frames_per_second())
-			_demo_fps_n += 1
-			if _demo_fps_n < 60:
-				_demo_step -= 1   # 原地驻留采样实际渲染帧率
-		180:
+		30:
+			# 采样期：step 保持 30（_process 在此期间累计实际渲染帧率）
+			if _demo_ticks % 120 == 0:
+				print("[bdemo] t_pf=%d fps sampling: n=%d/%d paused=%s" % [Engine.get_physics_frames(), _demo_fps_n, 60, str(get_tree().paused)])
+			if _demo_fps_n >= 60:
+				_demo_step = 39   # 下一 tick 到 40 收尾
+			else:
+				_demo_wait = 120  # 再等 2s 物理时间（期间空闲帧持续累计）
+		40:
 			var fps_avg := _demo_fps_sum / float(maxi(_demo_fps_n, 1))
-			print("[bdemo] render_fps_actual=%.1f (requested max_fps=%d) physics_tps=%d physics_frames=%d" % [fps_avg, Engine.max_fps, Engine.physics_ticks_per_second, Engine.get_physics_frames()])
+			print("[bdemo] render_fps_actual=%.1f (requested max_fps=%d) physics_tps=%d physics_frames=%d demo_ticks=%d" % [fps_avg, Engine.max_fps, Engine.physics_ticks_per_second, Engine.get_physics_frames(), _demo_ticks])
 			print("[bdemo] shots_saved=%d errors=%d" % [_demo_saved, _demo_errors])
 			if _demo_errors > 0:
 				print("BALLISTICS_DEMO_FAIL")
@@ -434,6 +465,10 @@ func _demo_aim_yaw(p: Vector3) -> void:
 	var dp := p - actor.tank.global_position
 	actor.cam_rig.aim_yaw = atan2(-dp.x, -dp.z)
 	actor.cam_rig.aim_pitch = 0.0
+
+func _demo_reload_ticks() -> int:
+	# 自然装填等待（不清冷却）：剩余装填秒数 → 物理 tick 数，留 5 tick 余量
+	return int(actor.gunner.cooldown_left * float(Engine.physics_ticks_per_second)) + 5
 
 func _demo_aim_pitch(p: Vector3) -> void:
 	# 相机位置只依赖 aim_yaw（高度恒定），yaw 生效后一次即可定 pitch
@@ -489,6 +524,5 @@ func _demo_fail(msg: String) -> void:
 	_demo_errors += 1
 	push_error("[bdemo] FAIL: " + msg)
 	print("[bdemo] FAIL: ", msg)
-	_demo_step = 179   # 下一 tick 自增到 180 → 收尾（打印汇总并退出码非 0）
+	_demo_step = 39   # 下一 tick 自增到 40 → 收尾（打印汇总并退出码非 0）
 	_demo_wait = 0
-	_demo_wait_pf = -1
