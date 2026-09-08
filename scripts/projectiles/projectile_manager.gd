@@ -20,6 +20,8 @@ const END_EPS := 1.0e-9         # 寿命/路程端点容差
 
 signal projectile_finished(record: Dictionary)   # 终止记录（一次且完整；先标终止再发出）
 signal projectile_contact(record: Dictionary)
+signal projectile_damage(record: Dictionary)
+var damage_handler := Callable() # Non-notifying commit to the matching live target's state.
 
 var _next_projectile_id := 1
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
@@ -221,7 +223,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			"physics_tick": Engine.get_physics_frames(),
 			"from_world": st.position_world, "to_world": query_end,
 			"excluded_instances": [{"entity_id": st.shooter_id, "life_id": st.shooter_life_id}],
-			"include_modules": true, "include_crew": false, "world_stop": world_contact,
+			"include_modules": true, "include_crew": st.armor_policy == "resolve", "world_stop": world_contact,
 		}, snapshots)
 		if not qr.get("ok", false):
 			finish_once(st.projectile_id, "unresolved_query", {"detail": "geometry query"})
@@ -238,8 +240,18 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 		qr.events = filtered
 		var sel := ExternalContactSelector.select_contact(qr)
 		var status := str(sel.get("status", "unresolved"))
-		if status in ["vehicle", "world"]:
-			var ev: Dictionary = sel.event if status == "vehicle" else sel.contact
+		if st.armor_policy == "resolve" and status != "unresolved":
+			var boundary := INF
+			if status == "vehicle":
+				boundary = float(sel.event.distance_m)
+			elif status == "world":
+				boundary = float(sel.contact.distance_m)
+			var damage_contact := DamageResolver.next_contact(qr,st.interior_targets,st.damage_seen,boundary)
+			if not damage_contact.is_empty():
+				status = "damage"
+				sel.event = damage_contact
+		if status in ["vehicle", "world", "damage"]:
+			var ev: Dictionary = sel.contact if status == "world" else sel.event
 			var t_frac := clampf(float(ev.get("t", 0.0)), 0.0, 1.0)
 			var contact_time := used_h * t_frac
 			var impact_p: Vector3 = ev.get("point_world", query_end)
@@ -255,6 +267,11 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 				if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
 					collider.register_hit({})
 				return
+			if status == "damage":
+				if not handle_damage_contact(st,ev):
+					return
+				pending_h.clear()
+				continue
 			if step_contacts >= GameConfig.ARMOR_CONTACTS_PER_STEP or st.contacts.size() >= GameConfig.ARMOR_CONTACTS_PER_SHOT:
 				finish_once(st.projectile_id, "contact_budget", {"detail": "bounded contact limit"})
 				return
@@ -305,6 +322,8 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		st.ricochets = result.ricochets
 		if result.result == "ricochet":
 			st.velocity_world = result.direction * st.velocity_world.length() * float(result.speed_scale)
+		if result.result == "penetrated":
+			st.interior_targets[DamageResolver.target_key(ev)] = not bool(result.backface)
 	# Prune only surfaces left behind. Multiple surfaces at the same point each cost once.
 	for key in st.start_surfaces.keys():
 		if st.position_world.distance_to(st.start_surfaces[key]) > GameConfig.ARMOR_START_EPS_M:
@@ -337,6 +356,49 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 			"target_id": ev.get("entity_id", ""), "target_life_id": ev.get("life_id", 0),
 			"surface_id": ev.get("surface_id", ""),
 		})
+		return false
+	return true
+
+func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
+	if not damage_handler.is_valid() or st.damage_records.size() >= GameConfig.DAMAGE_MAX_CONTACTS:
+		finish_once(st.projectile_id,"unresolved_damage",{"detail":"missing handler or damage budget"})
+		return false
+	var before := maxf(0,st.budget_scale * PenetrationCurve.sample_mm(st.penetration_curve,st.travelled_m) - st.consumed_mm)
+	if before <= 0:
+		finish_once(st.projectile_id,"damage_budget_exhausted",{})
+		return false
+	var event := ev.duplicate(true)
+	event.merge({
+		"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
+		"shot_id":st.shot_id,"projectile_id":st.projectile_id,
+		"event_id":JSON.stringify([st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id,DamageResolver.item_key(ev)]),
+	},true)
+	var delta: Dictionary = damage_handler.call(event,before)
+	if not _live(st):
+		return false
+	if not delta.get("ok",false):
+		finish_once(st.projectile_id,"unresolved_damage",{"detail":delta.get("reason","")})
+		return false
+	var spent := float(delta.get("consumed_mm",0))
+	if not is_finite(spent) or spent < 0 or spent > before + 1e-5:
+		finish_once(st.projectile_id,"unresolved_damage",{"detail":"invalid damage budget"})
+		return false
+	st.consumed_mm += spent
+	st.damage_seen[DamageResolver.item_key(ev)] = true
+	event.merge(delta,true)
+	event.merge({
+		"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0),
+		"damage_index":st.damage_records.size()+1,"flight_time_s":st.age_s,"travelled_m":st.travelled_m,
+		"before_mm":before,"after_mm":maxf(0,before-spent),
+		"impact_point":st.position_world,"impact_velocity":st.velocity_world,
+		"rules_version":GameConfig.DAMAGE_RULES_VERSION,"physics_tick":Engine.get_physics_frames(),
+	},true)
+	st.damage_records.append(event.duplicate(true))
+	projectile_damage.emit(event.duplicate(true))
+	if not _live(st):
+		return false
+	if before - spent <= 1e-5:
+		finish_once(st.projectile_id,"damage_budget_exhausted",{})
 		return false
 	return true
 
@@ -380,6 +442,7 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 	record["detail"] = terminal_data.get("detail", "")
 	record["armor_policy"] = st.armor_policy
 	record["contacts"] = st.contacts.duplicate(true)
+	record["damage_records"] = st.damage_records.duplicate(true)
 	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
 	projectile_finished.emit(record)
 

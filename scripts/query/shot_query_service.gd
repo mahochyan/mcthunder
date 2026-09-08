@@ -294,6 +294,13 @@ static func _collect_boxes(
 			"distance_exit_m": seg_length * t_exit,
 			"starts_inside": r.get("starts_inside", false),
 			"grazing": r.get("grazing", false),
+			"external": item.external if kind == "module" else false,
+			"distance_m": seg_length * t_enter,
+			"t": t_enter,
+			"point_world": from_world.lerp(to_world,t_enter),
+			"event_type": "enter",
+			"box_world_transform": box_world,
+			"box_size_m": item.size_m,
 		})
 		if r.get("grazing", false):
 			# 擦边/沿表面退化接触——UI 区分，不当作穿过有效体积

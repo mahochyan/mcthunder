@@ -13,6 +13,9 @@ var definition: VehicleDefinition
 var weapon: WeaponDefinition
 var shell: ShellDefinition
 var state: VehicleRuntimeState
+var damage_layout_override: VehicleLayoutDefinition
+signal damage_recorded(record: Dictionary)
+signal vehicle_disabled(record: Dictionary)
 var entity_id := ""   # 003-R1：实体标识（HUD 提示/命中事件来源）
 var life_id := 0      # 003-R2：实体生命周期标识（setup 生成；同 id 重建后不同）
 var tank: TankVehicle
@@ -40,6 +43,8 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	state.entity_id = entity_id
 	state.team_id = team_id
 	state.definition_id = definition.id
+	if not definition.layout_id.is_empty():
+		state.initialize_damage(LayoutCatalog.load_layout(definition.layout_id))
 	self.entity_id = entity_id   # 003-R1：实体标识（HUD 提示/命中事件来源）
 	controller = ctrl
 	transform = spawn
@@ -63,6 +68,9 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	add_child(gunner)
 	gunner.setup(tank, turret, weapon, shell)   # 003-R1：装填/射程唯一来源；006：弹种运动参数
 	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
+	tank.capabilities_provider = Callable(self,"capabilities")
+	turret.capabilities_provider = Callable(self,"capabilities")
+	gunner.capabilities_provider = Callable(self,"capabilities")
 	gunner.shooter_team_id = team_id   # 006：发射身份队伍（冻结）
 	tank.entity_id = entity_id   # 003-R2：命中事件 target 身份来源
 	tank.life_id = life_id       # 003-R2：目标生命周期标识
@@ -95,6 +103,30 @@ func set_controller(ctrl: Node) -> void:
 		cam_rig.set_local_control(true)
 	else:
 		cam_rig.set_local_control(false)
+
+func capabilities() -> Dictionary:
+	return VehicleCapabilities.compute(state)
+
+func set_damage_layout(layout: VehicleLayoutDefinition) -> void:
+	damage_layout_override = layout
+	state.initialize_damage(layout)
+
+func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
+	if str(event.get("entity_id","")) != entity_id or int(event.get("life_id",0)) != life_id:
+		return {"ok":false,"reason":"stale_entity"}
+	var delta := DamageResolver.resolve(event,available_mm,state.damage_snapshot())
+	if not delta.get("ok",false):
+		return delta
+	var commit := state.apply_damage_delta(str(event.get("event_id","")),delta)
+	if not commit.get("ok",false):
+		return commit
+	delta["newly_destroyed"] = commit.newly_destroyed
+	return delta # No external callbacks until manager has committed projectile budget and record.
+
+func present_damage_record(record: Dictionary) -> void:
+	damage_recorded.emit(record.duplicate(true))
+	if record.get("newly_destroyed",false):
+		vehicle_disabled.emit(record.duplicate(true))
 
 func _notification(what: int) -> void:
 	# 003-R2：暂停瞬间清空暂存——恢复时不补执行上一轮待发请求（自动兜底；

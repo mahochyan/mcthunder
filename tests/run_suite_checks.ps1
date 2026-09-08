@@ -1,5 +1,5 @@
 param(
-    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks'),
+    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks'),
     [int]$TimeoutSeconds = 240,
     [string]$Order = '007'
 )

@@ -99,6 +99,8 @@ func _ready() -> void:
 	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
 	projectiles.projectile_finished.connect(_on_projectile_finished)
 	projectiles.projectile_contact.connect(_on_projectile_contact)
+	projectiles.damage_handler = Callable(self,"_apply_projectile_damage")
+	projectiles.projectile_damage.connect(_on_projectile_damage)
 	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
 	projectile_visuals = ProjectileVisuals.new()
 	projectile_visuals.name = "ProjectileVisuals"
@@ -112,6 +114,7 @@ func _ready() -> void:
 	hud.inspect_requested.connect(open_vehicle_inspector)   # 004-c：暂停菜单检视入口
 	hud.training_requested.connect(_open_training)   # 006：暂停菜单弹道训练入口
 	hud.armor_training_requested.connect(_open_armor_training)
+	hud.damage_training_requested.connect(_open_damage_training)
 	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
@@ -174,7 +177,7 @@ func query_snapshots() -> Array:
 			var layout_id: String = c.definition.layout_id
 			if layout_id.is_empty():
 				continue
-			var layout := LayoutCatalog.load_layout(layout_id)
+			var layout: VehicleLayoutDefinition = c.damage_layout_override if c.damage_layout_override != null else LayoutCatalog.load_layout(layout_id)
 			if layout == null:
 				continue
 			out.append(QuerySnapshotBuilder.build_from_vehicle(c.tank, layout))
@@ -365,6 +368,13 @@ func _open_armor_training() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/training/armor_range.tscn")
 
+func _open_damage_training() -> void:
+	if not _can_use_gameplay() or not _paused:
+		return
+	projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/training/damage_range.tscn")
+
 func _on_projectile_contact(record: Dictionary) -> void:
 	if _aborted or record.get("armor_policy", "") != "resolve" or not record.get("first_for_target", false):
 		return
@@ -373,6 +383,17 @@ func _on_projectile_contact(record: Dictionary) -> void:
 	var target := find_vehicle(str(record.get("target_id","")), int(record.get("target_life_id",0)))
 	if target != null:
 		target.register_hit(record)
+
+func _apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
+	if int(event.get("round_id",-1)) != _gate.round_id:
+		return {"ok":false,"reason":"stale_round"}
+	var target := find_actor(str(event.get("entity_id","")),int(event.get("life_id",0)))
+	return target.apply_projectile_damage(event,available_mm) if target != null else {"ok":false,"reason":"missing_target"}
+
+func _on_projectile_damage(record: Dictionary) -> void:
+	var target := find_actor(str(record.get("target_id","")),int(record.get("target_life_id",0)))
+	if target != null:
+		target.present_damage_record(record)
 
 func _resume() -> void:
 	if not _can_use_gameplay():

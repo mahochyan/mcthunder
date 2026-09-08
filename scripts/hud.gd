@@ -6,6 +6,8 @@ extends CanvasLayer
 signal resume_requested
 signal armor_training_requested
 var armor_training_button: Button
+signal damage_training_requested
+var damage_training_button: Button
 signal inspect_requested   # 004-c：暂停菜单"车辆检视"按钮
 signal training_requested  # 006：暂停菜单"弹道训练"入口（训练场中为"返回靶场"）
 
@@ -170,6 +172,11 @@ func _build() -> void:
 	armor_training_button.custom_minimum_size = Vector2(160,44)
 	armor_training_button.pressed.connect(func() -> void: armor_training_requested.emit())
 	vb.add_child(armor_training_button)
+	damage_training_button = Button.new()
+	damage_training_button.text = "Damage Range"
+	damage_training_button.custom_minimum_size = Vector2(160,44)
+	damage_training_button.pressed.connect(func() -> void: damage_training_requested.emit())
+	vb.add_child(damage_training_button)
 	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 
 func set_training_button_text(training: bool) -> void:

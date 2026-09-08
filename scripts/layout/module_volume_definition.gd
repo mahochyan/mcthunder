@@ -12,5 +12,7 @@ extends Resource
 @export var size_m: Vector3 = Vector3.ZERO
 @export var enclosure_id: String = ""         # 所属封闭腔体（如战斗舱/动力舱）
 @export var external: bool = false            # 外部体积（如左右履带）不按内部模块校验
+@export var max_integrity: float = GameConfig.DAMAGE_MODULE_INTEGRITY
+@export var resistance_mm: float = GameConfig.DAMAGE_MODULE_RESISTANCE_MM
 @export var geometry_status: String = "unknown" # verified / estimated / unknown
 @export var evidence_keys: PackedStringArray = []

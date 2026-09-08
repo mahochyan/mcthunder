@@ -19,6 +19,9 @@ var ricochets := 0
 var contacts: Array[Dictionary] = []
 var start_surfaces: Dictionary = {}
 var contacted_targets: Dictionary = {}
+var interior_targets: Dictionary = {}
+var damage_seen: Dictionary = {}
+var damage_records: Array[Dictionary] = []
 
 var born_physics_tick := 0      # 出生物理 tick（出生当步不推进）
 var position_world := Vector3.ZERO

@@ -418,6 +418,10 @@ static func validate_volumes(
 			errors.append(_err(path + ".local_box_transform", "not a finite rigid transform"))
 		if module.geometry_status not in STATUS_VALUES:
 			errors.append(_err(path + ".geometry_status", "unknown status '%s'" % module.geometry_status))
+		if not is_finite(module.max_integrity) or module.max_integrity <= 0:
+			errors.append(_err(path + ".max_integrity", "must be finite and positive"))
+		if not is_finite(module.resistance_mm) or module.resistance_mm <= 0:
+			errors.append(_err(path + ".resistance_mm", "must be finite and positive"))
 		for key in module.evidence_keys:
 			if not evidence_keys.has(key):
 				errors.append(_err(path + ".evidence_keys", "unknown evidence key '%s'" % key))

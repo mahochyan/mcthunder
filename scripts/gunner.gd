@@ -15,6 +15,7 @@ var tank: TankVehicle = null
 var turret: TurretRig = null
 var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
 var shell: ShellDefinition = null      # 006：由 actor 注入——弹种运动参数唯一来源
+var capabilities_provider := Callable()
 var projectile_manager: ProjectileManager = null   # 006：由 main 注入——唯一推进执行器
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
 var shooter_team_id := 0              # 006：由 actor 注入（发射身份队伍，冻结）
@@ -53,7 +54,10 @@ func _exclude() -> Array[RID]:
 func advance_timers(delta: float) -> void:
 	# 006：装填/宽限时钟唯一推进入口——由 VehicleActor._physics_process 在消费命令前
 	# 调用一次（删除原 _process 中的扣减；不再从其他回调重复调用）。
-	cooldown_left = maxf(0.0, cooldown_left - delta)
+	var rate := 1.0
+	if capabilities_provider.is_valid():
+		rate = float(capabilities_provider.call().reload_rate)
+	cooldown_left = maxf(0.0, cooldown_left - delta * rate)
 	resume_grace = maxf(0.0, resume_grace - delta)
 
 func _process(delta: float) -> void:
@@ -118,6 +122,10 @@ func _current_round() -> int:
 	return round_provider.call() if round_provider.is_valid() else -1
 
 func try_fire() -> bool:
+	if capabilities_provider.is_valid() and not capabilities_provider.call().fire:
+		blocked_reason = "vehicle_disabled"
+		last_shot_result = "blocked:vehicle_disabled"
+		return false
 	# 006：发射流程——检查暂停/实体/输入 → 冷却/宽限/火键门/弹药 → 炮根-炮口遮挡
 	# → 冻结真实炮口/方向/速度/身份 → 管理器接收该发 → 扣弹/装填/编号/计数 → 特效。
 	# 这里不查远处目标并登记命中（实际撞击由管理器推进后经事件送达）。

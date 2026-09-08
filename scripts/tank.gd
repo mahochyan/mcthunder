@@ -14,6 +14,7 @@ var defs: VehicleDefinition = null   # 003-R1：由 VehicleActor 注入——驾
 var entity_id := ""   # 003-R2：实体标识注入（命中事件 target 身份来源）
 var life_id := 0      # 003-R2：实体生命周期标识（同名车销毁重建后不同）
 var _drive_calls := 0 # 003-R2：apply_drive 调用计数（命令单次物理消费断言用）
+var capabilities_provider := Callable()
 
 signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
 
@@ -67,6 +68,12 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	# 003：统一命令驱动（throttle ∈ [-1,1]，steer ∈ [-1,1] 正 = 右转）
 	# 003-R1：参数来自 VehicleDefinition（defs 注入）；null 时回退 GameConfig 常量
 	_drive_calls += 1   # 003-R2：执行计数（提交≠执行的验证证据）
+	if capabilities_provider.is_valid():
+		var caps: Dictionary = capabilities_provider.call()
+		if not caps.drive:
+			throttle = 0.0
+		if not caps.steer:
+			steer = 0.0
 	var fwd_max: float = defs.forward_max_speed if defs != null else GameConfig.FORWARD_MAX_SPEED
 	var rev_max: float = defs.reverse_max_speed if defs != null else GameConfig.REVERSE_MAX_SPEED
 	var fwd_acc: float = defs.forward_accel if defs != null else GameConfig.FORWARD_ACCEL

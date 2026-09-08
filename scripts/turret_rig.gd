@@ -16,6 +16,7 @@ var _flash_left := 0.0
 var _recoil := 0.0
 var _aim_override: Vector3 = Vector3.ZERO   # 003：脚本命令瞄准点（B 测试用）
 var _has_aim_override := false
+var capabilities_provider := Callable()
 
 func _ready() -> void:
 	var tm := MeshInstance3D.new()
@@ -86,6 +87,10 @@ func _process(delta: float) -> void:
 		# 003-R1：转速/限位来自 VehicleDefinition（defs 注入）
 		var yaw_speed: float = defs.turret_yaw_speed if defs != null else GameConfig.TURRET_YAW_SPEED
 		var pitch_speed: float = defs.turret_pitch_speed if defs != null else GameConfig.TURRET_PITCH_SPEED
+		if capabilities_provider.is_valid():
+			var caps: Dictionary = capabilities_provider.call()
+			yaw_speed *= float(caps.turret_speed)
+			pitch_speed *= float(caps.turret_speed)
 		var P := _aim_point()
 		var target := _target_angles(P)
 		var desired_local := wrapf(target.y - hull_yaw, -PI, PI)
