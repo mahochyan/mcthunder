@@ -6,11 +6,14 @@ extends Resource
 ## 新增 gravity_scale（重力倍率）与 max_flight_time_s（最大飞行时间，模拟时间）。
 
 @export var id: String = ""
+@export var display_name: String = ""
+@export var allowed_vehicle_ids: Array[String] = []
 @export var schema_version: int = 1
 @export var caliber_mm: float = 75.0
 @export var muzzle_velocity_mps: float = 0.0
 @export var penetration_mm: float = 0.0
 @export var armor_policy: String = "resolve"
+@export var effect_policy: String = "kinetic"
 @export var penetration_curve: PackedVector2Array = PackedVector2Array([Vector2(0, 60), Vector2(200, 50)])
 @export var gravity_scale: float = 1.0      # 006：重力倍率（0 = 无重力弹道）
 @export var max_flight_time_s: float = 8.0  # 006：最大飞行时间（模拟时间，>0）
@@ -21,6 +24,8 @@ extends Resource
 
 func validate() -> Dictionary:
 	var errors: Array[String] = []
+	if effect_policy not in ["kinetic","internal_burst"]: errors.append("effect_policy: unsupported")
+	if effect_policy == "internal_burst" and armor_policy != "resolve": errors.append("internal_burst requires armor resolution")
 	if armor_policy not in ["resolve", "legacy_contact_only"]:
 		errors.append("armor_policy: unsupported")
 	if armor_policy == "resolve" and not PenetrationCurve.validate(penetration_curve):

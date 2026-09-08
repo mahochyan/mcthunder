@@ -24,6 +24,7 @@ var shield_visuals: Dictionary = {}
 var battle_ui: BattleUI
 var match_seed := 1600
 var ai_only := false # Explicit scenario-runner configuration; normal garage play is false.
+var ammunition_supply := AmmunitionSupply.new()
 
 func _ready() -> void:
 	super._ready()
@@ -77,6 +78,16 @@ func _ready() -> void:
 	battle_ui.setup(self)
 
 func _build_world() -> void: TeamArena.build(self)
+func supply_positions(_team: int) -> Array[Vector3]: return []
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	if not team_ready or get_tree().paused or director.state.phase != "playing": return
+	for vehicle in combat_actors():
+		var inside := false
+		for point in supply_positions(vehicle.state.team_id):
+			if Vector2(vehicle.tank.global_position.x-point.x,vehicle.tank.global_position.z-point.z).length() <= AmmunitionSupply.RADIUS_M: inside = true
+		ammunition_supply.step(vehicle,delta,inside)
 func navigation_graph() -> Dictionary: return TeamArena.graph()
 func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
 func objective_goal(team: int, index: int) -> Vector3: return TeamArena.goal(team,index)

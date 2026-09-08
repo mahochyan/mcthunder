@@ -271,6 +271,10 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	weapon_label.text = model.weapon_status
 	weapon_label.modulate = Color("a6deb5") if model.ready else Color("ffcf8f")
 	ammo_label.text = "%s · %d 发  |  膛内 %d"%[model.shell,model.ammo,model.chamber]
+	if model.has("next_shell"):
+		ammo_label.text += "\n下次："+str(model.next_shell)+" · 1/2 切换"
+		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += "\n正在装填："+str(model.carrying_shell)
+	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()

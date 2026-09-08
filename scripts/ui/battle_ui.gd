@@ -173,4 +173,10 @@ func _process(_delta: float) -> void:
 	var protection := 0.0
 	if battle is TeamRange: protection = float(battle.director.state.roster.A.protection_left)
 	var camera: Camera3D = get_viewport().get_camera_3d()
-	overlay.present(HUDPresenter.present(player(),match_info(),protection),intel.snapshot(player()),camera,roster())
+	var model := HUDPresenter.present(player(),match_info(),protection)
+	if player().gunner.inventory.typed:
+		var gun := player().gunner
+		model["next_shell"] = gun.shell_label(gun.inventory.selected_shell)
+		model["carrying_shell"] = gun.shell_label(gun.inventory.transfer_shell) if gun.inventory.in_transfer>0 else ""
+	if battle is TeamRange: model["supply_status"] = battle.ammunition_supply.status.get(str(player().life_id),"")
+	overlay.present(model,intel.snapshot(player()),camera,roster())

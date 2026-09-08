@@ -37,7 +37,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"历史车辆候选 0.2.0  ·  逐字段资料档案  ·  几何与部分模拟参数仍为估算",15)
+	CoreUI.label(vertical,"双弹种候选 0.2.1  ·  历史配弹与逐字段资料  ·  几何与部分模拟参数仍为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -105,6 +105,7 @@ func _ready() -> void:
 		CoreUI.button(labs,item[1],func() -> void: laboratory_requested.emit(item[0]))
 	CoreUI.button(controls,"电脑驾驶实验室",func() -> void: laboratory_requested.emit("ai_drive"))
 	CoreUI.button(controls,"电脑交战实验室",func() -> void: laboratory_requested.emit("ai_combat"))
+	CoreUI.button(controls,"AP / APHE 弹药实验室",func() -> void: laboratory_requested.emit("shells"))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)
@@ -215,7 +216,11 @@ func _select_vehicle(_index: int) -> void:
 		rounds.max_value = 150; rounds.value = packet.runtime.rounds
 		HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
 		preview_note.text = "%s\n%s · %d 发 · %.1f km/h 文献道路速度\n局部形状、内构盒、装填与穿深模拟为估算；详见资料档案。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
-		if id.begins_with("us_m24"): preview_note.text += "\nM61 当前仅模拟动能路径，内部爆发尚未实现。"
+		var ammo := HistoricalShellCatalog.build(packet)
+		if ammo.ok:
+			preview_note.text += "\n1 / 2 选择下一发："+ammo.options[0].display_name+" / "+ammo.options[1].display_name
+			preview_note.text += "\n默认主弹70%、另一弹30%；APHE有游戏化内部爆发。"
+			if id.begins_with("us_m24"): preview_note.text += "\nM72适配来自手册瞄准图，1951实际配发未核实。"
 		var extent: float = maxf(float(HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")),float(packet.geometry.barrel_length)+3.5)
 		preview_camera.position = Vector3(5.3,3.8,-6.4)*extent/6.0
 	else:
@@ -244,6 +249,18 @@ func _show_dossier() -> void:
 	view.bbcode_enabled = true; view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	view.selection_enabled = true; box.add_child(view)
 	view.append_text("[b]已核验 = 引用记录有史料支持；不等于几何、游戏表现已全部实测。[/b]\n")
+	var ammunition := HistoricalShellCatalog.build(packet)
+	if ammunition.ok:
+		view.append_text("\n[b]021 当前弹种（覆盖下方020包的弹道初值）[/b]\n")
+		for entry in ammunition.entries:
+			view.append_text("\n[b]"+str(entry.label)+"[/b] · "+str(entry.gun)+"\n")
+			view.add_text("初速 "+str(entry.muzzle_velocity_mps)+" m/s · "+str(entry.muzzle_velocity_status)+"\n")
+			view.add_text("穿深曲线（米,毫米） "+JSON.stringify(entry.penetration_curve)+" · estimated\n"+str(entry.estimate_reason)+"\n"+str(entry.historical_observations)+"\n")
+			for ref in entry.source_refs:
+				var source: Dictionary = ammunition.sources[ref]
+				view.append_text("[url="+str(source.url)+"]"+str(source.title)+"[/url]\n")
+				view.add_text(str(source.location)+"\nSHA256 "+str(source.sha256)+"\n")
+		view.append_text("\n[b]020 车型包原始字段记录（弹道初值已由上述021弹种目录覆盖）[/b]\n")
 	for limitation in packet.limitations: view.add_text(str(limitation)+"\n")
 	for field in packet.facts:
 		var row: Dictionary = packet.facts[field]

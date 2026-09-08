@@ -303,6 +303,7 @@ func _process(delta: float) -> void:
 		result_text = "LAST SHOT: BLOCKED (%s)" % actor.gunner.blocked_reason.to_upper()
 	var lane_text := "LANE: %s (T to toggle)" % _lane.to_upper()
 	var ammo_text := "AMMO: %d/%d" % [actor.gunner.rounds_remaining, actor.gunner.weapon.initial_rounds if actor.gunner.weapon != null else 30]
+	if actor.gunner.inventory.typed: ammo_text = actor.gunner.ammo_summary()+" · 1/2 select next"
 	var proj_text := "PROJECTILES: %d" % (projectiles.active_count() if projectiles != null else 0)
 	var impact_text := "LAST IMPACT: —"
 	if not _last_impact.is_empty():

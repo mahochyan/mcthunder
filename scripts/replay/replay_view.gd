@@ -16,6 +16,8 @@ var _world: Node3D
 var _geometry: Node3D
 var _camera: Camera3D
 var _trail: MeshInstance3D
+var _fragments: MeshInstance3D
+var _burst_dot: MeshInstance3D
 var _dot: MeshInstance3D
 var _title: Label
 var _details: Label
@@ -71,6 +73,16 @@ func _ready() -> void:
 	_trail = MeshInstance3D.new()
 	_world.add_child(_trail)
 	_trail.material_override = _material(Color("#ffdc63"))
+	_fragments = MeshInstance3D.new()
+	_world.add_child(_fragments)
+	_fragments.material_override = _material(Color("#ff793d"))
+	_burst_dot = MeshInstance3D.new()
+	var burst_shape := SphereMesh.new()
+	burst_shape.radius = 0.13; burst_shape.height = 0.26
+	_burst_dot.mesh = burst_shape
+	_burst_dot.material_override = _material(Color("#ff793d"))
+	_world.add_child(_burst_dot)
+	_burst_dot.visible = false
 	_dot = MeshInstance3D.new()
 	var sphere := SphereMesh.new()
 	sphere.radius = 0.09
@@ -132,6 +144,8 @@ func clear_display() -> void:
 		for child in _geometry.get_children(): child.free()
 	_box_meshes.clear()
 	if _trail != null: _trail.mesh = null
+	if _fragments != null: _fragments.mesh = null
+	if _burst_dot != null: _burst_dot.visible = false
 	if _dot != null: _dot.visible = false
 	visible = false
 
@@ -160,6 +174,7 @@ func seek(time_s: float) -> void:
 	_dot.visible = true
 	_dot.position = current_position
 	_build_trail()
+	_build_fragments()
 	_update_highlights()
 	_update_details()
 
@@ -243,6 +258,22 @@ func _build_trail() -> void:
 		mesh.surface_add_vertex(current_position+Vector3(0.00001,0,0))
 	mesh.surface_end()
 	_trail.mesh = mesh
+
+func _build_fragments() -> void:
+	_fragments.mesh = null; _burst_dot.visible = false
+	var burst: Dictionary = record.get("burst",{})
+	if burst.is_empty() or current_time+1e-7 < float(burst.time_s): return
+	_burst_dot.visible = true; _burst_dot.position = burst.point_world
+	var vertices: Array[Vector3] = []
+	for fragment in record.get("fragments",[]):
+		for i in range(1,fragment.path.size()):
+			if fragment.path[i-1].distance_to(fragment.path[i]) > 1e-6:
+				vertices.append(fragment.path[i-1]); vertices.append(fragment.path[i])
+	if vertices.is_empty(): return
+	var mesh := ImmediateMesh.new()
+	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+	for vertex in vertices: mesh.surface_add_vertex(vertex)
+	mesh.surface_end(); _fragments.mesh = mesh
 
 func _update_highlights() -> void:
 	highlighted_items.clear()

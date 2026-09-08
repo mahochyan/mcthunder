@@ -126,6 +126,9 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	if _active.size() >= MAX_ACTIVE:
 		return {"ok": false, "projectile_id": 0, "reason": "projectile_capacity"}
 	var armor_policy := str(spec.get("armor_policy", "resolve"))
+	var effect_policy := str(spec.get("effect_policy","kinetic"))
+	if effect_policy not in ["kinetic","internal_burst"] or (effect_policy == "internal_burst" and armor_policy != "resolve"):
+		return {"ok":false,"projectile_id":0,"reason":"invalid_effect_policy"}
 	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
 	if armor_policy not in ["resolve", "legacy_contact_only"] \
 			or (armor_policy == "resolve" and not PenetrationCurve.validate(curve)) \
@@ -133,6 +136,7 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "invalid_armor_policy"}
 
 	var st := ProjectileState.new()
+	st.effect_policy = effect_policy
 	st.projectile_id = _next_projectile_id
 	_next_projectile_id += 1
 	st.round_id = int(spec.get("round_id", -1))
@@ -268,7 +272,15 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			if not damage_contact.is_empty():
 				status = "damage"
 				sel.event = damage_contact
-		if status in ["vehicle", "world", "damage"]:
+		if status != "unresolved" and not st.burst_target.is_empty():
+			var boundary := query_len+ShellEffectPolicy.EPS
+			if status in ["vehicle","damage"]: boundary = float(sel.event.distance_m)
+			elif status == "world": boundary = float(sel.contact.distance_m)
+			var effect := ShellEffectPolicy.on_inside_path(st,snapshots,dir,query_len)
+			if not effect.is_empty() and float(effect.distance_m) < boundary:
+				status = "burst" if effect.kind == "burst" else ("effect_entry" if effect.kind == "entry" else "effect_exit")
+				sel.event = {"t":float(effect.distance_m)/query_len,"point_world":st.position_world+dir*float(effect.distance_m)}
+		if status in ["vehicle", "world", "damage", "burst", "effect_exit", "effect_entry"]:
 			var ev: Dictionary = sel.contact if status == "world" else sel.event
 			var t_frac := clampf(float(ev.get("t", 0.0)), 0.0, 1.0)
 			var contact_time := used_h * t_frac
@@ -288,6 +300,13 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 						finish_once(st.projectile_id,str(policy.get("reason","blocked_by_rules")),{"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0),"surface_id":ev.get("surface_id",ev.get("module_id",""))})
 						return
 			remaining_dt = maxf(0.0, remaining_dt - contact_time)
+			if status == "effect_entry":
+				st.burst_inside_started=true; st.burst_entry_distance=st.travelled_m; pending_h.clear(); continue
+			if status == "effect_exit":
+				st.burst_target.clear(); pending_h.clear(); continue
+			if status == "burst":
+				_emit_internal_burst(st,snapshots,space)
+				return
 			if status == "world":
 				var collider: Object = ev.get("collider", null)
 				finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact"})
@@ -352,6 +371,9 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 			st.velocity_world = result.direction * st.velocity_world.length() * float(result.speed_scale)
 		if result.result == "penetrated":
 			st.interior_targets[DamageResolver.target_key(ev)] = not bool(result.backface)
+			var key := DamageResolver.target_key(ev)
+			if st.effect_policy == "internal_burst" and not bool(result.backface) and st.burst_target.is_empty() and not st.burst_visited.has(key):
+				st.burst_target = ev.duplicate(true); st.burst_entry_distance = st.travelled_m; st.burst_inside_started=false; st.burst_visited[key] = true
 	# Prune only surfaces left behind. Multiple surfaces at the same point each cost once.
 	for key in st.start_surfaces.keys():
 		if st.position_world.distance_to(st.start_surfaces[key]) > GameConfig.ARMOR_START_EPS_M:
@@ -395,40 +417,57 @@ func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	if before <= 0:
 		finish_once(st.projectile_id,"damage_budget_exhausted",{})
 		return false
+	var committed := _commit_damage_event(st,ev,before,st.position_world,st.velocity_world)
+	if not committed.get("ok",false):
+		if _live(st): finish_once(st.projectile_id,"unresolved_damage",{"detail":committed.get("reason","")})
+		return false
+	if before - float(committed.consumed_mm) <= 1e-5:
+		finish_once(st.projectile_id,"damage_budget_exhausted",{})
+		return false
+	return _live(st)
+
+func _commit_damage_event(st: ProjectileState, ev: Dictionary, before: float, point: Vector3, velocity: Vector3, fragment_id: int = -1) -> Dictionary:
+	if not _live(st) or not damage_handler.is_valid() or st.damage_records.size() >= GameConfig.DAMAGE_MAX_CONTACTS:
+		return {"ok":false,"reason":"damage_budget_or_lifecycle"}
 	var event := ev.duplicate(true)
+	var event_identity: Array = [st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id,DamageResolver.item_key(ev)]
+	if fragment_id >= 0: event_identity.append(fragment_id)
 	event.merge({
 		"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
 		"shot_id":st.shot_id,"projectile_id":st.projectile_id,
-		"event_id":JSON.stringify([st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id,DamageResolver.item_key(ev)]),
+		"event_id":JSON.stringify(event_identity),
+		"fragment_id":fragment_id,
 	},true)
 	var delta: Dictionary = damage_handler.call(event,before)
 	if not _live(st):
-		return false
+		return {"ok":false,"reason":"cancelled"}
 	if not delta.get("ok",false):
-		finish_once(st.projectile_id,"unresolved_damage",{"detail":delta.get("reason","")})
-		return false
+		return delta
 	var spent := float(delta.get("consumed_mm",0))
 	if not is_finite(spent) or spent < 0 or spent > before + 1e-5:
-		finish_once(st.projectile_id,"unresolved_damage",{"detail":"invalid damage budget"})
-		return false
-	st.consumed_mm += spent
-	st.damage_seen[DamageResolver.item_key(ev)] = true
+		return {"ok":false,"reason":"invalid damage budget"}
+	if fragment_id < 0:
+		st.consumed_mm += spent
+		st.damage_seen[DamageResolver.item_key(ev)] = true
 	event.merge(delta,true)
 	event.merge({
 		"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0),
 		"damage_index":st.damage_records.size()+1,"flight_time_s":st.age_s,"travelled_m":st.travelled_m,
 		"before_mm":before,"after_mm":maxf(0,before-spent),
-		"impact_point":st.position_world,"impact_velocity":st.velocity_world,
+		"impact_point":point,"impact_velocity":velocity,
 		"rules_version":GameConfig.DAMAGE_RULES_VERSION,"physics_tick":Engine.get_physics_frames(),
 	},true)
 	st.damage_records.append(event.duplicate(true))
+	if fragment_id >= 0: st.fragments[fragment_id].damage_indices.append(st.damage_records.size()-1)
 	projectile_damage.emit(event.duplicate(true))
-	if not _live(st):
-		return false
-	if before - spent <= 1e-5:
-		finish_once(st.projectile_id,"damage_budget_exhausted",{})
-		return false
-	return true
+	return {"ok":_live(st),"consumed_mm":spent,"event":event}
+
+func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
+	var frame := ShotRecordBuilder.capture_frame(st,st.burst_target,snapshots)
+	st.burst = {"point_world":st.position_world,"time_s":st.age_s,"seed":st.seed,"geometry_frame":frame,
+		"target_id":st.burst_target.get("entity_id",""),"target_life_id":st.burst_target.get("life_id",0),"rules_version":ShellEffectPolicy.VERSION}
+	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"))
+	if _live(st): finish_once(st.projectile_id,"internal_burst",{"target_id":st.burst.target_id,"target_life_id":st.burst.target_life_id})
 
 
 
@@ -471,6 +510,8 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 	record["armor_policy"] = st.armor_policy
 	record["contacts"] = st.contacts.duplicate(true)
 	record["damage_records"] = st.damage_records.duplicate(true)
+	record["burst"] = st.burst.duplicate(true)
+	record["fragments"] = st.fragments.duplicate(true)
 	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
 	ShotRecordBuilder.sample_path(st)
 	var replay_record: Dictionary = {}

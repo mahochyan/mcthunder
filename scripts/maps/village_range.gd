@@ -10,3 +10,5 @@ func spawn_candidates(team: int) -> Array[Transform3D]:
 	poses.assign(definition.spawns[team])
 	return poses
 func minimap_metadata() -> Dictionary: return definition.minimap()
+func supply_positions(team: int) -> Array[Vector3]:
+	return [definition.supply_reservations[team-1]] if team in [1,2] else []

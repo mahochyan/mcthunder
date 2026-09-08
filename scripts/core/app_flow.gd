@@ -36,6 +36,10 @@ func _ready() -> void:
 		var demo := load("res://tests/run_historical_demo.gd").new() as Node
 		add_child(demo)
 		demo.call_deferred("run",self)
+	elif args.has("--shell-play-check"):
+		var demo := load("res://tests/run_shell_demo.gd").new() as Node
+		add_child(demo)
+		demo.call_deferred("run",self)
 
 func _clear_training() -> void:
 	get_tree().paused = false
@@ -97,6 +101,7 @@ func enter_laboratory(id: String) -> void:
 	if _transitioning: return
 	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn","team":"res://scenes/maps/map_hill_village.tscn"}
 	allowed["historical"] = "res://scenes/training/ballistics_range.tscn"
+	allowed["shells"] = "res://scenes/training/shell_range.tscn"
 	if not allowed.has(id): return
 	selected_vehicle_id = garage.selected_vehicle_id()
 	var prepared := garage.build_loadout()

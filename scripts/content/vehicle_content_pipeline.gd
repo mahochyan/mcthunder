@@ -45,6 +45,8 @@ static func validate_package(packet: Dictionary) -> Dictionary:
 		if str(overlap).begins_with("SUSPICIOUS"): errors.append(overlap)
 		else: evidence.notes.append(overlap)
 	var definitions := definitions_for(packet,layout)
+	var shell_set := HistoricalShellCatalog.build(packet)
+	for error in shell_set.errors: errors.append(error)
 	for definition in [definitions.vehicle,definitions.weapon,definitions.shell]:
 		for error in definition.validate().errors: errors.append(str(definition.id)+": "+error)
 	return {"ok":errors.is_empty(),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet}
@@ -191,4 +193,8 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	for pair in r.penetration_curve: s.penetration_curve.append(Vector2(pair[0],pair[1]))
 	s.penetration_mm = s.penetration_curve[0].y; s.max_flight_time_s = 12
 	s.verification = "estimated"; s.source_refs = v.source_refs.duplicate()
+	var current_shells := HistoricalShellCatalog.build(packet)
+	if current_shells.ok:
+		for option in current_shells.options:
+			if option.id == current_shells.default_id: s = option
 	return {"vehicle":v,"weapon":w,"shell":s}

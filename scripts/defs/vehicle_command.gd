@@ -14,7 +14,7 @@ var repair_requested := false
 var extinguish_requested := false
 var replace_crew_requested := false
 var cancel_recovery_requested := false
-var select_shell: int = -1       # 003 首版仅单弹种，-1 = 不切换
+var select_shell: int = -1       # 021：0/1 选择下一次取弹；-1 保持，不改变膛内或搬运中弹种。
 
 func reset() -> void:
 	throttle = 0.0

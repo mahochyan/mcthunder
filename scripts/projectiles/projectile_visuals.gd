@@ -89,6 +89,19 @@ func present_terminal(record: Dictionary) -> void:
 	add_child(fx)
 	fx.global_position = p
 	_fx.append({"node": fx, "left": 0.25})
+	if not record.get("burst",{}).is_empty():
+		var points: Array[Vector3] = []
+		for fragment in record.get("fragments",[]):
+			for i in range(1,fragment.path.size()):
+				if fragment.path[i-1].distance_to(fragment.path[i])>1e-6:
+					points.append(fragment.path[i-1]-p); points.append(fragment.path[i]-p)
+		if not points.is_empty():
+			var burst_mesh := ImmediateMesh.new(); burst_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+			for point in points: burst_mesh.surface_add_vertex(point)
+			burst_mesh.surface_end()
+			var rays := MeshInstance3D.new(); rays.mesh=burst_mesh; rays.material_override=mat
+			rays.top_level=true; add_child(rays); rays.global_position=p
+			_fx.append({"node":rays,"left":0.25})
 
 func clear_all() -> void:
 	# 重开/切场景/销毁：清空全部视觉与接触效果（不产生命中事件）

@@ -83,10 +83,13 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy},
 		"complete":complete,"unavailable_reason":reason,"path":st.replay_path.duplicate(true),
 		"frames":st.replay_frames.duplicate(true),"contacts":st.contacts.duplicate(true),
+		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
+	record.terminal.erase("burst")
+	record.terminal.erase("fragments")
 	freeze_containers(record)
 	return record
 
@@ -120,6 +123,8 @@ static func validate(record: Dictionary) -> Dictionary:
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
 	if record.path.is_empty() or record.path.size()>MAX_PATH_POINTS or record.frames.size()>MAX_GEOMETRY_FRAMES: return _bad("record_limits")
 	if record.contacts.size()>GameConfig.ARMOR_CONTACTS_PER_SHOT or record.damage.size()>GameConfig.DAMAGE_MAX_CONTACTS: return _bad("event_limits")
+	var fragment_check := validate_fragments(record)
+	if not fragment_check.ok: return fragment_check
 	var previous := -1.0
 	for point in record.path:
 		if not point is Dictionary or not point.get("point_world") is Vector3 or not point.get("velocity_world") is Vector3: return _bad("invalid_path_point")
@@ -162,6 +167,51 @@ static func validate(record: Dictionary) -> Dictionary:
 
 static func identity_key(identity: Dictionary) -> String:
 	return JSON.stringify([int(identity.round_id),identity.shooter_id,int(identity.shooter_life_id),int(identity.shot_id),int(identity.projectile_id)])
+
+static func append_fragments(st: ProjectileState) -> Dictionary:
+	# FragmentSystem already committed actual outcomes; this never generates random paths.
+	return {"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true)}
+
+static func validate_fragments(record: Dictionary) -> Dictionary:
+	var burst: Variant = record.get("burst",{})
+	var fragments: Variant = record.get("fragments",[])
+	if not burst is Dictionary or not fragments is Array or fragments.size()>ShellEffectPolicy.MAX_FRAGMENTS: return _bad("invalid_fragments")
+	if burst.is_empty(): return {"ok":true} if fragments.is_empty() else _bad("missing_burst")
+	if burst.get("rules_version","") != ShellEffectPolicy.VERSION: return _bad("unsupported_fragment_rules")
+	if not burst.get("point_world") is Vector3 or not burst.point_world.is_finite() or not _number(burst.get("time_s")): return _bad("invalid_burst_point")
+	if burst.time_s < 0 or burst.time_s > record.terminal.flight_time_s+1e-5: return _bad("invalid_burst_time")
+	if not _number(burst.get("seed")) or burst.seed!=record.identity.seed: return _bad("invalid_burst_seed")
+	if record.complete:
+		if not _number(burst.get("geometry_frame")) or int(burst.geometry_frame)!=burst.geometry_frame or burst.geometry_frame<0 or burst.geometry_frame>=record.frames.size(): return _bad("invalid_burst_frame")
+		var frame: Variant = record.frames[int(burst.geometry_frame)]
+		if not frame is Dictionary or burst.get("target_id")!=frame.get("entity_id") or burst.get("target_life_id")!=frame.get("life_id"): return _bad("invalid_burst_target")
+	var linked_damage := {}
+	for i in fragments.size():
+		var fragment: Variant = fragments[i]
+		if not fragment is Dictionary or fragment.get("id",-1) != i or not fragment.get("path") is Array or not fragment.get("contacts") is Array or not fragment.get("damage_indices") is Array: return _bad("invalid_fragment")
+		if fragment.path.is_empty() or fragment.path.size()>ShellEffectPolicy.FRAGMENT_CONTACTS+1 or fragment.contacts.size()>ShellEffectPolicy.FRAGMENT_CONTACTS: return _bad("fragment_limits")
+		if not fragment.get("direction") is Vector3 or not fragment.direction.is_finite() or absf(fragment.direction.length()-1.0)>0.001: return _bad("invalid_fragment_direction")
+		if not _number(fragment.get("queries")) or int(fragment.queries)!=fragment.queries or fragment.queries<0 or fragment.queries>ShellEffectPolicy.FRAGMENT_CONTACTS or not fragment.get("reason") is String: return _bad("invalid_fragment_metadata")
+		var length := 0.0
+		var previous: Vector3 = burst.point_world
+		for point in fragment.path:
+			if not point is Vector3 or not point.is_finite(): return _bad("invalid_fragment_point")
+			length += previous.distance_to(point); previous = point
+		if length > ShellEffectPolicy.FRAGMENT_RANGE_M+0.001 or fragment.path[0].distance_to(burst.point_world)>0.001: return _bad("fragment_range")
+		for index in fragment.damage_indices:
+			if not _number(index) or int(index)!=index or index<0 or index>=record.damage.size() or not record.damage[int(index)] is Dictionary or record.damage[int(index)].get("fragment_id",-1)!=i or linked_damage.has(int(index)): return _bad("invalid_fragment_damage")
+			linked_damage[int(index)] = true
+		for contact in fragment.contacts:
+			if not contact is Dictionary or not contact.get("point_world") is Vector3 or not contact.point_world.is_finite() or not contact.get("result") is String: return _bad("invalid_fragment_contact")
+			if record.complete:
+				if not _number(contact.get("geometry_frame")) or int(contact.geometry_frame)!=contact.geometry_frame or contact.geometry_frame<0 or contact.geometry_frame>=record.frames.size(): return _bad("invalid_fragment_contact_frame")
+				var frame: Variant = record.frames[int(contact.geometry_frame)]
+				if not frame is Dictionary or contact.get("entity_id")!=frame.get("entity_id") or contact.get("life_id")!=frame.get("life_id"): return _bad("invalid_fragment_contact_target")
+	for index in record.damage.size():
+		var event: Variant = record.damage[index]
+		if not event is Dictionary: return _bad("invalid_fragment_damage_event")
+		if event.get("fragment_id",-1)!=-1 and not linked_damage.has(index): return _bad("unlinked_fragment_damage")
+	return {"ok":true}
 
 static func _number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(value)

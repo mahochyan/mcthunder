@@ -28,6 +28,7 @@ var label3d: Label3D
 var _mailbox := CommandMailbox.new()   # 003-R2：命令暂存
 var debug_command_trace := false       # 003-R2：提交/消费/执行三处调试记录（默认关）
 var command_observer := Callable() # Match rules may cancel spawn protection before an actual command executes.
+var supply_motion_active := false
 var _consume_count := 0                # 003-R2：本步消费计数（调试用）
 
 func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: int, spawn: Transform3D, visual_layer: int, ctrl: Node) -> Dictionary:
@@ -73,6 +74,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	gunner.name = "Gunner"
 	add_child(gunner)
 	gunner.setup(tank, turret, weapon, shell)   # 003-R1：装填/射程唯一来源；006：弹种运动参数
+	gunner.vehicle_definition_id = definition.id
 	_configure_inventory(state._damage_layout)
 	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
 	tank.capabilities_provider = Callable(self,"capabilities")
@@ -96,6 +98,9 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	label3d.modulate = Color(0.4, 1.0, 0.4) if controller != null else Color(1.0, 0.85, 0.3)
 	tank.add_child(label3d)
 	if res.has("packet"): HistoricalVehicleModel.apply(self,res.packet,res.layout)
+	if res.has("packet") and definition.content_tier == "production":
+		var shell_result := HistoricalShellCatalog.install(self,res.packet)
+		if not shell_result.ok: return shell_result
 	return {"ok": true}
 
 func set_controller(ctrl: Node) -> void:
@@ -138,6 +143,8 @@ func _configure_inventory(layout: VehicleLayoutDefinition) -> void:
 				rack_ids.append(module.id)
 				if module.ammo_capacity > 0: capacities[module.id] = module.ammo_capacity
 	gunner.inventory.configure(gunner.rounds_remaining,rack_ids,capacities)
+	if not gunner.initial_shell_counts.is_empty():
+		gunner.configure_shell_loadout(gunner.shell_options,gunner.initial_shell_counts,gunner.initial_shell_id)
 
 func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if str(event.get("entity_id","")) != entity_id or int(event.get("life_id",0)) != life_id:
@@ -253,6 +260,7 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 		if not is_instance_valid(self) or state.generation != before_generation: return
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
+	supply_motion_active = absf(throttle)>0.01 or absf(steer)>0.01
 	var died_now := VehicleRecovery.step(state,delta,tank.forward_speed,cmd)
 	if died_now: _commit_death()
 	if debug_command_trace:
@@ -263,6 +271,7 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	elif cmd.clear_aim:
 		turret.clear_aim_point()
 	cam_rig.set_sight_requested(cmd.aim_held)
+	if cmd.select_shell >= 0 and not state.destroyed: gunner.select_shell(cmd.select_shell)
 	if cmd.fire_requested:
 		gunner.request_fire()
 	# 状态同步：真实状态来源（HUD/试射目标只读，不另算一套显示用结果）

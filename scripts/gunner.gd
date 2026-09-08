@@ -24,6 +24,10 @@ var last_projectile_id := 0           # 006-R1-C：最近成功发射的 project
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
 var inventory := AmmoInventory.new()
+var shell_options: Array[ShellDefinition] = []
+var initial_shell_counts: Dictionary = {}
+var initial_shell_id := ""
+var vehicle_definition_id := ""
 var training_resupply := false # Explicit training loadout only; does not bypass cooldown.
 var aim_preview_enabled := true # Non-player team AI has no HUD marker; actual firing never uses this preview.
 var rounds_remaining: int:
@@ -65,6 +69,7 @@ func advance_timers(delta: float) -> void:
 	cooldown_left = maxf(0.0, cooldown_left - delta * rate)
 	if cooldown_left <= 0.0:
 		inventory.finish_transfer()
+		_sync_chamber_shell()
 	resume_grace = maxf(0.0, resume_grace - delta)
 
 func _process(delta: float) -> void:
@@ -125,6 +130,48 @@ func request_fire() -> bool:
 	# 不再由本脚本直接读取全局 fire 键）
 	return try_fire()
 
+func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary, first_id: String) -> bool:
+	var valid_ids := {}
+	for option in options:
+		if option == null or not option.validate().ok or valid_ids.has(option.id): return false
+		if not option.allowed_vehicle_ids.is_empty() and vehicle_definition_id not in option.allowed_vehicle_ids: return false
+		valid_ids[option.id] = true
+	for id in counts:
+		if not valid_ids.has(id): return false
+	if counts.size() != valid_ids.size(): return false
+	var ids := inventory.racks.keys()
+	var caps := inventory.rack_capacities.duplicate(true)
+	if caps.is_empty():
+		var left := weapon.initial_rounds if weapon != null else 30
+		for i in ids.size():
+			caps[ids[i]] = ceili(float(left)/float(ids.size()-i)); left -= int(caps[ids[i]])
+	if not inventory.configure_loadout(counts,ids,caps,first_id): return false
+	shell_options = options.duplicate(); initial_shell_counts = counts.duplicate(true); initial_shell_id = first_id
+	_sync_chamber_shell()
+	return true
+
+func select_shell(index: int) -> bool:
+	if index < 0 or index >= shell_options.size(): return false
+	if not inventory.select_next(shell_options[index].id): return false
+	# Empty chamber can start a new ordinary load, but changing a pending transfer cannot replace it.
+	if inventory.chamber == 0 and inventory.in_transfer == 0 and inventory.begin_transfer():
+		cooldown_left = maxf(cooldown_left,weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME)
+	return true
+
+func _sync_chamber_shell() -> void:
+	if not inventory.typed: return
+	for option in shell_options:
+		if option.id == inventory.chamber_shell: shell = option; return
+
+func shell_label(id: String) -> String:
+	for option in shell_options:
+		if option.id == id: return option.display_name if not option.display_name.is_empty() else option.id
+	return "EMPTY" if id.is_empty() else id
+
+func ammo_summary() -> String:
+	if not inventory.typed: return "%d rounds"%rounds_remaining
+	return "Loaded: %s | Next: %s | %d/%d"%[shell_label(inventory.chamber_shell),shell_label(inventory.selected_shell),rounds_remaining,inventory.capacity]
+
 func _current_round() -> int:
 	# 003-R2：开火那一刻的任务轮次（发射身份冻结来源；未注入 = -1，任务侧必拒）
 	return round_provider.call() if round_provider.is_valid() else -1
@@ -152,6 +199,7 @@ func try_fire() -> bool:
 		last_shot_result = "blocked:grace"
 		return false
 	inventory.finish_transfer() # Completion follows the same ready clock, including deterministic fixtures.
+	_sync_chamber_shell()
 	if rounds_remaining <= 0:
 		blocked_reason = "no_ammo"
 		last_shot_result = "blocked:no_ammo"
@@ -203,6 +251,8 @@ func try_fire() -> bool:
 		"shot_id": next_shot_id,
 		"shell_id": shell.id,
 		"armor_policy": shell.armor_policy,
+		"effect_policy": shell.effect_policy,
+		"seed":hash(JSON.stringify([_current_round(),shooter_id,tank.life_id,next_shot_id])),
 		"penetration_curve": shell.penetration_curve.duplicate(),
 		"test_only": "TEST ONLY" in str(shell.source_refs),
 		"position_world": muz,
