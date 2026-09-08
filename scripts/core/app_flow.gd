@@ -81,12 +81,17 @@ func _enter_core() -> void:
 
 func enter_laboratory(id: String) -> void:
 	if _transitioning: return
-	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn"}
+	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn"}
 	if not allowed.has(id): return
 	var prepared := garage.build_loadout()
 	if prepared.ok: settings = prepared.loadout
 	_transitioning = true
 	call_deferred("_enter_lab",allowed[id])
+
+func restart_match() -> void:
+	if _transitioning or not training is DuelRange: return
+	_transitioning = true
+	call_deferred("_enter_lab","res://scenes/battle/duel_range.tscn")
 
 func _enter_lab(path: String) -> void:
 	_clear_training()
@@ -101,7 +106,12 @@ func _enter_lab(path: String) -> void:
 	add_child(training)
 	var lab := training as BallisticsRange
 	for connection in lab.hud.training_requested.get_connections(): lab.hud.training_requested.disconnect(connection.callable)
-	lab.hud.training_requested.connect(func() -> void: return_to_garage())
+	if lab is DuelRange:
+		lab.restart_requested.connect(restart_match)
+		lab.return_requested.connect(return_to_garage)
+		lab.hud.training_requested.connect(lab.leave_match)
+	else:
+		lab.hud.training_requested.connect(func() -> void: return_to_garage())
 	lab.hud._training_btn.text = "返回车库"
 	lab.hud.armor_training_button.visible = false
 	lab.hud.damage_training_button.visible = false

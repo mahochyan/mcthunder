@@ -6,6 +6,7 @@ const MEMORY_SECONDS := 6.0
 var memory: Dictionary = {}
 var actor_provider: Callable
 var scans := 0
+var preferred_sample := 0
 
 func clear() -> void: memory.clear()
 
@@ -34,7 +35,9 @@ func scan(observer: VehicleActor, now: float) -> Array[Dictionary]:
 		var offset := center-eye
 		if offset.length() > RANGE_M or forward.dot(offset.normalized()) < cos(deg_to_rad(75)): continue
 		# Visible surface samples, never module or crew coordinates.
-		for local in [Vector3(0,1.2,0),Vector3(-0.8,1.5,0),Vector3(0.8,1.5,0),Vector3(0,2.2,-0.3)]:
+		var samples := [Vector3(0,1.2,0),Vector3(-0.8,1.5,0),Vector3(0.8,1.5,0),Vector3(0,2.2,-0.3),Vector3(-0.6,2.2,-0.3),Vector3(0.6,2.2,-0.3)]
+		for index in samples.size():
+			var local: Vector3 = samples[(index+preferred_sample)%samples.size()]
 			var sample: Vector3 = vehicle.tank.global_transform*local
 			var hit := contact(observer,eye,sample)
 			if hit.status != "vehicle" or hit.event.entity_id != vehicle.entity_id or hit.event.life_id != vehicle.life_id: continue

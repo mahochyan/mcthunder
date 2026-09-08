@@ -147,7 +147,9 @@ func _run() -> void:
 		if not finished.is_empty(): break
 	bot.set_physics_process(false)
 	var ai_result: Dictionary = finished.back().duplicate(true) if not finished.is_empty() else {}
-	var ai_point := scene.ai.last_command.aim_world_point
+	# AI may select its next exterior region after firing; compare the frozen launch.
+	var replay_record := scene.projectiles.shot_records.get_record(scene.projectiles.shot_records.count()-1)
+	var ai_point: Vector3 = replay_record.launch.position_world+replay_record.launch.velocity_world.normalized()*1000 if not replay_record.is_empty() else Vector3.ZERO
 	_check(not ai_result.is_empty() and ai_result.target_id == "A" and ai_result.reason == "armor_stopped","actual AI round hits frontal standard plate through projectile manager")
 	place(Vector3(12,0.03,6),Vector3(12,0.03,-34))
 	bot.set_controller(null)

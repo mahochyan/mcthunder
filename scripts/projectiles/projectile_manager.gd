@@ -33,6 +33,13 @@ var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + 
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
 var _shut_down := false                   # 006-R1-B：退出/清理后拒绝新发射
+
+func close_round() -> void:
+	# A finished battle retains immutable replay records but rejects every later launch.
+	_shut_down = true
+	_cancel_depth += 1
+	for pid in _active.keys(): finish_once(int(pid),"cancelled_match_finished",{})
+	_cancel_depth -= 1
 var _cancel_depth := 0                    # 006-R1 有限收尾：取消过程深度（嵌套取消不提前开放）
 var snapshot_provider := Callable()       # 由 Main 注入：当前车辆快照（每物理步取一次）
 var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, life_id) -> Array[RID]

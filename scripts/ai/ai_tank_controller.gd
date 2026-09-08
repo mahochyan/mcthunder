@@ -40,6 +40,9 @@ func is_local_controller() -> bool: return false
 func actor() -> VehicleActor: return _actor_ref.get_ref() as VehicleActor if _actor_ref != null else null
 func reset_pending() -> void:
 	sensor.clear()
+	sensor.preferred_sample = 0
+	var vehicle := actor()
+	if vehicle != null: _last_shots = vehicle.gunner.shots_fired
 	observation.clear()
 	driver.reset_pending()
 	_seen_since = -1
@@ -97,16 +100,18 @@ func update_command(delta: float) -> VehicleCommand:
 			phase = "repair"
 			if not vehicle.state.role_available("gunner") or not vehicle.state.role_available("driver"): cmd.replace_crew_requested = true
 			else: cmd.repair_requested = true
-			return cmd
+			if not caps.fire: return cmd
 	if vehicle.gunner.rounds_remaining == 0 and has_patrol:
 		if phase != "retreat": driver.set_goal(retreat_goal)
 		phase = "retreat"
 		return driver.update_command(delta)
 	if observation.is_empty():
+		if not caps.drive: return cmd
 		if phase != "patrol" and has_patrol: driver.set_goal(patrol_goal)
 		phase = "patrol"
 		return driver.update_command(delta)
 	if not observation.visible:
+		if not caps.drive: return cmd
 		if phase != "search" and driver.navigator != null and not driver.navigator.nodes.is_empty():
 			var id := driver.navigator.nearest(observation.position)
 			driver.set_goal(driver.navigator.nodes[id])
@@ -116,6 +121,8 @@ func update_command(delta: float) -> VehicleCommand:
 	phase = "observe" if clock-_seen_since < float(difficulty.reaction) else "engage"
 	if vehicle.gunner.shots_fired != _last_shots:
 		_last_shots = vehicle.gunner.shots_fired
+		# Alternate visible exterior regions without consulting enemy modules or crew.
+		sensor.preferred_sample = {0:4,4:5,5:3,3:0}.get(sensor.preferred_sample,0)
 		_new_error()
 	cmd.has_aim_point = true
 	cmd.aim_world_point = AimSolver.solve(vehicle.turret.muzzle.global_position,observation,vehicle.gunner.shell,vehicle.tank.velocity,_aim_error)

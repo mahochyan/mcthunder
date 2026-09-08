@@ -30,7 +30,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"核心训练候选 0.1  ·  M4A3 外形工程样车  ·  性能参数为训练设计值",15)
+	CoreUI.label(vertical,"训练与单挑候选 0.1.5  ·  M4A3 外形工程样车  ·  性能参数为训练设计值",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -76,6 +76,7 @@ func _ready() -> void:
 	goal.custom_minimum_size = Vector2(300,58)
 	case_choice.item_selected.connect(func(index: int) -> void: goal.text = TrainingDirector.GOALS[index])
 	start_button = CoreUI.button(controls,"进入训练",_start)
+	CoreUI.button(controls,"1 对 1 歼灭",func() -> void: laboratory_requested.emit("duel"))
 	error_label = CoreUI.label(controls,"",14)
 	error_label.modulate = Color("ffc282")
 	CoreUI.label(controls,"专项实验室",16)
