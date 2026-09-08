@@ -12,7 +12,7 @@ func _initialize() -> void:
 	wd.timeout.connect(func() -> void:
 		print("[WATCHDOG] 90s 超时，强制退出（存在卡死/等待）")
 		quit(2))
-	_run()
+	call_deferred("_run") # Window initialization must precede configured headless viewport sizing.
 
 func _run() -> void:
 	# -s SceneTree headless defaults to a 64x64 viewport, which cannot contain a real menu.
