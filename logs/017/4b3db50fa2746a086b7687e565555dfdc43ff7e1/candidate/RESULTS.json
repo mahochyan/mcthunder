@@ -1,0 +1,24 @@
+{
+  "font_sha256": "2C76254F6FC379FDDFCE0A7E84FB5385BB135D3E399294F6EEB6680D0365B74B",
+  "runs": [
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\candidates\\017\\4b3db50fa2746a086b7687e565555dfdc43ff7e1\\PixelArmor\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\candidates\\017\\4b3db50fa2746a086b7687e565555dfdc43ff7e1\\PixelArmor\" --editor --import",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "name": "import"
+    },
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\candidates\\017\\4b3db50fa2746a086b7687e565555dfdc43ff7e1\\PixelArmor\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\candidates\\017\\4b3db50fa2746a086b7687e565555dfdc43ff7e1\\PixelArmor\" --quit-after 8",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "name": "startup"
+    }
+  ],
+  "type": "local source-and-engine candidate, not exported executable",
+  "human": "NOT_RUN",
+  "candidate": "E:\\AIprogram\\mcthunder-development\\backups\\candidates\\017\\4b3db50fa2746a086b7687e565555dfdc43ff7e1\\PixelArmor",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "source_sha": "4b3db50fa2746a086b7687e565555dfdc43ff7e1"
+}

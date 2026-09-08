@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage entry builds the formal battle HUD
+[PASS] actual window capture 01_hud_720p
+[PASS] 720p main panels fit without overlap
+[PASS] normal mouse fire updates actual ammunition readout
+[PASS] real reload and actual barrel marker are presented
+[PASS] actual window capture 02_reload_and_barrel_marker
+[PASS] normal Tab opens battle status with visible cursor and no combat intent
+[PASS] actual window capture 03_battle_status
+[PASS] closing scoreboard by mouse cannot fire and restores capture
+[PASS] normal settings controls change large text, flash, contrast and replay preferences
+[PASS] actual window capture 04_accessibility_settings
+[PASS] 1080p large-font HUD remains inside the resized actual window
+[PASS] actual window capture 05_hud_1080p_large
+[PASS] returning to 720p preserves large-font layout
+[PASS] actual window capture 06_hud_720p_large
+[PASS] disabled replay gives normal HUD feedback without opening an overlay
+[PASS] normal death opens lineup with correct input focus
+[PASS] actual window capture 07_large_lineup
+[PASS] battle status replaces lineup instead of stacking clickable panels
+[PASS] actual window capture 08_spectator_status
+[PASS] closing status restores lineup and E changes friendly observation
+[PASS] normal redeploy restores new-life controls without a mouse-click shot
+[PASS] actual window capture 09_redeployed_hud
+[PASS] normal return cleans HUD and restores garage
+[PASS] actual window capture 10_returned_garage
+=== 结果: 25 项检查, 0 失败 ===
+[render] fps=32
+HUD_PLAYER_CHECKS_PASS

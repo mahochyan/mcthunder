@@ -1,0 +1,11 @@
+{
+  "source_sha": "4b3db50fa2746a086b7687e565555dfdc43ff7e1",
+  "uncommitted_source": false,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -s \"res://tests/run_hud_player_checks.gd\" -- --shot-dir \"res://docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559",
+  "human": "NOT_RUN"
+}
