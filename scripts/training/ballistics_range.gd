@@ -80,6 +80,7 @@ func _ready() -> void:
 	hud.training_requested.connect(_return_to_range)
 	hud.armor_training_requested.connect(_open_armor_training)
 	hud.damage_training_requested.connect(_open_damage_training)
+	hud.recovery_training_requested.connect(_open_recovery_training)
 	hud.set_training_button_text(false)   # 训练场按钮 = 返回靶场
 	_initialized = true
 	if DisplayServer.get_name() != "headless":
@@ -414,6 +415,12 @@ func _open_damage_training() -> void:
 	projectiles.cancel_all("cancelled_scene_exit")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/training/damage_range.tscn")
+
+func _open_recovery_training() -> void:
+	if not _initialized or not _paused: return
+	projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/training/recovery_range.tscn")
 
 # =====================================================================
 # 006-d / 006-R1-C 弹道演示（-- --ballistics-demo）

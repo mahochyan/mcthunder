@@ -8,6 +8,8 @@ signal armor_training_requested
 var armor_training_button: Button
 signal damage_training_requested
 var damage_training_button: Button
+signal recovery_training_requested
+var recovery_training_button: Button
 signal inspect_requested   # 004-c：暂停菜单"车辆检视"按钮
 signal training_requested  # 006：暂停菜单"弹道训练"入口（训练场中为"返回靶场"）
 
@@ -177,6 +179,11 @@ func _build() -> void:
 	damage_training_button.custom_minimum_size = Vector2(160,44)
 	damage_training_button.pressed.connect(func() -> void: damage_training_requested.emit())
 	vb.add_child(damage_training_button)
+	recovery_training_button = Button.new()
+	recovery_training_button.text = "Recovery Range"
+	recovery_training_button.custom_minimum_size = Vector2(160,44)
+	recovery_training_button.pressed.connect(func() -> void: recovery_training_requested.emit())
+	vb.add_child(recovery_training_button)
 	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 
 func set_training_button_text(training: bool) -> void:

@@ -77,6 +77,26 @@ toggle_target={
 ]
 }
 
+repair={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":84)]
+}
+
+extinguish={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":70)]
+}
+
+replace_crew={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":67)]
+}
+
+cancel_recovery={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":71)]
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

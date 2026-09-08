@@ -422,6 +422,16 @@ static func validate_volumes(
 			errors.append(_err(path + ".max_integrity", "must be finite and positive"))
 		if not is_finite(module.resistance_mm) or module.resistance_mm <= 0:
 			errors.append(_err(path + ".resistance_mm", "must be finite and positive"))
+		for field in ["fire_module_targets","fire_crew_targets"]:
+			var seen_links: Dictionary = {}
+			for target_id in module.get(field):
+				var exists := false
+				var candidates: Array = layout.modules if field == "fire_module_targets" else layout.crew_stations
+				for candidate in candidates:
+					if candidate != null and candidate.id == target_id: exists = true
+				if not exists or seen_links.has(target_id):
+					errors.append(_err(path + "." + field,"unknown or duplicate target '%s'" % target_id))
+				seen_links[target_id] = true
 		for key in module.evidence_keys:
 			if not evidence_keys.has(key):
 				errors.append(_err(path + ".evidence_keys", "unknown evidence key '%s'" % key))

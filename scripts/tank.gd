@@ -15,6 +15,7 @@ var entity_id := ""   # 003-R2：实体标识注入（命中事件 target 身份
 var life_id := 0      # 003-R2：实体生命周期标识（同名车销毁重建后不同）
 var _drive_calls := 0 # 003-R2：apply_drive 调用计数（命令单次物理消费断言用）
 var capabilities_provider := Callable()
+var state_generation := 0
 
 signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
 

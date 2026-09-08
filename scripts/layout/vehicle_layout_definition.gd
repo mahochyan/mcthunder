@@ -10,6 +10,7 @@ extends Resource
 @export var historical_identity_id: String = ""
 @export_enum("test", "research", "production") var content_tier: String = "test"
 @export var display_name: String = ""
+@export var recovery_enabled: bool = false # Explicit opt-in; legacy/008 fixtures preserve their rules.
 
 @export var parts: Array[LayoutPartDefinition] = []
 @export var armor_patches: Array[ArmorPatchDefinition] = []

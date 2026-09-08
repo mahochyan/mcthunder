@@ -41,6 +41,7 @@ static func build_from_vehicle(vehicle: TankVehicle, layout: VehicleLayoutDefini
 	var out := {
 		"entity_id": vehicle.entity_id,
 		"life_id": vehicle.life_id,
+		"target_generation":vehicle.state_generation,
 		"definition_id": vehicle.defs.id if vehicle.defs != null else "",
 		"layout_id": layout.id,
 		"layout_revision": layout.schema_version,

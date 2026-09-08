@@ -1,0 +1,91 @@
+extends "res://tests/run_damage_player_checks.gd"
+## Normal input demonstration; all action timers advance naturally at 60 physics ticks.
+
+func _run() -> void:
+	if DisplayServer.get_name() == "headless":
+		print("RECOVERY_PLAYER_CHECKS requires a real window")
+		quit(1)
+		return
+	root.size = Vector2i(1280,720)
+	var main: Node = load("res://scenes/main.tscn").instantiate()
+	root.add_child(main)
+	current_scene = main
+	await _frames(20)
+	if not main._paused: await _key(KEY_ESCAPE)
+	var button: Button = main.hud.recovery_training_button
+	for pressed in [true,false]:
+		var click := InputEventMouseButton.new()
+		click.button_index = MOUSE_BUTTON_LEFT
+		click.pressed = pressed
+		click.position = button.get_global_rect().get_center()
+		Input.parse_input_event(click)
+		await _frames(2)
+	await _frames(30)
+	var scene := current_scene as RecoveryRange
+	range_scene = scene
+	_check(scene != null,"real menu click enters Recovery Range")
+	if scene == null:
+		quit(1)
+		return
+	_check(scene.actor.gunner.shot_id == 0,"entering recovery lesson does not fire")
+	await _fire_at(scene.target_point())
+	_check(scene.target_actor.state.module_states.track_left.integrity == 0,"actual player shot breaks track")
+	await _key(KEY_TAB)
+	await _key(KEY_T)
+	await _frames(60)
+	_check(scene.actor.state.recovery_action == "repair","T starts real repair command")
+	await _capture("01_repair_progress")
+	await _key(KEY_W,15)
+	_check(scene.actor.state.recovery_action.is_empty(),"held W interrupts repair")
+	await _key(KEY_T)
+	await _frames(690)
+	_check(scene.actor.state.module_states.track_left.integrity == 50,"natural 12-second repair restores track to usable threshold")
+	var before := scene.actor.tank.global_position
+	await _key(KEY_W,25)
+	_check(scene.actor.tank.global_position.distance_to(before)>0.05,"same repaired vehicle drives with real W")
+	await _capture("02_track_repaired")
+	await _key(KEY_2)
+	await _fire_at(scene.target_point())
+	_check(not scene.target_actor.state.fires.is_empty(),"actual engine hit starts visible fire")
+	await _key(KEY_TAB)
+	await _key(KEY_F)
+	await _frames(60)
+	_check(scene.actor.state.extinguisher_charges == 1 and scene.actor.state.recovery_action == "extinguish","F starts extinguisher and consumes once")
+	await _capture("03_extinguish_progress")
+	await _key(KEY_ESCAPE)
+	var frozen := scene.actor.state.action_progress
+	await _frames(20)
+	_check(is_equal_approx(scene.actor.state.action_progress,frozen),"pause freezes extinguisher and fire timers")
+	await _key(KEY_ESCAPE)
+	await _frames(190)
+	_check(scene.actor.state.fires.is_empty() and scene.actor.state.extinguisher_charges == 1,"natural four-second action extinguishes without extra consumption")
+	_check(scene.actor.state.module_states.engine.integrity == 0,"extinguishing does not repair destroyed engine")
+	await _capture("04_fire_out")
+	await _key(KEY_3)
+	await _fire_at(scene.target_point())
+	_check(not scene.target_actor.state.role_available("gunner"),"actual aimed shot incapacitates gunner")
+	await _key(KEY_TAB)
+	await _key(KEY_C)
+	await _frames(60)
+	_check(scene.actor.state.recovery_action == "replace","C starts real crew replacement")
+	await _capture("05_crew_replacement_progress")
+	await _frames(430)
+	_check(scene.actor.state.crew_assignments.gunner == "commander" and scene.actor.state.crew_assignments.commander == "","natural eight-second replacement moves one actual crew member")
+	_check(not scene.actor.state.crew_states.gunner.alive and scene.actor.capabilities().fire,"original gunner remains incapacitated while replacement can fire")
+	await _capture("06_crew_replaced")
+	await _key(KEY_4)
+	await _fire_at(scene.target_point())
+	_check(scene.target_actor.state.destroyed and scene.death_history.size() == 1,"actual loaded-rack hit destroys once")
+	_check(scene.target_actor.state.death_record.source.shooter_id == "A" and scene.wrecks.count() == 1,"wreck and death preserve actual shooter")
+	await _capture("07_loaded_rack_wreck")
+	await _key(KEY_5)
+	await _fire_at(scene.target_point())
+	_check(scene.target_actor.state.module_states.ammo_rack.integrity == 0 and not scene.target_actor.state.destroyed,"same actual empty-rack hit damages rack but does not detonate")
+	_check(scene.death_history.is_empty() and scene.target_actor.gunner.rounds_remaining == 0,"empty loadout remains empty without fake destruction")
+	await _capture("08_empty_rack_survives")
+	await _key(KEY_R)
+	_check(scene.projectiles.active_count() == 0 and scene.target_actor.state.recovery_action.is_empty() and scene.death_history.is_empty(),"new round clears projectiles, action and death feedback")
+	print("=== 结果: %d 项检查, %d 失败 ===" % [count,failed])
+	print("[render] fps=%d physics_tps=%d" % [Engine.get_frames_per_second(),Engine.physics_ticks_per_second])
+	print("RECOVERY_PLAYER_CHECKS_PASS" if failed == 0 else "RECOVERY_PLAYER_CHECKS_FAIL")
+	quit(0 if failed == 0 else 1)

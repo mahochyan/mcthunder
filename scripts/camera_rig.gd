@@ -13,6 +13,10 @@ var sight := false
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
 
 var _sight_requested := false
+var snapshot_provider := Callable()
+var _precise_point := Vector3.ZERO
+var _precise_valid := false
+var intent_contact: Dictionary = {}
 
 func _ready() -> void:
 	cam = Camera3D.new()
@@ -34,6 +38,10 @@ func set_local_control(on: bool) -> void:
 
 func set_sight_requested(on: bool) -> void:
 	_sight_requested = on
+
+func clear_intent_cache() -> void:
+	_precise_valid = false
+	intent_contact.clear()
 
 func _exclude() -> Array[RID]:
 	var ex: Array[RID] = []
@@ -75,6 +83,8 @@ func _ray(from: Vector3, to: Vector3, mask: int = GameConfig.LAYER_WORLD) -> Dic
 	return space.intersect_ray(q)
 
 func get_aim_point() -> Vector3:
+	if _precise_valid and not sight:
+		return _precise_point
 	# 玩家想瞄的点：相机中心射线（第三人称下即屏幕中心方向）。
 	# 003：意图射线查 WORLD|VEHICLE（排除本车）——B 等车辆可被瞄准，
 	# 否则炮塔会越过车辆对准其后方世界点，炮管射线从目标上方掠过。
@@ -89,6 +99,8 @@ func get_aim_point() -> Vector3:
 	return from + dir * 60.0
 
 func intent_point() -> Vector3:
+	if _precise_valid:
+		return _precise_point
 	# 002-R2：输入意图射线 → 期望世界瞄点 P（炮塔按 P 求目标角）。
 	# 第三人称：相机中心射线；炮镜：沿意图方向从炮根发出（独立输入意图，
 	# 不以实际炮管方向反向锁死——否则炮塔会跟随自己、无法继续改变目标）。
@@ -101,3 +113,34 @@ func intent_point() -> Vector3:
 			return hit.position
 		return pivot + dir3d * 60.0
 	return get_aim_point()
+
+func _physics_process(_delta: float) -> void:
+	# Actual armor silhouette in resolve mode. World queries stay in the physical update.
+	_precise_valid = false
+	intent_contact.clear()
+	if not snapshot_provider.is_valid() or tank == null: return
+	var snapshots: Array = snapshot_provider.call()
+	if snapshots.is_empty(): return
+	var from := cam.global_position
+	var direction := -cam.global_basis.z
+	if _sight_requested and turret != null:
+		from = turret.barrel_pivot.global_position
+		direction = Vector3(-sin(aim_yaw)*cos(aim_pitch),sin(aim_pitch),-cos(aim_yaw)*cos(aim_pitch))
+	var world := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state,from,direction,300,_exclude())
+	if not world.get("ok",false): return
+	var query := ShotQueryService.query({"from_world":from,"to_world":from+direction*300,
+		"excluded_instances":[{"entity_id":tank.entity_id,"life_id":tank.life_id}],
+		"include_modules":true,"include_crew":false,"world_stop":world.get("contact",{})},snapshots)
+	var selected := ExternalContactSelector.select_contact(query)
+	var boundary := INF
+	if selected.status == "vehicle":
+		intent_contact = selected.event
+	elif selected.status == "world":
+		intent_contact = selected.contact
+	elif selected.status == "unresolved":
+		return
+	if not intent_contact.is_empty(): boundary = float(intent_contact.distance_m)
+	var external_module := DamageResolver.next_contact(query,{}, {},boundary)
+	if not external_module.is_empty(): intent_contact = external_module
+	_precise_point = intent_contact.get("point_world",from+direction*60)
+	_precise_valid = true

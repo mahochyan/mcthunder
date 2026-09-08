@@ -23,7 +23,10 @@ var shot_id := 0                      # 003-R2：本实体射击编号——每�
 var last_projectile_id := 0           # 006-R1-C：最近成功发射的 projectile_id（HUD 在飞/已终态区分）
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
-var rounds_remaining := 0             # 006：剩余弹数（实例状态，不共享；整场/单车重开恢复配额）
+var inventory := AmmoInventory.new()
+var rounds_remaining: int:
+	get: return inventory.total_available()
+	set(value): inventory.configure(value,inventory.racks.keys()) # Explicit reset/loadout compatibility.
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
@@ -58,6 +61,8 @@ func advance_timers(delta: float) -> void:
 	if capabilities_provider.is_valid():
 		rate = float(capabilities_provider.call().reload_rate)
 	cooldown_left = maxf(0.0, cooldown_left - delta * rate)
+	if cooldown_left <= 0.0:
+		inventory.finish_transfer()
 	resume_grace = maxf(0.0, resume_grace - delta)
 
 func _process(delta: float) -> void:
@@ -143,9 +148,14 @@ func try_fire() -> bool:
 		blocked_reason = "grace"
 		last_shot_result = "blocked:grace"
 		return false
+	inventory.finish_transfer() # Completion follows the same ready clock, including deterministic fixtures.
 	if rounds_remaining <= 0:
 		blocked_reason = "no_ammo"
 		last_shot_result = "blocked:no_ammo"
+		return false
+	if inventory.chamber != 1:
+		blocked_reason = "chamber_empty"
+		last_shot_result = "blocked:chamber_empty"
 		return false
 	if projectile_manager == null:
 		# 装配缺失：保守拒绝（不扣弹、不装填、不计数）
@@ -206,7 +216,8 @@ func try_fire() -> bool:
 		return false
 	# 只有 ok=true 后一次性提交扣弹、冷却、编号与计数（无 await，不触发可重入开火信号）
 	shot_id = next_shot_id
-	rounds_remaining -= 1
+	inventory.consume_chamber()
+	inventory.begin_transfer()
 	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
 	shots_fired += 1
 	blocked_reason = ""

@@ -45,8 +45,16 @@ func submit(cmd: VehicleCommand) -> bool:
 	# 同一步多次提交合并：开火做逻辑或；驾驶/炮镜用最新样本；
 	# fire-only 的后续提交不覆盖本步已暂存的显式瞄点操作
 	copy.fire_requested = cmd.fire_requested
+	copy.repair_requested = cmd.repair_requested
+	copy.extinguish_requested = cmd.extinguish_requested
+	copy.replace_crew_requested = cmd.replace_crew_requested
+	copy.cancel_recovery_requested = cmd.cancel_recovery_requested
 	if _pending != null:
 		copy.fire_requested = copy.fire_requested or _pending.fire_requested
+		copy.repair_requested = copy.repair_requested or _pending.repair_requested
+		copy.extinguish_requested = copy.extinguish_requested or _pending.extinguish_requested
+		copy.replace_crew_requested = copy.replace_crew_requested or _pending.replace_crew_requested
+		copy.cancel_recovery_requested = copy.cancel_recovery_requested or _pending.cancel_recovery_requested
 		if not copy.has_aim_point and not copy.clear_aim:
 			copy.has_aim_point = _pending.has_aim_point
 			copy.aim_world_point = _pending.aim_world_point

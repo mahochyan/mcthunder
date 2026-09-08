@@ -10,6 +10,10 @@ var has_aim_point: bool = false  # 003：显式指定瞄点（脚本命令；零
 var clear_aim: bool = false      # 003：清除脚本瞄点（本地玩家每帧清除，回到相机意图）
 var aim_held: bool = false       # 炮镜请求（本地玩家右键）
 var fire_requested: bool = false
+var repair_requested := false
+var extinguish_requested := false
+var replace_crew_requested := false
+var cancel_recovery_requested := false
 var select_shell: int = -1       # 003 首版仅单弹种，-1 = 不切换
 
 func reset() -> void:
@@ -20,4 +24,8 @@ func reset() -> void:
 	clear_aim = false
 	aim_held = false
 	fire_requested = false
+	repair_requested = false
+	extinguish_requested = false
+	replace_crew_requested = false
+	cancel_recovery_requested = false
 	select_shell = -1

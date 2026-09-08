@@ -14,5 +14,7 @@ extends Resource
 @export var external: bool = false            # 外部体积（如左右履带）不按内部模块校验
 @export var max_integrity: float = GameConfig.DAMAGE_MODULE_INTEGRITY
 @export var resistance_mm: float = GameConfig.DAMAGE_MODULE_RESISTANCE_MM
+@export var fire_module_targets: PackedStringArray = []
+@export var fire_crew_targets: PackedStringArray = []
 @export var geometry_status: String = "unknown" # verified / estimated / unknown
 @export var evidence_keys: PackedStringArray = []

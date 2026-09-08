@@ -16,6 +16,7 @@ var state: VehicleRuntimeState
 var damage_layout_override: VehicleLayoutDefinition
 signal damage_recorded(record: Dictionary)
 signal vehicle_disabled(record: Dictionary)
+signal vehicle_destroyed(record: Dictionary)
 var entity_id := ""   # 003-R1：实体标识（HUD 提示/命中事件来源）
 var life_id := 0      # 003-R2：实体生命周期标识（setup 生成；同 id 重建后不同）
 var tank: TankVehicle
@@ -41,6 +42,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	life_id = _life_counter   # 003-R2：同名车重建后生命周期不同
 	state = VehicleRuntimeState.new()
 	state.entity_id = entity_id
+	state.life_id = life_id
 	state.team_id = team_id
 	state.definition_id = definition.id
 	if not definition.layout_id.is_empty():
@@ -63,12 +65,15 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	cam_rig.turret = turret
 	cam_rig.tank = tank
 	cam_rig.visual_layer = visual_layer
+	cam_rig.snapshot_provider = Callable(self,"_aim_snapshots")
 	gunner = Gunner.new()
 	gunner.name = "Gunner"
 	add_child(gunner)
 	gunner.setup(tank, turret, weapon, shell)   # 003-R1：装填/射程唯一来源；006：弹种运动参数
+	_configure_inventory(state._damage_layout)
 	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
 	tank.capabilities_provider = Callable(self,"capabilities")
+	tank.state_generation = state.generation
 	turret.capabilities_provider = Callable(self,"capabilities")
 	gunner.capabilities_provider = Callable(self,"capabilities")
 	gunner.shooter_team_id = team_id   # 006：发射身份队伍（冻结）
@@ -107,25 +112,66 @@ func set_controller(ctrl: Node) -> void:
 func capabilities() -> Dictionary:
 	return VehicleCapabilities.compute(state)
 
+func _aim_snapshots() -> Array:
+	if gunner != null and gunner.shell != null and gunner.shell.armor_policy == "resolve" and gunner.snapshot_provider.is_valid():
+		return gunner.snapshot_provider.call()
+	return []
+
 func set_damage_layout(layout: VehicleLayoutDefinition) -> void:
 	damage_layout_override = layout
 	state.initialize_damage(layout)
+	tank.state_generation = state.generation
+	_configure_inventory(layout)
+
+func _configure_inventory(layout: VehicleLayoutDefinition) -> void:
+	if gunner == null: return
+	var rack_ids: Array = []
+	if layout != null:
+		for module in layout.modules:
+			if module.kind == "ammo": rack_ids.append(module.id)
+	gunner.inventory.configure(gunner.rounds_remaining,rack_ids)
 
 func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if str(event.get("entity_id","")) != entity_id or int(event.get("life_id",0)) != life_id:
 		return {"ok":false,"reason":"stale_entity"}
+	if int(event.get("target_generation",-1)) >= 0 and int(event.target_generation) != state.generation:
+		return {"ok":false,"reason":"stale_generation"}
 	var delta := DamageResolver.resolve(event,available_mm,state.damage_snapshot())
 	if not delta.get("ok",false):
 		return delta
+	delta["source"] = VehicleRecovery.source_from(event)
 	var commit := state.apply_damage_delta(str(event.get("event_id","")),delta)
 	if not commit.get("ok",false):
 		return commit
-	delta["newly_destroyed"] = commit.newly_destroyed
+	var record := event.duplicate(true)
+	record.merge(delta,true)
+	var secondary_death := VehicleRecovery.on_direct_damage(state,gunner.inventory,record)
+	delta["newly_destroyed"] = commit.newly_destroyed or secondary_death
+	delta["state_generation"] = state.generation
+	if delta.newly_destroyed:
+		_commit_death()
+		delta["death_record"] = state.death_record.duplicate(true)
 	return delta # No external callbacks until manager has committed projectile budget and record.
 
 func present_damage_record(record: Dictionary) -> void:
+	var generation := state.generation
 	damage_recorded.emit(record.duplicate(true))
-	if record.get("newly_destroyed",false):
+	if state.generation == generation and int(record.get("state_generation",generation)) == generation and record.get("newly_destroyed",false):
+		_publish_death()
+
+func _commit_death() -> void:
+	state.death_record["point_world"] = tank.global_position
+	state.death_record["ammo_before_loss"] = gunner.inventory.snapshot()
+	gunner.inventory.lose_all()
+	_mailbox.clear()
+	if controller != null: controller.reset_pending()
+
+func _publish_death() -> void:
+	if not state.destroyed or state.death_notified: return
+	state.death_notified = true
+	var record := state.death_record.duplicate(true)
+	vehicle_destroyed.emit(record.duplicate(true))
+	if state.generation == int(record.generation) and state.destroyed:
 		vehicle_disabled.emit(record.duplicate(true))
 
 func _notification(what: int) -> void:
@@ -189,6 +235,8 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 		return
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
+	var died_now := VehicleRecovery.step(state,delta,tank.forward_speed,cmd)
+	if died_now: _commit_death()
 	if debug_command_trace:
 		print("[cmd-trace] execute entity=%s tick=%d throttle=%.2f steer=%.2f fire=%s" % [entity_id, Engine.get_physics_frames(), throttle, steer, str(cmd.fire_requested)])
 	tank.apply_drive(throttle, steer, delta)
@@ -208,6 +256,7 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	state.shots_fired = gunner.shots_fired
 	state.last_shot_result = gunner.last_shot_result
 	state.hits_taken = tank.hits_taken
+	if died_now: _publish_death()
 
 func reset_vehicle() -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
@@ -218,6 +267,7 @@ func reset_vehicle() -> void:
 	cam_rig.aim_yaw = 0.0
 	cam_rig.aim_pitch = 0.0
 	cam_rig.set_sight_requested(false)
+	cam_rig.clear_intent_cache()
 	turret.clear_aim_point()   # 先清旧瞄点再 snap（否则 snap 会追旧脚本目标）
 	turret.snap_to_aim()
 	gunner.reset_state()
@@ -225,3 +275,4 @@ func reset_vehicle() -> void:
 	if controller != null and controller.has_method("reset_pending"):
 		controller.reset_pending()
 	state.reset()
+	tank.state_generation = state.generation

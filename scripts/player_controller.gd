@@ -11,13 +11,18 @@ var cam_rig: CameraRig = null   # 由 actor 注入（本地控制者设置时）
 var gunner: Gunner = null       # 由 actor 注入（仅用于状态查询，不直接调用开火）
 var commands_enabled := true    # 005-d：调试面板打开时禁用意图生成（面板不消费弹药/任务，也不得被点击误触开火）
 var _fire_pending := false
+var _recovery_pending: Dictionary = {}
+var _recovery_release_guard: Dictionary = {}
 var _need_fire_release := false   # 005-R1-C：面板关闭/暂停后必须观察到火键释放才重新允许捕获
 
 func _process(_delta: float) -> void:
 	if get_tree().paused:
+		_recovery_pending.clear()
+		_arm_recovery_release()
 		_fire_pending = false   # 003-R1：暂停清空待发请求，恢复后不补发
 		return
 	if not commands_enabled:
+		_recovery_pending.clear()
 		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
 		return
 	if _need_fire_release:
@@ -27,6 +32,11 @@ func _process(_delta: float) -> void:
 		_need_fire_release = false
 	if Input.is_action_just_pressed("fire"):
 		_fire_pending = true
+	for action in ["repair","extinguish","replace_crew","cancel_recovery"]:
+		if _recovery_release_guard.get(action,false):
+			if not Input.is_action_pressed(action): _recovery_release_guard.erase(action)
+			continue
+		if Input.is_action_just_pressed(action): _recovery_pending[action] = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not commands_enabled:
@@ -48,17 +58,29 @@ func poll() -> VehicleCommand:
 	cmd.aim_held = Input.is_action_pressed("aim")
 	cmd.clear_aim = true   # 本地玩家每帧清除脚本瞄点，回到相机意图
 	cmd.fire_requested = _fire_pending
+	cmd.repair_requested = _recovery_pending.get("repair",false)
+	cmd.extinguish_requested = _recovery_pending.get("extinguish",false)
+	cmd.replace_crew_requested = _recovery_pending.get("replace_crew",false)
+	cmd.cancel_recovery_requested = _recovery_pending.get("cancel_recovery",false)
+	_recovery_pending.clear()
 	_fire_pending = false
 	return cmd
 
 func require_fire_release() -> void:
+	_arm_recovery_release()
 	# 005-R1-C：重新允许意图前调用——关闭调试面板用的鼠标左键/暂停中按下的 fire
 	# 不得被当作开火边沿；若火键此刻仍按住则等到真实释放（保守门）。
 	_fire_pending = false
 	_need_fire_release = true
 
 func reset_pending() -> void:
+	_recovery_pending.clear()
+	_arm_recovery_release()
 	# 003-R1：重置清理待发命令（由 VehicleActor.reset_vehicle 与暂停入口调用）；
 	# 只清待发边沿，不臂释放门（002 语义：无冷却时 按下→立即合法射击；
 	# 门仅由 close_query_debug 的 require_fire_release 臂起，防面板关闭瞬时的按住误射）。
 	_fire_pending = false
+
+func _arm_recovery_release() -> void:
+	for action in ["repair","extinguish","replace_crew","cancel_recovery"]:
+		_recovery_release_guard[action] = true

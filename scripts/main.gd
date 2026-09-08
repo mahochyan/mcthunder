@@ -115,6 +115,7 @@ func _ready() -> void:
 	hud.training_requested.connect(_open_training)   # 006：暂停菜单弹道训练入口
 	hud.armor_training_requested.connect(_open_armor_training)
 	hud.damage_training_requested.connect(_open_damage_training)
+	hud.recovery_training_requested.connect(_open_recovery_training)
 	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
@@ -374,6 +375,12 @@ func _open_damage_training() -> void:
 	projectiles.cancel_all("cancelled_scene_exit")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/training/damage_range.tscn")
+
+func _open_recovery_training() -> void:
+	if not _can_use_gameplay() or not _paused: return
+	projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/training/recovery_range.tscn")
 
 func _on_projectile_contact(record: Dictionary) -> void:
 	if _aborted or record.get("armor_policy", "") != "resolve" or not record.get("first_for_target", false):

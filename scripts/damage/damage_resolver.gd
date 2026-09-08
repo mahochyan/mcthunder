@@ -2,11 +2,11 @@ class_name DamageResolver
 extends RefCounted
 ## Pure selection + deterministic direct-hit game rule. No total vehicle health.
 static func target_key(event: Dictionary) -> String:
-	return JSON.stringify([event.get("entity_id",""),event.get("life_id",0)])
+	return JSON.stringify([event.get("entity_id",""),event.get("life_id",0),event.get("target_generation",-1)])
 
 static func item_key(event: Dictionary) -> String:
 	return JSON.stringify([event.get("entity_id",""),event.get("life_id",0),event.get("kind",""),
-		event.get("part_id",""),event.get("module_id",event.get("crew_id",""))])
+		event.get("part_id",""),event.get("module_id",event.get("crew_id","")),event.get("target_generation",-1)])
 
 static func next_contact(query: Dictionary, interior: Dictionary, seen: Dictionary, before_distance: float) -> Dictionary:
 	if not query.get("ok",false) or not query.get("complete",false):

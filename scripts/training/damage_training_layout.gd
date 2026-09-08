@@ -1,10 +1,11 @@
 class_name DamageTrainingLayout
 extends RefCounted
 ## Five-person, low-poly engineering fixture. All dimensions and armor are designed values.
-static func build() -> VehicleLayoutDefinition:
+static func build(with_recovery: bool = false) -> VehicleLayoutDefinition:
 	var layout: VehicleLayoutDefinition = load("res://configs/layouts/test_player_vehicle_layout.tres").duplicate(true)
 	layout.id = "test_damage_vehicle"
 	layout.content_tier = "test"
+	layout.recovery_enabled = with_recovery
 	for patch in layout.armor_patches:
 		patch.has_thickness = true
 		patch.thickness_mm = 20.0
@@ -50,6 +51,10 @@ static func build() -> VehicleLayoutDefinition:
 		person.volume_status = "estimated"
 		person.role_placement_status = "estimated"
 		layout.crew_stations.append(person)
+	for module in layout.modules:
+		if module.kind == "engine":
+			module.fire_module_targets = PackedStringArray(["engine","fuel"])
+			module.fire_crew_targets = PackedStringArray(["driver","assistant_driver","gunner","loader","commander"])
 	return layout
 
 static func part_node(actor: VehicleActor, part: String) -> Node3D:

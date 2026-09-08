@@ -4,6 +4,8 @@ extends RefCounted
 ## 速度/炮塔/装填/计数/模块占位状态全部在此；重置只改本实例。
 
 var entity_id: String = ""
+var life_id := 0
+var generation := 0
 var team_id: int = 0
 var definition_id: String = ""
 
@@ -29,6 +31,17 @@ var crew_assignments: Dictionary = {}
 var station_roles: Dictionary = {}
 var _damage_layout: VehicleLayoutDefinition
 var _damage_seen: Dictionary = {}
+var recovery_enabled := false
+var fires: Dictionary = {}
+var repair_progress: Dictionary = {}
+var recovery_action := ""
+var action_target := ""
+var action_person := ""
+var action_progress := 0.0
+var recovery_reason := ""
+var extinguisher_charges := RecoveryRules.EXTINGUISH_CHARGES
+var death_record: Dictionary = {}
+var death_notified := false
 
 func reset() -> void:
 	forward_speed = 0.0
@@ -44,6 +57,7 @@ func reset() -> void:
 	initialize_damage(_damage_layout)
 
 func initialize_damage(layout: VehicleLayoutDefinition) -> void:
+	generation += 1
 	_damage_layout = layout
 	module_states.clear()
 	crew_states.clear()
@@ -51,11 +65,20 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 	station_roles.clear()
 	_damage_seen.clear()
 	destroyed = false
+	recovery_enabled = layout != null and layout.recovery_enabled
+	fires.clear()
+	repair_progress.clear()
+	cancel_recovery()
+	recovery_reason = ""
+	extinguisher_charges = RecoveryRules.EXTINGUISH_CHARGES
+	death_record.clear()
+	death_notified = false
 	if layout == null:
 		return
 	for module in layout.modules:
 		module_states[module.id] = {"kind":module.kind,"integrity":module.max_integrity,
-			"max_integrity":module.max_integrity,"resistance_mm":module.resistance_mm,"external":module.external}
+			"max_integrity":module.max_integrity,"resistance_mm":module.resistance_mm,"external":module.external,
+			"fire_module_targets":module.fire_module_targets.duplicate(),"fire_crew_targets":module.fire_crew_targets.duplicate()}
 	for station in layout.crew_stations:
 		crew_states[station.id] = {"alive":true,"original_role":station.role}
 		crew_assignments[station.role] = station.id
@@ -105,6 +128,21 @@ func apply_damage_delta(event_id: String, delta: Dictionary) -> Dictionary:
 		_damage_seen.erase(_damage_seen.keys()[0])
 	var newly_destroyed := false
 	if not destroyed and not crew_states.is_empty() and alive_crew_count() < GameConfig.DAMAGE_MIN_CREW:
-		destroyed = true
-		newly_destroyed = true
+		newly_destroyed = destroy_once("crew_out",delta.get("source",{}))
 	return {"ok":true,"newly_destroyed":newly_destroyed}
+
+func cancel_recovery() -> void:
+	recovery_action = ""
+	action_target = ""
+	action_person = ""
+	action_progress = 0.0
+
+func destroy_once(cause: String, source: Dictionary) -> bool:
+	if destroyed: return false
+	destroyed = true
+	death_record = {"entity_id":entity_id,"life_id":life_id,"generation":generation,
+		"cause":cause,"source":source.duplicate(true),"rules_version":RecoveryRules.VERSION}
+	cancel_recovery()
+	repair_progress.clear()
+	fires.clear()
+	return true
