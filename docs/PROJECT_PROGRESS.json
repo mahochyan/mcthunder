@@ -2,7 +2,7 @@
   "schema_version": 1,
   "objective": "体素/低模方块风，尽可能还原战争雷霆陆战内容",
   "authorization": "2026-09-08 user: 按照计划完成后续开发",
-  "current_order": "008",
+  "current_order": "009",
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "orders": {
     "030": {
@@ -142,10 +142,12 @@
       "implementation": "planned"
     },
     "009": {
+      "implementation": "implemented",
+      "engineering": "passed_self_review",
       "human": "not_run",
-      "engineering": "not_run",
       "content_history": "test_only",
-      "implementation": "planned"
+      "code_sha": "ad8fdf13713e23871b8973f038200fdcfff271e3",
+      "report": "docs/DELIVERY_009.md"
     },
     "027": {
       "human": "not_run",

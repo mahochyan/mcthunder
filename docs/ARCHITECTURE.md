@@ -270,3 +270,6 @@ B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车
 
 ## 008 路径损伤与功能状态
 ProjectileManager从ShotQueryService.volume_intervals选择实际下一内部/外部接触；DamageResolver纯解析阻力和状态增量，VehicleActor验证身份并静默提交VehicleRuntimeState，管理器先记录再通知。VehicleCapabilities是驾驶/炮塔/武器与显示的共同能力来源。DamageRange复用真实命令和射击链。规则及证据见DELIVERY_008.md。
+
+## 009 恢复/库存/终结
+AmmoInventory是弹药位置与总量唯一账本；VehicleRecovery由VehicleActor物理命令消费驱动正交火灾/维修/灭火/换位，VehicleRuntimeState.destroy_once幂等保存来源。WreckRegistry只管理已终结真实实体的有界留存。CameraRig在resolve模式用同一几何查询缓存真实炮塔意图点；查询target_generation保护重置后的新状态。规则/测试与可见入口见DELIVERY_009.md。
