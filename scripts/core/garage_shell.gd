@@ -84,6 +84,7 @@ func _ready() -> void:
 	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"],["terrain","地形"]]:
 		CoreUI.button(labs,item[1],func() -> void: laboratory_requested.emit(item[0]))
 	CoreUI.button(controls,"电脑驾驶实验室",func() -> void: laboratory_requested.emit("ai_drive"))
+	CoreUI.button(controls,"电脑交战实验室",func() -> void: laboratory_requested.emit("ai_combat"))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)

@@ -81,7 +81,7 @@ func _enter_core() -> void:
 
 func enter_laboratory(id: String) -> void:
 	if _transitioning: return
-	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn"}
+	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn"}
 	if not allowed.has(id): return
 	var prepared := garage.build_loadout()
 	if prepared.ok: settings = prepared.loadout
