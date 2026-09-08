@@ -10,6 +10,8 @@ const SHELL_PATH := "res://configs/ap_75_shell.tres"
 var vehicles: Dictionary = {}   # id -> VehicleDefinition
 var weapons: Dictionary = {}    # id -> WeaponDefinition
 var shells: Dictionary = {}     # id -> ShellDefinition
+var layouts: Dictionary = {}    # Validated generated layouts; legacy resources still use LayoutCatalog.
+var content_packets: Dictionary = {}
 
 func load_defaults() -> Dictionary:
 	# 返回 {ok, errors}；加载三个默认 .tres 并校验
@@ -69,4 +71,9 @@ func resolve_vehicle(id: String) -> Dictionary:
 		errors.append("shell %s: %s" % [s.id, ", ".join(sv.errors)])
 	if not errors.is_empty():
 		return {"ok": false, "errors": errors}
-	return {"ok": true, "vehicle": v, "weapon": w, "shell": s}
+	var result := {"ok": true, "vehicle": v, "weapon": w, "shell": s}
+	if content_packets.has(id):
+		if not layouts.has(v.layout_id): return {"ok":false,"errors":["layout_id: registered historical layout is missing"]}
+		result["layout"] = layouts[v.layout_id]
+		result["packet"] = content_packets[id]
+	return result

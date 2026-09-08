@@ -1,0 +1,10 @@
+{
+  "vehicle_id": "us_m4a3_75w_vvss_1944",
+  "blender_version": "5.2.1 LTS",
+  "seed_sha256": "7feb47d1fe1162a0934d1e711d46f11e7af33aa54e5527d625d97c21953f739e",
+  "blend_sha256": "fc6dae2f4e6e6744504071e887daf10464c6ff470720c849295d281756a7e197",
+  "glb_sha256": "ab5ae3098a0bf929a51c1e3371a1fe1a12af828615c6a667745277e725f6d79c",
+  "armor_patches": 52,
+  "source": "Original Blender geometry",
+  "cosmetic_geometry_affects_damage": false
+}

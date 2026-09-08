@@ -47,7 +47,9 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	state.team_id = team_id
 	state.definition_id = definition.id
 	if not definition.layout_id.is_empty():
-		state.initialize_damage(LayoutCatalog.load_layout(definition.layout_id))
+		var initial_layout: VehicleLayoutDefinition = res.layout if res.has("layout") else LayoutCatalog.load_layout(definition.layout_id)
+		state.initialize_damage(initial_layout)
+		if res.has("layout"): damage_layout_override = initial_layout
 	self.entity_id = entity_id   # 003-R1：实体标识（HUD 提示/命中事件来源）
 	controller = ctrl
 	transform = spawn
@@ -93,6 +95,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	label3d.outline_size = 10
 	label3d.modulate = Color(0.4, 1.0, 0.4) if controller != null else Color(1.0, 0.85, 0.3)
 	tank.add_child(label3d)
+	if res.has("packet"): HistoricalVehicleModel.apply(self,res.packet,res.layout)
 	return {"ok": true}
 
 func set_controller(ctrl: Node) -> void:
@@ -128,10 +131,13 @@ func set_damage_layout(layout: VehicleLayoutDefinition) -> void:
 func _configure_inventory(layout: VehicleLayoutDefinition) -> void:
 	if gunner == null: return
 	var rack_ids: Array = []
+	var capacities := {}
 	if layout != null:
 		for module in layout.modules:
-			if module.kind == "ammo": rack_ids.append(module.id)
-	gunner.inventory.configure(gunner.rounds_remaining,rack_ids)
+			if module.kind == "ammo":
+				rack_ids.append(module.id)
+				if module.ammo_capacity > 0: capacities[module.id] = module.ammo_capacity
+	gunner.inventory.configure(gunner.rounds_remaining,rack_ids,capacities)
 
 func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if str(event.get("entity_id","")) != entity_id or int(event.get("life_id",0)) != life_id:
@@ -283,6 +289,7 @@ func reset_vehicle() -> void:
 	turret.clear_aim_point()   # 先清旧瞄点再 snap（否则 snap 会追旧脚本目标）
 	turret.snap_to_aim()
 	gunner.reset_state()
+	_configure_inventory(state._damage_layout)
 	turret.reset_state()
 	if controller != null and controller.has_method("reset_pending"):
 		controller.reset_pending()

@@ -9,7 +9,7 @@ var supplied := 0
 var fired := 0
 var lost := 0
 
-func configure(total: int, rack_ids: Array = []) -> void:
+func configure(total: int, rack_ids: Array = [], capacities: Dictionary = {}) -> void:
 	racks.clear()
 	chamber = 1 if total > 0 else 0
 	in_transfer = 0
@@ -23,6 +23,18 @@ func configure(total: int, rack_ids: Array = []) -> void:
 	if ids.is_empty(): ids.append("reserve") # Explicit legacy fixture compartment.
 	for id in ids: racks[str(id)] = 0
 	var remaining := supplied-chamber
+	if not capacities.is_empty():
+		var capacity := 0
+		for id in ids: capacity += maxi(0,int(capacities.get(id,0)))
+		if capacity < supplied:
+			push_error("AmmoInventory: declared rack capacity is below initial load")
+			chamber = 0; supplied = 0
+			return
+		for i in ids.size():
+			var available := maxi(0,int(capacities.get(ids[i],0))-(chamber if i == 0 else 0))
+			var amount := mini(remaining,available)
+			racks[str(ids[i])] = amount; remaining -= amount
+		return
 	for i in ids.size():
 		var amount := ceili(float(remaining)/float(ids.size()-i))
 		racks[str(ids[i])] = amount

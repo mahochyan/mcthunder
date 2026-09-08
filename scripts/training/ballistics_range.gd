@@ -10,6 +10,8 @@ const NEAR_Z := -30.0
 const FAR_Z := -150.0
 
 var defs: VehicleDefs
+var selected_vehicle_id := "player_tank"
+var historical_catalog: VehicleCatalog
 var controller: PlayerController
 var actor: VehicleActor
 var projectiles: ProjectileManager
@@ -49,13 +51,19 @@ func _ready() -> void:
 	if not lr.ok:
 		push_error("ballistics: defs load failed: %s" % ", ".join(lr.errors))
 		return
+	if selected_vehicle_id in VehicleCatalog.IDS:
+		historical_catalog = VehicleCatalog.new()
+		var loaded := historical_catalog.load_all(defs)
+		if not loaded.ok:
+			push_error("historical content admission: "+", ".join(loaded.errors))
+			return
 	controller = PlayerController.new()
 	controller.name = "PlayerController"
 	add_child(controller)
 	actor = VehicleActor.new()
 	actor.name = "ActorA"
 	add_child(actor)
-	var ra := actor.setup(defs, "player_tank", "A", 1, Transform3D(Basis.IDENTITY, Vector3(0, 0, 0)), GameConfig.VIS_LAYER_VEHICLE, controller)
+	var ra := actor.setup(defs, selected_vehicle_id, "A", 1, Transform3D(Basis.IDENTITY, Vector3(0, 0, 0)), GameConfig.VIS_LAYER_VEHICLE, controller)
 	if not ra.ok:
 		push_error("ballistics: actor setup failed: %s" % ", ".join(ra.errors))
 		return

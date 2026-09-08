@@ -1,0 +1,10 @@
+{
+  "vehicle_id": "us_m36_m4a1_1945",
+  "blender_version": "5.2.1 LTS",
+  "seed_sha256": "79b3a02398ff90c576d799d7d3476d2ffd2b25da2547fbdc18f3318b9b2ae793",
+  "blend_sha256": "64639b1c7da2c0ffa353cce64f34c9968fcd611913a155f6c5ef47fec65eaca9",
+  "glb_sha256": "b1183bcfe3c83ed300497f0ae76a2385c8c8ba7cb1eed5dc66f2a2f3029f38e5",
+  "armor_patches": 41,
+  "source": "Original Blender geometry",
+  "cosmetic_geometry_affects_damage": false
+}

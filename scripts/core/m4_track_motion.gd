@@ -8,14 +8,21 @@ const SHOES := 100
 var phase := 0.0
 var assemblies: Array[Dictionary] = []
 var tank: TankVehicle
+var straight := STRAIGHT
+var perimeter := PERIMETER
+var track_center_x := 1.2
 
-func build(parent: Node3D, layer: int) -> void:
+func build(parent: Node3D, layer: int, dimensions: Dictionary = {}) -> void:
+	straight = float(dimensions.get("straight",STRAIGHT))
+	perimeter = straight*2+TAU*RADIUS
+	track_center_x = float(dimensions.get("center_x",1.2))
+	var width: float = dimensions.get("width",0.43)
 	parent.add_child(self)
 	tank = parent as TankVehicle
 	for side in [-1,1]:
 		for pad in [false,true]:
 			var mesh := BoxMesh.new()
-			mesh.size = Vector3(0.30,0.022,0.07) if pad else Vector3(0.43,0.075,0.11)
+			mesh.size = Vector3(width*0.30/0.43,0.022,0.07) if pad else Vector3(width,0.075,0.11)
 			var material := StandardMaterial3D.new()
 			material.albedo_color = M4LowPolyDetails.RUBBER if pad else M4LowPolyDetails.STEEL
 			material.roughness = 0.9
@@ -35,28 +42,28 @@ func build(parent: Node3D, layer: int) -> void:
 func _process(delta: float) -> void:
 	if tank == null or not is_instance_valid(tank) or get_tree().paused: return
 	if absf(tank.forward_speed) < 0.001: return
-	phase = fposmod(phase-tank.forward_speed*delta,PERIMETER)
+	phase = fposmod(phase-tank.forward_speed*delta,perimeter)
 	update_shoes()
 
 func update_shoes() -> void:
 	for assembly in assemblies:
 		for i in SHOES:
-			var distance := fposmod(i*PERIMETER/SHOES+phase,PERIMETER)
+			var distance := fposmod(i*perimeter/SHOES+phase,perimeter)
 			var p: Vector3
 			var tangent: Vector3
-			if distance < STRAIGHT:
-				p = Vector3(assembly.side*1.2,0.04,-2.15+distance)
+			if distance < straight:
+				p = Vector3(assembly.side*track_center_x,0.04,-straight*0.5+distance)
 				tangent = Vector3.BACK
-			elif distance < STRAIGHT+PI*RADIUS:
-				var a := (distance-STRAIGHT)/RADIUS-PI/2
-				p = Vector3(assembly.side*1.2,0.56+sin(a)*RADIUS,2.15+cos(a)*RADIUS)
+			elif distance < straight+PI*RADIUS:
+				var a := (distance-straight)/RADIUS-PI/2
+				p = Vector3(assembly.side*track_center_x,0.56+sin(a)*RADIUS,straight*0.5+cos(a)*RADIUS)
 				tangent = Vector3(0,cos(a),-sin(a))
-			elif distance < STRAIGHT*2+PI*RADIUS:
-				p = Vector3(assembly.side*1.2,1.08,2.15-(distance-STRAIGHT-PI*RADIUS))
+			elif distance < straight*2+PI*RADIUS:
+				p = Vector3(assembly.side*track_center_x,1.08,straight*0.5-(distance-straight-PI*RADIUS))
 				tangent = Vector3.FORWARD
 			else:
-				var a := (distance-STRAIGHT*2-PI*RADIUS)/RADIUS+PI/2
-				p = Vector3(assembly.side*1.2,0.56+sin(a)*RADIUS,-2.15+cos(a)*RADIUS)
+				var a := (distance-straight*2-PI*RADIUS)/RADIUS+PI/2
+				p = Vector3(assembly.side*track_center_x,0.56+sin(a)*RADIUS,-straight*0.5+cos(a)*RADIUS)
 				tangent = Vector3(0,cos(a),-sin(a))
 			var normal := tangent.cross(Vector3.RIGHT)
 			if assembly.pad: p -= normal*0.048

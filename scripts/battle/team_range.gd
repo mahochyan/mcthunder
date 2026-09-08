@@ -109,12 +109,14 @@ func spawn_slot(id: String) -> VehicleActor:
 	var occupied: Array[Vector3] = []
 	for existing in combat_actors(): occupied.append(existing.tank.global_position)
 	var candidates := spawn_candidates(row.team)
-	var checked := SpawnSelector.evaluate(get_world_3d().direct_space_state,candidates,Vector3(2.85,1.68,5.45),occupied)
+	var type_id := vehicle_id_for_slot(id)
+	var size: Vector3 = defs.get_vehicle(type_id).drive_collision_size if type_id in VehicleCatalog.IDS else Vector3(2.85,1.68,5.45)
+	var checked := SpawnSelector.evaluate(get_world_3d().direct_space_state,candidates,size,occupied)
 	if not checked.ok: return null
 	var vehicle := VehicleActor.new()
 	vehicle.name = "Vehicle_"+id+"_"+str(row.spawns+1)
 	add_child(vehicle)
-	var setup := vehicle.setup(defs,"player_tank",id,row.team,checked.transform,2 if id == "A" else 4,null)
+	var setup := vehicle.setup(defs,type_id,id,row.team,checked.transform,2 if id == "A" else 4,null)
 	if not setup.ok: vehicle.free(); return null
 	_configure_vehicle(vehicle,id)
 	if id == "A":
@@ -130,16 +132,25 @@ func spawn_slot(id: String) -> VehicleActor:
 			if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	return vehicle
 
+func vehicle_id_for_slot(id: String) -> String:
+	if selected_vehicle_id not in VehicleCatalog.IDS: return "player_tank"
+	if id == "A": return selected_vehicle_id
+	var ids: Array = director.state.roster.keys()
+	ids.sort()
+	# Same four-vehicle rotation on both teams, anchored on the player's selected type.
+	return VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
+
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
-	M4EngineeringProfile.apply(vehicle)
+	if vehicle.definition.id not in VehicleCatalog.IDS: M4EngineeringProfile.apply(vehicle)
 	vehicle.state.recovery_enabled = true
 	vehicle.gunner.projectile_manager = projectiles
 	vehicle.gunner.snapshot_provider = Callable(self,"query_snapshots")
 	vehicle.gunner.round_provider = Callable(self,"get_round_id")
 	vehicle.gunner.shell = vehicle.gunner.shell.duplicate(true)
-	vehicle.gunner.shell.id = "team_ap120"
-	vehicle.gunner.shell.armor_policy = "resolve"
-	vehicle.gunner.shell.penetration_curve = PackedVector2Array([Vector2(0,120),Vector2(200,120)])
+	if vehicle.definition.id not in VehicleCatalog.IDS:
+		vehicle.gunner.shell.id = "team_ap120"
+		vehicle.gunner.shell.armor_policy = "resolve"
+		vehicle.gunner.shell.penetration_curve = PackedVector2Array([Vector2(0,120),Vector2(200,120)])
 	vehicle.gunner.training_resupply = false
 	vehicle.command_observer = Callable(director,"observe_command")
 	vehicle.vehicle_destroyed.connect(director.on_vehicle_destroyed)
@@ -312,7 +323,9 @@ func _build_ui() -> void:
 	waiting_panel.add_child(waiting)
 	waiting_label = CoreUI.label(waiting,"阵亡等待",25)
 	vehicle_choice = OptionButton.new()
-	vehicle_choice.add_item("M4A3 工程样车 · AP120 · 30发")
+	if selected_vehicle_id in VehicleCatalog.IDS:
+		vehicle_choice.add_item(str(defs.content_packets[selected_vehicle_id].display_name))
+	else: vehicle_choice.add_item("M4A3 工程样车 · AP120 · 30发")
 	waiting.add_child(vehicle_choice)
 	CoreUI.label(waiting,"8秒准备后选择再出击；堵塞时等待安全出生点。\nTab 可切换观察友军，不会接管友军车辆。",16)
 	respawn_button = CoreUI.button(waiting,"再出击",request_respawn)

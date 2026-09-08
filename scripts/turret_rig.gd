@@ -94,10 +94,14 @@ func _process(delta: float) -> void:
 			pitch_speed *= float(caps.turret_speed)
 		var P := _aim_point()
 		var target := _target_angles(P)
-		var desired_local := wrapf(target.y, -PI, PI)
+		var limited := defs != null and (defs.turret_yaw_min > -180 or defs.turret_yaw_max < 180)
+		var desired_local := target.y if limited else wrapf(target.y, -PI, PI)
 		var max_step := deg_to_rad(yaw_speed) * delta
 		var cur := rotation.y
-		rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
+		if limited:
+			rotation.y = move_toward(clampf(cur,deg_to_rad(defs.turret_yaw_min),deg_to_rad(defs.turret_yaw_max)),desired_local,max_step)
+		else:
+			rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
 		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(pitch_speed) * delta)
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
 	barrel_mesh.position.z = BARREL_BASE_Z + _recoil
@@ -119,6 +123,7 @@ func _target_angles(P: Vector3) -> Vector2:
 	var hull := get_parent() as Node3D
 	var d := hull.global_basis.inverse()*(P-pivot) if hull != null else P-pivot
 	var yaw_local := atan2(-d.x, -d.z)
+	if defs != null: yaw_local = clampf(yaw_local,deg_to_rad(defs.turret_yaw_min),deg_to_rad(defs.turret_yaw_max))
 	var pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(p_min), deg_to_rad(p_max))
 	return Vector2(pitch, yaw_local)
 
@@ -127,7 +132,7 @@ func snap_to_aim() -> void:
 	if cam_rig == null and not _has_aim_override:
 		return
 	var target := _target_angles(_aim_point())
-	rotation.y = wrapf(target.y, -PI, PI)
+	rotation.y = target.y if defs != null and (defs.turret_yaw_min > -180 or defs.turret_yaw_max < 180) else wrapf(target.y, -PI, PI)
 	barrel_pivot.rotation.x = target.x
 
 func aim_error_deg() -> float:

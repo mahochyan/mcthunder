@@ -14,6 +14,13 @@ var result_label: Label
 var _view_mode := 0
 var initial_loadout := {"vehicle_id":"test_vehicle","shell_id":"ap120","rounds":10,"infinite":false}
 var initial_case := 0
+var initial_vehicle_id := "player_tank"
+var vehicle_choice: OptionButton
+var catalog := VehicleCatalog.new()
+var historical_defs := VehicleDefs.new()
+var preview_note: Label
+var preview_camera: Camera3D
+var dossier_button: Button
 
 func _ready() -> void:
 	theme = CoreUI.theme()
@@ -30,7 +37,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"团队战与战斗界面候选 0.1.7  ·  M4A3 外形工程样车  ·  性能参数为训练设计值",15)
+	CoreUI.label(vertical,"历史车辆候选 0.2.0  ·  逐字段资料档案  ·  几何与部分模拟参数仍为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -45,9 +52,19 @@ func _ready() -> void:
 	controls.add_theme_constant_override("separation",8)
 	scroll.add_child(controls)
 	CoreUI.label(controls,"战前准备",24)
-	var vehicle := OptionButton.new()
-	vehicle.add_item("M4A3 外形样车 · 可驾驶")
-	controls.add_child(vehicle)
+	vehicle_choice = OptionButton.new()
+	vehicle_choice.add_item("M4A3 外形工程样车 · 训练设计值")
+	vehicle_choice.set_item_metadata(0,"player_tank")
+	var admitted := catalog.load_all(historical_defs)
+	for id in VehicleCatalog.IDS:
+		vehicle_choice.add_item(id if not catalog.packages.has(id) else str(catalog.packages[id].packet.display_name))
+		var index := vehicle_choice.item_count-1
+		vehicle_choice.set_item_metadata(index,id)
+		vehicle_choice.set_item_disabled(index,not catalog.packages.has(id))
+		if id == initial_vehicle_id: vehicle_choice.select(index)
+	controls.add_child(vehicle_choice)
+	vehicle_choice.item_selected.connect(_select_vehicle)
+	dossier_button = CoreUI.button(controls,"查看车型资料与未核验字段",_show_dossier)
 	CoreUI.label(controls,"弹种 / 游戏设计穿深",16)
 	shell_choice = OptionButton.new()
 	shell_choice.add_item("AP70 · 70 mm")
@@ -76,11 +93,12 @@ func _ready() -> void:
 	goal.custom_minimum_size = Vector2(300,58)
 	case_choice.item_selected.connect(func(index: int) -> void: goal.text = TrainingDirector.GOALS[index])
 	start_button = CoreUI.button(controls,"进入训练",_start)
-	CoreUI.button(controls,"1 对 1 歼灭",func() -> void: laboratory_requested.emit("duel"))
+	CoreUI.button(controls,"1 对 1 歼灭（工程夹具）",func() -> void: laboratory_requested.emit("duel"))
 	CoreUI.button(controls,"4 对 4 占点",func() -> void: laboratory_requested.emit("team"))
 	error_label = CoreUI.label(controls,"",14)
+	if not admitted.ok: error_label.text = "历史配置未通过装配检查："+", ".join(admitted.errors)
 	error_label.modulate = Color("ffc282")
-	CoreUI.label(controls,"专项实验室",16)
+	CoreUI.label(controls,"专项实验室（工程夹具）",16)
 	var labs := HBoxContainer.new()
 	controls.add_child(labs)
 	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"],["terrain","地形"]]:
@@ -113,6 +131,7 @@ func _ready() -> void:
 	M4LowPolyDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
 	_collect_preview_extras(preview)
 	var camera := Camera3D.new()
+	preview_camera = camera
 	camera.fov = 38
 	camera.position = Vector3(5.3,3.8,-6.4)
 	viewport.add_child(camera)
@@ -136,16 +155,20 @@ func _ready() -> void:
 	inspect_button = CoreUI.button(view_controls,"查看：外观 → 装甲 → 内构",_inspect)
 	inspect_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	CoreUI.button(view_controls,"转右",func() -> void: preview.rotation.y += PI/4)
-	var note := CoreUI.label(right,"M4A3(75)W / VVSS 轮廓研究：斜车体、铸造炮塔、三组悬挂。\n模型尺寸为估算；正面240、其他20 mm为训练设计值。\n外观 / 装甲 / 内构预览不消耗弹药。",15)
-	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	preview_note = CoreUI.label(right,"",15)
+	preview_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result_label = CoreUI.label(right,"尚无本次会话训练结果。",16)
 	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	CoreUI.label(vertical,"W/S 驾驶  ·  A/D 转向  ·  鼠标瞄准  ·  左键开炮  ·  Esc 暂停与返回",15)
+	_select_vehicle(vehicle_choice.selected)
 
 func build_loadout() -> Dictionary:
 	return TrainingLoadout.validate({"vehicle_id":"test_vehicle","shell_id":"ap70" if shell_choice.selected == 0 else "ap120","rounds":int(rounds.value),"infinite":infinite.button_pressed})
 
 func _start() -> void:
+	if selected_vehicle_id() in VehicleCatalog.IDS:
+		laboratory_requested.emit("historical")
+		return
 	var value := build_loadout()
 	if not value.ok: error_label.text = value.reason
 	else: training_requested.emit(value.loadout,case_choice.selected)
@@ -164,5 +187,73 @@ func _apply_preview_mode() -> void:
 
 func _collect_preview_extras(node: Node) -> void:
 	for child in node.get_children():
+		if child.is_queued_for_deletion(): continue
 		if child is GeometryInstance3D and child.name.begins_with("Cosmetic"): preview._extra_nodes.append(child)
 		_collect_preview_extras(child)
+
+func selected_vehicle_id() -> String:
+	return str(vehicle_choice.get_item_metadata(vehicle_choice.selected))
+
+func _select_vehicle(_index: int) -> void:
+	if preview == null or preview_note == null: return
+	var id := selected_vehicle_id()
+	var historical := catalog.packages.has(id)
+	shell_choice.disabled = historical
+	rounds.editable = not historical; infinite.disabled = historical; case_choice.disabled = historical
+	dossier_button.disabled = not historical
+	start_button.text = "驾驶所选历史车辆" if historical else "进入训练"
+	var layout: VehicleLayoutDefinition = catalog.packages[id].layout if historical else M4EngineeringProfile.layout()
+	preview.setup(layout)
+	for extra in preview._extra_nodes.duplicate():
+		if not extra.name.begins_with("Wire_"):
+			preview._extra_nodes.erase(extra); extra.queue_free()
+	if historical:
+		var packet: Dictionary = catalog.packages[id].packet
+		if shell_choice.item_count < 3: shell_choice.add_item("")
+		shell_choice.set_item_text(2,str(packet.assembly.shell)+" · "+str(packet.assembly.caliber_mm)+" mm")
+		shell_choice.select(2)
+		rounds.max_value = 150; rounds.value = packet.runtime.rounds
+		HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
+		preview_note.text = "%s\n%s · %d 发 · %.1f km/h 文献道路速度\n局部形状、内构盒、装填与穿深模拟为估算；详见资料档案。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
+		if id.begins_with("us_m24"): preview_note.text += "\nM61 当前仅模拟动能路径，内部爆发尚未实现。"
+		var extent: float = maxf(float(HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")),float(packet.geometry.barrel_length)+3.5)
+		preview_camera.position = Vector3(5.3,3.8,-6.4)*extent/6.0
+	else:
+		if shell_choice.item_count > 2: shell_choice.remove_item(2)
+		shell_choice.select(0 if initial_loadout.shell_id == "ap70" else 1)
+		rounds.max_value = 30; rounds.value = initial_loadout.rounds
+		M4LowPolyDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
+		preview_note.text = "M4A3 外形工程样车：正面240、其他20 mm为训练设计值。\n历史配置另列；专项实验室继续使用工程夹具。"
+		preview_camera.position = Vector3(5.3,3.8,-6.4)
+	preview_camera.look_at(Vector3(0,1.2,0))
+	_collect_preview_extras(preview)
+	_apply_preview_mode()
+
+func _show_dossier() -> void:
+	var id := selected_vehicle_id()
+	if not catalog.packages.has(id): return
+	var packet: Dictionary = catalog.packages[id].packet
+	var overlay := PanelContainer.new()
+	add_child(overlay)
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for side in ["left","top"]: overlay.set("offset_"+side,30)
+	for side in ["right","bottom"]: overlay.set("offset_"+side,-30)
+	var box := VBoxContainer.new(); overlay.add_child(box)
+	CoreUI.label(box,packet.display_name+" · 字段证据",23)
+	var view := RichTextLabel.new()
+	view.bbcode_enabled = true; view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	view.selection_enabled = true; box.add_child(view)
+	view.append_text("[b]已核验 = 引用记录有史料支持；不等于几何、游戏表现已全部实测。[/b]\n")
+	for limitation in packet.limitations: view.add_text(str(limitation)+"\n")
+	for field in packet.facts:
+		var row: Dictionary = packet.facts[field]
+		view.append_text("\n[b]"+field+"[/b]  ·  "+str(row.status)+" / "+str(row.origin)+"\n")
+		view.add_text(JSON.stringify(row.value)+"\n"+str(row.get("location",""))+"\n"+str(row.get("note",""))+"\n")
+		for ref in row.get("source_refs",[]):
+			var source: Dictionary = packet.sources[ref]
+			var url := str(source.get("url",""))
+			if url.begins_with("https://"): view.append_text("[url="+url+"]"+str(ref)+"[/url]\n")
+			view.add_text("SHA256: "+str(source.get("sha256","local implementation"))+"\n")
+	view.meta_clicked.connect(func(link: Variant) -> void:
+		if str(link).begins_with("https://"): OS.shell_open(str(link)))
+	CoreUI.button(box,"关闭资料档案",overlay.queue_free)

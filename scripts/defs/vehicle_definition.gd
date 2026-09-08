@@ -33,6 +33,8 @@ extends Resource
 
 # --- turret（deg/s、deg） ---
 @export var turret_yaw_speed: float = 35.0
+@export var turret_yaw_min: float = -180.0
+@export var turret_yaw_max: float = 180.0
 @export var turret_pitch_speed: float = 30.0
 @export var barrel_pitch_min: float = -8.0
 @export var barrel_pitch_max: float = 20.0
@@ -70,6 +72,8 @@ func validate() -> Dictionary:
 	if not is_finite(follow_camera_height) or follow_camera_height < 0: errors.append("follow_camera_height: must be finite and nonnegative")
 	if not is_finite(turret_yaw_speed) or turret_yaw_speed <= 0.0:
 		errors.append("turret_yaw_speed: must be finite and > 0")
+	if not is_finite(turret_yaw_min) or not is_finite(turret_yaw_max) or turret_yaw_min < -180 or turret_yaw_max > 180 or turret_yaw_min > turret_yaw_max:
+		errors.append("turret_yaw: invalid horizontal arc")
 	if not is_finite(turret_pitch_speed) or turret_pitch_speed <= 0.0:
 		errors.append("turret_pitch_speed: must be finite and > 0")
 	if not is_finite(barrel_pitch_min) or not is_finite(barrel_pitch_max) or barrel_pitch_min >= barrel_pitch_max:

@@ -1,0 +1,1223 @@
+{
+  "schema_version": 1,
+  "id": "us_m26_m3_1945",
+  "display_name": "M26 (T26E3) / M3 / 1945",
+  "facts": {
+    "identity.variant": {
+      "value": "M26 (T26E3)",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "identity.year": {
+      "value": 1945,
+      "status": "verified",
+      "origin": "historical_primary",
+      "source_refs": [
+        "oco1945"
+      ],
+      "location": "Mobile Artillery (May 1945), pp.5-7 M26 (T26E3)"
+    },
+    "identity.suspension": {
+      "value": "Torsion bar",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "weapon.gun": {
+      "value": "90-mm M3",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "weapon.mount": {
+      "value": "M67",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "weapon.caliber_mm": {
+      "value": 90,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "crew.roles": {
+      "value": [
+        "commander",
+        "gunner",
+        "loader",
+        "driver",
+        "assistant_driver_bow_gunner"
+      ],
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "crew.placement": {
+      "value": "See documented named positions; centers and volumes reconstructed separately.",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "dimensions.width_m": {
+      "value": 3.51282,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "dimensions.reference_length_m": {
+      "value": 6.32714,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "weapon.capacity": {
+      "value": 70,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "mobility.forward_speed_mps": {
+      "value": 8.9408,
+      "status": "verified",
+      "origin": "historical_primary",
+      "source_refs": [
+        "oco1945"
+      ],
+      "location": "Mobile Artillery (May 1945), p.7",
+      "note": "20 mph chosen from 1945 table; 1948 transmission gearing permits higher speeds and is not used as this sustained limit."
+    },
+    "weapon.ammunition": {
+      "value": "M77 AP-T",
+      "status": "verified",
+      "origin": "historical_primary",
+      "source_refs": [
+        "m36ammo"
+      ],
+      "location": "TM9-745 (1945), p.500 (PDF p.508), AP-T M77: guns 90-mm M1/M2/M3/T8",
+      "note": "Applicability is specifically the same 90-mm M3 gun; vehicle hull and suspension data are not transferred from M36B2."
+    },
+    "armor.hull_front_upper": {
+      "value": 101.6,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_front_lower": {
+      "value": 76.2,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_sides_front": {
+      "value": 76.2,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_sides_rear": {
+      "value": 50.8,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_sides_lower": {
+      "value": 76.2,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_rear_upper": {
+      "value": 50.8,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_rear_lower": {
+      "value": 19.05,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_roof_front": {
+      "value": 22.225,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_roof_rear": {
+      "value": 22.225,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_floor_front": {
+      "value": 25.4,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.hull_floor_rear": {
+      "value": 12.7,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.turret_front": {
+      "value": 101.6,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.turret_sides": {
+      "value": 76.2,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.turret_rear": {
+      "value": 76.2,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.turret_roof": {
+      "value": 25.4,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "armor.gun_shield": {
+      "value": 114.3,
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    },
+    "appearance.muzzle_brake": {
+      "value": true,
+      "status": "verified",
+      "origin": "historical_primary",
+      "source_refs": [
+        "soic1944"
+      ],
+      "location": "Standard Ordnance Items Catalog, M26, printed p.25 (PDF p.34), 15 May 1945: caption and gun description",
+      "note": "Visible muzzle brake confirmed in primary photograph. Detailed brake dimensions are artistic estimates."
+    },
+    "weapon.stowage_counts": {
+      "value": {
+        "floor_total": 60,
+        "ready": 10
+      },
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4",
+      "note": "Floor locations aggregated into two estimated boxes. Ready-rack count follows vehicle table; first loaded round is deducted from first rack, not created in addition."
+    },
+    "geometry.exterior": {
+      "value": {
+        "hull_rings": [
+          [
+            0.44,
+            1.2,
+            -2.72,
+            2.63
+          ],
+          [
+            0.93,
+            1.26,
+            -3.13,
+            3.02
+          ],
+          [
+            1.68,
+            1.26,
+            -2.36,
+            2.87
+          ]
+        ],
+        "turret_origin": [
+          0,
+          1.68,
+          -0.42
+        ],
+        "gun_origin": [
+          0,
+          0.44,
+          -1.12
+        ],
+        "turret_outline": [
+          [
+            -0.82,
+            -1.14
+          ],
+          [
+            0.82,
+            -1.14
+          ],
+          [
+            1.0378,
+            -0.6846000000000001
+          ],
+          [
+            1.15,
+            0.009000000000000008
+          ],
+          [
+            1.15,
+            0.44100000000000006
+          ],
+          [
+            0.997,
+            1.0462000000000002
+          ],
+          [
+            0.853,
+            1.1838000000000002
+          ],
+          [
+            0.22399999999999998,
+            1.33
+          ],
+          [
+            -0.22399999999999998,
+            1.33
+          ],
+          [
+            -0.853,
+            1.1838000000000002
+          ],
+          [
+            -0.997,
+            1.0462000000000002
+          ],
+          [
+            -1.15,
+            0.44100000000000006
+          ],
+          [
+            -1.15,
+            0.009000000000000008
+          ],
+          [
+            -1.0378,
+            -0.6846000000000001
+          ]
+        ],
+        "turret_bottom": 0.02,
+        "turret_top": 0.79,
+        "turret_taper": 0.86,
+        "ring_half": 0.72,
+        "open_top": false,
+        "mantlet_half_width": 0.72,
+        "mantlet_half_height": 0.33,
+        "barrel_length": 3.91,
+        "wheel_count": 6,
+        "track_width": 0.58,
+        "wheel_radius": 0.4,
+        "muzzle_brake": true
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Original faceted reconstruction from silhouettes and dimensions. Local curvature, small fittings, track behavior and aperture dimensions are estimated."
+    },
+    "geometry.modules": {
+      "value": [
+        {
+          "id": "ammo_ready",
+          "kind": "ammo",
+          "part": "turret",
+          "position": [
+            0,
+            0.08,
+            0.7
+          ],
+          "size": [
+            0.5,
+            0.12,
+            0.35
+          ],
+          "external": false,
+          "ammo_capacity": 10
+        },
+        {
+          "id": "engine",
+          "kind": "engine",
+          "part": "hull",
+          "position": [
+            0,
+            1.2,
+            1.4
+          ],
+          "size": [
+            1.25,
+            0.64,
+            0.95
+          ],
+          "external": false
+        },
+        {
+          "id": "transmission",
+          "kind": "transmission",
+          "part": "hull",
+          "position": [
+            0,
+            0.81,
+            2.64
+          ],
+          "size": [
+            1.25,
+            0.4,
+            0.5
+          ],
+          "external": false
+        },
+        {
+          "id": "fuel",
+          "kind": "fuel",
+          "part": "hull",
+          "position": [
+            -0.77,
+            1.2799999999999998,
+            1.4
+          ],
+          "size": [
+            0.22,
+            0.45,
+            0.7
+          ],
+          "external": false
+        },
+        {
+          "id": "ammo_floor_left",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.54,
+            0.64,
+            0.35
+          ],
+          "size": [
+            0.43,
+            0.25,
+            0.75
+          ],
+          "external": false,
+          "ammo_capacity": 30
+        },
+        {
+          "id": "ammo_floor_right",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            0.54,
+            0.64,
+            0.35
+          ],
+          "size": [
+            0.43,
+            0.25,
+            0.75
+          ],
+          "external": false,
+          "ammo_capacity": 30
+        },
+        {
+          "id": "breech",
+          "kind": "breech",
+          "part": "barrel",
+          "position": [
+            0,
+            0,
+            0.32
+          ],
+          "size": [
+            0.39,
+            0.3,
+            0.54
+          ],
+          "external": false
+        },
+        {
+          "id": "turret_drive",
+          "kind": "turret_drive",
+          "part": "hull",
+          "position": [
+            0,
+            1.52,
+            -0.42
+          ],
+          "size": [
+            0.38,
+            0.12,
+            0.4
+          ],
+          "external": false
+        },
+        {
+          "id": "track_left",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            -1.46641,
+            0.51,
+            0.1
+          ],
+          "size": [
+            0.58,
+            1.02,
+            5.87714
+          ],
+          "external": true
+        },
+        {
+          "id": "track_right",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            1.46641,
+            0.51,
+            0.1
+          ],
+          "size": [
+            0.58,
+            1.02,
+            5.87714
+          ],
+          "external": true
+        }
+      ],
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Aggregate component boxes approximate occupied volumes; M24 twin engines share one power-unit damage volume. Fuel/ammunition subdivision is approximate; secondary damage uses common game rules."
+    },
+    "geometry.crew": {
+      "value": [
+        {
+          "id": "driver",
+          "role": "driver",
+          "part": "hull",
+          "position": [
+            -0.5,
+            1.2799999999999998,
+            -1.17
+          ],
+          "size": [
+            0.27,
+            0.4,
+            0.34
+          ]
+        },
+        {
+          "id": "assistant_driver",
+          "role": "assistant_driver_bow_gunner",
+          "part": "hull",
+          "position": [
+            0.5,
+            1.2799999999999998,
+            -1.17
+          ],
+          "size": [
+            0.27,
+            0.4,
+            0.34
+          ]
+        },
+        {
+          "id": "gunner",
+          "role": "gunner",
+          "part": "turret",
+          "position": [
+            0.53,
+            0.32,
+            -0.43
+          ],
+          "size": [
+            0.27,
+            0.4,
+            0.34
+          ]
+        },
+        {
+          "id": "commander",
+          "role": "commander",
+          "part": "turret",
+          "position": [
+            0.55,
+            0.39,
+            0.51
+          ],
+          "size": [
+            0.27,
+            0.4,
+            0.34
+          ]
+        },
+        {
+          "id": "loader",
+          "role": "loader",
+          "part": "turret",
+          "position": [
+            -0.54,
+            0.34,
+            0.38
+          ],
+          "size": [
+            0.27,
+            0.4,
+            0.34
+          ]
+        }
+      ],
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Role side/location follows cited table; body centers, seated volumes and pose are estimates."
+    },
+    "runtime.simulation": {
+      "value": {
+        "forward_max_speed": 8.9408,
+        "reverse_max_speed": 4.0,
+        "acceleration": 1.55,
+        "hull_turn_speed": 36,
+        "reload_time": 8.5,
+        "rounds": 70,
+        "pitch_min": -10,
+        "pitch_max": 20,
+        "muzzle_velocity": 850,
+        "penetration_curve": [
+          [
+            0,
+            150
+          ],
+          [
+            500,
+            125
+          ],
+          [
+            1500,
+            95
+          ]
+        ],
+        "turret_yaw_speed": 24,
+        "turret_pitch_speed": 10
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Reload, acceleration, reverse limit, steering, traverse, muzzle speed and penetration curve are current game rules, not verified historical measurements. Forward speed and capacity are separately sourced; slope-dependent performance and suspension dynamics are simplified."
+    },
+    "identity.power_unit": {
+      "value": "Ford GAF",
+      "status": "verified",
+      "origin": "historical_secondary",
+      "source_refs": [
+        "m26table"
+      ],
+      "location": "M26: General, Dimensions, Armament, Armor and Suspension; excludes T26E4"
+    }
+  },
+  "sources": {
+    "oco1945": {
+      "file": "OCO_Mobile_Artillery_1945_transcript.html",
+      "url": "https://www.lonesentry.com/manuals/mobile-artillery/index.html",
+      "origin": "historical_primary",
+      "read_state": "text_read",
+      "sha256": "cac565aff13387247f2d71f8d9f816f7c0dfa28a0e2be03c26f5438abee1e764",
+      "applies_to_identity_ids": [
+        "us_m26_m3_1945"
+      ]
+    },
+    "m26table": {
+      "file": "AFV_M26.html",
+      "url": "https://afvdatabase.com/usa/m26pershing.html",
+      "origin": "historical_secondary",
+      "read_state": "text_read",
+      "sha256": "21f41364379f61fb71bf78746e03d708f721db4be19d377492f69515e0167c30",
+      "applies_to_identity_ids": [
+        "us_m26_m3_1945"
+      ]
+    },
+    "soic1944": {
+      "file": "SOIC_Vol1_1944.pdf",
+      "url": "https://www.ibiblio.org/hyperwar/NHC/NewPDFs/USArmy/US%20military%20Technical%20and%20Field%20manuals/Standard.Ordnance.Items.Catalog.Vol.1.1944.pdf",
+      "origin": "historical_primary",
+      "read_state": "image_and_text_read",
+      "sha256": "f6758794a50c777645f9af15ae2fb90f49756ccfe76948af6f5c60df53a5dd4f",
+      "applies_to_identity_ids": [
+        "us_m26_m3_1945"
+      ]
+    },
+    "implementation": {
+      "origin": "game_rule",
+      "url": "res://docs/IMPLEMENTATION_020.md",
+      "read_state": "text_read",
+      "applies_to_identity_ids": [
+        "us_m26_m3_1945"
+      ]
+    },
+    "m36ammo": {
+      "file": "TM9-745_1945.pdf",
+      "url": "https://ia800805.us.archive.org/33/items/TM9-745/TM9-745.pdf",
+      "origin": "historical_primary",
+      "read_state": "image_and_text_read",
+      "sha256": "55eda0c283a9fbdc380ba8f932b9b059481d4734a896bcd3007811bc49453914",
+      "applies_to_identity_ids": [
+        "us_m26_m3_1945"
+      ]
+    }
+  },
+  "assembly": {
+    "variant": "M26 (T26E3)",
+    "year": 1945,
+    "suspension": "Torsion bar",
+    "gun": "90-mm M3",
+    "mount": "M67",
+    "caliber_mm": 90,
+    "shell": "M77 AP-T"
+  },
+  "compatible_shells": [
+    "M77 AP-T"
+  ],
+  "geometry": {
+    "hull_rings": [
+      [
+        0.44,
+        1.2,
+        -2.72,
+        2.63
+      ],
+      [
+        0.93,
+        1.26,
+        -3.13,
+        3.02
+      ],
+      [
+        1.68,
+        1.26,
+        -2.36,
+        2.87
+      ]
+    ],
+    "turret_origin": [
+      0,
+      1.68,
+      -0.42
+    ],
+    "gun_origin": [
+      0,
+      0.44,
+      -1.12
+    ],
+    "turret_outline": [
+      [
+        -0.82,
+        -1.14
+      ],
+      [
+        0.82,
+        -1.14
+      ],
+      [
+        1.0378,
+        -0.6846000000000001
+      ],
+      [
+        1.15,
+        0.009000000000000008
+      ],
+      [
+        1.15,
+        0.44100000000000006
+      ],
+      [
+        0.997,
+        1.0462000000000002
+      ],
+      [
+        0.853,
+        1.1838000000000002
+      ],
+      [
+        0.22399999999999998,
+        1.33
+      ],
+      [
+        -0.22399999999999998,
+        1.33
+      ],
+      [
+        -0.853,
+        1.1838000000000002
+      ],
+      [
+        -0.997,
+        1.0462000000000002
+      ],
+      [
+        -1.15,
+        0.44100000000000006
+      ],
+      [
+        -1.15,
+        0.009000000000000008
+      ],
+      [
+        -1.0378,
+        -0.6846000000000001
+      ]
+    ],
+    "turret_bottom": 0.02,
+    "turret_top": 0.79,
+    "turret_taper": 0.86,
+    "ring_half": 0.72,
+    "open_top": false,
+    "mantlet_half_width": 0.72,
+    "mantlet_half_height": 0.33,
+    "barrel_length": 3.91,
+    "wheel_count": 6,
+    "track_width": 0.58,
+    "wheel_radius": 0.4,
+    "muzzle_brake": true
+  },
+  "runtime": {
+    "forward_max_speed": 8.9408,
+    "reverse_max_speed": 4.0,
+    "acceleration": 1.55,
+    "hull_turn_speed": 36,
+    "reload_time": 8.5,
+    "rounds": 70,
+    "pitch_min": -10,
+    "pitch_max": 20,
+    "muzzle_velocity": 850,
+    "penetration_curve": [
+      [
+        0,
+        150
+      ],
+      [
+        500,
+        125
+      ],
+      [
+        1500,
+        95
+      ]
+    ],
+    "turret_yaw_speed": 24,
+    "turret_pitch_speed": 10
+  },
+  "armor": {
+    "hull_front_upper": {
+      "fact": "armor.hull_front_upper",
+      "material": "rolled"
+    },
+    "hull_front_lower": {
+      "fact": "armor.hull_front_lower",
+      "material": "rolled"
+    },
+    "hull_sides_front": {
+      "fact": "armor.hull_sides_front",
+      "material": "rolled"
+    },
+    "hull_sides_rear": {
+      "fact": "armor.hull_sides_rear",
+      "material": "rolled"
+    },
+    "hull_sides_lower": {
+      "fact": "armor.hull_sides_lower",
+      "material": "rolled"
+    },
+    "hull_rear_upper": {
+      "fact": "armor.hull_rear_upper",
+      "material": "rolled"
+    },
+    "hull_rear_lower": {
+      "fact": "armor.hull_rear_lower",
+      "material": "rolled"
+    },
+    "hull_roof_front": {
+      "fact": "armor.hull_roof_front",
+      "material": "rolled"
+    },
+    "hull_roof_rear": {
+      "fact": "armor.hull_roof_rear",
+      "material": "rolled"
+    },
+    "hull_floor_front": {
+      "fact": "armor.hull_floor_front",
+      "material": "rolled"
+    },
+    "hull_floor_rear": {
+      "fact": "armor.hull_floor_rear",
+      "material": "rolled"
+    },
+    "turret_front": {
+      "fact": "armor.turret_front",
+      "material": "cast"
+    },
+    "turret_sides": {
+      "fact": "armor.turret_sides",
+      "material": "cast"
+    },
+    "turret_rear": {
+      "fact": "armor.turret_rear",
+      "material": "cast"
+    },
+    "turret_roof": {
+      "fact": "armor.turret_roof",
+      "material": "cast"
+    },
+    "gun_shield": {
+      "fact": "armor.gun_shield",
+      "material": "cast"
+    },
+    "hull_sides_lower_rear": {
+      "fact": "armor.hull_sides_rear",
+      "material": "rolled"
+    }
+  },
+  "modules": [
+    {
+      "id": "ammo_ready",
+      "kind": "ammo",
+      "part": "turret",
+      "position": [
+        0,
+        0.08,
+        0.7
+      ],
+      "size": [
+        0.5,
+        0.12,
+        0.35
+      ],
+      "external": false,
+      "ammo_capacity": 10
+    },
+    {
+      "id": "engine",
+      "kind": "engine",
+      "part": "hull",
+      "position": [
+        0,
+        1.2,
+        1.4
+      ],
+      "size": [
+        1.25,
+        0.64,
+        0.95
+      ],
+      "external": false
+    },
+    {
+      "id": "transmission",
+      "kind": "transmission",
+      "part": "hull",
+      "position": [
+        0,
+        0.81,
+        2.64
+      ],
+      "size": [
+        1.25,
+        0.4,
+        0.5
+      ],
+      "external": false
+    },
+    {
+      "id": "fuel",
+      "kind": "fuel",
+      "part": "hull",
+      "position": [
+        -0.77,
+        1.2799999999999998,
+        1.4
+      ],
+      "size": [
+        0.22,
+        0.45,
+        0.7
+      ],
+      "external": false
+    },
+    {
+      "id": "ammo_floor_left",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.54,
+        0.64,
+        0.35
+      ],
+      "size": [
+        0.43,
+        0.25,
+        0.75
+      ],
+      "external": false,
+      "ammo_capacity": 30
+    },
+    {
+      "id": "ammo_floor_right",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        0.54,
+        0.64,
+        0.35
+      ],
+      "size": [
+        0.43,
+        0.25,
+        0.75
+      ],
+      "external": false,
+      "ammo_capacity": 30
+    },
+    {
+      "id": "breech",
+      "kind": "breech",
+      "part": "barrel",
+      "position": [
+        0,
+        0,
+        0.32
+      ],
+      "size": [
+        0.39,
+        0.3,
+        0.54
+      ],
+      "external": false
+    },
+    {
+      "id": "turret_drive",
+      "kind": "turret_drive",
+      "part": "hull",
+      "position": [
+        0,
+        1.52,
+        -0.42
+      ],
+      "size": [
+        0.38,
+        0.12,
+        0.4
+      ],
+      "external": false
+    },
+    {
+      "id": "track_left",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        -1.46641,
+        0.51,
+        0.1
+      ],
+      "size": [
+        0.58,
+        1.02,
+        5.87714
+      ],
+      "external": true
+    },
+    {
+      "id": "track_right",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        1.46641,
+        0.51,
+        0.1
+      ],
+      "size": [
+        0.58,
+        1.02,
+        5.87714
+      ],
+      "external": true
+    }
+  ],
+  "crew": [
+    {
+      "id": "driver",
+      "role": "driver",
+      "part": "hull",
+      "position": [
+        -0.5,
+        1.2799999999999998,
+        -1.17
+      ],
+      "size": [
+        0.27,
+        0.4,
+        0.34
+      ]
+    },
+    {
+      "id": "assistant_driver",
+      "role": "assistant_driver_bow_gunner",
+      "part": "hull",
+      "position": [
+        0.5,
+        1.2799999999999998,
+        -1.17
+      ],
+      "size": [
+        0.27,
+        0.4,
+        0.34
+      ]
+    },
+    {
+      "id": "gunner",
+      "role": "gunner",
+      "part": "turret",
+      "position": [
+        0.53,
+        0.32,
+        -0.43
+      ],
+      "size": [
+        0.27,
+        0.4,
+        0.34
+      ]
+    },
+    {
+      "id": "commander",
+      "role": "commander",
+      "part": "turret",
+      "position": [
+        0.55,
+        0.39,
+        0.51
+      ],
+      "size": [
+        0.27,
+        0.4,
+        0.34
+      ]
+    },
+    {
+      "id": "loader",
+      "role": "loader",
+      "part": "turret",
+      "position": [
+        -0.54,
+        0.34,
+        0.38
+      ],
+      "size": [
+        0.27,
+        0.4,
+        0.34
+      ]
+    }
+  ],
+  "license": "Original procedural geometry and code, created for this repository. No third-party model or texture is redistributed.",
+  "limitations": [
+    "Armor geometry and interior volumes are estimates; inspect field evidence.",
+    "Kinetic projectile and damage approximation; no historical penetration validation."
+  ]
+}

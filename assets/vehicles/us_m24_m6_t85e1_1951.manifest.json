@@ -1,0 +1,10 @@
+{
+  "vehicle_id": "us_m24_m6_t85e1_1951",
+  "blender_version": "5.2.1 LTS",
+  "seed_sha256": "da12ec121008cca56845ea926170077b6c53df0197fce7375f054e5edb324b93",
+  "blend_sha256": "c283886e3ae56008f35fdf128ca261925d5660e82ce110ba3322b9dbe7005532",
+  "glb_sha256": "3e527479868b966ca88af2126e1e52e3d6b82b3820eaac32fa707cc7769675a6",
+  "armor_patches": 42,
+  "source": "Original Blender geometry",
+  "cosmetic_geometry_affects_damage": false
+}

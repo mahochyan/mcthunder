@@ -13,3 +13,7 @@ Thumbs.db
 Desktop.ini
 # Godot 导入产物不入库（证据 PNG 等非运行时资源）
 *.import
+
+# Blender auto-backups; editable .blend source files are tracked.
+*.blend1
+*.blend2

@@ -64,7 +64,7 @@ func _run() -> void:
 			Input.parse_input_event(wheel)
 			await _frames(2)
 	await _capture("00_duel_garage")
-	await _click(_find(app.garage,"1 对 1 歼灭"))
+	await _click(_find(app.garage,"1 对 1 歼灭（工程夹具）"))
 	duel = app.training as DuelRange
 	_check(duel != null and duel.duel_ready,"normal garage opens complete duel")
 	if duel == null: quit(1); return
