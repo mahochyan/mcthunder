@@ -171,12 +171,16 @@ func update_command(delta: float) -> VehicleCommand:
 
 func _obstacle(vehicle: VehicleActor) -> Dictionary:
 	var body := vehicle.tank
-	var forward := VehiclePose.flat_forward(body.global_basis)
-	var side := forward.cross(Vector3.UP)
+	# The nose rays follow the actual support plane. Horizontal rays treated a
+	# perfectly drivable uphill road as a wall on longer village hill approaches.
+	var up: Vector3 = body.ground_state.get("normal",Vector3.UP) if body.ground_state.get("grounded",false) else Vector3.UP
+	var flat := VehiclePose.flat_forward(body.global_basis)
+	var forward := (flat-up*flat.dot(up)).normalized()
+	var side := forward.cross(up).normalized()
 	var length := vehicle.definition.drive_collision_size.z/2+GameConfig.AI_OBSTACLE_LOOKAHEAD_M
 	var space := body.get_world_3d().direct_space_state
 	for sign in [-1,0,1]:
-		var from: Vector3 = body.global_position+Vector3.UP*0.95+side*sign*vehicle.definition.drive_collision_size.x*0.43
+		var from: Vector3 = body.global_position+up*0.95+side*sign*vehicle.definition.drive_collision_size.x*0.43
 		var query := PhysicsRayQueryParameters3D.create(from,from+forward*length,GameConfig.LAYER_WORLD|GameConfig.LAYER_VEHICLE,[body.get_rid()])
 		var hit := space.intersect_ray(query)
 		if not hit.is_empty(): return hit

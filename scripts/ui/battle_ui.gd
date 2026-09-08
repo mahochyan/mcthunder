@@ -36,8 +36,11 @@ func setup(scene: Node3D) -> void:
 		if control is Button and control.text == "Vehicle Inspector": control.visible = false
 	battle.hud.resume_btn.text = "继续"
 	if battle is TeamRange:
-		overlay.minimap.world_rect = Rect2(-50,-70,100,140)
-		overlay.minimap.obstacles.assign([Rect2(-10,-36,20,4),Rect2(-10,32,20,4),Rect2(-16,12,8,6),Rect2(8,-18,8,6)])
+		var map: Dictionary = battle.minimap_metadata()
+		overlay.minimap.world_rect = map.bounds
+		overlay.minimap.obstacles.assign(map.obstacles)
+		overlay.minimap.roads = map.get("roads",{})
+		overlay.map_title.text = str(map.get("title","战术地图"))+"  ↑ 北"
 		for label in battle.waiting_panel.find_children("*","Label",true,false):
 			if label.text.contains("Tab"):
 				label.text = "准备完毕后选择再出击；堵塞时等待安全位置。\nQ / E 切换观察友军，Tab 查看战况。"

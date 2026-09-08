@@ -10,6 +10,7 @@ var header: PanelContainer
 var own_panel: PanelContainer
 var weapon_panel: PanelContainer
 var map_panel: PanelContainer
+var map_title: Label
 var title_label: Label
 var clock_label: Label
 var ticket_label: Label
@@ -167,7 +168,7 @@ func _build() -> void:
 	map_panel.size_flags_horizontal = Control.SIZE_SHRINK_END
 	map_panel.custom_minimum_size.x = 238
 	var map_column := _column(map_panel,3)
-	var map_title := _label(map_column,"战术地图  ↑ 北",15)
+	map_title = _label(map_column,"战术地图  ↑ 北",15)
 	map_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	minimap = MinimapPresenter.new()
 	map_column.add_child(minimap)

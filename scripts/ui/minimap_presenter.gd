@@ -7,6 +7,7 @@ var capture_owner := 0
 var has_point := true
 var high_contrast := false
 var map_rect := Rect2()
+var roads: Dictionary = {}
 func _ready() -> void:
 	custom_minimum_size = Vector2(206,206)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -21,6 +22,12 @@ func _draw() -> void:
 	map_rect = Rect2((size-world_rect.size*scale_factor)/2,world_rect.size*scale_factor)
 	draw_rect(map_rect,Color("354738"))
 	draw_rect(map_rect,Color("b5c2b3"),false,1)
+	if not roads.is_empty():
+		var nav := DriveNavigator.new()
+		nav.configure(roads)
+		for edge in roads.edges:
+			if not edge.get("road_visual",true): continue
+			draw_line(project(nav.nodes[edge.a]),project(nav.nodes[edge.b]),Color("918e70"),2,true)
 	for rectangle in obstacles:
 		var p := project(Vector3(rectangle.position.x,0,rectangle.position.y))
 		draw_rect(Rect2(p,rectangle.size*scale_factor),Color("8b8368"))

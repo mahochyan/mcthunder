@@ -29,7 +29,7 @@ func _ready() -> void:
 	director = TeamMatchDirector.new()
 	add_child(director)
 	director.begin()
-	nav.configure(TeamArena.graph())
+	nav.configure(navigation_graph())
 	director.respawns.spawn_provider = Callable(self,"spawn_slot")
 	director.round_started.connect(_start_playing)
 	director.vehicle_lost.connect(_on_lost)
@@ -37,7 +37,7 @@ func _ready() -> void:
 	wrecks = WreckRegistry.new()
 	add_child(wrecks)
 	wrecks.protected_provider = func(vehicle: VehicleActor) -> bool: return vehicle == actor
-	actor.tank.global_transform = TeamArena.candidates(1)[0]
+	actor.tank.global_transform = spawn_candidates(1)[0]
 	_configure_vehicle(actor,"A")
 	director.state.register_spawn("A",actor)
 	for id in director.state.roster:
@@ -70,6 +70,11 @@ func _ready() -> void:
 	battle_ui.setup(self)
 
 func _build_world() -> void: TeamArena.build(self)
+func navigation_graph() -> Dictionary: return TeamArena.graph()
+func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
+func objective_goal(team: int, index: int) -> Vector3: return TeamArena.goal(team,index)
+func minimap_metadata() -> Dictionary:
+	return {"bounds":Rect2(-50,-70,100,140),"obstacles":[Rect2(-10,-36,20,4),Rect2(-10,32,20,4),Rect2(-16,12,8,6),Rect2(8,-18,8,6)],"title":"灰盒靶场"}
 func get_round_id() -> int: return director.state.match_id if director != null else 0
 func combat_actors() -> Array:
 	var out: Array = []
@@ -96,8 +101,8 @@ func spawn_slot(id: String) -> VehicleActor:
 	var row: Dictionary = director.state.roster[id]
 	var occupied: Array[Vector3] = []
 	for existing in combat_actors(): occupied.append(existing.tank.global_position)
-	var candidates := TeamArena.candidates(row.team)
-	var checked := RespawnService.find_safe(get_world_3d().direct_space_state,candidates,Vector3(2.85,1.68,5.45),occupied)
+	var candidates := spawn_candidates(row.team)
+	var checked := SpawnSelector.evaluate(get_world_3d().direct_space_state,candidates,Vector3(2.85,1.68,5.45),occupied)
 	if not checked.ok: return null
 	var vehicle := VehicleActor.new()
 	vehicle.name = "Vehicle_"+id+"_"+str(row.spawns+1)
@@ -157,7 +162,7 @@ func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 		var index := 0 if id.length() == 1 else int(id.substr(1))-1
 		ai.configure(vehicle,nav,Callable(self,"combat_actors"),"normal",1600+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
 		ai.advance_while_engaged = true
-		ai.set_patrol(TeamArena.goal(vehicle.state.team_id,index),TeamArena.candidates(vehicle.state.team_id)[index].origin*Vector3(1,0,1))
+		ai.set_patrol(objective_goal(vehicle.state.team_id,index),spawn_candidates(vehicle.state.team_id)[index].origin*Vector3(1,0,1))
 		vehicle.set_controller(ai)
 		vehicle.cam_rig.set_process(false)
 		vehicle.cam_rig.set_physics_process(false)
