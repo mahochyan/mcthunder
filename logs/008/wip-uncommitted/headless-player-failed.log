@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:47)
+       [2] _ready (res://scripts/main.gd:78)
+       [3] _run (res://tests/run_damage_player_checks.gd:73)
+[PASS] Esc opens actual menu
+[PASS] real menu click enters Damage Range
+[PASS] menu click cannot become a shot
+[PASS] mouse fire creates one actual projectile
+[shot] point=(-1.25, 0.4, -28.1) damage=[] impact={ "shot_id": 1, "reason_upper": "WORLD", "impact_point": (0.0, 3.881501, -49.75), "flight_time_s": 0.15537909617136, "travelled_m": 46.6078964471817 }
+[FAIL] actual player shot destroys external left track
+[PASS] Tab transfers actual controller and camera to B
+[FAIL] damaged B cannot drive with real held W
+[PASS] control switch conserves source ammo
+[PASS] mouse fire creates one actual projectile
+[shot] point=(0.0, 0.95, -29.0) damage=[] impact={ "shot_id": 2, "reason_upper": "WORLD", "impact_point": (0.0, 3.881501, -49.75), "flight_time_s": 0.15537909617136, "travelled_m": 46.6078964471817 }
+[FAIL] real penetrated player shot reaches engine
+[PASS] mouse fire creates one actual projectile
+[shot] point=(0.0, 1.57, -30.35) damage=[] impact={ "shot_id": 3, "reason_upper": "WORLD", "impact_point": (0.0, 3.881501, -49.75), "flight_time_s": 0.15537909617136, "travelled_m": 46.6078964471817 }
+[FAIL] real aimed player shot destroys breech
+[FAIL] damaged B cannot spend ammo or fire
+[PASS] damage training pauses
+[PASS] pause leaves damage unchanged
+[PASS] R restores both actual vehicles
+[PASS] R clears projectiles and damage feedback
+=== 结果: 17 项检查, 5 失败 ===
+DAMAGE_PLAYER_CHECKS_FAIL

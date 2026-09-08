@@ -1,0 +1,6 @@
+{
+  "source_sha": "ef9d56a48c3c897d3b4d3567f3cf56e9795802d1",
+  "command": "./tools/godot/Godot_v4.7.2-stable_win64_console.exe --path . --position 1280,0 --max-fps 60 -s res://tests/run_damage_player_checks.gd -- --shot-dir res://docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720",
+  "pid": 57660,
+  "human_review": "NOT_RUN"
+}

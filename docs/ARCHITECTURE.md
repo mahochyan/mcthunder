@@ -267,3 +267,6 @@ B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车
   不写回不参与命中）；HUD 按 projectile_id 区分在飞/已终止；训练场近/远射道切换
   （_set_lane，T 键 + 演示）；get_aim_point 意图射线 150→300m（覆盖 gun_range +
   相机偏移，否则远射道不可用）；重开训练闭环（靶板/最近结果/视觉同步复位）。
+
+## 008 路径损伤与功能状态
+ProjectileManager从ShotQueryService.volume_intervals选择实际下一内部/外部接触；DamageResolver纯解析阻力和状态增量，VehicleActor验证身份并静默提交VehicleRuntimeState，管理器先记录再通知。VehicleCapabilities是驾驶/炮塔/武器与显示的共同能力来源。DamageRange复用真实命令和射击链。规则及证据见DELIVERY_008.md。
