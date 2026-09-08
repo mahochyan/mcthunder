@@ -1,0 +1,9 @@
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:49)
+       [2] _ready (res://scripts/training/ballistics_range.gd:58)
+       [3] _ready (res://scripts/training/damage_range.gd:13)
+       [4] _ready (res://scripts/training/terrain_range.gd:9)
+       [5] _run (res://tests/run_drive_checks.gd:24)

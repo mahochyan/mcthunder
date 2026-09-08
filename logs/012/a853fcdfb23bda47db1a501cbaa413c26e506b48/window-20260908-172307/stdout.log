@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual window capture 01_m4_garage
+[PASS] actual window capture 01b_m4_rear_quarter
+[PASS] actual window capture 01c_m4_side
+[PASS] terrain laboratory control reachable by scrolling
+[PASS] normal garage click enters actual terrain laboratory
+[PASS] actual window capture 02_route_start
+[normal10] position=(0.0, 2.649324, -27.13941) slope=10.000224016708
+[PASS] normal W climbs and coasts to rest on 10-degree ramp
+[PASS] actual window capture 03_ten_degree
+[PASS] normal released keys leave tank stationary on slope
+[PASS] normal S reverses down slope
+[PASS] normal route key starts explicit fresh 30-degree lesson
+[PASS] normal W cannot climb 30-degree rejection slope
+[PASS] actual window capture 04_thirty_degree_block
+[PASS] normal Tab takes actual slope target control
+[PASS] controlled target remains supported by actual 20-degree ramp
+[PASS] actual window capture 05_twenty_degree_target
+[PASS] normal Escape pauses terrain physics
+[PASS] pause freezes slope posture
+[PASS] normal menu returns from terrain to garage
+=== 结果: 19 项检查, 0 失败 ===
+[render] fps=59
+DRIVE_PLAYER_CHECKS_PASS

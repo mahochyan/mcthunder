@@ -279,3 +279,6 @@ ProjectileManager在实际推进采样路径，接触前冻结同物理步QueryS
 
 ## 011 AppFlow与核心训练
 默认AppFlow拥有GarageShell/CoreRange生命周期、中文配弹和结果页。TrainingLoadout验证并复制到实际Gunner，不改共享Resource。TrainingDirector按round/shooter/life过滤真实ShotRecord，结果只读；重试创建新轮次。CoreRange复用RecoveryRange实际毁伤/维修，不直接生成成功损伤。中文字体显式随项目分发，CoreVehicleVisual纯显示。训练无限补给走AmmoInventory.supply_round，供给与消耗守恒且不跳装填。AcceptanceChecklist人工项永远初始PENDING。
+
+## 012 地形与车型外形
+GroundProbe读取WORLD真实法线，VehiclePose生成刚性车体基，Tank负责速度投影/坡度门与碰撞。Turret用完整父基解局部瞄准，QuerySnapshot仍读同一实际变换。M4EngineeringProfile按实例复制定义、共用可见装甲面和查询面；M4VoxelDetails/M4TrackMotion是只读视觉细节。TerrainRange通过AppFlow正常进入；旧测试车默认参数保持，车型相机/碰撞尺寸由VehicleDefinition提供。

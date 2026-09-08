@@ -5,7 +5,7 @@
 ## 启动开发版
 双击本目录 **START_GAME.bat**，固定 Godot 4.7.2 stable 普通版 / GDScript / Compatibility。
 开发目录：E:/AIprogram/mcthunder-development；原 E:/AIprogram/mcthunder 仍为旧 main 001。
-启动后中文车库选择AP70/AP120、携弹量与七个课目，进入训练；Enter结果，Esc暂停/返回。专项实验室保留装甲、近远弹道和恢复训练。
+启动后中文车库选择AP70/AP120、携弹量与七个课目，进入训练；Enter结果，Esc暂停/返回。M4A3外形工程样车可旋转检视；形状估算，性能仍为训练设计。专项实验室包含装甲、近远弹道、恢复和地形；左栏向下滚动可见。地形1—4新开10/20/30度坡或障碍路线，Tab接管坡上车。
 Esc → **Damage Range** 验证模块损伤；Tab接管受损车，X切换训练透视，R重开。
 Esc → **Recovery Range** 验证损伤后应对；1—5开始训练新局，正常射击后Tab接管B，T维修、F灭火、C乘员换位、G取消。
 训练中 Esc → Return to Range 返回主靶场。
@@ -23,7 +23,7 @@ Esc → **Recovery Range** 验证损伤后应对；1—5开始训练新局，正
 训练 AP70 与标准板为明确游戏设计值，非历史性能认证。穿甲累计消耗不恢复；跳弹保留一半剩余预算、速度乘0.6；UNKNOWN 停止并说明数据不足。详情来自真实接触记录。
 
 ## 自动验证
-`pwsh -File tests/run_suite_checks.ps1 -Order 011`：固定引擎导入 + 基础/布局/查询/弹道/装甲/损伤/恢复/回放/核心流程九套检查。
+`pwsh -File tests/run_suite_checks.ps1 -Order 012`：固定引擎导入 + 基础/布局/查询/弹道/装甲/损伤/恢复/回放/核心流程/地形十套检查。
 运行器保存源码 SHA、命令、stdout/stderr、退出码、超时及错误扫描。只有布局套件三条指定负例错误允许出现；其他 ERROR/SCRIPT ERROR 即使退出0也判失败。
 
 单套：`tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/run_armor_checks.gd`

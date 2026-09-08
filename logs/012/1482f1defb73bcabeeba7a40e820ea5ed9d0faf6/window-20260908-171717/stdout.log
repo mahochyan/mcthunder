@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal project start opens Chinese garage
+[PASS] real replay capture 01_garage
+[capture] 01_garage
+[PASS] real preview button shows actual armor
+[PASS] real replay capture 02_armor_inspection
+[capture] 02_armor_inspection
+[PASS] real preview button shows modules and crew
+[popup choice] requested=0 selected=0 visible=false
+[PASS] normal selector chooses AP70
+[PASS] normal spinbox changes carried ammunition
+[popup choice] requested=0 selected=0 visible=false
+[PASS] normal garage entry starts lesson 0
+[PASS] actual loadout retained across entry
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] lesson 0 completes from actual shot/state: passed
+[PASS] explanation cites the actual completed projectile
+[lesson 0] 车体正面：未击穿（入射 48.1°）
+穿深预算 70.0 → 0.0 mm；等效厚度 359.4 mm
+没有实际内部损伤，不能仅凭命中判定击毁。
+目标：存活 / 可驾驶 / 可射击
+[PASS] real replay capture 03_lesson_0_replay
+[capture] 03_lesson_0_replay
+[PASS] Enter opens Chinese result screen with paused world
+[PASS] result has reachable return-to-garage control
+[PASS] return to garage fully releases training
+[PASS] garage preserves loadout and lesson selection
+[popup choice] requested=1 selected=1 visible=false
+[PASS] normal garage entry starts lesson 1
+[PASS] actual loadout retained across entry
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] lesson 1 completes from actual shot/state: passed
+[PASS] explanation cites the actual completed projectile
+[lesson 1] hull upper 3：击穿（入射 2.8°）
+穿深预算 70.0 → 50.0 mm；等效厚度 20.0 mm
+hull upper 1：击穿（入射 4.2°）
+穿深预算 40.0 → 19.9 mm；等效厚度 20.1 mm
+发动机：部件失能
+目标：存活 / 无法驾驶 / 可射击
+[PASS] real replay capture 04_lesson_1_replay
+[capture] 04_lesson_1_replay
+[PASS] Enter opens Chinese result screen with paused world
+[PASS] result has reachable return-to-garage control
+[PASS] return to garage fully releases training
+[PASS] garage preserves loadout and lesson selection
+[popup choice] requested=2 selected=2 visible=false
+[PASS] normal garage entry starts lesson 2
+[PASS] actual loadout retained across entry
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] lesson 2 completes from actual shot/state: passed
+[PASS] explanation cites the actual completed projectile
+[lesson 2] hull upper 2：击穿（入射 18.9°）
+穿深预算 70.0 → 48.9 mm；等效厚度 21.1 mm
+车体正面：未击穿（入射 51.7°）
+穿深预算 38.9 → 0.0 mm；等效厚度 387.3 mm
+发动机：部件失能
+目标：存活 / 无法驾驶 / 可射击
+[PASS] real replay capture 05_lesson_2_replay
+[capture] 05_lesson_2_replay
+[PASS] Enter opens Chinese result screen with paused world
+[PASS] real replay capture 06_result_engine
+[capture] 06_result_engine
+[PASS] result has reachable return-to-garage control
+[FAIL] return to garage fully releases training
