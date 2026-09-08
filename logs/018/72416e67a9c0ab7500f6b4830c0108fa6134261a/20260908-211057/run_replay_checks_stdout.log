@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual manager accepts recorded shot
+[PASS] actual terminal produces one frozen shot record
+[PASS] manager stores one bounded record
+[PASS] real shot record validates schema and geometry
+[PASS] record and nested geometry are frozen
+[PASS] record preserves frozen seed and shooter identity
+[PASS] record includes actual engine hit and no invented crew damage
+[PASS] record damage before/after matches actual outcome
+[PASS] consumer copy cannot rewrite stored history
+[PASS] JSON explicitly encodes vectors as tagged numeric arrays
+[PASS] real record JSON roundtrip validates
+[PASS] JSON roundtrip preserves path endpoint
+[PASS] JSON roundtrip preserves hit-time box transform
+[PASS] unknown schema is refused
+[PASS] unknown rules version is refused
+[PASS] invalid triangle index is refused before rendering
+[PASS] non-finite coordinates cannot be exported
+[PASS] Node references cannot enter JSON records
+[PASS] object-style input is not deserialized
+[PASS] excessive nesting is refused
+[PASS] ring buffer retains only latest 16 records
+[PASS] explicit clearing releases record buffer
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] replay accepts immutable real record
+[PASS] replay highlights only actual damaged engine
+[PASS] ten replays follow identical recorded position
+[PASS] ten replays do not alter real damage, ammunition or hits
+[PASS] replay has an independent 3D world
+[PASS] replay contains no collision or vehicle executors
+[PASS] later target translation and turret rotation do not alter hit pose
+[PASS] later shared-resource edit cannot rewrite replay geometry
+[PASS] invalid replay shows an explicit unavailable reason
+[PASS] actual manager accepts recorded shot
+[PASS] actual terminal produces one frozen shot record
+[PASS] manager stores one bounded record
+[PASS] unpenetrated shot has no invented internal casualty
+[PASS] unpenetrated replay ends exactly on armor surface
+[PASS] actual manager accepts recorded shot
+[PASS] actual terminal produces one frozen shot record
+[PASS] manager stores one bounded record
+[PASS] ricochet replay uses actual reflected path endpoint
+[PASS] reflected replay visibly leaves original straight shot line
+[PASS] closing replay does not modify combat state
+[PASS] record-clear callback cannot bypass cancellation spawn gate or recurse indefinitely
+[PASS] recording limit does not change real projectile simulation
+[PASS] record overflow is explicit and bounded
+[PASS] overflow shows unavailable instead of a truncated fake replay
+[PASS] record remains replayable after actual target deletion
+[PASS] deleted target replay retains original damage explanation
+[PASS] clearing view releases generated display geometry
+=== 结果: 67 项检查, 0 失败 ===
+REPLAY_CHECKS_PASS

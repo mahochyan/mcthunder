@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage click enters the authored hill village
+[PASS] actual window capture 01_village_spawn
+[normal keyboard route] target=(-72.0, 0.0, 116.0) actual=(-73.43491, -0.019058, 116.0621) time=8.14999999999998 reached=true destroyed=false
+[PASS] normal keyboard leaves spawn for west gate
+[normal keyboard route] target=(-72.0, 0.0, 67.0) actual=(-71.79707, -0.019058, 65.60091) time=16.166666666667 reached=true destroyed=false
+[PASS] normal front-route drive passes the visible spawn screen
+[PASS] actual window capture 02_front_140m_lane
+[normal keyboard route] target=(-72.0, 0.0, 50.0) actual=(-72.13362, -0.019058, 48.62228) time=18.4166666666669 reached=true destroyed=false
+[normal keyboard route] target=(-42.0, 0.0, 20.0) actual=(-45.691, -0.019058, 23.54773) time=31.0833333333328 reached=false destroyed=false
+[PASS] actual window capture 03_front_approach_or_combat_loss
+[PASS] normal front-route session returns through pause menu
+[PASS] normal garage click enters the authored hill village
+[normal keyboard route] target=(-72.0, 0.0, 116.0) actual=(-73.41609, -0.019058, 115.9979) time=8.18333333333332 reached=true destroyed=false
+[PASS] second normal match starts from a new spawn
+[normal keyboard route] target=(-120.0, 0.0, 65.0) actual=(-120.9912, -0.019058, 63.93344) time=17.4500000000003 reached=true destroyed=false
+[PASS] keyboard chooses the longer western flank
+[PASS] actual window capture 04_flank_hill_approach
+[normal keyboard route] target=(-120.0, 0.0, 0.0) actual=(-120.0895, 6.627376, -1.220282) time=26.2499999999998 reached=true destroyed=false
+[PASS] normal player command chain climbs the 6.8m western hill
+[PASS] actual window capture 05_hill_overlooks_village
+[PASS] actual window capture 06_hill_1080p
+[normal keyboard route] target=(-120.0, 0.0, -65.0) actual=(-119.1107, 6.359684, -6.443239) time=52.6333333333316 reached=false destroyed=false
+[PASS] actual window capture 07_far_flank_or_combat_loss
+[PASS] flank session returns through actual scene cleanup
+=== 结果: 16 项检查, 0 失败 ===
+VILLAGE_PLAYER_CHECKS_PASS
