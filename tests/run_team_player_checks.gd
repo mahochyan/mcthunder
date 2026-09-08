@@ -49,6 +49,11 @@ func _run() -> void:
 		if i%1200 == 0: print("TEAM_PROGRESS elapsed=",team.director.state.elapsed," capture=",team.director.state.capture_progress," tickets=",team.director.state.tickets)
 	_check(team.director.state.capture_owner != 0,"actual objective AI reaches and captures central point")
 	_check(mini(team.director.state.tickets[1],team.director.state.tickets[2]) < 260,"real combat and owned objective reduce live ticket totals")
+	if team.director.state.capture_owner != 0:
+		var enemy_team: int = 3-team.director.state.capture_owner
+		var tickets_before: int = team.director.state.tickets[enemy_team]
+		await _frames(120)
+		_check(team.director.state.tickets[enemy_team] < tickets_before,"retained ownership drains actual opposing tickets over normal match time")
 	await _capture("06_live_point_and_tickets")
 	print("TEAM_FINAL elapsed=",team.director.state.elapsed," tickets=",team.director.state.tickets," owner=",team.director.state.capture_owner," population=",team.combat_actors().size())
 	if team.director.state.phase == "finished": await _click(team.return_button)
