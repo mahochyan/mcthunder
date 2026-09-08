@@ -33,6 +33,7 @@ func _run() -> void:
 	await _muzzle_authority_checks()
 	await _determinism_checks()
 	await _r1_checks()
+	await _r1_visuals_checks()
 	print("=== 结果: %d 项检查, %d 失败 ===" % [_pass + _fail, _fail])
 	if _fail > 0:
 		print("PROJECTILE_CHECKS_FAIL")
@@ -788,6 +789,44 @@ func _r1_round_gate_check() -> void:
 		"surface_id": "hull_front",
 	})
 	_ok(_main.actor_b.tank.hits_taken == h0, "R1-B 旧轮次记录不改 hits_taken (hits=%d)" % _main.actor_b.tank.hits_taken)
+
+func _r1_visuals_checks() -> void:
+	# C：可见显示层——在飞对象与模拟状态对应；终止后移除；clear_all 清空；
+	# 显示层只读模拟状态（管理器不感知它，弹道与计分不变）。
+	var holder := Node3D.new()
+	holder.name = "R1Vis"
+	root.add_child(holder)
+	var mgr := ProjectileManager.new()
+	holder.add_child(mgr)
+	mgr.snapshot_provider = Callable(self, "empty_snapshots")
+	mgr.exclude_provider = Callable(self, "empty_excludes")
+	var vis := ProjectileVisuals.new()
+	holder.add_child(vis)
+	await process_frame
+	var s := _spec(1, "V", 1, Vector3(0, 3, 0), Vector3(0, 300, 0), 2.0, 100.0)
+	s["gravity_world"] = Vector3.ZERO
+	s["shot_id"] = 950
+	var sp := mgr.try_spawn(s)
+	_ok(sp.get("ok") == true, "R1-C visuals 发射已接收")
+	vis.sync_projectiles(mgr.active_states())
+	_ok(vis.visual_count() == mgr.active_count(), "R1-C 在飞对象与模拟状态对应 (vis=%d active=%d)" % [vis.visual_count(), mgr.active_count()])
+	await physics_frame
+	await physics_frame
+	vis.sync_projectiles(mgr.active_states())
+	var st = mgr.get_projectile_state(int(sp.get("projectile_id", 0)))
+	_ok(st != null and vis.visual_count() == 1 and st.status == "flying", "R1-C 推进后仍对应 (status=%s)" % (st.status if st != null else "null"))
+	# 终止：取消 → 记录 → present_terminal → 飞行视觉移除
+	mgr.projectile_finished.connect(_on_finished)
+	var base := _records.size()
+	mgr.cancel_all("cancelled_reset")
+	var rec: Dictionary = _records[base] if _records.size() > base else {}
+	_ok(str(rec.get("reason", "")) == "cancelled_reset", "R1-C visuals 终止记录取得 (reason=%s)" % str(rec.get("reason", "")))
+	vis.present_terminal(rec)
+	_ok(vis.visual_count() == 0, "R1-C 终止后飞行视觉移除 (vis=%d)" % vis.visual_count())
+	vis.clear_all()
+	_ok(vis.visual_count() == 0, "R1-C clear_all 清空")
+	holder.queue_free()
+	await process_frame
 
 # --- 辅助 ---
 

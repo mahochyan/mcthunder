@@ -19,6 +19,7 @@ var projectile_manager: ProjectileManager = null   # 006：由 main 注入——
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
 var shooter_team_id := 0              # 006：由 actor 注入（发射身份队伍，冻结）
 var shot_id := 0                      # 003-R2：本实体射击编号——每次成功发射 +1（含空射/打墙），发射时分配
+var last_projectile_id := 0           # 006-R1-C：最近成功发射的 projectile_id（HUD 在飞/已终态区分）
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
 var rounds_remaining := 0             # 006：剩余弹数（实例状态，不共享；整场/单车重开恢复配额）
@@ -199,6 +200,7 @@ func try_fire() -> bool:
 	shots_fired += 1
 	blocked_reason = ""
 	last_shot_result = "fired"
+	last_projectile_id = int(spawn.get("projectile_id", 0))   # 006-R1-C：HUD 按此 id 区分在飞/已终止
 	last_query_events = []
 	_spawn_tracer(muz, muz + dir * 0.6)   # 006：仅炮口闪光（短线段）；不再画到未来目标
 	turret.kick_recoil()

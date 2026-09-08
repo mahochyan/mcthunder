@@ -11,6 +11,8 @@ var controller: PlayerController
 var actor_a: VehicleActor
 var actor_b: VehicleActor
 var projectiles: ProjectileManager   # 006：唯一推进飞弹的物理执行器（当前战斗场景拥有）
+var projectile_visuals: ProjectileVisuals   # 006-R1-C：飞弹可见显示层（只读模拟状态）
+var _terminated_pids: Dictionary = {}   # 006-R1-C：已终止 projectile_id 集合（HUD 在飞/已终止区分）
 var tank: TankVehicle        # 兼容引用 → actor_a.tank（现有测试/autoshot 使用）
 var turret: TurretRig        # 兼容引用 → actor_a.turret
 var cam_rig: CameraRig       # 兼容引用 → actor_a.cam_rig
@@ -96,6 +98,10 @@ func _ready() -> void:
 	projectiles.snapshot_provider = Callable(self, "query_snapshots")
 	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
 	projectiles.projectile_finished.connect(_on_projectile_finished)
+	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
+	projectile_visuals = ProjectileVisuals.new()
+	projectile_visuals.name = "ProjectileVisuals"
+	add_child(projectile_visuals)
 	actor_a.gunner.projectile_manager = projectiles
 	actor_b.gunner.projectile_manager = projectiles
 	hud = HUD.new()
@@ -394,6 +400,9 @@ func reset_range() -> void:
 	for t in targets:
 		t.reset()
 	trial_hits = _gate.hits
+	_terminated_pids.clear()   # 006-R1-C：整场重开清 HUD 在飞/终止登记
+	if projectile_visuals != null:
+		projectile_visuals.clear_all()   # 006-R1-C：重开无视觉残留
 
 func reset_vehicle(actor: VehicleActor) -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
@@ -429,6 +438,10 @@ func _on_projectile_finished(record: Dictionary) -> void:
 	if _aborted:
 		return
 	# 最近结果按 projectile_id 保存（HUD 展示；旧弹结果不串到新弹）
+	# 006-R1-C：登记已终止 projectile_id（HUD 结束 IN FLIGHT）+ 可见层在真实终止位置收尾
+	_terminated_pids[int(record.get("projectile_id", 0))] = true
+	if projectile_visuals != null:
+		projectile_visuals.present_terminal(record)
 	var reason: String = str(record.get("reason", ""))
 	var reason_upper := "EXPIRED"
 	match reason:
@@ -511,7 +524,11 @@ func _process(_delta: float) -> void:
 		control_text += " [TEST ONLY]"
 	var result_text := ""
 	if gunner.last_shot_result == "fired":
-		result_text = "LAST SHOT: #%d IN FLIGHT" % gunner.shot_id
+		# 006-R1-C：按 projectile_id 区分在飞/已终止——终止后不再显示 IN FLIGHT
+		if gunner.last_projectile_id > 0 and _terminated_pids.has(gunner.last_projectile_id):
+			result_text = "LAST SHOT: #%d TERMINATED" % gunner.shot_id
+		else:
+			result_text = "LAST SHOT: #%d IN FLIGHT" % gunner.shot_id
 	elif gunner.last_shot_result != "":
 		result_text = "LAST SHOT: BLOCKED (%s)" % gunner.blocked_reason.to_upper()
 	var trial_text := "TRIAL: A HIT B %d/%d" % [trial_hits, TRIAL_TARGET]
@@ -530,6 +547,8 @@ func _process(_delta: float) -> void:
 		]
 	hud.update_hud(tank.forward_speed, gunner.cooldown_left, gunner.blocked_reason, hits, cam_rig.sight, control_text, result_text, trial_text, ammo_text, proj_text, impact_text)
 	hud.update_debug(Engine.get_frames_per_second(), tank.forward_speed, rad_to_deg(turret.global_rotation.y), rad_to_deg(turret.barrel_pivot.rotation.x), gunner.cooldown_left)
+	if projectile_visuals != null and projectiles != null:
+		projectile_visuals.sync_projectiles(projectiles.active_states())   # 006-R1-C：可见显示层同步
 	_update_markers()
 	if _autoshot:
 		_autoshot_step()

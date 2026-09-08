@@ -26,9 +26,19 @@ var _demo_ticks := 0             # 演示自增 tick（_physics_process 驱动�
 var _demo_errors := 0
 var _demo_saved := 0
 var _demo_sample_a := {}         # 飞行中采样 A
-var _demo_frozen := {}           # 暂停冻结采样
 var _demo_fps_sum := 0.0
 var _demo_fps_n := 0
+var _demo_flight_deltas: Array = []    # 006-R1-C：飞行窗口实际帧间隔（秒，覆盖主要飞行时段）
+var _demo_flight_open := false
+var _demo_capture_requests: Array = [] # 006-R1-C：待捕获（渲染完成后取帧 + 记录捕获时点状态）
+var _demo_capturing := false
+var _demo_board_base: Dictionary = {}  # 发射时各靶板 hit_count 基线（目标身份验证）
+# --- 006-R1-C 射道切换与可见显示层 ---
+var _boards: Dictionary = {}           # "NearBoard"/"FarBoard" -> TargetBoard
+var _walls: Dictionary = {}            # "NearWall"/"FarWall" -> StaticBody3D
+var _lane := "near"                    # 当前启用射道（T 键或演示切换；只启用对应目标与背墙）
+var _terminated_pids: Dictionary = {}  # 已终止 projectile_id（HUD 在飞/已终止区分）
+var projectile_visuals: ProjectileVisuals
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -54,6 +64,10 @@ func _ready() -> void:
 	projectiles.snapshot_provider = Callable(self, "query_snapshots")
 	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
 	projectiles.projectile_finished.connect(_on_projectile_finished)
+	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
+	projectile_visuals = ProjectileVisuals.new()
+	projectile_visuals.name = "ProjectileVisuals"
+	add_child(projectile_visuals)
 	actor.gunner.projectile_manager = projectiles
 	actor.gunner.round_provider = Callable(self, "get_round_id")
 	actor.gunner.snapshot_provider = Callable(self, "query_snapshots")
@@ -99,11 +113,12 @@ func _build_world() -> void:
 	ground.position = Vector3(0, -0.25, -80)
 	add_child(ground)
 	# 近/远靶板（接触面约 30m / 150m）
-	_add_board(Vector3(0, 0, NEAR_Z), "NearBoard")
-	_add_board(Vector3(0, 0, FAR_Z), "FarBoard")
+	_boards["NearBoard"] = _add_board(Vector3(0, 0, NEAR_Z), "NearBoard")
+	_boards["FarBoard"] = _add_board(Vector3(0, 0, FAR_Z), "FarBoard")
 	# 背板墙：挡住未中靶的飞弹（近 32m / 远 152m）
-	_add_wall(Vector3(0, 3.0, NEAR_Z - 2.0), Vector3(20.0, 6.0, 1.0))
-	_add_wall(Vector3(0, 3.0, FAR_Z - 2.0), Vector3(20.0, 6.0, 1.0))
+	_walls["NearWall"] = _add_wall(Vector3(0, 3.0, NEAR_Z - 2.0), Vector3(20.0, 6.0, 1.0))
+	_walls["FarWall"] = _add_wall(Vector3(0, 3.0, FAR_Z - 2.0), Vector3(20.0, 6.0, 1.0))
+	_set_lane("near")   # 006-R1-C：默认近靶道（T 键/演示切换近远靶，两条射道互不遮挡直射路线）
 	# 光照与天空
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-52, -28, 0)
@@ -120,13 +135,14 @@ func _build_world() -> void:
 	we.environment = env
 	add_child(we)
 
-func _add_board(pos: Vector3, name: String) -> void:
+func _add_board(pos: Vector3, name: String) -> TargetBoard:
 	var board := TargetBoard.new()
 	board.name = name
 	board.position = pos
 	add_child(board)
+	return board
 
-func _add_wall(pos: Vector3, size: Vector3) -> void:
+func _add_wall(pos: Vector3, size: Vector3) -> StaticBody3D:
 	var body := StaticBody3D.new()
 	body.collision_layer = GameConfig.LAYER_WORLD
 	body.collision_mask = 0
@@ -145,6 +161,24 @@ func _add_wall(pos: Vector3, size: Vector3) -> void:
 	body.add_child(mi)
 	body.position = pos
 	add_child(body)
+	return body
+
+func _set_lane(lane: String) -> void:
+	# 006-R1-C：同一射击位切换近靶/远靶——只启用对应目标与背墙。
+	# 修复：近靶+近背墙原先常驻，挡住远靶直射路线；切换后两条射道都可用。
+	_lane = lane
+	var near_on := lane == "near"
+	_enable_node(_boards.get("NearBoard"), near_on)
+	_enable_node(_boards.get("FarBoard"), not near_on)
+	_enable_node(_walls.get("NearWall"), near_on)
+	_enable_node(_walls.get("FarWall"), not near_on)
+
+func _enable_node(n: Node3D, on: bool) -> void:
+	# 禁用 = 隐藏 + 退出 WORLD 碰撞层（查询不再命中）；启用 = 恢复
+	if n == null:
+		return
+	n.visible = on
+	n.collision_layer = GameConfig.LAYER_WORLD if on else 0
 
 func get_round_id() -> int:
 	return 0   # 训练场无任务轮次（命中只反馈，不推进试射目标）
@@ -169,6 +203,22 @@ func projectile_exclude_rids(shooter_id: String, shooter_life_id: int) -> Array[
 	return []
 
 func _on_projectile_finished(record: Dictionary) -> void:
+	# 006-R1-C：登记已终止 projectile_id（HUD 结束 IN FLIGHT）+ 可见层在真实终止位置收尾
+	_terminated_pids[int(record.get("projectile_id", 0))] = true
+	if projectile_visuals != null:
+		projectile_visuals.present_terminal(record)
+	if _demo and _demo_flight_open:
+		_demo_flight_open = false
+		var n := _demo_flight_deltas.size()
+		if n > 0:
+			var total := 0.0
+			var mn := 1.0e9
+			var mx := 0.0
+			for d in _demo_flight_deltas:
+				total += float(d)
+				mn = minf(mn, float(d))
+				mx = maxf(mx, float(d))
+			print("[bdemo] flight window: idle_frames=%d avg_fps=%.1f min_fps=%.1f max_fps=%.1f span=%.3fs" % [n, float(n) / maxf(total, 1.0e-6), 1.0 / maxf(mx, 1.0e-6), 1.0 / maxf(mn, 1.0e-6), total])
 	var reason: String = str(record.get("reason", ""))
 	var reason_upper := "EXPIRED"
 	match reason:
@@ -195,18 +245,32 @@ func _on_projectile_finished(record: Dictionary) -> void:
 			float(record.get("travelled_m", 0.0)), float(record.get("flight_time_s", 0.0)),
 			str(record.get("impact_point", Vector3.ZERO)), str(record.get("detail", ""))])
 
-func _process(_delta: float) -> void:
-	# 演示实际渲染帧率采样（物理 tick 驱动的步进机走到重开段后开始累计）
-	if _demo and _demo_step >= 30 and _demo_fps_n < 60:
+func _process(delta: float) -> void:
+	# 演示收尾段实际渲染帧率采样（飞行窗口另有逐帧间隔记录，见 _on_projectile_finished）
+	if _demo and _demo_step >= 32 and _demo_fps_n < 60:
 		_demo_fps_sum += float(Engine.get_frames_per_second())
 		_demo_fps_n += 1
+	# 006-R1-C：飞行窗口实际帧间隔（从发射到终止的空闲帧 deltas，覆盖主要飞行时段）
+	if _demo and _demo_flight_open:
+		_demo_flight_deltas.append(delta)
+	if projectile_visuals != null and projectiles != null:
+		projectile_visuals.sync_projectiles(projectiles.active_states())
+	# 006-R1-C：渲染完成后捕获（不在物理回调直读视口纹理），并记录捕获时点真实模拟状态
+	if _demo and not _demo_capture_requests.is_empty() and not _demo_capturing:
+		_demo_capturing = true
+		_demo_pump_capture()
 	if not _initialized or actor == null or hud == null:
 		return
 	var result_text := ""
 	if actor.gunner.last_shot_result == "fired":
-		result_text = "LAST SHOT: #%d IN FLIGHT" % actor.gunner.shot_id
+		# 006-R1-C：按 projectile_id 区分在飞/已终止——终止后不再显示 IN FLIGHT
+		if actor.gunner.last_projectile_id > 0 and _terminated_pids.has(actor.gunner.last_projectile_id):
+			result_text = "LAST SHOT: #%d TERMINATED" % actor.gunner.shot_id
+		else:
+			result_text = "LAST SHOT: #%d IN FLIGHT" % actor.gunner.shot_id
 	elif actor.gunner.last_shot_result != "":
 		result_text = "LAST SHOT: BLOCKED (%s)" % actor.gunner.blocked_reason.to_upper()
+	var lane_text := "LANE: %s (T to toggle)" % _lane.to_upper()
 	var ammo_text := "AMMO: %d/%d" % [actor.gunner.rounds_remaining, actor.gunner.weapon.initial_rounds if actor.gunner.weapon != null else 30]
 	var proj_text := "PROJECTILES: %d" % (projectiles.active_count() if projectiles != null else 0)
 	var impact_text := "LAST IMPACT: —"
@@ -217,7 +281,38 @@ func _process(_delta: float) -> void:
 			float(_last_impact.get("flight_time_s", 0.0)),
 			float(_last_impact.get("travelled_m", 0.0)),
 		]
-	hud.update_hud(actor.tank.forward_speed, actor.gunner.cooldown_left, actor.gunner.blocked_reason, [], actor.cam_rig.sight, "CONTROL: A (PLAYER) [BALLISTICS]", result_text, "", ammo_text, proj_text, impact_text)
+	hud.update_hud(actor.tank.forward_speed, actor.gunner.cooldown_left, actor.gunner.blocked_reason, [], actor.cam_rig.sight, "CONTROL: A (PLAYER) [BALLISTICS] " + lane_text, result_text, "", ammo_text, proj_text, impact_text)
+
+func _demo_pump_capture() -> void:
+	# 006-R1-C：等本帧渲染完成（frame_post_draw）再取纹理；PNG 旁打印捕获时点的
+	# 真实模拟状态（projectile_id/年龄/位置/在飞数量），不把先前采样值当作图片状态。
+	var req: Dictionary = _demo_capture_requests.pop_front()
+	await RenderingServer.frame_post_draw
+	var rel := str(req.get("filename", "capture.png"))
+	var sts: Array = projectiles.active_states()
+	var desc := ""
+	for st in sts:
+		desc += "#%d age=%.4fs trav=%.2fm pos=%s " % [int(st.projectile_id), float(st.age_s), float(st.travelled_m), str(st.position_world)]
+	var img := get_viewport().get_texture().get_image()
+	if img == null or img.is_empty():
+		_demo_capturing = false
+		_demo_fail("capture failed: " + rel)
+		return
+	var path: String
+	if _demo_dir.is_absolute_path():
+		path = _demo_dir.path_join(rel)   # 绝对 shot-dir 直接使用
+	else:
+		path = ProjectSettings.globalize_path("res://" + _demo_dir + "/" + rel)
+	var dir := path.get_base_dir()
+	if dir != "" and not DirAccess.dir_exists_absolute(dir):
+		DirAccess.make_dir_recursive_absolute(dir)
+	var err := img.save_png(path)
+	if err == OK:
+		print("[bdemo] capture %s (NOT_REVIEWED): active=%d state=[%s]" % [rel, sts.size(), desc.strip_edges()])
+		_demo_saved += 1
+	else:
+		_demo_fail("save failed (err=%d): %s" % [err, rel])
+	_demo_capturing = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -227,6 +322,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_pause()
 	elif event.is_action_pressed("reset"):
 		_reset_range()
+	elif event.is_action_pressed("toggle_target"):
+		# 006-R1-C：手动切换近靶/远靶（只启用对应目标与背墙）
+		_set_lane("far" if _lane == "near" else "near")
+		print("[bdemo] lane switched -> %s" % _lane)
 
 func _reset_range() -> void:
 	# 训练场整场重开（与主靶场 R 语义一致：先取消本车飞弹，再复位车辆与装填）
@@ -235,6 +334,15 @@ func _reset_range() -> void:
 	if projectiles != null:
 		projectiles.cancel_by_shooter(actor.entity_id, actor.life_id, "cancelled_reset")
 	actor.reset_vehicle()
+	# 006-R1-C：训练闭环——靶板反馈/最近结果/在飞终止登记/视觉状态同步复位
+	for k in _boards:
+		var b = _boards[k]
+		if b != null:
+			b.reset()
+	_last_impact = {}
+	_terminated_pids.clear()
+	if projectile_visuals != null:
+		projectile_visuals.clear_all()
 
 func _pause() -> void:
 	if not _initialized or _paused:
@@ -270,15 +378,19 @@ func _return_to_range() -> void:
 		return
 	if projectiles != null:
 		projectiles.cancel_all("cancelled_scene_exit")
+	if projectile_visuals != null:
+		projectile_visuals.clear_all()   # 006-R1-C：不残留训练视觉
 	get_tree().paused = false
 	_paused = false
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 # =====================================================================
-# 006-d 弹道演示（-- --ballistics-demo）
-# 同一训练装配 + 生产发射路径；记录五个时间点：刚发射未命中 / 实际飞行中 /
-# 接触后 / 暂停冻结 / 重开已清空。物理帧计数等待与渲染限帧（--max-fps）无关；
-# 自然装填不清冷却；截图归档 --shot-dir；断言失败退出码非 0。
+# 006-d / 006-R1-C 弹道演示（-- --ballistics-demo）
+# 同一训练装配 + 生产发射路径；时点：刚发射未命中 / 近靶飞行中 / 近靶接触后
+# （验证 NearBoard 身份）/ 远靶飞行中（明显更长飞行）/ 远靶接触后（验证 FarBoard
+# 身份 + 真实炮口-接触面距离）/ 重开已清空。物理帧计数等待与渲染限帧（--max-fps）
+# 无关；自然装填不清冷却；截图在渲染完成后捕获并记录捕获时点状态（NOT_REVIEWED）；
+# 断言失败退出码非 0。
 # =====================================================================
 
 func _physics_process(_delta: float) -> void:
@@ -295,9 +407,10 @@ func _physics_process(_delta: float) -> void:
 		_demo_tick()
 
 func _demo_tick() -> void:
-	# 006-d 弹道演示（-- --ballistics-demo）：同一训练装配 + 生产发射路径，
-	# 记录五个时间点：刚发射未命中 / 实际飞行中 / 接触后 / 暂停冻结 / 重开已清空。
-	# 飞行时长 ~5.3 物理步（25.8m / 5m 每步@60Hz）——采样点均赶在撞板前。
+	# 006-d/R1 弹道演示（-- --ballistics-demo）：同一训练装配 + 生产发射路径。
+	# 时点：刚发射未命中 / 近靶飞行中 / 近靶接触后(验证 NearBoard 身份) /
+	#       远靶飞行中(明显更长飞行) / 远靶接触后(验证 FarBoard 身份+真实距离) / 重开已清空。
+	# 截图在渲染完成后捕获（frame_post_draw），并记录捕获时点真实模拟状态。
 	if _demo_wait > 0:
 		_demo_wait -= 1
 		return
@@ -307,7 +420,8 @@ func _demo_tick() -> void:
 		10:
 			seed(20250606)   # 固定随机状态（命中判定不含随机；kick_recoil 仅视觉）
 			print("[bdemo] engine=%s" % Engine.get_version_info().string)
-			print("[bdemo] max_fps_requested=%d physics_tps=%d seed=20250606" % [Engine.max_fps, Engine.physics_ticks_per_second])
+			print("[bdemo] max_fps_requested=%d vsync_mode=%d physics_tps=%d seed=20250606" % [Engine.max_fps, DisplayServer.window_get_vsync_mode(), Engine.physics_ticks_per_second])
+			print("[bdemo] lane=%s (near board ~%.1fm, far board ~%.1fm muzzle->contact)" % [_lane, abs(NEAR_Z) - 3.2, abs(FAR_Z) - 3.2])
 			_demo_wait = 30
 		11:   # 瞄准近靶板中心（生产意图路径：相机 aim → 炮塔自然收敛）
 			_demo_aim_yaw(Vector3(0, 1.4, NEAR_Z))
@@ -329,12 +443,13 @@ func _demo_tick() -> void:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (above board)" % actor.turret.aim_error_deg())
 				return
+			_demo_board_base = {"NearBoard": int(_boards["NearBoard"].hit_count), "FarBoard": int(_boards["FarBoard"].hit_count)}
 			if not _demo_fire("shot1"):
 				return
 			print("[bdemo] shot1 aim above board top -> expected MISS board, WORLD backwall")
 			_demo_wait = 2   # 飞行 ~5.3 步，截图须在撞板前
 		16:
-			_demo_shot("demo_1_just_fired_miss.png")   # 刚发射未命中
+			_demo_capture_requests.append({"filename": "demo_1_just_fired_miss.png"})   # 刚发射未命中
 			_demo_wait = 30   # 飞行 + 终止预算
 		17:
 			if projectiles.active_count() > 0:
@@ -357,19 +472,17 @@ func _demo_tick() -> void:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (near board #2)" % actor.turret.aim_error_deg())
 				return
+			_demo_board_base = {"NearBoard": int(_boards["NearBoard"].hit_count), "FarBoard": int(_boards["FarBoard"].hit_count)}
 			if not _demo_fire("shot2"):
 				return
-			_demo_wait = 2   # 飞行仅 ~5.3 物理步（26.6m），采样须赶在撞板前
+			_demo_wait = 2   # 近靶飞行仅 ~5.3 物理步（26.6m），采样须赶在撞板前
 		21:
 			_demo_sample_a = _demo_sample()
 			if _demo_sample_a.is_empty():
-				for stx in projectiles.active_states():
-					print("[bdemo] DBG active st: id=%d status=%s age=%.4f trav=%.3f born=%d now=%d" % [stx.projectile_id, stx.status, stx.age_s, stx.travelled_m, stx.born_physics_tick, Engine.get_physics_frames()])
-				print("[bdemo] DBG sample tick=%d last_impact=%s" % [Engine.get_physics_frames(), str(_last_impact)])
 				_demo_fail("shot2 in-flight sample failed (active=%d)" % projectiles.active_count())
 				return
 			print("[bdemo] t_pf=%d shot2 IN FLIGHT: age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), _demo_sample_a["age"], _demo_sample_a["trav"], str(_demo_sample_a["pos"])])
-			_demo_shot("demo_2_in_flight.png")   # 实际飞行中
+			_demo_capture_requests.append({"filename": "demo_2_in_flight.png"})   # 实际飞行中
 			_demo_wait = 1
 		22:
 			var sb := _demo_sample()
@@ -387,63 +500,83 @@ func _demo_tick() -> void:
 				return
 			if not _demo_check_record("shot2", "WORLD", 24.0, 27.0):
 				return
-			_demo_shot("demo_3_after_impact.png")   # 接触后（HUD LAST IMPACT + 靶板反馈）
+			if not _demo_check_board_identity("shot2", "NearBoard"):
+				return
+			_demo_capture_requests.append({"filename": "demo_3_after_impact.png"})   # 接触后（HUD LAST IMPACT + 靶板反馈）
 			_demo_wait = _demo_reload_ticks()
 		24:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot3 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
+			# 006-R1-C：切换远靶道——近靶/近背墙禁用，远靶直射路线无遮挡
+			_set_lane("far")
+			print("[bdemo] t_pf=%d lane switched -> far (FarBoard ~%.1fm muzzle->contact)" % [Engine.get_physics_frames(), abs(FAR_Z) - 3.2])
+			_demo_aim_yaw(Vector3(0, 2.6, FAR_Z))   # 略抬高：补偿 150m 重力下坠 ~1.2m
+			_demo_wait = 6
+		25:
+			_demo_aim_pitch(Vector3(0, 2.6, FAR_Z))
+			_demo_wait = 104
+		26:
+			if actor.turret.aim_error_deg() > 1.0:
+				_demo_fail("natural aim err=%.2f deg (far board)" % actor.turret.aim_error_deg())
+				return
+			_demo_board_base = {"NearBoard": int(_boards["NearBoard"].hit_count), "FarBoard": int(_boards["FarBoard"].hit_count)}
 			if not _demo_fire("shot3"):
 				return
-			_demo_wait = 2   # 飞行 ~5.3 步，暂停采样须在撞板前
-		25:
-			var sf := _demo_sample()
-			if sf.is_empty():
-				_demo_fail("shot3 pre-pause sample failed (active=%d)" % projectiles.active_count())
-				return
-			_demo_frozen = sf
-			print("[bdemo] t_pf=%d shot3 in flight, pausing: age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), sf["age"], sf["trav"], str(sf["pos"])])
-			_pause()
-			_demo_wait = 30   # 暂停期间 ALWAYS 节点物理回调仍走；飞弹 PAUSABLE 冻结
-		26:
-			var sr := _demo_sample()
-			if sr.is_empty():
-				_demo_fail("paused sample failed (active=%d)" % projectiles.active_count())
-				return
-			if sr["pos"] != _demo_frozen["pos"] or sr["age"] != _demo_frozen["age"] or sr["trav"] != _demo_frozen["trav"]:
-				_demo_fail("pause not frozen: pos %s vs %s" % [str(_demo_frozen["pos"]), str(sr["pos"])])
-				return
-			print("[bdemo] pause frozen verified: pos/age/travelled identical over 30 demo ticks")
-			_demo_shot("demo_4_paused_frozen.png")   # 暂停冻结
-			_resume()
-			_demo_wait = 30   # 恢复后剩余飞行 ~3 步 + 终止
+			_demo_wait = 8   # 远靶飞行 ~30 物理步（146.6m），采样窗口充足
 		27:
-			if projectiles.active_count() > 0:
-				_demo_fail("shot3 still active after resume wait (active=%d)" % projectiles.active_count())
+			_demo_sample_a = _demo_sample()
+			if _demo_sample_a.is_empty():
+				_demo_fail("shot3 far in-flight sample failed (active=%d)" % projectiles.active_count())
 				return
-			if not _demo_check_record("shot3", "WORLD", 24.0, 27.0):
-				return
-			_demo_wait = _demo_reload_ticks()
+			print("[bdemo] t_pf=%d shot3 IN FLIGHT (far): age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), _demo_sample_a["age"], _demo_sample_a["trav"], str(_demo_sample_a["pos"])])
+			_demo_capture_requests.append({"filename": "demo_4_far_in_flight.png"})   # 远靶实际飞行中
+			_demo_wait = 5
 		28:
+			var sb2 := _demo_sample()
+			if sb2.is_empty():
+				_demo_fail("shot3 far second sample failed (active=%d)" % projectiles.active_count())
+				return
+			if float(sb2["trav"]) <= float(_demo_sample_a["trav"]):
+				_demo_fail("shot3 not advancing (trav %.3f -> %.3f)" % [float(_demo_sample_a["trav"]), float(sb2["trav"])])
+				return
+			print("[bdemo] t_pf=%d shot3 advanced: travelled %.3f -> %.3f m" % [Engine.get_physics_frames(), float(_demo_sample_a["trav"]), float(sb2["trav"])])
+			_demo_wait = 25
+		29:
+			if projectiles.active_count() > 0:
+				_demo_fail("shot3 still active after wait (active=%d)" % projectiles.active_count())
+				return
+			if not _demo_check_record("shot3", "WORLD", 144.0, 148.5):
+				return
+			if not _demo_check_board_identity("shot3", "FarBoard"):
+				return
+			print("[bdemo] far REAL muzzle->contact distance = %.3f m (按飞弹实际路程记录，不按靶板标称值)" % float(_last_impact.get("travelled_m", 0.0)))
+			_demo_capture_requests.append({"filename": "demo_5_far_after_impact.png"})   # 远靶接触后
+			_demo_wait = _demo_reload_ticks()
+		30:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot4 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
+			_demo_board_base = {"NearBoard": int(_boards["NearBoard"].hit_count), "FarBoard": int(_boards["FarBoard"].hit_count)}
 			if not _demo_fire("shot4"):
 				return
 			_demo_wait = 2
-		29:
+		31:
 			if projectiles.active_count() != 1:
 				_demo_fail("shot4 expected 1 in flight before reset (active=%d)" % projectiles.active_count())
 				return
-			_reset_range()   # 重开（生产 cancel_by_shooter + 车辆复位）
+			_reset_range()   # 重开（生产 cancel_by_shooter + 车辆复位 + 靶板/最近结果/视觉复位）
 			if projectiles.active_count() != 0:
 				_demo_fail("reset did not clear projectiles (active=%d)" % projectiles.active_count())
 				return
-			print("[bdemo] t_pf=%d reset: in-flight 1 -> 0 (重开已清空)" % Engine.get_physics_frames())
-			_demo_shot("demo_5_reset_cleared.png")
+			if int(_boards["FarBoard"].hit_count) != int(_demo_board_base["FarBoard"]):
+				_demo_fail("reset changed FarBoard hit_count")
+				return
+			print("[bdemo] t_pf=%d reset: in-flight 1 -> 0, board feedback/last-impact/visuals cleared (重开已清空)" % Engine.get_physics_frames())
+			_demo_capture_requests.append({"filename": "demo_6_reset_cleared.png"})
 			_demo_wait = 30
-		30:
-			# 采样期：step 保持 30（_process 在此期间累计实际渲染帧率）
+		32:
+			# 采样期：step 保持 32（_process 在此期间累计实际渲染帧率）
 			if _demo_ticks % 120 == 0:
 				print("[bdemo] t_pf=%d fps sampling: n=%d/%d paused=%s" % [Engine.get_physics_frames(), _demo_fps_n, 60, str(get_tree().paused)])
 			if _demo_fps_n >= 60:
@@ -480,7 +613,28 @@ func _demo_fire(tag: String) -> bool:
 	if not actor.gunner.try_fire():
 		_demo_fail("%s fire rejected: %s" % [tag, actor.gunner.blocked_reason])
 		return false
-	print("[bdemo] t_pf=%d %s FIRED (shot_id=%d)" % [Engine.get_physics_frames(), tag, actor.gunner.shot_id])
+	print("[bdemo] t_pf=%d %s FIRED (shot_id=%d projectile_id=%d)" % [Engine.get_physics_frames(), tag, actor.gunner.shot_id, actor.gunner.last_projectile_id])
+	_demo_flight_open = true   # 006-R1-C：开始记录飞行窗口实际帧间隔
+	_demo_flight_deltas.clear()
+	return true
+
+func _demo_check_board_identity(tag: String, board_name: String) -> bool:
+	# 006-R1-C：目标身份验证——指定靶板 hit_count 恰 +1，另一块不变
+	# （不能仅凭终止原因 WORLD 断言命中目标：撞背墙同为 WORLD）
+	var b = _boards.get(board_name)
+	if b == null:
+		_demo_fail(tag + ": board missing " + board_name)
+		return false
+	var base := int(_demo_board_base.get(board_name, 0))
+	if int(b.hit_count) != base + 1:
+		_demo_fail("%s expected %s hit_count=%d (base=%d) — 目标身份不符" % [tag, board_name, int(b.hit_count), base])
+		return false
+	var other := "FarBoard" if board_name == "NearBoard" else "NearBoard"
+	var ob = _boards.get(other)
+	if ob != null and int(ob.hit_count) != int(_demo_board_base.get(other, 0)):
+		_demo_fail("%s unexpected %s hit (target identity mismatch)" % [tag, other])
+		return false
+	print("[bdemo] %s TARGET IDENTITY OK: %s (hit_count=%d)" % [tag, board_name, int(b.hit_count)])
 	return true
 
 func _demo_sample() -> Dictionary:
@@ -503,22 +657,6 @@ func _demo_check_record(tag: String, reason: String, tr_min: float, tr_max: floa
 	print("[bdemo] %s IMPACT: shot=%d reason=%s travelled=%.3fm t=%.4fs point=%s" % [
 		tag, int(li.get("shot_id", 0)), ru, tr, float(li.get("flight_time_s", 0.0)), str(li.get("impact_point", Vector3.ZERO))])
 	return true
-
-func _demo_shot(rel: String) -> void:
-	var img := get_viewport().get_texture().get_image()
-	if img == null or img.is_empty():
-		_demo_fail("capture failed: " + rel)
-		return
-	var path := ProjectSettings.globalize_path("res://" + _demo_dir + "/" + rel)
-	var dir := path.get_base_dir()
-	if dir != "" and not DirAccess.dir_exists_absolute(dir):
-		DirAccess.make_dir_recursive_absolute(dir)
-	var err := img.save_png(path)
-	if err == OK:
-		print("[bdemo] saved ", path)
-		_demo_saved += 1
-	else:
-		_demo_fail("save failed (err=%d): %s" % [err, rel])
 
 func _demo_fail(msg: String) -> void:
 	_demo_errors += 1
