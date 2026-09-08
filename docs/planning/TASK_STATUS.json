@@ -6,8 +6,8 @@
     "reference_sha":  "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
     "repository_writes_performed_by_this_plan":  false,
     "game_executed_by_this_plan":  false,
-    "authorized_order":  "005",
-    "recommended_next_order":  "006",
+    "authorized_order":  "006",
+    "recommended_next_order":  "007",
     "baseline_001_status":  "implementation_report_exists_not_independently_accepted",
     "allowed_statuses":  [
                              "planned",
@@ -103,12 +103,28 @@
                        "prerequisites":  [
                                              "005"
                                          ],
-                       "status":  "planned",
+                       "status":  "accepted",
                        "implementation_sha":  null,
-                       "tested_sha":  null,
-                       "reviewer_acceptance":  null,
-                       "user_acceptance":  null,
-                       "file":  "work_orders/WO006.md"
+                       "tested_sha":  "5d2c0bbb121b7add15408e30a18af785f1c3cebe（finite_closeout 收尾；此前 006-R1 主体 ac8bfb336284da59608782bbdd64583baec6444a，四套 144/214/140/123 退出码0 脚本错误0）",
+                       "reviewer_acceptance":  [
+                                                   {
+                                                       "record":  "GPT authorized 006 (弹道工程实施) then 006 needs_revision; authorized 006-R1 同分支整改 (docs/planning/work_orders/WO006_R1_authorized.md, BASE=44bb5d1)"
+                                                   },
+                                                   {
+                                                       "reviewer":  "GPT",
+                                                       "round":  "006-R1 复审",
+                                                       "verdict":  "主体通过（出生tick门/裁短记账/active_states去重/完整发射身份/暂停拒绝/先终止后反馈/旧轮次守卫/ProjectileVisuals/HUD终止/近远射道/实际帧率分离演示均认可），唯一生产阻断=取消过程发射门；授权 finite_closeout（SUBPHASE=finite_closeout, STATUS=needs_revision, BASE=37f6762）"
+                                                   },
+                                                   {
+                                                       "reviewer":  "GPT",
+                                                       "round":  "006-R1 finite_closeout 裁决",
+                                                       "verdict":  "正式签收：006 整单按'有限速度炮弹工程基线、带明确保留项'签收（status=accepted）；006-R1 与 finite_closeout 均关闭；REVIEW_METHOD=source_and_submitted_execution_evidence；INDEPENDENT_GODOT_RUN=NOT_RUN；HUMAN_ACCEPTANCE=NOT_RUN；SCREENSHOT_VISUAL_REVIEW=NOT_REVIEWED（保留原 ac8bfb3 归属）；见 docs/REVIEW_006_ACCEPTANCE.md"
+                                                   }
+                                               ],
+                       "user_acceptance":  "NOT_RUN（人工项延期至 011 核心体验验收，不代签）",
+                       "file":  "work_orders/WO006.md",
+                       "accepted_sha":  "17f4e23974382d80def2cf3a0fa31d3b3f7f3e0a",
+                       "acceptance_scope":  "projectile_flight_engineering_baseline_with_carryover"
                    },
                    {
                        "id":  "007",
