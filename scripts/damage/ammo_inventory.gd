@@ -33,6 +33,12 @@ func total_available() -> int:
 	for n in racks.values(): total += int(n)
 	return total
 
+func supply_round(amount: int, rack_id: String) -> bool:
+	if amount <= 0 or not racks.has(rack_id): return false
+	racks[rack_id] += amount
+	supplied += amount
+	return true
+
 func conserved() -> bool:
 	return total_available()+fired+lost == supplied and chamber in [0,1] and in_transfer in [0,1]
 

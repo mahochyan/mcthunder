@@ -29,6 +29,7 @@ func _on_record(record: Dictionary) -> void:
 func toggle_auto() -> void:
 	auto_replay = not auto_replay
 	hud.replay_toggle_button.text = "Auto Replay: " + ("ON" if auto_replay else "OFF")
+	if view.chinese: hud.replay_toggle_button.text = "自动回放："+("开" if auto_replay else "关")
 	if not auto_replay: view.close_view()
 
 func show_history(index: int) -> bool:

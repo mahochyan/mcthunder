@@ -164,6 +164,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	super._unhandled_input(event)
 
 func _reset_range() -> void:
+	reset_damage_round()
+
+func reset_damage_round() -> void:
 	if not is_instance_valid(target_actor):
 		return
 	projectiles.cancel_all("cancelled_reset")

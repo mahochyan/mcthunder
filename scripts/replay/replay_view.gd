@@ -1,5 +1,6 @@
 class_name ReplayView
 extends PanelContainer
+var chinese := false
 ## Pure presentation world: meshes, lights and camera only. Never runs combat logic.
 const PLAY_SECONDS := 3.0
 var record: Dictionary = {}
@@ -260,6 +261,7 @@ func _update_highlights() -> void:
 		if damaged: highlighted_items.append(str(row.kind)+":"+str(row.id))
 
 func _update_details() -> void:
+	if chinese: _title.text = "实弹回放 · V 关闭"
 	var event: Dictionary = {}
 	if selected_event>=0:
 		event = events[selected_event]
@@ -267,11 +269,13 @@ func _update_details() -> void:
 		for candidate in events:
 			if float(candidate.flight_time_s)<=current_time+1e-7: event = candidate
 	if event.is_empty():
-		_details.text = "RECORDED FLIGHT · %.3f s\nN contact · , / . history · J export" % current_time
+		_details.text = ("实际飞行 · %.3f 秒\nN 接触 · , / . 历史 · J 导出" if chinese else "RECORDED FLIGHT · %.3f s\nN contact · , / . history · J export") % current_time
 		return
 	var item := str(event.get("item_id",event.get("surface_id","")))
 	var result := str(event.get("result",event.get("reason",""))).replace("_"," ").to_upper()
 	_details.text = "%s · %s\n%.1f → %.1f mm · N next contact" % [item.replace("_"," "),result,event.get("before_mm",0),event.get("after_mm",0)]
+	if chinese:
+		_details.text = "%s · %s\n%.1f → %.1f mm · N 下一接触" % [CoreUI.word(item),CoreUI.word(str(event.get("result",event.get("reason","")))),event.get("before_mm",0),event.get("after_mm",0)]
 
 static func _material(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()

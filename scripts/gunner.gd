@@ -24,6 +24,7 @@ var last_projectile_id := 0           # 006-R1-C：最近成功发射的 project
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
 var inventory := AmmoInventory.new()
+var training_resupply := false # Explicit training loadout only; does not bypass cooldown.
 var rounds_remaining: int:
 	get: return inventory.total_available()
 	set(value): inventory.configure(value,inventory.racks.keys()) # Explicit reset/loadout compatibility.
@@ -217,6 +218,8 @@ func try_fire() -> bool:
 	# 只有 ok=true 后一次性提交扣弹、冷却、编号与计数（无 await，不触发可重入开火信号）
 	shot_id = next_shot_id
 	inventory.consume_chamber()
+	if training_resupply and not inventory.racks.is_empty():
+		inventory.supply_round(1,str(inventory.racks.keys()[0]))
 	inventory.begin_transfer()
 	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
 	shots_fired += 1
