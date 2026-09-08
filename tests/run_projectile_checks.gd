@@ -34,6 +34,7 @@ func _run() -> void:
 	await _determinism_checks()
 	await _r1_checks()
 	await _r1_visuals_checks()
+	await _r1_closeout_checks()
 	print("=== 结果: %d 项检查, %d 失败 ===" % [_pass + _fail, _fail])
 	if _fail > 0:
 		print("PROJECTILE_CHECKS_FAIL")
@@ -605,7 +606,9 @@ func _r1_clip_checks() -> void:
 	var ip1: Vector3 = rec1.get("impact_point", Vector3.ZERO)
 	_ok(absf(ip1.x - 2.0) <= 0.001, "R1-A 裁短-无接触 位置 x=2.0 (实际=%.4f)" % ip1.x)
 	_ok(absf(float(rec1.get("flight_time_s", -1)) - 2.0 / 300.0) <= 5.0e-4, "R1-A 裁短-无接触 时间=2/300s (实际=%.5f)" % float(rec1.get("flight_time_s", -1)))
-	# 反例 2：裁短段内 1m 处碰墙 → 接触用时 = (1/60 × 2/5) × 0.5 = 0.003333s（不是 0.008333s）
+	# 反例 2：裁短段内首接触面 0.9m 处碰墙（墙中心 x=1.0、厚 0.2）→
+	# 接触用时真值 = 0.9/300 = 0.003s（006-R1 收尾修正：旧期望 0.003333 是按 1m
+	# 接触算的，与 0.9m 夹具不符；生产公式不改，测试期望对齐真值）
 	var base2 := _records.size()
 	var wall := StaticBody3D.new()
 	var wshape := CollisionShape3D.new()
@@ -627,12 +630,13 @@ func _r1_clip_checks() -> void:
 			break
 	var rec2: Dictionary = _records[base2] if _records.size() > base2 else {}
 	_ok(str(rec2.get("reason", "")) == "impact_world", "R1-A 裁短-接触 原因 (reason=%s)" % str(rec2.get("reason", "")))
-	_ok(absf(float(rec2.get("flight_time_s", -1)) - 0.003333) <= 8.0e-4, "R1-A 裁短-接触 用时=0.003333s (实际=%.5f)" % float(rec2.get("flight_time_s", -1)))
+	_ok(absf(float(rec2.get("flight_time_s", -1)) - 0.9 / 300.0) <= 5.0e-5, "R1-A 裁短-接触 用时=0.003s (实际=%.5f)" % float(rec2.get("flight_time_s", -1)))
 	var ip2: Vector3 = rec2.get("impact_point", Vector3.ZERO)
 	_ok(absf(ip2.x - 0.9) <= 0.01, "R1-A 裁短-接触 位置=墙面 x≈0.9 (实际=%.4f)" % ip2.x)
 	_ok(absf(float(rec2.get("travelled_m", -1)) - 0.9) <= 0.01, "R1-A 裁短-接触 路程≈0.9m (实际=%.4f)" % float(rec2.get("travelled_m", -1)))
 	wall.global_position = Vector3(10000.0, 3.0, 0)   # 移走案例 2 的墙，避免挡住后续案例
-	# 反例 3（端点）：墙恰在路程上限处 → 接触优先于到期（impact_world 而非 expired_distance）
+	# 反例 3（近端点）：墙首接触面 1.9m（上限 2.0 前 0.1m）→ 接触优先于到期且
+	# 路程=首接触面 1.9（证明接近上限但未到上限时可命中；恰在端点由反例 4 覆盖）
 	var base3 := _records.size()
 	var wall2 := StaticBody3D.new()
 	var wshape2 := CollisionShape3D.new()
@@ -641,7 +645,7 @@ func _r1_clip_checks() -> void:
 	wshape2.shape = wbox2
 	wall2.add_child(wshape2)
 	holder.add_child(wall2)
-	wall2.global_position = Vector3(2.0, 3.0, 0)
+	wall2.global_position = Vector3(2.0, 3.0, 0)   # 首接触面 1.9（近端点案例）
 	await process_frame
 	await physics_frame   # 等静态体变换同步进物理空间，再发射
 	var s3 := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
@@ -653,8 +657,46 @@ func _r1_clip_checks() -> void:
 		if mgr.active_count() == 0:
 			break
 	var rec3: Dictionary = _records[base3] if _records.size() > base3 else {}
-	_ok(str(rec3.get("reason", "")) == "impact_world", "R1-A 端点接触先于到期 (reason=%s)" % str(rec3.get("reason", "")))
-	_ok(absf(float(rec3.get("travelled_m", -1)) - 1.9) <= 0.02, "R1-A 端点接触 路程≈1.9m (实际=%.4f)" % float(rec3.get("travelled_m", -1)))
+	_ok(str(rec3.get("reason", "")) == "impact_world", "R1-A 近端点接触 (reason=%s)" % str(rec3.get("reason", "")))
+	_ok(absf(float(rec3.get("travelled_m", -1)) - 1.9) <= 0.02, "R1-A 近端点接触 路程≈1.9m (实际=%.4f)" % float(rec3.get("travelled_m", -1)))
+	# 反例 4（恰好端点）：墙首接触面恰在路程上限 2.0m → 端点接触优先于到期
+	wall2.global_position = Vector3(2.1, 3.0, 0)   # 厚 0.2 → 首接触面恰 2.0
+	await process_frame
+	await physics_frame
+	var base3b := _records.size()
+	var s3b := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
+	s3b["gravity_world"] = Vector3.ZERO
+	s3b["shot_id"] = 805
+	mgr.try_spawn(s3b)
+	for i in 20:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	var rec3b: Dictionary = _records[base3b] if _records.size() > base3b else {}
+	_ok(str(rec3b.get("reason", "")) == "impact_world", "R1-A 恰好端点接触 (reason=%s)" % str(rec3b.get("reason", "")))
+	_ok(absf(float(rec3b.get("travelled_m", -1)) - 2.0) <= 0.001, "R1-A 恰好端点接触 路程=2.0 (实际=%.4f)" % float(rec3b.get("travelled_m", -1)))
+	_ok(absf(float(rec3b.get("flight_time_s", -1)) - 2.0 / 300.0) <= 5.0e-5, "R1-A 恰好端点接触 时间=2/300s (实际=%.5f)" % float(rec3b.get("flight_time_s", -1)))
+	var ip3b: Vector3 = rec3b.get("impact_point", Vector3.ZERO)
+	_ok(absf(ip3b.x - 2.0) <= 0.001, "R1-A 恰好端点接触 位置=上限 2.0 (实际=%.4f)" % ip3b.x)
+	# 反例 5（上限外）：首接触面 2.1 > 路程上限 2.0 → 不得命中，按端点到期终止
+	wall2.global_position = Vector3(2.2, 3.0, 0)   # 首接触面 2.1，超出上限
+	await process_frame
+	await physics_frame
+	var base3c := _records.size()
+	var s3c := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
+	s3c["gravity_world"] = Vector3.ZERO
+	s3c["shot_id"] = 806
+	mgr.try_spawn(s3c)
+	for i in 20:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	var rec3c: Dictionary = _records[base3c] if _records.size() > base3c else {}
+	_ok(str(rec3c.get("reason", "")) == "expired_distance", "R1-A 上限外不命中 到期终止 (reason=%s)" % str(rec3c.get("reason", "")))
+	_ok(absf(float(rec3c.get("travelled_m", -1)) - 2.0) <= 0.001, "R1-A 上限外不命中 路程=2.0 (实际=%.4f)" % float(rec3c.get("travelled_m", -1)))
+	var ip3c: Vector3 = rec3c.get("impact_point", Vector3.ZERO)
+	_ok(absf(ip3c.x - 2.0) <= 0.001, "R1-A 上限外不命中 位置=2.0 (实际=%.4f)" % ip3c.x)
+	wall2.global_position = Vector3(10000.0, 3.0, 0)   # 移走端点案例的墙，避免挡住后续案例
 	# A3 反例：active_states 不得重复返回 pending 对象
 	var sd := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
 	sd["gravity_world"] = Vector3.ZERO
@@ -825,6 +867,105 @@ func _r1_visuals_checks() -> void:
 	_ok(vis.visual_count() == 0, "R1-C 终止后飞行视觉移除 (vis=%d)" % vis.visual_count())
 	vis.clear_all()
 	_ok(vis.visual_count() == 0, "R1-C clear_all 清空")
+	holder.queue_free()
+	await process_frame
+
+func _r1_closeout_checks() -> void:
+	# 006-R1 有限收尾反例：取消过程中（同步 projectile_finished 回调内）再次发射
+	# 必须被拒绝（manager_clearing）——否则 cancel_all 末尾 blanket clear 会把已接收
+	# 的新弹无声删除（无终止记录、去重键已占）；cancel_by_shooter 则把新弹遗留。
+	# 修复 = _cancel_depth 门（先存反例再修复；嵌套取消期间深度不归零）。
+	var holder := Node3D.new()
+	holder.name = "R1Close"
+	root.add_child(holder)
+	var mgr := ProjectileManager.new()
+	holder.add_child(mgr)
+	mgr.snapshot_provider = Callable(self, "empty_snapshots")
+	mgr.exclude_provider = Callable(self, "empty_excludes")
+	await process_frame
+
+	# —— 场景 1：cancel_all 通知内 try_spawn → 拒绝；返回后同一请求可接受
+	var spec_a := _spec(1, "V", 1, Vector3(0, 3, 0), Vector3(0, 300, 0), 2.0, 100.0)
+	spec_a["gravity_world"] = Vector3.ZERO
+	spec_a["shot_id"] = 970
+	spec_a["shooter_id"] = "VA"
+	var spec_next: Dictionary = spec_a.duplicate(true)
+	spec_next["shot_id"] = 971   # 清理回调内提交的"下一发"（与首次不同键）
+	var sp1 := mgr.try_spawn(spec_a)
+	_ok(sp1.get("ok") == true, "R1-C 收尾: cancel_all 前发射被接收")
+	var reentry := {"result": {}, "called": false}
+	mgr.projectile_finished.connect(func(_r: Dictionary) -> void:
+		if bool(reentry["called"]):
+			return
+		reentry["called"] = true
+		reentry["result"] = mgr.try_spawn(spec_next)   # 取消回调内同步再发射
+	)
+	mgr.cancel_all("cancelled_reset")
+	var rr: Dictionary = reentry["result"]
+	_ok(bool(reentry["called"]), "R1-C 收尾: 同步取消回调已执行")
+	_ok(rr.get("ok") == false and str(rr.get("reason", "")) == "manager_clearing", "R1-C 收尾: cancel_all 通知中发射被拒 (%s)" % str(rr.get("reason", "")))
+	_ok(mgr.active_count() == 0, "R1-C 收尾: 取消后无飞弹（新弹未被无声删除）")
+	var retry := mgr.try_spawn(spec_next)
+	_ok(retry.get("ok") == true, "R1-C 收尾: 取消返回后同一请求可接受（去重键未被清理期占用）")
+	mgr.cancel_all("cancelled_reset2")
+	await process_frame
+
+	# —— 场景 2：cancel_by_shooter 通知内发射 → 拒绝；其他射手飞弹不被误取消
+	var spec_v := _spec(1, "V", 1, Vector3(0, 3, 0), Vector3(0, 300, 0), 2.0, 100.0)
+	spec_v["gravity_world"] = Vector3.ZERO
+	spec_v["shot_id"] = 980
+	spec_v["shooter_id"] = "VB"
+	var spec_vnext: Dictionary = spec_v.duplicate(true)
+	spec_vnext["shot_id"] = 982
+	var spec_w: Dictionary = spec_v.duplicate(true)
+	spec_w["shot_id"] = 981
+	spec_w["shooter_id"] = "WC"
+	var sv := mgr.try_spawn(spec_v)
+	var sw := mgr.try_spawn(spec_w)
+	_ok(sv.get("ok") == true and sw.get("ok") == true, "R1-C 收尾: 两射手发射被接收")
+	var reentry2 := {"result": {}}
+	mgr.projectile_finished.connect(func(_r: Dictionary) -> void:
+		reentry2["result"] = mgr.try_spawn(spec_vnext)   # 取消回调内同步再发射
+	)
+	mgr.cancel_by_shooter("VB", 1, "cancelled_reset")
+	var rr2: Dictionary = reentry2["result"]
+	_ok(rr2.get("ok") == false and str(rr2.get("reason", "")) == "manager_clearing", "R1-C 收尾: cancel_by_shooter 通知中发射被拒 (%s)" % str(rr2.get("reason", "")))
+	_ok(mgr.get_projectile_state(int(sw.get("projectile_id", 0))) != null, "R1-C 收尾: 其他射手飞弹不被误取消")
+	_ok(mgr.active_count() == 1, "R1-C 收尾: 仅剩其他射手 1 发 (active=%d)" % mgr.active_count())
+	var retry_v := mgr.try_spawn(spec_vnext)
+	_ok(retry_v.get("ok") == true, "R1-C 收尾: 单车取消返回后可再发射")
+	mgr.cancel_all("cancelled_reset3")
+	await process_frame
+
+	# —— 场景 3：取消回调内再取消（嵌套）——每发恰一条终止记录；
+	# 内层返回后仍拒绝发射，最外层返回后恢复接受
+	var spec_p := _spec(1, "V", 1, Vector3(0, 3, 0), Vector3(0, 300, 0), 2.0, 100.0)
+	spec_p["gravity_world"] = Vector3.ZERO
+	spec_p["shot_id"] = 990
+	spec_p["shooter_id"] = "VE"
+	var spec_q: Dictionary = spec_p.duplicate(true)
+	spec_q["shot_id"] = 991
+	spec_q["shooter_id"] = "VF"
+	var spec_probe: Dictionary = spec_p.duplicate(true)
+	spec_probe["shot_id"] = 992
+	spec_probe["shooter_id"] = "VG"
+	var sp_p := mgr.try_spawn(spec_p)
+	var sp_q := mgr.try_spawn(spec_q)
+	_ok(sp_p.get("ok") == true and sp_q.get("ok") == true, "R1-C 收尾: 嵌套场景两发被接收")
+	var nested := {"records": 0, "probe": {}}
+	mgr.projectile_finished.connect(func(_r: Dictionary) -> void:
+		nested["records"] = int(nested["records"]) + 1
+		if int(nested["records"]) == 1:
+			mgr.cancel_by_shooter("VF", 1, "cancelled_reset")   # 取消回调内嵌套取消
+			nested["probe"] = mgr.try_spawn(spec_probe)         # 内层已返回、外层未结束
+	)
+	mgr.cancel_all("cancelled_reset")
+	_ok(int(nested["records"]) == 2, "R1-C 收尾: 每发恰一条终止记录 (records=%d)" % int(nested["records"]))
+	var pr: Dictionary = nested["probe"]
+	_ok(pr.get("ok") == false and str(pr.get("reason", "")) == "manager_clearing", "R1-C 收尾: 嵌套内层返回后仍拒绝 (reason=%s)" % str(pr.get("reason", "")))
+	_ok(mgr.active_count() == 0, "R1-C 收尾: 嵌套取消后无飞弹")
+	var after := mgr.try_spawn(spec_probe)
+	_ok(after.get("ok") == true, "R1-C 收尾: 最外层取消返回后恢复接受")
 	holder.queue_free()
 	await process_frame
 

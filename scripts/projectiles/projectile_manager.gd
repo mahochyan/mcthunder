@@ -25,6 +25,7 @@ var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + 
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
 var _shut_down := false                   # 006-R1-B：退出/清理后拒绝新发射
+var _cancel_depth := 0                    # 006-R1 有限收尾：取消过程深度（嵌套取消不提前开放）
 var snapshot_provider := Callable()       # 由 Main 注入：当前车辆快照（每物理步取一次）
 var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, life_id) -> Array[RID]
 
@@ -60,9 +61,16 @@ func active_states() -> Array:
 func try_spawn(spec: Dictionary) -> Dictionary:
 	# 当前调用中只校验、复制数据、占用容量、加入待推进集合——
 	# 不推进、不撞击、不发命中信号。返回 {ok, projectile_id, reason}。
-	if _shut_down:
+	# 生命周期守卫在任何占容量、记录发射身份、生成 projectile_id 之前。
+	if _shut_down or not is_inside_tree() or is_queued_for_deletion():
 		# 006-R1-B：退出/清理中拒绝新发射（不占容量、不记编号）
 		return {"ok": false, "projectile_id": 0, "reason": "manager_shutdown"}
+	if _cancel_depth > 0:
+		# 006-R1 有限收尾：取消过程中拒绝新发射（同步回调重入同样拒绝）——
+		# 否则 cancel_all 末尾清空会把已接收的新弹无声删除（无终止记录、去重键已占），
+		# cancel_by_shooter 则把新弹遗留。嵌套取消期间深度不归零；
+		# 清理返回后同一请求正常接受。
+		return {"ok": false, "projectile_id": 0, "reason": "manager_clearing"}
 	var tree := get_tree()
 	if tree != null and tree.paused:
 		# 006-R1-B：暂停期间拒绝新发射（恢复后可发射）
@@ -322,16 +330,24 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 
 
 func cancel_all(reason: String) -> void:
-	# 整场重开/场景切换：先取消全部活动与待推进飞弹（不产生命中事件）
-	for pid in _active.keys():
-		finish_once(pid, reason, {})
-	_active.clear()
-	_pending.clear()
+	# 整场重开/场景切换：先取消全部活动与待推进飞弹（不产生命中事件）。
+	# 006-R1 有限收尾：清理期间设深度门——finish_once 的同步回调内 try_spawn
+	# 被拒（manager_clearing）；不再用末尾 _active.clear()/_pending.clear() 兜底
+	# （finish_once 已逐发移除，清理期间也不接收新发射）。
+	_cancel_depth += 1
+	var ids := _active.keys()
+	for pid in ids:
+		finish_once(int(pid), reason, {})
+	_cancel_depth -= 1
 
 
 func cancel_by_shooter(shooter_id: String, shooter_life_id: int, reason: String) -> void:
-	# 单车重置：只取消该车发出的飞弹；不取消其他车辆的飞弹
-	for pid in _active.keys():
+	# 单车重置：只取消该车发出的飞弹；不取消其他车辆的飞弹。
+	# 006-R1 有限收尾：与 cancel_all 同一深度门（回调内新发射被拒）。
+	_cancel_depth += 1
+	var ids := _active.keys()
+	for pid in ids:
 		var st: ProjectileState = _active.get(pid)
 		if st != null and st.shooter_id == shooter_id and st.shooter_life_id == shooter_life_id:
-			finish_once(pid, reason, {})
+			finish_once(int(pid), reason, {})
+	_cancel_depth -= 1
