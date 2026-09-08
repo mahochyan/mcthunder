@@ -32,7 +32,7 @@ func build(parent: Node3D, layer: int, dimensions: Dictionary = {}) -> void:
 			multimesh.mesh = mesh
 			multimesh.instance_count = SHOES
 			var node := MultiMeshInstance3D.new()
-			node.name = "Cosmetic_TrackShoes"
+			node.name = "Cosmetic_TrackShoes_%s_%s"%[str(side),"Pad" if pad else "Shoe"]
 			node.layers = layer
 			node.multimesh = multimesh
 			add_child(node)

@@ -176,7 +176,7 @@ func _start() -> void:
 func _inspect() -> void:
 	_view_mode = (_view_mode+1)%3
 	_apply_preview_mode()
-	inspect_button.text = "当前："+["外观","装甲（暖色为设计值）","内构（仅检视）"][_view_mode]+" · 点击切换"
+	inspect_button.text = "当前："+["外观","装甲（橙：估算，灰：未知）","内构（蓝：部件，绿：乘员）"][_view_mode]+" · 点击切换"
 
 func _apply_preview_mode() -> void:
 	preview.set_mode(["appearance","armor","interior"][_view_mode])

@@ -161,8 +161,14 @@ func garage_case() -> void:
 		var hidden := true
 		for extra in garage.preview._extra_nodes:
 			if extra.name.begins_with("Cosmetic"): hidden = hidden and not extra.visible
-		check(hidden,"interior inspection hides all imported Blender cosmetic meshes "+str(i))
+		check(hidden and tracks_hidden(garage.preview),"interior inspection hides all imported Blender cosmetic meshes and dynamic tracks "+str(i))
 	garage.free(); await frames(2)
+
+func tracks_hidden(node: Node) -> bool:
+	if node is MultiMeshInstance3D and node.visible: return false
+	for child in node.get_children():
+		if not child.is_queued_for_deletion() and not tracks_hidden(child): return false
+	return true
 
 func arc_and_roster_cases(catalog: VehicleCatalog) -> void:
 	var packet: Dictionary = catalog.packages[VehicleCatalog.IDS[1]].packet.duplicate(true)
