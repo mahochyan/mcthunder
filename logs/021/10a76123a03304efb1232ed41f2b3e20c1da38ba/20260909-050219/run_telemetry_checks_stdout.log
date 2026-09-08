@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] AI-only scenario has eight actual AI controllers and one observer
+[PASS] telemetry capture leaves authoritative combat state unchanged
+[PASS] dynamic markers and resizing reuse the static road geometry
+[PASS] switching to a map without roads clears the previous layout
+[PASS] subsequent ordinary match restores one player and seven AI without scenario state leakage
+[PASS] rendered-frame summary uses frame intervals and documented nearest-rank percentiles
+[PASS] empty frame measurements do not fabricate FPS
+[PASS] diagnostic and ordinary scene teardown leaves only the root
+=== 结果: 8 项检查, 0 失败 ===
+TELEMETRY_CHECKS_PASS

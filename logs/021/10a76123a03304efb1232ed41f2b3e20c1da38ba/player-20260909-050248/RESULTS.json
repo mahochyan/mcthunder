@@ -1,0 +1,10 @@
+{
+  "step": "shell_player",
+  "source_sha": "10a76123a03304efb1232ed41f2b3e20c1da38ba",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --fixed-fps 60 -- --shell-play-check --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\021\\10a76123a03304efb1232ed41f2b3e20c1da38ba\\player-20260909-050248\"",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "exit_code": 0,
+  "timed_out": false,
+  "checks": 48,
+  "passed": true
+}

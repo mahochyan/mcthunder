@@ -1,0 +1,55 @@
+{
+  "source_sha": "10a76123a03304efb1232ed41f2b3e20c1da38ba",
+  "images": [
+    {
+      "file": "00_garage_entry.png",
+      "sha256": "496178AC4827F5FD7931EBB4EA6519EF426A17403E1C661FF1FD9F5647058A27"
+    },
+    {
+      "file": "01_ready.png",
+      "sha256": "C897E7FB740C4FFFE2AB33ABF87425FB0B370C8C7F0CF44E02740FF4F30E77ED"
+    },
+    {
+      "file": "02_fixed_transfer.png",
+      "sha256": "BA46587B619EAD937E747A0FBDC173AEA631EBA2ECA11EB70B1410762B822C03"
+    },
+    {
+      "file": "03_aphe_loaded.png",
+      "sha256": "AC8593DBF4F7059CEDFA08FF26A01486BEEA320AA6C3EE866E58C03F779FA0D0"
+    },
+    {
+      "file": "04_aphe_replay.png",
+      "sha256": "00C95D501D2F09AF2A4FE5C62B0938AF0B54A311F71CB71CEFEEF6F3AFE7CBFA"
+    },
+    {
+      "file": "05_actual_module_damage.png",
+      "sha256": "A860E66FAB45A646CDF3175A54F800BCD1763BF6836416A53413AB49295F47B9"
+    },
+    {
+      "file": "06_thick_ap.png",
+      "sha256": "0355EF28B894DFB091C53DB2A96DDEB855DA90101702009100F668806D71237D"
+    },
+    {
+      "file": "07_thick_aphe.png",
+      "sha256": "B0E592A9CAB73229F94E4D399E6CC0F9A29FBD38CA6EF4287DD3866482EF26A8"
+    },
+    {
+      "file": "08_battle_ready.png",
+      "sha256": "6032584BF80AE124104D024688B22FF53FFAF16DFAAA4ACD3D96D16539BA2488"
+    },
+    {
+      "file": "09_battle_loading.png",
+      "sha256": "97B31FE70BE2A2407DCC29FBECEFDEB278E769CDEA1B9781E3AE54B2153AD391"
+    },
+    {
+      "file": "10_battle_supply.png",
+      "sha256": "2542DBD2FECDA3E3E34C10DA2092B080BD05F2283115FA7FA8643A54E8F637D6"
+    },
+    {
+      "file": "11_battle_replenished.png",
+      "sha256": "43207F298DA720ECDB1908A0DA8F35174B1CF369BF31A5E6CE0CA9640832E0BE"
+    }
+  ],
+  "graphical_review": "REVIEWED_WITH_FINDING: thick AP first-plate penetration not explicit; fixed in 134b95e",
+  "human": "NOT_RUN"
+}

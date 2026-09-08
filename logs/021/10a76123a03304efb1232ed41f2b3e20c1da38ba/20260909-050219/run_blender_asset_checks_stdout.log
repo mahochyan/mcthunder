@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] us_m4a3_75w_vvss_1944: every exported Blender armor surface matches shot-query topology and vertices within 0.1 mm (52)
+[PASS] us_m4a3_75w_vvss_1944: imported turret and gun pivots preserve meter coordinates
+[PASS] us_m4a3_75w_vvss_1944: authored detail and recoil assemblies are present
+[PASS] us_m4a3_75w_vvss_1944: manifest identifies delivered GLB and editable Blender source
+[PASS] us_m24_m6_t85e1_1951: every exported Blender armor surface matches shot-query topology and vertices within 0.1 mm (42)
+[PASS] us_m24_m6_t85e1_1951: imported turret and gun pivots preserve meter coordinates
+[PASS] us_m24_m6_t85e1_1951: authored detail and recoil assemblies are present
+[PASS] us_m24_m6_t85e1_1951: manifest identifies delivered GLB and editable Blender source
+[PASS] us_m26_m3_1945: every exported Blender armor surface matches shot-query topology and vertices within 0.1 mm (48)
+[PASS] us_m26_m3_1945: imported turret and gun pivots preserve meter coordinates
+[PASS] us_m26_m3_1945: authored detail and recoil assemblies are present
+[PASS] us_m26_m3_1945: manifest identifies delivered GLB and editable Blender source
+[PASS] us_m36_m4a1_1945: every exported Blender armor surface matches shot-query topology and vertices within 0.1 mm (41)
+[PASS] us_m36_m4a1_1945: imported turret and gun pivots preserve meter coordinates
+[PASS] us_m36_m4a1_1945: authored detail and recoil assemblies are present
+[PASS] us_m36_m4a1_1945: manifest identifies delivered GLB and editable Blender source
+=== 结果: 16 项检查, 0 失败 ===
+BLENDER_ASSET_CHECKS_PASS

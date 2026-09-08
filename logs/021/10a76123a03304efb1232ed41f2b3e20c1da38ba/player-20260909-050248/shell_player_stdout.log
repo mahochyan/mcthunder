@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage includes ammunition laboratory
+[PASS] actual window capture 00_garage_entry (review pending)
+[PASS] normal UI control is visible before click
+[PASS] real menu click enters shell laboratory
+[PASS] menu click cannot leak into a shot
+[PASS] actual window capture 01_ready (review pending)
+[PASS] key 2 changes next round while AP stays in chamber
+[PASS] one normal mouse shot is accepted
+[PASS] AP first shot follows actual narrow path through thin compartment
+[PASS] key 1 cannot transform APHE already being loaded
+[PASS] actual window capture 02_fixed_transfer (review pending)
+[PASS] natural reload reaches ready state
+[PASS] natural reload places actual APHE in chamber
+[PASS] actual window capture 03_aphe_loaded (review pending)
+[PASS] one normal mouse shot is accepted
+[PASS] actual APHE reaches thin compartment and damages off-axis modules
+[PASS] normal V and N controls display the actual fragment burst
+[PASS] visible replay retains the exact recorded fragment paths
+[PASS] actual window capture 04_aphe_replay (review pending)
+[PASS] actual damaged modules are visible in X-ray mode
+[PASS] X-ray and replay controls cannot change damage
+[PASS] actual window capture 05_actual_module_damage (review pending)
+[PASS] natural reload reaches ready state
+[PASS] one normal mouse shot is accepted
+[PASS] loaded AP penetrates thick target while APHE is selected for next load
+[PASS] actual window capture 06_thick_ap (review pending)
+[PASS] natural reload reaches ready state
+[PASS] one normal mouse shot is accepted
+[PASS] APHE cannot penetrate the same thick target and creates no fragments
+[PASS] actual window capture 07_thick_aphe (review pending)
+[PASS] four normal shots consume exactly four typed rounds
+[PASS] Esc opens real pause menu
+[PASS] normal UI control is visible before click
+[PASS] normal return button restores garage
+[PASS] normal UI control is visible before click
+[PASS] normal popup selects historical M4 for battle supply test
+[PASS] normal UI control is visible before click
+[PASS] normal menu enters actual village battle with historical loadout
+[PASS] actual window capture 08_battle_ready (review pending)
+[PASS] normal battle input carries historical M61 while first M72 has fired
+[PASS] actual window capture 09_battle_loading (review pending)
+[PASS] normal W A S D controls drive historical M4 into friendly supply circle
+[PASS] actual window capture 10_battle_supply (review pending)
+[PASS] normal parked player replenishes one fired shell through actual village service
+[PASS] historical ammunition and supply HUD remains inside 1280 by 720 viewport
+[PASS] actual window capture 11_battle_replenished (review pending)
+[PASS] full normal player shell comparison completed
+[PASS] full normal player village ammunition flow completed
+=== 结果: 48 项检查, 0 失败 ===
+SHELL_PLAYER_CHECKS_PASS
