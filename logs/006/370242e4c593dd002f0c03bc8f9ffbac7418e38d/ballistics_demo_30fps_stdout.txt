@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[bdemo] engine=4.7.2-stable (official)
+[bdemo] max_fps_requested=30 physics_tps=60 seed=20250606
+[bdemo] t_pf=153 aim locked near board (err=0.00 deg)
+[bdemo] t_pf=265 shot1 FIRED (shot_id=1)
+[bdemo] shot1 aim above board top -> expected MISS board, WORLD backwall
+[bdemo] saved E:/AIprogram/mcthunder/docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_1_just_fired_miss.png
+[bdemo] finish record: proj=1 shot=1 reason=impact_world travelled=28.369m t=0.0946s point=(0.0, 3.561179, -31.5) detail=
+[bdemo] shot1 IMPACT: shot=1 reason=WORLD travelled=28.369m t=0.0946s point=(0.0, 3.561179, -31.5)
+[bdemo] t_pf=391 natural reload done (cooldown=0.00)
+[bdemo] t_pf=503 shot2 FIRED (shot_id=2)
+[bdemo] t_pf=506 shot2 IN FLIGHT: age=0.0500s travelled=15.000m pos=(0.0, 1.436112, -18.19993)
+[bdemo] saved E:/AIprogram/mcthunder/docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_2_in_flight.png
+[bdemo] t_pf=508 shot2 advanced: travelled 15.000 -> 25.000 m
+[bdemo] finish record: proj=2 shot=2 reason=impact_world travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8) detail=
+[bdemo] shot2 IMPACT: shot=2 reason=WORLD travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8)
+[bdemo] saved E:/AIprogram/mcthunder/docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_3_after_impact.png
+[bdemo] t_pf=629 shot3 FIRED (shot_id=3)
+[bdemo] t_pf=632 shot3 in flight, pausing: age=0.0500s travelled=15.000m pos=(0.0, 1.436112, -18.19993)
+[bdemo] pause frozen verified: pos/age/travelled identical over 30 demo ticks
+[bdemo] saved E:/AIprogram/mcthunder/docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_4_paused_frozen.png
+[bdemo] finish record: proj=3 shot=3 reason=impact_world travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8) detail=
+[bdemo] shot3 IMPACT: shot=3 reason=WORLD travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8)
+[bdemo] t_pf=786 shot4 FIRED (shot_id=4)
+[bdemo] finish record: proj=4 shot=4 reason=cancelled_reset travelled=15.000m t=0.0500s point=(0.0, 1.436112, -18.19993) detail=
+[bdemo] t_pf=789 reset: in-flight 1 -> 0 (重开已清空)
+[bdemo] saved E:/AIprogram/mcthunder/docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_5_reset_cleared.png
+[bdemo] render_fps_actual=26.0 (requested max_fps=30) physics_tps=60 physics_frames=950 demo_ticks=950
+[bdemo] shots_saved=5 errors=0
+BALLISTICS_DEMO_PASS

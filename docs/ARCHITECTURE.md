@@ -201,3 +201,56 @@ B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车
 - `--inspect-demo`：真实窗口 6 步证据（暂停菜单→窗口→三模式→选中详情→
   返回暂停），必需截图失败退出码非 0；证据归档 docs/evidence/004/<sha>/<resolution>/。
 - 边界：不做 005 命中查询；不合并 main；不强推；003 签收内容未重写。
+
+## 10. 006：有限速度炮弹（真实飞行，替换即时命中结算）
+
+### 10.1 运动内核
+
+- `scripts/projectiles/ballistic_math.gd`（纯函数）：plan_times（寿命裁短 + 重力抛物线
+  子段规划）与 advance_free（闭式抛物线推进）；非有限输入显式失败。
+- `scripts/projectiles/projectile_state.gd`（纯数据）：发射身份冻结
+  （round/shooter/life/team/shot/shell）+ 运动量（pos/vel/gravity/age/travelled）+
+  寿命上限 + status(pending/flying/terminal)。
+- ShellDefinition：muzzle_velocity_mps / gravity_scale / max_flight_time_s / gun_range；
+  WeaponDefinition：initial_rounds / gun_range（设计初值，TEST ONLY）。
+
+### 10.2 ProjectileManager（唯一推进执行器）
+
+- try_spawn 只校验/复制/占容量（MAX_ACTIVE=64）/入待推进；出生当步不推进不撞击；
+  duplicate_launch 守卫（shooter:shot 键）。
+- 每物理步：pending→flying → 取一次全车辆快照（下一步重采样）→ 逐发分段推进：
+  剩余寿命裁短 → 子段规划 → advance_free → 按剩余路程裁短 →
+  WorldQueryAdapter.query_world_stop（世界整段射线）→ ShotQueryService.query
+  （excluded=射手身份，world_stop 前置）→ ExternalContactSelector → vehicle/world
+  接触或继续。目标几何按单物理步内固定（不支持单 tick 内高速横穿的检测保证）。
+- finish_once：先标 terminal/移出活动集再发 projectile_finished（一次性终止；
+  监听者触发重置不会二次结算）。active_count()=_active.size()（pending 同在
+  _active，不重复计数）。暂停 PROCESS_MODE_PAUSABLE 冻结；_exit_tree 静默清理。
+
+### 10.3 发射流程（Gunner）
+
+- try_fire：冷却/宽限/弹药/炮根-炮口遮挡 → 冻结炮口/方向/车速/身份 →
+  try_spawn → ok 才扣弹/装填/编号/计数；拒绝不改状态。last_shot_result="fired"=在飞。
+- 装填时钟 advance_timers(delta) 在车辆 _physics_process 内、发射消费之前
+  （车辆 priority 0 < 管理器 100）；暂停随树冻结。
+
+### 10.4 身份分发与计分
+
+- Main._on_projectile_finished：记录 _last_impact（HUD）→ impact_vehicle 经
+  find_vehicle(entity+life) → 身份字典 → 命中门（轮次/射手/目标/生命周期/去重）计分。
+- 重置：单车 reset_vehicle=cancel_by_shooter；整场 reset=cancel_all；均无命中事件。
+
+### 10.5 训练场景与演示
+
+- scenes/training/ballistics_range.tscn：复用生产车辆/Gunner/ProjectileManager/查询；
+  30m/150m 射道 + 背板墙；round_id=0（只反馈）；R 重开（cancel_by_shooter+车辆复位）；
+  暂停菜单"返回靶场"（先 cancel_all）。
+- --ballistics-demo：物理回调步进机（自增 tick 等待、连续 match 标签、看门狗），
+  五时点断言链（刚发射未命中/飞行中/接触后/暂停冻结/重开已清空）+ 双限帧
+  （--max-fps 30/144）窗口证据 docs/evidence/006/<sha>/1280x720/{30,144}fps/。
+
+### 10.6 测试
+
+- tests/run_projectile_checks.gd：81 项（弹道专用）；tests/run_checks.gd 214 项
+  （即时命中测试迁移真实飞行，见 docs/TEST_MIGRATION_006.md）；
+  run_query_checks 140 / run_layout_checks 123 无回归。全部退出码 0。
