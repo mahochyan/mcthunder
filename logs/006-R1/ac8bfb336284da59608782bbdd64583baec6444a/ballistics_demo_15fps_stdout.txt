@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[bdemo] engine=4.7.2-stable (official)
+[bdemo] max_fps_requested=15 vsync_mode=0 physics_tps=60 seed=20250606
+[bdemo] lane=near (near board ~26.8m, far board ~146.8m muzzle->contact)
+[bdemo] t_pf=153 aim locked near board (err=0.00 deg)
+[bdemo] t_pf=265 shot1 FIRED (shot_id=1 projectile_id=1)
+[bdemo] shot1 aim above board top -> expected MISS board, WORLD backwall
+[bdemo] flight window: idle_frames=1 avg_fps=15.0 min_fps=15.0 max_fps=15.0 span=0.067s
+[bdemo] finish record: proj=1 shot=1 reason=impact_world travelled=28.369m t=0.0946s point=(0.0, 3.561179, -31.5) detail=
+[bdemo] capture demo_1_just_fired_miss.png (NOT_REVIEWED): active=0 state=[]
+[bdemo] shot1 IMPACT: shot=1 reason=WORLD travelled=28.369m t=0.0946s point=(0.0, 3.561179, -31.5)
+[bdemo] t_pf=391 natural reload done (cooldown=0.00)
+[bdemo] t_pf=503 shot2 FIRED (shot_id=2 projectile_id=2)
+[bdemo] t_pf=506 shot2 IN FLIGHT: age=0.0500s travelled=15.000m pos=(0.0, 1.436112, -18.19993)
+[bdemo] capture demo_2_in_flight.png (NOT_REVIEWED): active=1 state=[#2 age=0.0667s trav=20.00m pos=(0.0, 1.411782, -23.1999)]
+[bdemo] t_pf=508 shot2 advanced: travelled 15.000 -> 25.000 m
+[bdemo] flight window: idle_frames=2 avg_fps=15.0 min_fps=15.0 max_fps=15.0 span=0.133s
+[bdemo] finish record: proj=2 shot=2 reason=impact_world travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8) detail=
+[bdemo] shot2 IMPACT: shot=2 reason=WORLD travelled=26.600m t=0.0887s point=(0.0, 1.375414, -29.8)
+[bdemo] shot2 TARGET IDENTITY OK: NearBoard (hit_count=1)
+[bdemo] capture demo_3_after_impact.png (NOT_REVIEWED): active=0 state=[]
+[bdemo] t_pf=629 lane switched -> far (FarBoard ~146.8m muzzle->contact)
+[bdemo] t_pf=846 far aim pre-fire: barrel_dir=(0.0, 0.007392, -0.999973) cam_yaw=-0.000 cam_pitch=-0.009 err=0.00 deg
+[bdemo] t_pf=846 shot3 FIRED (shot_id=3 projectile_id=3)
+[bdemo] t_pf=855 shot3 IN FLIGHT (far): age=0.1500s travelled=44.999m pos=(0.0, 1.740381, -48.1987)
+[bdemo] capture demo_4_far_in_flight.png (NOT_REVIEWED): active=1 state=[#3 age=0.1500s trav=45.00m pos=(0.0, 1.740381, -48.1987)]
+[bdemo] t_pf=861 shot3 advanced: travelled 44.999 -> 74.999 m
+[bdemo] flight window: idle_frames=8 avg_fps=15.0 min_fps=15.0 max_fps=15.0 span=0.533s
+[bdemo] finish record: proj=3 shot=3 reason=impact_world travelled=146.602m t=0.4887s point=(0.0, 1.430354, -149.8) detail=
+[bdemo] shot3 IMPACT: shot=3 reason=WORLD travelled=146.602m t=0.4887s point=(0.0, 1.430354, -149.8)
+[bdemo] shot3 TARGET IDENTITY OK: FarBoard (hit_count=1)
+[bdemo] far REAL muzzle->contact distance = 146.602 m (按飞弹实际路程记录，不按靶板标称值)
+[bdemo] capture demo_5_far_after_impact.png (NOT_REVIEWED): active=0 state=[]
+[bdemo] t_pf=972 shot4 FIRED (shot_id=4 projectile_id=4)
+[bdemo] finish record: proj=4 shot=4 reason=cancelled_reset travelled=15.000m t=0.0500s point=(0.0, 1.616725, -18.19953) detail=
+[bdemo] t_pf=975 reset: in-flight 1 -> 0, board feedback/last-impact/visuals cleared (重开已清空)
+[bdemo] capture demo_6_reset_cleared.png (NOT_REVIEWED): active=0 state=[]
+[bdemo] render_fps_actual=15.0 (requested max_fps=15) physics_tps=60 physics_frames=1133 demo_ticks=1133
+[bdemo] shots_saved=6 errors=0
+BALLISTICS_DEMO_PASS

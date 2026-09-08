@@ -50,3 +50,10 @@
 - `tests/run_projectile_checks.gd`：81 项检查，0 失败（PROJECTILE_CHECKS_PASS）
 - `tests/run_query_checks.gd`：140 项检查，0 失败
 - `tests/run_layout_checks.gd`：123 项检查，0 失败
+## 006-R1 补充（整改轮新增检查，非迁移）
+
+006-R1 在 run_projectile_checks 新增 41 项（81→122）：出生 tick 门双提交时序、
+路程裁短统一记账三条反例、active_states 去重、完整发射身份四连、暂停/清理公开入口
+拒绝（Gunner/Manager 两级）、世界接触先终止后反馈（回调重置反例）、旧轮次记录不改
+hits_taken、ProjectileVisuals 对应/终止/清空。均为新增反例，不改变既有迁移记录；
+变异验证：回退出生 tick 门或裁短记账，对应反例精确变红。

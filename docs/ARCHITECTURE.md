@@ -254,3 +254,16 @@ B 无 AI/巡逻/反击；无装甲/伤害判定（命中反馈测试，无整车
 - tests/run_projectile_checks.gd：81 项（弹道专用）；tests/run_checks.gd 214 项
   （即时命中测试迁移真实飞行，见 docs/TEST_MIGRATION_006.md）；
   run_query_checks 140 / run_layout_checks 123 无回归。全部退出码 0。
+
+### 10.7 006-R1 整改增量
+
+- 推进循环内出生 tick 门（now_tick <= born_physics_tick 跳过；管理器前/后提交
+  时序均不推进）；路程裁短统一记账（alpha 同比例作用于查询/位置/路程/时间/速度；
+  端点接触先于到期；剩余近零立即到期）；active_states 单次枚举。
+- 发射去重键 = [round_id, shooter_id, shooter_life_id, shot_id]（完整发射身份；
+  训练场 round_id=0 合法）；Gunner/Manager 公开入口在扣弹/占容量前拒绝暂停与
+  清理期请求；世界接触先 finish_once 再 register_hit；Main 目标反馈前校验记录轮次。
+- ProjectileVisuals 可见显示层（sync/present_terminal/clear_all；只读模拟状态，
+  不写回不参与命中）；HUD 按 projectile_id 区分在飞/已终止；训练场近/远射道切换
+  （_set_lane，T 键 + 演示）；get_aim_point 意图射线 150→300m（覆盖 gun_range +
+  相机偏移，否则远射道不可用）；重开训练闭环（靶板/最近结果/视觉同步复位）。
