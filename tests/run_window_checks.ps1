@@ -20,8 +20,13 @@ while (-not $proc.WaitForExit(1000) -and $timer.Elapsed.TotalSeconds -lt $Timeou
 $timedOut = -not $proc.HasExited
 if ($timedOut) { Stop-Process -Id $proc.Id -Force }
 $proc.WaitForExit()
-$output = [IO.File]::ReadAllText("$logRoot/stdout.log")
-$errors = [IO.File]::ReadAllText("$logRoot/stderr.log")
+function Read-SharedLog([string]$Path) {
+    $stream = [IO.FileStream]::new($Path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::ReadWrite)
+    $reader = [IO.StreamReader]::new($stream)
+    try { return $reader.ReadToEnd() } finally { $reader.Dispose(); $stream.Dispose() }
+}
+$output = Read-SharedLog "$logRoot/stdout.log"
+$errors = Read-SharedLog "$logRoot/stderr.log"
 $passed = -not $timedOut -and $proc.ExitCode -eq 0 -and ($errors + $output) -notmatch 'SCRIPT ERROR:|(?m)^ERROR:|\[FAIL\]' -and $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$'
 [pscustomobject]@{source_sha=$sourceSha; uncommitted_source=[bool]$Wip; engine=(& $engine --version).Trim(); command='"'+$engine+'" '+$argsText; exit_code=$proc.ExitCode; timed_out=$timedOut; passed=$passed; captures=$captureRoot; human='NOT_RUN'} | ConvertTo-Json | Set-Content "$logRoot/RESULTS.json" -Encoding utf8
 Get-Content "$logRoot/RESULTS.json"

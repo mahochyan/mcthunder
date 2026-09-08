@@ -30,15 +30,25 @@ func _key(code: Key) -> void:
 		await _frames(2)
 
 func _click(button: Button) -> void:
+	await _frames(4)
 	var position := button.get_global_rect().get_center()
+	var motion := InputEventMouseMotion.new()
+	motion.position = position
+	motion.global_position = position
+	Input.parse_input_event(motion)
+	await _frames(2)
+	var activated := [false]
+	button.pressed.connect(func() -> void: activated[0] = true,CONNECT_ONE_SHOT)
 	for pressed in [true,false]:
 		var click := InputEventMouseButton.new()
 		click.button_index = MOUSE_BUTTON_LEFT
 		click.pressed = pressed
 		click.position = position
+		click.global_position = position
 		Input.parse_input_event(click)
 		await _frames(2)
 	await _frames(20)
+	print("[GUI click] at=%s activated=%s" % [position,activated[0]])
 
 func _fire(point: Vector3) -> Dictionary:
 	for i in 240:
@@ -151,6 +161,11 @@ func _run() -> void:
 		_check(back != null,"result has reachable return-to-garage control")
 		await _click(back)
 		_check(app.garage != null and app.training == null and not paused,"return to garage fully releases training")
+		if app.garage == null:
+			print("[GUI state] transition=%s mouse_mode=%s result=%s" % [app._transitioning,Input.mouse_mode,is_instance_valid(app.result_overlay)])
+			await _capture("FAILED_return")
+			quit(1)
+			return
 		_check(app.garage.shell_choice.selected == 0 and app.garage.case_choice.selected == index,"garage preserves loadout and lesson selection")
 	print("=== 结果: %d 项检查, %d 失败 ===" % [count,failed])
 	print("[render] fps=%d physics_tps=%d" % [Engine.get_frames_per_second(),Engine.physics_ticks_per_second])
