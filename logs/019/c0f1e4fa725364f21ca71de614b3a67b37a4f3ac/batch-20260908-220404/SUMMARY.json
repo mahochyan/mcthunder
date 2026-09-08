@@ -1,0 +1,2014 @@
+[
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1695,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 79010572
+    },
+    "max": {
+      "actors": 14,
+      "live": 8,
+      "nodes": 2086,
+      "objects": 9775,
+      "projectiles": 3,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 114291457,
+      "wrecks": 6
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 1,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 2,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 3,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 4,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 5,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 6,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 7,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 8,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 8,
+          "team": 2,
+          "time": 36.7166666666659
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 9,
+          "time": 44.7166666666654
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 5,
+          "team": 2,
+          "time": 84.2333333333298
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B2",
+          "kind": "death",
+          "life_id": 6,
+          "team": 2,
+          "time": 85.6333333333298
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 1,
+          "team": 1,
+          "time": 87.7333333333296
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 10,
+          "time": 92.2333333333294
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 11,
+          "time": 93.6333333333293
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 12,
+          "time": 95.7333333333292
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 9,
+          "team": 2,
+          "time": 101.783333333329
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 13,
+          "time": 109.783333333328
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 2,
+          "team": 1,
+          "time": 116.449999999995
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 14,
+          "time": 124.449999999994
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 7,
+          "team": 2,
+          "time": 187.033333333374
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 15,
+          "time": 195.033333333381
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 10,
+          "team": 2,
+          "time": 197.766666666716
+        }
+      ],
+      "match_id": 101,
+      "outcome": "victory",
+      "reason": "tickets",
+      "seconds": 197.766666666716,
+      "shots": 10,
+      "status": "passed",
+      "tickets": {
+        "1": 240,
+        "2": 0
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19001,
+    "wall_seconds": 266.001
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80030912
+    },
+    "max": {
+      "actors": 16,
+      "live": 8,
+      "nodes": 2336,
+      "objects": 10892,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 118492253,
+      "wrecks": 8
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 16,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 17,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 18,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 19,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 20,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 21,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 22,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 23,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 23,
+          "team": 2,
+          "time": 59.3333333333312
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 24,
+          "time": 67.3333333333308
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 22,
+          "team": 2,
+          "time": 71.1499999999972
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 25,
+          "time": 79.1499999999968
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 16,
+          "team": 1,
+          "time": 80.8166666666634
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 26,
+          "time": 88.8166666666629
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 17,
+          "team": 1,
+          "time": 97.1166666666624
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 18,
+          "team": 1,
+          "time": 100.033333333329
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 27,
+          "time": 105.116666666662
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 28,
+          "time": 108.033333333328
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 19,
+          "team": 1,
+          "time": 109.633333333328
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 29,
+          "time": 117.633333333328
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 20,
+          "team": 2,
+          "time": 131.016666666663
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 30,
+          "time": 139.016666666669
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 26,
+          "team": 1,
+          "time": 152.916666666681
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 31,
+          "time": 160.916666666687
+        }
+      ],
+      "match_id": 102,
+      "outcome": "defeat",
+      "reason": "tickets",
+      "seconds": 283.616666666737,
+      "shots": 7,
+      "status": "failed",
+      "tickets": {
+        "1": 0,
+        "2": 144
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19138,
+    "wall_seconds": 680.762
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80258980
+    },
+    "max": {
+      "actors": 12,
+      "live": 8,
+      "nodes": 1834,
+      "objects": 8654,
+      "projectiles": 3,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 111996441,
+      "wrecks": 4
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 32,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 33,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 34,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 35,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 36,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 37,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 38,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 39,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 35,
+          "team": 1,
+          "time": 59.6166666666646
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 34,
+          "team": 1,
+          "time": 67.5999999999975
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 40,
+          "time": 67.6166666666641
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 32,
+          "team": 1,
+          "time": 75.149999999997
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 41,
+          "time": 75.599999999997
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 36,
+          "team": 2,
+          "time": 81.4499999999967
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 42,
+          "time": 83.1499999999966
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 43,
+          "time": 89.4499999999962
+        },
+        {
+          "cause": "fire_crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 43,
+          "team": 2,
+          "time": 208.700000000058
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 33,
+          "team": 1,
+          "time": 209.083333333392
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 44,
+          "time": 216.700000000065
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 45,
+          "time": 217.083333333398
+        },
+        {
+          "cause": "fire_crew_out",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 38,
+          "team": 2,
+          "time": 224.083333333404
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 46,
+          "time": 232.08333333341
+        }
+      ],
+      "match_id": 103,
+      "outcome": "defeat",
+      "reason": "tickets",
+      "seconds": 271.583333333415,
+      "shots": 19,
+      "status": "failed",
+      "tickets": {
+        "1": 0,
+        "2": 186
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19275,
+    "wall_seconds": 258.132
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80267128
+    },
+    "max": {
+      "actors": 16,
+      "live": 8,
+      "nodes": 2337,
+      "objects": 10994,
+      "projectiles": 3,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 119188186,
+      "wrecks": 9
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 47,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 48,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 49,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 50,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 51,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 52,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 53,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 54,
+          "time": 0.0
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 54,
+          "team": 2,
+          "time": 72.9499999999971
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 55,
+          "time": 80.9499999999967
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 47,
+          "team": 1,
+          "time": 86.9833333333297
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 56,
+          "time": 94.9833333333292
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 48,
+          "team": 1,
+          "time": 109.549999999995
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 57,
+          "time": 117.549999999995
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 51,
+          "team": 2,
+          "time": 129.883333333329
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 58,
+          "time": 137.883333333335
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 57,
+          "team": 1,
+          "time": 145.450000000008
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 49,
+          "team": 1,
+          "time": 148.083333333343
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 59,
+          "time": 153.450000000014
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 60,
+          "time": 156.08333333335
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 50,
+          "team": 1,
+          "time": 163.733333333356
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B2",
+          "kind": "death",
+          "life_id": 52,
+          "team": 2,
+          "time": 165.766666666691
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 61,
+          "time": 171.733333333362
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 62,
+          "time": 173.766666666697
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 55,
+          "team": 2,
+          "time": 187.250000000041
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 63,
+          "time": 195.250000000048
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 56,
+          "team": 1,
+          "time": 241.500000000084
+        }
+      ],
+      "match_id": 104,
+      "outcome": "defeat",
+      "reason": "tickets",
+      "seconds": 241.500000000084,
+      "shots": 31,
+      "status": "failed",
+      "tickets": {
+        "1": 0,
+        "2": 149
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19412,
+    "wall_seconds": 248.516
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80390664
+    },
+    "max": {
+      "actors": 18,
+      "live": 8,
+      "nodes": 2586,
+      "objects": 12110,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 123137217,
+      "wrecks": 11
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 64,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 65,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 66,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 67,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 68,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 69,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 70,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 71,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 66,
+          "team": 1,
+          "time": 81.8999999999966
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 72,
+          "time": 89.8999999999962
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 67,
+          "team": 1,
+          "time": 91.8999999999961
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 65,
+          "team": 1,
+          "time": 92.9833333333293
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 64,
+          "team": 1,
+          "time": 99.4499999999956
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 73,
+          "time": 99.8999999999956
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 74,
+          "time": 100.983333333329
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 75,
+          "time": 107.449999999995
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 68,
+          "team": 2,
+          "time": 115.699999999995
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 76,
+          "time": 123.699999999994
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 72,
+          "team": 1,
+          "time": 149.400000000011
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B2",
+          "kind": "death",
+          "life_id": 69,
+          "team": 2,
+          "time": 151.933333333346
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 75,
+          "team": 1,
+          "time": 157.283333333351
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 77,
+          "time": 157.400000000017
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 78,
+          "time": 159.933333333353
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 73,
+          "team": 1,
+          "time": 162.816666666688
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 74,
+          "team": 1,
+          "time": 165.06666666669
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 79,
+          "time": 165.283333333357
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 80,
+          "time": 170.816666666695
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 81,
+          "time": 173.066666666697
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 76,
+          "team": 2,
+          "time": 180.333333333369
+        }
+      ],
+      "match_id": 105,
+      "outcome": "defeat",
+      "reason": "tickets",
+      "seconds": 183.433333333371,
+      "shots": 18,
+      "status": "failed",
+      "tickets": {
+        "1": 0,
+        "2": 154
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19549,
+    "wall_seconds": 158.144
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80310224
+    },
+    "max": {
+      "actors": 13,
+      "live": 8,
+      "nodes": 1959,
+      "objects": 9212,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 114904733,
+      "wrecks": 5
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 82,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 83,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 84,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 85,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 86,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 87,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 88,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 89,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 85,
+          "team": 1,
+          "time": 47.1166666666653
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 90,
+          "time": 55.1166666666648
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 88,
+          "team": 2,
+          "time": 69.4999999999973
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 89,
+          "team": 2,
+          "time": 72.1999999999972
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 91,
+          "time": 77.4999999999969
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 92,
+          "time": 80.1999999999967
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 90,
+          "team": 1,
+          "time": 96.7333333333291
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 93,
+          "time": 104.733333333329
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 86,
+          "team": 2,
+          "time": 138.450000000002
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 94,
+          "time": 146.450000000009
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 93,
+          "team": 1,
+          "time": 195.466666666714
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 95,
+          "time": 203.466666666721
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 83,
+          "team": 1,
+          "time": 229.466666666741
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 84,
+          "team": 1,
+          "time": 231.500000000076
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 96,
+          "time": 237.466666666748
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 97,
+          "time": 239.500000000083
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 95,
+          "team": 1,
+          "time": 241.483333333418
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 98,
+          "time": 249.483333333424
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 94,
+          "team": 2,
+          "time": 255.600000000096
+        }
+      ],
+      "match_id": 106,
+      "outcome": "victory",
+      "reason": "tickets",
+      "seconds": 255.600000000096,
+      "shots": 30,
+      "status": "passed",
+      "tickets": {
+        "1": 120,
+        "2": 0
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19686,
+    "wall_seconds": 217.286
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80500444
+    },
+    "max": {
+      "actors": 11,
+      "live": 8,
+      "nodes": 1708,
+      "objects": 8093,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 112444777,
+      "wrecks": 3
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 99,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 100,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 101,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 102,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 103,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 104,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 105,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 106,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 103,
+          "team": 2,
+          "time": 28.7166666666663
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 106,
+          "team": 2,
+          "time": 36.6333333333325
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 107,
+          "time": 36.7166666666659
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 108,
+          "time": 44.6333333333321
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 108,
+          "team": 2,
+          "time": 73.9166666666638
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 109,
+          "time": 81.9166666666633
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 99,
+          "team": 1,
+          "time": 152.283333333347
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 110,
+          "time": 160.283333333353
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 102,
+          "team": 1,
+          "time": 195.816666666715
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 105,
+          "team": 2,
+          "time": 200.566666666718
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 111,
+          "time": 203.816666666721
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 112,
+          "time": 208.566666666725
+        },
+        {
+          "cause": "fire_crew_out",
+          "entity_id": "B2",
+          "kind": "death",
+          "life_id": 104,
+          "team": 2,
+          "time": 214.783333333396
+        }
+      ],
+      "match_id": 107,
+      "outcome": "victory",
+      "reason": "tickets",
+      "seconds": 214.783333333396,
+      "shots": 17,
+      "status": "passed",
+      "tickets": {
+        "1": 240,
+        "2": 0
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19823,
+    "wall_seconds": 156.364
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80465272
+    },
+    "max": {
+      "actors": 16,
+      "live": 8,
+      "nodes": 2337,
+      "objects": 10991,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 119229393,
+      "wrecks": 9
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 113,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 114,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 115,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 116,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 117,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 118,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 119,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 120,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 114,
+          "team": 1,
+          "time": 71.2499999999972
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 121,
+          "time": 79.2499999999968
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 116,
+          "team": 1,
+          "time": 110.733333333328
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 122,
+          "time": 118.733333333328
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 119,
+          "team": 2,
+          "time": 131.149999999997
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 121,
+          "team": 1,
+          "time": 138.950000000003
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 123,
+          "time": 139.150000000003
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 113,
+          "team": 1,
+          "time": 143.400000000006
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 117,
+          "team": 2,
+          "time": 144.48333333334
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 124,
+          "time": 146.950000000009
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 115,
+          "team": 1,
+          "time": 147.100000000009
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 125,
+          "time": 151.400000000013
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 126,
+          "time": 152.483333333347
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A4",
+          "kind": "death",
+          "life_id": 122,
+          "team": 1,
+          "time": 154.383333333348
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 127,
+          "time": 155.100000000016
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 128,
+          "time": 162.383333333355
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 123,
+          "team": 2,
+          "time": 217.433333333399
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 129,
+          "time": 225.433333333405
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 126,
+          "team": 2,
+          "time": 227.133333333406
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 130,
+          "time": 235.133333333413
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 124,
+          "team": 1,
+          "time": 287.866666666734
+        }
+      ],
+      "match_id": 108,
+      "outcome": "defeat",
+      "reason": "tickets",
+      "seconds": 287.866666666734,
+      "shots": 26,
+      "status": "failed",
+      "tickets": {
+        "1": 0,
+        "2": 76
+      },
+      "title": "4对4占点"
+    },
+    "seed": 19960,
+    "wall_seconds": 582.597
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80647288
+    },
+    "max": {
+      "actors": 15,
+      "live": 8,
+      "nodes": 2211,
+      "objects": 10334,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 117205058,
+      "wrecks": 7
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 131,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 132,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 133,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 134,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 135,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 136,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 137,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 138,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 138,
+          "team": 2,
+          "time": 36.6833333333325
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 139,
+          "time": 44.6833333333321
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 137,
+          "team": 2,
+          "time": 58.199999999998
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 140,
+          "time": 66.1999999999975
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 135,
+          "team": 2,
+          "time": 90.6999999999961
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 141,
+          "time": 98.6999999999957
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B2",
+          "kind": "death",
+          "life_id": 136,
+          "team": 2,
+          "time": 106.833333333329
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 139,
+          "team": 2,
+          "time": 110.816666666662
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 142,
+          "time": 114.833333333328
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 143,
+          "time": 118.816666666661
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 132,
+          "team": 1,
+          "time": 122.966666666661
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 144,
+          "time": 130.966666666663
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 131,
+          "team": 1,
+          "time": 132.433333333331
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 145,
+          "time": 140.433333333337
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A2",
+          "kind": "death",
+          "life_id": 144,
+          "team": 1,
+          "time": 166.833333333358
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 146,
+          "time": 174.833333333365
+        },
+        {
+          "cause": "fire_crew_out",
+          "entity_id": "A3",
+          "kind": "death",
+          "life_id": 133,
+          "team": 1,
+          "time": 199.016666666717
+        }
+      ],
+      "match_id": 109,
+      "outcome": "victory",
+      "reason": "tickets",
+      "seconds": 205.033333333389,
+      "shots": 7,
+      "status": "passed",
+      "tickets": {
+        "1": 180,
+        "2": 0
+      },
+      "title": "4对4占点"
+    },
+    "seed": 20097,
+    "wall_seconds": 356.22
+  },
+  {
+    "cleanup": {
+      "nodes": 1,
+      "objects": 1696,
+      "orphans": 0,
+      "resources": 90,
+      "static_memory_bytes": 80567168
+    },
+    "max": {
+      "actors": 11,
+      "live": 8,
+      "nodes": 1708,
+      "objects": 8093,
+      "projectiles": 2,
+      "records": 16,
+      "resources": 93,
+      "static_memory_bytes": 111109925,
+      "wrecks": 3
+    },
+    "result": {
+      "events": [
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 147,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A2",
+          "kind": "spawn",
+          "life_id": 148,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A3",
+          "kind": "spawn",
+          "life_id": 149,
+          "time": 0.0
+        },
+        {
+          "entity_id": "A4",
+          "kind": "spawn",
+          "life_id": 150,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 151,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B2",
+          "kind": "spawn",
+          "life_id": 152,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 153,
+          "time": 0.0
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 154,
+          "time": 0.0
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B3",
+          "kind": "death",
+          "life_id": 153,
+          "team": 2,
+          "time": 59.9666666666645
+        },
+        {
+          "entity_id": "B3",
+          "kind": "spawn",
+          "life_id": 155,
+          "time": 67.9666666666641
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "B4",
+          "kind": "death",
+          "life_id": 154,
+          "team": 2,
+          "time": 80.5499999999967
+        },
+        {
+          "entity_id": "B4",
+          "kind": "spawn",
+          "life_id": 156,
+          "time": 88.5499999999963
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "B",
+          "kind": "death",
+          "life_id": 151,
+          "team": 2,
+          "time": 111.899999999995
+        },
+        {
+          "entity_id": "B",
+          "kind": "spawn",
+          "life_id": 157,
+          "time": 119.899999999994
+        },
+        {
+          "cause": "crew_out",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 147,
+          "team": 1,
+          "time": 199.400000000051
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 158,
+          "time": 207.400000000057
+        },
+        {
+          "cause": "ammo_detonation",
+          "entity_id": "A",
+          "kind": "death",
+          "life_id": 158,
+          "team": 1,
+          "time": 242.100000000085
+        },
+        {
+          "entity_id": "A",
+          "kind": "spawn",
+          "life_id": 159,
+          "time": 250.100000000091
+        }
+      ],
+      "match_id": 110,
+      "outcome": "victory",
+      "reason": "tickets",
+      "seconds": 265.033333333421,
+      "shots": 20,
+      "status": "passed",
+      "tickets": {
+        "1": 240,
+        "2": 0
+      },
+      "title": "4对4占点"
+    },
+    "seed": 20234,
+    "wall_seconds": 412.325
+  }
+]

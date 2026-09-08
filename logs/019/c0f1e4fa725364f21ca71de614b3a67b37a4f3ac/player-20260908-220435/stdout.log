@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual exported window capture 01_exported_garage
+[PASS] normal exported garage click starts player plus seven AI
+[PASS] actual exported window capture 02_countdown
+[normal player 0.0s] tickets={ 1: 300, 2: 300 } deaths=0 player_shots=0 position=(-27.0, 0.025, 116.0)
+[normal player 15.0s] tickets={ 1: 300, 2: 300 } deaths=0 player_shots=0 position=(-114.2823, -0.019058, 71.5256)
+[PASS] actual exported window capture 04_hill_flank
+[PASS] actual exported window capture 03_first_real_shot
+[PASS] actual exported window capture 05_actual_repair
+[normal player 30.0s] tickets={ 1: 300, 2: 300 } deaths=0 player_shots=4 position=(-119.7207, 6.369151, -5.967509)
+[normal player 45.1s] tickets={ 1: 300, 2: 300 } deaths=0 player_shots=11 position=(-119.7138, 6.369328, -5.967739)
+[normal player 60.1s] tickets={ 1: 300, 2: 298 } deaths=0 player_shots=14 position=(-119.7039, 6.370367, -5.961933)
+[PASS] actual exported window capture 06_death_lineup
+[PASS] actual exported window capture 07_redeployed
+[normal player 75.1s] tickets={ 1: 270, 2: 283 } deaths=1 player_shots=15 position=(-27.77461, -0.019059, 116.0109)
+[normal player 90.1s] tickets={ 1: 270, 2: 268 } deaths=1 player_shots=19 position=(-119.8039, -0.019058, 62.19353)
+[normal player 105.1s] tickets={ 1: 240, 2: 253 } deaths=1 player_shots=26 position=(-81.85358, -0.019058, -39.27478)
+[normal player 120.2s] tickets={ 1: 210, 2: 239 } deaths=1 player_shots=32 position=(-46.36767, -0.019856, -25.28555)

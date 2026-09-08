@@ -1,0 +1,63 @@
+{
+  "human": "NOT_RUN",
+  "files": [
+    {
+      "sha256": "6A73F9541C2DE74158C0E7CF6B0A58EF774F5A780BF191F2D7EC9CC53EFE2BF2",
+      "name": "FONT_OFL.txt",
+      "bytes": 4301
+    },
+    {
+      "sha256": "F680E2C9BAB2C0A12D9A47DC32C1C1F234606B9B3D66A057B83EEC7661CF5346",
+      "name": "GODOT_LICENSES.txt",
+      "bytes": 112825
+    },
+    {
+      "sha256": "AA8EAE67045EA736FCC6DEA6A2844F16A5DD18A6D00CEC2771AD3107F6A7070B",
+      "name": "PixelArmor.console.exe",
+      "bytes": 60416
+    },
+    {
+      "sha256": "9F5673E0A94D761F0367A6A66D4E4318E598F519B40E85323B26F8853276EEE5",
+      "name": "PixelArmor.exe",
+      "bytes": 103046144
+    },
+    {
+      "sha256": "1A8DF1BF683AD2F4B65DCF54C2C20BFACB1EF2E4F39969F7056470CA2C2C9897",
+      "name": "PixelArmor.pck",
+      "bytes": 15452952
+    },
+    {
+      "sha256": "52930CA8C00A1FDF73AD086CB5370F8742EE2E5C24A1C28EA5719CC2290D9BA1",
+      "name": "README.txt",
+      "bytes": 637
+    }
+  ],
+  "source_sha": "c0f1e4fa725364f21ca71de614b3a67b37a4f3ac",
+  "runs": [
+    {
+      "passed": true,
+      "timed_out": false,
+      "name": "export",
+      "exit_code": 0,
+      "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\" --export-debug \"Windows Team Slice\" \"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\c0f1e4fa725364f21ca71de614b3a67b37a4f3ac\\20260908-220232\\PixelArmor.exe\""
+    },
+    {
+      "passed": true,
+      "timed_out": false,
+      "name": "default_start",
+      "exit_code": 0,
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\c0f1e4fa725364f21ca71de614b3a67b37a4f3ac\\20260908-220232\\PixelArmor.exe\" --headless --quit-after 15"
+    },
+    {
+      "passed": true,
+      "timed_out": false,
+      "name": "resources_and_input",
+      "exit_code": 0,
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\c0f1e4fa725364f21ca71de614b3a67b37a4f3ac\\20260908-220232\\PixelArmor.exe\" --headless --fixed-fps 60 -- --export-smoke"
+    }
+  ],
+  "build": "E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\c0f1e4fa725364f21ca71de614b3a67b37a4f3ac\\20260908-220232",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "type": "official Windows x86_64 debug export, independent exe and pck",
+  "uncommitted_source": false
+}

@@ -1,0 +1,63 @@
+{
+  "runs": [
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\" --export-debug \"Windows Team Slice\" \"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\20260908-221404\\PixelArmor.exe\"",
+      "passed": true,
+      "name": "export",
+      "exit_code": 0,
+      "timed_out": false
+    },
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\20260908-221404\\PixelArmor.exe\" --headless --quit-after 15",
+      "passed": true,
+      "name": "default_start",
+      "exit_code": 0,
+      "timed_out": false
+    },
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\20260908-221404\\PixelArmor.exe\" --headless --fixed-fps 60 -- --export-smoke",
+      "passed": true,
+      "name": "resources_and_input",
+      "exit_code": 0,
+      "timed_out": false
+    }
+  ],
+  "source_sha": "d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2",
+  "human": "NOT_RUN",
+  "files": [
+    {
+      "bytes": 4301,
+      "sha256": "6A73F9541C2DE74158C0E7CF6B0A58EF774F5A780BF191F2D7EC9CC53EFE2BF2",
+      "name": "FONT_OFL.txt"
+    },
+    {
+      "bytes": 112825,
+      "sha256": "F680E2C9BAB2C0A12D9A47DC32C1C1F234606B9B3D66A057B83EEC7661CF5346",
+      "name": "GODOT_LICENSES.txt"
+    },
+    {
+      "bytes": 60416,
+      "sha256": "AA8EAE67045EA736FCC6DEA6A2844F16A5DD18A6D00CEC2771AD3107F6A7070B",
+      "name": "PixelArmor.console.exe"
+    },
+    {
+      "bytes": 103046144,
+      "sha256": "9F5673E0A94D761F0367A6A66D4E4318E598F519B40E85323B26F8853276EEE5",
+      "name": "PixelArmor.exe"
+    },
+    {
+      "bytes": 15453224,
+      "sha256": "49A05D25717D8DDE9F229AE0A7F0F3D46D529767C2561BFFAD207B344BE05BAB",
+      "name": "PixelArmor.pck"
+    },
+    {
+      "bytes": 637,
+      "sha256": "24C1181FAA234E2B14DE3EFF0CE05AA1EEEF3AAFFACB497F5D9926B2EC73439A",
+      "name": "README.txt"
+    }
+  ],
+  "type": "official Windows x86_64 debug export, independent exe and pck",
+  "uncommitted_source": false,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "build": "E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\20260908-221404"
+}

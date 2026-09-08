@@ -1,0 +1,11 @@
+{
+  "timed_out": false,
+  "exe_sha256": "9F5673E0A94D761F0367A6A66D4E4318E598F519B40E85323B26F8853276EEE5",
+  "captures": "E:\\AIprogram\\mcthunder-development\\docs\\evidence\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\player-20260908-221503",
+  "source_sha": "d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2",
+  "passed": true,
+  "uncommitted_source": false,
+  "exit_code": 0,
+  "human": "NOT_RUN",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\backups\\builds\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\20260908-221404\\PixelArmor.exe\" --position 1280,0 --max-fps 60 -- --team-play-check --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\player-20260908-221503\""
+}

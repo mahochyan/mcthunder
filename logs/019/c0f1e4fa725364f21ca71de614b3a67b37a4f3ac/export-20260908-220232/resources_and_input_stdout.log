@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T019-H02 executable is an actual export template, not the editor
+[PASS] independent executable directory has no source project fallback
+[PASS] candidate includes engine copyright and third-party license notices
+[PASS] export loads ordinary garage and bundled Chinese glyphs
+[PASS] export dynamically loads village and eight actors
+[PASS] bundled navigation, shell and loadout are present
+[PASS] export consumes ordinary input with only the player's live vehicle camera
+[PASS] export has a writable application user-data directory
+[user data] C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor
+[PASS] export can start another independent village match
+[PASS] export returns to normal garage and frees battle
+=== 结果: 10 项检查, 0 失败 ===
+EXPORT_CHECKS_PASS

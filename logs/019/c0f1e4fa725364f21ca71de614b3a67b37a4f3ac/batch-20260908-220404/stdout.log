@@ -1,0 +1,110 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[match seed=19001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19001 t=60.0] tickets={ 1: 300, 2: 266 } active=8 wreck=1 shots=37
+[match seed=19001 t=120.0] tickets={ 1: 240, 2: 116 } active=7 wreck=6 shots=98
+[match seed=19001 t=180.0] tickets={ 1: 240, 2: 56 } active=8 wreck=5 shots=150
+[PASS] T019-01 seed 19001 naturally settles exactly once
+[PASS] T019-02 seed 19001 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 1
+[match result] seed=19001 outcome=victory seconds=197.766666666716 deaths=8 shots=160 max={ "actors": 14, "live": 8, "wrecks": 6, "projectiles": 3, "records": 16, "nodes": 2086, "objects": 9775, "resources": 93, "static_memory_bytes": 114291457 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1695, "resources": 90, "static_memory_bytes": 79010572 }
+[match seed=19138 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19138 t=60.0] tickets={ 1: 300, 2: 266 } active=7 wreck=1 shots=29
+[match seed=19138 t=120.0] tickets={ 1: 180, 2: 176 } active=8 wreck=6 shots=82
+[match seed=19138 t=180.0] tickets={ 1: 104, 2: 144 } active=8 wreck=7 shots=105
+[match seed=19138 t=240.0] tickets={ 1: 44, 2: 144 } active=8 wreck=2 shots=112
+[PASS] T019-01 seed 19138 naturally settles exactly once
+[PASS] T019-02 seed 19138 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 2
+[match result] seed=19138 outcome=defeat seconds=283.616666666737 deaths=8 shots=122 max={ "actors": 16, "live": 8, "wrecks": 8, "projectiles": 2, "records": 16, "nodes": 2336, "objects": 10892, "resources": 93, "static_memory_bytes": 118492253 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80030912 }
+[match seed=19275 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19275 t=60.0] tickets={ 1: 270, 2: 296 } active=7 wreck=1 shots=38
+[match seed=19275 t=120.0] tickets={ 1: 182, 2: 246 } active=8 wreck=4 shots=72
+[match seed=19275 t=180.0] tickets={ 1: 122, 2: 246 } active=8 wreck=3 shots=105
+[match seed=19275 t=240.0] tickets={ 1: 32, 2: 186 } active=8 wreck=3 shots=135
+[PASS] T019-01 seed 19275 naturally settles exactly once
+[PASS] T019-02 seed 19275 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 3
+[match result] seed=19275 outcome=defeat seconds=271.583333333415 deaths=7 shots=154 max={ "actors": 12, "live": 8, "wrecks": 4, "projectiles": 3, "records": 16, "nodes": 1834, "objects": 8654, "resources": 93, "static_memory_bytes": 111996441 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80258980 }
+[match seed=19412 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19412 t=60.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=39
+[match seed=19412 t=120.0] tickets={ 1: 233, 2: 239 } active=8 wreck=3 shots=101
+[match seed=19412 t=180.0] tickets={ 1: 83, 2: 179 } active=8 wreck=8 shots=154
+[match seed=19412 t=240.0] tickets={ 1: 23, 2: 149 } active=8 wreck=6 shots=202
+[PASS] T019-01 seed 19412 naturally settles exactly once
+[PASS] T019-02 seed 19412 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 4
+[match result] seed=19412 outcome=defeat seconds=241.500000000084 deaths=10 shots=204 max={ "actors": 16, "live": 8, "wrecks": 9, "projectiles": 3, "records": 16, "nodes": 2337, "objects": 10994, "resources": 93, "static_memory_bytes": 119188186 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80267128 }
+[match seed=19549 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19549 t=60.0] tickets={ 1: 300, 2: 296 } active=8 wreck=0 shots=39
+[match seed=19549 t=120.0] tickets={ 1: 180, 2: 214 } active=7 wreck=5 shots=90
+[match seed=19549 t=180.0] tickets={ 1: 4, 2: 184 } active=8 wreck=10 shots=148
+[PASS] T019-01 seed 19549 naturally settles exactly once
+[PASS] T019-02 seed 19549 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 5
+[match result] seed=19549 outcome=defeat seconds=183.433333333371 deaths=11 shots=150 max={ "actors": 18, "live": 8, "wrecks": 11, "projectiles": 2, "records": 16, "nodes": 2586, "objects": 12110, "resources": 93, "static_memory_bytes": 123137217 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80390664 }
+[match seed=19686 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19686 t=60.0] tickets={ 1: 270, 2: 300 } active=8 wreck=1 shots=38
+[match seed=19686 t=120.0] tickets={ 1: 240, 2: 193 } active=8 wreck=4 shots=77
+[match seed=19686 t=180.0] tickets={ 1: 240, 2: 103 } active=8 wreck=4 shots=118
+[match seed=19686 t=240.0] tickets={ 1: 150, 2: 43 } active=8 wreck=4 shots=155
+[PASS] T019-01 seed 19686 naturally settles exactly once
+[PASS] T019-02 seed 19686 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 6
+[match result] seed=19686 outcome=victory seconds=255.600000000096 deaths=10 shots=158 max={ "actors": 13, "live": 8, "wrecks": 5, "projectiles": 2, "records": 16, "nodes": 1959, "objects": 9212, "resources": 93, "static_memory_bytes": 114904733 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80310224 }
+[match seed=19823 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19823 t=60.0] tickets={ 1: 300, 2: 237 } active=8 wreck=2 shots=32
+[match seed=19823 t=120.0] tickets={ 1: 300, 2: 147 } active=8 wreck=3 shots=82
+[match seed=19823 t=180.0] tickets={ 1: 270, 2: 87 } active=8 wreck=2 shots=115
+[PASS] T019-01 seed 19823 naturally settles exactly once
+[PASS] T019-02 seed 19823 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 7
+[match result] seed=19823 outcome=victory seconds=214.783333333396 deaths=7 shots=151 max={ "actors": 11, "live": 8, "wrecks": 3, "projectiles": 2, "records": 16, "nodes": 1708, "objects": 8093, "resources": 93, "static_memory_bytes": 112444777 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80500444 }
+[match seed=19960 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=19960 t=60.0] tickets={ 1: 300, 2: 296 } active=8 wreck=0 shots=37
+[match seed=19960 t=120.0] tickets={ 1: 240, 2: 236 } active=8 wreck=2 shots=107
+[match seed=19960 t=180.0] tickets={ 1: 112, 2: 136 } active=8 wreck=8 shots=163
+[match seed=19960 t=240.0] tickets={ 1: 52, 2: 76 } active=8 wreck=8 shots=192
+[PASS] T019-01 seed 19960 naturally settles exactly once
+[PASS] T019-02 seed 19960 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 8
+[match result] seed=19960 outcome=defeat seconds=287.866666666734 deaths=11 shots=221 max={ "actors": 16, "live": 8, "wrecks": 9, "projectiles": 2, "records": 16, "nodes": 2337, "objects": 10991, "resources": 93, "static_memory_bytes": 119229393 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80465272 }
+[match seed=20097 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=20097 t=60.0] tickets={ 1: 300, 2: 236 } active=7 wreck=2 shots=32
+[match seed=20097 t=120.0] tickets={ 1: 300, 2: 86 } active=8 wreck=5 shots=96
+[match seed=20097 t=180.0] tickets={ 1: 210, 2: 26 } active=8 wreck=6 shots=144
+[PASS] T019-01 seed 20097 naturally settles exactly once
+[PASS] T019-02 seed 20097 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 9
+[match result] seed=20097 outcome=victory seconds=205.033333333389 deaths=9 shots=171 max={ "actors": 15, "live": 8, "wrecks": 7, "projectiles": 2, "records": 16, "nodes": 2211, "objects": 10334, "resources": 93, "static_memory_bytes": 117205058 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80647288 }
+[match seed=20234 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=20234 t=60.0] tickets={ 1: 300, 2: 266 } active=7 wreck=1 shots=39
+[match seed=20234 t=120.0] tickets={ 1: 300, 2: 146 } active=8 wreck=3 shots=87
+[match seed=20234 t=180.0] tickets={ 1: 300, 2: 86 } active=8 wreck=2 shots=103
+[match seed=20234 t=240.0] tickets={ 1: 270, 2: 26 } active=8 wreck=1 shots=123
+[PASS] T019-01 seed 20234 naturally settles exactly once
+[PASS] T019-02 seed 20234 keeps actors/wrecks/projectiles/cameras within budget
+[PASS] all eight AI slots reach approaches and actual shots contact vehicles
+[PASS] unique death ledger and one terminal record for every accepted shot
+[PASS] T019-03 complete match cleanup stays bounded across restart 10
+[match result] seed=20234 outcome=victory seconds=265.033333333421 deaths=5 shots=151 max={ "actors": 11, "live": 8, "wrecks": 3, "projectiles": 2, "records": 16, "nodes": 1708, "objects": 8093, "resources": 93, "static_memory_bytes": 111109925 } cleanup={ "nodes": 1, "orphans": 0, "objects": 1696, "resources": 90, "static_memory_bytes": 80567168 }
+=== 结果: 50 项检查, 0 失败 ===
+MATCH_BATCH_CHECKS_PASS

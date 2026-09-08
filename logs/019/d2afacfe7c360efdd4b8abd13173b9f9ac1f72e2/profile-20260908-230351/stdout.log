@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[frame profile] { "count": 1610, "mean_ms": 18.6421130434783, "fps_from_mean": 53.6419877761571, "p50_ms": 16.503, "p95_ms": 41.904, "p99_ms": 69.222, "max_ms": 80.609 }
+[PASS] actual rendered frame intervals saved after warmup
+[PASS] original frame saved
+FRAME_PROFILE_CHECKS_PASS

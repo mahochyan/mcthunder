@@ -1,0 +1,10 @@
+{
+  "uncommitted_source": false,
+  "exit_code": 0,
+  "timed_out": false,
+  "requested_matches": 10,
+  "human": "NOT_RUN",
+  "passed": true,
+  "source_sha": "c0f1e4fa725364f21ca71de614b3a67b37a4f3ac",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --fixed-fps 60 --path \"E:\\AIprogram\\mcthunder-development\" -s res://tests/run_match_batch_checks.gd -- --runs 10 --report-dir \"E:\\AIprogram\\mcthunder-development\\logs\\019\\c0f1e4fa725364f21ca71de614b3a67b37a4f3ac\\batch-20260908-220404\""
+}

@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "uncommitted_source": false,
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -s res://tests/run_frame_profile.gd -- --report-dir \"E:\\AIprogram\\mcthunder-development\\logs\\019\\d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2\\profile-20260908-230351\"",
+  "human": "NOT_RUN",
+  "source_sha": "d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2",
+  "passed": true,
+  "timed_out": false
+}
