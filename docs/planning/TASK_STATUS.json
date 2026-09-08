@@ -6,8 +6,8 @@
     "reference_sha":  "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
     "repository_writes_performed_by_this_plan":  false,
     "game_executed_by_this_plan":  false,
-    "authorized_order":  "003",
-    "recommended_next_order":  "003",
+    "authorized_order":  "005",
+    "recommended_next_order":  "006",
     "baseline_001_status":  "implementation_report_exists_not_independently_accepted",
     "allowed_statuses":  [
                              "planned",
@@ -71,12 +71,14 @@
                        "prerequisites":  [
                                              "003"
                                          ],
-                       "status":  "planned",
+                       "status":  "accepted",
                        "implementation_sha":  null,
                        "tested_sha":  null,
-                       "reviewer_acceptance":  null,
-                       "user_acceptance":  null,
-                       "file":  "work_orders/WO004.md"
+                       "reviewer_acceptance":  "accepted as geometry_and_inspector_baseline_with_carryover (accepted_sha=84c8b8d; see docs/DELIVERY_004_R2.md and GPT acceptance verdict)",
+                       "user_acceptance":  "NOT_RUN（人工逐项/截图等保留项延期至 011 核心体验验收，不代签）",
+                       "file":  "work_orders/WO004.md",
+                       "accepted_sha":  "84c8b8d",
+                       "acceptance_scope":  "geometry_and_inspector_baseline_with_carryover"
                    },
                    {
                        "id":  "005",
@@ -85,12 +87,14 @@
                        "prerequisites":  [
                                              "004"
                                          ],
-                       "status":  "planned",
+                       "status":  "accepted",
                        "implementation_sha":  null,
-                       "tested_sha":  null,
-                       "reviewer_acceptance":  null,
-                       "user_acceptance":  null,
-                       "file":  "work_orders/WO005.md"
+                       "tested_sha":  "fde3924aaaba30ed4ef5a3c6498854c8b6fde4be",
+                       "reviewer_acceptance":  "accepted as unified_query_engineering_baseline_with_carryover (005-R1 closeout closed; accepted_sha=3aa26da0e87d6d7c1e12dce3bc6d311c2bd6b4e1; evidence b7d6d56c0c80f775d3bc687b0cb50c8064b80d5e; see docs/REVIEW_005_ACCEPTANCE.md)",
+                       "user_acceptance":  "NOT_RUN（人工项延期至 011 核心体验验收，不代签）",
+                       "file":  "work_orders/WO005.md",
+                       "accepted_sha":  "3aa26da0e87d6d7c1e12dce3bc6d311c2bd6b4e1",
+                       "acceptance_scope":  "unified_query_engineering_baseline_with_carryover"
                    },
                    {
                        "id":  "006",
