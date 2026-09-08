@@ -21,6 +21,7 @@ var return_button: Button
 var spectator: Camera3D
 var spectator_index := 0
 var shield_visuals: Dictionary = {}
+var battle_ui: BattleUI
 
 func _ready() -> void:
 	super._ready()
@@ -64,6 +65,9 @@ func _ready() -> void:
 	controller.commands_enabled = false
 	controller.reset_pending()
 	team_ready = true
+	battle_ui = BattleUI.new()
+	add_child(battle_ui)
+	battle_ui.setup(self)
 
 func _build_world() -> void: TeamArena.build(self)
 func get_round_id() -> int: return director.state.match_id if director != null else 0

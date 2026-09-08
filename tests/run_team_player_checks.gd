@@ -28,8 +28,8 @@ func _run() -> void:
 	await _click(_find(team.hud,"放弃当前车（扣30票）"))
 	_check(team.actor.state.destroyed and team.waiting_panel.visible and team.director.state.tickets[1] == 270,"normal abandon menu produces one thirty-ticket loss and visible wait")
 	await _capture("03_wait_and_lineup")
-	await _tap(KEY_TAB)
-	_check(team.spectator_index == 1 and team.spectator.current,"normal Tab switches friendly spectator view")
+	await _tap(KEY_E)
+	_check(team.spectator_index == 1 and team.spectator.current,"normal E switches friendly spectator view (017: Tab now opens battle status)")
 	for i in 600:
 		if not team.respawn_button.disabled: break
 		await physics_frame

@@ -10,6 +10,7 @@ var tank: TankVehicle = null    # 由 actor 注入
 var aim_yaw := 0.0              # 全局观察朝向（弧度，0 = -Z）
 var aim_pitch := 0.0            # 观察俯仰（弧度，正 = 抬头）
 var sight := false
+var shake_enabled := false # Optical offset only; never changes the transform used by aiming or firing.
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
 
 var _sight_requested := false
@@ -50,6 +51,9 @@ func _exclude() -> Array[RID]:
 	return ex
 
 func _process(_delta: float) -> void:
+	var recoil := turret._recoil if turret != null and shake_enabled else 0.0
+	cam.h_offset = sin(recoil*80)*recoil*0.2
+	cam.v_offset = recoil*0.15
 	sight = _sight_requested and turret != null
 	if sight:
 		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 只剔除本车视觉层

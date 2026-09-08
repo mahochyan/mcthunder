@@ -10,6 +10,7 @@ var result_text: Label
 var restart_button: Button
 var return_button: Button
 var duel_ready := false
+var battle_ui: BattleUI
 
 func _ready() -> void:
 	super._ready()
@@ -37,6 +38,9 @@ func _ready() -> void:
 	controller.commands_enabled = false
 	controller.reset_pending()
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	battle_ui = BattleUI.new()
+	add_child(battle_ui)
+	battle_ui.setup(self)
 
 func _build_world() -> void:
 	TerrainFixtures.box(self,Vector3(0,-0.5,-18),Vector3(72,1,88))
