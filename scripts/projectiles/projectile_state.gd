@@ -11,6 +11,14 @@ var shooter_team_id := 0        # 发射者队伍（冻结）
 var shot_id := 0                # 发射者射击编号（冻结）
 var shell_id := ""              # 弹种标识（冻结）
 var seed := 0                   # 预留；006 不加入随机散布
+var armor_policy := "resolve"
+var penetration_curve := PackedVector2Array()
+var budget_scale := 1.0
+var consumed_mm := 0.0
+var ricochets := 0
+var contacts: Array[Dictionary] = []
+var start_surfaces: Dictionary = {}
+var contacted_targets: Dictionary = {}
 
 var born_physics_tick := 0      # 出生物理 tick（出生当步不推进）
 var position_world := Vector3.ZERO

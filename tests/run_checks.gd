@@ -618,8 +618,9 @@ func _run() -> void:
 	var w_muz: Vector3 = main.actor_a.turret.muzzle.global_position
 	var bdir: Vector3 = main.actor_a.turret.barrel_direction()
 	t003_wall.position = w_muz + bdir * 2.5
-	t003_wall.look_at(w_muz, Vector3.UP)   # 薄轴（0.5）朝炮口：射线垂直贯穿 0.5 厚
 	main.add_child(t003_wall)
+	t003_wall.look_at(w_muz, Vector3.UP)   # 入树后让薄轴朝炮口
+	_ok(absf(t003_wall.global_basis.z.dot(-bdir)) > 0.999, "007 baseline: wall thin axis actually faces muzzle")
 	await physics_frame
 	await physics_frame
 	gunner.cooldown_left = 0.0

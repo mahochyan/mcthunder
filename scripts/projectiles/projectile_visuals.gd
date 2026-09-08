@@ -86,8 +86,8 @@ func present_terminal(record: Dictionary) -> void:
 	fx.mesh = m
 	fx.material_override = mat
 	fx.top_level = true
-	fx.global_position = p
 	add_child(fx)
+	fx.global_position = p
 	_fx.append({"node": fx, "left": 0.25})
 
 func clear_all() -> void:

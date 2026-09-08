@@ -19,6 +19,7 @@ const MIN_SEG_M := 1.0e-6       # 近零位移段阈值（不触发零长度射�
 const END_EPS := 1.0e-9         # 寿命/路程端点容差
 
 signal projectile_finished(record: Dictionary)   # 终止记录（一次且完整；先标终止再发出）
+signal projectile_contact(record: Dictionary)
 
 var _next_projectile_id := 1
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
@@ -108,6 +109,12 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "invalid_spawn"}
 	if _active.size() >= MAX_ACTIVE:
 		return {"ok": false, "projectile_id": 0, "reason": "projectile_capacity"}
+	var armor_policy := str(spec.get("armor_policy", "resolve"))
+	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
+	if armor_policy not in ["resolve", "legacy_contact_only"] \
+			or (armor_policy == "resolve" and not PenetrationCurve.validate(curve)) \
+			or (armor_policy == "legacy_contact_only" and not spec.get("test_only", false)):
+		return {"ok": false, "projectile_id": 0, "reason": "invalid_armor_policy"}
 
 	var st := ProjectileState.new()
 	st.projectile_id = _next_projectile_id
@@ -119,6 +126,8 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	st.shot_id = shot_id
 	st.shell_id = shell_id
 	st.seed = int(spec.get("seed", 0))
+	st.armor_policy = armor_policy
+	st.penetration_curve = curve.duplicate()
 	st.born_physics_tick = Engine.get_physics_frames()
 	st.position_world = pos
 	st.previous_position_world = pos
@@ -155,140 +164,182 @@ func _physics_process(delta: float) -> void:
 
 
 func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
-	# 单发逐段推进：剩余寿命裁短本步 → plan_times → 逐子段
-	# （advance_free 求候选终点 → 必要时按剩余路程裁短 → 世界查询 → 车辆几何查询 →
-	#   选择器选外部接触 → 按结果推进或终止）。
-	if st.is_terminal():
+	if not _live(st):
 		return
-	var step := minf(delta, st.max_age_s - st.age_s)
-	if step <= 0.0:
+	if not is_finite(delta) or delta < 0.0:
+		finish_once(st.projectile_id, "unresolved_query", {"detail": "invalid delta"})
+		return
+	var remaining_dt := minf(delta, st.max_age_s - st.age_s)
+	if remaining_dt <= 0.0:
 		finish_once(st.projectile_id, "expired_time", {})
 		return
-	var plan := BallisticMath.plan_times(st.velocity_world, st.gravity_world, step)
-	if not plan.get("ok", false):
-		finish_once(st.projectile_id, "unresolved_query", {"detail": "plan_times: %s" % str(plan.get("reason", ""))})
-		return
-	var times: PackedFloat64Array = plan["times"]
-	for i in range(times.size() - 1):
-		if st.is_terminal():
-			return
-		var t0 := times[i]
-		var t1 := times[i + 1]
-		var h := t1 - t0
-		if h <= 0.0:
-			continue
+	var pending_h: Array[float] = []
+	var step_contacts := 0
+	while remaining_dt > BallisticMath.TIME_EPS and _live(st):
+		if pending_h.is_empty():
+			var plan := BallisticMath.plan_times(st.velocity_world, st.gravity_world, remaining_dt)
+			if not plan.get("ok", false):
+				finish_once(st.projectile_id, "unresolved_query", {"detail": str(plan.get("reason", ""))})
+				return
+			var times: PackedFloat64Array = plan.times
+			for i in range(times.size() - 1):
+				pending_h.append(times[i + 1] - times[i])
+		var h: float = pending_h.pop_front()
 		var adv := BallisticMath.advance_free(st.position_world, st.velocity_world, st.gravity_world, h)
 		if not adv.get("ok", false):
-			finish_once(st.projectile_id, "unresolved_query", {"detail": "advance_free: %s" % str(adv.get("reason", ""))})
+			finish_once(st.projectile_id, "unresolved_query", {"detail": str(adv.get("reason", ""))})
 			return
-		var cand_p: Vector3 = adv["position"]
-		var cand_v: Vector3 = adv["velocity"]
+		var cand_p: Vector3 = adv.position
 		var seg := cand_p - st.position_world
 		var seg_len := seg.length()
-		# 近零位移段：不触发零长度射线错误；继续更新时间与速度（转折情况按分段结果处理）
 		if seg_len < MIN_SEG_M:
 			st.previous_position_world = st.position_world
 			st.position_world = cand_p
-			st.velocity_world = cand_v
+			st.velocity_world = adv.velocity
 			st.age_s += h
+			st.travelled_m += seg_len
+			remaining_dt -= h
 			continue
 		var dir := seg / seg_len
-		# 006-R1-A：路程裁短统一记账——查询、位置、路程、时间、速度用同一裁短比例
-		var remaining := st.max_distance_m - st.travelled_m
-		var alpha := minf(1.0, remaining / seg_len)
+		var remaining_distance := maxf(0.0, st.max_distance_m - st.travelled_m)
+		var alpha := minf(1.0, remaining_distance / seg_len)
 		var query_len := seg_len * alpha
 		var used_h := h * alpha
 		var query_end := st.position_world + dir * query_len
 		if query_len < MIN_SEG_M:
-			# 剩余路程近零：不再按完整子段推进，立即到期终止
 			st.travelled_m = st.max_distance_m
 			st.age_s += used_h
 			finish_once(st.projectile_id, "expired_distance", {})
 			return
-		# 世界查询（整条裁短后线段；自身排除用发射者 RID）
 		var ws := WorldQueryAdapter.query_world_stop(space, st.position_world, dir, query_len, _exclude_for(st))
-		var world_contact: Dictionary = ws.get("contact", {}) if ws.get("hit", false) else {}
 		if not ws.get("ok", false):
-			finish_once(st.projectile_id, "unresolved_query", {"detail": "world: %s" % str(ws.get("reason", ""))})
+			finish_once(st.projectile_id, "unresolved_query", {"detail": "world query"})
 			return
-		# 车辆几何查询（同一段；排除发射者实体身份）
+		var world_contact: Dictionary = ws.get("contact", {}) if ws.get("hit", false) else {}
 		var qr := ShotQueryService.query({
 			"query_id": "proj_%d_%d" % [st.projectile_id, Engine.get_physics_frames()],
 			"physics_tick": Engine.get_physics_frames(),
-			"from_world": st.position_world,
-			"to_world": st.position_world + dir * query_len,
+			"from_world": st.position_world, "to_world": query_end,
 			"excluded_instances": [{"entity_id": st.shooter_id, "life_id": st.shooter_life_id}],
-			"include_modules": true,
-			"include_crew": false,
-			"world_stop": world_contact,
+			"include_modules": true, "include_crew": false, "world_stop": world_contact,
 		}, snapshots)
 		if not qr.get("ok", false):
-			finish_once(st.projectile_id, "unresolved_query", {"detail": "query: %s" % str(qr.get("reason", ""))})
+			finish_once(st.projectile_id, "unresolved_query", {"detail": "geometry query"})
 			return
+		# Only suppress already processed surfaces at this exact starting point.
+		# Co-located other surfaces remain candidates; never exclude an entire target.
+		var filtered: Array = []
+		for ev in qr.get("events", []):
+			var key := _surface_key(ev)
+			if st.start_surfaces.has(key) and float(ev.get("distance_m", INF)) <= GameConfig.ARMOR_START_EPS_M \
+					and (ev.get("point_world", Vector3.INF) as Vector3).distance_to(st.start_surfaces[key]) <= GameConfig.ARMOR_START_EPS_M:
+				continue
+			filtered.append(ev)
+		qr.events = filtered
 		var sel := ExternalContactSelector.select_contact(qr)
-		var status: String = str(sel.get("status", "unresolved"))
-		if status == "vehicle":
-			# 停在装甲接触点，生成一次终止记录（模块/乘员不参与本轮外部停止或计分）
-			var ev: Dictionary = sel["event"]
+		var status := str(sel.get("status", "unresolved"))
+		if status in ["vehicle", "world"]:
+			var ev: Dictionary = sel.event if status == "vehicle" else sel.contact
 			var t_frac := clampf(float(ev.get("t", 0.0)), 0.0, 1.0)
-			var contact_time := used_h * t_frac   # 006-R1-A：接触用时按裁短后子段折算
+			var contact_time := used_h * t_frac
 			var impact_p: Vector3 = ev.get("point_world", query_end)
-			var impact_v: Vector3 = st.velocity_world + st.gravity_world * contact_time
 			st.previous_position_world = st.position_world
 			st.position_world = impact_p
-			st.velocity_world = impact_v
+			st.velocity_world += st.gravity_world * contact_time
 			st.age_s += contact_time
 			st.travelled_m += st.previous_position_world.distance_to(impact_p)
-			finish_once(st.projectile_id, "impact_vehicle", {
-				"impact_point": impact_p,
-				"impact_velocity": impact_v,
-				"target_id": str(ev.get("entity_id", "")),
-				"target_life_id": int(ev.get("life_id", 0)),
-				"surface_id": str(ev.get("surface_id", "")),
-			})
+			remaining_dt = maxf(0.0, remaining_dt - contact_time)
+			if status == "world":
+				var collider: Object = ev.get("collider", null)
+				finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact"})
+				if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
+					collider.register_hit({})
+				return
+			if step_contacts >= GameConfig.ARMOR_CONTACTS_PER_STEP or st.contacts.size() >= GameConfig.ARMOR_CONTACTS_PER_SHOT:
+				finish_once(st.projectile_id, "contact_budget", {"detail": "bounded contact limit"})
+				return
+			step_contacts += 1
+			if not handle_contact(st, ev):
+				return
+			pending_h.clear() # Replan remaining time with reflected/current velocity.
+			continue
+		if status == "unresolved":
+			finish_once(st.projectile_id, "unresolved_query", {"detail": "incomplete geometry"})
 			return
-		elif status == "world":
-			# 停在世界接触点（世界对象只在撞击瞬间查验并反馈，不保存活 collider）。
-			# 006-R1-B：先提交终止，再调外部反馈——register_hit 回调里触发重置时
-			# 该发已终止、状态已提交，回调不得二次结算或访问未提交状态。
-			var ct: Dictionary = sel["contact"]
-			var t_frac := clampf(float(ct.get("t", 0.0)), 0.0, 1.0)
-			var contact_time := used_h * t_frac   # 006-R1-A：接触用时按裁短后子段折算
-			var impact_p: Vector3 = ct.get("point_world", query_end)
-			var impact_v: Vector3 = st.velocity_world + st.gravity_world * contact_time
-			var collider: Object = ct.get("collider", null)
-			st.previous_position_world = st.position_world
-			st.position_world = impact_p
-			st.velocity_world = impact_v
-			st.age_s += contact_time
-			st.travelled_m += st.previous_position_world.distance_to(impact_p)
-			finish_once(st.projectile_id, "impact_world", {
-				"impact_point": impact_p,
-				"impact_velocity": impact_v,
-				"surface_id": "world_contact",
-			})
-			if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
-				collider.register_hit({})
-			return
-		elif status == "unresolved":
-			# 不完整查询 → 停止模拟，标记未决，不计命中，不假装飞过
-			finish_once(st.projectile_id, "unresolved_query", {"detail": "selector unresolved"})
-			return
-		# miss：接受该段运动结果（006-R1-A：按裁短比例记账，不用未裁短子段）
 		st.previous_position_world = st.position_world
 		st.position_world = query_end
-		st.velocity_world = st.velocity_world + st.gravity_world * used_h
+		st.velocity_world += st.gravity_world * used_h
 		st.age_s += used_h
 		st.travelled_m += query_len
+		remaining_dt -= used_h
 		if alpha < 1.0:
-			# 已到路程上限（本段被裁短且无接触）→ 到期终止（位置/路程/时间一致）
 			finish_once(st.projectile_id, "expired_distance", {})
 			return
-	# 本步结束：寿命/路程端点（接触恰好位于端点时已在上面的接触分支处理）
+	if not _live(st):
+		return
 	if st.age_s >= st.max_age_s - END_EPS:
 		finish_once(st.projectile_id, "expired_time", {})
 	elif st.travelled_m >= st.max_distance_m - END_EPS:
 		finish_once(st.projectile_id, "expired_distance", {})
+
+
+func _live(st: ProjectileState) -> bool:
+	return not _shut_down and not is_queued_for_deletion() and not st.is_terminal() \
+		and _active.get(st.projectile_id) == st
+
+
+static func _surface_key(event: Dictionary) -> String:
+	return JSON.stringify([event.get("entity_id", ""), event.get("life_id", 0), event.get("part_id", ""), event.get("surface_id", "")])
+
+
+func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
+	var incoming_velocity := st.velocity_world
+	var result := {"result": "legacy_contact_only", "continue_flight": false}
+	if st.armor_policy == "resolve":
+		result = ArmorResolver.resolve(ev, st.velocity_world, {
+			"base_mm": PenetrationCurve.sample_mm(st.penetration_curve, st.travelled_m),
+			"scale": st.budget_scale, "consumed_mm": st.consumed_mm, "ricochets": st.ricochets,
+		})
+		st.budget_scale = result.scale
+		st.consumed_mm = result.consumed_mm
+		st.ricochets = result.ricochets
+		if result.result == "ricochet":
+			st.velocity_world = result.direction * st.velocity_world.length() * float(result.speed_scale)
+	# Prune only surfaces left behind. Multiple surfaces at the same point each cost once.
+	for key in st.start_surfaces.keys():
+		if st.position_world.distance_to(st.start_surfaces[key]) > GameConfig.ARMOR_START_EPS_M:
+			st.start_surfaces.erase(key)
+	st.start_surfaces[_surface_key(ev)] = st.position_world
+	var target_key := JSON.stringify([ev.get("entity_id", ""), ev.get("life_id", 0)])
+	var first_for_target := not st.contacted_targets.has(target_key)
+	st.contacted_targets[target_key] = true
+	var record := ev.duplicate(true)
+	record.merge(result, true)
+	record.merge({
+		"projectile_id": st.projectile_id, "round_id": st.round_id, "shot_id": st.shot_id,
+		"shooter_id": st.shooter_id, "shooter_life_id": st.shooter_life_id,
+		"target_id": ev.get("entity_id", ""), "target_life_id": ev.get("life_id", 0),
+		"shell_id": st.shell_id, "contact_index": st.contacts.size() + 1,
+		"first_for_target": first_for_target, "armor_policy": st.armor_policy,
+		"flight_time_s": st.age_s, "travelled_m": st.travelled_m,
+		"impact_point": st.position_world, "impact_velocity": incoming_velocity,
+		"incoming_velocity": incoming_velocity, "outgoing_velocity": st.velocity_world,
+		"physics_tick": Engine.get_physics_frames(),
+	}, true)
+	st.contacts.append(record.duplicate(true))
+	projectile_contact.emit(record.duplicate(true))
+	# A synchronous listener may cancel/reset/free this manager. Never resurrect the shot.
+	if not _live(st):
+		return false
+	if not result.get("continue_flight", false):
+		var reason := "impact_vehicle" if st.armor_policy == "legacy_contact_only" else "armor_" + str(result.result)
+		finish_once(st.projectile_id, reason, {
+			"target_id": ev.get("entity_id", ""), "target_life_id": ev.get("life_id", 0),
+			"surface_id": ev.get("surface_id", ""),
+		})
+		return false
+	return true
+
 
 
 func _exclude_for(st: ProjectileState) -> Array[RID]:
@@ -326,6 +377,10 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 		"query_id": "proj_%d" % st.projectile_id,
 		"physics_tick": Engine.get_physics_frames(),
 	}
+	record["detail"] = terminal_data.get("detail", "")
+	record["armor_policy"] = st.armor_policy
+	record["contacts"] = st.contacts.duplicate(true)
+	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
 	projectile_finished.emit(record)
 
 

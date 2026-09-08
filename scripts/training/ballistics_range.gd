@@ -76,6 +76,7 @@ func _ready() -> void:
 	add_child(hud)
 	hud.resume_requested.connect(_resume)
 	hud.training_requested.connect(_return_to_range)
+	hud.armor_training_requested.connect(_open_armor_training)
 	hud.set_training_button_text(false)   # 训练场按钮 = 返回靶场
 	_initialized = true
 	if DisplayServer.get_name() != "headless":
@@ -383,6 +384,13 @@ func _return_to_range() -> void:
 	get_tree().paused = false
 	_paused = false
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
+
+func _open_armor_training() -> void:
+	if not _initialized or not _paused:
+		return
+	projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/training/armor_range.tscn")
 
 # =====================================================================
 # 006-d / 006-R1-C 弹道演示（-- --ballistics-demo）

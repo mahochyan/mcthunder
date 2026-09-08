@@ -1,4 +1,13 @@
 class_name GameConfig
+const ARMOR_RULES_VERSION := "armor-test-v1"
+const ARMOR_RICOCHET_DEG := 75.0
+const ARMOR_RICOCHET_SPEED_SCALE := 0.6
+const ARMOR_RICOCHET_BUDGET_SCALE := 0.5
+const ARMOR_MAX_RICOCHETS := 1
+const ARMOR_GRAZING_COS := 1e-6
+const ARMOR_START_EPS_M := 1e-5
+const ARMOR_CONTACTS_PER_STEP := 8
+const ARMOR_CONTACTS_PER_SHOT := 32
 ## 集中配置：所有可调参数与约定。
 ## 世界约定：1 单位 ≈ 1 米；Y 轴向上；车辆前方为 -Z。
 ## 碰撞层约定（集中说明）：

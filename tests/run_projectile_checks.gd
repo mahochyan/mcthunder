@@ -979,6 +979,8 @@ func _spec(pid: int, shooter: String, life: int, pos: Vector3, vel: Vector3, max
 		"shooter_team_id": 1,
 		"shot_id": pid,
 		"shell_id": "ap_75",
+		"armor_policy": "legacy_contact_only",
+		"test_only": true,
 		"position_world": pos,
 		"velocity_world": vel,
 		"gravity_world": Vector3(0, -9.81, 0),

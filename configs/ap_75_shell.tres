@@ -9,6 +9,7 @@ schema_version = 1
 caliber_mm = 75.0
 muzzle_velocity_mps = 300.0
 penetration_mm = 0.0
+armor_policy = "legacy_contact_only"
 gravity_scale = 1.0
 max_flight_time_s = 8.0
 source_refs = Array[String](["TEST ONLY: development fixture, no historical basis"])

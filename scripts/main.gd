@@ -98,6 +98,7 @@ func _ready() -> void:
 	projectiles.snapshot_provider = Callable(self, "query_snapshots")
 	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
 	projectiles.projectile_finished.connect(_on_projectile_finished)
+	projectiles.projectile_contact.connect(_on_projectile_contact)
 	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
 	projectile_visuals = ProjectileVisuals.new()
 	projectile_visuals.name = "ProjectileVisuals"
@@ -110,6 +111,7 @@ func _ready() -> void:
 	hud.resume_requested.connect(_resume)
 	hud.inspect_requested.connect(open_vehicle_inspector)   # 004-c：暂停菜单检视入口
 	hud.training_requested.connect(_open_training)   # 006：暂停菜单弹道训练入口
+	hud.armor_training_requested.connect(_open_armor_training)
 	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
@@ -355,6 +357,22 @@ func _open_training() -> void:
 	get_tree().paused = false
 	_paused = false
 	get_tree().change_scene_to_file("res://scenes/training/ballistics_range.tscn")
+
+func _open_armor_training() -> void:
+	if not _can_use_gameplay() or not _paused:
+		return
+	projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/training/armor_range.tscn")
+
+func _on_projectile_contact(record: Dictionary) -> void:
+	if _aborted or record.get("armor_policy", "") != "resolve" or not record.get("first_for_target", false):
+		return
+	if int(record.get("round_id", -1)) != _gate.round_id:
+		return
+	var target := find_vehicle(str(record.get("target_id","")), int(record.get("target_life_id",0)))
+	if target != null:
+		target.register_hit(record)
 
 func _resume() -> void:
 	if not _can_use_gameplay():

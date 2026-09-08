@@ -10,6 +10,8 @@ extends Resource
 @export var caliber_mm: float = 75.0
 @export var muzzle_velocity_mps: float = 0.0
 @export var penetration_mm: float = 0.0
+@export var armor_policy: String = "resolve"
+@export var penetration_curve: PackedVector2Array = PackedVector2Array([Vector2(0, 60), Vector2(200, 50)])
 @export var gravity_scale: float = 1.0      # 006：重力倍率（0 = 无重力弹道）
 @export var max_flight_time_s: float = 8.0  # 006：最大飞行时间（模拟时间，>0）
 
@@ -19,6 +21,12 @@ extends Resource
 
 func validate() -> Dictionary:
 	var errors: Array[String] = []
+	if armor_policy not in ["resolve", "legacy_contact_only"]:
+		errors.append("armor_policy: unsupported")
+	if armor_policy == "resolve" and not PenetrationCurve.validate(penetration_curve):
+		errors.append("penetration_curve: invalid distance/penetration points")
+	if armor_policy == "legacy_contact_only" and not "TEST ONLY" in str(source_refs):
+		errors.append("legacy_contact_only: only permitted on explicit TEST ONLY fixtures")
 	if id.is_empty():
 		errors.append("id: empty")
 	if not is_finite(caliber_mm) or caliber_mm <= 0.0:

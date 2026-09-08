@@ -240,6 +240,10 @@ static func _collect_patches(
 				"thickness_mm": patch.thickness_mm,
 				"thickness_status": patch.thickness_status,
 				"material_kind": patch.material_kind,
+				"part_world_transform": part_world,
+				"layout_id": layout.id,
+				"layout_revision": layout.schema_version,
+				"content_tier": layout.content_tier,
 			})
 	return complete
 
