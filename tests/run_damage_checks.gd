@@ -147,7 +147,7 @@ func _damage_cases() -> void:
 			death_count += 1
 		if person == "loader":
 			_ok(b.state.alive_crew_count() == 2 and not b.state.destroyed,"two crew do not trigger count-based defeat")
-			_ok(b.capabilities().reload_rate == 0.5,"incapacitated loader halves actual reload progress")
+			_ok(is_equal_approx(b.capabilities().reload_rate,1.0/1.6),"incapacitated loader makes reload duration 1.6 times normal")
 		if person == "gunner":
 			_ok(b.state.alive_crew_count() == 1 and b.state.destroyed,"one remaining crew triggers defeat")
 	_ok(death_count == 1,"low-crew defeat committed exactly once")
@@ -202,7 +202,7 @@ func _rotated_and_runtime_cases() -> void:
 	b.state.apply_damage_delta("loader_timer",delta)
 	b.gunner.cooldown_left = 2.0 # Deterministic timer fixture, separate from normal player demonstration.
 	b.gunner.advance_timers(1.0)
-	_ok(is_equal_approx(b.gunner.cooldown_left,1.5),"missing loader changes real cooldown clock")
+	_ok(is_equal_approx(b.gunner.cooldown_left,1.375),"missing loader changes real cooldown clock")
 	var dup := b.state.apply_damage_delta("loader_timer",delta)
 	_ok(not dup.ok,"same damage event ID is rejected")
 	_clear()
