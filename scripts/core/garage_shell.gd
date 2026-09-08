@@ -175,7 +175,8 @@ func _ready() -> void:
 	inspect_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	CoreUI.button(view_controls,"转右",func() -> void: preview.rotation.y += PI/4)
 	inspection_row = HBoxContainer.new(); right.add_child(inspection_row)
-	inspection_choice = OptionButton.new(); inspection_choice.custom_minimum_size.x = 180
+	inspection_choice = OptionButton.new(); inspection_choice.custom_minimum_size.x = 250
+	inspection_choice.clip_text = true; inspection_choice.fit_to_longest_item = false
 	inspection_row.add_child(inspection_choice)
 	inspection_value = CoreUI.label(inspection_row,"",14)
 	inspection_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -219,7 +220,7 @@ func _refresh_inspection() -> void:
 	inspection_choice.clear()
 	if _view_mode == 1:
 		for patch in preview.layout.armor_patches:
-			inspection_choice.add_item(CoreUI.word(patch.id))
+			inspection_choice.add_item(_patch_label(patch)+" · "+str(inspection_choice.item_count+1))
 			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"patch","id":patch.id})
 	elif _view_mode == 2:
 		for module in preview.layout.modules:
@@ -253,6 +254,12 @@ func _select_inspection(index: int) -> void:
 
 func _evidence_word(value: String) -> String:
 	return {"verified":"已核验","estimated":"估算","unknown":"未知"}.get(value,value)
+
+func _patch_label(patch: ArmorPatchDefinition) -> String:
+	var zones := {"hull_front_upper":"车体前上","hull_front_lower":"车体前下","hull_sides_front":"车体侧部前段","hull_sides_rear":"车体侧部后段","hull_sides_lower":"车体下侧前段","hull_sides_lower_rear":"车体下侧后段","hull_rear_upper":"车体后上","hull_rear_lower":"车体后下","hull_roof_front":"车顶前段","hull_roof_rear":"车顶后段","hull_floor_front":"车底前段","hull_floor_rear":"车底后段","turret_front":"炮塔正面","turret_sides":"炮塔侧面","turret_rear":"炮塔后面","turret_roof":"炮塔顶面","gun_shield":"炮盾","gun_tube":"炮管"}
+	var title: String = zones.get(patch.plate_group_id,CoreUI.word(patch.id))
+	if "side" in patch.plate_group_id: title = ("左 · " if patch.outward_normal_local.x<0 else "右 · ")+title
+	return title
 
 func _collect_preview_extras(node: Node) -> void:
 	for child in node.get_children():

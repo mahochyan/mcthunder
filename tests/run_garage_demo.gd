@@ -39,10 +39,12 @@ func run(flow: AppFlow) -> void:
 	await capture("02_researched_m24")
 	await click(app.garage.inspect_button)
 	var side_index := -1
-	for i in app.garage.inspection_choice.item_count:
-		if app.garage.inspection_choice.get_item_metadata(i).id=="hull_left": side_index=i
+	var side_id := ""
+	for i in app.garage.preview.layout.armor_patches.size():
+		var patch: ArmorPatchDefinition = app.garage.preview.layout.armor_patches[i]
+		if patch.plate_group_id.begins_with("hull_sides") and patch.outward_normal_local.x< -0.7: side_index=i; side_id=patch.id; break
 	await choose(app.garage.inspection_choice,side_index)
-	check(app.garage.preview.selected_patch_id=="hull_left" and app.garage.inspection_value.text.contains("mm"),"normal armor selector highlights the side plate and displays its nominal thickness")
+	check(not side_id.is_empty() and app.garage.preview.selected_patch_id==side_id and app.garage.inspection_choice.text.contains("左") and app.garage.inspection_value.text.contains("mm"),"normal armor selector highlights the side plate and displays its nominal thickness")
 	await capture("02b_side_armor")
 	await click(app.garage.inspect_button)
 	var crew_index := -1
