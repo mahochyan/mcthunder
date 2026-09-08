@@ -11,3 +11,5 @@ backups/
 # 系统杂项
 Thumbs.db
 Desktop.ini
+# Godot 导入产物不入库（证据 PNG 等非运行时资源）
+*.import

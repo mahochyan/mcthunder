@@ -10,6 +10,7 @@ var defs: VehicleDefs
 var controller: PlayerController
 var actor_a: VehicleActor
 var actor_b: VehicleActor
+var projectiles: ProjectileManager   # 006：唯一推进飞弹的物理执行器（当前战斗场景拥有）
 var tank: TankVehicle        # 兼容引用 → actor_a.tank（现有测试/autoshot 使用）
 var turret: TurretRig        # 兼容引用 → actor_a.turret
 var cam_rig: CameraRig       # 兼容引用 → actor_a.cam_rig
@@ -87,6 +88,15 @@ func _ready() -> void:
 	turret = actor_a.turret
 	cam_rig = actor_a.cam_rig
 	gunner = actor_a.gunner
+	# 006：飞弹管理器——当前战斗场景拥有（不挂在 Gunner 下；射手销毁后已飞弹丸继续存在）
+	projectiles = ProjectileManager.new()
+	projectiles.name = "Projectiles"
+	add_child(projectiles)
+	projectiles.snapshot_provider = Callable(self, "query_snapshots")
+	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
+	projectiles.projectile_finished.connect(_on_projectile_finished)
+	actor_a.gunner.projectile_manager = projectiles
+	actor_b.gunner.projectile_manager = projectiles
 	hud = HUD.new()
 	hud.name = "HUD"
 	add_child(hud)
@@ -173,6 +183,7 @@ func spawn_vehicle(vehicle_id: String, entity_id: String, pos: Vector3, ctrl: No
 		return null
 	a.gunner.round_provider = Callable(self, "get_round_id")   # 003-R2：发射身份轮次来源
 	a.gunner.snapshot_provider = Callable(self, "query_snapshots")   # 005：统一命中查询快照来源
+	a.gunner.projectile_manager = projectiles   # 006：飞弹推进执行器（与 A/B 同一管理器）
 	return a
 
 func despawn_vehicle(a: VehicleActor) -> void:
@@ -354,12 +365,15 @@ func reset_range() -> void:
 	if not _can_use_gameplay():
 		return
 	# 先停止接收旧输入（清两车暂存 + 控制者待发 fire 边沿），
+	# 取消全部活动/待推进飞弹（不产生命中事件），
 	# 推进任务轮次（gate 是轮次/进度的唯一来源，begin_round 清进度与去重集合），
 	# 再复位实体与靶场
 	actor_a.clear_commands()
 	actor_b.clear_commands()
 	if controller != null and controller.has_method("reset_pending"):
 		controller.reset_pending()
+	if projectiles != null:
+		projectiles.cancel_all("cancelled_reset")
 	if not _gate.begin_round(actor_a.entity_id, actor_a.life_id, actor_b.entity_id, actor_b.life_id, TRIAL_TARGET):
 		push_error("003-R2: task gate begin_round rejected")
 	actor_a.reset_vehicle()
@@ -370,7 +384,10 @@ func reset_range() -> void:
 
 func reset_vehicle(actor: VehicleActor) -> void:
 	# 003：单车重置——不污染其他车/靶场/试射目标
+	# 006：取消该车发出的飞弹（不取消其他车辆的飞弹）
 	if actor != null:
+		if projectiles != null:
+			projectiles.cancel_by_shooter(actor.entity_id, actor.life_id, "cancelled_reset")
 		actor.reset_vehicle()
 
 func _notification(what: int) -> void:
@@ -391,6 +408,57 @@ func _on_b_hit(identity: Dictionary) -> void:
 	var res := _gate.accept_hit(identity.duplicate(true))
 	if res.accepted:
 		trial_hits = _gate.hits
+
+func _on_projectile_finished(record: Dictionary) -> void:
+	# 006：飞弹终止事件分发——只处理有效车辆撞击；世界撞击已在撞击瞬间由管理器
+	# 直接反馈（靶板 register_hit），此处不保存活的 collider。
+	# 目标已经消失时不重新找一辆同名新车冒充旧目标。
+	if _aborted:
+		return
+	if str(record.get("reason", "")) != "impact_vehicle":
+		return
+	var target := find_vehicle(str(record.get("target_id", "")), int(record.get("target_life_id", 0)))
+	if target == null:
+		return
+	var identity := {
+		"round_id": int(record.get("round_id", -1)),
+		"shooter_id": str(record.get("shooter_id", "")),
+		"shooter_life_id": int(record.get("shooter_life_id", 0)),
+		"shot_id": int(record.get("shot_id", 0)),
+		"target_id": target.entity_id,
+		"target_life_id": target.life_id,
+	}
+	target.register_hit(identity)   # 任务身份与去重由 TrialHitGate 继续执行
+
+func projectile_exclude_rids(shooter_id: String, shooter_life_id: int) -> Array[RID]:
+	# 006：管理器世界查询的自身排除——按发射者身份找实际车辆 RID（不按车型排除）
+	var a := find_actor(shooter_id, shooter_life_id)
+	if a == null or a.tank == null or not is_instance_valid(a.tank):
+		return []
+	return [a.tank.get_rid()]
+
+func find_actor(entity_id: String, life_id: int) -> VehicleActor:
+	# 006：按实体身份找实际 VehicleActor（临时查找，不持有 Node 引用）
+	var tree := get_tree()
+	if tree == null:
+		return null
+	return _find_actor_in(tree.root, entity_id, life_id)
+
+func _find_actor_in(node: Node, entity_id: String, life_id: int) -> VehicleActor:
+	for c in node.get_children():
+		if c is VehicleActor and c.entity_id == entity_id and c.life_id == life_id:
+			return c
+		var r := _find_actor_in(c, entity_id, life_id)
+		if r != null:
+			return r
+	return null
+
+func find_vehicle(entity_id: String, life_id: int) -> TankVehicle:
+	# 006：按实体身份找实际车辆实例（临时查找，不持有 Node 引用）
+	var a := find_actor(entity_id, life_id)
+	if a == null or a.tank == null or not is_instance_valid(a.tank):
+		return null
+	return a.tank
 
 func _process(_delta: float) -> void:
 	if _aborted:

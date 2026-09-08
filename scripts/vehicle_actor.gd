@@ -61,8 +61,9 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	gunner = Gunner.new()
 	gunner.name = "Gunner"
 	add_child(gunner)
-	gunner.setup(tank, turret, weapon)   # 003-R1：装填/射程唯一来源
+	gunner.setup(tank, turret, weapon, shell)   # 003-R1：装填/射程唯一来源；006：弹种运动参数
 	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
+	gunner.shooter_team_id = team_id   # 006：发射身份队伍（冻结）
 	tank.entity_id = entity_id   # 003-R2：命中事件 target 身份来源
 	tank.life_id = life_id       # 003-R2：目标生命周期标识
 	process_mode = Node.PROCESS_MODE_PAUSABLE   # 003：暂停时整实体（驱动/武器）冻结

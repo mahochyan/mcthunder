@@ -1,25 +1,32 @@
 class_name Gunner
 extends Node3D
-## 射击（职责：开火/冷却/命中判定/特效）。
-## 命中规则（工作单 §D）：
-##   - 命中查询只依据炮口实际方向（炮管 basis），绝不使用相机射线代替；
-##   - 只处理第一处有效碰撞；一律排除本车 RID；
-##   - 相机可见但炮管被墙遮挡时不得命中墙后目标（射线首碰即墙）；
-##   - 炮管穿墙时阻止开火：额外检查炮根 → 炮口线段遮挡；
-##   - 冷却 2s，按住开火键不绕过（is_action_just_pressed 触发 + 冷却闸门）。
+## 射击（职责：开火条件校验/请求生成/扣弹与装填/发射反馈）。
+## 006：即时命中结算移除——try_fire 只校验并请求 ProjectileManager 生成飞弹；
+## 实际撞击由管理器逐段推进后经 projectile_finished 事件送达（Main 分发）。
+## 命中规则（工作单 §D + 006）：
+##   - 发射只依据真实炮口位置与炮管方向（turret.barrel_direction），绝不使用相机射线；
+##   - 炮管穿墙时阻止开火：额外检查炮根 → 炮口线段遮挡（保留）；
+##   - 冷却 2s，按住开火键不绕过（is_action_just_pressed 触发 + 冷却闸门）；
+##   - 合法发射扣一发；拒绝发射不扣弹、不装填、不增加射击计数；
+##   - 初速 = 炮管单位方向 × muzzle_velocity_mps + 发射瞬间车体平移速度
+##     （炮口切向速度不实现，作为明确弹道近似记录）。
 
 var tank: TankVehicle = null
 var turret: TurretRig = null
 var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
+var shell: ShellDefinition = null      # 006：由 actor 注入——弹种运动参数唯一来源
+var projectile_manager: ProjectileManager = null   # 006：由 main 注入——唯一推进执行器
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
+var shooter_team_id := 0              # 006：由 actor 注入（发射身份队伍，冻结）
 var shot_id := 0                      # 003-R2：本实体射击编号——每次成功发射 +1（含空射/打墙），发射时分配
 var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源（由 main 注入；空 = -1）
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
+var rounds_remaining := 0             # 006：剩余弹数（实例状态，不共享；整场/单车重开恢复配额）
 var cooldown_left := 0.0
 var resume_grace := 0.0
 var shots_fired := 0
-var blocked_reason := ""          # "" / "cooldown" / "grace" / "barrel_occluded"
-var last_shot_result := ""        # 003："" / "hit" / "miss" / "blocked:cooldown" / "blocked:grace" / "blocked:barrel_occluded"
+var blocked_reason := ""          # "" / "cooldown" / "grace" / "barrel_occluded" / "no_ammo" / "projectile_capacity" / "invalid_shell" / "invalid_spawn" / "duplicate_launch"
+var last_shot_result := ""        # 003："" / "fired" / "blocked:<reason>"（006：命中结果由管理器事件送达，不再即时判定）
 var actual_hit_point := Vector3.ZERO   # 炮管实际指向命中点（供实际指向标记）
 var last_query_events: Array = []      # 005：最近一次开火的统一查询事件（调试/证据用；只读展示）
 var _aim_query_cache: Dictionary = {}  # 005-R1：物理阶段统一查询缓存（实际指向标记同源）
@@ -29,10 +36,12 @@ var _tracer_mesh: ImmediateMesh
 var _tracer_mat: StandardMaterial3D
 var _tracer_left := 0.0
 
-func setup(t: TankVehicle, tr: TurretRig, w: WeaponDefinition = null) -> void:
+func setup(t: TankVehicle, tr: TurretRig, w: WeaponDefinition = null, s: ShellDefinition = null) -> void:
 	tank = t
 	turret = tr
 	weapon = w
+	shell = s
+	rounds_remaining = w.initial_rounds if w != null else 30   # 006：单武器初始弹数（测试配额）
 
 func _exclude() -> Array[RID]:
 	var ex: Array[RID] = []
@@ -103,6 +112,9 @@ func _current_round() -> int:
 	return round_provider.call() if round_provider.is_valid() else -1
 
 func try_fire() -> bool:
+	# 006：发射流程——检查暂停/实体/输入 → 冷却/宽限/火键门/弹药 → 炮根-炮口遮挡
+	# → 冻结真实炮口/方向/速度/身份 → 管理器接收该发 → 扣弹/装填/编号/计数 → 特效。
+	# 这里不查远处目标并登记命中（实际撞击由管理器推进后经事件送达）。
 	if cooldown_left > 0.0:
 		blocked_reason = "cooldown"
 		last_shot_result = "blocked:cooldown"
@@ -110,6 +122,15 @@ func try_fire() -> bool:
 	if resume_grace > 0.0:
 		blocked_reason = "grace"
 		last_shot_result = "blocked:grace"
+		return false
+	if rounds_remaining <= 0:
+		blocked_reason = "no_ammo"
+		last_shot_result = "blocked:no_ammo"
+		return false
+	if projectile_manager == null:
+		# 装配缺失：保守拒绝（不扣弹、不装填、不计数）
+		blocked_reason = "invalid_spawn"
+		last_shot_result = "blocked:invalid_spawn"
 		return false
 	# 炮根 → 炮口 遮挡检查：炮管穿墙时禁止开火
 	var root := turret.barrel_pivot.global_position
@@ -122,96 +143,55 @@ func try_fire() -> bool:
 			blocked_reason = "barrel_occluded"
 			last_shot_result = "blocked:barrel_occluded"
 			return false
-	# 炮口实际方向命中查询（003-R1：射程来自 WeaponDefinition）
-	# 003-R2：通过全部开火检查后先分配射击身份、冻结发射上下文——
-	# round_id 取开火时刻（不在命中送达时补填）；每次成功发射消耗一个编号
-	shot_id += 1
-	var identity := {
+	# 冻结发射上下文：真实炮口、炮管方向、车体速度、身份（round_id 取开火时刻）
+	var dir := turret.barrel_direction()
+	if not muz.is_finite() or not dir.is_finite():
+		blocked_reason = "invalid_spawn"
+		last_shot_result = "blocked:invalid_spawn"
+		return false
+	var next_shot_id := shot_id + 1
+	if shell == null:
+		blocked_reason = "invalid_shell"
+		last_shot_result = "blocked:invalid_shell"
+		return false
+	var muzzle_velocity: float = shell.muzzle_velocity_mps
+	if not is_finite(muzzle_velocity) or muzzle_velocity <= 0.0:
+		blocked_reason = "invalid_shell"
+		last_shot_result = "blocked:invalid_shell"
+		return false
+	var gravity_world := Vector3(0.0, -9.81, 0.0) * shell.gravity_scale
+	var max_age: float = shell.max_flight_time_s
+	var max_dist: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
+	var spec := {
 		"round_id": _current_round(),
 		"shooter_id": shooter_id,
 		"shooter_life_id": tank.life_id,
-		"shot_id": shot_id,
-		"target_id": "",
-		"target_life_id": 0,
+		"shooter_team_id": shooter_team_id,
+		"shot_id": next_shot_id,
+		"shell_id": shell.id,
+		"position_world": muz,
+		"velocity_world": dir * muzzle_velocity + tank.velocity,
+		"gravity_world": gravity_world,
+		"max_age_s": max_age,
+		"max_distance_m": max_dist,
 	}
-	var range: float = weapon.gun_range if weapon != null else GameConfig.GUN_RANGE
-	var dir := turret.barrel_direction()
-	var end := muz + dir * range
-	# 005-R1：统一命中查询——保留原始完整线段（世界遮挡作为结果接触，不提前截断 to_world，
-	# 墙后候选保留并标注遮挡）；有效外部接触由 ExternalContactSelector 统一选取：
-	# 车辆命中只认"首个有效装甲外表面接触"；模块/乘员是内部候选，不参与本轮计分；
-	# 查询不完整/失败 → 保守未决（unresolved），不产生车辆命中，也不假装畅通。
-	var ws_result := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state, muz, dir, range, _exclude())
-	var world_contact: Dictionary = ws_result.get("contact", {}) if ws_result.get("hit", false) else {}
-	var world_collider: Object = world_contact.get("collider", null) if not world_contact.is_empty() else null
-	if not ws_result.get("ok", false):
-		# 输入或物理空间无效 → 未决：不伪造命中、也不当没有墙
-		last_query_events = []
-		last_shot_result = "unresolved"
-		_spawn_tracer(muz, end)
-		turret.kick_recoil()
-		cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
-		shots_fired += 1
-		blocked_reason = ""
-		return true
-	var snapshots: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
-	var qr := ShotQueryService.query({
-		"query_id": "shot_%s_%d" % [shooter_id, shot_id],
-		"physics_tick": Engine.get_physics_frames(),
-		"from_world": muz,
-		"to_world": end,
-		"excluded_instances": [{"entity_id": tank.entity_id, "life_id": tank.life_id}],
-		"include_modules": true,
-		"include_crew": false,
-		"world_stop": world_contact,
-	}, snapshots)
-	last_query_events = qr.get("events", [])
-	var sel := ExternalContactSelector.select_contact(qr)
-	var contact_end := end
-	var hit_vehicle := false
-	match sel.get("status", "unresolved"):
-		"vehicle":
-			# 首个有效装甲外表面接触在墙前 → 命中该实体（几何查询结果，非物理粗碰撞）
-			var ev: Dictionary = sel["event"]
-			var target := _find_vehicle(str(ev.get("entity_id", "")), int(ev.get("life_id", 0)))
-			if target != null:
-				identity["target_id"] = target.entity_id
-				identity["target_life_id"] = target.life_id
-				target.register_hit(identity)
-				hit_vehicle = true
-				contact_end = ev.get("point_world", end)
-		"world":
-			# 最近世界遮挡：靶板等世界对象只触发自身反馈，不产生任务事件
-			if world_collider != null and world_collider.has_method("register_hit"):
-				world_collider.register_hit({})
-			contact_end = sel["contact"].get("point_world", end)
-		_:
-			pass   # miss / unresolved：不产生计分事件；示踪线终点 = 完整线段终点
-	last_shot_result = "hit" if hit_vehicle else ("unresolved" if sel.get("status", "") == "unresolved" else "miss")
-	_spawn_tracer(muz, contact_end)
-	turret.kick_recoil()
+	var spawn := projectile_manager.try_spawn(spec)
+	if not spawn.get("ok", false):
+		# 拒绝发射不扣弹、不装填、不增加射击计数
+		blocked_reason = str(spawn.get("reason", "invalid_spawn"))
+		last_shot_result = "blocked:" + blocked_reason
+		return false
+	# 只有 ok=true 后一次性提交扣弹、冷却、编号与计数（无 await，不触发可重入开火信号）
+	shot_id = next_shot_id
+	rounds_remaining -= 1
 	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
 	shots_fired += 1
 	blocked_reason = ""
+	last_shot_result = "fired"
+	last_query_events = []
+	_spawn_tracer(muz, muz + dir * 0.6)   # 006：仅炮口闪光（短线段）；不再画到未来目标
+	turret.kick_recoil()
 	return true
-
-func _find_vehicle(entity_id: String, life_id: int) -> TankVehicle:
-	# 005：按快照事件身份找实际车辆实例（临时查找，不持有 Node 引用）。
-	# 递归遍历整棵树（-s 脚本模式下 current_scene 可能为 null，实体可能在任意层级）。
-	var tree := get_tree()
-	if tree == null:
-		return null
-	return _find_vehicle_in(tree.root, entity_id, life_id)
-
-func _find_vehicle_in(node: Node, entity_id: String, life_id: int) -> TankVehicle:
-	for c in node.get_children():
-		if c is VehicleActor and c.tank != null and is_instance_valid(c.tank) \
-				and c.tank.entity_id == entity_id and c.tank.life_id == life_id:
-			return c.tank
-		var r := _find_vehicle_in(c, entity_id, life_id)
-		if r != null:
-			return r
-	return null
 
 func _ray(from: Vector3, dir: Vector3, dist: float) -> Dictionary:
 	# 005-R1 收尾 A：hit_from_inside=true——炮根/炮口位于实体墙内部时仍识别遮挡
@@ -269,10 +249,13 @@ func _update_effects(delta: float) -> void:
 			_tracer.visible = false
 
 func reset_state() -> void:
+	# 003：单车/整场重置——清零瞬时状态；006：恢复弹药测试配额
+	# （普通暂停、F6 打开关闭不补弹；只有重置路径恢复）
 	cooldown_left = 0.0
 	resume_grace = 0.0
 	blocked_reason = ""
 	last_shot_result = ""
+	rounds_remaining = weapon.initial_rounds if weapon != null else 30
 	_tracer_left = 0.0
 	if _tracer != null:
 		_tracer.visible = false

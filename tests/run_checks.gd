@@ -771,6 +771,7 @@ func _run() -> void:
 	slow_w.barrel_pitch_max = 20.0
 	var slow_s := ShellDefinition.new()
 	slow_s.id = "test_slow_shell"
+	slow_s.muzzle_velocity_mps = 300.0   # 006：运行弹种必须正初速（零初速占位约定取消）
 	defs2.vehicles["test_slow"] = slow_v
 	defs2.weapons["test_slow_gun"] = slow_w
 	defs2.shells["test_slow_shell"] = slow_s
@@ -797,6 +798,7 @@ func _run() -> void:
 	fast_w.barrel_pitch_max = 20.0
 	var fast_s := ShellDefinition.new()
 	fast_s.id = "test_fast_shell"
+	fast_s.muzzle_velocity_mps = 300.0   # 006：运行弹种必须正初速（零初速占位约定取消）
 	defs2.vehicles["test_fast"] = fast_v
 	defs2.weapons["test_fast_gun"] = fast_w
 	defs2.shells["test_fast_shell"] = fast_s

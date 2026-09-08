@@ -13,3 +13,4 @@ reload_time = 2.0
 gun_range = 200.0
 barrel_pitch_min = -8.0
 barrel_pitch_max = 20.0
+initial_rounds = 30
