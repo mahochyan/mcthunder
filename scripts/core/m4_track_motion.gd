@@ -17,7 +17,7 @@ func build(parent: Node3D, layer: int) -> void:
 			var mesh := BoxMesh.new()
 			mesh.size = Vector3(0.30,0.022,0.07) if pad else Vector3(0.43,0.075,0.11)
 			var material := StandardMaterial3D.new()
-			material.albedo_color = M4VoxelDetails.RUBBER if pad else M4VoxelDetails.STEEL
+			material.albedo_color = M4LowPolyDetails.RUBBER if pad else M4LowPolyDetails.STEEL
 			material.roughness = 0.9
 			mesh.material = material
 			var multimesh := MultiMesh.new()

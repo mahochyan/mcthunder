@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "objective": "体素/低模方块风，尽可能还原战争雷霆陆战内容",
+  "objective": "原创low-poly低多边形装甲游戏，外形尽量贴近原型，玩法尽可能还原战争雷霆陆战内容",
   "authorization": "2026-09-08 user: 按照计划完成后续开发",
   "current_order": "012",
   "engine": "4.7.2.stable.official.ed1daf0bf",
@@ -198,5 +198,6 @@
       "code_sha": "a853fcdfb23bda47db1a501cbaa413c26e506b48",
       "engineering": "passed_self_review"
     }
-  }
+  },
+  "visual_strategy": "docs/ART_DIRECTION_LOW_POLY.md"
 }

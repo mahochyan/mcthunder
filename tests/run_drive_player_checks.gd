@@ -28,6 +28,11 @@ func _tap(code: Key) -> void:
 	await _key(code,false)
 func _click(button: Control) -> void:
 	var point := button.get_global_rect().get_center()
+	var motion := InputEventMouseMotion.new()
+	motion.position = point
+	motion.global_position = point
+	Input.parse_input_event(motion)
+	await _frames(2)
 	for pressed in [true,false]:
 		var event := InputEventMouseButton.new()
 		event.position = point

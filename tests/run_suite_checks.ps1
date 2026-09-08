@@ -1,5 +1,5 @@
 param(
-    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks'),
+    [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks'),
     [int]$TimeoutSeconds = 240,
     [string]$Order = '007'
 )
@@ -13,7 +13,10 @@ New-Item -ItemType Directory -Force -Path $runPath | Out-Null
 $engineVersion = (& $engine --version).Trim()
 $summary = [System.Collections.Generic.List[object]]::new()
 $steps = @(@{Name='import'; Args='--headless --path "' + $projectRoot + '" --editor --import'})
-foreach ($suite in $Suites) { $steps += @{Name=$suite; Args='--headless --path "' + $projectRoot + '" -s "res://tests/' + $suite + '.gd"'} }
+foreach ($suite in $Suites) {
+    $simulationClock = if ($suite -eq 'run_ai_drive_checks') { ' --fixed-fps 60' } else { '' }
+    $steps += @{Name=$suite; Args='--headless --path "' + $projectRoot + '"' + $simulationClock + ' -s "res://tests/' + $suite + '.gd"'}
+}
 foreach ($step in $steps) {
     $stdout = Join-Path $runPath ($step.Name + '_stdout.log')
     $stderr = Join-Path $runPath ($step.Name + '_stderr.log')

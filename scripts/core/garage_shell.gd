@@ -29,7 +29,7 @@ func _ready() -> void:
 	var vertical := VBoxContainer.new()
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
-	CoreUI.label(vertical,"MCTHUNDER   /   体素装甲",30)
+	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
 	CoreUI.label(vertical,"核心训练候选 0.1  ·  M4A3 外形工程样车  ·  性能参数为训练设计值",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -83,6 +83,7 @@ func _ready() -> void:
 	controls.add_child(labs)
 	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"],["terrain","地形"]]:
 		CoreUI.button(labs,item[1],func() -> void: laboratory_requested.emit(item[0]))
+	CoreUI.button(controls,"电脑驾驶实验室",func() -> void: laboratory_requested.emit("ai_drive"))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)
@@ -106,7 +107,7 @@ func _ready() -> void:
 		if not extra.name.begins_with("Wire_"):
 			preview._extra_nodes.erase(extra)
 			extra.queue_free()
-	M4VoxelDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
+	M4LowPolyDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
 	_collect_preview_extras(preview)
 	var camera := Camera3D.new()
 	camera.fov = 38

@@ -99,13 +99,14 @@ func set_controller(ctrl: Node) -> void:
 	# 003-R2：控制者变更时清空暂存（不跨绑定继承旧请求）
 	_mailbox.clear()
 	if controller != null:
+		if controller != ctrl and controller.has_method("on_detached"): controller.on_detached()
 		controller.cam_rig = null
 		controller.gunner = null
 	controller = ctrl
 	if controller != null:
 		controller.cam_rig = cam_rig
 		controller.gunner = gunner
-		cam_rig.set_local_control(true)
+		cam_rig.set_local_control(not controller.has_method("is_local_controller") or controller.is_local_controller())
 	else:
 		cam_rig.set_local_control(false)
 
@@ -192,6 +193,7 @@ func clear_commands() -> void:
 func _exit_tree() -> void:
 	# 003-R1：销毁后引用清理（控制者不再指向已释放组件）
 	if controller != null:
+		if controller.has_method("on_detached"): controller.on_detached()
 		controller.cam_rig = null
 		controller.gunner = null
 
@@ -221,7 +223,12 @@ func _physics_process(delta: float) -> void:
 	if is_instance_valid(gunner):
 		gunner.advance_timers(delta)
 	if controller != null:
-		submit_command(controller.poll())
+		var before_generation := state.generation
+		var bound_controller := controller
+		var next_command: VehicleCommand = controller.poll()
+		if not is_instance_valid(self): return
+		if state.generation == before_generation and controller == bound_controller and not state.destroyed:
+			submit_command(next_command)
 	var cmd := _mailbox.consume()
 	_consume_count += 1
 	if debug_command_trace:

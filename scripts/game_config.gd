@@ -41,6 +41,15 @@ const DRIVE_PROBE_DOWN_M := 1.8
 const DRIVE_POSE_DEG_PER_SECOND := 120.0
 const DRIVE_COLLISION_SIZE := Vector3(2.6,1.5,4.2)
 const DRIVE_COLLISION_CENTER := Vector3(0,0.75,0)
+const AI_NAV_MARGIN_M := 0.6
+const AI_REPLAN_INTERVAL_S := 1.0
+const AI_STUCK_WINDOW_S := 2.0
+const AI_STUCK_PROGRESS_M := 0.35
+const AI_RECOVERY_ATTEMPTS := 3
+const AI_REVERSE_SECONDS := 1.2
+const AI_TURN_RECOVERY_SECONDS := 0.7
+const AI_GOAL_RADIUS_M := 1.6
+const AI_OBSTACLE_LOOKAHEAD_M := 2.0
 
 # --- 瞄准与相机 ---
 const TURRET_YAW_SPEED := 35.0   # 炮塔回转上限 deg/s（不瞬间旋转）

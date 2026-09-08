@@ -24,7 +24,7 @@ func _ready() -> void:
 	cam.far = 400.0
 	cam.fov = GameConfig.MAIN_FOV
 	add_child(cam)
-	cam.current = true
+	cam.current = false # VehicleActor explicitly assigns the local controller's camera.
 	cam.position = Vector3(0, 1.0, 6.5)
 
 func set_aim(yaw: float, pitch: float) -> void:

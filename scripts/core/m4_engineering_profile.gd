@@ -100,7 +100,7 @@ static func apply(actor: VehicleActor) -> void:
 	var profile := layout(actor.state._damage_layout.recovery_enabled)
 	actor.set_damage_layout(profile)
 	build_skin(actor.tank,actor.turret,profile,actor.tank.visual_layer)
-	M4VoxelDetails.build(actor.tank,actor.turret,actor.turret.barrel_pivot,actor.tank.visual_layer)
+	M4LowPolyDetails.build(actor.tank,actor.turret,actor.turret.barrel_pivot,actor.tank.visual_layer)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 	for child in actor.get_children():
 		if child is RecoveryVisuals: child.refresh_materials()

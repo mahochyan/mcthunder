@@ -40,12 +40,17 @@ func _run() -> void:
 			var arrays := visual.mesh.surface_get_arrays(0)
 			for vertex in arrays[Mesh.ARRAY_VERTEX]: mesh_ok = mesh_ok and patch.vertices_local_m.has(vertex)
 	_check(mesh_ok and profile.armor_patches.size() > 40,"all silhouette armor skins render actual finite query vertices")
-	var voxel_count := 0
+	var detail_instances := 0
+	var detail_triangles := 0
 	var draw_groups := 0
 	for mesh in tank.find_children("*","MultiMeshInstance3D",true,false):
-		voxel_count += mesh.multimesh.instance_count
+		detail_instances += mesh.multimesh.instance_count
+		var arrays: Array = mesh.multimesh.mesh.surface_get_arrays(0)
+		var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX] != null else PackedInt32Array()
+		var triangles: int = indices.size()/3 if not indices.is_empty() else (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()/3
+		detail_triangles += triangles*mesh.multimesh.instance_count
 		draw_groups += 1
-	_check(voxel_count > 4000 and draw_groups < 40,"detailed wheels tracks and fittings use bounded instanced batches (%d voxels / %d groups)"%[voxel_count,draw_groups])
+	_check(detail_instances > 0 and detail_triangles < 18000 and draw_groups < 40,"low-poly mechanical detail mesh stays within recorded budget (%d instances / %d triangles / %d groups)"%[detail_instances,detail_triangles,draw_groups])
 	_place(Vector3(0,0.05,0))
 	_step(240,1,0)
 	print("[drive10] ",tank.global_position," slope=",tank.ground_state.slope_deg," pose=",tank.global_rotation_degrees)

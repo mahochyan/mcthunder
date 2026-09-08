@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "map_id": "ai_drive_training",
+  "nodes": [
+    {"id":"start","position":[0,0,6]},
+    {"id":"approach","position":[0,0,-8]},
+    {"id":"west_start","position":[-12,0,6]},
+    {"id":"east_start","position":[12,0,6]},
+    {"id":"west","position":[-12,0,-8]},
+    {"id":"east","position":[12,0,-8]},
+    {"id":"northwest","position":[-12,0,-34]},
+    {"id":"northeast","position":[12,0,-34]},
+    {"id":"goal","position":[0,0,-42]},
+    {"id":"narrow_goal","position":[24,0,-30]}
+  ],
+  "edges": [
+    {"a":"start","b":"approach","width":6},
+    {"a":"start","b":"west_start","width":6},
+    {"a":"start","b":"east_start","width":6},
+    {"a":"west_start","b":"west","width":6},
+    {"a":"east_start","b":"east","width":6},
+    {"a":"approach","b":"west","width":6},
+    {"a":"approach","b":"east","width":6},
+    {"a":"west","b":"northwest","width":6},
+    {"a":"east","b":"northeast","width":6},
+    {"a":"northwest","b":"goal","width":6},
+    {"a":"northeast","b":"goal","width":6},
+    {"a":"east","b":"narrow_goal","width":2}
+  ]
+}

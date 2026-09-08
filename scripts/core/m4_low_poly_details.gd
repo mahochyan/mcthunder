@@ -1,6 +1,6 @@
-class_name M4VoxelDetails
+class_name M4LowPolyDetails
 extends RefCounted
-## Instanced voxel details grouped by part/material: small features without one draw call per block.
+## Low-poly mechanical fittings. Circular parts use faceted cylinders; plates retain planar geometry.
 const OLIVE := Color("626d49")
 const EDGE := Color("87906b")
 const DARK := Color("30372c")
@@ -9,42 +9,67 @@ const STEEL := Color("555c50")
 var groups: Dictionary = {}
 
 func cube(parent: Node3D, p: Vector3, s: Vector3, color: Color, rotation: Vector3 = Vector3.ZERO) -> void:
-	var key := str(parent.get_instance_id())+color.to_html()
-	if not groups.has(key): groups[key] = {"parent":parent,"color":color,"transforms":[]}
-	groups[key].transforms.append(Transform3D(Basis.from_euler(rotation).scaled(s),p))
+	instance(parent,Transform3D(Basis.from_euler(rotation)*Basis.from_scale(s),p),color,"plate")
+
+func instance(parent: Node3D, pose: Transform3D, color: Color, kind: String) -> void:
+	var key := str(parent.get_instance_id())+color.to_html()+kind
+	if not groups.has(key): groups[key] = {"parent":parent,"color":color,"kind":kind,"transforms":[]}
+	groups[key].transforms.append(pose)
 
 func disk(parent: Node3D, p: Vector3, radius: float, width: float, color: Color, axis: String = "x") -> void:
-	# Voxel cross-section, with an actual stepped perimeter instead of a square wheel.
-	var cell := 0.065
-	var count := ceili(radius/cell)
-	for a in range(-count,count):
-		for b in range(-count,count):
-			var u := (a+0.5)*cell
-			var v := (b+0.5)*cell
-			if u*u+v*v > radius*radius: continue
-			cube(parent,p+(Vector3(0,u,v) if axis == "x" else Vector3(u,0,v)),Vector3(width,cell,cell) if axis == "x" else Vector3(cell,width,cell),color)
+	var rotation := Basis(Vector3.FORWARD,PI/2) if axis == "x" else Basis.IDENTITY
+	instance(parent,Transform3D(rotation*Basis.from_scale(Vector3(radius,width,radius)),p),color,"cylinder")
+
+static func flat_mesh(source: PrimitiveMesh) -> ArrayMesh:
+	var arrays := source.get_mesh_arrays()
+	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+	var points := PackedVector3Array()
+	var normals := PackedVector3Array()
+	for i in range(0,indices.size(),3):
+		var a := vertices[indices[i]]
+		var b := vertices[indices[i+1]]
+		var c := vertices[indices[i+2]]
+		var normal := -(b-a).cross(c-a).normalized() # Godot rendering uses clockwise faces.
+		points.append_array(PackedVector3Array([a,b,c]))
+		normals.append_array(PackedVector3Array([normal,normal,normal]))
+	var result: Array = []
+	result.resize(Mesh.ARRAY_MAX)
+	result[Mesh.ARRAY_VERTEX] = points
+	result[Mesh.ARRAY_NORMAL] = normals
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,result)
+	return mesh
 
 func finish(layer: int) -> void:
+	var unit_box := BoxMesh.new()
+	unit_box.size = Vector3.ONE
+	var cylinder := CylinderMesh.new()
+	cylinder.top_radius = 1
+	cylinder.bottom_radius = 1
+	cylinder.height = 1
+	cylinder.radial_segments = 16
+	cylinder.rings = 1
+	var unit_cylinder := flat_mesh(cylinder)
 	for group in groups.values():
-		var mesh := BoxMesh.new()
-		mesh.size = Vector3.ONE
+		var mesh: Mesh = unit_cylinder if group.kind == "cylinder" else unit_box
 		var material := StandardMaterial3D.new()
 		material.albedo_color = group.color
 		material.roughness = 0.9
-		mesh.material = material
 		var instances := MultiMesh.new()
 		instances.transform_format = MultiMesh.TRANSFORM_3D
 		instances.mesh = mesh
 		instances.instance_count = group.transforms.size()
 		for i in instances.instance_count: instances.set_instance_transform(i,group.transforms[i])
 		var node := MultiMeshInstance3D.new()
-		node.name = "Cosmetic_VoxelDetails"
+		node.name = "Cosmetic_LowPolyDetails"
 		node.multimesh = instances
 		node.layers = layer
+		node.material_override = material
 		group.parent.add_child(node)
 
 static func build(hull: Node3D, turret: Node3D, gun: Node3D, layer: int) -> void:
-	var b := M4VoxelDetails.new()
+	var b := M4LowPolyDetails.new()
 	for side in [-1,1]:
 		var x: float = side*1.2
 		# Three VVSS bogies, paired wheels, triangular arms and vertical spring housings.
@@ -110,13 +135,43 @@ static func build(hull: Node3D, turret: Node3D, gun: Node3D, layer: int) -> void
 	var recoil := Node3D.new()
 	recoil.name = "RecoilVisual"
 	gun.add_child(recoil)
-	for i in 30:
-		var radius := 0.115-i*0.0014
-		b.cube(recoil,Vector3(0,0,-0.25-i*0.073),Vector3(radius*2,radius*2,0.08),STEEL)
-	# Muzzle hole: four walls with a recessed dark bore, no muzzle brake on this 75-mm silhouette.
-	for side in [-1,1]:
-		b.cube(recoil,Vector3(side*0.065,0,-2.44),Vector3(0.025,0.155,0.05),EDGE)
-		b.cube(recoil,Vector3(0,side*0.065,-2.44),Vector3(0.105,0.025,0.05),EDGE)
-	b.cube(recoil,Vector3(0,0,-2.415),Vector3(0.1,0.1,0.01),Color("111811"))
+	var tube := CylinderMesh.new()
+	tube.top_radius = 0.115
+	tube.bottom_radius = 0.075
+	tube.height = 2.2
+	tube.radial_segments = 16
+	tube.rings = 1
+	tube.cap_bottom = false
+	tube.cap_top = false
+	var tube_mesh := MeshInstance3D.new()
+	tube_mesh.name = "Cosmetic_TaperedBarrel"
+	tube_mesh.mesh = flat_mesh(tube)
+	tube_mesh.rotation.x = PI/2
+	tube_mesh.position.z = -1.35
+	tube_mesh.layers = layer
+	var gun_material := StandardMaterial3D.new()
+	gun_material.albedo_color = STEEL
+	gun_material.roughness = 0.86
+	tube_mesh.material_override = gun_material
+	recoil.add_child(tube_mesh)
+	var lip := TorusMesh.new()
+	lip.inner_radius = 0.039
+	lip.outer_radius = 0.075
+	lip.rings = 16
+	lip.ring_segments = 4
+	var lip_mesh := MeshInstance3D.new()
+	lip_mesh.name = "Cosmetic_MuzzleLip"
+	lip_mesh.mesh = flat_mesh(lip)
+	lip_mesh.rotation.x = PI/2
+	lip_mesh.position.z = -2.445
+	lip_mesh.layers = layer
+	lip_mesh.material_override = gun_material
+	recoil.add_child(lip_mesh)
+	# Recessed bore, kept behind the open muzzle ring.
+	var bore := Node3D.new()
+	bore.rotation.x = PI/2
+	bore.position.z = -2.41
+	recoil.add_child(bore)
+	b.disk(bore,Vector3.ZERO,0.045,0.01,Color("111811"),"y")
 	b.finish(layer)
 	M4TrackMotion.new().build(hull,layer)
