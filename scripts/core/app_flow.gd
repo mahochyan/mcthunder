@@ -23,6 +23,14 @@ func _ready() -> void:
 	ui_layer.layer = 10
 	add_child(ui_layer)
 	return_to_garage()
+	if args.has("--export-smoke"):
+		var smoke := load("res://tests/run_export_checks.gd").new() as Node
+		add_child(smoke)
+		smoke.call_deferred("run",self)
+	elif args.has("--team-play-check"):
+		var demo := load("res://tests/run_team_slice_demo.gd").new() as Node
+		add_child(demo)
+		demo.call_deferred("run",self)
 
 func _clear_training() -> void:
 	get_tree().paused = false

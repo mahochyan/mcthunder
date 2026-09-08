@@ -7,7 +7,20 @@ var capture_owner := 0
 var has_point := true
 var high_contrast := false
 var map_rect := Rect2()
-var roads: Dictionary = {}
+var _road_segments := PackedVector3Array()
+var road_preparations := 0
+var roads: Dictionary = {}:
+	set(value):
+		roads = value.duplicate(true)
+		_road_segments.clear()
+		road_preparations += 1
+		if roads.is_empty(): return
+		var nav := DriveNavigator.new()
+		if not nav.configure(roads).ok: return
+		for edge in roads.edges:
+			if not edge.get("road_visual",true): continue
+			_road_segments.append(nav.nodes[edge.a])
+			_road_segments.append(nav.nodes[edge.b])
 func _ready() -> void:
 	custom_minimum_size = Vector2(206,206)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -22,12 +35,8 @@ func _draw() -> void:
 	map_rect = Rect2((size-world_rect.size*scale_factor)/2,world_rect.size*scale_factor)
 	draw_rect(map_rect,Color("354738"))
 	draw_rect(map_rect,Color("b5c2b3"),false,1)
-	if not roads.is_empty():
-		var nav := DriveNavigator.new()
-		nav.configure(roads)
-		for edge in roads.edges:
-			if not edge.get("road_visual",true): continue
-			draw_line(project(nav.nodes[edge.a]),project(nav.nodes[edge.b]),Color("918e70"),2,true)
+	for i in range(0,_road_segments.size(),2):
+		draw_line(project(_road_segments[i]),project(_road_segments[i+1]),Color("918e70"),2,true)
 	for rectangle in obstacles:
 		var p := project(Vector3(rectangle.position.x,0,rectangle.position.y))
 		draw_rect(Rect2(p,rectangle.size*scale_factor),Color("8b8368"))

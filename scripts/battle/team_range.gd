@@ -22,6 +22,8 @@ var spectator: Camera3D
 var spectator_index := 0
 var shield_visuals: Dictionary = {}
 var battle_ui: BattleUI
+var match_seed := 1600
+var ai_only := false # Explicit scenario-runner configuration; normal garage play is false.
 
 func _ready() -> void:
 	super._ready()
@@ -29,6 +31,7 @@ func _ready() -> void:
 	director = TeamMatchDirector.new()
 	add_child(director)
 	director.begin()
+	if ai_only: director.state.roster.A.player = false
 	nav.configure(navigation_graph())
 	director.respawns.spawn_provider = Callable(self,"spawn_slot")
 	director.round_started.connect(_start_playing)
@@ -62,6 +65,10 @@ func _ready() -> void:
 	spectator.position = Vector3(-30,28,55)
 	add_child(spectator)
 	spectator.look_at(Vector3.ZERO)
+	if ai_only:
+		spectator.position = Vector3(-115,60,125)
+		spectator.look_at(Vector3.ZERO)
+		spectator.current = true
 	controller.commands_enabled = false
 	controller.reset_pending()
 	team_ready = true
@@ -112,14 +119,15 @@ func spawn_slot(id: String) -> VehicleActor:
 	_configure_vehicle(vehicle,id)
 	if id == "A":
 		actor = vehicle
-		vehicle.set_controller(controller)
-		controller.reset_pending()
-		controller.require_fire_release()
-		controller.commands_enabled = true
-		if is_instance_valid(spectator): spectator.current = false
-		vehicle.cam_rig.cam.current = true
-		if is_instance_valid(waiting_panel): waiting_panel.visible = false
-		if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		if not ai_only:
+			vehicle.set_controller(controller)
+			controller.reset_pending()
+			controller.require_fire_release()
+			controller.commands_enabled = true
+			if is_instance_valid(spectator): spectator.current = false
+			vehicle.cam_rig.cam.current = true
+			if is_instance_valid(waiting_panel): waiting_panel.visible = false
+			if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	return vehicle
 
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
@@ -156,11 +164,11 @@ func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 	shield.material_override = material
 	vehicle.tank.add_child(shield)
 	shield_visuals[vehicle.life_id] = {"actor":weakref(vehicle),"mesh":shield}
-	if id != "A":
+	if id != "A" or ai_only:
 		var ai := AITankController.new()
 		vehicle.add_child(ai)
 		var index := 0 if id.length() == 1 else int(id.substr(1))-1
-		ai.configure(vehicle,nav,Callable(self,"combat_actors"),"normal",1600+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
+		ai.configure(vehicle,nav,Callable(self,"combat_actors"),"normal",match_seed+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
 		ai.advance_while_engaged = true
 		ai.set_patrol(objective_goal(vehicle.state.team_id,index),spawn_candidates(vehicle.state.team_id)[index].origin*Vector3(1,0,1))
 		vehicle.set_controller(ai)
@@ -208,7 +216,7 @@ func _on_lost(id: String) -> void:
 	# A previous player hull becomes ordinary visible cover in the next life's gunsight.
 	for geometry in vehicle.tank.find_children("*","GeometryInstance3D",true,false): geometry.layers = 4
 	wrecks.register(vehicle)
-	if id == "A":
+	if id == "A" and not ai_only:
 		controller.commands_enabled = false
 		controller.reset_pending()
 		spectator.current = true
