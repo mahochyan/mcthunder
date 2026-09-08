@@ -25,6 +25,7 @@ func _ready() -> void:
 	projectiles.projectile_contact.connect(_on_armor_contact)
 	hud.armor_training_button.visible = false
 	_build_armor_panel()
+	replay.overlay_changed.connect(func(open: bool) -> void: _armor_panel.visible = not open)
 	hud.impact_label.visible = false
 	select_case(0)
 	# Enter centered on the targets using the ordinary camera and finite turret tracking.

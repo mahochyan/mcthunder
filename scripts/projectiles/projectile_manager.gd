@@ -21,6 +21,11 @@ const END_EPS := 1.0e-9         # 寿命/路程端点容差
 signal projectile_finished(record: Dictionary)   # 终止记录（一次且完整；先标终止再发出）
 signal projectile_contact(record: Dictionary)
 signal projectile_damage(record: Dictionary)
+signal shot_record_ready(record: Dictionary)
+signal shot_records_cleared
+var shot_records := ShotRecordStore.new()
+var _record_epoch := 0
+var _notifying_record_clear := false
 var damage_handler := Callable() # Non-notifying commit to the matching live target's state.
 
 var _next_projectile_id := 1
@@ -41,6 +46,7 @@ func _exit_tree() -> void:
 	# 006：场景销毁/初始化失败——静默清理（不发出信号；旧回调不得访问已释放对象）
 	# 006-R1-B：置关闭位——之后 try_spawn 一律拒绝（manager_shutdown）
 	_shut_down = true
+	shot_records.clear()
 	_active.clear()
 	_pending.clear()
 
@@ -134,10 +140,13 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	st.position_world = pos
 	st.previous_position_world = pos
 	st.velocity_world = vel
+	st.launch_position = pos
+	st.launch_velocity = vel
 	st.gravity_world = grav
 	st.max_age_s = max_age
 	st.max_distance_m = max_dist
 	st.status = "pending"
+	ShotRecordBuilder.sample_path(st)
 	_active[st.projectile_id] = st
 	_pending.append(st.projectile_id)
 	_accepted_launches[launch_key] = true
@@ -200,6 +209,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			st.velocity_world = adv.velocity
 			st.age_s += h
 			st.travelled_m += seg_len
+			ShotRecordBuilder.sample_path(st)
 			remaining_dt -= h
 			continue
 		var dir := seg / seg_len
@@ -260,6 +270,9 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			st.velocity_world += st.gravity_world * contact_time
 			st.age_s += contact_time
 			st.travelled_m += st.previous_position_world.distance_to(impact_p)
+			ShotRecordBuilder.sample_path(st)
+			if status in ["vehicle","damage"]:
+				ev["geometry_frame"] = ShotRecordBuilder.capture_frame(st,ev,snapshots)
 			remaining_dt = maxf(0.0, remaining_dt - contact_time)
 			if status == "world":
 				var collider: Object = ev.get("collider", null)
@@ -288,6 +301,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 		st.velocity_world += st.gravity_world * used_h
 		st.age_s += used_h
 		st.travelled_m += query_len
+		ShotRecordBuilder.sample_path(st)
 		remaining_dt -= used_h
 		if alpha < 1.0:
 			finish_once(st.projectile_id, "expired_distance", {})
@@ -444,7 +458,25 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 	record["contacts"] = st.contacts.duplicate(true)
 	record["damage_records"] = st.damage_records.duplicate(true)
 	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
+	ShotRecordBuilder.sample_path(st)
+	var replay_record: Dictionary = {}
+	var record_epoch := _record_epoch
+	if not reason.begins_with("cancelled"):
+		replay_record = ShotRecordBuilder.freeze(st,record)
+		var stored := shot_records.push_bounded(replay_record)
+		if not stored.ok:
+			replay_record = {} # Invalid data cannot become an invented replay.
 	projectile_finished.emit(record)
+	if not replay_record.is_empty() and record_epoch == _record_epoch and not _shut_down and not is_queued_for_deletion():
+		shot_record_ready.emit(replay_record)
+
+func clear_records() -> void:
+	_record_epoch += 1
+	shot_records.clear()
+	if not _notifying_record_clear:
+		_notifying_record_clear = true
+		shot_records_cleared.emit()
+		_notifying_record_clear = false
 
 
 func cancel_all(reason: String) -> void:
@@ -453,6 +485,7 @@ func cancel_all(reason: String) -> void:
 	# 被拒（manager_clearing）；不再用末尾 _active.clear()/_pending.clear() 兜底
 	# （finish_once 已逐发移除，清理期间也不接收新发射）。
 	_cancel_depth += 1
+	clear_records()
 	var ids := _active.keys()
 	for pid in ids:
 		finish_once(int(pid), reason, {})
@@ -463,6 +496,7 @@ func cancel_by_shooter(shooter_id: String, shooter_life_id: int, reason: String)
 	# 单车重置：只取消该车发出的飞弹；不取消其他车辆的飞弹。
 	# 006-R1 有限收尾：与 cancel_all 同一深度门（回调内新发射被拒）。
 	_cancel_depth += 1
+	clear_records()
 	var ids := _active.keys()
 	for pid in ids:
 		var st: ProjectileState = _active.get(pid)

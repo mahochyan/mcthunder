@@ -10,6 +10,8 @@ signal damage_training_requested
 var damage_training_button: Button
 signal recovery_training_requested
 var recovery_training_button: Button
+signal replay_toggle_requested
+var replay_toggle_button: Button
 signal inspect_requested   # 004-c：暂停菜单"车辆检视"按钮
 signal training_requested  # 006：暂停菜单"弹道训练"入口（训练场中为"返回靶场"）
 
@@ -145,7 +147,10 @@ func _build() -> void:
 	_pause_root.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var vb := VBoxContainer.new()
-	_pause_root.add_child(vb)
+	var center := CenterContainer.new()
+	_pause_root.add_child(center)
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.add_child(vb)
 	var title := Label.new()
 	title.text = S.paused
 	title.add_theme_font_size_override("font_size", 32)
@@ -184,7 +189,11 @@ func _build() -> void:
 	recovery_training_button.custom_minimum_size = Vector2(160,44)
 	recovery_training_button.pressed.connect(func() -> void: recovery_training_requested.emit())
 	vb.add_child(recovery_training_button)
-	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	replay_toggle_button = Button.new()
+	replay_toggle_button.text = "Auto Replay: ON"
+	replay_toggle_button.custom_minimum_size = Vector2(190,44)
+	replay_toggle_button.pressed.connect(func() -> void: replay_toggle_requested.emit())
+	vb.add_child(replay_toggle_button)
 
 func set_training_button_text(training: bool) -> void:
 	# 006：训练场中按钮语义 = 返回靶场

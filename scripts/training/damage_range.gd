@@ -35,6 +35,7 @@ func _ready() -> void:
 	hud.damage_training_button.visible = false
 	hud.impact_label.visible = false
 	_build_panel()
+	replay.overlay_changed.connect(func(open: bool) -> void: _status.get_parent().get_parent().visible = not open)
 
 func _build_world() -> void:
 	_add_wall(Vector3(0,-0.3,-25),Vector3(90,0.6,110))
@@ -101,6 +102,7 @@ func projectile_exclude_rids(shooter_id: String, shooter_life_id: int) -> Array[
 func switch_control() -> void:
 	if _paused or not is_instance_valid(target_actor):
 		return
+	replay.close()
 	actor.set_controller(null)
 	controller.reset_pending()
 	controller.require_fire_release()

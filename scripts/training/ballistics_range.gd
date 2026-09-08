@@ -14,6 +14,7 @@ var controller: PlayerController
 var actor: VehicleActor
 var projectiles: ProjectileManager
 var hud: HUD
+var replay: ReplayController
 var _paused := false
 var _initialized := false
 var _last_impact: Dictionary = {}   # 006：最近飞弹终止（HUD 展示）
@@ -82,6 +83,10 @@ func _ready() -> void:
 	hud.damage_training_requested.connect(_open_damage_training)
 	hud.recovery_training_requested.connect(_open_recovery_training)
 	hud.set_training_button_text(false)   # 训练场按钮 = 返回靶场
+	replay = ReplayController.new()
+	add_child(replay)
+	# These scenes are explicit training contexts. Future battle modes must supply their visibility policy.
+	replay.setup(projectiles,hud,func(_record: Dictionary) -> bool: return true)
 	_initialized = true
 	if DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

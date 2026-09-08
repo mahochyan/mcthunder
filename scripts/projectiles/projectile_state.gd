@@ -22,6 +22,12 @@ var contacted_targets: Dictionary = {}
 var interior_targets: Dictionary = {}
 var damage_seen: Dictionary = {}
 var damage_records: Array[Dictionary] = []
+var launch_position := Vector3.ZERO
+var launch_velocity := Vector3.ZERO
+var replay_path: Array[Dictionary] = []
+var replay_frames: Array[Dictionary] = []
+var replay_frame_keys: Dictionary = {}
+var replay_error := ""
 
 var born_physics_tick := 0      # 出生物理 tick（出生当步不推进）
 var position_world := Vector3.ZERO
