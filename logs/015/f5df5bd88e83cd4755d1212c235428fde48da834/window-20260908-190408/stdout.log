@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual window capture 00_duel_garage
+[PASS] normal garage opens complete duel
+[PASS] actual window capture 01_countdown
+[PASS] normal countdown enters real combat
+[PASS] actual window capture 01b_frontal_engagement
+FLANK player=(-27.26596, -0.019059, -16.53406) enemy=(10.92474, -0.019058, -34.62188) own={ "drive": true, "steer": true, "fire": true, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": [], "crew_alive": 5 }
+[PASS] normal W/A/D drives outside cover onto flank
+[PASS] actual window capture 02_flank
+SHOT 0 phase=finished player=(-27.21686, -0.019058, -18.78435) enemy=(10.92474, -0.019058, -34.62188) last=fired damage_events=6 own={ "drive": true, "steer": true, "fire": true, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": [], "crew_alive": 5 }
+[PASS] normal mouse shots from flank produce actual victory
+[PASS] actual window capture 03_victory_result
+[PASS] result summarizes real shots and unique death
+[PASS] normal result button starts a fresh round
+[PASS] sustained exposure lets actual AI shots and fire produce player defeat
+[PASS] actual window capture 04_defeat_result
+[PASS] normal return from battle restores garage
+[PASS] actual window capture 05_returned_garage
+=== 结果: 15 项检查, 0 失败 ===
+[render] fps=23
+DUEL_PLAYER_CHECKS_PASS

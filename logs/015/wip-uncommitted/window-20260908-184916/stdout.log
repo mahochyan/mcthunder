@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual window capture 00_duel_garage
+[PASS] normal garage opens complete duel
+[PASS] actual window capture 01_countdown
+[PASS] normal countdown enters real combat
+[PASS] actual window capture 01b_frontal_engagement
+FLANK player=(-26.25096, -0.01906, -50.35275) enemy=(3.578134, -0.019059, -8.327389) own={ "drive": true, "steer": true, "fire": false, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": ["breech"], "crew_alive": 4 }
+[PASS] normal W/A/D drives outside cover onto flank
+[PASS] actual window capture 02_flank
+[PASS] actual window capture 02b_behind_second_cover
+SHOT 0 phase=playing player=(18.93116, -0.019058, -52.5395) enemy=(-11.84785, -0.019057, -26.95305) last=blocked:vehicle_disabled damage_events=2 own={ "drive": true, "steer": true, "fire": false, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": ["breech"], "crew_alive": 4 }
+SHOT 1 phase=playing player=(18.93116, -0.019058, -52.5395) enemy=(-11.99626, -0.019057, -29.92435) last=blocked:vehicle_disabled damage_events=2 own={ "drive": true, "steer": true, "fire": false, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": ["breech"], "crew_alive": 4 }
+SHOT 2 phase=finished player=(18.93116, -0.019058, -52.5395) enemy=(-11.99626, -0.019057, -29.92435) last=blocked:vehicle_disabled damage_events=3 own={ "drive": false, "steer": false, "fire": false, "turret_speed": 0.0, "reload_rate": 0.0, "reasons": ["breech", "crew_out"], "crew_alive": 4 }
+[FAIL] normal mouse shots from flank produce actual victory
+[PASS] actual window capture 03_victory_result
+[FAIL] result summarizes real shots and unique death
+[PASS] normal result button starts a fresh round
+[PASS] sustained exposure lets actual AI shots and fire produce player defeat
+[PASS] actual window capture 04_defeat_result
+[FAIL] normal return from battle restores garage
+=== 结果: 15 项检查, 3 失败 ===
+[render] fps=31
+DUEL_PLAYER_CHECKS_FAIL

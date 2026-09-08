@@ -1,0 +1,11 @@
+{
+  "source_sha": "f5df5bd88e83cd4755d1212c235428fde48da834",
+  "uncommitted_source": false,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -s \"res://tests/run_duel_player_checks.gd\" -- --shot-dir \"res://docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408",
+  "human": "NOT_RUN"
+}
