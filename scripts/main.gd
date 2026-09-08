@@ -455,8 +455,12 @@ func _on_projectile_finished(record: Dictionary) -> void:
 	var target := find_vehicle(str(record.get("target_id", "")), int(record.get("target_life_id", 0)))
 	if target == null:
 		return
+	# 006-R1-B：目标反馈前校验记录轮次——旧轮次飞弹不得改变当前 hits_taken
+	var rec_round := int(record.get("round_id", -1))
+	if rec_round != _gate.round_id:
+		return
 	var identity := {
-		"round_id": int(record.get("round_id", -1)),
+		"round_id": rec_round,
 		"shooter_id": str(record.get("shooter_id", "")),
 		"shooter_life_id": int(record.get("shooter_life_id", 0)),
 		"shot_id": int(record.get("shot_id", 0)),

@@ -120,6 +120,12 @@ func try_fire() -> bool:
 	# 006：发射流程——检查暂停/实体/输入 → 冷却/宽限/火键门/弹药 → 炮根-炮口遮挡
 	# → 冻结真实炮口/方向/速度/身份 → 管理器接收该发 → 扣弹/装填/编号/计数 → 特效。
 	# 这里不查远处目标并登记命中（实际撞击由管理器推进后经事件送达）。
+	# 006-R1-B：暂停期间公开入口直接拒绝（在冷却/弹药/扣弹之前；恢复后可发射）
+	var tree := get_tree()
+	if tree != null and tree.paused:
+		blocked_reason = "paused"
+		last_shot_result = "blocked:paused"
+		return false
 	if cooldown_left > 0.0:
 		blocked_reason = "cooldown"
 		last_shot_result = "blocked:cooldown"

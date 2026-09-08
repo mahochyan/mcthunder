@@ -32,10 +32,12 @@ func _run() -> void:
 	await _lifecycle_checks()
 	await _muzzle_authority_checks()
 	await _determinism_checks()
+	await _r1_checks()
 	print("=== 结果: %d 项检查, %d 失败 ===" % [_pass + _fail, _fail])
 	if _fail > 0:
 		print("PROJECTILE_CHECKS_FAIL")
 		quit(1)
+		return
 	print("PROJECTILE_CHECKS_PASS")
 	quit(0)
 
@@ -121,9 +123,9 @@ func _manager_checks() -> void:
 	var r2 := _spec(3, "S1", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 8.0, 200.0).duplicate()
 	r2["position_world"] = Vector3(NAN, 0, 0)
 	_ok(mgr.try_spawn(r2).get("reason") == "invalid_spawn", "T006-01b 非有限位置拒绝")
-	var r3 := _spec(4, "S1", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 8.0, 200.0).duplicate()
+	var r3 := _spec(1, "S1", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 8.0, 200.0).duplicate()
 	r3["shot_id"] = 1
-	_ok(mgr.try_spawn(r3).get("reason") == "duplicate_launch", "T006-01b 同射手同 shot_id 重复发射拒绝")
+	_ok(mgr.try_spawn(r3).get("reason") == "duplicate_launch", "T006-01b 同轮次同射手同生命周期同 shot_id 重复发射拒绝 (006-R1-B 完整发射身份)")
 	# 容量：64 满 → 第 65 发拒绝
 	for i in 64:
 		var s := _spec(100 + i, "CAP", 1, Vector3(0, 100, 0), Vector3(0, 0, 0), 0.5, 200.0)
@@ -500,6 +502,292 @@ func _determinism_checks() -> void:
 		var t1: float = r1.get("flight_time_s", 0.0)
 		var t2: float = r2.get("flight_time_s", 0.0)
 		_ok(absf(t1 - t2) <= 1.0 / 60.0, "T006-03 飞行时间差 ≤1 物理步 (diff=%.5f)" % absf(t1 - t2))
+
+# --- 006-R1 整改反例（先存反例再修复：出生 tick 门 / 路程裁短记账 / 完整发射身份 / 暂停拒绝 / 终止顺序 / 轮次校验） ---
+
+class SpawnOnceNode extends Node3D:
+	# 006-R1-A：在物理回调内提交发射的探针——process_physics_priority 决定
+	# 它相对管理器（priority=100）的先后，用于覆盖两种提交时机
+	var mgr = null
+	var spec := {}
+	var spawned := false
+	var result := {}
+	func _physics_process(_delta: float) -> void:
+		if spawned or mgr == null:
+			return
+		spawned = true
+		result = mgr.try_spawn(spec)
+
+class ResetWall extends StaticBody3D:
+	# 006-R1-B：世界目标 register_hit 回调内触发整场重置——
+	# 回调不得二次结算该发、不得访问未提交状态
+	var hit_count := 0
+	var mgr = null
+	func register_hit(_data: Dictionary) -> void:
+		hit_count += 1
+		if mgr != null:
+			mgr.cancel_all("cancelled_reset")
+
+func _r1_checks() -> void:
+	await _r1_birth_tick_checks()
+	await _r1_clip_checks()
+	await _r1_identity_pause_checks()
+	await _r1_finish_order_checks()
+	await _r1_round_gate_check()
+
+func _r1_birth_tick_checks() -> void:
+	# 两种提交时机（管理器之前 priority=50 / 之后 priority=200）：
+	# 出生 tick 都不得推进（位置/年龄/路程不变），下一 tick 才推进。
+	for prio in [50, 200]:
+		var holder := Node3D.new()
+		holder.name = "R1Birth%d" % prio
+		root.add_child(holder)
+		var mgr := ProjectileManager.new()
+		holder.add_child(mgr)
+		mgr.snapshot_provider = Callable(self, "empty_snapshots")
+		mgr.exclude_provider = Callable(self, "empty_excludes")
+		await process_frame
+		var node := SpawnOnceNode.new()
+		node.process_physics_priority = prio
+		holder.add_child(node)
+		node.mgr = mgr
+		node.spec = _spec(1, "R1B%d" % prio, 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+		node.spec["gravity_world"] = Vector3.ZERO   # 无重力：每步恰 5m，便于精确断言
+		node.spec["shot_id"] = 700 + prio
+		for i in 10:
+			if node.spawned:
+				break
+			await physics_frame
+		_ok(node.spawned and node.result.get("ok") == true, "R1-A 出生 tick 门(prio=%d) 探针已提交" % prio)
+		var pid: int = node.result.get("projectile_id", 0)
+		var st = mgr.get_projectile_state(pid)
+		_ok(st != null, "R1-A 出生 tick 门(prio=%d) 状态存在" % prio)
+		if st == null:
+			continue
+		var birth_pos: Vector3 = st.position_world
+		# 出生 tick 已结束（轮询恢复点 = 下一 tick 起点，先于节点物理回调）：
+		# 位置/年龄/路程都必须不变
+		_ok(st.age_s == 0.0 and st.travelled_m == 0.0 and st.position_world == birth_pos,
+			"R1-A 出生 tick 不推进(prio=%d): age=%.4f trav=%.3f pos=%s" % [prio, st.age_s, st.travelled_m, str(st.position_world)])
+		# 下一 tick 才推进 1 步（5m）
+		await physics_frame
+		_ok(absf(st.age_s - 1.0 / 60.0) < 1.0e-6 and absf(st.travelled_m - 5.0) < 0.001,
+			"R1-A 下一 tick 恰推进 1 步(prio=%d): age=%.4f trav=%.3f" % [prio, st.age_s, st.travelled_m])
+		mgr.cancel_all("cancelled_reset")
+		holder.queue_free()
+		await process_frame
+
+func _r1_clip_checks() -> void:
+	# 路程裁短统一记账：无重力 300m/s，子段 5m，剩余路程 2m
+	var holder := Node3D.new()
+	holder.name = "R1Clip"
+	root.add_child(holder)
+	var mgr := ProjectileManager.new()
+	holder.add_child(mgr)
+	mgr.snapshot_provider = Callable(self, "empty_snapshots")
+	mgr.exclude_provider = Callable(self, "empty_excludes")
+	mgr.projectile_finished.connect(_on_finished)
+	await process_frame
+	# 反例 1（GPT 独立复核）：无接触、路程上限 2m → 必须停在 2m（不是 5m）
+	var base := _records.size()
+	var s1 := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
+	s1["gravity_world"] = Vector3.ZERO
+	s1["shot_id"] = 801
+	mgr.try_spawn(s1)
+	for i in 20:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	var rec1: Dictionary = _records[base] if _records.size() > base else {}
+	_ok(str(rec1.get("reason", "")) == "expired_distance", "R1-A 裁短-无接触 到期原因 (reason=%s)" % str(rec1.get("reason", "")))
+	_ok(absf(float(rec1.get("travelled_m", -1)) - 2.0) <= 0.001, "R1-A 裁短-无接触 路程=2.0 (实际=%.4f)" % float(rec1.get("travelled_m", -1)))
+	var ip1: Vector3 = rec1.get("impact_point", Vector3.ZERO)
+	_ok(absf(ip1.x - 2.0) <= 0.001, "R1-A 裁短-无接触 位置 x=2.0 (实际=%.4f)" % ip1.x)
+	_ok(absf(float(rec1.get("flight_time_s", -1)) - 2.0 / 300.0) <= 5.0e-4, "R1-A 裁短-无接触 时间=2/300s (实际=%.5f)" % float(rec1.get("flight_time_s", -1)))
+	# 反例 2：裁短段内 1m 处碰墙 → 接触用时 = (1/60 × 2/5) × 0.5 = 0.003333s（不是 0.008333s）
+	var base2 := _records.size()
+	var wall := StaticBody3D.new()
+	var wshape := CollisionShape3D.new()
+	var wbox := BoxShape3D.new()
+	wbox.size = Vector3(0.2, 4.0, 4.0)
+	wshape.shape = wbox
+	wall.add_child(wshape)
+	holder.add_child(wall)
+	wall.global_position = Vector3(1.0, 3.0, 0)   # 0.9m..1.1m：裁短段(0..2m)的 ~45-55% 处
+	await process_frame
+	await physics_frame   # 等静态体变换同步进物理空间，再发射
+	var s2 := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
+	s2["gravity_world"] = Vector3.ZERO
+	s2["shot_id"] = 802
+	mgr.try_spawn(s2)
+	for i in 20:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	var rec2: Dictionary = _records[base2] if _records.size() > base2 else {}
+	_ok(str(rec2.get("reason", "")) == "impact_world", "R1-A 裁短-接触 原因 (reason=%s)" % str(rec2.get("reason", "")))
+	_ok(absf(float(rec2.get("flight_time_s", -1)) - 0.003333) <= 8.0e-4, "R1-A 裁短-接触 用时=0.003333s (实际=%.5f)" % float(rec2.get("flight_time_s", -1)))
+	var ip2: Vector3 = rec2.get("impact_point", Vector3.ZERO)
+	_ok(absf(ip2.x - 0.9) <= 0.01, "R1-A 裁短-接触 位置=墙面 x≈0.9 (实际=%.4f)" % ip2.x)
+	_ok(absf(float(rec2.get("travelled_m", -1)) - 0.9) <= 0.01, "R1-A 裁短-接触 路程≈0.9m (实际=%.4f)" % float(rec2.get("travelled_m", -1)))
+	wall.global_position = Vector3(10000.0, 3.0, 0)   # 移走案例 2 的墙，避免挡住后续案例
+	# 反例 3（端点）：墙恰在路程上限处 → 接触优先于到期（impact_world 而非 expired_distance）
+	var base3 := _records.size()
+	var wall2 := StaticBody3D.new()
+	var wshape2 := CollisionShape3D.new()
+	var wbox2 := BoxShape3D.new()
+	wbox2.size = Vector3(0.2, 4.0, 4.0)
+	wshape2.shape = wbox2
+	wall2.add_child(wshape2)
+	holder.add_child(wall2)
+	wall2.global_position = Vector3(2.0, 3.0, 0)
+	await process_frame
+	await physics_frame   # 等静态体变换同步进物理空间，再发射
+	var s3 := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 2.0)
+	s3["gravity_world"] = Vector3.ZERO
+	s3["shot_id"] = 803
+	mgr.try_spawn(s3)
+	for i in 20:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	var rec3: Dictionary = _records[base3] if _records.size() > base3 else {}
+	_ok(str(rec3.get("reason", "")) == "impact_world", "R1-A 端点接触先于到期 (reason=%s)" % str(rec3.get("reason", "")))
+	_ok(absf(float(rec3.get("travelled_m", -1)) - 1.9) <= 0.02, "R1-A 端点接触 路程≈1.9m (实际=%.4f)" % float(rec3.get("travelled_m", -1)))
+	# A3 反例：active_states 不得重复返回 pending 对象
+	var sd := _spec(1, "R1C", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	sd["gravity_world"] = Vector3.ZERO
+	sd["shot_id"] = 804
+	mgr.try_spawn(sd)
+	_ok(mgr.active_states().size() == 1, "R1-A active_states 不重复返回 pending (size=%d)" % mgr.active_states().size())
+	mgr.cancel_all("cancelled_reset")
+	holder.queue_free()
+	await process_frame
+
+func _r1_identity_pause_checks() -> void:
+	var holder := Node3D.new()
+	holder.name = "R1Ident"
+	root.add_child(holder)
+	var mgr := ProjectileManager.new()
+	holder.add_child(mgr)
+	mgr.snapshot_provider = Callable(self, "empty_snapshots")
+	mgr.exclude_provider = Callable(self, "empty_excludes")
+	await process_frame
+	# B1：完整发射身份（轮次/射手/生命周期/shot）
+	var k1 := _spec(7, "Y", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	k1["gravity_world"] = Vector3.ZERO
+	k1["shot_id"] = 1
+	_ok(mgr.try_spawn(k1).get("ok") == true, "R1-B 完整身份 首发接收")
+	var k2 := _spec(7, "Y", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	k2["gravity_world"] = Vector3.ZERO
+	k2["shot_id"] = 1
+	_ok(mgr.try_spawn(k2).get("reason") == "duplicate_launch", "R1-B 完整身份 同生命周期同 shot 重复拒绝")
+	var k3 := _spec(7, "Y", 2, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	k3["gravity_world"] = Vector3.ZERO
+	k3["shot_id"] = 1
+	_ok(mgr.try_spawn(k3).get("ok") == true, "R1-B 完整身份 同名新车(新生命周期)第 1 发可发射")
+	var k4 := _spec(8, "Y", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	k4["gravity_world"] = Vector3.ZERO
+	k4["round_id"] = 8   # _spec 默认 round=1；此处显式新轮次
+	k4["shot_id"] = 1
+	_ok(mgr.try_spawn(k4).get("ok") == true, "R1-B 完整身份 新轮次可发射")
+	mgr.cancel_all("cancelled_reset")
+	# B2：暂停期公开入口拒绝（不占容量；恢复后可发射）
+	paused = true
+	var p1 := _spec(9, "P", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	p1["shot_id"] = 1
+	var pr := mgr.try_spawn(p1)
+	_ok(pr.get("ok") == false and str(pr.get("reason")) == "manager_paused", "R1-B 暂停期 try_spawn 拒绝 (reason=%s)" % str(pr.get("reason", "")))
+	_ok(mgr.active_count() == 0, "R1-B 暂停期拒绝不占容量 (active=%d)" % mgr.active_count())
+	paused = false
+	var p2 := _spec(9, "P", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	p2["shot_id"] = 1
+	_ok(mgr.try_spawn(p2).get("ok") == true, "R1-B 恢复后 try_spawn 可发射")
+	mgr.cancel_all("cancelled_reset")
+	holder.queue_free()
+	await process_frame
+	# B2（Gunner 级）：主场景真实车辆——暂停期 try_fire 拒绝且不扣弹；恢复后可发射
+	if _main != null:
+		var rounds0: int = _main.gunner.rounds_remaining
+		paused = true
+		var fired_paused: bool = _main.gunner.try_fire()
+		_ok(fired_paused == false, "R1-B 暂停期 try_fire 拒绝")
+		_ok(_main.gunner.rounds_remaining == rounds0, "R1-B 暂停期拒绝不扣弹 (rounds=%d)" % _main.gunner.rounds_remaining)
+		paused = false
+		_main.gunner.cooldown_left = 0.0
+		_main.gunner.resume_grace = 0.0
+		_ok(_main.gunner.try_fire() == true, "R1-B 恢复后 try_fire 可发射")
+		await physics_frame
+		_main.projectiles.cancel_all("cancelled_reset")
+		await process_frame
+
+func _r1_finish_order_checks() -> void:
+	# B3：世界接触先提交终止再调 register_hit——回调内整场重置不二次结算
+	var holder := Node3D.new()
+	holder.name = "R1Finish"
+	root.add_child(holder)
+	var mgr := ProjectileManager.new()
+	holder.add_child(mgr)
+	mgr.snapshot_provider = Callable(self, "empty_snapshots")
+	mgr.exclude_provider = Callable(self, "empty_excludes")
+	mgr.projectile_finished.connect(_on_finished)
+	var rw := ResetWall.new()
+	var rshape := CollisionShape3D.new()
+	var rbox := BoxShape3D.new()
+	rbox.size = Vector3(0.2, 4.0, 4.0)
+	rshape.shape = rbox
+	rw.add_child(rshape)
+	holder.add_child(rw)
+	rw.global_position = Vector3(5.0, 3.0, 0)
+	rw.mgr = mgr
+	await process_frame
+	await physics_frame   # 等静态体变换同步进物理空间，再发射
+	var base := _records.size()
+	var sw := _spec(1, "R1W", 1, Vector3(0, 3, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	sw["gravity_world"] = Vector3.ZERO
+	sw["shot_id"] = 901
+	mgr.try_spawn(sw)
+	var sfly := _spec(1, "R1W", 1, Vector3(0, 50, 0), Vector3(300, 0, 0), 2.0, 500.0)
+	sfly["gravity_world"] = Vector3.ZERO
+	sfly["shot_id"] = 902
+	mgr.try_spawn(sfly)
+	for i in 30:
+		await physics_frame
+		if mgr.active_count() == 0:
+			break
+	_ok(rw.hit_count == 1, "R1-B register_hit 恰好一次 (count=%d)" % rw.hit_count)
+	var recs := _records.slice(base)
+	_ok(recs.size() == 2, "R1-B 恰两条终止记录 (n=%d)" % recs.size())
+	var wall_rec := {}
+	var fly_rec := {}
+	for r in recs:
+		if int(r.get("shot_id", 0)) == 901:
+			wall_rec = r
+		elif int(r.get("shot_id", 0)) == 902:
+			fly_rec = r
+	_ok(str(wall_rec.get("reason", "")) == "impact_world", "R1-B 撞墙发保持接触终止(回调重置不二次结算) (reason=%s)" % str(wall_rec.get("reason", "")))
+	_ok(str(fly_rec.get("reason", "")) == "cancelled_reset", "R1-B 回调重置取消另一发 (reason=%s)" % str(fly_rec.get("reason", "")))
+	_ok(mgr.active_count() == 0, "R1-B 全部终止 (active=%d)" % mgr.active_count())
+	holder.queue_free()
+	await process_frame
+
+func _r1_round_gate_check() -> void:
+	# B4：旧轮次 impact_vehicle 记录不得改变目标 hits_taken
+	if _main == null:
+		return
+	var h0: int = _main.actor_b.tank.hits_taken
+	var old_round: int = _main._gate.round_id + 999
+	_main._on_projectile_finished({
+		"projectile_id": 424242, "round_id": old_round, "shooter_id": "A",
+		"shooter_life_id": _main.actor_a.life_id, "shooter_team_id": 1, "shot_id": 424242,
+		"shell_id": "ap_75", "reason": "impact_vehicle",
+		"flight_time_s": 0.1, "travelled_m": 30.0,
+		"impact_point": _main.actor_b.tank.global_position,
+		"impact_velocity": Vector3(300, 0, 0),
+		"target_id": _main.actor_b.entity_id, "target_life_id": _main.actor_b.life_id,
+		"surface_id": "hull_front",
+	})
+	_ok(_main.actor_b.tank.hits_taken == h0, "R1-B 旧轮次记录不改 hits_taken (hits=%d)" % _main.actor_b.tank.hits_taken)
 
 # --- 辅助 ---
 

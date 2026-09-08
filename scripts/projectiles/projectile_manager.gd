@@ -24,6 +24,7 @@ var _next_projectile_id := 1
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
+var _shut_down := false                   # 006-R1-B：退出/清理后拒绝新发射
 var snapshot_provider := Callable()       # 由 Main 注入：当前车辆快照（每物理步取一次）
 var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, life_id) -> Array[RID]
 
@@ -34,6 +35,8 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	# 006：场景销毁/初始化失败——静默清理（不发出信号；旧回调不得访问已释放对象）
+	# 006-R1-B：置关闭位——之后 try_spawn 一律拒绝（manager_shutdown）
+	_shut_down = true
 	_active.clear()
 	_pending.clear()
 
@@ -47,20 +50,23 @@ func get_projectile_state(projectile_id: int) -> ProjectileState:
 	return _active.get(projectile_id) as ProjectileState
 
 func active_states() -> Array:
-	# 006：全部活动飞弹状态快照（测试/调试用）
+	# 006-R1-A：只从 _active 枚举一次（pending 的 id 已在 _active 内，不得重复返回）
 	var out: Array = []
 	for st in _active.values():
 		out.append(st)
-	for pid in _pending:
-		var st: ProjectileState = _active.get(pid)
-		if st != null:
-			out.append(st)
 	return out
 
 
 func try_spawn(spec: Dictionary) -> Dictionary:
 	# 当前调用中只校验、复制数据、占用容量、加入待推进集合——
 	# 不推进、不撞击、不发命中信号。返回 {ok, projectile_id, reason}。
+	if _shut_down:
+		# 006-R1-B：退出/清理中拒绝新发射（不占容量、不记编号）
+		return {"ok": false, "projectile_id": 0, "reason": "manager_shutdown"}
+	var tree := get_tree()
+	if tree != null and tree.paused:
+		# 006-R1-B：暂停期间拒绝新发射（恢复后可发射）
+		return {"ok": false, "projectile_id": 0, "reason": "manager_paused"}
 	if spec == null or spec.is_empty():
 		return {"ok": false, "projectile_id": 0, "reason": "invalid_spawn"}
 	var shell_id: String = str(spec.get("shell_id", ""))
@@ -72,7 +78,15 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	var shot_id: int = int(spec.get("shot_id", 0))
 	if shot_id <= 0:
 		return {"ok": false, "projectile_id": 0, "reason": "invalid_spawn"}
-	var launch_key := "%s:%d" % [shooter_id, shot_id]
+	# 006-R1-B：完整发射身份去重（轮次/射手实体/生命周期/射击编号）——
+	# 同名新车（新 life_id）的第 1 发不再被旧车同编号挡住；
+	# 旧生命周期的重复提交仍被拒绝
+	var launch_key := JSON.stringify([
+		int(spec.get("round_id", -1)),
+		shooter_id,
+		int(spec.get("shooter_life_id", 0)),
+		shot_id,
+	])
 	if _accepted_launches.has(launch_key):
 		return {"ok": false, "projectile_id": 0, "reason": "duplicate_launch"}
 	var pos: Vector3 = spec.get("position_world", Vector3.ZERO)
@@ -112,21 +126,23 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 
 
 func _physics_process(delta: float) -> void:
-	# 出生所在物理 tick 不推进：pending 先转 flying，下一物理 tick 推进第一个 delta。
-	var pending := _pending.duplicate()
-	_pending.clear()
-	for pid in pending:
-		var st: ProjectileState = _active.get(pid)
-		if st != null and st.status == "pending":
-			st.status = "flying"
+	# 006-R1-A：唯一推进循环内明确检查出生 tick——无论发射发生在管理器之前
+	# （正常车辆 priority 0 < 100）还是之后（演示 200 > 100），出生 tick 都不推进。
+	var now_tick := Engine.get_physics_frames()
 	if _active.is_empty():
 		return
 	var snapshots: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
 	var space := get_world_3d().direct_space_state
 	for pid in _active.keys():
 		var st: ProjectileState = _active.get(pid)
-		if st == null or st.status != "flying":
+		if st == null or st.is_terminal():
 			continue
+		# 出生 tick 无论在管理器之前还是之后提交，都不能推进
+		if now_tick <= st.born_physics_tick:
+			continue
+		if st.status == "pending":
+			st.status = "flying"
+			_pending.erase(pid)
 		advance_projectile(st, delta, snapshots, space)
 
 
@@ -169,18 +185,19 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			st.age_s += h
 			continue
 		var dir := seg / seg_len
-		# 剩余路程不足以覆盖整段时，先裁短线段再查询（不得先查完整越界段再宣布超射程）
+		# 006-R1-A：路程裁短统一记账——查询、位置、路程、时间、速度用同一裁短比例
 		var remaining := st.max_distance_m - st.travelled_m
-		var query_len := seg_len
-		if remaining < seg_len:
-			query_len = maxf(remaining, 0.0)
+		var alpha := minf(1.0, remaining / seg_len)
+		var query_len := seg_len * alpha
+		var used_h := h * alpha
+		var query_end := st.position_world + dir * query_len
 		if query_len < MIN_SEG_M:
-			st.position_world = st.position_world + dir * query_len
+			# 剩余路程近零：不再按完整子段推进，立即到期终止
 			st.travelled_m = st.max_distance_m
-			st.age_s += h
+			st.age_s += used_h
 			finish_once(st.projectile_id, "expired_distance", {})
 			return
-		# 世界查询（整条有限线段；自身排除用发射者 RID）
+		# 世界查询（整条裁短后线段；自身排除用发射者 RID）
 		var ws := WorldQueryAdapter.query_world_stop(space, st.position_world, dir, query_len, _exclude_for(st))
 		var world_contact: Dictionary = ws.get("contact", {}) if ws.get("hit", false) else {}
 		if not ws.get("ok", false):
@@ -206,9 +223,9 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			# 停在装甲接触点，生成一次终止记录（模块/乘员不参与本轮外部停止或计分）
 			var ev: Dictionary = sel["event"]
 			var t_frac := clampf(float(ev.get("t", 0.0)), 0.0, 1.0)
-			var contact_time := h * t_frac
-			var impact_p: Vector3 = ev.get("point_world", st.position_world + dir * query_len)
-			var impact_v := st.velocity_world + st.gravity_world * contact_time
+			var contact_time := used_h * t_frac   # 006-R1-A：接触用时按裁短后子段折算
+			var impact_p: Vector3 = ev.get("point_world", query_end)
+			var impact_v: Vector3 = st.velocity_world + st.gravity_world * contact_time
 			st.previous_position_world = st.position_world
 			st.position_world = impact_p
 			st.velocity_world = impact_v
@@ -223,15 +240,15 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			})
 			return
 		elif status == "world":
-			# 停在世界接触点（世界对象只在撞击瞬间查验并反馈，不保存活 collider）
+			# 停在世界接触点（世界对象只在撞击瞬间查验并反馈，不保存活 collider）。
+			# 006-R1-B：先提交终止，再调外部反馈——register_hit 回调里触发重置时
+			# 该发已终止、状态已提交，回调不得二次结算或访问未提交状态。
 			var ct: Dictionary = sel["contact"]
 			var t_frac := clampf(float(ct.get("t", 0.0)), 0.0, 1.0)
-			var contact_time := h * t_frac
-			var impact_p: Vector3 = ct.get("point_world", st.position_world + dir * query_len)
-			var impact_v := st.velocity_world + st.gravity_world * contact_time
+			var contact_time := used_h * t_frac   # 006-R1-A：接触用时按裁短后子段折算
+			var impact_p: Vector3 = ct.get("point_world", query_end)
+			var impact_v: Vector3 = st.velocity_world + st.gravity_world * contact_time
 			var collider: Object = ct.get("collider", null)
-			if collider != null and collider.has_method("register_hit"):
-				collider.register_hit({})
 			st.previous_position_world = st.position_world
 			st.position_world = impact_p
 			st.velocity_world = impact_v
@@ -242,17 +259,23 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 				"impact_velocity": impact_v,
 				"surface_id": "world_contact",
 			})
+			if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
+				collider.register_hit({})
 			return
 		elif status == "unresolved":
 			# 不完整查询 → 停止模拟，标记未决，不计命中，不假装飞过
 			finish_once(st.projectile_id, "unresolved_query", {"detail": "selector unresolved"})
 			return
-		# miss：接受该段运动结果，继续下一段
+		# miss：接受该段运动结果（006-R1-A：按裁短比例记账，不用未裁短子段）
 		st.previous_position_world = st.position_world
-		st.position_world = cand_p
-		st.velocity_world = cand_v
-		st.age_s += h
-		st.travelled_m += seg_len
+		st.position_world = query_end
+		st.velocity_world = st.velocity_world + st.gravity_world * used_h
+		st.age_s += used_h
+		st.travelled_m += query_len
+		if alpha < 1.0:
+			# 已到路程上限（本段被裁短且无接触）→ 到期终止（位置/路程/时间一致）
+			finish_once(st.projectile_id, "expired_distance", {})
+			return
 	# 本步结束：寿命/路程端点（接触恰好位于端点时已在上面的接触分支处理）
 	if st.age_s >= st.max_age_s - END_EPS:
 		finish_once(st.projectile_id, "expired_time", {})
