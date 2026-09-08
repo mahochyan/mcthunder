@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "objective": "体素/低模方块风，尽可能还原战争雷霆陆战内容",
+  "authorization": "2026-09-08 user: 按照计划完成后续开发",
+  "current_order": "007",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "orders": {
+    "030": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "020": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "010": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "025": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "023": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "024": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "032": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "017": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "026": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "034": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "021": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "013": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "019": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "015": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "031": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "011": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "036": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "022": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "029": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "008": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "007": {
+      "content_history": "test_only",
+      "human": "not_run",
+      "code_sha": "1e0fa40371caac1d97250830e159505dd4abc6c4",
+      "engineering": "passed_self_review",
+      "implementation": "implemented",
+      "report": "docs/DELIVERY_007.md"
+    },
+    "028": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "009": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "027": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "014": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "033": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "018": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "035": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "016": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    },
+    "012": {
+      "human": "not_run",
+      "engineering": "not_run",
+      "content_history": "test_only",
+      "implementation": "planned"
+    }
+  }
+}

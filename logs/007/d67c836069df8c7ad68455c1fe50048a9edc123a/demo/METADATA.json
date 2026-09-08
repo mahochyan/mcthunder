@@ -1,0 +1,7 @@
+{
+  "source_sha": "d67c836069df8c7ad68455c1fe50048a9edc123a",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --resolution 1280x720 --max-fps 60 -s res://tests/run_armor_demo.gd -- --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\007\\d67c836069df8c7ad68455c1fe50048a9edc123a\\1280x720\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "human": "not_run"
+}
