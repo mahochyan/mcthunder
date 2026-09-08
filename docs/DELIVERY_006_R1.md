@@ -31,7 +31,9 @@ Gunner 接收成功后扣弹装填、物理装填时钟、006 已实现的延迟
   无接触且已裁短 → 停在裁短端 `expired_distance`；剩余路程近零不再加完整 h 立即到期；
   端点接触先于到期）。三条反例（GPT 独立复核同款）：
   ① 5m 子段剩 2m 无接触 → 精确停 2m、age=2/300s（修复前 5m/1/60s）；
-  ② 裁短段内 0.9m 碰墙 → 用时 0.003333s（修复前 0.008333s）、路程 0.9m（修复前 5m）；
+  ② 裁短段内首接触面 0.9m 碰墙 → 用时 0.003s（0.9/300；修复前错误记账 0.008333s；
+  本段早期按 1m 接触写的 0.003333s 已在收尾节更正为 0.9m 夹具真值，生产公式未改）、
+  路程 0.9m（修复前 5m）；
   ③ 墙在路程上限附近的接触不被到期吞掉。
 - **active_states()** 只从 `_active` 枚举一次（pending 的 id 已在其中，不再重复返回）。
 
@@ -102,3 +104,63 @@ Gunner 接收成功后扣弹装填、物理装填时钟、006 已实现的延迟
 - 真人体验验收最迟 011 前（既有保留项）；历史装甲厚度 UNKNOWN；史料原页目视待人工
   转送（既有）。
 - 不新增穿透/损伤/AI/素材采购/历史战斗车型；不开始 007；不合并 main。
+---
+
+## 6. 有限收尾节（finite_closeout，GPT 复审后追加）
+
+状态：仍 needs_revision（006 未签收）；SUBPHASE=finite_closeout；BASE_SHA=37f6762162eb31237c2384b2d557bb604046033f（上轮交付 HEAD）
+收尾 tested sha：5d2c0bbb121b7add15408e30a18af785f1c3cebe；证据目录 logs/006-R1/<sha>/
+范围（按收尾指导包）：仅管理器清理门 + 两处测试取值修整；不重做弹道/近远靶/显示层/演示。
+
+### 6.1 生产修复：取消过程发射门
+
+- 新增 `_cancel_depth := 0`（深度计数，支持嵌套取消——内层返回时外层未结束，发射门不提前开放）。
+- `try_spawn()` 生命周期守卫顺序（在任何占容量、记录发射身份、生成 projectile_id 之前）：
+  `manager_shutdown`（_shut_down / 不在树内 / queued_for_deletion）→ `manager_clearing`
+  （_cancel_depth>0）→ `manager_paused` → 其余身份/配置/容量检查原样。
+- `cancel_all()` / `cancel_by_shooter()`：入口 `+1`、逐发 `finish_once`、出口 `-1`；
+  移除末尾 `_active.clear()/_pending.clear()` 兜底（finish_once 已逐发移除，清理期间
+  也不接收新发射——不再无声删除已接收新弹）。_exit_tree 静默清理保留；
+  Gunner 仍以 try_spawn().ok 为扣弹条件，无第二套清理状态。
+
+### 6.1 反例先行（修复前运行，7 项精确变红，与审核端独立控制流模型一致）
+
+| 反例 | 修复前实际 | 修复后 |
+|---|---|---|
+| cancel_all 同步回调内 try_spawn | accepted（随后被 blanket clear 无声删除：无终止记录、去重键已占） | manager_clearing，不占容量、不记键 |
+| 取消返回后同一请求重试 | duplicate_launch（键被清理期占用） | 正常接受 |
+| cancel_by_shooter 回调内 try_spawn | accepted，且该弹遗留活动集合（active=2） | manager_clearing；他车飞弹不误取消 |
+| 嵌套取消（回调内再 cancel_by_shooter） | 内层返回后 probe 被接受（accepted） | 仍拒（外层深度未归零）；最外层返回后恢复接受 |
+| 终止记录 | — | 每发恰一条（嵌套取消不重复结算；finish_once 对已移除 id 跳过） |
+
+### 6.2 测试取值修整（不改生产运动公式）
+
+- **0.9m 接触时间真值**：墙中心 x=1.0、厚 0.2 → 首接触面 0.9m；v=300、无重力 →
+  t = 0.9/300 = 0.003s。断言期望由 0.003333（按 1m 接触算，与 0.9m 夹具不符，
+  靠 8×10⁻⁴ 容差放行）改为 0.9/300.0，容差 5×10⁻⁵。生产计算未改。
+- **端点案例重新定位**：原"端点"测试（墙中心 2.0/厚 0.2 → 首接触面 1.9m）实为
+  近端点案例，保留并更名表述；新增两个对照：
+  ① 恰好端点：墙中心 2.1/厚 0.2 → 首接触面恰 2.0 → impact_world，路程=2.0、
+  用时=2/300s（±5×10⁻⁵）、位置=2.0（端点接触优先于到期，生产行为已正确）；
+  ② 上限外：墙中心 2.2 → 首接触面 2.1 > 2.0 → 不命中，expired_distance，
+  路程=2.0、位置=2.0。不放宽射程，不只改名。
+
+### 6.3 收尾证据（logs/006-R1/5d2c0bb…/）
+
+| 套件 | 命令（同 RUN_METADATA） | 结果 | 退出码 | 脚本错误 |
+|---|---|---|---|---|
+| run_projectile_checks | `--headless --path <工程> -s res://tests/run_projectile_checks.gd` | 144 项 0 失败，PROJECTILE_CHECKS_PASS | 0 | 0 |
+| run_checks | 同 | 214 项 0 失败，CHECKS_PASS | 0 | 0 |
+| run_query_checks | 同 | 140 项 0 失败，QUERY_CHECKS_PASS | 0 | 0 |
+| run_layout_checks | 同 | 123 项 0 失败，LAYOUT_CHECKS_PASS | 0 | 0 |
+
+数量非目标（122→144 为新增收尾反例 6 项 + 端点/真值案例扩量）。命令/退出码/
+原始输出见 logs/006-R1/5d2c0bb…/（stderr 逐文件扫描无 SCRIPT ERROR/Parse Error）。
+
+### 6.4 登记与边界
+
+- 收尾提交：5d2c0bbb…（先反例红后修复绿的反例代码与生产门同提交，反例先红运行
+  记录见交付说明）；交付 HEAD 见 git log；证据提交与交付 HEAD 分开登记。
+- 未重跑：变异验证（不要求）；12 张演示截图（不重拍；旧证据保留原 SHA 归属）。
+- 未验证项：截图人工目视（并入 011 前人工验收）；真人体验（最迟 011 前）。
+- 006 不更新为 accepted；不新增 006-R2；不开始 007；不合并 main；不强推。
