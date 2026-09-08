@@ -18,6 +18,8 @@ var last_command := VehicleCommand.new()
 var patrol_goal := Vector3.ZERO
 var retreat_goal := Vector3.ZERO
 var has_patrol := false
+var advance_while_engaged := false # Objective match policy; does not supply enemy information.
+var _next_objective_retry := 0.0
 var _actor_ref: WeakRef
 var _generation := -1
 var _next_scan := 0.0
@@ -81,22 +83,35 @@ func update_command(delta: float) -> VehicleCommand:
 		_next_scan = clock+float(difficulty.period)
 		var rows := sensor.scan(vehicle,clock)
 		var previous := str(observation.get("entity_id",""))
+		var previous_life := int(observation.get("life_id",-1))
 		var was_visible: bool = observation.get("visible",false)
 		observation = {}
+		var nearest := INF
+		var retained := {}
 		for row in rows:
-			if observation.is_empty() or (row.visible and not observation.visible): observation = row
+			if row.visible:
+				var distance: float = vehicle.tank.global_position.distance_to(row.position)
+				if distance < nearest:
+					nearest = distance
+					observation = row
+				if row.entity_id == previous and row.life_id == previous_life: retained = row
+			elif observation.is_empty(): observation = row
+		if not retained.is_empty() and vehicle.tank.global_position.distance_to(retained.position) <= nearest*1.25:
+			observation = retained # Hysteresis prevents rapid target changes between nearby visible opponents.
 		if observation.get("visible",false):
-			if not was_visible or previous != observation.entity_id:
+			if not was_visible or previous != observation.entity_id or previous_life != observation.life_id:
 				_seen_since = clock
 				_new_error()
 		else: _seen_since = -1
 	var caps := vehicle.capabilities()
+	var recovering := false
 	if vehicle.state.recovery_enabled:
 		if not vehicle.state.fires.is_empty():
 			phase = "repair"
 			cmd.extinguish_requested = true
 			return cmd
-		if not caps.drive or not caps.fire:
+		if not caps.drive or not caps.fire or caps.turret_speed <= 0:
+			recovering = true
 			phase = "repair"
 			if not vehicle.state.role_available("gunner") or not vehicle.state.role_available("driver"): cmd.replace_crew_requested = true
 			else: cmd.repair_requested = true
@@ -105,19 +120,30 @@ func update_command(delta: float) -> VehicleCommand:
 		if phase != "retreat": driver.set_goal(retreat_goal)
 		phase = "retreat"
 		return driver.update_command(delta)
+	# The objective order survives a temporary traffic failure or a completed repair.
+	# Individual path attempts remain bounded; retry uses only own state and the public point.
+	if advance_while_engaged and has_patrol and caps.drive and not recovering and clock >= _next_objective_retry:
+		_next_objective_retry = clock+10.0
+		if driver.phase in ["failed","unreachable","idle"] and vehicle.tank.global_position.distance_to(patrol_goal)>GameConfig.AI_GOAL_RADIUS_M:
+			driver.set_goal(patrol_goal)
 	if observation.is_empty():
-		if not caps.drive: return cmd
+		if not caps.drive or recovering: return cmd
 		if phase != "patrol" and has_patrol: driver.set_goal(patrol_goal)
 		phase = "patrol"
 		return driver.update_command(delta)
 	if not observation.visible:
-		if not caps.drive: return cmd
+		if not caps.drive or recovering: return cmd
 		if phase != "search" and driver.navigator != null and not driver.navigator.nodes.is_empty():
 			var id := driver.navigator.nearest(observation.position)
-			driver.set_goal(driver.navigator.nodes[id])
+			driver.set_goal(patrol_goal if advance_while_engaged and has_patrol else driver.navigator.nodes[id])
 		phase = "search"
 		return driver.update_command(delta)
-	if driver.has_goal: driver.cancel("enemy_visible")
+	if driver.has_goal:
+		if advance_while_engaged and caps.drive and not recovering:
+			var movement := driver.update_command(delta)
+			cmd.throttle = movement.throttle
+			cmd.steer = movement.steer
+		else: driver.cancel("enemy_visible")
 	phase = "observe" if clock-_seen_since < float(difficulty.reaction) else "engage"
 	if vehicle.gunner.shots_fired != _last_shots:
 		_last_shots = vehicle.gunner.shots_fired

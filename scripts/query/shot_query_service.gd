@@ -4,7 +4,7 @@ extends RefCounted
 ## 不修改弹药、模块、任务计数；不调用 register_hit / accept_hit / 冷却。
 ## 目标："这条线段在当前姿态下，几何上经过了什么"——不是穿透/损伤判定。
 
-const MAX_ENTITIES := 8
+const MAX_ENTITIES := 24 # 016: eight active vehicles plus twelve retained wrecks, with a bounded margin.
 const EPS_DIST_GROUP := 0.001   # 排序后的容差分组（米）
 
 

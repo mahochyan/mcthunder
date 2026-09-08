@@ -25,6 +25,7 @@ var round_provider := Callable()      # 003-R2：开火时刻任务轮次来源�
 var snapshot_provider := Callable()   # 005：查询快照来源（由 main 注入；空 = 无几何查询，保守 miss）
 var inventory := AmmoInventory.new()
 var training_resupply := false # Explicit training loadout only; does not bypass cooldown.
+var aim_preview_enabled := true # Non-player team AI has no HUD marker; actual firing never uses this preview.
 var rounds_remaining: int:
 	get: return inventory.total_available()
 	set(value): inventory.configure(value,inventory.racks.keys()) # Explicit reset/loadout compatibility.
@@ -68,10 +69,11 @@ func advance_timers(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	# 006：画面更新只保留表现工作（装填/宽限时钟已迁至 advance_timers）
-	_update_actual_aim()
+	if aim_preview_enabled: _update_actual_aim()
 	_update_effects(delta)
 
 func _physics_process(_delta: float) -> void:
+	if not aim_preview_enabled: return
 	# 005-R1：实际指向标记的统一查询在物理阶段执行（世界遮挡 + 同一车辆几何服务），
 	# 结果缓存给 _process 读取——与开火判定路径同源（不再用旧 _ray 粗碰撞）。
 	if turret == null or tank == null:

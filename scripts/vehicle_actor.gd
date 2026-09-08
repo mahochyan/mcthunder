@@ -27,6 +27,7 @@ var controller: Node = null   # PlayerController（本地控制者）或 null（
 var label3d: Label3D
 var _mailbox := CommandMailbox.new()   # 003-R2：命令暂存
 var debug_command_trace := false       # 003-R2：提交/消费/执行三处调试记录（默认关）
+var command_observer := Callable() # Match rules may cancel spawn protection before an actual command executes.
 var _consume_count := 0                # 003-R2：本步消费计数（调试用）
 
 func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: int, spawn: Transform3D, visual_layer: int, ctrl: Node) -> Dictionary:
@@ -240,6 +241,10 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	# 003-R1：入口合法性约束——实体无效拒绝、有限值、输入范围钳制
 	if not is_instance_valid(tank) or not is_instance_valid(gunner) or not is_instance_valid(turret):
 		return
+	if command_observer.is_valid():
+		var before_generation := state.generation
+		command_observer.call(self,cmd)
+		if not is_instance_valid(self) or state.generation != before_generation: return
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
 	var died_now := VehicleRecovery.step(state,delta,tank.forward_speed,cmd)

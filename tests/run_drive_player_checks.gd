@@ -27,12 +27,14 @@ func _tap(code: Key) -> void:
 	await _key(code,true)
 	await _key(code,false)
 func _click(button: Control) -> void:
+	# GUI layout and mouse hover advance on rendered frames, even when physics catches up.
+	for i in 3: await process_frame
 	var point := button.get_global_rect().get_center()
 	var motion := InputEventMouseMotion.new()
 	motion.position = point
 	motion.global_position = point
 	Input.parse_input_event(motion)
-	await _frames(2)
+	for i in 3: await process_frame
 	for pressed in [true,false]:
 		var event := InputEventMouseButton.new()
 		event.position = point
@@ -40,7 +42,7 @@ func _click(button: Control) -> void:
 		event.button_index = MOUSE_BUTTON_LEFT
 		event.pressed = pressed
 		Input.parse_input_event(event)
-		await _frames(4)
+		for i in 3: await process_frame
 	await _frames(12)
 func _find(node: Node, text: String) -> Button:
 	if node is Button and node.text == text: return node

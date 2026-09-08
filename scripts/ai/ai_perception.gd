@@ -13,11 +13,15 @@ func clear() -> void: memory.clear()
 func _actors() -> Array:
 	return actor_provider.call() if actor_provider.is_valid() else []
 
-func contact(observer: VehicleActor, from: Vector3, to: Vector3) -> Dictionary:
+func _snapshots() -> Array:
 	var snapshots: Array = []
 	for vehicle in _actors():
-		if is_instance_valid(vehicle) and vehicle.damage_layout_override != null:
+		if is_instance_valid(vehicle) and not vehicle.is_queued_for_deletion() and vehicle.damage_layout_override != null:
 			snapshots.append(QuerySnapshotBuilder.build_from_vehicle(vehicle.tank,vehicle.damage_layout_override))
+	return snapshots
+
+func contact(observer: VehicleActor, from: Vector3, to: Vector3, prepared: Array = []) -> Dictionary:
+	var snapshots := _snapshots() if prepared.is_empty() else prepared
 	var offset := to-from
 	if offset.length() < 0.001: return {"status":"unresolved"}
 	var wall := WorldQueryAdapter.query_world_stop(observer.tank.get_world_3d().direct_space_state,from,offset,offset.length(),[observer.tank.get_rid()])
@@ -29,6 +33,7 @@ func scan(observer: VehicleActor, now: float) -> Array[Dictionary]:
 	for row in memory.values(): row.visible = false
 	var eye := observer.turret.global_position+Vector3.UP*0.55
 	var forward := -observer.turret.global_basis.z
+	var snapshots := _snapshots()
 	for vehicle in _actors():
 		if not is_instance_valid(vehicle) or vehicle == observer or vehicle.state.team_id == observer.state.team_id: continue
 		var center: Vector3 = vehicle.tank.global_position+Vector3.UP*1.25
@@ -36,20 +41,30 @@ func scan(observer: VehicleActor, now: float) -> Array[Dictionary]:
 		if offset.length() > RANGE_M or forward.dot(offset.normalized()) < cos(deg_to_rad(75)): continue
 		# Visible surface samples, never module or crew coordinates.
 		var samples := [Vector3(0,1.2,0),Vector3(-0.8,1.5,0),Vector3(0.8,1.5,0),Vector3(0,2.2,-0.3),Vector3(-0.6,2.2,-0.3),Vector3(0.6,2.2,-0.3)]
+		var visible_aim: Variant = null
 		for index in samples.size():
 			var local: Vector3 = samples[(index+preferred_sample)%samples.size()]
 			var sample: Vector3 = vehicle.tank.global_transform*local
-			var hit := contact(observer,eye,sample)
+			var hit := contact(observer,eye,sample,snapshots)
 			if hit.status != "vehicle" or hit.event.entity_id != vehicle.entity_id or hit.event.life_id != vehicle.life_id: continue
-			if vehicle.state.destroyed: break # Wreck recognition requires a visible exterior.
-			var id: String = vehicle.entity_id
-			var velocity := Vector3.ZERO
-			var old: Dictionary = memory.get(id,{})
-			if not old.is_empty() and old.life_id == vehicle.life_id and now-old.last_seen < 0.6 and now > old.last_seen:
-				velocity = (center-old.position)/(now-old.last_seen)
-				velocity = velocity.limit_length(30)
-			memory[id] = {"entity_id":id,"life_id":vehicle.life_id,"visible":true,"position":center,"aim_point":hit.event.point_world+(sample-eye).normalized()*0.2,"velocity":velocity,"last_seen":now}
-			break
+			if vehicle.state.destroyed:
+				if memory.has(vehicle.entity_id) and memory[vehicle.entity_id].life_id == vehicle.life_id: memory.erase(vehicle.entity_id)
+				break # Wreck recognition requires a visible exterior.
+			var aim: Vector3 = hit.event.point_world+(sample-eye).normalized()*0.2
+			if visible_aim == null: visible_aim = aim
+			var local_direction := observer.tank.global_basis.inverse()*(aim-observer.turret.barrel_pivot.global_position)
+			var pitch := rad_to_deg(atan2(local_direction.y,Vector2(local_direction.x,local_direction.z).length()))
+			if pitch >= observer.definition.barrel_pitch_min+0.3 and pitch <= observer.definition.barrel_pitch_max-0.3:
+				visible_aim = aim
+				break # Prefer a visible surface the actual gun can reach, including at close range.
+		if visible_aim == null: continue
+		var id: String = vehicle.entity_id
+		var velocity := Vector3.ZERO
+		var old: Dictionary = memory.get(id,{})
+		if not old.is_empty() and old.life_id == vehicle.life_id and now-old.last_seen < 0.6 and now > old.last_seen:
+			velocity = (center-old.position)/(now-old.last_seen)
+			velocity = velocity.limit_length(30)
+		memory[id] = {"entity_id":id,"life_id":vehicle.life_id,"visible":true,"position":center,"aim_point":visible_aim,"velocity":velocity,"last_seen":now}
 	for id in memory.keys():
 		if now-float(memory[id].last_seen) > MEMORY_SECONDS: memory.erase(id)
 	var result: Array[Dictionary] = []

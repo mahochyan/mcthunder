@@ -285,3 +285,8 @@ GroundProbe读取WORLD真实法线，VehiclePose生成刚性车体基，Tank负�
 
 ## 013 AI命令与low-poly
 DriveNavigator提供有宽度限制的确定性路点图；AIPathDriver只产生命令，StuckDetector根据实际位移触发有界脱困。VehicleActor保留单次执行并以代次/绑定检查阻断poll重入旧命令，相机仅授予本地控制者。M4LowPolyDetails的分面圆柱/锥形炮管替代阶梯圆件，装甲查询几何和规则不变。
+
+## 014—016 感知、比赛与队伍
+AIPerception输出可见外表观测和冻结的最后目击，AITankController按带种子的反应/瞄准误差产生同一VehicleCommand。近距离优先选择炮管限位内的可见外表，目标优先级来自可见距离并保留切换迟滞。目标占点模式按有限间隔重新尝试失败路线，不提供隐藏敌情。
+MatchDirector负责双车对局；TeamMatchState集中保存团队票数、据点、槽位life/generation与重生时钟。TeamMatchDirector在物理步末统一提交TicketLedger死亡/持续扣票，然后判终局再请求安全重生。CapturePoint返回本步精确归属时长；RespawnService检查真实世界/车体碰撞及同帧预留，堵塞继续等待，玩家显式再出击。控制命令观察回调在开火/驾驶之前取消出生保护。
+TeamRange拥有八活车与受限残骸，ProjectileManager可选contact_policy在最近外甲或外置模块接触、任何伤害结算之前阻断友车/保护/残骸。默认实验室无此规则；查询上限24覆盖八活车与十二残骸并仍拒绝溢出。close_round停止发射与在途弹但保留冻结回放；终局同时停止车辆和残骸时钟，AppFlow释放/重开整个对局。

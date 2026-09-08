@@ -27,6 +27,7 @@ var shot_records := ShotRecordStore.new()
 var _record_epoch := 0
 var _notifying_record_clear := false
 var damage_handler := Callable() # Non-notifying commit to the matching live target's state.
+var contact_policy := Callable() # Optional match-specific friendly/protection stop, before armor or external modules.
 
 var _next_projectile_id := 1
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
@@ -280,6 +281,12 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			ShotRecordBuilder.sample_path(st)
 			if status in ["vehicle","damage"]:
 				ev["geometry_frame"] = ShotRecordBuilder.capture_frame(st,ev,snapshots)
+				if contact_policy.is_valid():
+					var policy: Dictionary = contact_policy.call({"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,"shooter_team_id":st.shooter_team_id},ev.duplicate(true))
+					if not _live(st): return
+					if not policy.get("allow",false):
+						finish_once(st.projectile_id,str(policy.get("reason","blocked_by_rules")),{"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0),"surface_id":ev.get("surface_id",ev.get("module_id",""))})
+						return
 			remaining_dt = maxf(0.0, remaining_dt - contact_time)
 			if status == "world":
 				var collider: Object = ev.get("collider", null)

@@ -499,16 +499,16 @@ func _identity_and_perf_cases() -> void:
 	_ok(not wa_null.get("ok", true) and wa_null.get("reason", "") == "no_space", "005-b world adapter null space: ok=false no_space")
 	var wa_bad := WorldQueryAdapter.query_world_stop(null, Vector3(NAN, 0, 0), Vector3.UP, 10.0)
 	_ok(not wa_bad.get("ok", true), "005-b world adapter invalid input: ok=false")
-	# 性能边界：9 实体 → 明确失败
+	# 016 expands the documented cap for eight active vehicles and bounded retained wrecks.
 	var many: Array = []
-	for i in range(9):
+	for i in range(ShotQueryService.MAX_ENTITIES+1):
 		many.append(_identity_snapshot("E%d" % i, 1, Transform3D.IDENTITY))
 	var r3 := ShotQueryService.query({
 		"query_id": "q_many", "physics_tick": 26,
 		"from_world": Vector3(0, 1, -5), "to_world": Vector3(0, 1, 5),
 		"excluded_instances": [], "include_modules": true, "include_crew": false,
 	}, many)
-	_ok(not r3.get("ok", false) and str(r3.get("diagnostics", [""])[0]).contains("too_many_entities"), "005-b >8 entities fails explicitly (no silent truncation)")
+	_ok(not r3.get("ok", false) and str(r3.get("diagnostics", [""])[0]).contains("too_many_entities"), "005-b/016 over documented entity cap fails explicitly (no silent truncation)")
 
 
 func _normals_point_outward() -> bool:
