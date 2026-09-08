@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage button enters actual eight-vehicle point match
+[PASS] actual window capture 01_countdown
+[PASS] real countdown starts match
+[PASS] actual window capture 02_pause_menu
+[PASS] normal abandon menu produces one thirty-ticket loss and visible wait
+[PASS] actual window capture 03_wait_and_lineup
+[PASS] normal Tab switches friendly spectator view
+[PASS] actual window capture 04_ready_to_redeploy
+[PASS] normal redeploy button creates exactly one fresh playable life
+[PASS] actual window capture 05_spawn_protection
+[PASS] normal driving cancels spawn protection and moves new life
+TEAM_PROGRESS elapsed=9.81666666666673 capture=0.0 tickets={ 1: 270, 2: 300 }
+[PASS] actual objective AI reaches and captures central point
+[PASS] real combat and owned objective reduce live ticket totals
+[PASS] retained ownership drains actual opposing tickets over normal match time
+[PASS] actual window capture 06_live_point_and_tickets
+TEAM_FINAL elapsed=28.7499999999996 tickets={ 1: 240, 2: 298 } owner=1 population=9
+[PASS] normal return closes match and restores garage
+[PASS] actual window capture 07_returned_garage
+=== 结果: 17 项检查, 0 失败 ===
+[render] fps=29
+TEAM_PLAYER_CHECKS_PASS
