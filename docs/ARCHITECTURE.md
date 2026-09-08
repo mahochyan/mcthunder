@@ -276,3 +276,6 @@ AmmoInventory是弹药位置与总量唯一账本；VehicleRecovery由VehicleAct
 
 ## 010 不可变记录与独立回放
 ProjectileManager在实际推进采样路径，接触前冻结同物理步QuerySnapshot几何；ShotRecordBuilder记录事件geometry_frame并递归只读。终止/取消代次防重入。ShotRecordStore有界且只返回副本，Codec限制JSON类型/版本/索引/大小。ReplayController必须提供显示权限，ReplayView独立World3D纯显示，不引用活车辆或重新结算。
+
+## 011 AppFlow与核心训练
+默认AppFlow拥有GarageShell/CoreRange生命周期、中文配弹和结果页。TrainingLoadout验证并复制到实际Gunner，不改共享Resource。TrainingDirector按round/shooter/life过滤真实ShotRecord，结果只读；重试创建新轮次。CoreRange复用RecoveryRange实际毁伤/维修，不直接生成成功损伤。中文字体显式随项目分发，CoreVehicleVisual纯显示。训练无限补给走AmmoInventory.supply_round，供给与消耗守恒且不跳装填。AcceptanceChecklist人工项永远初始PENDING。
