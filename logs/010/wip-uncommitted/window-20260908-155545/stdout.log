@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual pause menu enters armor replay lesson
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] normal thin-plate shot records actual penetration
+[PASS] N selects the actual contact
+[PASS] real replay capture 01_penetrated
+[capture] 01_penetrated record=[0,"A",3,1,1] highlight=[] point=(0.0, 2.460738, -30.0)
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] normal thick-plate shot records stop without internal damage
+[PASS] unpenetrated replay stops at real armor contact
+[PASS] real replay capture 02_stopped
+[capture] 02_stopped record=[0,"A",3,2,2] highlight=[] point=(0.0, 2.460738, -30.0)
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] normal sloped shot records ricochet
+[PASS] manual replay reaches actual reflected endpoint
+[PASS] real replay capture 03_ricochet
+[capture] 03_ricochet record=[0,"A",3,3,3] highlight=[] point=(4.340979, 2.77704, -39.75)
+[PASS] replay interactions and case selection do not replenish three spent rounds
+[PASS] scene switch clears previous shot history
+[PASS] one normal mouse shot creates one projectile
+[PASS] actual completed shot opens corner replay
+[PASS] normal vehicle shot records engine and no invented crew hit
+[PASS] selected replay highlights actual damaged engine
+[PASS] real replay capture 04_engine_selected
+[capture] 04_engine_selected record=[1,"A",4,1,1] highlight=["module:engine"] point=(0.0, 0.965578, -28.75)
+[PASS] normal mouse input rotates live target turret after hit
+[PASS] reopened replay retains hit-time target pose
+[PASS] real replay capture 05_frozen_after_turret_moves
+[capture] 05_frozen_after_turret_moves record=[1,"A",4,1,1] highlight=["module:engine"] point=(0.0, 0.965578, -28.75)
+[PASS] ten normal open/replay cycles cannot change damage or ammunition
+[replay] exported C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/shot_records/round_1_life_4_shot_1_projectile_1_1788854167227.json
+[PASS] J exports actual selected shot JSON
+[PASS] exported record roundtrips to same shot identity
+[PASS] R clears replay buffer and generated display
+=== 结果: 30 项检查, 0 失败 ===
+[render] fps=60 physics_tps=60
+REPLAY_PLAYER_CHECKS_PASS

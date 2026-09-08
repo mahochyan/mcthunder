@@ -273,3 +273,6 @@ ProjectileManager从ShotQueryService.volume_intervals选择实际下一内部/�
 
 ## 009 恢复/库存/终结
 AmmoInventory是弹药位置与总量唯一账本；VehicleRecovery由VehicleActor物理命令消费驱动正交火灾/维修/灭火/换位，VehicleRuntimeState.destroy_once幂等保存来源。WreckRegistry只管理已终结真实实体的有界留存。CameraRig在resolve模式用同一几何查询缓存真实炮塔意图点；查询target_generation保护重置后的新状态。规则/测试与可见入口见DELIVERY_009.md。
+
+## 010 不可变记录与独立回放
+ProjectileManager在实际推进采样路径，接触前冻结同物理步QuerySnapshot几何；ShotRecordBuilder记录事件geometry_frame并递归只读。终止/取消代次防重入。ShotRecordStore有界且只返回副本，Codec限制JSON类型/版本/索引/大小。ReplayController必须提供显示权限，ReplayView独立World3D纯显示，不引用活车辆或重新结算。
