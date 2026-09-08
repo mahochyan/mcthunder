@@ -102,7 +102,9 @@ func _process(delta: float) -> void:
 		lines.append("%s: %.0f%%"%[str(marker.id).replace("component_","module "),integrity])
 	for surface in surfaces: surface.material_override.albedo_color=Color(0.63,0.56,0.37,0.22 if xray else 1.0)
 	if not last_record.is_empty():
-		lines.append("\nLast: "+str(last_record.terminal.reason).replace("_"," "))
+		var outcome := str(last_record.terminal.reason).replace("_"," ")
+		if not last_record.contacts.is_empty(): outcome="entry "+str(last_record.contacts[0].result)
+		lines.append("\n"+gun.shell_label(last_record.identity.shell_id)+": "+outcome)
 		lines.append("Fragments %d / recorded hits %d"%[last_record.get("fragments",[]).size(),last_record.damage.size()])
 	lines.append("\nAP continues along its path.\nAPHE: inside 0.8m, at most 12 rays.\nEarly exit cancels inside burst.\nV replay: actual recorded paths.")
 	status_label.text="\n".join(lines)

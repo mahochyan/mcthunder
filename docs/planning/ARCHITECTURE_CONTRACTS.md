@@ -73,3 +73,9 @@ SettingsService/ProfileStore：局外持久化；AppFlow：菜单/加载/对局/
 图形实测：模型对齐、炮镜、中文、UI布局、特效、帧时间。
 用户试玩：手感、能否理解、是否有策略选择。
 前两类不能替代后两类，任何尚未执行的类别保留“待验证”。
+
+## 021 实际接口增量
+AmmoInventory._rack_shells保存按架/弹种分组的唯一库存；racks、chamber、in_transfer、shell_counts为该库存与两个互斥搬运位置的视图。select_next只改变下次取弹，begin_transfer固定搬运弹种，complete_load把同一发移入膛内。Gunner冻结膛内弹的标识、曲线、作用策略与种子后交给ProjectileManager；拒绝发射不扣弹。
+HistoricalShellCatalog校验车型/火炮/口径及来源后建立正式ShellDefinition，覆盖020包原始弹道初值；原始档案不删除。VehicleActor重建/重生恢复initial_shell_counts。
+ShellEffectPolicy跟踪已穿透目标的实际内部行程；FragmentSystem每发最多12条、每条3m/8次查询，使用共同查询、装甲和伤害入口。内部开口的封口仅用于内部范围判断，不生成阻力或碰撞。真实结果先提交到ProjectileState，再通知可重入监听者；回放只读burst/fragments，不重新生成随机方向。
+AmmunitionSupply由TeamRange的实际物理循环推进，VillageRange提供队伍补给圆心。补给使用同一库存事务，补齐出战清单后停止；旧单弹种工程夹具仍使用兼容账本。

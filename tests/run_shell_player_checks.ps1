@@ -8,7 +8,7 @@ $logs = Join-Path $projectRoot "logs/021/$sha/$stamp"
 $shots = Join-Path $projectRoot "docs/evidence/021/$sha/$stamp"
 New-Item -ItemType Directory -Force -Path $logs,$shots | Out-Null
 $steps = @(
-    @{Name='shell_player'; Count=48; Args='--path "' + $projectRoot + '" --fixed-fps 60 -- --shell-play-check --shot-dir "' + $shots + '"'}
+    @{Name='shell_player'; Count=50; Args='--path "' + $projectRoot + '" --fixed-fps 60 -- --shell-play-check --shot-dir "' + $shots + '"'}
 )
 $results = [System.Collections.Generic.List[object]]::new()
 foreach ($step in $steps) {
