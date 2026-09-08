@@ -4,6 +4,9 @@ const FONT = preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")
 const NAMES := {"engine":"发动机","breech":"炮闩","track_left":"左履带","track_right":"右履带","turret_drive":"炮塔驱动","ammo_rack":"弹药架","transmission":"传动","fuel":"油箱","gunner":"炮手","driver":"驾驶员","loader":"装填手","commander":"车长","assistant_driver":"副驾驶","penetrated":"击穿","stopped":"未击穿","ricochet":"跳弹","unknown":"装甲资料不足","module_destroyed":"部件失能","module_damaged":"部件受损","crew_incapacitated":"乘员失能","repair":"维修","extinguish":"灭火","replace":"替补","hull_front":"车体正面","hull_rear":"车体后部","hull_left":"车体左侧","hull_right":"车体右侧"}
 
 static func word(value: String) -> String:
+	if value == "ammo_floor_left": return "左侧弹药架"
+	if value == "ammo_floor_right": return "右侧弹药架"
+	if value == "ammo_ready": return "待发弹药架"
 	return NAMES.get(value,AI_WORDS.get(value,value.replace("_"," ")))
 
 const AI_WORDS := {"idle":"待命","following":"沿路径行驶","yielding":"停车让行","reverse":"倒车脱困","turn_recovery":"调整方向","arrived":"已到达","unreachable":"无法到达","failed":"脱困失败","disabled":"动力失能","destroyed":"阵亡","path_ready":"路线就绪","physical_obstacle":"前方有实体障碍","obstacle_cleared":"前方已让开","insufficient_actual_progress":"实际移动不足","reverse_complete":"倒车完成","goal_reached":"停入目标区","unreachable_or_insufficient_width":"无可达路线或通道过窄","recovery_limit":"已达脱困次数上限","drive_capability":"动力系统失能","drive_recovered":"动力恢复","generation_changed":"车辆已重置","detached":"控制器已解绑","reset":"训练已重开","new_goal":"新目标"}

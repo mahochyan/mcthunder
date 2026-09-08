@@ -21,6 +21,11 @@ var historical_defs := VehicleDefs.new()
 var preview_note: Label
 var preview_camera: Camera3D
 var dossier_button: Button
+var profile: ProfileStore
+var preparation: GaragePreparation
+var inspection_row: HBoxContainer
+var inspection_choice: OptionButton
+var inspection_value: Label
 
 func _ready() -> void:
 	theme = CoreUI.theme()
@@ -37,7 +42,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"双弹种候选 0.2.1  ·  历史配弹与逐字段资料  ·  几何与部分模拟参数仍为估算",15)
+	CoreUI.label(vertical,"车库候选 0.2.2  ·  编成、配弹与轻量研发  ·  几何与部分模拟参数仍为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -45,14 +50,20 @@ func _ready() -> void:
 	var left_panel := PanelContainer.new()
 	left_panel.custom_minimum_size.x = 360
 	columns.add_child(left_panel)
+	var left_column := VBoxContainer.new()
+	left_panel.add_child(left_column)
 	var scroll := ScrollContainer.new()
-	left_panel.add_child(scroll)
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	left_column.add_child(scroll)
 	var controls := VBoxContainer.new()
 	controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	controls.add_theme_constant_override("separation",8)
 	scroll.add_child(controls)
 	CoreUI.label(controls,"战前准备",24)
 	vehicle_choice = OptionButton.new()
+	vehicle_choice.clip_text = true
+	vehicle_choice.fit_to_longest_item = false
 	vehicle_choice.add_item("M4A3 外形工程样车 · 训练设计值")
 	vehicle_choice.set_item_metadata(0,"player_tank")
 	var admitted := catalog.load_all(historical_defs)
@@ -65,6 +76,9 @@ func _ready() -> void:
 	controls.add_child(vehicle_choice)
 	vehicle_choice.item_selected.connect(_select_vehicle)
 	dossier_button = CoreUI.button(controls,"查看车型资料与未核验字段",_show_dossier)
+	if profile == null: profile = ProfileStore.new()
+	preparation = GaragePreparation.new(); controls.add_child(preparation)
+	preparation.setup(self,profile)
 	CoreUI.label(controls,"弹种 / 游戏设计穿深",16)
 	shell_choice = OptionButton.new()
 	shell_choice.add_item("AP70 · 70 mm")
@@ -92,9 +106,9 @@ func _ready() -> void:
 	goal.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	goal.custom_minimum_size = Vector2(300,58)
 	case_choice.item_selected.connect(func(index: int) -> void: goal.text = TrainingDirector.GOALS[index])
-	start_button = CoreUI.button(controls,"进入训练",_start)
+	start_button = CoreUI.button(left_column,"进入训练",_start)
 	CoreUI.button(controls,"1 对 1 歼灭（工程夹具）",func() -> void: laboratory_requested.emit("duel"))
-	CoreUI.button(controls,"4 对 4 占点",func() -> void: laboratory_requested.emit("team"))
+	CoreUI.button(left_column,"4 对 4 占点",func() -> void: laboratory_requested.emit("team"))
 	error_label = CoreUI.label(controls,"",14)
 	if not admitted.ok: error_label.text = "历史配置未通过装配检查："+", ".join(admitted.errors)
 	error_label.modulate = Color("ffc282")
@@ -109,10 +123,14 @@ func _ready() -> void:
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)
+	var cards := HBoxContainer.new(); right.add_child(cards)
+	for i in VehicleCatalog.IDS.size():
+		var card := CoreUI.button(cards,["M4A3\n中型","M24\n轻型","M26\n重型 / 中型","M36\n歼击车"][i],func() -> void: vehicle_choice.select(i+1); _select_vehicle(i+1))
+		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var viewport_container := SubViewportContainer.new()
 	viewport_container.stretch = true
 	viewport_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	viewport_container.custom_minimum_size = Vector2(350,260)
+	viewport_container.custom_minimum_size = Vector2(350,220)
 	right.add_child(viewport_container)
 	var viewport := SubViewport.new()
 	viewport.size = Vector2i(760,400)
@@ -156,6 +174,13 @@ func _ready() -> void:
 	inspect_button = CoreUI.button(view_controls,"查看：外观 → 装甲 → 内构",_inspect)
 	inspect_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	CoreUI.button(view_controls,"转右",func() -> void: preview.rotation.y += PI/4)
+	inspection_row = HBoxContainer.new(); right.add_child(inspection_row)
+	inspection_choice = OptionButton.new(); inspection_choice.custom_minimum_size.x = 180
+	inspection_row.add_child(inspection_choice)
+	inspection_value = CoreUI.label(inspection_row,"",14)
+	inspection_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inspection_value.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	inspection_choice.item_selected.connect(_select_inspection)
 	preview_note = CoreUI.label(right,"",15)
 	preview_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result_label = CoreUI.label(right,"尚无本次会话训练结果。",16)
@@ -185,6 +210,49 @@ func _apply_preview_mode() -> void:
 		var mesh: MeshInstance3D = preview._patch_nodes[id]
 		if _view_mode == 0: mesh.material_override.albedo_color = Color("667653")
 		else: preview._restore_patch_color(mesh,id)
+	if preparation != null: preparation.apply_rack_preview()
+	_refresh_inspection()
+
+func _refresh_inspection() -> void:
+	if inspection_row == null: return
+	inspection_row.visible = _view_mode != 0
+	inspection_choice.clear()
+	if _view_mode == 1:
+		for patch in preview.layout.armor_patches:
+			inspection_choice.add_item(CoreUI.word(patch.id))
+			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"patch","id":patch.id})
+	elif _view_mode == 2:
+		for module in preview.layout.modules:
+			inspection_choice.add_item(CoreUI.word(module.id))
+			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"module","id":module.id})
+		for station in preview.layout.crew_stations:
+			inspection_choice.add_item("乘员 / "+CoreUI.word(station.id))
+			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"crew","id":station.id})
+	if inspection_choice.item_count > 0: _select_inspection(0)
+
+func _select_inspection(index: int) -> void:
+	if index < 0 or index >= inspection_choice.item_count: return
+	var entry: Dictionary = inspection_choice.get_item_metadata(index)
+	preview.select_module(""); preview.select_crew(""); preview.select_patch("")
+	if entry.kind == "patch":
+		preview.select_patch(entry.id)
+		for patch in preview.layout.armor_patches:
+			if patch.id == entry.id:
+				inspection_value.text = "名义厚度 %.1f mm · %s\n局部几何：%s"%[patch.thickness_mm,_evidence_word(patch.thickness_status),_evidence_word(patch.geometry_status)] if patch.has_thickness else "厚度未知，不以0 mm替代。\n局部几何："+_evidence_word(patch.geometry_status)
+	elif entry.kind == "module":
+		preview.select_module(entry.id)
+		for module in preview.layout.modules:
+			if module.id == entry.id: inspection_value.text = CoreUI.word(module.kind)+" · 内构位置与尺寸："+_evidence_word(module.geometry_status)
+		if preparation.current_id in VehicleCatalog.IDS:
+			var checked := profile.service.build_loadout(preparation.loadouts[preparation.current_id])
+			if checked.ok and checked.inventory.racks.has(entry.id): inspection_value.text += "\n架内%d发；空架隐藏。"%checked.inventory.racks[entry.id]
+	else:
+		preview.select_crew(entry.id)
+		inspection_value.text = "乘员位置盒为估算；具体角色与原始资料见车型档案。"
+	preparation.apply_rack_preview()
+
+func _evidence_word(value: String) -> String:
+	return {"verified":"已核验","estimated":"估算","unknown":"未知"}.get(value,value)
 
 func _collect_preview_extras(node: Node) -> void:
 	for child in node.get_children():
@@ -232,6 +300,7 @@ func _select_vehicle(_index: int) -> void:
 		preview_camera.position = Vector3(5.3,3.8,-6.4)
 	preview_camera.look_at(Vector3(0,1.2,0))
 	_collect_preview_extras(preview)
+	preparation.select_vehicle(id)
 	_apply_preview_mode()
 
 func _show_dossier() -> void:
@@ -239,6 +308,8 @@ func _show_dossier() -> void:
 	if not catalog.packages.has(id): return
 	var packet: Dictionary = catalog.packages[id].packet
 	var overlay := PanelContainer.new()
+	var solid := StyleBoxFlat.new(); solid.bg_color = Color("17252d"); solid.set_content_margin_all(16)
+	overlay.add_theme_stylebox_override("panel",solid)
 	add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","top"]: overlay.set("offset_"+side,30)

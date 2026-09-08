@@ -25,10 +25,13 @@ var battle_ui: BattleUI
 var match_seed := 1600
 var ai_only := false # Explicit scenario-runner configuration; normal garage play is false.
 var ammunition_supply := AmmunitionSupply.new()
+var respawn_vehicle_id := ""
+var garage_service: GarageService
 
 func _ready() -> void:
 	super._ready()
 	if not _initialized: return
+	if prepared_match != null: garage_service = GarageService.new(); respawn_vehicle_id = prepared_match.selected()
 	director = TeamMatchDirector.new()
 	add_child(director)
 	director.begin()
@@ -145,13 +148,15 @@ func spawn_slot(id: String) -> VehicleActor:
 
 func vehicle_id_for_slot(id: String) -> String:
 	if selected_vehicle_id not in VehicleCatalog.IDS: return "player_tank"
-	if id == "A": return selected_vehicle_id
+	if id == "A": return respawn_vehicle_id if prepared_match != null else selected_vehicle_id
 	var ids: Array = director.state.roster.keys()
 	ids.sort()
 	# Same four-vehicle rotation on both teams, anchored on the player's selected type.
 	return VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
 
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
+	if id == "A" and prepared_match != null:
+		if not garage_service.install(vehicle,prepared_match.loadout(vehicle.definition.id)): push_error("respawn loadout rejected")
 	if vehicle.definition.id not in VehicleCatalog.IDS: M4EngineeringProfile.apply(vehicle)
 	vehicle.state.recovery_enabled = true
 	vehicle.gunner.projectile_manager = projectiles
@@ -190,7 +195,7 @@ func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 		var ai := AITankController.new()
 		vehicle.add_child(ai)
 		var index := 0 if id.length() == 1 else int(id.substr(1))-1
-		ai.configure(vehicle,nav,Callable(self,"combat_actors"),"normal",match_seed+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
+		ai.configure(vehicle,nav,Callable(self,"combat_actors"),prepared_match.difficulty() if prepared_match != null else "normal",match_seed+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
 		ai.advance_while_engaged = true
 		ai.set_patrol(objective_goal(vehicle.state.team_id,index),spawn_candidates(vehicle.state.team_id)[index].origin*Vector3(1,0,1))
 		vehicle.set_controller(ai)
@@ -248,7 +253,12 @@ func _on_lost(id: String) -> void:
 func request_respawn() -> void:
 	if director.state.phase != "playing": return
 	var row: Dictionary = director.state.roster.A
-	if row.respawn_at >= 0 and director.state.elapsed >= row.respawn_at: row.respawn_requested = true
+	if row.respawn_at >= 0 and director.state.elapsed >= row.respawn_at:
+		if prepared_match != null:
+			var chosen := str(vehicle_choice.get_item_metadata(vehicle_choice.selected))
+			if chosen not in prepared_match.vehicle_ids(): return
+			respawn_vehicle_id = chosen
+		row.respawn_requested = true
 
 func abandon_vehicle() -> void:
 	if not team_ready or director.state.phase != "playing" or actor.state.destroyed: return
@@ -334,14 +344,19 @@ func _build_ui() -> void:
 	waiting_panel.add_child(waiting)
 	waiting_label = CoreUI.label(waiting,"阵亡等待",25)
 	vehicle_choice = OptionButton.new()
-	if selected_vehicle_id in VehicleCatalog.IDS:
+	if prepared_match != null:
+		for id in prepared_match.vehicle_ids():
+			vehicle_choice.add_item(str(defs.content_packets[id].display_name))
+			vehicle_choice.set_item_metadata(vehicle_choice.item_count-1,id)
+			if id == selected_vehicle_id: vehicle_choice.select(vehicle_choice.item_count-1)
+	elif selected_vehicle_id in VehicleCatalog.IDS:
 		vehicle_choice.add_item(str(defs.content_packets[selected_vehicle_id].display_name))
 	else: vehicle_choice.add_item("M4A3 工程样车 · AP120 · 30发")
 	waiting.add_child(vehicle_choice)
 	CoreUI.label(waiting,"8秒准备后选择再出击；堵塞时等待安全出生点。\nTab 可切换观察友军，不会接管友军车辆。",16)
 	respawn_button = CoreUI.button(waiting,"再出击",request_respawn)
 	CoreUI.button(waiting,"返回车库",leave_match)
-	result_panel = _panel(Vector2(580,350))
+	result_panel = _panel(Vector2(580,410))
 	var result_box := VBoxContainer.new()
 	result_box.add_theme_constant_override("separation",16)
 	result_panel.add_child(result_box)

@@ -9,11 +9,23 @@ var selected_case := 0
 var selected_vehicle_id := "player_tank"
 var last_result: Dictionary = {}
 var _transitioning := false
+var profile: ProfileStore
+var progression: ProgressionService
+var match_config: MatchConfig
+var match_token := ""
+var pending_reward: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_viewport().gui_embed_subwindows = true
 	var args := OS.get_cmdline_user_args()
+	if profile == null:
+		var isolated := DisplayServer.get_name() == "headless"
+		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check"]:
+			if args.has(flag): isolated = true
+		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
+	progression = ProgressionService.new(profile)
+	if profile.snapshot().revision > 0: selected_vehicle_id = profile.snapshot().garage.selected_vehicle_id
 	if args.has("--autoshot") or args.has("--inspect-demo") or args.has("--query-demo"):
 		get_tree().call_deferred("change_scene_to_file","res://scenes/main.tscn")
 		return
@@ -40,6 +52,10 @@ func _ready() -> void:
 		var demo := load("res://tests/run_shell_demo.gd").new() as Node
 		add_child(demo)
 		demo.call_deferred("run",self)
+	elif args.has("--garage-play-check"):
+		var demo := load("res://tests/run_garage_demo.gd").new() as Node
+		add_child(demo)
+		demo.call_deferred("run",self)
 
 func _clear_training() -> void:
 	get_tree().paused = false
@@ -58,17 +74,27 @@ func return_to_garage(result: Dictionary = {}) -> void:
 
 func _show_garage(result: Dictionary) -> void:
 	_clear_training()
-	if not result.is_empty(): last_result = result
+	if not result.is_empty():
+		var prior := last_result.duplicate(true)
+		last_result = result
+		if prior.get("match_id",-1) == result.get("match_id",-2) and prior.has("progression"): last_result.progression = prior.progression
 	if is_instance_valid(garage): garage.free()
 	garage = GarageShell.new()
+	garage.profile = profile
 	garage.initial_loadout = settings.duplicate(true)
 	garage.initial_case = selected_case
 	garage.initial_vehicle_id = selected_vehicle_id
 	ui_layer.add_child(garage)
+	if not profile.problem.is_empty(): garage.error_label.text = profile.problem
+	if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result)
+	if not pending_reward.is_empty():
+		CoreUI.button(garage.preparation,"重试战后保存",func() -> void:
+			if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result))
 	garage.training_requested.connect(enter_training)
 	garage.laboratory_requested.connect(enter_laboratory)
 	if not last_result.is_empty():
 		garage.result_label.text = "上次课目：%s · %s · %d炮" % [last_result.title,{"passed":"完成","failed":"未完成","running":"中途返回"}.get(last_result.status,"已结束"),last_result.shots]
+		if last_result.has("progression"): garage.result_label.text += "\n"+str(last_result.progression.reason)
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_transitioning = false
 
@@ -99,11 +125,25 @@ func _enter_core() -> void:
 
 func enter_laboratory(id: String) -> void:
 	if _transitioning: return
+	if not pending_reward.is_empty():
+		_settle_match(pending_reward.token,pending_reward.result)
+		if not pending_reward.is_empty(): return
 	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn","team":"res://scenes/maps/map_hill_village.tscn"}
 	allowed["historical"] = "res://scenes/training/ballistics_range.tscn"
 	allowed["shells"] = "res://scenes/training/shell_range.tscn"
 	if not allowed.has(id): return
 	selected_vehicle_id = garage.selected_vehicle_id()
+	match_config = null; match_token = ""
+	if id in ["team","historical"] and selected_vehicle_id in VehicleCatalog.IDS:
+		var configured := garage.preparation.build_match()
+		if not configured.ok: garage.error_label.text = configured.reason; return
+		var saved := garage.preparation.save_settings()
+		if not saved.ok: return
+		match_config = configured.config
+		if id == "team":
+			var registered := progression.register_match(match_config)
+			if not registered.ok: garage.error_label.text = registered.reason; return
+			match_token = registered.token
 	var prepared := garage.build_loadout()
 	if prepared.ok: settings = prepared.loadout
 	_transitioning = true
@@ -111,6 +151,16 @@ func enter_laboratory(id: String) -> void:
 
 func restart_match() -> void:
 	if _transitioning or not (training is DuelRange or training is TeamRange): return
+	if training is TeamRange and match_config != null and training.director.state.phase != "finished": training.director.finish_once("abandoned","player_returned")
+	if not pending_reward.is_empty():
+		_settle_match(pending_reward.token,pending_reward.result)
+		if not pending_reward.is_empty(): return
+	if match_config != null and training is TeamRange:
+		var registered := progression.register_match(match_config)
+		if not registered.ok:
+			training.result_text.text += "\n"+str(registered.reason)
+			return
+		match_token = registered.token
 	_transitioning = true
 	call_deferred("_enter_lab","res://scenes/maps/map_hill_village.tscn" if training is VillageRange else "res://scenes/battle/team_range.tscn" if training is TeamRange else "res://scenes/battle/duel_range.tscn")
 
@@ -126,10 +176,14 @@ func _enter_lab(path: String) -> void:
 	training = scene.instantiate()
 	if path in ["res://scenes/training/ballistics_range.tscn","res://scenes/maps/map_hill_village.tscn","res://scenes/battle/team_range.tscn"]:
 		training.selected_vehicle_id = selected_vehicle_id
+	if training is BallisticsRange: training.prepared_match = match_config
 	add_child(training)
 	var lab := training as BallisticsRange
 	for connection in lab.hud.training_requested.get_connections(): lab.hud.training_requested.disconnect(connection.callable)
 	if lab is DuelRange or lab is TeamRange:
+		if lab is TeamRange:
+			progression.bind_director(match_token,lab.director)
+			lab.director.match_finished.connect(func(result: Dictionary) -> void: _settle_match(match_token,result))
 		lab.restart_requested.connect(restart_match)
 		lab.return_requested.connect(return_to_garage)
 		lab.hud.training_requested.connect(lab.leave_match)
@@ -141,6 +195,16 @@ func _enter_lab(path: String) -> void:
 	lab.hud.recovery_training_button.visible = false
 	CoreUI.apply(lab.hud)
 	_transitioning = false
+
+func _settle_match(token: String, result: Dictionary) -> void:
+	var earned := progression.apply_result_once(token,result)
+	last_result = result.duplicate(true)
+	last_result.progression = earned
+	pending_reward = {} if earned.ok else {"token":token,"result":result.duplicate(true)}
+	if training is TeamRange and is_instance_valid(training.result_text): training.result_text.text += "\n"+str(earned.reason)
+	if is_instance_valid(garage):
+		garage.error_label.text = earned.reason
+		garage.preparation._refresh_research()
 
 func show_results(result: Dictionary) -> void:
 	if not is_instance_valid(training) or is_instance_valid(result_overlay): return

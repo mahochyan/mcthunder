@@ -29,6 +29,16 @@ func mouse(button: MouseButton, pressed: bool, point: Vector2 = Vector2(640,360)
 func click(button: Control) -> void:
 	check(is_instance_valid(button) and button.is_visible_in_tree(),"normal UI control is visible before click")
 	if not is_instance_valid(button): return
+	# Follow the public scroll interaction when the expanded garage puts a control below the fold.
+	var ancestor := button.get_parent()
+	while ancestor != null and not ancestor is ScrollContainer: ancestor = ancestor.get_parent()
+	if ancestor is ScrollContainer:
+		for attempt in 35:
+			var clip: Rect2 = ancestor.get_global_rect()
+			var rect := button.get_global_rect()
+			if rect.position.y >= clip.position.y+2 and rect.end.y <= clip.end.y-2: break
+			var wheel := MOUSE_BUTTON_WHEEL_DOWN if rect.end.y > clip.end.y-2 else MOUSE_BUTTON_WHEEL_UP
+			mouse(wheel,true,clip.get_center()); mouse(wheel,false,clip.get_center()); await frames(3)
 	var point := button.get_global_rect().get_center()
 	var motion := InputEventMouseMotion.new(); motion.position = point; motion.global_position = point
 	Input.parse_input_event(motion); await frames(3)

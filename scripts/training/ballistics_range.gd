@@ -11,6 +11,7 @@ const FAR_Z := -150.0
 
 var defs: VehicleDefs
 var selected_vehicle_id := "player_tank"
+var prepared_match: MatchConfig
 var historical_catalog: VehicleCatalog
 var controller: PlayerController
 var actor: VehicleActor
@@ -419,6 +420,11 @@ func _return_to_range() -> void:
 func _open_armor_training() -> void:
 	if not _initialized or not _paused:
 		return
+	if prepared_match != null:
+		var service := GarageService.new()
+		if not service.install(actor,prepared_match.loadout(selected_vehicle_id)):
+			push_error("prepared player loadout rejected")
+			return
 	projectiles.cancel_all("cancelled_scene_exit")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/training/armor_range.tscn")
