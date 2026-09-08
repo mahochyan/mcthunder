@@ -78,9 +78,12 @@ func get_aim_point() -> Vector3:
 	# 玩家想瞄的点：相机中心射线（第三人称下即屏幕中心方向）。
 	# 003：意图射线查 WORLD|VEHICLE（排除本车）——B 等车辆可被瞄准，
 	# 否则炮塔会越过车辆对准其后方世界点，炮管射线从目标上方掠过。
+	# 006-R1-C：射线长度 150→300m——相机在炮管后方 ~6.5m，150m 射道从相机处
+	# 已超 150m，意图射线打不到远靶导致炮管收敛到回退瞄点（远射道不可用）；
+	# 上限须覆盖 gun_range(200m) + 相机偏移。
 	var from := cam.global_position
 	var dir := -cam.global_transform.basis.z
-	var hit := _ray(from, from + dir * 150.0, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE)
+	var hit := _ray(from, from + dir * 300.0, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE)
 	if not hit.is_empty():
 		return hit.position
 	return from + dir * 60.0

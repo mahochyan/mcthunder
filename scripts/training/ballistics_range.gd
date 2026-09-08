@@ -247,7 +247,7 @@ func _on_projectile_finished(record: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	# 演示收尾段实际渲染帧率采样（飞行窗口另有逐帧间隔记录，见 _on_projectile_finished）
-	if _demo and _demo_step >= 32 and _demo_fps_n < 60:
+	if _demo and _demo_step >= 34 and _demo_fps_n < 60:
 		_demo_fps_sum += float(Engine.get_frames_per_second())
 		_demo_fps_n += 1
 	# 006-R1-C：飞行窗口实际帧间隔（从发射到终止的空闲帧 deltas，覆盖主要飞行时段）
@@ -517,14 +517,21 @@ func _demo_tick() -> void:
 			_demo_aim_pitch(Vector3(0, 2.6, FAR_Z))
 			_demo_wait = 104
 		26:
+			# 第二遍俯仰收敛：轨道相机高度随俯仰变化，一次近似不准——
+			# 用更新后的相机位置重算一遍（远瞄必须两遍，近瞄几乎无差）
+			_demo_aim_pitch(Vector3(0, 2.6, FAR_Z))
+			_demo_wait = 104
+		27:
 			if actor.turret.aim_error_deg() > 1.0:
 				_demo_fail("natural aim err=%.2f deg (far board)" % actor.turret.aim_error_deg())
 				return
+			var bd: Vector3 = actor.turret.barrel_direction()
+			print("[bdemo] t_pf=%d far aim pre-fire: barrel_dir=%s cam_yaw=%.3f cam_pitch=%.3f err=%.2f deg" % [Engine.get_physics_frames(), str(bd), actor.cam_rig.aim_yaw, actor.cam_rig.aim_pitch, actor.turret.aim_error_deg()])
 			_demo_board_base = {"NearBoard": int(_boards["NearBoard"].hit_count), "FarBoard": int(_boards["FarBoard"].hit_count)}
 			if not _demo_fire("shot3"):
 				return
 			_demo_wait = 8   # 远靶飞行 ~30 物理步（146.6m），采样窗口充足
-		27:
+		28:
 			_demo_sample_a = _demo_sample()
 			if _demo_sample_a.is_empty():
 				_demo_fail("shot3 far in-flight sample failed (active=%d)" % projectiles.active_count())
@@ -532,7 +539,7 @@ func _demo_tick() -> void:
 			print("[bdemo] t_pf=%d shot3 IN FLIGHT (far): age=%.4fs travelled=%.3fm pos=%s" % [Engine.get_physics_frames(), _demo_sample_a["age"], _demo_sample_a["trav"], str(_demo_sample_a["pos"])])
 			_demo_capture_requests.append({"filename": "demo_4_far_in_flight.png"})   # 远靶实际飞行中
 			_demo_wait = 5
-		28:
+		29:
 			var sb2 := _demo_sample()
 			if sb2.is_empty():
 				_demo_fail("shot3 far second sample failed (active=%d)" % projectiles.active_count())
@@ -542,7 +549,7 @@ func _demo_tick() -> void:
 				return
 			print("[bdemo] t_pf=%d shot3 advanced: travelled %.3f -> %.3f m" % [Engine.get_physics_frames(), float(_demo_sample_a["trav"]), float(sb2["trav"])])
 			_demo_wait = 25
-		29:
+		30:
 			if projectiles.active_count() > 0:
 				_demo_fail("shot3 still active after wait (active=%d)" % projectiles.active_count())
 				return
@@ -553,7 +560,7 @@ func _demo_tick() -> void:
 			print("[bdemo] far REAL muzzle->contact distance = %.3f m (按飞弹实际路程记录，不按靶板标称值)" % float(_last_impact.get("travelled_m", 0.0)))
 			_demo_capture_requests.append({"filename": "demo_5_far_after_impact.png"})   # 远靶接触后
 			_demo_wait = _demo_reload_ticks()
-		30:
+		31:
 			if actor.gunner.cooldown_left > 0.0:
 				_demo_fail("shot4 natural reload not done (cooldown=%.2f)" % actor.gunner.cooldown_left)
 				return
@@ -561,7 +568,7 @@ func _demo_tick() -> void:
 			if not _demo_fire("shot4"):
 				return
 			_demo_wait = 2
-		31:
+		32:
 			if projectiles.active_count() != 1:
 				_demo_fail("shot4 expected 1 in flight before reset (active=%d)" % projectiles.active_count())
 				return
@@ -569,14 +576,14 @@ func _demo_tick() -> void:
 			if projectiles.active_count() != 0:
 				_demo_fail("reset did not clear projectiles (active=%d)" % projectiles.active_count())
 				return
-			if int(_boards["FarBoard"].hit_count) != int(_demo_board_base["FarBoard"]):
-				_demo_fail("reset changed FarBoard hit_count")
+			if int(_boards["FarBoard"].hit_count) != 0 or int(_boards["NearBoard"].hit_count) != 0:
+				_demo_fail("reset did not clear board feedback (far=%d near=%d)" % [int(_boards["FarBoard"].hit_count), int(_boards["NearBoard"].hit_count)])
 				return
 			print("[bdemo] t_pf=%d reset: in-flight 1 -> 0, board feedback/last-impact/visuals cleared (重开已清空)" % Engine.get_physics_frames())
 			_demo_capture_requests.append({"filename": "demo_6_reset_cleared.png"})
 			_demo_wait = 30
-		32:
-			# 采样期：step 保持 32（_process 在此期间累计实际渲染帧率）
+		33:
+			# 采样期：step 保持 33（_process 在此期间累计实际渲染帧率）
 			if _demo_ticks % 120 == 0:
 				print("[bdemo] t_pf=%d fps sampling: n=%d/%d paused=%s" % [Engine.get_physics_frames(), _demo_fps_n, 60, str(get_tree().paused)])
 			if _demo_fps_n >= 60:
