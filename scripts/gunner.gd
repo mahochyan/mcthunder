@@ -49,9 +49,14 @@ func _exclude() -> Array[RID]:
 		ex.append(tank.get_rid())
 	return ex
 
-func _process(delta: float) -> void:
+func advance_timers(delta: float) -> void:
+	# 006：装填/宽限时钟唯一推进入口——由 VehicleActor._physics_process 在消费命令前
+	# 调用一次（删除原 _process 中的扣减；不再从其他回调重复调用）。
 	cooldown_left = maxf(0.0, cooldown_left - delta)
 	resume_grace = maxf(0.0, resume_grace - delta)
+
+func _process(delta: float) -> void:
+	# 006：画面更新只保留表现工作（装填/宽限时钟已迁至 advance_timers）
 	_update_actual_aim()
 	_update_effects(delta)
 

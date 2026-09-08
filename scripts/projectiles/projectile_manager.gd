@@ -32,6 +32,11 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = 100
 
+func _exit_tree() -> void:
+	# 006：场景销毁/初始化失败——静默清理（不发出信号；旧回调不得访问已释放对象）
+	_active.clear()
+	_pending.clear()
+
 
 func active_count() -> int:
 	return _active.size()

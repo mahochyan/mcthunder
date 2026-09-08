@@ -138,7 +138,10 @@ func submit_command(cmd: VehicleCommand) -> bool:
 func _physics_process(delta: float) -> void:
 	# 003-R2：每辆车唯一物理执行器——有控制者先经同一提交入口收集本步命令，
 	# 然后消费恰好一次（无输入 = 零命令静止）；脚本不再传入 delta 决定运动时间。
+	# 006：装填/宽限时钟在消费命令前推进一次（唯一入口，删除 Gunner._process 扣减）。
 	_consume_count = 0
+	if is_instance_valid(gunner):
+		gunner.advance_timers(delta)
 	if controller != null:
 		submit_command(controller.poll())
 	var cmd := _mailbox.consume()

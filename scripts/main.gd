@@ -19,6 +19,7 @@ var hud: HUD
 var targets: Array = []
 var trial_hits := 0           # 003：试射目标计数（gate.accept_hit 接受后同步；任务状态单一来源 = _gate）
 const TRIAL_TARGET := 3
+var _last_impact: Dictionary = {}   # 006：最近一次飞弹终止（按 projectile_id 保存，HUD 展示）
 var _gate := TrialHitGate.new()   # 003-R2：任务收分唯一来源（轮次/命中数/去重集合都在 gate 维护，Main 只读）
 var _paused := false
 var _inspector_open := false   # 004-c：车辆检视窗口打开标志（Esc 路由 / 靶场输入隔离）
@@ -102,6 +103,7 @@ func _ready() -> void:
 	add_child(hud)
 	hud.resume_requested.connect(_resume)
 	hud.inspect_requested.connect(open_vehicle_inspector)   # 004-c：暂停菜单检视入口
+	hud.training_requested.connect(_open_training)   # 006：暂停菜单弹道训练入口
 	# 试射目标：B 的真实生产命中事件推进计数（完整身份校验见 _on_b_hit / gate）
 	actor_b.tank.hit_registered.connect(_on_b_hit)
 	# 003-R2：发射身份的轮次来源（A/B 由 _ready 直建，不经 spawn_vehicle，需注入）
@@ -337,6 +339,17 @@ func close_query_debug() -> void:
 	if not _paused and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+func _open_training() -> void:
+	# 006：暂停菜单 -> 弹道训练场（切换按新局处理：先清理飞弹与临时视觉，
+	# 不携带旧轮次命中；训练场返回靶场同理）
+	if not _can_use_gameplay() or not _paused:
+		return
+	if projectiles != null:
+		projectiles.cancel_all("cancelled_scene_exit")
+	get_tree().paused = false
+	_paused = false
+	get_tree().change_scene_to_file("res://scenes/training/ballistics_range.tscn")
+
 func _resume() -> void:
 	if not _can_use_gameplay():
 		return
@@ -415,7 +428,29 @@ func _on_projectile_finished(record: Dictionary) -> void:
 	# 目标已经消失时不重新找一辆同名新车冒充旧目标。
 	if _aborted:
 		return
-	if str(record.get("reason", "")) != "impact_vehicle":
+	# 最近结果按 projectile_id 保存（HUD 展示；旧弹结果不串到新弹）
+	var reason: String = str(record.get("reason", ""))
+	var reason_upper := "EXPIRED"
+	match reason:
+		"impact_vehicle":
+			reason_upper = "VEHICLE"
+		"impact_world":
+			reason_upper = "WORLD"
+		"expired_time", "expired_distance":
+			reason_upper = "EXPIRED"
+		"unresolved_query":
+			reason_upper = "UNRESOLVED"
+		"cancelled_reset", "cancelled_scene_exit":
+			reason_upper = "CANCELLED"
+	_last_impact = {
+		"projectile_id": int(record.get("projectile_id", 0)),
+		"shot_id": int(record.get("shot_id", 0)),
+		"reason": reason,
+		"reason_upper": reason_upper,
+		"flight_time_s": float(record.get("flight_time_s", 0.0)),
+		"travelled_m": float(record.get("travelled_m", 0.0)),
+	}
+	if reason != "impact_vehicle":
 		return
 	var target := find_vehicle(str(record.get("target_id", "")), int(record.get("target_life_id", 0)))
 	if target == null:
@@ -471,12 +506,25 @@ func _process(_delta: float) -> void:
 	if actor_a.definition.content_tier == "test":
 		control_text += " [TEST ONLY]"
 	var result_text := ""
-	if gunner.last_shot_result != "":
-		result_text = "LAST SHOT: " + gunner.last_shot_result.to_upper()
+	if gunner.last_shot_result == "fired":
+		result_text = "LAST SHOT: #%d IN FLIGHT" % gunner.shot_id
+	elif gunner.last_shot_result != "":
+		result_text = "LAST SHOT: BLOCKED (%s)" % gunner.blocked_reason.to_upper()
 	var trial_text := "TRIAL: A HIT B %d/%d" % [trial_hits, TRIAL_TARGET]
 	if trial_hits >= TRIAL_TARGET:
 		trial_text = "TRIAL COMPLETE: A HIT B 3/3 (R to restart)"
-	hud.update_hud(tank.forward_speed, gunner.cooldown_left, gunner.blocked_reason, hits, cam_rig.sight, control_text, result_text, trial_text)
+	# 006：弹药/在飞/最近撞击（最近结果按 projectile_id 保存，不靠无身份字符串串接）
+	var ammo_text := "AMMO: %d/%d" % [gunner.rounds_remaining, gunner.weapon.initial_rounds if gunner.weapon != null else 30]
+	var proj_text := "PROJECTILES: %d" % (projectiles.active_count() if projectiles != null else 0)
+	var impact_text := "LAST IMPACT: —"
+	if not _last_impact.is_empty():
+		impact_text = "LAST IMPACT: #%d %s / %.2f s / %.2f m" % [
+			_last_impact.get("shot_id", 0),
+			str(_last_impact.get("reason_upper", "")),
+			float(_last_impact.get("flight_time_s", 0.0)),
+			float(_last_impact.get("travelled_m", 0.0)),
+		]
+	hud.update_hud(tank.forward_speed, gunner.cooldown_left, gunner.blocked_reason, hits, cam_rig.sight, control_text, result_text, trial_text, ammo_text, proj_text, impact_text)
 	hud.update_debug(Engine.get_frames_per_second(), tank.forward_speed, rad_to_deg(turret.global_rotation.y), rad_to_deg(turret.barrel_pivot.rotation.x), gunner.cooldown_left)
 	_update_markers()
 	if _autoshot:

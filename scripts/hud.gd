@@ -5,6 +5,7 @@ extends CanvasLayer
 
 signal resume_requested
 signal inspect_requested   # 004-c：暂停菜单"车辆检视"按钮
+signal training_requested  # 006：暂停菜单"弹道训练"入口（训练场中为"返回靶场"）
 
 const CJK_PROBE := 0x4E2D   # '中'
 
@@ -15,6 +16,10 @@ var blocked_label: Label
 var control_label: Label      # 003：当前控制车
 var result_label: Label       # 003：最后射击结果
 var trial_label: Label        # 003：试射目标
+var ammo_label: Label         # 006：剩余弹数
+var projectiles_label: Label  # 006：在飞弹丸数
+var impact_label: Label       # 006：最近撞击结果
+var gunline_label: Label      # 006：炮线标注（非弹道落点预测）
 var hint_label: Label
 var crosshair: Label
 var debug_label: Label
@@ -22,6 +27,7 @@ var resume_btn: Button           # 002-R1：真实鼠标事件点击测试使用
 var font_cjk := false
 var S := {}
 var _pause_root: Control
+var _training_btn: Button
 
 func _ready() -> void:
 	font_cjk = ThemeDB.fallback_font != null and ThemeDB.fallback_font.has_char(CJK_PROBE)
@@ -43,6 +49,12 @@ func _strings(zh: bool) -> Dictionary:
 			"hint": "W/S 前进/后退   A/D 车体转向\n鼠标 瞄准   右键(按住) 炮镜   左键 开炮\nR 重置   Esc 暂停",
 			"paused": "已暂停",
 			"resume": "继续",
+			"ammo": "弹药",
+			"projectiles": "在飞弹丸",
+			"impact": "最近撞击",
+			"gunline": "炮线 — 非弹道落点预测",
+			"training": "弹道训练",
+			"return_range": "返回靶场",
 		}
 	return {
 		"speed": "Speed",
@@ -57,6 +69,12 @@ func _strings(zh: bool) -> Dictionary:
 		"hint": "W/S forward/back  A/D turn\nMouse aim  RMB(hold) sight  LMB fire\nR reset  Esc pause",
 		"paused": "PAUSED",
 		"resume": "Resume",
+		"ammo": "AMMO",
+		"projectiles": "PROJECTILES",
+		"impact": "LAST IMPACT",
+		"gunline": "GUN LINE — NOT BALLISTIC IMPACT PREDICTION",
+		"training": "Ballistics Range",
+		"return_range": "Return to Range",
 	}
 
 func _mk_label(pos: Vector2, fsize: int) -> Label:
@@ -77,6 +95,14 @@ func _build() -> void:
 	result_label = _mk_label(Vector2(16, 152), 20)
 	trial_label = _mk_label(Vector2(16, 180), 20)
 	trial_label.modulate = Color(1.0, 0.85, 0.3)
+	# 006：弹药/在飞/最近撞击/炮线标注（弹道训练信息）
+	ammo_label = _mk_label(Vector2(16, 208), 20)
+	projectiles_label = _mk_label(Vector2(16, 236), 20)
+	impact_label = _mk_label(Vector2(16, 264), 20)
+	impact_label.modulate = Color(0.7, 0.9, 1.0)
+	gunline_label = _mk_label(Vector2(16, 292), 15)
+	gunline_label.modulate = Color(0.8, 0.8, 0.8)
+	gunline_label.text = S.gunline
 	hint_label = _mk_label(Vector2(16, 630), 17)
 	hint_label.text = S.hint
 	# 底部左锚定（002 §2.4）：720p/1080p/窗口拉伸时提示始终贴底
@@ -131,12 +157,22 @@ func _build() -> void:
 	inspect_btn.custom_minimum_size = Vector2(160, 44)
 	inspect_btn.pressed.connect(func() -> void: inspect_requested.emit())
 	vb.add_child(inspect_btn)
+	# 006：弹道训练入口（训练场中由 set_training_button_text 改为"返回靶场"）
+	_training_btn = Button.new()
+	_training_btn.text = S.training
+	_training_btn.custom_minimum_size = Vector2(160, 44)
+	_training_btn.pressed.connect(func() -> void: training_requested.emit())
+	vb.add_child(_training_btn)
 	vb.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+
+func set_training_button_text(training: bool) -> void:
+	# 006：训练场中按钮语义 = 返回靶场
+	_training_btn.text = S.training if training else S.return_range
 
 func show_pause(p: bool) -> void:
 	_pause_root.visible = p
 
-func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Array, sight_on: bool, control_text: String, result_text: String, trial_text: String) -> void:
+func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Array, sight_on: bool, control_text: String, result_text: String, trial_text: String, ammo_text: String = "", projectiles_text: String = "", impact_text: String = "") -> void:
 	speed_label.text = "%s: %.1f m/s" % [S.speed, speed_mps]
 	if reload_left > 0.0:
 		reload_label.text = S.reloading % reload_left
@@ -150,6 +186,9 @@ func update_hud(speed_mps: float, reload_left: float, blocked: String, hits: Arr
 	control_label.text = control_text
 	result_label.text = result_text
 	trial_label.text = trial_text
+	ammo_label.text = ammo_text
+	projectiles_label.text = projectiles_text
+	impact_label.text = impact_text
 	crosshair.visible = sight_on
 
 func set_debug_visible(v: bool) -> void:
