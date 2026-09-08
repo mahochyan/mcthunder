@@ -5,15 +5,16 @@
 （总计划 002→036，见 `docs/planning/MASTER_PLAN.md`）。当前状态：001（可驾驶、可瞄准、
 可射击的 3D 坦克靶场 v0.0.1）已实现；002 已按"开发基线、带保留项"签收
 （`docs/REVIEW_002_ACCEPTANCE.md`；人工逐项/截图等保留项延期至 011 核心体验验收，
-不代签）；**当前状态：005 已签收（status=accepted，
-scope=unified_query_engineering_baseline_with_carryover，accepted_sha=3aa26da0；
-tested_code_sha=fde3924，evidence_commit=b7d6d56；
-见 `docs/REVIEW_005_ACCEPTANCE.md` 与 GPT 签收裁决。005-R1 修订循环与
-005-R1 有限收尾（A 世界接触边界 / B 快照采样时点 / C 统一排序）全部关闭。
+不代签）；**当前状态：006 已签收（status=accepted，
+scope=projectile_flight_engineering_baseline_with_carryover，accepted_sha=17f4e239；
+tested_code_sha=5d2c0bbb，evidence_commit=17f4e239；
+见 `docs/REVIEW_006_ACCEPTANCE.md` 与 GPT 正式裁决。006-R1 修订循环与
+finite_closeout（取消过程发射门 + 0.9m 接触真值 + 端点三案例）全部关闭。
 保留项：历史装甲厚度（保持 UNKNOWN）、史料原页目视（7 张 PNG 待人工转送 ChatGPT）、
-真人体验验收（最迟 011 前）、截图目视（并入 011 前人工验收）。
-recommended_next_order=006（仅登记；006_IMPLEMENTATION_AUTHORIZED=false，
-不自动执行旧 WO006）**。
+真人体验验收（最迟 011 前）、截图目视（12 张演示 PNG 保持 NOT_REVIEWED，
+保留原 ac8bfb3 归属；并入 011 前人工验收）。
+recommended_next_order=007（仅登记；007_IMPLEMENTATION_AUTHORIZED=false，
+不自动执行 WO007）**。
 每张工作单完成即停、签收后才进入下一单；未获批的范围一律不实现。
 
 ## 技术栈
@@ -50,10 +51,10 @@ recommended_next_order=006（仅登记；006_IMPLEMENTATION_AUTHORIZED=false，
 - 所有速度 / 加速度 / 转速 / 冷却参数集中在 GameConfig
 
 ## 工作单边界（002 修订，替代原"仅限 001"条款）
-- 按“当前获批工作单”逐步推进；005 已签收（status=accepted，
-  scope=unified_query_engineering_baseline_with_carryover，accepted_sha=3aa26da0；
-  见 `docs/REVIEW_005_ACCEPTANCE.md` 与 GPT 签收裁决；005-R1 收尾 A/B/C 关闭）。
-  006 未授权（recommended_next_order=006 仅登记，不自动执行旧 WO006）。
+- 按“当前获批工作单”逐步推进；006 已签收（status=accepted，
+  scope=projectile_flight_engineering_baseline_with_carryover，accepted_sha=17f4e239；
+  见 `docs/REVIEW_006_ACCEPTANCE.md` 与 GPT 正式裁决；006-R1 与 finite_closeout 关闭）。
+  007 未授权（recommended_next_order=007 仅登记，不自动执行 WO007）。
 - 003 范围（已签收，行为保留）：多车辆（A 玩家 / B 测试目标）、VehicleDefinition/WeaponDefinition/
   ShellDefinition 数据定义与校验、独立 VehicleRuntimeState、统一 VehicleCommand、
   本地玩家控制器（单车驱动与武器不再直接读全局键鼠）、统一实体生成/销毁/控制者设置、
