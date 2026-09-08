@@ -134,7 +134,12 @@ func show_results(result: Dictionary) -> void:
 	panel.add_child(content)
 	CoreUI.label(content,"课目结果 / "+result.title,28)
 	CoreUI.label(content,{"passed":"完成","failed":"未完成","running":"训练尚在进行"}.get(result.status,"已结束"),23)
-	var explanation := CoreUI.label(content,result.explanation,17)
+	var explanation_scroll := ScrollContainer.new()
+	explanation_scroll.custom_minimum_size.y = 180
+	explanation_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	content.add_child(explanation_scroll)
+	var explanation := CoreUI.label(explanation_scroll,result.explanation,17)
+	explanation.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	explanation.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	CoreUI.label(content,"实际发射记录：%d炮   ·   真人体验验收：待进行" % result.shots,15)
 	CoreUI.button(content,"继续观察 / V 查看回放",_resume_training)
