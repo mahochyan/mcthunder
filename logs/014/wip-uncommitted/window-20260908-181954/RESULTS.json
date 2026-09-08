@@ -1,0 +1,11 @@
+{
+  "source_sha": "7f0a275ee2cd884a5258e87ae82dfca9c34f36b9",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -s \"res://tests/run_ai_combat_player_checks.gd\" -- --shot-dir \"res://docs/evidence/014/wip-uncommitted/window-20260908-181954\"",
+  "exit_code": 1,
+  "timed_out": false,
+  "passed": false,
+  "captures": "res://docs/evidence/014/wip-uncommitted/window-20260908-181954",
+  "human": "NOT_RUN"
+}

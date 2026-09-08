@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual window capture 00_combat_entry
+[PASS] normal garage button enters combat laboratory
+[PASS] normal difficulty key restarts actual AI
+[PASS] actual window capture 01_hidden_start
+[PASS] normal hidden start has no target lock or shots
+[PASS] AI sees normally driven exposed hull
+[PASS] actual window capture 02_exposed_observed
+[PASS] normal reverse returns player behind cover
+[PASS] AI loses line of sight after normal retreat
+[PASS] actual window capture 04_hidden_search
+[PASS] sustained normal exposure makes AI fire actual gun
+[PASS] actual window capture 05_ai_shot
+[PASS] normal restart clears memory and round count while preserving lifetime launch identity
+[PASS] normal menu pauses combat
+[PASS] normal return releases combat actors
+=== 结果: 15 项检查, 0 失败 ===
+[render] fps=60
+AI_COMBAT_PLAYER_CHECKS_PASS
