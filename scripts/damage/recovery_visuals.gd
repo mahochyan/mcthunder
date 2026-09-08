@@ -9,8 +9,7 @@ var _time := 0.0
 
 func setup(vehicle: VehicleActor) -> void:
 	actor = vehicle
-	for mesh in actor.tank.find_children("*","MeshInstance3D",true,false):
-		_original.append({"mesh":mesh,"material":mesh.material_override})
+	refresh_materials()
 	for i in 7:
 		var flame := MeshInstance3D.new()
 		var box := BoxMesh.new()
@@ -24,13 +23,20 @@ func setup(vehicle: VehicleActor) -> void:
 		vehicle.tank.add_child(flame)
 		_flames.append(flame)
 
+func refresh_materials() -> void:
+	_original.clear()
+	for mesh in actor.tank.find_children("*","GeometryInstance3D",true,false):
+		if not mesh.is_queued_for_deletion() and not (mesh is MeshInstance3D and mesh in _flames):
+			_original.append({"mesh":mesh,"material":mesh.material_override})
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(actor): return
 	if not get_tree().paused: _time += delta
 	for i in _flames.size():
 		var flame := _flames[i]
 		flame.visible = not actor.state.fires.is_empty() and not actor.state.destroyed
-		flame.position = Vector3((i%3-1)*0.25,1.3+fmod(_time*0.9+i*0.24,1.5),0.9+(i/3)*0.12)
+		var origin: Vector3 = actor.state._damage_layout.modules[0].local_box_transform.origin if actor.state._damage_layout != null else Vector3(0,0.9,0.9)
+		flame.position = origin+Vector3((i%3-1)*0.25,0.4+fmod(_time*0.9+i*0.24,1.5),(i/3)*0.12)
 	if actor.state.destroyed != _was_destroyed:
 		_was_destroyed = actor.state.destroyed
 		for row in _original:

@@ -66,7 +66,9 @@ func _process(_delta: float) -> void:
 		# 指向一致；机位仍沿水平方向绕 pivot（保持固定高度），防穿墙查询不变
 		var cp := cos(aim_pitch)
 		var dir3d := Vector3(dir_h.x * cp, sin(aim_pitch), dir_h.z * cp)
-		var desired := pivot_pos - dir_h * GameConfig.CAM_DISTANCE + Vector3.UP * GameConfig.CAM_HEIGHT
+		var distance := tank.defs.follow_camera_distance if tank != null and tank.defs != null else GameConfig.CAM_DISTANCE
+		var height := tank.defs.follow_camera_height if tank != null and tank.defs != null else GameConfig.CAM_HEIGHT
+		var desired := pivot_pos - dir_h * distance + Vector3.UP * height
 		var from := pivot_pos + Vector3.UP * 0.3
 		var hit := _ray(from, desired)
 		if not hit.is_empty():

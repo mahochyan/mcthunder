@@ -17,6 +17,7 @@ var _recoil := 0.0
 var _aim_override: Vector3 = Vector3.ZERO   # 003：脚本命令瞄准点（B 测试用）
 var _has_aim_override := false
 var capabilities_provider := Callable()
+var recoil_visual: Node3D
 
 func _ready() -> void:
 	var tm := MeshInstance3D.new()
@@ -28,6 +29,7 @@ func _ready() -> void:
 	tm.mesh = box
 	tm.position = Vector3(0, 0.275, 0.1)
 	tm.layers = visual_layer
+	tm.add_to_group("base_vehicle_visual")
 	add_child(tm)
 	barrel_pivot = Node3D.new()
 	barrel_pivot.name = "BarrelPivot"
@@ -78,8 +80,6 @@ func _aim_point() -> Vector3:
 
 func _process(delta: float) -> void:
 	if cam_rig != null or _has_aim_override:
-		var hull = get_parent()
-		var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
 		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
 		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
@@ -93,13 +93,14 @@ func _process(delta: float) -> void:
 			pitch_speed *= float(caps.turret_speed)
 		var P := _aim_point()
 		var target := _target_angles(P)
-		var desired_local := wrapf(target.y - hull_yaw, -PI, PI)
+		var desired_local := wrapf(target.y, -PI, PI)
 		var max_step := deg_to_rad(yaw_speed) * delta
 		var cur := rotation.y
 		rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
 		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(pitch_speed) * delta)
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
 	barrel_mesh.position.z = BARREL_BASE_Z + _recoil
+	if is_instance_valid(recoil_visual): recoil_visual.position.z = _recoil
 	if _flash_left > 0.0:
 		_flash_left -= delta
 		if _flash_left <= 0.0:
@@ -114,19 +115,18 @@ func _target_angles(P: Vector3) -> Vector2:
 	var p_min: float = defs.barrel_pitch_min if defs != null else GameConfig.BARREL_PITCH_MIN
 	var p_max: float = defs.barrel_pitch_max if defs != null else GameConfig.BARREL_PITCH_MAX
 	var pivot := barrel_pivot.global_position
-	var d := P - pivot
-	var yaw_global := atan2(-d.x, -d.z)
+	var hull := get_parent() as Node3D
+	var d := hull.global_basis.inverse()*(P-pivot) if hull != null else P-pivot
+	var yaw_local := atan2(-d.x, -d.z)
 	var pitch := clampf(atan2(d.y, sqrt(d.x * d.x + d.z * d.z)), deg_to_rad(p_min), deg_to_rad(p_max))
-	return Vector2(pitch, yaw_global)
+	return Vector2(pitch, yaw_local)
 
 func snap_to_aim() -> void:
 	# 立即对齐期望世界瞄点 P（重置与自动检查使用；正常运行靠有限转速追随）
 	if cam_rig == null and not _has_aim_override:
 		return
-	var hull = get_parent()
-	var hull_yaw: float = hull.global_rotation.y if hull != null else 0.0
 	var target := _target_angles(_aim_point())
-	rotation.y = wrapf(target.y - hull_yaw, -PI, PI)
+	rotation.y = wrapf(target.y, -PI, PI)
 	barrel_pivot.rotation.x = target.x
 
 func aim_error_deg() -> float:
@@ -135,7 +135,7 @@ func aim_error_deg() -> float:
 	if cam_rig == null and not _has_aim_override:
 		return 0.0
 	var target := _target_angles(_aim_point())
-	var dy := absf(wrapf(target.y - global_rotation.y, -PI, PI))
+	var dy := absf(wrapf(target.y - rotation.y, -PI, PI))
 	var dp := absf(target.x - barrel_pivot.rotation.x)
 	return rad_to_deg(maxf(dy, dp))
 
@@ -154,4 +154,5 @@ func reset_state() -> void:
 	_flash_left = 0.0
 	_flash.visible = false
 	barrel_mesh.position.z = BARREL_BASE_Z
+	if is_instance_valid(recoil_visual): recoil_visual.position.z = 0
 	_has_aim_override = false   # 003-R1：重置清理旧瞄点（不继续追赶旧脚本目标）

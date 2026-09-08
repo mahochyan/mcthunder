@@ -34,6 +34,13 @@ const BRAKE_DECEL := 10.0        # 反向输入时的制动 m/s^2
 const COAST_DECEL := 3.0         # 松开按键滑行减速 m/s^2
 const HULL_TURN_SPEED := 75.0    # 车体转向 deg/s（允许原地转向，无平移）
 const GRAVITY := 18.0            # 简化重力，保证贴地不穿地
+const DRIVE_MAX_SLOPE_DEG := 28.0
+const DRIVE_FLOOR_SNAP_M := 0.4
+const DRIVE_PROBE_UP_M := 1.6
+const DRIVE_PROBE_DOWN_M := 1.8
+const DRIVE_POSE_DEG_PER_SECOND := 120.0
+const DRIVE_COLLISION_SIZE := Vector3(2.6,1.5,4.2)
+const DRIVE_COLLISION_CENTER := Vector3(0,0.75,0)
 
 # --- 瞄准与相机 ---
 const TURRET_YAW_SPEED := 35.0   # 炮塔回转上限 deg/s（不瞬间旋转）

@@ -30,7 +30,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   体素装甲",30)
-	CoreUI.label(vertical,"核心训练候选 0.1  ·  工程测试车  ·  历史车辆资料核验中",15)
+	CoreUI.label(vertical,"核心训练候选 0.1  ·  M4A3 外形工程样车  ·  性能参数为训练设计值",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -46,7 +46,7 @@ func _ready() -> void:
 	scroll.add_child(controls)
 	CoreUI.label(controls,"战前准备",24)
 	var vehicle := OptionButton.new()
-	vehicle.add_item("工程测试车 · 可驾驶")
+	vehicle.add_item("M4A3 外形样车 · 可驾驶")
 	controls.add_child(vehicle)
 	CoreUI.label(controls,"弹种 / 游戏设计穿深",16)
 	shell_choice = OptionButton.new()
@@ -81,7 +81,7 @@ func _ready() -> void:
 	CoreUI.label(controls,"专项实验室",16)
 	var labs := HBoxContainer.new()
 	controls.add_child(labs)
-	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"]]:
+	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"],["terrain","地形"]]:
 		CoreUI.button(labs,item[1],func() -> void: laboratory_requested.emit(item[0]))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -97,19 +97,22 @@ func _ready() -> void:
 	viewport_container.add_child(viewport)
 	preview = VehiclePreviewModel.new()
 	viewport.add_child(preview)
-	var layout := DamageTrainingLayout.build()
+	var layout := M4EngineeringProfile.layout()
 	for patch in layout.armor_patches:
 		if patch.id == "hull_front": patch.thickness_mm = 240
 	preview.setup(layout)
 	_apply_preview_mode()
-	CoreVehicleVisual.decorate(preview._part_nodes.hull,preview._part_nodes.turret,1)
-	if preview._part_nodes.has("barrel"):
-		CoreVehicleVisual.box(preview._part_nodes.barrel,Vector3(0,0,-1.2),Vector3(0.22,0.22,2.4),Color("353d34"))
+	for extra in preview._extra_nodes.duplicate():
+		if not extra.name.begins_with("Wire_"):
+			preview._extra_nodes.erase(extra)
+			extra.queue_free()
+	M4VoxelDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
 	_collect_preview_extras(preview)
 	var camera := Camera3D.new()
-	camera.position = Vector3(4,2.8,4.5)
+	camera.fov = 38
+	camera.position = Vector3(5.3,3.8,-6.4)
 	viewport.add_child(camera)
-	camera.look_at(Vector3(0,0.8,0))
+	camera.look_at(Vector3(0,1.2,0))
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-40,-25,0)
 	sun.light_energy = 1.8
@@ -123,8 +126,13 @@ func _ready() -> void:
 	environment.environment.ambient_light_energy = 0.8
 	viewport.add_child(environment)
 	CoreVehicleVisual.box(preview,Vector3(0,-0.06,0),Vector3(7,0.1,7),Color("40514c"))
-	inspect_button = CoreUI.button(right,"查看：外观 → 装甲 → 内构",_inspect)
-	var note := CoreUI.label(right,"测试布局：正面 240 mm，其他表面 20 mm。\n五名乘员、独立模块；体素细节为原创。\n外观 / 装甲 / 内构预览不消耗弹药。",15)
+	var view_controls := HBoxContainer.new()
+	right.add_child(view_controls)
+	CoreUI.button(view_controls,"转左",func() -> void: preview.rotation.y -= PI/4)
+	inspect_button = CoreUI.button(view_controls,"查看：外观 → 装甲 → 内构",_inspect)
+	inspect_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	CoreUI.button(view_controls,"转右",func() -> void: preview.rotation.y += PI/4)
+	var note := CoreUI.label(right,"M4A3(75)W / VVSS 轮廓研究：斜车体、铸造炮塔、三组悬挂。\n模型尺寸为估算；正面240、其他20 mm为训练设计值。\n外观 / 装甲 / 内构预览不消耗弹药。",15)
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result_label = CoreUI.label(right,"尚无本次会话训练结果。",16)
 	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -152,5 +160,5 @@ func _apply_preview_mode() -> void:
 
 func _collect_preview_extras(node: Node) -> void:
 	for child in node.get_children():
-		if child is MeshInstance3D and child.name.begins_with("Cosmetic"): preview._extra_nodes.append(child)
+		if child is GeometryInstance3D and child.name.begins_with("Cosmetic"): preview._extra_nodes.append(child)
 		_collect_preview_extras(child)

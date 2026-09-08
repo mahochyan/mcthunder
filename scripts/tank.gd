@@ -16,6 +16,8 @@ var life_id := 0      # 003-R2：实体生命周期标识（同名车销毁重�
 var _drive_calls := 0 # 003-R2：apply_drive 调用计数（命令单次物理消费断言用）
 var capabilities_provider := Callable()
 var state_generation := 0
+var ground_state: Dictionary = {"grounded":false,"slope_deg":0.0,"normal":Vector3.UP,"points":[],"normals":[]}
+var slope_blocked := false
 
 signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
 
@@ -27,16 +29,19 @@ func _ready() -> void:
 	collision_layer = GameConfig.LAYER_VEHICLE
 	# 003-R1：行驶碰撞包含其他车辆——A 开向 B 不穿过 B（稳定阻挡，无碰撞伤害/推挤）
 	collision_mask = GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE
-	floor_snap_length = 0.3
+	floor_snap_length = GameConfig.DRIVE_FLOOR_SNAP_M
+	floor_max_angle = deg_to_rad(defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG)
+	floor_stop_on_slope = true
+	floor_constant_speed = true
 	_spawn = transform
 	_build()
 
 func _build() -> void:
 	var cs := CollisionShape3D.new()
 	var shape := BoxShape3D.new()
-	shape.size = Vector3(2.6, 1.5, 4.2)
+	shape.size = defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	cs.shape = shape
-	cs.position = Vector3(0, 0.75, 0)
+	cs.position = defs.drive_collision_center if defs != null else GameConfig.DRIVE_COLLISION_CENTER
 	add_child(cs)
 	_mesh_box(Vector3(2.3, 0.8, 3.4), Vector3(0, 0.95, 0), Color(0.42, 0.48, 0.28))      # 车体
 	_mesh_box(Vector3(0.55, 0.6, 3.9), Vector3(-1.25, 0.3, 0), Color(0.18, 0.18, 0.18))  # 左履带
@@ -62,6 +67,7 @@ func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 	mi.mesh = mesh
 	mi.position = pos
 	mi.layers = visual_layer
+	mi.add_to_group("base_vehicle_visual")
 	add_child(mi)
 	return mi
 
@@ -93,15 +99,25 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 		forward_speed = move_toward(forward_speed, target, rate * delta)
 	else:
 		forward_speed = move_toward(forward_speed, 0.0, coast * delta)
-	rotation.y += deg_to_rad(turn) * steer * delta
+	var forward := VehiclePose.flat_forward(global_basis)
+	forward = forward.rotated(Vector3.UP,deg_to_rad(turn)*steer*delta)
+	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
+	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
+	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
+	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
+	if slope_blocked: forward_speed = 0.0
+	var up := Vector3.UP
+	if ground_state.grounded and float(ground_state.slope_deg) <= limit+0.1:
+		up = ground_state.normal
+	global_basis = VehiclePose.approach(global_basis,VehiclePose.compose(forward,up),delta)
 	# 003-R1：前向用 global basis——actor 带非零 Y 旋转出生时移动沿车头方向
 	# （velocity 是全局坐标；local basis 在旋转父级下会丢失出生朝向）
-	var fwd := -global_transform.basis.z
-	velocity.x = fwd.x * forward_speed
-	velocity.z = fwd.z * forward_speed
-	if is_on_floor():
-		velocity.y = -1.0
+	var fwd := forward.slide(up).normalized()
+	if is_on_floor() and not slope_blocked:
+		velocity = fwd*forward_speed-up
 	else:
+		velocity.x = forward.x*forward_speed
+		velocity.z = forward.z*forward_speed
 		velocity.y -= GameConfig.GRAVITY * delta
 	move_and_slide()
 
@@ -121,3 +137,5 @@ func reset() -> void:
 	forward_speed = 0.0
 	velocity = Vector3.ZERO
 	hits_taken = 0
+	slope_blocked = false
+	ground_state = {"grounded":false,"slope_deg":0.0,"normal":Vector3.UP,"points":[],"normals":[]}

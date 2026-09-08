@@ -13,9 +13,12 @@ func _ready() -> void:
 	super._ready()
 	if not _initialized or not is_instance_valid(target_actor): return
 	for vehicle in [source_actor,target_actor]:
-		CoreVehicleVisual.decorate(vehicle.tank,vehicle.turret,vehicle.tank.visual_layer)
+		M4EngineeringProfile.apply(vehicle)
 		vehicle.label3d.font = CoreUI.FONT
 		vehicle.label3d.text = "本车" if vehicle == source_actor else "训练样车"
+	for marker in _markers: marker.mesh.queue_free()
+	_markers.clear()
+	for vehicle in [source_actor,target_actor]: _build_markers(vehicle)
 	CoreUI.apply(hud)
 	hud.font_cjk = true
 	hud.S = hud._strings(true)
@@ -52,7 +55,7 @@ func _start_configured_round() -> void:
 	wrecks.clear_tracking()
 	death_history.clear()
 	for vehicle in [source_actor,target_actor]:
-		var layout := DamageTrainingLayout.build(lesson == 4 or lesson == 5)
+		var layout := M4EngineeringProfile.layout(lesson == 4 or lesson == 5)
 		for patch in layout.armor_patches:
 			if patch.id == "hull_front": patch.thickness_mm = 240.0
 		vehicle.set_damage_layout(layout)
@@ -84,13 +87,13 @@ func _start_configured_round() -> void:
 func target_point() -> Vector3:
 	if not _core_ready: return super.target_point()
 	if lesson == 6: return Vector3(0,2.5,-30)
-	var local := Vector3(0,0.95,1.0)
+	var local := Vector3(0,1.30,1.45)
 	match lesson:
-		0: local = Vector3(0,0.95,-1.7)
-		1: local = Vector3(0,0.95,0.9)
-		3: local = Vector3(0,1.65,-0.35)
-		4: local = Vector3(0.72,0.95,0.35)
-		5: local = Vector3(-1.25,0.4,1.9)
+		0: local = Vector3(0,1.45,-2.09)
+		1: local = Vector3(0,1.30,1.45)
+		3: local = M4EngineeringProfile.TURRET_ORIGIN+Vector3(0,0.33,-0.4)
+		4: local = Vector3(0.72,1.05,0.55)
+		5: local = Vector3(-1.2,0.5,2.5)
 	return target_actor.tank.global_transform*local
 
 func query_snapshots() -> Array:

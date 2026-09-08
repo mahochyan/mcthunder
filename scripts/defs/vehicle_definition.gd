@@ -25,6 +25,11 @@ extends Resource
 @export var brake_decel: float = 10.0
 @export var coast_decel: float = 3.0
 @export var hull_turn_speed: float = 75.0
+@export var max_slope_deg: float = GameConfig.DRIVE_MAX_SLOPE_DEG
+@export var drive_collision_size: Vector3 = GameConfig.DRIVE_COLLISION_SIZE
+@export var drive_collision_center: Vector3 = GameConfig.DRIVE_COLLISION_CENTER
+@export var follow_camera_distance: float = GameConfig.CAM_DISTANCE
+@export var follow_camera_height: float = GameConfig.CAM_HEIGHT
 
 # --- turret（deg/s、deg） ---
 @export var turret_yaw_speed: float = 35.0
@@ -56,6 +61,13 @@ func validate() -> Dictionary:
 		errors.append("coast_decel: must be finite and >= 0")
 	if not is_finite(hull_turn_speed) or hull_turn_speed <= 0.0:
 		errors.append("hull_turn_speed: must be finite and > 0")
+	if not is_finite(max_slope_deg) or max_slope_deg <= 0 or max_slope_deg >= 60:
+		errors.append("max_slope_deg: must be finite between 0 and 60")
+	if not drive_collision_size.is_finite() or drive_collision_size.x <= 0 or drive_collision_size.y <= 0 or drive_collision_size.z <= 0:
+		errors.append("drive_collision_size: must be finite and positive")
+	if not drive_collision_center.is_finite(): errors.append("drive_collision_center: must be finite")
+	if not is_finite(follow_camera_distance) or follow_camera_distance <= 0: errors.append("follow_camera_distance: must be finite and positive")
+	if not is_finite(follow_camera_height) or follow_camera_height < 0: errors.append("follow_camera_height: must be finite and nonnegative")
 	if not is_finite(turret_yaw_speed) or turret_yaw_speed <= 0.0:
 		errors.append("turret_yaw_speed: must be finite and > 0")
 	if not is_finite(turret_pitch_speed) or turret_pitch_speed <= 0.0:
