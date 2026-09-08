@@ -16,6 +16,7 @@ var saw_repair := false
 var saw_death := false
 var saw_respawn := false
 var requested_abandon := false
+var resumed_pauses := 0
 var waypoints := [Vector3(-72,0,116),Vector3(-120,0,65),Vector3(-120,0,0),Vector3(-72,0,-50),Vector3(-42,0,-20),Vector3(-8,0,6)]
 var waypoint := 0
 func check(ok: bool, message: String) -> void:
@@ -115,6 +116,7 @@ func drive() -> void:
 	hold(KEY_W,absf(angle)<deg_to_rad(12))
 func run(flow: AppFlow) -> void:
 	app = flow
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	if DisplayServer.get_name() == "headless": get_tree().quit(1); return
 	var args := OS.get_cmdline_user_args()
 	var index := args.find("--shot-dir")
@@ -122,6 +124,7 @@ func run(flow: AppFlow) -> void:
 	shot_dir = ProjectSettings.globalize_path(args[index+1])
 	DirAccess.make_dir_recursive_absolute(shot_dir)
 	get_tree().root.size = Vector2i(1280,720)
+	get_tree().root.show()
 	await frames(20)
 	await capture("01_exported_garage")
 	for i in 6:
@@ -141,9 +144,16 @@ func run(flow: AppFlow) -> void:
 	while scene.director.state.phase == "countdown": await frames()
 	var maximum := {"actors":0,"wrecks":0,"projectiles":0,"nodes":0}
 	var started := Time.get_ticks_msec()
-	var last_frame := Time.get_ticks_usec()
-	var frame_times := PackedFloat64Array()
 	while scene.director.state.phase == "playing" and Time.get_ticks_msec()-started<750000:
+		# A background/hidden window can stop drawing and trigger normal focus-loss pause.
+		# Keep the harness on process ticks and resume through the ordinary pause button.
+		if get_tree().paused:
+			resumed_pauses += 1
+			print("[window pause] normal resume %d at match %.2fs"%[resumed_pauses,scene.director.state.elapsed])
+			get_tree().root.mode = Window.MODE_WINDOWED
+			get_tree().root.show()
+			await click(scene.hud.resume_btn)
+			continue
 		if mouse_down: mouse(false)
 		var own := scene.actor
 		var now := scene.director.state.elapsed
@@ -186,10 +196,7 @@ func run(flow: AppFlow) -> void:
 			var snapshot := TelemetrySnapshot.capture(scene)
 			for key in maximum: maximum[key] = maxi(maximum[key],int(snapshot[key]))
 			print("[normal player %.1fs] tickets=%s deaths=%d player_shots=%d position=%s"%[now,scene.director.state.tickets,scene.director.state.roster.A.deaths,scene.director.player_shots,scene.actor.tank.global_position])
-		await RenderingServer.frame_post_draw
-		var frame_now := Time.get_ticks_usec()
-		if now>10: frame_times.append((frame_now-last_frame)/1000.0)
-		last_frame = frame_now
+		await get_tree().process_frame
 	release_drive()
 	if mouse_down: mouse(false)
 	check(scene.director.state.phase == "finished" and scene.director.state.finish_count == 1 and not scene.director.state.result.is_empty(),"T019-H01 normal player session naturally reaches one real result")
@@ -197,7 +204,7 @@ func run(flow: AppFlow) -> void:
 	check(scene.director.player_shots>0,"player used ordinary mouse fire during the match")
 	await capture("08_actual_match_result")
 	var result := scene.director.state.result.duplicate(true)
-	var report := {"result":result,"saw_repair":saw_repair,"saw_death":saw_death,"saw_respawn":saw_respawn,"ordinary_abandon_requested":requested_abandon,"max":maximum,"frame_intervals_including_captures":TelemetrySnapshot.frame_summary(frame_times),"human":"NOT_RUN"}
+	var report := {"result":result,"saw_repair":saw_repair,"saw_death":saw_death,"saw_respawn":saw_respawn,"ordinary_abandon_requested":requested_abandon,"normal_pause_resumes":resumed_pauses,"max":maximum,"performance_measurement":"Separate run_frame_profile; this input session is not a benchmark","human":"NOT_RUN"}
 	var file := FileAccess.open(shot_dir.path_join("SESSION.json"),FileAccess.WRITE)
 	if file != null: file.store_string(JSON.stringify(report,"  ")); file.close()
 	if scene.director.state.phase == "finished":
