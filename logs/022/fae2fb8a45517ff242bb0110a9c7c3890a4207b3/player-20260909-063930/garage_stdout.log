@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] both launch actions remain visible without scrolling
+[PASS] actual window capture 00_garage_cards (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal mode visibly requires M36 before M26 research
+[PASS] actual window capture 01_research_dependency (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] real research button spends initial 80 points and unlocks M24
+[PASS] actual window capture 02_researched_m24 (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal armor selector highlights the side plate and displays its nominal thickness
+[PASS] actual window capture 02b_side_armor (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal interior selector identifies crew position as estimated geometry
+[PASS] actual window capture 02c_crew_location (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal numeric entry sets requested ammunition quantity
+[PASS] normal UI control is visible before click
+[PASS] normal numeric entry sets requested ammunition quantity
+[PASS] normal UI control is visible before click
+[PASS] ammunition controls fit horizontally without a hidden right edge
+[PASS] two ammunition quantities and first shell follow actual controls
+[PASS] actual window capture 03_m24_loadout (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal numeric entry sets requested ammunition quantity
+[PASS] normal UI control is visible before click
+[PASS] normal numeric entry sets requested ammunition quantity
+[PASS] single chamber load visibly empties all M4 ammo racks
+[PASS] actual window capture 04_empty_racks (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] selected variant dossier remains accessible after research and loadout edits
+[PASS] actual window capture 05_variant_dossier (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal save button persists selected manifest
+[PASS] normal UI control is visible before click
+[PASS] public battle button launches configured normal match
+[PASS] M24 spawns with exact selected typed ammo and first shell
+[PASS] launch click cannot leak a shot
+[PASS] actual window capture 06_battle_m24 (review pending)
+[PASS] normal mouse fire consumes exactly the configured first round
+[PASS] actual window capture 07_first_shell_fired (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal abandon action reaches natural respawn wait
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 08_lineup_respawn (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal respawn chooses M4 with its own single-round manifest
+[PASS] actual window capture 09_battle_m4 (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal early return preserves 20 points and records zero reward
+[PASS] return restores both actual vehicle configurations
+[PASS] actual window capture 10_returned_garage (review pending)
+[PASS] normal UI control is visible before click
+[PASS] second public match receives a distinct registered identity
+[MATCH_PROGRESS] simulated_seconds=1.5 tickets={ 1: 300, 2: 300 }
+[MATCH_PROGRESS] simulated_seconds=61.4999999999978 tickets={ 1: 270, 2: 270 }
+[MATCH_PROGRESS] simulated_seconds=121.499999999994 tickets={ 1: 202, 2: 270 }
+[MATCH_PROGRESS] simulated_seconds=181.500000000037 tickets={ 1: 112, 2: 270 }
+[MATCH_PROGRESS] simulated_seconds=241.500000000084 tickets={ 1: 22, 2: 270 }
+[PASS] actual AI match reaches natural ticket or time-limit completion
+[PASS] natural result panel and persisted balance show the actual earned award
+[PASS] actual window capture 11_completed_match_reward (review pending)
+[PASS] normal UI control is visible before click
+[PASS] returning from completed result does not award a second time
+[PASS] actual window capture 12_persisted_reward (review pending)
+[PASS] complete normal garage-research-loadout-battle-respawn-return flow
+=== 结果: 68 项检查, 0 失败 ===
+GARAGE_DEMO_CHECKS_PASS

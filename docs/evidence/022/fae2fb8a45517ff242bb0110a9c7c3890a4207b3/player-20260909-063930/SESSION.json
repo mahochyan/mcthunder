@@ -1,0 +1,69 @@
+{
+  "source_sha": "fae2fb8a45517ff242bb0110a9c7c3890a4207b3",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "00_garage_cards.png",
+      "sha256": "BC9C041DEFA500291DF5DA3BCE979A81655DA7094F4F0AD16FE21DF895AC84CC"
+    },
+    {
+      "file": "01_research_dependency.png",
+      "sha256": "7FCCBE8641F7349F7A9B615D3108C02C2B3F139B5637D402A591B7390A9FB034"
+    },
+    {
+      "file": "02_researched_m24.png",
+      "sha256": "09E357A2CDFADDD3E7B37FE51351CB71C88BEB44714FEF1B27FC11C3F9942329"
+    },
+    {
+      "file": "02b_side_armor.png",
+      "sha256": "FDE96187452D727B6418EC217D97BE07CF312E3E8B6FB93197875720B6CF4FA3"
+    },
+    {
+      "file": "02c_crew_location.png",
+      "sha256": "A5DADF0CA499049AF4D6C340958D0D622137F8BEE9EBE0D791F78D16C6202AEA"
+    },
+    {
+      "file": "03_m24_loadout.png",
+      "sha256": "9F25045BE9B861C81B8F3D268CEE3BE3E3C92CEDB6AB7F2E60C8B6289275926D"
+    },
+    {
+      "file": "04_empty_racks.png",
+      "sha256": "D9F8D688418855CE7F27C645DABD3EA35890ED88449E4735B28A3204D94A46AF"
+    },
+    {
+      "file": "05_variant_dossier.png",
+      "sha256": "561CE2535E6BCA7A5A421AF5CF1C76EE291F1ADD0465F1C11AC05B3204C73882"
+    },
+    {
+      "file": "06_battle_m24.png",
+      "sha256": "30163456B0A030A1114402D3682AEEED2DDE0369A454C2FEFD97F41994E828E8"
+    },
+    {
+      "file": "07_first_shell_fired.png",
+      "sha256": "9AC76EC519B42715B8CD707831EBB1ADE4993ED06C8471EB878837C0528DFDAE"
+    },
+    {
+      "file": "08_lineup_respawn.png",
+      "sha256": "C0E1D55D48872E758D74E8A78D38B9D51EDF0C0E3B9432C42A559454432CBD25"
+    },
+    {
+      "file": "09_battle_m4.png",
+      "sha256": "0575B2802B41161928B37208865B279068CD6766545F7870E7C6E2EC6DD0FD6C"
+    },
+    {
+      "file": "10_returned_garage.png",
+      "sha256": "408CAFAFD242469BDA8A89322FB482FCA9B4AFE62CA3EAC088926FF8027FD615"
+    },
+    {
+      "file": "11_completed_match_reward.png",
+      "sha256": "E3459247556EB77E2394ADE148853787A918D9997B2C2DFA793F3060E8F9188D"
+    },
+    {
+      "file": "12_persisted_reward.png",
+      "sha256": "01BDDD3E616BCD7EAC68749A547C1E18CC63829FFF495A91E02C41F15E365F72"
+    }
+  ],
+  "graphical_review": "ASSISTANT_REVIEWED",
+  "human": "NOT_RUN",
+  "review_notes": "All images directly viewed; automated window checks only, human NOT_RUN."
+}

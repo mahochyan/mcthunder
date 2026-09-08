@@ -1,0 +1,56 @@
+{
+  "source_sha": "fae2fb8a45517ff242bb0110a9c7c3890a4207b3",
+  "images": [
+    {
+      "file": "00_garage_entry.png",
+      "sha256": "5046FDFDE8F558A0DC335BBBFC7E697B22E6B0660ECD971A03F05743D6CEF4A2"
+    },
+    {
+      "file": "01_ready.png",
+      "sha256": "C897E7FB740C4FFFE2AB33ABF87425FB0B370C8C7F0CF44E02740FF4F30E77ED"
+    },
+    {
+      "file": "02_fixed_transfer.png",
+      "sha256": "21B6843A9A79B1C9FF6B5893836CBC0287521521AEEC4030F2043D9B0FEDAC75"
+    },
+    {
+      "file": "03_aphe_loaded.png",
+      "sha256": "1ED8345D9D752247DC277E46F97CA7A977B78D3D11F6015CC7C1B36B758F50F0"
+    },
+    {
+      "file": "04_aphe_replay.png",
+      "sha256": "00C95D501D2F09AF2A4FE5C62B0938AF0B54A311F71CB71CEFEEF6F3AFE7CBFA"
+    },
+    {
+      "file": "05_actual_module_damage.png",
+      "sha256": "318E81A855A8992AF160E0FFB0D441C1F2CDDDB4ABD8AA1DD2373CCF4693A921"
+    },
+    {
+      "file": "06_thick_ap.png",
+      "sha256": "9AA1FA75C8BE2E85C08539C8A55E24601C1D995FA10FB31F44A403049F36183A"
+    },
+    {
+      "file": "07_thick_aphe.png",
+      "sha256": "B9BEA357654217284F990A30BAF6C68128E5B7FE86203FFACA3A4CD961B65B86"
+    },
+    {
+      "file": "08_battle_ready.png",
+      "sha256": "6C3D08FC0EC45F65936F6B27DE487565E8F5710B2022A4CBB4FF54B8CB218483"
+    },
+    {
+      "file": "09_battle_loading.png",
+      "sha256": "D86477F6840DA1DC7F2D4944E8109BA63E8869BC39B758232E9B6F924E3A1556"
+    },
+    {
+      "file": "10_battle_supply.png",
+      "sha256": "14A7BC191B087B10680CCB9F4DB00788E8E619A9A4BF12BA4078DEDBE6AC22C0"
+    },
+    {
+      "file": "11_battle_replenished.png",
+      "sha256": "74B35DCEB6752863E95826415CD97C3D4981CA5A625A5316CD5CE7846F001162"
+    }
+  ],
+  "graphical_review": "ASSISTANT_REVIEWED",
+  "human": "NOT_RUN",
+  "review_notes": "All images directly viewed; automated window checks only, human NOT_RUN."
+}

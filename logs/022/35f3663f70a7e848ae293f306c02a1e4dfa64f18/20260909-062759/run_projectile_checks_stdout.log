@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== 006 弹道验收检查 ===
+engine=4.7.2-stable (official)  os=Windows
+=== 结果: 144 项检查, 0 失败 ===
+PROJECTILE_CHECKS_PASS

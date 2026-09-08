@@ -1,0 +1,85 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal UI control is visible before click
+[PASS] normal popup selects us_m4a3_75w_vvss_1944
+[PASS] actual window capture 1_garage (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 1_armor (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 1_interior (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 1_dossier (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal garage entry drives selected us_m4a3_75w_vvss_1944
+[PASS] normal W input moves us_m4a3_75w_vvss_1944
+[PASS] actual window capture 1_driving (review pending)
+[PASS] normal mouse input fires selected weapon us_m4a3_75w_vvss_1944
+[PASS] actual window capture 1_fired (review pending)
+[PASS] actual window capture 1_scope (review pending)
+[PASS] scope excludes own reconstructed vehicle us_m4a3_75w_vvss_1944
+[PASS] normal UI control is visible before click
+[PASS] normal pause menu returns to garage
+[PASS] normal UI control is visible before click
+[PASS] normal popup selects us_m24_m6_t85e1_1951
+[PASS] actual window capture 2_garage (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 2_armor (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 2_interior (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 2_dossier (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal garage entry drives selected us_m24_m6_t85e1_1951
+[PASS] normal W input moves us_m24_m6_t85e1_1951
+[PASS] actual window capture 2_driving (review pending)
+[PASS] normal mouse input fires selected weapon us_m24_m6_t85e1_1951
+[PASS] actual window capture 2_fired (review pending)
+[PASS] actual window capture 2_scope (review pending)
+[PASS] scope excludes own reconstructed vehicle us_m24_m6_t85e1_1951
+[PASS] normal UI control is visible before click
+[PASS] normal pause menu returns to garage
+[PASS] normal UI control is visible before click
+[PASS] normal popup selects us_m26_m3_1945
+[PASS] actual window capture 3_garage (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 3_armor (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 3_interior (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 3_dossier (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal garage entry drives selected us_m26_m3_1945
+[PASS] normal W input moves us_m26_m3_1945
+[PASS] actual window capture 3_driving (review pending)
+[PASS] normal mouse input fires selected weapon us_m26_m3_1945
+[PASS] actual window capture 3_fired (review pending)
+[PASS] actual window capture 3_scope (review pending)
+[PASS] scope excludes own reconstructed vehicle us_m26_m3_1945
+[PASS] normal UI control is visible before click
+[PASS] normal pause menu returns to garage
+[PASS] normal UI control is visible before click
+[PASS] normal popup selects us_m36_m4a1_1945
+[PASS] actual window capture 4_garage (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 4_armor (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 4_interior (review pending)
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 4_dossier (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal garage entry drives selected us_m36_m4a1_1945
+[PASS] normal W input moves us_m36_m4a1_1945
+[PASS] actual window capture 4_driving (review pending)
+[PASS] normal mouse input fires selected weapon us_m36_m4a1_1945
+[PASS] actual window capture 4_fired (review pending)
+[PASS] actual window capture 4_scope (review pending)
+[PASS] scope excludes own reconstructed vehicle us_m36_m4a1_1945
+[PASS] normal UI control is visible before click
+[PASS] normal pause menu returns to garage
+=== 结果: 80 项检查, 0 失败 ===
+HISTORICAL_DEMO_CHECKS_PASS
