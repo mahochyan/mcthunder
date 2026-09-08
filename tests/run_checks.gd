@@ -87,12 +87,15 @@ func _run() -> void:
 	var rf: bool = gunner.try_fire()
 	_ok(rf, "无遮挡时开火成功")
 	_ok(board.hit_count == 0, "遮挡墙后靶板未被命中 (hits=%d)" % board.hit_count)
+	await _wait_flight_done(main)   # 006-d：真实飞行——等被墙拦截的弹终止，再移墙
 	wall.queue_free()
 	await physics_frame
 	await physics_frame
 	gunner.cooldown_left = 0.0
 	var r2f: bool = gunner.try_fire()
-	_ok(r2f and board.hit_count == 1, "移除墙后同一射击代码命中靶板 (hits=%d)" % board.hit_count)
+	_ok(r2f, "移除墙后同一射击代码开火成功")
+	await _wait_flight_done(main)   # 006-d：真实飞行——等弹到达靶板
+	_ok(board.hit_count == 1, "移除墙后同一射击代码命中靶板 (hits=%d)" % board.hit_count)
 	_ok(board._flash_left > 0.0, "命中后靶板变色反馈触发")
 
 	# --- 炮管穿墙：阻止开火 ---
@@ -269,12 +272,14 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok1: bool = gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(ok1 and b1.hit_count == 1 and b2.hit_count == 0 and b3.hit_count == 0, "R3-A 稳定后实射命中近靶 B1 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
 	# 保持意图，等真实装填自然结束再打一炮——不手动恢复开火条件，
 	# 先断言开火条件已自然满足，再调用生产 try_fire 验证命中
 	await create_timer(GameConfig.RELOAD_TIME + 0.2).timeout
 	_ok(gunner.cooldown_left <= 0.0 and gunner.resume_grace <= 0.0, "R3-A 第二炮前开火条件已自然满足 (cooldown=%.2f grace=%.2f)" % [gunner.cooldown_left, gunner.resume_grace])
 	var ok1b: bool = gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(ok1b and b1.hit_count == 2, "R3-A 装填自然结束后第二炮仍命中近靶 B1 (b1=%d)" % b1.hit_count)
 	# 右侧远靶 B2（24m；相机环绕偏移已计入：x(z)=tanθ·(8−z)）
 	main.cam_rig.aim_yaw = deg_to_rad(-11.54)
@@ -291,6 +296,7 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok2: bool = gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(ok2 and b2.hit_count == 1 and b1.hit_count == 2 and b3.hit_count == 0, "R3-A 稳定后实射命中右侧远靶 B2 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
 	# 左侧远靶 B3（24m）
 	main.cam_rig.aim_yaw = deg_to_rad(11.54)
@@ -307,6 +313,7 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok3: bool = gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(ok3 and b3.hit_count == 1 and b2.hit_count == 1, "R3-A 稳定后实射命中左侧远靶 B3 (b1=%d b2=%d b3=%d)" % [b1.hit_count, b2.hit_count, b3.hit_count])
 	# 车体转过非零角度：局部角 = 目标全局角 - 车体 yaw 的扣除逻辑
 	tank.rotation.y = 0.5
@@ -325,6 +332,7 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	var ok4: bool = gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(ok4 and b1.hit_count == 3, "R3-A 车体非零 yaw 下实射命中近靶 B1 (b1=%d)" % b1.hit_count)
 	b1.queue_free()
 	b2.queue_free()
@@ -595,6 +603,7 @@ func _run() -> void:
 	gunner.resume_grace = 0.0
 	var fired_b: bool = gunner.try_fire()
 	_ok(fired_b, "T003-03 A 开火成功")
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 A 命中 B（自身排除生效）(hits=%d)" % main.actor_b.tank.hits_taken)
 	_ok(main.actor_a.tank.hits_taken == 0, "T003-03 A 未被自身命中")
 	# 墙挡不命中（005-R1：墙置于炮轴线上、炮口前方 2.5m——必须真实拦截
@@ -617,8 +626,12 @@ func _run() -> void:
 	gunner.resume_grace = 0.0
 	var fired_wall: bool = gunner.try_fire()
 	_ok(fired_wall, "T003-03 墙挡时开火仍成功（命中墙）")
+	await _wait_flight_done(main)   # 006-d：真实飞行——等弹撞墙终止
 	_ok(main.actor_b.tank.hits_taken == b_hits0 + 1, "T003-03 墙挡不命中 B (hits=%d)" % main.actor_b.tank.hits_taken)
-	_ok(main.actor_a.gunner.last_shot_result == "miss", "T003-03 墙挡结果 = miss（世界接触优先）(result=%s)" % main.actor_a.gunner.last_shot_result)
+	# 006-d 迁移：即时命中时代的 last_shot_result="miss"（同步结算）已不存在；
+	# 飞行终止后以 main._last_impact.reason_upper=="WORLD" 验证世界接触优先语义
+	_ok(str(main._last_impact.get("reason_upper", "")) == "WORLD",
+		"T003-03 墙挡结果 = 世界接触（世界接触优先）(reason=%s)" % str(main._last_impact.get("reason_upper", "")))
 	t003_wall.queue_free()
 	for i in 3:
 		await physics_frame
@@ -724,18 +737,22 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == 1, "T003-06 真实命中推进试射计数 (hits=%d)" % main.trial_hits)
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == 2, "T003-06 第二次命中推进 (hits=%d)" % main.trial_hits)
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == 3, "T003-06 第三次命中完成试射 (hits=%d)" % main.trial_hits)
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == 3, "T003-06 完成后再命中不超计 (hits=%d)" % main.trial_hits)
 	# 单车重置不污染试射目标
 	main.reset_vehicle(main.actor_a)
@@ -970,6 +987,7 @@ func _run() -> void:
 	for i in 2:
 		await physics_frame
 	Input.action_release("fire")
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == t0 + 1, "T003-09 正常输入链路真实命中推进 (trial=%d)" % main.trial_hits)
 	# 自然装填等待（不清零冷却）
 	while main.actor_a.gunner.cooldown_left > 0.0:
@@ -978,6 +996,7 @@ func _run() -> void:
 	for i in 2:
 		await physics_frame
 	Input.action_release("fire")
+	await _wait_flight_done(main)   # 006-d：真实飞行
 	_ok(main.trial_hits == t0 + 2, "T003-09 自然装填后第二次命中推进 (trial=%d)" % main.trial_hits)
 	# 真实 R 事件重开（整场重开，计数归零）
 	_key(KEY_R)
@@ -1158,6 +1177,16 @@ func _check_defs() -> void:
 func _check_actions() -> void:
 	for a in GameConfig.ACTIONS:
 		_ok(InputMap.has_action(a), "输入动作存在: " + a)
+
+func _wait_flight_done(m: Node, timeout_frames: int = 480) -> void:
+	# 006-d 迁移：有限速度炮弹真实飞行——发射后等活动飞弹归零再断言命中
+	# （物理帧轮询，带上限；上限对应 max_flight_time 8s = 480 帧）
+	if m.projectiles == null:
+		return
+	for i in timeout_frames:
+		if m.projectiles.active_count() == 0:
+			return
+		await physics_frame
 
 func _ok(cond: bool, label: String) -> void:
 	count += 1

@@ -39,7 +39,23 @@ func _exit_tree() -> void:
 
 
 func active_count() -> int:
+	# pending 的 id 同时也在 _active 中（出生当步不推进），不得重复计数
 	return _active.size()
+
+func get_projectile_state(projectile_id: int) -> ProjectileState:
+	# 006：按 id 读活动飞弹状态（测试/调试用；不持有车辆 Node）
+	return _active.get(projectile_id) as ProjectileState
+
+func active_states() -> Array:
+	# 006：全部活动飞弹状态快照（测试/调试用）
+	var out: Array = []
+	for st in _active.values():
+		out.append(st)
+	for pid in _pending:
+		var st: ProjectileState = _active.get(pid)
+		if st != null:
+			out.append(st)
+	return out
 
 
 func try_spawn(spec: Dictionary) -> Dictionary:
