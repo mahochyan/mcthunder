@@ -28,7 +28,7 @@ Esc → **Recovery Range** 验证损伤后应对；1—5开始训练新局，正
 训练 AP70 与标准板为明确游戏设计值，非历史性能认证。穿甲累计消耗不恢复；跳弹保留一半剩余预算、速度乘0.6；UNKNOWN 停止并说明数据不足。详情来自真实接触记录。
 
 ## 自动验证
-`pwsh -File tests/run_suite_checks.ps1 -Order 019`：固定引擎导入与18套检查，包含射击/装甲/内构/恢复/回放/驾驶/AI/对局/HUD/地图/统计；019候选1,236项通过。
+`pwsh -File tests/run_suite_checks.ps1 -Order 020`：固定引擎导入与21套检查，包含射击/装甲/内构/恢复/回放/驾驶/AI/对局/HUD/地图/统计，以及四车历史配置/实际道路/Blender资源一致性；020完整候选1,461项通过。最终显示修复另复测相关两套247项及真实窗口84项，具体源码与记录见[020交付](docs/DELIVERY_020.md)。
 运行器保存源码 SHA、命令、stdout/stderr、退出码、超时及错误扫描。只有布局套件三条指定负例错误允许出现；其他 ERROR/SCRIPT ERROR 即使退出0也判失败。
 
 单套：`tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/run_armor_checks.gd`

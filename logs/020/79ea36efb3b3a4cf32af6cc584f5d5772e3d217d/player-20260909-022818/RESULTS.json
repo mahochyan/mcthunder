@@ -1,0 +1,22 @@
+[
+  {
+    "step": "garage",
+    "source_sha": "79ea36efb3b3a4cf32af6cc584f5d5772e3d217d",
+    "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --fixed-fps 60 -- --historical-play-check --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\020\\79ea36efb3b3a4cf32af6cc584f5d5772e3d217d\\player-20260909-022818\"",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 80,
+    "passed": true
+  },
+  {
+    "step": "arc_fixture",
+    "source_sha": "79ea36efb3b3a4cf32af6cc584f5d5772e3d217d",
+    "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --fixed-fps 60 -s res://tests/run_limited_arc_window.gd",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 4,
+    "passed": true
+  }
+]

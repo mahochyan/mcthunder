@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T017-01 ammo, reload and actual barrel point come from production gunner
+[PASS] T017-H04 repeated HUD presentation cannot change health, ammo, timers, tickets or identity
+[PASS] view-model mutation cannot write into authoritative state
+[PASS] damaged drive and gun show separate concrete capability reasons
+[PASS] fire, rejected repair and weapon restriction remain visible concurrently
+[PASS] recovery progress and extinguisher charge reflect same real action
+[PASS] last firing rejection does not overwrite fire or current action
+[PASS] T017-02 never-seen enemy behind actual spawn wall stays absent from minimap
+[PASS] visible exterior creates one enemy marker and permits its world label
+[PASS] minimap accepts sanitized numeric observations without enemy internals
+[PASS] lost sight leaves hollow last-seen marker and hides enemy world label
+[PASS] moving under cover cannot update remembered minimap coordinates
+[PASS] six-second expired enemy marker disappears
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1280, 720)x scale 1.00
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1280, 720)x scale 1.25
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1920, 1080)x scale 1.00
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1920, 1080)x scale 1.25
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1280, 720)x scale 1.00
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-03 primary HUD containers fit and do not overlap at (1280, 720)x scale 1.25
+[PASS] battle status and close control remain in viewport
+[PASS] settings and large-font choices remain in viewport
+[PASS] T017-04 Tab opens battle status and disables driving/fire intent
+[PASS] closing panel while fire is held cannot emit a shot
+[PASS] fresh release-then-press works again after panel closure
+[PASS] playing match rejects replay overlay with a clear HUD message
+[PASS] pause releases focus and hides aiming marker
+[PASS] settings replace pause controls without concurrent clickable layers
+[PASS] reduced flash and stable camera directly suppress optical effects
+[PASS] accessibility choices leave combat state and ammunition unchanged
+[PASS] disabled replay preference also gates the actual replay controller
+[PASS] resume returns focus to the same living local actor
+[PASS] death uses selection focus without leaving input on the wreck
+[PASS] 017 E preserves friendly spectator switching while Tab is battle status
+[PASS] new player life restores driving focus once after redeploy
+[PASS] actual manager accepts the replay input fixture
+[PASS] actual stopped shot yields contact geometry for replay
+[PASS] finished real-shot replay takes focus and replaces result controls
+[PASS] closing replay restores result focus without changing frozen outcome
+=== 结果: 48 项检查, 0 失败 ===
+HUD_CHECKS_PASS

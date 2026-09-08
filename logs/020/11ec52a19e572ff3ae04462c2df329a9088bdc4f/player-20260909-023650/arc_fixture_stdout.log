@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] limited traverse is an explicit engineering fixture
+[PASS] real window captures mouse
+[mouse] dx=600 intent_deg=-120.321136977473 cannon_deg=-12.0000003339304
+[PASS] real mouse moves view outside traverse while common cannon stops at 12 degrees
+[mouse] dx=-1200 intent_deg=120.321136977473 cannon_deg=12.0000003339304
+[PASS] real mouse moves view outside traverse while common cannon stops at 12 degrees
+=== 结果: 4 项检查, 0 失败 ===
+LIMITED_ARC_WINDOW_CHECKS_PASS

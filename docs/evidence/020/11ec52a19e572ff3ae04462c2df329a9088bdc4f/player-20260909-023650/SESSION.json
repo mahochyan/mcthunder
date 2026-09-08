@@ -1,0 +1,119 @@
+{
+  "source_sha": "11ec52a19e572ff3ae04462c2df329a9088bdc4f",
+  "images": [
+    {
+      "file": "1_armor.png",
+      "sha256": "BEFCE8EA219410BA0B62DE3C846714976D7ECAECEDCD8113B224D940E12BD5C6"
+    },
+    {
+      "file": "1_dossier.png",
+      "sha256": "76AD69B556BD210C4EE281C8AA75957301DE5F73A1B7821E4D811EC801A7DDBA"
+    },
+    {
+      "file": "1_driving.png",
+      "sha256": "E94F748CC9DB9DB9C541028B7B0ABA26608D1B46C2C1F8A3E2B8498205BDB761"
+    },
+    {
+      "file": "1_fired.png",
+      "sha256": "6884CEC90A8A64DA448E5EA4E170D18AFB7CB55D376CC740106D73148045135A"
+    },
+    {
+      "file": "1_garage.png",
+      "sha256": "0DAD13F3D3D1105DF0F6F74803A1DC8B98247FF1FC8C62F490CA7E3CAF93EEAC"
+    },
+    {
+      "file": "1_interior.png",
+      "sha256": "5E2F9B5A29185A9EAEA5D769EAD66BC9DA25DEB5C2B9BCA0B67DFB1D2558AEF1"
+    },
+    {
+      "file": "1_scope.png",
+      "sha256": "4A5A1051737583A64D3AECB9D39BFF0A76BC50878772DB09EF40F3E005ED379E"
+    },
+    {
+      "file": "2_armor.png",
+      "sha256": "92C38CD1BC551BBD12A65D9368B051637FFD05F9C46849244EFDD1C2E05BD1C7"
+    },
+    {
+      "file": "2_dossier.png",
+      "sha256": "441DA75F07F3B4208B55E08D93F6CA2A77CADD6B9FD7F7A1EECAF51E2CB94BFB"
+    },
+    {
+      "file": "2_driving.png",
+      "sha256": "0A5FB9E87486AA591EF9E35B6F601049177A3C036AC7020B2104427A9AE1C875"
+    },
+    {
+      "file": "2_fired.png",
+      "sha256": "3C7186629D5AEAF42DEA5644FF67BBBBD4ABC154E981147CF112568D86BF5D35"
+    },
+    {
+      "file": "2_garage.png",
+      "sha256": "846733ED35C97746A6B76F1B331FD97B7CF2921AADA43C7117CE8700909C6C7C"
+    },
+    {
+      "file": "2_interior.png",
+      "sha256": "8B43BD0340116D2577D6A80DDCC408F7E6F9622EF05AB32A4B05E970CB0D4E6D"
+    },
+    {
+      "file": "2_scope.png",
+      "sha256": "DFF18C825688A9699774312F2699A9EA164A7D11D5087AA53CA536EAAFA94594"
+    },
+    {
+      "file": "3_armor.png",
+      "sha256": "DD74AAFE541E87F061CFC430405CF6B7E5945D6EFC1533AAD444BFEB6E3DC4DC"
+    },
+    {
+      "file": "3_dossier.png",
+      "sha256": "03236CA1BB720B00478750F5B9DC4B83E97766059376E3D09C8589B1BEA80F1B"
+    },
+    {
+      "file": "3_driving.png",
+      "sha256": "B3D3BB11A9D603637E968FCF47480A9144A9D9BBD2554F0F35862F5C0DF4739A"
+    },
+    {
+      "file": "3_fired.png",
+      "sha256": "1AB498EE4414AF0D2C1C8B09E330FB7B25FEF0A02BC4164384E9DBD6B8ACFA10"
+    },
+    {
+      "file": "3_garage.png",
+      "sha256": "C2C0C828D1CDBB7B55FAD72A85CEF01705411C4B570CA10C2D64203BC2238A94"
+    },
+    {
+      "file": "3_interior.png",
+      "sha256": "786EA4F589EA9682641242ABA9BF4CFB1236E5CBEB94ED369DFD429BD57E0537"
+    },
+    {
+      "file": "3_scope.png",
+      "sha256": "1A87F5E87527CA7C29742E9E7C2F54E2274ED043A8CE88D6C3AE7299EC4FF8BF"
+    },
+    {
+      "file": "4_armor.png",
+      "sha256": "80D9B143CC8D0C0785D68E778688B55275DD72D708B434EC84972461A329303B"
+    },
+    {
+      "file": "4_dossier.png",
+      "sha256": "CB97F1335FFB64AAE1DBA617717C2377AA50E955C1FD1A1AAF05FC2FCFC41297"
+    },
+    {
+      "file": "4_driving.png",
+      "sha256": "232A9A163EF10495E48B1972231B986FFB02BE31894229F94C523A17A4EE3D05"
+    },
+    {
+      "file": "4_fired.png",
+      "sha256": "0CE459CD4034FC50D0E10B2E2762596551B04A206F016669BB9FBD4151585114"
+    },
+    {
+      "file": "4_garage.png",
+      "sha256": "F45FC69EF072F3E4BD739761B2FF0D3E6BCB964BA285C1BCB1CD0E56E0247687"
+    },
+    {
+      "file": "4_interior.png",
+      "sha256": "6D8F0BE5EE2757AA108E454BD4A3B479B12422FBC36D1EE45D37F886F6156A41"
+    },
+    {
+      "file": "4_scope.png",
+      "sha256": "C004BA4D1EA3868849B241975C2AFEF8D2318B8D67E90FC11517C282737BB949"
+    }
+  ],
+  "graphical_review": "ASSISTANT_REVIEWED: all 28 frames checked; 12 changed frames viewed directly, other 16 are byte-identical to already reviewed previous captures. Labels readable, four identities/ammunition counts match, interiors hide decorative tracks, M36 remains open, scopes hide own vehicle. Human NOT_RUN.",
+  "human": "NOT_RUN"
+}

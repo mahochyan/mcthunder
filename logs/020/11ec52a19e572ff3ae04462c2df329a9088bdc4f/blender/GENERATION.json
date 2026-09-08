@@ -1,0 +1,16 @@
+{
+  "review_sha": "11ec52a19e572ff3ae04462c2df329a9088bdc4f",
+  "build_source_state": "uncommitted before 79ea36e; these raw generation logs are not attributed to a committed build",
+  "installed_engine": "E:/blender/blender.exe",
+  "version": "5.2.1 LTS 9e2066aef7ef",
+  "commands": [
+    "E:/blender/blender.exe --background --threads 4 --python-exit-code 1 --python authoring/vehicles/build_models.py",
+    "E:/blender/blender.exe --background authoring/vehicles/us_m26_m3_1945.blend --threads 4 --python-exit-code 1 --python authoring/vehicles/export_current.py"
+  ],
+  "observed_exit_codes": [
+    0,
+    0
+  ],
+  "content_manifest_directory": "assets/vehicles",
+  "note": "All four .blend and .glb output hashes verified by the committed Godot asset suite; seed hashes independently matched after checkout rules were fixed."
+}

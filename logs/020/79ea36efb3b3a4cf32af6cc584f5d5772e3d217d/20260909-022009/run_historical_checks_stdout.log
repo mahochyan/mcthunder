@@ -1,0 +1,196 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] legacy definitions remain available
+[PASS] four historical packages pass evidence, compatibility, geometry and spatial admission
+[PASS] four historical configurations registered
+[PASS] us_m4a3_75w_vvss_1944: common definition registry resolves actual historical package
+[PASS] us_m4a3_75w_vvss_1944: rejects mismatched year
+[PASS] us_m4a3_75w_vvss_1944: rejects mismatched gun
+[PASS] us_m4a3_75w_vvss_1944: rejects mismatched mount
+[PASS] us_m4a3_75w_vvss_1944: rejects mismatched shell
+[PASS] us_m4a3_75w_vvss_1944: missing critical evidence refuses admission
+[PASS] us_m4a3_75w_vvss_1944: rejects source from another variant
+[PASS] us_m4a3_75w_vvss_1944: malformed packet fails without partial assembly
+[PASS] us_m4a3_75w_vvss_1944: malformed packet fails without partial assembly
+[PASS] us_m4a3_75w_vvss_1944: malformed packet fails without partial assembly
+[PASS] us_m4a3_75w_vvss_1944: malformed packet fails without partial assembly
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested roles without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested source_scope without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested width without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested fact_row without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested local_range without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested wheel_count without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested round_count without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested hash without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested optional_speed without a script error
+[PASS] us_m4a3_75w_vvss_1944: rejects invalid nested unknown_substitute without a script error
+[PASS] us_m4a3_75w_vvss_1944: actual range uses selected actor definition
+[PASS] us_m4a3_75w_vvss_1944: hull/turret/barrel query transforms all present
+[PASS] us_m4a3_75w_vvss_1944: own documented five-person roster
+[PASS] us_m4a3_75w_vvss_1944: rack/chamber initialization conserves documented load
+[PASS] us_m4a3_75w_vvss_1944: chamber is deducted from actual ready rack
+[PASS] us_m4a3_75w_vvss_1944: real input consumes one shell through shared gunner
+[PASS] us_m4a3_75w_vvss_1944: held fire does not bypass historical reload
+[PASS] us_m4a3_75w_vvss_1944: repeated request during natural cooldown is blocked
+[PASS] us_m4a3_75w_vvss_1944: real driving input and per-vehicle reverse limit
+[PASS] us_m4a3_75w_vvss_1944: shared configuration keeps ammunition/damage state independent
+[PASS] us_m4a3_75w_vvss_1944: muzzle agrees with visible barrel length
+[PASS] us_m4a3_75w_vvss_1944: second shot waits for natural reload and turret slew
+[PASS] us_m4a3_75w_vvss_1944: actual shell penetrates side armor and damages matching engine volume
+[PASS] us_m4a3_75w_vvss_1944: target damage does not contaminate shooter state
+[PASS] us_m4a3_75w_vvss_1944: naturally rotated hull/turret/gun query and visual hierarchies share current transforms
+[PASS] us_m4a3_75w_vvss_1944: Blender cannon detail follows real elevation and recoil pivot
+[PASS] us_m4a3_75w_vvss_1944: normal training reset restores conserved historical total
+[PASS] us_m4a3_75w_vvss_1944: reset preserves ready-rack capacity and chamber deduction
+[PASS] us_m4a3_75w_vvss_1944: real village initializes eight historical vehicles
+[PASS] us_m4a3_75w_vvss_1944: mirrored roster uses actual historical weapons, no AP120 override
+[PASS] us_m4a3_75w_vvss_1944: timed respawn preserves selected historical configuration
+[PASS] us_m24_m6_t85e1_1951: common definition registry resolves actual historical package
+[PASS] us_m24_m6_t85e1_1951: rejects mismatched year
+[PASS] us_m24_m6_t85e1_1951: rejects mismatched gun
+[PASS] us_m24_m6_t85e1_1951: rejects mismatched mount
+[PASS] us_m24_m6_t85e1_1951: rejects mismatched shell
+[PASS] us_m24_m6_t85e1_1951: missing critical evidence refuses admission
+[PASS] us_m24_m6_t85e1_1951: rejects source from another variant
+[PASS] us_m24_m6_t85e1_1951: malformed packet fails without partial assembly
+[PASS] us_m24_m6_t85e1_1951: malformed packet fails without partial assembly
+[PASS] us_m24_m6_t85e1_1951: malformed packet fails without partial assembly
+[PASS] us_m24_m6_t85e1_1951: malformed packet fails without partial assembly
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested roles without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested source_scope without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested width without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested fact_row without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested local_range without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested wheel_count without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested round_count without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested hash without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested optional_speed without a script error
+[PASS] us_m24_m6_t85e1_1951: rejects invalid nested unknown_substitute without a script error
+[PASS] us_m24_m6_t85e1_1951: actual range uses selected actor definition
+[PASS] us_m24_m6_t85e1_1951: hull/turret/barrel query transforms all present
+[PASS] us_m24_m6_t85e1_1951: own documented five-person roster
+[PASS] us_m24_m6_t85e1_1951: rack/chamber initialization conserves documented load
+[PASS] us_m24_m6_t85e1_1951: real input consumes one shell through shared gunner
+[PASS] us_m24_m6_t85e1_1951: held fire does not bypass historical reload
+[PASS] us_m24_m6_t85e1_1951: repeated request during natural cooldown is blocked
+[PASS] us_m24_m6_t85e1_1951: real driving input and per-vehicle reverse limit
+[PASS] us_m24_m6_t85e1_1951: shared configuration keeps ammunition/damage state independent
+[PASS] us_m24_m6_t85e1_1951: muzzle agrees with visible barrel length
+[PASS] us_m24_m6_t85e1_1951: second shot waits for natural reload and turret slew
+[PASS] us_m24_m6_t85e1_1951: actual shell penetrates side armor and damages matching engine volume
+[PASS] us_m24_m6_t85e1_1951: target damage does not contaminate shooter state
+[PASS] us_m24_m6_t85e1_1951: naturally rotated hull/turret/gun query and visual hierarchies share current transforms
+[PASS] us_m24_m6_t85e1_1951: Blender cannon detail follows real elevation and recoil pivot
+[PASS] us_m24_m6_t85e1_1951: normal training reset restores conserved historical total
+[PASS] us_m24_m6_t85e1_1951: real village initializes eight historical vehicles
+[PASS] us_m24_m6_t85e1_1951: mirrored roster uses actual historical weapons, no AP120 override
+[PASS] us_m24_m6_t85e1_1951: timed respawn preserves selected historical configuration
+[PASS] us_m26_m3_1945: common definition registry resolves actual historical package
+[PASS] us_m26_m3_1945: rejects mismatched year
+[PASS] us_m26_m3_1945: rejects mismatched gun
+[PASS] us_m26_m3_1945: rejects mismatched mount
+[PASS] us_m26_m3_1945: rejects mismatched shell
+[PASS] us_m26_m3_1945: missing critical evidence refuses admission
+[PASS] us_m26_m3_1945: rejects source from another variant
+[PASS] us_m26_m3_1945: malformed packet fails without partial assembly
+[PASS] us_m26_m3_1945: malformed packet fails without partial assembly
+[PASS] us_m26_m3_1945: malformed packet fails without partial assembly
+[PASS] us_m26_m3_1945: malformed packet fails without partial assembly
+[PASS] us_m26_m3_1945: rejects invalid nested roles without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested source_scope without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested width without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested fact_row without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested local_range without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested wheel_count without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested round_count without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested hash without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested optional_speed without a script error
+[PASS] us_m26_m3_1945: rejects invalid nested unknown_substitute without a script error
+[PASS] us_m26_m3_1945: actual range uses selected actor definition
+[PASS] us_m26_m3_1945: hull/turret/barrel query transforms all present
+[PASS] us_m26_m3_1945: own documented five-person roster
+[PASS] us_m26_m3_1945: rack/chamber initialization conserves documented load
+[PASS] us_m26_m3_1945: chamber is deducted from actual ready rack
+[PASS] us_m26_m3_1945: real input consumes one shell through shared gunner
+[PASS] us_m26_m3_1945: held fire does not bypass historical reload
+[PASS] us_m26_m3_1945: repeated request during natural cooldown is blocked
+[PASS] us_m26_m3_1945: real driving input and per-vehicle reverse limit
+[PASS] us_m26_m3_1945: shared configuration keeps ammunition/damage state independent
+[PASS] us_m26_m3_1945: muzzle agrees with visible barrel length
+[PASS] us_m26_m3_1945: second shot waits for natural reload and turret slew
+[PASS] us_m26_m3_1945: actual shell penetrates side armor and damages matching engine volume
+[PASS] us_m26_m3_1945: target damage does not contaminate shooter state
+[PASS] us_m26_m3_1945: naturally rotated hull/turret/gun query and visual hierarchies share current transforms
+[PASS] us_m26_m3_1945: Blender cannon detail follows real elevation and recoil pivot
+[PASS] us_m26_m3_1945: normal training reset restores conserved historical total
+[PASS] us_m26_m3_1945: reset preserves ready-rack capacity and chamber deduction
+[PASS] us_m26_m3_1945: real village initializes eight historical vehicles
+[PASS] us_m26_m3_1945: mirrored roster uses actual historical weapons, no AP120 override
+[PASS] us_m26_m3_1945: timed respawn preserves selected historical configuration
+[PASS] us_m36_m4a1_1945: common definition registry resolves actual historical package
+[PASS] us_m36_m4a1_1945: rejects mismatched year
+[PASS] us_m36_m4a1_1945: rejects mismatched gun
+[PASS] us_m36_m4a1_1945: rejects mismatched mount
+[PASS] us_m36_m4a1_1945: rejects mismatched shell
+[PASS] us_m36_m4a1_1945: missing critical evidence refuses admission
+[PASS] us_m36_m4a1_1945: rejects source from another variant
+[PASS] us_m36_m4a1_1945: malformed packet fails without partial assembly
+[PASS] us_m36_m4a1_1945: malformed packet fails without partial assembly
+[PASS] us_m36_m4a1_1945: malformed packet fails without partial assembly
+[PASS] us_m36_m4a1_1945: malformed packet fails without partial assembly
+[PASS] us_m36_m4a1_1945: rejects invalid nested roles without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested source_scope without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested width without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested fact_row without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested local_range without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested wheel_count without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested round_count without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested hash without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested optional_speed without a script error
+[PASS] us_m36_m4a1_1945: rejects invalid nested unknown_substitute without a script error
+[PASS] us_m36_m4a1_1945: actual range uses selected actor definition
+[PASS] us_m36_m4a1_1945: hull/turret/barrel query transforms all present
+[PASS] us_m36_m4a1_1945: own documented five-person roster
+[PASS] us_m36_m4a1_1945: rack/chamber initialization conserves documented load
+[PASS] us_m36_m4a1_1945: chamber is deducted from actual ready rack
+[PASS] us_m36_m4a1_1945: real input consumes one shell through shared gunner
+[PASS] us_m36_m4a1_1945: held fire does not bypass historical reload
+[PASS] us_m36_m4a1_1945: repeated request during natural cooldown is blocked
+[PASS] us_m36_m4a1_1945: real driving input and per-vehicle reverse limit
+[PASS] us_m36_m4a1_1945: shared configuration keeps ammunition/damage state independent
+[PASS] us_m36_m4a1_1945: muzzle agrees with visible barrel length
+[PASS] us_m36_m4a1_1945: second shot waits for natural reload and turret slew
+[PASS] us_m36_m4a1_1945: actual shell penetrates side armor and damages matching engine volume
+[PASS] us_m36_m4a1_1945: target damage does not contaminate shooter state
+[PASS] us_m36_m4a1_1945: naturally rotated hull/turret/gun query and visual hierarchies share current transforms
+[PASS] us_m36_m4a1_1945: Blender cannon detail follows real elevation and recoil pivot
+[PASS] us_m36_m4a1_1945: normal training reset restores conserved historical total
+[PASS] us_m36_m4a1_1945: reset preserves ready-rack capacity and chamber deduction
+[PASS] us_m36_m4a1_1945: real village initializes eight historical vehicles
+[PASS] us_m36_m4a1_1945: mirrored roster uses actual historical weapons, no AP120 override
+[PASS] us_m36_m4a1_1945: timed respawn preserves selected historical configuration
+[PASS] M24 manual's four-person combat roster is configurable without a five-person engine assumption
+[PASS] four-person configuration assembles through common registry
+[PASS] limited-arc engineering fixture uses real turret executor
+[PASS] script/AI command cannot aim outside fixed horizontal arc
+[PASS] reset/snap shares horizontal arc limit
+[PASS] script/AI command cannot aim outside fixed horizontal arc
+[PASS] reset/snap shares horizontal arc limit
+[PASS] headless player camera-intent fixture remains outside arc while cannon is constrained
+[PASS] headless player camera-intent fixture remains outside arc while cannon is constrained
+[PASS] normal garage exposes fixture plus four historical choices
+[PASS] garage selection rebuilds matching preview and enables evidence dossier 1
+[PASS] garage ammunition controls display actual historical shell and count 1
+[PASS] interior inspection hides all imported Blender cosmetic meshes 1
+[PASS] garage selection rebuilds matching preview and enables evidence dossier 2
+[PASS] garage ammunition controls display actual historical shell and count 2
+[PASS] interior inspection hides all imported Blender cosmetic meshes 2
+[PASS] garage selection rebuilds matching preview and enables evidence dossier 3
+[PASS] garage ammunition controls display actual historical shell and count 3
+[PASS] interior inspection hides all imported Blender cosmetic meshes 3
+[PASS] garage selection rebuilds matching preview and enables evidence dossier 4
+[PASS] garage ammunition controls display actual historical shell and count 4
+[PASS] interior inspection hides all imported Blender cosmetic meshes 4
+[PASS] all four runtime cases reached completion
+=== 结果: 192 项检查, 0 失败 ===
+HISTORICAL_CHECKS_PASS

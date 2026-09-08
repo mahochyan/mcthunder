@@ -1,0 +1,32 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "11ec52a19e572ff3ae04462c2df329a9088bdc4f",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_core_checks,run_historical_checks",
+    "source_sha": "11ec52a19e572ff3ae04462c2df329a9088bdc4f",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\" -s \"res://tests/run_core_checks,run_historical_checks.gd\"",
+    "exit_code": 1,
+    "timed_out": false,
+    "checks": 0,
+    "passed": false,
+    "script_error": false,
+    "unexpected_errors": [
+      "ERROR: Attempt to open script 'res://tests/run_core_checks,run_historical_checks.gd' resulted in error 'File not found'.",
+      "ERROR: Failed loading resource: res://tests/run_core_checks,run_historical_checks.gd.",
+      "ERROR: Can't load script: res://tests/run_core_checks,run_historical_checks.gd"
+    ],
+    "expected_error_count": 0
+  }
+]
