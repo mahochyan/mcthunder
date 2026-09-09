@@ -6,21 +6,34 @@ extends RefCounted
 ## restore() 移除全部容器并完整还原旧视觉状态。碰撞/射击/履带物理逻辑完全不动。
 
 const BAKED_SCENE := "res://assets/art001/m4a3_pilot/m4a3_1k.glb"
-## 部件 → 允许导入的叶网格名单（按清单导入，防深复制炮塔子树重复装配）
+## 部件 → 必需叶网格名单（每个都必须在对应部件下恰好出现一次；防漏件/错件/重复）
 const PART_MESHES := {
 	"hull": ["LOW_hull_Shell", "LOW_hull_Hatches", "LOW_wheels", "LOW_tracks"],
 	"turret": ["LOW_turret_Shell", "LOW_turret_Cupola"],
-	"barrel": ["LOW_gun_Tube", "LOW_gun_Shell"],
+	"barrel": ["LOW_gun_Tube", "LOW_barrel_Shell"],
 }
 
 var _hidden: Array[Dictionary] = []            # [{"node": Node, "visible": bool}]
 var _spawned_roots: Array[Node3D] = []         # 各部件候选容器（所有新增网格的归属）
+var _recoil_old: Node3D = null                 # 原 recoil_visual 引用（还原时接回）
+var _track_motion: Node = null                 # 动态履带节点（绑定期间停更新）
+var _track_was_processing := false
 var _bound := false
 
-func bind(actor: VehicleActor) -> Dictionary:
+## 候选网格实例清单（遍历全部候选容器，供材质变体切换）
+func mesh_instances() -> Array[MeshInstance3D]:
+	var out: Array[MeshInstance3D] = []
+	for container in _spawned_roots:
+		if is_instance_valid(container):
+			_collect(container, out)
+	return out
+
+## bind(actor, whitelist=null)：whitelist 供反例测试注入缺失名单；缺省用 PART_MESHES
+func bind(actor: VehicleActor, whitelist: Dictionary = {}) -> Dictionary:
 	if _bound:
 		return {"ok": false, "error": "already bound"}   # 先检查，未动任何状态
-	# 1. 验证资源与部件覆盖——全部通过前不修改原车任何状态
+	var wl := PART_MESHES if whitelist.is_empty() else whitelist
+	# 1. 验证资源与部件覆盖——每个必需网格在对应部件下恰好一次；全部通过前不动原车
 	var scene := load(BAKED_SCENE) as PackedScene
 	if scene == null:
 		return {"ok": false, "error": "missing baked scene " + BAKED_SCENE}
@@ -28,14 +41,24 @@ func bind(actor: VehicleActor) -> Dictionary:
 	if source == null:
 		return {"ok": false, "error": "cannot instantiate baked scene"}
 	var part_meshes := {}
-	for part in PART_MESHES:
+	for part in wl:
 		var authored: Node = source if str(source.name) == part else source.find_child(part, true, false)
 		var list: Array[MeshInstance3D] = []
 		if authored != null:
-			for wanted in PART_MESHES[part]:
-				var m := authored.find_child(str(wanted), true, false) as MeshInstance3D
-				if m != null:
-					list.append(m)
+			# 部件下实际存在的全部网格名（精确集合：少件/错件/重复/多件都拒绝）
+			var actual := {}
+			for ch in authored.get_children():
+				if ch is MeshInstance3D:
+					actual[str(ch.name)] = true
+			for wanted in wl[part]:
+				if not actual.has(str(wanted)):
+					source.free()
+					return {"ok": false, "error": "whitelist mesh %s missing in part %s" % [str(wanted), str(part)]}
+				list.append(authored.find_child(str(wanted), true, false) as MeshInstance3D)
+			for extra in actual:
+				if not (extra in wl[part]):
+					source.free()
+					return {"ok": false, "error": "part %s has unlisted mesh %s (whitelist incomplete)" % [str(part), extra]}
 		if list.is_empty():
 			source.free()
 			return {"ok": false, "error": "missing baked meshes for part " + str(part)}
@@ -50,9 +73,15 @@ func bind(actor: VehicleActor) -> Dictionary:
 			if is_old and child is Node3D:
 				_hidden.append({"node": child, "visible": (child as Node3D).visible})
 				(child as Node3D).visible = false
+	# 动态履带：隐藏并暂停其专用更新（不影响车辆驾驶/炮塔回调），还原时恢复
+	for child in actor.tank.get_children():
+		if child is M4TrackMotion:
+			_track_motion = child
+			_track_was_processing = (child as Node).is_processing()
+			(child as Node).set_process(false)
 	# 3. 建部件候选容器并只导入对应叶网格（局部恒等：GLB 子件已按源约定）
 	var added := 0
-	for part in PART_MESHES:
+	for part in wl:
 		var parent2: Node3D = actor.tank if part == "hull" \
 			else (actor.turret if part == "turret" else actor.turret.barrel_pivot)
 		var container := Node3D.new()
@@ -64,6 +93,11 @@ func bind(actor: VehicleActor) -> Dictionary:
 			container.add_child(dup)
 			_set_layers(dup, actor.tank.visual_layer)
 			added += 1
+		# 后坐接线：炮管候选容器接给 TurretRig 的 recoil_visual（只写 Z 位移），
+		# 还原时接回旧引用；炮盾/炮耳/炮口节点不改作后坐视觉
+		if part == "barrel":
+			_recoil_old = actor.turret.recoil_visual
+			actor.turret.recoil_visual = container
 	source.free()
 	_bound = true
 	return {"ok": true, "hidden": _hidden.size(), "added": added, "parts": _spawned_roots.size()}
@@ -83,19 +117,17 @@ func restore(actor: VehicleActor) -> Dictionary:
 			(node as Node3D).visible = bool(rec["visible"])
 			restored += 1
 	_hidden.clear()
+	if _recoil_old != null and is_instance_valid(_recoil_old):
+		actor.turret.recoil_visual = _recoil_old
+	_recoil_old = null
+	if _track_motion != null and is_instance_valid(_track_motion):
+		(_track_motion as Node).set_process(_track_was_processing)
+	_track_motion = null
 	_bound = false
 	return {"ok": true, "removed_containers": removed, "restored": restored}
 
-## 烘焙低模网格实例清单（遍历全部候选容器，供材质变体切换）
-func mesh_instances() -> Array[MeshInstance3D]:
-	var out: Array[MeshInstance3D] = []
-	for container in _spawned_roots:
-		if is_instance_valid(container):
-			_collect(container, out)
-	return out
-
-## 绑定后整车可见三角数（应 ≤1000）
-func visible_tri_count() -> int:
+## 候选三角数（仅候选容器；整车审计另见 audit_no_leftover）
+func candidate_tri_count() -> int:
 	var total := 0
 	for mi in mesh_instances():
 		var mesh := mi.mesh
@@ -109,6 +141,22 @@ func visible_tri_count() -> int:
 			elif arrays[Mesh.ARRAY_VERTEX] != null:
 				total += (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size() / 3
 	return total
+
+## 整车可见几何独立审计：actor 下不允许残留任何可见的旧外观
+## （Skin_*/Cosmetic*/TrackMotion/程序炮管/旧后坐炮身）。返回残留可见节点名清单。
+static func audit_no_leftover(actor: VehicleActor) -> Array[String]:
+	var leftovers: Array[String] = []
+	for parent in [actor.tank, actor.turret, actor.turret.barrel_pivot]:
+		for child in parent.get_children():
+			var n := str(child.name)
+			var is_old: bool = n.begins_with("Skin_") or n.begins_with("Cosmetic") \
+				or child is M4TrackMotion or child == actor.turret.barrel_mesh
+			if is_old and child is Node3D and (child as Node3D).visible:
+				leftovers.append(str(parent.name) + "/" + n)
+	if actor.turret.recoil_visual != null and actor.turret.recoil_visual.visible \
+			and not str(actor.turret.recoil_visual.name).begins_with("BakedPilotVisual"):
+		leftovers.append("recoil_visual visible: " + str(actor.turret.recoil_visual.name))
+	return leftovers
 
 func _collect(node: Node, out: Array[MeshInstance3D]) -> void:
 	if node is MeshInstance3D:

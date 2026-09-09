@@ -224,6 +224,17 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 		var go := Vector3(float(g.gun_origin[0]), float(g.gun_origin[1]), float(g.gun_origin[2]))
 		_ok(barrel_node.position.distance_to(go) <= TOL_PIVOT_M, "T-ART-06 火炮枢轴 ≤1mm（%.4fmm）" % (barrel_node.position.distance_to(go) * 1000.0))
 	src.free()
+	# 漏件反例：注入缺 LOW_barrel_Shell 的名单必须在动原车前被拒绝，节点数不变
+	var bad_wl := {
+		"hull": ["LOW_hull_Shell", "LOW_hull_Hatches", "LOW_wheels", "LOW_tracks"],
+		"turret": ["LOW_turret_Shell", "LOW_turret_Cupola"],
+		"barrel": ["LOW_gun_Tube"],
+	}
+	var adapter_bad := BakedVisualAdapter.new()
+	var nb0 := _count_descendants(actor)
+	var rbad: Dictionary = adapter_bad.bind(actor, bad_wl)
+	_ok(not bool(rbad.get("ok", false)), "T-ART-06 漏件名单被拒绝（%s）" % str(rbad.get("error", "-")))
+	_ok(_count_descendants(actor) == nb0, "T-ART-06 漏件拒绝未动原车（节点 %d）" % _count_descendants(actor))
 	# 绑定适配器：先自然开火一次（不清冷却）；待首射特效惰性节点稳定后记录基准
 	var adapter := BakedVisualAdapter.new()
 	var gunner = actor.gunner
@@ -235,10 +246,27 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 	var bind_res: Dictionary = adapter.bind(actor)
 	_ok(bool(bind_res.get("ok", false)), "T-ART-06 适配器绑定成功")
 	_ok(int(bind_res.get("hidden", 0)) > 0, "T-ART-06 程序装配视觉已隐藏（%d 个）" % int(bind_res.get("hidden", 0)))
-	_ok(int(bind_res.get("added", 0)) >= 5, "T-ART-06 烘焙部件已挂载（%d 个）" % int(bind_res.get("added", 0)))
-	# 绑定后整车可见三角 ≤1000
-	var tris := adapter.visible_tri_count()
-	_ok(tris > 0 and tris <= 1000, "T-ART-06 绑定后整车可见三角 ≤1000（实际 %d）" % tris)
+	# 导入集合与导出清单一致（精确校验，非 added>=5）
+	var expect_names := ["LOW_hull_Shell", "LOW_hull_Hatches", "LOW_wheels", "LOW_tracks", "LOW_turret_Shell", "LOW_turret_Cupola", "LOW_gun_Tube", "LOW_barrel_Shell"]
+	var got_names := []
+	for mi3 in adapter.mesh_instances():
+		got_names.append(str(mi3.name))
+	got_names.sort()
+	var expect_sorted := expect_names.duplicate()
+	expect_sorted.sort()
+	_ok(got_names == expect_sorted, "T-ART-06 导入集合=导出清单（%d 网格无漏件/错件/重复）" % got_names.size())
+	# 候选三角数 = 完整 774（漏件已补）
+	var tris := adapter.candidate_tri_count()
+	_ok(tris == 774, "T-ART-06 候选三角数=774 完整（实际 %d）" % tris)
+	# 整车可见几何审计：无旧外观残留（不存在两套外观叠加）
+	var leftovers: Array[String] = BakedVisualAdapter.audit_no_leftover(actor)
+	_ok(leftovers.is_empty(), "T-ART-06 整车无残留旧外观（%s）" % str(leftovers))
+	# 后坐接线：kick 后候选炮管容器接收 Z 位移
+	actor.turret.kick_recoil()
+	await process_frame
+	var recoil_container := actor.turret.recoil_visual
+	_ok(recoil_container != null and str(recoil_container.name) == "BakedPilotVisual_barrel" and (recoil_container as Node3D).position.z > 0.05,
+		"T-ART-06 候选炮管接收后坐位移（z=%.3f）" % ((recoil_container as Node3D).position.z if recoil_container != null else 0.0))
 	# 变体切换确实覆盖绑定网格（先设 B 验证覆盖，再设 C 供对照）
 	var b_meshes := adapter.mesh_instances()
 	var m_set: StandardMaterial3D = BakeComparison.set_variant(b_meshes, "B")

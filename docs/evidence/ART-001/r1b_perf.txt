@@ -1,0 +1,5 @@
+ART001_PERF vehicles=8 positions_unique=true all_in_frustum=true scene_mesh_nodes=64 scene_tris=6192 gpu_timestamps=NOT_CAPTURED vsync=disabled
+ART001_PERF variant=B frames=25056 seconds=15.0 avg_frame_ms=0.60 p95_frame_ms=1.15 avg_fps=1678.3 engine_draw_calls_avg=65
+ART001_PERF variant=C frames=25254 seconds=15.0 avg_frame_ms=0.59 p95_frame_ms=1.12 avg_fps=1691.3 engine_draw_calls_avg=65
+ART001_PERF variant=B frames=25406 seconds=15.0 avg_frame_ms=0.59 p95_frame_ms=1.11 avg_fps=1701.6 engine_draw_calls_avg=65
+ART001_PERF variant=C frames=25524 seconds=15.0 avg_frame_ms=0.58 p95_frame_ms=1.12 avg_fps=1709.5 engine_draw_calls_avg=65

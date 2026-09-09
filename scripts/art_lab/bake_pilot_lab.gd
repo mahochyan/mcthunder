@@ -70,40 +70,67 @@ func _apply_variant() -> void:
 	BakeComparison.set_variant(_meshes(), variant)
 
 ## 8 车纯渲染性能采样：关 vsync，预热 10s，B/C 交错两轮各 15s，
-## 记录每轮平均帧时间与 P95；GPU 时间戳取不到则 NOT_CAPTURED。
+## 记录每轮平均帧时间与 P95 + 引擎绘制统计；GPU 时间戳取不到则 NOT_CAPTURED。
 func _perf_mode(args: Array) -> void:
 	var out_path := "user://art001_perf.txt"
 	for i in args.size():
 		if args[i] == "--perf-out" and i + 1 < args.size():
 			out_path = args[i + 1]
-	# 恰好 8 辆：默认 vehicle 为第 1 辆，补 7 辆，统一入镜
-	vehicle.position = Vector3(-10.5, 0, -4.0)
+	# 恰好 8 辆、8 个独立格位（i=0..7，第一辆 = 默认 vehicle，无重合）
+	var positions: Array[Vector3] = []
+	for i in range(8):
+		positions.append(Vector3(-10.5 + float(i % 4) * 7.0, 0.0, -4.0 + float(i / 4) * 10.0))
+	var uniq := {}
+	for p in positions:
+		uniq[p] = true
+	if uniq.size() != 8:
+		push_error("perf grid has overlapping positions")
+		get_tree().quit(1)
+		return
+	vehicle.position = positions[0]
 	var scene := load(DIR) as PackedScene
-	for k in range(7):
+	for i in range(7):
 		var v := scene.instantiate() as Node3D
-		v.name = "BakedVehicle_%d" % (k + 2)
-		v.position = Vector3(-10.5 + float(k % 4) * 7.0, 0, -4.0 + float((k + 1) / 4) * 10.0)
+		v.name = "BakedVehicle_%d" % (i + 2)
+		v.position = positions[i + 1]
 		add_child(v)
+	# 相机按车阵包围盒取景，并校验 8 辆都在视锥内
+	var center := Vector3.ZERO
+	for p in positions:
+		center += p
+	center = center / 8.0
+	cam.position = center + Vector3(0, 6.5, 16.0)
+	cam.look_at(center)
 	_set_light("daylight")
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)  # 解除 60fps 封顶
 	var vehicles := []
 	for c in get_children():
 		if c.name.begins_with("BakedVehicle"):
 			vehicles.append(c)
+	# 真实入镜校验：8 辆位置都必须在相机视锥内
+	var all_in_view := true
+	for v in vehicles:
+		if not cam.is_position_in_frustum((v as Node3D).global_position + Vector3(0, 1.0, 0)):
+			all_in_view = false
+	# 场景清点（网格节点数与三角累计，非引擎绘制统计）
 	var visible_tris := 0
-	var draw_calls := 0
+	var mesh_nodes := 0
 	for v in vehicles:
 		for mi in _collect_meshes(v):
 			var m := (mi as MeshInstance3D).mesh
 			if m == null:
 				continue
-			draw_calls += 1
+			mesh_nodes += 1
 			for s in m.get_surface_count():
 				var idx: PackedInt32Array = m.surface_get_arrays(s)[Mesh.ARRAY_INDEX]
 				visible_tris += idx.size() / 3 if idx.size() > 0 else 0
 	var plan := [["B", 15.0], ["C", 15.0], ["B", 15.0], ["C", 15.0]]  # 交错两轮
 	var lines: Array[String] = []
-	lines.append("ART001_PERF vehicles=8 visible_tris=%d mesh_draw_calls=%d gpu_timestamps=NOT_CAPTURED vsync=disabled cam_dist=%.1f" % [visible_tris, draw_calls, cam_dist])
+	lines.append("ART001_PERF vehicles=8 positions_unique=%s all_in_frustum=%s scene_mesh_nodes=%d scene_tris=%d gpu_timestamps=NOT_CAPTURED vsync=disabled" % [str(uniq.size() == 8), str(all_in_view), mesh_nodes, visible_tris])
+	print(lines[0])
+	if not all_in_view:
+		get_tree().quit(1)
+		return
 	await get_tree().create_timer(10.0).timeout   # 预热 10s（着色器编译/缓存）
 	for round_cfg in plan:
 		var tag: String = round_cfg[0]
@@ -111,19 +138,24 @@ func _perf_mode(args: Array) -> void:
 		for v in vehicles:
 			BakeComparison.set_variant(_collect_meshes(v), tag)
 		var deltas: Array[float] = []
+		var draw_sum := 0
+		var draw_n := 0
 		var t0 := Time.get_ticks_msec()
 		while Time.get_ticks_msec() - t0 < int(secs * 1000.0):
 			var f0 := Time.get_ticks_usec()
 			await get_tree().process_frame
 			deltas.append(float(Time.get_ticks_usec() - f0) / 1000.0)
+			draw_sum += Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)
+			draw_n += 1
 		deltas.sort()
 		var avg := 0.0
 		for d in deltas:
 			avg += d
 		avg = avg / maxf(float(deltas.size()), 1.0)
 		var p95: float = deltas[int(float(deltas.size()) * 0.95)]
-		var line := "ART001_PERF variant=%s frames=%d seconds=%.1f avg_frame_ms=%.2f p95_frame_ms=%.2f avg_fps=%.1f" % [
-			tag, deltas.size(), secs, avg, p95, 1000.0 / maxf(avg, 0.01)]
+		var avg_draws := float(draw_sum) / maxf(float(draw_n), 1.0)
+		var line := "ART001_PERF variant=%s frames=%d seconds=%.1f avg_frame_ms=%.2f p95_frame_ms=%.2f avg_fps=%.1f engine_draw_calls_avg=%.0f" % [
+			tag, deltas.size(), secs, avg, p95, 1000.0 / maxf(avg, 0.01), avg_draws]
 		print(line)
 		lines.append(line)
 	var f := FileAccess.open(out_path, FileAccess.WRITE)

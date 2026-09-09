@@ -39,12 +39,16 @@ func _run() -> void:
 			mat.albedo_texture = base
 			mat.normal_enabled = true
 			mat.normal_texture = nrm
-			mat.roughness_texture = orm
-			mat.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_GREEN
-			mat.metallic_texture = orm
-			mat.metallic_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_BLUE
+			# 与 B/C 一致：显式启用 AO、粗糙/金属用 ORM 通道 + 倍率 1.0
+			mat.ao_enabled = true
 			mat.ao_texture = orm
 			mat.ao_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
+			mat.roughness_texture = orm
+			mat.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_GREEN
+			mat.roughness = 1.0
+			mat.metallic_texture = orm
+			mat.metallic_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_BLUE
+			mat.metallic = 1.0
 			# 3. 材质应用到全部网格（脱离 authoring 的完整装配）
 			var applied := 0
 			var stack2 := [inst]

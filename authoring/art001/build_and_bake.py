@@ -681,14 +681,23 @@ def restore_emis(state):
         nt.nodes.remove(emis)
 
 def set_group_visible(group):
-    """AO 隔离：只保留目标组的高/低模可见，其它组（零姿态炮塔/火炮等运动件）不参与遮挡"""
-    for o in list(coll("HIGH").objects) + list(coll("LOW").objects):
-        vis = (o.get("art_group", "") == group)
+    """AO 隔离：全场景只保留目标组的源（HIGH）与目标（LOW）可见。
+    隐藏其它组（零姿态炮塔/火炮等运动件）、源 .blend 遗留几何（Armor_*/Cosmetic_*）
+    与其它 CAGE；被 cage_object 引用的笼由烘焙自动排除，可见性无影响。"""
+    keep = set()
+    for o in coll("HIGH").objects:
+        if o.get("art_group", "") == group:
+            keep.add(o.name)
+    for o in coll("LOW").objects:
+        if o.get("art_group", "") == group:
+            keep.add(o.name)
+    for o in bpy.data.objects:
+        vis = o.name in keep
         o.hide_render = not vis
         o.hide_set(not vis)
 
 def set_all_visible():
-    for o in list(coll("HIGH").objects) + list(coll("LOW").objects):
+    for o in bpy.data.objects:
         o.hide_render = False
         o.hide_set(False)
 
@@ -760,7 +769,7 @@ def stage_bake():
                         normal_space='TANGENT', normal_r='POS_X', normal_g='POS_Y', normal_b='POS_Z',
                         use_cage=True, cage_object=cages[low_ob.name],
                         use_clear=False, margin=8, target='IMAGE_TEXTURES',
-                        max_ray_distance=0.25 if isolated else 0.0,
+                        max_ray_distance=0.25 if isolated else 0.0,  # 高低模经笼投射线距离（远大于笼偏移 0.02-0.03），非 AO 遮挡半径
                         **filter_kw)
                     dt = time.time() - t0
                 finally:
@@ -772,7 +781,8 @@ def stage_bake():
                     raise RuntimeError("bake failed: %s %s %s" % (group, btype, res))
                 timings["%s/%s/%s" % (group, low_ob.name, key)] = round(dt, 2)
         import numpy as np
-        print("ART001 AOCHECK %s ao_mean=%.3f" % (group, np.array(imgs["ao"].pixels[:], dtype=np.float32).reshape(-1,4)[:,0].mean()))
+        # 口径：整张图集逐步填充后的均值（含其它组与未填区），非该组 UV 局部均值
+        print("ART001 atlas_mean_after_group %s ao_atlas_mean=%.3f" % (group, np.array(imgs["ao"].pixels[:], dtype=np.float32).reshape(-1,4)[:,0].mean()))
         for key, p in paths.items():
             try:
                 save_img(imgs[key], p)
