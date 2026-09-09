@@ -162,26 +162,30 @@ class Builder:
             self.rod('hull', (s * 1.05, 1.03, -1.99), (s * 1.05, 1.29, -1.99), 0.014, 'steel', n=4, cap_a=False, cap_b=False)
             self.rod('hull', (s * 1.05 - 0.13, 1.16, -1.99), (s * 1.05 + 0.13, 1.16, -1.99), 0.014, 'steel', n=4, cap_a=False, cap_b=False)
         # engine deck: recessed grille panel with louver slats (right deck)
-        self.box('hull', (0.50, 1.565, 0.85), (0.66, 0.025, 1.55), 'grille')
+        self.box('hull', (0.55, 1.665, 0.85), (0.62, 0.025, 1.55), 'grille')
         for i in range(8):
-            self.box('hull', (0.50, 1.595, 0.18 + i * 0.19), (0.60, 0.02, 0.06), 'steel')
+            self.box('hull', (0.55, 1.70, 0.18 + i * 0.19), (0.56, 0.02, 0.06), 'steel')
         # rear plate big access panel
-        self.box('hull', (0, 1.12, 2.59), (0.80, 0.55, 0.06), 'paint')
+        self.box('hull', (0, 1.12, 2.58), (0.80, 0.55, 0.06), 'paint')
         # side exhausts (upturned at rear deck edges)
         for s in (-1, 1):
-            self.rod('hull', (s * 0.92, 1.32, 2.35), (s * 1.00, 1.62, 2.72), 0.075, 'steel', n=10)
-            self.rod('hull', (s * 1.00, 1.62, 2.72), (s * 1.02, 1.68, 2.80), 0.05, 'recess', n=10, cap_a=False)
-        # athwartships cylindrical fuel tank across rear deck (rear view: round caps both sides)
-        self.rod('hull', (-1.30, 1.88, 1.50), (1.30, 1.88, 1.50), 0.19, 'paint', n=14)
-        for x in (-0.55, 0.55):
-            self.rod('hull', (x - 0.04, 1.88, 1.50), (x + 0.04, 1.88, 1.50), 0.205, 'steel', n=14, cap_a=False, cap_b=False)
-            self.box('hull', (x, 1.715, 1.50), (0.10, 0.08, 0.16), 'steel')
-        # deck filler cap
-        self.rod('hull', (-0.15, 1.685, 0.70), (-0.15, 1.72, 0.70), 0.13, 'paint', n=10)
-        # deck stowage: wooden box + shovel
-        self.box('hull', (0.20, 1.645, 0.15), (0.50, 0.17, 0.38), 'wood')
-        self.rod('hull', (-0.48, 1.60, -0.55), (-0.48, 1.60, 0.85), 0.03, 'wood', n=6, cap_a=False)
-        self.box('hull', (-0.48, 1.60, 0.98), (0.16, 0.05, 0.26), 'steel')
+            self.rod('hull', (s * 0.92, 1.45, 2.28), (s * 1.00, 1.78, 2.66), 0.075, 'steel', n=10)
+            self.rod('hull', (s * 1.00, 1.78, 2.66), (s * 1.02, 1.85, 2.74), 0.05, 'recess', n=10, cap_a=False)
+        # fore-aft cylindrical external fuel tanks x2 on rear deck (ENGINE DECK panel: cap forward, 2 bands)
+        for s in (-1, 1):
+            self.rod('hull', (s * 0.62, 1.87, 1.15), (s * 0.62, 1.87, 2.30), 0.185, 'paint', n=14)
+            for z in (1.38, 2.07):
+                self.rod('hull', (s * 0.62, 1.87, z - 0.04), (s * 0.62, 1.87, z + 0.04), 0.20, 'steel', n=14, cap_a=False, cap_b=False)
+                self.box('hull', (s * 0.62, 1.71, z), (0.16, 0.10, 0.09), 'steel')
+        # deck filler cap center
+        self.rod('hull', (0.02, 1.685, 0.62), (0.02, 1.72, 0.62), 0.13, 'paint', n=10)
+        # spare track rack (3 links stood on upper glacis right)
+        for i, x in enumerate((0.55, 0.70, 0.85)):
+            self.box('hull', (x, 1.585 + i * 0.008, -2.05 - i * 0.055), (0.12, 0.06, 0.22), 'dark_paint')
+        # deck stowage: wooden box (left deck) + shovel (lay flat)
+        self.box('hull', (-0.45, 1.775, 0.15), (0.50, 0.17, 0.40), 'wood')
+        self.rod('hull', (-0.85, 1.71, -0.55), (-0.85, 1.71, 0.55), 0.03, 'wood', n=6, cap_a=False)
+        self.box('hull', (-0.85, 1.70, 0.68), (0.16, 0.05, 0.26), 'steel')
         # ---- turret: angular faceted cast (flat planes, big roof chamfer; sheet: NOT rounded) ----
         to = (0.0, 1.68, -0.55)
         def T(p):
