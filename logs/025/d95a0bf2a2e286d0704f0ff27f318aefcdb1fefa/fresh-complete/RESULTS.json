@@ -1,0 +1,26 @@
+[
+  {
+    "exit_code": 0,
+    "timed_out": false,
+    "command": "--headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334\" --editor --import",
+    "script": "IMPORT",
+    "fresh_folder": "E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334",
+    "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa"
+  },
+  {
+    "exit_code": 0,
+    "timed_out": false,
+    "command": "--headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334\" --fixed-fps 60 -s res://tests/run_art_checks.gd",
+    "script": "run_art_checks",
+    "fresh_folder": "E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334",
+    "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa"
+  },
+  {
+    "exit_code": 0,
+    "timed_out": false,
+    "command": "--headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334\" --fixed-fps 60 -s res://tests/run_blender_asset_checks.gd",
+    "script": "run_blender_asset_checks",
+    "fresh_folder": "E:\\AIprogram\\mcthunder-development\\backups\\fresh-complete-d95a0bf-171334",
+    "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa"
+  }
+]

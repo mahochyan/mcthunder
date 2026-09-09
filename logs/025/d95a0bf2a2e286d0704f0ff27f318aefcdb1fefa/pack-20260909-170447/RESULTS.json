@@ -1,0 +1,25 @@
+{
+  "runs": [
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\" --export-pack \"Village Resource Check\" \"E:\\AIprogram\\mcthunder-development\\backups\\packs\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\20260909-170447\\village.pck\"",
+      "exit_code": 0,
+      "timed_out": false,
+      "name": "export_pack",
+      "passed": true
+    },
+    {
+      "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-development\\backups\\packs\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\20260909-170447\" --main-pack \"E:\\AIprogram\\mcthunder-development\\backups\\packs\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\20260909-170447\\village.pck\" --fixed-fps 60 -s res://tests/run_map_pack_checks.gd",
+      "exit_code": 0,
+      "timed_out": false,
+      "name": "load_pack",
+      "passed": true
+    }
+  ],
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "uncommitted_source": false,
+  "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa",
+  "sha256": "070EA612A087E3ED0AD4090205095CFDF39B50B7F6ECA15FB83813E29D78B647",
+  "source_fallback_available": false,
+  "pck_only": true,
+  "pack": "E:\\AIprogram\\mcthunder-development\\backups\\packs\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\20260909-170447\\village.pck"
+}

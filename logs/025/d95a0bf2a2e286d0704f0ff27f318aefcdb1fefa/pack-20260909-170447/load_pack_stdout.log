@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] exported PCK loads shared palette and all four relative GLB assets without Blender sources
+[PASS] hill_village: packaged map has eight intact destructible sections
+[PASS] exported PCK loads hill_village, eight historical actors, navigation, Chinese HUD and terrain
+[PASS] industrial_edge: packaged map has eight intact destructible sections
+[PASS] exported PCK loads industrial_edge, eight historical actors, navigation, Chinese HUD and terrain
+MAP_PACK_CHECKS_PASS

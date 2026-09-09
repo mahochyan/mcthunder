@@ -1,0 +1,11 @@
+{
+  "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa",
+  "uncommitted_candidate": false,
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -s res://tests/run_wreck_visual_checks.gd -- --capture --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\wreck-20260909-170431\"",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "exit_code": 0,
+  "timed_out": false,
+  "checks": 79,
+  "image_count": 8,
+  "passed": true
+}

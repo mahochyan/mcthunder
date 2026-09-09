@@ -1,0 +1,75 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical content admitted for real wreck fixtures
+[PASS] actual M26 shot consumes one loaded round after natural aim/reload
+[real ammo impact] us_m4a3_75w_vvss_1944 death={ "entity_id": "B", "life_id": 2, "generation": 1, "cause": "ammo_detonation", "source": { "round_id": 25, "shooter_id": "A", "shooter_life_id": 1, "shot_id": 1, "projectile_id": 1, "event_id": "[25,\"A\",1,1,1,\"[\\\"B\\\",2,\\\"module\\\",\\\"hull\\\",\\\"ammo_floor_left\\\",1]\"]" }, "rules_version": "recovery-test-v1", "point_world": (0.0, 0.000103, -20.0), "ammo_before_loss": { "racks": { "ammo_ready": 3, "ammo_floor_left": 50, "ammo_floor_right": 50 }, "rack_shells": { "ammo_ready": { "us_m4a3_75w_vvss_1944_shell": 3, "us_m4a3_75w_vvss_1944_m61_m3": 0 }, "ammo_floor_left": { "us_m4a3_75w_vvss_1944_shell": 50, "us_m4a3_75w_vvss_1944_m61_m3": 0 }, "ammo_floor_right": { "us_m4a3_75w_vvss_1944_shell": 19, "us_m4a3_75w_vvss_1944_m61_m3": 31 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "us_m4a3_75w_vvss_1944_shell", "transfer_shell": "", "selected_shell": "us_m4a3_75w_vvss_1944_shell", "transfer_from": "", "available": 104, "capacity": 104, "shell_counts": { "us_m4a3_75w_vvss_1944_shell": 73, "us_m4a3_75w_vvss_1944_m61_m3": 31 }, "supplied": 104, "fired": 0, "lost": 0 }, "turret_detached": true } shots=1
+[PASS] us_m4a3_75w_vvss_1944: actual loaded-rack shot commits ammunition death
+[PASS] us_m4a3_75w_vvss_1944: one committed death produces one blast
+[PASS] us_m4a3_75w_vvss_1944: the actual turret is detached exactly once
+[PASS] us_m4a3_75w_vvss_1944: actual detached turret rises under bounded impulse
+[PASS] us_m4a3_75w_vvss_1944: query turret and cannon follow airborne render parts
+[PASS] us_m4a3_75w_vvss_1944: no stationary invisible turret remains in query pose
+[PASS] us_m4a3_75w_vvss_1944: real query misses old turret space and hits its airborne position
+[PASS] pause freezes wreck physics, smoke and blast clocks
+[PASS] us_m4a3_75w_vvss_1944: finite physical turret settles above terrain
+[PASS] us_m4a3_75w_vvss_1944: blast retires while bounded smoke and wreck fire remain
+[PASS] visual-only lifetime fixture retires smoke/fire without changing wreck damage
+[PASS] repeated death publication creates neither a blast nor a score event
+[PASS] finished battle can freeze physical detached wreck
+[PASS] us_m4a3_75w_vvss_1944: normal reset restores turret parent/bind position and removes extra collision
+[PASS] new life clears char, blast and fire without persistent old effects
+[PASS] actual M26 shot consumes one loaded round after natural aim/reload
+[real ammo impact] us_m24_m6_t85e1_1951 death={ "entity_id": "B", "life_id": 4, "generation": 1, "cause": "ammo_detonation", "source": { "round_id": 25, "shooter_id": "A", "shooter_life_id": 3, "shot_id": 1, "projectile_id": 1, "event_id": "[25,\"A\",3,1,1,\"[\\\"B\\\",4,\\\"module\\\",\\\"hull\\\",\\\"ammo_floor_left\\\",1]\"]" }, "rules_version": "recovery-test-v1", "point_world": (0.0, 0.000103, -20.0), "ammo_before_loss": { "racks": { "ammo_floor_left": 23, "ammo_floor_right": 24 }, "rack_shells": { "ammo_floor_left": { "us_m24_m6_t85e1_1951_m72_m6": 14, "us_m24_m6_t85e1_1951_shell": 9 }, "ammo_floor_right": { "us_m24_m6_t85e1_1951_m72_m6": 0, "us_m24_m6_t85e1_1951_shell": 24 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "us_m24_m6_t85e1_1951_shell", "transfer_shell": "", "selected_shell": "us_m24_m6_t85e1_1951_shell", "transfer_from": "", "available": 48, "capacity": 48, "shell_counts": { "us_m24_m6_t85e1_1951_m72_m6": 14, "us_m24_m6_t85e1_1951_shell": 34 }, "supplied": 48, "fired": 0, "lost": 0 }, "turret_detached": true } shots=1
+[PASS] us_m24_m6_t85e1_1951: actual loaded-rack shot commits ammunition death
+[PASS] us_m24_m6_t85e1_1951: one committed death produces one blast
+[PASS] us_m24_m6_t85e1_1951: the actual turret is detached exactly once
+[PASS] us_m24_m6_t85e1_1951: actual detached turret rises under bounded impulse
+[PASS] us_m24_m6_t85e1_1951: query turret and cannon follow airborne render parts
+[PASS] us_m24_m6_t85e1_1951: no stationary invisible turret remains in query pose
+[PASS] us_m24_m6_t85e1_1951: real query misses old turret space and hits its airborne position
+[PASS] pause freezes wreck physics, smoke and blast clocks
+[PASS] us_m24_m6_t85e1_1951: finite physical turret settles above terrain
+[PASS] us_m24_m6_t85e1_1951: blast retires while bounded smoke and wreck fire remain
+[PASS] repeated death publication creates neither a blast nor a score event
+[PASS] finished battle can freeze physical detached wreck
+[PASS] us_m24_m6_t85e1_1951: normal reset restores turret parent/bind position and removes extra collision
+[PASS] new life clears char, blast and fire without persistent old effects
+[PASS] actual M26 shot consumes one loaded round after natural aim/reload
+[real ammo impact] us_m26_m3_1945 death={ "entity_id": "B", "life_id": 6, "generation": 1, "cause": "ammo_detonation", "source": { "round_id": 25, "shooter_id": "A", "shooter_life_id": 5, "shot_id": 1, "projectile_id": 1, "event_id": "[25,\"A\",5,1,1,\"[\\\"B\\\",6,\\\"module\\\",\\\"hull\\\",\\\"ammo_floor_left\\\",1]\"]" }, "rules_version": "recovery-test-v1", "point_world": (0.0, 0.000103, -20.0), "ammo_before_loss": { "racks": { "ammo_ready": 9, "ammo_floor_left": 30, "ammo_floor_right": 30 }, "rack_shells": { "ammo_ready": { "us_m26_m3_1945_shell": 9, "us_m26_m3_1945_m82_m3_2800": 0 }, "ammo_floor_left": { "us_m26_m3_1945_shell": 30, "us_m26_m3_1945_m82_m3_2800": 0 }, "ammo_floor_right": { "us_m26_m3_1945_shell": 9, "us_m26_m3_1945_m82_m3_2800": 21 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "us_m26_m3_1945_shell", "transfer_shell": "", "selected_shell": "us_m26_m3_1945_shell", "transfer_from": "", "available": 70, "capacity": 70, "shell_counts": { "us_m26_m3_1945_shell": 49, "us_m26_m3_1945_m82_m3_2800": 21 }, "supplied": 70, "fired": 0, "lost": 0 }, "turret_detached": true } shots=1
+[PASS] us_m26_m3_1945: actual loaded-rack shot commits ammunition death
+[PASS] us_m26_m3_1945: one committed death produces one blast
+[PASS] us_m26_m3_1945: the actual turret is detached exactly once
+[PASS] us_m26_m3_1945: actual detached turret rises under bounded impulse
+[PASS] us_m26_m3_1945: query turret and cannon follow airborne render parts
+[PASS] us_m26_m3_1945: no stationary invisible turret remains in query pose
+[PASS] us_m26_m3_1945: real query misses old turret space and hits its airborne position
+[PASS] pause freezes wreck physics, smoke and blast clocks
+[PASS] us_m26_m3_1945: finite physical turret settles above terrain
+[PASS] us_m26_m3_1945: blast retires while bounded smoke and wreck fire remain
+[PASS] repeated death publication creates neither a blast nor a score event
+[PASS] finished battle can freeze physical detached wreck
+[PASS] us_m26_m3_1945: normal reset restores turret parent/bind position and removes extra collision
+[PASS] new life clears char, blast and fire without persistent old effects
+[PASS] actual M26 shot consumes one loaded round after natural aim/reload
+[real ammo impact] us_m36_m4a1_1945 death={ "entity_id": "B", "life_id": 8, "generation": 1, "cause": "ammo_detonation", "source": { "round_id": 25, "shooter_id": "A", "shooter_life_id": 7, "shot_id": 1, "projectile_id": 1, "event_id": "[25,\"A\",7,1,1,\"[\\\"B\\\",8,\\\"module\\\",\\\"hull\\\",\\\"ammo_floor_left\\\",1]\"]" }, "rules_version": "recovery-test-v1", "point_world": (0.0, 0.000103, -20.0), "ammo_before_loss": { "racks": { "ammo_ready": 10, "ammo_floor_left": 18, "ammo_floor_right": 18 }, "rack_shells": { "ammo_ready": { "us_m36_m4a1_1945_shell": 10, "us_m36_m4a1_1945_m82_m3_2800": 0 }, "ammo_floor_left": { "us_m36_m4a1_1945_shell": 18, "us_m36_m4a1_1945_m82_m3_2800": 0 }, "ammo_floor_right": { "us_m36_m4a1_1945_shell": 4, "us_m36_m4a1_1945_m82_m3_2800": 14 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "us_m36_m4a1_1945_shell", "transfer_shell": "", "selected_shell": "us_m36_m4a1_1945_shell", "transfer_from": "", "available": 47, "capacity": 47, "shell_counts": { "us_m36_m4a1_1945_shell": 33, "us_m36_m4a1_1945_m82_m3_2800": 14 }, "supplied": 47, "fired": 0, "lost": 0 }, "turret_detached": true } shots=1
+[PASS] us_m36_m4a1_1945: actual loaded-rack shot commits ammunition death
+[PASS] us_m36_m4a1_1945: one committed death produces one blast
+[PASS] us_m36_m4a1_1945: the actual turret is detached exactly once
+[PASS] us_m36_m4a1_1945: actual detached turret rises under bounded impulse
+[PASS] us_m36_m4a1_1945: query turret and cannon follow airborne render parts
+[PASS] us_m36_m4a1_1945: no stationary invisible turret remains in query pose
+[PASS] us_m36_m4a1_1945: real query misses old turret space and hits its airborne position
+[PASS] pause freezes wreck physics, smoke and blast clocks
+[PASS] us_m36_m4a1_1945: finite physical turret settles above terrain
+[PASS] us_m36_m4a1_1945: blast retires while bounded smoke and wreck fire remain
+[PASS] repeated death publication creates neither a blast nor a score event
+[PASS] finished battle can freeze physical detached wreck
+[PASS] us_m36_m4a1_1945: normal reset restores turret parent/bind position and removes extra collision
+[PASS] new life clears char, blast and fire without persistent old effects
+[PASS] actual M26 shot consumes one loaded round after natural aim/reload
+[PASS] actual engine hit starts repairable fire without inventing ammunition death
+[PASS] engine fire emits flame/smoke but no blast or turret launch
+[PASS] actual timed extinguisher clears live-fire visuals
+[PASS] crew-out cause fixture produces a quiet wreck without invented explosion
+=== 结果: 67 项检查, 0 失败 ===
+WRECK_VISUAL_CHECKS_PASS

@@ -1,0 +1,40 @@
+{
+  "source_sha": "c1422edd43f0cf42c0b2c161ccd72c4d9a44a357",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "01_ammo_blast.png",
+      "sha256": "A7EF0A415CA64039384009C5EC175676124709433C09E0452712847EA21C35E6"
+    },
+    {
+      "file": "06_settled_wreck.png",
+      "sha256": "C97BB3C4B568D91FCED161F9C7762751D786FD065A2F57686E02BA2D7B255793"
+    },
+    {
+      "file": "07_engine_fire.png",
+      "sha256": "FA0F943D515F80B0B4E581A7A4769DB9CEEB411B026B725D1F6F713EF53EB0D2"
+    },
+    {
+      "file": "08_crew_out_wreck.png",
+      "sha256": "59A14477B971C21658CDE58625FA88F5F8C0A74D8B55DFE5AB967741FF3ED678"
+    },
+    {
+      "file": "flying_us_m24_m6_t85e1_1951.png",
+      "sha256": "6A729DFF67F26380FDE6F0F348F688E81BF10FD888BC2E76978D49CC821A9371"
+    },
+    {
+      "file": "flying_us_m26_m3_1945.png",
+      "sha256": "2E0C4417C5299E45F15EB104745799953C4B248AF6914501DD6785E2ABF3FE8B"
+    },
+    {
+      "file": "flying_us_m36_m4a1_1945.png",
+      "sha256": "A88B3D690D76380E0FD4E3DA460FEF4638650DFEE1E4D2CAF34D6B49C79E97F9"
+    },
+    {
+      "file": "flying_us_m4a3_75w_vvss_1944.png",
+      "sha256": "E5940A4393F0F67860E768DA585C39247A7B9A10A7B6D3725109DC5DDF1FBFC2"
+    }
+  ],
+  "graphical_review": "REVIEWED_FAILED_CHARRED_SHELL_CULLING_FIXED_D95A0BF",
+  "human": "NOT_RUN"
+}

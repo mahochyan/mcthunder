@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical definitions admitted unchanged
+[PASS] shared original palette has explicit provenance
+[PASS] all original scenery/effect source hashes and redistribution provenance validate
+[PASS] unknown or traversal vehicle IDs are rejected before file access
+[PASS] palette materials are shared at the declared roughness
+[PASS] us_m4a3_75w_vvss_1944: source/GLB/palette hashes and relative import provenance validate []
+[PASS] us_m4a3_75w_vvss_1944: every visible skin triangle and normal equals current query geometry []
+[vehicle model budget] us_m4a3_75w_vvss_1944 {"draw_surfaces":10,"material_count":4,"mesh_nodes":10,"triangles":1016,"visible_draw_surfaces":10}
+[PASS] us_m4a3_75w_vvss_1944: complete visible vehicle including both tracks matches export count and stays within 1100 triangles
+[PASS] us_m4a3_75w_vvss_1944: actual low-poly track meshes use two independent texture-scroll materials
+[asset budget] us_m4a3_75w_vvss_1944 {"draw_surfaces":26,"material_count":20,"mesh_nodes":26,"triangles":2282,"visible_draw_surfaces":10}
+[PASS] us_m4a3_75w_vvss_1944: actual vehicle including tracks and allocated wreck effects stays within recorded triangle/draw budget
+[PASS] us_m4a3_75w_vvss_1944: real hull steering advances both track textures
+[PASS] us_m4a3_75w_vvss_1944: real steering/slew preserves moving visual/query alignment
+[PASS] us_m4a3_75w_vvss_1944: original driving envelope and cannon recoil hierarchy preserved
+[PASS] us_m4a3_75w_vvss_1944: pause freezes actual track texture phases
+[PASS] us_m4a3_75w_vvss_1944: actual vehicle reset clears both track phases
+[PASS] us_m24_m6_t85e1_1951: source/GLB/palette hashes and relative import provenance validate []
+[PASS] us_m24_m6_t85e1_1951: every visible skin triangle and normal equals current query geometry []
+[vehicle model budget] us_m24_m6_t85e1_1951 {"draw_surfaces":10,"material_count":4,"mesh_nodes":10,"triangles":908,"visible_draw_surfaces":10}
+[PASS] us_m24_m6_t85e1_1951: complete visible vehicle including both tracks matches export count and stays within 1100 triangles
+[PASS] us_m24_m6_t85e1_1951: actual low-poly track meshes use two independent texture-scroll materials
+[asset budget] us_m24_m6_t85e1_1951 {"draw_surfaces":26,"material_count":20,"mesh_nodes":26,"triangles":2174,"visible_draw_surfaces":10}
+[PASS] us_m24_m6_t85e1_1951: actual vehicle including tracks and allocated wreck effects stays within recorded triangle/draw budget
+[PASS] us_m24_m6_t85e1_1951: real hull steering advances both track textures
+[PASS] us_m24_m6_t85e1_1951: real steering/slew preserves moving visual/query alignment
+[PASS] us_m24_m6_t85e1_1951: original driving envelope and cannon recoil hierarchy preserved
+[PASS] us_m24_m6_t85e1_1951: pause freezes actual track texture phases
+[PASS] us_m24_m6_t85e1_1951: actual vehicle reset clears both track phases
+[PASS] us_m26_m3_1945: source/GLB/palette hashes and relative import provenance validate []
+[PASS] us_m26_m3_1945: every visible skin triangle and normal equals current query geometry []
+[vehicle model budget] us_m26_m3_1945 {"draw_surfaces":10,"material_count":4,"mesh_nodes":10,"triangles":1018,"visible_draw_surfaces":10}
+[PASS] us_m26_m3_1945: complete visible vehicle including both tracks matches export count and stays within 1100 triangles
+[PASS] us_m26_m3_1945: actual low-poly track meshes use two independent texture-scroll materials
+[asset budget] us_m26_m3_1945 {"draw_surfaces":26,"material_count":20,"mesh_nodes":26,"triangles":2284,"visible_draw_surfaces":10}
+[PASS] us_m26_m3_1945: actual vehicle including tracks and allocated wreck effects stays within recorded triangle/draw budget
+[PASS] us_m26_m3_1945: real hull steering advances both track textures
+[PASS] us_m26_m3_1945: real steering/slew preserves moving visual/query alignment
+[PASS] us_m26_m3_1945: original driving envelope and cannon recoil hierarchy preserved
+[PASS] us_m26_m3_1945: pause freezes actual track texture phases
+[PASS] us_m26_m3_1945: actual vehicle reset clears both track phases
+[PASS] us_m36_m4a1_1945: source/GLB/palette hashes and relative import provenance validate []
+[PASS] us_m36_m4a1_1945: every visible skin triangle and normal equals current query geometry []
+[vehicle model budget] us_m36_m4a1_1945 {"draw_surfaces":10,"material_count":4,"mesh_nodes":10,"triangles":970,"visible_draw_surfaces":10}
+[PASS] us_m36_m4a1_1945: complete visible vehicle including both tracks matches export count and stays within 1100 triangles
+[PASS] us_m36_m4a1_1945: actual low-poly track meshes use two independent texture-scroll materials
+[asset budget] us_m36_m4a1_1945 {"draw_surfaces":26,"material_count":20,"mesh_nodes":26,"triangles":2236,"visible_draw_surfaces":10}
+[PASS] us_m36_m4a1_1945: actual vehicle including tracks and allocated wreck effects stays within recorded triangle/draw budget
+[PASS] us_m36_m4a1_1945: real hull steering advances both track textures
+[PASS] us_m36_m4a1_1945: real steering/slew preserves moving visual/query alignment
+[PASS] us_m36_m4a1_1945: original driving envelope and cannon recoil hierarchy preserved
+[PASS] us_m36_m4a1_1945: pause freezes actual track texture phases
+[PASS] us_m36_m4a1_1945: actual vehicle reset clears both track phases
+[world budget] hill_village_018 {"draw_surfaces":67,"material_count":34,"mesh_nodes":67,"triangles":26500,"visible_draw_surfaces":67} props=16
+[PASS] hill_village_018: actual world uses bounded mesh batches
+[PASS] hill_village_018: repeatable trees/rocks remain outside driving corridors and structures
+[PASS] hill_village_018: both maps share authored daylight/ambient settings
+[PASS] tree: one consistent visible/drive/shot/LOS policy
+[PASS] rock: one consistent visible/drive/shot/LOS policy
+[world budget] industrial_edge_023 {"draw_surfaces":49,"material_count":23,"mesh_nodes":49,"triangles":19464,"visible_draw_surfaces":49} props=4
+[PASS] industrial_edge_023: actual world uses bounded mesh batches
+[PASS] industrial_edge_023: repeatable trees/rocks remain outside driving corridors and structures
+[PASS] industrial_edge_023: both maps share authored daylight/ambient settings
+[PASS] tree: one consistent visible/drive/shot/LOS policy
+[PASS] rock: one consistent visible/drive/shot/LOS policy
+=== 结果: 55 项检查, 0 失败 ===
+ART_CHECKS_PASS

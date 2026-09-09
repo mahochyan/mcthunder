@@ -1,0 +1,159 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] unknown challenge or difficulty rejected
+[PASS] flank_hunter/normal: finite historical loadout validates
+[PASS] flank_hunter: existing map and finite actor budget
+[PASS] flank_hunter: exact star thresholds survive save validation
+[PASS] flank_hunter: both bonus boundaries excluded immediately beyond threshold
+[PASS] flank_hunter: failure earns no stars
+[PASS] flank_hunter/hard: finite historical loadout validates
+[PASS] flank_hunter: existing map and finite actor budget
+[PASS] flank_hunter: exact star thresholds survive save validation
+[PASS] flank_hunter: both bonus boundaries excluded immediately beyond threshold
+[PASS] flank_hunter: failure earns no stars
+[PASS] hold_ground/normal: finite historical loadout validates
+[PASS] hold_ground: existing map and finite actor budget
+[PASS] hold_ground: exact star thresholds survive save validation
+[PASS] hold_ground: both bonus boundaries excluded immediately beyond threshold
+[PASS] hold_ground: failure earns no stars
+[PASS] hold_ground/hard: finite historical loadout validates
+[PASS] hold_ground: existing map and finite actor budget
+[PASS] hold_ground: exact star thresholds survive save validation
+[PASS] hold_ground: both bonus boundaries excluded immediately beyond threshold
+[PASS] hold_ground: failure earns no stars
+[PASS] td_route/normal: finite historical loadout validates
+[PASS] td_route: existing map and finite actor budget
+[PASS] td_route: exact star thresholds survive save validation
+[PASS] td_route: both bonus boundaries excluded immediately beyond threshold
+[PASS] td_route: failure earns no stars
+[PASS] td_route/hard: finite historical loadout validates
+[PASS] td_route: existing map and finite actor budget
+[PASS] td_route: exact star thresholds survive save validation
+[PASS] td_route: both bonus boundaries excluded immediately beyond threshold
+[PASS] td_route: failure earns no stars
+[PASS] task/difficulty/version best keys remain distinct
+[PASS] unrecognized rules version is not mixed into v1 bests
+[PASS] schema1 explicitly migrates to empty challenge bests preserving revision
+[PASS] migration preserves identity and actual garage loadouts
+[PASS] migrated profile commits and restores exact schema2
+[PASS] malformed challenge best table rejected transactionally
+[PASS] future schema still rejected
+[PASS] garage exposes three tasks and honest empty personal best
+[PASS] flank_hunter: actual application challenge initializes
+[PASS] flank_hunter: actual selected historical vehicle has exact finite ammunition
+[PASS] flank_hunter: one initial opponent and blocked countdown
+[PASS] flank_hunter: cannot save or announce premature success
+[PASS] flank_hunter: pause freezes countdown
+[PASS] flank_hunter: natural countdown starts without leaked launch shot
+[PASS] flank_hunter: playing pause freezes clock and actual vehicle
+[PASS] flank_hunter: resume adds real firing grace
+[PASS] flank_hunter: rapid repeated retry replaces entire scene, life and attempt without old enemies
+[PASS] flank_hunter: prior-attempt and fabricated records rejected
+[PASS] flank_hunter: quit restores garage without awarding stars
+[PASS] hold_ground: actual application challenge initializes
+[PASS] hold_ground: actual selected historical vehicle has exact finite ammunition
+[PASS] hold_ground: one initial opponent and blocked countdown
+[PASS] hold_ground: cannot save or announce premature success
+[PASS] hold_ground: pause freezes countdown
+[PASS] hold_ground: natural countdown starts without leaked launch shot
+[PASS] hold_ground: playing pause freezes clock and actual vehicle
+[PASS] hold_ground: resume adds real firing grace
+[PASS] hold_ground: rapid repeated retry replaces entire scene, life and attempt without old enemies
+[PASS] hold_ground: prior-attempt and fabricated records rejected
+[PASS] hold_ground: quit restores garage without awarding stars
+[PASS] td_route: actual application challenge initializes
+[PASS] td_route: actual selected historical vehicle has exact finite ammunition
+[PASS] td_route: one initial opponent and blocked countdown
+[PASS] td_route: cannot save or announce premature success
+[PASS] td_route: pause freezes countdown
+[PASS] td_route: natural countdown starts without leaked launch shot
+[PASS] td_route: playing pause freezes clock and actual vehicle
+[PASS] td_route: resume adds real firing grace
+[PASS] td_route: rapid repeated retry replaces entire scene, life and attempt without old enemies
+[PASS] td_route: prior-attempt and fabricated records rejected
+[PASS] td_route: quit restores garage without awarding stars
+[PASS] challenge settlement binds actual director exactly once
+[PASS] real-shot side test initializes
+[flank actual] result={ "stars": 3, "score": 32267, "elapsed_ms": 3283, "shots": 1, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际1发）\n★ 80秒内完成（实际 3.3秒）", "attempt_id": 24007, "best_key": "flank_hunter:v1:normal", "title": "侧翼猎手", "status": "passed", "reason": "objectives_complete" } dead=true records=1 flank={ "B1": 14 }
+[shot] { "round_id": 24007, "shooter_id": "A", "shooter_life_id": 13, "shooter_team_id": 1, "shot_id": 1, "projectile_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2190396888 } contacts=[["turret_wall_4", "penetrated"]] damage=[["ammo_ready", true]]
+[PASS] real historical side shots complete flank objective
+[PASS] actual challenge result freezes after exactly one settlement
+[PASS] save outage preserves old profile and no invented saved best
+[PASS] verified success retries after arena freed and persists its exact best
+[PASS] duplicate completion cannot save twice or grant extra stars
+[PASS] new process store restores exact committed best
+[PASS] challenge settlement binds actual director exactly once
+[PASS] real-shot side test initializes
+[flank actual] result={ "stars": 3, "score": 31467, "elapsed_ms": 3283, "shots": 1, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际1发）\n★ 80秒内完成（实际 3.3秒）", "attempt_id": 24008, "best_key": "flank_hunter:v1:hard", "title": "侧翼猎手", "status": "passed", "reason": "objectives_complete" } dead=true records=1 flank={ "B1": 16 }
+[shot] { "round_id": 24008, "shooter_id": "A", "shooter_life_id": 15, "shooter_team_id": 1, "shot_id": 1, "projectile_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 132946907 } contacts=[["turret_wall_4", "penetrated"]] damage=[["ammo_ready", true]]
+[PASS] real historical side shots complete flank objective
+[PASS] actual challenge result freezes after exactly one settlement
+[PASS] save outage preserves old profile and no invented saved best
+[PASS] verified success retries after arena freed and persists its exact best
+[PASS] duplicate completion cannot save twice or grant extra stars
+[PASS] new process store restores exact committed best
+[PASS] flank_hunter: fabricated repair cannot score
+[PASS] flank_hunter: timeout fails without inventing goal completion
+[PASS] flank_hunter: finish clamps time and freezes actual combat
+[PASS] hold_ground: fabricated repair cannot score
+[PASS] hold_ground: timeout fails without inventing goal completion
+[PASS] hold_ground: finish clamps time and freezes actual combat
+[PASS] td_route: fabricated repair cannot score
+[PASS] td_route: timeout fails without inventing goal completion
+[PASS] td_route: finish clamps time and freezes actual combat
+[PASS] duplicate actual projectile event is rejected during live challenge
+[PASS] mutated stale-life record cannot enter objective ledger
+[PASS] last round in flight cannot prematurely fail finite-ammo challenge
+[PASS] actual fired ammunition exhaustion fails once after projectiles finish
+[PASS] flank_hunter: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] hold_ground: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] td_route: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] entering final point before route cannot advance objectives
+[PASS] second checkpoint cannot be taken out of order
+[PASS] ordered checkpoints enable actual unopposed capture
+[PASS] leaving timed point resets continuous capture
+[PASS] living enemy entering point resets continuous capture
+[PASS] manual large clock delta cannot advance paused capture
+[PASS] oversized final delta cannot award capture time beyond deadline
+[PASS] defense retains previous hold time while outside zone
+[PASS] contested defense stops accumulating without clearing prior time
+[PASS] defense resumes accumulation but cannot finish without kills
+[PASS] healthy repair commands never earn repair stars
+[PASS] real enemy round damages player track without scripted damage
+[PASS] pause freezes actual in-progress repair and challenge score
+[PASS] actual damaged module repair emits one authenticated event
+[PASS] duplicate committed repair event cannot score twice
+[PASS] finite defense wave 1 actually spawns
+[PASS] real historical projectile destroys defense wave 1
+[PASS] all occupied wave candidates wait without overlap or invented defeat
+[PASS] second wave safely enters when a real candidate clears
+[PASS] finite defense wave 2 actually spawns
+[PASS] real historical projectile destroys defense wave 2
+[PASS] defense uses exactly two unique attributed enemy lives
+[PASS] repeated wave request cannot spawn extra actors
+[PASS] actual occupancy time and real finite-wave kills complete defense
+[PASS] actual M36 drives to authored checkpoint (-72.0, 0.0, 50.0)
+[PASS] actual M36 drives to authored checkpoint (-42.0, 0.0, 20.0)
+[PASS] ordered checkpoints advance from real actor positions
+[PASS] actual M36 reaches central capture zone against active AI
+[route actual] { "stars": 3, "score": 31654, "elapsed_ms": 54600, "shots": 2, "repairs": 1, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际2发）\n★ 100秒内完成（实际 54.6秒）", "attempt_id": 24020, "best_key": "td_route:v1:normal", "title": "猎歼突进", "status": "passed", "reason": "objectives_complete" } held=15.0 checkpoints=2 shots=2 player_dead=false
+[PASS] real route and uninterrupted capture complete limited-ammo M36 task
+[PASS] actual M36 drives to authored checkpoint (-72.0, 0.0, 50.0)
+[PASS] actual M36 drives to authored checkpoint (-42.0, 0.0, 20.0)
+[PASS] ordered checkpoints advance from real actor positions
+[PASS] actual M36 reaches central capture zone against active AI
+[route actual] { "stars": 3, "score": 31081, "elapsed_ms": 41833, "shots": 2, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际2发）\n★ 100秒内完成（实际 41.8秒）", "attempt_id": 24021, "best_key": "td_route:v1:hard", "title": "猎歼突进", "status": "passed", "reason": "objectives_complete" } held=15.0 checkpoints=2 shots=2 player_dead=false
+[PASS] real route and uninterrupted capture complete limited-ammo M36 task
+[drive incomplete] goal=(-65.0, 0.0, 100.0) position=(-61.51812, 0.000942, 99.92167) speed=0.0 caps={ "drive": false, "steer": false, "fire": true, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": ["track", "track"], "crew_alive": 5 } phase=finished
+[active defense] { "stars": 3, "score": 32161, "elapsed_ms": 53817, "shots": 2, "repairs": 2, "explanation": "★ 目标完成\n★ 完成受损模块维修\n★ 140秒内完成（实际 53.8秒）", "attempt_id": 24022, "best_key": "hold_ground:v1:normal", "title": "阵地坚守", "status": "passed", "reason": "objectives_complete" } held=34.9999999999993 kills={ "B1": 45, "B2": 46 } player_shots=2 remaining=6 enemies=[{ "id": "B1", "position": (-78.15022, 0.000943, 100.629), "dead": true, "shots": 6, "caps": { "drive": false, "steer": false, "fire": false, "turret_speed": 0.0, "reload_rate": 0.0, "reasons": ["track", "crew_out"], "crew_alive": 5 }, "ai": "destroyed", "drive": "idle" }, { "id": "B2", "position": (-77.48447, 0.000942, 24.9126), "dead": true, "shots": 1, "caps": { "drive": false, "steer": false, "fire": false, "turret_speed": 0.0, "reload_rate": 0.0, "reasons": ["engine", "track", "track", "crew_out"], "crew_alive": 5 }, "ai": "destroyed", "drive": "idle" }]
+[defense shot] 1 hit=[["hull_0_6", "penetrated", (-77.03966, 0.690541, 100.5656)]] damage=[["track_left", false], ["ammo_floor_left", true]]
+[defense shot] 2 hit=[["hull_0_3", "penetrated", (-77.80477, 0.674736, 25.94881)]] damage=[["track_right", false], ["ammo_floor_right", false], ["engine", false], ["fuel", false], ["track_left", false], ["ammo_floor_left", true]]
+[PASS] real defense script pilot completes finite waves with opponent AI untouched
+[drive incomplete] goal=(-65.0, 0.0, 100.0) position=(-61.51812, 0.000942, 99.92167) speed=0.0 caps={ "drive": true, "steer": true, "fire": true, "turret_speed": 1.0, "reload_rate": 1.0, "reasons": [], "crew_alive": 5 } phase=finished
+[active defense] { "stars": 3, "score": 31165, "elapsed_ms": 63467, "shots": 3, "repairs": 3, "explanation": "★ 目标完成\n★ 完成受损模块维修\n★ 140秒内完成（实际 63.5秒）", "attempt_id": 24023, "best_key": "hold_ground:v1:hard", "title": "阵地坚守", "status": "passed", "reason": "objectives_complete" } held=44.9999999999987 kills={ "B1": 48, "B2": 49 } player_shots=3 remaining=3 enemies=[{ "id": "B1", "position": (-78.15022, 0.000943, 100.629), "dead": true, "shots": 6, "caps": { "drive": false, "steer": false, "fire": false, "turret_speed": 0.0, "reload_rate": 0.0, "reasons": ["track", "crew_out"], "crew_alive": 5 }, "ai": "destroyed", "drive": "idle" }, { "id": "B2", "position": (-77.48447, 0.000942, 24.90917), "dead": true, "shots": 4, "caps": { "drive": false, "steer": false, "fire": false, "turret_speed": 0.0, "reload_rate": 0.0, "reasons": ["transmission", "track", "crew_out"], "crew_alive": 5 }, "ai": "destroyed", "drive": "idle" }]
+[defense shot] 1 hit=[["hull_0_6", "penetrated", (-77.03966, 0.690541, 100.5656)]] damage=[["track_left", false], ["ammo_floor_left", true]]
+[defense shot] 2 hit=[["hull_0_3", "penetrated", (-77.80477, 0.674736, 25.94881)]] damage=[["track_right", false], ["ammo_floor_right", false], ["track_left", false], ["ammo_floor_right", false], ["track_right", false]]
+[defense shot] 3 hit=[["hull_0_3", "penetrated", (-77.62038, 0.674052, 25.90201)]] damage=[["track_right", false], ["ammo_floor_right", false], ["ammo_floor_right", false], ["track_right", false], ["transmission", false], ["ammo_floor_left", true]]
+[PASS] real defense script pilot completes finite waves with opponent AI untouched
+=== 结果: 140 项检查, 0 失败 ===
+CHALLENGE_CHECKS_PASS

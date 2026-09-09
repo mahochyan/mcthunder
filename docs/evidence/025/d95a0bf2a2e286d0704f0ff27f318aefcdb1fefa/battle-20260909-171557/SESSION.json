@@ -1,0 +1,24 @@
+{
+  "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "hill_village_battle_follow.png",
+      "sha256": "ED91C5E55C96E9D9787ED9ECACB4797EC0DA443069D2EB77162DA2977F37FFBC"
+    },
+    {
+      "file": "hill_village_eight_vehicle_overview.png",
+      "sha256": "2F6058B0E38A8C9FA82E2EE5A16639C417F4E2C27B5E9EB1FE9643C4CED5CA27"
+    },
+    {
+      "file": "industrial_edge_battle_follow.png",
+      "sha256": "662835D7E3397668CECC8C505FB67D58764AAB71857BB560BF62BB9727C82D47"
+    },
+    {
+      "file": "industrial_edge_eight_vehicle_overview.png",
+      "sha256": "B2A57F8BA0F1D38F5E694CD82F001DDBB1A6ED35F356B1C3A93BF0138EE888EA"
+    }
+  ],
+  "graphical_review": "REVIEWED_ALL_IMAGES_BY_AGENT",
+  "human": "NOT_RUN"
+}

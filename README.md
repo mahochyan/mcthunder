@@ -3,6 +3,9 @@
 原创 **low-poly（低多边形）装甲游戏**。视觉以准确车型轮廓、简洁分面和清楚的机械结构为准；总体玩法目标是尽可能还原战争雷霆式陆战。当前美术策略见 [低多边形方向](docs/ART_DIRECTION_LOW_POLY.md)，完整路线见 [开发计划](docs/handoff/DEVELOPMENT_007_036.md)。当前开发版包含装甲结算、内部损伤、弹药账本、火灾与维修/乘员替补、真实路径回放、中文车库与核心训练；1对1歼灭及4对4占点已有正常入口，正式HUD与第一张丘陵村落地图已接入。四车编成、配弹和小型研发已连通；第二地图与后续内容继续按计划开发。
 
 ## 启动开发版
+
+025已完成四辆约1000三角面的贴图模型、两图可破坏木棚/砖墙，以及殉爆飞头与残骸表现。见[025交付与实际测试](docs/DELIVERY_025.md)；制作和移植模型见[完整流程](docs/TANK_MODEL_WORKFLOW.md)。工程自审通过，真人试玩待验收。
+
 双击本目录 **START_GAME.bat**，固定 Godot 4.7.2 stable 普通版 / GDScript / Compatibility。
 开发目录：E:/AIprogram/mcthunder-development；原 E:/AIprogram/mcthunder 保留旧 main。
 四款具体历史配置：M4A3(75)W 1944 VVSS、M24 M6/T85E1 1951五人、M26(T26E3) M3 1945、M36 M4A1炮架1945。车库下拉选择后可检视外观/装甲/内构、查阅逐字段来源、正常驾驶与射击；4对4及再出击使用所选车型。021候选接入每车两种弹药：75 mm M72/M61、90 mm M77/M82；1/2只选择下一次取弹，膛内和正在搬运的弹不变。所有局部几何、未实测性能与未知字段明确标注，详见[车型与来源](docs/vehicles/HISTORICAL_020.md)和[当前弹种资料](docs/vehicles/HISTORICAL_SHELLS_021.md)。

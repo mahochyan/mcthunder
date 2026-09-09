@@ -1,0 +1,24 @@
+{
+  "source_sha": "c1422edd43f0cf42c0b2c161ccd72c4d9a44a357",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "us_m24_m6_t85e1_1951.png",
+      "sha256": "E3BF507AD2681F759CE752F4FB933E8CEFC5927A5A71AFCC6A5762F4858E8287"
+    },
+    {
+      "file": "us_m26_m3_1945.png",
+      "sha256": "6417DCF80E60B000F0FA45BF6F5114F95D8D0EDBA50CCF61E45B9C5B62DEFED5"
+    },
+    {
+      "file": "us_m36_m4a1_1945.png",
+      "sha256": "D78FD72E1A940C714F42420ECFA4CD1363F25D1537C8D79A66A99E2B501672BD"
+    },
+    {
+      "file": "us_m4a3_75w_vvss_1944.png",
+      "sha256": "59F473410EF90A33DAB674184A6F0B93874766EFE9A03C3097C55D748016FADE"
+    }
+  ],
+  "graphical_review": "REVIEWED_ALL_IMAGES_BY_AGENT",
+  "human": "NOT_RUN"
+}

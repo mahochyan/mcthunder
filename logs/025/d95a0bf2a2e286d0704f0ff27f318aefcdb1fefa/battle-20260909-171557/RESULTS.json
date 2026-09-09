@@ -1,0 +1,11 @@
+{
+  "source_sha": "d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa",
+  "uncommitted_candidate": false,
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 120 -s res://tests/run_art_battle_render_checks.gd -- --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\025\\d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa\\battle-20260909-171557\"",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "exit_code": 0,
+  "timed_out": false,
+  "checks": 14,
+  "image_count": 4,
+  "passed": true
+}

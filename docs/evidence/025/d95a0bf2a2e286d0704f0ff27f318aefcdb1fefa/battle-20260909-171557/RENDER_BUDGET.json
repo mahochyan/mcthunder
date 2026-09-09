@@ -1,0 +1,162 @@
+{
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13400",
+  "engine": "4.7.2-stable (official)",
+  "fixed_fps": false,
+  "frame_cap": 120,
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "renderer": "gl_compatibility",
+  "resolution": [
+    1280,
+    720
+  ],
+  "samples": [
+    {
+      "configured_vehicles": 8,
+      "ending_telemetry": {
+        "accepted_shots": 0,
+        "actors": 8,
+        "ai_controllers": 8,
+        "draw_calls": 407,
+        "live": 8,
+        "local_controllers": 0,
+        "nodes": 738,
+        "objects": 3820,
+        "observer_camera": true,
+        "orphans": 0,
+        "phase": "playing",
+        "physics_ms": 9.748,
+        "primitives": 111466,
+        "process_ms": 6.607,
+        "projectiles": 0,
+        "records": 0,
+        "resources": 187,
+        "seconds": 18.8000000000002,
+        "static_memory_bytes": 102776252,
+        "vehicle_cameras": 0,
+        "wrecks": 0
+      },
+      "follow": {
+        "frames": {
+          "count": 1441,
+          "fps_from_mean": 120.055990581478,
+          "max_ms": 17.455,
+          "mean_ms": 8.32944691186676,
+          "p50_ms": 6.95,
+          "p95_ms": 12.627,
+          "p99_ms": 14.526
+        },
+        "max_draw_calls": 471,
+        "max_frustum_actors": 6,
+        "max_live": 8,
+        "max_primitives": 111808,
+        "min_live": 8
+      },
+      "map": "hill_village",
+      "overview": {
+        "frames": {
+          "count": 962,
+          "fps_from_mean": 120.133650559433,
+          "max_ms": 16.291,
+          "mean_ms": 8.32406237006236,
+          "p50_ms": 8.306,
+          "p95_ms": 13.141,
+          "p99_ms": 14.793
+        },
+        "max_draw_calls": 482,
+        "max_frustum_actors": 8,
+        "max_live": 8,
+        "max_primitives": 100506,
+        "min_live": 8
+      },
+      "scene_budget": {
+        "draw_surfaces": 287,
+        "material_count": 195,
+        "mesh_nodes": 288,
+        "triangles": 54960,
+        "visible_draw_surfaces": 158
+      },
+      "seed": 25025,
+      "types": [
+        "us_m4a3_75w_vvss_1944",
+        "us_m24_m6_t85e1_1951",
+        "us_m26_m3_1945",
+        "us_m36_m4a1_1945"
+      ]
+    },
+    {
+      "configured_vehicles": 8,
+      "ending_telemetry": {
+        "accepted_shots": 0,
+        "actors": 8,
+        "ai_controllers": 8,
+        "draw_calls": 325,
+        "live": 8,
+        "local_controllers": 0,
+        "nodes": 672,
+        "objects": 3690,
+        "observer_camera": true,
+        "orphans": 0,
+        "phase": "playing",
+        "physics_ms": 3.732,
+        "primitives": 54400,
+        "process_ms": 4.194,
+        "projectiles": 0,
+        "records": 0,
+        "resources": 189,
+        "seconds": 18.6666666666669,
+        "static_memory_bytes": 102232260,
+        "vehicle_cameras": 0,
+        "wrecks": 0
+      },
+      "follow": {
+        "frames": {
+          "count": 1442,
+          "fps_from_mean": 120.166466389223,
+          "max_ms": 14.221,
+          "mean_ms": 8.32178918169209,
+          "p50_ms": 7.387,
+          "p95_ms": 11.346,
+          "p99_ms": 12.684
+        },
+        "max_draw_calls": 404,
+        "max_frustum_actors": 6,
+        "max_live": 8,
+        "max_primitives": 75344,
+        "min_live": 8
+      },
+      "map": "industrial_edge",
+      "overview": {
+        "frames": {
+          "count": 962,
+          "fps_from_mean": 120.176557101541,
+          "max_ms": 11.876,
+          "mean_ms": 8.32109043659044,
+          "p50_ms": 8.321,
+          "p95_ms": 10.32,
+          "p99_ms": 11.054
+        },
+        "max_draw_calls": 424,
+        "max_frustum_actors": 8,
+        "max_live": 8,
+        "max_primitives": 79202,
+        "min_live": 8
+      },
+      "scene_budget": {
+        "draw_surfaces": 269,
+        "material_count": 184,
+        "mesh_nodes": 270,
+        "triangles": 47924,
+        "visible_draw_surfaces": 140
+      },
+      "seed": 25026,
+      "types": [
+        "us_m4a3_75w_vvss_1944",
+        "us_m24_m6_t85e1_1951",
+        "us_m26_m3_1945",
+        "us_m36_m4a1_1945"
+      ]
+    }
+  ],
+  "scope": "real-time short eight-AI scene samples; observer cameras; not full-round performance acceptance",
+  "vsync": "disabled"
+}

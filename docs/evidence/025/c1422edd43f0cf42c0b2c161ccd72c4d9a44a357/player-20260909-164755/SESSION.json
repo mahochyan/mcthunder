@@ -1,0 +1,36 @@
+{
+  "source_sha": "c1422edd43f0cf42c0b2c161ccd72c4d9a44a357",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "01_shed_intact.png",
+      "sha256": "6AF46F5931BB291F55A89A14ACE6093FC894DA9652600DE32419006463E563DD"
+    },
+    {
+      "file": "02_shed_damaged.png",
+      "sha256": "7CB9689153F70931BE35D6F7476DDB86F9469730BDBD8D34F7351824C1EEEF93"
+    },
+    {
+      "file": "03_shed_collapsed.png",
+      "sha256": "F9ECB24BCF90602378B495AA7F5F35C25ABD439CE4CD9DC2E305A83E3BAFF2A4"
+    },
+    {
+      "file": "04_brick_intact.png",
+      "sha256": "34B3BC37005623C5373A2074E339B9702F690E8BB10270A85B78F12D20C9C054"
+    },
+    {
+      "file": "05_brick_breach.png",
+      "sha256": "D5656238E8635ECA6851757E229AEB18464D17417082D07DC6A5DE13EDB9060E"
+    },
+    {
+      "file": "06_driven_through.png",
+      "sha256": "60271145D1686E6EA59BE4A85E8198220548C744E71FE4284651BDEB241552B5"
+    },
+    {
+      "file": "07_returned_garage.png",
+      "sha256": "D6A3C6EC6AC24AE5339A6DB1D8DDC27F667C28089CF8850840443443881BA749"
+    }
+  ],
+  "graphical_review": "REVIEWED_ALL_IMAGES_BY_AGENT",
+  "human": "NOT_RUN"
+}

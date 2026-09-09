@@ -1,0 +1,12 @@
+00:00.547  blend            | Read blend: "E:\AIprogram\mcthunder-development\deliverables\tank-model-workflow-v1\authoring\vehicles\us_m24_m6_t85e1_1951.blend"
+REPRO_MODEL_PASS us_m24_m6_t85e1_1951 908 42
+00:00.578  blend            | Read blend: "E:\AIprogram\mcthunder-development\deliverables\tank-model-workflow-v1\authoring\vehicles\us_m26_m3_1945.blend"
+REPRO_MODEL_PASS us_m26_m3_1945 1018 48
+00:00.609  blend            | Read blend: "E:\AIprogram\mcthunder-development\deliverables\tank-model-workflow-v1\authoring\vehicles\us_m36_m4a1_1945.blend"
+REPRO_MODEL_PASS us_m36_m4a1_1945 970 41
+00:00.625  blend            | Read blend: "E:\AIprogram\mcthunder-development\deliverables\tank-model-workflow-v1\authoring\vehicles\us_m4a3_75w_vvss_1944.blend"
+REPRO_MODEL_PASS us_m4a3_75w_vvss_1944 1016 52
+REPRO_BASELINE_MATCH_PASS
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual rendered model fixture us_m4a3_75w_vvss_1944
+[PASS] actual rendered model fixture us_m24_m6_t85e1_1951
+[PASS] actual rendered model fixture us_m26_m3_1945
+[PASS] actual rendered model fixture us_m36_m4a1_1945
+=== 结果: 4 项检查, 0 失败 ===
+ART_SHOWCASE_CHECKS_PASS

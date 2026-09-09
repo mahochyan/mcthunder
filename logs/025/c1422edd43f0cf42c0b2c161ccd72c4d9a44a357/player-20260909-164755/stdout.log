@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal UI control is visible before click
+[mouse trace] pressed=true frame=21 device=32 position=(204.0, 622.5) automated=true
+[mouse trace] pressed=false frame=23 device=32 position=(204.0, 622.5) automated=true
+[PASS] normal UI control is visible before click
+[mouse trace] pressed=true frame=38 device=32 position=(640.0, 559.5) automated=true
+[mouse trace] pressed=false frame=40 device=32 position=(640.0, 559.5) automated=true
+[PASS] normal challenge entry reaches live village world
+[PASS] normal challenge menu click leaves all six rounds available
+[drive] goal=(64.0, 0.0, 32.0) actual=(64.44191, 0.000942, 31.94745) elapsed=13.9666666666669
+[PASS] normal WASD reaches optional shed approach (64.0, 0.0, 32.0)
+[drive] goal=(76.0, 0.0, 72.0) actual=(76.1756, 0.000942, 72.3634) elapsed=23.5333333333333
+[PASS] normal WASD reaches optional shed approach (76.0, 0.0, 72.0)
+[drive] goal=(82.0, 0.0, 120.0) actual=(82.11357, 0.000942, 120.4998) elapsed=32.7333333333328
+[PASS] normal WASD reaches optional shed approach (82.0, 0.0, 120.0)
+[drive] goal=(108.0, 0.0, 142.0) actual=(108.2597, 0.000942, 142.3006) elapsed=40.7833333333323
+[PASS] normal WASD reaches optional shed approach (108.0, 0.0, 142.0)
+[drive] goal=(125.0, 0.0, 141.0) actual=(125.4244, 0.000942, 141.0527) elapsed=46.1499999999987
+[PASS] normal WASD reaches optional shed approach (125.0, 0.0, 141.0)
+[aim] camera=(125.709, 6.410942, 151.8669) intent=(125.0808, 2.137202, 128.0) muzzle=(125.6916, 2.26137, 138.4497) dir=(-0.058353, -0.011861, -0.998226)
+[PASS] actual window capture 01_shed_intact (review pending)
+[section shot before] shots=0 time=53.1499999999983
+[mouse trace] pressed=true frame=3405 device=32 position=(640.0, 360.0) automated=true
+[mouse trace] pressed=false frame=3407 device=32 position=(640.0, 360.0) automated=true
+[PASS] normal left click produces structural state 1
+[PASS] actual window capture 02_shed_damaged (review pending)
+[section shot before] shots=1 time=53.6166666666649
+[mouse trace] pressed=true frame=3796 device=32 position=(640.0, 360.0) automated=true
+[mouse trace] pressed=false frame=3799 device=32 position=(640.0, 360.0) automated=true
+[PASS] normal left click produces structural state 2
+[PASS] actual window capture 03_shed_collapsed (review pending)
+[drive] goal=(125.0, 0.0, 125.0) actual=(125.0617, 0.000942, 124.5801) elapsed=68.1499999999974
+[PASS] normal tank drives into the collapsed shed footprint
+[drive] goal=(121.0, 0.0, 117.0) actual=(121.373, 0.000942, 117.4216) elapsed=71.7666666666639
+[PASS] normal tank reaches brick screen from shed
+[aim] camera=(121.7251, 6.410942, 128.2339) intent=(121.0123, 1.478896, 106.35) muzzle=(121.1304, 2.146444, 114.5113) dir=(-0.014417, -0.081514, -0.996568)
+[PASS] actual window capture 04_brick_intact (review pending)
+[section shot before] shots=2 time=78.7666666666635
+[mouse trace] pressed=true frame=4937 device=32 position=(640.0, 360.0) automated=true
+[mouse trace] pressed=false frame=4938 device=32 position=(640.0, 360.0) automated=true
+[PASS] normal left click produces structural state 1
+[section shot before] shots=3 time=79.2333333333301
+[mouse trace] pressed=true frame=5329 device=32 position=(640.0, 360.0) automated=true
+[mouse trace] pressed=false frame=5332 device=32 position=(640.0, 360.0) automated=true
+[PASS] normal left click produces structural state 2
+[PASS] actual window capture 05_brick_breach (review pending)
+[drive] goal=(121.0, 0.0, 98.0) actual=(120.9174, 0.000942, 97.5583) elapsed=92.999999999996
+[PASS] normal WASD crosses the real central breach
+[aim] camera=(124.4915, 6.410942, 87.34774) intent=(118.0851, 1.121932, 105.65) muzzle=(118.4235, 2.061329, 97.45586) dir=(-0.983325, -0.133099, 0.123922)
+[PASS] actual window capture 06_driven_through (review pending)
+[final ammo] fired=4 remaining=2
+[PASS] four normal shots consume four of six rounds; no free shots
+[PASS] normal R retry reconstructs intact structures and a fresh vehicle life
+[PASS] normal UI control is visible before click
+[mouse trace] pressed=true frame=6436 device=32 position=(639.5, 385.5) automated=true
+[mouse trace] pressed=false frame=6438 device=32 position=(639.5, 385.5) automated=true
+[PASS] normal pause/return leaves isolated profile unchanged
+[PASS] actual window capture 07_returned_garage (review pending)
+=== 结果: 27 项检查, 0 失败 ===
+ART_PLAYER_CHECKS_PASS
