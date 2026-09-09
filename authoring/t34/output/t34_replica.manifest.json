@@ -1,7 +1,7 @@
 {
   "vehicle_id": "t34_style_concept_replica",
   "stage": "B full-detail concept replication (no tri budget, user order)",
-  "actual_triangles": 9370,
+  "actual_triangles": 16900,
   "concept_sheet": "docs/reference/concept_medium_4663339.png",
   "concept_sha256": "466333967f87737f485481cb6ab199b2181ec96174e4de002b1a1aedaac7703e",
   "checklist": "docs/checklists/t34_concept_checklist.md",

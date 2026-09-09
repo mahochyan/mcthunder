@@ -158,7 +158,7 @@ class Builder:
         # headlights high on hull front corners (round disc + guard, per front view)
         for s in (-1, 1):
             self.box('hull', (s * 0.90, 1.18, -2.30), (0.07, 0.20, 0.14), 'steel')
-            self.rod('hull', (s * 0.90, 1.28, -2.38), (s * 0.90, 1.28, -2.52), 0.095, 'glass_head', n=12)
+            self.rod('hull', (s * 0.90, 1.28, -2.38), (s * 0.90, 1.28, -2.54), 0.115, 'glass_head', n=12)
             self.rod('hull', (s * 0.90, 1.15, -2.50), (s * 0.90, 1.41, -2.50), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
             self.rod('hull', (s * 0.90 - 0.13, 1.28, -2.50), (s * 0.90 + 0.13, 1.28, -2.50), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
         # engine deck: recessed grille panel with louver slats (right deck)
@@ -195,16 +195,19 @@ class Builder:
                    (xs, zt), (xs, zr - 0.40), (0.52 * xs, zr)]
             ring = [(x, y, z) for x, z in pts] + [(-x, y, z) for x, z in pts[::-1]]
             return [T(p) for p in ring]
-        # nearly vertical walls (x barely tapers) + sloped front/rear plates -> angular cast, not a dome
+        # nearly vertical walls w/ slight cast bulge mid-height + sloped front/rear -> angular, not a dome
         self.loft('turret', [tring(1.68, 1.06, -1.86, -0.45, 0.98),
+                             tring(1.98, 1.09, -1.72, -0.45, 0.90),
                              tring(2.28, 0.97, -1.58, -0.44, 0.70)], 'paint', caps=(True, True))
         # skirt ring at the very base (fills the deck joint)
         self.loft('turret', [tring(1.66, 1.10, -1.90, -0.45, 1.02),
                              tring(1.72, 1.06, -1.86, -0.45, 0.98)], 'paint', caps=(False, False))
-        # mantlet: cast trapezoid bulge + trunnion collar + small left vision port
-        self.box('turret', T((0, 1.86, -1.70)), (1.06, 0.60, 0.16), 'paint')
-        self.rod('turret', T((0, 1.86, -1.62)), T((0, 1.86, -2.02)), 0.17, 'paint', n=14, cap_a=False)
-        self.rod('turret', T((0, 1.86, -1.92)), T((0, 1.86, -2.00)), 0.195, 'paint', n=14, cap_a=False)
+        # mantlet: rounded cast oval shield + trunnion collar + small left vision port
+        def mring(y, a, b, z):
+            return [T((a * math.cos(k * math.tau / 16), y + b * math.sin(k * math.tau / 16), z)) for k in range(16)]
+        self.loft('turret', [mring(1.86, 0.56, 0.33, -1.84), mring(1.86, 0.54, 0.31, -1.62)], 'paint')
+        self.rod('turret', T((0, 1.86, -1.78)), T((0, 1.86, -2.06)), 0.17, 'paint', n=14, cap_a=False)
+        self.rod('turret', T((0, 1.86, -1.96)), T((0, 1.86, -2.04)), 0.195, 'paint', n=14, cap_a=False)
         self.box('turret', T((-0.66, 2.04, -1.42)), (0.10, 0.16, 0.08), 'paint')
         self.box('turret', T((-0.72, 2.04, -1.42)), (0.03, 0.09, 0.03), 'recess')
         # turret roof: two raised corner blocks + commander hatch drum w/ handle
@@ -308,6 +311,9 @@ def create(model):
         obj.location = coord(origin)
         parts[part] = obj
 
+    # cast-look soft edges: per-group bevel (concept: rounded cast plates, not knife boxes)
+    bevels = {'hull': 0.028, 'turret': 0.035, 'gun_recoil': 0.014, 'wheels': 0.014}
+
     def mesh_object(name, parent, verts, faces, uvs):
         mesh = bpy.data.meshes.new(name)
         mesh.from_pydata([coord(v) for v in verts], [], faces)
@@ -326,6 +332,15 @@ def create(model):
         bpy.ops.mesh.select_all(action='SELECT')
         bpy.ops.mesh.normals_make_consistent(inside=False)
         bpy.ops.object.mode_set(mode='OBJECT')
+        width = bevels.get(name.removeprefix('Cosmetic_'), 0.0)
+        if width > 0:
+            bev = obj.modifiers.new('Cast bevel', 'BEVEL')
+            bev.width = width
+            bev.segments = 1
+            bev.limit_method = 'ANGLE'
+            bev.angle_limit = math.radians(42)
+            bev.use_clamp_overlap = True
+            bpy.ops.object.modifier_apply(modifier=bev.name)
         tri = obj.modifiers.new('Export triangles', 'TRIANGULATE')
         bpy.ops.object.modifier_apply(modifier=tri.name)
         obj.select_set(False)
