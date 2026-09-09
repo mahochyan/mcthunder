@@ -3,7 +3,8 @@ extends Node3D
 ## 炮塔旋转/火炮俯仰/相机距离。控制台参数模式用于自动截图对比板：
 ##   godot --path <root> scenes/art_lab/bake_pilot.tscn -- --shot user://art001_A.png --variant A
 ##   godot --path <root> scenes/art_lab/bake_pilot.tscn -- --shot user://art001_C.png --variant C --light daylight
-## 按键：1/2/3 变体；L 灯光；T 炮塔 90°/180°；G 火炮俯仰；滚轮相机距离。
+## 按键：1/2/3 变体；L 灯光；T 炮塔档位循环 0°→90°→180°；G 火炮俯仰档位循环；滚轮相机距离。
+## 约定：variant 是唯一材质状态源——命令行/按键共用；切灯/转炮/改距离不重设材质。
 
 const DIR := "res://assets/art001/m4a3_pilot/m4a3_1k.glb"
 const VARIANTS := ["A", "B", "C"]
@@ -12,10 +13,13 @@ var vehicle: Node3D
 var cam: Camera3D
 var studio: Node3D
 var daylight: Node3D
-var variant := "C"
+var variant := "C"                 # 唯一材质状态源
 var cam_dist := 9.0
 var shot_path := ""
-var boot_variant := ""
+var turret_step := 0               # 姿态档位：0=0°, 1=90°, 2=180°
+var gun_step := 0                  # 俯仰档位：0=0°, 1=+10°, 2=-5°
+const TURRET_STEPS := [0.0, PI * 0.5, PI]
+const GUN_STEPS := [0.0, 10.0 * PI / 180.0, -5.0 * PI / 180.0]
 
 func _ready() -> void:
 	var scene := load(DIR) as PackedScene
@@ -46,7 +50,7 @@ func _ready() -> void:
 		if args[i] == "--shot" and i + 1 < args.size():
 			shot_path = args[i + 1]
 		if args[i] == "--variant" and i + 1 < args.size():
-			boot_variant = args[i + 1]
+			variant = args[i + 1]          # 命令行与按键共用同一状态
 		if args[i] == "--light" and i + 1 < args.size():
 			_set_light(args[i + 1])
 		if args[i] == "--dist" and i + 1 < args.size():
@@ -54,10 +58,7 @@ func _ready() -> void:
 		if args[i] == "--yaw" and i + 1 < args.size():
 			vehicle.rotation.y = float(args[i + 1])
 	cam.position = Vector3(cam.position.x, 2.4 + cam_dist * 0.2, cam_dist)
-	if boot_variant != "":
-		BakeComparison.set_variant(_meshes(), boot_variant)
-	else:
-		BakeComparison.set_variant(_meshes(), variant)
+	_apply_variant()
 	for i in args.size():
 		if args[i] == "--perf":
 			_perf_mode(args)
@@ -65,35 +66,70 @@ func _ready() -> void:
 	if shot_path != "":
 		await _autoshot()
 
-## 8 车纯渲染性能采样：10s 预热 + 30s 采样（真实渲染帧，非合成）
+func _apply_variant() -> void:
+	BakeComparison.set_variant(_meshes(), variant)
+
+## 8 车纯渲染性能采样：关 vsync，预热 10s，B/C 交错两轮各 15s，
+## 记录每轮平均帧时间与 P95；GPU 时间戳取不到则 NOT_CAPTURED。
 func _perf_mode(args: Array) -> void:
-	var tag := "B"
 	var out_path := "user://art001_perf.txt"
 	for i in args.size():
-		if args[i] == "--variant" and i + 1 < args.size():
-			tag = args[i + 1]
 		if args[i] == "--perf-out" and i + 1 < args.size():
 			out_path = args[i + 1]
+	# 恰好 8 辆：默认 vehicle 为第 1 辆，补 7 辆，统一入镜
+	vehicle.position = Vector3(-10.5, 0, -4.0)
 	var scene := load(DIR) as PackedScene
-	for k in range(8):
+	for k in range(7):
 		var v := scene.instantiate() as Node3D
-		v.position = Vector3(-14.0 + (k % 4) * 9.0, 0, -8.0 + float(k / 4) * 12.0)
+		v.name = "BakedVehicle_%d" % (k + 2)
+		v.position = Vector3(-10.5 + float(k % 4) * 7.0, 0, -4.0 + float((k + 1) / 4) * 10.0)
 		add_child(v)
-		BakeComparison.set_variant(_collect_meshes(v), tag)
 	_set_light("daylight")
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)  # 解除 60fps 封顶
+	var vehicles := []
+	for c in get_children():
+		if c.name.begins_with("BakedVehicle"):
+			vehicles.append(c)
+	var visible_tris := 0
+	var draw_calls := 0
+	for v in vehicles:
+		for mi in _collect_meshes(v):
+			var m := (mi as MeshInstance3D).mesh
+			if m == null:
+				continue
+			draw_calls += 1
+			for s in m.get_surface_count():
+				var idx: PackedInt32Array = m.surface_get_arrays(s)[Mesh.ARRAY_INDEX]
+				visible_tris += idx.size() / 3 if idx.size() > 0 else 0
+	var plan := [["B", 15.0], ["C", 15.0], ["B", 15.0], ["C", 15.0]]  # 交错两轮
+	var lines: Array[String] = []
+	lines.append("ART001_PERF vehicles=8 visible_tris=%d mesh_draw_calls=%d gpu_timestamps=NOT_CAPTURED vsync=disabled cam_dist=%.1f" % [visible_tris, draw_calls, cam_dist])
 	await get_tree().create_timer(10.0).timeout   # 预热 10s（着色器编译/缓存）
-	var frames := 0
-	var t0 := Time.get_ticks_msec()
-	while Time.get_ticks_msec() - t0 < 30000:      # 采样 30s
-		await get_tree().process_frame
-		frames += 1
-	var elapsed := float(Time.get_ticks_msec() - t0) / 1000.0
-	var fps := float(frames) / elapsed
-	var line := "ART001_PERF variant=%s vehicles=8 frames=%d seconds=%.1f avg_fps=%.1f gpu_timestamps=NOT_CAPTURED" % [tag, frames, elapsed, fps]
-	print(line)
+	for round_cfg in plan:
+		var tag: String = round_cfg[0]
+		var secs: float = round_cfg[1]
+		for v in vehicles:
+			BakeComparison.set_variant(_collect_meshes(v), tag)
+		var deltas: Array[float] = []
+		var t0 := Time.get_ticks_msec()
+		while Time.get_ticks_msec() - t0 < int(secs * 1000.0):
+			var f0 := Time.get_ticks_usec()
+			await get_tree().process_frame
+			deltas.append(float(Time.get_ticks_usec() - f0) / 1000.0)
+		deltas.sort()
+		var avg := 0.0
+		for d in deltas:
+			avg += d
+		avg = avg / maxf(float(deltas.size()), 1.0)
+		var p95: float = deltas[int(float(deltas.size()) * 0.95)]
+		var line := "ART001_PERF variant=%s frames=%d seconds=%.1f avg_frame_ms=%.2f p95_frame_ms=%.2f avg_fps=%.1f" % [
+			tag, deltas.size(), secs, avg, p95, 1000.0 / maxf(avg, 0.01)]
+		print(line)
+		lines.append(line)
 	var f := FileAccess.open(out_path, FileAccess.WRITE)
 	if f != null:
-		f.store_line(line)
+		for l in lines:
+			f.store_line(l)
 		f.close()
 	get_tree().quit()
 
@@ -109,15 +145,7 @@ func _collect_meshes(root: Node) -> Array:
 	return out
 
 func _meshes() -> Array:
-	var out := []
-	var stack := [vehicle]
-	while not stack.is_empty():
-		var n: Node = stack.pop_back()
-		if n is MeshInstance3D:
-			out.append(n)
-		for c in n.get_children():
-			stack.push_back(c)
-	return out
+	return _collect_meshes(vehicle)
 
 func _make_studio() -> Node3D:
 	var rig := Node3D.new()
@@ -163,29 +191,36 @@ func _set_light(mode: String) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		var k := event as InputEventKey
+		var variant_changed := false
 		if k.keycode == KEY_1:
 			variant = "A"
+			variant_changed = true
 		elif k.keycode == KEY_2:
 			variant = "B"
+			variant_changed = true
 		elif k.keycode == KEY_3:
 			variant = "C"
+			variant_changed = true
 		elif k.keycode == KEY_L:
 			_set_light("daylight" if studio.visible else "studio")
 		elif k.keycode == KEY_T:
+			turret_step = (turret_step + 1) % TURRET_STEPS.size()
 			var t := vehicle.find_child("turret", true, false)
 			if t is Node3D:
-				(t as Node3D).rotation.y = 0.0 if absf((t as Node3D).rotation.y) < 0.1 else (PI * 0.5 if absf((t as Node3D).rotation.y) < 1.0 else PI)
+				(t as Node3D).rotation.y = TURRET_STEPS[turret_step]
 		elif k.keycode == KEY_G:
+			gun_step = (gun_step + 1) % GUN_STEPS.size()
 			var b := vehicle.find_child("barrel", true, false)
 			if b is Node3D:
-				(b as Node3D).rotation.x = 0.0 if absf((b as Node3D).rotation.x) < 0.1 else 0.25
+				(b as Node3D).rotation.x = GUN_STEPS[gun_step]
 		elif k.keycode == KEY_UP:
 			cam_dist = maxf(3.0, cam_dist - 1.0)
 		elif k.keycode == KEY_DOWN:
 			cam_dist = minf(30.0, cam_dist + 1.0)
 		else:
 			return
-		BakeComparison.set_variant(_meshes(), variant)
+		if variant_changed:
+			_apply_variant()   # 只有变体变化才重设材质；切灯/转炮/距离不动 B/C
 		cam.position = Vector3(cam.position.x, 2.4 + cam_dist * 0.2, cam_dist)
 	elif event is InputEventMouseButton and event.pressed:
 		var mb := event as InputEventMouseButton
@@ -196,10 +231,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		cam.position = Vector3(cam.position.x, 2.4 + cam_dist * 0.2, cam_dist)
 
 func _autoshot() -> void:
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
+	for i in range(4):
+		await get_tree().process_frame
+	await RenderingServer.frame_post_draw   # 真实帧绘制完成后抓帧
 	var img := get_viewport().get_texture().get_image()
 	var err := img.save_png(shot_path)
-	print("ART001_SHOT %s -> %s (%d)" % [boot_variant, shot_path, err])
+	if err != OK:
+		print("ART001_SHOT FAILED %s -> %s err=%d" % [variant, shot_path, err])
+		get_tree().quit(1)
+		return
+	print("ART001_SHOT variant=%s cam_dist=%.1f fov=%.0f -> %s (%d)" % [variant, cam_dist, cam.fov, shot_path, err])
 	get_tree().quit()

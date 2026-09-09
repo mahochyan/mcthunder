@@ -504,6 +504,18 @@ def stage_high():
 
     for o in high.objects:
         fix_normals_islands(o)
+    # 源/目标材质隔离：高模统一改用私有材质副本（ART001_SRC_*），
+    # 烘焙目标图像节点（挂在低模材质上）不会进入源着色读取路径
+    for o in high.objects:
+        for i, m in enumerate(o.data.materials):
+            if m is None:
+                continue
+            base = m.name.replace("ART001_SRC_", "")
+            hm = bpy.data.materials.get("ART001_SRC_" + base)
+            if hm is None:
+                hm = m.copy()
+                hm.name = "ART001_SRC_" + base
+            o.data.materials[i] = hm
     total = sum(tri_count(o) for o in high.objects)
     print("ART001_HIGH_TOTAL_TRIS=%d" % total)
     for o in high.objects:
@@ -640,6 +652,46 @@ def setup_cycles(samples):
     sc.cycles.samples = samples
     sc.cycles.use_adaptive_sampling = False
 
+def install_emis(materials):
+    """在给定材质上安装临时 Emission 输出（R=roughness G=metallic），返回恢复清单。
+    必须与 restore_emis 成对使用（调用侧 try/finally）。"""
+    state = []
+    for m in materials:
+        nt = m.node_tree
+        out_node = next((n for n in nt.nodes if n.type == 'OUTPUT_MATERIAL' and n.is_active_output), None)
+        bsdf = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if out_node is None or bsdf is None:
+            continue
+        rough = bsdf.inputs["Roughness"].default_value
+        metal = bsdf.inputs["Metallic"].default_value
+        emis = nt.nodes.new('ShaderNodeEmission')
+        emis.inputs["Color"].default_value = (rough, metal, 0.0, 1.0)
+        new_out = nt.nodes.new('ShaderNodeOutputMaterial')
+        nt.links.new(emis.outputs["Emission"], new_out.inputs["Surface"])
+        new_out.is_active_output = True
+        out_node.is_active_output = False
+        state.append((nt, out_node, new_out, emis))
+    return state
+
+def restore_emis(state):
+    for nt, out_node, new_out, emis in state:
+        new_out.is_active_output = False
+        out_node.is_active_output = True
+        nt.nodes.remove(new_out)
+        nt.nodes.remove(emis)
+
+def set_group_visible(group):
+    """AO 隔离：只保留目标组的高/低模可见，其它组（零姿态炮塔/火炮等运动件）不参与遮挡"""
+    for o in list(coll("HIGH").objects) + list(coll("LOW").objects):
+        vis = (o.get("art_group", "") == group)
+        o.hide_render = not vis
+        o.hide_set(not vis)
+
+def set_all_visible():
+    for o in list(coll("HIGH").objects) + list(coll("LOW").objects):
+        o.hide_render = False
+        o.hide_set(False)
+
 def stage_bake():
     OUT.mkdir(parents=True, exist_ok=True)
     setup_cycles(1)
@@ -670,64 +722,82 @@ def stage_bake():
         if 'ao' in name.lower():
             print("ART001 cycles.%s = %s" % (name, getattr(cyc, name)))
 
-    # temporary emission outputs on high materials for rough(R)/metal(G) in one pass
-    emis_state = []
-    for mname, m in [(m.name, m) for m in bpy.data.materials if m.name.startswith("ART001_")]:
-        nt = m.node_tree
-        out_node = next((n for n in nt.nodes if n.type == 'OUTPUT_MATERIAL' and n.is_active_output), None)
-        bsdf = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
-        if out_node is None or bsdf is None:
-            continue
-        rough = bsdf.inputs["Roughness"].default_value
-        metal = bsdf.inputs["Metallic"].default_value
-        emis = nt.nodes.new("ShaderNodeEmission")
-        emis.inputs["Color"].default_value = (rough, metal, 0.0, 1.0)
-        new_out = nt.nodes.new("ShaderNodeOutputMaterial")
-        nt.links.new(emis.outputs["Emission"], new_out.inputs["Surface"])
-        new_out.is_active_output = True
-        out_node.is_active_output = False
-        emis_state.append((m, out_node, new_out))
-
     timings = {}
     for group in GROUPS:
         lows = [o for o in coll("LOW").objects if o.get("art_group", "") == group]
         highs = [o for o in coll("HIGH").objects if o.get("art_group", "") == group]
+        if not lows or not highs:
+            raise RuntimeError("missing source group: %s (lows=%d highs=%d)" % (group, len(lows), len(highs)))
         cages = {o.name: "CAGE_" + o.name for o in lows}
+        src_mats = []
+        for o in highs:
+            for m in o.data.materials:
+                if m is not None and m not in src_mats:
+                    src_mats.append(m)
         for low_ob in lows:
-            mat = low_target_node(low_ob, imgs["normal"])
-            passes = [("normal", 'NORMAL', 1), ("ao", 'AO', 16), ("albedo", 'DIFFUSE', 1), ("orm_mask", 'EMIT', 1)]
-            for key, btype, samples in passes:
+            if not low_ob.data.uv_layers:
+                raise RuntimeError("missing UV: " + low_ob.name)
+            passes = [("normal", 'NORMAL', 1, False), ("ao", 'AO', 16, True), ("albedo", 'DIFFUSE', 1, False), ("orm_mask", 'EMIT', 1, False)]
+            for key, btype, samples, isolated in passes:
                 img = imgs[key]
                 low_target_node(low_ob, img)
                 select_group(group, low_ob)
                 sc = bpy.context.scene
                 sc.cycles.samples = samples
-                t0 = time.time()
-                res = bpy.ops.object.bake(
-                    type=btype, use_selected_to_active=True,
-                    normal_space='TANGENT', normal_r='POS_X', normal_g='POS_Y', normal_b='POS_Z',
-                    use_cage=True, cage_object=cages[low_ob.name],
-                    use_clear=False, margin=8, target='IMAGE_TEXTURES')
-                dt = time.time() - t0
+                # AO 遍做运动部件隔离：其它组（零姿态炮塔/火炮）不参与遮挡
+                if isolated:
+                    set_group_visible(group)
+                filter_kw = {}
+                emis_state = []
+                try:
+                    if btype == 'DIFFUSE':
+                        filter_kw = {"pass_filter": {'COLOR'}}  # 只烘颜色，不含直接/间接光
+                    if btype == 'EMIT':
+                        emis_state = install_emis(src_mats)  # 仅此遍临时 Emission（R=rough G=metal）
+                    t0 = time.time()
+                    res = bpy.ops.object.bake(
+                        type=btype, use_selected_to_active=True,
+                        normal_space='TANGENT', normal_r='POS_X', normal_g='POS_Y', normal_b='POS_Z',
+                        use_cage=True, cage_object=cages[low_ob.name],
+                        use_clear=False, margin=8, target='IMAGE_TEXTURES',
+                        max_ray_distance=0.25 if isolated else 0.0,
+                        **filter_kw)
+                    dt = time.time() - t0
+                finally:
+                    if emis_state:
+                        restore_emis(emis_state)
+                    if isolated:
+                        set_all_visible()
                 if 'FINISHED' not in res:
                     raise RuntimeError("bake failed: %s %s %s" % (group, btype, res))
                 timings["%s/%s/%s" % (group, low_ob.name, key)] = round(dt, 2)
-                import numpy as _np
-                _a = _np.array(imgs["ao"].pixels[:], dtype=_np.float32).reshape(-1, 4)
-                print("ART001 PASSCHECK %s %s %s ao_mean=%.4f" % (group, low_ob.name, key, _a[:, 0].mean()))
         import numpy as np
         print("ART001 AOCHECK %s ao_mean=%.3f" % (group, np.array(imgs["ao"].pixels[:], dtype=np.float32).reshape(-1,4)[:,0].mean()))
-        save_img(imgs["normal"], paths["normal"])
-        save_img(imgs["ao"], paths["ao"])
-        save_img(imgs["albedo"], paths["albedo"])
-        save_img(imgs["orm_mask"], paths["orm_mask"])
+        for key, p in paths.items():
+            try:
+                save_img(imgs[key], p)
+            except Exception as e:
+                raise RuntimeError("save failed: %s -> %s (%s)" % (key, p, e))
 
-    # restore active outputs
-    for m, out_node, new_out in emis_state:
-        new_out.is_active_output = False
-        out_node.is_active_output = True
-        m.node_tree.nodes.remove(new_out)
-        m.node_tree.nodes.remove(m.node_tree.nodes["Emission"]) if "Emission" in m.node_tree.nodes else None
+    # 已知颜色验证：sRGB 图像缓冲存的是 sRGB 编码值，基色需先线性→sRGB 再比较
+    alb = np.array(imgs["albedo"].pixels[:], dtype=np.float32).reshape(-1, 4)
+    white = (alb[:, 0] > 0.97) & (alb[:, 1] > 0.97) & (alb[:, 2] > 0.97)
+    filled = alb[~white]
+    if filled.shape[0] < 1000:
+        raise RuntimeError("albedo validation FAILED: almost no baked pixels (%d)" % filled.shape[0])
+    def to_srgb(x):
+        x = np.clip(x, 0.0, 1.0)
+        return np.where(x <= 0.0031308, 12.92 * x, 1.055 * np.power(x, 1 / 2.4) - 0.055)
+    for mname in ("ART001_Olive", "ART001_Steel", "ART001_Dark", "ART001_Rubber"):
+        m = bpy.data.materials.get(mname)
+        if m is None:
+            continue
+        c_lin = np.array(principled(m.node_tree).inputs["Base Color"].default_value[:3], dtype=np.float32)
+        c = to_srgb(c_lin)
+        near = int((np.abs(filled[:, :3] - c).max(axis=1) <= 0.045).sum())
+        if near < 500:
+            raise RuntimeError("albedo validation FAILED: %s base color %s (sRGB %s) covers only %d px" % (mname, c_lin, c, near))
+        print("ART001 albedo color validation: %s linear%s sRGB%s -> %d px OK" % (mname, c_lin, c, near))
 
     # compose ORM: R=AO G=rough B=metal
     import numpy as np
@@ -823,6 +893,17 @@ def stage_sample():
             print("ART001 sample bake %s done" % btype)
     save_img(imgs["normal"], out / "normal_gl.png")
     save_img(imgs["ao"], out / "ao.png")
+    # 256 小样数值验证：已知颜色 + 凸起 + 凹陷（工单要求先采样验证再整车）
+    import numpy as np
+    n = np.array(imgs["normal"].pixels[:], dtype=np.float32).reshape(-1, 4)
+    a = np.array(imgs["ao"].pixels[:], dtype=np.float32).reshape(-1, 4)
+    pos = int(((n[:, 0] > 0.55) & (n[:, 2] < 0.98)).sum())
+    neg = int(((n[:, 0] < 0.45) & (n[:, 2] < 0.98)).sum())
+    if pos == 0 or neg == 0:
+        raise RuntimeError("sample normal validation FAILED: no bidirectional tangent detail (+%d/-%d)" % (pos, neg))
+    if a[:, 0].min() > 0.5 or a[:, 0].max() < 0.7:
+        raise RuntimeError("sample AO validation FAILED: no contact occlusion (min=%.3f max=%.3f)" % (a[:, 0].min(), a[:, 0].max()))
+    print("ART001 sample validation: normal +%d/-%d tangent px, AO min=%.3f max=%.3f -> OK" % (pos, neg, a[:, 0].min(), a[:, 0].max()))
     # restore the atlas materials (sample images must not leak into the 1024 bake)
     for m in bpy.data.materials:
         if m.name.startswith("ART001_"):

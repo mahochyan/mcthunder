@@ -1,64 +1,114 @@
 class_name BakedVisualAdapter
 extends RefCounted
 ## ART-001 单车烘焙试产——仅测试模式使用：
-## bind() 隐藏程序装配视觉（Skin_*/Cosmetic_*/TrackShoes），实例化烘焙低模 GLB
-## （assets/art001/m4a3_pilot/m4a3_1k.glb），碰撞/射击/履带物理逻辑完全不动。
-## restore() 完整还原。不写任何游戏运行时状态。
+## bind() 隐藏程序装配视觉（Skin_*/Cosmetic_*/TrackMotion/RecoilVisual/程序炮管），
+## 按部件清单把烘焙低模叶网格挂到各部件下的候选容器，所有新增节点归容器所有，
+## restore() 移除全部容器并完整还原旧视觉状态。碰撞/射击/履带物理逻辑完全不动。
 
 const BAKED_SCENE := "res://assets/art001/m4a3_pilot/m4a3_1k.glb"
+## 部件 → 允许导入的叶网格名单（按清单导入，防深复制炮塔子树重复装配）
+const PART_MESHES := {
+	"hull": ["LOW_hull_Shell", "LOW_hull_Hatches", "LOW_wheels", "LOW_tracks"],
+	"turret": ["LOW_turret_Shell", "LOW_turret_Cupola"],
+	"barrel": ["LOW_gun_Tube", "LOW_gun_Shell"],
+}
 
-var _hidden: Array[Node] = []
-var _root: Node3D = null
+var _hidden: Array[Dictionary] = []            # [{"node": Node, "visible": bool}]
+var _spawned_roots: Array[Node3D] = []         # 各部件候选容器（所有新增网格的归属）
+var _bound := false
 
 func bind(actor: VehicleActor) -> Dictionary:
-	_hidden.clear()
-	if _root != null:
-		return {"ok": false, "error": "already bound"}
-	for parent in [actor.tank, actor.turret, actor.turret.barrel_pivot]:
-		for child in parent.get_children():
-			var n := str(child.name)
-			if n.begins_with("Skin_") or n.begins_with("Cosmetic") or n.begins_with("TrackMotion"):
-				child.visible = false
-				_hidden.append(child)
+	if _bound:
+		return {"ok": false, "error": "already bound"}   # 先检查，未动任何状态
+	# 1. 验证资源与部件覆盖——全部通过前不修改原车任何状态
 	var scene := load(BAKED_SCENE) as PackedScene
 	if scene == null:
 		return {"ok": false, "error": "missing baked scene " + BAKED_SCENE}
 	var source := scene.instantiate() as Node3D
 	if source == null:
 		return {"ok": false, "error": "cannot instantiate baked scene"}
-	_root = Node3D.new()
-	_root.name = "BakedPilotVisual"
-	actor.tank.add_child(_root)
+	var part_meshes := {}
+	for part in PART_MESHES:
+		var authored: Node = source if str(source.name) == part else source.find_child(part, true, false)
+		var list: Array[MeshInstance3D] = []
+		if authored != null:
+			for wanted in PART_MESHES[part]:
+				var m := authored.find_child(str(wanted), true, false) as MeshInstance3D
+				if m != null:
+					list.append(m)
+		if list.is_empty():
+			source.free()
+			return {"ok": false, "error": "missing baked meshes for part " + str(part)}
+		part_meshes[part] = list
+	# 2. 保存旧视觉状态并隐藏（程序装甲/细节/动态履带/后坐炮身/程序炮管）
+	for parent in [actor.tank, actor.turret, actor.turret.barrel_pivot]:
+		for child in parent.get_children():
+			var n := str(child.name)
+			var is_old: bool = n.begins_with("Skin_") or n.begins_with("Cosmetic") \
+				or child is M4TrackMotion or child == actor.turret.recoil_visual \
+				or child == actor.turret.barrel_mesh
+			if is_old and child is Node3D:
+				_hidden.append({"node": child, "visible": (child as Node3D).visible})
+				(child as Node3D).visible = false
+	# 3. 建部件候选容器并只导入对应叶网格（局部恒等：GLB 子件已按源约定）
 	var added := 0
-	for part in ["hull", "turret", "barrel"]:
-		var authored := source if str(source.name) == part else source.find_child(part, true, false)
-		if authored == null:
-			continue
-		var parent2: Node3D = actor.tank if part == "hull" else (actor.turret if part == "turret" else actor.turret.barrel_pivot)
-		for child in authored.get_children():
-			var dup := child.duplicate() as Node3D
-			parent2.add_child(dup)
+	for part in PART_MESHES:
+		var parent2: Node3D = actor.tank if part == "hull" \
+			else (actor.turret if part == "turret" else actor.turret.barrel_pivot)
+		var container := Node3D.new()
+		container.name = "BakedPilotVisual_%s" % part
+		parent2.add_child(container)
+		_spawned_roots.append(container)
+		for src_mesh in part_meshes[part]:
+			var dup := (src_mesh as MeshInstance3D).duplicate() as MeshInstance3D
+			container.add_child(dup)
 			_set_layers(dup, actor.tank.visual_layer)
 			added += 1
 	source.free()
-	return {"ok": true, "hidden": _hidden.size(), "added": added}
+	_bound = true
+	return {"ok": true, "hidden": _hidden.size(), "added": added, "parts": _spawned_roots.size()}
 
-func restore(actor: VehicleActor) -> void:
-	for child in _hidden:
-		if is_instance_valid(child):
-			child.visible = true
+func restore(actor: VehicleActor) -> Dictionary:
+	var removed := 0
+	for container in _spawned_roots:
+		if is_instance_valid(container):
+			container.get_parent().remove_child(container)
+			container.free()
+			removed += 1
+	_spawned_roots.clear()
+	var restored := 0
+	for rec in _hidden:
+		var node: Node = rec["node"]
+		if is_instance_valid(node):
+			(node as Node3D).visible = bool(rec["visible"])
+			restored += 1
 	_hidden.clear()
-	if _root != null and is_instance_valid(_root):
-		_root.queue_free()
-	_root = null
+	_bound = false
+	return {"ok": true, "removed_containers": removed, "restored": restored}
 
-## 烘焙低模网格实例清单（供材质变体切换）
+## 烘焙低模网格实例清单（遍历全部候选容器，供材质变体切换）
 func mesh_instances() -> Array[MeshInstance3D]:
 	var out: Array[MeshInstance3D] = []
-	if _root == null:
-		return out
-	_collect(_root, out)
+	for container in _spawned_roots:
+		if is_instance_valid(container):
+			_collect(container, out)
 	return out
+
+## 绑定后整车可见三角数（应 ≤1000）
+func visible_tri_count() -> int:
+	var total := 0
+	for mi in mesh_instances():
+		var mesh := mi.mesh
+		if mesh == null:
+			continue
+		for s in mesh.get_surface_count():
+			var arrays := mesh.surface_get_arrays(s)
+			var idx: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+			if idx.size() > 0:
+				total += idx.size() / 3
+			elif arrays[Mesh.ARRAY_VERTEX] != null:
+				total += (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size() / 3
+	return total
 
 func _collect(node: Node, out: Array[MeshInstance3D]) -> void:
 	if node is MeshInstance3D:
@@ -66,38 +116,72 @@ func _collect(node: Node, out: Array[MeshInstance3D]) -> void:
 	for c in node.get_children():
 		_collect(c, out)
 
-## 对齐校验：烘焙低模装甲壳面顶点 vs 布局装甲面外表面角点（≤1cm）
-static func audit_alignment(actor: VehicleActor, patches: Array, tolerance_m: float) -> Dictionary:
-	var scene := load(BAKED_SCENE) as PackedScene
-	if scene == null:
-		return {"ok": false, "error": "missing baked scene"}
-	var source := scene.instantiate() as Node3D
+## 对齐校验（绑定态 + 真实部件变换 + 可施加姿态）：候选容器内 Shell 网格顶点
+## 世界位置 vs 同部件布局角点世界位置。施加炮塔偏航/火炮俯仰后审计，完成复原姿态。
+static func audit_alignment(adapter: BakedVisualAdapter, actor: VehicleActor,
+		patches: Array, tolerance_m: float, turret_yaw: float = 0.0,
+		gun_pitch: float = 0.0) -> Dictionary:
+	if patches.is_empty():
+		return {"ok": false, "error": "no armor patches"}
+	var part_patches := {"hull": [], "turret": [], "barrel": []}
+	for patch2 in patches:
+		var pid := str(patch2.part_id)
+		if part_patches.has(pid):
+			part_patches[pid].append(patch2)
+	# 施加姿态
+	var yaw0 := actor.turret.rotation.y
+	var pitch0 := actor.turret.barrel_pivot.rotation.x
+	actor.turret.rotation.y = turret_yaw
+	actor.turret.barrel_pivot.rotation.x = gun_pitch
+	# 姿态下的部件节点世界变换（角点为部件局部 → 世界）
+	var corners_by_part := {"hull": [], "turret": [], "barrel": []}
+	for pid in part_patches:
+		for patch2 in part_patches[pid]:
+			for v2 in patch2.vertices_local_m:
+				var corner := Vector3(float(v2[0]), float(v2[1]), float(v2[2]))
+				if pid == "hull":
+					corners_by_part["hull"].append(actor.tank.global_transform * corner)
+				elif pid == "turret":
+					corners_by_part["turret"].append(actor.turret.global_transform * corner)
+				elif pid == "barrel":
+					corners_by_part["barrel"].append(actor.turret.barrel_pivot.global_transform * corner)
+	# 遍历候选容器内的 Shell 网格
 	var worst := 0.0
 	var checked := 0
 	var ok := true
-	for part in ["hull", "turret", "barrel"]:
-		var authored := source if str(source.name) == part else source.find_child(part, true, false)
-		if authored == null:
+	var empty_parts := []
+	for container in adapter._spawned_roots:
+		if not is_instance_valid(container):
 			continue
-		for child in authored.get_children():
-			if not (child is MeshInstance3D) or not str(child.name).contains("Shell"):
+		var part := str(container.name).trim_prefix("BakedPilotVisual_")
+		var corners: Array = corners_by_part.get(part, [])
+		if corners.is_empty():
+			empty_parts.append(part)
+			ok = false
+			continue
+		for mi in adapter.mesh_instances():
+			if not str(mi.name).contains("Shell") or not container.is_ancestor_of(mi):
 				continue
-			var m2 := (child as MeshInstance3D).mesh
-			var arrays := m2.surface_get_arrays(0)
+			var arrays := (mi as MeshInstance3D).mesh.surface_get_arrays(0)
 			var verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 			for mv in verts:
+				var world_v: Vector3 = (mi as MeshInstance3D).global_transform * mv
 				var best := INF
-				for patch2 in patches:
-					for v2 in patch2.vertices_local_m:
-						var pv := Vector3(float(v2[0]), float(v2[1]), float(v2[2]))
-						best = min(best, pv.distance_to(mv))
+				for corner in corners:
+					best = min(best, (corner as Vector3).distance_to(world_v))
 				checked += 1
 				if best > worst:
 					worst = best
 				if best > tolerance_m:
 					ok = false
-	source.free()
-	return {"ok": ok, "checked": checked, "worst_m": worst}
+	# 复原姿态
+	actor.turret.rotation.y = yaw0
+	actor.turret.barrel_pivot.rotation.x = pitch0
+	var result := {"ok": ok, "checked": checked, "worst_m": worst,
+		"turret_yaw": turret_yaw, "gun_pitch": gun_pitch}
+	if not empty_parts.is_empty():
+		result["error"] = "no patches for parts " + str(empty_parts)
+	return result
 
 func _set_layers(node: Node, layer: int) -> void:
 	if node is VisualInstance3D:

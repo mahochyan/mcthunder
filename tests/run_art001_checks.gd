@@ -224,28 +224,90 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 		var go := Vector3(float(g.gun_origin[0]), float(g.gun_origin[1]), float(g.gun_origin[2]))
 		_ok(barrel_node.position.distance_to(go) <= TOL_PIVOT_M, "T-ART-06 火炮枢轴 ≤1mm（%.4fmm）" % (barrel_node.position.distance_to(go) * 1000.0))
 	src.free()
-	# 装甲壳面 ≤1cm（烘焙低模壳面顶点取自布局四边形）
-	var align: Dictionary = BakedVisualAdapter.audit_alignment(actor, layout.armor_patches, TOL_PLANE_M)
-	_ok(bool(align.get("ok", false)), "T-ART-06 装甲壳面对齐 ≤1cm（worst=%s checked=%s err=%s）" % [str(align.get("worst_m", "NA")), str(align.get("checked", "NA")), str(align.get("error", "-"))])
-	# 绑定适配器：隐藏程序视觉、显示烘焙视觉；开火对照（绑前/绑后各一次，冷却重置隔离）
+	# 绑定适配器：先自然开火一次（不清冷却）；待首射特效惰性节点稳定后记录基准
 	var adapter := BakedVisualAdapter.new()
 	var gunner = actor.gunner
-	gunner.cooldown_left = 0.0
 	var f0: bool = gunner.try_fire()
-	_ok(f0, "T-ART-06 绑定前开火成功（%s）" % str(gunner.blocked_reason))
+	_ok(f0, "T-ART-06 绑定前自然开火成功（%s）" % str(gunner.blocked_reason))
+	await process_frame
+	await process_frame
+	var nodes_pristine := _count_descendants(actor)
 	var bind_res: Dictionary = adapter.bind(actor)
 	_ok(bool(bind_res.get("ok", false)), "T-ART-06 适配器绑定成功")
 	_ok(int(bind_res.get("hidden", 0)) > 0, "T-ART-06 程序装配视觉已隐藏（%d 个）" % int(bind_res.get("hidden", 0)))
 	_ok(int(bind_res.get("added", 0)) >= 5, "T-ART-06 烘焙部件已挂载（%d 个）" % int(bind_res.get("added", 0)))
-	gunner.cooldown_left = 0.0
-	var f1: bool = gunner.try_fire()
-	_ok(f1, "T-ART-06 绑定后开火一次成功（%s）" % str(gunner.blocked_reason))
+	# 绑定后整车可见三角 ≤1000
+	var tris := adapter.visible_tri_count()
+	_ok(tris > 0 and tris <= 1000, "T-ART-06 绑定后整车可见三角 ≤1000（实际 %d）" % tris)
+	# 变体切换确实覆盖绑定网格（先设 B 验证覆盖，再设 C 供对照）
+	var b_meshes := adapter.mesh_instances()
+	var m_set: StandardMaterial3D = BakeComparison.set_variant(b_meshes, "B")
+	var all_covered := b_meshes.size() > 0
+	for mi2 in b_meshes:
+		if (mi2 as MeshInstance3D).material_override != m_set:
+			all_covered = false
+	BakeComparison.set_variant(b_meshes, "C")
+	_ok(all_covered, "T-ART-06 变体切换覆盖全部绑定网格（%d 个）" % b_meshes.size())
+	# 自然冷却循环：绑定后立即再开火应被冷却挡下，等待自然装填后可再开火
 	var f2: bool = gunner.try_fire()
-	_ok(not f2, "T-ART-06 绑定后冷却仍生效")
-	adapter.restore(actor)
-	_ok(true, "T-ART-06 适配器还原")
+	_ok(not f2 and gunner.blocked_reason == "cooldown", "T-ART-06 绑定后冷却自然生效（%s）" % str(gunner.blocked_reason))
+	for i in range(500):
+		await physics_frame
+	var f3: bool = gunner.try_fire()
+	_ok(f3, "T-ART-06 自然装填后再次开火成功（cd=%.2f %s）" % [gunner.cooldown_left, str(gunner.blocked_reason)])
+	# 真实驾驶：经同一命令提交入口驱动（与控制者同一路径），绑定视觉下加速
+	for i in range(150):
+		var cmd := VehicleCommand.new()
+		cmd.throttle = 1.0
+		actor.submit_command(cmd)
+		await physics_frame
+	_ok(actor.tank.forward_speed > 4.0, "T-ART-06 绑定视觉下驾驶加速有效（v=%.2f）" % actor.tank.forward_speed)
+	# 转炮+俯仰姿态下的对齐（烘焙部件须跟随部件节点运动）
+	await physics_frame
+	var align: Dictionary = BakedVisualAdapter.audit_alignment(adapter, actor, layout.armor_patches, TOL_PLANE_M, PI / 2.0, 0.17)
+	_ok(bool(align.get("ok", false)), "T-ART-06 转炮90°/俯仰10°装配对齐 ≤1cm（worst=%s checked=%s err=%s）" % [str(align.get("worst_m", "NA")), str(align.get("checked", "NA")), str(align.get("error", "-"))])
+	# 还原：容器清空 + 旧视觉恢复 + 节点数回到未绑定基准（真实状态检查，非无条件 PASS）
+	var restore_res: Dictionary = adapter.restore(actor)
+	await process_frame
+	var nodes_restored := _count_descendants(actor)
+	var skin_visible := true
+	for child in actor.tank.get_children():
+		if str(child.name).begins_with("Skin_"):
+			skin_visible = skin_visible and (child as Node3D).visible
+	_ok(bool(restore_res.get("ok", false)) and int(restore_res.get("removed_containers", 0)) == 3, "T-ART-06 适配器还原容器（%s）" % str(restore_res))
+	_ok(adapter.mesh_instances().is_empty(), "T-ART-06 还原后无残留烘焙网格")
+	_ok(skin_visible, "T-ART-06 还原后旧程序视觉恢复显示")
+	_ok(nodes_restored == nodes_pristine, "T-ART-06 还原后节点数回到基准（%d → %d）" % [nodes_pristine, nodes_restored])
+	# 连续绑定/还原十次：节点数不增长、状态可复
+	var stable := true
+	for cycle in range(10):
+		var rb: Dictionary = adapter.bind(actor)
+		if not bool(rb.get("ok", false)):
+			stable = false
+			break
+		adapter.restore(actor)
+		await process_frame
+	var nodes_final := _count_descendants(actor)
+	_ok(stable and nodes_final == nodes_pristine, "T-ART-06 绑定/还原×10 节点数稳定（基准 %d → 最终 %d）" % [nodes_pristine, nodes_final])
+	# 绑定态下重复绑定被拒绝且不破坏还原清单；正常还原后状态一致
+	var rb2: Dictionary = adapter.bind(actor)
+	var rb3: Dictionary = adapter.bind(actor)
+	_ok(bool(rb2.get("ok", false)) and not bool(rb3.get("ok", false)), "T-ART-06 绑定态重复绑定被拒绝")
+	var rr2: Dictionary = adapter.restore(actor)
+	await process_frame
+	_ok(bool(rr2.get("ok", false)) and _count_descendants(actor) == nodes_pristine, "T-ART-06 拒绝路径不破坏还原清单（节点 %d）" % _count_descendants(actor))
 	actor.queue_free()
 	main.queue_free()
+
+func _count_descendants(node: Node) -> int:
+	var count := 0
+	var stack := [node]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		count += 1
+		for ch in n.get_children():
+			stack.push_back(ch)
+	return count
 
 func _t07_runtime_assets(manifest: Dictionary) -> void:
 	_ok(manifest.has("glb_sha256") and manifest.has("basecolor_sha256"), "T-ART-07 manifest 记录 SHA256")
