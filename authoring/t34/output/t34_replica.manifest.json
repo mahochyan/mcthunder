@@ -1,7 +1,7 @@
 {
   "vehicle_id": "t34_style_concept_replica",
-  "stage": "B full-detail concept replication (no tri budget, user order)",
-  "actual_triangles": 16900,
+  "stage": "C visual acceptance iterating (B full-detail, no tri budget, user order: 不看面数)",
+  "actual_triangles": 18074,
   "concept_sheet": "docs/reference/concept_medium_4663339.png",
   "concept_sha256": "466333967f87737f485481cb6ab199b2181ec96174e4de002b1a1aedaac7703e",
   "checklist": "docs/checklists/t34_concept_checklist.md",
@@ -9,6 +9,7 @@
   "texture_file": "assets/vehicles/textures/vehicle_concept_atlas_v1.png",
   "texture_sha256": "9e123239bf87f45cfe936a22954349e3f1d6a14b06e07047b9fc1c97a88501f0",
   "texture_origin": "fixed package atlas PNG (reused, not regenerated)",
+  "glb_sha256": "77580cdde6313ea1e2f668da82bf1cae3d280dec0fd94696084c3ab055a92bda",
   "not_added_by_design": [
     "stars/markings",
     "AA MG",
@@ -17,6 +18,20 @@
     "return rollers (Christie)",
     "muzzle brake"
   ],
+  "deviations": [
+    "Concept side panel draws the track top run across wheel mid-height (artist simplification); model seats it just above the wheel crowns - mechanical plausibility, side silhouette unchanged (2.661 vs 2.652).",
+    "Front/rear panels of the sheet use inconsistent internal scales; per-view fit accepted (front raw aspect delta traced to sheet: model real width 2.95m vs concept ~3.0m).",
+    "Paint surfaces sample the flat center of atlas tile 0/1: per-face tile projection stretched atlas brush marks into wood grain across multi-meter plates.",
+    "Practice asset: no Armor_<id> damage patches / damage_geometry props (seed-JSON workflow applies to production vehicles); cosmetic mesh groups + mandatory hull>turret>barrel>gun_recoil empties."
+  ],
+  "acceptance": {
+    "construction": "Blender MCP (GUI passes 1-9) then headless reproducible export authoring/t34/run_export.py",
+    "method": "Godot ortho white-bg captures + red/green pixel overlay (tools/pxdiff.ps1) + vision pass, 6 captures vs checklist",
+    "side_aspect": "2.661 model vs 2.652 panel (0.3%)",
+    "rear_aspect": "1.274 vs 1.244 (2.4%)",
+    "front_aspect": "1.274 vs 1.202 (sheet-internal scale, recorded not forced)",
+    "evidence_dir": "docs/evidence/t34/"
+  },
   "practice_asset": true,
   "gameplay_replacement": false,
   "generator": "authoring/t34/build_t34.py"

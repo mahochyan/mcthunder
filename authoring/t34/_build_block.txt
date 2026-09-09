@@ -1,0 +1,79 @@
+    def build(self):
+        # ---- hull: LOW-SLUNG side-panel-verified (87.4px/m: deck 1.35, fender 0.90, long 27deg hood) ----
+        belly = self.hull_ring2(0.30, 0.68, -2.45, -2.10, 2.10, 0.04)
+        fender = self.hull_ring2(0.90, 1.02, -2.90, -2.60, 2.62, 0.06)
+        deck = self.hull_ring2(1.35, 0.95, -2.02, -1.98, 2.42, 0.0)
+        self.loft('hull', [belly, fender], 'dark_paint', caps=(True, False))
+        self.loft('hull', [fender, deck], 'paint', caps=(False, True))
+        # fenders: thin plates outboard (panel: straight line, small front/rear flaps)
+        for s in (-1, 1):
+            self.box('hull', (s * 1.16, 0.90, 0.10), (0.34, 0.035, 5.30), 'paint')
+            self.box('hull', (s * 1.16, 0.87, -2.95), (0.34, 0.035, 0.60), 'paint')
+        # glacis plane: z(y) = -2.90 + 2.04*(y-0.90); furniture seated on it
+        # driver vision plug (left) with slit glass, boss along plate normal
+        self.rod('hull', (-0.50, 1.22, -2.25), (-0.50, 1.42, -2.34), 0.19, 'paint', n=12)
+        self.box('hull', (-0.50, 1.435, -2.36), (0.17, 0.09, 0.21), 'glass')
+        # transmission hatch (center-right) + levers
+        self.box('hull', (0.42, 1.24, -2.17), (0.52, 0.10, 0.36), 'paint')
+        for dz in (-0.10, 0.10):
+            self.rod('hull', (0.42, 1.31, -2.10 + dz), (0.42, 1.42, -2.10 + dz), 0.015, 'steel', n=5, cap_a=False)
+        # two D shackles low-center
+        self.rod('hull', (-0.38, 1.00, -2.70), (-0.38, 1.18, -2.36), 0.08, 'steel', n=8)
+        self.rod('hull', (0.38, 1.00, -2.70), (0.38, 1.18, -2.36), 0.08, 'steel', n=8)
+        # headlights on brackets at hull front corners (round lamp + grid guard)
+        for s in (-1, 1):
+            self.box('hull', (s * 0.88, 1.00, -2.72), (0.07, 0.16, 0.12), 'steel')
+            self.rod('hull', (s * 0.88, 1.06, -2.80), (s * 0.88, 1.06, -2.98), 0.105, 'glass_head', n=12)
+            self.rod('hull', (s * 0.88, 0.94, -2.96), (s * 0.88, 1.18, -2.96), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
+            self.rod('hull', (s * 0.88 - 0.11, 1.06, -2.96), (s * 0.88 + 0.11, 1.06, -2.96), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
+        # rear plate: access panel + tow shackles + upturned exhausts (rear circles in panel)
+        self.box('hull', (0, 1.15, 2.51), (0.80, 0.50, 0.06), 'paint')
+        for s in (-1, 1):
+            self.rod('hull', (s * 0.48, 0.70, 2.66), (s * 0.48, 0.92, 2.62), 0.08, 'steel', n=8)
+            self.rod('hull', (s * 0.85, 1.20, 2.45), (s * 0.92, 1.42, 2.62), 0.07, 'steel', n=10)
+            self.rod('hull', (s * 0.92, 1.42, 2.62), (s * 0.94, 1.48, 2.70), 0.05, 'recess', n=10, cap_a=False)
+        # engine deck (panel layout): centered louvred grille + single centered fore-aft tank + right stowage
+        self.box('hull', (0, 1.345, 1.50), (0.62, 0.03, 0.70), 'grille')
+        for i in range(3):
+            self.box('hull', (0, 1.375, 1.28 + i * 0.22), (0.56, 0.02, 0.07), 'steel')
+        self.rod('hull', (0, 1.50, 1.95), (0, 1.50, 2.42), 0.16, 'paint', n=14)
+        self.rod('hull', (0, 1.50, 1.90), (0, 1.50, 1.955), 0.105, 'steel_face', n=12)
+        for z in (2.06, 2.32):
+            self.rod('hull', (0, 1.50, z - 0.035), (0, 1.50, z + 0.035), 0.175, 'steel', n=14, cap_a=False, cap_b=False)
+            self.box('hull', (0, 1.365, z), (0.14, 0.08, 0.10), 'steel')
+        self.rod('hull', (-0.40, 1.365, 0.62), (-0.40, 1.40, 0.62), 0.11, 'paint', n=10)
+        self.box('hull', (0.58, 1.435, 0.62), (0.40, 0.17, 0.34), 'wood')
+        self.rod('hull', (0.88, 1.375, -0.30), (0.88, 1.375, 0.42), 0.028, 'wood', n=6, cap_a=False)
+        self.box('hull', (0.88, 1.365, 0.55), (0.15, 0.045, 0.24), 'steel')
+        # ---- turret: angular faceted cast on deck 1.35; roof 1.87; TALL cupola (panel ~0.4m drum) ----
+        to = (0.0, 1.35, -0.55)
+        def T(p):
+            return (p[0] - to[0], p[1] - to[1], p[2] - to[2])
+        def tring(y, xs, zf, zt, zr):
+            pts = [(0.00, zf), (0.50 * xs, zf + 0.02), (xs, zf + 0.50),
+                   (xs, zt), (xs, zr - 0.40), (0.52 * xs, zr)]
+            ring = [(x, y, z) for x, z in pts] + [(-x, y, z) for x, z in pts[::-1]]
+            return [T(p) for p in ring]
+        self.loft('turret', [tring(1.33, 1.10, -1.64, -0.45, 1.04),
+                             tring(1.39, 1.05, -1.58, -0.45, 1.00)], 'paint', caps=(False, False))
+        self.loft('turret', [tring(1.40, 1.05, -1.58, -0.45, 1.00),
+                             tring(1.62, 1.08, -1.48, -0.45, 0.92),
+                             tring(1.87, 0.98, -1.30, -0.44, 0.70)], 'paint', caps=(True, True))
+        # mantlet: cast oval shield + trunnion collar; gun aims +8deg UP (panel: muzzle above trunnion)
+        def mring(y, a, b, z):
+            return [T((a * math.cos(k * math.tau / 16), y + b * math.sin(k * math.tau / 16), z)) for k in range(16)]
+        self.loft('turret', [mring(1.57, 0.54, 0.30, -1.72), mring(1.57, 0.52, 0.28, -1.50)], 'paint')
+        self.rod('turret', T((0, 1.57, -1.68)), T((0, 1.57, -1.88)), 0.15, 'paint', n=14, cap_a=False)
+        self.rod('turret', T((0, 1.57, -1.80)), T((0, 1.57, -1.88)), 0.175, 'paint', n=14, cap_a=False)
+        self.box('turret', T((-0.60, 1.70, -1.36)), (0.09, 0.15, 0.08), 'paint')
+        self.box('turret', T((-0.655, 1.70, -1.36)), (0.03, 0.08, 0.03), 'recess')
+        for s in (-1, 1):
+            self.box('turret', T((s * 0.42, 1.895, -0.92)), (0.26, 0.07, 0.20), 'paint')
+        self.rod('turret', T((0.14, 1.85, 0.28)), T((0.14, 2.20, 0.28)), 0.225, 'paint', n=12)
+        self.rod('turret', T((0.14, 2.20, 0.28)), T((0.14, 2.24, 0.28)), 0.20, 'paint', n=12)
+        self.rod('turret', T((0.00, 2.255, 0.28)), T((0.28, 2.255, 0.28)), 0.018, 'steel', n=6, cap_a=False)
+        # ---- gun: trunnion world (0,1.57,-1.86), +8deg up, tip just past fender nose ----
+        go = (0.0, 1.57, -1.86)
+        G = lambda p: (p[0] - go[0], p[1] - go[1], p[2] - go[2])
+        self.rod('gun_recoil', G((0, 1.57, -1.80)), G((0, 1.80, -3.58)), 0.085, 'paint', n=16, cap_a=False)
+        self.rod('gun_recoil', G((0, 1.70, -3.24)), G((0, 1.84, -3.62)), 0.105, 'paint', n=16, cap_a=False)

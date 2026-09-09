@@ -199,12 +199,13 @@ class Builder:
         def mring(y, a, b, z):
             return [T((a * math.cos(k * math.tau / 16), y + b * math.sin(k * math.tau / 16), z)) for k in range(16)]
         self.loft('turret', [mring(1.70, 0.54, 0.34, -1.74), mring(1.70, 0.52, 0.32, -1.54)], 'paint')
-        self.rod('turret', T((0, 1.74, -1.74)), T((0, 1.74, -1.92)), 0.15, 'paint', n=14, cap_a=False)
-        self.rod('turret', T((0, 1.74, -1.84)), T((0, 1.74, -1.92)), 0.175, 'paint', n=14, cap_a=False)
+        self.rod('turret', T((0, 1.74, -1.72)), T((0, 1.74, -2.22)), 0.145, 'paint', n=14, cap_a=False)
+        self.rod('turret', T((0, 1.74, -2.04)), T((0, 1.74, -2.22)), 0.165, 'paint', n=14, cap_a=False)
         self.box('turret', T((-0.60, 1.70, -1.36)), (0.09, 0.15, 0.08), 'paint')
         self.box('turret', T((-0.655, 1.70, -1.36)), (0.03, 0.08, 0.03), 'recess')
-        for s in (-1, 1):
-            self.box('turret', T((s * 0.42, 1.945, -0.92)), (0.26, 0.07, 0.20), 'paint')
+        # exploded panel: SIX bump blocks in an arc along the roof front edge
+        for bx in (-0.74, -0.46, -0.16, 0.16, 0.46, 0.74):
+            self.box('turret', T((bx, 1.93, -0.92)), (0.20, 0.06, 0.16), 'paint')
         self.rod('turret', T((0.14, 1.90, -0.30)), T((0.14, 2.25, -0.30)), 0.215, 'paint', n=12)
         self.rod('turret', T((0.14, 2.25, -0.30)), T((0.14, 2.29, -0.30)), 0.19, 'paint', n=12)
         self.rod('turret', T((0.00, 2.305, -0.30)), T((0.28, 2.305, -0.30)), 0.018, 'steel', n=6, cap_a=False)
