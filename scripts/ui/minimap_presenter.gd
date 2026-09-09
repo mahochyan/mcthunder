@@ -5,6 +5,8 @@ var obstacles: Array[Rect2] = []
 var markers: Array = []
 var capture_owner := 0
 var has_point := true
+var point_position := Vector3.ZERO
+var point_radius := 12.0
 var high_contrast := false
 var map_rect := Rect2()
 var _road_segments := PackedVector3Array()
@@ -41,9 +43,9 @@ func _draw() -> void:
 		var p := project(Vector3(rectangle.position.x,0,rectangle.position.y))
 		draw_rect(Rect2(p,rectangle.size*scale_factor),Color("8b8368"))
 	if has_point:
-		var center := project(Vector3.ZERO)
+		var center := project(point_position)
 		var color: Color = {0:Color("e4dcb0"),1:Color("65c8ff"),2:Color("ffbb6d")}[capture_owner]
-		draw_arc(center,12*scale_factor,0,TAU,40,color,2,true)
+		draw_arc(center,point_radius*scale_factor,0,TAU,40,color,2,true)
 		draw_string(CoreUI.FONT,center+Vector2(-5,5),"A",HORIZONTAL_ALIGNMENT_LEFT,-1,14,color)
 	for marker in markers:
 		var point := project(marker.position)

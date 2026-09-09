@@ -2,6 +2,9 @@ class_name GarageShell
 extends Control
 signal training_requested(loadout: Dictionary, case_index: int)
 signal laboratory_requested(id: String)
+signal challenge_requested(id: String, difficulty: String)
+var challenge_button: Button
+var challenge_selection: ChallengeSelection
 var shell_choice: OptionButton
 var rounds: SpinBox
 var infinite: CheckBox
@@ -27,6 +30,12 @@ var inspection_row: HBoxContainer
 var inspection_choice: OptionButton
 var inspection_value: Label
 
+func _open_challenges() -> void:
+	if is_instance_valid(challenge_selection): return
+	challenge_selection = ChallengeSelection.new(); challenge_selection.profile = profile
+	add_child(challenge_selection)
+	challenge_selection.chosen.connect(func(id: String, difficulty: String) -> void: challenge_requested.emit(id,difficulty))
+
 func _ready() -> void:
 	theme = CoreUI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -42,7 +51,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"候选 0.2.3  ·  丘陵村落 / 工业边缘  ·  配弹与研发  ·  部分几何和模拟参数为估算",15)
+	CoreUI.label(vertical,"候选 0.2.4  ·  三项挑战 / 两张地图  ·  配弹与研发  ·  部分几何和模拟参数为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -109,6 +118,7 @@ func _ready() -> void:
 	start_button = CoreUI.button(left_column,"进入训练",_start)
 	CoreUI.button(controls,"1 对 1 歼灭（工程夹具）",func() -> void: laboratory_requested.emit("duel"))
 	CoreUI.button(left_column,"4 对 4 占点",func() -> void: laboratory_requested.emit("team"))
+	challenge_button = CoreUI.button(left_column,"挑战任务 / 个人最佳",_open_challenges)
 	error_label = CoreUI.label(controls,"",14)
 	if not admitted.ok: error_label.text = "历史配置未通过装配检查："+", ".join(admitted.errors)
 	error_label.modulate = Color("ffc282")

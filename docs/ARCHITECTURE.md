@@ -293,3 +293,7 @@ TeamRange拥有八活车与受限残骸，ProjectileManager可选contact_policy�
 
 ## 017 战斗界面与焦点
 BattleUI同时绑定TeamRange与DuelRange，把只读HUDPresenter数据交给Container布局的BattleHUD。BattleIntel用独立生产AIPerception实例输出当前观察车的可见或限时最后目击；MinimapPresenter没有读取敌车节点的接口。InputFocusRouter只管理本地意图许可、释放门与鼠标，不能推进比赛。AccessibilitySettings操作字体、标记和视觉闪光/光学镜头偏移；默认稳定镜头。详细边界与新按键见HUD_INFORMATION_POLICY.md。
+
+## 024 有界挑战与核验成绩
+ChallengeCatalog冻结任务、难度、波次和目标阈值；ChallengeRange复用两图与实际车辆/弹药/伤害/维修/AI。ChallengeDirector在管理器之后的物理步按attempt/life/generation核对真实ShotRecord、死亡归因和恢复事务；时钟随暂停冻结，结束只提交一次并关闭飞弹。快速重试经AppFlow替换完整场景，旧敌人、飞弹和事件无法进入新尝试。
+ChallengeProgression弱引用绑定真实Director，接口不收外部伪造结果；冻结结果进入有界待保存/收据表。ProfileStore schema2显式迁移合法schema1，新增按任务/规则版本/难度分开的有界challenge_bests。保存失败保留旧最佳及已验证待重试结果。挑战不写研发奖励或战斗快照。详细规则与夹具/正常玩家证据边界见CHALLENGES_024.md。

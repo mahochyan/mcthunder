@@ -17,6 +17,9 @@ var damage_layout_override: VehicleLayoutDefinition
 signal damage_recorded(record: Dictionary)
 signal vehicle_disabled(record: Dictionary)
 signal vehicle_destroyed(record: Dictionary)
+signal recovery_recorded(record: Dictionary)
+var last_recovery_record: Dictionary = {}
+var _recovery_sequence := 0
 var entity_id := ""   # 003-R1：实体标识（HUD 提示/命中事件来源）
 var life_id := 0      # 003-R2：实体生命周期标识（setup 生成；同 id 重建后不同）
 var tank: TankVehicle
@@ -261,7 +264,10 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
 	supply_motion_active = absf(throttle)>0.01 or absf(steer)>0.01
+	var repair_target := state.action_target if state.recovery_action == "repair" else ""
+	var repair_before := float(state.module_states.get(repair_target,{}).get("integrity",0.0))
 	var died_now := VehicleRecovery.step(state,delta,tank.forward_speed,cmd)
+	var completed_repair := not repair_target.is_empty() and not state.destroyed and state.recovery_action.is_empty() and state.recovery_reason == "module_repaired" and float(state.module_states[repair_target].integrity) > repair_before
 	if died_now: _commit_death()
 	if debug_command_trace:
 		print("[cmd-trace] execute entity=%s tick=%d throttle=%.2f steer=%.2f fire=%s" % [entity_id, Engine.get_physics_frames(), throttle, steer, str(cmd.fire_requested)])
@@ -284,8 +290,14 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	state.last_shot_result = gunner.last_shot_result
 	state.hits_taken = tank.hits_taken
 	if died_now: _publish_death()
+	if completed_repair:
+		_recovery_sequence += 1
+		last_recovery_record = {"event_id":"%s:%d:%d:repair:%d"%[entity_id,life_id,state.generation,_recovery_sequence],"entity_id":entity_id,"life_id":life_id,"generation":state.generation,"kind":"repair","item_id":repair_target,"before":repair_before,"after":float(state.module_states[repair_target].integrity)}
+		last_recovery_record.make_read_only()
+		recovery_recorded.emit(last_recovery_record.duplicate(true))
 
 func reset_vehicle() -> void:
+	last_recovery_record = {}
 	# 003：单车重置——不污染其他车/靶场/试射目标
 	# 003-R1：清理旧瞄点/待发命令/炮镜请求/瞬时状态
 	# 003-R2：重置清空暂存（不跨回合执行旧请求）

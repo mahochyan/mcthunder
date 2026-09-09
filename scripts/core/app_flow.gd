@@ -14,6 +14,8 @@ var progression: ProgressionService
 var match_config: MatchConfig
 var match_token := ""
 var pending_reward: Dictionary = {}
+var challenges: ChallengeProgression
+var pending_challenge := -1
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -21,10 +23,12 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if profile == null:
 		var isolated := DisplayServer.get_name() == "headless"
-		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check"]:
+		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check","--challenge-play-check"]:
 			if args.has(flag): isolated = true
 		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
+		if args.has("--challenge-play-check"): profile = ProfileStore.new("user://tests/challenge_demo024_"+str(Time.get_ticks_usec())+"/commander")
 	progression = ProgressionService.new(profile)
+	challenges = ChallengeProgression.new(profile)
 	if profile.snapshot().revision > 0: selected_vehicle_id = profile.snapshot().garage.selected_vehicle_id
 	if args.has("--autoshot") or args.has("--inspect-demo") or args.has("--query-demo"):
 		get_tree().call_deferred("change_scene_to_file","res://scenes/main.tscn")
@@ -60,11 +64,15 @@ func _ready() -> void:
 		var demo := load("res://tests/run_industrial_demo.gd").new() as Node
 		add_child(demo)
 		demo.call_deferred("run",self)
+	elif args.has("--challenge-play-check"):
+		var demo := load("res://tests/run_challenge_demo.gd").new() as Node
+		add_child(demo)
+		demo.call_deferred("run",self)
 
 func _clear_training() -> void:
 	get_tree().paused = false
 	if is_instance_valid(training):
-		if training is BallisticsRange: training.projectiles.cancel_all("cancelled_scene_exit")
+		if training is BallisticsRange and training.projectiles != null: training.projectiles.cancel_all("cancelled_scene_exit")
 		training.free()
 	training = null
 	if is_instance_valid(result_overlay): result_overlay.free()
@@ -82,6 +90,7 @@ func _show_garage(result: Dictionary) -> void:
 		var prior := last_result.duplicate(true)
 		last_result = result
 		if prior.get("match_id",-1) == result.get("match_id",-2) and prior.has("progression"): last_result.progression = prior.progression
+		if prior.get("attempt_id",-1) == result.get("attempt_id",-2) and prior.has("progression"): last_result.progression = prior.progression
 	if is_instance_valid(garage): garage.free()
 	garage = GarageShell.new()
 	garage.profile = profile
@@ -96,11 +105,57 @@ func _show_garage(result: Dictionary) -> void:
 			if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result))
 	garage.training_requested.connect(enter_training)
 	garage.laboratory_requested.connect(enter_laboratory)
+	garage.challenge_requested.connect(enter_challenge)
+	if pending_challenge >= 0: _settle_challenge(pending_challenge)
+	if pending_challenge >= 0:
+		CoreUI.button(garage.preparation,"重试挑战成绩保存",func() -> void: _settle_challenge(pending_challenge))
 	if not last_result.is_empty():
 		garage.result_label.text = "上次课目：%s · %s · %d炮" % [last_result.title,{"passed":"完成","failed":"未完成","running":"中途返回"}.get(last_result.status,"已结束"),last_result.shots]
 		if last_result.has("progression"): garage.result_label.text += "\n"+str(last_result.progression.reason)
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_transitioning = false
+
+func enter_challenge(id: String, level: String) -> void:
+	if _transitioning or ChallengeCatalog.create(id,level).is_empty(): return
+	if pending_challenge >= 0:
+		_settle_challenge(pending_challenge)
+		if pending_challenge >= 0: return
+	if not pending_reward.is_empty():
+		_settle_match(pending_reward.token,pending_reward.result)
+		if not pending_reward.is_empty(): return
+	_transitioning = true
+	call_deferred("_enter_challenge",id,level)
+
+func _enter_challenge(id: String, level: String) -> void:
+	_clear_training()
+	if is_instance_valid(garage): garage.free()
+	garage = null
+	var scene := ChallengeRange.new(); scene.challenge_id = id; scene.difficulty = level
+	training = scene; add_child(scene)
+	_transitioning = false
+	if not scene.challenge_ready: _show_error("挑战初始化失败，请返回车库重试。"); return
+	if not challenges.bind(scene.director):
+		scene.director.finish_once(false,"identity_changed")
+		scene.save_text.text = "挑战登记失败；成绩未保存，请返回车库重试。"
+		scene.return_requested.connect(return_to_garage)
+		return
+	var attempt := scene.director.attempt_id
+	scene.director.finished.connect(func(_result: Dictionary) -> void: _settle_challenge(attempt))
+	scene.return_requested.connect(return_to_garage)
+	scene.restart_requested.connect(func() -> void: enter_challenge(id,level))
+
+func _settle_challenge(attempt: int) -> void:
+	if attempt < 0: return
+	var earned := challenges.settle(attempt)
+	pending_challenge = -1 if earned.ok else attempt
+	if training is ChallengeRange and training.director.attempt_id == attempt:
+		last_result = training.director.result.duplicate(true)
+		last_result.progression = earned
+		training.save_text.text = earned.reason
+	if is_instance_valid(garage):
+		garage.error_label.text = earned.reason
+		if is_instance_valid(garage.challenge_selection): garage.challenge_selection.refresh()
+	if last_result.get("attempt_id",-1) == attempt: last_result.progression = earned
 
 func enter_training(loadout: Dictionary, case_index: int) -> void:
 	if _transitioning: return
