@@ -103,8 +103,8 @@ class Builder:
         return pts
 
     def track_samples(self, pitch):
-        corners = [(0.15, -2.35), (0.15, 2.30), (0.40, 2.62), (0.66, 2.45), (0.66, -2.30),
-                   (0.66, -2.52), (0.44, -2.68), (0.24, -2.58), (0.15, -2.48)]
+        corners = [(0.15, -2.35), (0.15, 2.32), (0.36, 2.58), (0.60, 2.48), (0.66, 2.32),
+                   (0.66, -2.30), (0.66, -2.52), (0.44, -2.68), (0.24, -2.58), (0.15, -2.48)]
         sm = self.chaikin(corners, 3)
         m = len(sm)
         dd = [0.0]
@@ -201,9 +201,9 @@ class Builder:
         self.box('turret', T((-0.655, 1.70, -1.36)), (0.03, 0.08, 0.03), 'recess')
         for s in (-1, 1):
             self.box('turret', T((s * 0.42, 1.945, -0.92)), (0.26, 0.07, 0.20), 'paint')
-        self.rod('turret', T((0.14, 1.90, 0.13)), T((0.14, 2.25, 0.13)), 0.215, 'paint', n=12)
-        self.rod('turret', T((0.14, 2.25, 0.13)), T((0.14, 2.29, 0.13)), 0.19, 'paint', n=12)
-        self.rod('turret', T((0.00, 2.305, 0.13)), T((0.28, 2.305, 0.13)), 0.018, 'steel', n=6, cap_a=False)
+        self.rod('turret', T((0.14, 1.90, -0.30)), T((0.14, 2.25, -0.30)), 0.215, 'paint', n=12)
+        self.rod('turret', T((0.14, 2.25, -0.30)), T((0.14, 2.29, -0.30)), 0.19, 'paint', n=12)
+        self.rod('turret', T((0.00, 2.305, -0.30)), T((0.28, 2.305, -0.30)), 0.018, 'steel', n=6, cap_a=False)
         # ---- gun: trunnion (0,1.74,-1.90), FLAT long barrel to z-3.6 @y1.70 (panel rows 52-71) ----
         go = (0.0, 1.74, -1.90)
         G = lambda p: (p[0] - go[0], p[1] - go[1], p[2] - go[2])
@@ -228,17 +228,10 @@ class Builder:
                     self.rod('wheels', (x_out, 0.40 + math.sin(a) * 0.21, z + math.cos(a) * 0.21),
                              (x_out + s * 0.04, 0.40 + math.sin(a) * 0.21, z + math.cos(a) * 0.21), 0.05, 'light_paint', n=6)
                 self.rod('wheels', (x_out, 0.40, z), (x_out + s * 0.06, 0.40, z), 0.11, 'light_paint', n=10)
-            # rear LARGE idler (same class as road wheels, panel-verified)
-            self.rod('wheels', (x_in, 0.40, 2.30), (x_out, 0.40, 2.30), 0.38, 'rubber', n=20, cap_a=False)
-            self.groups['wheels'][2][-1] = 'paint'
-            seg = 22
-            def wr2(x, r):
-                return [(x, 0.40 + math.sin(k * math.tau / seg) * r, 2.30 + math.cos(k * math.tau / seg) * r)
-                        for k in range(seg)]
-            self.loft('wheels', [wr2(x_out, 0.37), wr2(x_out + 0.045, 0.37),
-                                 wr2(x_out + 0.045, 0.27), wr2(x_out, 0.27)], 'paint', caps=(False, False))
-            self.groups['wheels'][2][-3 * seg:] = ['dark_paint'] * seg + ['paint'] * seg + ['dark_paint'] * seg
-            self.rod('wheels', (x_out, 0.40, 2.30), (x_out + s * 0.06, 0.40, 2.30), 0.11, 'light_paint', n=10)
+            # rear idler: SMALLER trailing wheel (hero view verified) + hub stub
+            self.rod('wheels', (x_in, 0.46, 2.32), (x_out, 0.46, 2.32), 0.30, 'dark_paint', n=16, cap_a=False)
+            self.groups['wheels'][2][-1] = 'steel_face'
+            self.rod('wheels', (x_out, 0.46, 2.32), (x_out + s * 0.06, 0.46, 2.32), 0.10, 'light_paint', n=10)
             # front drive sprocket (block teeth), low & small per panel
             self.rod('wheels', (x_in, 0.40, -2.39), (x_out, 0.40, -2.39), 0.24, 'dark_paint', n=14, cap_a=False)
             self.groups['wheels'][2][-1] = 'steel_face'
@@ -276,12 +269,12 @@ class Builder:
         base = {'steel': 13, 'recess': 13, 'rubber': 12, 'wood': 14, 'glass': 13, 'glass_head': 13,
                 'grille': 7, 'dark_paint': 1, 'steel_face': 13, 'light_paint': 0}.get(color)
         if part == 'wheels' and abs(normal.x) > .99 and color == 'paint':
-            ends = [(-2.39, 0.40), (2.30, 0.40)]
+            ends = [(-2.39, 0.40), (2.32, 0.46)]
             road = all(abs(center.z - e) > .85 for e, _ in [(a, b) for a, b in ends])
             if road:
                 zc = round(center.z / 0.83) * 0.83; yc = 0.40; rc = 0.36
-            elif abs(center.z - 2.30) < 1.0:
-                zc, yc, rc = 2.30, 0.40, 0.34
+            elif abs(center.z - 2.32) < 1.0:
+                zc, yc, rc = 2.32, 0.46, 0.26
             else:
                 zc, yc, rc = -2.39, 0.40, 0.24
             uv = [(.5 + (p.z - zc) / rc * .465, .5 + (p.y - yc) / rc * .465) for p in points]
