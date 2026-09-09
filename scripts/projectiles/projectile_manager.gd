@@ -309,7 +309,12 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 				return
 			if status == "world":
 				var collider: Object = ev.get("collider", null)
-				finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact"})
+				var world_damage: Dictionary = {}
+				if collider is DestructibleSection:
+					world_damage = collider.apply_shell_impact({"manager_id":get_instance_id(),"projectile_id":st.projectile_id,
+						"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
+						"shot_id":st.shot_id,"point":st.position_world,"velocity":st.velocity_world})
+				finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact","world_damage":world_damage})
 				if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
 					collider.register_hit({})
 				return
@@ -507,6 +512,7 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 		"physics_tick": Engine.get_physics_frames(),
 	}
 	record["detail"] = terminal_data.get("detail", "")
+	if not terminal_data.get("world_damage",{}).is_empty(): record["world_damage"] = terminal_data.world_damage.duplicate(true)
 	record["armor_policy"] = st.armor_policy
 	record["contacts"] = st.contacts.duplicate(true)
 	record["damage_records"] = st.damage_records.duplicate(true)

@@ -90,3 +90,10 @@ ResearchGraph.unlock在一次ProfileStore事务中扣点并开放依赖满足的
 MapRegistry是两图的稳定ID、场景、标题和布局描述目录，definition(id)每次创建独立MapDefinition，未知ID返回null；MatchConfig.map_id()读取冻结出战配置。AppFlow选图和重开通过目录解析场景；历史工程默认仍进入hill_village。ProfileStore继续经MatchConfig验证，旧档无需改版本。
 
 IndustrialRange继承VillageRange的通用地图数据接线并覆写定义/世界构建，最终复用TeamRange对局。工业NavigationBakePipeline、SpawnSelector、小地图、补给位置均读取该实例definition，不保留跨场景路网或节点。新增村落补给路点是地图数据修补，不改变车辆执行器或AI权限。
+# 025 追加契约
+
+ArtPalette/StaticArtBatch/WorldArtKit/WorldLighting 管理原创公共美术。HistoricalVehicleModel 的三组 Skin 合批只复用实际布局顶点，不更改装甲或模块数据。GLB 外饰继续跟随原部件轴。GeometryOverlay 独立比较当前世界空间三角形和法线。
+
+ProjectileManager 在实际最近世界接触处调用 DestructibleSection，提交可见结构与同步碰撞变更，再将纯数据 world_damage 写入终止记录；HUD/瞄准预览不调用破坏逻辑。临时尘土和碎片无伤害权限。
+
+VehicleActor 的死亡提交按实际原因启动 WreckTurretMotion（权威炮塔姿态/碰撞）；RecoveryVisuals 只读取状态。炮塔节点重挂后 QuerySnapshotBuilder 继续跟随同一实际节点，结束冻结、重置恢复、实体清理释放。殉爆视觉不可再次触发死亡事件或增加杀伤。存档不保存渲染节点。

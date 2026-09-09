@@ -51,7 +51,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"候选 0.2.4  ·  三项挑战 / 两张地图  ·  配弹与研发  ·  部分几何和模拟参数为估算",15)
+	CoreUI.label(vertical,"候选 0.2.5  ·  统一低模 / 可破坏掩体  ·  三项挑战 / 两张地图  ·  部分模拟参数为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -219,7 +219,7 @@ func _apply_preview_mode() -> void:
 	preview.set_mode(["appearance","armor","interior"][_view_mode])
 	for id in preview._patch_nodes:
 		var mesh: MeshInstance3D = preview._patch_nodes[id]
-		if _view_mode == 0: mesh.material_override.albedo_color = Color("667653")
+		if _view_mode == 0: mesh.material_override.albedo_color = ArtPalette.color("olive")
 		else: preview._restore_patch_color(mesh,id)
 	if preparation != null: preparation.apply_rack_preview()
 	_refresh_inspection()

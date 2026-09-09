@@ -1,5 +1,13 @@
 # Blender 车辆源文件
 
+025 调色维护：共用 `assets/art_palette.json`，`style_metadata.py` 将 sRGB 色板转换为 Blender 线性色，写入来源、分发许可、源/运行文件相对路径、哈希与 LOD 预算。`build_models.py` 和 `export_current.py` 都应用同一材质规则。仅调色且保留现有手工几何时执行：
+
+```powershell
+& E:/blender/blender.exe --background --threads 4 --python-exit-code 1 --python authoring/vehicles/apply_style.py
+```
+
+可在末尾加 `-- us_m4a3_75w_vvss_1944` 先检查样件。脚本保存前逐顶点、逐对象矩阵比较，变化时失败；原始装甲源仍保留作调试参照。编辑或调色会更新对应 `.blend` / GLB / manifest，须一起提交。运行时只读取 GLB；源工程和生成工具由 `.gdignore` 排除。
+
 使用本机已安装的 `E:/blender/blender.exe`，实际版本为 **5.2.1 LTS**。Godot 仍为固定的 4.7.2 普通版。四个 `.blend` 文件包含完整原创建模：命名装甲面、独立 hull/turret/barrel 轴系、可后坐炮身、轮组与悬挂、舱盖、光学件、格栅和机械细节。Blender 源文件受上级 `.gdignore` 排除，不进入游戏资源或导出包。
 
 坐标：1 米 = 1 单位；Blender Z 向上，Godot Y 向上、-Z 向前。导出器进行 `(x,y,z)→(x,-z,y)` 建模坐标转换及 glTF Y-up 导出。轴心已在实际 Godot 导入测试中核对。

@@ -241,7 +241,7 @@ func _on_lost(id: String) -> void:
 	vehicle.tank.forward_speed = 0
 	vehicle.tank.velocity = Vector3.ZERO
 	# A previous player hull becomes ordinary visible cover in the next life's gunsight.
-	for geometry in vehicle.tank.find_children("*","GeometryInstance3D",true,false): geometry.layers = 4
+	for geometry in vehicle.find_children("*","GeometryInstance3D",true,false): geometry.layers = 4
 	wrecks.register(vehicle)
 	if id == "A" and not ai_only:
 		controller.commands_enabled = false
@@ -275,6 +275,7 @@ func _finish_match(result: Dictionary) -> void:
 		vehicle.clear_commands()
 		vehicle.set_physics_process(false)
 		vehicle.turret.set_process(false)
+		vehicle.freeze_wreck()
 		vehicle.tank.forward_speed = 0
 		vehicle.tank.velocity = Vector3.ZERO
 	controller.commands_enabled = false

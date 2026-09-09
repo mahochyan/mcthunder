@@ -127,6 +127,7 @@ func _finish(outcome: Dictionary) -> void:
 	for vehicle in combat_actors():
 		vehicle.pause_block(true); vehicle.clear_commands(); vehicle.set_physics_process(false)
 		vehicle.turret.set_process(false); vehicle.tank.forward_speed = 0; vehicle.tank.velocity = Vector3.ZERO
+		vehicle.freeze_wreck()
 	controller.commands_enabled = false; controller.reset_pending()
 	var reasons := {"objectives_complete":"挑战完成","time_limit":"时间耗尽","player_destroyed":"玩家车辆被击毁","ammunition_empty":"弹药耗尽","flank_required":"靶车击毁，但未确认侧后穿透","abandoned":"主动退出","identity_changed":"车辆身份变更","spawn_blocked":"后续波次出生点被阻挡"}
 	result_text.text = "%s · %s\n%d星 / %d分\n%s"%[config.title,reasons.get(outcome.reason,outcome.reason),outcome.stars,outcome.score,outcome.explanation]

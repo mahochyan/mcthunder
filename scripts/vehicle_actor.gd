@@ -28,6 +28,7 @@ var cam_rig: CameraRig
 var gunner: Gunner
 var controller: Node = null   # PlayerController（本地控制者）或 null（零命令静止）
 var label3d: Label3D
+var wreck_turret: WreckTurretMotion
 var _mailbox := CommandMailbox.new()   # 003-R2：命令暂存
 var debug_command_trace := false       # 003-R2：提交/消费/执行三处调试记录（默认关）
 var command_observer := Callable() # Match rules may cancel spawn protection before an actual command executes.
@@ -104,6 +105,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	if res.has("packet") and definition.content_tier == "production":
 		var shell_result := HistoricalShellCatalog.install(self,res.packet)
 		if not shell_result.ok: return shell_result
+		if OS.get_cmdline_user_args().has("--geometry-overlay"): GeometryOverlay.attach(self)
 	return {"ok": true}
 
 func set_controller(ctrl: Node) -> void:
@@ -180,6 +182,9 @@ func present_damage_record(record: Dictionary) -> void:
 func _commit_death() -> void:
 	state.death_record["point_world"] = tank.global_position
 	state.death_record["ammo_before_loss"] = gunner.inventory.snapshot()
+	if state.death_record.get("cause","")=="ammo_detonation" and definition.id in VehicleCatalog.IDS and not is_instance_valid(wreck_turret):
+		wreck_turret=WreckTurretMotion.new(); add_child(wreck_turret); wreck_turret.launch(self)
+		state.death_record["turret_detached"]=true
 	gunner.inventory.lose_all()
 	_mailbox.clear()
 	if controller != null: controller.reset_pending()
@@ -298,6 +303,8 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 
 func reset_vehicle() -> void:
 	last_recovery_record = {}
+	if is_instance_valid(wreck_turret): wreck_turret.restore()
+	wreck_turret=null
 	# 003：单车重置——不污染其他车/靶场/试射目标
 	# 003-R1：清理旧瞄点/待发命令/炮镜请求/瞬时状态
 	# 003-R2：重置清空暂存（不跨回合执行旧请求）
@@ -316,3 +323,6 @@ func reset_vehicle() -> void:
 		controller.reset_pending()
 	state.reset()
 	tank.state_generation = state.generation
+
+func freeze_wreck() -> void:
+	if is_instance_valid(wreck_turret): wreck_turret.freeze()

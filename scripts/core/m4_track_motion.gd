@@ -23,10 +23,7 @@ func build(parent: Node3D, layer: int, dimensions: Dictionary = {}) -> void:
 		for pad in [false,true]:
 			var mesh := BoxMesh.new()
 			mesh.size = Vector3(width*0.30/0.43,0.022,0.07) if pad else Vector3(width,0.075,0.11)
-			var material := StandardMaterial3D.new()
-			material.albedo_color = M4LowPolyDetails.RUBBER if pad else M4LowPolyDetails.STEEL
-			material.roughness = 0.9
-			mesh.material = material
+			mesh.material = ArtPalette.material("rubber" if pad else "steel")
 			var multimesh := MultiMesh.new()
 			multimesh.transform_format = MultiMesh.TRANSFORM_3D
 			multimesh.mesh = mesh
@@ -35,6 +32,9 @@ func build(parent: Node3D, layer: int, dimensions: Dictionary = {}) -> void:
 			node.name = "Cosmetic_TrackShoes_%s_%s"%[str(side),"Pad" if pad else "Shoe"]
 			node.layers = layer
 			node.multimesh = multimesh
+			if pad:
+				node.visibility_range_end = 100.0
+				node.visibility_range_end_margin = 10.0
 			add_child(node)
 			assemblies.append({"mesh":multimesh,"side":side,"pad":pad})
 	update_shoes()

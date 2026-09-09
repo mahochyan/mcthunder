@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "style": "original_low_poly_025",
+  "colors": {
+    "olive": "626d49", "edge": "87906b", "dark": "30372c",
+    "rubber": "252a25", "steel": "555c50", "canvas": "827953", "glass": "49636a",
+    "plaster": "c1b28e", "roof": "89614e", "brick": "9c7060", "mortar": "a39b86",
+    "wood": "89704d", "wood_dark": "544b3b", "concrete": "8d9188",
+    "warehouse": "7f8a83", "road": "65675d", "earth": "8c8264",
+    "grass": "737e58", "leaves": "657252", "stone": "7d8274",
+    "charcoal": "34383c", "smoke": "484842", "fire": "f39137", "ember": "e5bd61"
+  },
+  "roughness": 0.9,
+  "source": "Original project palette",
+  "redistribute_source_allowed": true
+}

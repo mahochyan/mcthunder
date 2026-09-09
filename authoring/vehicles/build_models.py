@@ -8,6 +8,7 @@ import bpy
 import hashlib
 import json
 import math
+import sys
 from pathlib import Path
 from mathutils import Vector
 
@@ -15,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[2]
 AUTHOR = ROOT / 'authoring/vehicles'
 OUTPUT = ROOT / 'assets/vehicles'
 OUTPUT.mkdir(parents=True, exist_ok=True)
+sys.path.insert(0, str(AUTHOR))
+import style_metadata as style
 
 
 def coord(p):
@@ -279,6 +282,7 @@ def run():
                     area.spaces.active.shading.color_type = 'MATERIAL'
                     area.spaces.active.region_3d.view_distance = 11
                     area.spaces.active.region_3d.view_location = (0,0,1.1)
+        style.apply_palette()
         bpy.ops.wm.save_as_mainfile(filepath=str(AUTHOR/(seed_path.stem+'.blend')))
         bpy.ops.export_scene.gltf(filepath=str(OUTPUT/(seed_path.stem+'.glb')),export_format='GLB',
                                   export_apply=True,export_extras=True,export_yup=True,export_cameras=False,export_lights=False)
@@ -288,6 +292,7 @@ def run():
                     'glb_sha256':hashlib.sha256((OUTPUT/(seed_path.stem+'.glb')).read_bytes()).hexdigest(),
                     'armor_patches':len(seed['armor']),'source':'Original Blender geometry',
                     'cosmetic_geometry_affects_damage':False}
+        style.metadata(manifest, AUTHOR/(seed_path.stem+'.blend'), OUTPUT/(seed_path.stem+'.glb'))
         (OUTPUT/(seed_path.stem+'.manifest.json')).write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
         print('BLENDER_MODEL_PASS '+seed_path.stem)
 

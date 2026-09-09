@@ -17,14 +17,18 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	actor.turret._flash.position = actor.turret.muzzle.position-Vector3(0,0,0.05)
 	actor.cam_rig.position.y = float(g.turret_origin[1])+0.3
 	actor.label3d.position.y = float(g.turret_origin[1])+float(g.turret_top)+0.5
-	for patch in layout.armor_patches:
-		var mesh := MeshInstance3D.new(); mesh.name = "Skin_"+patch.id
-		mesh.mesh = ArmorPatchMesh.build_surface(patch.vertices_local_m,patch.triangles,patch.outward_normal_local)
-		var material := StandardMaterial3D.new()
-		material.albedo_color = M4LowPolyDetails.OLIVE; material.roughness = 0.92
-		material.cull_mode = BaseMaterial3D.CULL_DISABLED
-		mesh.material_override = material; mesh.layers = actor.tank.visual_layer
-		DamageTrainingLayout.part_node(actor,patch.part_id).add_child(mesh)
+	# One skin surface per moving part. Every triangle still comes from the exact query layout.
+	for part in ["hull","turret","barrel"]:
+		var batch := StaticArtBatch.new()
+		var ids: Array[String] = []
+		for patch in layout.armor_patches:
+			if patch.part_id != part: continue
+			batch.mesh(ArmorPatchMesh.build_surface(patch.vertices_local_m,patch.triangles,patch.outward_normal_local),Transform3D.IDENTITY,ArtPalette.color("olive"))
+			ids.append(patch.id)
+		if ids.is_empty(): continue
+		var skin := batch.finish(DamageTrainingLayout.part_node(actor,part),"Skin_"+part,actor.tank.visual_layer)
+		skin.material_override = ArtPalette.material("olive",true,true)
+		skin.set_meta("gameplay_patch_ids",ids)
 	build_details(actor.tank,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 
@@ -56,4 +60,9 @@ static func build_details(hull: Node3D, turret: Node3D, gun: Node3D, packet: Dic
 
 static func _set_layers(node: Node, layer: int) -> void:
 	if node is VisualInstance3D: node.layers = layer
+	if node is GeometryInstance3D and node.name.begins_with("Cosmetic"):
+		# Small fittings disappear only beyond recognition distance. Armor and cannon stay.
+		if "Dark" in str(node.name) or "Glass" in str(node.name) or "Canvas" in str(node.name):
+			node.visibility_range_end = 140.0
+			node.visibility_range_end_margin = 12.0
 	for child in node.get_children(): _set_layers(child,layer)

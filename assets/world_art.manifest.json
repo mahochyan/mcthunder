@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "author": "MCTHUNDER project, original procedural geometry and shaders/materials",
+  "source": "Original project scripts; no extracted game models, textures, or third-party artwork",
+  "license_status": "Project-authored source; redistribution with this project allowed; no third-party attribution obligations",
+  "redistribute_source_allowed": true,
+  "generator": "authoring/update_world_manifest.py",
+  "runtime_generation": "Godot 4.7.2-stable GDScript; no Blender or Python needed to play",
+  "scale": "1 Godot unit = 1 meter; Y up, forward -Z",
+  "assets": [
+    {
+      "id": "house_warehouse_wall_tree_rocks",
+      "purpose": "house warehouse wall tree rocks",
+      "files": [
+        {
+          "path": "scripts/art/world_art_kit.gd",
+          "sha256": "a1d53b12af0b80c3ba47570c1f1cb940ae114fdb4a05b0e8ff603b4e79f623b8"
+        },
+        {
+          "path": "scripts/art/world_props.gd",
+          "sha256": "33058f2dba8ca0c26783425de21c4815c931c79d3e9f1d23d7d09092d37229df"
+        }
+      ]
+    },
+    {
+      "id": "ground_and_roads",
+      "purpose": "ground and roads",
+      "files": [
+        {
+          "path": "scripts/maps/village_world.gd",
+          "sha256": "ec5acbb31e9effe72cf0bcd18ce97502c7e7df7a47dbf9eb179ce91f769380d2"
+        },
+        {
+          "path": "scripts/maps/industrial_world.gd",
+          "sha256": "5c7f7665cf7509bb37c2d73f31e7eb14a24a68bae0257fceb88732cb4344f619"
+        }
+      ]
+    },
+    {
+      "id": "destructible_shed_and_brick",
+      "purpose": "destructible shed and brick",
+      "files": [
+        {
+          "path": "scripts/art/special_structures.gd",
+          "sha256": "39bad790c1838f28fdc49e126d1c4222c1705f21a7039db768a642590c1813bd"
+        },
+        {
+          "path": "scripts/art/destructible_section.gd",
+          "sha256": "7b62c1ce8a883b5465a934ec4e93f9d419f534ea432673505005a42afbff34a5"
+        },
+        {
+          "path": "scripts/art/structure_collapse.gd",
+          "sha256": "5bb78b53155451b3859b0b9521cfcf8a21ced871b03322d95659ec92804b300b"
+        },
+        {
+          "path": "scripts/art/structure_dust.gd",
+          "sha256": "168140a02bb0c41f4a0f36996fdaa02d384172c7406740bc691c6f1ca8fbbcd1"
+        }
+      ]
+    },
+    {
+      "id": "wreck_effects",
+      "purpose": "wreck effects",
+      "files": [
+        {
+          "path": "scripts/damage/recovery_visuals.gd",
+          "sha256": "277d4e9ada028cafbd6f3594149abbb5d29ed2867c4fb3696652582eb4ccdb80"
+        },
+        {
+          "path": "scripts/damage/wreck_turret_motion.gd",
+          "sha256": "e051225600cd94ef4cc29024e4981c134a61c5fe4f04fd4463f502de505d780a"
+        }
+      ]
+    },
+    {
+      "id": "shared_rendering",
+      "purpose": "shared rendering",
+      "files": [
+        {
+          "path": "scripts/art/art_palette.gd",
+          "sha256": "d981ebfb1e0190e29c9ed7a9443734ab9bf04ec573908cd226754ab0ff5ca0ba"
+        },
+        {
+          "path": "scripts/art/static_art_batch.gd",
+          "sha256": "86567b5cf1e2c7f7d36b818ca8d3e33bd7d060eb64bd49120ded550061764adf"
+        },
+        {
+          "path": "scripts/art/world_lighting.gd",
+          "sha256": "65b256ad6f305aa6d51405ba794a11ec9646c979e45f2baf1aea4d4b33c6dbc0"
+        },
+        {
+          "path": "assets/art_palette.json",
+          "sha256": "60405fff4ebd62703b9c83471604bf6b1474ae6750bc3b0845dc447fe753be53"
+        }
+      ]
+    }
+  ]
+}

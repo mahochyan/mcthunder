@@ -1,2 +1,3 @@
 *.import -text
 authoring/vehicles/seeds/*.json -text
+assets/art_palette.json -text

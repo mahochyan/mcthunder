@@ -52,6 +52,8 @@ func _ready() -> void:
 	barrel_pivot.add_child(muzzle)
 	_flash = MeshInstance3D.new()
 	var sm := SphereMesh.new()
+	sm.radial_segments = 8
+	sm.rings = 3
 	sm.radius = 0.14
 	sm.height = 0.28
 	var fmat := StandardMaterial3D.new()
