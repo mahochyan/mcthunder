@@ -83,6 +83,8 @@ func run(flow: AppFlow) -> void:
 	if battle.director.phase == "finished":
 		await tap(KEY_V); await frames(15)
 		check(battle.replay.view.visible,"normal V opens post-result real shot replay")
+		var close_rect := battle.battle_ui.overlay.replay_close_button.get_global_rect()
+		check(Rect2(Vector2.ZERO,Vector2(get_tree().root.size)).encloses(close_rect),"visible replay close button is fully inside actual game window")
 		await capture("05_real_shot_replay")
 		await tap(KEY_V)
 		await click(battle.return_button); await frames(10)

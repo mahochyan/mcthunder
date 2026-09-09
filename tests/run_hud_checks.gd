@@ -136,6 +136,7 @@ func layout_cases() -> void:
 				inside = inside and viewport.encloses(panels[i].get_global_rect())
 				for j in range(i+1,panels.size()): separated = separated and not panels[i].get_global_rect().intersects(panels[j].get_global_rect())
 			check(inside and separated,"T017-03 primary HUD containers fit and do not overlap at %sx scale %.2f"%[dimensions,scale_factor])
+			check(viewport.encloses(ui.replay_close_button.get_global_rect()),"replay close control stays completely inside viewport at %sx scale %.2f"%[dimensions,scale_factor])
 			ui.scoreboard.visible = true
 			await frames(3)
 			check(viewport.encloses(ui.scoreboard_panel.get_global_rect()) and ui.board_close_button.is_visible_in_tree(),"battle status and close control remain in viewport")

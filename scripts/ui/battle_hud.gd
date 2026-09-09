@@ -205,8 +205,10 @@ func _build() -> void:
 	replay_controls = Control.new()
 	add_child(replay_controls)
 	replay_controls.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	replay_controls.position = Vector2(-130,20)
-	replay_controls.size = Vector2(260,50)
+	replay_controls.offset_left = -130
+	replay_controls.offset_right = 130
+	replay_controls.offset_top = 20
+	replay_controls.offset_bottom = 70
 	replay_close_button = _button(replay_controls,"关闭回放 / V",func() -> void: replay_close_requested.emit())
 	replay_close_button.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	replay_controls.visible = false
