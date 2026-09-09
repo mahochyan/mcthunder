@@ -74,6 +74,21 @@ func set_goal(value: Vector3) -> Dictionary:
 	_last_plan = -INF
 	return _plan()
 
+func escape_goal() -> Vector3:
+	# Nearest graph node to self: stepping back onto the graph is always one hop
+	# and gives a repeatedly-unplannable goal a chance to be re-attempted from a
+	# connected position instead of idling on the same failure.
+	var vehicle := actor()
+	if vehicle == null or navigator == null: return Vector3.INF
+	var best := Vector3.INF
+	var best_d := INF
+	for id in navigator.nodes:
+		var d: float = vehicle.tank.global_position.distance_to(navigator.nodes[id])
+		if d < best_d:
+			best_d = d
+			best = navigator.nodes[id]
+	return best
+
 func _plan() -> Dictionary:
 	var vehicle := actor()
 	if vehicle == null or not has_goal: return {"ok":false,"reason":"cancelled"}

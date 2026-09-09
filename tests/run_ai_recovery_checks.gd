@@ -92,6 +92,22 @@ func _run() -> void:
 	cmd = scene.ai.update_command(0.3)
 	_check(scene.ai.phase == "retreat" and not cmd.repair_requested,"dry+mobile vehicle retreats for resupply rather than stalling on non-critical repair")
 	heal_all(bot)
+	# C11 unreachable objective: retry must hop onto the graph, not idle on the identical failed plan.
+	bot.gunner.rounds_remaining = 10
+	scene.ai.advance_while_engaged = true
+	scene.ai.set_patrol(Vector3(0,0,900),Vector3(0,0,900))
+	scene.ai.driver.cancel("test")
+	scene.ai.driver.phase = "idle"
+	scene.ai._next_objective_retry = -1.0
+	scene.ai.driver.events.clear()
+	cmd = scene.ai.update_command(0.3)
+	cmd = scene.ai.update_command(0.3)
+	# The unreachable 900 objective must be attempted, then the retry hops to a
+	# reachable graph node (the lab bot sits ON a node, so the hop arrives fast).
+	var hop_events := 0
+	for ev in scene.ai.driver.events:
+		if ev.get("goal", Vector3.ZERO) != Vector3(0,0,900) and ev.get("goal", Vector3.INF).is_finite(): hop_events += 1
+	_check(hop_events > 0,"unreachable objective is replaced by a hop onto the nearest graph node, not re-planned identically")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("AI_RECOVERY_CHECKS_PASS" if failed == 0 else "AI_RECOVERY_CHECKS_FAIL")
 	scene.free()

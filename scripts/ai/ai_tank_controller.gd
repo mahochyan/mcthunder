@@ -66,6 +66,14 @@ func poll() -> VehicleCommand:
 	last_command = update_command(get_physics_process_delta_time())
 	return last_command
 
+func _drive_patrol_or_hop() -> void:
+	# Normal patrol order, with one bounded fallback: if the objective is not
+	# plannable from the current pocket, hop onto the nearest graph node so the
+	# vehicle keeps making real progress instead of idling on the failed goal.
+	if not driver.set_goal(patrol_goal).ok:
+		var hop := driver.escape_goal()
+		if hop.is_finite(): driver.set_goal(hop)
+
 func update_command(delta: float) -> VehicleCommand:
 	var cmd := VehicleCommand.new()
 	var vehicle := actor()
@@ -132,10 +140,13 @@ func update_command(delta: float) -> VehicleCommand:
 	if advance_while_engaged and has_patrol and caps.drive and not recovering and clock >= _next_objective_retry:
 		_next_objective_retry = clock+10.0
 		if driver.phase in ["failed","unreachable","idle"] and vehicle.tank.global_position.distance_to(patrol_goal)>GameConfig.AI_GOAL_RADIUS_M:
-			driver.set_goal(patrol_goal)
+			# If the objective stays unplannable from here (disconnected pocket or
+			# width-blocked edges), hop onto the nearest graph node instead of
+			# idling ten seconds at a time on the identical failed plan (023 stall).
+			_drive_patrol_or_hop()
 	if observation.is_empty():
 		if not caps.drive or recovering: return cmd
-		if phase != "patrol" and has_patrol: driver.set_goal(patrol_goal)
+		if phase != "patrol" and has_patrol: _drive_patrol_or_hop()
 		phase = "patrol"
 		return driver.update_command(delta)
 	if not observation.visible:
