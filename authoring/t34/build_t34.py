@@ -130,31 +130,31 @@ class Builder:
         return out
 
     def build(self):
-        # ---- hull: lofted welded plates (narrow belly, fenders over tracks) ----
-        hull = self.hull_ring2(0.42, 0.66, -2.55, -2.30, 2.28, 0.05)
-        fender = self.hull_ring2(0.96, 1.30, -2.90, -2.55, 2.70, 0.05)
-        mid = self.hull_ring2(1.28, 1.12, -2.24, -2.10, 2.52, 0.20)
-        deck = self.hull_ring2(1.55, 0.98, -1.55, -1.50, 2.40, 0.0)
+        # ---- hull: tall body, ~vertical sloped sides (side-view truth) ----
+        hull = self.hull_ring2(0.42, 0.72, -2.55, -2.25, 2.25, 0.05)
+        fender = self.hull_ring2(0.96, 1.04, -2.75, -2.55, 2.62, 0.05)
+        mid = self.hull_ring2(1.32, 1.00, -2.36, -2.28, 2.50, 0.0)
+        deck = self.hull_ring2(1.68, 0.95, -2.00, -1.95, 2.35, 0.0)
         self.loft('hull', [hull, fender], 'dark_paint', caps=(True, False))
         self.loft('hull', [fender, mid], 'paint', caps=(False, False))
         self.loft('hull', [mid, deck], 'paint', caps=(False, True))
-        # fenders (plates over the tracks, cut-corner outer edge)
+        # fenders attach as thin plates outboard of the hull side
         for s in (-1, 1):
-            self.box('hull', (s * 1.16, 0.96, 0.15), (0.40, 0.035, 5.05), 'paint')
-            self.box('hull', (s * 1.16, 0.94, -2.30), (0.40, 0.035, 0.72), 'paint')
+            self.box('hull', (s * 1.18, 0.96, 0.10), (0.30, 0.035, 4.95), 'paint')
+            self.box('hull', (s * 1.18, 0.93, -2.40), (0.30, 0.035, 0.66), 'paint')
         # driver vision plug on glacis (round boss + slit glass)
-        self.rod('hull', (-0.42, 1.22, -2.32), (-0.48, 1.44, -2.24), 0.17, 'paint', n=12)
-        self.box('hull', (-0.50, 1.46, -2.22), (0.16, 0.07, 0.20), 'glass')
+        self.rod('hull', (-0.42, 1.30, -2.44), (-0.42, 1.46, -2.28), 0.17, 'paint', n=12)
+        self.box('hull', (-0.42, 1.48, -2.25), (0.16, 0.10, 0.20), 'glass')
         # transmission hatch on glacis center-right + two levers
-        self.box('hull', (0.40, 1.30, -2.10), (0.50, 0.09, 0.36), 'paint')
+        self.box('hull', (0.40, 1.48, -2.22), (0.50, 0.10, 0.36), 'paint')
         for dz in (-0.10, 0.10):
-            self.rod('hull', (0.40, 1.37, -2.10 + dz), (0.40, 1.47, -2.10 + dz), 0.015, 'steel', n=5, cap_a=False)
+            self.rod('hull', (0.40, 1.55, -2.22 + dz), (0.40, 1.66, -2.22 + dz), 0.015, 'steel', n=5, cap_a=False)
         # front D shackles (one high-left, one low-right per concept 3/4)
-        self.rod('hull', (-0.62, 1.14, -2.46), (-0.62, 1.36, -2.40), 0.085, 'steel', n=8)
-        self.rod('hull', (0.55, 1.00, -2.80), (0.55, 1.22, -2.74), 0.085, 'steel', n=8)
+        self.rod('hull', (-0.58, 1.12, -2.55), (-0.58, 1.34, -2.36), 0.085, 'steel', n=8)
+        self.rod('hull', (0.52, 1.02, -2.68), (0.52, 1.24, -2.49), 0.085, 'steel', n=8)
         # rear D shackles x2
         for s in (-1, 1):
-            self.rod('hull', (s * 0.55, 0.80, 2.70), (s * 0.55, 1.02, 2.70), 0.085, 'steel', n=8)
+            self.rod('hull', (s * 0.50, 0.72, 2.66), (s * 0.50, 0.94, 2.63), 0.085, 'steel', n=8)
         # headlights with guards on fenders
         for s in (-1, 1):
             self.box('hull', (s * 1.05, 1.02, -1.90), (0.06, 0.14, 0.06), 'steel')
@@ -171,45 +171,49 @@ class Builder:
         for s in (-1, 1):
             self.rod('hull', (s * 0.92, 1.32, 2.35), (s * 1.00, 1.62, 2.72), 0.075, 'steel', n=10)
             self.rod('hull', (s * 1.00, 1.62, 2.72), (s * 1.02, 1.68, 2.80), 0.05, 'recess', n=10, cap_a=False)
-        # cylindrical fuel tanks x2 on rear fenders + retaining bands
-        for s in (-1, 1):
-            self.rod('hull', (s * 1.14, 1.16, 1.45), (s * 1.14, 1.16, 2.40), 0.19, 'paint', n=14)
-            for z in (1.62, 2.22):
-                self.rod('hull', (s * 1.14, 1.16, z - 0.035), (s * 1.14, 1.16, z + 0.035), 0.205, 'steel', n=14, cap_a=False, cap_b=False)
+        # athwartships cylindrical fuel tank across rear deck (rear view: round caps both sides)
+        self.rod('hull', (-1.30, 1.88, 1.50), (1.30, 1.88, 1.50), 0.19, 'paint', n=14)
+        for x in (-0.55, 0.55):
+            self.rod('hull', (x - 0.04, 1.88, 1.50), (x + 0.04, 1.88, 1.50), 0.205, 'steel', n=14, cap_a=False, cap_b=False)
+            self.box('hull', (x, 1.715, 1.50), (0.10, 0.08, 0.16), 'steel')
+        # deck filler cap
+        self.rod('hull', (-0.15, 1.685, 0.70), (-0.15, 1.72, 0.70), 0.13, 'paint', n=10)
         # deck stowage: wooden box + shovel
         self.box('hull', (0.20, 1.645, 0.15), (0.50, 0.17, 0.38), 'wood')
         self.rod('hull', (-0.48, 1.60, -0.55), (-0.48, 1.60, 0.85), 0.03, 'wood', n=6, cap_a=False)
         self.box('hull', (-0.48, 1.60, 0.98), (0.16, 0.05, 0.26), 'steel')
-        # ---- turret (high-bellied cast, flat-ish top; parent empty at turret origin) ----
-        to = (0.0, 1.55, -0.25)
+        # ---- turret: angular faceted cast (flat planes, big roof chamfer; sheet: NOT rounded) ----
+        to = (0.0, 1.68, -0.55)
         def T(p):
             return (p[0] - to[0], p[1] - to[1], p[2] - to[2])
-        def tring(y, sx, sz, zf, zr, xm=1.05, zm=1.28):
-            pts = [(0.0, zf * sz), (xm * 0.55 * sx, zf * sz), (xm * 0.88 * sx, (zf + 0.30) * sz * 0.9),
-                   (xm * sx, 0.0), (xm * 0.95 * sx, (zr - 0.4) * sz * 0.9), (xm * 0.72 * sx, zr * sz * 0.85),
-                   (xm * 0.30 * sx, zr * sz * 0.98)]
+        def tring(y, xs, zf, zt, zr):
+            pts = [(0.00, zf), (0.50 * xs, zf + 0.02), (xs, zf + 0.50),
+                   (xs, zt), (xs, zr - 0.40), (0.52 * xs, zr)]
             ring = [(x, y, z) for x, z in pts] + [(-x, y, z) for x, z in pts[::-1]]
             return [T(p) for p in ring]
-        self.loft('turret', [tring(1.58, 1, 1, -1.50, 1.22), tring(1.76, 1.04, 1.02, -1.55, 1.26),
-                             tring(2.02, 1.00, 1.00, -1.50, 1.20), tring(2.22, 0.88, 0.90, -1.36, 1.04),
-                             tring(2.38, 0.70, 0.72, -1.20, 0.86)], 'paint')
-        # mantlet (cast round shield + collar) and vision slit
-        self.loft('turret', [[T((0.40 * math.cos(a), 1.92 + 0.40 * math.sin(a), -1.40)) for a in [i * math.tau / 12 for i in range(12)]],
-                             [T((0.38 * math.cos(a), 1.92 + 0.38 * math.sin(a), -1.56)) for a in [i * math.tau / 12 for i in range(12)]]],
-                  'paint')
-        self.rod('turret', T((0, 1.92, -1.50)), T((0, 1.92, -2.02)), 0.185, 'paint', n=12, cap_a=False)
-        self.box('turret', T((0.56, 2.10, -1.44)), (0.045, 0.17, 0.05), 'recess')
+        # nearly vertical walls (x barely tapers) + sloped front/rear plates -> angular cast, not a dome
+        self.loft('turret', [tring(1.68, 1.06, -1.92, -0.45, 1.00),
+                             tring(2.34, 0.97, -1.62, -0.45, 0.72)], 'paint', caps=(True, True))
+        # skirt ring at the very base (fills the deck joint)
+        self.loft('turret', [tring(1.66, 1.10, -1.96, -0.45, 1.04),
+                             tring(1.74, 1.06, -1.92, -0.45, 1.00)], 'paint', caps=(False, False))
+        # mantlet: cast trapezoid bulge + trunnion collar + small left vision port
+        self.box('turret', T((0, 1.98, -1.78)), (1.15, 0.66, 0.18), 'paint')
+        self.rod('turret', T((0, 1.98, -1.68)), T((0, 1.98, -2.10)), 0.18, 'paint', n=14, cap_a=False)
+        self.rod('turret', T((0, 1.98, -1.98)), T((0, 1.98, -2.08)), 0.205, 'paint', n=14, cap_a=False)
+        self.box('turret', T((-0.70, 2.10, -1.58)), (0.12, 0.18, 0.10), 'paint')
+        self.box('turret', T((-0.77, 2.10, -1.58)), (0.03, 0.10, 0.03), 'recess')
         # turret roof: two raised corner blocks + commander hatch drum w/ handle
         for s in (-1, 1):
-            self.box('turret', T((s * 0.50, 2.42, -0.72)), (0.34, 0.10, 0.26), 'paint')
-        self.rod('turret', T((0.20, 2.36, 0.45)), T((0.20, 2.48, 0.45)), 0.30, 'paint', n=12)
-        self.rod('turret', T((0.20, 2.48, 0.45)), T((0.20, 2.51, 0.45)), 0.26, 'paint', n=12)
-        self.rod('turret', T((0.05, 2.525, 0.45)), T((0.35, 2.525, 0.45)), 0.02, 'steel', n=6, cap_a=False)
+            self.box('turret', T((s * 0.48, 2.36, -1.12)), (0.30, 0.09, 0.24), 'paint')
+        self.rod('turret', T((0.16, 2.32, 0.28)), T((0.16, 2.44, 0.28)), 0.24, 'paint', n=12)
+        self.rod('turret', T((0.16, 2.44, 0.28)), T((0.16, 2.47, 0.28)), 0.21, 'paint', n=12)
+        self.rod('turret', T((0.02, 2.485, 0.28)), T((0.30, 2.485, 0.28)), 0.02, 'steel', n=6, cap_a=False)
         # ---- gun (barrel empty at gun origin, local) ----
-        go = (0.0, 1.92, -2.00)
+        go = (0.0, 1.98, -2.10)
         G = lambda p: (p[0] - go[0], p[1] - go[1], p[2] - go[2])
-        self.rod('gun_recoil', G((0, 1.92, -1.95)), G((0, 1.92, -4.60)), 0.10, 'paint', n=16, cap_a=False)
-        self.rod('gun_recoil', G((0, 1.92, -4.28)), G((0, 1.92, -4.67)), 0.12, 'paint', n=16, cap_a=False)
+        self.rod('gun_recoil', G((0, 1.95, -2.05)), G((0, 1.95, -4.95)), 0.095, 'paint', n=16, cap_a=False)
+        self.rod('gun_recoil', G((0, 1.95, -4.55)), G((0, 1.95, -5.02)), 0.115, 'paint', n=16, cap_a=False)
         # ---- running gear: 5 Christie wheels + front sprocket + rear idler ----
         for s in (-1, 1):
             x_in, x_out = s * 1.02, s * 1.20
@@ -283,8 +287,8 @@ def create(model):
     node.image = image
     material.node_tree.links.new(node.outputs['Color'], shader.inputs['Base Color'])
     parts = {}
-    for part, parent, origin in [('hull', None, (0, 0, 0)), ('turret', 'hull', (0.0, 1.55, -0.25)),
-                                 ('barrel', 'turret', (0.0, 0.37, -1.75)), ('gun_recoil', 'barrel', (0, 0, 0))]:
+    for part, parent, origin in [('hull', None, (0, 0, 0)), ('turret', 'hull', (0.0, 1.68, -0.55)),
+                                 ('barrel', 'turret', (0.0, 0.30, -1.55)), ('gun_recoil', 'barrel', (0, 0, 0))]:
         obj = bpy.data.objects.new(part, None)
         bpy.context.collection.objects.link(obj)
         if parent:
