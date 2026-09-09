@@ -6,7 +6,7 @@ ProjectileManager拥有CombatFeedback，Gunner在实际发射提交完毕后通�
 
 发动机音高读取车速，履带读取车速及车体实际角速度，炮塔读取实际俯仰/旋转差，火焰读取真实起火和殉爆状态。没有音效对战斗状态的反向写入。音源按距离衰减，12米尺度、240米最大距离。参考[Godot AudioStreamPlayer3D](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer3d.html)的距离、最大电平与音量定义，使用引擎3D声像。
 
-每场32个固定AudioStreamPlayer3D，24循环、8事件，事件不会被发动机占满。循环增益上限0.01、事件0.08；优先级0机械循环、1环境接触/飞行/火、2装甲接触、3发射/装填、4死亡。满池时更高优先级替换低优先级。最坏同相源峰值上限0.8×(24×0.01+8×0.08)=0.704，之后再施加用户音量和距离衰减；实际混音峰值另从Combat音频总线和保存的WAV核验。未添加放大或混响效果。
+每场32个固定AudioStreamPlayer3D，24循环、8事件，事件不会被发动机占满。循环增益上限0.01、事件0.08；优先级0机械循环、1环境接触/飞行/火、2装甲接触、3发射/装填、4死亡。满池时更高优先级替换低优先级。最坏同相源峰值上限0.8×(24×0.01+8×0.08)=0.704，再经距离衰减。实际录音发现保守源增益下电平偏低，Combat总线使用[AudioEffectHardLimiter](https://docs.godotengine.org/en/stable/classes/class_audioeffecthardlimiter.html)前级增益18dB、峰值上限−1dB、释放0.1秒，用户音量0—1。混音峰值另从Combat总线和保存的WAV核验；没有混响素材或额外物理影响。
 
 CombatFXPool预分配12组、每组最多8个可见粒子，寿命0.5秒。较少档每组4个，关闭档不显示；没有碰撞体或伤害射线。原炮口/飞弹/残骸效果同样遵守关闭设置，真实弹道和内构保持运行。镜头震动只更改Camera3D光学偏移，强度0—1，炮镜衰减到20%；稳定镜头默认开启。
 

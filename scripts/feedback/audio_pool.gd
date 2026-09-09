@@ -19,6 +19,9 @@ func _ready() -> void:
 	if AudioServer.get_bus_index(BUS)<0:
 		AudioServer.add_bus(); AudioServer.set_bus_name(AudioServer.bus_count-1,BUS)
 		AudioServer.set_bus_send(AudioServer.get_bus_index(BUS),"Master")
+		var limiter:=AudioEffectHardLimiter.new()
+		limiter.pre_gain_db=18.0; limiter.ceiling_db=-1.0; limiter.release=0.1
+		AudioServer.add_bus_effect(AudioServer.get_bus_index(BUS),limiter)
 	for i in CAPACITY:
 		var player:=AudioStreamPlayer3D.new(); player.bus=BUS
 		player.unit_size=12.0; player.max_distance=240.0

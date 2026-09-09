@@ -102,6 +102,8 @@ func _run() -> void:
 	for i in 8: feedback.audio.play_voice("event_load:"+str(i),"world",Vector3.ZERO,0)
 	check(feedback.audio.play_voice("critical","explosion",Vector3.ZERO,4),"priority-pool fixture: a critical clip replaces a saturated low-priority loop")
 	check((CombatAudioPool.LOOP_CAPACITY*CombatAudioPool.LOOP_GAIN+8*CombatAudioPool.EVENT_GAIN)*0.8<0.71,"reserved event/loop slots retain a coherent worst-case peak below clipping")
+	var limiter:=AudioServer.get_bus_effect(AudioServer.get_bus_index(CombatAudioPool.BUS),0) as AudioEffectHardLimiter
+	check(limiter!=null and limiter.ceiling_db<= -1 and is_equal_approx(limiter.pre_gain_db,18),"actual Combat bus adds calibrated gain with a -1dB hard ceiling")
 	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/manifest.json"))
 	check(manifest.clips.size()==13 and manifest.redistribute_source_allowed,"all thirteen original audio clips have provenance and fixed hashes")
 	var hashes_ok:=true
