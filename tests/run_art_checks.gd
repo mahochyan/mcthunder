@@ -26,6 +26,11 @@ func _run() -> void:
 		var report:=GeometryOverlay.compare(actor)
 		check(report.ok,id+": every visible skin triangle and normal equals current query geometry "+str(report.errors))
 		var budget:=AssetBudgetReport.inspect(actor)
+		var model_budget:=AssetBudgetReport.inspect_vehicle_model(actor)
+		print("[vehicle model budget] ",id," ",JSON.stringify(model_budget))
+		check(model_budget.triangles<=AssetBudgetReport.VEHICLE_MODEL_TRIANGLE_BUDGET and model_budget.triangles==int(manifest.manifest.actual_triangles),id+": complete visible vehicle including both tracks matches export count and stays within 1100 triangles")
+		var tracks:=actor.tank.get_node_or_null("HistoricalTrackMotion") as HistoricalTrackMotion
+		check(tracks!=null and tracks.tracks.size()==2 and VehicleAtlas.material().albedo_texture!=null,id+": actual low-poly track meshes use two independent texture-scroll materials")
 		print("[asset budget] ",id," ",JSON.stringify(budget))
 		check(budget.triangles<=AssetBudgetReport.VEHICLE_TRIANGLE_BUDGET and budget.draw_surfaces<=AssetBudgetReport.VEHICLE_DRAW_SURFACE_BUDGET,id+": actual vehicle including tracks and allocated wreck effects stays within recorded triangle/draw budget")
 		var original:=actor.definition.drive_collision_size
@@ -33,8 +38,15 @@ func _run() -> void:
 			var cmd:=VehicleCommand.new(); cmd.steer=0.4; cmd.has_aim_point=true; cmd.aim_world_point=Vector3(18,4,-22)
 			actor.submit_command(cmd); await frames(1)
 		report=GeometryOverlay.compare(actor)
+		check(tracks!=null and absf(float(tracks.tracks[0].phase))>0.01 and absf(float(tracks.tracks[1].phase))>0.01,id+": real hull steering advances both track textures")
 		check(report.ok and absf(actor.turret.rotation.y)>0.1,id+": real steering/slew preserves moving visual/query alignment")
 		check(actor.definition.drive_collision_size==original and actor.turret.recoil_visual.get_parent()==actor.turret.barrel_pivot,id+": original driving envelope and cannon recoil hierarchy preserved")
+		var phases: Array = tracks.tracks.map(func(row: Dictionary) -> float: return float(row.phase))
+		paused=true
+		for i in 3: await process_frame
+		check(phases==tracks.tracks.map(func(row: Dictionary) -> float: return float(row.phase)),id+": pause freezes actual track texture phases")
+		paused=false; actor.reset_vehicle(); await frames(3)
+		check(tracks.tracks.all(func(row: Dictionary) -> bool: return is_zero_approx(float(row.phase))),id+": actual vehicle reset clears both track phases")
 		actor.free(); await frames()
 	world.free(); await frames()
 	for map in [VillageDefinition.create(),IndustrialDefinition.create()]:

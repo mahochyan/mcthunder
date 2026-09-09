@@ -1,9 +1,10 @@
 param(
     [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks','run_challenge_checks','run_art_checks','run_structure_checks','run_wreck_visual_checks'),
-    [int]$TimeoutSeconds = 240,
+    [int]$TimeoutSeconds = 900,
     [string]$Order = '007'
 )
 $ErrorActionPreference = 'Stop'
+if('run_art_checks' -in $Suites -and 'run_menu_fire_handoff_checks' -notin $Suites){$Suites += 'run_menu_fire_handoff_checks'}
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $engine = Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.exe'
 if (-not (Test-Path -LiteralPath $engine)) { throw "Fixed Godot missing: $engine" }

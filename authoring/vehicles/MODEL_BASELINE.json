@@ -1,0 +1,30 @@
+{
+  "blender": "5.2.1 LTS",
+  "models": {
+    "us_m24_m6_t85e1_1951": {
+      "triangles": 908,
+      "armor_patches_verified": 42,
+      "geometry_uv_pivots_sha256": "9f34ef2c5c1e38739c43a7eb222a94fd49dea3ae2e6bea381249441a1bfe4d73",
+      "seed_sha256": "da12ec121008cca56845ea926170077b6c53df0197fce7375f054e5edb324b93"
+    },
+    "us_m26_m3_1945": {
+      "triangles": 1018,
+      "armor_patches_verified": 48,
+      "geometry_uv_pivots_sha256": "549b85a8b65433ddf60ded787fa3bd7b78d4bb4f5985a989ce7e1944c8a2b0ce",
+      "seed_sha256": "fd83a8f17c730c84016ba7099fb47ee93590d262e2df2f53d5049916100ac826"
+    },
+    "us_m36_m4a1_1945": {
+      "triangles": 970,
+      "armor_patches_verified": 41,
+      "geometry_uv_pivots_sha256": "b651effe3b17029ab23cd12873d8ad8f16975df501c639f2fe3627aee1bb8326",
+      "seed_sha256": "79b3a02398ff90c576d799d7d3476d2ffd2b25da2547fbdc18f3318b9b2ae793"
+    },
+    "us_m4a3_75w_vvss_1944": {
+      "triangles": 1016,
+      "armor_patches_verified": 52,
+      "geometry_uv_pivots_sha256": "dd1733b20416e82e0b78fe2e4f7e320eb08f664ab80e6399c8e18923ab41dc78",
+      "seed_sha256": "7feb47d1fe1162a0934d1e711d46f11e7af33aa54e5527d625d97c21953f739e"
+    }
+  },
+  "texture_sha256": "9e123239bf87f45cfe936a22954349e3f1d6a14b06e07047b9fc1c97a88501f0"
+}

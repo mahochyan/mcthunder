@@ -111,8 +111,18 @@ func collision_cases(map: MapDefinition, space: PhysicsDirectSpaceState3D) -> vo
 			check(not space.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,GameConfig.LAYER_WORLD)).is_empty(),"central loading block breaks long street and alley line %d/%d"%[side,x])
 		var flank := Vector3(side*160,2.4,100)
 		check(space.intersect_ray(PhysicsRayQueryParameters3D.create(flank,Vector3(side*160,2.4,-100),GameConfig.LAYER_WORLD)).is_empty(),"independent outer road stays open for flanking "+str(side))
-	var rails := world.find_children("FlushRail*","MeshInstance3D",true,false)
-	check(rails.size()==4 and WorldCollisionRules.classify("road").blocks_shell == false,"flush decorative rails neither block vehicles nor shells")
+	var rails := world.find_children("Cosmetic_FlushRailAssembly","MeshInstance3D",true,false)
+	var rails_valid := rails.size()==1 and WorldCollisionRules.classify("road").blocks_shell == false
+	if rails_valid:
+		var rail_vertices: PackedVector3Array=rails[0].mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+		for x in [-13.75,-12.25,12.25,13.75]:
+			var has_strip:=false
+			for v in rail_vertices:
+				if absf(v.x-x)<0.05 and v.y>0.009 and absf(v.z)>34: has_strip=true
+			rails_valid=rails_valid and has_strip
+			for z in [-29.0,29.0]:
+				rails_valid=rails_valid and space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(x,0.08,z),Vector3(x,0.001,z),GameConfig.LAYER_WORLD)).is_empty()
+	check(rails_valid,"all four visible flush rail strips remain in the batch and actual world rays find no rail collision")
 	manager.free()
 
 func transitions() -> void:

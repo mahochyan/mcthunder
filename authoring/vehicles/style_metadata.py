@@ -36,7 +36,7 @@ def metadata(manifest, source, output):
         'redistribute_source_allowed': True,
         'source_file': source.relative_to(ROOT).as_posix(),
         'runtime_file': output.relative_to(ROOT).as_posix(),
-        'generator': 'authoring/vehicles/build_models.py',
+        'generator': manifest.get('generator', 'authoring/vehicles/build_models.py'),
         'edited_export': 'authoring/vehicles/export_current.py',
         'art_style': PALETTE['style'],
         'palette_sha256': hashlib.sha256(PALETTE_PATH.read_bytes()).hexdigest(),
@@ -45,7 +45,7 @@ def metadata(manifest, source, output):
         'glb_sha256': hashlib.sha256(output.read_bytes()).hexdigest(),
         'units': 'metres', 'runtime_axes': '+Y up, -Z forward',
         'preserve_gameplay_geometry': True,
-        'lod_policy': 'shared exact armor skin; small fittings end at 140m; track pads end at 100m',
-        'triangle_budget_with_runtime_tracks': 25000
+        'lod_policy': manifest.get('lod_policy', 'shared exact armor skin; small fittings end at 140m; track pads end at 100m'),
+        'triangle_budget_with_runtime_tracks': manifest.get('triangle_budget_with_runtime_tracks', 25000)
     })
     return manifest

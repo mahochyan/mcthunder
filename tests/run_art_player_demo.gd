@@ -15,6 +15,7 @@ func run(flow: AppFlow) -> void:
 	var scene:=app.training as ChallengeRange
 	check(scene!=null and scene.director.phase=="playing","normal challenge entry reaches live village world")
 	if scene==null: get_tree().quit(1); return
+	check(scene.actor.gunner.shots_fired==0 and scene.actor.gunner.rounds_remaining==6,"normal challenge menu click leaves all six rounds available")
 	var starting_profile:=app.profile.snapshot()
 	for point in [Vector3(64,0,32),Vector3(76,0,72),Vector3(82,0,120),Vector3(108,0,142),Vector3(125,0,141)]:
 		check(await drive_to(scene,point),"normal WASD reaches optional shed approach "+str(point))

@@ -31,5 +31,29 @@ manifest['blender_version'] = bpy.app.version_string
 manifest['blend_sha256'] = hashlib.sha256(source.read_bytes()).hexdigest()
 manifest['glb_sha256'] = hashlib.sha256((target/(source.stem+'.glb')).read_bytes()).hexdigest()
 style.metadata(manifest, source, target/(source.stem+'.glb'))
+if 'texture_file' in manifest:
+    # Copy authored UV edits back to the runtime query skin's matching vertex indices.
+    seed = json.loads((author/'seeds'/(source.stem+'.json')).read_text(encoding='utf-8'))
+    from mathutils import Vector
+    atlas_uv = {}
+    for patch in seed['armor']:
+        mesh = bpy.data.objects['Armor_'+patch['id']].data
+        values = [None]*len(patch['vertices'])
+        for face in mesh.polygons:
+            for loop_index in face.loop_indices:
+                vertex = mesh.vertices[mesh.loops[loop_index].vertex_index].co
+                local = Vector((vertex.x,vertex.z,-vertex.y))
+                index = min(range(len(values)),key=lambda i:(Vector(patch['vertices'][i])-local).length)
+                if (Vector(patch['vertices'][index])-local).length>.0001:
+                    raise RuntimeError('Armor geometry edit requires matching gameplay seed: '+patch['id'])
+                uv = tuple(mesh.uv_layers.active.data[loop_index].uv)
+                if values[index] is not None and (Vector(values[index])-Vector(uv)).length>.0001:
+                    raise RuntimeError('Place UV seams at patch boundaries: '+patch['id'])
+                values[index] = uv
+        if any(uv is None for uv in values): raise RuntimeError('Missing armor UV vertex: '+patch['id'])
+        atlas_uv[patch['id']] = values
+    manifest['armor_uv'] = atlas_uv
+    manifest['actual_triangles'] = sum(len(p.vertices)-2 for o in bpy.data.objects if o.type=='MESH' for p in o.data.polygons)
+    if manifest['actual_triangles']>1100: raise RuntimeError('Edited model exceeds the approved triangle budget')
 manifest_path.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
 print('BLENDER_EDIT_EXPORT_PASS '+source.stem)

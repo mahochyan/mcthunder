@@ -1,6 +1,7 @@
 class_name AssetBudgetReport
 extends RefCounted
-const VEHICLE_TRIANGLE_BUDGET := 25000
+const VEHICLE_TRIANGLE_BUDGET := 3000
+const VEHICLE_MODEL_TRIANGLE_BUDGET := 1100
 const VEHICLE_DRAW_SURFACE_BUDGET := 45
 static func inspect(root: Node) -> Dictionary:
 	var report:={"triangles":0,"mesh_nodes":0,"draw_surfaces":0,"visible_draw_surfaces":0,"material_count":0}
@@ -8,6 +9,18 @@ static func inspect(root: Node) -> Dictionary:
 	_walk(root,report,materials)
 	report.material_count=materials.size()
 	return report
+static func inspect_vehicle_model(root: Node) -> Dictionary:
+	var report:={"triangles":0,"mesh_nodes":0,"draw_surfaces":0,"visible_draw_surfaces":0,"material_count":0}
+	var materials:={}
+	_model_walk(root,report,materials)
+	report.material_count=materials.size()
+	return report
+static func _model_walk(node: Node, report: Dictionary, materials: Dictionary) -> void:
+	if node.is_queued_for_deletion(): return
+	if node is MeshInstance3D and (str(node.name).begins_with("Skin_") or str(node.name).begins_with("Cosmetic")):
+		_walk(node,report,materials)
+		return
+	for child in node.get_children(): _model_walk(child,report,materials)
 static func _walk(node: Node, report: Dictionary, materials: Dictionary) -> void:
 	if node.is_queued_for_deletion(): return
 	var mesh: Mesh

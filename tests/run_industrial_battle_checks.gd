@@ -18,13 +18,16 @@ func _run() -> void:
 		root.add_child(scene); current_scene = scene; await frames(195)
 		check(scene.team_ready and scene.combat_actors().size()==8 and scene.nav.valid,"seed %d actual industrial eight-AI match initialized"%seed_value)
 		var positions := {}; var stagnant := {}; var peak_stagnant := {}; var reached := {}; var shots := {}; var finite := true; var detached_valid := true
+		var reached_teams := {1:{},2:{}}
 		scene.director.match_finished.connect(func(_result: Dictionary) -> void: scene.set_meta("finish_signals",int(scene.get_meta("finish_signals",0))+1))
 		for sample in 121:
 			await frames(300)
 			for actor in scene.combat_actors():
 				var p: Vector3 = actor.tank.global_position; var life: int = actor.life_id
 				finite = finite and p.is_finite() and scene.definition.bounds.has_point(Vector2(p.x,p.z))
-				if p.length()<45: reached[actor.entity_id] = true
+				if p.length()<45:
+					reached[actor.entity_id] = true
+					reached_teams[actor.state.team_id][actor.entity_id] = true
 				if actor.gunner.shots_fired>0: shots[actor.entity_id] = true
 				var ai := actor.controller as AITankController
 				if ai == null:
@@ -47,7 +50,9 @@ func _run() -> void:
 		check(finite,"T023-H01 full real battle remains inside finite industrial bounds")
 		check(detached_valid,"only destroyed wrecks may have detached AI")
 		check(scene.director.state.phase == "finished" and scene.get_meta("finish_signals",0)==1,"real match clock/tickets terminate exactly once")
-		check(reached.size()>=6 and reached.has("A") and reached.has("B"),"both sides and at least six roster slots physically reach central approaches")
+		# Roster slot A/B can be killed before reaching the centre. Count actual teams,
+		# requiring three distinct physical arrivals on each; route checks cover all slots.
+		check(reached.size()>=6 and reached_teams[1].size()>=3 and reached_teams[2].size()>=3,"at least three actual slots from each team physically reach central approaches")
 		check(shots.size()>=6,"at least six actual AI slots acquire targets and fire")
 		check(max_still<90,"no healthy actor trying to drive stays stationary for 90 seconds")
 		var frozen := scene.director.state.result.duplicate(true); var actor_positions := {}

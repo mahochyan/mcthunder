@@ -1,5 +1,9 @@
 # Blender 车辆源文件
 
+2026-09-09 最新正式路径：`build_textured_lowpoly.py` 从现有装甲种子生成约 1000 三角面四车，替代下面历史高细节建模流程。共享图集位于 `assets/vehicles/textures/vehicle_concept_atlas_v1.png`，内置 ImageGen 依据用户 M4 概念图生成，实际 1254×1254；提示词见 `authoring/poly_budget/ATLAS_PROMPT.txt`。`.blend` 与 GLB 均嵌入纹理；运行时装甲 UV 保存在车型 manifest，并直接应用于查询布局的原始顶点。游戏资源同时依赖该图集和 manifest。
+
+完整车型三角面：M4 1016、M24 908、M26 1018、M36 970；上限 1100，含两条连续履带。表面机械细节用贴图，轮组/连接悬挂/炮管/机枪/天线/外置行李保留几何。运行时纹理滚动替代逐链节几何运动，暂停/重置由实际车辆状态控制。
+
 025 调色维护：共用 `assets/art_palette.json`，`style_metadata.py` 将 sRGB 色板转换为 Blender 线性色，写入来源、分发许可、源/运行文件相对路径、哈希与 LOD 预算。`build_models.py` 和 `export_current.py` 都应用同一材质规则。仅调色且保留现有手工几何时执行：
 
 ```powershell
@@ -29,9 +33,9 @@
 ```powershell
 python tests/build_historical_packets.py --sources E:/AIprogram/research-sources/020
 & ./tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/export_historical_model_seed.gd
-& E:/blender/blender.exe --background --threads 4 --python-exit-code 1 --python authoring/vehicles/build_models.py
+& E:/blender/blender.exe --background --threads 4 --python-exit-code 1 --python authoring/vehicles/build_textured_lowpoly.py
 ```
 
 `seeds/*.json` 为真实布局导出的部件局部顶点和三角形。`assets/vehicles/*.manifest.json` 记录 Blender 版本、源种子、`.blend` 和 `.glb` 的 SHA256。Godot 默认导入会压缩顶点，验证允许最多 0.1 毫米误差，并按三角形几何检查拓扑。游戏内查询与装甲外皮没有这次导入误差。
 
-没有下载或再分发第三方车型模型、纹理、插件。履带使用共享的动态履带代码，轮数、中心距和履带宽度由车辆配置提供；履带动画与小外饰均不写车辆移动或伤害状态。
+未下载第三方车型模型或游戏插件。纹理由内置 ImageGen 派生，原图及生成提示词登记在工程。履带轮数、中心距和宽度由车辆配置提供；履带动画与小外饰均不写车辆移动或伤害状态。

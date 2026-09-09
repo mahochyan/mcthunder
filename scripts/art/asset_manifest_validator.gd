@@ -12,7 +12,11 @@ static func vehicle(id: String, check_source: bool = false) -> Dictionary:
 		if path.is_empty() or path.is_absolute_path() or path.contains("..") or path.contains("\\"): errors.append("unsafe_path_"+key)
 	if manifest.get("runtime_file","")!="assets/vehicles/"+id+".glb" or not ResourceLoader.exists("res://"+str(manifest.get("runtime_file",""))): errors.append("runtime_asset")
 	if str(manifest.get("palette_sha256",""))!=FileAccess.get_sha256("res://assets/art_palette.json"): errors.append("palette_hash")
+	if manifest.get("texture_file","")!="assets/vehicles/textures/vehicle_concept_atlas_v1.png" or not ResourceLoader.exists(VehicleAtlas.TEXTURE_PATH): errors.append("vehicle_atlas")
+	if not manifest.get("armor_uv",{}) is Dictionary or manifest.get("armor_uv",{}).size()!=int(manifest.get("armor_patches",0)): errors.append("armor_uv_coverage")
+	if int(manifest.get("actual_triangles",0))<=0 or int(manifest.get("actual_triangles",0))>1100: errors.append("model_triangle_budget")
 	if check_source:
+		if FileAccess.get_sha256(VehicleAtlas.TEXTURE_PATH)!=str(manifest.get("texture_sha256","")): errors.append("texture_hash")
 		for pair in [["source_file","blend_sha256"],["runtime_file","glb_sha256"]]:
 			var path:="res://"+str(manifest.get(pair[0],""))
 			if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=str(manifest.get(pair[1],"")): errors.append("hash_"+str(pair[0]))

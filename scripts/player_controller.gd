@@ -15,6 +15,7 @@ var _shell_pending := -1
 var _recovery_pending: Dictionary = {}
 var _recovery_release_guard: Dictionary = {}
 var _need_fire_release := false   # 005-R1-C：面板关闭/暂停后必须观察到火键释放才重新允许捕获
+var _fire_release_after_frame := -1
 
 func _process(_delta: float) -> void:
 	if get_tree().paused:
@@ -29,10 +30,14 @@ func _process(_delta: float) -> void:
 		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
 		return
 	if _need_fire_release:
-		if Input.is_action_pressed("fire"):
+		if Engine.get_process_frames()<=_fire_release_after_frame or Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
 			_fire_pending = false
 			return
 		_need_fire_release = false
+		# A menu press and release can share one render frame. Input may still
+		# report just_pressed after held became false; discard this entire edge.
+		_fire_pending = false
+		return
 	if Input.is_action_just_pressed("fire"):
 		_fire_pending = true
 	for i in 2:
@@ -80,6 +85,9 @@ func require_fire_release() -> void:
 	# 不得被当作开火边沿；若火键此刻仍按住则等到真实释放（保守门）。
 	_fire_pending = false
 	_need_fire_release = true
+	# Input.parse_input_event/accumulated OS input can expose its edge on the next
+	# render frame. Observe release only after crossing that input boundary.
+	_fire_release_after_frame = Engine.get_process_frames()+1
 
 func reset_pending() -> void:
 	_shell_pending = -1

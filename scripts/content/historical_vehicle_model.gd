@@ -19,16 +19,7 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	actor.label3d.position.y = float(g.turret_origin[1])+float(g.turret_top)+0.5
 	# One skin surface per moving part. Every triangle still comes from the exact query layout.
 	for part in ["hull","turret","barrel"]:
-		var batch := StaticArtBatch.new()
-		var ids: Array[String] = []
-		for patch in layout.armor_patches:
-			if patch.part_id != part: continue
-			batch.mesh(ArmorPatchMesh.build_surface(patch.vertices_local_m,patch.triangles,patch.outward_normal_local),Transform3D.IDENTITY,ArtPalette.color("olive"))
-			ids.append(patch.id)
-		if ids.is_empty(): continue
-		var skin := batch.finish(DamageTrainingLayout.part_node(actor,part),"Skin_"+part,actor.tank.visual_layer)
-		skin.material_override = ArtPalette.material("olive",true,true)
-		skin.set_meta("gameplay_patch_ids",ids)
+		VehicleAtlas.skin(actor,part,layout,str(packet.id))
 	build_details(actor.tank,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 
@@ -52,11 +43,7 @@ static func build_details(hull: Node3D, turret: Node3D, gun: Node3D, packet: Dic
 			_set_layers(detail,layer)
 			parent.add_child(detail)
 	source.free()
-	var g: Dictionary = packet.geometry
-	var width: float = HistoricalEvidenceGate.value(packet,"dimensions.width_m")
-	var length: float = HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")
-	var tracks := M4TrackMotion.new()
-	tracks.build(hull,layer,{"center_x":width*0.5-float(g.track_width)*0.5,"width":float(g.track_width),"straight":length*0.804})
+	if hull is TankVehicle: HistoricalTrackMotion.new().setup(hull,packet)
 
 static func _set_layers(node: Node, layer: int) -> void:
 	if node is VisualInstance3D: node.layers = layer
