@@ -61,13 +61,16 @@ func on_detached() -> void: cancel("detached")
 
 func set_goal(value: Vector3) -> Dictionary:
 	var vehicle := actor()
+	# A same-goal retry (the controller's bounded objective retry) must keep the
+	# edges already proven unreachable or it re-runs the identical failed plan.
+	var same_retry := goal == value and not _blocked_edges.is_empty()
 	cancel("new_goal")
 	if vehicle == null or not value.is_finite() or navigator == null: return {"ok":false,"reason":"invalid_goal"}
 	goal = value
 	has_goal = true
 	attempts = 0
 	_generation = vehicle.state.generation
-	_blocked_edges.clear()
+	if not same_retry: _blocked_edges.clear()
 	_last_plan = -INF
 	return _plan()
 

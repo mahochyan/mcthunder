@@ -41,15 +41,12 @@ func step(vehicles: Array, delta: float) -> void:
 		elif ai.phase == "repair": hold = "recovery"
 		elif ai.phase in ["observe","engage"]: hold = "combat"
 		elif not caps.drive: hold = "immobile"
+		elif drv.phase in ["failed","unreachable"]: hold = "planning_"+drv.phase
 		elif not drv.has_goal: hold = "no_goal"
 		elif goal_dist <= GOAL_HOLD_M: hold = "at_goal"
 		if hold != "":
 			_close(key,"state:"+hold)
 			rec.holds[hold] = float(rec.holds.get(hold,0.0)) + delta
-			continue
-		if drv.phase in ["failed","unreachable"]:
-			planning[drv.phase] = int(planning.get(drv.phase,0)) + 1
-			_close(key,"planning:"+drv.phase)
 			continue
 		if drv.phase == "replanning" or drv.phase == "escape":
 			planning.replanned = int(planning.replanned) + 1

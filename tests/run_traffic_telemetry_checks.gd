@@ -27,7 +27,7 @@ func _run() -> void:
 	await frames(240)   # four seconds of actual play
 	var snap: Dictionary = scene.telemetry.snapshot()
 	_check(snap.per_life.size() >= 8,"every AI slot carries a per-life telemetry record")
-	var whitelist := ["fire","recovery","combat","immobile","no_goal","at_goal"]
+	var whitelist := ["fire","recovery","combat","immobile","no_goal","at_goal","planning_failed","planning_unreachable"]
 	var holds_ok := true
 	var lives: Array = snap.per_life.keys()
 	for key in lives:
