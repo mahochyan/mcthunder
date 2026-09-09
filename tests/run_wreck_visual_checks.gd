@@ -80,6 +80,9 @@ func ammo_case(id: String) -> void:
 	check(target.state.destroyed and target.state.death_record.get("cause","")=="ammo_detonation",id+": actual loaded-rack shot commits ammunition death")
 	if not is_instance_valid(target.wreck_turret): world.free(); await frames(); return
 	check(death_events==1 and visuals.blast_count==1,id+": one committed death produces one blast")
+	var skin:=target.tank.find_children("Skin_*","MeshInstance3D",true,false)
+	skin.append_array(target.turret.find_children("Skin_*","MeshInstance3D",true,false))
+	check(not skin.is_empty() and skin.all(func(mesh: MeshInstance3D) -> bool: return mesh.material_override is StandardMaterial3D and mesh.material_override.cull_mode==BaseMaterial3D.CULL_DISABLED),id+": actual wreck armor remains visible on both sides after death material replacement")
 	check(target.turret.get_parent()==target.wreck_turret and target.state.death_record.get("turret_detached",false),id+": the actual turret is detached exactly once")
 	await frames(10)
 	if id==VehicleCatalog.IDS[0]: await shot("01_ammo_blast")

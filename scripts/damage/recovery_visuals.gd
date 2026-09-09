@@ -112,4 +112,6 @@ func _fire_origin() -> Vector3:
 
 func _set_charred(value: bool) -> void:
 	for row in _original:
-		if is_instance_valid(row.mesh): row.mesh.material_override=ArtPalette.material("charcoal") if value else row.material
+		# Armor is a thin shell, including the open M36 turret. Preserve visibility
+		# from both sides when replacing the original two-sided atlas material.
+		if is_instance_valid(row.mesh): row.mesh.material_override=ArtPalette.material("charcoal",false,true) if value else row.material
