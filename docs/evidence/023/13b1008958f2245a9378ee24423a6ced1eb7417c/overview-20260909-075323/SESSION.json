@@ -1,0 +1,17 @@
+{
+  "source_sha": "13b1008958f2245a9378ee24423a6ced1eb7417c",
+  "images": [
+    {
+      "file": "hill_village_overview.png",
+      "sha256": "9E81B2D0FE86DD73BC60EE97E848E47E360D55DF196D7023AF5062592D78BC5B"
+    },
+    {
+      "file": "industrial_edge_overview.png",
+      "sha256": "7FC61686A7A863EF1C519B0D5394004DF9ADD38AED23785AE0063BFBB8C9BBD2"
+    }
+  ],
+  "graphical_review": "ASSISTANT_REVIEWED",
+  "human": "NOT_RUN",
+  "fixture": "authored-map renderer, not player viewpoint",
+  "review_notes": "All 11 player captures and both map overview fixture captures directly viewed. Human NOT_RUN; no FPS claim."
+}

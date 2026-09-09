@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] actual garage popup selects industrial map with route description
+[PASS] actual window capture 00_industrial_selected (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal start button opens selected industrial eight-vehicle battle
+[PASS] actual window capture 01_industrial_spawn (review pending)
+[PASS] normal WASD leaves screened spawn via west exit
+[PASS] normal WASD drives the warehouse access street
+[PASS] actual window capture 02_warehouse_corner (review pending)
+[PASS] normal mouse click fires an actual historical round on industrial map
+[PASS] actual window capture 03_industrial_shot (review pending)
+[PASS] normal WASD reaches independent outer road
+[PASS] actual window capture 04_outer_route (review pending)
+[normal industrial] elapsed=47.5166666666653 tickets={ 1: 300, 2: 300 }
+[normal industrial] elapsed=107.516666666662 tickets={ 1: 282, 2: 270 }
+[normal industrial] elapsed=167.516666666692 tickets={ 1: 222, 2: 270 }
+[normal industrial] elapsed=227.51666666674 tickets={ 1: 162, 2: 270 }
+[normal industrial] elapsed=287.516666666734 tickets={ 1: 72, 2: 270 }
+[normal industrial] elapsed=347.516666666679 tickets={ 1: 12, 2: 270 }
+[PASS] normal industrial match reaches genuine ticket or time-limit result
+[normal result industrial] { "title": "4对4占点", "outcome": "defeat", "reason": "tickets", "status": "failed", "shots": 1, "match_id": 101, "seconds": 359.133333333335, "tickets": { 1: 0, 2: 270 }, "events": [{ "entity_id": "A", "life_id": 1, "kind": "spawn", "time": 0.0 }, { "entity_id": "A2", "life_id": 2, "kind": "spawn", "time": 0.0 }, { "entity_id": "A3", "life_id": 3, "kind": "spawn", "time": 0.0 }, { "entity_id": "A4", "life_id": 4, "kind": "spawn", "time": 0.0 }, { "entity_id": "B", "life_id": 5, "kind": "spawn", "time": 0.0 }, { "entity_id": "B2", "life_id": 6, "kind": "spawn", "time": 0.0 }, { "entity_id": "B3", "life_id": 7, "kind": "spawn", "time": 0.0 }, { "entity_id": "B4", "life_id": 8, "kind": "spawn", "time": 0.0 }, { "entity_id": "B3", "life_id": 7, "team": 2, "cause": "ammo_detonation", "kind": "death", "time": 105.449999999995 }, { "entity_id": "B3", "life_id": 9, "kind": "spawn", "time": 113.449999999995 }, { "entity_id": "A3", "life_id": 3, "team": 1, "cause": "ammo_detonation", "kind": "death", "time": 239.733333333416 }, { "entity_id": "A3", "life_id": 10, "kind": "spawn", "time": 247.733333333423 }] }
+[PASS] actual window capture 05_industrial_result (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal result restart button preserves industrial map
+[PASS] actual window capture 06_industrial_restarted (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal pause return closes restarted industrial match
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal map popup switches back to original village
+[PASS] actual window capture 07_village_selected (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal start after switch creates village without industrial world
+[PASS] actual window capture 08_village_spawn (review pending)
+[normal village] elapsed=5.41666666666665 tickets={ 1: 300, 2: 300 }
+[normal village] elapsed=65.4166666666642 tickets={ 1: 300, 2: 270 }
+[normal village] elapsed=125.416666666661 tickets={ 1: 225, 2: 270 }
+[normal village] elapsed=185.416666666706 tickets={ 1: 135, 2: 270 }
+[normal village] elapsed=245.416666666754 tickets={ 1: 75, 2: 270 }
+[normal village] elapsed=305.416666666718 tickets={ 1: 15, 2: 270 }
+[PASS] normal village match reaches genuine ticket or time-limit result
+[normal result village] { "title": "4对4占点", "outcome": "defeat", "reason": "tickets", "status": "failed", "shots": 0, "match_id": 103, "seconds": 320.166666666704, "tickets": { 1: 0, 2: 270 }, "events": [{ "entity_id": "A", "life_id": 19, "kind": "spawn", "time": 0.0 }, { "entity_id": "A2", "life_id": 20, "kind": "spawn", "time": 0.0 }, { "entity_id": "A3", "life_id": 21, "kind": "spawn", "time": 0.0 }, { "entity_id": "A4", "life_id": 22, "kind": "spawn", "time": 0.0 }, { "entity_id": "B", "life_id": 23, "kind": "spawn", "time": 0.0 }, { "entity_id": "B2", "life_id": 24, "kind": "spawn", "time": 0.0 }, { "entity_id": "B3", "life_id": 25, "kind": "spawn", "time": 0.0 }, { "entity_id": "B4", "life_id": 26, "kind": "spawn", "time": 0.0 }, { "entity_id": "B", "life_id": 23, "team": 2, "cause": "ammo_detonation", "kind": "death", "time": 50.6499999999984 }, { "entity_id": "B", "life_id": 27, "kind": "spawn", "time": 58.649999999998 }, { "entity_id": "A4", "life_id": 22, "team": 1, "cause": "crew_out", "kind": "death", "time": 109.966666666662 }, { "entity_id": "A4", "life_id": 28, "kind": "spawn", "time": 117.966666666661 }, { "entity_id": "A3", "life_id": 21, "team": 1, "cause": "ammo_detonation", "kind": "death", "time": 144.516666666674 }, { "entity_id": "A3", "life_id": 29, "kind": "spawn", "time": 152.51666666668 }] }
+[PASS] actual window capture 09_village_result (review pending)
+[PASS] normal UI control is visible before click
+[PASS] both free matches finish and return without progression rewards
+[PASS] actual window capture 10_returned_garage (review pending)
+=== 结果: 34 项检查, 0 失败 ===
+INDUSTRIAL_PLAYER_CHECKS_PASS

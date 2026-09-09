@@ -1,0 +1,53 @@
+{
+  "source_sha": "13b1008958f2245a9378ee24423a6ced1eb7417c",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "00_industrial_selected.png",
+      "sha256": "5E5A8CD502472E60943C80D60017961A285743213E81EE4D5DB787E009DD67A6"
+    },
+    {
+      "file": "01_industrial_spawn.png",
+      "sha256": "99E02DA37853C13791857D0F2756CF70FD88F70A96337F2489F9E8934D71683F"
+    },
+    {
+      "file": "02_warehouse_corner.png",
+      "sha256": "512BDC121F5AE376822B8ED471BE80F39A45266E98BED7741D84D545F06B87A6"
+    },
+    {
+      "file": "03_industrial_shot.png",
+      "sha256": "37E1A929911B7D7D95E04926CFB3F6DA43900012DA78B37DC83AADC6122909D8"
+    },
+    {
+      "file": "04_outer_route.png",
+      "sha256": "B55BAF15398E55CB289967FB6DDAB2D73C89069FD9C5B1248366D59A0C56AE49"
+    },
+    {
+      "file": "05_industrial_result.png",
+      "sha256": "BA0C0106B6CD7CEFB859E40D761571FFB00E4C0DCB9DE12FAABE2775D3E60F7C"
+    },
+    {
+      "file": "06_industrial_restarted.png",
+      "sha256": "99E02DA37853C13791857D0F2756CF70FD88F70A96337F2489F9E8934D71683F"
+    },
+    {
+      "file": "07_village_selected.png",
+      "sha256": "493247EFEC6B28613DD5D27A5846A0324142002BD7274CCD0ABA39B4FD3D8291"
+    },
+    {
+      "file": "08_village_spawn.png",
+      "sha256": "BECD1815021F1DB9AE596E6C0227E5E16290C47FE93DEB0DF3F8F42CF5C61A46"
+    },
+    {
+      "file": "09_village_result.png",
+      "sha256": "15923F94C3A45BC02493F3C3C367CF018372461AD25D8FB379D4829101C2DC8E"
+    },
+    {
+      "file": "10_returned_garage.png",
+      "sha256": "FC780C855897F620905064316699AB53B4C0984B08DC87B8CCBAABD0629D4E5A"
+    }
+  ],
+  "graphical_review": "ASSISTANT_REVIEWED",
+  "human": "NOT_RUN",
+  "review_notes": "All 11 player captures and both map overview fixture captures directly viewed. Human NOT_RUN; no FPS claim."
+}

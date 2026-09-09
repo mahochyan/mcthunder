@@ -1,0 +1,609 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] four actual historical definitions load for map matrix
+[PASS] historical catalog admitted into the common definitions
+[PASS] registry accepts exactly the two playable maps
+[PASS] 022 village profile remains valid without schema migration
+[PASS] same profile validator admits registered industrial map
+[PASS] unregistered map cannot be saved or launched
+[PASS] hill_village: schema and alternate paths { "ok": true, "errors": [] }
+[bake hill_village] 1634 samples; failures=[]
+[PASS] hill_village: every road clears maximum real vehicle envelope including final scenery
+[PASS] hill_village: all 192 opposing spawn rays blocked
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/capture { "phase": "arrived", "seconds": 61.05, "bounded": true, "position": (-7.494663, 0.000942, 5.641167), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/supply { "phase": "arrived", "seconds": 44.2, "bounded": true, "position": (0.121758, 0.000942, 143.2999), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/capture { "phase": "arrived", "seconds": 65.8666666666667, "bounded": true, "position": (-2.310152, 0.000942, 8.597763), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/supply { "phase": "arrived", "seconds": 47.6333333333333, "bounded": true, "position": (0.121704, 0.000942, 143.2999), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/capture { "phase": "arrived", "seconds": 65.8666666666667, "bounded": true, "position": (2.310091, 0.000942, 8.597717), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/supply { "phase": "arrived", "seconds": 47.6333333333333, "bounded": true, "position": (-0.121702, 0.000942, 143.2998), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/capture { "phase": "arrived", "seconds": 61.05, "bounded": true, "position": (7.494663, 0.000942, 5.641167), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/supply { "phase": "arrived", "seconds": 44.2, "bounded": true, "position": (-0.121752, 0.000942, 143.2999), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/capture { "phase": "arrived", "seconds": 60.7833333333333, "bounded": true, "position": (-7.494802, 0.000942, 5.641258), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/supply { "phase": "arrived", "seconds": 44.7, "bounded": true, "position": (0.121704, 0.000942, 143.2999), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/capture { "phase": "arrived", "seconds": 65.65, "bounded": true, "position": (-2.310301, 0.000942, 8.597855), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (0.15793, 0.000942, 143.3501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/capture { "phase": "arrived", "seconds": 65.65, "bounded": true, "position": (2.310304, 0.000942, 8.597839), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (-0.157856, 0.000942, 143.3501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/capture { "phase": "arrived", "seconds": 60.7833333333333, "bounded": true, "position": (7.494802, 0.000942, 5.641258), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/supply { "phase": "arrived", "seconds": 44.7, "bounded": true, "position": (-0.12174, 0.000942, 143.2998), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/capture { "phase": "arrived", "seconds": 61.05, "bounded": true, "position": (-7.494162, 0.000942, -5.640472), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/supply { "phase": "arrived", "seconds": 44.2166666666667, "bounded": true, "position": (0.121906, 0.000942, -143.3002), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/capture { "phase": "arrived", "seconds": 65.9166666666667, "bounded": true, "position": (-2.3105, 0.000942, -8.597839), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/supply { "phase": "arrived", "seconds": 47.65, "bounded": true, "position": (0.121687, 0.000942, -143.2998), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/capture { "phase": "arrived", "seconds": 65.8666666666667, "bounded": true, "position": (2.309942, 0.000942, -8.597755), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/supply { "phase": "arrived", "seconds": 47.6333333333333, "bounded": true, "position": (-0.121646, 0.000942, -143.2996), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/capture { "phase": "arrived", "seconds": 60.95, "bounded": true, "position": (7.49641, 0.000942, -5.642807), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/supply { "phase": "arrived", "seconds": 44.2, "bounded": true, "position": (-0.121647, 0.000942, -143.2997), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/capture { "phase": "arrived", "seconds": 60.7833333333333, "bounded": true, "position": (-7.49431, 0.000942, -5.640747), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/supply { "phase": "arrived", "seconds": 44.7333333333333, "bounded": true, "position": (0.121714, 0.000942, -143.2998), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/capture { "phase": "arrived", "seconds": 65.6833333333333, "bounded": true, "position": (-2.310558, 0.000942, -8.597824), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (0.158072, 0.000942, -143.35), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/capture { "phase": "arrived", "seconds": 65.65, "bounded": true, "position": (2.309875, 0.000942, -8.59771), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (-0.157874, 0.000942, -143.3501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/capture { "phase": "arrived", "seconds": 60.7833333333333, "bounded": true, "position": (7.494972, 0.000942, -5.641525), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/supply { "phase": "arrived", "seconds": 44.7166666666667, "bounded": true, "position": (-0.121815, 0.000942, -143.2999), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/capture { "phase": "arrived", "seconds": 50.7833333333333, "bounded": true, "position": (-9.172977, 0.000942, 6.532951), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/supply { "phase": "arrived", "seconds": 37.1166666666667, "bounded": true, "position": (-0.735889, 0.000942, 141.9446), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/capture { "phase": "arrived", "seconds": 53.8666666666667, "bounded": true, "position": (-4.227142, 0.000942, 9.393478), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/supply { "phase": "arrived", "seconds": 39.55, "bounded": true, "position": (-0.735824, 0.000942, 141.9446), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/capture { "phase": "arrived", "seconds": 53.8666666666667, "bounded": true, "position": (4.227136, 0.000942, 9.393494), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/supply { "phase": "arrived", "seconds": 39.55, "bounded": true, "position": (0.736027, 0.000942, 141.9447), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/capture { "phase": "arrived", "seconds": 50.7833333333333, "bounded": true, "position": (9.172981, 0.000942, 6.532951), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/supply { "phase": "arrived", "seconds": 37.1166666666667, "bounded": true, "position": (0.736038, 0.000942, 141.9447), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/capture { "phase": "arrived", "seconds": 50.3333333333333, "bounded": true, "position": (-9.172998, 0.000942, 6.532936), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/supply { "phase": "arrived", "seconds": 37.2, "bounded": true, "position": (-0.733156, 0.000942, 141.9401), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/capture { "phase": "arrived", "seconds": 53.55, "bounded": true, "position": (-4.227141, 0.000942, 9.393463), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (-0.678009, 0.000942, 141.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/capture { "phase": "arrived", "seconds": 53.55, "bounded": true, "position": (4.22714, 0.000942, 9.393486), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (0.678022, 0.000942, 141.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/capture { "phase": "arrived", "seconds": 50.3333333333333, "bounded": true, "position": (9.172991, 0.000942, 6.532951), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/supply { "phase": "arrived", "seconds": 37.2, "bounded": true, "position": (0.732885, 0.000942, 141.9399), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/capture { "phase": "arrived", "seconds": 50.7833333333333, "bounded": true, "position": (-9.172964, 0.000942, -6.533264), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/supply { "phase": "arrived", "seconds": 37.1166666666667, "bounded": true, "position": (-0.735872, 0.000942, -141.9446), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/capture { "phase": "arrived", "seconds": 53.8666666666667, "bounded": true, "position": (-4.227165, 0.000942, -9.393082), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/supply { "phase": "arrived", "seconds": 39.55, "bounded": true, "position": (-0.736094, 0.000942, -141.9447), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/capture { "phase": "arrived", "seconds": 53.8666666666667, "bounded": true, "position": (4.227099, 0.000942, -9.393837), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/supply { "phase": "arrived", "seconds": 39.55, "bounded": true, "position": (0.735925, 0.000942, -141.9446), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/capture { "phase": "arrived", "seconds": 50.7833333333333, "bounded": true, "position": (9.17304, 0.000942, -6.532593), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/supply { "phase": "arrived", "seconds": 37.1166666666667, "bounded": true, "position": (0.735992, 0.000942, -141.9447), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/capture { "phase": "arrived", "seconds": 50.3333333333333, "bounded": true, "position": (-9.172905, 0.000942, -6.533142), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/supply { "phase": "arrived", "seconds": 37.2, "bounded": true, "position": (-0.732944, 0.000942, -141.9399), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/capture { "phase": "arrived", "seconds": 53.55, "bounded": true, "position": (-4.227211, 0.000942, -9.393181), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (-0.67805, 0.000942, -141.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/capture { "phase": "arrived", "seconds": 53.55, "bounded": true, "position": (4.227057, 0.000942, -9.393791), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (0.677985, 0.000942, -141.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/7/capture { "phase": "arrived", "seconds": 50.3333333333333, "bounded": true, "position": (9.173122, 0.000942, -6.532707), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/7/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/7/supply { "phase": "arrived", "seconds": 37.2, "bounded": true, "position": (0.73279, 0.000942, -141.9399), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/7/supply
+[route] hill_village/us_m26_m3_1945/1/0/capture { "phase": "arrived", "seconds": 112.366666666667, "bounded": true, "position": (-6.679928, 0.000942, 5.834686), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/0/capture
+[route] hill_village/us_m26_m3_1945/1/0/supply { "phase": "arrived", "seconds": 74.45, "bounded": true, "position": (0.695276, 0.000942, 143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/0/supply
+[route] hill_village/us_m26_m3_1945/1/1/capture { "phase": "arrived", "seconds": 150.316666666667, "bounded": true, "position": (-1.979974, 0.000942, 8.324844), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/1/capture
+[route] hill_village/us_m26_m3_1945/1/1/supply { "phase": "arrived", "seconds": 97.7166666666667, "bounded": true, "position": (0.653378, 0.000942, 143.651), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/1/supply
+[route] hill_village/us_m26_m3_1945/1/2/capture { "phase": "arrived", "seconds": 150.316666666667, "bounded": true, "position": (1.979951, 0.000942, 8.324844), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/2/capture
+[route] hill_village/us_m26_m3_1945/1/2/supply { "phase": "arrived", "seconds": 97.7166666666667, "bounded": true, "position": (-0.65339, 0.000942, 143.6511), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/2/supply
+[route] hill_village/us_m26_m3_1945/1/3/capture { "phase": "arrived", "seconds": 112.366666666667, "bounded": true, "position": (6.680073, 0.000942, 5.834488), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/3/capture
+[route] hill_village/us_m26_m3_1945/1/3/supply { "phase": "arrived", "seconds": 74.45, "bounded": true, "position": (-0.695276, 0.000942, 143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/3/supply
+[route] hill_village/us_m26_m3_1945/1/4/capture { "phase": "arrived", "seconds": 111.9, "bounded": true, "position": (-6.679928, 0.000942, 5.834656), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/4/capture
+[route] hill_village/us_m26_m3_1945/1/4/supply { "phase": "arrived", "seconds": 74.9166666666667, "bounded": true, "position": (0.695299, 0.000942, 143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/4/supply
+[route] hill_village/us_m26_m3_1945/1/5/capture { "phase": "arrived", "seconds": 150.65, "bounded": true, "position": (-1.979973, 0.000942, 8.324844), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/5/capture
+[route] hill_village/us_m26_m3_1945/1/5/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (0.400083, 0.000942, 144.0109), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/5/supply
+[route] hill_village/us_m26_m3_1945/1/6/capture { "phase": "arrived", "seconds": 150.65, "bounded": true, "position": (1.979973, 0.000942, 8.324844), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/6/capture
+[route] hill_village/us_m26_m3_1945/1/6/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (-0.400115, 0.000942, 144.0109), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/6/supply
+[route] hill_village/us_m26_m3_1945/1/7/capture { "phase": "arrived", "seconds": 111.9, "bounded": true, "position": (6.680073, 0.000942, 5.834488), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/7/capture
+[route] hill_village/us_m26_m3_1945/1/7/supply { "phase": "arrived", "seconds": 74.9166666666667, "bounded": true, "position": (-0.695234, 0.000942, 143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/1/7/supply
+[route] hill_village/us_m26_m3_1945/2/0/capture { "phase": "arrived", "seconds": 112.383333333333, "bounded": true, "position": (-6.67831, 0.000942, -5.834221), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/0/capture
+[route] hill_village/us_m26_m3_1945/2/0/supply { "phase": "arrived", "seconds": 74.4833333333333, "bounded": true, "position": (0.695448, 0.000942, -143.7319), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/0/supply
+[route] hill_village/us_m26_m3_1945/2/1/capture { "phase": "arrived", "seconds": 150.35, "bounded": true, "position": (-1.981331, 0.000942, -8.325623), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/1/capture
+[route] hill_village/us_m26_m3_1945/2/1/supply { "phase": "arrived", "seconds": 97.75, "bounded": true, "position": (0.653341, 0.000942, -143.651), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/1/supply
+[route] hill_village/us_m26_m3_1945/2/2/capture { "phase": "arrived", "seconds": 150.333333333333, "bounded": true, "position": (1.979234, 0.000942, -8.324432), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/2/capture
+[route] hill_village/us_m26_m3_1945/2/2/supply { "phase": "arrived", "seconds": 97.7, "bounded": true, "position": (-0.653482, 0.000942, -143.6511), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/2/supply
+[route] hill_village/us_m26_m3_1945/2/3/capture { "phase": "arrived", "seconds": 112.366666666667, "bounded": true, "position": (6.681177, 0.000942, -5.835114), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/3/capture
+[route] hill_village/us_m26_m3_1945/2/3/supply { "phase": "arrived", "seconds": 74.4666666666667, "bounded": true, "position": (-0.694996, 0.000942, -143.7316), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/3/supply
+[route] hill_village/us_m26_m3_1945/2/4/capture { "phase": "arrived", "seconds": 111.883333333333, "bounded": true, "position": (-6.679955, 0.000942, -5.834473), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/4/capture
+[route] hill_village/us_m26_m3_1945/2/4/supply { "phase": "arrived", "seconds": 74.9166666666667, "bounded": true, "position": (0.69516, 0.000942, -143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/4/supply
+[route] hill_village/us_m26_m3_1945/2/5/capture { "phase": "arrived", "seconds": 150.633333333333, "bounded": true, "position": (-1.980025, 0.000942, -8.325073), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/5/capture
+[route] hill_village/us_m26_m3_1945/2/5/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (0.400143, 0.000942, -144.0109), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/5/supply
+[route] hill_village/us_m26_m3_1945/2/6/capture { "phase": "arrived", "seconds": 150.633333333333, "bounded": true, "position": (1.979544, 0.000942, -8.32486), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/6/capture
+[route] hill_village/us_m26_m3_1945/2/6/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (-0.400076, 0.000942, -144.011), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/6/supply
+[route] hill_village/us_m26_m3_1945/2/7/capture { "phase": "arrived", "seconds": 111.883333333333, "bounded": true, "position": (6.710972, 0.000942, -5.835571), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/7/capture
+[route] hill_village/us_m26_m3_1945/2/7/supply { "phase": "arrived", "seconds": 74.9166666666667, "bounded": true, "position": (-0.695322, 0.000942, -143.7318), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m26_m3_1945/2/7/supply
+[route] hill_village/us_m36_m4a1_1945/1/0/capture { "phase": "arrived", "seconds": 57.8, "bounded": true, "position": (-7.8613, 0.000942, 5.925789), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/0/capture
+[route] hill_village/us_m36_m4a1_1945/1/0/supply { "phase": "arrived", "seconds": 43.05, "bounded": true, "position": (-0.030779, 0.000942, 142.9319), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/0/supply
+[route] hill_village/us_m36_m4a1_1945/1/1/capture { "phase": "arrived", "seconds": 61.8666666666667, "bounded": true, "position": (-2.734829, 0.000942, 8.8815), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/1/capture
+[route] hill_village/us_m36_m4a1_1945/1/1/supply { "phase": "arrived", "seconds": 45.6166666666667, "bounded": true, "position": (-0.030981, 0.000942, 142.9316), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/1/supply
+[route] hill_village/us_m36_m4a1_1945/1/2/capture { "phase": "arrived", "seconds": 61.8666666666667, "bounded": true, "position": (2.734824, 0.000942, 8.881485), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/2/capture
+[route] hill_village/us_m36_m4a1_1945/1/2/supply { "phase": "arrived", "seconds": 45.6166666666667, "bounded": true, "position": (0.031044, 0.000942, 142.9317), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/2/supply
+[route] hill_village/us_m36_m4a1_1945/1/3/capture { "phase": "arrived", "seconds": 57.8, "bounded": true, "position": (7.861292, 0.000942, 5.925789), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/3/capture
+[route] hill_village/us_m36_m4a1_1945/1/3/supply { "phase": "arrived", "seconds": 43.05, "bounded": true, "position": (0.031071, 0.000942, 142.932), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/3/supply
+[route] hill_village/us_m36_m4a1_1945/1/4/capture { "phase": "arrived", "seconds": 57.1833333333333, "bounded": true, "position": (-7.861263, 0.000942, 5.925774), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/4/capture
+[route] hill_village/us_m36_m4a1_1945/1/4/supply { "phase": "arrived", "seconds": 42.1833333333333, "bounded": true, "position": (-0.030609, 0.000942, 142.9333), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/4/supply
+[route] hill_village/us_m36_m4a1_1945/1/5/capture { "phase": "arrived", "seconds": 61.4833333333333, "bounded": true, "position": (-2.734878, 0.000942, 8.8815), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/5/capture
+[route] hill_village/us_m36_m4a1_1945/1/5/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (-0.017668, 0.000942, 142.9572), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/5/supply
+[route] hill_village/us_m36_m4a1_1945/1/6/capture { "phase": "arrived", "seconds": 61.4833333333333, "bounded": true, "position": (2.734872, 0.000942, 8.8815), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/6/capture
+[route] hill_village/us_m36_m4a1_1945/1/6/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (0.017698, 0.000942, 142.9571), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/6/supply
+[route] hill_village/us_m36_m4a1_1945/1/7/capture { "phase": "arrived", "seconds": 57.1833333333333, "bounded": true, "position": (7.861284, 0.000942, 5.925789), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/7/capture
+[route] hill_village/us_m36_m4a1_1945/1/7/supply { "phase": "arrived", "seconds": 42.1833333333333, "bounded": true, "position": (0.030611, 0.000942, 142.9333), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/7/supply
+[route] hill_village/us_m36_m4a1_1945/2/0/capture { "phase": "arrived", "seconds": 57.8, "bounded": true, "position": (-7.861265, 0.000942, -5.92585), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/0/capture
+[route] hill_village/us_m36_m4a1_1945/2/0/supply { "phase": "arrived", "seconds": 43.1333333333333, "bounded": true, "position": (-0.030546, 0.000942, -142.9319), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/0/supply
+[route] hill_village/us_m36_m4a1_1945/2/1/capture { "phase": "arrived", "seconds": 61.9, "bounded": true, "position": (-2.735525, 0.000942, -8.881805), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/1/capture
+[route] hill_village/us_m36_m4a1_1945/2/1/supply { "phase": "arrived", "seconds": 45.65, "bounded": true, "position": (-0.030974, 0.000942, -142.9319), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/1/supply
+[route] hill_village/us_m36_m4a1_1945/2/2/capture { "phase": "arrived", "seconds": 61.8666666666667, "bounded": true, "position": (2.734134, 0.000942, -8.88118), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/2/capture
+[route] hill_village/us_m36_m4a1_1945/2/2/supply { "phase": "arrived", "seconds": 45.6166666666667, "bounded": true, "position": (0.03113, 0.000942, -142.9317), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/2/supply
+[route] hill_village/us_m36_m4a1_1945/2/3/capture { "phase": "arrived", "seconds": 57.6666666666667, "bounded": true, "position": (7.861317, 0.000942, -5.925751), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/3/capture
+[route] hill_village/us_m36_m4a1_1945/2/3/supply { "phase": "arrived", "seconds": 43.05, "bounded": true, "position": (0.031141, 0.000942, -142.9319), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/3/supply
+[route] hill_village/us_m36_m4a1_1945/2/4/capture { "phase": "arrived", "seconds": 57.1833333333333, "bounded": true, "position": (-7.861427, 0.000942, -5.925957), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/4/capture
+[route] hill_village/us_m36_m4a1_1945/2/4/supply { "phase": "arrived", "seconds": 42.1833333333333, "bounded": true, "position": (-0.030703, 0.000942, -142.9333), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/4/supply
+[route] hill_village/us_m36_m4a1_1945/2/5/capture { "phase": "arrived", "seconds": 61.4833333333333, "bounded": true, "position": (-2.735282, 0.000942, -8.881653), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/5/capture
+[route] hill_village/us_m36_m4a1_1945/2/5/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (-0.01769, 0.000942, -142.9571), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/5/supply
+[route] hill_village/us_m36_m4a1_1945/2/6/capture { "phase": "arrived", "seconds": 61.4666666666667, "bounded": true, "position": (2.734473, 0.000942, -8.88134), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/6/capture
+[route] hill_village/us_m36_m4a1_1945/2/6/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (0.017674, 0.000942, -142.9572), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/6/supply
+[route] hill_village/us_m36_m4a1_1945/2/7/capture { "phase": "arrived", "seconds": 57.1833333333333, "bounded": true, "position": (7.861107, 0.000942, -5.925568), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/7/capture
+[route] hill_village/us_m36_m4a1_1945/2/7/supply { "phase": "arrived", "seconds": 42.2166666666667, "bounded": true, "position": (0.0306, 0.000942, -142.9338), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/7/supply
+[arrival means] hill_village us_m4a3_75w_vvss_1944 team1=63.3375 team2=63.3354166666667
+[PASS] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m4a3_75w_vvss_1944
+[arrival means] hill_village us_m24_m6_t85e1_1951 team1=52.1333333333333 team2=52.1333333333333
+[PASS] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m24_m6_t85e1_1951
+[arrival means] hill_village us_m26_m3_1945 team1=131.308333333333 team2=131.308333333333
+[PASS] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m26_m3_1945
+[arrival means] hill_village us_m36_m4a1_1945 team1=59.5833333333333 team2=59.56875
+[PASS] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m36_m4a1_1945
+[PASS] industrial_edge: schema and alternate paths { "ok": true, "errors": [] }
+[bake industrial_edge] 1686 samples; failures=[]
+[PASS] industrial_edge: every road clears maximum real vehicle envelope including final scenery
+[PASS] industrial_edge: all 192 opposing spawn rays blocked
+[PASS] T023-H02 visible/physical dimensions warehouse_1_-1
+[PASS] T023-04 actual shell and LOS stop at warehouse_1_-1
+[PASS] T023-H02 visible/physical dimensions outer_works_1_-1
+[PASS] T023-04 actual shell and LOS stop at outer_works_1_-1
+[PASS] T023-H02 visible/physical dimensions warehouse_1_1
+[PASS] T023-04 actual shell and LOS stop at warehouse_1_1
+[PASS] T023-H02 visible/physical dimensions outer_works_1_1
+[PASS] T023-04 actual shell and LOS stop at outer_works_1_1
+[PASS] T023-H02 visible/physical dimensions spawn_warehouse_1
+[PASS] T023-04 actual shell and LOS stop at spawn_warehouse_1
+[PASS] T023-H02 visible/physical dimensions warehouse_2_-1
+[PASS] T023-04 actual shell and LOS stop at warehouse_2_-1
+[PASS] T023-H02 visible/physical dimensions outer_works_2_-1
+[PASS] T023-04 actual shell and LOS stop at outer_works_2_-1
+[PASS] T023-H02 visible/physical dimensions warehouse_2_1
+[PASS] T023-04 actual shell and LOS stop at warehouse_2_1
+[PASS] T023-H02 visible/physical dimensions outer_works_2_1
+[PASS] T023-04 actual shell and LOS stop at outer_works_2_1
+[PASS] T023-H02 visible/physical dimensions spawn_warehouse_2
+[PASS] T023-04 actual shell and LOS stop at spawn_warehouse_2
+[PASS] T023-H02 visible/physical dimensions loading_block_-1
+[PASS] T023-04 actual shell and LOS stop at loading_block_-1
+[PASS] T023-H02 visible/physical dimensions yard_cover_-1
+[PASS] T023-04 actual shell and LOS stop at yard_cover_-1
+[PASS] T023-H02 visible/physical dimensions loading_block_1
+[PASS] T023-04 actual shell and LOS stop at loading_block_1
+[PASS] T023-H02 visible/physical dimensions yard_cover_1
+[PASS] T023-04 actual shell and LOS stop at yard_cover_1
+[PASS] T023-H02 visible/physical dimensions boundary_x-175
+[PASS] T023-04 actual shell and LOS stop at boundary_x-175
+[PASS] T023-H02 visible/physical dimensions boundary_x175
+[PASS] T023-04 actual shell and LOS stop at boundary_x175
+[PASS] T023-H02 visible/physical dimensions boundary_z-225
+[PASS] T023-04 actual shell and LOS stop at boundary_z-225
+[PASS] T023-H02 visible/physical dimensions boundary_z225
+[PASS] T023-04 actual shell and LOS stop at boundary_z225
+[PASS] central loading block breaks long street and alley line -1/78
+[PASS] central loading block breaks long street and alley line -1/95
+[PASS] independent outer road stays open for flanking -1
+[PASS] central loading block breaks long street and alley line 1/78
+[PASS] central loading block breaks long street and alley line 1/95
+[PASS] independent outer road stays open for flanking 1
+[PASS] flush decorative rails neither block vehicles nor shells
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/0/capture { "phase": "arrived", "seconds": 92.8333333333333, "bounded": true, "position": (-7.305916, 0.000942, 5.808945), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/0/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/0/supply { "phase": "arrived", "seconds": 23.0333333333333, "bounded": true, "position": (0.138693, -0.001563, 214.3373), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/0/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/1/capture { "phase": "arrived", "seconds": 99.5666666666667, "bounded": true, "position": (-2.838749, 0.000942, 8.957214), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/1/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/1/supply { "phase": "arrived", "seconds": 14.7333333333333, "bounded": true, "position": (0.241634, 0.00094, 214.2364), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/1/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/2/capture { "phase": "arrived", "seconds": 99.5666666666667, "bounded": true, "position": (2.838713, 0.000942, 8.957153), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/2/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/2/supply { "phase": "arrived", "seconds": 13.6166666666667, "bounded": true, "position": (-0.241771, 0.000944, 214.2409), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/2/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/3/capture { "phase": "arrived", "seconds": 92.8333333333333, "bounded": true, "position": (7.305981, 0.000942, 5.80899), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/3/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/3/supply { "phase": "arrived", "seconds": 21.9833333333333, "bounded": true, "position": (-0.138937, 0.000943, 214.3376), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/3/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/4/capture { "phase": "arrived", "seconds": 92.5666666666667, "bounded": true, "position": (-7.305815, 0.000942, 5.80925), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/4/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/4/supply { "phase": "arrived", "seconds": 12.3166666666667, "bounded": true, "position": (0.128231, -0.006089, 214.2962), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/4/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/5/capture { "phase": "arrived", "seconds": 99.2333333333333, "bounded": true, "position": (-2.838754, 0.000942, 8.957153), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/5/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/5/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (0.158056, -0.006154, 214.35), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/5/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/6/capture { "phase": "arrived", "seconds": 99.2333333333333, "bounded": true, "position": (2.838768, 0.000942, 8.957214), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/6/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/6/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (-0.158099, -0.015725, 214.35), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/6/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/7/capture { "phase": "arrived", "seconds": 92.5833333333333, "bounded": true, "position": (7.305954, 0.000942, 5.808975), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/7/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/1/7/supply { "phase": "arrived", "seconds": 12.3166666666667, "bounded": true, "position": (-0.128265, -0.004267, 214.2963), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/1/7/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/0/capture { "phase": "arrived", "seconds": 92.8, "bounded": true, "position": (-7.30735, 0.000942, -5.809158), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/0/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/0/supply { "phase": "arrived", "seconds": 21.9833333333333, "bounded": true, "position": (0.139025, -0.015726, -214.3377), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/0/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/1/capture { "phase": "arrived", "seconds": 99.6, "bounded": true, "position": (-2.839601, 0.000941, -8.957336), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/1/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/1/supply { "phase": "arrived", "seconds": 13.6166666666667, "bounded": true, "position": (0.241816, 0.00094, -214.2409), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/1/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/2/capture { "phase": "arrived", "seconds": 99.55, "bounded": true, "position": (2.839681, 0.000942, -8.957367), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/2/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/2/supply { "phase": "arrived", "seconds": 14.7333333333333, "bounded": true, "position": (-0.24157, 0.00094, -214.2364), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/2/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/3/capture { "phase": "arrived", "seconds": 92.8333333333333, "bounded": true, "position": (7.30685, 0.000942, -5.809402), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/3/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/3/supply { "phase": "arrived", "seconds": 23.0333333333333, "bounded": true, "position": (-0.138618, -0.006154, -214.3371), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/3/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/4/capture { "phase": "arrived", "seconds": 92.5666666666667, "bounded": true, "position": (-7.306818, 0.000942, -5.809128), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/4/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/4/supply { "phase": "arrived", "seconds": 12.3166666666667, "bounded": true, "position": (0.128244, -0.006154, -214.2963), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/4/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/5/capture { "phase": "arrived", "seconds": 99.25, "bounded": true, "position": (-2.852852, 0.000942, -8.960022), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/5/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/5/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (0.158265, 0.000941, -214.3501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/5/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/6/capture { "phase": "arrived", "seconds": 99.2, "bounded": true, "position": (2.839284, 0.000942, -8.957291), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/6/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/6/supply { "phase": "arrived", "seconds": 7.98333333333333, "bounded": true, "position": (-0.158031, -0.015726, -214.35), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/6/supply
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/7/capture { "phase": "arrived", "seconds": 92.5666666666667, "bounded": true, "position": (7.306841, 0.000942, -5.809357), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/7/capture
+[route] industrial_edge/us_m4a3_75w_vvss_1944/2/7/supply { "phase": "arrived", "seconds": 12.3166666666667, "bounded": true, "position": (-0.128351, -0.015726, -214.2963), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m4a3_75w_vvss_1944/2/7/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/0/capture { "phase": "arrived", "seconds": 77.7666666666667, "bounded": true, "position": (-9.138321, 0.000942, 6.59819), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/0/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/0/supply { "phase": "arrived", "seconds": 19.0833333333333, "bounded": true, "position": (-0.744436, -0.015723, 212.9519), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/0/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/1/capture { "phase": "arrived", "seconds": 84.6333333333333, "bounded": true, "position": (-4.204001, 0.000942, 9.460953), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/1/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/1/supply { "phase": "arrived", "seconds": 12.6666666666667, "bounded": true, "position": (-0.736116, -0.00765, 212.9454), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/1/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/2/capture { "phase": "arrived", "seconds": 84.6333333333333, "bounded": true, "position": (4.204031, 0.000942, 9.460846), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/2/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/2/supply { "phase": "arrived", "seconds": 12.5833333333333, "bounded": true, "position": (0.744068, -0.015724, 212.9481), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/2/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/3/capture { "phase": "arrived", "seconds": 77.7666666666667, "bounded": true, "position": (9.138311, 0.000941, 6.59819), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/3/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/3/supply { "phase": "arrived", "seconds": 19.0166666666667, "bounded": true, "position": (0.744417, 0.000942, 212.9518), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/3/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/4/capture { "phase": "arrived", "seconds": 77.3833333333333, "bounded": true, "position": (-9.138313, 0.000942, 6.598206), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/4/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/4/supply { "phase": "arrived", "seconds": 11.2166666666667, "bounded": true, "position": (-0.743454, 0.000942, 212.9501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/4/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/5/capture { "phase": "arrived", "seconds": 84.3333333333333, "bounded": true, "position": (-4.20404, 0.000942, 9.460815), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/5/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/5/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (-0.678034, -0.015725, 212.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/5/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/6/capture { "phase": "arrived", "seconds": 84.3333333333333, "bounded": true, "position": (4.204031, 0.000942, 9.460846), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/6/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/6/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (0.678027, 0.000941, 212.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/6/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/7/capture { "phase": "arrived", "seconds": 77.3833333333333, "bounded": true, "position": (9.138311, 0.000941, 6.59819), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/7/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/1/7/supply { "phase": "arrived", "seconds": 11.2166666666667, "bounded": true, "position": (0.743458, 0.00094, 212.9501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/1/7/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/0/capture { "phase": "arrived", "seconds": 77.7666666666667, "bounded": true, "position": (-9.139091, 0.000942, -6.596786), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/0/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/0/supply { "phase": "arrived", "seconds": 19.0166666666667, "bounded": true, "position": (-0.744225, 0.000942, -212.9518), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/0/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/1/capture { "phase": "arrived", "seconds": 84.6333333333333, "bounded": true, "position": (-4.204394, 0.000942, -9.459915), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/1/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/1/supply { "phase": "arrived", "seconds": 12.5833333333333, "bounded": true, "position": (-0.744122, -0.015725, -212.9482), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/1/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/2/capture { "phase": "arrived", "seconds": 84.6333333333333, "bounded": true, "position": (4.201851, 0.000942, -9.466537), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/2/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/2/supply { "phase": "arrived", "seconds": 12.6666666666667, "bounded": true, "position": (0.736065, -0.006024, -212.9453), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/2/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/3/capture { "phase": "arrived", "seconds": 77.7833333333333, "bounded": true, "position": (9.135708, 0.000942, -6.603149), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/3/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/3/supply { "phase": "arrived", "seconds": 19.0833333333333, "bounded": true, "position": (0.744656, 0.000731, -212.952), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/3/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/4/capture { "phase": "arrived", "seconds": 77.3833333333333, "bounded": true, "position": (-9.138235, 0.000942, -6.598236), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/4/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/4/supply { "phase": "arrived", "seconds": 11.2166666666667, "bounded": true, "position": (-0.74337, -0.015724, -212.95), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/4/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/5/capture { "phase": "arrived", "seconds": 84.3333333333333, "bounded": true, "position": (-4.204357, 0.000941, -9.460037), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/5/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/5/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (-0.677988, -0.007455, -212.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/5/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/6/capture { "phase": "arrived", "seconds": 84.3333333333333, "bounded": true, "position": (4.202106, 0.000942, -9.465805), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/6/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/6/supply { "phase": "arrived", "seconds": 7.13333333333333, "bounded": true, "position": (0.678085, -0.015723, -212.907), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/6/supply
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/7/capture { "phase": "arrived", "seconds": 77.4, "bounded": true, "position": (9.135721, 0.000942, -6.603333), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/7/capture
+[route] industrial_edge/us_m24_m6_t85e1_1951/2/7/supply { "phase": "arrived", "seconds": 11.2166666666667, "bounded": true, "position": (0.743462, 0.000941, -212.9501), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m24_m6_t85e1_1951/2/7/supply
+[route] industrial_edge/us_m26_m3_1945/1/0/capture { "phase": "arrived", "seconds": 107.65, "bounded": true, "position": (-6.971474, 0.000942, 4.967377), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/0/capture
+[route] industrial_edge/us_m26_m3_1945/1/0/supply { "phase": "arrived", "seconds": 27.6, "bounded": true, "position": (0.296295, -0.015725, 215.022), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/0/supply
+[route] industrial_edge/us_m26_m3_1945/1/1/capture { "phase": "arrived", "seconds": 115.233333333333, "bounded": true, "position": (-2.299982, 0.000942, 8.869781), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/1/capture
+[route] industrial_edge/us_m26_m3_1945/1/1/supply { "phase": "arrived", "seconds": 17.4, "bounded": true, "position": (0.772491, 0.00094, 214.6336), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/1/supply
+[route] industrial_edge/us_m26_m3_1945/1/2/capture { "phase": "arrived", "seconds": 115.233333333333, "bounded": true, "position": (2.299975, 0.000942, 8.869843), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/2/capture
+[route] industrial_edge/us_m26_m3_1945/1/2/supply { "phase": "arrived", "seconds": 15.6666666666667, "bounded": true, "position": (-0.719989, 0.000944, 214.6418), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/2/supply
+[route] industrial_edge/us_m26_m3_1945/1/3/capture { "phase": "arrived", "seconds": 107.65, "bounded": true, "position": (6.971439, 0.000941, 4.967407), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/3/capture
+[route] industrial_edge/us_m26_m3_1945/1/3/supply { "phase": "arrived", "seconds": 25.7166666666667, "bounded": true, "position": (-0.30327, -0.015725, 215.023), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/3/supply
+[route] industrial_edge/us_m26_m3_1945/1/4/capture { "phase": "arrived", "seconds": 107.216666666667, "bounded": true, "position": (-6.971497, 0.000941, 4.967545), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/4/capture
+[route] industrial_edge/us_m26_m3_1945/1/4/supply { "phase": "arrived", "seconds": 13.9333333333333, "bounded": true, "position": (0.295835, -0.005829, 214.8713), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/4/supply
+[route] industrial_edge/us_m26_m3_1945/1/5/capture { "phase": "arrived", "seconds": 114.866666666667, "bounded": true, "position": (-2.300013, 0.000942, 8.869781), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/5/capture
+[route] industrial_edge/us_m26_m3_1945/1/5/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (0.400059, 0.000682, 215.011), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/5/supply
+[route] industrial_edge/us_m26_m3_1945/1/6/capture { "phase": "arrived", "seconds": 114.866666666667, "bounded": true, "position": (2.299994, 0.000942, 8.869812), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/6/capture
+[route] industrial_edge/us_m26_m3_1945/1/6/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (-0.400141, -0.015724, 215.0111), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/6/supply
+[route] industrial_edge/us_m26_m3_1945/1/7/capture { "phase": "arrived", "seconds": 107.216666666667, "bounded": true, "position": (6.971447, 0.000941, 4.967453), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/7/capture
+[route] industrial_edge/us_m26_m3_1945/1/7/supply { "phase": "arrived", "seconds": 13.9333333333333, "bounded": true, "position": (-0.295868, -0.015726, 214.8714), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/1/7/supply
+[route] industrial_edge/us_m26_m3_1945/2/0/capture { "phase": "arrived", "seconds": 107.65, "bounded": true, "position": (-6.971935, 0.000942, -4.96756), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/0/capture
+[route] industrial_edge/us_m26_m3_1945/2/0/supply { "phase": "arrived", "seconds": 25.7166666666667, "bounded": true, "position": (0.303404, 0.000633, -215.0234), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/0/supply
+[route] industrial_edge/us_m26_m3_1945/2/1/capture { "phase": "arrived", "seconds": 115.3, "bounded": true, "position": (-2.299997, 0.000942, -8.869705), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/1/capture
+[route] industrial_edge/us_m26_m3_1945/2/1/supply { "phase": "arrived", "seconds": 15.6666666666667, "bounded": true, "position": (0.720579, 0.000941, -214.6422), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/1/supply
+[route] industrial_edge/us_m26_m3_1945/2/2/capture { "phase": "arrived", "seconds": 115.266666666667, "bounded": true, "position": (2.299225, 0.000942, -8.869492), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/2/capture
+[route] industrial_edge/us_m26_m3_1945/2/2/supply { "phase": "arrived", "seconds": 17.4, "bounded": true, "position": (-0.772466, 0.000941, -214.6337), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/2/supply
+[route] industrial_edge/us_m26_m3_1945/2/3/capture { "phase": "arrived", "seconds": 107.666666666667, "bounded": true, "position": (6.972439, 0.000942, -4.968536), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/3/capture
+[route] industrial_edge/us_m26_m3_1945/2/3/supply { "phase": "arrived", "seconds": 27.5833333333333, "bounded": true, "position": (-0.296183, -0.015726, -215.022), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/3/supply
+[route] industrial_edge/us_m26_m3_1945/2/4/capture { "phase": "arrived", "seconds": 107.216666666667, "bounded": true, "position": (-6.971762, 0.000942, -4.967331), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/4/capture
+[route] industrial_edge/us_m26_m3_1945/2/4/supply { "phase": "arrived", "seconds": 13.9333333333333, "bounded": true, "position": (0.295769, -0.015725, -214.8714), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/4/supply
+[route] industrial_edge/us_m26_m3_1945/2/5/capture { "phase": "arrived", "seconds": 114.866666666667, "bounded": true, "position": (-2.299966, 0.000942, -8.869797), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/5/capture
+[route] industrial_edge/us_m26_m3_1945/2/5/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (0.400071, -0.006349, -215.011), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/5/supply
+[route] industrial_edge/us_m26_m3_1945/2/6/capture { "phase": "arrived", "seconds": 114.883333333333, "bounded": true, "position": (2.299745, 0.000941, -8.869553), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/6/capture
+[route] industrial_edge/us_m26_m3_1945/2/6/supply { "phase": "arrived", "seconds": 9.35, "bounded": true, "position": (-0.400025, -0.005503, -215.0109), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/6/supply
+[route] industrial_edge/us_m26_m3_1945/2/7/capture { "phase": "arrived", "seconds": 107.233333333333, "bounded": true, "position": (6.972769, 0.000942, -4.968796), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/7/capture
+[route] industrial_edge/us_m26_m3_1945/2/7/supply { "phase": "arrived", "seconds": 13.9333333333333, "bounded": true, "position": (-0.295988, -0.015724, -214.8713), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m26_m3_1945/2/7/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/0/capture { "phase": "arrived", "seconds": 86.3166666666667, "bounded": true, "position": (-7.785519, 0.000942, 5.914169), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/0/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/0/supply { "phase": "arrived", "seconds": 22.95, "bounded": true, "position": (-0.026327, -0.015723, 213.9416), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/0/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/1/capture { "phase": "arrived", "seconds": 93.6333333333333, "bounded": true, "position": (-3.16525, 0.000942, 9.08345), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/1/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/1/supply { "phase": "arrived", "seconds": 14.8333333333333, "bounded": true, "position": (-0.032975, 0.000944, 213.9695), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/1/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/2/capture { "phase": "arrived", "seconds": 93.6166666666667, "bounded": true, "position": (3.163435, 0.000942, 9.082596), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/2/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/2/supply { "phase": "arrived", "seconds": 14.5666666666667, "bounded": true, "position": (0.032445, -0.015726, 213.9703), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/2/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/3/capture { "phase": "arrived", "seconds": 86.3166666666667, "bounded": true, "position": (7.785439, 0.000941, 5.914185), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/3/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/3/supply { "phase": "arrived", "seconds": 22.6833333333333, "bounded": true, "position": (0.026384, 0.000941, 213.9415), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/3/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/4/capture { "phase": "arrived", "seconds": 85.8333333333333, "bounded": true, "position": (-7.785477, 0.000942, 5.91423), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/4/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/4/supply { "phase": "arrived", "seconds": 12.75, "bounded": true, "position": (-0.027586, -0.015724, 213.9397), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/4/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/5/capture { "phase": "arrived", "seconds": 93.1166666666667, "bounded": true, "position": (-3.161565, 0.000942, 9.08168), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/5/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/5/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (-0.017722, 0.000828, 213.9571), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/5/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/6/capture { "phase": "arrived", "seconds": 93.1166666666667, "bounded": true, "position": (3.161426, 0.000941, 9.081772), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/6/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/6/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (0.017734, 0.000901, 213.9571), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/6/supply
+[route] industrial_edge/us_m36_m4a1_1945/1/7/capture { "phase": "arrived", "seconds": 85.8333333333333, "bounded": true, "position": (7.785465, 0.000942, 5.9142), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/7/capture
+[route] industrial_edge/us_m36_m4a1_1945/1/7/supply { "phase": "arrived", "seconds": 12.75, "bounded": true, "position": (0.02758, -0.015725, 213.9396), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/1/7/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/0/capture { "phase": "arrived", "seconds": 86.3666666666667, "bounded": true, "position": (-7.78643, 0.000942, -5.915054), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/0/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/0/supply { "phase": "arrived", "seconds": 22.6833333333333, "bounded": true, "position": (-0.026058, -0.015724, -213.9416), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/0/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/1/capture { "phase": "arrived", "seconds": 93.65, "bounded": true, "position": (-3.157005, 0.000942, -9.079712), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/1/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/1/supply { "phase": "arrived", "seconds": 14.5666666666667, "bounded": true, "position": (-0.032493, 0.000438, -213.9702), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/1/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/2/capture { "phase": "arrived", "seconds": 93.65, "bounded": true, "position": (3.157171, 0.000942, -9.080017), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/2/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/2/supply { "phase": "arrived", "seconds": 14.8333333333333, "bounded": true, "position": (0.032941, -0.015724, -213.9695), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/2/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/3/capture { "phase": "arrived", "seconds": 86.3166666666667, "bounded": true, "position": (7.785503, 0.000942, -5.914139), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/3/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/3/supply { "phase": "arrived", "seconds": 22.95, "bounded": true, "position": (0.026506, -0.003552, -213.9413), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/3/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/4/capture { "phase": "arrived", "seconds": 85.85, "bounded": true, "position": (-7.778481, 0.000942, -5.912247), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/4/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/4/supply { "phase": "arrived", "seconds": 12.75, "bounded": true, "position": (-0.027493, 0.000755, -213.9398), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/4/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/5/capture { "phase": "arrived", "seconds": 93.1166666666667, "bounded": true, "position": (-3.165277, 0.000942, -9.083679), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/5/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/5/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (-0.017588, -0.008174, -213.9572), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/5/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/6/capture { "phase": "arrived", "seconds": 93.1333333333333, "bounded": true, "position": (3.162781, 0.000942, -9.08252), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/6/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/6/supply { "phase": "arrived", "seconds": 8.41666666666667, "bounded": true, "position": (0.017842, -0.015725, -213.957), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/6/supply
+[route] industrial_edge/us_m36_m4a1_1945/2/7/capture { "phase": "arrived", "seconds": 85.8666666666667, "bounded": true, "position": (7.785635, 0.000942, -5.9142), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/7/capture
+[route] industrial_edge/us_m36_m4a1_1945/2/7/supply { "phase": "arrived", "seconds": 12.75, "bounded": true, "position": (0.027506, -0.015725, -213.9393), "recovery_attempts": 0 }
+[PASS] T023-02 actual driving industrial_edge/us_m36_m4a1_1945/2/7/supply
+[arrival means] industrial_edge us_m4a3_75w_vvss_1944 team1=96.0520833333333 team2=96.0458333333333
+[PASS] industrial_edge: same vehicle mean spawn arrival imbalance below 15% us_m4a3_75w_vvss_1944
+[arrival means] industrial_edge us_m24_m6_t85e1_1951 team1=81.0291666666667 team2=81.0333333333333
+[PASS] industrial_edge: same vehicle mean spawn arrival imbalance below 15% us_m24_m6_t85e1_1951
+[arrival means] industrial_edge us_m26_m3_1945 team1=111.241666666667 team2=111.260416666667
+[PASS] industrial_edge: same vehicle mean spawn arrival imbalance below 15% us_m26_m3_1945
+[arrival means] industrial_edge us_m36_m4a1_1945 team1=89.7229166666667 team2=89.74375
+[PASS] industrial_edge: same vehicle mean spawn arrival imbalance below 15% us_m36_m4a1_1945
+[PASS] garage freezes chosen map industrial_edge
+[PASS] T023-01 actual scene selection industrial_edge
+[PASS] selected graph and minimap match industrial_edge
+[PASS] restart frees old world and preserves selected map industrial_edge
+[PASS] return frees point, actors and paths industrial_edge
+[PASS] saved garage restores selected map industrial_edge
+[PASS] garage freezes chosen map hill_village
+[PASS] T023-01 actual scene selection hill_village
+[PASS] selected graph and minimap match hill_village
+[PASS] previous map and its actors freed
+[PASS] restart frees old world and preserves selected map hill_village
+[PASS] return frees point, actors and paths hill_village
+[PASS] saved garage restores selected map hill_village
+[PASS] garage freezes chosen map industrial_edge
+[PASS] T023-01 actual scene selection industrial_edge
+[PASS] selected graph and minimap match industrial_edge
+[PASS] previous map and its actors freed
+[PASS] restart frees old world and preserves selected map industrial_edge
+[PASS] return frees point, actors and paths industrial_edge
+[PASS] saved garage restores selected map industrial_edge
+=== 结果: 339 项检查, 0 失败 ===
+INDUSTRIAL_CHECKS_PASS

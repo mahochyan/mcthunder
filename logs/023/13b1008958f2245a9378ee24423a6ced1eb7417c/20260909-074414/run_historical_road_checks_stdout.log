@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] all historical definitions admitted for physical road matrix
+[route] us_m4a3_75w_vvss_1944 team=1 slot=0 phase=arrived peak_speed=7.26000000000003 endpoint=(-7.494663, 0.000942, 5.641167)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[route] us_m4a3_75w_vvss_1944 team=1 slot=7 phase=arrived peak_speed=7.25498398572021 endpoint=(7.494802, 0.000942, 5.641258)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[route] us_m4a3_75w_vvss_1944 team=2 slot=0 phase=arrived peak_speed=7.26000000000003 endpoint=(-7.494162, 0.000942, -5.640472)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] us_m4a3_75w_vvss_1944 team=2 slot=7 phase=arrived peak_speed=7.25382646803359 endpoint=(7.494972, 0.000942, -5.641525)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[route] us_m24_m6_t85e1_1951 team=1 slot=0 phase=arrived peak_speed=8.33264626679031 endpoint=(-9.172977, 0.000942, 6.532951)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[route] us_m24_m6_t85e1_1951 team=1 slot=7 phase=arrived peak_speed=8.32139893049975 endpoint=(9.172991, 0.000942, 6.532951)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[route] us_m24_m6_t85e1_1951 team=2 slot=0 phase=arrived peak_speed=8.33185774696286 endpoint=(-9.172964, 0.000942, -6.533264)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] us_m24_m6_t85e1_1951 team=2 slot=7 phase=arrived peak_speed=8.32105407676734 endpoint=(9.173122, 0.000942, -6.532707)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[route] us_m26_m3_1945 team=1 slot=0 phase=arrived peak_speed=6.5358333333333 endpoint=(-6.679928, 0.000942, 5.834686)
+[PASS] us_m26_m3_1945: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[route] us_m26_m3_1945 team=1 slot=7 phase=arrived peak_speed=6.50999999999997 endpoint=(6.680073, 0.000942, 5.834488)
+[PASS] us_m26_m3_1945: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[route] us_m26_m3_1945 team=2 slot=0 phase=arrived peak_speed=6.5358333333333 endpoint=(-6.67831, 0.000942, -5.834221)
+[PASS] us_m26_m3_1945: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] us_m26_m3_1945 team=2 slot=7 phase=arrived peak_speed=6.50999999999997 endpoint=(6.710972, 0.000942, -5.835571)
+[PASS] us_m26_m3_1945: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[route] us_m36_m4a1_1945 team=1 slot=0 phase=arrived peak_speed=7.47250000000002 endpoint=(-7.8613, 0.000942, 5.925789)
+[PASS] us_m36_m4a1_1945: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[route] us_m36_m4a1_1945 team=1 slot=7 phase=arrived peak_speed=7.47250000000002 endpoint=(7.861284, 0.000942, 5.925789)
+[PASS] us_m36_m4a1_1945: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[route] us_m36_m4a1_1945 team=2 slot=0 phase=arrived peak_speed=7.47250000000002 endpoint=(-7.861265, 0.000942, -5.92585)
+[PASS] us_m36_m4a1_1945: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] us_m36_m4a1_1945 team=2 slot=7 phase=arrived peak_speed=7.47250000000002 endpoint=(7.861107, 0.000942, -5.925568)
+[PASS] us_m36_m4a1_1945: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+=== 结果: 17 项检查, 0 失败 ===
+HISTORICAL_ROAD_CHECKS_PASS

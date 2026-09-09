@@ -1,0 +1,10 @@
+{
+  "source_sha": "13b1008958f2245a9378ee24423a6ced1eb7417c",
+  "command": "\"E:\\AIprogram\\mcthunder-development\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:/AIprogram/mcthunder-development\" -s res://tests/run_industrial_overview.gd -- --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\023\\13b1008958f2245a9378ee24423a6ced1eb7417c\\overview-20260909-075323\"",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "exit_code": 0,
+  "timed_out": false,
+  "checks": 2,
+  "passed": true,
+  "fixture": "authored-map renderer, not player viewpoint"
+}

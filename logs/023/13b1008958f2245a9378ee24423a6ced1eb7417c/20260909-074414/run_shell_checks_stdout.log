@@ -1,0 +1,188 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T021-H03 typed loadout fits real rack capacity
+[PASS] chamber deducted once from ready rack
+[PASS] overcapacity loadout rejected transactionally
+[PASS] illegal ammo and overcapacity supply cannot change stock
+[PASS] selection cannot transform loaded AP
+[PASS] selection during transfer preserves carried APHE
+[PASS] double load completion cannot duplicate
+[PASS] double cancellation restores one typed round
+[PASS] supply replenishes requested type within capacity
+[PASS] supply/select/fire cycle 0 preserves one ledger
+[PASS] supply/select/fire cycle 1 preserves one ledger
+[PASS] supply/select/fire cycle 2 preserves one ledger
+[PASS] supply/select/fire cycle 3 preserves one ledger
+[PASS] supply/select/fire cycle 4 preserves one ledger
+[PASS] supply/select/fire cycle 5 preserves one ledger
+[PASS] supply/select/fire cycle 6 preserves one ledger
+[PASS] supply/select/fire cycle 7 preserves one ledger
+[PASS] supply/select/fire cycle 8 preserves one ledger
+[PASS] supply/select/fire cycle 9 preserves one ledger
+[PASS] supply/select/fire cycle 10 preserves one ledger
+[PASS] supply/select/fire cycle 11 preserves one ledger
+[PASS] supply/select/fire cycle 12 preserves one ledger
+[PASS] supply/select/fire cycle 13 preserves one ledger
+[PASS] supply/select/fire cycle 14 preserves one ledger
+[PASS] supply/select/fire cycle 15 preserves one ledger
+[PASS] supply/select/fire cycle 16 preserves one ledger
+[PASS] supply/select/fire cycle 17 preserves one ledger
+[PASS] supply/select/fire cycle 18 preserves one ledger
+[PASS] supply/select/fire cycle 19 preserves one ledger
+[PASS] supply/select/fire cycle 20 preserves one ledger
+[PASS] supply/select/fire cycle 21 preserves one ledger
+[PASS] supply/select/fire cycle 22 preserves one ledger
+[PASS] supply/select/fire cycle 23 preserves one ledger
+[PASS] supply/select/fire cycle 24 preserves one ledger
+[PASS] supply/select/fire cycle 25 preserves one ledger
+[PASS] supply/select/fire cycle 26 preserves one ledger
+[PASS] supply/select/fire cycle 27 preserves one ledger
+[PASS] supply/select/fire cycle 28 preserves one ledger
+[PASS] supply/select/fire cycle 29 preserves one ledger
+[PASS] supply/select/fire cycle 30 preserves one ledger
+[PASS] supply/select/fire cycle 31 preserves one ledger
+[PASS] supply/select/fire cycle 32 preserves one ledger
+[PASS] supply/select/fire cycle 33 preserves one ledger
+[PASS] supply/select/fire cycle 34 preserves one ledger
+[PASS] supply/select/fire cycle 35 preserves one ledger
+[PASS] supply/select/fire cycle 36 preserves one ledger
+[PASS] supply/select/fire cycle 37 preserves one ledger
+[PASS] supply/select/fire cycle 38 preserves one ledger
+[PASS] supply/select/fire cycle 39 preserves one ledger
+[PASS] T021-H04 loss clears each physical rack exactly once
+[PASS] four historical vehicles admit independently sourced shell options
+[PASS] us_m4a3_75w_vvss_1944: documented AP and APHE options
+[PASS] us_m4a3_75w_vvss_1944: gun mismatch rejected
+[PASS] us_m4a3_75w_vvss_1944: unsupported second shell evidence rejected
+[PASS] us_m4a3_75w_vvss_1944: invalid historical penetration curve rejected
+[PASS] us_m4a3_75w_vvss_1944: historical APHE is not generic AP times 0.8
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects caliber
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects label
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects explanation
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects source_id
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects shell_id
+[PASS] us_m4a3_75w_vvss_1944: malformed shell catalog rejects default
+[PASS] us_m24_m6_t85e1_1951: documented AP and APHE options
+[PASS] us_m24_m6_t85e1_1951: gun mismatch rejected
+[PASS] us_m24_m6_t85e1_1951: unsupported second shell evidence rejected
+[PASS] us_m24_m6_t85e1_1951: invalid historical penetration curve rejected
+[PASS] us_m24_m6_t85e1_1951: historical APHE is not generic AP times 0.8
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects caliber
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects label
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects explanation
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects source_id
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects shell_id
+[PASS] us_m24_m6_t85e1_1951: malformed shell catalog rejects default
+[PASS] us_m26_m3_1945: documented AP and APHE options
+[PASS] us_m26_m3_1945: gun mismatch rejected
+[PASS] us_m26_m3_1945: unsupported second shell evidence rejected
+[PASS] us_m26_m3_1945: invalid historical penetration curve rejected
+[PASS] us_m26_m3_1945: historical APHE is not generic AP times 0.8
+[PASS] us_m26_m3_1945: malformed shell catalog rejects caliber
+[PASS] us_m26_m3_1945: malformed shell catalog rejects label
+[PASS] us_m26_m3_1945: malformed shell catalog rejects explanation
+[PASS] us_m26_m3_1945: malformed shell catalog rejects source_id
+[PASS] us_m26_m3_1945: malformed shell catalog rejects shell_id
+[PASS] us_m26_m3_1945: malformed shell catalog rejects default
+[PASS] us_m36_m4a1_1945: documented AP and APHE options
+[PASS] us_m36_m4a1_1945: gun mismatch rejected
+[PASS] us_m36_m4a1_1945: unsupported second shell evidence rejected
+[PASS] us_m36_m4a1_1945: invalid historical penetration curve rejected
+[PASS] us_m36_m4a1_1945: historical APHE is not generic AP times 0.8
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects caliber
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects label
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects explanation
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects source_id
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects shell_id
+[PASS] us_m36_m4a1_1945: malformed shell catalog rejects default
+[PASS] real vehicle definitions load
+[PASS] real target actor loads
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] T021-H01 blocked exterior never creates inside fragments
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] unknown exterior remains conservative
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] exit before 0.8m cancels burst and retains kinetic exit contact
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] declared open exit cancels inside burst without inventing an armor plate
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] empty compartment creates bounded rays and no invented crew hits
+[PASS] burst occurs exactly at 0.8m real inside path and ends mother shot
+[PASS] T021-H02 fragment 0 obeys query/path cap
+[PASS] T021-H02 fragment 1 obeys query/path cap
+[PASS] T021-H02 fragment 2 obeys query/path cap
+[PASS] T021-H02 fragment 3 obeys query/path cap
+[PASS] T021-H02 fragment 4 obeys query/path cap
+[PASS] T021-H02 fragment 5 obeys query/path cap
+[PASS] T021-H02 fragment 6 obeys query/path cap
+[PASS] T021-H02 fragment 7 obeys query/path cap
+[PASS] T021-H02 fragment 8 obeys query/path cap
+[PASS] T021-H02 fragment 9 obeys query/path cap
+[PASS] T021-H02 fragment 10 obeys query/path cap
+[PASS] T021-H02 fragment 11 obeys query/path cap
+[PASS] 12mm game fragments stop at actual 20mm compartment armor
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] internal burst reaches off-axis actual modules
+[PASS] actual fragment record is valid for replay
+[PASS] malformed fragment replay rejects direction
+[PASS] malformed fragment replay rejects queries
+[PASS] malformed fragment replay rejects point
+[PASS] malformed fragment replay rejects burst_frame
+[PASS] malformed fragment replay rejects burst_seed
+[PASS] malformed fragment replay rejects duplicate_damage
+[PASS] malformed fragment replay rejects missing_damage_link
+[PASS] malformed fragment replay rejects contact
+[PASS] fragment transactions change independent live target state
+[PASS] production replay accepts actual recorded fragments
+[PASS] T021-H04 repeated display preserves exact paths and never mutates damage
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] AP follows narrow path through the same off-axis module layout
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] T021-H05 TEST ONLY AP120 penetrates armor that APHE96 cannot
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] detached shield authorizes entry but one-metre air gap never counts toward inside burst
+[PASS] real manager accepts explicit TEST ONLY shell fixture
+[PASS] first fragment callback cancellation stops remaining rays and commits only one damage event
+[PASS] reentrant cancellation freezes committed partial path and clears public replay history
+[PASS] all ten production effect cases executed
+[PASS] normal shell scene initializes production typed gunner
+[PASS] actual player command selects next without changing chamber
+[PASS] actual fire takes selected type into pending load
+[PASS] first actual launch freezes the previously loaded AP
+[PASS] actual mid-load input cannot transform carried APHE
+[PASS] natural reload completes the fixed carried type
+[PASS] second real shot uses loaded APHE and conserves typed stock
+[PASS] supply waits full two simulated seconds
+[PASS] supply commits exactly one typed round
+[PASS] supply stops at configured type counts below physical capacity
+[PASS] moving input cannot obtain parked supply
+[PASS] enemy or outside area cannot supply
+[PASS] active fire prevents ammunition supply
+[PASS] empty gun refuses launch without starting fictitious loading
+[PASS] vehicle reset restores original typed manifest exactly once
+[PASS] all real-input and supply cases reached completion
+[PASS] us_m4a3_75w_vvss_1944: actual input fires default and carries alternate historical shell
+[PASS] us_m4a3_75w_vvss_1944: natural reload fires alternate with exact total debit
+[PASS] us_m4a3_75w_vvss_1944: incompatible historical shell cannot replace live ledger
+[PASS] us_m4a3_75w_vvss_1944: restart restores original two-type manifest
+[PASS] us_m24_m6_t85e1_1951: actual input fires default and carries alternate historical shell
+[PASS] us_m24_m6_t85e1_1951: natural reload fires alternate with exact total debit
+[PASS] us_m24_m6_t85e1_1951: incompatible historical shell cannot replace live ledger
+[PASS] us_m24_m6_t85e1_1951: restart restores original two-type manifest
+[PASS] us_m26_m3_1945: actual input fires default and carries alternate historical shell
+[PASS] us_m26_m3_1945: natural reload fires alternate with exact total debit
+[PASS] us_m26_m3_1945: incompatible historical shell cannot replace live ledger
+[PASS] us_m26_m3_1945: restart restores original two-type manifest
+[PASS] us_m36_m4a1_1945: actual input fires default and carries alternate historical shell
+[PASS] us_m36_m4a1_1945: natural reload fires alternate with exact total debit
+[PASS] us_m36_m4a1_1945: incompatible historical shell cannot replace live ledger
+[PASS] us_m36_m4a1_1945: restart restores original two-type manifest
+[PASS] all four real historical two-shell firing flows completed
+[PASS] real village starts the supply integration case
+[PASS] enemy village supply area cannot replenish player ammunition
+[PASS] friendly village zone waits the actual replenishment interval
+[PASS] real village physics loop supplies exactly one missing historical type
+[PASS] normal timed respawn starts a fresh conserved two-shell manifest
+[PASS] real village supply and respawn flow completed
+=== 结果: 184 项检查, 0 失败 ===
+SHELL_CHECKS_PASS

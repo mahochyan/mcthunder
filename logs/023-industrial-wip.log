@@ -1,0 +1,382 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] four actual historical definitions load for map matrix
+[PASS] registry accepts exactly the two playable maps
+[PASS] hill_village: schema and alternate paths { "ok": true, "errors": [] }
+[bake hill_village] 1606 samples; failures=[]
+[PASS] hill_village: every road clears maximum real vehicle envelope including final scenery
+[PASS] hill_village: all 192 opposing spawn rays blocked
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/supply
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/capture
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/supply
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/capture
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/supply
+[route] hill_village/us_m24_m6_t85e1_1951/2/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/7/capture
+[route] hill_village/us_m24_m6_t85e1_1951/2/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/7/supply
+[route] hill_village/us_m26_m3_1945/1/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/0/capture
+[route] hill_village/us_m26_m3_1945/1/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/0/supply
+[route] hill_village/us_m26_m3_1945/1/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/1/capture
+[route] hill_village/us_m26_m3_1945/1/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/1/supply
+[route] hill_village/us_m26_m3_1945/1/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/2/capture
+[route] hill_village/us_m26_m3_1945/1/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/2/supply
+[route] hill_village/us_m26_m3_1945/1/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/3/capture
+[route] hill_village/us_m26_m3_1945/1/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/3/supply
+[route] hill_village/us_m26_m3_1945/1/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/4/capture
+[route] hill_village/us_m26_m3_1945/1/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/4/supply
+[route] hill_village/us_m26_m3_1945/1/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/5/capture
+[route] hill_village/us_m26_m3_1945/1/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/5/supply
+[route] hill_village/us_m26_m3_1945/1/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/6/capture
+[route] hill_village/us_m26_m3_1945/1/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/6/supply
+[route] hill_village/us_m26_m3_1945/1/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/7/capture
+[route] hill_village/us_m26_m3_1945/1/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/1/7/supply
+[route] hill_village/us_m26_m3_1945/2/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/0/capture
+[route] hill_village/us_m26_m3_1945/2/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/0/supply
+[route] hill_village/us_m26_m3_1945/2/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/1/capture
+[route] hill_village/us_m26_m3_1945/2/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/1/supply
+[route] hill_village/us_m26_m3_1945/2/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/2/capture
+[route] hill_village/us_m26_m3_1945/2/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/2/supply
+[route] hill_village/us_m26_m3_1945/2/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/3/capture
+[route] hill_village/us_m26_m3_1945/2/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/3/supply
+[route] hill_village/us_m26_m3_1945/2/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/4/capture
+[route] hill_village/us_m26_m3_1945/2/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/4/supply
+[route] hill_village/us_m26_m3_1945/2/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/5/capture
+[route] hill_village/us_m26_m3_1945/2/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/5/supply
+[route] hill_village/us_m26_m3_1945/2/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/6/capture
+[route] hill_village/us_m26_m3_1945/2/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/6/supply
+[route] hill_village/us_m26_m3_1945/2/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/7/capture
+[route] hill_village/us_m26_m3_1945/2/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m26_m3_1945/2/7/supply
+[route] hill_village/us_m36_m4a1_1945/1/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/0/capture
+[route] hill_village/us_m36_m4a1_1945/1/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/0/supply
+[route] hill_village/us_m36_m4a1_1945/1/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/1/capture
+[route] hill_village/us_m36_m4a1_1945/1/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/1/supply
+[route] hill_village/us_m36_m4a1_1945/1/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/2/capture
+[route] hill_village/us_m36_m4a1_1945/1/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/2/supply
+[route] hill_village/us_m36_m4a1_1945/1/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/3/capture
+[route] hill_village/us_m36_m4a1_1945/1/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/3/supply
+[route] hill_village/us_m36_m4a1_1945/1/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/4/capture
+[route] hill_village/us_m36_m4a1_1945/1/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/4/supply
+[route] hill_village/us_m36_m4a1_1945/1/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/5/capture
+[route] hill_village/us_m36_m4a1_1945/1/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/5/supply
+[route] hill_village/us_m36_m4a1_1945/1/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/6/capture
+[route] hill_village/us_m36_m4a1_1945/1/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/6/supply
+[route] hill_village/us_m36_m4a1_1945/1/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/7/capture
+[route] hill_village/us_m36_m4a1_1945/1/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/1/7/supply
+[route] hill_village/us_m36_m4a1_1945/2/0/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/0/capture
+[route] hill_village/us_m36_m4a1_1945/2/0/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/0/supply
+[route] hill_village/us_m36_m4a1_1945/2/1/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/1/capture
+[route] hill_village/us_m36_m4a1_1945/2/1/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/1/supply
+[route] hill_village/us_m36_m4a1_1945/2/2/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/2/capture
+[route] hill_village/us_m36_m4a1_1945/2/2/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/2/supply
+[route] hill_village/us_m36_m4a1_1945/2/3/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/3/capture
+[route] hill_village/us_m36_m4a1_1945/2/3/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/3/supply
+[route] hill_village/us_m36_m4a1_1945/2/4/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/4/capture
+[route] hill_village/us_m36_m4a1_1945/2/4/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/4/supply
+[route] hill_village/us_m36_m4a1_1945/2/5/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/5/capture
+[route] hill_village/us_m36_m4a1_1945/2/5/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/5/supply
+[route] hill_village/us_m36_m4a1_1945/2/6/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/6/capture
+[route] hill_village/us_m36_m4a1_1945/2/6/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/6/supply
+[route] hill_village/us_m36_m4a1_1945/2/7/capture { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/7/capture
+[route] hill_village/us_m36_m4a1_1945/2/7/supply { "phase": "setup_failed", "bounded": false, "seconds": 0 }
+[FAIL] T023-02 actual driving hill_village/us_m36_m4a1_1945/2/7/supply
+[arrival means] hill_village us_m4a3_75w_vvss_1944 team1=0.0 team2=0.0
+[FAIL] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m4a3_75w_vvss_1944
+[arrival means] hill_village us_m24_m6_t85e1_1951 team1=0.0 team2=0.0
+[FAIL] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m24_m6_t85e1_1951
+[arrival means] hill_village us_m26_m3_1945 team1=0.0 team2=0.0
+[FAIL] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m26_m3_1945
+[arrival means] hill_village us_m36_m4a1_1945 team1=0.0 team2=0.0
+[FAIL] hill_village: same vehicle mean spawn arrival imbalance below 15% us_m36_m4a1_1945
+SCRIPT ERROR: Invalid access to property or key 'hub1_w' on a base object of type 'Dictionary'.
+   at: roads (res://scripts/maps/industrial_world.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] roads (res://scripts/maps/industrial_world.gd:63)
+       [1] build (res://scripts/maps/industrial_world.gd:16)
+       [2] _run (res://tests/run_industrial_checks.gd:21)
+       [3] frames (res://tests/run_industrial_checks.gd:13)
+[FAIL] industrial_edge: schema and alternate paths { "ok": false, "errors": ["graph: capacity"] }
+[bake industrial_edge] 0 samples; failures=["graph: capacity"]
+[FAIL] industrial_edge: every road clears maximum real vehicle envelope including final scenery
+[PASS] industrial_edge: all 192 opposing spawn rays blocked
+[PASS] T023-H02 visible/physical dimensions warehouse_1_-1
+[PASS] T023-04 actual shell and LOS stop at warehouse_1_-1
+[PASS] T023-H02 visible/physical dimensions outer_works_1_-1
+[PASS] T023-04 actual shell and LOS stop at outer_works_1_-1
+[PASS] T023-H02 visible/physical dimensions warehouse_1_1
+[PASS] T023-04 actual shell and LOS stop at warehouse_1_1
+[PASS] T023-H02 visible/physical dimensions outer_works_1_1
+[PASS] T023-04 actual shell and LOS stop at outer_works_1_1
+[PASS] T023-H02 visible/physical dimensions spawn_warehouse_1
+[PASS] T023-04 actual shell and LOS stop at spawn_warehouse_1
+[PASS] T023-H02 visible/physical dimensions warehouse_2_-1
+[PASS] T023-04 actual shell and LOS stop at warehouse_2_-1
+[PASS] T023-H02 visible/physical dimensions outer_works_2_-1
+[PASS] T023-04 actual shell and LOS stop at outer_works_2_-1
+[PASS] T023-H02 visible/physical dimensions warehouse_2_1
+[PASS] T023-04 actual shell and LOS stop at warehouse_2_1
+[PASS] T023-H02 visible/physical dimensions outer_works_2_1
+[PASS] T023-04 actual shell and LOS stop at outer_works_2_1
+[PASS] T023-H02 visible/physical dimensions spawn_warehouse_2
+[PASS] T023-04 actual shell and LOS stop at spawn_warehouse_2
+[PASS] T023-H02 visible/physical dimensions loading_block_-1
+[PASS] T023-04 actual shell and LOS stop at loading_block_-1
+[PASS] T023-H02 visible/physical dimensions yard_cover_-1
+[PASS] T023-04 actual shell and LOS stop at yard_cover_-1
+[PASS] T023-H02 visible/physical dimensions loading_block_1
+[PASS] T023-04 actual shell and LOS stop at loading_block_1
+[PASS] T023-H02 visible/physical dimensions yard_cover_1
+[PASS] T023-04 actual shell and LOS stop at yard_cover_1
+[PASS] T023-H02 visible/physical dimensions boundary_x-175
+[PASS] T023-04 actual shell and LOS stop at boundary_x-175
+[PASS] T023-H02 visible/physical dimensions boundary_x175
+[PASS] T023-04 actual shell and LOS stop at boundary_x175
+[PASS] T023-H02 visible/physical dimensions boundary_z-225
+[PASS] T023-04 actual shell and LOS stop at boundary_z-225
+[PASS] T023-H02 visible/physical dimensions boundary_z225
+[PASS] T023-04 actual shell and LOS stop at boundary_z225
+[PASS] central loading block breaks long street line -1
+[PASS] independent outer road stays open for flanking -1
+[PASS] central loading block breaks long street line 1
+[PASS] independent outer road stays open for flanking 1
+[PASS] flush decorative rails neither block vehicles nor shells
+[PASS] garage freezes chosen map industrial_edge
+SCRIPT ERROR: Invalid access to property or key 'hub1_w' on a base object of type 'Dictionary'.
+   at: roads (res://scripts/maps/industrial_world.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] roads (res://scripts/maps/industrial_world.gd:63)
+       [1] build (res://scripts/maps/industrial_world.gd:16)
+       [2] _build_world (res://scripts/maps/industrial_range.gd:4)
+       [3] _ready (res://scripts/training/ballistics_range.gd:49)
+       [4] _ready (res://scripts/battle/team_range.gd:32)
+       [5] _enter_lab (res://scripts/core/app_flow.gd:183)
+[PASS] T023-01 actual scene selection industrial_edge
+[FAIL] selected graph and minimap match industrial_edge
+SCRIPT ERROR: Invalid access to property or key 'hub1_w' on a base object of type 'Dictionary'.
+   at: roads (res://scripts/maps/industrial_world.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] roads (res://scripts/maps/industrial_world.gd:63)
+       [1] build (res://scripts/maps/industrial_world.gd:16)
+       [2] _build_world (res://scripts/maps/industrial_range.gd:4)
+       [3] _ready (res://scripts/training/ballistics_range.gd:49)
+       [4] _ready (res://scripts/battle/team_range.gd:32)
+       [5] _enter_lab (res://scripts/core/app_flow.gd:183)
+[PASS] restart frees old world and preserves selected map industrial_edge
+[PASS] return frees point, actors and paths industrial_edge
+[PASS] saved garage restores selected map industrial_edge
+[PASS] garage freezes chosen map hill_village
+[PASS] T023-01 actual scene selection hill_village
+[PASS] selected graph and minimap match hill_village
+[PASS] previous map and its actors freed
+[PASS] restart frees old world and preserves selected map hill_village
+[PASS] return frees point, actors and paths hill_village
+[PASS] saved garage restores selected map hill_village
+[PASS] garage freezes chosen map industrial_edge
+SCRIPT ERROR: Invalid access to property or key 'hub1_w' on a base object of type 'Dictionary'.
+   at: roads (res://scripts/maps/industrial_world.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] roads (res://scripts/maps/industrial_world.gd:63)
+       [1] build (res://scripts/maps/industrial_world.gd:16)
+       [2] _build_world (res://scripts/maps/industrial_range.gd:4)
+       [3] _ready (res://scripts/training/ballistics_range.gd:49)
+       [4] _ready (res://scripts/battle/team_range.gd:32)
+       [5] _enter_lab (res://scripts/core/app_flow.gd:183)
+[PASS] T023-01 actual scene selection industrial_edge
+[FAIL] selected graph and minimap match industrial_edge
+[PASS] previous map and its actors freed
+SCRIPT ERROR: Invalid access to property or key 'hub1_w' on a base object of type 'Dictionary'.
+   at: roads (res://scripts/maps/industrial_world.gd:63)
+   GDScript backtrace (most recent call first):
+       [0] roads (res://scripts/maps/industrial_world.gd:63)
+       [1] build (res://scripts/maps/industrial_world.gd:16)
+       [2] _build_world (res://scripts/maps/industrial_range.gd:4)
+       [3] _ready (res://scripts/training/ballistics_range.gd:49)
+       [4] _ready (res://scripts/battle/team_range.gd:32)
+       [5] _enter_lab (res://scripts/core/app_flow.gd:183)
+[PASS] restart frees old world and preserves selected map industrial_edge
+[PASS] return frees point, actors and paths industrial_edge
+[PASS] saved garage restores selected map industrial_edge
+=== 结果: 201 项检查, 136 失败 ===
+INDUSTRIAL_CHECKS_FAIL

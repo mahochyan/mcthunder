@@ -1,0 +1,63 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T016-01 three occupants have the same twelve-second capture rate
+[PASS] empty neutral point preserves partial progress
+[PASS] T016-H01 contested point freezes progress
+[PASS] capture completed at tick end never drains earlier neutral time
+[PASS] owned empty/contested point drains exactly one cumulative ticket per second
+[PASS] opponent first neutralizes in twelve seconds while previous owner retains drain
+[PASS] opponent then captures; large tick allocates only actual owned time
+[PASS] T016-02 simultaneous zero or timeout settles by both final ticket totals
+[PASS] T016-02 simultaneous zero or timeout settles by both final ticket totals
+[PASS] T016-02 simultaneous zero or timeout settles by both final ticket totals
+[PASS] T016-02 simultaneous zero or timeout settles by both final ticket totals
+[PASS] real three-second countdown creates eight actual vehicles
+[PASS] each slot owns distinct life and actual collision snapshot
+[PASS] formal R reset cannot replenish health or ammunition
+[PASS] protected tank never captures during its protection expiry step
+[PASS] expired protection allows subsequent actual in-circle capture
+[PASS] real command consumer protection cancellation: aim
+[PASS] real command consumer protection cancellation: throttle
+[PASS] real command consumer protection cancellation: steer
+[PASS] real command consumer protection cancellation: fire
+[PASS] T016-H05 pause freezes match clock, point, tickets and vehicle
+[PASS] resume restores normal clock with fire grace
+[PASS] abandon current vehicle commits one actual death and one thirty-ticket charge
+[PASS] T016-03 repeated death record cannot debit twice
+[PASS] early respawn request cannot bypass eight-second preparation
+[PASS] player explicitly chooses redeploy after minimum delay
+[PASS] one redeploy creates one new life with the sole local controller
+[PASS] new life restores actual crew, damage, fire, ammunition and extinguishers
+[PASS] old life cannot inherit new shield or add stale death
+[PASS] duplicate redeploy leaves one new vehicle and one physical wreck
+[PASS] old player wreck remains visible to the new life's gunsight cull mask
+[PASS] AI automatically respawns once after the same eight-second delay
+[PASS] ordinary deaths and redeploys keep match running
+[PASS] T016-H03 real world blocker selects alternate spawn
+[PASS] all candidates blocked or reserved yields waiting, never overlap
+[PASS] T016-H02 same physics-step player/enemy deaths reaching zero settle once as draw
+[PASS] finished match rejects late respawns and result replacement
+[PASS] T016-04 finished round rejects damage and cancels active shots
+[PASS] real projectile manager accepts friendly_hull fixture
+[PASS] T016-05 actual nearest contact stops at friendly_hull without damage to it or enemy behind
+[PASS] denied contact stops real flight at first physical surface
+[PASS] real projectile manager accepts friendly_track fixture
+[PASS] T016-05 actual nearest contact stops at friendly_track without damage to it or enemy behind
+[PASS] denied contact stops real flight at first physical surface
+[PASS] real projectile manager accepts protected_enemy fixture
+[PASS] T016-05 actual nearest contact stops at protected_enemy without damage to it or enemy behind
+[PASS] denied contact stops real flight at first physical surface
+[PASS] real projectile manager accepts wreck fixture
+[PASS] T016-05 actual nearest contact stops at wreck without damage to it or enemy behind
+[PASS] denied contact stops real flight at first physical surface
+[PASS] T016-H05 pause freezes eight normally running actors, AI, damage, weapons, protection and clock
+[PASS] actual physics resumes match after global pause
+[PASS] blocked spawn service stays queued without duplicate allocation
+[PASS] clearing a blocked spawn resumes one fresh life
+[PASS] close enemy observation chooses a visible exterior inside actual gun elevation limits
+[PASS] objective commander retries a bounded failed route using only public goal
+[PASS] AI repairs disabled turret while breech remains usable and stops for the action
+[PASS] twenty normal AppFlow enter/leave cycles release actors, cameras, controllers and callbacks
+[PASS] restart uses the team scene and fresh match identity
+=== 结果: 59 项检查, 0 失败 ===
+TEAM_CHECKS_PASS
