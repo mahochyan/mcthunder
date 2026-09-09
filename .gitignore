@@ -17,3 +17,6 @@ Desktop.ini
 # Blender auto-backups; editable .blend source files are tracked.
 *.blend1
 *.blend2
+
+tests/tmp_*/
+*.uid
