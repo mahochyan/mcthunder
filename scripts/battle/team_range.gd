@@ -24,6 +24,8 @@ var shield_visuals: Dictionary = {}
 var battle_ui: BattleUI
 var match_seed := 1600
 var ai_only := false # Explicit scenario-runner configuration; normal garage play is false.
+var telemetry: TrafficTelemetry = null      # read-only mobility sampling, fresh per match
+var _telemetry_phase := ""
 var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
 var garage_service: GarageService
@@ -85,12 +87,17 @@ func supply_positions(_team: int) -> Array[Vector3]: return []
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	if not team_ready or get_tree().paused or director.state.phase != "playing": return
+	if not team_ready: return
+	if _telemetry_phase != director.state.phase:
+		if director.state.phase == "playing": telemetry = TrafficTelemetry.new()
+		_telemetry_phase = director.state.phase
+	if get_tree().paused or director.state.phase != "playing": return
 	for vehicle in combat_actors():
 		var inside := false
 		for point in supply_positions(vehicle.state.team_id):
 			if Vector2(vehicle.tank.global_position.x-point.x,vehicle.tank.global_position.z-point.z).length() <= AmmunitionSupply.RADIUS_M: inside = true
 		ammunition_supply.step(vehicle,delta,inside)
+	telemetry.step(combat_actors(),delta)
 func navigation_graph() -> Dictionary: return TeamArena.graph()
 func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
 func objective_goal(team: int, index: int) -> Vector3: return TeamArena.goal(team,index)
@@ -268,6 +275,9 @@ func abandon_vehicle() -> void:
 	if _paused: _resume()
 
 func _finish_match(result: Dictionary) -> void:
+	if telemetry != null:
+		var evidence_path := "user://traffic_match_%d.json" % [int(director.state.match_id)]
+		if telemetry.write_evidence(evidence_path): print("TRAFFIC_EVIDENCE %s" % evidence_path)
 	projectiles.close_round()
 	wrecks.set_physics_process(false)
 	for vehicle in combat_actors():
