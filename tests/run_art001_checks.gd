@@ -261,12 +261,10 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 	# 整车可见几何审计：无旧外观残留（不存在两套外观叠加）
 	var leftovers: Array[String] = BakedVisualAdapter.audit_no_leftover(actor)
 	_ok(leftovers.is_empty(), "T-ART-06 整车无残留旧外观（%s）" % str(leftovers))
-	# 后坐接线：kick 后候选炮管容器接收 Z 位移
-	actor.turret.kick_recoil()
-	await process_frame
-	var recoil_container := actor.turret.recoil_visual
-	_ok(recoil_container != null and str(recoil_container.name) == "BakedPilotVisual_barrel" and (recoil_container as Node3D).position.z > 0.05,
-		"T-ART-06 候选炮管接收后坐位移（z=%.3f）" % ((recoil_container as Node3D).position.z if recoil_container != null else 0.0))
+	# 后坐接线结构：recoil_visual = 独立后坐子节点（只装炮管），炮盾留在俯仰容器
+	var rv := actor.turret.recoil_visual
+	_ok(rv != null and str(rv.name) == "BakedPilotGunRecoil" and (rv.get_parent() != null and str(rv.get_parent().name) == "BakedPilotVisual_barrel"),
+		"T-ART-06 后坐子节点层级正确（BakedPilotVisual_barrel/BakedPilotGunRecoil）")
 	# 变体切换确实覆盖绑定网格（先设 B 验证覆盖，再设 C 供对照）
 	var b_meshes := adapter.mesh_instances()
 	var m_set: StandardMaterial3D = BakeComparison.set_variant(b_meshes, "B")
@@ -281,8 +279,28 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 	_ok(not f2 and gunner.blocked_reason == "cooldown", "T-ART-06 绑定后冷却自然生效（%s）" % str(gunner.blocked_reason))
 	for i in range(500):
 		await physics_frame
+	# 后坐运动关系（真实开火触发）：以 BarrelPivot 为基准比较相对变换
+	var tube := adapter.mesh_instances().filter(func(m): return str(m.name) == "LOW_gun_Tube")
+	var shell := adapter.mesh_instances().filter(func(m): return str(m.name) == "LOW_barrel_Shell")
+	_ok(tube.size() == 1 and shell.size() == 1, "T-ART-06 炮管/炮盾网格各就位")
+	var pivot_inv := actor.turret.barrel_pivot.global_transform.affine_inverse()
+	var tube_rel0 := pivot_inv * (tube[0] as MeshInstance3D).global_transform
+	var shell_rel0 := pivot_inv * (shell[0] as MeshInstance3D).global_transform
+	var muzzle_rel0 := pivot_inv * actor.turret.muzzle.global_transform
 	var f3: bool = gunner.try_fire()
 	_ok(f3, "T-ART-06 自然装填后再次开火成功（cd=%.2f %s）" % [gunner.cooldown_left, str(gunner.blocked_reason)])
+	await physics_frame
+	var tube_rel1 := pivot_inv * (tube[0] as MeshInstance3D).global_transform
+	var shell_rel1 := pivot_inv * (shell[0] as MeshInstance3D).global_transform
+	var muzzle_rel1 := pivot_inv * actor.turret.muzzle.global_transform
+	_ok(tube_rel1.origin.z > tube_rel0.origin.z + 0.05, "T-ART-06 真实开火候选炮管后坐（Δz=%.3f）" % (tube_rel1.origin.z - tube_rel0.origin.z))
+	_ok(shell_rel0.origin.distance_to(shell_rel1.origin) < 0.001, "T-ART-06 炮盾不随炮管后坐（Δ=%.5f m）" % shell_rel0.origin.distance_to(shell_rel1.origin))
+	_ok(muzzle_rel0.origin.distance_to(muzzle_rel1.origin) < 0.001, "T-ART-06 炮口/查询部件不因视觉后坐改变")
+	# 后坐自然回零
+	for i in range(40):
+		await physics_frame
+	var tube_rel2 := pivot_inv * (tube[0] as MeshInstance3D).global_transform
+	_ok(absf(tube_rel2.origin.z - tube_rel0.origin.z) < 0.01, "T-ART-06 候选炮管后坐自然回零（Δz=%.4f）" % absf(tube_rel2.origin.z - tube_rel0.origin.z))
 	# 真实驾驶：经同一命令提交入口驱动（与控制者同一路径），绑定视觉下加速
 	for i in range(150):
 		var cmd := VehicleCommand.new()

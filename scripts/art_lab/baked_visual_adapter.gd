@@ -88,21 +88,33 @@ func bind(actor: VehicleActor, whitelist: Dictionary = {}) -> Dictionary:
 		container.name = "BakedPilotVisual_%s" % part
 		parent2.add_child(container)
 		_spawned_roots.append(container)
+		# 后坐接线（只对炮管）：独立后坐子节点只装 LOW_gun_Tube，
+		# 炮盾 LOW_barrel_Shell 留在俯仰容器不随后坐；还原先接回旧引用
+		var recoil_root: Node3D = null
+		if part == "barrel":
+			recoil_root = Node3D.new()
+			recoil_root.name = "BakedPilotGunRecoil"
+			container.add_child(recoil_root)
 		for src_mesh in part_meshes[part]:
 			var dup := (src_mesh as MeshInstance3D).duplicate() as MeshInstance3D
-			container.add_child(dup)
+			if part == "barrel" and str(src_mesh.name) == "LOW_gun_Tube":
+				recoil_root.add_child(dup)
+			else:
+				container.add_child(dup)
 			_set_layers(dup, actor.tank.visual_layer)
 			added += 1
-		# 后坐接线：炮管候选容器接给 TurretRig 的 recoil_visual（只写 Z 位移），
-		# 还原时接回旧引用；炮盾/炮耳/炮口节点不改作后坐视觉
 		if part == "barrel":
 			_recoil_old = actor.turret.recoil_visual
-			actor.turret.recoil_visual = container
+			actor.turret.recoil_visual = recoil_root
 	source.free()
 	_bound = true
 	return {"ok": true, "hidden": _hidden.size(), "added": added, "parts": _spawned_roots.size()}
 
 func restore(actor: VehicleActor) -> Dictionary:
+	# 先接回旧后坐引用，再释放候选容器
+	if _recoil_old != null and is_instance_valid(_recoil_old):
+		actor.turret.recoil_visual = _recoil_old
+	_recoil_old = null
 	var removed := 0
 	for container in _spawned_roots:
 		if is_instance_valid(container):
@@ -117,9 +129,6 @@ func restore(actor: VehicleActor) -> Dictionary:
 			(node as Node3D).visible = bool(rec["visible"])
 			restored += 1
 	_hidden.clear()
-	if _recoil_old != null and is_instance_valid(_recoil_old):
-		actor.turret.recoil_visual = _recoil_old
-	_recoil_old = null
 	if _track_motion != null and is_instance_valid(_track_motion):
 		(_track_motion as Node).set_process(_track_was_processing)
 	_track_motion = null
@@ -154,7 +163,7 @@ static func audit_no_leftover(actor: VehicleActor) -> Array[String]:
 			if is_old and child is Node3D and (child as Node3D).visible:
 				leftovers.append(str(parent.name) + "/" + n)
 	if actor.turret.recoil_visual != null and actor.turret.recoil_visual.visible \
-			and not str(actor.turret.recoil_visual.name).begins_with("BakedPilotVisual"):
+			and not str(actor.turret.recoil_visual.name).begins_with("BakedPilot"):
 		leftovers.append("recoil_visual visible: " + str(actor.turret.recoil_visual.name))
 	return leftovers
 
