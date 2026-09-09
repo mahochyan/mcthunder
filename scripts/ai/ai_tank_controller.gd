@@ -117,6 +117,13 @@ func update_command(delta: float) -> VehicleCommand:
 			else: cmd.repair_requested = true
 			if not caps.fire: return cmd
 	if vehicle.gunner.rounds_remaining == 0 and has_patrol:
+		# A recovery request must never be swallowed by the dry-ammo retreat return:
+		# when the vehicle cannot drive, retreating yields a neutral command and the
+		# repair/crew request would be lost. Hold position on the recovery command
+		# instead; the goal is already set so retreat resumes once drive returns.
+		if not caps.drive:
+			phase = "repair"
+			return cmd
 		if phase != "retreat": driver.set_goal(retreat_goal)
 		phase = "retreat"
 		return driver.update_command(delta)
