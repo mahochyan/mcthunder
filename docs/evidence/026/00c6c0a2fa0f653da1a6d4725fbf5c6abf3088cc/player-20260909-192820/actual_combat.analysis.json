@@ -1,0 +1,13 @@
+{
+  "file": "actual_combat.wav",
+  "channels": 2,
+  "rate": 96000,
+  "seconds": 16.581333333333333,
+  "peak_linear": 0.124847412109375,
+  "peak_dbfs": -18.072409109226882,
+  "rms_dbfs": -40.41750712227149,
+  "clipped_samples": 0,
+  "sha256": "82804828558f930289d304228a0dda0547da728c579f3797407f53025d0cf33f",
+  "listening": "NOT_RUN",
+  "passed": true
+}

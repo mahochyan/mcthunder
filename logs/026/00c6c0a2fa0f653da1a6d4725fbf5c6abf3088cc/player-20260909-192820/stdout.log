@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal UI control is visible before click
+[PASS] normal garage entry starts an eight-vehicle battle
+[PASS] normal W input drives the vehicle and continuous feedback
+[PASS] normal mouse click commits a real shot and matching sound
+[PASS] actual window capture 01_real_shot (review pending)
+[PASS] actual audio driver is playing and Combat bus meter is non-silent
+[PASS] normal pause stops active sound sources
+[PASS] normal UI control is visible before click
+[PASS] actual window capture 02_sound_settings (review pending)
+[PASS] settings panel fits the real viewport
+[PASS] normal UI control is visible before click
+[PASS] normal slider keyboard input selects mute
+[PASS] normal UI control is visible before click
+[PASS] normal settings popup disables visual effects
+[PASS] actual window capture 03_muted_effects_off (review pending)
+[PASS] normal UI control is visible before click
+[PASS] resuming while muted leaves all audio silent
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[slider restore] value=1.0 rect=[P: (381.0, 449.0), S: (510.0, 16.0)] focus=CombatVolume:<HSlider#247111621462>
+[PASS] normal UI control is visible before click
+[restore audio] volume=1.0 slider=1.0 paused=false tree=false voices=19 actors=8 phase=playing effects=2
+[PASS] normal settings restore current continuous sounds
+[PASS] actual mixed Combat bus waveform saved
+[PASS] normal UI control is visible before click
+[PASS] normal return to garage releases battle sound sources
+[PASS] actual window capture 04_quiet_garage (review pending)
+=== 结果: 26 项检查, 0 失败 ===
+FEEDBACK_PLAYER_CHECKS_PASS

@@ -1,0 +1,13 @@
+{
+  "file": "eight_vehicle_mix.wav",
+  "channels": 2,
+  "rate": 96000,
+  "seconds": 90.0,
+  "peak_linear": 0.230499267578125,
+  "peak_dbfs": -12.746609005251008,
+  "rms_dbfs": -37.799779410672215,
+  "clipped_samples": 0,
+  "sha256": "d866a4fe6590b6dbb43517116a924d2926320f6b4850cabce7e750b455f5a4b8",
+  "listening": "NOT_RUN",
+  "passed": true
+}

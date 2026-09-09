@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real damage fixture launch admitted
+[PASS] real penetration commits actual engine damage
+[PASS] duplicate actual contact never presents a second sound or spark event
+[PASS] effects setting changes only visible particle allocation
+[PASS] real damage fixture launch admitted
+[PASS] real penetration commits actual engine damage
+[PASS] duplicate actual contact never presents a second sound or spark event
+[PASS] effects setting changes only visible particle allocation
+[PASS] mute/no-FX/no-shake/no-replay preserves actual penetration, module damage and disabled result exactly
+[PASS] real damage fixture launch admitted
+[PASS] real penetration commits actual ammo damage
+[PASS] duplicate actual contact never presents a second sound or spark event
+[PASS] effects setting changes only visible particle allocation
+[PASS] actual loaded-rack death presents exactly once even when its record is repeated
+[PASS] real damage fixture launch admitted
+[PASS] real penetration commits actual ammo damage
+[PASS] duplicate actual contact never presents a second sound or spark event
+[PASS] effects setting changes only visible particle allocation
+[PASS] actual loaded-rack death presents exactly once even when its record is repeated
+[PASS] all feedback disabled preserves the actual lethal hit and destruction outcome
+[PASS] disabled effects hide actual building dust and cosmetic fragments
+[PASS] reduced effects halve building dust and cosmetic fragment visibility
+[PASS] 100 real Gunner shots with natural reload, finite cooldown and explicit training resupply
+[PASS] each actual successful shot presents once
+[PASS] 100 shots stay within allocated audio and particle pools
+[PASS] finished effects recycle without node growth
+[PASS] live vehicle has a real engine loop
+[PASS] pause stops all live audio sources immediately
+[PASS] resume recreates only current continuous sound
+[PASS] reset does not replay old shots and removes old loop identity
+[PASS] priority-pool fixture: a critical clip replaces a saturated low-priority loop
+[PASS] reserved event/loop slots retain a coherent worst-case peak below clipping
+[PASS] actual Combat bus adds calibrated gain with a -1dB hard ceiling
+[PASS] all thirteen original audio clips have provenance and fixed hashes
+[PASS] independent file SHA256 checks match every recorded original audio clip
+[PASS] match close stops all continuous sounds while final impact can finish
+[PASS] final impact sounds and transient visuals expire after match close
+[PASS] leaving the scene releases the sound pool entirely
+=== 结果: 38 项检查, 0 失败 ===
+FEEDBACK_CHECKS_PASS

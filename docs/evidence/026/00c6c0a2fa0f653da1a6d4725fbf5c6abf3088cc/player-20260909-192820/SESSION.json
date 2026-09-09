@@ -1,0 +1,25 @@
+{
+  "listening": "NOT_RUN",
+  "uncommitted_candidate": false,
+  "human": "NOT_RUN",
+  "images": [
+    {
+      "sha256": "E60E4613C5C6A99C0DD70CE04200A228AF7234B6B54ECB3B1CA14A7D05761CF9",
+      "file": "01_real_shot.png"
+    },
+    {
+      "sha256": "CA1570120A49B1514D9F694424C050F14DB73BD31E63160CA62B4DD1937F353B",
+      "file": "02_sound_settings.png"
+    },
+    {
+      "sha256": "5792CAA4B5A9DE46C2A104AD653545EE5AC8C7C1E4CBECB80FAE6B7B9AD93554",
+      "file": "03_muted_effects_off.png"
+    },
+    {
+      "sha256": "6F3405D0F1D72AE6320513FC1E2878937F127E523E522888EE380B651BD7C4B5",
+      "file": "04_quiet_garage.png"
+    }
+  ],
+  "source_sha": "00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc",
+  "graphical_review": "REVIEWED_ALL_IMAGES_BY_AGENT"
+}

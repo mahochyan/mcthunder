@@ -1,0 +1,13 @@
+{
+  "listening": "NOT_RUN",
+  "uncommitted_candidate": false,
+  "human": "NOT_RUN",
+  "images": [
+    {
+      "sha256": "FF3B034ECFC0BD32D231E49F9E90C5B46CFCCB618EA768C7C65AF8AFCA4B7BAE",
+      "file": "eight_vehicle_battle.png"
+    }
+  ],
+  "source_sha": "00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc",
+  "graphical_review": "REVIEWED_ALL_IMAGES_BY_AGENT"
+}

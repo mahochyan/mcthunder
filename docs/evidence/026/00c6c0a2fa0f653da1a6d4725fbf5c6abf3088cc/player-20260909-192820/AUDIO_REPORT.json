@@ -1,0 +1,11 @@
+{
+  "actors": 8,
+  "events": {
+    "reload": 1,
+    "shot": 1,
+    "world": 1
+  },
+  "peak_db": -15.9640779495239,
+  "peak_voices": 25,
+  "source": "actual driver and Combat bus recording"
+}

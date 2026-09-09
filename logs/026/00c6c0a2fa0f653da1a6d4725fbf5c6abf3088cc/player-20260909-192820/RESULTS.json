@@ -1,0 +1,9 @@
+{
+  "timed_out": false,
+  "uncommitted_candidate": false,
+  "passed": true,
+  "exit_code": 0,
+  "checks": 26,
+  "source_sha": "00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc",
+  "command": "--path \"E:\\AIprogram\\mcthunder-development\" --position 1280,0 --max-fps 60 -- --feedback-play-check --shot-dir \"E:\\AIprogram\\mcthunder-development\\docs\\evidence\\026\\00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc\\player-20260909-192820\""
+}
