@@ -72,6 +72,11 @@ func _process(delta: float) -> void:
 		if _detonated: blast_count+=1
 		_set_charred(true)
 	if _was_destroyed: death_age+=delta
+	if AccessibilitySettings.fx_level==0:
+		for flame in _flames: flame.visible=false
+		for lobe in _burst_lobes: lobe.visible=false
+		_smoke.visible=false; _blast.visible=false; _light.light_energy=0
+		return
 	if actor.state.fires.is_empty() and (not _burning_wreck or death_age>=SMOKE_SECONDS):
 		for flame in _flames: flame.visible=false
 		for lobe in _burst_lobes: lobe.visible=false

@@ -51,7 +51,7 @@ func _ready() -> void:
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
 	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.label(vertical,"候选 0.2.5  ·  统一低模 / 可破坏掩体  ·  三项挑战 / 两张地图  ·  部分模拟参数为估算",15)
+	CoreUI.label(vertical,"候选 0.2.6  ·  战斗声音 / 可调反馈  ·  三项挑战 / 两张地图  ·  部分模拟参数为估算",15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)

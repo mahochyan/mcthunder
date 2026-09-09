@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "source": "Original mathematical synthesis by this project; no recorded samples",
+  "redistribute_source_allowed": true,
+  "generator": "authoring/build_audio.py",
+  "sample_rate": 22050,
+  "clips": {
+    "engine": {
+      "path": "res://assets/audio/engine.wav",
+      "loop": true,
+      "seconds": 2,
+      "peak_linear": 0.8,
+      "sha256": "ec2fadcda048c2609e7250eabe5373a4d4db6930f3438fbf293ec036c48ffacb"
+    },
+    "tracks": {
+      "path": "res://assets/audio/tracks.wav",
+      "loop": true,
+      "seconds": 2,
+      "peak_linear": 0.8,
+      "sha256": "94267a235edf49ce0a9ea388c06403f47bf37db6d7a1dfe4b7c545434c8475b7"
+    },
+    "turret": {
+      "path": "res://assets/audio/turret.wav",
+      "loop": true,
+      "seconds": 2,
+      "peak_linear": 0.8,
+      "sha256": "81f1a1d4946bc94734aa45e9825389c4e5b4f809d3cfb39fdf474b2dff562efa"
+    },
+    "fire": {
+      "path": "res://assets/audio/fire.wav",
+      "loop": true,
+      "seconds": 2,
+      "peak_linear": 0.8,
+      "sha256": "c4da44e1c1cc3dba0e3c18a2070aca5863c249836826d58edcfa06436d8e9912"
+    },
+    "shot": {
+      "path": "res://assets/audio/shot.wav",
+      "loop": false,
+      "seconds": 1.15,
+      "peak_linear": 0.8,
+      "sha256": "555326d9de3eeb794f9b397bc696863e204a89c364473ba4631b55cd0ddd89b8"
+    },
+    "flyby": {
+      "path": "res://assets/audio/flyby.wav",
+      "loop": false,
+      "seconds": 0.6,
+      "peak_linear": 0.8,
+      "sha256": "14478cb4bd4ec935b8b3fcc4a1afa01370e5a9486b19a367cfa0e4f58e0e0a50"
+    },
+    "reload": {
+      "path": "res://assets/audio/reload.wav",
+      "loop": false,
+      "seconds": 0.32,
+      "peak_linear": 0.8,
+      "sha256": "a7d4eed33f4f650d9264f62de77161b1cf7fe2c5001ee5947532da90351f25b0"
+    },
+    "non_penetration": {
+      "path": "res://assets/audio/non_penetration.wav",
+      "loop": false,
+      "seconds": 0.5,
+      "peak_linear": 0.8,
+      "sha256": "adb3a8f76685ef6f524b9545027c1418b935b3412d3df74b912367ab58f7eafb"
+    },
+    "ricochet": {
+      "path": "res://assets/audio/ricochet.wav",
+      "loop": false,
+      "seconds": 0.65,
+      "peak_linear": 0.8,
+      "sha256": "586b931fb0998d254c098641036bf003d51dcfaeba41e14a2c0ff932cbfcfd97"
+    },
+    "penetrated": {
+      "path": "res://assets/audio/penetrated.wav",
+      "loop": false,
+      "seconds": 0.42,
+      "peak_linear": 0.8,
+      "sha256": "cddbaf6e5311c3f01d16358f24c9104c827b041c6389c8315b11571733c8f650"
+    },
+    "explosion": {
+      "path": "res://assets/audio/explosion.wav",
+      "loop": false,
+      "seconds": 1.8,
+      "peak_linear": 0.8,
+      "sha256": "8439c0de225942364c506270dbdbce6823464446035cf095654a8fa221ed1cab"
+    },
+    "destroyed": {
+      "path": "res://assets/audio/destroyed.wav",
+      "loop": false,
+      "seconds": 0.7,
+      "peak_linear": 0.8,
+      "sha256": "18d6bdf76328efb7188aac36e44f05b1b1677df9a81c4e475f8c47f72616d240"
+    },
+    "world": {
+      "path": "res://assets/audio/world.wav",
+      "loop": false,
+      "seconds": 0.38,
+      "peak_linear": 0.8,
+      "sha256": "b3f94dfcac41ed16c7982e35d8605399188efb6fc53e6111a542221d2319e145"
+    }
+  }
+}

@@ -16,7 +16,11 @@ var turret: TurretRig = null
 var weapon: WeaponDefinition = null   # 003-R1：由 actor 注入——装填/射程唯一来源（null 回退 GameConfig）
 var shell: ShellDefinition = null      # 006：由 actor 注入——弹种运动参数唯一来源
 var capabilities_provider := Callable()
-var projectile_manager: ProjectileManager = null   # 006：由 main 注入——唯一推进执行器
+var projectile_manager: ProjectileManager = null:   # 006：由 main 注入——唯一推进执行器
+	set(value):
+		projectile_manager=value
+		if value!=null and value.feedback!=null and tank!=null:
+			value.feedback.bind_actor(tank.get_parent() as VehicleActor)
 var shooter_id := ""                  # 003-R1：由 actor 注入（实体标识，命中事件携带）
 var shooter_team_id := 0              # 006：由 actor 注入（发射身份队伍，冻结）
 var shot_id := 0                      # 003-R2：本实体射击编号——每次成功发射 +1（含空射/打墙），发射时分配
@@ -281,6 +285,7 @@ func try_fire() -> bool:
 	last_query_events = []
 	_spawn_tracer(muz, muz + dir * 0.6)   # 006：仅炮口闪光（短线段）；不再画到未来目标
 	turret.kick_recoil()
+	if projectile_manager.feedback!=null: projectile_manager.feedback.on_shot(spec)
 	return true
 
 func _ray(from: Vector3, dir: Vector3, dist: float) -> Dictionary:
@@ -328,7 +333,7 @@ func _spawn_tracer(a: Vector3, b: Vector3) -> void:
 	_tracer_mesh.surface_add_vertex(a)
 	_tracer_mesh.surface_add_vertex(b)
 	_tracer_mesh.surface_end()
-	_tracer.visible = true
+	_tracer.visible = AccessibilitySettings.fx_level>0 and not AccessibilitySettings.reduce_flashes
 	_tracer_left = 0.12
 
 func _update_effects(delta: float) -> void:

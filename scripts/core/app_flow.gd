@@ -23,7 +23,7 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if profile == null:
 		var isolated := DisplayServer.get_name() == "headless"
-		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check","--challenge-play-check","--art-play-check"]:
+		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check","--challenge-play-check","--art-play-check","--feedback-play-check"]:
 			if args.has(flag): isolated = true
 		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
 		if args.has("--challenge-play-check"): profile = ProfileStore.new("user://tests/challenge_demo024_"+str(Time.get_ticks_usec())+"/commander")
@@ -40,7 +40,10 @@ func _ready() -> void:
 	ui_layer.layer = 10
 	add_child(ui_layer)
 	return_to_garage()
-	if args.has("--export-smoke"):
+	if args.has("--feedback-play-check"):
+		var demo:=load("res://tests/run_feedback_player_demo.gd").new() as Node
+		add_child(demo); demo.call_deferred("run",self)
+	elif args.has("--export-smoke"):
 		var smoke := load("res://tests/run_export_checks.gd").new() as Node
 		add_child(smoke)
 		smoke.call_deferred("run",self)

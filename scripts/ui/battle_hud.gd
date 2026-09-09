@@ -188,7 +188,12 @@ func _build() -> void:
 	board_close_button = _button(board,"关闭战况 / Tab",func() -> void: board_closed.emit())
 	settings_root = _modal()
 	settings_panel = _modal_panel(settings_root,Vector2(550,0))
-	var settings := _column(settings_panel,12)
+	var settings_scroll:=ScrollContainer.new()
+	settings_scroll.custom_minimum_size=Vector2(0,460)
+	settings_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+	settings_panel.add_child(settings_scroll)
+	var settings := _column(settings_scroll,8)
+	settings.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	_label(settings,"显示与辅助",25)
 	_label(settings,"HUD 字号",17)
 	scale_choice = OptionButton.new()
@@ -200,6 +205,21 @@ func _build() -> void:
 	camera_toggle = _toggle(settings,"稳定镜头（关闭射击震动）",AccessibilitySettings.stable_camera,func(on: bool) -> void: AccessibilitySettings.stable_camera = on)
 	replay_toggle = _toggle(settings,"允许结算后查看实弹回放",AccessibilitySettings.replay_enabled,func(on: bool) -> void: AccessibilitySettings.replay_enabled = on)
 	contrast_toggle = _toggle(settings,"高对比标记（形状区分友敌）",AccessibilitySettings.high_contrast,func(on: bool) -> void: AccessibilitySettings.high_contrast = on)
+	_label(settings,"战斗音量",17)
+	var audio_slider:=HSlider.new(); audio_slider.name="CombatVolume"
+	audio_slider.min_value=0; audio_slider.max_value=1; audio_slider.step=0.05; audio_slider.value=AccessibilitySettings.audio_volume
+	settings.add_child(audio_slider)
+	audio_slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.audio_volume=value; _changed())
+	_label(settings,"特效数量",17)
+	var effect_choice:=OptionButton.new(); effect_choice.name="EffectQuality"
+	for label in ["关闭","较少","标准"]: effect_choice.add_item(label)
+	effect_choice.select(AccessibilitySettings.fx_level); settings.add_child(effect_choice)
+	effect_choice.item_selected.connect(func(index: int) -> void: AccessibilitySettings.fx_level=index; _changed())
+	_label(settings,"震动强度（取消稳定镜头后生效）",17)
+	var shake_slider:=HSlider.new(); shake_slider.name="ShakeStrength"
+	shake_slider.min_value=0; shake_slider.max_value=1; shake_slider.step=0.05; shake_slider.value=AccessibilitySettings.shake_strength
+	settings.add_child(shake_slider)
+	shake_slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.shake_strength=value; _changed())
 	_label(settings,"这些选项不改变弹道、装填与车辆性能。",14)
 	settings_close_button = _button(settings,"返回暂停菜单",func() -> void: settings_closed.emit())
 	replay_controls = Control.new()

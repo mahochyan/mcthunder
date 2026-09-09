@@ -7,6 +7,11 @@ func _run() -> void:
 		art_loaded=art_loaded and AssetManifestValidator.vehicle(id).ok
 	ok=ok and art_loaded
 	print(("[PASS] " if art_loaded else "[FAIL] ")+"exported PCK loads shared palette and all four relative GLB assets without Blender sources")
+	var sounds: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/manifest.json"))
+	var audio_loaded:=sounds.get("clips",{}).size()==13
+	for clip in sounds.get("clips",{}).values(): audio_loaded=audio_loaded and load(clip.path) is AudioStreamWAV
+	ok=ok and audio_loaded
+	print(("[PASS] " if audio_loaded else "[FAIL] ")+"all thirteen original audio streams load from the isolated PCK")
 	for id in MapRegistry.IDS:
 		var packed := load(MapRegistry.scene_path(id)) as PackedScene
 		if packed == null: print("[FAIL] packed map missing "+id); quit(1); return

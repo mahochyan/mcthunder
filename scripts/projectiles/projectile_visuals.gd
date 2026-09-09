@@ -34,6 +34,7 @@ func _ready() -> void:
 	_dot_mesh.rings = 4
 
 func sync_projectiles(states: Array) -> void:
+	if AccessibilitySettings.fx_level==0: clear_all(); return
 	# 每帧由装配方调用：states = 管理器 active_states()（唯一实例列表）。
 	# 创建/更新对应视觉对象；已消失的 id 不在此删除（由 present_terminal 终结显示）。
 	var seen: Dictionary = {}
@@ -73,6 +74,7 @@ func present_terminal(record: Dictionary) -> void:
 		_vis.erase(pid)
 	_rebuild_trails()
 	var p: Vector3 = record.get("impact_point", Vector3.ZERO)
+	if AccessibilitySettings.fx_level==0: return
 	if p == Vector3.ZERO:
 		return
 	var fx := MeshInstance3D.new()

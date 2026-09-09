@@ -52,6 +52,7 @@ func _exclude() -> Array[RID]:
 
 func _process(_delta: float) -> void:
 	var recoil := turret._recoil if turret != null and shake_enabled else 0.0
+	recoil*=clampf(AccessibilitySettings.shake_strength,0,1)*(0.2 if _sight_requested else 1.0)
 	cam.h_offset = sin(recoil*80)*recoil*0.2
 	cam.v_offset = recoil*0.15
 	sight = _sight_requested and turret != null

@@ -64,7 +64,7 @@
       "files": [
         {
           "path": "scripts/damage/recovery_visuals.gd",
-          "sha256": "d779aa94d70976e94a3bb675f6c7b5cfc7a561d76ab9b8abd215ecfb715fae95"
+          "sha256": "fd3bf3d896f9639f6ca15698c96a0bfa4d4b7ea64c1b9282409e0927973058b3"
         },
         {
           "path": "scripts/damage/wreck_turret_motion.gd",

@@ -30,6 +30,7 @@ var damage_handler := Callable() # Non-notifying commit to the matching live tar
 var contact_policy := Callable() # Optional match-specific friendly/protection stop, before armor or external modules.
 
 var _next_projectile_id := 1
+var feedback: CombatFeedback
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
@@ -38,6 +39,7 @@ var _shut_down := false                   # 006-R1-B：退出/清理后拒绝新
 func close_round() -> void:
 	# A finished battle retains immutable replay records but rejects every later launch.
 	_shut_down = true
+	if feedback!=null: feedback.audio.stop_loops()
 	_cancel_depth += 1
 	for pid in _active.keys(): finish_once(int(pid),"cancelled_match_finished",{})
 	_cancel_depth -= 1
@@ -49,6 +51,7 @@ var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, l
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = 100
+	feedback=CombatFeedback.new(); feedback.name="CombatFeedback"; add_child(feedback)
 
 func _exit_tree() -> void:
 	# 006：场景销毁/初始化失败——静默清理（不发出信号；旧回调不得访问已释放对象）

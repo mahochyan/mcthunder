@@ -149,7 +149,7 @@ func aim_error_deg() -> float:
 
 func kick_recoil() -> void:
 	_recoil = 0.22
-	_flash.visible = flash_enabled
+	_flash.visible = flash_enabled and AccessibilitySettings.fx_level>0 and not AccessibilitySettings.reduce_flashes
 	_flash.scale = Vector3.ONE * randf_range(0.8, 1.3)
 	_flash_left = 0.06
 
