@@ -144,8 +144,26 @@ def loop_points(n_bottom=8, n_curve=6):
     return pts
 
 # ---------------- stage low ----------------
+def rot_tube(verts):
+    """炮管构建子约定轴向 -Z → 世界 +Y（前向）：旋转 (x,y,z)->(x,-z,y)，det=+1。"""
+    return [Vector((v.x, -v.z, v.y)) for v in verts]
+
+def swap_yz(verts):
+    """构建器 y=高/z=长 子约定 → 世界 y=长/z=高：(x,y,z)->(x,z,y)。
+    镜像（det=-1）会翻转绕序，由 fix_normals_islands 按岛修正朝向。"""
+    return [Vector((v.x, v.z, v.y)) for v in verts]
+
 def stage_low():
     low = coll("LOW")
+    high = coll("HIGH")
+    cage = coll("CAGE")
+    # 幂等：清掉上次构建残留的 LOW/HIGH/CAGE 网格（父空节点保留）
+    for c in (low, high, cage):
+        for o in list(c.objects):
+            data = o.data
+            bpy.data.objects.remove(o)
+            if data is not None:
+                bpy.data.meshes.remove(data)
     coll("HIGH")
     coll("CAGE")
     hull = find_parent("hull")
@@ -167,18 +185,58 @@ def stage_low():
             continue
         offset = ob.parent.matrix_world.to_translation()
         mw = ob.matrix_world
-        corners = [(mw @ ob.data.vertices[i].co) - offset for i in range(4)]
-        center = sum(corners, Vector()) / 4.0
-        n = (corners[1] - corners[0]).cross(corners[3] - corners[0])
+        # Armor 网格 = 扇形三角化（中心点+边缘点，如炮塔顶=10 边形）。
+        # 旧实现取前 4 顶点拼一个四边形：对围墙凑效，对多边形顶盖只保留一小块。
+        # 正确做法：按共享中心点重组扇形（顶点共享 → 壳体保持连通岛，UV 利用率正常），
+        # 逐扇形按 ref 向量定向。
+        tris = [(list(p.vertices)) for p in ob.data.polygons if len(p.vertices) == 3]
+        if not tris:
+            continue
+        # 找扇形中心：出现在该网格全部三角形中的顶点（每网格一个扇形）
+        common = set(tris[0])
+        for t in tris[1:]:
+            common &= set(t)
+        if len(common) != 1:
+            raise RuntimeError("armor mesh is not a single fan: %s (common=%d)" % (ob.name, len(common)))
+        c = common.pop()
+        rim_pairs = []
+        for t in tris:
+            ab = [i for i in t if i != c]
+            rim_pairs.append((ab[0], ab[1]))
+        # 沿邻接走边缘环：a->b, 找下一对以 b 开头的边
+        adj = {}
+        for a, b in rim_pairs:
+            adj.setdefault(a, []).append(b)
+            adj.setdefault(b, []).append(a)
+        start = rim_pairs[0][0]
+        rim = [start]
+        prev = None
+        while True:
+            nxts = [x for x in adj[rim[-1]] if x != prev]
+            if not nxts:
+                break
+            prev = rim[-1]
+            rim.append(nxts[0])
+            if rim[-1] == start:
+                rim.pop()
+                break
+        base = len(shells[part][0])
+        cw = ob.matrix_world
+        fan_corners = [(cw @ ob.data.vertices[i].co) - offset for i in [c] + rim]
+        fan_center = sum(fan_corners[1:], Vector()) / float(len(rim))
+        n = (fan_corners[1] - fan_corners[0]).cross(fan_corners[2] - fan_corners[0])
         if n.length < 1e-9:
             continue
         n.normalize()
         ref = Vector((0.0, 0.9, 0.0)) if part in ("hull", "turret") else Vector((0.0, 0.5, -0.3))
-        if n.dot(center - ref) < 0:
-            corners = [corners[0], corners[3], corners[2], corners[1]]
-        base = len(shells[part][0])
-        shells[part][0].extend([v.copy() for v in corners])
-        shells[part][1].append([base, base + 1, base + 2, base + 3])
+        flip = n.dot(fan_center - ref) < 0
+        shells[part][0].extend([v.copy() for v in fan_corners])
+        m = len(rim)
+        for i in range(m):
+            a, b = (1 + i, 1 + (i + 1) % m)
+            if flip:
+                b, a = a, b
+            shells[part][1].append([base, base + a, base + b])
         plates[part] += 1
     shell_mat = {"hull": "ART001_Olive", "turret": "ART001_Olive", "barrel": "ART001_Olive"}
     for part, (vs, fs) in shells.items():
@@ -208,7 +266,7 @@ def stage_low():
     verts.append(Vector((0, 0, z1 + 0.03)))
     for i in range(1, seg - 1):
         faces.append([ring + i, ring + i + 1, bore])
-    tube = mesh_obj("LOW_gun_Tube", verts, faces, barrel, low, "gun", M["ART001_Steel"])
+    tube = mesh_obj("LOW_gun_Tube", rot_tube(verts), faces, barrel, low, "gun", M["ART001_Steel"])
 
     # 3. wheels (single-sided discs; material double-sided)
     verts, faces = [], []
@@ -230,7 +288,7 @@ def stage_low():
             disc(0.56, z, cx, 0.45, 10)
         for bz in BOGIE_Z:
             disc(0.98, bz + 0.4, cx, 0.11, 6)
-    wheels = mesh_obj("LOW_wheels", verts, faces, hull, low, "wheels", M["ART001_Rubber"])
+    wheels = mesh_obj("LOW_wheels", swap_yz(verts), faces, hull, low, "wheels", M["ART001_Rubber"])
 
     # 4. track bands: closed rectangular tube (4 rings x loop)
     verts, faces = [], []
@@ -255,7 +313,7 @@ def stage_low():
             faces.append([corners["B"] + i, corners["B"] + j, corners["C"] + j, corners["C"] + i])
             faces.append([corners["C"] + i, corners["C"] + j, corners["D"] + j, corners["D"] + i])
             faces.append([corners["D"] + i, corners["D"] + j, corners["A"] + j, corners["A"] + i])
-    tracks = mesh_obj("LOW_tracks", verts, faces, hull, low, "tracks", M["ART001_Steel"])
+    tracks = mesh_obj("LOW_tracks", swap_yz(verts), faces, hull, low, "tracks", M["ART001_Steel"])
 
     # 5. hatches + cupola
     verts, faces = [], []
@@ -271,7 +329,7 @@ def stage_low():
     for side in (-0.62, 0.62):
         fdisc(side, 1.885, -1.16, 0.36, 10)
     fdisc(0.0, 1.885, 2.35, 0.3, 10)
-    hatches = mesh_obj("LOW_hull_Hatches", verts, faces, hull, low, "hull", M["ART001_Olive"])
+    hatches = mesh_obj("LOW_hull_Hatches", swap_yz(verts), faces, hull, low, "hull", M["ART001_Olive"])
 
     verts, faces = [], []
     cy0, cy1, cr, cxx, czz = 0.72, 0.97, 0.36, -0.43, 0.45
@@ -295,7 +353,7 @@ def stage_low():
     verts.append(Vector((0.42, 0.725, 0.21)))
     for i in range(1, 9):
         faces.append([16 + 8, 16 + 8 + i, 16 + 8 + i + 1])
-    cupola = mesh_obj("LOW_turret_Cupola", verts, faces, turret, low, "turret", M["ART001_Olive"])
+    cupola = mesh_obj("LOW_turret_Cupola", swap_yz(verts), faces, turret, low, "turret", M["ART001_Olive"])
 
     for o in low.objects:
         fix_normals_islands(o)
@@ -903,14 +961,16 @@ def stage_sample():
             print("ART001 sample bake %s done" % btype)
     save_img(imgs["normal"], out / "normal_gl.png")
     save_img(imgs["ao"], out / "ao.png")
-    # 256 小样数值验证：已知颜色 + 凸起 + 凹陷（工单要求先采样验证再整车）
+    # 256 小样数值验证：已知颜色 + 凸起 + 凹陷（工单要求先采样验证再整车）。
+    # 切线系方向随 UV 排岛旋转 → 双向性按 R/G 两通道联合判定（旋转不变）。
     import numpy as np
     n = np.array(imgs["normal"].pixels[:], dtype=np.float32).reshape(-1, 4)
     a = np.array(imgs["ao"].pixels[:], dtype=np.float32).reshape(-1, 4)
-    pos = int(((n[:, 0] > 0.55) & (n[:, 2] < 0.98)).sum())
-    neg = int(((n[:, 0] < 0.45) & (n[:, 2] < 0.98)).sum())
-    if pos == 0 or neg == 0:
-        raise RuntimeError("sample normal validation FAILED: no bidirectional tangent detail (+%d/-%d)" % (pos, neg))
+    detail = ((n[:, 0] > 0.55) | (n[:, 1] > 0.55) | (n[:, 0] < 0.45) | (n[:, 1] < 0.45)) & (n[:, 2] < 0.98)
+    pos = int((((n[:, 0] > 0.55) | (n[:, 1] > 0.55)) & (n[:, 2] < 0.98)).sum())
+    neg = int((((n[:, 0] < 0.45) | (n[:, 1] < 0.45)) & (n[:, 2] < 0.98)).sum())
+    if pos == 0 or neg == 0 or int(detail.sum()) < 20:
+        raise RuntimeError("sample normal validation FAILED: no bidirectional tangent detail (+%d/-%d, detail=%d)" % (pos, neg, int(detail.sum())))
     if a[:, 0].min() > 0.5 or a[:, 0].max() < 0.7:
         raise RuntimeError("sample AO validation FAILED: no contact occlusion (min=%.3f max=%.3f)" % (a[:, 0].min(), a[:, 0].max()))
     print("ART001 sample validation: normal +%d/-%d tangent px, AO min=%.3f max=%.3f -> OK" % (pos, neg, a[:, 0].min(), a[:, 0].max()))

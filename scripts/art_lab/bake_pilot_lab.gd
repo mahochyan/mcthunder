@@ -182,17 +182,18 @@ func _meshes() -> Array:
 func _make_studio() -> Node3D:
 	var rig := Node3D.new()
 	rig.name = "StudioLights"
+	# 光能总量控制在 ~1.0：albedo≈0.6 的军漆在 1.6 照度下会裁剪成奶油白
 	var key := DirectionalLight3D.new()
 	key.rotation_degrees = Vector3(-45, 30, 0)
-	key.light_energy = 1.2
+	key.light_energy = 0.85
 	rig.add_child(key)
 	var fill := DirectionalLight3D.new()
 	fill.rotation_degrees = Vector3(-30, 150, 0)
-	fill.light_energy = 0.5
+	fill.light_energy = 0.35
 	rig.add_child(fill)
 	var rim := DirectionalLight3D.new()
 	rim.rotation_degrees = Vector3(-15, -90, 0)
-	rim.light_energy = 0.7
+	rim.light_energy = 0.45
 	rim.light_color = Color(0.85, 0.9, 1.0)
 	rig.add_child(rim)
 	return rig
@@ -202,7 +203,7 @@ func _make_daylight() -> Node3D:
 	rig.name = "Daylight"
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-55, 200, 0)
-	sun.light_energy = 1.1
+	sun.light_energy = 0.9
 	sun.light_color = Color(1.0, 0.96, 0.88)
 	rig.add_child(sun)
 	var env := WorldEnvironment.new()
@@ -211,7 +212,8 @@ func _make_daylight() -> Node3D:
 	e.background_color = Color(0.55, 0.65, 0.8)
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.6, 0.65, 0.75)
-	e.ambient_light_energy = 0.8
+	e.ambient_light_energy = 0.35
+	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.environment = e
 	rig.add_child(env)
 	return rig

@@ -255,9 +255,10 @@ func _t06_game_compat(manifest: Dictionary) -> void:
 	var expect_sorted := expect_names.duplicate()
 	expect_sorted.sort()
 	_ok(got_names == expect_sorted, "T-ART-06 导入集合=导出清单（%d 网格无漏件/错件/重复）" % got_names.size())
-	# 候选三角数 = 完整 774（漏件已补）
+	# 候选三角数 = 装甲忠实壳体（884：壳体按 Armor 扇形完整重建，含炮塔顶盖；
+	# 旧 774 因壳体构建器只取每块 Armor 网格前 4 顶点而丢失顶盖/多边形板，属欠数）
 	var tris := adapter.candidate_tri_count()
-	_ok(tris == 774, "T-ART-06 候选三角数=774 完整（实际 %d）" % tris)
+	_ok(tris == 884, "T-ART-06 候选三角数=884 装甲忠实（实际 %d）" % tris)
 	# 整车可见几何审计：无旧外观残留（不存在两套外观叠加）
 	var leftovers: Array[String] = BakedVisualAdapter.audit_no_leftover(actor)
 	_ok(leftovers.is_empty(), "T-ART-06 整车无残留旧外观（%s）" % str(leftovers))
