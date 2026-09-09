@@ -113,7 +113,7 @@ func _process(delta: float) -> void:
 	hud.gunline_label.text = "炮线指示；弹丸会受重力影响"
 	hud.result_label.text = {"running":"进行中","passed":"课目完成 · Enter 查看结果","failed":"课目未完成 · R 重试"}.get(director.status,"")
 	hud.result_label.modulate = Color("ffd078") if director.status != "running" else Color.WHITE
-	hud.hint_label.text = "W/S 驾驶  A/D 转向  鼠标瞄准  左键开炮  右键炮镜\nTab 接管样车  T 维修  F 灭火  C 替补  X 内构辅助\nV 回放  N 选接触  Enter 结果  R 重试  Esc 菜单"
+	hud.hint_label.text = InputBindingService.driving_hint()+"\n"+InputBindingService.recovery_hint()+" · Tab 接管 · X 内构\n"+InputBindingService.hint("replay_toggle")+" 回放 · "+InputBindingService.hint("reset")+" 重试 · Enter 结果 · Esc 菜单"
 	var lines: Array[String] = [TrainingDirector.TITLES[lesson],TrainingDirector.GOALS[lesson],"", "目标："+("阵亡" if state.destroyed else "存活"),
 		"驾驶：%s  射击：%s" % ["可用" if caps.drive else "失能","可用" if caps.fire else "失能"],
 		"发动机 %.0f%%  炮闩 %.0f%%" % [state.module_states.engine.integrity,state.module_states.breech.integrity],

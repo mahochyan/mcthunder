@@ -5,6 +5,10 @@ const REASONS := {"engine":"发动机损毁","transmission":"传动损毁","trac
 const RECOVERY := {"not_on_fire":"车辆没有起火","no_extinguishers":"灭火器已用尽","cannot_repair_on_fire":"请先按 F 灭火，再停车维修","stop_to_repair":"松开驾驶键并停车后按 T","nothing_to_repair":"没有需要维修的部件","no_valid_replacement":"没有可用的替补乘员","repair_interrupted_fire":"起火中断维修","repair_interrupted_motion_or_fire":"驾驶动作中断维修","module_repaired":"部件已修复至可用状态","fire_extinguished":"火势已扑灭","crew_replaced":"乘员已完成替补","replacement_cancelled":"替补已取消","cancelled":"已取消动作","vehicle_destroyed":"车辆已阵亡"}
 
 static func reason(value: String) -> String: return REASONS.get(value,"发射暂不可用")
+static func recovery_reason(value: String) -> String:
+	if value == "cannot_repair_on_fire": return "请先按 "+InputBindingService.hint("extinguish")+" 灭火，再停车维修"
+	if value == "stop_to_repair": return "松开驾驶键并停车后按 "+InputBindingService.hint("repair")
+	return RECOVERY.get(value,"")
 static func present(vehicle: VehicleActor, match_info: Dictionary, protection: float = 0) -> Dictionary:
 	if not is_instance_valid(vehicle): return {}
 	var state := vehicle.state
@@ -43,4 +47,4 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 	if gun.last_shot_result.begins_with("blocked:"): feedback = "上次发射未执行："+reason(gun.blocked_reason)
 	var shell_text := "AP120" if gun.shell.id.contains("120") else ("AP70" if gun.shell.id.contains("70") else gun.shell.id.to_upper())
 	if gun.inventory.typed: shell_text = gun.shell_label(gun.inventory.chamber_shell)
-	return {"life_id":vehicle.life_id,"entity_id":vehicle.entity_id,"destroyed":state.destroyed,"speed_kph":vehicle.tank.forward_speed*3.6,"crew_alive":state.alive_crew_count(),"crew":crew,"modules":modules,"drive_reasons":drive,"weapon_reasons":weapon,"drive_text":" · ".join(drive),"weapon_text":" · ".join(weapon),"ready":ready,"weapon_status":gun_text,"cooldown":gun.cooldown_left,"reload_time":gun.weapon.reload_time,"ammo":gun.rounds_remaining,"chamber":gun.inventory.chamber,"shell":shell_text,"extinguishers":state.extinguisher_charges,"fire":not state.fires.is_empty(),"action":action,"action_progress":state.action_progress,"action_duration":duration,"recovery_feedback":RECOVERY.get(state.recovery_reason,""),"shot_feedback":feedback,"protection":protection,"match":match_info.duplicate(true),"actual_point":gun.actual_hit_point}
+	return {"life_id":vehicle.life_id,"entity_id":vehicle.entity_id,"destroyed":state.destroyed,"speed_kph":vehicle.tank.forward_speed*3.6,"crew_alive":state.alive_crew_count(),"crew":crew,"modules":modules,"drive_reasons":drive,"weapon_reasons":weapon,"drive_text":" · ".join(drive),"weapon_text":" · ".join(weapon),"ready":ready,"weapon_status":gun_text,"cooldown":gun.cooldown_left,"reload_time":gun.weapon.reload_time,"ammo":gun.rounds_remaining,"chamber":gun.inventory.chamber,"shell":shell_text,"extinguishers":state.extinguisher_charges,"fire":not state.fires.is_empty(),"action":action,"action_progress":state.action_progress,"action_duration":duration,"recovery_feedback":recovery_reason(state.recovery_reason),"shot_feedback":feedback,"protection":protection,"match":match_info.duplicate(true),"actual_point":gun.actual_hit_point}

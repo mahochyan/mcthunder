@@ -42,6 +42,8 @@ func stream(kind: String) -> AudioStreamWAV:
 
 func play_voice(key: String, kind: String, point: Vector3, priority: int, gain: float=1.0, pitch: float=1.0, looping: bool=false) -> bool:
 	if get_tree().paused or AccessibilitySettings.audio_volume<=0.0: return false
+	var group_gain := AccessibilitySettings.mechanical_volume if kind in ["engine","tracks","turret"] else AccessibilitySettings.effects_volume
+	if group_gain <= 0.0: return false
 	var camera:=get_viewport().get_camera_3d()
 	if camera!=null and camera.global_position.distance_to(point)>240.0: return false
 	var slot: Dictionary={}
@@ -65,7 +67,7 @@ func play_voice(key: String, kind: String, point: Vector3, priority: int, gain: 
 	player.pitch_scale=clampf(pitch,0.6,1.8)
 	var maximum:=LOOP_GAIN if looping else EVENT_GAIN
 	player.max_db=linear_to_db(maximum)
-	player.volume_db=linear_to_db(maximum*clampf(gain,0.0,1.0))
+	player.volume_db=linear_to_db(maximum*clampf(gain,0.0,1.0)*clampf(group_gain,0.0,1.0))
 	slot.ttl=0.12 if looping else player.stream.get_length()/player.pitch_scale+0.1
 	if restart: player.play()
 	peak_voices=maxi(peak_voices,active_count())

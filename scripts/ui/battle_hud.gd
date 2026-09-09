@@ -50,6 +50,7 @@ var actual_screen_point := Vector2.ZERO
 var aim_visible := false
 var aim_allowed := false
 var notice := ""
+var input_settings: InputSettingsPanel
 var _last_roster := ""
 
 func _ready() -> void:
@@ -195,6 +196,10 @@ func _build() -> void:
 	var settings := _column(settings_scroll,8)
 	settings.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	_label(settings,"显示与辅助",25)
+	_button(settings,"按键与鼠标设置",func() -> void:
+		if is_instance_valid(input_settings): return
+		input_settings = InputSettingsPanel.new()
+		add_child(input_settings))
 	_label(settings,"HUD 字号",17)
 	scale_choice = OptionButton.new()
 	for label in ["标准 100%","较大 115%","大字 125%"]: scale_choice.add_item(label)
@@ -210,6 +215,18 @@ func _build() -> void:
 	audio_slider.min_value=0; audio_slider.max_value=1; audio_slider.step=0.05; audio_slider.value=AccessibilitySettings.audio_volume
 	settings.add_child(audio_slider)
 	audio_slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.audio_volume=value; _changed())
+	for group in ["mechanical","effects"]:
+		_label(settings,"发动机与机械音量" if group == "mechanical" else "射击与战斗事件音量",17)
+		var group_slider := HSlider.new()
+		group_slider.name = "MechanicalVolume" if group == "mechanical" else "EffectsVolume"
+		group_slider.min_value = 0; group_slider.max_value = 1; group_slider.step = 0.05
+		group_slider.value = AccessibilitySettings.mechanical_volume if group == "mechanical" else AccessibilitySettings.effects_volume
+		settings.add_child(group_slider)
+		group_slider.value_changed.connect(func(value: float) -> void:
+			if group == "mechanical": AccessibilitySettings.mechanical_volume = value
+			else: AccessibilitySettings.effects_volume = value
+			_changed())
+	_toggle(settings,"附近战斗声音字幕",AccessibilitySettings.subtitles_enabled,func(on: bool) -> void: AccessibilitySettings.subtitles_enabled = on)
 	_label(settings,"特效数量",17)
 	var effect_choice:=OptionButton.new(); effect_choice.name="EffectQuality"
 	for label in ["关闭","较少","标准"]: effect_choice.add_item(label)
@@ -242,6 +259,7 @@ func _toggle(parent: Node, label: String, initial: bool, setter: Callable) -> Ch
 	button.toggled.connect(func(on: bool) -> void: setter.call(on); _changed())
 	return button
 func _changed() -> void:
+	InputBindingService.save()
 	AccessibilitySettings.apply(self)
 	minimap.high_contrast = AccessibilitySettings.high_contrast
 	settings_changed.emit()
@@ -294,21 +312,23 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	weapon_label.modulate = Color("a6deb5") if model.ready else Color("ffcf8f")
 	ammo_label.text = "%s · %d 发  |  膛内 %d"%[model.shell,model.ammo,model.chamber]
 	if model.has("next_shell"):
-		ammo_label.text += "\n下次："+str(model.next_shell)+" · 1/2 切换"
+		ammo_label.text += "\n下次："+str(model.next_shell)+" · "+InputBindingService.hint("shell_1")+"/"+InputBindingService.hint("shell_2")+" 切换"
 		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += "\n正在装填："+str(model.carrying_shell)
 	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()
-	fire_label.text = ("▲ 起火！立即按 F 灭火" if model.fire else "F 灭火")+" · 剩余 %d 次"%model.extinguishers
+	fire_label.text = ("▲ 起火！立即按 "+InputBindingService.hint("extinguish")+" 灭火" if model.fire else InputBindingService.hint("extinguish")+" 灭火")+" · 剩余 %d 次"%model.extinguishers
 	if model.protection > 0: fire_label.text = "◇ 出生保护 %.1f秒 · 驾驶/开火取消"%model.protection
-	action_label.text = model.action if not model.action.is_empty() else "T 维修   C 替补   G 取消动作"
+	action_label.text = model.action if not model.action.is_empty() else InputBindingService.recovery_hint()
 	action_bar.visible = model.action_duration > 0
 	action_bar.value = float(model.action_progress)/maxf(0.01,float(model.action_duration))
 	feedback_label.text = "\n".join([model.shot_feedback,model.recovery_feedback]).strip_edges()
 	feedback_label.visible = not feedback_label.text.is_empty()
 	minimap.present_observations(intel,int(info.get("owner",0)))
-	footer.text = notice if not notice.is_empty() else "◎ 炮管指向 · W/S A/D 驾驶 · 右键炮镜 · 左键开火 · Tab 战况 · Esc 菜单"
+	footer.text = notice if not notice.is_empty() else InputBindingService.driving_hint()+" · "+InputBindingService.hint("scoreboard")+" 战况 · "+InputBindingService.hint("pause")+" 菜单"
+	board_close_button.text = "关闭战况 / "+InputBindingService.hint("scoreboard")
+	replay_close_button.text = "关闭回放 / "+InputBindingService.hint("replay_toggle")
 	var summary := str(roster)
 	if summary != _last_roster:
 		_last_roster = summary

@@ -55,8 +55,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		cam_rig.set_aim(
-			cam_rig.aim_yaw - event.relative.x * GameConfig.MOUSE_SENS,
-			cam_rig.aim_pitch - event.relative.y * GameConfig.MOUSE_SENS)
+			cam_rig.aim_yaw - event.relative.x * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity,
+			cam_rig.aim_pitch - event.relative.y * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity * (-1.0 if AccessibilitySettings.invert_y else 1.0))
 
 func poll() -> VehicleCommand:
 	# 每物理帧由 VehicleActor 调用；fire 请求在此消费一次（不重复射击）

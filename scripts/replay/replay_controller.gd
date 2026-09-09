@@ -66,23 +66,21 @@ func export_current() -> Dictionary:
 	return {"ok":true,"path":path}
 
 func _unhandled_input(event: InputEvent) -> void:
-	if get_tree().paused or not event is InputEventKey or not event.pressed or event.echo: return
-	match event.keycode:
-		KEY_V:
-			if view.visible: close()
-			else: show_history(manager.shot_records.count()-1)
-		KEY_COMMA:
-			show_history(maxi(0,history_index-1))
-		KEY_PERIOD:
-			show_history(mini(manager.shot_records.count()-1,history_index+1))
-		KEY_N:
-			if view.visible: view.select_event(view.selected_event+1)
-		KEY_J:
-			var exported := export_current()
-			last_export = exported.duplicate(true)
-			if exported.ok: print("[replay] exported "+ProjectSettings.globalize_path(exported.path))
-			if view.visible:
-				view._title.text = "REPLAY EXPORTED" if exported.ok else str(exported.get("reason","export_failed")).to_upper()
-		_:
-			return
+	if get_tree().paused or not event.is_pressed() or event.is_echo(): return
+	if event.is_action_pressed("replay_toggle"):
+		if view.visible: close()
+		else: show_history(manager.shot_records.count()-1)
+	elif event.is_action_pressed("replay_previous"):
+		show_history(maxi(0,history_index-1))
+	elif event.is_action_pressed("replay_next"):
+		show_history(mini(manager.shot_records.count()-1,history_index+1))
+	elif event.is_action_pressed("replay_step"):
+		if view.visible: view.select_event(view.selected_event+1)
+	elif event.is_action_pressed("replay_export"):
+		var exported := export_current()
+		last_export = exported.duplicate(true)
+		if exported.ok: print("[replay] exported "+ProjectSettings.globalize_path(exported.path))
+		if view.visible:
+			view._title.text = "回放已导出" if exported.ok else "回放导出失败"
+	else: return
 	get_viewport().set_input_as_handled()

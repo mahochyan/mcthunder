@@ -107,20 +107,21 @@ func roster() -> Array:
 		for id in ["A","B"]: rows.append({"id":id,"friendly":id == "A","deaths":battle.match_director.totals[id].deaths})
 	return rows
 func _input(event: InputEvent) -> void:
-	if battle == null or not event is InputEventKey or not event.pressed or event.echo: return
-	if event.keycode in [KEY_V,KEY_COMMA,KEY_PERIOD,KEY_J] and (phase() != "finished" or not AccessibilitySettings.replay_enabled):
+	if battle == null or not event.is_pressed() or event.is_echo(): return
+	if is_instance_valid(overlay.input_settings): return
+	if (event.is_action_pressed("replay_toggle") or event.is_action_pressed("replay_previous") or event.is_action_pressed("replay_next") or event.is_action_pressed("replay_export")) and (phase() != "finished" or not AccessibilitySettings.replay_enabled):
 		overlay.notice = "本局结束后可按 V 查看实弹回放" if AccessibilitySettings.replay_enabled else "实弹回放已在显示设置中关闭"
 		get_viewport().set_input_as_handled()
 		return
 	overlay.notice = ""
-	if event.keycode == KEY_TAB and phase() == "playing" and not battle._paused and not battle.replay.view.visible:
+	if event.is_action_pressed("scoreboard") and phase() == "playing" and not battle._paused and not battle.replay.view.visible:
 		overlay.scoreboard.visible = not overlay.scoreboard.visible
 		_refresh_focus()
 		get_viewport().set_input_as_handled()
-	elif event.keycode in [KEY_Q,KEY_E] and battle is TeamRange and player().state.destroyed and phase() == "playing" and not battle._paused and not overlay.scoreboard.visible:
-		battle.spectator_index += 1 if event.keycode == KEY_E else -1
+	elif (event.is_action_pressed("spectate_previous") or event.is_action_pressed("spectate_next")) and battle is TeamRange and player().state.destroyed and phase() == "playing" and not battle._paused and not overlay.scoreboard.visible:
+		battle.spectator_index += 1 if event.is_action_pressed("spectate_next") else -1
 		get_viewport().set_input_as_handled()
-	elif event.keycode == KEY_ESCAPE:
+	elif InputBindingService.is_pause(event):
 		if overlay.settings_root.visible: _close_settings()
 		elif overlay.scoreboard.visible: _close_board()
 		elif battle.replay.view.visible: battle.replay.close()

@@ -5,6 +5,7 @@ extends Node3D
 var manager: ProjectileManager
 var audio: CombatAudioPool
 var fx: CombatFXPool
+var subtitles: CombatSubtitles
 var actors: Dictionary = {}
 var seen: Dictionary = {}
 var presented: Dictionary = {}
@@ -14,6 +15,7 @@ func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	audio=CombatAudioPool.new(); add_child(audio)
 	fx=CombatFXPool.new(); add_child(fx)
+	subtitles=CombatSubtitles.new(); add_child(subtitles)
 	manager=get_parent() as ProjectileManager
 	manager.projectile_contact.connect(on_contact)
 	manager.projectile_finished.connect(on_finished)
@@ -40,6 +42,7 @@ func on_combat_event(key: String, kind: String, point: Vector3, priority: int=2)
 	if seen.size()>512: seen.erase(seen.keys()[0])
 	presented[kind]=int(presented.get(kind,0))+1
 	audio.play_voice(key,kind,point,priority)
+	subtitles.present(kind,point)
 	if kind in ["non_penetration","ricochet","penetrated","world"]: fx.spawn_bounded(kind,point)
 
 func on_shot(spec: Dictionary) -> void:

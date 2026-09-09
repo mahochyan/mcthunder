@@ -386,12 +386,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.keycode in [KEY_R,KEY_X,KEY_1,KEY_2,KEY_3]:
 			get_viewport().set_input_as_handled()
 			return
-		if event.keycode == KEY_TAB:
+		if event.is_action_pressed("scoreboard"):
 			if actor.state.destroyed: spectator_index += 1
 			get_viewport().set_input_as_handled()
 			return
 		if event.keycode == KEY_ESCAPE and director.state.phase == "finished": leave_match(); return
-	if event.is_action_pressed("pause"):
+	if InputBindingService.is_pause(event):
 		if _paused: _resume()
 		else: _pause()
 

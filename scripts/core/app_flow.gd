@@ -21,6 +21,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_viewport().gui_embed_subwindows = true
 	var args := OS.get_cmdline_user_args()
+	var isolated_settings := DisplayServer.get_name() == "headless"
+	for argument in args:
+		if argument.ends_with("-check") or argument.ends_with("-demo") or argument == "--autoshot" or argument == "--export-smoke": isolated_settings = true
+	InputBindingService.initialize("" if isolated_settings else InputBindingService.PATH)
 	if profile == null:
 		var isolated := DisplayServer.get_name() == "headless"
 		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check","--challenge-play-check","--art-play-check","--feedback-play-check"]:

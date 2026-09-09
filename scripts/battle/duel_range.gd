@@ -162,7 +162,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			leave_match()
 			return
 	# Bypass laboratory shortcuts, preserving real pause and recovery inputs.
-	if event.is_action_pressed("pause"):
+	if InputBindingService.is_pause(event):
 		if _paused: _resume()
 		else: _pause()
 

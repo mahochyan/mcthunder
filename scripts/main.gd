@@ -50,6 +50,7 @@ var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相�
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
 func _ready() -> void:
+	InputBindingService.initialize()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_autoshot = OS.get_cmdline_user_args().has("--autoshot")
 	_inspect_demo = OS.get_cmdline_user_args().has("--inspect-demo")   # 004-d：检视窗口可见证据
@@ -210,7 +211,7 @@ func despawn_vehicle(a: VehicleActor) -> void:
 	a.queue_free()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if InputBindingService.is_pause(event):
 		# 004-c：检视窗口打开时 Esc = 返回暂停菜单（真实返回流程），不恢复游戏
 		if _inspector_open:
 			close_vehicle_inspector()
