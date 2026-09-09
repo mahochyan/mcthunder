@@ -37,12 +37,12 @@ func _run() -> void:
 	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.environment = e
 	root.add_child(env)
-	for view in [["hero", Vector3(6.5, 3.0, -7.0), Vector3(0, 1.2, 0)],
-			["side", Vector3(-11.0, 1.3, .3), Vector3(0, .9, 0)],
-			["front", Vector3(0, 1.6, -10.5), Vector3(0, 1.1, 0)],
-			["rear", Vector3(.5, 2.2, 10.5), Vector3(0, 1.2, 0)],
-			["wheels", Vector3(-2.4, .8, -6.0), Vector3(-1.1, .5, .6)],
-			["deck", Vector3(2.5, 3.4, 3.5), Vector3(.3, 1.4, 1.4)]]:
+	for view in [["hero", Vector3(4.2, 2.0, -4.6), Vector3(0, 1.1, -0.2)],
+			["side", Vector3(-7.6, 1.15, 0.15), Vector3(0, 0.85, 0.0)],
+			["front", Vector3(0, 1.35, -7.2), Vector3(0, 1.0, 0)],
+			["rear", Vector3(0.4, 1.9, 7.2), Vector3(0, 1.1, 0)],
+			["wheels", Vector3(-2.2, .8, -5.0), Vector3(-1.1, .5, .6)],
+			["deck", Vector3(2.2, 3.0, 3.0), Vector3(.2, 1.5, 1.2)]]:
 		cam.position = view[1]
 		cam.look_at_from_position(view[1], view[2], Vector3.UP)
 		for i in range(6):
