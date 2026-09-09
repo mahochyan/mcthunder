@@ -1,0 +1,1 @@
+ART001_PERF variant=B vehicles=8 frames=1800 seconds=30.0 avg_fps=60.0 gpu_timestamps=NOT_CAPTURED

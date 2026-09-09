@@ -1,0 +1,75 @@
+{
+ "order": "ART-001",
+ "vehicle": "M4A3(75)W VVSS 1944",
+ "source_blend_sha256": "FC6DAE2F4E6E6744504071E887DAF10464C6FF470720C849295D281756A7E197",
+ "pilot_blend_sha256": "aa5ab4ba8dcba832e214ee0b71c3fca0297ff210a47a55fc17045b84e0b74592",
+ "glb_sha256": "f30ce15982f910540c86605258a478d67fd0c94c06d805f156b4fc492ef6068b",
+ "basecolor_sha256": "c192e26505995ca13090e16fe86ab976523b2f3eca5d6074397e39d07af87ae9",
+ "normal_sha256": "4a223e27be5ed982c2cdbb47128a0b0af3569d1ee0bb70b7a8bd5baf74d48f51",
+ "orm_sha256": "dda2b628ec9d2f89558ac35fb9b2dfe4360319da6fbaedc63c7e19d14a552d46",
+ "blender_version": "5.2.1 LTS",
+ "budget": {
+  "limit": 1000,
+  "blender_low_tris": 774,
+  "per_object": {
+   "LOW_hull_Shell": 48,
+   "LOW_turret_Shell": 44,
+   "LOW_barrel_Shell": 8,
+   "LOW_gun_Tube": 58,
+   "LOW_wheels": 152,
+   "LOW_tracks": 416,
+   "LOW_hull_Hatches": 24,
+   "LOW_turret_Cupola": 24
+  }
+ },
+ "maps": {
+  "size": 1024,
+  "basecolor": "sRGB",
+  "normal": "Non-Color tangent OpenGL +X+Y+Z",
+  "orm": {
+   "R": "AO",
+   "G": "Roughness",
+   "B": "Metallic"
+  }
+ },
+ "bake_timings": {
+  "hull/LOW_hull_Shell/normal": 0.14,
+  "hull/LOW_hull_Shell/ao": 0.22,
+  "hull/LOW_hull_Shell/albedo": 0.14,
+  "hull/LOW_hull_Shell/orm_mask": 0.14,
+  "hull/LOW_hull_Hatches/normal": 0.12,
+  "hull/LOW_hull_Hatches/ao": 0.15,
+  "hull/LOW_hull_Hatches/albedo": 0.12,
+  "hull/LOW_hull_Hatches/orm_mask": 0.19,
+  "turret/LOW_turret_Shell/normal": 0.33,
+  "turret/LOW_turret_Shell/ao": 0.59,
+  "turret/LOW_turret_Shell/albedo": 0.34,
+  "turret/LOW_turret_Shell/orm_mask": 0.32,
+  "turret/LOW_turret_Cupola/normal": 0.31,
+  "turret/LOW_turret_Cupola/ao": 0.5,
+  "turret/LOW_turret_Cupola/albedo": 0.34,
+  "turret/LOW_turret_Cupola/orm_mask": 0.32,
+  "gun/LOW_barrel_Shell/normal": 0.33,
+  "gun/LOW_barrel_Shell/ao": 0.51,
+  "gun/LOW_barrel_Shell/albedo": 0.34,
+  "gun/LOW_barrel_Shell/orm_mask": 0.33,
+  "gun/LOW_gun_Tube/normal": 0.33,
+  "gun/LOW_gun_Tube/ao": 0.61,
+  "gun/LOW_gun_Tube/albedo": 0.31,
+  "gun/LOW_gun_Tube/orm_mask": 0.3,
+  "wheels/LOW_wheels/normal": 0.22,
+  "wheels/LOW_wheels/ao": 0.39,
+  "wheels/LOW_wheels/albedo": 0.22,
+  "wheels/LOW_wheels/orm_mask": 0.21,
+  "tracks/LOW_tracks/normal": 0.25,
+  "tracks/LOW_tracks/ao": 0.68,
+  "tracks/LOW_tracks/albedo": 0.3,
+  "tracks/LOW_tracks/orm_mask": 0.27
+ },
+ "uv": "single 0-1 atlas, smart_project angle66 margin0.03",
+ "cage": {
+  "hull/turret/gun": 0.03,
+  "wheels/tracks": 0.02
+ },
+ "axis": "same authoring convention as authoring/vehicles (blend z-up -> glTF Y-up)"
+}
