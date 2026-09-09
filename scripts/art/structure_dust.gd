@@ -15,7 +15,9 @@ func start(point: Vector3, style: String) -> void:
 
 func _process(delta: float) -> void:
 	_age += delta
+	visible=AccessibilitySettings.fx_level>0
 	if _age >= 1.5: queue_free(); return
 	for i in _puffs.size():
+		_puffs[i].visible=AccessibilitySettings.fx_level==2 or i<3
 		_puffs[i].position = Vector3(sin(i*2.4),0.5+i*0.08,cos(i*2.4))*_age
 		_puffs[i].scale = Vector3.ONE*(1.0+_age*2.0)*minf(1.0,(1.5-_age)*3.0)

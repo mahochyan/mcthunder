@@ -57,6 +57,13 @@ func _run() -> void:
 	var normal_death:=await damage_case(false,"ammo")
 	var disabled_death:=await damage_case(true,"ammo")
 	check(normal_death==disabled_death and normal_death.destroyed,"all feedback disabled preserves the actual lethal hit and destruction outcome")
+	var dust:=StructureDust.new(); root.add_child(dust); dust.start(Vector3.ZERO,"wood")
+	var debris:=StructureCollapse.new(); root.add_child(debris); debris.start(Vector3.ONE,"wood")
+	await frames(2)
+	check(not dust.visible and not debris.visible,"disabled effects hide actual building dust and cosmetic fragments")
+	AccessibilitySettings.fx_level=1; await frames(2)
+	check(dust.visible and dust._puffs.filter(func(puff: MeshInstance3D) -> bool: return puff.visible).size()==3 and debris._parts.filter(func(row: Dictionary) -> bool: return row.node.visible).size()==4,"reduced effects halve building dust and cosmetic fragment visibility")
+	dust.free(); debris.free()
 	AccessibilitySettings.audio_volume=0.8; AccessibilitySettings.fx_level=2; AccessibilitySettings.stable_camera=true; AccessibilitySettings.replay_enabled=true
 	var world:=Node3D.new(); root.add_child(world)
 	WorldArtKit.box(world,Vector3(0,-0.5,0),Vector3(100,1,100),"earth")

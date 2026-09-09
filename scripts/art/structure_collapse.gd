@@ -14,9 +14,11 @@ func start(size: Vector3, style: String) -> void:
 		_parts.append({"node":piece,"origin":origin,"speed":Vector3(sin(i*2.4)*0.5,0.7,cos(i*2.4)*0.5)})
 func _process(delta: float) -> void:
 	_age+=delta
+	visible=AccessibilitySettings.fx_level>0
 	if _age>=1.2: queue_free(); return
 	for i in _parts.size():
 		var row: Dictionary=_parts[i]
+		row.node.visible=AccessibilitySettings.fx_level==2 or i<4
 		row.node.position=row.origin+row.speed*_age+Vector3.DOWN*4.9*_age*_age
 		row.node.position.y=maxf(0.08,row.node.position.y)
 		row.node.rotation=Vector3(sin(i)*0.25,0,i*0.05)*_age

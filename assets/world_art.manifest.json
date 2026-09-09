@@ -50,11 +50,11 @@
         },
         {
           "path": "scripts/art/structure_collapse.gd",
-          "sha256": "5bb78b53155451b3859b0b9521cfcf8a21ced871b03322d95659ec92804b300b"
+          "sha256": "6bdfc8928ef611dd00b9c00bfba25db70c66c4ecf268a2797ca5f0da85e274ee"
         },
         {
           "path": "scripts/art/structure_dust.gd",
-          "sha256": "168140a02bb0c41f4a0f36996fdaa02d384172c7406740bc691c6f1ca8fbbcd1"
+          "sha256": "b6363da0865fe3343bc0dfcc674a97b4f246468fcb8387396242c6955daad6c9"
         }
       ]
     },
