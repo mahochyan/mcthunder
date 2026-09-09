@@ -103,8 +103,8 @@ class Builder:
         return pts
 
     def track_samples(self, pitch):
-        corners = [(0.15, -2.35), (0.15, 2.32), (0.36, 2.58), (0.60, 2.48), (0.66, 2.32),
-                   (0.66, -2.30), (0.66, -2.52), (0.44, -2.68), (0.24, -2.58), (0.15, -2.48)]
+        corners = [(0.15, -2.35), (0.15, 2.32), (0.36, 2.58), (0.60, 2.48), (0.84, 2.32),
+                   (0.84, -2.30), (0.84, -2.52), (0.44, -2.68), (0.24, -2.58), (0.15, -2.48)]
         sm = self.chaikin(corners, 3)
         m = len(sm)
         dd = [0.0]
@@ -132,14 +132,17 @@ class Builder:
     def build(self):
         # ---- hull: LOW-SLUNG side-panel-verified (87.4px/m: deck 1.35, fender 0.90, long 27deg hood) ----
         belly = self.hull_ring2(0.30, 0.68, -2.25, -2.10, 2.10, 0.04)
+        midb = self.hull_ring2(0.55, 0.87, -2.50, -2.34, 2.36, 0.05)
         fender = self.hull_ring2(0.90, 1.02, -2.70, -2.50, 2.62, 0.06)
         deck = self.hull_ring2(1.35, 0.95, -2.02, -1.98, 2.42, 0.0)
-        self.loft('hull', [belly, fender], 'dark_paint', caps=(True, False))
+        # panel: only the LOW side band is dark; upper hull reads light olive
+        self.loft('hull', [belly, midb], 'dark_paint', caps=(True, False))
+        self.loft('hull', [midb, fender], 'paint', caps=(False, False))
         self.loft('hull', [fender, deck], 'paint', caps=(False, True))
         # fenders: thin plates outboard (panel: straight line, small front/rear flaps)
         for s in (-1, 1):
-            self.box('hull', (s * 1.16, 0.90, 0.085), (0.34, 0.035, 5.02), 'paint')
-            self.box('hull', (s * 1.16, 0.87, -2.55), (0.34, 0.035, 0.50), 'paint')
+            self.box('hull', (s * 1.16, 0.845, 0.085), (0.34, 0.10, 5.02), 'paint')
+            self.box('hull', (s * 1.16, 0.82, -2.55), (0.34, 0.10, 0.50), 'paint')
         # glacis plane: z(y) = -2.50 + 1.07*(y-0.90) (long ~45deg hood, panel-verified)
         # driver vision plug (left) with slit glass, boss along plate normal
         self.rod('hull', (-0.50, 1.20, -2.18), (-0.50, 1.36, -2.32), 0.19, 'paint', n=12)
@@ -151,28 +154,29 @@ class Builder:
         # two D shackles low-center
         self.rod('hull', (-0.38, 0.98, -2.45), (-0.38, 1.14, -2.22), 0.08, 'steel', n=8)
         self.rod('hull', (0.38, 0.98, -2.45), (0.38, 1.14, -2.22), 0.08, 'steel', n=8)
-        # headlights on brackets at hull front corners (round lamp + grid guard)
+        # headlights: seated on glacis near fender corners (lamp + guard cross)
         for s in (-1, 1):
-            self.box('hull', (s * 0.88, 1.00, -2.62), (0.07, 0.16, 0.12), 'steel')
-            self.rod('hull', (s * 0.88, 1.04, -2.70), (s * 0.88, 1.04, -2.86), 0.105, 'glass_head', n=12)
-            self.rod('hull', (s * 0.88, 0.92, -2.84), (s * 0.88, 1.16, -2.84), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
-            self.rod('hull', (s * 0.88 - 0.11, 1.04, -2.84), (s * 0.88 + 0.11, 1.04, -2.84), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
-        # rear plate: access panel + tow shackles + upturned exhausts (rear circles in panel)
+            self.box('hull', (s * 0.86, 1.10, -2.24), (0.07, 0.16, 0.12), 'steel')
+            self.rod('hull', (s * 0.86, 1.14, -2.28), (s * 0.86, 1.14, -2.44), 0.105, 'glass_head', n=12)
+            self.rod('hull', (s * 0.86, 1.02, -2.42), (s * 0.86, 1.26, -2.42), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
+            self.rod('hull', (s * 0.86 - 0.11, 1.14, -2.42), (s * 0.86 + 0.11, 1.14, -2.42), 0.013, 'steel', n=4, cap_a=False, cap_b=False)
+        # rear plate: access panel + tow shackles + exhausts (rear panel: exhausts inboard x~0.6)
         self.box('hull', (0, 1.15, 2.51), (0.80, 0.50, 0.06), 'paint')
         for s in (-1, 1):
-            self.rod('hull', (s * 0.48, 0.70, 2.66), (s * 0.48, 0.92, 2.62), 0.08, 'steel', n=8)
-            self.rod('hull', (s * 0.85, 1.20, 2.45), (s * 0.92, 1.42, 2.62), 0.07, 'steel', n=10)
-            self.rod('hull', (s * 0.92, 1.42, 2.62), (s * 0.94, 1.48, 2.70), 0.05, 'recess', n=10, cap_a=False)
-        # engine deck (panel layout): centered louvred grille + single centered fore-aft tank + right stowage
+            self.rod('hull', (s * 0.80, 0.70, 2.66), (s * 0.80, 0.92, 2.62), 0.08, 'steel', n=8)
+            self.rod('hull', (s * 0.60, 1.20, 2.45), (s * 0.64, 1.44, 2.62), 0.07, 'steel', n=10)
+            self.rod('hull', (s * 0.64, 1.44, 2.62), (s * 0.66, 1.50, 2.70), 0.05, 'recess', n=10, cap_a=False)
+        # engine deck (panel layout): centered louvred grille + stowage
         self.box('hull', (0, 1.345, 1.50), (0.62, 0.03, 0.70), 'grille')
         for i in range(3):
             self.box('hull', (0, 1.375, 1.28 + i * 0.22), (0.56, 0.02, 0.07), 'steel')
-        # rear-hung cylindrical fuel drum (panel: deck-line height, just past rear plate)
-        self.rod('hull', (0, 1.38, 2.40), (0, 1.38, 2.80), 0.19, 'paint', n=14)
-        self.rod('hull', (0, 1.38, 2.35), (0, 1.38, 2.41), 0.12, 'steel_face', n=12)
-        for z in (2.50, 2.72):
-            self.rod('hull', (0, 1.38, z - 0.035), (0, 1.38, z + 0.035), 0.205, 'steel', n=14, cap_a=False, cap_b=False)
-            self.box('hull', (0, 1.38, z), (0.42, 0.10, 0.09), 'steel')
+        # H8: TWO side fuel drums outboard on fenders, deck-line height, double straps (rear panel-verified)
+        for s in (-1, 1):
+            self.rod('hull', (s * 0.86, 1.38, 2.33), (s * 0.86, 1.38, 2.81), 0.28, 'paint', n=16)
+            self.rod('hull', (s * 0.86, 1.38, 2.28), (s * 0.86, 1.38, 2.34), 0.17, 'steel_face', n=12)
+            for z in (2.44, 2.68):
+                self.rod('hull', (s * 0.86, 1.38, z - 0.035), (s * 0.86, 1.38, z + 0.035), 0.295, 'steel', n=16, cap_a=False, cap_b=False)
+            self.box('hull', (s * 0.86, 1.14, 2.56), (0.16, 0.50, 0.09), 'steel')
         self.rod('hull', (-0.40, 1.365, 0.62), (-0.40, 1.40, 0.62), 0.11, 'paint', n=10)
         self.box('hull', (0.58, 1.435, 0.62), (0.40, 0.17, 0.34), 'wood')
         self.rod('hull', (0.88, 1.375, -0.30), (0.88, 1.375, 0.42), 0.028, 'wood', n=6, cap_a=False)
@@ -281,6 +285,12 @@ class Builder:
             return [tile_uv(0, u, v) for u, v in uv]
         if base is not None:
             return [tile_uv(base, u, v) for u, v in project(points, ax, ay)]
+        # paint surfaces: uniform color — sample tiny flat center of tile 0/1
+        # (atlas panel/brush marks stretch into wood grain on any lofted quad)
+        if color in ('paint', 'light_paint', 'dark_paint'):
+            tile = {'dark_paint': 1}.get(color, 0)
+            return [tile_uv(tile, .5 + (u - .5) * .12, .5 + (v - .5) * .12)
+                    for u, v in project(points, ax, ay)]
         return [tile_uv(0, u, v) for u, v in project(points, ax, ay)]
 
 

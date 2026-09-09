@@ -2,7 +2,8 @@ Add-Type -AssemblyName System.Drawing
 $E = 'E:\AIprogram\mcthunder-art001-pilot\docs\evidence\t34'
 $views = @(
   @{ ortho = "$E\t34_oside.png";  panel = "$E\pnl_side.png";  out = "$E\cmp_px_side.png";  thr = 175 },
-  @{ ortho = "$E\t34_ofront.png"; panel = "$E\pnl_front.png"; out = "$E\cmp_px_front.png"; thr = 175 }
+  @{ ortho = "$E\t34_ofront.png"; panel = "$E\pnl_front.png"; out = "$E\cmp_px_front.png"; thr = 175 },
+  @{ ortho = "$E\t34_orear.png";  panel = "$E\pnl_rear.png";  out = "$E\cmp_px_rear.png";  thr = 175 }
 )
 function Get-Bits($bmp) {
   $rect = New-Object System.Drawing.Rectangle 0,0,$bmp.Width,$bmp.Height

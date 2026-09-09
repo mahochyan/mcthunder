@@ -41,7 +41,7 @@ func _run() -> void:
 			["side", Vector3(-7.6, 1.15, 0.15), Vector3(0, 0.85, 0.0)],
 			["front", Vector3(0, 1.35, -7.2), Vector3(0, 1.0, 0)],
 			["rear", Vector3(0.4, 1.9, 7.2), Vector3(0, 1.1, 0)],
-			["wheels", Vector3(-2.2, .8, -5.0), Vector3(-1.1, .5, .6)],
+			["wheels", Vector3(-3.6, 0.62, -0.4), Vector3(-1.1, 0.42, 0.6)],
 			["deck", Vector3(2.2, 3.0, 3.0), Vector3(.2, 1.5, 1.2)]]:
 		cam.position = view[1]
 		cam.look_at_from_position(view[1], view[2], Vector3.UP)
