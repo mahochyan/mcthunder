@@ -76,16 +76,50 @@ func commit(candidate: Dictionary) -> Dictionary:
 		var folder := ProjectSettings.globalize_path(_path).get_base_dir()
 		if DirAccess.make_dir_recursive_absolute(folder) != OK: return _bad("无法创建存档目录")
 		var lock_path := ProjectSettings.globalize_path(_path+".lock")
-		if DirAccess.make_dir_absolute(lock_path) != OK: return _bad("存档正被占用；若上次异常退出，请关闭游戏后移除 commander.lock 空目录")
+		var lock := _acquire_lock(lock_path)
+		if not lock.ok: return lock
 		var disk := _latest()
 		var result: Dictionary
 		if disk.get("found",false) and (disk.data.revision != _data.revision or disk.data.profile_id != _data.profile_id): result = _bad("另一实例已保存，请重新载入")
 		elif disk.get("corrupt",false) and not disk.get("found",false): result = _bad("现有存档损坏，已保留原文件")
 		else: result = _write_slot(next)
-		DirAccess.remove_absolute(lock_path)
+		_release_lock(lock_path)
 		if not result.ok: return result
 	_data = next
 	return {"ok":true}
+
+# Healthy commits hold the lock for milliseconds (the whole critical section is
+# one synchronous write+verify), so a lock stamped older than the cap can only
+# come from a crashed holder and is safe to reclaim (029 small item, GPT ruling:
+# reclaim only confirmed-stale locks; never touch slots; never ask the user to
+# delete folders).
+const LOCK_MAX_HOLD_S := 10.0
+
+func _acquire_lock(lock_path: String) -> Dictionary:
+	if DirAccess.make_dir_absolute(lock_path) == OK:
+		var stamp := FileAccess.open(lock_path.path_join("owner.txt"), FileAccess.WRITE)
+		if stamp != null:
+			stamp.store_string("%d %d" % [OS.get_process_id(), int(Time.get_unix_time_from_system())])
+			stamp.close()
+		return {"ok":true}
+	var info := _read_lock_owner(lock_path)
+	var stamp_time := float(info.get("time",0))
+	if stamp_time <= 0.0 or Time.get_unix_time_from_system()-stamp_time <= LOCK_MAX_HOLD_S:
+		return _bad("存档正被占用（另一实例正在写入），请稍候重试")
+	_release_lock(lock_path)
+	return _acquire_lock(lock_path)
+
+static func _read_lock_owner(lock_path: String) -> Dictionary:
+	var file := FileAccess.open(lock_path.path_join("owner.txt"), FileAccess.READ)
+	if file == null: return {"time":maxf(FileAccess.get_modified_time(lock_path),0.0)}
+	var parts := file.get_as_text().split(" ")
+	file.close()
+	if parts.size() < 2: return {"time":-1.0}   # half-written stamp: state unknowable, never delete
+	return {"pid":int(parts[0]),"time":float(parts[1])}
+
+static func _release_lock(lock_path: String) -> void:
+	DirAccess.remove_absolute(lock_path.path_join("owner.txt"))
+	DirAccess.remove_absolute(lock_path)
 
 func _write_slot(value: Dictionary) -> Dictionary:
 	var target := ProjectSettings.globalize_path(_path+"."+str(value.revision%2)+".json")

@@ -102,6 +102,27 @@ func _persistence() -> void:
 	var failing := ProfileStore.new(blocked_path+"/commander",service)
 	var unchanged := failing.snapshot()
 	_check(not ResearchGraph.unlock(failing,VehicleCatalog.IDS[1]).ok and failing.snapshot()==unchanged,"write failure cannot subtract points or unlock in memory")
+	# 029 small item: crash-stale save locks recover without asking the user to delete folders.
+	var lock_root := "user://tests/lockfix_"+str(Time.get_ticks_usec())
+	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
+	var lock_path := lock_root+"/commander"
+	var dead := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
+	dead.store_string("999998 %d" % (int(Time.get_unix_time_from_system())-3600)); dead.close()
+	var revived := ProfileStore.new(lock_path,service)
+	var bump := revived.snapshot(); bump.research_points += 7
+	_check(revived.commit(bump).ok,"crash-stale lock from a dead holder is reclaimed automatically")
+	var after := ProfileStore.new(lock_path,service)
+	_check(after.snapshot().research_points == bump.research_points and DirAccess.open(lock_root+"/commander.lock") == null,"reclaimed commit persisted and the lock was released")
+	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
+	var live := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
+	live.store_string("999997 %d" % int(Time.get_unix_time_from_system())); live.close()
+	var waiting := ProfileStore.new(lock_path,service)
+	var wait_bump := waiting.snapshot(); wait_bump.research_points += 1
+	var refused := waiting.commit(wait_bump)
+	_check(not refused.ok and refused.reason.contains("重试") and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"live-holder lock is respected: refused with retry message and holder stamp untouched")
+	var broken := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
+	broken.store_string("garbage"); broken.close()
+	_check(not waiting.commit(wait_bump).ok and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"unknowable lock state is never auto-deleted")
 	await process_frame
 
 func _rewards(store: ProfileStore, config: MatchConfig) -> void:
