@@ -37,7 +37,7 @@ func _run() -> void:
 	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.environment = e
 	root.add_child(env)
-	for view in [["hero", Vector3(4.2, 2.0, -4.6), Vector3(0, 1.1, -0.2)],
+	for view in [["hero", Vector3(-4.6, 2.0, -4.2), Vector3(0, 1.1, -0.2)],
 			["side", Vector3(-7.6, 1.15, 0.15), Vector3(0, 0.85, 0.0)],
 			["front", Vector3(0, 1.35, -7.2), Vector3(0, 1.0, 0)],
 			["rear", Vector3(0.4, 1.9, 7.2), Vector3(0, 1.1, 0)],

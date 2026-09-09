@@ -289,9 +289,15 @@ def create(model):
         bpy.data.materials.remove(m)
     material = bpy.data.materials.new('T34 concept atlas')
     material.use_nodes = True
-    shader = material.node_tree.nodes.get('Principled BSDF')
+    # localized UI languages rename 'Principled BSDF' — pick by node TYPE, never by name
+    shader = next((n for n in material.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
     if shader is None:
         shader = material.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
+    out_node = next((n for n in material.node_tree.nodes if n.type == 'OUTPUT_MATERIAL'), None)
+    if out_node is None:
+        out_node = material.node_tree.nodes.new('ShaderNodeOutputMaterial')
+    if not out_node.inputs['Surface'].links:
+        material.node_tree.links.new(shader.outputs['BSDF'], out_node.inputs['Surface'])
     if shader.inputs.get('Roughness'):
         shader.inputs['Roughness'].default_value = .90
     image = bpy.data.images.load(str(ATLAS))

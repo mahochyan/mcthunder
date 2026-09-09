@@ -38,7 +38,7 @@ func _run() -> void:
 	e.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	env.environment = e
 	root.add_child(env)
-	for view in [["oside", Vector3(9, 1.15, 0), Vector3(0, 1.15, 0), 4.4],
+	for view in [["oside", Vector3(-9, 1.15, 0), Vector3(0, 1.15, 0), 4.4],
 			["ofront", Vector3(0, 1.15, -9), Vector3(0, 1.15, 0), 4.4],
 			["orear", Vector3(0, 1.15, 9), Vector3(0, 1.15, 0), 4.4]]:
 		cam.position = view[1]
