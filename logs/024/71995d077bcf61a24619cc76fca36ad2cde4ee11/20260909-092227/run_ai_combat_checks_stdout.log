@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual two-vehicle combat laboratory loads
+[PASS] T014-01 never-seen enemy behind opaque wall has no observation
+[PASS] wall-hidden enemy cannot request fire
+[PASS] visible hull creates exterior observation
+[PASS] sensor observation contains numeric exterior data only
+[PASS] consumer cannot mutate sensor memory
+[PASS] T014-02 hiding freezes last-visible position
+[PASS] moving behind cover does not update position or timestamp
+[PASS] last-seen memory expires after six seconds
+[PASS] first sight waits configured reaction time
+[PASS] perception scans are scheduled, not repeated by aim solver
+[PASS] T014-03 off-axis turret cannot request a shot
+[PASS] finite-rate turret eventually aims and launches actual projectile
+[PASS] AI consumes same real ammunition inventory
+[PASS] held AI intent cannot bypass two-second reload
+[PASS] damaged breech requests legal stopped repair instead of firing
+[PASS] missing gunner requests legal replacement rather than firing
+[PASS] empty AI inventory cannot request fire
+[PASS] reload gate blocks AI fire request
+[PASS] resume grace applies to AI without delayed shot burst
+[PASS] fresh muzzle gate rejects newly inserted wall before next perception scan
+[PASS] barrel passing through wall blocks AI even when muzzle is beyond it
+[PASS] fresh team check rejects stale target that is now friendly
+[PASS] friendly vehicle never becomes an enemy observation
+[PASS] T014-04 easy changes skill only
+[PASS] T014-04 normal changes skill only
+[PASS] T014-04 hard changes skill only
+[PASS] seed 1401 reproduces angular error
+[PASS] reset cancels target and pending intent
+[PASS] generation change cannot carry old fire request
+[PASS] detaching clears memory and navigation
+[PASS] combat transition log is bounded
+[PASS] actual AI round hits frontal standard plate through projectile manager
+[PASS] T014-05 player command and AI launch produce same actual frontal armor result
+=== 结果: 34 项检查, 0 失败 ===
+AI_COMBAT_CHECKS_PASS

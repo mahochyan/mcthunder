@@ -1,0 +1,149 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical catalogs admitted by garage service
+[PASS] default manifest fills actual capacity: us_m4a3_75w_vvss_1944
+[PASS] single chamber round leaves every real rack empty: us_m4a3_75w_vvss_1944
+[PASS] reject zero: us_m4a3_75w_vvss_1944
+[PASS] reject negative: us_m4a3_75w_vvss_1944
+[PASS] reject fraction: us_m4a3_75w_vvss_1944
+[PASS] reject over: us_m4a3_75w_vvss_1944
+[PASS] reject foreign: us_m4a3_75w_vvss_1944
+[PASS] reject first_empty: us_m4a3_75w_vvss_1944
+[PASS] reject wrong_vehicle: us_m4a3_75w_vvss_1944
+[PASS] default manifest fills actual capacity: us_m24_m6_t85e1_1951
+[PASS] single chamber round leaves every real rack empty: us_m24_m6_t85e1_1951
+[PASS] reject zero: us_m24_m6_t85e1_1951
+[PASS] reject negative: us_m24_m6_t85e1_1951
+[PASS] reject fraction: us_m24_m6_t85e1_1951
+[PASS] reject over: us_m24_m6_t85e1_1951
+[PASS] reject foreign: us_m24_m6_t85e1_1951
+[PASS] reject first_empty: us_m24_m6_t85e1_1951
+[PASS] reject wrong_vehicle: us_m24_m6_t85e1_1951
+[PASS] default manifest fills actual capacity: us_m26_m3_1945
+[PASS] single chamber round leaves every real rack empty: us_m26_m3_1945
+[PASS] reject zero: us_m26_m3_1945
+[PASS] reject negative: us_m26_m3_1945
+[PASS] reject fraction: us_m26_m3_1945
+[PASS] reject over: us_m26_m3_1945
+[PASS] reject foreign: us_m26_m3_1945
+[PASS] reject first_empty: us_m26_m3_1945
+[PASS] reject wrong_vehicle: us_m26_m3_1945
+[PASS] default manifest fills actual capacity: us_m36_m4a1_1945
+[PASS] single chamber round leaves every real rack empty: us_m36_m4a1_1945
+[PASS] reject zero: us_m36_m4a1_1945
+[PASS] reject negative: us_m36_m4a1_1945
+[PASS] reject fraction: us_m36_m4a1_1945
+[PASS] reject over: us_m36_m4a1_1945
+[PASS] reject foreign: us_m36_m4a1_1945
+[PASS] reject first_empty: us_m36_m4a1_1945
+[PASS] reject wrong_vehicle: us_m36_m4a1_1945
+[PASS] fresh profile is schema valid
+[PASS] formal mode rejects locked vehicle
+[PASS] training permits all three locked vehicles
+[PASS] lineup invalid fixture []
+[PASS] lineup invalid fixture ["us_m4a3_75w_vvss_1944", "us_m4a3_75w_vvss_1944"]
+[PASS] lineup invalid fixture ["us_m4a3_75w_vvss_1944", "us_m24_m6_t85e1_1951", "us_m26_m3_1945", "us_m36_m4a1_1945"]
+[PASS] lineup invalid fixture ["alien"]
+[PASS] research dependency rejection is transactional
+[PASS] real unlock subtracts 80 once
+[PASS] duplicate unlock cannot spend again
+[PASS] insufficient research points preserve state
+[PASS] match snapshot cannot be mutated by returned dictionaries
+[PASS] invalid profile rejected without mutation: negative_points
+[PASS] invalid profile rejected without mutation: fractional_points
+[PASS] invalid profile rejected without mutation: dependency
+[PASS] invalid profile rejected without mutation: unknown
+[PASS] invalid profile rejected without mutation: duplicate
+[PASS] invalid profile rejected without mutation: foreign_profile
+[PASS] invalid profile rejected without mutation: negative_revision
+[PASS] invalid profile rejected without mutation: bad_loadout
+[PASS] invalid profile rejected without mutation: receipt
+[PASS] invalid profile rejected without mutation: pending
+[PASS] atomic slot writes actual custom loadout
+[PASS] JSON save restores exact typed counts, settings and profile identity
+[PASS] second slot persists real research transaction
+[PASS] stale concurrent instance cannot overwrite newer progress
+[PASS] restart restores unlocked research and balance
+[PASS] damaged latest slot visibly restores previous valid slot
+[PASS] two corrupt slots preserved and writes blocked
+[PASS] write failure cannot subtract points or unlock in memory
+[PASS] normal match token persisted before battle
+[PASS] registered match bound to actual director
+[PASS] premature fabricated outcome rejected
+[PASS] actual director creates timeout result for equal tickets
+[PASS] authoritative draw awards exactly 40 in one transaction
+[PASS] reopened result has no duplicate award
+[PASS] persisted receipt prevents award after service restart
+[PASS] unknown match rejected
+[PASS] next session gets distinct persistent token
+[PASS] early exit consumes pending match without reward
+[PASS] reward save failure leaves pending and points untouched
+[PASS] verified result can retry after scene freed without inventing a new result
+[PASS] selected armor display follows actual admitted data: hull_0_0
+[PASS] selected armor display follows actual admitted data: hull_0_1
+[PASS] selected armor display follows actual admitted data: hull_0_2
+[PASS] selected armor display follows actual admitted data: hull_0_3
+[PASS] selected armor display follows actual admitted data: hull_0_4
+[PASS] selected armor display follows actual admitted data: hull_0_5
+[PASS] selected armor display follows actual admitted data: hull_0_6
+[PASS] selected armor display follows actual admitted data: hull_0_7
+[PASS] selected armor display follows actual admitted data: hull_1_0
+[PASS] selected armor display follows actual admitted data: hull_1_1
+[PASS] selected armor display follows actual admitted data: hull_1_2
+[PASS] selected armor display follows actual admitted data: hull_1_3
+[PASS] selected armor display follows actual admitted data: hull_1_4
+[PASS] selected armor display follows actual admitted data: hull_1_5
+[PASS] selected armor display follows actual admitted data: hull_1_6
+[PASS] selected armor display follows actual admitted data: hull_1_7
+[PASS] selected armor display follows actual admitted data: hull_roof_0
+[PASS] selected armor display follows actual admitted data: hull_roof_1
+[PASS] selected armor display follows actual admitted data: hull_roof_2
+[PASS] selected armor display follows actual admitted data: hull_roof_3
+[PASS] selected armor display follows actual admitted data: hull_roof_4
+[PASS] selected armor display follows actual admitted data: hull_roof_5
+[PASS] selected armor display follows actual admitted data: hull_roof_6
+[PASS] selected armor display follows actual admitted data: hull_roof_7
+[PASS] selected armor display follows actual admitted data: floor_front
+[PASS] selected armor display follows actual admitted data: floor_rear
+[PASS] selected armor display follows actual admitted data: turret_front_0
+[PASS] selected armor display follows actual admitted data: turret_front_1
+[PASS] selected armor display follows actual admitted data: turret_front_2
+[PASS] selected armor display follows actual admitted data: turret_front_3
+[PASS] selected armor display follows actual admitted data: turret_wall_1
+[PASS] selected armor display follows actual admitted data: turret_wall_2
+[PASS] selected armor display follows actual admitted data: turret_wall_3
+[PASS] selected armor display follows actual admitted data: turret_wall_4
+[PASS] selected armor display follows actual admitted data: turret_wall_5
+[PASS] selected armor display follows actual admitted data: turret_wall_6
+[PASS] selected armor display follows actual admitted data: turret_wall_7
+[PASS] selected armor display follows actual admitted data: turret_wall_8
+[PASS] selected armor display follows actual admitted data: turret_wall_9
+[PASS] selected armor display follows actual admitted data: turret_wall_10
+[PASS] selected armor display follows actual admitted data: turret_wall_11
+[PASS] selected armor display follows actual admitted data: turret_wall_12
+[PASS] selected armor display follows actual admitted data: turret_wall_13
+[PASS] selected armor display follows actual admitted data: turret_roof
+[PASS] selected armor display follows actual admitted data: fixed_gun_shield_0
+[PASS] selected armor display follows actual admitted data: fixed_gun_shield_1
+[PASS] selected armor display follows actual admitted data: fixed_gun_shield_2
+[PASS] selected armor display follows actual admitted data: fixed_gun_shield_3
+[PASS] selected armor display follows actual admitted data: rotor_shield_0
+[PASS] selected armor display follows actual admitted data: rotor_shield_1
+[PASS] selected armor display follows actual admitted data: rotor_shield_2
+[PASS] selected armor display follows actual admitted data: rotor_shield_3
+[PASS] inspection exposes all real modules and crew stations
+[PASS] invalid all-zero loadout stays in usable garage
+[PASS] switching back to invalid edited loadout retains working controls for correction
+[PASS] garage interior hides precisely the empty physical racks
+[PASS] preview has no live battle actor
+[PASS] locked selected vehicle produces visible configuration rejection
+[PASS] garage unlock makes selected M24 eligible
+[PASS] configured garage launches actual village battle
+[PASS] initial actor uses confirmed vehicle, typed counts and first shell
+[PASS] battle and respawn menu share frozen lineup
+[PASS] natural eight second respawn uses chosen second lineup vehicle
+[PASS] respawn ammo and empty rack allocations equal garage preview
+[PASS] actual early return shows zero reward and retains balance
+[PASS] return restores every saved per-vehicle loadout
+=== 结果: 145 项检查, 0 失败 ===
+GARAGE_CHECKS_PASS

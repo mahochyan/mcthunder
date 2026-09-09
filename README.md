@@ -33,7 +33,7 @@ Esc → **Recovery Range** 验证损伤后应对；1—5开始训练新局，正
 训练 AP70 与标准板为明确游戏设计值，非历史性能认证。穿甲累计消耗不恢复；跳弹保留一半剩余预算、速度乘0.6；UNKNOWN 停止并说明数据不足。详情来自真实接触记录。
 
 ## 自动验证
-`pwsh -File tests/run_suite_checks.ps1 -Order 023 -TimeoutSeconds 600`：固定引擎导入与26套检查，包含射击/装甲/内构/恢复/回放/驾驶/AI/对局/HUD/地图/统计、四车历史配置、双弹种、车库研发、两图256条驾驶路线及完整工业战斗；候选2,150项通过。正常窗口34项、两图资源包和13张实际抓帧复核完成，具体源码与记录见[023交付](docs/DELIVERY_023.md)。
+`pwsh -File tests/run_suite_checks.ps1 -Order 024 -TimeoutSeconds 600`：固定引擎导入与27套2,296项通过，新增三任务真实完成/失败、有限波次、星级与个人最佳持久化检查；正常窗口40项与8张抓帧已复核。实际源码与完整记录见[024交付](docs/DELIVERY_024.md)。
 运行器保存源码 SHA、命令、stdout/stderr、退出码、超时及错误扫描。只有布局套件三条指定负例错误允许出现；其他 ERROR/SCRIPT ERROR 即使退出0也判失败。
 
 单套：`tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://tests/run_armor_checks.gd`
@@ -49,4 +49,5 @@ Esc → **Recovery Range** 验证损伤后应对；1—5开始训练新局，正
 [011核心候选及947项回归/87项窗口证据](docs/DELIVERY_011.md)。真人体验仍待验收。
 
 [019四对四独立候选](docs/DELIVERY_019.md)：10场固定种子比赛、正常玩家完整一局及下一局入口、真正Windows导出均已工程验证。候选exe位于backups/builds/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/20260908-221404/PixelArmor.exe，与同目录PCK一起使用。当前八车窗口平均约53.6FPS，长帧仍需优化；真人三场试玩未进行。
+
 

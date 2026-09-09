@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical content admitted for wreck-route fixtures
+[actual wreck route] team=1 type=us_m24_m6_t85e1_1951 { "phase": "arrived", "seconds": 111.35, "bounded": true, "position": (-9.145662, 0.000942, 6.590286), "recovery_attempts": 1 }
+[PASS] T023-H01 actual us_m24_m6_t85e1_1951 recovers and routes around a physical M26 wreck for team 1
+[actual wreck route] team=1 type=us_m26_m3_1945 { "phase": "arrived", "seconds": 154.55, "bounded": true, "position": (-6.578873, 0.000941, 5.674561), "recovery_attempts": 1 }
+[PASS] T023-H01 actual us_m26_m3_1945 recovers and routes around a physical M26 wreck for team 1
+[actual wreck route] team=2 type=us_m24_m6_t85e1_1951 { "phase": "arrived", "seconds": 111.333333333333, "bounded": true, "position": (-9.145798, 0.000942, -6.590012), "recovery_attempts": 1 }
+[PASS] T023-H01 actual us_m24_m6_t85e1_1951 recovers and routes around a physical M26 wreck for team 2
+[actual wreck route] team=2 type=us_m26_m3_1945 { "phase": "arrived", "seconds": 156.5, "bounded": true, "position": (-6.580013, 0.000942, -5.674149), "recovery_attempts": 1 }
+[PASS] T023-H01 actual us_m26_m3_1945 recovers and routes around a physical M26 wreck for team 2
+=== 结果: 5 项检查, 0 失败 ===
+INDUSTRIAL_OBSTRUCTION_CHECKS_PASS

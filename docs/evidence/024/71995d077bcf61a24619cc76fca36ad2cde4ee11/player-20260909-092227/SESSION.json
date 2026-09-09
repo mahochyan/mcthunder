@@ -1,0 +1,40 @@
+{
+  "source_sha": "71995d077bcf61a24619cc76fca36ad2cde4ee11",
+  "uncommitted_candidate": false,
+  "images": [
+    {
+      "file": "01_challenge_rules.png",
+      "sha256": "54CFC960F5DA0F39BE48CBBBFEEE8BA430F0F7BFC101A7D4E78E025AE66DB4DA"
+    },
+    {
+      "file": "02_flank_start.png",
+      "sha256": "A5F27424F95A9C5B4BF8617D62D3BFD5896C91AD012223230CD967D732D68CF5"
+    },
+    {
+      "file": "03_flank_aim.png",
+      "sha256": "1D8E22B736CB93D5B3B9DF7102E792DBE957454EB1859DF59BEEC262FFFD0725"
+    },
+    {
+      "file": "04_stars_saved.png",
+      "sha256": "C095B8DFD9AA19DD81D69566EFEF7081EB80D8B9FA3E96FE3C030F66E07FCA14"
+    },
+    {
+      "file": "05_real_shot_replay.png",
+      "sha256": "072937011DC3EBDC9AE0F8F8B76AB90DAF6DB95AF639B740AA2548854FE4B09E"
+    },
+    {
+      "file": "06_personal_best.png",
+      "sha256": "5D1851FDB71BA8A180DB74B60C3B28B131F65E438C74CDB800F425506D4FE9C3"
+    },
+    {
+      "file": "07_defense_start.png",
+      "sha256": "4FA5E9EC5821D8A48832C0A2201D5110BC6CE3157136FDC18DEC7818DC347339"
+    },
+    {
+      "file": "08_m36_route_start.png",
+      "sha256": "AD8E6D2C0B161DE6BA69192A12645206918FFE194DC3445D05A2DE180DDA7833"
+    }
+  ],
+  "graphical_review": "PASS_SELF_REVIEW: all 8 final PNGs individually inspected; replay close control fully inside viewport",
+  "human": "NOT_RUN"
+}

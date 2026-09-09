@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual terrain laboratory initializes two production actors
+[PASS] profile does not mutate shared legacy definition
+[PASS] all silhouette armor skins render actual finite query vertices
+[PASS] low-poly mechanical detail mesh stays within recorded budget (670 instances / 13500 triangles / 21 groups)
+[drive10] (0.0, 2.561095, -26.63446) slope=10.0002436829986 pose=(10.00024, 0.0, 0.0)
+[PASS] real 10-degree ramp lifts vehicle through actual drive
+[PASS] hull aligns to sampled incline with real support
+[PASS] coast decelerates then holds stationary on actual permitted slope
+[PASS] reverse descends actual slope with reverse speed cap
+[drive20] (18.0, 4.789701, -25.21534) slope=20.0002203945738 pose=(20.00022, 0.0, 0.0)
+[PASS] 20-degree route is climbable
+[PASS] slope orientation stays rigid without scale drift
+[PASS] shot snapshot uses same tilted hull and turret transforms once
+[PASS] slope aiming computes local angles from full hull basis
+[drive30] (36.0, 0.543284, -9.133337) slope=11.9331210772076 blocked=true
+[PASS] 30-degree slope cannot be climbed past front-edge support
+[PASS] vehicle can reverse away from rejected slope
+[PASS] 60 seconds of actual drive against wall neither tunnels nor explodes
+[PASS] 60 seconds of wall-adjacent turning remains bounded
+[PASS] two full-size actors remain physically blocking
+[PASS] pit has actual lowered collision floor
+[PASS] disabled engine cannot propel on terrain executor
+[PASS] explicit vehicle reset clears damage and stale ground sample
+[PASS] nonfinite slope and negative collision dimension rejected
+[PASS] production projectile accepts tilted-target shot
+[PASS] real shell penetrates sloped vehicle rear and disables actual engine only
+[PASS] actual damage record preserves tilted module pose
+[PASS] normal new-route operation resets both lives and cancels old flight
+=== 结果: 25 项检查, 0 失败 ===
+DRIVE_CHECKS_PASS

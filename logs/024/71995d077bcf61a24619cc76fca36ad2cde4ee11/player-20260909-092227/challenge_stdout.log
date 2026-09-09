@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal UI control is visible before click
+[PASS] normal garage challenge button opens task selection
+[PASS] actual window capture 01_challenge_rules (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal challenge launch and countdown starts actual scene
+[PASS] launch click leaks no shot and loads exactly six rounds
+[PASS] actual window capture 02_flank_start (review pending)
+[PASS] normal Esc pause freezes actual challenge clock
+[PASS] normal UI control is visible before click
+[drive] goal=(-16.0, 0.0, 20.0) actual=(-16.32252, 0.000942, 19.66633) elapsed=6.78333333333331
+[PASS] WASD drives from start toward visible western approach
+[drive] goal=(-16.0, 0.0, -20.0) actual=(-16.06001, 0.000942, -20.42746) elapsed=15.866666666667
+[PASS] WASD reaches side of the static armoured target
+[aim] camera=(-26.87796, 6.410942, -20.45932) intent=(-0.872059, 2.133411, -20.38274) muzzle=(-13.46301, 2.263856, -20.76691) dir=(0.999481, -0.010355, 0.030496)
+[PASS] actual window capture 03_flank_aim (review pending)
+[normal shot] shots=1 outcome={ "stars": 3, "score": 32070, "elapsed_ms": 22950, "shots": 1, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际1发）\n★ 80秒内完成（实际 22.9秒）", "attempt_id": 24001, "best_key": "flank_hunter:v1:normal", "title": "侧翼猎手", "status": "passed", "reason": "objectives_complete" } last=fired
+[normal record] { "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "projectile_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2392720991 } contacts=[["B1", "turret_wall_4", "penetrated", (-0.872681, 2.131351, -20.38276)]] damage=[["ammo_ready", true]] terminal={ "projectile_id": 1, "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "reason": "internal_burst", "flight_time_s": 0.02165169749276, "travelled_m": 13.3968845009804, "impact_point": (-0.073099, 2.122767, -20.35836), "impact_velocity": (618.423, -6.619415, 18.86928), "target_id": "B1", "target_life_id": 2, "surface_id": "", "query_id": "proj_1", "physics_tick": 1652, "detail": "", "armor_policy": "resolve", "rules_version": "armor-test-v1" }
+[PASS] normal keyboard and mouse session completes flank challenge
+[PASS] result backed by actual side penetration and attributed death
+[PASS] actual personal best is saved after verified success
+[PASS] new store reloads exact best from disk
+[saved profile] user://tests/challenge_demo024_2063875/commander best={ "flank_hunter:v1:normal": { "elapsed_ms": 22950, "repairs": 0, "score": 32070, "shots": 1, "stars": 3 } }
+[PASS] actual window capture 04_stars_saved (review pending)
+[PASS] normal V opens post-result real shot replay
+[PASS] visible replay close button is fully inside actual game window
+[PASS] actual window capture 05_real_shot_replay (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal return restores garage
+[PASS] normal UI control is visible before click
+[PASS] task selection displays saved personal best after returning
+[PASS] actual window capture 06_personal_best (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal selector enters industrial finite-wave defense
+[PASS] actual window capture 07_defense_start (review pending)
+[PASS] normal R retry creates one fresh defense attempt and opponent
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal selector enters hard M36 route with its actual four-round loadout
+[PASS] actual window capture 08_m36_route_start (review pending)
+[PASS] normal UI control is visible before click
+[PASS] quitting other challenges cannot overwrite or invent personal bests
+[PASS] normal challenge player flow reached its final step
+=== 结果: 40 项检查, 0 失败 ===
+CHALLENGE_DEMO_CHECKS_PASS
