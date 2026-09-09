@@ -3,6 +3,7 @@ extends "res://tests/run_challenge_demo.gd"
 ## only to verify outcomes; never teleports or writes damage, timers or ammunition.
 func run(flow: AppFlow) -> void:
 	app=flow
+	set_process_input(true)
 	var args:=OS.get_cmdline_user_args()
 	for i in args.size():
 		if args[i]=="--shot-dir" and i+1<args.size(): shot_dir=args[i+1]
@@ -38,6 +39,7 @@ func run(flow: AppFlow) -> void:
 	check(await drive_to(scene,Vector3(121,0,98)),"normal WASD crosses the real central breach")
 	await aim_at(scene,brick.global_position+Vector3.UP*1.4)
 	await capture("06_driven_through")
+	print("[final ammo] fired=",scene.actor.gunner.shots_fired," remaining=",scene.actor.gunner.rounds_remaining)
 	check(scene.actor.gunner.shots_fired==4 and scene.actor.gunner.rounds_remaining==2,"four normal shots consume four of six rounds; no free shots")
 	var old_life:=scene.actor.life_id
 	await tap(KEY_R); await frames(210)
@@ -56,9 +58,14 @@ func run(flow: AppFlow) -> void:
 
 func fire_section(scene: ChallengeRange, section: DestructibleSection, expected: int) -> void:
 	var before:=scene.actor.gunner.shots_fired
+	print("[section shot before] shots=",before," time=",scene.director.elapsed)
 	for i in 900:
 		if scene.actor.gunner.cooldown_left<=0 and scene.actor.gunner.inventory.chamber==1: break
 		await frames(1)
 	mouse(MOUSE_BUTTON_LEFT,true); await frames(3); mouse(MOUSE_BUTTON_LEFT,false)
 	await frames(25)
 	check(scene.actor.gunner.shots_fired==before+1 and section.hits==expected,"normal left click produces structural state "+str(expected))
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
+		print("[mouse trace] pressed=",event.pressed," frame=",Engine.get_process_frames()," device=",event.device," position=",event.position," automated=",event.get_meta("automated_demo",false))

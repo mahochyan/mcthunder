@@ -23,6 +23,7 @@ func tap(code: Key) -> void:
 
 func mouse(button: MouseButton, pressed: bool, point: Vector2 = Vector2(640,360)) -> void:
 	var event := InputEventMouseButton.new()
+	event.set_meta("automated_demo",true)
 	event.position = point; event.global_position = point; event.button_index = button; event.pressed = pressed
 	Input.parse_input_event(event)
 

@@ -39,6 +39,7 @@ func _initialize() -> void:
 	if _fail > 0:
 		print("QUERY_CHECKS_FAIL")
 		quit(1)
+		return
 	print("QUERY_CHECKS_PASS")
 	quit(0)
 
@@ -639,8 +640,8 @@ func _debug_panel_cases() -> void:
 	main.controller._process.call(0.016)
 	_ok(not main.controller._fire_pending, "005-d fire held across panel close is not captured as a shot request")
 	Input.action_release("fire")
-	main.controller._process.call(0.016)
-	_ok(not main.controller._need_fire_release, "005-d gate cleared after release observed")
+	for i in 4: await process_frame
+	_ok(not main.controller._need_fire_release, "005-d gate cleared after release crosses actual input frame boundary")
 	Input.action_press("fire")
 	main.controller._process.call(0.016)
 	_ok(main.controller._fire_pending, "005-d new press captured after release")

@@ -112,7 +112,7 @@ func collision_cases(map: MapDefinition, space: PhysicsDirectSpaceState3D) -> vo
 		var flank := Vector3(side*160,2.4,100)
 		check(space.intersect_ray(PhysicsRayQueryParameters3D.create(flank,Vector3(side*160,2.4,-100),GameConfig.LAYER_WORLD)).is_empty(),"independent outer road stays open for flanking "+str(side))
 	var rails := world.find_children("Cosmetic_FlushRailAssembly","MeshInstance3D",true,false)
-	var rails_valid := rails.size()==1 and WorldCollisionRules.classify("road").blocks_shell == false
+	var rails_valid: bool = rails.size()==1 and WorldCollisionRules.classify("road").blocks_shell == false
 	if rails_valid:
 		var rail_vertices: PackedVector3Array=rails[0].mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
 		for x in [-13.75,-12.25,12.25,13.75]:
