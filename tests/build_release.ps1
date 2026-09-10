@@ -75,9 +75,8 @@ Compress-Archive -Path (Join-Path $package '*') -DestinationPath $trialZip
 Expand-Archive -LiteralPath $trialZip -DestinationPath $outside
 $independentExe=Join-Path $outside 'PixelArmor.exe'
 Run-Checked 'independent_default_start' $independentExe '--headless --quit-after 30' $outside
-$harness=Join-Path $source 'tests/run_release_checks.gd'
-Run-Checked 'independent_content' $independentExe ('--headless --fixed-fps 60 -s "'+$harness+'" -- --release-check') $outside 240 'RELEASE_CHECKS_PASS'
-Run-Checked 'independent_window' $independentExe ('--resolution 1280x720 -s "'+$harness+'" -- --release-window-check') $outside 240 'RELEASE_CHECKS_PASS'
+Run-Checked 'independent_content' $independentExe '--headless --fixed-fps 60 -- --verify-installation' $outside 240 'RELEASE_CHECKS_PASS'
+Run-Checked 'independent_window' $independentExe '--resolution 1280x720 -- --verify-installation' $outside 240 'RELEASE_CHECKS_PASS'
 $captureLine=Select-String -LiteralPath (Join-Path $logs 'independent_window.stdout.log') -Pattern '^RELEASE_CAPTURE=(.+)$' | Select-Object -Last 1
 if (-not $captureLine) { throw 'Release window did not capture an actual frame' }
 Copy-Item -LiteralPath $captureLine.Matches[0].Groups[1].Value -Destination (Join-Path $logs 'release_battle.png')

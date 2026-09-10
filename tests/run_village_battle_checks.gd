@@ -40,6 +40,10 @@ func _run() -> void:
 				summary[actor.entity_id] = {"position":actor.tank.global_position,"dead":actor.state.destroyed,"phase":actor.controller.phase if actor.controller is AITankController else "player","drive":actor.controller.driver.phase if actor.controller is AITankController else "player"}
 			print("[natural battle %.1fs] %s"%[scene.director.state.elapsed,summary])
 	check(finite,"120 seconds of normal eight-actor physics stays finite and within visible bounds")
+	for vehicle in scene.combat_actors():
+		if vehicle.controller is AITankController and not approached.has(vehicle.entity_id):
+			var ai := vehicle.controller as AITankController
+			print("[unreached route] ",vehicle.entity_id," goal=",ai.driver.goal," hop=",ai._last_hop," objective=",ai.patrol_goal," events=",ai.driver.events)
 	check(approached.size()==7,"all seven autonomous actors leave spawn and reach central approaches: "+str(approached.keys()))
 	check(fired.size()>=2,"normal AI perception and projectile execution produce combat on the map: "+str(fired.keys()))
 	# Freeze only for explicit collision/projectile fixtures after the untouched match run.

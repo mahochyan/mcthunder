@@ -23,7 +23,14 @@ static func create() -> MapDefinition:
 				poses.append(Transform3D(Basis.IDENTITY if team == 1 else Basis(Vector3.UP,PI),p+Vector3.UP*0.03))
 				var key := "spawn%d_%d_%d"%[team,row,i]
 				nodes[key] = p
-				for side in ["w","e"]: edges.append({"a":key,"b":"hub%d_"%team+side,"width":12})
+				# Leave the parking row before merging sideways: the old straight
+				# links to each hub drove through occupied neighbouring spawn slots.
+				for side in [-1,1]:
+					var suffix := "w" if side<0 else "e"
+					var departure := key+"_departure_"+suffix
+					nodes[departure] = p+Vector3(side*6,0,-sign*12)
+					edges.append({"a":key,"b":departure,"width":12})
+					edges.append({"a":departure,"b":"hub%d_"%team+suffix,"width":12})
 		map.spawns[team] = poses
 		map.supply_reservations.append(Vector3(0,0,sign*143))
 		var supply := "supply%d"%team

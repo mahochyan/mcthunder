@@ -1,4 +1,5 @@
 extends SceneTree
+const APP_SCENE = preload("res://scenes/app.tscn")
 var count := 0
 var failed := 0
 var world: Node3D

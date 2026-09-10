@@ -28,11 +28,11 @@
       "files": [
         {
           "path": "scripts/maps/village_world.gd",
-          "sha256": "ec5acbb31e9effe72cf0bcd18ce97502c7e7df7a47dbf9eb179ce91f769380d2"
+          "sha256": "5f5df0a161efc21c4c324fee80eaea885ff91a308689e796897da7a976914ce8"
         },
         {
           "path": "scripts/maps/industrial_world.gd",
-          "sha256": "5c7f7665cf7509bb37c2d73f31e7eb14a24a68bae0257fceb88732cb4344f619"
+          "sha256": "d11132cb9744d68d3d5c1a153a017d1b974218941546bbc6c0e269563ec1b090"
         }
       ]
     },
