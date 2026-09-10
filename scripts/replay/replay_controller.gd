@@ -11,6 +11,9 @@ var hud: HUD
 var last_export: Dictionary = {}
 
 func setup(projectiles: ProjectileManager, target_hud: HUD, permission: Callable) -> void:
+	# Replay can be mounted by a scene in isolation (editor/tests), so ensure
+	# action names exist before _unhandled_input queries InputMap.
+	InputBindingService.initialize()
 	manager = projectiles
 	hud = target_hud
 	allowed_record = permission

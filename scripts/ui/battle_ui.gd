@@ -10,6 +10,9 @@ var _configured_lives := {}
 var _legacy_labels: Array[Control] = []
 
 func setup(scene: Node3D) -> void:
+	# Direct scene/test instantiation must have the same named actions as the
+	# normal app entry; the service is guarded and safe to call repeatedly.
+	InputBindingService.initialize()
 	battle = scene
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	process_priority = 100
