@@ -48,7 +48,10 @@ func run() -> void:
 	for target_id in VehicleCatalog.IDS:
 		target = VehicleActor.new(); world.add_child(target)
 		check(target.setup(defs,target_id,"target",2,Transform3D(Basis.IDENTITY,Vector3(0,100,0)),4,null).ok,"target loads "+target_id)
-		target.process_mode=Node.PROCESS_MODE_DISABLED
+		# Tank and gunner explicitly use PAUSABLE; disabling only the parent
+		# does not freeze them. A level-impact fixture freezes every descendant.
+		target.propagate_call("set_process_mode",[Node.PROCESS_MODE_DISABLED])
+		var fixed_pose: Dictionary=QuerySnapshotBuilder.build_from_vehicle(target.tank,target.damage_layout_override).part_world_transforms
 		check(target.definition.validate().ok and target.weapon.validate().ok and not target.damage_layout_override.armor_patches.is_empty(),"finite mobility/reload/turret and nonempty armor "+target_id)
 		await physics_frame
 		for shooter_id in VehicleCatalog.IDS:
@@ -63,6 +66,7 @@ func run() -> void:
 								rows.append(result)
 						await process_frame
 		print("[matrix] target=",target_id," cumulative_cases=",rows.size())
+		check(QuerySnapshotBuilder.build_from_vehicle(target.tank,target.damage_layout_override).part_world_transforms==fixed_pose,"level-impact target pose remains fixed "+target_id)
 		target.free()
 	var invalid := rows.filter(func(row: Dictionary) -> bool: return row.has("error") or row.get("terminal","").is_empty())
 	var contacts := rows.filter(func(row: Dictionary) -> bool: return not row.get("contacts",[]).is_empty())
