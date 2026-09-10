@@ -102,27 +102,46 @@ func _persistence() -> void:
 	var failing := ProfileStore.new(blocked_path+"/commander",service)
 	var unchanged := failing.snapshot()
 	_check(not ResearchGraph.unlock(failing,VehicleCatalog.IDS[1]).ok and failing.snapshot()==unchanged,"write failure cannot subtract points or unlock in memory")
-	# 029 small item: crash-stale save locks recover without asking the user to delete folders.
+	# 029 small item (GPT ruling round two): lock age NEVER authorizes takeover —
+	# only suspected-stale messaging; only own-pid leaks reclaim; release checks ownership.
 	var lock_root := "user://tests/lockfix_"+str(Time.get_ticks_usec())
-	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
 	var lock_path := lock_root+"/commander"
-	var dead := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
-	dead.store_string("999998 %d" % (int(Time.get_unix_time_from_system())-3600)); dead.close()
+	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
+	var old_dead := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
+	old_dead.store_string("999998 %d" % (int(Time.get_unix_time_from_system())-3600)); old_dead.close()
+	var suspect := ProfileStore.new(lock_path,service)
+	var suspect_bump := suspect.snapshot(); suspect_bump.research_points += 7
+	var refused_old := suspect.commit(suspect_bump)
+	_check(not refused_old.ok and refused_old.reason.contains("疑似遗留") and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"old foreign lock is refused as suspected-stale and never auto-deleted by age alone")
+	# Own-pid leak (an earlier release that never ran inside this live process) is the one reclaimable state.
+	var leak := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
+	leak.store_string("%d %d" % [OS.get_process_id(), int(Time.get_unix_time_from_system())-30]); leak.close()
 	var revived := ProfileStore.new(lock_path,service)
 	var bump := revived.snapshot(); bump.research_points += 7
-	_check(revived.commit(bump).ok,"crash-stale lock from a dead holder is reclaimed automatically")
+	_check(revived.commit(bump).ok,"own-pid leaked lock is reclaimed and the save proceeds")
 	var after := ProfileStore.new(lock_path,service)
 	_check(after.snapshot().research_points == bump.research_points and DirAccess.open(lock_root+"/commander.lock") == null,"reclaimed commit persisted and the lock was released")
-	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
-	var live := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
-	live.store_string("999997 %d" % int(Time.get_unix_time_from_system())); live.close()
-	var waiting := ProfileStore.new(lock_path,service)
-	var wait_bump := waiting.snapshot(); wait_bump.research_points += 1
-	var refused := waiting.commit(wait_bump)
-	_check(not refused.ok and refused.reason.contains("重试") and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"live-holder lock is respected: refused with retry message and holder stamp untouched")
-	var broken := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
-	broken.store_string("garbage"); broken.close()
-	_check(not waiting.commit(wait_bump).ok and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"unknowable lock state is never auto-deleted")
+	# GPT counterexample: a REAL live second process holds the lock; the game side must refuse
+	# untouched, and the holder must later finish and release cleanly for a valid commit.
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(lock_root))
+	var child_path := ProjectSettings.globalize_path("res://")
+	var holder := OS.create_process(OS.get_executable_path(),["--headless","--path",child_path.trim_suffix("/"),"-s","res://tests/lock_holder_029.gd","--",lock_path,"12"])
+	var stamp_seen := false
+	var deadline := Time.get_ticks_msec()+20000
+	while Time.get_ticks_msec() < deadline and not stamp_seen:
+		await process_frame
+		stamp_seen = FileAccess.file_exists(lock_root+"/commander.lock/owner.txt")
+	_check(stamp_seen and holder > 0,"real second process acquired the lock with a fresh stamp")
+	var holder_store := ProfileStore.new(lock_path,service)
+	var want := holder_store.snapshot(); want.research_points += 3
+	var live_refused := holder_store.commit(want)
+	_check(not live_refused.ok and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"live external holder lock is refused with the holder stamp untouched")
+	var released := false
+	deadline = Time.get_ticks_msec()+60000
+	while Time.get_ticks_msec() < deadline and not released:
+		await process_frame
+		released = not FileAccess.file_exists(lock_root+"/commander.lock/owner.txt")
+	_check(released and holder_store.commit(want).ok and ProfileStore.new(lock_path,service).snapshot().research_points == want.research_points,"holder exits cleanly and only then the save proceeds")
 	await process_frame
 
 func _rewards(store: ProfileStore, config: MatchConfig) -> void:

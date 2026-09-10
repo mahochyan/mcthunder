@@ -88,36 +88,50 @@ func commit(candidate: Dictionary) -> Dictionary:
 	_data = next
 	return {"ok":true}
 
-# Healthy commits hold the lock for milliseconds (the whole critical section is
-# one synchronous write+verify), so a lock stamped older than the cap can only
-# come from a crashed holder and is safe to reclaim (029 small item, GPT ruling:
-# reclaim only confirmed-stale locks; never touch slots; never ask the user to
-# delete folders).
-const LOCK_MAX_HOLD_S := 10.0
+# Save-lock recovery (029 small item). GPT review ruling round two: elapsed age
+# CANNOT prove the holder died — a suspended or slow process is alive, so age
+# only supports a "suspected stale" message and never authorizes takeover. The
+# only reclaimable lock is one stamped with OUR OWN pid (an earlier leak inside
+# this same live process). owner.txt ("pid time") is written at acquisition and
+# the lock is only ever removed when this process demonstrably owns it.
+const LOCK_SUSPECT_STALE_S := 10.0
+var _held_lock := ""   # lock path this instance acquired, until it is released
 
 func _acquire_lock(lock_path: String) -> Dictionary:
 	if DirAccess.make_dir_absolute(lock_path) == OK:
 		var stamp := FileAccess.open(lock_path.path_join("owner.txt"), FileAccess.WRITE)
-		if stamp != null:
-			stamp.store_string("%d %d" % [OS.get_process_id(), int(Time.get_unix_time_from_system())])
-			stamp.close()
+		if stamp == null:
+			DirAccess.remove_absolute(lock_path)   # an unstamped lock cannot state ownership: fail closed
+			return _bad("无法写入存档锁信息，未开始保存")
+		stamp.store_string("%d %d" % [OS.get_process_id(), int(Time.get_unix_time_from_system())])
+		stamp.close()
+		_held_lock = lock_path
 		return {"ok":true}
 	var info := _read_lock_owner(lock_path)
-	var stamp_time := float(info.get("time",0))
-	if stamp_time <= 0.0 or Time.get_unix_time_from_system()-stamp_time <= LOCK_MAX_HOLD_S:
-		return _bad("存档正被占用（另一实例正在写入），请稍候重试")
-	_release_lock(lock_path)
-	return _acquire_lock(lock_path)
+	if int(info.get("pid",-1)) == OS.get_process_id():
+		# Only our own live process could have stamped our own pid: this is a leak
+		# from an earlier commit whose release never ran. Safe to reclaim.
+		DirAccess.remove_absolute(lock_path.path_join("owner.txt"))
+		DirAccess.remove_absolute(lock_path)
+		return _acquire_lock(lock_path)
+	if float(info.get("time",0)) > 0 and Time.get_unix_time_from_system()-float(info.time) > LOCK_SUSPECT_STALE_S:
+		return _bad("存档正被占用：锁已超过 %d 秒，疑似遗留，但无法确认持有者已退出，未自动清理；请关闭其它游戏实例后重试" % int(LOCK_SUSPECT_STALE_S))
+	return _bad("存档正被占用（另一实例正在写入），请稍候重试")
 
 static func _read_lock_owner(lock_path: String) -> Dictionary:
 	var file := FileAccess.open(lock_path.path_join("owner.txt"), FileAccess.READ)
-	if file == null: return {"time":maxf(FileAccess.get_modified_time(lock_path),0.0)}
+	if file == null: return {"pid":-1,"time":maxf(FileAccess.get_modified_time(lock_path),0.0)}
 	var parts := file.get_as_text().split(" ")
 	file.close()
-	if parts.size() < 2: return {"time":-1.0}   # half-written stamp: state unknowable, never delete
+	if parts.size() < 2: return {"pid":-1,"time":-1.0}   # half-written stamp: state unknowable, never delete
 	return {"pid":int(parts[0]),"time":float(parts[1])}
 
-static func _release_lock(lock_path: String) -> void:
+func _release_lock(lock_path: String) -> void:
+	# Release ownership check: a finishing commit must never delete a newer holder's lock.
+	if _held_lock != lock_path:
+		var info := _read_lock_owner(lock_path)
+		if int(info.get("pid",-1)) != OS.get_process_id(): return
+	_held_lock = ""
 	DirAccess.remove_absolute(lock_path.path_join("owner.txt"))
 	DirAccess.remove_absolute(lock_path)
 
