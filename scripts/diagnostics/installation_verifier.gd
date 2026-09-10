@@ -20,6 +20,22 @@ func idle() -> void:
 		await get_tree().process_frame
 		if not app._transitioning: return
 	check(false,"bounded transition")
+func await_playing(battle: TeamRange) -> bool:
+	# A window focus change can legitimately pause a newly loaded scene. Resume
+	# through the same Escape input as the player, without changing its clock.
+	var resumes:=0
+	for frame in 900:
+		await get_tree().physics_frame
+		if battle._paused and resumes<3:
+			print("[installation] resume focus pause through Escape, phase=",battle.director.state.phase)
+			for pressed in [true,false]:
+				var event:=InputEventKey.new(); event.keycode=KEY_ESCAPE; event.physical_keycode=KEY_ESCAPE; event.pressed=pressed
+				Input.parse_input_event(event); await get_tree().process_frame
+			resumes+=1
+		if not battle._paused and battle.director.state.phase=="playing":
+			await frames(25)
+			return not battle._paused
+	return false
 func run(flow: AppFlow) -> void:
 	app = flow
 	get_tree().create_timer(180,true,false,true).timeout.connect(func() -> void: print("RELEASE_CHECK_TIMEOUT"); get_tree().quit(2))
@@ -53,10 +69,11 @@ func run(flow: AppFlow) -> void:
 	for index in MapRegistry.IDS.size():
 		app.garage.vehicle_choice.select(1); app.garage._select_vehicle(1)
 		app.garage.preparation.map_choice.select(index)
-		app.enter_laboratory("team"); await idle(); await frames(200)
+		app.enter_laboratory("team"); await idle(); await frames(8)
 		var battle := app.training as TeamRange
 		check(battle!=null and battle.team_ready and battle.combat_actors().size()==8,"T031-01 garage enters complete map "+str(index))
 		if battle==null: break
+		check(await await_playing(battle),"T031-01 normal countdown and any focus pause resolve through player input "+str(index))
 		var start := battle.actor.tank.global_position
 		for pressed in [true,false]:
 			var event:=InputEventKey.new(); event.keycode=KEY_W; event.physical_keycode=KEY_W; event.pressed=pressed; Input.parse_input_event(event); await frames(90 if pressed else 25)
