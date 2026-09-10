@@ -4,12 +4,12 @@ var ended_shots := 0
 var vehicle_contacts := 0
 var damage_events := 0
 var stop_reasons := {}
-func run(tree: SceneTree, match_seed: int) -> Dictionary:
+func run(tree: SceneTree, match_seed: int, configured_scene: VillageRange = null) -> Dictionary:
 	ended_shots = 0
 	vehicle_contacts = 0
 	damage_events = 0
 	stop_reasons.clear()
-	var scene := VillageRange.new()
+	var scene: VillageRange = configured_scene if configured_scene!=null else VillageRange.new()
 	scene.match_seed = match_seed
 	scene.ai_only = true
 	tree.root.add_child(scene)
