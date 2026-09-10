@@ -16,6 +16,7 @@ var phase := "patrol":
 var clock := 0.0
 var last_command := VehicleCommand.new()
 var patrol_goal := Vector3.ZERO
+var _last_hop := Vector3.INF   # navigation sub-target from the last hop (never re-hopped onto)
 var retreat_goal := Vector3.ZERO
 var has_patrol := false
 var advance_while_engaged := false # Objective match policy; does not supply enemy information.
@@ -70,9 +71,16 @@ func _drive_patrol_or_hop() -> void:
 	# Normal patrol order, with one bounded fallback: if the objective is not
 	# plannable from the current pocket, hop onto the nearest graph node so the
 	# vehicle keeps making real progress instead of idling on the failed goal.
-	if not driver.set_goal(patrol_goal).ok:
-		var hop := driver.escape_goal()
-		if hop.is_finite(): driver.set_goal(hop)
+	# The hop NEVER replaces the objective: patrol_goal stays the task and the
+	# retry loop re-attempts it from every new position (GPT Q2 ruling). Reusing
+	# the same hop node is excluded, so repeated hops always move onto new ground.
+	if driver.set_goal(patrol_goal).ok:
+		_last_hop = Vector3.INF
+		return
+	var hop := driver.escape_goal(_last_hop)
+	if hop.is_finite():
+		_last_hop = hop
+		driver.set_goal(hop)
 
 func update_command(delta: float) -> VehicleCommand:
 	var cmd := VehicleCommand.new()
@@ -139,7 +147,11 @@ func update_command(delta: float) -> VehicleCommand:
 	# Individual path attempts remain bounded; retry uses only own state and the public point.
 	if advance_while_engaged and has_patrol and caps.drive and not recovering and clock >= _next_objective_retry:
 		_next_objective_retry = clock+10.0
-		if driver.phase in ["failed","unreachable","idle"] and vehicle.tank.global_position.distance_to(patrol_goal)>GameConfig.AI_GOAL_RADIUS_M:
+		# "arrived" matters when the last goal was a HOP sub-target: arriving there
+		# does not complete the task, so the original objective must be re-attempted
+		# from the new position. Arriving at the real objective fails the distance
+		# guard below, which keeps legitimate holding untouched (GPT Q2 ruling).
+		if driver.phase in ["failed","unreachable","idle","arrived"] and vehicle.tank.global_position.distance_to(patrol_goal)>GameConfig.AI_GOAL_RADIUS_M:
 			# If the objective stays unplannable from here (disconnected pocket or
 			# width-blocked edges), hop onto the nearest graph node instead of
 			# idling ten seconds at a time on the identical failed plan (023 stall).

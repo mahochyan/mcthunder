@@ -27,7 +27,7 @@ func _run() -> void:
 	await frames(240)   # four seconds of actual play
 	var snap: Dictionary = scene.telemetry.snapshot()
 	_check(snap.per_life.size() >= 8,"every AI slot carries a per-life telemetry record")
-	var whitelist := ["fire","recovery","combat","immobile","no_goal","at_goal","planning_failed","planning_unreachable"]
+	var whitelist := ["fire","recovery","combat","immobile","at_objective","resupply","no_task","planning_failed","planning_unreachable"]
 	var holds_ok := true
 	var lives: Array = snap.per_life.keys()
 	for key in lives:
@@ -47,9 +47,17 @@ func _run() -> void:
 	for key in final.per_life:
 		for ep in final.per_life[key].episodes:
 			seen_durations.append(ep.duration_s)
-			for field in ["start_s","end_s","duration_s","outcome","blocker","driver_phase","waypoint"]:
+			for field in ["start_s","end_s","duration_s","outcome","blocker","driver_phase","ai_phase","waypoint"]:
 				if not ep.has(field): schema_ok = false
-	_check(schema_ok,"every congestion episode carries duration, outcome, blocker class, driver phase and waypoint stage")
+	_check(schema_ok,"every congestion episode carries duration, outcome, blocker class, driver phase, ai phase and waypoint stage")
+	var open_ok := true
+	for key in final.per_life:
+		var life: Dictionary = final.per_life[key]
+		var has_open := false
+		for ep in life.episodes:
+			if ep.outcome == "open_at_end": has_open = true
+		if int(life.open_at_end) == 1 and not has_open: open_ok = false
+	_check(open_ok,"stalls still open at the end are recorded as open_at_end, never as recovered success")
 	var path := "user://traffic_match_%d.json" % [scene.director.state.match_id]
 	var file := FileAccess.open(path,FileAccess.READ)
 	var parsed: Dictionary = {} if file == null else JSON.parse_string(file.get_as_text())
