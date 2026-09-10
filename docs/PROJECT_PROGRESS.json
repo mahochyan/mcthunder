@@ -63,7 +63,7 @@
       "engineering": "passed_self_review",
       "content_history": "test_only",
       "implementation": "implemented",
-      "code_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
       "report": "docs/DELIVERY_032.md",
       "supplemental_test_sha": "666aea98dff5be17cc482b190661a201d1c0156b"
     },
@@ -87,9 +87,10 @@
     },
     "034": {
       "human": "not_run",
-      "engineering": "final_release_player_flow_running",
+      "engineering": "pending_final_rc2_player_flow",
       "content_history": "test_only",
-      "implementation": "implemented"
+      "implementation": "implemented",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a"
     },
     "021": {
       "full_regression_sha": "10a76123a03304efb1232ed41f2b3e20c1da38ba",
@@ -130,8 +131,9 @@
       "engineering": "passed_self_review",
       "content_history": "test_only",
       "implementation": "implemented",
-      "code_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
-      "report": "docs/DELIVERY_031.md"
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+      "report": "docs/DELIVERY_031.md",
+      "regression_checks": 2796
     },
     "011": {
       "engineering": "passed_self_review",
@@ -215,9 +217,10 @@
     },
     "033": {
       "human": "not_run",
-      "engineering": "pending_final_release_measurement",
+      "engineering": "final_release_measurement_running",
       "content_history": "test_only",
-      "implementation": "implemented_pending_final_measurement"
+      "implementation": "implemented_pending_final_measurement",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a"
     },
     "018": {
       "implementation": "implemented",

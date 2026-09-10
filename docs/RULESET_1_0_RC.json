@@ -3,8 +3,8 @@
   "challenge_rules": 1,
   "balance_report": "docs/BALANCE_REPORT.md",
   "human": "PENDING",
-  "source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
-  "version": "1.0.0-rc.1",
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "version": "1.0.0-rc.2",
   "historical_parameters_changed_for_balance": false,
   "status": "candidate_rule_freeze",
   "files": [

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "fresh_import",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\clean-source\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "regression",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"C:\\Users\\lapyin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -NoProfile -File \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\run-regression.ps1\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "export_release",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\clean-source\" --export-release \"Windows Release\" \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\package\\PixelArmor.exe\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "engine_notices",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\clean-source\" -s res://tests/write_engine_notices.gd -- \"E:\\AIprogram\\mcthunder-mainline\\backups\\builds\\031\\b90511496fe84195ee8421bd3b4c6bfce2768b7a\\20260910-181711-688\\package\\GODOT_LICENSES.txt\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "independent_default_start",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260910-181711-688\\PixelArmor.exe\" --headless --quit-after 30",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "independent_content",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260910-181711-688\\PixelArmor.exe\" --headless --fixed-fps 60 -- --verify-installation",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  },
+  {
+    "name": "independent_window",
+    "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+    "command": "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260910-181711-688\\PixelArmor.exe\" --resolution 1280x720 -- --verify-installation",
+    "exit_code": 0,
+    "timed_out": false,
+    "passed": true
+  }
+]

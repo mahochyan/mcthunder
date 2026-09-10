@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] default startup opens usable garage
+[PASS] bundled font covers 车
+[PASS] bundled font covers 库
+[PASS] bundled font covers 配
+[PASS] bundled font covers 弹
+[PASS] bundled font covers 训
+[PASS] bundled font covers 练
+[PASS] bundled font covers 击
+[PASS] bundled font covers 穿
+[PASS] bundled font covers 履
+[PASS] bundled font covers 带
+[PASS] bundled font covers 维
+[PASS] bundled font covers 修
+[PASS] bundled font covers 回
+[PASS] bundled font covers 放
+[PASS] bundled font covers 结
+[PASS] bundled font covers 果
+[PASS] garage builds actual initial loadout
+[PASS] invalid loadout keeps recoverable garage error
+[PASS] capacity limit rejects 31 rounds
+[PASS] unimplemented shell cannot be selected
+[PASS] preview modes preserve loadout
+[PASS] garage creates integrated production training
+[PASS] selected shell and count reach actual gunner
+[PASS] infinite option isolated to training player
+[PASS] real gunner uses explicit resupply without losing conservation
+[PASS] infinite mode still rejects immediate second shot without supply
+[PASS] explicit training resupply preserves conservation ledger
+[PASS] resupply does not skip chamber transfer
+[PASS] invalid supply cannot mutate stock
+[PASS] retry advances round and target generation
+[PASS] retry preserves chosen settings while applying explicit initial ammo
+[PASS] retry clears flights replay and fire
+[PASS] retry clears old result
+[PASS] previous round record cannot finish current lesson
+[PASS] wrong shooter lifetime rejected
+[PASS] results expose actual running state and pause simulation
+[PASS] closing results cannot create a shot
+[PASS] return frees simulation and retains selected loadout
+[PASS] automated checks do not sign human acceptance
+[PASS] lesson 0 builds actual target and aim guide
+[PASS] lesson 0 target remains at intended world range ahead of backstop
+[PASS] lesson 1 builds actual target and aim guide
+[PASS] lesson 1 target remains at intended world range ahead of backstop
+[PASS] lesson 2 builds actual target and aim guide
+[PASS] lesson 2 target remains at intended world range ahead of backstop
+[PASS] lesson 3 builds actual target and aim guide
+[PASS] lesson 3 target remains at intended world range ahead of backstop
+[PASS] lesson 4 builds actual target and aim guide
+[PASS] lesson 4 target remains at intended world range ahead of backstop
+[PASS] empty-rack lesson starts actually empty
+[PASS] lesson 5 builds actual target and aim guide
+[PASS] lesson 5 target remains at intended world range ahead of backstop
+[PASS] lesson 6 builds actual target and aim guide
+[PASS] lesson 6 target remains at intended world range ahead of backstop
+=== 结果: 55 项检查, 0 失败 ===
+CORE_CHECKS_PASS

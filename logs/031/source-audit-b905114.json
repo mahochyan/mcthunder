@@ -1,0 +1,2466 @@
+{
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "tracked_source_dirty": true,
+  "tracked_text_files_scanned": 2341,
+  "credential_candidates": [],
+  "skipped_nontext": [
+    {
+      "path": "assets/audio/destroyed.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/engine.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/explosion.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/fire.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/flyby.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/non_penetration.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/penetrated.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/reload.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/ricochet.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/shot.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/tracks.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/turret.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/audio/world.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/fonts/NotoSansCJKsc-Regular.otf",
+      "reason": "binary_or_large_asset"
+    },
+    {
+      "path": "assets/vehicles/textures/vehicle_concept_atlas_v1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/vehicles/us_m24_m6_t85e1_1951.glb",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/vehicles/us_m26_m3_1945.glb",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/vehicles/us_m36_m4a1_1945.glb",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "assets/vehicles/us_m4a3_75w_vvss_1944.glb",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "authoring/vehicles/us_m24_m6_t85e1_1951.blend",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "authoring/vehicles/us_m26_m3_1945.blend",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "authoring/vehicles/us_m36_m4a1_1945.blend",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "authoring/vehicles/us_m4a3_75w_vvss_1944.blend",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1280x720/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1280x720/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1280x720/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1280x720/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1280x720/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1920x1080/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1920x1080/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1920x1080/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1920x1080/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R2/96f199b8eb140bb1c2e644bd35b61f0fe3492155/1920x1080/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1280x720/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1920x1080/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1920x1080/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1920x1080/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1920x1080/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/002-R3/52322611dc6ee58a8658e50b9ad608b1709f7c62/1920x1080/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_10_trial_restarted.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_11_two_vehicles_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_12_sight_sees_b_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_13_hud_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_6_two_vehicles.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_7_sight_sees_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_8_trial_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R1/autoshot_9_trial_normal_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_10_trial_restarted.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_11_two_vehicles_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_12_sight_sees_b_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_13_hud_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_6_two_vehicles.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_7_sight_sees_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_8_trial_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/022c3ae/1280x720/autoshot_9_trial_normal_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_10_trial_restarted.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_11_two_vehicles_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_12_sight_sees_b_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_13_hud_r1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_6_two_vehicles.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_7_sight_sees_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_8_trial_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003-R2/81c4698/1280x720/autoshot_9_trial_normal_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_1_thirdperson.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_2_sight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_3_moved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_4_paused.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_5_resumed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_6_two_vehicles.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_7_sight_sees_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/003/autoshot_8_trial_complete.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1280x720/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R1/772f21b/1920x1080/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1280x720/inspect_7_zoomed_out.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004-R2/2766adb/1920x1080/inspect_7_zoomed_out.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1280x720/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/5e8c6de/1920x1080/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1280x720/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_1_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_2_appearance.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_5_details_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/004/82f3003/1920x1080/inspect_6_back_to_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1280x720/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/5671401/1920x1080/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1280x720/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005-R1/fde3924/1920x1080/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1280x720/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_1_panel_open.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_2_barrel_events.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_3_test_wall_before_b.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_4_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_5_wall_removed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/005/3eecf06/1920x1080/query_debug_6_panel_closed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_4_far_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_5_far_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/15fps/demo_6_reset_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_4_far_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_5_far_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/ac8bfb336284da59608782bbdd64583baec6444a/1280x720/60fps/demo_6_reset_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_4_far_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_5_far_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/15fps/demo_6_reset_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/60fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/60fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/60fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006-R1/c5f6868239a68da937f37dd3b1fb2fadc5e79cd3/1280x720/60fps/demo_4_far_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/144fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/144fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/144fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/144fps/demo_4_paused_frozen.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/144fps/demo_5_reset_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_1_just_fired_miss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_2_in_flight.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_3_after_impact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_4_paused_frozen.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/006/370242e4c593dd002f0c03bc8f9ffbac7418e38d/1280x720/30fps/demo_5_reset_cleared.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/00_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/01_penetrated.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/02_stopped.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/03_stopped.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/04_stopped.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/05_ricochet.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/007/d67c836069df8c7ad68455c1fe50048a9edc123a/1280x720/06_unknown_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720-final/00_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720-final/01_track_disabled_control_B.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720-final/02_engine.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720-final/03_breech_control_B.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/008/ef9d56a48c3c897d3b4d3567f3cf56e9795802d1/1280x720-final/04_reset.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/01_repair_progress.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/02_track_repaired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/03_extinguish_progress.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/04_fire_out.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/05_crew_replacement_progress.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/06_crew_replaced.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/07_loaded_rack_wreck.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/009/ad8fdf13713e23871b8973f038200fdcfff271e3/window-20260908-152227/08_empty_rack_survives.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/010/73c24ea122e409d3490b432b7e1ac5fcb4c5fe52/window-20260908-155938/01_penetrated.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/010/73c24ea122e409d3490b432b7e1ac5fcb4c5fe52/window-20260908-155938/02_stopped.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/010/73c24ea122e409d3490b432b7e1ac5fcb4c5fe52/window-20260908-155938/03_ricochet.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/010/73c24ea122e409d3490b432b7e1ac5fcb4c5fe52/window-20260908-155938/04_engine_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/010/73c24ea122e409d3490b432b7e1ac5fcb4c5fe52/window-20260908-155938/05_frozen_after_turret_moves.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/01_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/02_armor_inspection.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/03_lesson_0_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/04_lesson_1_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/05_lesson_2_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/06_lesson_3_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/06_result_engine.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/07_lesson_4_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/08_repair_progress.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/011/9faa1b6022ed5c0ee3e5daf21256169d02b7af66/window-20260908-162955/09_lesson_6_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/01_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/02_armor_inspection.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/03_lesson_0_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/04_lesson_1_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/05_lesson_2_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/06_lesson_3_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/06_result_engine.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/07_lesson_4_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/08_repair_progress.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172110/09_lesson_6_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/01_m4_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/01b_m4_rear_quarter.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/01c_m4_side.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/02_route_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/03_ten_degree.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/04_thirty_degree_block.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/012/a853fcdfb23bda47db1a501cbaa413c26e506b48/window-20260908-172307/05_twenty_degree_target.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/00_low_poly_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/00b_low_poly_rear.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/01_ai_departure.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/02_ai_corner.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/03_ai_arrived.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/04_narrow_rejected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/05_ai_reverse.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/013/371b44bbbc9878254ae3409f25af1d98f48c993f/window-20260908-175916/06_recovery_arrived.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/014/159238c4ce933865a0dbbf3dbaf7aa555b4d07fe/window-20260908-182458/00_combat_entry.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/014/159238c4ce933865a0dbbf3dbaf7aa555b4d07fe/window-20260908-182458/01_hidden_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/014/159238c4ce933865a0dbbf3dbaf7aa555b4d07fe/window-20260908-182458/02_exposed_observed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/014/159238c4ce933865a0dbbf3dbaf7aa555b4d07fe/window-20260908-182458/04_hidden_search.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/014/159238c4ce933865a0dbbf3dbaf7aa555b4d07fe/window-20260908-182458/05_ai_shot.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/00_duel_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/01_countdown.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/01b_frontal_engagement.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/02_flank.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/03_victory_result.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/04_defeat_result.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/015/f5df5bd88e83cd4755d1212c235428fde48da834/window-20260908-190408/05_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/01_countdown.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/02_pause_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/03_wait_and_lineup.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/04_ready_to_redeploy.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/05_spawn_protection.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/06_live_point_and_tickets.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/016/54c44f82bb6b7f384ee7402141d4ec4dd62d4f22/window-20260908-195623/07_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/01_hud_720p.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/02_reload_and_barrel_marker.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/03_battle_status.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/04_accessibility_settings.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/05_hud_1080p_large.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/06_hud_720p_large.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/07_large_lineup.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/08_spectator_status.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/09_redeployed_hud.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/017/4b3db50fa2746a086b7687e565555dfdc43ff7e1/window-20260908-203559/10_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/01_village_spawn.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/02_front_140m_lane.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/03_front_approach_or_combat_loss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/04_flank_hill_approach.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/05_hill_overlooks_village.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/06_hill_1080p.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/018/72416e67a9c0ab7500f6b4830c0108fa6134261a/window-20260908-211518/07_far_flank_or_combat_loss.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/01_exported_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/02_countdown.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/03_first_real_shot.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/04_hill_flank.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/05_actual_repair.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/06_death_lineup.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/07_redeployed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/08_actual_match_result.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/09_second_match.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/player-20260908-221503/10_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/1_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/2_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/3_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/11ec52a19e572ff3ae04462c2df329a9088bdc4f/player-20260909-023650/4_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/1_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/2_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/3_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/020/79ea36efb3b3a4cf32af6cc584f5d5772e3d217d/player-20260909-022818/4_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/00_garage_entry.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/01_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/02_fixed_transfer.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/03_aphe_loaded.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/04_aphe_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/05_actual_module_damage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/06_thick_ap.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/07_thick_aphe.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/08_battle_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/09_battle_loading.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/10_battle_supply.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/10a76123a03304efb1232ed41f2b3e20c1da38ba/player-20260909-050248/11_battle_replenished.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/1_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/2_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/3_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/historical-player-20260909-050938/4_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/00_garage_entry.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/01_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/02_fixed_transfer.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/03_aphe_loaded.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/04_aphe_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/05_actual_module_damage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/06_thick_ap.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/07_thick_aphe.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/08_battle_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/09_battle_loading.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/10_battle_supply.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-050928/11_battle_replenished.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/00_garage_entry.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/01_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/02_fixed_transfer.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/03_aphe_loaded.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/04_aphe_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/05_actual_module_damage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/06_thick_ap.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/07_thick_aphe.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/08_battle_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/09_battle_loading.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/10_battle_supply.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/021/134b95e0d2bb0c2975856642840bf3f83aaed021/player-20260909-051144/11_battle_replenished.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/00_garage_cards.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/01_research_dependency.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/02_researched_m24.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/02b_side_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/02c_crew_location.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/03_m24_loadout.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/04_empty_racks.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/05_variant_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/06_battle_m24.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/07_first_shell_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/08_lineup_respawn.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/09_battle_m4.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/10_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/11_completed_match_reward.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/35f3663f70a7e848ae293f306c02a1e4dfa64f18/player-20260909-062916/12_persisted_reward.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/1_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/2_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/3_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_driving.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_interior.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/historical-player-20260909-064928/4_scope.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/00_garage_cards.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/01_research_dependency.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/02_researched_m24.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/02b_side_armor.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/02c_crew_location.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/03_m24_loadout.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/04_empty_racks.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/05_variant_dossier.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/06_battle_m24.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/07_first_shell_fired.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/08_lineup_respawn.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/09_battle_m4.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/10_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/11_completed_match_reward.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/player-20260909-063930/12_persisted_reward.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/00_garage_entry.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/01_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/02_fixed_transfer.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/03_aphe_loaded.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/04_aphe_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/05_actual_module_damage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/06_thick_ap.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/07_thick_aphe.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/08_battle_ready.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/09_battle_loading.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/10_battle_supply.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/022/fae2fb8a45517ff242bb0110a9c7c3890a4207b3/shell-player-20260909-065152/11_battle_replenished.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/overview-20260909-075323/hill_village_overview.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/overview-20260909-075323/industrial_edge_overview.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/00_industrial_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/01_industrial_spawn.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/02_warehouse_corner.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/03_industrial_shot.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/04_outer_route.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/05_industrial_result.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/06_industrial_restarted.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/07_village_selected.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/08_village_spawn.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/09_village_result.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/023/13b1008958f2245a9378ee24423a6ced1eb7417c/player-20260909-074446/10_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/01_challenge_rules.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/02_flank_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/03_flank_aim.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/04_stars_saved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/05_real_shot_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/06_personal_best.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/07_defense_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/024/71995d077bcf61a24619cc76fca36ad2cde4ee11/player-20260909-092227/08_m36_route_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/01_shed_intact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/02_shed_damaged.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/03_shed_collapsed.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/04_brick_intact.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/05_brick_breach.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/06_driven_through.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/player-20260909-164755/07_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/showcase-20260909-165955/us_m24_m6_t85e1_1951.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/showcase-20260909-165955/us_m26_m3_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/showcase-20260909-165955/us_m36_m4a1_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/showcase-20260909-165955/us_m4a3_75w_vvss_1944.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/01_ammo_blast.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/06_settled_wreck.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/07_engine_fire.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/08_crew_out_wreck.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/flying_us_m24_m6_t85e1_1951.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/flying_us_m26_m3_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/flying_us_m36_m4a1_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/c1422edd43f0cf42c0b2c161ccd72c4d9a44a357/wreck-20260909-165835/flying_us_m4a3_75w_vvss_1944.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/battle-20260909-171557/hill_village_battle_follow.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/battle-20260909-171557/hill_village_eight_vehicle_overview.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/battle-20260909-171557/industrial_edge_battle_follow.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/battle-20260909-171557/industrial_edge_eight_vehicle_overview.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/01_ammo_blast.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/06_settled_wreck.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/07_engine_fire.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/08_crew_out_wreck.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/flying_us_m24_m6_t85e1_1951.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/flying_us_m26_m3_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/flying_us_m36_m4a1_1945.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/025/d95a0bf2a2e286d0704f0ff27f318aefcdb1fefa/wreck-20260909-170431/flying_us_m4a3_75w_vvss_1944.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/battle-20260909-192845/eight_vehicle_battle.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/battle-20260909-192845/eight_vehicle_mix.wav",
+      "reason": "binary_or_large_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/player-20260909-192820/01_real_shot.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/player-20260909-192820/02_sound_settings.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/player-20260909-192820/03_muted_effects_off.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/player-20260909-192820/04_quiet_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/026/00c6c0a2fa0f653da1a6d4725fbf5c6abf3088cc/player-20260909-192820/actual_combat.wav",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/01_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/01b_credits.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/02_settings_large.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/03_challenges.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/04_training.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/05_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/06_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/07_battle_settings.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/01_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/01b_credits.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/02_settings_large.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/03_challenges.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/04_training.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/05_pause.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/06_returned_garage.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/evidence/027-continuation/caa4191/720-launcher/07_battle_settings.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "docs/planning/source/MCTHUNDER_Full_Development_Plan_002-036.zip",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/003-R1/autoshot_1280.log",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/003-R2/abort_check.log",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/003-R2/autoshot_1280.log",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/003-R2/checks.log",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/004/layout_checks.log",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/019/d2afacfe7c360efdd4b8abd13173b9f9ac1f72e2/profile-20260908-230351/FRAME_PROFILE.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/019/wip-uncommitted/frame_baseline/FRAME_PROFILE.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/019/wip-uncommitted/frame_cached/FRAME_PROFILE.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/027-continuation/localization-wip.patch.gz",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/031/9998f4483637ad5d0b73ca23060e235b46f908c2/build-20260910-172311-739/release_battle.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/00_garage_main_menu.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/01_challenge_rules.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/02_flank_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/03_flank_aim.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/04_stars_saved.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/05_real_shot_replay.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/06_personal_best.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/07_defense_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/08_m36_route_start.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/09_battle_0.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/09_battle_1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/10_settled_0.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/20260910-175344/screenshots/10_settled_1.png",
+      "reason": "binary_asset"
+    },
+    {
+      "path": "order/MCTHUNDER_002_R2_Handoff.zip",
+      "reason": "binary_asset"
+    }
+  ],
+  "pattern_scan_is_not_exhaustive_secret_detection": true,
+  "vehicle_assets": [
+    {
+      "id": "us_m24_m6_t85e1_1951",
+      "runtime": "assets/vehicles/us_m24_m6_t85e1_1951.glb",
+      "hash_matches": true,
+      "geometry_origin": "Original Blender geometry with ImageGen concept-derived texture",
+      "texture_origin": "Built-in ImageGen, user-supplied M4-style concept reference",
+      "public_reference_rights": "PENDING_HOLDER_REVIEW"
+    },
+    {
+      "id": "us_m26_m3_1945",
+      "runtime": "assets/vehicles/us_m26_m3_1945.glb",
+      "hash_matches": true,
+      "geometry_origin": "Original Blender geometry with ImageGen concept-derived texture",
+      "texture_origin": "Built-in ImageGen, user-supplied M4-style concept reference",
+      "public_reference_rights": "PENDING_HOLDER_REVIEW"
+    },
+    {
+      "id": "us_m36_m4a1_1945",
+      "runtime": "assets/vehicles/us_m36_m4a1_1945.glb",
+      "hash_matches": true,
+      "geometry_origin": "Original Blender geometry with ImageGen concept-derived texture",
+      "texture_origin": "Built-in ImageGen, user-supplied M4-style concept reference",
+      "public_reference_rights": "PENDING_HOLDER_REVIEW"
+    },
+    {
+      "id": "us_m4a3_75w_vvss_1944",
+      "runtime": "assets/vehicles/us_m4a3_75w_vvss_1944.glb",
+      "hash_matches": true,
+      "geometry_origin": "Original Blender geometry with ImageGen concept-derived texture",
+      "texture_origin": "Built-in ImageGen, user-supplied M4-style concept reference",
+      "public_reference_rights": "PENDING_HOLDER_REVIEW"
+    }
+  ],
+  "font_license_present": true,
+  "audio_source": "Original mathematical synthesis by this project; no recorded samples",
+  "public_release_authorized": false,
+  "public_reference_rights": "PENDING_HOLDER_REVIEW",
+  "dirty_paths_at_scan": [
+    "NEXT_ACTION.md"
+  ]
+}

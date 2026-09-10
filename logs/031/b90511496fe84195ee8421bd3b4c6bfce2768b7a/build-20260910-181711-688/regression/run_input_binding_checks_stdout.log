@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] default fire hint uses actual service mapping
+[PASS] driving/fire conflict rejected
+[PASS] Esc cannot be consumed by firing
+[PASS] invalid key rejected
+[PASS] new fire key saved
+[PASS] saved bindings restore through production loader
+[PASS] real challenge starts without accidental menu shot
+[PASS] old mouse fire key no longer fires
+[PASS] new key fires exactly one real projectile
+[PASS] Esc cancels capture without changing existing binding
+[PASS] cancel stays in paused settings without firing
+[PASS] Esc closes input panel without resuming battle
+[PASS] restore default reinstates mouse binding
+[PASS] restored mapping removes custom key
+[PASS] default mouse fires real gun after restoration
+[PASS] corrupt settings restore last valid backup with visible error
+=== 结果: 16 项检查, 0 失败 ===
+INPUT_BINDING_CHECKS_PASS

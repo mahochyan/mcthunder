@@ -1,0 +1,58 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] four historical vehicles admitted
+[PASS] brick: real M4 shooter initialized
+[PASS] brick: historical target behind cover
+[PASS] brick: intact section really blocks shell/LOS
+[PASS] brick: real vehicle collision cannot cross intact section
+[PASS] preview/empty hit is not building damage
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] brick: actual nearest-world shot records damaged state
+[PASS] brick: first shell does not damage vehicle behind intact cover
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] brick: second normal shot collapses section
+[PASS] brick: shell that breaks cover still terminates on it
+[PASS] immutable shot replay retains actual structural transition
+[PASS] brick: actual shell and LOS ray passes through new visible opening
+[PASS] brick: opening removes the full vehicle blocker
+[PASS] brick: visible side rubble still has matching collision
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] brick: following real shell reaches target through opening
+[PASS] brick: actual tank drives through destroyed section
+[PASS] structural event history stays bounded by terminal state
+[PASS] bounded impact dust retires after its lifetime
+[PASS] bounded collapse pieces retire after their lifetime
+[PASS] wood: real M4 shooter initialized
+[PASS] wood: historical target behind cover
+[PASS] wood: intact section really blocks shell/LOS
+[PASS] wood: real vehicle collision cannot cross intact section
+[PASS] preview/empty hit is not building damage
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] wood: actual nearest-world shot records damaged state
+[PASS] wood: first shell does not damage vehicle behind intact cover
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] wood: second normal shot collapses section
+[PASS] wood: shell that breaks cover still terminates on it
+[PASS] immutable shot replay retains actual structural transition
+[PASS] wood: actual shell and LOS ray passes through new visible opening
+[PASS] wood: opening removes the full vehicle blocker
+[PASS] wood: visible side rubble still has matching collision
+[PASS] one normal command shot consumes one round and produces one real terminal record
+[PASS] wood: following real shell reaches target through opening
+[PASS] wood: actual tank drives through destroyed section
+[PASS] structural event history stays bounded by terminal state
+[PASS] bounded impact dust retires after its lifetime
+[PASS] bounded collapse pieces retire after their lifetime
+[PASS] brick: real M4 shooter initialized
+[PASS] brick: historical target behind cover
+[PASS] three same-tick projectile advances cannot over-damage a section
+[PASS] same-tick later shot queries the committed opening
+[PASS] duplicate terminal cannot repeat destruction
+[PASS] hill_village_018: four optional structures have eight bounded sections
+[PASS] hill_village_018: fresh world restores every structural collision/state
+[PASS] hill_village_018: optional structures leave all authored driving corridors clear
+[PASS] industrial_edge_023: four optional structures have eight bounded sections
+[PASS] industrial_edge_023: fresh world restores every structural collision/state
+[PASS] industrial_edge_023: optional structures leave all authored driving corridors clear
+=== 结果: 54 项检查, 0 失败 ===
+STRUCTURE_CHECKS_PASS
