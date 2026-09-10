@@ -17,10 +17,10 @@ func _run() -> void:
 	var out_dir := "res://logs/027A/traffic-attribution"
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
 	for seed in seeds:
-		# One seed per process invocation keeps scene teardown entirely out of the
-		# picture: the harness crashed on the SECOND in-process scene (engine-level
-		# fault in _ready layout load after the first scene.free()); data for the
-		# completed seed was always intact. Loop seeds from the shell instead.
+		# Historical note: an in-process second scene faulted the engine when the
+		# harness freed a scene whose director still ticked. Root-caused via a
+		# match->free->rebuild probe (product path clean); teardown fixed below,
+		# and shell-side one-seed-per-process remains the belt-and-braces default.
 		var scene: TeamRange = IndustrialRange.new() if map == "industrial" else VillageRange.new()
 		scene.match_seed = seed
 		scene.ai_only = true
@@ -43,6 +43,13 @@ func _run() -> void:
 			for ep in life.episodes:
 				print("    episode %.1f-%.1fs (%.1fs) blocker=%s phase=%s wp=%s outcome=%s" % [ep.start_s,ep.end_s,ep.duration_s,ep.blocker,ep.driver_phase,ep.waypoint,ep.outcome])
 		print("  planning=%s" % snap.planning)
+		# Teardown in a SAFE order: the harness used to free a scene while its
+		# director kept ticking, then rebuild in-process — that combination
+		# faulted the engine (the real game never frees mid-match: match end
+		# freezes the director, and a rebuilt probe [full match -> free -> new
+		# match -> 10s] runs clean, so this is a harness bug, not product).
+		scene.director.set_physics_process(false)
+		for vehicle in scene.combat_actors(): vehicle.set_physics_process(false)
 		scene.free()
 		await process_frame
 	print("TRAFFIC_ATTRIBUTION_DONE")
