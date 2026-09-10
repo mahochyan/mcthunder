@@ -30,7 +30,8 @@ func write_report(duration: float, complete: bool) -> void:
 	var summaries := {}
 	for key in frame_groups: summaries[key]=TelemetrySnapshot.frame_summary(frame_groups[key])
 	var gpu_available:=samples.any(func(row: Dictionary) -> bool: return float(row.render_gpu_ms)>0)
-	var report := {"complete":complete,"requested_wall_seconds":duration,"requested_cycles":minimum_cycles,"gpu_timer_available":gpu_available,"rendered":DisplayServer.get_name()!="headless","engine":Engine.get_version_info(),"os":OS.get_name(),"os_version":OS.get_version(),"cpu":OS.get_processor_name(),"logical_cpus":OS.get_processor_count(),"gpu":RenderingServer.get_video_adapter_name(),"driver":RenderingServer.get_video_adapter_api_version(),"resolution":str(get_tree().root.size),"renderer":RenderingServer.get_current_rendering_method(),"frame_times":TelemetrySnapshot.frame_summary(frames_ms),"groups":summaries,"samples":samples,"lifecycle":lifecycle,"checks":checks,"failed":failed}
+	var static_memory_available:=lifecycle.any(func(row: Dictionary) -> bool: return int(row.static_memory_bytes)>0)
+	var report := {"complete":complete,"requested_wall_seconds":duration,"requested_cycles":minimum_cycles,"gpu_timer_available":gpu_available,"static_memory_monitor_available":static_memory_available,"process_memory_source":"external Windows PrivateMemorySize64 and WorkingSet64 sampler","rendered":DisplayServer.get_name()!="headless","engine":Engine.get_version_info(),"os":OS.get_name(),"os_version":OS.get_version(),"cpu":OS.get_processor_name(),"logical_cpus":OS.get_processor_count(),"gpu":RenderingServer.get_video_adapter_name(),"driver":RenderingServer.get_video_adapter_api_version(),"resolution":str(get_tree().root.size),"renderer":RenderingServer.get_current_rendering_method(),"frame_times":TelemetrySnapshot.frame_summary(frames_ms),"groups":summaries,"samples":samples,"lifecycle":lifecycle,"checks":checks,"failed":failed}
 	var file:=FileAccess.open(folder+"/performance.json",FileAccess.WRITE)
 	if file!=null: file.store_string(JSON.stringify(report,"  ")); file.close()
 func run(app: AppFlow) -> void:
@@ -44,6 +45,8 @@ func run(app: AppFlow) -> void:
 	print("PERFORMANCE_REPORT="+ProjectSettings.globalize_path(folder+"/performance.json"))
 	check(OS.has_feature("release") and DisplayServer.get_name()!="headless","actual rendered Release performance run")
 	app.garage.hide()
+	ShotQueryService.measure_enabled=true
+	ShotQueryService.measured_calls=0; ShotQueryService.measured_usec=0
 	RenderingServer.viewport_set_measure_render_time(get_tree().root.get_viewport_rid(),true)
 	var started:=Time.get_ticks_msec()
 	var next_sample:=0.0
@@ -66,6 +69,12 @@ func run(app: AppFlow) -> void:
 			var wall: float=(Time.get_ticks_msec()-started)/1000.0
 			if wall>=next_sample:
 				var snapshot:=TelemetrySnapshot.capture(scene)
+				snapshot.merge({"query_calls_total":ShotQueryService.measured_calls,"query_cpu_ms_total":ShotQueryService.measured_usec/1000.0})
+				var fire_count:=0
+				for actor in scene.combat_actors(): fire_count+=actor.state.fires.size()
+				var fragment_paths:=0
+				for record in scene.projectiles.shot_records._records: fragment_paths+=record.get("fragments",[]).size()
+				snapshot.merge({"fires":fire_count,"retained_fragment_paths":fragment_paths})
 				snapshot.merge({"wall_seconds":wall,"map":map_id,"fx_level":AccessibilitySettings.fx_level,"cycle":cycle+1,"audio_voices":scene.projectiles.feedback.audio.active_count(),"fx_active":scene.projectiles.feedback.fx.active_count(),"render_cpu_ms":RenderingServer.viewport_get_measured_render_time_cpu(get_tree().root.get_viewport_rid()),"render_gpu_ms":RenderingServer.viewport_get_measured_render_time_gpu(get_tree().root.get_viewport_rid())})
 				samples.append(snapshot)
 				if snapshot.live>8 or snapshot.wrecks>RecoveryRules.WRECK_MAX_COUNT or snapshot.projectiles>ProjectileManager.MAX_ACTIVE or snapshot.audio_voices>CombatAudioPool.CAPACITY or snapshot.fx_active>CombatFXPool.CAPACITY: check(false,"live resource budget exceeded")
@@ -77,6 +86,13 @@ func run(app: AppFlow) -> void:
 			check(get_tree().root.get_texture().get_image().save_png(folder+"/"+map_id+".png")==OK,"actual rendered map frame saved")
 		scene.leave_match()
 		check(scene.director.state.finish_count==1 and scene.projectiles.active_count()==0,"normal exit settles and clears accepted projectiles once")
+		if scene.projectiles.shot_records.count()>0:
+			var settled:=scene.director.state.result.duplicate(true)
+			check(scene.replay.show_history(scene.projectiles.shot_records.count()-1),"settled battle opens its real recorded replay")
+			group=map_id+"_replay"; capture_frames=true
+			for frame in 12: await get_tree().process_frame
+			capture_frames=false; scene.replay.view.close_view()
+			check(scene.director.state.result==settled,"replay presentation preserves frozen battle result")
 		scene.free(); scene=null
 		for frame in 8: await get_tree().process_frame
 		lifecycle.append(cleanup())

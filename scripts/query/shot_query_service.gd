@@ -6,9 +6,34 @@ extends RefCounted
 
 const MAX_ENTITIES := 24 # 016: eight active vehicles plus twelve retained wrecks, with a bounded margin.
 const EPS_DIST_GROUP := 0.001   # 排序后的容差分组（米）
+static var measure_enabled := false
+static var measured_calls := 0
+static var measured_usec := 0
+const BOUNDS_CACHE_LIMIT := 512
+static var bounds_cache_enabled := true
+static var _vertex_bounds := {}
+
+static func _bounds(vertices: PackedVector3Array) -> PackedVector3Array:
+	# Packed arrays use value hashing/equality and copy-on-write. Changed geometry
+	# gets a different key; no metadata is written onto shared layout resources.
+	if bounds_cache_enabled and _vertex_bounds.has(vertices): return _vertex_bounds[vertices]
+	var pmin:=vertices[0]; var pmax:=vertices[0]
+	for vertex in vertices: pmin=pmin.min(vertex); pmax=pmax.max(vertex)
+	var result:=PackedVector3Array([pmin,pmax])
+	if bounds_cache_enabled:
+		if _vertex_bounds.size()>=BOUNDS_CACHE_LIMIT: _vertex_bounds.clear()
+		_vertex_bounds[vertices]=result
+	return result
 
 
 static func query(request: Dictionary, snapshots: Array) -> Dictionary:
+	if not measure_enabled: return _query(request,snapshots)
+	var started:=Time.get_ticks_usec()
+	var result:=_query(request,snapshots)
+	measured_calls+=1; measured_usec+=Time.get_ticks_usec()-started
+	return result
+
+static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 	# request: {query_id, physics_tick, from_world, to_world,
 	#           excluded_instances: [{entity_id, life_id}], include_modules, include_crew,
 	#           world_stop (可选，标准化世界接触 dict；由 WorldQueryAdapter 提供),
@@ -180,6 +205,7 @@ static func _collect_patches(
 	var complete := true
 	var entity_id: String = str(snapshot.get("entity_id", ""))
 	var life_id: int = int(snapshot.get("life_id", 0))
+	var local_segments := {}
 	for patch in layout.armor_patches:
 		if patch == null:
 			continue
@@ -188,15 +214,14 @@ static func _collect_patches(
 			complete = false
 			continue
 		var part_world: Transform3D = transforms[patch.part_id]
-		var inv := part_world.affine_inverse()
-		var local_from := inv * from_world
-		var local_to := inv * to_world
+		if not local_segments.has(patch.part_id):
+			var inv:=part_world.affine_inverse()
+			local_segments[patch.part_id]=PackedVector3Array([inv*from_world,inv*to_world])
+		var local_from: Vector3=local_segments[patch.part_id][0]
+		var local_to: Vector3=local_segments[patch.part_id][1]
 		# 保守 AABB 粗筛（局部系）
-		var pmin := patch.vertices_local_m[0]
-		var pmax := patch.vertices_local_m[0]
-		for v in patch.vertices_local_m:
-			pmin = pmin.min(v)
-			pmax = pmax.max(v)
+		var bounds:=_bounds(patch.vertices_local_m)
+		var pmin:=bounds[0]; var pmax:=bounds[1]
 		var seg_min := local_from.min(local_to)
 		var seg_max := local_from.max(local_to)
 		if seg_max.x < pmin.x or seg_min.x > pmax.x \
