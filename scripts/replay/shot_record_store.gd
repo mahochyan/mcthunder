@@ -21,5 +21,13 @@ func get_record(index: int) -> Dictionary:
 	if index<0 or index>=_records.size(): return {}
 	return _records[index].duplicate(true)
 
+func latest_replayable_index() -> int:
+	# A valid terminal record can describe a miss without any target geometry.
+	# Such records remain useful evidence, but ReplayView cannot display them.
+	for index in range(_records.size()-1,-1,-1):
+		var record: Dictionary=_records[index]
+		if record.get("complete",false) and not record.get("frames",[]).is_empty(): return index
+	return -1
+
 func clear() -> void:
 	_records.clear()

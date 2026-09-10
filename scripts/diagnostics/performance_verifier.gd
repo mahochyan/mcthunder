@@ -12,6 +12,7 @@ var capture_frames := false
 var frame_groups := {}
 var group := ""
 var minimum_cycles := 20
+var replay_probes: Array = []
 func check(ok: bool, label: String) -> void:
 	checks+=1
 	if not ok: failed+=1
@@ -32,6 +33,7 @@ func write_report(duration: float, complete: bool) -> void:
 	var gpu_available:=samples.any(func(row: Dictionary) -> bool: return float(row.render_gpu_ms)>0)
 	var static_memory_available:=lifecycle.any(func(row: Dictionary) -> bool: return int(row.static_memory_bytes)>0)
 	var report := {"complete":complete,"requested_wall_seconds":duration,"requested_cycles":minimum_cycles,"gpu_timer_available":gpu_available,"static_memory_monitor_available":static_memory_available,"process_memory_source":"external Windows PrivateMemorySize64 and WorkingSet64 sampler","rendered":DisplayServer.get_name()!="headless","engine":Engine.get_version_info(),"os":OS.get_name(),"os_version":OS.get_version(),"cpu":OS.get_processor_name(),"logical_cpus":OS.get_processor_count(),"gpu":RenderingServer.get_video_adapter_name(),"driver":RenderingServer.get_video_adapter_api_version(),"resolution":str(get_tree().root.size),"renderer":RenderingServer.get_current_rendering_method(),"frame_times":TelemetrySnapshot.frame_summary(frames_ms),"groups":summaries,"samples":samples,"lifecycle":lifecycle,"checks":checks,"failed":failed}
+	report["replay_probes"]=replay_probes
 	var file:=FileAccess.open(folder+"/performance.json",FileAccess.WRITE)
 	if file!=null: file.store_string(JSON.stringify(report,"  ")); file.close()
 func run(app: AppFlow) -> void:
@@ -86,13 +88,22 @@ func run(app: AppFlow) -> void:
 			check(get_tree().root.get_texture().get_image().save_png(folder+"/"+map_id+".png")==OK,"actual rendered map frame saved")
 		scene.leave_match()
 		check(scene.director.state.finish_count==1 and scene.projectiles.active_count()==0,"normal exit settles and clears accepted projectiles once")
-		if scene.projectiles.shot_records.count()>0:
+		var replay_index:=scene.projectiles.shot_records.latest_replayable_index()
+		var newest:=scene.projectiles.shot_records.get_record(scene.projectiles.shot_records.count()-1)
+		var probe:={"cycle":cycle+1,"map":map_id,"short_cycle":short_cycle,"records":scene.projectiles.shot_records.count(),"selected_index":replay_index,"newest_complete":newest.get("complete",false),"newest_frames":newest.get("frames",[]).size(),"newest_unavailable_reason":newest.get("unavailable_reason","")}
+		# Long battle probes must actually render an eligible record. Five-second
+		# creation/exit cycles can legitimately have no shot history at all.
+		if not short_cycle and allowed>=60: check(replay_index>=0,"long battle retains an actual complete replay with target geometry")
+		if replay_index>=0:
 			var settled:=scene.director.state.result.duplicate(true)
-			check(scene.replay.show_history(scene.projectiles.shot_records.count()-1),"settled battle opens its real recorded replay")
+			var opened:=scene.replay.show_history(replay_index)
+			probe["opened"]=opened; probe["error"]=scene.replay.view.error_reason
+			check(opened,"settled battle opens its real recorded replay")
 			group=map_id+"_replay"; capture_frames=true
 			for frame in 12: await get_tree().process_frame
 			capture_frames=false; scene.replay.view.close_view()
 			check(scene.director.state.result==settled,"replay presentation preserves frozen battle result")
+		replay_probes.append(probe)
 		scene.free(); scene=null
 		for frame in 8: await get_tree().process_frame
 		lifecycle.append(cleanup())

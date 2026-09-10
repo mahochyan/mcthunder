@@ -96,6 +96,21 @@ func _record_cases(record: Dictionary) -> void:
 	_ok(store.count() == 16 and store.get_record(0).identity.shot_id == 9,"ring buffer retains only latest 16 records")
 	store.clear()
 	_ok(store.count() == 0,"explicit clearing releases record buffer")
+	_ok(store.latest_replayable_index()==-1,"empty history has no replayable geometry")
+	store.push_bounded(record)
+	manager.cancel_all("cancelled_reset")
+	sequence+=1
+	var miss:=manager.try_spawn({"round_id":1,"shooter_id":"replay_source","shooter_life_id":5,"shot_id":sequence,"shell_id":"ap70","armor_policy":"resolve","seed":42,"penetration_curve":PackedVector2Array([Vector2(0,70)]),"position_world":Vector3(50,100,50),"velocity_world":Vector3(0,0,-600),"gravity_world":Vector3.ZERO,"max_age_s":2,"max_distance_m":5})
+	_ok(miss.ok,"actual manager accepts an unobstructed miss fixture")
+	manager.advance_projectile(manager.get_projectile_state(miss.projectile_id),1.0/60,[],world.get_world_3d().direct_space_state)
+	var missed_record:=manager.shot_records.get_record(0)
+	_ok(not missed_record.is_empty() and missed_record.complete and missed_record.frames.is_empty(),"actual miss is valid evidence without target geometry")
+	store.push_bounded(missed_record)
+	_ok(store.latest_replayable_index()==0,"newer real miss does not hide the older replayable hit")
+	var incomplete:=record.duplicate(true); incomplete.complete=false; incomplete.unavailable_reason="fixture_incomplete"
+	_ok(store.push_bounded(incomplete).ok and store.latest_replayable_index()==0,"incomplete geometry is retained but cannot become a replay probe")
+	store.clear(); store.push_bounded(missed_record)
+	_ok(store.latest_replayable_index()==-1,"miss-only history does not invent replay geometry")
 
 func _view_cases(record: Dictionary) -> void:
 	var state_before := actor.state.damage_snapshot()
