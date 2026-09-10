@@ -5,6 +5,7 @@ signal laboratory_requested(id: String)
 signal challenge_requested(id: String, difficulty: String)
 signal quit_requested
 signal tutorial_requested(chapter: int)
+signal progress_reset
 var challenge_button: Button
 var challenge_selection: ChallengeSelection
 var shell_choice: OptionButton
@@ -56,6 +57,8 @@ func _ready() -> void:
 	var toolbar := HBoxContainer.new(); vertical.add_child(toolbar)
 	var settings_button := CoreUI.button(toolbar,LocalizationService.text("ui_eb9bb060c217"),func() -> void:
 		var panel := InputSettingsPanel.new()
+		panel.profile = profile
+		panel.progress_reset.connect(func() -> void: progress_reset.emit())
 		add_child(panel))
 	settings_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	CoreUI.button(toolbar,LocalizationService.text("menu_credits"),_show_credits)

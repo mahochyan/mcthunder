@@ -125,6 +125,7 @@ func _ready() -> void:
 	for argument in args:
 		if argument.ends_with("-check") or argument.ends_with("-demo") or argument == "--autoshot" or argument == "--export-smoke": isolated_settings = true
 	InputBindingService.initialize("" if isolated_settings else InputBindingService.PATH)
+	if not isolated_settings: DisplaySettings.apply_startup()
 	if profile == null:
 		var isolated := DisplayServer.get_name() == "headless"
 		for flag in ["--export-smoke","--team-play-check","--historical-play-check","--shell-play-check","--garage-play-check","--industrial-play-check","--challenge-play-check","--art-play-check","--feedback-play-check"]:
@@ -231,6 +232,11 @@ func _show_garage(result: Dictionary) -> void:
 	garage.challenge_requested.connect(enter_challenge)
 	garage.quit_requested.connect(_quit_application)
 	garage.tutorial_requested.connect(start_tutorial)
+	garage.progress_reset.connect(func() -> void:
+		pending_reward.clear(); pending_challenge = -1; last_result.clear()
+		progression = ProgressionService.new(profile); challenges = ChallengeProgression.new(profile)
+		selected_vehicle_id = profile.snapshot().garage.selected_vehicle_id; selected_case = 0
+		call_deferred("return_to_garage"))
 	if pending_challenge >= 0: _settle_challenge(pending_challenge)
 	if pending_challenge >= 0:
 		CoreUI.button(garage.preparation,LocalizationService.text("ui_4a07649a8888"),func() -> void: _settle_challenge(pending_challenge))

@@ -38,34 +38,72 @@ static var context := "all"
 static var bindings: Dictionary = {}
 static var storage_path := ""
 static var problem := ""
+static var writable := true
+static var display := {"mode":"windowed","width":1280,"height":720}
+const DISPLAY_DEFAULT := {"mode":"windowed","width":1280,"height":720}
+const RESOLUTIONS := [Vector2i(1280,720),Vector2i(1600,900),Vector2i(1920,1080)]
 
 static func initialize(path: String = "") -> void:
 	if initialized: return
 	initialized = true
 	storage_path = path
 	problem = ""
+	writable = true
+	display = DISPLAY_DEFAULT.duplicate()
+	AccessibilitySettings.restore(AccessibilitySettings.DEFAULTS)
 	restore_defaults(false)
-	if path.is_empty() or not FileAccess.file_exists(path): return
-	var parser := JSON.new()
-	var parsed: Variant = null
-	if parser.parse(FileAccess.get_file_as_string(path)) == OK: parsed = parser.data
-	if not parsed is Dictionary or parsed.get("schema",0) != 1 or not parsed.get("bindings") is Dictionary:
-		problem = LocalizationService.text("ui_0d3ca9f70bbd")
-		return
-	var candidate: Dictionary = parsed.bindings
-	if candidate.size() != ACTIONS.size():
-		problem = LocalizationService.text("ui_6d2fd7d63989")
-		return
-	for action in ACTIONS:
-		if not candidate.has(action) or not valid_code(candidate[action],action) or not conflicts(action,int(candidate[action]),candidate).is_empty():
-			problem = LocalizationService.text("ui_c2e103bf0f5e")
-			return
-	bindings = candidate.duplicate()
+	if path.is_empty(): return
+	var primary := read_settings(path)
+	var backup := read_settings(path+".bak")
+	if primary.get("future",false) or backup.get("future",false):
+		writable = false; problem = LocalizationService.text("settings_future"); return
+	var chosen := primary
+	if not primary.ok:
+		chosen = backup
+		if backup.ok: problem = LocalizationService.text("settings_recovered")
+		elif FileAccess.file_exists(path) or FileAccess.file_exists(path+".bak"): problem = LocalizationService.text("settings_corrupt")
+	if not chosen.ok: return
+	bindings = chosen.data.bindings.duplicate()
 	_apply_all()
-	if parsed.get("accessibility") is Dictionary: AccessibilitySettings.restore(parsed.accessibility)
+	AccessibilitySettings.restore(chosen.data.accessibility)
+	display = chosen.data.display.duplicate()
+	LocalizationService.set_locale(chosen.data.language)
+
+static func valid_display(value: Variant) -> bool:
+	if not value is Dictionary or value.size()!=3 or value.get("mode") not in ["windowed","fullscreen"]: return false
+	for key in ["width","height"]:
+		if not (value.get(key) is int or value.get(key) is float): return false
+		if not is_finite(float(value[key])) or float(value[key])!=floor(float(value[key])): return false
+	return Vector2i(int(value.width),int(value.height)) in RESOLUTIONS
+
+static func read_settings(path: String) -> Dictionary:
+	var file := FileAccess.open(path,FileAccess.READ)
+	if file == null or file.get_length()>65536: return {"ok":false}
+	var parser := JSON.new()
+	if parser.parse(file.get_as_text())!=OK or not parser.data is Dictionary: return {"ok":false}
+	var data: Dictionary = parser.data
+	var schema: Variant = data.get("schema")
+	if (schema is int or schema is float) and schema>2: return {"ok":false,"future":true}
+	if not (schema is int or schema is float) or not is_finite(float(schema)) or schema!=floor(float(schema)): return {"ok":false}
+	if int(schema) not in [1,2] or not data.get("bindings") is Dictionary: return {"ok":false}
+	var allowed := ["schema","bindings","accessibility"] if schema==1 else ["schema","bindings","accessibility","display","language"]
+	for key in data:
+		if key not in allowed: return {"ok":false}
+	if schema==2 and data.size()!=5: return {"ok":false}
+	var candidate: Dictionary = data.bindings
+	if candidate.size()!=ACTIONS.size(): return {"ok":false}
+	# Validate all types before conflict detection (which converts other values).
+	for action in ACTIONS:
+		if not candidate.has(action) or not valid_code(candidate[action],action): return {"ok":false}
+	for action in ACTIONS:
+		if not conflicts(action,int(candidate[action]),candidate).is_empty(): return {"ok":false}
+	if not AccessibilitySettings.valid(data.get("accessibility",{})): return {"ok":false}
+	var options := AccessibilitySettings.DEFAULTS.duplicate(); options.merge(data.get("accessibility",{}),true)
+	if schema==2 and (not valid_display(data.display) or data.language!="zh_CN"): return {"ok":false}
+	return {"ok":true,"data":{"schema":2,"bindings":candidate,"accessibility":options,"display":data.get("display",DISPLAY_DEFAULT),"language":"zh_CN"}}
 
 static func valid_code(code: Variant, action: String) -> bool:
-	if not (code is int or code is float) or float(code) != floor(float(code)): return false
+	if not (code is int or code is float) or not is_finite(float(code)) or float(code) != floor(float(code)): return false
 	var value := int(code)
 	if value == KEY_ESCAPE: return action == "pause"
 	if value == KEY_TAB: return action in ["scoreboard","switch_control"]
@@ -90,9 +128,12 @@ static func apply_binding(action: String, code: int) -> String:
 	if not ACTIONS.has(action) or not valid_code(code,action): return LocalizationService.text("ui_d2f1d7d7ba13")
 	var collisions := conflicts(action,code)
 	if not collisions.is_empty(): return LocalizationService.text("ui_11ba610487e0")+str(ACTIONS[collisions[0]][0])
+	var old: int = int(bindings[action])
 	bindings[action] = code
 	_apply_action(action)
-	return save()
+	var error := save()
+	if not error.is_empty(): bindings[action] = old; _apply_action(action)
+	return error
 
 static func restore_defaults(persist: bool = true) -> void:
 	bindings.clear()
@@ -152,12 +193,58 @@ static func recovery_hint() -> String:
 
 static func save() -> String:
 	if storage_path.is_empty(): return ""
+	if not writable: return LocalizationService.text("settings_future")
 	var error := DirAccess.make_dir_recursive_absolute(storage_path.get_base_dir())
 	if error != OK: return LocalizationService.text("ui_bc624eb41ffc")
+	var lock := storage_path+".lock"
+	if DirAccess.make_dir_absolute(lock)!=OK: return LocalizationService.text("settings_locked")
+	var result := _save_locked()
+	DirAccess.remove_absolute(lock)
+	return result
+
+static func _save_locked() -> String:
+	var primary := read_settings(storage_path)
+	var backup := read_settings(storage_path+".bak")
+	if primary.get("future",false) or backup.get("future",false):
+		writable = false; return LocalizationService.text("settings_future")
 	var temporary := storage_path+".tmp"
 	var file := FileAccess.open(temporary,FileAccess.WRITE)
 	if file == null: return LocalizationService.text("ui_c56d11764c0f")
-	file.store_string(JSON.stringify({"schema":1,"bindings":bindings,"accessibility":AccessibilitySettings.snapshot()}))
+	var value := {"schema":2,"bindings":bindings,"accessibility":AccessibilitySettings.snapshot(),"display":display,"language":LocalizationService.locale}
+	var serialized := JSON.stringify(value)
+	file.store_string(serialized); file.flush()
+	var write_error := file.get_error()
 	file.close()
+	var verified := read_settings(temporary)
+	if write_error!=OK or not verified.ok or FileAccess.get_file_as_string(temporary)!=serialized: return LocalizationService.text("settings_verify_failed")
+	if primary.ok:
+		var backup_tmp := storage_path+".bak.tmp"
+		if not _copy_verified(storage_path,backup_tmp) or not read_settings(backup_tmp).ok: return LocalizationService.text("settings_backup_failed")
+		if DirAccess.rename_absolute(backup_tmp,storage_path+".bak")!=OK: return LocalizationService.text("settings_backup_failed")
+	elif FileAccess.file_exists(storage_path):
+		# Preserve the exact broken bytes before a successful replacement, never load them as a resource.
+		var preserved := storage_path+".corrupt-"+str(Time.get_unix_time_from_system()).replace(".","-")+"-"+str(Time.get_ticks_usec())
+		if not _copy_verified(storage_path,preserved): return LocalizationService.text("settings_backup_failed")
 	if DirAccess.rename_absolute(temporary,storage_path) != OK: return LocalizationService.text("ui_f518e3106f33")
+	problem = ""
 	return ""
+
+static func _copy_verified(source: String, target: String) -> bool:
+	# FileAccess failures return an error without logging private absolute paths.
+	var input := FileAccess.open(source,FileAccess.READ)
+	if input==null: return false
+	var output := FileAccess.open(target,FileAccess.WRITE)
+	if output==null: return false
+	while input.get_position()<input.get_length():
+		output.store_buffer(input.get_buffer(mini(65536,input.get_length()-input.get_position())))
+	output.flush()
+	var error := output.get_error(); input.close(); output.close()
+	return error==OK and FileAccess.get_sha256(source)==FileAccess.get_sha256(target)
+
+static func reset_settings() -> String:
+	var old_bindings := bindings.duplicate(); var old_options := AccessibilitySettings.snapshot(); var old_display := display.duplicate()
+	restore_defaults(false); AccessibilitySettings.restore(AccessibilitySettings.DEFAULTS); display = DISPLAY_DEFAULT.duplicate()
+	var error := save()
+	if not error.is_empty():
+		bindings = old_bindings; _apply_all(); AccessibilitySettings.restore(old_options); display = old_display
+	return error

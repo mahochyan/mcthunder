@@ -1,0 +1,62 @@
+extends "res://tests/run_localization_window.gd"
+## Actual window mode changes, wall-clock timeout and keyboard confirmation.
+func open_settings() -> InputSettingsPanel:
+	await activate(find_button(app.garage,LocalizationService.text("ui_eb9bb060c217")))
+	for child in app.garage.get_children():
+		if child is InputSettingsPanel: return child
+	return null
+func run() -> void:
+	create_timer(180,true,false,true).timeout.connect(func() -> void: print("SETTINGS_WINDOW_TIMEOUT"); quit(2))
+	shot_dir="res://docs/evidence/029/window"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(shot_dir))
+	var path := "user://tests/settings_window_%d/input.json" % Time.get_ticks_usec()
+	InputBindingService.initialize(path); InputBindingService.save()
+	app=load("res://scenes/app.tscn").instantiate(); app.profile=ProfileStore.new("")
+	root.add_child(app); current_scene=app; await frames(30)
+	var panel := await open_settings()
+	check(panel!=null,"settings entry reachable from garage with keyboard")
+	var old := DisplaySettings.current()
+	var bytes := FileAccess.get_file_as_string(path)
+	var mode := panel.find_child("DisplayMode",true,false) as OptionButton
+	await focus_control(mode); await tap(KEY_SPACE); await tap(KEY_DOWN); await tap(KEY_ENTER)
+	await activate(find_button(panel,LocalizationService.text("display_preview"))); await frames(10)
+	check(panel.display_preview.active and DisplayServer.window_get_mode()==DisplayServer.WINDOW_MODE_FULLSCREEN,"real keyboard applies fullscreen preview")
+	check(FileAccess.get_file_as_string(path)==bytes,"unconfirmed preview never writes settings")
+	await capture("01_display_preview")
+	var started := Time.get_ticks_msec()
+	while panel.display_preview.active and Time.get_ticks_msec()-started<11500: await process_frame
+	await frames(10)
+	check(not panel.display_preview.active and DisplayServer.window_get_mode()==old.mode and DisplayServer.window_get_size()==old.size,"actual ten-second timeout restores window mode and size")
+	check(is_instance_valid(panel) and not is_instance_valid(panel.dialog) and FileAccess.get_file_as_string(path)==bytes,"timeout removes confirmation but keeps settings open without save")
+	await activate(find_button(panel,LocalizationService.text("display_preview"))); await frames(5); await tap(KEY_ESCAPE); await frames(5)
+	check(is_instance_valid(panel) and not panel.display_preview.active and DisplayServer.window_get_mode()==old.mode,"Esc cancels nested preview without closing settings")
+	await activate(find_button(panel,LocalizationService.text("display_preview"))); await frames(5)
+	await activate(find_button(panel.dialog,LocalizationService.text("display_confirm"))); await frames(10)
+	check(not panel.display_preview.active and InputBindingService.read_settings(path).data.display.mode=="fullscreen","keyboard confirmation persists selected display mode")
+	await capture("02_confirmed_settings")
+	await activate(find_button(panel,LocalizationService.text("settings_reset"))); await frames(4); await tap(KEY_ESCAPE)
+	check(is_instance_valid(panel) and InputBindingService.display.mode=="fullscreen","cancel reset preserves settings")
+	await activate(find_button(panel,LocalizationService.text("settings_reset"))); await frames(4)
+	await activate(find_button(panel.dialog,LocalizationService.text("settings_reset"))); await frames(10)
+	check(not is_instance_valid(panel) and InputBindingService.display.mode=="windowed" and DisplayServer.window_get_size()==Vector2i(1280,720),"confirmed settings reset restores safe window and closes panel")
+	panel=await open_settings()
+	# Direct production preview call tests lifecycle cleanup independently of navigation.
+	panel.display_preview.begin({"mode":"fullscreen","width":1280,"height":720}); await frames(8)
+	panel.queue_free(); await frames(10)
+	check(DisplayServer.window_get_mode()==DisplayServer.WINDOW_MODE_WINDOWED,"destroying preview owner restores previous actual display")
+	panel=await open_settings()
+	DirAccess.make_dir_absolute(path+".lock")
+	panel.display_preview.begin({"mode":"fullscreen","width":1280,"height":720}); await frames(8); panel.display_preview.confirm(); await frames(10)
+	check(DisplayServer.window_get_mode()==DisplayServer.WINDOW_MODE_WINDOWED and InputBindingService.display.mode=="windowed" and not panel.status.text.is_empty(),"save failure rolls back display and displays error")
+	DirAccess.remove_absolute(path+".lock")
+	var progress := app.profile.snapshot(); progress.tutorial={"chapter":2,"completed":[0,1]}; app.profile.commit(progress)
+	await activate(find_button(panel,LocalizationService.text("progress_reset"))); await tap(KEY_ESCAPE)
+	check(app.profile.snapshot().tutorial.chapter==2,"cancel progress reset leaves chapter checkpoint intact")
+	await activate(find_button(panel,LocalizationService.text("progress_reset"))); await frames(3)
+	await activate(find_button(panel.dialog,LocalizationService.text("progress_reset"))); await frames(20)
+	check(app.profile.snapshot().tutorial.chapter==0 and not is_instance_valid(panel) and app.garage!=null,"confirmed progress reset rebuilds garage using fresh profile")
+	check(LocalizationService.missing.is_empty(),"settings interface has no untranslated keys")
+	app.free(); await frames(8)
+	print("=== 结果: %d 项检查, %d 失败 ===" % [checks,failed])
+	if failed==0: print("SETTINGS_WINDOW_CHECKS_PASS")
+	quit(0 if failed==0 else 1)

@@ -61,7 +61,7 @@ func run() -> void:
 	file.store_string("{broken"); file.close()
 	InputBindingService.initialized = false
 	InputBindingService.initialize(path)
-	check(not InputBindingService.problem.is_empty() and InputBindingService.bindings.fire == -1,"corrupt settings restore safe defaults with visible error")
+	check(not InputBindingService.problem.is_empty() and InputBindingService.bindings.fire == KEY_K,"corrupt settings restore last valid backup with visible error")
 	OS.delay_msec(100)
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failed])
 	if failed == 0: print("INPUT_BINDING_CHECKS_PASS")

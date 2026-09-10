@@ -24,6 +24,12 @@ func _fresh() -> Dictionary:
 
 func snapshot() -> Dictionary: return _data.duplicate(true)
 
+func reset_progress() -> Dictionary:
+	# Keep identity/revision and monotonically increasing match ids; old results cannot be re-awarded.
+	var fresh := _fresh()
+	fresh.profile_id = _data.profile_id; fresh.revision = _data.revision; fresh.next_match = _data.next_match
+	return commit(fresh)
+
 func validate(value: Dictionary) -> Dictionary:
 	var keys := ["schema_version","tutorial","challenge_bests","revision","profile_id","research_points","unlocked","next_match","pending","receipts","garage"]
 	if value.size() != keys.size(): return _bad(LocalizationService.text("ui_68c613b313e6"))
@@ -81,7 +87,8 @@ func commit(candidate: Dictionary) -> Dictionary:
 		if not lock.ok: return lock
 		var disk := _latest()
 		var result: Dictionary
-		if disk.get("found",false) and (disk.data.revision != _data.revision or disk.data.profile_id != _data.profile_id): result = _bad(LocalizationService.text("ui_3242b1716223"))
+		if disk.get("future",false): result = _bad(LocalizationService.text("profile_future"))
+		elif disk.get("found",false) and (disk.data.revision != _data.revision or disk.data.profile_id != _data.profile_id): result = _bad(LocalizationService.text("ui_3242b1716223"))
 		elif disk.get("corrupt",false) and not disk.get("found",false): result = _bad(LocalizationService.text("ui_8166cefd8a51"))
 		else: result = _write_slot(next)
 		_release_lock(lock_path)
@@ -148,6 +155,9 @@ func _write_slot(value: Dictionary) -> Dictionary:
 	var verified := _read(temporary)
 	if not verified.ok or verified.data != value: return _bad(LocalizationService.text("ui_01fcf5537639"))
 	# Only the older slot is replaced, while the last committed slot stays readable.
+	if FileAccess.file_exists(target) and not _read(target).ok:
+		var preserved := target+".corrupt-"+str(Time.get_ticks_usec())
+		if DirAccess.copy_absolute(target,preserved)!=OK: return _bad(LocalizationService.text("settings_backup_failed"))
 	if FileAccess.file_exists(target) and DirAccess.remove_absolute(target) != OK: return _bad(LocalizationService.text("ui_e12e2b675c61"))
 	if DirAccess.rename_absolute(temporary,target) != OK: return _bad(LocalizationService.text("ui_a4869a80c43b"))
 	return {"ok":true}
@@ -160,6 +170,8 @@ func _read(path: String) -> Dictionary:
 	var parsed: Variant = parser.data
 	if not parsed is Dictionary: return {"ok":false}
 	var normalized: Dictionary = _integers(parsed)
+	var version: Variant = normalized.get("schema_version")
+	if (version is int or version is float) and version>3: return {"ok":false,"future":true}
 	# Schema 1 had exactly nine fields. Adding an empty best table preserves all
 	# old data, and the complete schema-2 validation still rejects malformed slots.
 	if normalized.get("schema_version") == 1 and normalized.size() == 9 and not normalized.has("challenge_bests"):
@@ -177,6 +189,7 @@ func _latest() -> Dictionary:
 		var path := _path+"."+str(slot)+".json"
 		if not FileAccess.file_exists(path): continue
 		var read := _read(path)
+		if read.get("future",false): out.future = true
 		if not read.ok: out.corrupt = true; continue
 		if not out.found or read.data.revision > out.data.revision: out.found = true; out.data = read.data
 	return out
@@ -187,6 +200,8 @@ func _load() -> void:
 	if latest.corrupt:
 		problem = LocalizationService.text("ui_2270e519845f") if latest.found else LocalizationService.text("ui_952c27139197")
 		writable = latest.found
+	if latest.get("future",false):
+		problem = LocalizationService.text("profile_future"); writable = false
 
 static func _integers(value: Variant) -> Variant:
 	if value is float and is_finite(value) and value == floor(value) and absf(value) <= 1000000000: return int(value)

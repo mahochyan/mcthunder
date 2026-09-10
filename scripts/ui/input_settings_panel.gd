@@ -1,6 +1,10 @@
 class_name InputSettingsPanel
 extends Control
 signal closed
+signal progress_reset
+var profile: ProfileStore
+var display_preview: DisplaySettings
+var dialog: Control
 var pending_action := ""
 var status: Label
 var rows: Dictionary = {}
@@ -39,13 +43,28 @@ func _ready() -> void:
 	slider.min_value = 0.1; slider.max_value = 3; slider.step = 0.1
 	slider.value = AccessibilitySettings.mouse_sensitivity
 	contents.add_child(slider)
-	slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.mouse_sensitivity = value; InputBindingService.save())
+	slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.mouse_sensitivity = value; _save_options())
 	var invert := CheckButton.new()
 	invert.text = LocalizationService.text("ui_f00008176b3e")
 	invert.button_pressed = AccessibilitySettings.invert_y
 	contents.add_child(invert)
-	invert.toggled.connect(func(value: bool) -> void: AccessibilitySettings.invert_y = value; InputBindingService.save())
+	invert.toggled.connect(func(value: bool) -> void: AccessibilitySettings.invert_y = value; _save_options())
 	_build_accessibility(contents)
+	_build_display(contents)
+	CoreUI.label(contents,LocalizationService.text("settings_language"),17)
+	CoreUI.button(contents,LocalizationService.text("settings_reset"),func() -> void:
+		dialog = AppDialog.show(self,LocalizationService.text("settings_reset"),LocalizationService.text("settings_reset_body"),LocalizationService.text("settings_reset"),func() -> void:
+			var error := InputBindingService.reset_settings()
+			if error.is_empty(): DisplaySettings.apply_preference(InputBindingService.display); finish()
+			else: status.text = error))
+	if profile != null:
+		CoreUI.button(contents,LocalizationService.text("progress_reset"),func() -> void:
+			dialog = AppDialog.show(self,LocalizationService.text("progress_reset"),LocalizationService.text("progress_reset_body"),LocalizationService.text("progress_reset"),func() -> void:
+				var saved := profile.reset_progress()
+				if saved.ok: progress_reset.emit(); finish()
+				else: status.text = saved.reason))
+	CoreUI.button(contents,LocalizationService.text("settings_data_help"),func() -> void:
+		dialog = AppDialog.show(self,LocalizationService.text("settings_data_help"),LocalizationService.text("settings_data_help_body")))
 	for action in InputBindingService.ACTIONS:
 		var row := HBoxContainer.new()
 		contents.add_child(row)
@@ -63,6 +82,28 @@ func _ready() -> void:
 		refresh(); status.text = LocalizationService.text("ui_5b1f188a6993"))
 	close_button = CoreUI.button(footer,LocalizationService.text("ui_67a940be6b93"),finish)
 	ModalNavigation.attach(self,Callable(),func() -> bool: return not pending_action.is_empty())
+
+func _build_display(contents: VBoxContainer) -> void:
+	display_preview = DisplaySettings.new(); add_child(display_preview)
+	CoreUI.label(contents,LocalizationService.text("display_title"),19)
+	var mode := OptionButton.new(); mode.name = "DisplayMode"; contents.add_child(mode)
+	mode.add_item(LocalizationService.text("display_windowed")); mode.add_item(LocalizationService.text("display_fullscreen"))
+	mode.select(0 if InputBindingService.display.mode=="windowed" else 1)
+	var resolution := OptionButton.new(); resolution.name = "DisplayResolution"; contents.add_child(resolution)
+	for size in InputBindingService.RESOLUTIONS: resolution.add_item("%d × %d" % [size.x,size.y])
+	resolution.select(InputBindingService.RESOLUTIONS.find(Vector2i(int(InputBindingService.display.width),int(InputBindingService.display.height))))
+	CoreUI.button(contents,LocalizationService.text("display_preview"),func() -> void:
+		var size: Vector2i = InputBindingService.RESOLUTIONS[resolution.selected]
+		if not display_preview.begin({"mode":"windowed" if mode.selected==0 else "fullscreen","width":size.x,"height":size.y}): return
+		dialog = AppDialog.show(self,LocalizationService.text("display_preview"),LocalizationService.text("display_countdown") % 10,LocalizationService.text("display_confirm"),display_preview.confirm,display_preview.rollback))
+	display_preview.finished.connect(func(accepted: bool, error: String) -> void:
+		if is_instance_valid(dialog): dialog.queue_free()
+		status.text = error if not error.is_empty() else LocalizationService.text("display_saved" if accepted else "display_reverted"))
+
+func _process(_delta: float) -> void:
+	if is_instance_valid(display_preview) and display_preview.active and is_instance_valid(dialog):
+		var body := dialog.find_child("DialogBody",true,false) as RichTextLabel
+		if body != null: body.text = LocalizationService.text("display_countdown") % maxi(ceili(display_preview.remaining),0)
 
 func _build_accessibility(contents: VBoxContainer) -> void:
 	# The garage exposes the same persisted options as the battle pause menu.
@@ -113,6 +154,7 @@ func _arm_capture() -> void:
 	_capturing = not pending_action.is_empty()
 
 func _input(event: InputEvent) -> void:
+	if is_instance_valid(dialog) and not dialog.is_queued_for_deletion(): return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
 		get_viewport().set_input_as_handled()
 		if not pending_action.is_empty():

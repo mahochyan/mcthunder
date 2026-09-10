@@ -1,5 +1,20 @@
 class_name AccessibilitySettings
 extends RefCounted
+const DEFAULTS := {"ui_scale":1.0,"reduce_flashes":false,"stable_camera":true,"replay_enabled":true,"high_contrast":false,"audio_volume":0.8,"fx_level":2,"shake_strength":0.6,"mouse_sensitivity":1.0,"invert_y":false,"mechanical_volume":1.0,"effects_volume":1.0,"subtitles_enabled":true}
+const RANGES := {"ui_scale":[1.0,1.25],"audio_volume":[0,1],"fx_level":[0,2],"shake_strength":[0,1],"mouse_sensitivity":[0.1,3],"mechanical_volume":[0,1],"effects_volume":[0,1]}
+
+static func valid(values: Variant) -> bool:
+	if not values is Dictionary: return false
+	for key in values:
+		if not DEFAULTS.has(key): return false
+		if DEFAULTS[key] is bool:
+			if not values[key] is bool: return false
+		else:
+			if not (values[key] is int or values[key] is float): return false
+			var number := float(values[key])
+			if not is_finite(number) or number < RANGES[key][0] or number > RANGES[key][1]: return false
+			if key == "fx_level" and number != floor(number): return false
+	return true
 static var ui_scale := 1.0
 static var reduce_flashes := false
 static var stable_camera := true
