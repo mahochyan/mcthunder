@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PERFORMANCE_REPORT=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/performance033_1789034769/performance.json
+[PASS] actual rendered Release performance run
+[PASS] complete eight-vehicle map cycle 1
+[performance] wall=58.7 map=hill_village cycle=1 nodes=1323 memory=0
+[performance] wall=119.6 map=hill_village cycle=1 nodes=1419 memory=0
+[performance] wall=181.5 map=hill_village cycle=1 nodes=1329 memory=0
+[performance] wall=241.9 map=hill_village cycle=1 nodes=1326 memory=0
+[PASS] actual rendered map frame saved
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] normal exit settles and clears accepted projectiles once
+[FAIL] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 2
+[performance] wall=302.3 map=industrial_edge cycle=2 nodes=1157 memory=0
+[performance] wall=362.5 map=industrial_edge cycle=2 nodes=1157 memory=0
+[performance] wall=422.8 map=industrial_edge cycle=2 nodes=1260 memory=0

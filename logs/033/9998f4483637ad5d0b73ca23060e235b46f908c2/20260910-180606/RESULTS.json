@@ -1,0 +1,17 @@
+{
+  "source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "exe_sha256": "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+  "pck_sha256": "7182D9C9F3B8C4663EF046291BC2987D147234C0E9299BD8D8C6B2620840A875",
+  "command": "\"E:\\AIprogram\\PixelArmor交付\\1.0.0-rc.1-9998f448\\游戏\\PixelArmor.exe\" --resolution 1280x720 -- --verify-performance --performance-seconds 1800 --performance-cycles 20",
+  "exit_code": -1,
+  "timed_out": false,
+  "passed": false,
+  "wall_seconds": 441.3339629,
+  "requested_seconds": 1800,
+  "requested_cycles": 20,
+  "process_memory_samples": 218,
+  "peak_private_bytes": 509124608.0,
+  "peak_working_set_bytes": 352727040.0,
+  "memory_trend_review": "REQUIRES_REVIEW_OF_SAMPLES",
+  "human": "PENDING"
+}

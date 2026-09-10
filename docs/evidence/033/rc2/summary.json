@@ -1,0 +1,658 @@
+{
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "exe_sha256": "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+  "pck_sha256": "89E86493219D5624F34A781932C40006D5EC64F8D3FBD93020BA7FF4256A7CC2",
+  "wall_seconds": 1876.2612238,
+  "checks": 67,
+  "frame_times": {
+    "count": 93281,
+    "fps_from_mean": 51.8561961000279,
+    "max_ms": 2653.715,
+    "mean_ms": 19.2840986267302,
+    "p50_ms": 16.555,
+    "p95_ms": 52.913,
+    "p99_ms": 103.771
+  },
+  "groups": {
+    "hill_village_fx0": {
+      "count": 13443,
+      "fps_from_mean": 44.7423723516142,
+      "max_ms": 2653.715,
+      "mean_ms": 22.3501783084133,
+      "p50_ms": 16.578,
+      "p95_ms": 71.038,
+      "p99_ms": 113.81
+    },
+    "hill_village_fx1": {
+      "count": 12493,
+      "fps_from_mean": 48.3535490750282,
+      "max_ms": 456.861,
+      "mean_ms": 20.6810052029137,
+      "p50_ms": 16.565,
+      "p95_ms": 68.442,
+      "p99_ms": 114.073
+    },
+    "hill_village_fx2": {
+      "count": 14624,
+      "fps_from_mean": 43.3752983115824,
+      "max_ms": 467.633,
+      "mean_ms": 23.0545964852298,
+      "p50_ms": 16.606,
+      "p95_ms": 82.784,
+      "p99_ms": 157.622
+    },
+    "hill_village_replay": {
+      "count": 47,
+      "fps_from_mean": 49.2797812397115,
+      "max_ms": 223.346,
+      "mean_ms": 20.2922978723404,
+      "p50_ms": 16.474,
+      "p95_ms": 63.622,
+      "p99_ms": 223.346
+    },
+    "industrial_edge_fx0": {
+      "count": 17524,
+      "fps_from_mean": 58.3255553167671,
+      "max_ms": 455.967,
+      "mean_ms": 17.1451432321387,
+      "p50_ms": 16.536,
+      "p95_ms": 42.698,
+      "p99_ms": 69.774
+    },
+    "industrial_edge_fx1": {
+      "count": 17194,
+      "fps_from_mean": 57.2331790292119,
+      "max_ms": 435.749,
+      "mean_ms": 17.472382575317,
+      "p50_ms": 16.533,
+      "p95_ms": 46.742,
+      "p99_ms": 76.526
+    },
+    "industrial_edge_fx2": {
+      "count": 17921,
+      "fps_from_mean": 59.646958039422,
+      "max_ms": 473.695,
+      "mean_ms": 16.7653143239774,
+      "p50_ms": 16.54,
+      "p95_ms": 35.0,
+      "p99_ms": 58.718
+    },
+    "industrial_edge_replay": {
+      "count": 35,
+      "fps_from_mean": 59.1447999891849,
+      "max_ms": 70.989,
+      "mean_ms": 16.9076571428571,
+      "p50_ms": 16.658,
+      "p95_ms": 37.267,
+      "p99_ms": 70.989
+    }
+  },
+  "lifecycle_count": 20,
+  "observed_cycles": [
+    {
+      "cycle": 1,
+      "map": "hill_village",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 0.499,
+      "last_sample_wall_seconds": 299.944,
+      "last_sample_simulation_seconds": 292.11666666673,
+      "max_sampled_accepted_shots": 70
+    },
+    {
+      "cycle": 2,
+      "map": "industrial_edge",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 301.944,
+      "last_sample_wall_seconds": 600.845,
+      "last_sample_simulation_seconds": 296.666666666726,
+      "max_sampled_accepted_shots": 72
+    },
+    {
+      "cycle": 3,
+      "map": "hill_village",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 602.86,
+      "last_sample_wall_seconds": 858.89,
+      "last_sample_simulation_seconds": 252.850000000093,
+      "max_sampled_accepted_shots": 62
+    },
+    {
+      "cycle": 4,
+      "map": "industrial_edge",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 860.971,
+      "last_sample_wall_seconds": 1160.43,
+      "last_sample_simulation_seconds": 296.616666666726,
+      "max_sampled_accepted_shots": 103
+    },
+    {
+      "cycle": 5,
+      "map": "hill_village",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1162.443,
+      "last_sample_wall_seconds": 1460.803,
+      "last_sample_simulation_seconds": 291.633333333397,
+      "max_sampled_accepted_shots": 96
+    },
+    {
+      "cycle": 6,
+      "map": "industrial_edge",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1462.81,
+      "last_sample_wall_seconds": 1762.045,
+      "last_sample_simulation_seconds": 296.650000000059,
+      "max_sampled_accepted_shots": 72
+    },
+    {
+      "cycle": 7,
+      "map": "hill_village",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1764.06,
+      "last_sample_wall_seconds": 1798.098,
+      "last_sample_simulation_seconds": 31.9499999999995,
+      "max_sampled_accepted_shots": 2
+    },
+    {
+      "cycle": 8,
+      "map": "industrial_edge",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1800.858,
+      "last_sample_wall_seconds": 1804.861,
+      "last_sample_simulation_seconds": 1.16666666666667,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 9,
+      "map": "hill_village",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 1806.877,
+      "last_sample_wall_seconds": 1810.881,
+      "last_sample_simulation_seconds": 1.56666666666667,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 10,
+      "map": "industrial_edge",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 1812.894,
+      "last_sample_wall_seconds": 1816.895,
+      "last_sample_simulation_seconds": 2.0,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 11,
+      "map": "hill_village",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1818.91,
+      "last_sample_wall_seconds": 1820.914,
+      "last_sample_simulation_seconds": 0.383333333333333,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 12,
+      "map": "industrial_edge",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1823.249,
+      "last_sample_wall_seconds": 1827.262,
+      "last_sample_simulation_seconds": 1.18333333333333,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 13,
+      "map": "hill_village",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1829.277,
+      "last_sample_wall_seconds": 1833.281,
+      "last_sample_simulation_seconds": 1.58333333333333,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 14,
+      "map": "industrial_edge",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1835.293,
+      "last_sample_wall_seconds": 1839.295,
+      "last_sample_simulation_seconds": 2.01666666666666,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 15,
+      "map": "hill_village",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 1841.311,
+      "last_sample_wall_seconds": 1843.314,
+      "last_sample_simulation_seconds": 0.45,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 16,
+      "map": "industrial_edge",
+      "fx_level": 1,
+      "first_sample_wall_seconds": 1845.625,
+      "last_sample_wall_seconds": 1849.628,
+      "last_sample_simulation_seconds": 1.16666666666667,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 17,
+      "map": "hill_village",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1851.644,
+      "last_sample_wall_seconds": 1855.648,
+      "last_sample_simulation_seconds": 1.53333333333333,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 18,
+      "map": "industrial_edge",
+      "fx_level": 0,
+      "first_sample_wall_seconds": 1857.66,
+      "last_sample_wall_seconds": 1861.661,
+      "last_sample_simulation_seconds": 1.96666666666666,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 19,
+      "map": "hill_village",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1863.677,
+      "last_sample_wall_seconds": 1865.68,
+      "last_sample_simulation_seconds": 0.383333333333333,
+      "max_sampled_accepted_shots": 0
+    },
+    {
+      "cycle": 20,
+      "map": "industrial_edge",
+      "fx_level": 2,
+      "first_sample_wall_seconds": 1868.04,
+      "last_sample_wall_seconds": 1872.045,
+      "last_sample_simulation_seconds": 1.16666666666667,
+      "max_sampled_accepted_shots": 0
+    }
+  ],
+  "replay_probes": [
+    {
+      "cycle": 1,
+      "error": "",
+      "map": "hill_village",
+      "newest_complete": true,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 13,
+      "short_cycle": false
+    },
+    {
+      "cycle": 2,
+      "error": "",
+      "map": "industrial_edge",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 15,
+      "short_cycle": false
+    },
+    {
+      "cycle": 3,
+      "error": "",
+      "map": "hill_village",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 15,
+      "short_cycle": false
+    },
+    {
+      "cycle": 4,
+      "error": "",
+      "map": "industrial_edge",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 15,
+      "short_cycle": false
+    },
+    {
+      "cycle": 5,
+      "error": "",
+      "map": "hill_village",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 15,
+      "short_cycle": false
+    },
+    {
+      "cycle": 6,
+      "error": "",
+      "map": "industrial_edge",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 16,
+      "selected_index": 15,
+      "short_cycle": false
+    },
+    {
+      "cycle": 7,
+      "error": "",
+      "map": "hill_village",
+      "newest_complete": true,
+      "newest_frames": 1,
+      "newest_unavailable_reason": "",
+      "opened": true,
+      "records": 2,
+      "selected_index": 1,
+      "short_cycle": false
+    },
+    {
+      "cycle": 8,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 9,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 10,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 11,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 12,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 13,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 14,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 15,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 16,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 17,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 18,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 19,
+      "map": "hill_village",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    },
+    {
+      "cycle": 20,
+      "map": "industrial_edge",
+      "newest_complete": false,
+      "newest_frames": 0,
+      "newest_unavailable_reason": "",
+      "records": 0,
+      "selected_index": -1,
+      "short_cycle": true
+    }
+  ],
+  "post_warmup_cleanup": {
+    "nodes": {
+      "min": 397.0,
+      "median": 397.0,
+      "max": 397.0
+    },
+    "objects": {
+      "min": 3411.0,
+      "median": 3411.0,
+      "max": 3411.0
+    },
+    "resources": {
+      "min": 157.0,
+      "median": 157.0,
+      "max": 157.0
+    },
+    "orphans": {
+      "min": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    }
+  },
+  "memory_windows": [
+    {
+      "start_seconds": 0,
+      "end_seconds": 300,
+      "samples": 148,
+      "private_bytes": {
+        "min": 243478528.0,
+        "median": 499458048.0,
+        "max": 509796352.0
+      },
+      "working_set_bytes": {
+        "min": 202256384.0,
+        "median": 339478528.0,
+        "max": 339787776.0
+      }
+    },
+    {
+      "start_seconds": 300,
+      "end_seconds": 600,
+      "samples": 149,
+      "private_bytes": {
+        "min": 496406528.0,
+        "median": 501706752.0,
+        "max": 538255360.0
+      },
+      "working_set_bytes": {
+        "min": 339787776.0,
+        "median": 356388864.0,
+        "max": 356601856.0
+      }
+    },
+    {
+      "start_seconds": 600,
+      "end_seconds": 900,
+      "samples": 149,
+      "private_bytes": {
+        "min": 501772288.0,
+        "median": 510935040.0,
+        "max": 513761280.0
+      },
+      "working_set_bytes": {
+        "min": 356634624.0,
+        "median": 363855872.0,
+        "max": 367292416.0
+      }
+    },
+    {
+      "start_seconds": 900,
+      "end_seconds": 1200,
+      "samples": 148,
+      "private_bytes": {
+        "min": 507105280.0,
+        "median": 509493248.0,
+        "max": 522776576.0
+      },
+      "working_set_bytes": {
+        "min": 360460288.0,
+        "median": 362860544.0,
+        "max": 368799744.0
+      }
+    },
+    {
+      "start_seconds": 1200,
+      "end_seconds": 1500,
+      "samples": 149,
+      "private_bytes": {
+        "min": 508387328.0,
+        "median": 515387392.0,
+        "max": 520011776.0
+      },
+      "working_set_bytes": {
+        "min": 362696704.0,
+        "median": 369618944.0,
+        "max": 369680384.0
+      }
+    },
+    {
+      "start_seconds": 1500,
+      "end_seconds": 1800,
+      "samples": 149,
+      "private_bytes": {
+        "min": 505651200.0,
+        "median": 509464576.0,
+        "max": 523702272.0
+      },
+      "working_set_bytes": {
+        "min": 360173568.0,
+        "median": 363036672.0,
+        "max": 372576256.0
+      }
+    },
+    {
+      "start_seconds": 1800,
+      "end_seconds": 1873.9528668,
+      "samples": 37,
+      "private_bytes": {
+        "min": 505970688.0,
+        "median": 516005888.0,
+        "max": 523702272.0
+      },
+      "working_set_bytes": {
+        "min": 291794944.0,
+        "median": 362848256.0,
+        "max": 372576256.0
+      }
+    }
+  ],
+  "private_mib_per_minute_after_600s": 0.11173678382206664,
+  "working_set_mib_per_minute_after_600s": 0.11107410776813548,
+  "observed_resource_peaks": {
+    "live": 8,
+    "wrecks": 5,
+    "projectiles": 2,
+    "records": 16,
+    "audio_voices": 26,
+    "fx_active": 5,
+    "fires": 2,
+    "retained_fragment_paths": 96
+  },
+  "sampled_cpu_gpu_ms": {
+    "process_ms": {
+      "min": 0.0,
+      "median": 15.625,
+      "max": 530.127
+    },
+    "physics_ms": {
+      "min": 0.0,
+      "median": 47.029,
+      "max": 172.764
+    },
+    "render_cpu_ms": {
+      "min": 0.0,
+      "median": 1.15199995040894,
+      "max": 2.42000007629395
+    },
+    "render_gpu_ms": {
+      "min": 0.0,
+      "median": 3.71600008010864,
+      "max": 45.9129981994629
+    }
+  },
+  "input_hashes": {
+    "performance.json": "a65997ef4d4613de30beaa991900f1bafc04e7627024021b60ad6c28ae712dd2",
+    "RESULTS.json": "3fa11fe5864cc09fc9d215d3857b942678a5a27170e6a0ec1b42c286f55d197e",
+    "process-memory.json": "3d5b38fc0266d8fdb8badbaa20e99ac6e242630114010b91cecbcde5c8e49b62",
+    "hardware.json": "dbe383fdb70308c592789ca498792559a6be794b865eb5dcafef0c9bebfca4a2"
+  }
+}

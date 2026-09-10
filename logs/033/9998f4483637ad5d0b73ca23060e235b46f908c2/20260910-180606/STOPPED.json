@@ -1,0 +1,7 @@
+{
+  "time": "2026-09-10T18:13:28.2490757+08:00",
+  "reason": "Stopped after failed first replay check; verifier assumes the newest shot record always has complete replay geometry. Preserve partial samples, revise record selection, then rerun.",
+  "source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "complete": false,
+  "passed": false
+}

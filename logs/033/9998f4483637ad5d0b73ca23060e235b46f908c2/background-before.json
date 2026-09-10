@@ -1,0 +1,20 @@
+{
+  "processes": [
+    {
+      "ProcessName": "blender",
+      "Id": 44900,
+      "CPU": 2930.53125
+    },
+    {
+      "ProcessName": "blender",
+      "Id": 47208,
+      "CPU": 783.546875
+    },
+    {
+      "ProcessName": "blender-mcp",
+      "Id": 46744,
+      "CPU": 0.0
+    }
+  ],
+  "time": "2026-09-10T18:06:05.9846072+08:00"
+}

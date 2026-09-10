@@ -1,0 +1,34 @@
+{
+  "os": {
+    "Caption": "Microsoft Windows 11 专业版",
+    "Version": "10.0.26200",
+    "TotalVisibleMemorySize": 33289512
+  },
+  "cpu": {
+    "Name": "13th Gen Intel(R) Core(TM) i5-13400",
+    "NumberOfCores": 10,
+    "NumberOfLogicalProcessors": 16
+  },
+  "gpu": [
+    {
+      "Name": "GameViewer Virtual Display Adapter",
+      "DriverVersion": "17.13.25.697",
+      "AdapterRAM": null
+    },
+    {
+      "Name": "Parsec Virtual Display Adapter",
+      "DriverVersion": "0.45.0.0",
+      "AdapterRAM": null
+    },
+    {
+      "Name": "Virtual Display Device",
+      "DriverVersion": "1.0.0.9",
+      "AdapterRAM": null
+    },
+    {
+      "Name": "NVIDIA GeForce RTX 4070 SUPER",
+      "DriverVersion": "32.0.15.9186",
+      "AdapterRAM": 4293918720
+    }
+  ]
+}

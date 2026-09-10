@@ -1,0 +1,123 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PERFORMANCE_REPORT=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/performance033_1789037802/performance.json
+[PASS] actual rendered Release performance run
+[PASS] complete eight-vehicle map cycle 1
+[performance] wall=58.7 map=hill_village cycle=1 nodes=1323 memory=0
+[performance] wall=119.4 map=hill_village cycle=1 nodes=1419 memory=0
+[performance] wall=180.9 map=hill_village cycle=1 nodes=1329 memory=0
+[performance] wall=241.4 map=hill_village cycle=1 nodes=1326 memory=0
+[PASS] actual rendered map frame saved
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 2
+[performance] wall=301.9 map=industrial_edge cycle=2 nodes=1157 memory=0
+[performance] wall=362.0 map=industrial_edge cycle=2 nodes=1157 memory=0
+[performance] wall=422.2 map=industrial_edge cycle=2 nodes=1260 memory=0
+[performance] wall=482.5 map=industrial_edge cycle=2 nodes=1305 memory=0
+[performance] wall=542.7 map=industrial_edge cycle=2 nodes=1165 memory=0
+[PASS] actual rendered map frame saved
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_02.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 3
+[performance] wall=602.9 map=hill_village cycle=3 nodes=1224 memory=0
+[performance] wall=663.0 map=hill_village cycle=3 nodes=1228 memory=0
+[performance] wall=723.4 map=hill_village cycle=3 nodes=1230 memory=0
+[performance] wall=783.8 map=hill_village cycle=3 nodes=1328 memory=0
+[performance] wall=844.5 map=hill_village cycle=3 nodes=1465 memory=0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_03.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 4
+[performance] wall=905.0 map=industrial_edge cycle=4 nodes=1158 memory=0
+[performance] wall=965.3 map=industrial_edge cycle=4 nodes=1213 memory=0
+[performance] wall=1025.6 map=industrial_edge cycle=4 nodes=1260 memory=0
+[performance] wall=1086.0 map=industrial_edge cycle=4 nodes=1256 memory=0
+[performance] wall=1146.3 map=industrial_edge cycle=4 nodes=1256 memory=0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_04.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 5
+[performance] wall=1208.7 map=hill_village cycle=5 nodes=1230 memory=0
+[performance] wall=1269.0 map=hill_village cycle=5 nodes=1279 memory=0
+[performance] wall=1329.5 map=hill_village cycle=5 nodes=1415 memory=0
+[performance] wall=1390.1 map=hill_village cycle=5 nodes=1370 memory=0
+[performance] wall=1450.7 map=hill_village cycle=5 nodes=1326 memory=0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_05.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 6
+[performance] wall=1510.9 map=industrial_edge cycle=6 nodes=1157 memory=0
+[performance] wall=1571.2 map=industrial_edge cycle=6 nodes=1210 memory=0
+[performance] wall=1631.5 map=industrial_edge cycle=6 nodes=1349 memory=0
+[performance] wall=1691.8 map=industrial_edge cycle=6 nodes=1305 memory=0
+[performance] wall=1752.0 map=industrial_edge cycle=6 nodes=1164 memory=0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_06.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 7
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_07.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 8
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_08.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 9
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_09.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 10
+[performance] wall=1812.9 map=industrial_edge cycle=10 nodes=1157 memory=0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_00.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 11
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 12
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_02.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 13
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_03.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 14
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_04.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 15
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_05.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 16
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_06.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 17
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_07.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 18
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_08.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 19
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_09.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] complete eight-vehicle map cycle 20
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_00.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] scene lifecycles remain bounded after four warm-up cycles
+[PASS] requested real wall duration and lifecycle count completed
+[PASS] real frame-time and resource samples captured
+[PASS] bounded frame recorder did not truncate the requested measurement
+=== 结果: 67 项检查, 0 失败 ===
+PERFORMANCE_CHECKS_PASS

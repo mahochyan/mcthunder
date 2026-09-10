@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PERFORMANCE_REPORT=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/performance033_1789035484/performance.json
+[PASS] actual rendered Release performance run
+[PASS] complete eight-vehicle map cycle 1
+[performance] wall=58.7 map=hill_village cycle=1 nodes=1323 memory=0
+[performance] wall=119.4 map=hill_village cycle=1 nodes=1419 memory=0
+[performance] wall=181.1 map=hill_village cycle=1 nodes=1373 memory=0
+[performance] wall=242.1 map=hill_village cycle=1 nodes=1322 memory=0
+[PASS] actual rendered map frame saved
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] long battle retains an actual complete replay with target geometry
+[PASS] settled battle opens its real recorded replay
+[PASS] replay presentation preserves frozen battle result
+[PASS] complete eight-vehicle map cycle 2
+[performance] wall=302.8 map=industrial_edge cycle=2 nodes=1157 memory=0
+[PASS] actual rendered map frame saved
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_02.json
+[PASS] normal exit settles and clears accepted projectiles once
+[PASS] scene lifecycles remain bounded after four warm-up cycles
+[PASS] requested real wall duration and lifecycle count completed
+[PASS] real frame-time and resource samples captured
+[PASS] bounded frame recorder did not truncate the requested measurement
+=== 结果: 14 项检查, 0 失败 ===
+PERFORMANCE_CHECKS_PASS

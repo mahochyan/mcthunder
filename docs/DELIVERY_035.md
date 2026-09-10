@@ -1,12 +1,12 @@
 # 035 本地发行资料与素材清点
 
-说明对象固定为 `1.0.0-rc.1`、源码 `9998f4483637ad5d0b73ca23060e235b46f908c2` 的 Windows x64 候选，包身份见 DELIVERY_031.md。资料准备范围是本地交付；不宣布公开分发许可已完备。
+说明对象固定为 `1.0.0-rc.2`、源码 `b90511496fe84195ee8421bd3b4c6bfce2768b7a` 的 Windows x64 候选，包身份见 DELIVERY_031.md。资料准备范围是本地交付；不宣布公开分发许可已完备。
 
 RELEASE_DESCRIPTION_RC.md 描述已实现的四车、两图、4v4、有限弹速/装甲/内构毁伤、三挑战、教学、中文设置、车库和保存流程，并明确无联网、车体冲量/阻尼悬挂和完整战争雷霆规模。ASSET_REGISTER_RC.md 分别列出四车 GLB、生成图集、原创场景/着色器、13 份合成音频、Noto 字库、Godot 模板及其许可。
 
 实际独立包已含开始游戏、恢复说明、素材与许可、完整 GODOT_LICENSES.txt 和 FONT_OFL.txt。安装诊断验证运行资源完整、开发目录未混入 PCK，逐文件 SHA256 已复算。最终窗口图来自 034 的相同 EXE/PCK，不使用概念图或 99A 渲染充当实机图；图像选择与目视状态见 QA_REPORT_RC.md。
 
-只读源码审计 `authoring/audit_release_source.py` 在 9998f44 跟踪文本中扫描 2211 文件，未发现配置模式的凭据候选；四个 GLB 哈希吻合，字库许可存在。原记录 `logs/031/source-audit-9998f44.json`。扫描排除大文件/二进制，不能将“零候选”写成保证没有任何秘密。未发现运行代码中的 HTTPRequest/HTTPClient/WebSocket/TCP 接入；实际断网环境仍 NOT_RUN。
+只读源码审计 `authoring/audit_release_source.py` 在 b905114 的工作树跟踪文本中（唯一已跟踪修改是接续说明 NEXT_ACTION.md）扫描 2341 文件，未发现配置模式的凭据候选；四个 GLB 哈希吻合，字库许可存在。原记录 `logs/031/source-audit-b905114.json`。扫描排除大文件/二进制，不能将“零候选”写成保证没有任何秘密。未发现运行代码中的 HTTPRequest/HTTPClient/WebSocket/TCP 接入；实际断网环境仍 NOT_RUN。
 
 公共素材权利尚有明确保留：共享生成图集参照用户提供图片，不能由“生成图”标签推定原始参考权利。原始参考图、史料和建模文件未放入四车游戏 PCK；公开源代码与二进制分发面分别审查。状态为 **PENDING_HOLDER_REVIEW**，不执行商店提交、上传包、购买签名或对外发布。
 

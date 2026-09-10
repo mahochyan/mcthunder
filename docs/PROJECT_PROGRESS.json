@@ -2,7 +2,7 @@
   "schema_version": 1,
   "objective": "原创low-poly低多边形装甲游戏，外形尽量贴近原型，玩法尽可能还原战争雷霆陆战内容",
   "authorization": "2026-09-08 user: 按照计划完成后续开发",
-  "current_order": "033",
+  "current_order": "036",
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "orders": {
     "030": {
@@ -87,10 +87,12 @@
     },
     "034": {
       "human": "not_run",
-      "engineering": "pending_final_rc2_player_flow",
+      "engineering": "passed_final_rc2_player_flow_80",
       "content_history": "test_only",
-      "implementation": "implemented",
-      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a"
+      "implementation": "implemented_and_verified",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+      "report": "docs/DELIVERY_034.md",
+      "remaining": "human and other hardware pending"
     },
     "021": {
       "full_regression_sha": "10a76123a03304efb1232ed41f2b3e20c1da38ba",
@@ -145,9 +147,13 @@
     },
     "036": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "passed_self_review_with_known_p2",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "local_rc_frozen",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+      "report": "docs/DELIVERY_036.md",
+      "public_release": false,
+      "remaining": "human acceptance; public reference rights; performance and UI P2s"
     },
     "022": {
       "report": "docs/DELIVERY_022.md",
@@ -217,10 +223,13 @@
     },
     "033": {
       "human": "not_run",
-      "engineering": "final_release_measurement_running",
+      "engineering": "passed_stability_with_performance_gap",
       "content_history": "test_only",
-      "implementation": "implemented_pending_final_measurement",
-      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a"
+      "implementation": "implemented_and_measured",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+      "report": "docs/DELIVERY_033.md",
+      "performance_target": "not_met_60fps",
+      "remaining": "PERF-RC2-01 P2 frame-time spikes and human hardware acceptance"
     },
     "018": {
       "implementation": "implemented",
@@ -232,9 +241,12 @@
     },
     "035": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "passed_local_audit_public_rights_pending",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "local_materials_prepared",
+      "code_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+      "report": "docs/DELIVERY_035.md",
+      "public_rights": "PENDING_HOLDER_REVIEW"
     },
     "016": {
       "engineering": "passed_self_review",
@@ -257,5 +269,10 @@
   },
   "visual_strategy": "docs/ART_DIRECTION_LOW_POLY.md",
   "working_directory": "E:/AIprogram/mcthunder-mainline",
-  "working_branch": "codex/mainline-027-continuation"
+  "working_branch": "codex/mainline-027-continuation",
+  "overall_status": "mainline_local_rc_delivered_with_known_p2",
+  "runtime_source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "version": "1.0.0-rc.2",
+  "delivery_directory": "E:/AIprogram/PixelArmor交付/1.0.0-rc.2-b9051149",
+  "human_acceptance": "PENDING"
 }

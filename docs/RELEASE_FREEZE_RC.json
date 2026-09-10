@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0-rc.2",
+  "runtime_source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "branch": "codex/mainline-027-continuation",
+  "frozen_at": "2026-09-10T19:48:31.103825+08:00",
+  "status": "local_rc_with_known_p2",
+  "delivery_directory": "E:/AIprogram/PixelArmor交付/1.0.0-rc.2-b9051149",
+  "zip": {
+    "name": "PixelArmor-1.0.0-rc.2-Windows-x64-b9051149.zip",
+    "sha256": "04EDB54E8099F24D0948A1D2F7B541D6D2B32401C5ED3935C4CD6A3AFEB55FF0"
+  },
+  "build_manifest_sha256": "C140EB221EEA98A6D112425B5EB7F520CC6F1BC20B8F531703D2A9E08AE2F494",
+  "exe_sha256": "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+  "pck_sha256": "89E86493219D5624F34A781932C40006D5EC64F8D3FBD93020BA7FF4256A7CC2",
+  "source_archive": {
+    "path": "E:/AIprogram/mcthunder-mainline/backups/builds/031/b90511496fe84195ee8421bd3b4c6bfce2768b7a/20260910-181711-688/committed-source.zip",
+    "sha256": "7F8D86622F12EC2747621066196649FEB11AB12A129CB558C43E54D16D5D8E88"
+  },
+  "tracked_runtime_tree_matches_tested_source": true,
+  "evidence": {
+    "regression": {
+      "path": "logs/031/b90511496fe84195ee8421bd3b4c6bfce2768b7a/build-20260910-181711-688/regression/RESULTS.json",
+      "checks": 2796,
+      "suites": 39,
+      "sha256": "B5DED8B2A1E3469FB7CBCA6E837BCD82D3E51B3F76B6054DFFB2CFBF4B9F5AE5"
+    },
+    "installation": {
+      "content_checks": 34,
+      "window_checks": 35,
+      "path": "logs/031/b90511496fe84195ee8421bd3b4c6bfce2768b7a/build-20260910-181711-688"
+    },
+    "performance": {
+      "path": "logs/033/b90511496fe84195ee8421bd3b4c6bfce2768b7a/20260910-185638",
+      "checks": 67,
+      "wall_seconds": 1876.2612238,
+      "cycles": 20,
+      "result_sha256": "3FA11FE5864CC09FC9D215D3857B942678A5A27170E6A0EC1B42C286F55D197E"
+    },
+    "player_flow": {
+      "path": "logs/034/b90511496fe84195ee8421bd3b4c6bfce2768b7a/20260910-192835",
+      "checks": 80,
+      "result_sha256": "FC325E062A686578CF88875F8BE3471D3E1A6E6A92F779CACDDE2EB61EA6DD84"
+    }
+  },
+  "acceptance": {
+    "engineering": "passed_self_review_with_known_p2",
+    "human": "PENDING",
+    "unfamiliar_player": "PENDING",
+    "historical_content": "field_level_sources_estimates_unknowns_retained",
+    "public_reference_rights": "PENDING_HOLDER_REVIEW",
+    "public_release_authorized": false
+  },
+  "known_p2": [
+    "PERF-RC2-01: target 60 FPS not met; village frame-time spikes",
+    "HUD masks vehicle and subtitles may overlap settlement",
+    "UI-L10N-RC2-01: one dynamic crew role still English"
+  ],
+  "deferred": [
+    "directional hull recoil and suspension physics",
+    "muzzle/fire/dust and vehicle presentation polish",
+    "99A acceptance and separate gameplay integration"
+  ],
+  "rule_manifest": "docs/RULESET_1_0_RC.json",
+  "patch_protocol": "docs/PATCH_PROTOCOL_RC.md"
+}

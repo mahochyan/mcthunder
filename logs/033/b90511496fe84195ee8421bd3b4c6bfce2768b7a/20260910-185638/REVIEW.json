@@ -1,0 +1,24 @@
+{
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "reviewer": "Codex engineering self-review",
+  "human": "PENDING",
+  "stability": "passed_67_checks_20_lifecycles",
+  "fps_60_target_met": false,
+  "memory_review": "After four warm-up cycles, freed node/object/resource/orphan counts are constant. Post-600s private-memory window medians fluctuate rather than increase monotonically. Sampling/allocator overhead not heap-attributed; no universal leak-free claim.",
+  "findings": [
+    {
+      "id": "PERF-RC2-01",
+      "severity": "P2",
+      "average_fps": 51.8561961000279,
+      "p99_ms": 103.771,
+      "max_frame_ms": 2653.715,
+      "trigger": "not localized; no per-frame timestamps were retained"
+    }
+  ],
+  "input_hashes": {
+    "performance.json": "a65997ef4d4613de30beaa991900f1bafc04e7627024021b60ad6c28ae712dd2",
+    "RESULTS.json": "3fa11fe5864cc09fc9d215d3857b942678a5a27170e6a0ec1b42c286f55d197e",
+    "process-memory.json": "3d5b38fc0266d8fdb8badbaa20e99ac6e242630114010b91cecbcde5c8e49b62",
+    "hardware.json": "dbe383fdb70308c592789ca498792559a6be794b865eb5dcafef0c9bebfca4a2"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "reviewer": "Codex engineering visual self-review",
+  "human": "PENDING",
+  "reviewed_images": [
+    "00_garage_main_menu.png",
+    "05_real_shot_replay.png",
+    "10_settled_0.png",
+    "10_settled_1.png"
+  ],
+  "observations": [
+    "RC2 version text and Chinese primary controls visible",
+    "actual recorded replay rendered",
+    "village 295.6s 0:180; industrial 355.8s 0:300, player idle as documented",
+    "P2 battle subtitles may overlap settlement statistics; HUD masks a substantial part of the vehicle view"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "source_sha": "b90511496fe84195ee8421bd3b4c6bfce2768b7a",
+  "exe_sha256": "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+  "pck_sha256": "573FFF6315B3F5EFC0922C87E9FCE1491B32B5BD8261225E26D71BDDAC2C02C4",
+  "command": "\"E:\\AIprogram\\mcthunder-mainline\\backups\\rc2-replay-probe\\PixelArmor.exe\" --resolution 1280x720 -- --verify-performance --performance-seconds 300 --performance-cycles 2",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "wall_seconds": 308.8980903,
+  "requested_seconds": 300,
+  "requested_cycles": 2,
+  "process_memory_samples": 152,
+  "peak_private_bytes": 533569536.0,
+  "peak_working_set_bytes": 351416320.0,
+  "memory_trend_review": "REQUIRES_REVIEW_OF_SAMPLES",
+  "human": "PENDING"
+}
