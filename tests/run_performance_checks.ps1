@@ -8,6 +8,11 @@ $ErrorActionPreference='Stop'
 if ($Seconds -lt 10 -or $Seconds -gt 3600 -or $Cycles -lt 2 -or $Cycles -gt 40) { throw 'Invalid bounded performance request' }
 if ($SourceSha -notmatch '^[0-9a-f]{40}$') { throw 'Provide the exact exported source SHA' }
 $Executable=(Resolve-Path -LiteralPath $Executable).Path
+$manifestPath=Join-Path (Split-Path -Parent $Executable) 'BUILD_MANIFEST.json'
+if (Test-Path -LiteralPath $manifestPath) {
+    $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+    if ($manifest.source_sha -ne $SourceSha) { throw 'Requested source differs from actual package manifest' }
+}
 $projectRoot=Split-Path -Parent $PSScriptRoot
 $out=Join-Path $projectRoot ('logs/033/'+$SourceSha+'/'+(Get-Date -Format 'yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Force $out | Out-Null
