@@ -44,7 +44,7 @@ static func test_options() -> Array[ShellDefinition]:
 		shell.effect_policy = "kinetic" if index==0 else "internal_burst"
 		shell.penetration_curve = PackedVector2Array([Vector2(0,120 if index==0 else 96)])
 		shell.penetration_mm = shell.penetration_curve[0].y
-		shell.verification = "estimated"; shell.source_refs = ["TEST ONLY 021 comparison: APHE=AP*0.8 is not historical"]
+		shell.verification = "estimated"; shell.source_refs = [LocalizationService.text("ui_aebd85d9b703")]
 		out.append(shell)
 	return out
 
@@ -82,39 +82,43 @@ func select_case(index: int) -> void:
 		mesh.transform=module.local_box_transform; var material := StandardMaterial3D.new()
 		material.albedo_color=Color("#4a957a"); mesh.material_override=material; target_visual.add_child(mesh)
 		markers.append({"mesh":mesh,"id":module.id})
-	var label := Label3D.new(); label.text="THIN 20 mm" if index==0 else "THICK 100 mm"
+	var label := Label3D.new(); label.text=LocalizationService.text("ui_f195564e8128") if index==0 else LocalizationService.text("ui_46dd4766e5e7")
+	label.font = CoreUI.FONT
 	label.position=Vector3(0,4.0,0); label.font_size=48; target_visual.add_child(label)
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	if status_label==null or not is_instance_valid(target_actor): return
-	hud.control_label.text="AP / APHE LAB · TEST ONLY"
-	hud.hint_label.text="1 AP / 2 APHE: select NEXT load\n3 thin / 4 thick target · X see inside\nLMB fire · RMB sight · R full restart · Esc menu"
+	hud.control_label.text=LocalizationService.text("ui_0fd9a0919b63")
+	hud.hint_label.text=LocalizationService.text("ui_b13d94d68686")
 	var gun := actor.gunner
 	var stock := gun.inventory.shell_counts()
-	var lines: Array[String] = ["AP 120 vs APHE 96", "Game design values only", "", "Loaded: "+gun.shell_label(gun.inventory.chamber_shell),
-		"Carrying: "+gun.shell_label(gun.inventory.transfer_shell),"Next: "+gun.shell_label(gun.inventory.selected_shell),
-		"AP %d / APHE %d"%[stock.get("test_ap120",0),stock.get("test_aphe96",0)],"", "TARGET: "+("20 mm" if case_index==0 else "100 mm")]
+	var lines: Array[String] = ["AP 120 vs APHE 96", LocalizationService.text("ui_7f093308852f"), "", LocalizationService.text("ui_4e97fe2143a0")+gun.shell_label(gun.inventory.chamber_shell),
+		LocalizationService.text("ui_f62301ee8259")+gun.shell_label(gun.inventory.transfer_shell),LocalizationService.text("ui_1ee8f7531e33")+gun.shell_label(gun.inventory.selected_shell),
+		"AP %d / APHE %d"%[stock.get("test_ap120",0),stock.get("test_aphe96",0)],"", LocalizationService.text("ui_9232eb0a99d3")+("20 mm" if case_index==0 else "100 mm")]
 	for marker in markers:
 		var integrity := float(target_actor.state.module_states[marker.id].integrity)
 		marker.mesh.material_override.albedo_color=Color("#4a957a") if integrity>99 else Color("#e76643")
 		marker.mesh.visible=xray
-		lines.append("%s: %.0f%%"%[str(marker.id).replace("component_","module "),integrity])
+		lines.append("%s: %.0f%%"%[str(marker.id).replace("component_",LocalizationService.text("ui_0d80aaf2098d")),integrity])
 	for surface in surfaces: surface.material_override.albedo_color=Color(0.63,0.56,0.37,0.22 if xray else 1.0)
 	if not last_record.is_empty():
 		var outcome := str(last_record.terminal.reason).replace("_"," ")
-		if not last_record.contacts.is_empty(): outcome="entry "+str(last_record.contacts[0].result)
+		if not last_record.contacts.is_empty(): outcome=LocalizationService.text("ui_ebc766ef604d")+str(last_record.contacts[0].result)
 		lines.append("\n"+gun.shell_label(last_record.identity.shell_id)+": "+outcome)
-		lines.append("Fragments %d / recorded hits %d"%[last_record.get("fragments",[]).size(),last_record.damage.size()])
-	lines.append("\nAP continues along its path.\nAPHE: inside 0.8m, at most 12 rays.\nEarly exit cancels inside burst.\nV replay: actual recorded paths.")
+		lines.append(LocalizationService.text("ui_7f5fdf0e0668")%[last_record.get("fragments",[]).size(),last_record.damage.size()])
+	lines.append(LocalizationService.text("ui_84d64df961bc"))
 	status_label.text="\n".join(lines)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and not _paused:
-		if event.keycode in [KEY_3,KEY_4]: select_case(0 if event.keycode==KEY_3 else 1); get_viewport().set_input_as_handled(); return
-		if event.keycode==KEY_X: xray=not xray; return
+	if event.is_pressed() and not event.is_echo() and not _paused:
+		if event.is_action_pressed("shell_target_thin") or event.is_action_pressed("shell_target_thick"):
+			select_case(0 if event.is_action_pressed("shell_target_thin") else 1); get_viewport().set_input_as_handled(); return
+		if event.is_action_pressed("xray"): xray=not xray; return
 	if event.is_action_pressed("toggle_target"): return
 	super._unhandled_input(event)
 
 func _reset_range() -> void:
 	actor.reset_vehicle(); select_case(case_index)
+
+func input_context() -> String: return "shell"

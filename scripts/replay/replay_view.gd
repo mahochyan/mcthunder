@@ -27,6 +27,7 @@ var _elapsed := 0.0
 var _auto_close := true
 
 func _ready() -> void:
+	theme = CoreUI.theme()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	offset_left = -356
@@ -122,7 +123,7 @@ func present(source: Dictionary, auto_close: bool = true) -> Dictionary:
 	current_time = 0.0
 	_frame_index = -1
 	visible = true
-	_title.text = "SHOT #%d REPLAY · V CLOSE" % record.identity.shot_id
+	_title.text = LocalizationService.text("ui_6625458962e5") % record.identity.shot_id
 	seek(0)
 	return {"ok":true}
 
@@ -130,7 +131,7 @@ func show_error(reason: String) -> void:
 	clear_display()
 	error_reason = reason
 	visible = true
-	_title.text = "REPLAY UNAVAILABLE · V CLOSE"
+	_title.text = LocalizationService.text("ui_8f9e83f3124d")
 	_details.text = reason.replace("_"," ")
 
 func clear_display() -> void:
@@ -292,7 +293,7 @@ func _update_highlights() -> void:
 		if damaged: highlighted_items.append(str(row.kind)+":"+str(row.id))
 
 func _update_details() -> void:
-	if chinese: _title.text = "实弹回放 · V 关闭"
+	if chinese: _title.text = LocalizationService.text("ui_ccb2595c65fb")
 	var event: Dictionary = {}
 	if selected_event>=0:
 		event = events[selected_event]
@@ -300,13 +301,13 @@ func _update_details() -> void:
 		for candidate in events:
 			if float(candidate.flight_time_s)<=current_time+1e-7: event = candidate
 	if event.is_empty():
-		_details.text = ("实际飞行 · %.3f 秒\nN 接触 · , / . 历史 · J 导出" if chinese else "RECORDED FLIGHT · %.3f s\nN contact · , / . history · J export") % current_time
+		_details.text = (LocalizationService.text("ui_24131eda627d") if chinese else LocalizationService.text("ui_b6dc3614fbac")) % current_time
 		return
 	var item := str(event.get("item_id",event.get("surface_id","")))
 	var result := str(event.get("result",event.get("reason",""))).replace("_"," ").to_upper()
-	_details.text = "%s · %s\n%.1f → %.1f mm · N next contact" % [item.replace("_"," "),result,event.get("before_mm",0),event.get("after_mm",0)]
+	_details.text = LocalizationService.text("ui_bfc28a25b822") % [item.replace("_"," "),result,event.get("before_mm",0),event.get("after_mm",0)]
 	if chinese:
-		_details.text = "%s · %s\n%.1f → %.1f mm · N 下一接触" % [CoreUI.word(item),CoreUI.word(str(event.get("result",event.get("reason","")))),event.get("before_mm",0),event.get("after_mm",0)]
+		_details.text = LocalizationService.text("ui_3146efe37af8") % [CoreUI.word(item),CoreUI.word(str(event.get("result",event.get("reason","")))),event.get("before_mm",0),event.get("after_mm",0)]
 
 static func _material(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()

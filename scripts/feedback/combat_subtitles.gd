@@ -1,6 +1,6 @@
 class_name CombatSubtitles
 extends CanvasLayer
-const CAPTIONS := {"shot":"炮声","flyby":"炮弹掠过","reload":"装填完成","non_penetration":"装甲撞击","ricochet":"跳弹","penetrated":"穿透撞击","explosion":"殉爆","destroyed":"车辆毁坏","world":"弹着撞击"}
+static var CAPTIONS := {"shot":LocalizationService.text("ui_eefc14db1d25"),"flyby":LocalizationService.text("ui_31f64f460df5"),"reload":LocalizationService.text("ui_f75e3b3c92c9"),"non_penetration":LocalizationService.text("ui_45c77ca87652"),"ricochet":LocalizationService.text("ui_ccc03fd96808"),"penetrated":LocalizationService.text("ui_3a2fddbbba86"),"explosion":LocalizationService.text("ui_421ca87ebbdb"),"destroyed":LocalizationService.text("ui_633312c90ed3"),"world":LocalizationService.text("ui_e5138fa0d11b")}
 var label: Label
 var recent: Array[Dictionary] = []
 

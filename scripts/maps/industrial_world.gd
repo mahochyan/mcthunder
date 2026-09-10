@@ -20,14 +20,14 @@ static func build(parent: Node3D, map: MapDefinition, graybox: bool = false) -> 
 		var marker := CoreVehicleVisual.box(parent,p+Vector3.UP*0.025,Vector3(14,0.03,8),Color("8f9a81"))
 		WorldCollisionRules.tag(marker,"supply_reservation")
 		var label := Label3D.new(); label.font = CoreUI.FONT
-		label.text = "弹药补给 · 驻车每2秒1发"; label.font_size = 40; label.position = p+Vector3(0,2,0)
+		label.text = LocalizationService.text("ui_ece721eb24a9"); label.font_size = 40; label.position = p+Vector3(0,2,0)
 		parent.add_child(label)
 	if not graybox:
 		WorldArtKit.rail_details(parent)
 		WorldProps.build(parent,map)
 		for side in [-1,1]:
 			var sign := Label3D.new(); sign.font = CoreUI.FONT; sign.font_size = 70
-			sign.text = "货运广场  A"; sign.position = Vector3(side*65,2.5,side*1.05)
+			sign.text = LocalizationService.text("ui_f050eb6b07fc"); sign.position = Vector3(side*65,2.5,side*1.05)
 			if side<0: sign.rotation.y = PI
 			parent.add_child(sign); WorldCollisionRules.tag(sign,"sign")
 	WorldLighting.build(parent)

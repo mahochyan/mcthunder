@@ -1,6 +1,7 @@
 """Inventory GDScript string literals without treating comments as UI text."""
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,18 @@ def literals(source):
         yield match, value
 
 def main():
+    if '--english' in sys.argv:
+        out = {}
+        for path in sorted((ROOT / 'scripts').rglob('*.gd')):
+            source = path.read_text(encoding='utf-8-sig')
+            for match, value in literals(source):
+                prefix = source[source.rfind('\n', 0, match.start())+1:match.start()]
+                if re.search('[\u3400-\u9fff]', value) or not re.search('[a-zA-Z]{3}', value):
+                    continue
+                if any(token in prefix for token in ['.text', 'label(', 'button(', 'add_item(', 'add_text(', 'append_text(']):
+                    out.setdefault(path.relative_to(ROOT).as_posix(), []).append(value)
+        print(json.dumps(out, ensure_ascii=True, indent=2))
+        return
     records = []
     for path in sorted((ROOT / 'scripts').rglob('*.gd')):
         source = path.read_text(encoding='utf-8-sig')

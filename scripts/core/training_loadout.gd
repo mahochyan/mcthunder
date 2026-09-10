@@ -3,11 +3,11 @@ extends RefCounted
 const SHELLS := {"ap70":70.0,"ap120":120.0}
 
 static func validate(value: Dictionary) -> Dictionary:
-	if value.get("vehicle_id","") != "test_vehicle": return {"ok":false,"reason":"请选择可用的工程测试车"}
-	if not SHELLS.has(value.get("shell_id","")): return {"ok":false,"reason":"弹种不可用"}
+	if value.get("vehicle_id","") != "test_vehicle": return {"ok":false,"reason":LocalizationService.text("ui_96602d1248bc")}
+	if not SHELLS.has(value.get("shell_id","")): return {"ok":false,"reason":LocalizationService.text("ui_6d8f21a11885")}
 	var rounds: Variant = value.get("rounds")
-	if not rounds is int or rounds < 1 or rounds > 30: return {"ok":false,"reason":"携弹量必须为1至30发"}
-	if not value.get("infinite") is bool: return {"ok":false,"reason":"训练补给设置无效"}
+	if not rounds is int or rounds < 1 or rounds > 30: return {"ok":false,"reason":LocalizationService.text("ui_ec430569133a")}
+	if not value.get("infinite") is bool: return {"ok":false,"reason":LocalizationService.text("ui_ce01cbdfa8c6")}
 	return {"ok":true,"loadout":value.duplicate(true)}
 
 static func apply(vehicle: VehicleActor, value: Dictionary) -> Dictionary:

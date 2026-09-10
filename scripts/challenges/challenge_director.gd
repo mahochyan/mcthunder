@@ -128,7 +128,7 @@ func finish_once(passed: bool, reason: String) -> bool:
 	return true
 func progress_text() -> String:
 	match config.id:
-		"flank_hunter": return "侧后穿透 %s · 击毁 %d/1"%["已确认" if flank_hits.has("B1") else "尚未确认",kills.size()]
-		"hold_ground": return "驻守 %.0f/%.0f秒 · 击毁 %d/2 · 有效维修 %d%s"%[held,config.hold,kills.size(),repairs," · 第二波等候道路清空" if spawn_waiting else ""]
-		"td_route": return "道路检查点 %d/2 · 连续占点 %.0f/%.0f秒"%[checkpoint,held,config.hold]
+		"flank_hunter": return LocalizationService.text("ui_59116e7d1ff9")%[LocalizationService.text("ui_d56a511f498f") if flank_hits.has("B1") else LocalizationService.text("ui_10e9fccc034f"),kills.size()]
+		"hold_ground": return LocalizationService.text("ui_bd0e88838e20")%[held,config.hold,kills.size(),repairs,LocalizationService.text("ui_1ee92d339a9f") if spawn_waiting else ""]
+		"td_route": return LocalizationService.text("ui_43909b627fce")%[checkpoint,held,config.hold]
 	return ""

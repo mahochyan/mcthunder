@@ -1,0 +1,19 @@
+{
+  "READY":"就绪", "OUT":"失能", "YES":"可用", "NO":"不可用", "ON":"开", "OFF":"关",
+  "AMMO":"弹药", "PAUSED":"已暂停", "PROJECTILES":"在飞炮弹",
+  "DISABLED":"失能", "OPERATIONAL":"可操作", "ALIVE":"存活", "DESTROYED":"阵亡",
+  "UNKNOWN":"未知", "EXPIRED":"已结束", "VEHICLE":"车辆", "WORLD":"环境", "CANCELLED":"已取消", "UNRESOLVED":"无法解析",
+  "Appearance":"外观", "Armor":"装甲", "Interior":"内构",
+  "Barrel axis (muzzle)":"炮口轴线", "Camera aim ray":"相机瞄准射线", "A center -> B center":"A中心至B中心", "Custom from/to":"自定义起终点",
+  "RICOCHET":"跳弹", "near":"近射道", "far":"远射道",
+  "penetrated":"击穿", "stopped":"未击穿", "ricochet":"跳弹", "unknown":"资料不足",
+  "module_destroyed":"部件失能", "module_damaged":"部件受损", "crew_incapacitated":"乘员失能",
+  "ammo_detonation":"弹药殉爆", "fire_crew_out":"火灾导致乘员失能", "crew_out":"乘员全部失能",
+  "environment":"环境", "repair":"维修", "extinguish":"灭火", "replace":"乘员替补",
+  "no_record":"没有回放记录", "record_invalid":"回放记录无效", "schema_mismatch":"回放格式不兼容",
+  "missing_frames":"回放缺少轨迹", "no_authorized_record":"没有可查看的记录", "no_events":"没有接触事件",
+  "impact_world":"击中环境", "impact_vehicle":"击中车辆", "expired_time":"飞行时间结束", "expired_distance":"超出射程",
+  "cancelled_reset":"重置已取消飞弹", "cancelled_scene_exit":"离场已取消飞弹", "unresolved_query":"几何查询未解析",
+  "non_penetration":"未击穿", "armor_stopped":"装甲阻止穿透", "energy_exhausted":"穿深余量耗尽",
+  "crew":"乘员", "module":"部件", "world":"环境", "armor":"装甲", "enter":"进入", "exit":"离开"
+}

@@ -1,7 +1,6 @@
 class_name HUD
 extends CanvasLayer
-## 界面（职责：显示与暂停菜单）。中文优先；若默认字体缺中文字形则自动切换英文
-## （工作单 §E：不随意下载/分发字体；中文操作说明固定写在 开始试玩.txt）。
+## 界面（职责：显示与暂停菜单）。使用随工程分发的Noto CJK字体。
 
 signal resume_requested
 signal armor_training_requested
@@ -38,51 +37,52 @@ var _pause_root: Control
 var _training_btn: Button
 
 func _ready() -> void:
-	font_cjk = ThemeDB.fallback_font != null and ThemeDB.fallback_font.has_char(CJK_PROBE)
+	font_cjk = CoreUI.FONT.has_char(CJK_PROBE)
 	S = _strings(font_cjk)
 	_build()
+	CoreUI.apply(self)
 
 func _strings(zh: bool) -> Dictionary:
 	if zh:
 		return {
-			"speed": "速度",
-			"ready": "已装填",
-			"reloading": "装填中 %.1f s",
-			"hits": "命中",
-			"blocked": "炮管被遮挡，无法开火",
-			"control": "控制: A (玩家)",
-			"result": "上次射击: %s",
-			"trial": "试射: A 命中 B %d/%d",
-			"trial_done": "试射完成: A 命中 B 3/3（按 R 重开）",
-			"hint": "W/S 前进/后退   A/D 车体转向\n鼠标 瞄准   右键(按住) 炮镜   左键 开炮\nR 重置   Esc 暂停",
-			"paused": "已暂停",
-			"resume": "继续",
-			"ammo": "弹药",
-			"projectiles": "在飞弹丸",
-			"impact": "最近撞击",
-			"gunline": "炮线 — 非弹道落点预测",
-			"training": "弹道训练",
-			"return_range": "返回靶场",
+			"speed": LocalizationService.text("ui_0e14d148b46b"),
+			"ready": LocalizationService.text("ui_50e984b63fb0"),
+			"reloading": LocalizationService.text("ui_249ae176c659"),
+			"hits": LocalizationService.text("ui_393df9bb13ea"),
+			"blocked": LocalizationService.text("ui_59b0243bb63a"),
+			"control": LocalizationService.text("ui_2fbbf2a482ba"),
+			"result": LocalizationService.text("ui_ac6786a13dc4"),
+			"trial": LocalizationService.text("ui_9311d6b43c3d"),
+			"trial_done": LocalizationService.text("ui_7e4134c581d6"),
+			"hint": LocalizationService.text("ui_a04adb4823e0"),
+			"paused": LocalizationService.text("ui_eb0c326b60ae"),
+			"resume": LocalizationService.text("ui_7c9691192f1b"),
+			"ammo": LocalizationService.text("ui_5a8114a4b332"),
+			"projectiles": LocalizationService.text("ui_41b9e34ca7a6"),
+			"impact": LocalizationService.text("ui_875d9f524261"),
+			"gunline": LocalizationService.text("ui_178e540452ec"),
+			"training": LocalizationService.text("ui_935252ec7cd0"),
+			"return_range": LocalizationService.text("ui_589d9d346e91"),
 		}
 	return {
-		"speed": "Speed",
-		"ready": "READY",
-		"reloading": "RELOADING %.1fs",
-		"hits": "Hit",
-		"blocked": "BARREL BLOCKED",
-		"control": "CONTROL: A (PLAYER)",
-		"result": "LAST SHOT: %s",
-		"trial": "TRIAL: A HIT B %d/%d",
-		"trial_done": "TRIAL COMPLETE: A HIT B 3/3 (R to restart)",
-		"hint": "W/S forward/back  A/D turn\nMouse aim  RMB(hold) sight  LMB fire\nR reset  Esc pause",
-		"paused": "PAUSED",
-		"resume": "Resume",
-		"ammo": "AMMO",
-		"projectiles": "PROJECTILES",
-		"impact": "LAST IMPACT",
-		"gunline": "GUN LINE — NOT BALLISTIC IMPACT PREDICTION",
-		"training": "Ballistics Range",
-		"return_range": "Return to Range",
+		"speed": LocalizationService.text("ui_c372fee9b456"),
+		"ready": LocalizationService.status("READY"),
+		"reloading": LocalizationService.text("ui_4d3cd743ee35"),
+		"hits": LocalizationService.text("ui_8a043f55ef38"),
+		"blocked": LocalizationService.text("ui_3d485428a30d"),
+		"control": LocalizationService.text("ui_5896a75e66b6"),
+		"result": LocalizationService.text("ui_915b97c07db8"),
+		"trial": LocalizationService.text("ui_d9ae4b617204"),
+		"trial_done": LocalizationService.text("ui_865e40a96688"),
+		"hint": LocalizationService.text("ui_c1ee21bd9089"),
+		"paused": LocalizationService.status("PAUSED"),
+		"resume": LocalizationService.text("ui_d640c7421da0"),
+		"ammo": LocalizationService.status("AMMO"),
+		"projectiles": LocalizationService.status("PROJECTILES"),
+		"impact": LocalizationService.text("ui_6291cbdd5174"),
+		"gunline": LocalizationService.text("ui_c591ebf2eeb2"),
+		"training": LocalizationService.text("ui_4c1b0c7f3cb9"),
+		"return_range": LocalizationService.text("ui_ad5a7cdd31ad"),
 	}
 
 func _mk_label(pos: Vector2, fsize: int) -> Label:
@@ -164,7 +164,7 @@ func _build() -> void:
 	resume_btn = btn
 	# 004-c：车辆检视入口（暂停菜单 -> 独立检视窗口，真实返回流程）
 	var inspect_btn := Button.new()
-	inspect_btn.text = "Vehicle Inspector"
+	inspect_btn.text = LocalizationService.text("ui_48fbf5cf003e")
 	inspect_btn.custom_minimum_size = Vector2(160, 44)
 	inspect_btn.pressed.connect(func() -> void: inspect_requested.emit())
 	vb.add_child(inspect_btn)
@@ -175,25 +175,26 @@ func _build() -> void:
 	_training_btn.pressed.connect(func() -> void: training_requested.emit())
 	vb.add_child(_training_btn)
 	armor_training_button = Button.new()
-	armor_training_button.text = "Armor Range"
+	armor_training_button.text = LocalizationService.text("ui_7ed2fa53c985")
 	armor_training_button.custom_minimum_size = Vector2(160,44)
 	armor_training_button.pressed.connect(func() -> void: armor_training_requested.emit())
 	vb.add_child(armor_training_button)
 	damage_training_button = Button.new()
-	damage_training_button.text = "Damage Range"
+	damage_training_button.text = LocalizationService.text("ui_428db8dbded7")
 	damage_training_button.custom_minimum_size = Vector2(160,44)
 	damage_training_button.pressed.connect(func() -> void: damage_training_requested.emit())
 	vb.add_child(damage_training_button)
 	recovery_training_button = Button.new()
-	recovery_training_button.text = "Recovery Range"
+	recovery_training_button.text = LocalizationService.text("ui_4461b2709fe0")
 	recovery_training_button.custom_minimum_size = Vector2(160,44)
 	recovery_training_button.pressed.connect(func() -> void: recovery_training_requested.emit())
 	vb.add_child(recovery_training_button)
 	replay_toggle_button = Button.new()
-	replay_toggle_button.text = "Auto Replay: ON"
+	replay_toggle_button.text = LocalizationService.text("ui_d5bd90bfeaa1")
 	replay_toggle_button.custom_minimum_size = Vector2(190,44)
 	replay_toggle_button.pressed.connect(func() -> void: replay_toggle_requested.emit())
 	vb.add_child(replay_toggle_button)
+	ModalNavigation.attach(_pause_root)
 
 func set_training_button_text(training: bool) -> void:
 	# 006：训练场中按钮语义 = 返回靶场
@@ -228,4 +229,4 @@ func update_debug(fps: int, speed_mps: float, turret_yaw_deg: float, barrel_pitc
 	# 开发显示（002 §2.5）：FPS / 车速 / 炮塔角 / 炮管俯仰 / 装填剩余
 	if not debug_label.visible:
 		return
-	debug_label.text = "FPS %d | Speed %.2f m/s\nTurretYaw %.1f deg | BarrelPitch %.1f deg\nReload %.2f s" % [fps, speed_mps, turret_yaw_deg, barrel_pitch_deg, reload_left]
+	debug_label.text = LocalizationService.text("ui_7b10eb75441c") % [fps, speed_mps, turret_yaw_deg, barrel_pitch_deg, reload_left]

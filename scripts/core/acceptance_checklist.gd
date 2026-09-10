@@ -1,4 +1,4 @@
 class_name AcceptanceChecklist
 extends RefCounted
 static func collect() -> Dictionary:
-	return {"engineering":"candidate","human":"PENDING","historical_vehicle":"PENDING","items":["绕侧击停后仍能转炮塔","能解释为什么没有击毁","近远弹速实际手感","中文入口与回放理解"]}
+	return {"engineering":"candidate","human":"PENDING","historical_vehicle":"PENDING","items":[LocalizationService.text("ui_32febfd0e690"),LocalizationService.text("ui_f30c58e49c0f"),LocalizationService.text("ui_fb038b08b9b8"),LocalizationService.text("ui_94dac7b4941b")]}

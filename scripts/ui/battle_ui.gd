@@ -30,23 +30,23 @@ func setup(scene: Node3D) -> void:
 	overlay.settings_closed.connect(_close_settings)
 	overlay.settings_changed.connect(apply_settings)
 	overlay.replay_close_requested.connect(battle.replay.close)
-	settings_button = CoreUI.button(battle.hud.resume_btn.get_parent(),"显示与辅助",_open_settings)
+	settings_button = CoreUI.button(battle.hud.resume_btn.get_parent(),LocalizationService.text("ui_7a35569d9e07"),_open_settings)
 	settings_button.set_meta("hud_font_size",17)
 	battle.replay.allowed_record = func(_record: Dictionary) -> bool: return phase() == "finished" and AccessibilitySettings.replay_enabled
 	battle.replay.view.chinese = true
 	for control in battle.hud.resume_btn.get_parent().get_children():
-		if control is Label: control.text = "已暂停"
-		if control is Button and control.text == "Vehicle Inspector": control.visible = false
-	battle.hud.resume_btn.text = "继续"
+		if control is Label: control.text = LocalizationService.text("ui_eb0c326b60ae")
+		if control is Button and control.text == LocalizationService.text("ui_48fbf5cf003e"): control.visible = false
+	battle.hud.resume_btn.text = LocalizationService.text("ui_7c9691192f1b")
 	if battle is TeamRange:
 		var map: Dictionary = battle.minimap_metadata()
 		overlay.minimap.world_rect = map.bounds
 		overlay.minimap.obstacles.assign(map.obstacles)
 		overlay.minimap.roads = map.get("roads",{})
-		overlay.map_title.text = str(map.get("title","战术地图"))+"  ↑ 北"
+		overlay.map_title.text = str(map.get("title",LocalizationService.text("ui_da5cefee90ca")))+LocalizationService.text("ui_d16c23797bcd")
 		for label in battle.waiting_panel.find_children("*","Label",true,false):
 			if label.text.contains("Tab"):
-				label.text = "准备完毕后选择再出击；堵塞时等待安全位置。\nQ / E 切换观察友军，Tab 查看战况。"
+				label.text = LocalizationService.text("ui_914d40ad034c")
 	else:
 		overlay.minimap.world_rect = Rect2(-36,-62,72,88)
 		overlay.minimap.obstacles.assign([Rect2(-4.5,-26.5,9,9),Rect2(13.5,-5.5,5,7),Rect2(-20.5,-43.5,5,7)])
@@ -85,20 +85,20 @@ func apply_settings() -> void:
 	if not AccessibilitySettings.replay_enabled: battle.replay.close()
 
 func match_info() -> Dictionary:
-	var info := {"phase":phase(),"remaining":maxf(0,600-elapsed()),"countdown":0.0,"team_mode":battle is TeamRange,"title":"1 对 1 歼灭","objective":"歼灭敌方车辆 · 寻找侧后射击角度","tickets_text":"△ 玩家   对   ◆ 敌车"}
+	var info := {"phase":phase(),"remaining":maxf(0,600-elapsed()),"countdown":0.0,"team_mode":battle is TeamRange,"title":LocalizationService.text("ui_a22a88d8dfc5"),"objective":LocalizationService.text("ui_286a67c287e7"),"tickets_text":LocalizationService.text("ui_5403acaeb2a0")}
 	if battle is TeamRange:
 		var state: TeamMatchState = battle.director.state
-		info.title = "占领据点 A"
+		info.title = LocalizationService.text("ui_242f2e9387de")
 		info.countdown = state.countdown
-		info.tickets_text = "△ 友方 %d   ◆ 敌方 %d"%[state.tickets[1],state.tickets[2]]
+		info.tickets_text = LocalizationService.text("ui_5a9fa19a1212")%[state.tickets[1],state.tickets[2]]
 		info.capture_progress = state.capture_progress
 		info.owner = state.capture_owner
-		info.objective = {0:"中立 · 驶入地图中央圆圈",1:"友方占领 · 守住据点持续扣敌票",2:"敌方占领 · 进入圆圈夺回据点"}[state.capture_owner]
+		info.objective = {0:LocalizationService.text("ui_bf58a1adae2f"),1:LocalizationService.text("ui_dcccd3d21109"),2:LocalizationService.text("ui_90071e9b4da2")}[state.capture_owner]
 		info.objective += " · %.0f%%"%(absf(state.capture_progress)*100)
-		if state.contested: info.objective += " · 双方争夺中"
+		if state.contested: info.objective += LocalizationService.text("ui_71bc0ab7f129")
 	else:
 		info.countdown = battle.match_director.countdown_left
-	if phase() == "finished": info.objective = "对局已结束"
+	if phase() == "finished": info.objective = LocalizationService.text("ui_3c03903fbcd6")
 	return info
 func roster() -> Array:
 	var rows: Array = []
@@ -113,7 +113,7 @@ func _input(event: InputEvent) -> void:
 	if battle == null or not event.is_pressed() or event.is_echo(): return
 	if is_instance_valid(overlay.input_settings): return
 	if (event.is_action_pressed("replay_toggle") or event.is_action_pressed("replay_previous") or event.is_action_pressed("replay_next") or event.is_action_pressed("replay_export")) and (phase() != "finished" or not AccessibilitySettings.replay_enabled):
-		overlay.notice = "本局结束后可按 V 查看实弹回放" if AccessibilitySettings.replay_enabled else "实弹回放已在显示设置中关闭"
+		overlay.notice = LocalizationService.text("ui_f11ab0250edc") if AccessibilitySettings.replay_enabled else LocalizationService.text("ui_57ab613cd32c")
 		get_viewport().set_input_as_handled()
 		return
 	overlay.notice = ""
@@ -171,8 +171,8 @@ func _process(_delta: float) -> void:
 		live_visuals[vehicle.life_id] = true
 		var friendly: bool = vehicle.state.team_id == player().state.team_id
 		vehicle.label3d.visible = vehicle != player() and (friendly or intel.visible_enemy(vehicle.entity_id,vehicle.life_id))
-		vehicle.label3d.text = ("△ 友军 " if friendly else "◆ 敌军 ")+vehicle.entity_id
-		if friendly and vehicle.state.destroyed: vehicle.label3d.text = "△ 友军残骸"
+		vehicle.label3d.text = (LocalizationService.text("ui_67f12d880732") if friendly else LocalizationService.text("ui_ab74b5d20421"))+vehicle.entity_id
+		if friendly and vehicle.state.destroyed: vehicle.label3d.text = LocalizationService.text("ui_27b725194fbb")
 	_configured_lives = live_visuals
 	var protection := 0.0
 	if battle is TeamRange: protection = float(battle.director.state.roster.A.protection_left)

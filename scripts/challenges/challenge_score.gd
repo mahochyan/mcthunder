@@ -8,7 +8,7 @@ static func evaluate(c: Dictionary, stats: Dictionary, passed: bool) -> Dictiona
 	var stars := (1+int(bonus)+int(quick)) if passed else 0
 	var score := stars*10000+maxi(0,int((c.limit-stats.elapsed)*10))+maxi(0,c.rounds-stats.shots)*100 if passed else 0
 	return {"stars":stars,"score":score,"elapsed_ms":roundi(stats.elapsed*1000),"shots":int(stats.shots),"repairs":int(stats.repairs),
-		"explanation":"%s\n%s %s\n%s %.0f秒内完成（实际 %.1f秒）"%["★ 目标完成" if passed else "☆ 目标未完成；本次不计成绩","★" if passed and bonus else "☆","完成受损模块维修" if c.id == "hold_ground" else "用弹 ≤ %d发（实际%d发）"%[c.economy,stats.shots],"★" if passed and quick else "☆",c.quick,stats.elapsed]}
+		"explanation":LocalizationService.text("ui_78d4d3f8abc6")%[LocalizationService.text("ui_e7ab170a1a9b") if passed else LocalizationService.text("ui_0a163bc2be36"),"★" if passed and bonus else "☆",LocalizationService.text("ui_a5e0bb0d903d") if c.id == "hold_ground" else LocalizationService.text("ui_08d7fa81abe6")%[c.economy,stats.shots],"★" if passed and quick else "☆",c.quick,stats.elapsed]}
 static func best_row(result: Dictionary) -> Dictionary:
 	var out := {}
 	for field in ["stars","score","elapsed_ms","shots","repairs"]: out[field] = result[field]
@@ -33,5 +33,5 @@ static func validate_bests(rows: Variant) -> bool:
 		if best_row(evaluated) != row: return false
 	return true
 static func describe_best(row: Dictionary) -> String:
-	if row.is_empty(): return "个人最佳：暂无已保存成绩"
-	return "个人最佳：%d星 · %d分 · %.1f秒 · %d发"%[row.stars,row.score,row.elapsed_ms/1000.0,row.shots]
+	if row.is_empty(): return LocalizationService.text("ui_53c6a1ed1647")
+	return LocalizationService.text("ui_386640a0d082")%[row.stars,row.score,row.elapsed_ms/1000.0,row.shots]

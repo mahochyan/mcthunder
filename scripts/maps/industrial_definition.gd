@@ -4,7 +4,7 @@ extends RefCounted
 static func create() -> MapDefinition:
 	var map := MapDefinition.new()
 	map.id = "industrial_edge_023"
-	map.title = "工业边缘"
+	map.title = LocalizationService.text("ui_4bbb95fad40b")
 	map.bounds = Rect2(-175,-225,350,450)
 	var nodes := {}
 	var edges: Array = []

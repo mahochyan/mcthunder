@@ -61,7 +61,7 @@ func _ready() -> void:
 	AccessibilitySettings.apply(self)
 
 func _label(parent: Node, value: String, font_size: int = 16) -> Label:
-	var label := CoreUI.label(parent,value,roundi(font_size*AccessibilitySettings.ui_scale))
+	var label := CoreUI.label(parent,value,font_size)
 	label.set_meta("hud_font_size",font_size)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -112,11 +112,11 @@ func _build() -> void:
 	var objective := _column(top,3)
 	objective.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	objective.size_flags_stretch_ratio = 1.4
-	title_label = _label(objective,"占领据点 A",22)
-	point_label = _label(objective,"驶入圆圈，并守住据点",15)
+	title_label = _label(objective,LocalizationService.text("ui_242f2e9387de"),22)
+	point_label = _label(objective,LocalizationService.text("ui_bf262136b7c6"),15)
 	var totals := _column(top,3)
 	totals.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	ticket_label = _label(totals,"△ 友方 300   ◆ 敌方 300",22)
+	ticket_label = _label(totals,LocalizationService.text("ui_799ec9f66823"),22)
 	ticket_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	capture_bar = _bar(totals)
 	capture_fill = StyleBoxFlat.new()
@@ -139,14 +139,14 @@ func _build() -> void:
 	own_panel.custom_minimum_size.x = 330
 	own_panel.size_flags_stretch_ratio = 1.05
 	var own := _column(own_panel,7)
-	crew_label = _label(own,"乘员 5 / 5",18)
+	crew_label = _label(own,LocalizationService.text("ui_169d49f4accf"),18)
 	module_grid = GridContainer.new()
 	module_grid.columns = 2
 	module_grid.add_theme_constant_override("h_separation",12)
 	module_grid.add_theme_constant_override("v_separation",3)
 	module_grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	own.add_child(module_grid)
-	drive_label = _label(own,"动力正常",15)
+	drive_label = _label(own,LocalizationService.text("ui_8642a98dce3b"),15)
 	weapon_panel = _panel(bottom)
 	weapon_panel.size_flags_vertical = Control.SIZE_SHRINK_END
 	weapon_panel.custom_minimum_size.x = 330
@@ -155,68 +155,72 @@ func _build() -> void:
 	var gun_row := HBoxContainer.new()
 	gun_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	gun.add_child(gun_row)
-	weapon_label = _label(gun_row,"可开火",20)
+	weapon_label = _label(gun_row,LocalizationService.text("ui_491169f99fb7"),20)
 	speed_label = _label(gun_row,"0 km/h",17)
 	speed_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	ammo_label = _label(gun,"AP120  ·  30 发",17)
+	ammo_label = _label(gun,LocalizationService.text("ui_d80df5f8d545"),17)
 	reload_bar = _bar(gun)
 	reason_label = _label(gun,"",15)
-	fire_label = _label(gun,"F 灭火 × 2",16)
-	action_label = _label(gun,"T 维修   C 替补   G 取消动作",15)
+	fire_label = _label(gun,LocalizationService.text("ui_a9f80686bf4a"),16)
+	action_label = _label(gun,LocalizationService.text("ui_ae2b01ef58c0"),15)
 	action_bar = _bar(gun)
 	feedback_label = _label(gun,"",14)
 	map_panel = _panel(bottom)
 	map_panel.size_flags_horizontal = Control.SIZE_SHRINK_END
 	map_panel.custom_minimum_size.x = 238
 	var map_column := _column(map_panel,3)
-	map_title = _label(map_column,"战术地图  ↑ 北",15)
+	map_title = _label(map_column,LocalizationService.text("ui_c6bcea634489"),15)
 	map_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	minimap = MinimapPresenter.new()
 	map_column.add_child(minimap)
-	_label(map_column,"▲ 自己/友军  ◆ 目击敌人\n◇? 最后位置（最多6秒）",12)
-	footer = _label(stack,"W/S A/D 驾驶 · 右键炮镜 · 左键开火 · Tab 战况 · Esc 菜单",14)
+	_label(map_column,LocalizationService.text("ui_0ade9822239e"),12)
+	footer = _label(stack,LocalizationService.text("ui_294a2983f4f9"),14)
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	scoreboard = _modal()
 	scoreboard_panel = _modal_panel(scoreboard,Vector2(760,0))
 	var board := _column(scoreboard_panel,12)
-	_label(board,"战况 · 比赛仍在继续",24)
-	_label(board,"△ 友军    ◆ 敌军    仅展示公开出局次数",16)
+	_label(board,LocalizationService.text("ui_24dbbe5b10bb"),24)
+	_label(board,LocalizationService.text("ui_d8e12030a6ee"),16)
 	board_rows = GridContainer.new()
 	board_rows.columns = 3
 	board_rows.add_theme_constant_override("h_separation",32)
 	board_rows.add_theme_constant_override("v_separation",5)
 	board.add_child(board_rows)
-	board_close_button = _button(board,"关闭战况 / Tab",func() -> void: board_closed.emit())
+	board_close_button = _button(board,LocalizationService.text("ui_c5a1df8d6cbb"),func() -> void: board_closed.emit())
+	# Tab remains the scoreboard toggle; use native focus on its close button.
+	scoreboard.visibility_changed.connect(func() -> void:
+		if scoreboard.is_visible_in_tree(): board_close_button.call_deferred("grab_focus"))
 	settings_root = _modal()
 	settings_panel = _modal_panel(settings_root,Vector2(550,0))
 	var settings_scroll:=ScrollContainer.new()
+	settings_scroll.follow_focus = true
 	settings_scroll.custom_minimum_size=Vector2(0,460)
 	settings_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	settings_panel.add_child(settings_scroll)
 	var settings := _column(settings_scroll,8)
 	settings.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	_label(settings,"显示与辅助",25)
-	_button(settings,"按键与鼠标设置",func() -> void:
+	_label(settings,LocalizationService.text("ui_7a35569d9e07"),25)
+	_button(settings,LocalizationService.text("ui_eb9bb060c217"),func() -> void:
 		if is_instance_valid(input_settings): return
 		input_settings = InputSettingsPanel.new()
 		add_child(input_settings))
-	_label(settings,"HUD 字号",17)
+	_label(settings,LocalizationService.text("ui_b6d09fd8dd56"),17)
 	scale_choice = OptionButton.new()
-	for label in ["标准 100%","较大 115%","大字 125%"]: scale_choice.add_item(label)
+	for label in [LocalizationService.text("ui_25f82a808a30"),LocalizationService.text("ui_05046146bc94"),LocalizationService.text("ui_17e33eec1234")]: scale_choice.add_item(label)
 	scale_choice.select([1.0,1.15,1.25].find(AccessibilitySettings.ui_scale))
 	settings.add_child(scale_choice)
 	scale_choice.item_selected.connect(func(index: int) -> void: AccessibilitySettings.ui_scale = [1.0,1.15,1.25][index]; _changed())
-	flashes_toggle = _toggle(settings,"减少炮口闪光",AccessibilitySettings.reduce_flashes,func(on: bool) -> void: AccessibilitySettings.reduce_flashes = on)
-	camera_toggle = _toggle(settings,"稳定镜头（关闭射击震动）",AccessibilitySettings.stable_camera,func(on: bool) -> void: AccessibilitySettings.stable_camera = on)
-	replay_toggle = _toggle(settings,"允许结算后查看实弹回放",AccessibilitySettings.replay_enabled,func(on: bool) -> void: AccessibilitySettings.replay_enabled = on)
-	contrast_toggle = _toggle(settings,"高对比标记（形状区分友敌）",AccessibilitySettings.high_contrast,func(on: bool) -> void: AccessibilitySettings.high_contrast = on)
-	_label(settings,"战斗音量",17)
+	flashes_toggle = _toggle(settings,LocalizationService.text("ui_a89776152642"),AccessibilitySettings.reduce_flashes,func(on: bool) -> void: AccessibilitySettings.reduce_flashes = on)
+	camera_toggle = _toggle(settings,LocalizationService.text("ui_b3106127e18b"),AccessibilitySettings.stable_camera,func(on: bool) -> void: AccessibilitySettings.stable_camera = on)
+	replay_toggle = _toggle(settings,LocalizationService.text("ui_c271e464624b"),AccessibilitySettings.replay_enabled,func(on: bool) -> void: AccessibilitySettings.replay_enabled = on)
+	contrast_toggle = _toggle(settings,LocalizationService.text("ui_94589333b07b"),AccessibilitySettings.high_contrast,func(on: bool) -> void: AccessibilitySettings.high_contrast = on)
+	_label(settings,LocalizationService.text("ui_ff685a1768df"),17)
 	var audio_slider:=HSlider.new(); audio_slider.name="CombatVolume"
 	audio_slider.min_value=0; audio_slider.max_value=1; audio_slider.step=0.05; audio_slider.value=AccessibilitySettings.audio_volume
 	settings.add_child(audio_slider)
 	audio_slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.audio_volume=value; _changed())
 	for group in ["mechanical","effects"]:
-		_label(settings,"发动机与机械音量" if group == "mechanical" else "射击与战斗事件音量",17)
+		_label(settings,LocalizationService.text("ui_59bcbe1288a1") if group == "mechanical" else LocalizationService.text("ui_384cca984750"),17)
 		var group_slider := HSlider.new()
 		group_slider.name = "MechanicalVolume" if group == "mechanical" else "EffectsVolume"
 		group_slider.min_value = 0; group_slider.max_value = 1; group_slider.step = 0.05
@@ -226,19 +230,20 @@ func _build() -> void:
 			if group == "mechanical": AccessibilitySettings.mechanical_volume = value
 			else: AccessibilitySettings.effects_volume = value
 			_changed())
-	_toggle(settings,"附近战斗声音字幕",AccessibilitySettings.subtitles_enabled,func(on: bool) -> void: AccessibilitySettings.subtitles_enabled = on)
-	_label(settings,"特效数量",17)
+	_toggle(settings,LocalizationService.text("ui_6f063b0a223b"),AccessibilitySettings.subtitles_enabled,func(on: bool) -> void: AccessibilitySettings.subtitles_enabled = on)
+	_label(settings,LocalizationService.text("ui_d398ffda1ee6"),17)
 	var effect_choice:=OptionButton.new(); effect_choice.name="EffectQuality"
-	for label in ["关闭","较少","标准"]: effect_choice.add_item(label)
+	for label in [LocalizationService.text("ui_3fd47edce45b"),LocalizationService.text("ui_e3521db829da"),LocalizationService.text("ui_6bea77acefb3")]: effect_choice.add_item(label)
 	effect_choice.select(AccessibilitySettings.fx_level); settings.add_child(effect_choice)
 	effect_choice.item_selected.connect(func(index: int) -> void: AccessibilitySettings.fx_level=index; _changed())
-	_label(settings,"震动强度（取消稳定镜头后生效）",17)
+	_label(settings,LocalizationService.text("ui_0fd5388e76d2"),17)
 	var shake_slider:=HSlider.new(); shake_slider.name="ShakeStrength"
 	shake_slider.min_value=0; shake_slider.max_value=1; shake_slider.step=0.05; shake_slider.value=AccessibilitySettings.shake_strength
 	settings.add_child(shake_slider)
 	shake_slider.value_changed.connect(func(value: float) -> void: AccessibilitySettings.shake_strength=value; _changed())
-	_label(settings,"这些选项不改变弹道、装填与车辆性能。",14)
-	settings_close_button = _button(settings,"返回暂停菜单",func() -> void: settings_closed.emit())
+	_label(settings,LocalizationService.text("ui_fe590be7165b"),14)
+	settings_close_button = _button(settings,LocalizationService.text("ui_342631f09db9"),func() -> void: settings_closed.emit())
+	ModalNavigation.attach(settings_root)
 	replay_controls = Control.new()
 	add_child(replay_controls)
 	replay_controls.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
@@ -246,7 +251,7 @@ func _build() -> void:
 	replay_controls.offset_right = 130
 	replay_controls.offset_top = 20
 	replay_controls.offset_bottom = 70
-	replay_close_button = _button(replay_controls,"关闭回放 / V",func() -> void: replay_close_requested.emit())
+	replay_close_button = _button(replay_controls,LocalizationService.text("ui_02623cd034c6"),func() -> void: replay_close_requested.emit())
 	replay_close_button.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	replay_controls.visible = false
 
@@ -290,53 +295,53 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	title_label.text = info.title
 	clock_label.text = "%02d:%02d"%[int(info.remaining)/60,int(info.remaining)%60]
 	point_label.text = info.objective
-	if info.phase == "countdown": point_label.text = "%d秒后开始交战"%ceili(info.countdown)
+	if info.phase == "countdown": point_label.text = LocalizationService.text("ui_d3578b3e7f8c")%ceili(info.countdown)
 	ticket_label.text = info.tickets_text
 	capture_bar.visible = info.get("team_mode",false)
 	capture_bar.value = absf(float(info.get("capture_progress",0)))
 	capture_fill.bg_color = Color("72c9ee") if float(info.get("capture_progress",0))>=0 else Color("ffc47e")
-	crew_label.text = "乘员 %d / %d"%[model.crew_alive,model.crew.size()]
+	crew_label.text = LocalizationService.text("ui_b80473d17af7")%[model.crew_alive,model.crew.size()]
 	var missing: Array[String] = []
 	for person in model.crew:
-		if not person.available: missing.append(person.name+"空缺")
+		if not person.available: missing.append(person.name+LocalizationService.text("ui_7c0037eb0d6e"))
 	if not missing.is_empty(): crew_label.text += "\n"+" · ".join(missing)
 	for module in model.modules:
 		if not module_labels.has(module.id): module_labels[module.id] = _label(module_grid,"",14)
 		var label: Label = module_labels[module.id]
 		label.text = ("× " if module.fraction <= 0 else ("! " if module.fraction < 1 else "· "))+module.name+" "+module.status
 		label.modulate = Color("ffca80") if module.fraction < 1 else Color("d7e2dc")
-	drive_label.text = "动力正常" if model.drive_text.is_empty() else "驾驶受限："+model.drive_text
-	if model.destroyed: drive_label.text = "车辆已阵亡 · 请查看再出击选项"
+	drive_label.text = LocalizationService.text("ui_8642a98dce3b") if model.drive_text.is_empty() else LocalizationService.text("ui_2646035954a7")+model.drive_text
+	if model.destroyed: drive_label.text = LocalizationService.text("ui_21777ac7fa81")
 	speed_label.text = "%.0f km/h"%model.speed_kph
 	weapon_label.text = model.weapon_status
 	weapon_label.modulate = Color("a6deb5") if model.ready else Color("ffcf8f")
-	ammo_label.text = "%s · %d 发  |  膛内 %d"%[model.shell,model.ammo,model.chamber]
+	ammo_label.text = LocalizationService.text("ui_0abaaeb13f23")%[model.shell,model.ammo,model.chamber]
 	if model.has("next_shell"):
-		ammo_label.text += "\n下次："+str(model.next_shell)+" · "+InputBindingService.hint("shell_1")+"/"+InputBindingService.hint("shell_2")+" 切换"
-		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += "\n正在装填："+str(model.carrying_shell)
+		ammo_label.text += LocalizationService.text("ui_fa574d6d0cc4")+str(model.next_shell)+" · "+InputBindingService.hint("shell_1")+"/"+InputBindingService.hint("shell_2")+LocalizationService.text("ui_ca364d1c36c4")
+		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += LocalizationService.text("ui_b9c816a8cf71")+str(model.carrying_shell)
 	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()
-	fire_label.text = ("▲ 起火！立即按 "+InputBindingService.hint("extinguish")+" 灭火" if model.fire else InputBindingService.hint("extinguish")+" 灭火")+" · 剩余 %d 次"%model.extinguishers
-	if model.protection > 0: fire_label.text = "◇ 出生保护 %.1f秒 · 驾驶/开火取消"%model.protection
+	fire_label.text = (LocalizationService.text("ui_73f499124c16")+InputBindingService.hint("extinguish")+LocalizationService.text("ui_78301da205f2") if model.fire else InputBindingService.hint("extinguish")+LocalizationService.text("ui_78301da205f2"))+LocalizationService.text("ui_b0961cda3a16")%model.extinguishers
+	if model.protection > 0: fire_label.text = LocalizationService.text("ui_d5214972f31e")%model.protection
 	action_label.text = model.action if not model.action.is_empty() else InputBindingService.recovery_hint()
 	action_bar.visible = model.action_duration > 0
 	action_bar.value = float(model.action_progress)/maxf(0.01,float(model.action_duration))
 	feedback_label.text = "\n".join([model.shot_feedback,model.recovery_feedback]).strip_edges()
 	feedback_label.visible = not feedback_label.text.is_empty()
 	minimap.present_observations(intel,int(info.get("owner",0)))
-	footer.text = notice if not notice.is_empty() else InputBindingService.driving_hint()+" · "+InputBindingService.hint("scoreboard")+" 战况 · "+InputBindingService.hint("pause")+" 菜单"
-	board_close_button.text = "关闭战况 / "+InputBindingService.hint("scoreboard")
-	replay_close_button.text = "关闭回放 / "+InputBindingService.hint("replay_toggle")
+	footer.text = notice if not notice.is_empty() else InputBindingService.driving_hint()+" · "+InputBindingService.hint("scoreboard")+LocalizationService.text("ui_496113d4c2a8")+InputBindingService.hint("pause")+LocalizationService.text("ui_4414425d80fe")
+	board_close_button.text = LocalizationService.text("ui_9c9ad4457fc6")+InputBindingService.hint("scoreboard")
+	replay_close_button.text = LocalizationService.text("ui_24788e717f91")+InputBindingService.hint("replay_toggle")
 	var summary := str(roster)
 	if summary != _last_roster:
 		_last_roster = summary
 		for child in board_rows.get_children(): child.queue_free()
-		for heading in ["车组","队伍","出局次数"]: _label(board_rows,heading,17)
+		for heading in [LocalizationService.text("ui_0ca70852746f"),LocalizationService.text("ui_1053fbb75f9a"),LocalizationService.text("ui_86158e1abfe4")]: _label(board_rows,heading,17)
 		for row in roster:
-			_label(board_rows,row.id+("（自己）" if row.id == model.entity_id else ""),16)
-			_label(board_rows,"△ 友方" if row.friendly else "◆ 敌方",16)
+			_label(board_rows,row.id+(LocalizationService.text("ui_0eda416b0416") if row.id == model.entity_id else ""),16)
+			_label(board_rows,LocalizationService.text("ui_589de4ba883b") if row.friendly else LocalizationService.text("ui_2935afb61a4b"),16)
 			_label(board_rows,str(row.deaths),16)
 		AccessibilitySettings.apply(board_rows)
 	aim_visible = not model.destroyed and info.phase == "playing" and is_instance_valid(camera) and not camera.is_position_behind(model.actual_point)

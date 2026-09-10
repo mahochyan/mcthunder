@@ -1,6 +1,6 @@
 class_name AICombatRange
 extends DamageRange
-const WORDS := {"patrol":"巡逻","observe":"观察 / 反应中","engage":"交战","search":"搜索最后位置","repair":"停车恢复","retreat":"撤退","destroyed":"已失能"}
+static var WORDS := {"patrol":LocalizationService.text("ui_8c30c509dc7b"),"observe":LocalizationService.text("ui_616ee39dc4dd"),"engage":LocalizationService.text("ui_6e6bc0e3272e"),"search":LocalizationService.text("ui_ff84f259db5d"),"repair":LocalizationService.text("ui_df0b91c4a516"),"retreat":LocalizationService.text("ui_f2adfafb5b50"),"destroyed":LocalizationService.text("ui_122fcc1852a6")}
 var ai := AITankController.new()
 var nav := DriveNavigator.new()
 var combat_ready := false
@@ -27,7 +27,7 @@ func _ready() -> void:
 	hud.S = hud._strings(true)
 	replay.view.chinese = true
 	replay.auto_replay = false
-	hud.replay_toggle_button.text = "自动回放：关"
+	hud.replay_toggle_button.text = LocalizationService.text("ui_b75283bf7268")
 	combat_ready = true
 	restart_combat()
 
@@ -68,9 +68,10 @@ func _build_world() -> void:
 	add_child(env)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if combat_ready and event is InputEventKey and event.pressed and not event.echo and not _paused:
-		if event.keycode in [KEY_1,KEY_2,KEY_3]:
-			level = ["easy","normal","hard"][event.keycode-KEY_1]
+	if combat_ready and event.is_pressed() and not event.is_echo() and not _paused:
+		var selected := InputBindingService.scenario_index(event,3)
+		if selected >= 0:
+			level = ["easy","normal","hard"][selected]
 			restart_combat()
 			return
 	super._unhandled_input(event)
@@ -78,9 +79,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	super._process(delta)
 	if not combat_ready: return
-	source_actor.label3d.text = "玩家"
-	target_actor.label3d.text = "电脑"
-	hud.control_label.text = "电脑交战实验室"
-	hud.hint_label.text = "W/S A/D 驾驶  鼠标瞄准  左键开火\n从墙侧探出，再退回观察电脑搜索\n1 简单  2 普通  3 困难  R 重开  Esc 菜单"
-	hud.gunline_label.text = "双方使用相同的火炮、装甲与损伤规则"
-	_status.text = "电脑观察辅助\n\n难度：%s\n状态：%s\n当前可见：%s\n反应时间：%.2f秒\n已开火：%d\n弹药：%d\n\n隐藏后只保留最后观测，\n不会更新墙后位置。\n\n这是实验室观察辅助，\n正式对战会隐藏电脑状态。" % [{"easy":"简单","normal":"普通","hard":"困难"}[level],WORDS.get(ai.phase,ai.phase),"是" if ai.observation.get("visible",false) else "否",ai.difficulty.reaction,target_actor.gunner.shots_fired-round_shots_start,target_actor.gunner.rounds_remaining]
+	source_actor.label3d.text = LocalizationService.text("ui_991e63fe2920")
+	target_actor.label3d.text = LocalizationService.text("ui_d48f1dcf88d2")
+	hud.control_label.text = LocalizationService.text("ui_ff13698c8992")
+	hud.hint_label.text = LocalizationService.text("ui_d88afc32f07e")
+	hud.gunline_label.text = LocalizationService.text("ui_5d4496dad887")
+	_status.text = LocalizationService.text("ui_dbef75e98109") % [{"easy":LocalizationService.text("ui_01805727314e"),"normal":LocalizationService.text("ui_de907d10df98"),"hard":LocalizationService.text("ui_4ea02714a1e9")}[level],WORDS.get(ai.phase,ai.phase),LocalizationService.text("ui_b5141d3d19e9") if ai.observation.get("visible",false) else LocalizationService.text("ui_0c70665b6eb6"),ai.difficulty.reaction,target_actor.gunner.shots_fired-round_shots_start,target_actor.gunner.rounds_remaining]
+
+func input_context() -> String: return "ai_combat"

@@ -108,7 +108,7 @@ func navigation_graph() -> Dictionary: return TeamArena.graph()
 func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
 func objective_goal(team: int, index: int) -> Vector3: return TeamArena.goal(team,index)
 func minimap_metadata() -> Dictionary:
-	return {"bounds":Rect2(-50,-70,100,140),"obstacles":[Rect2(-10,-36,20,4),Rect2(-10,32,20,4),Rect2(-16,12,8,6),Rect2(8,-18,8,6)],"title":"灰盒靶场"}
+	return {"bounds":Rect2(-50,-70,100,140),"obstacles":[Rect2(-10,-36,20,4),Rect2(-10,32,20,4),Rect2(-16,12,8,6),Rect2(8,-18,8,6)],"title":LocalizationService.text("ui_e1ffb1a7924d")}
 func get_round_id() -> int: return director.state.match_id if director != null else 0
 func combat_actors() -> Array:
 	var out: Array = []
@@ -184,7 +184,7 @@ func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 	vehicle.command_observer = Callable(director,"observe_command")
 	vehicle.vehicle_destroyed.connect(director.on_vehicle_destroyed)
 	vehicle.label3d.font = CoreUI.FONT
-	vehicle.label3d.text = "玩家" if id == "A" else ("友军 "+id if vehicle.state.team_id == 1 else "敌军 "+id)
+	vehicle.label3d.text = LocalizationService.text("ui_991e63fe2920") if id == "A" else (LocalizationService.text("ui_75955e05c89a")+id if vehicle.state.team_id == 1 else LocalizationService.text("ui_f951074d9cca")+id)
 	vehicle.label3d.modulate = Color("8ecde6") if vehicle.state.team_id == 1 else Color("e7ae8b")
 	var visuals := RecoveryVisuals.new()
 	vehicle.add_child(visuals)
@@ -298,9 +298,9 @@ func _finish_match(result: Dictionary) -> void:
 	controller.reset_pending()
 	waiting_panel.visible = false
 	result_panel.visible = true
-	var explanation: String = {"victory":"敌方票数耗尽。","defeat":"友方票数耗尽。","draw":"双方票数同时耗尽。","abandoned":"已离开本局。"}.get(result.outcome,"")
-	if result.reason == "time_limit": explanation = "时间耗尽，按剩余票数结算。"
-	result_text.text = "%s\n\n4 对 4 占点 · %.1f 秒\n友方 %d 票 / 敌方 %d 票\n玩家发射 %d 发\n\n%s"%[{"victory":"胜利","defeat":"战败","draw":"平局","abandoned":"已返回"}.get(result.outcome,"结束"),result.seconds,result.tickets[1],result.tickets[2],result.shots,explanation]
+	var explanation: String = {"victory":LocalizationService.text("ui_7357b726ae6b"),"defeat":LocalizationService.text("ui_cfe636d7d427"),"draw":LocalizationService.text("ui_759487f44034"),"abandoned":LocalizationService.text("ui_876d78e52e6b")}.get(result.outcome,"")
+	if result.reason == "time_limit": explanation = LocalizationService.text("ui_8090ccc7d57b")
+	result_text.text = LocalizationService.text("ui_fd213e8aecf4")%[{"victory":LocalizationService.text("ui_943874ecb6bd"),"defeat":LocalizationService.text("ui_bd5cdcb6f4f6"),"draw":LocalizationService.text("ui_eff519ae471f"),"abandoned":LocalizationService.text("ui_4be334f6b7c5")}.get(result.outcome,LocalizationService.text("ui_c7b24e7997e9")),result.seconds,result.tickets[1],result.tickets[2],result.shots,explanation]
 	hud.show_pause(false)
 	get_tree().paused = false
 	_paused = false
@@ -325,7 +325,7 @@ func _build_capture_ring() -> void:
 	add_child(capture_ring)
 	CoreVehicleVisual.box(self,Vector3(0,2,0),Vector3(0.12,4,0.12),Color("d2d4b7"))
 	var flag := Label3D.new()
-	flag.text = "A · 据点"
+	flag.text = LocalizationService.text("ui_912d8357ca25")
 	flag.font = CoreUI.FONT
 	flag.font_size = 60
 	flag.position = Vector3(0,4.4,0)
@@ -359,7 +359,7 @@ func _build_ui() -> void:
 	var waiting := VBoxContainer.new()
 	waiting.add_theme_constant_override("separation",14)
 	waiting_panel.add_child(waiting)
-	waiting_label = CoreUI.label(waiting,"阵亡等待",25)
+	waiting_label = CoreUI.label(waiting,LocalizationService.text("ui_ed28d4bf2bc2"),25)
 	vehicle_choice = OptionButton.new()
 	if prepared_match != null:
 		for id in prepared_match.vehicle_ids():
@@ -368,11 +368,11 @@ func _build_ui() -> void:
 			if id == selected_vehicle_id: vehicle_choice.select(vehicle_choice.item_count-1)
 	elif selected_vehicle_id in VehicleCatalog.IDS:
 		vehicle_choice.add_item(str(defs.content_packets[selected_vehicle_id].display_name))
-	else: vehicle_choice.add_item("M4A3 工程样车 · AP120 · 30发")
+	else: vehicle_choice.add_item(LocalizationService.text("ui_d6a3783e0e8f"))
 	waiting.add_child(vehicle_choice)
-	CoreUI.label(waiting,"8秒准备后选择再出击；堵塞时等待安全出生点。\nTab 可切换观察友军，不会接管友军车辆。",16)
-	respawn_button = CoreUI.button(waiting,"再出击",request_respawn)
-	CoreUI.button(waiting,"返回车库",leave_match)
+	CoreUI.label(waiting,LocalizationService.text("ui_d5f1aabb1300"),16)
+	respawn_button = CoreUI.button(waiting,LocalizationService.text("ui_32043d8fbb16"),request_respawn)
+	CoreUI.button(waiting,LocalizationService.text("ui_6ea101bebe06"),leave_match)
 	result_panel = _panel(Vector2(580,410))
 	var result_box := VBoxContainer.new()
 	result_box.add_theme_constant_override("separation",16)
@@ -384,14 +384,14 @@ func _build_ui() -> void:
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation",16)
 	result_box.add_child(buttons)
-	restart_button = CoreUI.button(buttons,"再来一局",func() -> void: restart_requested.emit())
-	return_button = CoreUI.button(buttons,"返回车库",leave_match)
-	var abandon := CoreUI.button(hud._training_btn.get_parent(),"放弃当前车（扣30票）",abandon_vehicle)
-	abandon.tooltip_text = "按一次阵亡处理，8秒后可再出击。"
-	hud.resume_btn.text = "继续"
+	restart_button = CoreUI.button(buttons,LocalizationService.text("ui_db04b4c1355c"),func() -> void: restart_requested.emit())
+	return_button = CoreUI.button(buttons,LocalizationService.text("ui_6ea101bebe06"),leave_match)
+	var abandon := CoreUI.button(hud._training_btn.get_parent(),LocalizationService.text("ui_19064416524b"),abandon_vehicle)
+	abandon.tooltip_text = LocalizationService.text("ui_b4c2af5575cc")
+	hud.resume_btn.text = LocalizationService.text("ui_7c9691192f1b")
 	for control in hud.resume_btn.get_parent().get_children():
-		if control is Label: control.text = "已暂停"
-		if control is Button and control.text == "Vehicle Inspector": control.visible = false
+		if control is Label: control.text = LocalizationService.text("ui_eb0c326b60ae")
+		if control is Button and control.text == LocalizationService.text("ui_48fbf5cf003e"): control.visible = false
 	CoreUI.apply(hud)
 
 func _reset_range() -> void: pass
@@ -426,20 +426,20 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if not team_ready: return
 	var state := director.state
-	var owner_text: String = {0:"中立",1:"友方占领",2:"敌方占领"}[state.capture_owner]
-	top_label.text = "友方 %d  ◆  敌方 %d\n据点A：%s · %.0f%%  %s"%[state.tickets[1],state.tickets[2],owner_text,absf(state.capture_progress)*100,"争夺中" if state.contested else ""]
-	if state.phase == "countdown": top_label.text += "\n%d秒后交战"%ceili(state.countdown)
-	hud.control_label.text = "4 对 4 占点"
-	hud.hint_label.text = "W/S A/D 驾驶  鼠标瞄准  左键开火\nT 维修  F 灭火  C 替补\n进入半径12米据点争夺 · Esc 菜单"
-	hud.ammo_label.text = "弹药：%d"%actor.gunner.rounds_remaining
-	hud.projectiles_label.text = "在飞弹丸：%d"%projectiles.active_count()
-	hud.gunline_label.text = "友车会挡住炮弹，友军伤害关闭"
+	var owner_text: String = {0:LocalizationService.text("ui_518b1e77363c"),1:LocalizationService.text("ui_718d084817ca"),2:LocalizationService.text("ui_cce7e5e9eecb")}[state.capture_owner]
+	top_label.text = LocalizationService.text("ui_bfa451c50895")%[state.tickets[1],state.tickets[2],owner_text,absf(state.capture_progress)*100,LocalizationService.text("ui_cc37c84eb3de") if state.contested else ""]
+	if state.phase == "countdown": top_label.text += LocalizationService.text("ui_00799d20ed40")%ceili(state.countdown)
+	hud.control_label.text = LocalizationService.text("ui_56b6b54bb00a")
+	hud.hint_label.text = LocalizationService.text("ui_b26a9aa7b19e")
+	hud.ammo_label.text = LocalizationService.text("ui_913b00faa6c4")%actor.gunner.rounds_remaining
+	hud.projectiles_label.text = LocalizationService.text("ui_4cce74d3cbde")%projectiles.active_count()
+	hud.gunline_label.text = LocalizationService.text("ui_7f0fba1b3b64")
 	action_label.text = ""
-	if state.is_protected(actor.entity_id,actor.life_id): action_label.text = "出生保护 %.1f 秒 · 驾驶 / 开火取消"%state.roster.A.protection_left
-	elif not actor.state.fires.is_empty(): action_label.text = "起火！F 灭火 · 剩余%d次"%actor.state.extinguisher_charges
-	elif not actor.capabilities().drive: action_label.text = "动力失能 · T 维修 / C 替补"
-	elif not actor.capabilities().fire: action_label.text = "火炮失能 · T 维修 / C 替补"
-	if not actor.state.recovery_action.is_empty(): action_label.text += "\n%s %.1f秒"%[CoreUI.word(actor.state.recovery_action),actor.state.action_progress]
+	if state.is_protected(actor.entity_id,actor.life_id): action_label.text = LocalizationService.text("ui_167e0fd046f6")%state.roster.A.protection_left
+	elif not actor.state.fires.is_empty(): action_label.text = LocalizationService.text("ui_0fac49793e34")%actor.state.extinguisher_charges
+	elif not actor.capabilities().drive: action_label.text = LocalizationService.text("ui_f84d46746392")
+	elif not actor.capabilities().fire: action_label.text = LocalizationService.text("ui_373d66b7d585")
+	if not actor.state.recovery_action.is_empty(): action_label.text += LocalizationService.text("ui_b11e8dc2e1aa")%[CoreUI.word(actor.state.recovery_action),actor.state.action_progress]
 	capture_material.albedo_color = {0:Color("c8c8a0"),1:Color("57b9e5"),2:Color("e79c68")}[state.capture_owner]
 	for life in shield_visuals.keys():
 		var entry: Dictionary = shield_visuals[life]
@@ -449,7 +449,7 @@ func _process(delta: float) -> void:
 	if actor.state.destroyed and state.phase == "playing":
 		var row: Dictionary = state.roster.A
 		var left := maxf(0,row.respawn_at-state.elapsed)
-		waiting_label.text = "阵亡 · %.1f秒后可再出击"%left if left>0 else ("出生点堵塞，等待安全位置" if row.waiting_reason == "spawn_blocked" else "准备再出击")
+		waiting_label.text = LocalizationService.text("ui_c954af1bb479")%left if left>0 else (LocalizationService.text("ui_03b03144e7fd") if row.waiting_reason == "spawn_blocked" else LocalizationService.text("ui_af7467336cea"))
 		respawn_button.disabled = left>0 or state.tickets[1]<=0
 		var friends: Array = []
 		for id in state.roster:
@@ -459,3 +459,5 @@ func _process(delta: float) -> void:
 			var observed: VehicleActor = friends[spectator_index%friends.size()]
 			spectator.global_position = observed.tank.global_position+Vector3(0,7,12)
 			spectator.look_at(observed.tank.global_position+Vector3.UP)
+
+func input_context() -> String: return "battle"

@@ -2,7 +2,7 @@ class_name TerrainRange
 extends DamageRange
 var route := 0
 var ready_drive := false
-const ROUTES := ["10° 缓坡","20° 坡道","30° 超限坡","障碍与凹坑"]
+static var ROUTES := [LocalizationService.text("ui_2797bce80aa3"),LocalizationService.text("ui_36bc82c5536b"),LocalizationService.text("ui_388eb11a6e6b"),LocalizationService.text("ui_dcd3c1f82e00")]
 const X := [0.0,18.0,36.0,-18.0]
 
 func _ready() -> void:
@@ -18,7 +18,7 @@ func _ready() -> void:
 	CoreUI.apply(hud)
 	hud.font_cjk = true
 	hud.S = hud._strings(true)
-	hud.resume_btn.text = "继续驾驶"
+	hud.resume_btn.text = LocalizationService.text("ui_4c77abeabd14")
 	replay.view.chinese = true
 	ready_drive = true
 	select_route(0)
@@ -76,16 +76,19 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if not ready_drive: return
 	var tank := actor.tank
-	hud.control_label.text = "地形驾驶 / "+ROUTES[route]+" / 控制 "+actor.entity_id
-	hud.ammo_label.text = "弹药：%d" % actor.gunner.rounds_remaining
-	hud.projectiles_label.text = "在飞弹丸：%d" % projectiles.active_count()
-	hud.gunline_label.text = "炮线方向；实际弹丸受重力影响"
-	hud.hint_label.text = "W/S 驾驶  A/D 转向  鼠标瞄准  左键射击\n1–4 新开对应训练路线  Tab 接管坡上目标\nX 内构辅助  R 重试本路线  Esc 返回车库"
-	_status.text = "坡面与车辆\n\n速度：%.2f m/s\n探测坡度：%.1f°\n最大坡度：%.0f°\n有效支撑点：%d/5\n向上行驶：%s\n车体俯仰：%.1f°\n车体侧倾：%.1f°\n\n目标发动机：%.0f%%\n目标驾驶：%s\n\n车体、炮塔、模块与炮口\n共用真实坡面姿态。\n\n1–4 切换路线会重新开始训练。" % [tank.forward_speed,tank.ground_state.slope_deg,tank.defs.max_slope_deg,tank.ground_state.get("support_count",0),"坡度超限" if tank.slope_blocked else "允许",rad_to_deg(tank.global_rotation.x),rad_to_deg(tank.global_rotation.z),target_actor.state.module_states.engine.integrity,"可用" if target_actor.capabilities().drive else "失能"]
+	hud.control_label.text = LocalizationService.text("ui_e883fef43723")+ROUTES[route]+LocalizationService.text("ui_f6000d203b92")+actor.entity_id
+	hud.ammo_label.text = LocalizationService.text("ui_913b00faa6c4") % actor.gunner.rounds_remaining
+	hud.projectiles_label.text = LocalizationService.text("ui_4cce74d3cbde") % projectiles.active_count()
+	hud.gunline_label.text = LocalizationService.text("ui_6df57dbc0ce9")
+	hud.hint_label.text = LocalizationService.text("ui_d9a919d932da")
+	_status.text = LocalizationService.text("ui_a9dfb7bad808") % [tank.forward_speed,tank.ground_state.slope_deg,tank.defs.max_slope_deg,tank.ground_state.get("support_count",0),LocalizationService.text("ui_5341325f241c") if tank.slope_blocked else LocalizationService.text("ui_ce7ef28b670a"),rad_to_deg(tank.global_rotation.x),rad_to_deg(tank.global_rotation.z),target_actor.state.module_states.engine.integrity,LocalizationService.text("ui_4d99c976beb8") if target_actor.capabilities().drive else LocalizationService.text("ui_ab5d487757fb")]
 
 func _unhandled_input(event: InputEvent) -> void:
-	if ready_drive and event is InputEventKey and event.pressed and not event.echo and event.keycode >= KEY_1 and event.keycode <= KEY_4:
-		select_route(event.keycode-KEY_1)
+	var selected := InputBindingService.scenario_index(event,4)
+	if ready_drive and not _paused and selected >= 0:
+		select_route(selected)
 		get_viewport().set_input_as_handled()
 		return
 	super._unhandled_input(event)
+
+func input_context() -> String: return "terrain"

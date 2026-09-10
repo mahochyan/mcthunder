@@ -63,7 +63,7 @@ func _build_world() -> void:
 	add_child(env)
 
 func _build_match_ui() -> void:
-	battle_status = CoreUI.label(hud,"准备交战",23)
+	battle_status = CoreUI.label(hud,LocalizationService.text("ui_c7f1c6ac5352"),23)
 	battle_status.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	battle_status.offset_left = -230
 	battle_status.offset_right = 230
@@ -79,7 +79,7 @@ func _build_match_ui() -> void:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation",16)
 	result_panel.add_child(box)
-	result_title = CoreUI.label(box,"结算",32)
+	result_title = CoreUI.label(box,LocalizationService.text("ui_0e4062a72843"),32)
 	var scroll := ScrollContainer.new()
 	scroll.custom_minimum_size.y = 250
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -90,9 +90,9 @@ func _build_match_ui() -> void:
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation",16)
 	box.add_child(buttons)
-	restart_button = CoreUI.button(buttons,"再来一局",func() -> void: restart_requested.emit())
-	return_button = CoreUI.button(buttons,"返回车库",leave_match)
-	CoreUI.button(buttons,"查看最后一炮",func() -> void: replay.show_history(projectiles.shot_records.count()-1))
+	restart_button = CoreUI.button(buttons,LocalizationService.text("ui_db04b4c1355c"),func() -> void: restart_requested.emit())
+	return_button = CoreUI.button(buttons,LocalizationService.text("ui_6ea101bebe06"),leave_match)
+	CoreUI.button(buttons,LocalizationService.text("ui_de66dcd1ba77"),func() -> void: replay.show_history(projectiles.shot_records.count()-1))
 	CoreUI.apply(result_panel)
 	result_panel.visible = false
 
@@ -120,17 +120,17 @@ func _finish_battle(result: Dictionary) -> void:
 	controller.reset_pending()
 	ai.reset_pending()
 	replay.close()
-	result_title.text = {"victory":"胜利","defeat":"战败","draw":"平局","abandoned":"已返回"}.get(result.outcome,"对局结束")
-	var lines: Array[String] = ["1 对 1 歼灭 · %.1f 秒"%result.seconds,"双方采用相同的车型、弹药与模块规则。",""]
+	result_title.text = {"victory":LocalizationService.text("ui_943874ecb6bd"),"defeat":LocalizationService.text("ui_bd5cdcb6f4f6"),"draw":LocalizationService.text("ui_eff519ae471f"),"abandoned":LocalizationService.text("ui_4be334f6b7c5")}.get(result.outcome,LocalizationService.text("ui_91456873df5e"))
+	var lines: Array[String] = [LocalizationService.text("ui_176a912159d3")%result.seconds,LocalizationService.text("ui_1bc4527512d1"),""]
 	for id in ["A","B"]:
 		var stats: Dictionary = result.totals[id]
-		lines.append("%s：发射 %d · 接触 %d · 未穿 %d\n有效模块损伤 %d · 乘员损伤 %d"%["玩家" if id == "A" else "电脑",stats.shots,stats.contacts,stats.stopped,stats.module_damage,stats.crew_damage])
+		lines.append(LocalizationService.text("ui_4c38872a1021")%[LocalizationService.text("ui_991e63fe2920") if id == "A" else LocalizationService.text("ui_d48f1dcf88d2"),stats.shots,stats.contacts,stats.stopped,stats.module_damage,stats.crew_damage])
 		if result.deaths.has(id):
-			lines.append("出局原因："+_cause(result.deaths[id].cause))
+			lines.append(LocalizationService.text("ui_72b3df1c25e9")+_cause(result.deaths[id].cause))
 		lines.append("")
-	if result.reason == "time_limit": lines.append("时间耗尽，双方仍存活，本局平局。")
-	if result.reason == "simultaneous_destruction": lines.append("双方在同一物理步出局，本局平局。")
-	lines.append("可查看本局实弹回放，或立即开始下一局。")
+	if result.reason == "time_limit": lines.append(LocalizationService.text("ui_b50198d2b265"))
+	if result.reason == "simultaneous_destruction": lines.append(LocalizationService.text("ui_dc147c825771"))
+	lines.append(LocalizationService.text("ui_fe0a51b5e4d4"))
 	result_text.text = "\n".join(lines)
 	result_panel.visible = true
 	hud.show_pause(false)
@@ -139,7 +139,7 @@ func _finish_battle(result: Dictionary) -> void:
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _cause(value: String) -> String:
-	return {"crew_out":"可用乘员不足","fire_crew_out":"火灾造成乘员失能","ammo_detonation":"弹药殉爆"}.get(value,CoreUI.word(value))
+	return {"crew_out":LocalizationService.text("ui_bfd26a0816c3"),"fire_crew_out":LocalizationService.text("ui_498752288de7"),"ammo_detonation":LocalizationService.text("ui_86b7748b530c")}.get(value,CoreUI.word(value))
 
 func leave_match() -> void:
 	if match_director == null: return
@@ -180,16 +180,18 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if not duel_ready: return
 	_status.get_parent().get_parent().visible = false
-	hud.control_label.text = "1 对 1 歼灭"
-	hud.hint_label.text = "W/S A/D 驾驶  鼠标瞄准  左键开火\nT 维修  F 灭火  C 替补\n绕过掩体寻找侧面 · Esc 菜单"
-	hud.ammo_label.text = "弹药：%d"%source_actor.gunner.rounds_remaining
-	hud.projectiles_label.text = "在飞弹丸：%d"%projectiles.active_count()
+	hud.control_label.text = LocalizationService.text("ui_a22a88d8dfc5")
+	hud.hint_label.text = LocalizationService.text("ui_aaf90062a7d1")
+	hud.ammo_label.text = LocalizationService.text("ui_913b00faa6c4")%source_actor.gunner.rounds_remaining
+	hud.projectiles_label.text = LocalizationService.text("ui_4cce74d3cbde")%projectiles.active_count()
 	var own := source_actor.state
-	if not own.fires.is_empty(): hud.gunline_label.text = "起火！F 灭火 · 剩余灭火器 %d"%own.extinguisher_charges
-	elif not source_actor.capabilities().drive: hud.gunline_label.text = "动力失能 · T 停车维修 / C 乘员替补"
-	elif not source_actor.capabilities().fire: hud.gunline_label.text = "无法开火 · T 修炮闩 / C 替补炮手"
-	else: hud.gunline_label.text = "可用乘员 %d / 5 · 寻找装甲较薄的侧面"%own.alive_crew_count()
-	if not own.recovery_action.is_empty(): hud.gunline_label.text += " · %s %.1f秒"%[CoreUI.word(own.recovery_action),own.action_progress]
-	if match_director.phase == "countdown": battle_status.text = "%d 秒后交战"%ceili(match_director.countdown_left)
-	elif match_director.phase == "playing": battle_status.text = "歼灭敌方坦克 · %02d:%02d"%[int(match_director.elapsed)/60,int(match_director.elapsed)%60]
-	else: battle_status.text = "对局已结束"
+	if not own.fires.is_empty(): hud.gunline_label.text = LocalizationService.text("ui_15308898f847")%own.extinguisher_charges
+	elif not source_actor.capabilities().drive: hud.gunline_label.text = LocalizationService.text("ui_b1b68062cb30")
+	elif not source_actor.capabilities().fire: hud.gunline_label.text = LocalizationService.text("ui_9bb3bdf59ad3")
+	else: hud.gunline_label.text = LocalizationService.text("ui_7378df5e53ed")%own.alive_crew_count()
+	if not own.recovery_action.is_empty(): hud.gunline_label.text += LocalizationService.text("ui_6b8a398365e6")%[CoreUI.word(own.recovery_action),own.action_progress]
+	if match_director.phase == "countdown": battle_status.text = LocalizationService.text("ui_a2d41d941d13")%ceili(match_director.countdown_left)
+	elif match_director.phase == "playing": battle_status.text = LocalizationService.text("ui_9017dda42f17")%[int(match_director.elapsed)/60,int(match_director.elapsed)%60]
+	else: battle_status.text = LocalizationService.text("ui_3c03903fbcd6")
+
+func input_context() -> String: return "battle"

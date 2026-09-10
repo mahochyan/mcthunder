@@ -10,10 +10,10 @@ extends Control
 
 signal close_requested
 
-const MODES := [
-	["appearance", "Appearance"],
-	["armor", "Armor"],
-	["interior", "Interior"]
+static var MODES := [
+	["appearance", LocalizationService.status("Appearance")],
+	["armor", LocalizationService.status("Armor")],
+	["interior", LocalizationService.status("Interior")]
 ]
 
 var _layout: VehicleLayoutDefinition
@@ -39,6 +39,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	theme = CoreUI.theme()
+	ModalNavigation.attach(self,func() -> void: close_requested.emit())
 	# 挂在 Node3D 下时 anchors 不生效（无父 Control）——手动铺满当前视口并跟随尺寸变化。
 	size = get_viewport_rect().size
 	if not get_viewport().size_changed.is_connected(_on_viewport_resized):
@@ -74,19 +76,19 @@ func _build_ui() -> void:
 	left_margin.add_child(left)
 
 	_title_label = Label.new()
-	_title_label.text = "Vehicle Inspector"
+	_title_label.text = LocalizationService.text("ui_48fbf5cf003e")
 	_title_label.name = "TitleLabel"
 	_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	left.add_child(_title_label)
 
 	var close_btn := Button.new()
-	close_btn.text = "Back [Esc]"
+	close_btn.text = LocalizationService.text("ui_683ca74b10b2")
 	close_btn.name = "BackButton"
 	close_btn.pressed.connect(func() -> void: close_requested.emit())
 	left.add_child(close_btn)
 
 	var layout_label := Label.new()
-	layout_label.text = "Layout:"
+	layout_label.text = LocalizationService.text("ui_229991a72e68")
 	left.add_child(layout_label)
 	var layout_opt := OptionButton.new()
 	_layout_opt = layout_opt
@@ -106,7 +108,7 @@ func _build_ui() -> void:
 	left.add_child(modes_row)
 
 	var yaw_label := Label.new()
-	yaw_label.text = "Turret yaw:"
+	yaw_label.text = LocalizationService.text("ui_3249911fe03d")
 	left.add_child(yaw_label)
 	var yaw_slider := HSlider.new()
 	_yaw_slider = yaw_slider
@@ -118,7 +120,7 @@ func _build_ui() -> void:
 	left.add_child(yaw_slider)
 
 	var pitch_label := Label.new()
-	pitch_label.text = "Gun pitch:"
+	pitch_label.text = LocalizationService.text("ui_8f947d9974f2")
 	left.add_child(pitch_label)
 	var pitch_slider := HSlider.new()
 	_pitch_slider = pitch_slider
@@ -131,11 +133,11 @@ func _build_ui() -> void:
 
 	var reset_row := HBoxContainer.new()
 	var reset_pose := Button.new()
-	reset_pose.text = "Reset Pose"
+	reset_pose.text = LocalizationService.text("ui_621558683e03")
 	reset_pose.pressed.connect(_on_reset_pose)
 	reset_row.add_child(reset_pose)
 	var reset_view := Button.new()
-	reset_view.text = "Reset View"
+	reset_view.text = LocalizationService.text("ui_7f19f60f9123")
 	reset_view.pressed.connect(_on_reset_view)
 	reset_row.add_child(reset_view)
 	left.add_child(reset_row)
@@ -185,7 +187,7 @@ func _build_ui() -> void:
 	right.add_child(scroll)
 	_details = Label.new()
 	_details.name = "DetailsLabel"
-	_details.text = "Select an item to see details."
+	_details.text = LocalizationService.text("ui_8c1135b309b6")
 	_details.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(_details)
@@ -269,13 +271,13 @@ func load_layout(layout: VehicleLayoutDefinition) -> bool:
 	_yaw_slider.value = 0.0
 	_pitch_slider.value = 0.0
 
-	_title_label.text = "Vehicle Inspector - %s [%s]" % [layout.display_name, layout.content_tier]
+	_title_label.text = LocalizationService.text("ui_fd1f77283378") % [layout.display_name, layout.content_tier]
 	# 004-R2-A：观察中心跟随当前预览几何包围盒（切换标准板不再盯着谢尔曼炮塔环上方）
 	_preview_focus = preview.get_visual_center()
 	_update_camera()
 	_fill_parts_tree()
 	set_mode(_mode)   # 模式状态同步到新模型
-	_details.text = "Select an item to see details."
+	_details.text = LocalizationService.text("ui_8c1135b309b6")
 	return true
 
 
@@ -333,7 +335,7 @@ func _on_pose_changed(_v: float) -> void:
 	if _model == null:
 		return
 	var r := _model.set_pose(_yaw_slider.value, _pitch_slider.value)
-	_details.text = "Pose applied (clamped by joint limits): turret yaw %s deg, gun pitch %s deg" % [
+	_details.text = LocalizationService.text("ui_e7bf5fdea2eb") % [
 		String.num(r.get("yaw_applied", 0.0), 1), String.num(r.get("pitch_applied", 0.0), 1)]
 
 

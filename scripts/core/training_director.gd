@@ -1,7 +1,9 @@
 class_name TrainingDirector
 extends RefCounted
-const TITLES := ["正面防护","侧后弱点","发动机失能","炮闩失能","空弹药架","断履带与维修","斜甲跳弹"]
-const GOALS := ["射击标记处，观察正面厚甲为何不穿。","射击侧面发动机；随后可接管目标检查能力。","射击后部发动机，观察不能驾驶但仍能射击。","射击炮塔标记处，使炮闩失能。","射击空弹架，验证没有弹药殉爆。","击断左履带后，Tab接管目标，驻车按T维修。","射击斜板，观察实际反弹路径。"]
+static var TITLES := [LocalizationService.text("ui_665d564e6953"),LocalizationService.text("ui_e60a6655353f"),LocalizationService.text("ui_55f105515125"),LocalizationService.text("ui_f1a2d73a04a7"),LocalizationService.text("ui_9e86aa0a325f"),LocalizationService.text("ui_15ce8d1a9488"),LocalizationService.text("ui_b3523f5e781e")]
+static var GOALS: Array:
+	get:
+		return [LocalizationService.text("ui_984598747232"),LocalizationService.text("ui_58979797d367"),LocalizationService.text("ui_40b3e18cb666"),LocalizationService.text("ui_d6e35977519c"),LocalizationService.text("ui_a35fac3dcb04"),LocalizationService.text("ui_aeb0256f74cf"),LocalizationService.text("ui_f369d3d5bb91")]
 var case_index := 0
 var round_id := -1
 var shooter_life := -1
@@ -58,13 +60,13 @@ func step(target: VehicleActor, shooter: VehicleActor, active_projectiles: int, 
 	if status != "running": return
 	if case_index == 5 and _track_hit and target.state.module_states.track_left.integrity > 0 and target.capabilities().drive:
 		status = "passed"
-		explanation += "\n驻车维修已恢复履带，目标重新具备驾驶能力。"
+		explanation += LocalizationService.text("ui_11c39419b2a7")
 	if target.state.destroyed or shooter.state.destroyed:
 		status = "failed"
-		explanation += "\n车辆阵亡，当前课目未完成；可重试。"
+		explanation += LocalizationService.text("ui_6f30f6f4620f")
 	elif not infinite and shooter.gunner.rounds_remaining == 0 and active_projectiles == 0 and case_index != 5:
 		status = "failed"
-		explanation += "\n弹药耗尽，目标条件尚未满足；可重试或返回调整配弹。"
+		explanation += LocalizationService.text("ui_4a360e26054f")
 
 func finish() -> Dictionary:
 	return {"case_index":case_index,"title":TITLES[case_index],"status":status,"shots":accepted_shots,"explanation":explanation,"record_id":last_record.get("record_id","")}

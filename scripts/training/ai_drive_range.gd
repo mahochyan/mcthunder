@@ -1,6 +1,6 @@
 class_name AIDriveRange
 extends DamageRange
-const TITLES := ["直线停车","直角转弯","绕过箱区","窄道拒绝","阻挡与倒车脱困"]
+static var TITLES := [LocalizationService.text("ui_639e3a319d75"),LocalizationService.text("ui_85f7afa6e35d"),LocalizationService.text("ui_461e54a03298"),LocalizationService.text("ui_45b4df7ba162"),LocalizationService.text("ui_22c8f477e4fb")]
 const GOALS := [Vector3(0,0,-8),Vector3(12,0,-8),Vector3(0,0,-42),Vector3(24,0,-30),Vector3(0,0,-42)]
 var driver: AIPathDriver
 var navigator := DriveNavigator.new()
@@ -44,7 +44,7 @@ func _ready() -> void:
 	CoreUI.apply(hud)
 	hud.font_cjk = true
 	hud.S = hud._strings(true)
-	hud.resume_btn.text = "继续观察"
+	hud.resume_btn.text = LocalizationService.text("ui_2ab684fbf9d7")
 	replay.view.chinese = true
 	ai_ready = true
 	select_trial(trial)
@@ -109,16 +109,17 @@ func _reset_range() -> void:
 	else: super._reset_range()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if ai_ready and event is InputEventKey and event.pressed and not event.echo and not _paused:
-		if event.keycode >= KEY_1 and event.keycode <= KEY_5:
-			select_trial(event.keycode-KEY_1)
+	if ai_ready and event.is_pressed() and not event.is_echo() and not _paused:
+		var selected := InputBindingService.scenario_index(event,5)
+		if selected >= 0:
+			select_trial(selected)
 			get_viewport().set_input_as_handled()
 			return
-		if event.keycode == KEY_TAB:
+		if event.is_action_pressed("switch_control"):
 			set_watching(not watching)
 			get_viewport().set_input_as_handled()
 			return
-		if event.keycode == KEY_P:
+		if event.is_action_pressed("path_toggle"):
 			show_path = not show_path
 			path_mesh.visible = show_path
 			return
@@ -127,11 +128,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	super._process(delta)
 	if not ai_ready: return
-	source_actor.label3d.text = "玩家车"
-	target_actor.label3d.text = "电脑车 / "+CoreUI.word(driver.phase)
-	hud.control_label.text = "电脑驾驶 / "+TITLES[trial]
-	hud.hint_label.text = "1–5 新开路线  Tab 观察 / 驾驶玩家车\nW/S A/D 可开到电脑车前面挡路\nP 路径辅助  X 内构  R 重试  Esc 返回车库"
-	hud.ammo_label.text = "玩家弹药：%d" % source_actor.gunner.rounds_remaining
-	hud.projectiles_label.text = "在飞弹丸：%d" % projectiles.active_count()
-	hud.gunline_label.text = "电脑只生成驾驶命令，使用相同物理碰撞"
-	_status.text = "电脑驾驶状态\n\n案例：%s\n阶段：%s\n原因：%s\n路点：%d / %d\n脱困尝试：%d / %d\n速度：%.2f m/s\n距目标：%.1f m\n\n电脑发动机：%.0f%%\n驾驶能力：%s\n\nTab切换玩家车；电脑控制不变。\nP为本实验室的只读路径辅助。\n\n窄道会明确拒绝，脱困有次数上限。" % [TITLES[trial],CoreUI.word(driver.phase),CoreUI.word(driver.reason),driver.waypoint+1,driver.path.size(),driver.attempts,GameConfig.AI_RECOVERY_ATTEMPTS,target_actor.tank.forward_speed,target_actor.tank.global_position.distance_to(driver.goal),target_actor.state.module_states.engine.integrity,"可用" if target_actor.capabilities().drive else "失能"]
+	source_actor.label3d.text = LocalizationService.text("ui_32e799f00d75")
+	target_actor.label3d.text = LocalizationService.text("ui_4c634c407ee0")+CoreUI.word(driver.phase)
+	hud.control_label.text = LocalizationService.text("ui_fb208b8c5454")+TITLES[trial]
+	hud.hint_label.text = LocalizationService.text("ui_1bd1bce2426c")
+	hud.ammo_label.text = LocalizationService.text("ui_07d3ade7acb7") % source_actor.gunner.rounds_remaining
+	hud.projectiles_label.text = LocalizationService.text("ui_4cce74d3cbde") % projectiles.active_count()
+	hud.gunline_label.text = LocalizationService.text("ui_e9fab80d8fc5")
+	_status.text = LocalizationService.text("ui_6cb7d7b3cc6a") % [TITLES[trial],CoreUI.word(driver.phase),CoreUI.word(driver.reason),driver.waypoint+1,driver.path.size(),driver.attempts,GameConfig.AI_RECOVERY_ATTEMPTS,target_actor.tank.forward_speed,target_actor.tank.global_position.distance_to(driver.goal),target_actor.state.module_states.engine.integrity,LocalizationService.text("ui_4d99c976beb8") if target_actor.capabilities().drive else LocalizationService.text("ui_ab5d487757fb")]
+
+func input_context() -> String: return "ai_drive"

@@ -95,7 +95,8 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	# 003：A/PLAYER 与 B/TEST TARGET 明确标识（不改共享配置伪造实例状态）
 	# 003-R1：提示来自实际状态（控制者绑定是实际状态，不是写死的标签文字）
 	label3d = Label3D.new()
-	label3d.text = entity_id + (" (PLAYER)" if controller != null else " (TEST TARGET)")
+	label3d.font = CoreUI.FONT
+	label3d.text = entity_id + (LocalizationService.text("ui_4c6d3932b74f") if controller != null else LocalizationService.text("ui_0631c4adcd74"))
 	label3d.position = Vector3(0, 2.7, 0)
 	label3d.font_size = 48
 	label3d.outline_size = 10

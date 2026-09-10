@@ -2,6 +2,9 @@ extends SceneTree
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	var ok := true
+	var localized := LocalizationService.all_strings().size() >= 900 and LocalizationService.text("menu_credits") == "制作与许可" and CoreUI.FONT.has_char(0x4E2D) and FileAccess.file_exists("res://assets/fonts/OFL.txt")
+	ok = ok and localized
+	print(("[PASS] " if localized else "[FAIL] ")+"isolated PCK loads Chinese text, bundled glyphs and font license")
 	var art_loaded: bool=ArtPalette.definition().get("schema_version",0)==1 and AssetManifestValidator.world_art().ok
 	for id in VehicleCatalog.IDS:
 		art_loaded=art_loaded and AssetManifestValidator.vehicle(id).ok

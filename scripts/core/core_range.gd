@@ -15,27 +15,27 @@ func _ready() -> void:
 	for vehicle in [source_actor,target_actor]:
 		M4EngineeringProfile.apply(vehicle)
 		vehicle.label3d.font = CoreUI.FONT
-		vehicle.label3d.text = "本车" if vehicle == source_actor else "训练样车"
+		vehicle.label3d.text = LocalizationService.text("ui_0e83e707e596") if vehicle == source_actor else LocalizationService.text("ui_686d7fd98405")
 	for marker in _markers: marker.mesh.queue_free()
 	_markers.clear()
 	for vehicle in [source_actor,target_actor]: _build_markers(vehicle)
 	CoreUI.apply(hud)
 	hud.font_cjk = true
 	hud.S = hud._strings(true)
-	hud.resume_btn.text = "继续训练"
-	hud._training_btn.text = "返回车库"
+	hud.resume_btn.text = LocalizationService.text("ui_ce17f3303a34")
+	hud._training_btn.text = LocalizationService.text("ui_6ea101bebe06")
 	hud.armor_training_button.visible = false
 	hud.damage_training_button.visible = false
 	hud.recovery_training_button.visible = false
-	hud.replay_toggle_button.text = "自动回放：开"
+	hud.replay_toggle_button.text = LocalizationService.text("ui_66cd4109cf41")
 	_aim_marker.font = CoreUI.FONT
-	_aim_marker.text = "瞄准此处"
+	_aim_marker.text = LocalizationService.text("ui_5be1f82e610e")
 	replay.view.chinese = true
 	xray = false
 	_core_ready = true
 	restart_lesson()
 	projectiles.shot_record_ready.connect(func(record: Dictionary) -> void: director.accept_record(record,target_actor))
-	var result_button := CoreUI.button(hud.resume_btn.get_parent(),"查看课目结果",func() -> void: results_requested.emit(director.finish()))
+	var result_button := CoreUI.button(hud.resume_btn.get_parent(),LocalizationService.text("ui_91aa1e51a313"),func() -> void: results_requested.emit(director.finish()))
 	result_button.name = "CoreResults"
 	CoreUI.apply(result_button)
 
@@ -107,34 +107,33 @@ func _process(delta: float) -> void:
 	if not _paused: director.step(target_actor,source_actor,projectiles.active_count(),loadout.infinite)
 	var state := target_actor.state
 	var caps := target_actor.capabilities()
-	hud.control_label.text = "课目 %d：%s  /  控制%s" % [lesson+1,TrainingDirector.TITLES[lesson],"本车" if actor == source_actor else "样车"]
-	hud.ammo_label.text = "弹药 %d  ·  %s%s" % [actor.gunner.rounds_remaining,loadout.shell_id.to_upper(),"  无限训练补给" if actor.gunner.training_resupply else ""]
-	hud.projectiles_label.text = "在飞弹丸 %d" % projectiles.active_count()
-	hud.gunline_label.text = "炮线指示；弹丸会受重力影响"
-	hud.result_label.text = {"running":"进行中","passed":"课目完成 · Enter 查看结果","failed":"课目未完成 · R 重试"}.get(director.status,"")
+	hud.control_label.text = LocalizationService.text("ui_aa9d380e2fb2") % [lesson+1,TrainingDirector.TITLES[lesson],LocalizationService.text("ui_0e83e707e596") if actor == source_actor else LocalizationService.text("ui_7610ae38c6e0")]
+	hud.ammo_label.text = LocalizationService.text("ui_123d7cfde346") % [actor.gunner.rounds_remaining,loadout.shell_id.to_upper(),LocalizationService.text("ui_e20a9d3ff0b1") if actor.gunner.training_resupply else ""]
+	hud.projectiles_label.text = LocalizationService.text("ui_49c3fee04c54") % projectiles.active_count()
+	hud.gunline_label.text = LocalizationService.text("ui_207a60437b97")
+	hud.result_label.text = {"running":LocalizationService.text("ui_dc9591e56d50"),"passed":LocalizationService.text("ui_b939a19d87dd"),"failed":LocalizationService.text("ui_1b186c0bcdd9")}.get(director.status,"")
 	hud.result_label.modulate = Color("ffd078") if director.status != "running" else Color.WHITE
-	hud.hint_label.text = InputBindingService.driving_hint()+"\n"+InputBindingService.recovery_hint()+" · Tab 接管 · X 内构\n"+InputBindingService.hint("replay_toggle")+" 回放 · "+InputBindingService.hint("reset")+" 重试 · Enter 结果 · Esc 菜单"
-	var lines: Array[String] = [TrainingDirector.TITLES[lesson],TrainingDirector.GOALS[lesson],"", "目标："+("阵亡" if state.destroyed else "存活"),
-		"驾驶：%s  射击：%s" % ["可用" if caps.drive else "失能","可用" if caps.fire else "失能"],
-		"发动机 %.0f%%  炮闩 %.0f%%" % [state.module_states.engine.integrity,state.module_states.breech.integrity],
-		"左履带 %.0f%%  乘员 %d/5" % [state.module_states.track_left.integrity,state.alive_crew_count()],
-		"弹架 %d / 膛内 %d / 装填途中 %d" % [target_actor.gunner.inventory.racks.get("ammo_rack",0),target_actor.gunner.inventory.chamber,target_actor.gunner.inventory.in_transfer]]
-	if not actor.state.recovery_action.is_empty(): lines.append("%s：%.1f秒" % [CoreUI.word(actor.state.recovery_action),actor.state.action_progress])
-	lines.append("\n"+("一炮解释" if not director.last_record.is_empty() else "操作提示"))
+	hud.hint_label.text = InputBindingService.driving_hint()+"\n"+InputBindingService.recovery_hint()+LocalizationService.text("ui_29c01140c3ea")+InputBindingService.hint("replay_toggle")+LocalizationService.text("ui_5374e6785edd")+InputBindingService.hint("reset")+LocalizationService.text("ui_a906b595974b")
+	var lines: Array[String] = [TrainingDirector.TITLES[lesson],TrainingDirector.GOALS[lesson],"", LocalizationService.text("ui_4d2d25a2888d")+(LocalizationService.text("ui_a8fa60d92311") if state.destroyed else LocalizationService.text("ui_b994669232e7")),
+		LocalizationService.text("ui_9f911e881cd8") % [LocalizationService.text("ui_4d99c976beb8") if caps.drive else LocalizationService.text("ui_ab5d487757fb"),LocalizationService.text("ui_4d99c976beb8") if caps.fire else LocalizationService.text("ui_ab5d487757fb")],
+		LocalizationService.text("ui_6ff91bbc7a7b") % [state.module_states.engine.integrity,state.module_states.breech.integrity],
+		LocalizationService.text("ui_9822aca893f2") % [state.module_states.track_left.integrity,state.alive_crew_count()],
+		LocalizationService.text("ui_9cefabbe01ba") % [target_actor.gunner.inventory.racks.get("ammo_rack",0),target_actor.gunner.inventory.chamber,target_actor.gunner.inventory.in_transfer]]
+	if not actor.state.recovery_action.is_empty(): lines.append(LocalizationService.text("ui_8e3c64ebc455") % [CoreUI.word(actor.state.recovery_action),actor.state.action_progress])
+	lines.append("\n"+(LocalizationService.text("ui_700dbd2e1161") if not director.last_record.is_empty() else LocalizationService.text("ui_b87b880332e2")))
 	lines.append(director.explanation)
-	lines.append("\n训练设计参数；未认证历史性能")
+	lines.append(LocalizationService.text("ui_8a9b210d7cda"))
 	_status.text = "\n".join(lines)
 	_status.add_theme_font_size_override("font_size",15)
 	_aim_marker.visible = actor == source_actor and director.status == "running"
 	_aim_marker.position = target_point()+Vector3(0,0.5,0)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _core_ready and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_ENTER and not _paused:
+	if _core_ready and event.is_pressed() and not event.is_echo():
+		if event.is_action_pressed("lesson_result") and not _paused:
 			results_requested.emit(director.finish())
 			get_viewport().set_input_as_handled()
 			return
-		if event.keycode >= KEY_1 and event.keycode <= KEY_7: return # Fixed lesson chosen in garage.
 	super._unhandled_input(event)
 
 func _return_to_range() -> void:
@@ -151,7 +150,7 @@ func _build_world() -> void:
 		CoreVehicleVisual.box(self,Vector3(0,0.025,-distance),Vector3(10,0.035,0.12),Color("cec8a1"))
 		var sign := Label3D.new()
 		sign.font = CoreUI.FONT
-		sign.text = "%d米" % distance
+		sign.text = LocalizationService.text("ui_014b11ba76e3") % distance
 		sign.position = Vector3(-6,1,-distance)
 		sign.font_size = 48
 		add_child(sign)
@@ -172,3 +171,5 @@ func _build_world() -> void:
 	environment.environment.ambient_light_color = Color("b8c0aa")
 	environment.environment.ambient_light_energy = 0.45
 	add_child(environment)
+
+func input_context() -> String: return "core"

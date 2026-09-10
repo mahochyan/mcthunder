@@ -51,6 +51,7 @@ var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
 func _ready() -> void:
 	InputBindingService.initialize()
+	InputBindingService.set_context("range")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_autoshot = OS.get_cmdline_user_args().has("--autoshot")
 	_inspect_demo = OS.get_cmdline_user_args().has("--inspect-demo")   # 004-d：检视窗口可见证据
@@ -162,7 +163,7 @@ func _abort_initialization(reason: String, errors: Array) -> void:
 	# 可见错误显示（不建正式菜单系统；不依赖正常 HUD——它可能尚未创建）
 	if _err_label == null:
 		_err_label = Label.new()
-		_err_label.text = "INIT FAILED: %s\n%s" % [reason, "\n".join(errors)]
+		_err_label.text = LocalizationService.text("ui_8f689664be44") % [reason, "\n".join(errors)]
 		_err_label.position = Vector2(40, 40)
 		add_child(_err_label)
 	if DisplayServer.get_name() == "headless" or _autoshot:
@@ -576,20 +577,20 @@ func _process(_delta: float) -> void:
 	if gunner.last_shot_result == "fired":
 		# 006-R1-C：按 projectile_id 区分在飞/已终止——终止后不再显示 IN FLIGHT
 		if gunner.last_projectile_id > 0 and _terminated_pids.has(gunner.last_projectile_id):
-			result_text = "LAST SHOT: #%d TERMINATED" % gunner.shot_id
+			result_text = LocalizationService.text("ui_45ac12996c15") % gunner.shot_id
 		else:
-			result_text = "LAST SHOT: #%d IN FLIGHT" % gunner.shot_id
+			result_text = LocalizationService.text("ui_6dac9c0f8d63") % gunner.shot_id
 	elif gunner.last_shot_result != "":
-		result_text = "LAST SHOT: BLOCKED (%s)" % gunner.blocked_reason.to_upper()
-	var trial_text := "TRIAL: A HIT B %d/%d" % [trial_hits, TRIAL_TARGET]
+		result_text = LocalizationService.text("ui_7fcacb9923a7") % gunner.blocked_reason.to_upper()
+	var trial_text := LocalizationService.text("ui_d9ae4b617204") % [trial_hits, TRIAL_TARGET]
 	if trial_hits >= TRIAL_TARGET:
-		trial_text = "TRIAL COMPLETE: A HIT B 3/3 (R to restart)"
+		trial_text = LocalizationService.text("ui_865e40a96688")
 	# 006：弹药/在飞/最近撞击（最近结果按 projectile_id 保存，不靠无身份字符串串接）
-	var ammo_text := "AMMO: %d/%d" % [gunner.rounds_remaining, gunner.weapon.initial_rounds if gunner.weapon != null else 30]
-	var proj_text := "PROJECTILES: %d" % (projectiles.active_count() if projectiles != null else 0)
-	var impact_text := "LAST IMPACT: —"
+	var ammo_text := LocalizationService.text("ui_d07d64d21a9e") % [gunner.rounds_remaining, gunner.weapon.initial_rounds if gunner.weapon != null else 30]
+	var proj_text := LocalizationService.text("ui_c358b681f862") % (projectiles.active_count() if projectiles != null else 0)
+	var impact_text := LocalizationService.text("ui_96643e4c20dc")
 	if not _last_impact.is_empty():
-		impact_text = "LAST IMPACT: #%d %s / %.2f s / %.2f m" % [
+		impact_text = LocalizationService.text("ui_096b673665a8") % [
 			_last_impact.get("shot_id", 0),
 			str(_last_impact.get("reason_upper", "")),
 			float(_last_impact.get("flight_time_s", 0.0)),
@@ -625,7 +626,7 @@ func _inspect_demo_step() -> void:
 				_shot_errors += 1
 				printerr("[004-d] FAIL: inspector did not open")
 			_shot("inspect_2_appearance.png")   # 外观模式：低模轮廓+履带+炮管
-			print("[004-d] inspector open=", _inspector_open, " paused=", get_tree().paused, " (应为 true)")
+			print("[004-d] inspector open=", _inspector_open, " paused=", get_tree().paused, LocalizationService.text("ui_68bd2a8b9735"))
 		70:
 			var pv := _preview_model()
 			if pv != null:
@@ -932,7 +933,7 @@ func _autoshot_step() -> void:
 		190:
 			Input.action_release("fire")
 			_shot("autoshot_5_resumed.png")
-			print("[T002-04] after resume+hold: shots=", gunner.shots_fired, "（应与暂停期间一致，无补射）")
+			print("[T002-04] after resume+hold: shots=", gunner.shots_fired, LocalizationService.text("ui_b966f91dd699"))
 			for i in 3:
 				_reset_all()   # T002-05 窗口证据：重置不得暂停或释放鼠标
 			print("[T002-05] after 3 resets: mouse_mode=", Input.mouse_mode, " paused=", _paused, " (2=CAPTURED, false)")
@@ -965,7 +966,7 @@ func _autoshot_step() -> void:
 		310:
 			_shot("autoshot_8_trial_complete.png")   # 试射完成：TRIAL COMPLETE 3/3
 			print("[003] trial_hits=", trial_hits, " b_hits=", actor_b.tank.hits_taken)
-			print("[003-R1] NOTE: autoshot_8 为构造状态演示（清零冷却+直接 try_fire），证明真实命中函数推进 HUD；正常输入完整演示见 autoshot_9~13")
+			print(LocalizationService.text("ui_a28b8165505d"))
 		320:
 			print("[autoshot] phase1 done: shots_saved=", _shots_saved, " errors=", _shot_errors)
 			# 003-R1：正常输入完整演示——自然瞄准 → 正常输入开火 → 自然装填 → 3/3 → R 重开
@@ -1058,7 +1059,7 @@ func _autoshot_step() -> void:
 			pass
 		350:
 			_shot("autoshot_13_hud_r1.png")   # HUD：CONTROL: A (PLAYER) [TEST ONLY] / TRIAL 0/3
-			print("[003-R1] hud: control_text 来自实际状态（entity_id + content_tier）")
+			print(LocalizationService.text("ui_b9d1588c20e7"))
 			print("[autoshot] done: shots_saved=", _shots_saved, " errors=", _shot_errors)
 			get_tree().quit(1 if (_shot_errors > 0 or _shots_saved < 13) else 0)   # 必需截图失败 → 自检非零
 

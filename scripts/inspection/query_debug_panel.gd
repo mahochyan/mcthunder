@@ -14,11 +14,11 @@ extends Control
 
 signal close_requested
 
-const PROBES: Array = [
-	["barrel", "Barrel axis (muzzle)"],
-	["camera", "Camera aim ray"],
-	["a_to_b", "A center -> B center"],
-	["custom", "Custom from/to"],
+static var PROBES: Array = [
+	["barrel", LocalizationService.status("Barrel axis (muzzle)")],
+	["camera", LocalizationService.status("Camera aim ray")],
+	["a_to_b", LocalizationService.status("A center -> B center")],
+	["custom", LocalizationService.status("Custom from/to")],
 ]
 
 const COLOR_ARMOR := Color(0.95, 0.6, 0.1)
@@ -87,6 +87,8 @@ var _detail: Label
 
 
 func _ready() -> void:
+	theme = CoreUI.theme()
+	ModalNavigation.attach(self,func() -> void: close_requested.emit())
 	size = get_viewport_rect().size
 	if not get_viewport().size_changed.is_connected(_on_viewport_resized):
 		get_viewport().size_changed.connect(_on_viewport_resized)
@@ -118,14 +120,14 @@ func _build_ui() -> void:
 
 	_title = Label.new()
 	_title.name = "TitleLabel"
-	_title.text = "Shot Query Debug — GEOMETRY ONLY"
+	_title.text = LocalizationService.text("ui_2e06d9c0ed46")
 	_title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
 	_title.add_theme_font_size_override("font_size", 17)
 	col.add_child(_title)
 
 	var sub := Label.new()
 	sub.name = "SubLabel"
-	sub.text = "Pure geometry only: no penetration, no damage, no ammo/task effect. Queries run through the production ShotQueryService; debug runs never call register_hit / cooldowns."
+	sub.text = LocalizationService.text("ui_34eb95d43895")
 	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	sub.add_theme_color_override("font_color", Color(0.8, 0.8, 0.85))
 	sub.add_theme_font_size_override("font_size", 12)
@@ -133,7 +135,7 @@ func _build_ui() -> void:
 
 	var row_veh := HBoxContainer.new()
 	var veh_label := Label.new()
-	veh_label.text = "Vehicles:"
+	veh_label.text = LocalizationService.text("ui_d3acc28a6ccf")
 	veh_label.custom_minimum_size = Vector2(90, 0)
 	row_veh.add_child(veh_label)
 	_vehicle_opt = OptionButton.new()
@@ -145,7 +147,7 @@ func _build_ui() -> void:
 
 	var row_probe := HBoxContainer.new()
 	var probe_label := Label.new()
-	probe_label.text = "Probe line:"
+	probe_label.text = LocalizationService.text("ui_497801e397a5")
 	probe_label.custom_minimum_size = Vector2(90, 0)
 	row_probe.add_child(probe_label)
 	_probe_opt = OptionButton.new()
@@ -159,7 +161,7 @@ func _build_ui() -> void:
 
 	_from_label = Label.new()
 	_from_label.name = "FromLabel"
-	_from_label.text = "from: -"
+	_from_label.text = LocalizationService.text("ui_dce3c3dca7ff")
 	_from_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_from_label.add_theme_font_size_override("font_size", 11)
 	col.add_child(_from_label)
@@ -174,7 +176,7 @@ func _build_ui() -> void:
 	custom_col.name = "CustomBox"
 	var cf_row := HBoxContainer.new()
 	var cf_l := Label.new()
-	cf_l.text = "custom from (x,y,z):"
+	cf_l.text = LocalizationService.text("ui_eb0aee0e6fc7")
 	cf_l.custom_minimum_size = Vector2(140, 0)
 	cf_row.add_child(cf_l)
 	_custom_from = LineEdit.new()
@@ -185,7 +187,7 @@ func _build_ui() -> void:
 	custom_col.add_child(cf_row)
 	var ct_row := HBoxContainer.new()
 	var ct_l := Label.new()
-	ct_l.text = "custom to (x,y,z):"
+	ct_l.text = LocalizationService.text("ui_b3546eed9be0")
 	ct_l.custom_minimum_size = Vector2(140, 0)
 	ct_row.add_child(ct_l)
 	_custom_to = LineEdit.new()
@@ -199,20 +201,20 @@ func _build_ui() -> void:
 	var row_checks := HBoxContainer.new()
 	_mod_check = CheckBox.new()
 	_mod_check.name = "IncludeModules"
-	_mod_check.text = "Include modules"
+	_mod_check.text = LocalizationService.text("ui_9f012c5a7f96")
 	_mod_check.button_pressed = _include_modules
 	_mod_check.toggled.connect(_on_options_changed)
 	row_checks.add_child(_mod_check)
 	_crew_check = CheckBox.new()
 	_crew_check.name = "IncludeCrew"
-	_crew_check.text = "Include crew"
+	_crew_check.text = LocalizationService.text("ui_b66cc39d4151")
 	_crew_check.button_pressed = _include_crew
 	_crew_check.toggled.connect(_on_options_changed)
 	row_checks.add_child(_crew_check)
 	col.add_child(row_checks)
 
 	var wall_label := Label.new()
-	wall_label.text = "Test wall (explicit geometry box; yaw around Y)"
+	wall_label.text = LocalizationService.text("ui_18e639f5ffe0")
 	wall_label.add_theme_font_size_override("font_size", 12)
 	col.add_child(wall_label)
 	var w_grp := GridContainer.new()
@@ -223,7 +225,7 @@ func _build_ui() -> void:
 	w_grp.add_child(wpl); w_grp.add_child(wsl); w_grp.add_child(wyl)
 	_wall_btn = Button.new()
 	_wall_btn.name = "AddWallButton"
-	_wall_btn.text = "Add/Update Test Wall"
+	_wall_btn.text = LocalizationService.text("ui_725a12f07b6b")
 	_wall_btn.pressed.connect(_on_wall_pressed)
 	w_grp.add_child(_wall_btn)
 	var wpx := LineEdit.new(); wpx.text = "%.1f,%.1f,%.1f" % [WALL_DEFAULT_POS.x, WALL_DEFAULT_POS.y, WALL_DEFAULT_POS.z]
@@ -245,39 +247,39 @@ func _build_ui() -> void:
 	var w_btns := HBoxContainer.new()
 	_remove_wall_btn = Button.new()
 	_remove_wall_btn.name = "RemoveWallButton"
-	_remove_wall_btn.text = "Remove Test Wall"
+	_remove_wall_btn.text = LocalizationService.text("ui_d24c2d9a36c8")
 	_remove_wall_btn.pressed.connect(_on_remove_wall_pressed)
 	_remove_wall_btn.disabled = true
 	w_btns.add_child(_remove_wall_btn)
 	col.add_child(w_btns)
 	_wall_state = Label.new()
 	_wall_state.name = "WallState"
-	_wall_state.text = "wall: none"
+	_wall_state.text = LocalizationService.text("ui_d219aa1a9206")
 	_wall_state.add_theme_font_size_override("font_size", 11)
 	col.add_child(_wall_state)
 
 	var row_btns := HBoxContainer.new()
 	var run_btn := Button.new()
 	run_btn.name = "RunQueryButton"
-	run_btn.text = "Run Query"
+	run_btn.text = LocalizationService.text("ui_826cea94aca7")
 	run_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	run_btn.pressed.connect(run_query)
 	row_btns.add_child(run_btn)
 	var clear_btn := Button.new()
 	clear_btn.name = "ClearButton"
-	clear_btn.text = "Clear"
+	clear_btn.text = LocalizationService.text("ui_83b12c2216ef")
 	clear_btn.pressed.connect(clear_results)
 	row_btns.add_child(clear_btn)
 	var close_btn := Button.new()
 	close_btn.name = "CloseButton"
-	close_btn.text = "Close [Esc]"
+	close_btn.text = LocalizationService.text("ui_1307fa246fb4")
 	close_btn.pressed.connect(func() -> void: close_requested.emit())
 	row_btns.add_child(close_btn)
 	col.add_child(row_btns)
 
 	_status = Label.new()
 	_status.name = "StatusLabel"
-	_status.text = "No query yet."
+	_status.text = LocalizationService.text("ui_40690f7f13bd")
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status.add_theme_font_size_override("font_size", 11)
 	col.add_child(_status)
@@ -362,7 +364,7 @@ func apply_wall() -> bool:
 		return false
 	_on_wall_fields("")   # 先吸收当前输入框文本为草稿
 	if not _validate_wall_params():
-		_wall_state.text = "wall: INVALID params (rejected): pos %s size %s yaw %.1f" % [str(_wall_pos), str(_wall_size), _wall_yaw_deg]
+		_wall_state.text = LocalizationService.text("ui_9cda2912de99") % [str(_wall_pos), str(_wall_size), _wall_yaw_deg]
 		return false
 	if _wall != null:
 		var w := _wall
@@ -370,7 +372,7 @@ func apply_wall() -> bool:
 		w.free()   # 立即销毁：自动重跑在下一物理帧执行，queue_free 的延迟释放会滞后一帧导致旧墙仍被命中
 	var body := main.world.build_box(_wall_pos, _wall_size, Color(0.35, 0.5, 0.85))
 	if body == null:
-		_wall_state.text = "wall: build failed"
+		_wall_state.text = LocalizationService.text("ui_6703cad712ea")
 		return false
 	body.name = "TestWall"
 	_wall = body
@@ -379,9 +381,9 @@ func apply_wall() -> bool:
 	_wall_applied_size = _wall_size
 	_wall_applied_yaw_deg = _wall_yaw_deg
 	_wall_version += 1
-	_wall_btn.text = "Add/Update Test Wall"
+	_wall_btn.text = LocalizationService.text("ui_725a12f07b6b")
 	_remove_wall_btn.disabled = false
-	_wall_state.text = "wall: APPLIED pos %s size %s yaw %.1f° (LAYER_WORLD body; queries read physics)" % [str(_wall_applied_pos), str(_wall_applied_size), _wall_applied_yaw_deg]
+	_wall_state.text = LocalizationService.text("ui_60bab3827679") % [str(_wall_applied_pos), str(_wall_applied_size), _wall_applied_yaw_deg]
 	return true
 
 
@@ -398,7 +400,7 @@ func remove_wall() -> bool:
 	w.free()   # 立即销毁（同 remove_wall：避免重跑命中已移除的旧墙）
 	_wall_version += 1
 	_remove_wall_btn.disabled = true
-	_wall_state.text = "wall: none"
+	_wall_state.text = LocalizationService.text("ui_d219aa1a9206")
 	if _runs > 0:
 		_refresh_show()
 	return true
@@ -417,7 +419,7 @@ func _refresh_show() -> void:
 		"include_modules": _include_modules,
 		"include_crew": _include_crew,
 	}
-	_status.text = "Wall changed — re-running query on next physics tick..."
+	_status.text = LocalizationService.text("ui_0d49fadea87c")
 	set_physics_process(true)
 
 
@@ -432,7 +434,7 @@ func clear_results() -> void:
 	_pending_request = {}
 	_results.clear()
 	_detail.text = ""
-	_status.text = "Cleared."
+	_status.text = LocalizationService.text("ui_aa8dbf3c9d7e")
 	for m in _markers:
 		if is_instance_valid(m.get("mi", null)):
 			(m["mi"] as Node).queue_free()
@@ -503,7 +505,7 @@ func run_query() -> Dictionary:
 	_to_world = seg[1]
 	_seg_length = _from_world.distance_to(_to_world)
 	if _seg_length <= QueryGeometry.EPS_M:
-		_status.text = "INVALID segment (zero length) — set a valid probe."
+		_status.text = LocalizationService.text("ui_00e8f79baa08")
 		return {}
 	_pending_request = {
 		"from_world": _from_world,
@@ -513,7 +515,7 @@ func run_query() -> Dictionary:
 		"include_modules": _include_modules,
 		"include_crew": _include_crew,
 	}
-	_status.text = "Query submitted — executing on next physics tick..."
+	_status.text = LocalizationService.text("ui_64b223da4876")
 	set_physics_process(true)
 	return {}
 
@@ -584,7 +586,7 @@ func _finalize_run(qr: Dictionary, used_signature: int) -> void:
 		_results.add_item(row)
 		_row_meta.append({"index": seq, "event": ev, "tag": tag})
 	if _merged_events.is_empty():
-		_results.add_item("(no intersections)")
+		_results.add_item(LocalizationService.text("ui_d572f329bc2a"))
 		_row_meta.append({"index": -1, "event": {}, "tag": ""})
 	_stale = false
 	# 005-R1 收尾 B：姿态签名来自实际使用的快照（执行时点），完成时不重采样
@@ -867,7 +869,7 @@ func _refresh_segment_labels() -> void:
 	if _from_label == null:
 		return
 	var seg := _probe_segment()
-	_from_label.text = "from: %s" % _fmt(seg[0])
+	_from_label.text = LocalizationService.text("ui_faeb445c3be1") % _fmt(seg[0])
 	_to_label.text = "to:   %s" % _fmt(seg[1])
 
 

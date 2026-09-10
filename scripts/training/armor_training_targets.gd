@@ -2,13 +2,13 @@ class_name ArmorTrainingTargets
 extends RefCounted
 ## Concrete zero-thickness logical plates shared by training and scene tests.
 ## Dimensions/armor are explicitly designed fixtures, never historical claims.
-const CASES := [
-	{"title": "THIN PLATE", "thickness": 40.0, "angle": 0.0, "layers": 1},
-	{"title": "THICK PLATE", "thickness": 80.0, "angle": 0.0, "layers": 1},
-	{"title": "SLOPED PLATE", "thickness": 40.0, "angle": 60.0, "layers": 1},
-	{"title": "TWO PLATES", "thickness": 40.0, "angle": 0.0, "layers": 2},
-	{"title": "RICOCHET", "thickness": 40.0, "angle": 78.0, "layers": 1},
-	{"title": "UNKNOWN ARMOR", "thickness": -1.0, "angle": 0.0, "layers": 1},
+static var CASES := [
+	{"title": LocalizationService.text("ui_44345161440d"), "thickness": 40.0, "angle": 0.0, "layers": 1},
+	{"title": LocalizationService.text("ui_20163884fbf8"), "thickness": 80.0, "angle": 0.0, "layers": 1},
+	{"title": LocalizationService.text("ui_99128dea295b"), "thickness": 40.0, "angle": 60.0, "layers": 1},
+	{"title": LocalizationService.text("ui_6c2cef8501ff"), "thickness": 40.0, "angle": 0.0, "layers": 2},
+	{"title": LocalizationService.status("RICOCHET"), "thickness": 40.0, "angle": 78.0, "layers": 1},
+	{"title": LocalizationService.text("ui_373155122b8e"), "thickness": -1.0, "angle": 0.0, "layers": 1},
 ]
 
 static func build(plates: Array, entity: String = "armor_target", life: int = 1) -> Dictionary:

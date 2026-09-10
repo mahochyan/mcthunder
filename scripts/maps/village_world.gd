@@ -56,7 +56,7 @@ static func build(parent: Node3D, map: MapDefinition, graybox: bool = false) -> 
 		WorldCollisionRules.tag(marker,"supply_reservation")
 		var label := Label3D.new()
 		label.font = CoreUI.FONT
-		label.text = "弹药补给 · 驻车每2秒1发"
+		label.text = LocalizationService.text("ui_ece721eb24a9")
 		label.font_size = 40
 		label.position = p+Vector3(0,2,0)
 		parent.add_child(label)

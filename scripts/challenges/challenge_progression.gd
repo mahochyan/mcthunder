@@ -18,10 +18,10 @@ func settle(attempt_id: int) -> Dictionary:
 		var prior: Dictionary = _settled[attempt_id].duplicate(true)
 		prior.duplicate = true
 		return prior
-	if not _live.has(attempt_id): return {"ok":false,"reason":"挑战身份未登记"}
+	if not _live.has(attempt_id): return {"ok":false,"reason":LocalizationService.text("ui_f6ee46d8fe5e")}
 	if not _pending.has(attempt_id):
 		var director: ChallengeDirector = _live[attempt_id].get_ref()
-		if director == null or director.phase != "finished": return {"ok":false,"reason":"挑战尚未产生有效结果"}
+		if director == null or director.phase != "finished": return {"ok":false,"reason":LocalizationService.text("ui_ce318738d483")}
 		_pending[attempt_id] = director.result.duplicate(true)
 	var result: Dictionary = _pending[attempt_id]
 	var next := store.snapshot()
@@ -33,7 +33,7 @@ func settle(attempt_id: int) -> Dictionary:
 		var saved := store.commit(next)
 		if not saved.ok: return saved
 	_live.erase(attempt_id); _pending.erase(attempt_id)
-	var receipt := {"ok":true,"improved":improved,"reason":("新个人最佳已保存\n" if improved else "本次未刷新最佳\n")+ChallengeScore.describe_best(store.snapshot().challenge_bests.get(key,{}))}
+	var receipt := {"ok":true,"improved":improved,"reason":(LocalizationService.text("ui_c6401d066a1e") if improved else LocalizationService.text("ui_8c491b25efd3"))+ChallengeScore.describe_best(store.snapshot().challenge_bests.get(key,{}))}
 	_settled[attempt_id] = receipt.duplicate(true)
 	while _settled.size() > 64: _settled.erase(_settled.keys()[0])
 	return receipt

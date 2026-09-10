@@ -110,7 +110,7 @@ func switch_control() -> void:
 	actor.set_controller(controller)
 	actor.gunner.resume_grace = GameConfig.RESUME_GRACE
 	for vehicle in [source_actor,target_actor]:
-		vehicle.label3d.text = vehicle.entity_id + (" (PLAYER)" if vehicle == actor else " (TARGET)")
+		vehicle.label3d.text = vehicle.entity_id + (LocalizationService.text("ui_4c6d3932b74f") if vehicle == actor else LocalizationService.text("ui_1289307bf7d4"))
 
 func _on_projectile_damage(record: Dictionary) -> void:
 	super._on_projectile_damage(record)
@@ -122,8 +122,8 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if not is_instance_valid(target_actor) or _status == null:
 		return
-	hud.control_label.text = "DAMAGE RANGE · CONTROL %s · Tab switch" % actor.entity_id
-	hud.hint_label.text = "W/S drive  A/D turn  Mouse aim  LMB fire\nTab switch A/B  X training X-ray\nR restart both vehicles  Esc menu"
+	hud.control_label.text = LocalizationService.text("ui_d5682ef4389e") % actor.entity_id
+	hud.hint_label.text = LocalizationService.text("ui_6523b46e9b15")
 	for marker in _markers:
 		var vehicle: VehicleActor = marker.actor
 		var healthy := true
@@ -136,27 +136,27 @@ func _process(delta: float) -> void:
 	var observed := target_actor
 	var state := observed.state
 	var caps := observed.capabilities()
-	var lines: Array[String] = ["TARGET B · %s" % ("DISABLED" if state.destroyed else "OPERATIONAL"),
-		"DESIGNED TEST VALUES · AP 120 mm", "X-RAY %s · Tab: operate damaged B" % ("ON" if xray else "OFF"), ""]
+	var lines: Array[String] = [LocalizationService.text("ui_b2b9027f1dc0") % (LocalizationService.status("DISABLED") if state.destroyed else LocalizationService.status("OPERATIONAL")),
+		LocalizationService.text("ui_ee62cb3c7cef"), LocalizationService.text("ui_9a574408b8c6") % (LocalizationService.status("ON") if xray else LocalizationService.status("OFF")), ""]
 	for id in state.module_states:
 		lines.append("%s: %.0f%%" % [str(id).replace("_"," "),state.module_states[id].integrity])
-	lines.append("\nCREW: %d / 5" % state.alive_crew_count())
+	lines.append(LocalizationService.text("ui_362a1f0e700b") % state.alive_crew_count())
 	for id in state.crew_states:
-		lines.append("%s: %s" % [str(id).replace("_"," "),"READY" if state.crew_states[id].alive else "OUT"])
-	lines.append("\nDrive %s · Fire %s · Reload %.0f%%" % ["YES" if caps.drive else "NO","YES" if caps.fire else "NO",caps.reload_rate*100])
+		lines.append("%s: %s" % [str(id).replace("_"," "),LocalizationService.status("READY") if state.crew_states[id].alive else LocalizationService.status("OUT")])
+	lines.append(LocalizationService.text("ui_b4f05fdd31f7") % [LocalizationService.status("YES") if caps.drive else LocalizationService.status("NO"),LocalizationService.status("YES") if caps.fire else LocalizationService.status("NO"),caps.reload_rate*100])
 	if not damage_history.is_empty():
 		var r: Dictionary = damage_history.back()
-		lines.append("\nLast: %s / %s" % [r.target_id,r.item_id])
+		lines.append(LocalizationService.text("ui_aac62b06d701") % [r.target_id,r.item_id])
 		lines.append(str(r.reason).replace("_"," ").to_upper())
 	_status.text = "\n".join(lines)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and not _paused:
-		if event.keycode == KEY_TAB:
+	if event.is_pressed() and not event.is_echo() and not _paused:
+		if event.is_action_pressed("switch_control"):
 			switch_control()
 			get_viewport().set_input_as_handled()
 			return
-		if event.keycode == KEY_X:
+		if event.is_action_pressed("xray"):
 			xray = not xray
 			return
 	if event.is_action_pressed("toggle_target"):
@@ -177,3 +177,5 @@ func reset_damage_round() -> void:
 	_last_impact.clear()
 	_terminated_pids.clear()
 	projectile_visuals.clear_all()
+
+func input_context() -> String: return "damage"

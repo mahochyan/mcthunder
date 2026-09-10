@@ -17,7 +17,7 @@ func register_match(config: MatchConfig) -> Dictionary:
 	# Interrupted previous sessions never receive an invented result or a reward.
 	for old in next.pending.keys():
 		if not _live.has(old): next.pending.erase(old)
-	if next.pending.size() >= 16: return {"ok":false,"reason":"待结算比赛过多"}
+	if next.pending.size() >= 16: return {"ok":false,"reason":LocalizationService.text("ui_8612c4dad227")}
 	next.pending[token] = {"mode":"normal","vehicle_id":config.selected()}
 	var saved := store.commit(next)
 	if not saved.ok: return saved
@@ -31,17 +31,17 @@ func bind_director(token: String, director: TeamMatchDirector) -> bool:
 	return true
 
 func apply_result_once(token: String, result: Dictionary) -> Dictionary:
-	if token.is_empty(): return {"ok":true,"points":0,"reason":"训练 / 自由对战：不计研发收益"}
+	if token.is_empty(): return {"ok":true,"points":0,"reason":LocalizationService.text("ui_9d4afe8e7efb")}
 	var next := store.snapshot()
-	if next.receipts.has(token): return {"ok":true,"points":0,"duplicate":true,"reason":"本局收益已结算"}
-	if not next.pending.has(token) or not _live.has(token) or _live[token] == null: return {"ok":false,"reason":"未登记的比赛结果"}
+	if next.receipts.has(token): return {"ok":true,"points":0,"duplicate":true,"reason":LocalizationService.text("ui_ca8594b3eff1")}
+	if not next.pending.has(token) or not _live.has(token) or _live[token] == null: return {"ok":false,"reason":LocalizationService.text("ui_04964e1b8d25")}
 	if _completed.has(token):
-		if _completed[token] != result: return {"ok":false,"reason":"结算内容不匹配"}
+		if _completed[token] != result: return {"ok":false,"reason":LocalizationService.text("ui_d2ed65c7aef5")}
 	else:
 		var director: TeamMatchDirector = _live[token].get_ref()
-		if director == null or director.state.phase != "finished" or director.state.result != result: return {"ok":false,"reason":"比赛尚未产生有效结算"}
+		if director == null or director.state.phase != "finished" or director.state.result != result: return {"ok":false,"reason":LocalizationService.text("ui_f20b2695632c")}
 		_completed[token] = result.duplicate(true)
-	if result.get("outcome") not in REWARDS: return {"ok":false,"reason":"未知结果"}
+	if result.get("outcome") not in REWARDS: return {"ok":false,"reason":LocalizationService.text("ui_43b55e38f67a")}
 	var points: int = REWARDS[result.outcome]
 	next.pending.erase(token)
 	next.receipts[token] = {"outcome":result.outcome,"points":points}
@@ -51,4 +51,4 @@ func apply_result_once(token: String, result: Dictionary) -> Dictionary:
 	if not saved.ok: return saved
 	_live.erase(token)
 	_completed.erase(token)
-	return {"ok":true,"points":points,"reason":"研发点 +%d · 现有%d"%[points,next.research_points]}
+	return {"ok":true,"points":points,"reason":LocalizationService.text("ui_bb3488f21dfa")%[points,next.research_points]}

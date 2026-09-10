@@ -26,41 +26,41 @@ func snapshot() -> Dictionary: return _data.duplicate(true)
 
 func validate(value: Dictionary) -> Dictionary:
 	var keys := ["schema_version","challenge_bests","revision","profile_id","research_points","unlocked","next_match","pending","receipts","garage"]
-	if value.size() != keys.size(): return _bad("存档字段不匹配")
+	if value.size() != keys.size(): return _bad(LocalizationService.text("ui_68c613b313e6"))
 	for key in keys:
-		if not value.has(key): return _bad("存档字段缺失")
-	if value.schema_version != 2: return _bad("不支持的存档版本")
-	if not ChallengeScore.validate_bests(value.challenge_bests): return _bad("挑战成绩无效")
+		if not value.has(key): return _bad(LocalizationService.text("ui_a97a82669cec"))
+	if value.schema_version != 2: return _bad(LocalizationService.text("ui_202f00976ad5"))
+	if not ChallengeScore.validate_bests(value.challenge_bests): return _bad(LocalizationService.text("ui_2d53e86beed1"))
 	for key in ["schema_version","revision","research_points","next_match"]:
-		if not value[key] is int or value[key] < 0 or value[key] > 1000000000: return _bad("存档数值无效")
-	if value.next_match < 1: return _bad("比赛序号无效")
-	if not value.profile_id is String or value.profile_id.length() != 32 or not value.profile_id.is_valid_hex_number(): return _bad("存档身份无效")
-	if not value.unlocked is Array or ResearchGraph.STARTER not in value.unlocked: return _bad("初始车辆缺失")
+		if not value[key] is int or value[key] < 0 or value[key] > 1000000000: return _bad(LocalizationService.text("ui_a8a87b711ea9"))
+	if value.next_match < 1: return _bad(LocalizationService.text("ui_7922b71f7c99"))
+	if not value.profile_id is String or value.profile_id.length() != 32 or not value.profile_id.is_valid_hex_number(): return _bad(LocalizationService.text("ui_342c276bb290"))
+	if not value.unlocked is Array or ResearchGraph.STARTER not in value.unlocked: return _bad(LocalizationService.text("ui_bb4b43e7f16b"))
 	var unique := {}
 	for id in value.unlocked:
-		if not id is String or not ResearchGraph.NODES.has(id) or unique.has(id): return _bad("研发记录无效")
+		if not id is String or not ResearchGraph.NODES.has(id) or unique.has(id): return _bad(LocalizationService.text("ui_485c48a888d8"))
 		unique[id] = true
 		for parent in ResearchGraph.NODES[id].requires:
-			if parent not in value.unlocked: return _bad("研发依赖缺失")
+			if parent not in value.unlocked: return _bad(LocalizationService.text("ui_edc4f9cc34c7"))
 	for field in ["pending","receipts"]:
-		if not value[field] is Dictionary or value[field].size() > (16 if field == "pending" else 128): return _bad("结算记录超限")
+		if not value[field] is Dictionary or value[field].size() > (16 if field == "pending" else 128): return _bad(LocalizationService.text("ui_b9b067aa625c"))
 		for token in value[field]:
-			if not token is String or not token.begins_with(value.profile_id+":"): return _bad("比赛身份不匹配")
+			if not token is String or not token.begins_with(value.profile_id+":"): return _bad(LocalizationService.text("ui_b5d96f5126e4"))
 			var sequence: String = token.trim_prefix(value.profile_id+":")
-			if not sequence.is_valid_int() or int(sequence) < 1 or int(sequence) >= value.next_match: return _bad("比赛序号越界")
+			if not sequence.is_valid_int() or int(sequence) < 1 or int(sequence) >= value.next_match: return _bad(LocalizationService.text("ui_ce92baba78fe"))
 			var row: Variant = value[field][token]
-			if not row is Dictionary: return _bad("结算字段无效")
+			if not row is Dictionary: return _bad(LocalizationService.text("ui_9f6872613013"))
 			if field == "pending":
-				if row.size()!=2 or row.get("mode")!="normal" or not row.get("vehicle_id") is String or row.vehicle_id not in value.unlocked: return _bad("待结算配置无效")
-			elif row.size()!=2 or row.get("outcome") not in ["victory","defeat","draw","abandoned"] or not row.get("points") is int or row.points != ProgressionService.REWARDS[row.outcome]: return _bad("收益记录无效")
+				if row.size()!=2 or row.get("mode")!="normal" or not row.get("vehicle_id") is String or row.vehicle_id not in value.unlocked: return _bad(LocalizationService.text("ui_1223488250c7"))
+			elif row.size()!=2 or row.get("outcome") not in ["victory","defeat","draw","abandoned"] or not row.get("points") is int or row.points != ProgressionService.REWARDS[row.outcome]: return _bad(LocalizationService.text("ui_83b306b1c3fa"))
 	for token in value.pending:
-		if value.receipts.has(token): return _bad("比赛重复登记")
-	if not value.garage is Dictionary or not value.garage.get("loadouts") is Dictionary: return _bad("车库设置缺失")
-	if value.garage.loadouts.size() != VehicleCatalog.IDS.size(): return _bad("配装记录缺失")
+		if value.receipts.has(token): return _bad(LocalizationService.text("ui_044d5c97f3be"))
+	if not value.garage is Dictionary or not value.garage.get("loadouts") is Dictionary: return _bad(LocalizationService.text("ui_704e5ef6fa4b"))
+	if value.garage.loadouts.size() != VehicleCatalog.IDS.size(): return _bad(LocalizationService.text("ui_fc74cdab294b"))
 	for id in VehicleCatalog.IDS:
-		if not value.garage.loadouts.get(id) is Dictionary: return _bad("配装格式无效")
+		if not value.garage.loadouts.get(id) is Dictionary: return _bad(LocalizationService.text("ui_8c333e24339e"))
 		var prepared := service.build_loadout(value.garage.loadouts[id])
-		if not prepared.ok or prepared.loadout.vehicle_id != id: return _bad("保存配弹无效")
+		if not prepared.ok or prepared.loadout.vehicle_id != id: return _bad(LocalizationService.text("ui_027590f44079"))
 	var battle := MatchConfig.build(value.garage,service,value.unlocked)
 	if not battle.ok: return _bad(battle.reason)
 	return {"ok":true}
@@ -69,19 +69,19 @@ func commit(candidate: Dictionary) -> Dictionary:
 	if not writable: return _bad(problem)
 	var checked := validate(candidate)
 	if not checked.ok: return checked
-	if candidate.revision != _data.revision or candidate.profile_id != _data.profile_id: return _bad("存档已更新，请重新载入")
+	if candidate.revision != _data.revision or candidate.profile_id != _data.profile_id: return _bad(LocalizationService.text("ui_d16a26231239"))
 	var next := candidate.duplicate(true)
 	next.revision += 1
 	if not _path.is_empty():
 		var folder := ProjectSettings.globalize_path(_path).get_base_dir()
-		if DirAccess.make_dir_recursive_absolute(folder) != OK: return _bad("无法创建存档目录")
+		if DirAccess.make_dir_recursive_absolute(folder) != OK: return _bad(LocalizationService.text("ui_00f54fa7e8ed"))
 		var lock_path := ProjectSettings.globalize_path(_path+".lock")
 		var lock := _acquire_lock(lock_path)
 		if not lock.ok: return lock
 		var disk := _latest()
 		var result: Dictionary
-		if disk.get("found",false) and (disk.data.revision != _data.revision or disk.data.profile_id != _data.profile_id): result = _bad("另一实例已保存，请重新载入")
-		elif disk.get("corrupt",false) and not disk.get("found",false): result = _bad("现有存档损坏，已保留原文件")
+		if disk.get("found",false) and (disk.data.revision != _data.revision or disk.data.profile_id != _data.profile_id): result = _bad(LocalizationService.text("ui_3242b1716223"))
+		elif disk.get("corrupt",false) and not disk.get("found",false): result = _bad(LocalizationService.text("ui_8166cefd8a51"))
 		else: result = _write_slot(next)
 		_release_lock(lock_path)
 		if not result.ok: return result
@@ -139,23 +139,23 @@ func _write_slot(value: Dictionary) -> Dictionary:
 	var target := ProjectSettings.globalize_path(_path+"."+str(value.revision%2)+".json")
 	var temporary := target+".tmp"
 	var file := FileAccess.open(temporary,FileAccess.WRITE)
-	if file == null: return _bad("无法写入存档；进度未变更")
+	if file == null: return _bad(LocalizationService.text("ui_00de070dcf14"))
 	file.store_string(JSON.stringify(value,"\t")); file.flush()
 	var write_error := file.get_error()
 	file.close()
-	if write_error != OK: return _bad("存档写入失败；进度未变更")
+	if write_error != OK: return _bad(LocalizationService.text("ui_cf9223913a6d"))
 	var verified := _read(temporary)
-	if not verified.ok or verified.data != value: return _bad("存档写后校验失败")
+	if not verified.ok or verified.data != value: return _bad(LocalizationService.text("ui_01fcf5537639"))
 	# Only the older slot is replaced, while the last committed slot stays readable.
-	if FileAccess.file_exists(target) and DirAccess.remove_absolute(target) != OK: return _bad("无法替换旧存档槽")
-	if DirAccess.rename_absolute(temporary,target) != OK: return _bad("无法提交新存档槽")
+	if FileAccess.file_exists(target) and DirAccess.remove_absolute(target) != OK: return _bad(LocalizationService.text("ui_e12e2b675c61"))
+	if DirAccess.rename_absolute(temporary,target) != OK: return _bad(LocalizationService.text("ui_a4869a80c43b"))
 	return {"ok":true}
 
 func _read(path: String) -> Dictionary:
 	var file := FileAccess.open(path,FileAccess.READ)
 	if file == null or file.get_length() > 1048576: return {"ok":false}
 	var parser := JSON.new()
-	if parser.parse(file.get_as_text()) != OK: return _bad("存档JSON损坏")
+	if parser.parse(file.get_as_text()) != OK: return _bad(LocalizationService.text("ui_d289dfebe9e2"))
 	var parsed: Variant = parser.data
 	if not parsed is Dictionary: return {"ok":false}
 	var normalized: Dictionary = _integers(parsed)
@@ -181,7 +181,7 @@ func _load() -> void:
 	var latest := _latest()
 	if latest.found: _data = latest.data
 	if latest.corrupt:
-		problem = "一个存档槽损坏，已恢复上一份有效进度。" if latest.found else "存档损坏，已保留原文件；正式进度暂不可写。"
+		problem = LocalizationService.text("ui_2270e519845f") if latest.found else LocalizationService.text("ui_952c27139197")
 		writable = latest.found
 
 static func _integers(value: Variant) -> Variant:

@@ -5,17 +5,17 @@ var _data: Dictionary = {}
 
 static func build(value: Dictionary, service: GarageService, unlocked: Array) -> Dictionary:
 	for field in ["mode","selected_vehicle_id","map","difficulty"]:
-		if not value.get(field) is String: return {"ok":false,"reason":"出战设置格式无效"}
-	if not MapRegistry.contains(value.map) or value.difficulty not in ["easy","normal","hard"]: return {"ok":false,"reason":"地图或难度不可用"}
-	if not value.get("lineup") is Array or not value.get("loadouts") is Dictionary: return {"ok":false,"reason":"缺少编成或配弹"}
+		if not value.get(field) is String: return {"ok":false,"reason":LocalizationService.text("ui_804f98aafce7")}
+	if not MapRegistry.contains(value.map) or value.difficulty not in ["easy","normal","hard"]: return {"ok":false,"reason":LocalizationService.text("ui_5e43efd7fbfa")}
+	if not value.get("lineup") is Array or not value.get("loadouts") is Dictionary: return {"ok":false,"reason":LocalizationService.text("ui_feda3fa30d03")}
 	var lineup := Lineup.validate(value.lineup,value.selected_vehicle_id,value.mode,unlocked)
 	if not lineup.ok: return lineup
 	var copied := {}
 	for id in lineup.ids:
-		if not value.loadouts.get(id) is Dictionary: return {"ok":false,"reason":"编成车辆缺少配弹"}
+		if not value.loadouts.get(id) is Dictionary: return {"ok":false,"reason":LocalizationService.text("ui_aa316ccfbf19")}
 		var checked := service.build_loadout(value.loadouts[id])
 		if not checked.ok: return checked
-		if checked.loadout.vehicle_id != id: return {"ok":false,"reason":"配弹车型与编成不符"}
+		if checked.loadout.vehicle_id != id: return {"ok":false,"reason":LocalizationService.text("ui_c6480a4e22a3")}
 		copied[id] = checked.loadout
 	var config := MatchConfig.new()
 	config._data = {"mode":value.mode,"selected_vehicle_id":value.selected_vehicle_id,"map":value.map,"difficulty":value.difficulty,"lineup":lineup.ids,"loadouts":copied}

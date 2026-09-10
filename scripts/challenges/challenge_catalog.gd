@@ -15,16 +15,16 @@ static func create(id: String, level: String = "normal") -> Dictionary:
 		"hold":0.0,"route":[],"enemies":[],"enemy_rounds":6 if hard else 4,"title":"","objective":""}
 	match id:
 		"flank_hunter":
-			c.title = "侧翼猎手"
+			c.title = LocalizationService.text("ui_5d234d7ff862")
 			c.start = Vector3(0,0.03,32)
 			c.rounds = 4 if hard else 6
 			c.limit = 120.0 if hard else 180.0
 			c.quick = 80.0
 			c.economy = 2
-			c.objective = "绕到侧后，穿透并击毁静止 M4 装甲靶车。正面斜甲难穿；靶车不还击。"
+			c.objective = LocalizationService.text("ui_6e51118c46dd")
 			c.enemies = [_enemy("B1",Vector3(0,0.03,-20),PI,false,0)]
 		"hold_ground":
-			c.title = "阵地坚守"
+			c.title = LocalizationService.text("ui_4ef9c2f6c089")
 			c.map = "industrial_edge"
 			c.start = Vector3(-78,0.03,100)
 			c.zone = Vector3(-78,0,100)
@@ -33,11 +33,11 @@ static func create(id: String, level: String = "normal") -> Dictionary:
 			c.limit = 150.0 if hard else 210.0
 			c.quick = 140.0
 			c.enemy_rounds = 12 if hard else 8
-			c.objective = "累计驻守仓库西侧防区并击退两波敌车。离开或被争夺时停止累计；可借仓库脱离火线维修。"
+			c.objective = LocalizationService.text("ui_915ea832c0d0")
 			c.enemies = [_enemy("B1",Vector3(-78,0.03,25),PI,true,0),_enemy("B2",Vector3(-95,0.03,25),PI,true,1)]
 			c.enemies[1].alternatives = [Vector3(-95,0.03,50),Vector3(-95,0.03,75)]
 		"td_route":
-			c.title = "猎歼突进"
+			c.title = LocalizationService.text("ui_67ebfb8035ee")
 			c.vehicle = M36
 			c.start = Vector3(-72,0.03,116)
 			c.rounds = 4 if hard else 6
@@ -46,7 +46,7 @@ static func create(id: String, level: String = "normal") -> Dictionary:
 			c.limit = 130.0 if hard else 180.0
 			c.quick = 100.0
 			c.economy = 2
-			c.objective = "驾驶 M36 依次通过两个道路检查点，再连续占据中央 A 点15秒。敌车进入会中断占领。"
+			c.objective = LocalizationService.text("ui_9c10272116ed")
 			c.enemies = [_enemy("B1",Vector3(25,0.03,-20),PI,true,0)]
 	return c
 
@@ -62,5 +62,5 @@ static func loadout(config: Dictionary, service: GarageService, enemy := false) 
 	row.counts[row.first_shell] = int(config.enemy_rounds) if enemy else int(config.rounds)
 	return row
 static func rules_text(c: Dictionary) -> String:
-	var bonus := "★ 实际受损后完成一次模块维修\n★ %.0f秒内完成"%c.quick if c.id == "hold_ground" else "★ 用弹不超过%d发\n★ %.0f秒内完成"%[c.economy,c.quick]
-	return "%s\n%s · %.0f秒时限 · %d发 %s\n★ 完成全部目标\n%s\n分数：星级×10000 + 剩余秒×10取整 + 余弹×100\n失败 / 退出不计星；无补弹与再出击。规则 v%d"%[c.objective,"困难" if c.difficulty == "hard" else "标准",c.limit,c.rounds,"M61 APCBC-HE" if c.vehicle == M4 else "M77 AP",bonus,c.version]
+	var bonus := LocalizationService.text("ui_a1ad5dbb0bce")%c.quick if c.id == "hold_ground" else LocalizationService.text("ui_4a49eadd591d")%[c.economy,c.quick]
+	return LocalizationService.text("ui_df55c3aa6d63")%[c.objective,LocalizationService.text("ui_4ea02714a1e9") if c.difficulty == "hard" else LocalizationService.text("ui_6bea77acefb3"),c.limit,c.rounds,"M61 APCBC-HE" if c.vehicle == M4 else "M77 AP",bonus,c.version]

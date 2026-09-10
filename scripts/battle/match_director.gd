@@ -136,7 +136,7 @@ func finish_once(outcome: String, reason: String) -> bool:
 	if phase not in ["countdown","playing"] or outcome not in ["victory","defeat","draw","abandoned"]: return false
 	phase = "finished"
 	finish_count += 1
-	result = {"title":"1对1歼灭","round_id":round_id,"outcome":outcome,"reason":reason,"seconds":elapsed,"status":"passed" if outcome == "victory" else "failed","shots":int(totals.get("A",{}).get("shots",0)),"totals":totals.duplicate(true),"deaths":deaths.duplicate(true),"events":events.duplicate(true)}
+	result = {"title":LocalizationService.text("ui_bc179244953c"),"round_id":round_id,"outcome":outcome,"reason":reason,"seconds":elapsed,"status":"passed" if outcome == "victory" else "failed","shots":int(totals.get("A",{}).get("shots",0)),"totals":totals.duplicate(true),"deaths":deaths.duplicate(true),"events":events.duplicate(true)}
 	match_finished.emit(result.duplicate(true))
 	return true
 

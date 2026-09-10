@@ -31,8 +31,8 @@ func _on_record(record: Dictionary) -> void:
 
 func toggle_auto() -> void:
 	auto_replay = not auto_replay
-	hud.replay_toggle_button.text = "Auto Replay: " + ("ON" if auto_replay else "OFF")
-	if view.chinese: hud.replay_toggle_button.text = "自动回放："+("开" if auto_replay else "关")
+	hud.replay_toggle_button.text = LocalizationService.text("ui_60a7c1b1648a") + (LocalizationService.status("ON") if auto_replay else LocalizationService.status("OFF"))
+	if view.chinese: hud.replay_toggle_button.text = LocalizationService.text("ui_c1e526bbca6a")+(LocalizationService.text("ui_39eae64cfc41") if auto_replay else LocalizationService.text("ui_5d0ae622f61f"))
 	if not auto_replay: view.close_view()
 
 func show_history(index: int) -> bool:
@@ -84,6 +84,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		last_export = exported.duplicate(true)
 		if exported.ok: print("[replay] exported "+ProjectSettings.globalize_path(exported.path))
 		if view.visible:
-			view._title.text = "回放已导出" if exported.ok else "回放导出失败"
+			view._title.text = LocalizationService.text("ui_b0b320cb9e13") if exported.ok else LocalizationService.text("ui_e789191f9e96")
 	else: return
 	get_viewport().set_input_as_handled()

@@ -45,6 +45,7 @@ var _terminated_pids: Dictionary = {}  # 已终止 projectile_id（HUD 在飞/�
 var projectile_visuals: ProjectileVisuals
 
 func _ready() -> void:
+	InputBindingService.set_context(input_context())
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_world()
 	defs = VehicleDefs.new()
@@ -297,24 +298,24 @@ func _process(delta: float) -> void:
 	if actor.gunner.last_shot_result == "fired":
 		# 006-R1-C：按 projectile_id 区分在飞/已终止——终止后不再显示 IN FLIGHT
 		if actor.gunner.last_projectile_id > 0 and _terminated_pids.has(actor.gunner.last_projectile_id):
-			result_text = "LAST SHOT: #%d TERMINATED" % actor.gunner.shot_id
+			result_text = LocalizationService.text("ui_45ac12996c15") % actor.gunner.shot_id
 		else:
-			result_text = "LAST SHOT: #%d IN FLIGHT" % actor.gunner.shot_id
+			result_text = LocalizationService.text("ui_6dac9c0f8d63") % actor.gunner.shot_id
 	elif actor.gunner.last_shot_result != "":
-		result_text = "LAST SHOT: BLOCKED (%s)" % actor.gunner.blocked_reason.to_upper()
-	var lane_text := "LANE: %s (T to toggle)" % _lane.to_upper()
-	var ammo_text := "AMMO: %d/%d" % [actor.gunner.rounds_remaining, actor.gunner.weapon.initial_rounds if actor.gunner.weapon != null else 30]
-	if actor.gunner.inventory.typed: ammo_text = actor.gunner.ammo_summary()+" · 1/2 select next"
-	var proj_text := "PROJECTILES: %d" % (projectiles.active_count() if projectiles != null else 0)
-	var impact_text := "LAST IMPACT: —"
+		result_text = LocalizationService.text("ui_7fcacb9923a7") % actor.gunner.blocked_reason.to_upper()
+	var lane_text := LocalizationService.text("ui_afc529212c00") % _lane.to_upper()
+	var ammo_text := LocalizationService.text("ui_d07d64d21a9e") % [actor.gunner.rounds_remaining, actor.gunner.weapon.initial_rounds if actor.gunner.weapon != null else 30]
+	if actor.gunner.inventory.typed: ammo_text = actor.gunner.ammo_summary()+LocalizationService.text("ui_0de6a84bb58f")
+	var proj_text := LocalizationService.text("ui_c358b681f862") % (projectiles.active_count() if projectiles != null else 0)
+	var impact_text := LocalizationService.text("ui_96643e4c20dc")
 	if not _last_impact.is_empty():
-		impact_text = "LAST IMPACT: #%d %s / %.2f s / %.2f m" % [
+		impact_text = LocalizationService.text("ui_096b673665a8") % [
 			_last_impact.get("shot_id", 0),
 			str(_last_impact.get("reason_upper", "")),
 			float(_last_impact.get("flight_time_s", 0.0)),
 			float(_last_impact.get("travelled_m", 0.0)),
 		]
-	hud.update_hud(actor.tank.forward_speed, actor.gunner.cooldown_left, actor.gunner.blocked_reason, [], actor.cam_rig.sight, "CONTROL: A (PLAYER) [BALLISTICS] " + lane_text, result_text, "", ammo_text, proj_text, impact_text)
+	hud.update_hud(actor.tank.forward_speed, actor.gunner.cooldown_left, actor.gunner.blocked_reason, [], actor.cam_rig.sight, LocalizationService.text("ui_fcf3af724d3b") + lane_text, result_text, "", ammo_text, proj_text, impact_text)
 
 func _demo_pump_capture() -> void:
 	# 006-R1-C：等本帧渲染完成（frame_post_draw）再取纹理；PNG 旁打印捕获时点的
@@ -348,17 +349,20 @@ func _demo_pump_capture() -> void:
 	_demo_capturing = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if InputBindingService.is_pause(event):
 		if _paused:
 			_resume()
 		else:
 			_pause()
+	elif _paused: return
 	elif event.is_action_pressed("reset"):
 		_reset_range()
 	elif event.is_action_pressed("toggle_target"):
 		# 006-R1-C：手动切换近靶/远靶（只启用对应目标与背墙）
 		_set_lane("far" if _lane == "near" else "near")
 		print("[bdemo] lane switched -> %s" % _lane)
+
+func input_context() -> String: return "range"
 
 func _reset_range() -> void:
 	# 训练场整场重开（与主靶场 R 语义一致：先取消本车飞弹，再复位车辆与装填）
@@ -615,7 +619,7 @@ func _demo_tick() -> void:
 				return
 			if not _demo_check_board_identity("shot3", "FarBoard"):
 				return
-			print("[bdemo] far REAL muzzle->contact distance = %.3f m (按飞弹实际路程记录，不按靶板标称值)" % float(_last_impact.get("travelled_m", 0.0)))
+			print(LocalizationService.text("ui_02c4d1f8d468") % float(_last_impact.get("travelled_m", 0.0)))
 			_demo_capture_requests.append({"filename": "demo_5_far_after_impact.png"})   # 远靶接触后
 			_demo_wait = _demo_reload_ticks()
 		31:
@@ -637,7 +641,7 @@ func _demo_tick() -> void:
 			if int(_boards["FarBoard"].hit_count) != 0 or int(_boards["NearBoard"].hit_count) != 0:
 				_demo_fail("reset did not clear board feedback (far=%d near=%d)" % [int(_boards["FarBoard"].hit_count), int(_boards["NearBoard"].hit_count)])
 				return
-			print("[bdemo] t_pf=%d reset: in-flight 1 -> 0, board feedback/last-impact/visuals cleared (重开已清空)" % Engine.get_physics_frames())
+			print(LocalizationService.text("ui_4c462b37096d") % Engine.get_physics_frames())
 			_demo_capture_requests.append({"filename": "demo_6_reset_cleared.png"})
 			_demo_wait = 30
 		33:
@@ -692,7 +696,7 @@ func _demo_check_board_identity(tag: String, board_name: String) -> bool:
 		return false
 	var base := int(_demo_board_base.get(board_name, 0))
 	if int(b.hit_count) != base + 1:
-		_demo_fail("%s expected %s hit_count=%d (base=%d) — 目标身份不符" % [tag, board_name, int(b.hit_count), base])
+		_demo_fail(LocalizationService.text("ui_8a99072b2401") % [tag, board_name, int(b.hit_count), base])
 		return false
 	var other := "FarBoard" if board_name == "NearBoard" else "NearBoard"
 	var ob = _boards.get(other)

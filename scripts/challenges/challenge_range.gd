@@ -43,7 +43,7 @@ func _ready() -> void:
 	for signal_name in ["training_requested","armor_training_requested","damage_training_requested","recovery_training_requested"]:
 		for connection in hud.get_signal_connection_list(signal_name): hud.disconnect(signal_name,connection.callable)
 	hud.training_requested.connect(leave_match)
-	hud._training_btn.text = "退出挑战 / 返回车库"
+	hud._training_btn.text = LocalizationService.text("ui_481ea5c8ef6b")
 	for button in [hud.armor_training_button,hud.damage_training_button,hud.recovery_training_button]: button.visible = false
 	CoreUI.apply(hud)
 	_build_ui()
@@ -129,8 +129,8 @@ func _finish(outcome: Dictionary) -> void:
 		vehicle.turret.set_process(false); vehicle.tank.forward_speed = 0; vehicle.tank.velocity = Vector3.ZERO
 		vehicle.freeze_wreck()
 	controller.commands_enabled = false; controller.reset_pending()
-	var reasons := {"objectives_complete":"挑战完成","time_limit":"时间耗尽","player_destroyed":"玩家车辆被击毁","ammunition_empty":"弹药耗尽","flank_required":"靶车击毁，但未确认侧后穿透","abandoned":"主动退出","identity_changed":"车辆身份变更","spawn_blocked":"后续波次出生点被阻挡"}
-	result_text.text = "%s · %s\n%d星 / %d分\n%s"%[config.title,reasons.get(outcome.reason,outcome.reason),outcome.stars,outcome.score,outcome.explanation]
+	var reasons := {"objectives_complete":LocalizationService.text("ui_9aaaa49aa6d6"),"time_limit":LocalizationService.text("ui_58cb5a126914"),"player_destroyed":LocalizationService.text("ui_fbf42273c995"),"ammunition_empty":LocalizationService.text("ui_c15ff473042d"),"flank_required":LocalizationService.text("ui_eb65f72037aa"),"abandoned":LocalizationService.text("ui_e8ec0fc8a0e0"),"identity_changed":LocalizationService.text("ui_0c59ad1a973a"),"spawn_blocked":LocalizationService.text("ui_a3e37cc2aa1e")}
+	result_text.text = LocalizationService.text("ui_f31bab4d0cee")%[config.title,reasons.get(outcome.reason,outcome.reason),outcome.stars,outcome.score,outcome.explanation]
 	result_panel.visible = true
 	get_tree().paused = false; _paused = false; hud.show_pause(false)
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -173,9 +173,9 @@ func _build_ui() -> void:
 	content.add_theme_constant_override("separation",12)
 	result_text = CoreUI.label(content,"",21); result_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	save_text = CoreUI.label(content,"",17); save_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(content,"V 实弹回放 · R 重试 · 成绩不兑换研发点",15)
-	restart_button = CoreUI.button(content,"重试挑战",retry)
-	return_button = CoreUI.button(content,"返回车库",leave_match)
+	CoreUI.label(content,LocalizationService.text("ui_779e93362299"),15)
+	restart_button = CoreUI.button(content,LocalizationService.text("ui_4467a76bc964"),retry)
+	return_button = CoreUI.button(content,LocalizationService.text("ui_6ea101bebe06"),leave_match)
 func _build_markers() -> void:
 	if config.id == "flank_hunter": return
 	var points: Array = config.route.duplicate()
@@ -188,4 +188,6 @@ func _build_markers() -> void:
 		mesh.mesh = torus; mesh.position.y = 0.08
 		var material := StandardMaterial3D.new(); material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED; material.albedo_color = Color("edcd75"); mesh.material_override = material
 		var label := Label3D.new(); root.add_child(label); label.font = CoreUI.FONT; label.font_size = 48; label.position.y = 4
-		label.text = "检查点 %d"%(i+1) if i < config.route.size() else "A · 目标区"
+		label.text = LocalizationService.text("ui_8ef0fe3d3a68")%(i+1) if i < config.route.size() else LocalizationService.text("ui_e019b587d7f7")
+
+func input_context() -> String: return "challenge"

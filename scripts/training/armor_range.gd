@@ -69,7 +69,7 @@ func _build_armor_panel() -> void:
 	_case_label.add_theme_font_size_override("font_size",22)
 	vb.add_child(_case_label)
 	var help := Label.new()
-	help.text = "ARMOR TRAINING · DESIGNED VALUES\nAP 70 mm · finite speed · gravity\n1 Thin   2 Thick   3 Slope\n4 Two plates   5 Ricochet   6 Unknown\nAim + fire to compare. R restarts."
+	help.text = LocalizationService.text("ui_0ff2150a1e5e")
 	vb.add_child(help)
 	_result_label = Label.new()
 	_result_label.add_theme_font_size_override("font_size",22)
@@ -115,8 +115,8 @@ func select_case(index: int) -> void:
 	contact_history.clear()
 	_last_contact_shot = 0
 	_case_label.text = "%d / %s" % [index + 1, ArmorTrainingTargets.CASES[index].title]
-	_result_label.text = "READY"
-	_details.text = "Fire at the plate.\nResults come from the actual impact."
+	_result_label.text = LocalizationService.status("READY")
+	_details.text = LocalizationService.text("ui_c92b4f9a00bd")
 
 func query_snapshots() -> Array:
 	var out := super.query_snapshots()
@@ -133,8 +133,8 @@ func _on_armor_contact(record: Dictionary) -> void:
 	last_contact = record.duplicate(true)
 	contact_history.append(record.duplicate(true))
 	_result_label.text = str(record.result).replace("_"," ").to_upper()
-	var thickness := "%.1f mm" % float(record.thickness_mm) if record.get("has_thickness",false) else "UNKNOWN"
-	_details.text = "Shot #%d · contact %d · %s\nArmor: %s · angle %.1f°\nLine-of-sight thickness: %.1f mm\nPenetration: %.1f → %.1f mm\nTravel: %.2f m · flight %.3f s" % [
+	var thickness := "%.1f mm" % float(record.thickness_mm) if record.get("has_thickness",false) else LocalizationService.status("UNKNOWN")
+	_details.text = LocalizationService.text("ui_a1605009a0af") % [
 		record.shot_id, record.contact_index, record.surface_id, thickness, record.get("angle_deg",0),
 		record.get("effective_mm",0), record.get("before_mm",0), record.get("after_mm",0),
 		record.travelled_m, record.flight_time_s]
@@ -143,18 +143,19 @@ func _on_armor_contact(record: Dictionary) -> void:
 		for r in contact_history:
 			_details.text += "\n%s: %s" % [r.surface_id, str(r.result).to_upper()]
 	if str(record.result) in ["unknown_armor","grazing_unresolved","invalid"]:
-		_details.text = "Shot #%d · %s\nArmor: %s\nNo penetration decision is possible.\nThe projectile stops conservatively." % [
+		_details.text = LocalizationService.text("ui_15c40d826eb9") % [
 			record.shot_id, record.surface_id, thickness]
 
 func _process(delta: float) -> void:
 	super._process(delta)
 	if _initialized:
-		hud.control_label.text = "ARMOR RANGE · 1–6 targets · Esc menu"
+		hud.control_label.text = LocalizationService.text("ui_909e8e579f2b")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and not _paused:
-		if event.keycode >= KEY_1 and event.keycode <= KEY_6:
-			select_case(int(event.keycode - KEY_1))
+	if event.is_pressed() and not event.is_echo() and not _paused:
+		var selected := InputBindingService.scenario_index(event,6)
+		if selected >= 0:
+			select_case(selected)
 			get_viewport().set_input_as_handled()
 			return
 	if event.is_action_pressed("toggle_target"):
@@ -164,3 +165,5 @@ func _unhandled_input(event: InputEvent) -> void:
 func _reset_range() -> void:
 	super._reset_range()
 	select_case(case_index)
+
+func input_context() -> String: return "armor"

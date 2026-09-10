@@ -97,6 +97,7 @@ func return_to_garage(result: Dictionary = {}) -> void:
 
 func _show_garage(result: Dictionary) -> void:
 	_clear_training()
+	InputBindingService.set_context("garage")
 	if not result.is_empty():
 		var prior := last_result.duplicate(true)
 		last_result = result
@@ -112,16 +113,17 @@ func _show_garage(result: Dictionary) -> void:
 	if not profile.problem.is_empty(): garage.error_label.text = profile.problem
 	if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result)
 	if not pending_reward.is_empty():
-		CoreUI.button(garage.preparation,"重试战后保存",func() -> void:
+		CoreUI.button(garage.preparation,LocalizationService.text("ui_48219066e2d8"),func() -> void:
 			if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result))
 	garage.training_requested.connect(enter_training)
 	garage.laboratory_requested.connect(enter_laboratory)
 	garage.challenge_requested.connect(enter_challenge)
+	garage.quit_requested.connect(_quit_application)
 	if pending_challenge >= 0: _settle_challenge(pending_challenge)
 	if pending_challenge >= 0:
-		CoreUI.button(garage.preparation,"重试挑战成绩保存",func() -> void: _settle_challenge(pending_challenge))
+		CoreUI.button(garage.preparation,LocalizationService.text("ui_4a07649a8888"),func() -> void: _settle_challenge(pending_challenge))
 	if not last_result.is_empty():
-		garage.result_label.text = "上次课目：%s · %s · %d炮" % [last_result.title,{"passed":"完成","failed":"未完成","running":"中途返回"}.get(last_result.status,"已结束"),last_result.shots]
+		garage.result_label.text = LocalizationService.text("ui_c3f7b2c28ffe") % [last_result.title,{"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_acf148dcff50")}.get(last_result.status,LocalizationService.text("ui_d79b1d0e5c61")),last_result.shots]
 		if last_result.has("progression"): garage.result_label.text += "\n"+str(last_result.progression.reason)
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_transitioning = false
@@ -137,6 +139,14 @@ func enter_challenge(id: String, level: String) -> void:
 	_transitioning = true
 	call_deferred("_enter_challenge",id,level)
 
+func _quit_application() -> void:
+	if not pending_reward.is_empty(): _settle_match(pending_reward.token,pending_reward.result)
+	if pending_challenge >= 0: _settle_challenge(pending_challenge)
+	if not pending_reward.is_empty() or pending_challenge >= 0:
+		_show_error(LocalizationService.text("menu_save_retry"))
+		return
+	get_tree().quit()
+
 func _enter_challenge(id: String, level: String) -> void:
 	_clear_training()
 	if is_instance_valid(garage): garage.free()
@@ -144,10 +154,10 @@ func _enter_challenge(id: String, level: String) -> void:
 	var scene := ChallengeRange.new(); scene.challenge_id = id; scene.difficulty = level
 	training = scene; add_child(scene)
 	_transitioning = false
-	if not scene.challenge_ready: _show_error("挑战初始化失败，请返回车库重试。"); return
+	if not scene.challenge_ready: _show_error(LocalizationService.text("ui_dbc7b91b29e9")); return
 	if not challenges.bind(scene.director):
 		scene.director.finish_once(false,"identity_changed")
-		scene.save_text.text = "挑战登记失败；成绩未保存，请返回车库重试。"
+		scene.save_text.text = LocalizationService.text("ui_80e4b384e7ea")
 		scene.return_requested.connect(return_to_garage)
 		return
 	var attempt := scene.director.attempt_id
@@ -172,7 +182,7 @@ func enter_training(loadout: Dictionary, case_index: int) -> void:
 	if _transitioning: return
 	var checked := TrainingLoadout.validate(loadout)
 	if not checked.ok or case_index < 0 or case_index >= TrainingDirector.TITLES.size():
-		if is_instance_valid(garage): garage.error_label.text = checked.get("reason","课目不可用")
+		if is_instance_valid(garage): garage.error_label.text = checked.get("reason",LocalizationService.text("ui_5b34da9bf1f6"))
 		return
 	settings = checked.loadout
 	selected_case = case_index
@@ -191,7 +201,7 @@ func _enter_core() -> void:
 	core.return_requested.connect(return_to_garage)
 	core.results_requested.connect(show_results)
 	_transitioning = false
-	if not core._core_ready: _show_error("训练初始化失败，请返回车库重试。")
+	if not core._core_ready: _show_error(LocalizationService.text("ui_e44d206f7d84"))
 
 func enter_laboratory(id: String) -> void:
 	if _transitioning: return
@@ -244,7 +254,7 @@ func _enter_lab(path: String) -> void:
 	var scene := load(path) as PackedScene
 	if scene == null:
 		_transitioning = false
-		_show_error("实验室资源不可用。")
+		_show_error(LocalizationService.text("ui_15f303ec08c9"))
 		return
 	training = scene.instantiate()
 	if training is TeamRange or path == "res://scenes/training/ballistics_range.tscn":
@@ -262,7 +272,7 @@ func _enter_lab(path: String) -> void:
 		lab.hud.training_requested.connect(lab.leave_match)
 	else:
 		lab.hud.training_requested.connect(func() -> void: return_to_garage())
-	lab.hud._training_btn.text = "返回车库"
+	lab.hud._training_btn.text = LocalizationService.text("ui_6ea101bebe06")
 	lab.hud.armor_training_button.visible = false
 	lab.hud.damage_training_button.visible = false
 	lab.hud.recovery_training_button.visible = false
@@ -302,8 +312,8 @@ func show_results(result: Dictionary) -> void:
 	content.custom_minimum_size.x = 600
 	content.add_theme_constant_override("separation",12)
 	panel.add_child(content)
-	CoreUI.label(content,"课目结果 / "+result.title,28)
-	CoreUI.label(content,{"passed":"完成","failed":"未完成","running":"训练尚在进行"}.get(result.status,"已结束"),23)
+	CoreUI.label(content,LocalizationService.text("ui_7bd045755db7")+result.title,28)
+	CoreUI.label(content,{"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_b2d1898e6ec6")}.get(result.status,LocalizationService.text("ui_d79b1d0e5c61")),23)
 	var explanation_scroll := ScrollContainer.new()
 	explanation_scroll.custom_minimum_size.y = 180
 	explanation_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -311,10 +321,11 @@ func show_results(result: Dictionary) -> void:
 	var explanation := CoreUI.label(explanation_scroll,result.explanation,17)
 	explanation.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	explanation.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(content,"实际发射记录：%d炮   ·   真人体验验收：待进行" % result.shots,15)
-	CoreUI.button(content,"继续观察 / V 查看回放",_resume_training)
-	CoreUI.button(content,"重试当前课目",func() -> void: _resume_training(); core.restart_lesson())
-	CoreUI.button(content,"返回车库",func() -> void: return_to_garage(last_result))
+	CoreUI.label(content,LocalizationService.text("ui_62c939aba273") % result.shots,15)
+	CoreUI.button(content,LocalizationService.text("ui_e0fd78bdd191"),_resume_training)
+	CoreUI.button(content,LocalizationService.text("ui_e7598cfa241d"),func() -> void: _resume_training(); core.restart_lesson())
+	CoreUI.button(content,LocalizationService.text("ui_6ea101bebe06"),func() -> void: return_to_garage(last_result))
+	ModalNavigation.attach(result_overlay)
 
 func _resume_training() -> void:
 	if is_instance_valid(result_overlay): result_overlay.queue_free()
@@ -329,9 +340,10 @@ func _show_error(message: String) -> void:
 	var box := VBoxContainer.new()
 	panel.add_child(box)
 	CoreUI.label(box,message)
-	CoreUI.button(box,"返回车库",func() -> void: panel.queue_free(); return_to_garage())
+	CoreUI.button(box,LocalizationService.text("ui_6ea101bebe06"),func() -> void: panel.queue_free(); return_to_garage())
+	ModalNavigation.attach(panel,func() -> void: panel.queue_free(); return_to_garage())
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_instance_valid(result_overlay) and event.is_action_pressed("pause"):
+	if is_instance_valid(result_overlay) and InputBindingService.is_pause(event):
 		_resume_training()
 		get_viewport().set_input_as_handled()

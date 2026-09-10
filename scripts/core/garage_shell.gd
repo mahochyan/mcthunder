@@ -3,6 +3,7 @@ extends Control
 signal training_requested(loadout: Dictionary, case_index: int)
 signal laboratory_requested(id: String)
 signal challenge_requested(id: String, difficulty: String)
+signal quit_requested
 var challenge_button: Button
 var challenge_selection: ChallengeSelection
 var shell_choice: OptionButton
@@ -50,11 +51,16 @@ func _ready() -> void:
 	var vertical := VBoxContainer.new()
 	vertical.add_theme_constant_override("separation",12)
 	margin.add_child(vertical)
-	CoreUI.label(vertical,"MCTHUNDER   /   低多边形装甲",30)
-	CoreUI.button(vertical,"按键与鼠标设置",func() -> void:
+	CoreUI.label(vertical,LocalizationService.text("ui_92f3a3e04627"),30)
+	var toolbar := HBoxContainer.new(); vertical.add_child(toolbar)
+	var settings_button := CoreUI.button(toolbar,LocalizationService.text("ui_eb9bb060c217"),func() -> void:
 		var panel := InputSettingsPanel.new()
 		add_child(panel))
-	CoreUI.label(vertical,"候选 0.2.6  ·  战斗声音 / 可调反馈  ·  三项挑战 / 两张地图  ·  部分模拟参数为估算",15)
+	settings_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	CoreUI.button(toolbar,LocalizationService.text("menu_credits"),_show_credits)
+	CoreUI.button(toolbar,LocalizationService.text("menu_quit"),func() -> void:
+		AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit()))
+	CoreUI.label(vertical,LocalizationService.text("menu_version") % ProjectSettings.get_setting("application/config/version"),15)
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
@@ -65,6 +71,7 @@ func _ready() -> void:
 	var left_column := VBoxContainer.new()
 	left_panel.add_child(left_column)
 	var scroll := ScrollContainer.new()
+	scroll.follow_focus = true
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	left_column.add_child(scroll)
@@ -72,11 +79,11 @@ func _ready() -> void:
 	controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	controls.add_theme_constant_override("separation",8)
 	scroll.add_child(controls)
-	CoreUI.label(controls,"战前准备",24)
+	CoreUI.label(controls,LocalizationService.text("ui_6f53fa2da6bd"),24)
 	vehicle_choice = OptionButton.new()
 	vehicle_choice.clip_text = true
 	vehicle_choice.fit_to_longest_item = false
-	vehicle_choice.add_item("M4A3 外形工程样车 · 训练设计值")
+	vehicle_choice.add_item(LocalizationService.text("ui_5b2b85fb2264"))
 	vehicle_choice.set_item_metadata(0,"player_tank")
 	var admitted := catalog.load_all(historical_defs)
 	for id in VehicleCatalog.IDS:
@@ -87,11 +94,11 @@ func _ready() -> void:
 		if id == initial_vehicle_id: vehicle_choice.select(index)
 	controls.add_child(vehicle_choice)
 	vehicle_choice.item_selected.connect(_select_vehicle)
-	dossier_button = CoreUI.button(controls,"查看车型资料与未核验字段",_show_dossier)
+	dossier_button = CoreUI.button(controls,LocalizationService.text("ui_3291552243b5"),_show_dossier)
 	if profile == null: profile = ProfileStore.new()
 	preparation = GaragePreparation.new(); controls.add_child(preparation)
 	preparation.setup(self,profile)
-	CoreUI.label(controls,"弹种 / 游戏设计穿深",16)
+	CoreUI.label(controls,LocalizationService.text("ui_3d45d76aac43"),16)
 	shell_choice = OptionButton.new()
 	shell_choice.add_item("AP70 · 70 mm")
 	shell_choice.add_item("AP120 · 120 mm")
@@ -99,17 +106,17 @@ func _ready() -> void:
 	controls.add_child(shell_choice)
 	var ammo_row := HBoxContainer.new()
 	controls.add_child(ammo_row)
-	CoreUI.label(ammo_row,"携弹量",16)
+	CoreUI.label(ammo_row,LocalizationService.text("ui_c18e41a7ea02"),16)
 	rounds = SpinBox.new()
 	rounds.min_value = 1
 	rounds.max_value = 30
 	rounds.value = initial_loadout.rounds
 	ammo_row.add_child(rounds)
 	infinite = CheckBox.new()
-	infinite.text = "无限训练弹（仍需自然装填）"
+	infinite.text = LocalizationService.text("ui_f9ae85491761")
 	infinite.button_pressed = initial_loadout.infinite
 	controls.add_child(infinite)
-	CoreUI.label(controls,"选择课目",16)
+	CoreUI.label(controls,LocalizationService.text("ui_356c28d4b95e"),16)
 	case_choice = OptionButton.new()
 	for title in TrainingDirector.TITLES: case_choice.add_item(title)
 	case_choice.select(initial_case)
@@ -118,27 +125,27 @@ func _ready() -> void:
 	goal.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	goal.custom_minimum_size = Vector2(300,58)
 	case_choice.item_selected.connect(func(index: int) -> void: goal.text = TrainingDirector.GOALS[index])
-	start_button = CoreUI.button(left_column,"进入训练",_start)
-	CoreUI.button(controls,"1 对 1 歼灭（工程夹具）",func() -> void: laboratory_requested.emit("duel"))
-	CoreUI.button(left_column,"4 对 4 占点",func() -> void: laboratory_requested.emit("team"))
-	challenge_button = CoreUI.button(left_column,"挑战任务 / 个人最佳",_open_challenges)
+	start_button = CoreUI.button(left_column,LocalizationService.text("ui_e9229f452d99"),_start)
+	CoreUI.button(controls,LocalizationService.text("ui_99b3769b6ee2"),func() -> void: laboratory_requested.emit("duel"))
+	CoreUI.button(left_column,LocalizationService.text("ui_56b6b54bb00a"),func() -> void: laboratory_requested.emit("team"))
+	challenge_button = CoreUI.button(left_column,LocalizationService.text("ui_21b701f1a8ae"),_open_challenges)
 	error_label = CoreUI.label(controls,"",14)
-	if not admitted.ok: error_label.text = "历史配置未通过装配检查："+", ".join(admitted.errors)
+	if not admitted.ok: error_label.text = LocalizationService.text("ui_9f0466b8a9c8")+", ".join(admitted.errors)
 	error_label.modulate = Color("ffc282")
-	CoreUI.label(controls,"专项实验室（工程夹具）",16)
+	CoreUI.label(controls,LocalizationService.text("ui_fcc47a11cdcd"),16)
 	var labs := HBoxContainer.new()
 	controls.add_child(labs)
-	for item in [["armor","装甲"],["ballistics","弹道"],["recovery","恢复"],["terrain","地形"]]:
+	for item in [["armor",LocalizationService.text("ui_a7efe890de54")],["ballistics",LocalizationService.text("ui_f7799e469b10")],["recovery",LocalizationService.text("ui_e0534b8a4e46")],["terrain",LocalizationService.text("ui_51695ad45a11")]]:
 		CoreUI.button(labs,item[1],func() -> void: laboratory_requested.emit(item[0]))
-	CoreUI.button(controls,"电脑驾驶实验室",func() -> void: laboratory_requested.emit("ai_drive"))
-	CoreUI.button(controls,"电脑交战实验室",func() -> void: laboratory_requested.emit("ai_combat"))
-	CoreUI.button(controls,"AP / APHE 弹药实验室",func() -> void: laboratory_requested.emit("shells"))
+	CoreUI.button(controls,LocalizationService.text("ui_c0c91a16fecf"),func() -> void: laboratory_requested.emit("ai_drive"))
+	CoreUI.button(controls,LocalizationService.text("ui_ff13698c8992"),func() -> void: laboratory_requested.emit("ai_combat"))
+	CoreUI.button(controls,LocalizationService.text("ui_fdd1a39b2a3d"),func() -> void: laboratory_requested.emit("shells"))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)
 	var cards := HBoxContainer.new(); right.add_child(cards)
 	for i in VehicleCatalog.IDS.size():
-		var card := CoreUI.button(cards,["M4A3\n中型","M24\n轻型","M26\n重型 / 中型","M36\n歼击车"][i],func() -> void: vehicle_choice.select(i+1); _select_vehicle(i+1))
+		var card := CoreUI.button(cards,[LocalizationService.text("ui_0f6da48c7d5b"),LocalizationService.text("ui_25441e6328a5"),LocalizationService.text("ui_13684e5a770f"),LocalizationService.text("ui_0868e13fa0b1")][i],func() -> void: vehicle_choice.select(i+1); _select_vehicle(i+1))
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var viewport_container := SubViewportContainer.new()
 	viewport_container.stretch = true
@@ -183,10 +190,10 @@ func _ready() -> void:
 	CoreVehicleVisual.box(preview,Vector3(0,-0.06,0),Vector3(7,0.1,7),Color("40514c"))
 	var view_controls := HBoxContainer.new()
 	right.add_child(view_controls)
-	CoreUI.button(view_controls,"转左",func() -> void: preview.rotation.y -= PI/4)
-	inspect_button = CoreUI.button(view_controls,"查看：外观 → 装甲 → 内构",_inspect)
+	CoreUI.button(view_controls,LocalizationService.text("ui_0cea635232f9"),func() -> void: preview.rotation.y -= PI/4)
+	inspect_button = CoreUI.button(view_controls,LocalizationService.text("ui_2580d354c914"),_inspect)
 	inspect_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	CoreUI.button(view_controls,"转右",func() -> void: preview.rotation.y += PI/4)
+	CoreUI.button(view_controls,LocalizationService.text("ui_12cd012a934f"),func() -> void: preview.rotation.y += PI/4)
 	inspection_row = HBoxContainer.new(); right.add_child(inspection_row)
 	inspection_choice = OptionButton.new(); inspection_choice.custom_minimum_size.x = 250
 	inspection_choice.clip_text = true; inspection_choice.fit_to_longest_item = false
@@ -197,10 +204,18 @@ func _ready() -> void:
 	inspection_choice.item_selected.connect(_select_inspection)
 	preview_note = CoreUI.label(right,"",15)
 	preview_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	result_label = CoreUI.label(right,"尚无本次会话训练结果。",16)
+	result_label = CoreUI.label(right,LocalizationService.text("ui_c42121535102"),16)
 	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(vertical,"W/S 驾驶  ·  A/D 转向  ·  鼠标瞄准  ·  左键开炮  ·  Esc 暂停与返回",15)
+	CoreUI.label(vertical,LocalizationService.text("ui_c2d8db90e0eb"),15)
 	_select_vehicle(vehicle_choice.selected)
+	ModalNavigation.attach(self)
+
+func _show_credits() -> void:
+	var rules := "\n\n"+LocalizationService.text("menu_rules")+"\n"+GameConfig.ARMOR_RULES_VERSION+"\n"+GameConfig.DAMAGE_RULES_VERSION+"\n"+RecoveryRules.VERSION
+	var body := LocalizationService.text("menu_credits_body")+rules
+	body += "\n\nNoto Sans CJK SC — SIL Open Font License 1.1\n"+FileAccess.get_file_as_string("res://assets/fonts/OFL.txt")
+	body += "\n\nGodot Engine\n"+Engine.get_license_text()
+	AppDialog.show(self,LocalizationService.text("menu_credits"),body)
 
 func build_loadout() -> Dictionary:
 	return TrainingLoadout.validate({"vehicle_id":"test_vehicle","shell_id":"ap70" if shell_choice.selected == 0 else "ap120","rounds":int(rounds.value),"infinite":infinite.button_pressed})
@@ -216,7 +231,7 @@ func _start() -> void:
 func _inspect() -> void:
 	_view_mode = (_view_mode+1)%3
 	_apply_preview_mode()
-	inspect_button.text = "当前："+["外观","装甲（橙：估算，灰：未知）","内构（蓝：部件，绿：乘员）"][_view_mode]+" · 点击切换"
+	inspect_button.text = LocalizationService.text("ui_660648805666")+[LocalizationService.text("ui_86a63f23a076"),LocalizationService.text("ui_c0b8220b85c7"),LocalizationService.text("ui_b37ff83d968b")][_view_mode]+LocalizationService.text("ui_b0d87e0bb40b")
 
 func _apply_preview_mode() -> void:
 	preview.set_mode(["appearance","armor","interior"][_view_mode])
@@ -240,7 +255,7 @@ func _refresh_inspection() -> void:
 			inspection_choice.add_item(CoreUI.word(module.id))
 			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"module","id":module.id})
 		for station in preview.layout.crew_stations:
-			inspection_choice.add_item("乘员 / "+CoreUI.word(station.id))
+			inspection_choice.add_item(LocalizationService.text("ui_1495f29977e4")+CoreUI.word(station.id))
 			inspection_choice.set_item_metadata(inspection_choice.item_count-1,{"kind":"crew","id":station.id})
 	if inspection_choice.item_count > 0: _select_inspection(0)
 
@@ -252,26 +267,26 @@ func _select_inspection(index: int) -> void:
 		preview.select_patch(entry.id)
 		for patch in preview.layout.armor_patches:
 			if patch.id == entry.id:
-				inspection_value.text = "名义厚度 %.1f mm · %s\n局部几何：%s"%[patch.thickness_mm,_evidence_word(patch.thickness_status),_evidence_word(patch.geometry_status)] if patch.has_thickness else "厚度未知，不以0 mm替代。\n局部几何："+_evidence_word(patch.geometry_status)
+				inspection_value.text = LocalizationService.text("ui_e1fbe9145803")%[patch.thickness_mm,_evidence_word(patch.thickness_status),_evidence_word(patch.geometry_status)] if patch.has_thickness else LocalizationService.text("ui_5e8bb1906e1f")+_evidence_word(patch.geometry_status)
 	elif entry.kind == "module":
 		preview.select_module(entry.id)
 		for module in preview.layout.modules:
-			if module.id == entry.id: inspection_value.text = CoreUI.word(module.kind)+" · 内构位置与尺寸："+_evidence_word(module.geometry_status)
+			if module.id == entry.id: inspection_value.text = CoreUI.word(module.kind)+LocalizationService.text("ui_7a954e969839")+_evidence_word(module.geometry_status)
 		if preparation.current_id in VehicleCatalog.IDS:
 			var checked := profile.service.build_loadout(preparation.loadouts[preparation.current_id])
-			if checked.ok and checked.inventory.racks.has(entry.id): inspection_value.text += "\n架内%d发；空架隐藏。"%checked.inventory.racks[entry.id]
+			if checked.ok and checked.inventory.racks.has(entry.id): inspection_value.text += LocalizationService.text("ui_cf4bdbed893a")%checked.inventory.racks[entry.id]
 	else:
 		preview.select_crew(entry.id)
-		inspection_value.text = "乘员位置盒为估算；具体角色与原始资料见车型档案。"
+		inspection_value.text = LocalizationService.text("ui_560aa91f650c")
 	preparation.apply_rack_preview()
 
 func _evidence_word(value: String) -> String:
-	return {"verified":"已核验","estimated":"估算","unknown":"未知"}.get(value,value)
+	return {"verified":LocalizationService.text("ui_b340063020e8"),"estimated":LocalizationService.text("ui_c58140e6cf83"),"unknown":LocalizationService.text("ui_4d8c1c5b4283")}.get(value,value)
 
 func _patch_label(patch: ArmorPatchDefinition) -> String:
-	var zones := {"hull_front_upper":"车体前上","hull_front_lower":"车体前下","hull_sides_front":"车体侧部前段","hull_sides_rear":"车体侧部后段","hull_sides_lower":"车体下侧前段","hull_sides_lower_rear":"车体下侧后段","hull_rear_upper":"车体后上","hull_rear_lower":"车体后下","hull_roof_front":"车顶前段","hull_roof_rear":"车顶后段","hull_floor_front":"车底前段","hull_floor_rear":"车底后段","turret_front":"炮塔正面","turret_sides":"炮塔侧面","turret_rear":"炮塔后面","turret_roof":"炮塔顶面","gun_shield":"炮盾","gun_tube":"炮管"}
+	var zones := {"hull_front_upper":LocalizationService.text("ui_a975c2bbfbb2"),"hull_front_lower":LocalizationService.text("ui_fdafc1ea7a60"),"hull_sides_front":LocalizationService.text("ui_f7761d7be028"),"hull_sides_rear":LocalizationService.text("ui_fac83f914eb7"),"hull_sides_lower":LocalizationService.text("ui_37a4ed647f46"),"hull_sides_lower_rear":LocalizationService.text("ui_9e82f34cf759"),"hull_rear_upper":LocalizationService.text("ui_35c3c1935288"),"hull_rear_lower":LocalizationService.text("ui_83ea31d22714"),"hull_roof_front":LocalizationService.text("ui_5fdaf3b2c3fd"),"hull_roof_rear":LocalizationService.text("ui_eafc7fde10e2"),"hull_floor_front":LocalizationService.text("ui_6dcd42477b3f"),"hull_floor_rear":LocalizationService.text("ui_d7b5d1597f8c"),"turret_front":LocalizationService.text("ui_2085f9e261dd"),"turret_sides":LocalizationService.text("ui_cb5f50600899"),"turret_rear":LocalizationService.text("ui_da9c27321e3c"),"turret_roof":LocalizationService.text("ui_9ad75fc4abfb"),"gun_shield":LocalizationService.text("ui_1ae02361da58"),"gun_tube":LocalizationService.text("ui_72c396fb3557")}
 	var title: String = zones.get(patch.plate_group_id,CoreUI.word(patch.id))
-	if "side" in patch.plate_group_id: title = ("左 · " if patch.outward_normal_local.x<0 else "右 · ")+title
+	if "side" in patch.plate_group_id: title = (LocalizationService.text("ui_843fd39e3226") if patch.outward_normal_local.x<0 else LocalizationService.text("ui_1687ade07b67"))+title
 	return title
 
 func _collect_preview_extras(node: Node) -> void:
@@ -290,7 +305,7 @@ func _select_vehicle(_index: int) -> void:
 	shell_choice.disabled = historical
 	rounds.editable = not historical; infinite.disabled = historical; case_choice.disabled = historical
 	dossier_button.disabled = not historical
-	start_button.text = "驾驶所选历史车辆" if historical else "进入训练"
+	start_button.text = LocalizationService.text("ui_720202c64f34") if historical else LocalizationService.text("ui_e9229f452d99")
 	var layout: VehicleLayoutDefinition = catalog.packages[id].layout if historical else M4EngineeringProfile.layout()
 	preview.setup(layout)
 	for extra in preview._extra_nodes.duplicate():
@@ -303,12 +318,12 @@ func _select_vehicle(_index: int) -> void:
 		shell_choice.select(2)
 		rounds.max_value = 150; rounds.value = packet.runtime.rounds
 		HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
-		preview_note.text = "%s\n%s · %d 发 · %.1f km/h 文献道路速度\n局部形状、内构盒、装填与穿深模拟为估算；详见资料档案。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
+		preview_note.text = LocalizationService.text("ui_299e3fe8604d")%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
 		var ammo := HistoricalShellCatalog.build(packet)
 		if ammo.ok:
-			preview_note.text += "\n1 / 2 选择下一发："+ammo.options[0].display_name+" / "+ammo.options[1].display_name
-			preview_note.text += "\n默认主弹70%、另一弹30%；APHE有游戏化内部爆发。"
-			if id.begins_with("us_m24"): preview_note.text += "\nM72适配来自手册瞄准图，1951实际配发未核实。"
+			preview_note.text += LocalizationService.text("ui_800e253ef3d2")+ammo.options[0].display_name+" / "+ammo.options[1].display_name
+			preview_note.text += LocalizationService.text("ui_b35c0ab2610a")
+			if id.begins_with("us_m24"): preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
 		var extent: float = maxf(float(HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")),float(packet.geometry.barrel_length)+3.5)
 		preview_camera.position = Vector3(5.3,3.8,-6.4)*extent/6.0
 	else:
@@ -316,7 +331,7 @@ func _select_vehicle(_index: int) -> void:
 		shell_choice.select(0 if initial_loadout.shell_id == "ap70" else 1)
 		rounds.max_value = 30; rounds.value = initial_loadout.rounds
 		M4LowPolyDetails.build(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,1)
-		preview_note.text = "M4A3 外形工程样车：正面240、其他20 mm为训练设计值。\n历史配置另列；专项实验室继续使用工程夹具。"
+		preview_note.text = LocalizationService.text("ui_96ad5ffe2ca2")
 		preview_camera.position = Vector3(5.3,3.8,-6.4)
 	preview_camera.look_at(Vector3(0,1.2,0))
 	_collect_preview_extras(preview)
@@ -335,23 +350,23 @@ func _show_dossier() -> void:
 	for side in ["left","top"]: overlay.set("offset_"+side,30)
 	for side in ["right","bottom"]: overlay.set("offset_"+side,-30)
 	var box := VBoxContainer.new(); overlay.add_child(box)
-	CoreUI.label(box,packet.display_name+" · 字段证据",23)
+	CoreUI.label(box,packet.display_name+LocalizationService.text("ui_5d7d4009ab4d"),23)
 	var view := RichTextLabel.new()
 	view.bbcode_enabled = true; view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	view.selection_enabled = true; box.add_child(view)
-	view.append_text("[b]已核验 = 引用记录有史料支持；不等于几何、游戏表现已全部实测。[/b]\n")
+	view.append_text(LocalizationService.text("ui_286db738c052"))
 	var ammunition := HistoricalShellCatalog.build(packet)
 	if ammunition.ok:
-		view.append_text("\n[b]021 当前弹种（覆盖下方020包的弹道初值）[/b]\n")
+		view.append_text(LocalizationService.text("ui_0f251c001808"))
 		for entry in ammunition.entries:
 			view.append_text("\n[b]"+str(entry.label)+"[/b] · "+str(entry.gun)+"\n")
-			view.add_text("初速 "+str(entry.muzzle_velocity_mps)+" m/s · "+str(entry.muzzle_velocity_status)+"\n")
-			view.add_text("穿深曲线（米,毫米） "+JSON.stringify(entry.penetration_curve)+" · estimated\n"+str(entry.estimate_reason)+"\n"+str(entry.historical_observations)+"\n")
+			view.add_text(LocalizationService.text("ui_51a92c8c7d53")+str(entry.muzzle_velocity_mps)+" m/s · "+str(entry.muzzle_velocity_status)+"\n")
+			view.add_text(LocalizationService.text("ui_9a5d1dcbcbb9")+JSON.stringify(entry.penetration_curve)+" · estimated\n"+str(entry.estimate_reason)+"\n"+str(entry.historical_observations)+"\n")
 			for ref in entry.source_refs:
 				var source: Dictionary = ammunition.sources[ref]
 				view.append_text("[url="+str(source.url)+"]"+str(source.title)+"[/url]\n")
 				view.add_text(str(source.location)+"\nSHA256 "+str(source.sha256)+"\n")
-		view.append_text("\n[b]020 车型包原始字段记录（弹道初值已由上述021弹种目录覆盖）[/b]\n")
+		view.append_text(LocalizationService.text("ui_0c1302ad4a39"))
 	for limitation in packet.limitations: view.add_text(str(limitation)+"\n")
 	for field in packet.facts:
 		var row: Dictionary = packet.facts[field]
@@ -364,4 +379,5 @@ func _show_dossier() -> void:
 			view.add_text("SHA256: "+str(source.get("sha256","local implementation"))+"\n")
 	view.meta_clicked.connect(func(link: Variant) -> void:
 		if str(link).begins_with("https://"): OS.shell_open(str(link)))
-	CoreUI.button(box,"关闭资料档案",overlay.queue_free)
+	CoreUI.button(box,LocalizationService.text("ui_9b1bf5d60f70"),overlay.queue_free)
+	ModalNavigation.attach(overlay,overlay.queue_free)

@@ -11,7 +11,7 @@ static func height(x: float, z: float) -> float:
 static func create() -> MapDefinition:
 	var map := MapDefinition.new()
 	map.id = "hill_village_018"
-	map.title = "丘陵村落"
+	map.title = LocalizationService.text("ui_a5241c461e94")
 	var nodes := {}
 	var edges: Array = []
 	for team in [1,2]:
