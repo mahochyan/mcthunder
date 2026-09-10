@@ -9,6 +9,11 @@ extends RefCounted
 const MOVE_EPS := 0.6        # m/s below which the vehicle is not making progress
 const WAIT_START_S := 2.0    # sustained stall before an episode is opened
 const GOAL_HOLD_M := 2.0     # distance at which the goal counts as held/arrived
+const EVIDENCE_SLOTS := 10
+const MAX_EVIDENCE_BYTES := 2*1024*1024
+
+static func match_evidence_path(match_id: int, folder: String = "user://diagnostics/traffic") -> String:
+	return folder.path_join("match_%02d.json"%posmod(match_id,EVIDENCE_SLOTS))
 
 var clock := 0.0
 var records: Dictionary = {}   # "entity:life" -> {episodes, longest_s, total_s, ...}
@@ -127,8 +132,11 @@ func snapshot() -> Dictionary:
 		"thresholds":{"move_eps":MOVE_EPS,"wait_start_s":WAIT_START_S}}
 
 func write_evidence(path: String) -> bool:
+	var serialized := JSON.stringify(snapshot(),"  ")
+	if serialized.to_utf8_buffer().size()>MAX_EVIDENCE_BYTES: return false
+	if DirAccess.make_dir_recursive_absolute(path.get_base_dir())!=OK: return false
 	var file := FileAccess.open(path,FileAccess.WRITE)
 	if file == null: return false
-	file.store_string(JSON.stringify(snapshot(),"  "))
+	file.store_string(serialized)
 	file.close()
 	return true

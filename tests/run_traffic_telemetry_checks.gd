@@ -58,7 +58,7 @@ func _run() -> void:
 			if ep.outcome == "open_at_end": has_open = true
 		if int(life.open_at_end) == 1 and not has_open: open_ok = false
 	_check(open_ok,"stalls still open at the end are recorded as open_at_end, never as recovered success")
-	var path := "user://traffic_match_%d.json" % [scene.director.state.match_id]
+	var path := TrafficTelemetry.match_evidence_path(scene.director.state.match_id)
 	var file := FileAccess.open(path,FileAccess.READ)
 	var parsed: Dictionary = {} if file == null else JSON.parse_string(file.get_as_text())
 	_check(file != null and parsed.has("per_life") and parsed.has("planning") and parsed.has("thresholds"),"match-end evidence JSON is written with the full schema")

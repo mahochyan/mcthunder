@@ -122,7 +122,8 @@ func _ready() -> void:
 	get_viewport().gui_embed_subwindows = true
 	var args := OS.get_cmdline_user_args()
 	var verify_installation := args.has("--verify-installation")
-	var isolated_settings := DisplayServer.get_name() == "headless" or verify_installation
+	var verify_performance := args.has("--verify-performance")
+	var isolated_settings := DisplayServer.get_name() == "headless" or verify_installation or verify_performance
 	for argument in args:
 		if argument.ends_with("-check") or argument.ends_with("-demo") or argument == "--autoshot" or argument == "--export-smoke": isolated_settings = true
 	InputBindingService.initialize("" if isolated_settings else InputBindingService.PATH)
@@ -133,7 +134,7 @@ func _ready() -> void:
 			if args.has(flag): isolated = true
 		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
 		if args.has("--challenge-play-check"): profile = ProfileStore.new("user://tests/challenge_demo024_"+str(Time.get_ticks_usec())+"/commander")
-	if verify_installation:
+	if verify_installation or verify_performance:
 		var isolated_path := "user://tests/installation031_%d" % Time.get_ticks_usec()
 		InputBindingService.initialized = false; InputBindingService.initialize(isolated_path+"/input.json")
 		profile = ProfileStore.new(isolated_path+"/commander")
@@ -150,8 +151,9 @@ func _ready() -> void:
 	ui_layer.layer = 10
 	add_child(ui_layer)
 	return_to_garage()
-	if verify_installation:
-		var verifier_script := load("res://scripts/diagnostics/installation_verifier.gd") as GDScript
+	if verify_installation or verify_performance:
+		var verifier_path := "res://scripts/diagnostics/performance_verifier.gd" if verify_performance else "res://scripts/diagnostics/installation_verifier.gd"
+		var verifier_script := load(verifier_path) as GDScript
 		if verifier_script==null or not verifier_script.can_instantiate(): get_tree().quit(2); return
 		var verifier := verifier_script.new() as Node
 		if verifier==null: get_tree().quit(2); return

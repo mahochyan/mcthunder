@@ -284,7 +284,7 @@ func abandon_vehicle() -> void:
 
 func _finish_match(result: Dictionary) -> void:
 	if telemetry != null:
-		var evidence_path := "user://traffic_match_%d.json" % [int(director.state.match_id)]
+		var evidence_path := TrafficTelemetry.match_evidence_path(int(director.state.match_id))
 		if telemetry.write_evidence(evidence_path): print("TRAFFIC_EVIDENCE %s" % evidence_path)
 	projectiles.close_round()
 	wrecks.set_physics_process(false)

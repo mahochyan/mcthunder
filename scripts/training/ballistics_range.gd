@@ -20,6 +20,7 @@ var hud: HUD
 var replay: ReplayController
 var _paused := false
 var _initialized := false
+var unattended_diagnostic := false # Only the explicit performance verifier sets this before scene startup.
 var _last_impact: Dictionary = {}   # 006：最近飞弹终止（HUD 展示）
 # --- 006-d 弹道演示状态 ---
 var _demo := false
@@ -405,7 +406,7 @@ func _resume() -> void:
 	actor.gunner.resume_grace = GameConfig.RESUME_GRACE
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not unattended_diagnostic:
 		if _initialized and not _paused:
 			_pause()
 
