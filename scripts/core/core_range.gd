@@ -4,6 +4,7 @@ signal return_requested(result: Dictionary)
 signal results_requested(result: Dictionary)
 var loadout := {"vehicle_id":"test_vehicle","shell_id":"ap120","rounds":10,"infinite":false}
 var lesson := 0
+var teach_fire_recovery := false
 var director := TrainingDirector.new()
 var _core_ready := false
 var _plate_snapshot: Dictionary = {}
@@ -55,7 +56,7 @@ func _start_configured_round() -> void:
 	wrecks.clear_tracking()
 	death_history.clear()
 	for vehicle in [source_actor,target_actor]:
-		var layout := M4EngineeringProfile.layout(lesson == 4 or lesson == 5)
+		var layout := M4EngineeringProfile.layout(teach_fire_recovery or lesson == 4 or lesson == 5)
 		for patch in layout.armor_patches:
 			if patch.id == "hull_front": patch.thickness_mm = 240.0
 		vehicle.set_damage_layout(layout)

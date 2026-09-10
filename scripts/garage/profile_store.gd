@@ -18,18 +18,19 @@ func _init(path: String = "", garage_service: GarageService = null) -> void:
 func _fresh() -> Dictionary:
 	var loadouts := {}
 	for id in VehicleCatalog.IDS: loadouts[id] = service.default_loadout(id)
-	return {"schema_version":2,"challenge_bests":{},"revision":0,"profile_id":Crypto.new().generate_random_bytes(16).hex_encode(),
+	return {"schema_version":3,"tutorial":{"chapter":0,"completed":[]},"challenge_bests":{},"revision":0,"profile_id":Crypto.new().generate_random_bytes(16).hex_encode(),
 		"research_points":100,"unlocked":[ResearchGraph.STARTER],"next_match":1,"pending":{},"receipts":{},
 		"garage":{"mode":"training","selected_vehicle_id":ResearchGraph.STARTER,"map":"hill_village","difficulty":"normal","lineup":[ResearchGraph.STARTER],"loadouts":loadouts}}
 
 func snapshot() -> Dictionary: return _data.duplicate(true)
 
 func validate(value: Dictionary) -> Dictionary:
-	var keys := ["schema_version","challenge_bests","revision","profile_id","research_points","unlocked","next_match","pending","receipts","garage"]
+	var keys := ["schema_version","tutorial","challenge_bests","revision","profile_id","research_points","unlocked","next_match","pending","receipts","garage"]
 	if value.size() != keys.size(): return _bad(LocalizationService.text("ui_68c613b313e6"))
 	for key in keys:
 		if not value.has(key): return _bad(LocalizationService.text("ui_a97a82669cec"))
-	if value.schema_version != 2: return _bad(LocalizationService.text("ui_202f00976ad5"))
+	if value.schema_version != 3: return _bad(LocalizationService.text("ui_202f00976ad5"))
+	if not TutorialCatalog.validate(value.tutorial): return _bad(LocalizationService.text("tutorial_invalid_progress"))
 	if not ChallengeScore.validate_bests(value.challenge_bests): return _bad(LocalizationService.text("ui_2d53e86beed1"))
 	for key in ["schema_version","revision","research_points","next_match"]:
 		if not value[key] is int or value[key] < 0 or value[key] > 1000000000: return _bad(LocalizationService.text("ui_a8a87b711ea9"))
@@ -164,6 +165,9 @@ func _read(path: String) -> Dictionary:
 	if normalized.get("schema_version") == 1 and normalized.size() == 9 and not normalized.has("challenge_bests"):
 		normalized.schema_version = 2
 		normalized.challenge_bests = {}
+	if normalized.get("schema_version") == 2 and normalized.size() == 10 and not normalized.has("tutorial"):
+		normalized.schema_version = 3
+		normalized.tutorial = {"chapter":0,"completed":[]}
 	var result := validate(normalized)
 	return {"ok":true,"data":normalized} if result.ok else result
 

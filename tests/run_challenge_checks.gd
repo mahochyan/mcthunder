@@ -62,11 +62,11 @@ func _rules() -> void:
 	check(not ChallengeScore.validate_bests({"flank_hunter:v2:normal":{}}),"unrecognized rules version is not mixed into v1 bests")
 func _persistence() -> void:
 	var path := "user://tests/challenges024_"+str(Time.get_ticks_usec())+"/commander"
-	var old := ProfileStore.new("",service).snapshot(); old.erase("challenge_bests"); old.schema_version = 1; old.revision = 7
+	var old := ProfileStore.new("",service).snapshot(); old.erase("challenge_bests"); old.erase("tutorial"); old.schema_version = 1; old.revision = 7
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path).get_base_dir())
 	var file := FileAccess.open(path+".1.json",FileAccess.WRITE); file.store_string(JSON.stringify(old)); file.close()
 	var migrated := ProfileStore.new(path,service)
-	check(migrated.writable and migrated.snapshot().schema_version == 2 and migrated.snapshot().revision==7 and migrated.snapshot().challenge_bests.is_empty(),"schema1 explicitly migrates to empty challenge bests preserving revision")
+	check(migrated.writable and migrated.snapshot().schema_version == 3 and migrated.snapshot().revision==7 and migrated.snapshot().challenge_bests.is_empty() and migrated.snapshot().tutorial == {"chapter":0,"completed":[]},"schema1 explicitly migrates through challenge bests and tutorial defaults preserving revision")
 	check(migrated.snapshot().garage == old.garage and migrated.snapshot().profile_id == old.profile_id,"migration preserves identity and actual garage loadouts")
 	check(migrated.commit(migrated.snapshot()).ok and ProfileStore.new(path,service).snapshot()==migrated.snapshot(),"migrated profile commits and restores exact schema2")
 	var bad := migrated.snapshot(); bad.challenge_bests = {"unknown":{}}

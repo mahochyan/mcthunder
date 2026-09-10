@@ -19,6 +19,47 @@ var pending_challenge := -1
 var loading_overlay: Control
 var navigation_overlay: Control
 var load_generation := 0
+var tutorial_chapter := -1
+var tutorial_guide: Node
+var tutorial_return_settings: Dictionary = {}
+
+func start_tutorial(chapter: int) -> void:
+	if _transitioning or chapter<0 or chapter>=TutorialCatalog.COUNT: return
+	var next := profile.snapshot(); next.tutorial.chapter = chapter
+	var saved := profile.commit(next)
+	if not saved.ok:
+		if is_instance_valid(garage): garage.error_label.text = saved.reason
+		elif is_instance_valid(tutorial_guide): tutorial_guide.save_error = saved.reason
+		return
+	if tutorial_chapter < 0: tutorial_return_settings = {"vehicle":selected_vehicle_id,"case":selected_case}
+	tutorial_chapter = chapter
+	_transitioning = true
+	if chapter == 9:
+		match_config = null; match_token = ""; selected_vehicle_id = "player_tank"
+		call_deferred("_enter_lab","res://scenes/battle/team_range.tscn")
+	else:
+		selected_case = TutorialCatalog.LESSONS[chapter]
+		call_deferred("_enter_core")
+
+func _attach_tutorial() -> void:
+	if tutorial_chapter < 0: return
+	tutorial_guide = load("res://scripts/core/tutorial_guide.gd").new(); tutorial_guide.chapter = tutorial_chapter
+	training.add_child(tutorial_guide)
+	tutorial_guide.completed.connect(func(_chapter: int) -> void: _save_tutorial())
+	tutorial_guide.next_requested.connect(func(chapter: int) -> void:
+		if not _save_tutorial(): return
+		if chapter >= TutorialCatalog.COUNT: return_to_garage()
+		else: start_tutorial(chapter))
+
+func _save_tutorial() -> bool:
+	if not is_instance_valid(tutorial_guide) or tutorial_guide.get_parent() != training or not tutorial_guide.passed: return false
+	var next := profile.snapshot()
+	if tutorial_chapter in next.tutorial.completed: tutorial_guide.save_error = ""; return true
+	next.tutorial.completed.append(tutorial_chapter); next.tutorial.completed.sort()
+	next.tutorial.chapter = mini(tutorial_chapter+1,TutorialCatalog.COUNT)
+	var saved := profile.commit(next)
+	tutorial_guide.save_error = "" if saved.ok else saved.reason
+	return saved.ok
 
 func _begin_loading() -> int:
 	load_generation += 1
@@ -163,6 +204,10 @@ func return_to_garage(result: Dictionary = {}) -> void:
 
 func _show_garage(result: Dictionary) -> void:
 	_clear_training()
+	if not tutorial_return_settings.is_empty():
+		selected_vehicle_id = tutorial_return_settings.vehicle; selected_case = tutorial_return_settings.case
+		tutorial_return_settings.clear()
+	tutorial_chapter = -1; tutorial_guide = null
 	InputBindingService.set_context("garage")
 	if not result.is_empty():
 		var prior := last_result.duplicate(true)
@@ -185,6 +230,7 @@ func _show_garage(result: Dictionary) -> void:
 	garage.laboratory_requested.connect(enter_laboratory)
 	garage.challenge_requested.connect(enter_challenge)
 	garage.quit_requested.connect(_quit_application)
+	garage.tutorial_requested.connect(start_tutorial)
 	if pending_challenge >= 0: _settle_challenge(pending_challenge)
 	if pending_challenge >= 0:
 		CoreUI.button(garage.preparation,LocalizationService.text("ui_4a07649a8888"),func() -> void: _settle_challenge(pending_challenge))
@@ -270,12 +316,14 @@ func _enter_core() -> void:
 	if is_instance_valid(garage): garage.free()
 	garage = null
 	var core := CoreRange.new()
-	core.loadout = settings.duplicate(true)
+	core.loadout = {"vehicle_id":"test_vehicle","shell_id":"ap120","rounds":10,"infinite":true} if tutorial_chapter>=0 else settings.duplicate(true)
 	core.lesson = selected_case
+	core.teach_fire_recovery = tutorial_chapter == 6
 	training = core
 	add_child(training)
 	core.return_requested.connect(return_to_garage)
 	core.results_requested.connect(show_results)
+	_attach_tutorial()
 	_transitioning = false
 	_end_loading()
 	if not core._core_ready: _loading_failed(LocalizationService.text("ui_e44d206f7d84"))
@@ -362,6 +410,7 @@ func _enter_lab(path: String) -> void:
 	lab.hud.damage_training_button.visible = false
 	lab.hud.recovery_training_button.visible = false
 	CoreUI.apply(lab.hud)
+	_attach_tutorial()
 	_end_loading()
 
 func _settle_match(token: String, result: Dictionary) -> void:

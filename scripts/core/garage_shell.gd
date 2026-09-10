@@ -4,6 +4,7 @@ signal training_requested(loadout: Dictionary, case_index: int)
 signal laboratory_requested(id: String)
 signal challenge_requested(id: String, difficulty: String)
 signal quit_requested
+signal tutorial_requested(chapter: int)
 var challenge_button: Button
 var challenge_selection: ChallengeSelection
 var shell_choice: OptionButton
@@ -61,6 +62,20 @@ func _ready() -> void:
 	CoreUI.button(toolbar,LocalizationService.text("menu_quit"),func() -> void:
 		AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit()))
 	CoreUI.label(vertical,LocalizationService.text("menu_version") % ProjectSettings.get_setting("application/config/version"),15)
+	var tutorial_row := HBoxContainer.new(); vertical.add_child(tutorial_row)
+	var checkpoint: Dictionary = profile.snapshot().tutorial if profile != null else {"chapter":0,"completed":[]}
+	var resume := CoreUI.button(tutorial_row,LocalizationService.text("tutorial_resume") % [checkpoint.completed.size(),TutorialCatalog.COUNT],func() -> void: tutorial_requested.emit(mini(int(checkpoint.chapter),TutorialCatalog.COUNT-1)))
+	resume.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var chapters := OptionButton.new(); chapters.name = "TutorialChapters"; tutorial_row.add_child(chapters)
+	for chapter in TutorialCatalog.COUNT: chapters.add_item("%d. %s" % [chapter+1,TutorialCatalog.title(chapter)])
+	chapters.select(mini(int(checkpoint.chapter),TutorialCatalog.COUNT-1))
+	CoreUI.button(tutorial_row,LocalizationService.text("tutorial_review"),func() -> void: tutorial_requested.emit(chapters.selected))
+	CoreUI.button(tutorial_row,LocalizationService.text("tutorial_reset"),func() -> void:
+		AppDialog.show(self,LocalizationService.text("tutorial_reset"),LocalizationService.text("tutorial_reset_body"),LocalizationService.text("tutorial_reset"),func() -> void:
+			var next := profile.snapshot(); next.tutorial = {"chapter":0,"completed":[]}
+			var saved := profile.commit(next)
+			if saved.ok: resume.text = LocalizationService.text("tutorial_resume") % [0,TutorialCatalog.COUNT]; chapters.select(0); checkpoint.chapter=0; checkpoint.completed=[]
+			else: error_label.text = saved.reason))
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)
