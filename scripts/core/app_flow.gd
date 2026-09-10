@@ -145,6 +145,8 @@ func _ready() -> void:
 	ui_layer.layer = 10
 	add_child(ui_layer)
 	return_to_garage()
+	# Developer harnesses are excluded from the release package.
+	if OS.has_feature("release"): return
 	if args.has("--feedback-play-check"):
 		var demo:=load("res://tests/run_feedback_player_demo.gd").new() as Node
 		add_child(demo); demo.call_deferred("run",self)

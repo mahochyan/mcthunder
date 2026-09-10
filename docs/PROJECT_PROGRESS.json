@@ -2,7 +2,7 @@
   "schema_version": 1,
   "objective": "原创low-poly低多边形装甲游戏，外形尽量贴近原型，玩法尽可能还原战争雷霆陆战内容",
   "authorization": "2026-09-08 user: 按照计划完成后续开发",
-  "current_order": "029",
+  "current_order": "031",
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "orders": {
     "030": {
@@ -126,7 +126,7 @@
       "human": "not_run",
       "engineering": "not_run",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "build_pipeline_implemented_pending_run"
     },
     "011": {
       "engineering": "passed_self_review",
@@ -153,10 +153,12 @@
     },
     "029": {
       "human": "not_run",
-      "engineering": "36_settings_and_16_window_checks_passed",
+      "engineering": "passed_self_review",
       "content_history": "test_only",
-      "implementation": "implemented_pending_regression",
-      "report": "docs/DELIVERY_029.md"
+      "implementation": "implemented",
+      "report": "docs/DELIVERY_029.md",
+      "code_sha": "8233165",
+      "remaining": "human restart and recovery acceptance pending"
     },
     "008": {
       "implementation": "implemented",
