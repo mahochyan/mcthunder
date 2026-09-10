@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal main scene opens garage
+[PASS] bundled font covers every Chinese translation glyph
+[PASS] rendered screenshot 01_garage
+ERROR: Node not found: "MarginContainer/VBoxContainer/DialogBody" (relative to "/root/AppFlow/@CanvasLayer@2/@Control@3/ApplicationDialog").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/run_localization_window.gd:65)
+       [1] activate (res://tests/run_localization_window.gd:30)
+       [2] frames (res://tests/run_localization_window.gd:14)
+SCRIPT ERROR: Invalid access to property or key 'text' on a base object of type 'null instance'.
+   at: run (res://tests/run_localization_window.gd:65)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/run_localization_window.gd:65)
+       [1] activate (res://tests/run_localization_window.gd:30)
+       [2] frames (res://tests/run_localization_window.gd:14)

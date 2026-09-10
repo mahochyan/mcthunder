@@ -1,5 +1,7 @@
 # DELIVERY 027：输入改绑与基础易用性（工程自审）
 
+2026-09-10 接续：下文为旧稳定化采样。新增中文、焦点、字体来源、双分辨率与独立资源包的实际结果见 [0.2.7 接续交付](DELIVERY_027_CONTINUATION.md)，不再将字体来源与主路径图形检查列为未核实。
+
 候选：`work/stab-dev`  
 源码：`e88d131`  
 Godot：`4.7.2.stable.official.ed1daf0bf`

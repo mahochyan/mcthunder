@@ -1,5 +1,7 @@
 # DELIVERY 029：设置、战绩存档与损坏恢复（工程自审）
 
+2026-09-10 增量：接续源码 caa4191 已完整跑完 `run_garage_checks.gd`，151/151 PASS、退出码 0，并保留真实第二进程锁检查。证据见 `logs/027-final/caa4191607f6d505cacaa7b596f1754cf9a72bea/20260910-135336`。这补齐下文当时被停止的整套运行；未据此代签真人或未覆盖异常项。
+
 候选源码：`0210fe9`  
 Godot：`4.7.2.stable.official.ed1daf0bf`
 

@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal main scene opens garage
+[PASS] bundled font covers every Chinese translation glyph
+[PASS] rendered screenshot 01_garage
+[PASS] keyboard opens garage settings
+[PASS] Tab stays in settings through a complete binding list
+[PASS] garage volume changes through keyboard slider
+[PASS] keyboard opens text size popup
+[PASS] largest text size selected through real popup
+[PASS] settings close action fits viewport at 125 percent text
+[PASS] rendered screenshot 02_settings_large
+[PASS] Esc restores focus to garage settings opener
+[PASS] keyboard opens challenge selection
+[PASS] rendered screenshot 03_challenges
+[PASS] Esc closes challenge selection without opening battle
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:55)
+       [2] _ready (res://scripts/training/ballistics_range.gd:68)
+       [3] _ready (res://scripts/training/damage_range.gd:13)
+       [4] _ready (res://scripts/training/recovery_range.gd:11)
+       [5] _ready (res://scripts/core/core_range.gd:13)
+       [6] _enter_core (res://scripts/core/app_flow.gd:191)
+[PASS] keyboard starts selected real training lesson
+[PASS] rendered screenshot 04_training
+[PASS] pause supplies keyboard focus
+[PASS] rendered screenshot 05_pause
+[PASS] keyboard returns from training to garage and clears pause
+[PASS] rendered screenshot 06_returned_garage
+[PASS] real UI route has no missing translation keys
+=== 结果: 21 项检查, 0 失败 ===
+LOCALIZATION_WINDOW_CHECKS_PASS

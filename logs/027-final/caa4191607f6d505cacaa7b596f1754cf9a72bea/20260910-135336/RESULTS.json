@@ -1,0 +1,80 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_input_binding_checks",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_input_binding_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 16,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_core_checks",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_core_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 55,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_garage_checks",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --fixed-fps 60 -s \"res://tests/run_garage_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 151,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_hud_checks",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --fixed-fps 60 -s \"res://tests/run_hud_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 54,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  },
+  {
+    "suite": "run_menu_fire_handoff_checks",
+    "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_menu_fire_handoff_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 3,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0
+  }
+]

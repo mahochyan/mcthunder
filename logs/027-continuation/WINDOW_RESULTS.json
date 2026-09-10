@@ -1,0 +1,159 @@
+{
+  "source_sha": "caa4191607f6d505cacaa7b596f1754cf9a72bea",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Compatibility / OpenGL 3.3 / RTX 4070 SUPER",
+  "window_checks": [
+    {
+      "name": "720-launcher",
+      "command": "E:/AIprogram/mcthunder/启动主线试玩.bat --resolution 1280x720 -s res://tests/run_localization_window.gd -- --shot-dir E:/AIprogram/mcthunder-mainline/docs/evidence/027-continuation/caa4191/720-launcher",
+      "exit_code": 0,
+      "checks": 30,
+      "failures": 0,
+      "script_error": false,
+      "log": "logs/027-continuation/launcher720.log",
+      "images": [
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/01_garage.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "3a974e3ce8d4978428db04655675a974e0e9e98d1b8b5eec7f49aff367f7dd95"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/01b_credits.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "f5c8a6cf4977986019f8c5ebf886b841f660856b9b456fb087334e1540bb348d"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/02_settings_large.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "1aca0a167fbe695695cfb51977c5b9070aa5e3b9b16df7e2b6a6d2f0c0f19004"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/03_challenges.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "05bb87abac796c99358855ec4f5d705808ae7bbf39ee5ffccc1a73267d625f16"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/04_training.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "8e1213e6da80f9341bfdea7744d1cbd7640c7b96a3eff4041151cd9ce2d8f190"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/05_pause.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "b33938730452cd7c6bcc63606099e91baf9811241f5d89ed2cd5371fef14637f"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/06_returned_garage.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "6032b16e46fd0dcf73a350c52ea3b33c0309749bba23994d6a1e3cb9dc1b8ef3"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/720-launcher/07_battle_settings.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "8e2f78f768fdcd9e17c47412a0b2827818cc2f4026469930a603bd2f6e8c76f1"
+        }
+      ]
+    },
+    {
+      "name": "1080-fullscreen",
+      "command": "tools/godot/Godot_v4.7.2-stable_win64_console.exe --path . --fullscreen --resolution 1920x1080 -s res://tests/run_localization_window.gd -- --shot-dir E:/AIprogram/mcthunder-mainline/docs/evidence/027-continuation/caa4191/1080-fullscreen",
+      "exit_code": 0,
+      "checks": 30,
+      "failures": 0,
+      "script_error": false,
+      "log": "logs/027-continuation/window1080-fullscreen.log",
+      "images": [
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/01_garage.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "8240aff715ec409751fb03b18b1de8d0a0fbec73f9bcf6886ba6cccbf6002204"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/01b_credits.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "0bd30e7219f3a4ba05a58e1828d18fc1486fbf56b4b4b944dc496b73fce5c9f0"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/02_settings_large.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "58ce2186d594a15f43f79919d4a0039995e2691321d80c93c753248025b98fa5"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/03_challenges.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "cbbda2eed24293c02c49042458c14d60a9c1ee20a38c19f9e310d74851e49927"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/04_training.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "ddebdd73fcd5c7ad626dce536a92e7695d702848d729529261e422ce497d7d9d"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/05_pause.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "abfe64f24f5bb01cac6ae73be6d0dc39e6aa641d1514abd88c2628a38dba348b"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/06_returned_garage.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "0a7b9f55646ffb6191460f0e658d6520e7e2292fa8cc39de61d08fa525faa22b"
+        },
+        {
+          "path": "docs/evidence/027-continuation/caa4191/1080-fullscreen/07_battle_settings.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "a60f371b0ae85d8b7fc9df6c451588b5fdbea0a5c982cbe2eefc156187d1faec"
+        }
+      ]
+    }
+  ],
+  "human_acceptance": "NOT_RUN",
+  "note": "Earlier 1080 window requests were actually 1920x1061. These retained exploratory captures are not exact 1080p evidence; final fullscreen capture is 1920x1080. All settings/profile writes in the harness use isolated test paths."
+}
