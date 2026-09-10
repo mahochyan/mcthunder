@@ -1,3 +1,7 @@
 *.import -text
 authoring/vehicles/seeds/*.json -text
 assets/art_palette.json -text
+logs/031/9998f4483637ad5d0b73ca23060e235b46f908c2/** -text
+logs/033/fixed-matrix-comparison/** -text
+logs/033/9998f4483637ad5d0b73ca23060e235b46f908c2/** -text
+logs/034/9998f4483637ad5d0b73ca23060e235b46f908c2/** -text

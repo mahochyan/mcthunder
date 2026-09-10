@@ -1,0 +1,73 @@
+{
+  "profile_schema": 3,
+  "challenge_rules": 1,
+  "balance_report": "docs/BALANCE_REPORT.md",
+  "human": "PENDING",
+  "source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "version": "1.0.0-rc.1",
+  "historical_parameters_changed_for_balance": false,
+  "status": "candidate_rule_freeze",
+  "files": [
+    {
+      "path": "scripts/game_config.gd",
+      "sha256": "DBFD4FF498C904A5FCB7D35854A9943318F67122F22CB2CF3576F8FC27D6B92E"
+    },
+    {
+      "path": "scripts/battle/team_match_state.gd",
+      "sha256": "7E31EE26F782928140A1CE0E530C4BB5D712D2A792E58F6BF5AD73910C58D700"
+    },
+    {
+      "path": "scripts/armor/armor_resolver.gd",
+      "sha256": "0E599CF2563B9D1E1295A24A931CE6CFB7AA9734625FA0D9AEA900EEE61C288D"
+    },
+    {
+      "path": "scripts/projectiles/shell_effect_policy.gd",
+      "sha256": "06C11DD88F8A31A3D7D945DD8537FF7C599887010BBF7936A33674879066EADC"
+    },
+    {
+      "path": "scripts/garage/research_graph.gd",
+      "sha256": "5E4ADE67051748EB59C6F7145B1F0A3C967C2695243F9B9E65B93272CC0A2C5D"
+    },
+    {
+      "path": "scripts/garage/progression_service.gd",
+      "sha256": "8A6324FCD9E1AE64C4B6A60276886900279EC80756CEC868432BFDF2878D44A7"
+    },
+    {
+      "path": "scripts/challenges/challenge_catalog.gd",
+      "sha256": "B4E5DB9830071F01464EDCF145737B08D0D18DACDD69ABD3506EEF82FC3DE389"
+    },
+    {
+      "path": "scripts/challenges/challenge_score.gd",
+      "sha256": "D48C328103CBF0748055A495454267341305A10558EDBA4233A474FC360AB25B"
+    },
+    {
+      "path": "scripts/maps/village_definition.gd",
+      "sha256": "A248312E186229D6C6F11DEC309A94A2234FD49B3BC9488AC084B0C4E90CA8F6"
+    },
+    {
+      "path": "scripts/maps/industrial_definition.gd",
+      "sha256": "B066EF97BCEE26B9653BACB2B7A2BB6611B35B02D37C49DEDB1C74D22C0175F7"
+    },
+    {
+      "path": "configs/shells/historical_loadouts.json",
+      "sha256": "6F981707409532DC43D2C05C84556D5F816FB2112F4D4D2B3F40DB1292A309E3"
+    },
+    {
+      "path": "configs/vehicles/historical/us_m24_m6_t85e1_1951.json",
+      "sha256": "63E3ECA14BB42D38915C9E032B374DEE30EBE2F1B322201416908DF83DEEB7CB"
+    },
+    {
+      "path": "configs/vehicles/historical/us_m26_m3_1945.json",
+      "sha256": "000A0B52B9F09040F7B47CD135971007858920305A3DE450E24E2BCDBA59C198"
+    },
+    {
+      "path": "configs/vehicles/historical/us_m36_m4a1_1945.json",
+      "sha256": "DAAF109C1F589619B4B1957B3C6D5F8A90068D3CBB5A763AD3BA5C9926E87AA3"
+    },
+    {
+      "path": "configs/vehicles/historical/us_m4a3_75w_vvss_1944.json",
+      "sha256": "B120D3F05C494BA329F80AE9AF2B061E2AEAB7617C170E45CB575782633BB726"
+    }
+  ],
+  "settings_schema": 2
+}

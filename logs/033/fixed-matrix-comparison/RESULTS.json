@@ -1,0 +1,31 @@
+{
+  "test_source_sha": "666aea98dff5be17cc482b190661a201d1c0156b",
+  "runtime_source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "baseline_query_source": "24ebb87",
+  "byte_equal": true,
+  "json_equal": true,
+  "baseline_sha256": "3b90e05682868bdd67d0cda8c680ad74bc1c4ec094d2bab6eae54a9a86a09940",
+  "optimized_sha256": "3b90e05682868bdd67d0cda8c680ad74bc1c4ec094d2bab6eae54a9a86a09940",
+  "results": [
+    {
+      "name": "baseline",
+      "exit_code": 0,
+      "checks": 18,
+      "failures": 0,
+      "passed": true
+    },
+    {
+      "name": "optimized",
+      "exit_code": 0,
+      "checks": 18,
+      "failures": 0,
+      "passed": true
+    }
+  ],
+  "contact_cases": 1536,
+  "damage_cases": 962,
+  "paired_crew_advantages": {
+    "ap": 90,
+    "aphe": 140
+  }
+}

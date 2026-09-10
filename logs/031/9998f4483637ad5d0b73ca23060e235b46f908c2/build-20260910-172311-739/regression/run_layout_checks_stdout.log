@@ -1,0 +1,127 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ok[1]: T004-02 turret yaw +90 accepted
+ok[2]: T004-02 turret world composed
+ok[3]: T004-02 turret-local (0,0,-1) yaw+90 -> world (9,1,20), got (9.0, 1.0, 20.0)
+ok[4]: T004-02 hull-local point unaffected by turret yaw -> (10,0,22)
+ok[5]: T004-02 yaw request clamped to joint limits
+ok[6]: T004-02 pitch joint applies requested angle
+ok[7]: T004-02 pitch rotates about part's own bind origin
+ok[8]: T004-02 fixed joint ignores requested angle
+ok[9]: T004-03 non-rigid (scaled) transform rejected by LayoutMath
+ok[10]: T004-03 posed_local rejects non-rigid bind_local
+ok[11]: T004-03 unknown joint_kind rejected
+ok[12]: T004-02 box corners: 8 returned for valid box
+ok[13]: T004-02 box corners reach expected -X extent (x=9)
+ok[14]: T004-02 box corners reach expected +Z extent (z=21)
+ok[15]: T004-03 box corners: invalid size returns empty (failure, not success)
+ok[16]: T004-02 box corners: valid box returns 8 corners
+ok[17]: T004-03 valid quad with agreeing winding passes
+ok[18]: T004-03 winding against outward normal fails
+ok[19]: T004-03 degenerate triangle rejected
+ok[20]: T004-03 non-planar patch rejected
+ok[21]: T004-03 index out of bounds rejected
+ok[22]: T004-05 build_surface returns mesh for valid patch
+ok[23]: T004-03 build_surface returns null for bad winding
+ok[24]: T004-05 build_wire returns line mesh for valid patch
+ok[25]: T004-04 closed hull fixture loads
+ok[26]: T004-04 weld: 6 quads share 8 corners
+ok[27]: T004-04 weld: 12 triangles indexed
+ok[28]: T004-04 closed fixture fully sealed (no boundary edges)
+ok[29]: T004-04 removing one triangle yields exactly 3 boundary edges
+ok[30]: T004-04 boundary edges located by vertex pair (not global ignore)
+ok[31]: T004-05 panel fixture loads with 9 patches
+ok[32]: T004-05 thickness values stored per patch (20 vs 80 mm)
+ok[33]: T004-05 30deg panel normal rotated in geometry (not just a label)
+ok[34]: T004-05 thickness differs between patches (mapping has real data)
+ok[35]: T004-04 validator: closed hull has 0 errors
+ok[36]: T004-05 validator: panel fixture has 0 errors
+ok[37]: T004-03 duplicate patch id rejected
+ok[38]: T004-03 missing parent rejected
+ok[39]: T004-03 circular parent reference rejected
+ok[40]: T004-03 zero declared thickness rejected
+ok[41]: T004-06 unknown thickness faked as verified rejected
+ok[42]: T004-06 verified field without evidence rejected
+ok[43]: T004-06 unknown evidence key rejected
+ok[44]: T004-03 non-positive module size rejected
+ok[45]: T004-06 research layout without 5 crew roles rejected
+ok[46]: T004-03 scaled (non-rigid) part transform rejected
+ok[47]: catalog: missing layout rejected
+ok[48]: catalog: empty id rejected
+ok[49]: catalog: repeated load returns same shared resource
+ok[50]: T004-01 mutating a duplicate does not change shared definition
+ok[51]: T004-01 shared definition thickness unchanged
+ok[52]: 004-b M4A3 layout loads via catalog with validation
+ok[53]: 004-b M4A3 content_tier=research
+ok[54]: 004-b M4A3 has all five crew roles (no 4-man template)
+ok[55]: 004-b M4A3 armor thickness all unknown (no faked values)
+ok[56]: 004-b FM 17-67: gunner right of gun, loader left of gun
+ok[57]: 004-b TM 9-759: engine in rear of hull
+ok[58]: 004-b turret yaw joint exists
+ok[59]: 004-c inspector script has no combat dependencies
+ok[60]: 004-c preview builds part nodes from layout
+ok[61]: 004-c set_pose applies yaw 90 via LayoutMath
+ok[62]: 004-c set_pose clamps pitch to joint limit -25
+ok[63]: 004-c set_pose clamps yaw beyond limits
+ok[64]: 004-c posed turret rotates about its own bind origin
+ok[65]: 004-c armor mode shows patch wires
+ok[66]: 004-c interior mode shows module volumes
+ok[67]: 004-c unknown-thickness patches render UNKNOWN color (not 0 mm)
+ok[68]: 004-c selection highlight uses instance material override
+ok[69]: 004-c deselect restores per-patch color
+ok[70]: 004-c VehicleDefinition.layout_id defaults empty (backward compatible)
+ok[71]: T004-07 premise: main initialized (A/B entities ready)
+ok[72]: T004-08 inspector opens via inspect_requested signal
+ok[73]: T004-08 tree stays paused while inspector open
+ok[74]: T004-07 preview model exists in inspector
+ok[75]: T004-07 preview uses own world (isolated)
+ok[76]: T004-07 real mouse click switches preview to Armor mode
+ok[77]: T004-07 real slider drag moves yaw value to 360
+ok[78]: T004-07 real wheel over preview zooms camera out
+ok[79]: T004-07 camera stays above ground at pitch -18 (R1 counterexample fixed)
+ok[80]: T004-07 camera orbits around preview focus
+ok[81]: T004-07 layout selector popup opens via real click
+ok[82]: T004-07 model switch to test panels via selector (old model removed)
+ok[83]: T004-07 switched layout is test_armor_panels
+ok[84]: T004-07 switch back to historical layout (new model built)
+ok[85]: T004-07 pose still applicable after switch-back (flow continues)
+ok[86]: T004-07 patch selection highlight works after switch-back
+ok[87]: T004-07 A not moved by inspector interaction (re-read after frames)
+ok[88]: T004-07 B not moved by inspector interaction (re-read after frames)
+ok[89]: T004-07 no firing/trial state change (re-read after frames)
+ok[90]: T004-07 Esc during inspector returns to pause menu
+ok[91]: T004-07 game still paused after Esc (no resume)
+ok[92]: T004-07 trial state unchanged after Esc
+ok[93]: T004-08 reopen inspector
+ok[94]: T004-09 rendered selection ID matches detail panel
+ok[95]: T004-09 unknown hint visible in details
+ok[96]: T004-09 module details follow selection
+ok[97]: T004-09 main widgets inside screen at 1280x720
+ok[98]: T004-09 left column sibling widgets do not overlap at 1280x720
+ok[99]: T004-09 main widgets inside screen at 1920x1080
+ok[100]: T004-09 left column sibling widgets do not overlap at 1920x1080
+ok[101]: T004-08 20x open/close cycle stable
+ok[102]: T004-08 no preview/inspector node leftovers after cycles
+ok[103]: T004-08 resume signal resumes gameplay
+ok[104]: T004-08 range operable after return (v=2.90)
+ok[105]: T004-08 A moved after resume
+ok[106]: T004-R2 paused before inspector reopen
+ok[107]: T004-R2 camera above ground after real wheel zoom-out (y=5.043)
+ok[108]: T004-R2 camera above ground after reset view (y=4.116)
+ok[109]: T004-R2 preview focus follows switched model (7.20,0.50,20.00)
+ok[110]: T004-R2 camera above ground after layout switch (y=3.281)
+ok[111]: T004-R2 load_layout rejects invalid layout and keeps current model
+ok[112]: T004-R2 solve_orbit keeps camera above min_y for dist 3/9/30 x pitch -30/0/18
+ok[113]: T004-R2 solve_orbit raises pitch floor at 30m (applied -3.0)
+ok[114]: T004-R2 solve_orbit reports infeasible orbit when focus too low
+ok[115]: T004-R2 loop diagonal edge is NOT exempted (undeclared boundary reported)
+ok[116]: T004-R2 duplicate triangle (non-manifold) is NOT exempted by opening
+ok[117]: T004-R2 legal opening loop passes (adjacent-pair coverage)
+ok[118]: T004-R2 out-of-range triangle index yields field error (no crash)
+ok[119]: T004-R2 _inside_bounds uses containment (mostly-outside box is outside)
+ok[120]: T004-R2 evidence for another vehicle identity is rejected
+ok[121]: T004-R2 crew source cannot back armor thickness claim (field binding)
+ok[122]: T004-R2 missing field evidence registry is a data error for research layout
+ok[123]: T004-R2 test layout allows missing field evidence registry
+=== 结果: 123 项检查, 0 失败 ===
+LAYOUT_CHECKS_PASS

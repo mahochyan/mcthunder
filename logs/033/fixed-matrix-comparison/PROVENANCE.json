@@ -1,0 +1,7 @@
+{
+  "test_source_sha": "666aea98dff5be17cc482b190661a201d1c0156b",
+  "runtime_source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "baseline_query_source": "24ebb87",
+  "baseline_composition": "current committed tree with only ShotQueryService restored from pre-optimization commit",
+  "production_changes": false
+}

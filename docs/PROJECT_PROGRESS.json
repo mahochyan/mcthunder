@@ -2,7 +2,7 @@
   "schema_version": 1,
   "objective": "原创low-poly低多边形装甲游戏，外形尽量贴近原型，玩法尽可能还原战争雷霆陆战内容",
   "authorization": "2026-09-08 user: 按照计划完成后续开发",
-  "current_order": "031",
+  "current_order": "033",
   "engine": "4.7.2.stable.official.ed1daf0bf",
   "orders": {
     "030": {
@@ -60,9 +60,12 @@
     },
     "032": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "passed_self_review",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "implemented",
+      "code_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+      "report": "docs/DELIVERY_032.md",
+      "supplemental_test_sha": "666aea98dff5be17cc482b190661a201d1c0156b"
     },
     "017": {
       "report": "docs/DELIVERY_017.md",
@@ -84,9 +87,9 @@
     },
     "034": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "final_release_player_flow_running",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "implemented"
     },
     "021": {
       "full_regression_sha": "10a76123a03304efb1232ed41f2b3e20c1da38ba",
@@ -124,9 +127,11 @@
     },
     "031": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "passed_self_review",
       "content_history": "test_only",
-      "implementation": "build_pipeline_implemented_pending_run"
+      "implementation": "implemented",
+      "code_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+      "report": "docs/DELIVERY_031.md"
     },
     "011": {
       "engineering": "passed_self_review",
@@ -210,9 +215,9 @@
     },
     "033": {
       "human": "not_run",
-      "engineering": "not_run",
+      "engineering": "pending_final_release_measurement",
       "content_history": "test_only",
-      "implementation": "planned"
+      "implementation": "implemented_pending_final_measurement"
     },
     "018": {
       "implementation": "implemented",
