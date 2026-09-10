@@ -1,0 +1,94 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[match seed=32001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=60.0] tickets={ 1: 300, 2: 270 } active=8 wreck=1 shots=14
+[match seed=32001 t=120.0] tickets={ 1: 204, 2: 240 } active=8 wreck=4 shots=47
+[match seed=32001 t=180.0] tickets={ 1: 114, 2: 210 } active=8 wreck=5 shots=73
+[match seed=32001 t=240.0] tickets={ 1: 54, 2: 150 } active=8 wreck=4 shots=93
+TRAFFIC_EVIDENCE user://traffic_match_101.json
+[PASS] village seed=32001 swapped=false naturally finishes once
+[PASS] village seed=32001 swapped=false preserves lifecycle and object budgets
+[PASS] village seed=32001 swapped=false actual four-vehicle rosters engage
+[PASS] village seed=32001 swapped=false report saved
+[match seed=32001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=60.0] tickets={ 1: 240, 2: 300 } active=7 wreck=2 shots=16
+[match seed=32001 t=120.0] tickets={ 1: 210, 2: 240 } active=8 wreck=4 shots=44
+[match seed=32001 t=180.0] tickets={ 1: 120, 2: 192 } active=8 wreck=5 shots=75
+[match seed=32001 t=240.0] tickets={ 1: 112, 2: 92 } active=7 wreck=5 shots=106
+[match seed=32001 t=300.0] tickets={ 1: 52, 2: 92 } active=8 wreck=2 shots=134
+TRAFFIC_EVIDENCE user://traffic_match_102.json
+[PASS] village seed=32001 swapped=true naturally finishes once
+[PASS] village seed=32001 swapped=true preserves lifecycle and object budgets
+[PASS] village seed=32001 swapped=true actual four-vehicle rosters engage
+[PASS] village seed=32001 swapped=true report saved
+[match seed=32138 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=60.0] tickets={ 1: 270, 2: 300 } active=8 wreck=1 shots=18
+[match seed=32138 t=120.0] tickets={ 1: 210, 2: 268 } active=8 wreck=4 shots=41
+[match seed=32138 t=180.0] tickets={ 1: 210, 2: 148 } active=8 wreck=5 shots=64
+[match seed=32138 t=240.0] tickets={ 1: 180, 2: 88 } active=8 wreck=3 shots=81
+[match seed=32138 t=300.0] tickets={ 1: 120, 2: 28 } active=7 wreck=3 shots=103
+TRAFFIC_EVIDENCE user://traffic_match_103.json
+[PASS] village seed=32138 swapped=false naturally finishes once
+[PASS] village seed=32138 swapped=false preserves lifecycle and object budgets
+[PASS] village seed=32138 swapped=false actual four-vehicle rosters engage
+[PASS] village seed=32138 swapped=false report saved
+[match seed=32138 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=60.0] tickets={ 1: 300, 2: 240 } active=8 wreck=2 shots=18
+[match seed=32138 t=120.0] tickets={ 1: 300, 2: 192 } active=8 wreck=2 shots=46
+[match seed=32138 t=180.0] tickets={ 1: 300, 2: 102 } active=8 wreck=1 shots=75
+[match seed=32138 t=240.0] tickets={ 1: 240, 2: 42 } active=8 wreck=3 shots=109
+TRAFFIC_EVIDENCE user://traffic_match_104.json
+[PASS] village seed=32138 swapped=true naturally finishes once
+[PASS] village seed=32138 swapped=true preserves lifecycle and object budgets
+[PASS] village seed=32138 swapped=true actual four-vehicle rosters engage
+[PASS] village seed=32138 swapped=true report saved
+[match seed=32001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=60.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=120.0] tickets={ 1: 266, 2: 240 } active=8 wreck=3 shots=20
+[match seed=32001 t=180.0] tickets={ 1: 206, 2: 240 } active=8 wreck=3 shots=32
+[match seed=32001 t=240.0] tickets={ 1: 146, 2: 240 } active=8 wreck=0 shots=57
+[match seed=32001 t=300.0] tickets={ 1: 26, 2: 180 } active=7 wreck=4 shots=96
+TRAFFIC_EVIDENCE user://traffic_match_105.json
+[PASS] industrial seed=32001 swapped=false naturally finishes once
+[PASS] industrial seed=32001 swapped=false preserves lifecycle and object budgets
+[PASS] industrial seed=32001 swapped=false actual four-vehicle rosters engage
+[PASS] industrial seed=32001 swapped=false report saved
+[match seed=32001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=60.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=120.0] tickets={ 1: 240, 2: 240 } active=8 wreck=4 shots=20
+[match seed=32001 t=180.0] tickets={ 1: 240, 2: 240 } active=8 wreck=4 shots=20
+[match seed=32001 t=240.0] tickets={ 1: 240, 2: 180 } active=7 wreck=2 shots=37
+[match seed=32001 t=300.0] tickets={ 1: 240, 2: 180 } active=8 wreck=2 shots=72
+[match seed=32001 t=360.0] tickets={ 1: 240, 2: 180 } active=8 wreck=0 shots=116
+[match seed=32001 t=420.0] tickets={ 1: 210, 2: 180 } active=8 wreck=1 shots=150
+[match seed=32001 t=480.0] tickets={ 1: 150, 2: 111 } active=7 wreck=5 shots=175
+[match seed=32001 t=540.0] tickets={ 1: 150, 2: 21 } active=7 wreck=5 shots=196
+TRAFFIC_EVIDENCE user://traffic_match_106.json
+[PASS] industrial seed=32001 swapped=true naturally finishes once
+[PASS] industrial seed=32001 swapped=true preserves lifecycle and object budgets
+[PASS] industrial seed=32001 swapped=true actual four-vehicle rosters engage
+[PASS] industrial seed=32001 swapped=true report saved
+[match seed=32138 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=60.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=120.0] tickets={ 1: 254, 2: 270 } active=8 wreck=2 shots=33
+[match seed=32138 t=180.0] tickets={ 1: 194, 2: 270 } active=8 wreck=2 shots=54
+[match seed=32138 t=240.0] tickets={ 1: 104, 2: 270 } active=8 wreck=1 shots=66
+[match seed=32138 t=300.0] tickets={ 1: 14, 2: 240 } active=8 wreck=3 shots=76
+TRAFFIC_EVIDENCE user://traffic_match_107.json
+[PASS] industrial seed=32138 swapped=false naturally finishes once
+[PASS] industrial seed=32138 swapped=false preserves lifecycle and object budgets
+[PASS] industrial seed=32138 swapped=false actual four-vehicle rosters engage
+[PASS] industrial seed=32138 swapped=false report saved
+[match seed=32138 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=60.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32138 t=120.0] tickets={ 1: 270, 2: 270 } active=7 wreck=2 shots=24
+[match seed=32138 t=180.0] tickets={ 1: 270, 2: 239 } active=8 wreck=2 shots=41
+[match seed=32138 t=240.0] tickets={ 1: 270, 2: 119 } active=8 wreck=2 shots=58
+[match seed=32138 t=300.0] tickets={ 1: 270, 2: 59 } active=8 wreck=2 shots=64
+TRAFFIC_EVIDENCE user://traffic_match_108.json
+[PASS] industrial seed=32138 swapped=true naturally finishes once
+[PASS] industrial seed=32138 swapped=true preserves lifecycle and object budgets
+[PASS] industrial seed=32138 swapped=true actual four-vehicle rosters engage
+[PASS] industrial seed=32138 swapped=true report saved
+=== 结果: 32 项检查, 0 失败 ===
+BALANCE_MATCH_CHECKS_PASS

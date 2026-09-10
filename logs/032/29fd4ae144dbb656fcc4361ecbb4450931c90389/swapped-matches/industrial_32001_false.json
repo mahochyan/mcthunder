@@ -1,0 +1,4560 @@
+{
+  "approached": [
+    "A4",
+    "B4",
+    "A",
+    "B",
+    "A2",
+    "B2",
+    "A3",
+    "B3"
+  ],
+  "bounded": true,
+  "cleanup": {
+    "nodes": 1,
+    "objects": 1841,
+    "orphans": 0,
+    "resources": 160,
+    "static_memory_bytes": 105129686
+  },
+  "damage_events": 79,
+  "deaths": 8,
+  "difficulty": "normal",
+  "ended_shots": 102,
+  "final": {
+    "accepted_shots": 102,
+    "actors": 13,
+    "ai_controllers": 8,
+    "draw_calls": 0,
+    "live": 8,
+    "local_controllers": 0,
+    "nodes": 997,
+    "objects": 4580,
+    "observer_camera": true,
+    "orphans": 0,
+    "phase": "finished",
+    "physics_ms": 135.221,
+    "primitives": 0,
+    "process_ms": 7.238,
+    "projectiles": 0,
+    "records": 16,
+    "resources": 228,
+    "seconds": 325.350000000033,
+    "static_memory_bytes": 146849617,
+    "vehicle_cameras": 0,
+    "wrecks": 5
+  },
+  "finished_once": true,
+  "invariant_errors": [],
+  "kind": "small_sample_screening",
+  "map": "industrial",
+  "max": {
+    "actors": 13,
+    "live": 8,
+    "nodes": 997,
+    "objects": 4581,
+    "projectiles": 2,
+    "records": 16,
+    "resources": 228,
+    "static_memory_bytes": 146795957,
+    "wrecks": 5
+  },
+  "path_failures": {
+    "unreachable_or_insufficient_width": 2
+  },
+  "result": {
+    "combat_summary": {
+      "capture_seconds": 0.0,
+      "deaths": 1,
+      "hits": 13,
+      "kills": 1,
+      "last_death": "ammo_detonation",
+      "penetrations": 5
+    },
+    "events": [
+      {
+        "entity_id": "A",
+        "kind": "spawn",
+        "life_id": 64,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A2",
+        "kind": "spawn",
+        "life_id": 65,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A3",
+        "kind": "spawn",
+        "life_id": 66,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A4",
+        "kind": "spawn",
+        "life_id": 67,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B",
+        "kind": "spawn",
+        "life_id": 68,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B2",
+        "kind": "spawn",
+        "life_id": 69,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B3",
+        "kind": "spawn",
+        "life_id": 70,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B4",
+        "kind": "spawn",
+        "life_id": 71,
+        "time": 0.0
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "A4",
+        "kind": "death",
+        "life_id": 67,
+        "team": 1,
+        "time": 72.8999999999971
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "B",
+        "kind": "death",
+        "life_id": 68,
+        "team": 2,
+        "time": 80.7999999999967
+      },
+      {
+        "entity_id": "A4",
+        "kind": "spawn",
+        "life_id": 72,
+        "time": 80.8999999999967
+      },
+      {
+        "entity_id": "B",
+        "kind": "spawn",
+        "life_id": 73,
+        "time": 88.7999999999962
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "B4",
+        "kind": "death",
+        "life_id": 71,
+        "team": 2,
+        "time": 107.433333333329
+      },
+      {
+        "entity_id": "B4",
+        "kind": "spawn",
+        "life_id": 74,
+        "time": 115.433333333328
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "A",
+        "kind": "death",
+        "life_id": 64,
+        "team": 1,
+        "time": 253.583333333427
+      },
+      {
+        "entity_id": "A",
+        "kind": "spawn",
+        "life_id": 75,
+        "time": 261.583333333424
+      },
+      {
+        "cause": "crew_out",
+        "entity_id": "B3",
+        "kind": "death",
+        "life_id": 70,
+        "team": 2,
+        "time": 272.750000000081
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "A4",
+        "kind": "death",
+        "life_id": 72,
+        "team": 1,
+        "time": 279.083333333408
+      },
+      {
+        "entity_id": "B3",
+        "kind": "spawn",
+        "life_id": 76,
+        "time": 280.750000000073
+      },
+      {
+        "entity_id": "A4",
+        "kind": "spawn",
+        "life_id": 77,
+        "time": 287.083333333401
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "B2",
+        "kind": "death",
+        "life_id": 69,
+        "team": 2,
+        "time": 296.833333333392
+      },
+      {
+        "entity_id": "B2",
+        "kind": "spawn",
+        "life_id": 78,
+        "time": 304.833333333385
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "B4",
+        "kind": "death",
+        "life_id": 74,
+        "team": 2,
+        "time": 307.866666666715
+      },
+      {
+        "entity_id": "B4",
+        "kind": "spawn",
+        "life_id": 79,
+        "time": 315.866666666708
+      }
+    ],
+    "match_id": 105,
+    "outcome": "defeat",
+    "reason": "tickets",
+    "seconds": 325.350000000033,
+    "shots": 13,
+    "status": "failed",
+    "tickets": {
+      "1": 0,
+      "2": 150
+    },
+    "title": "4对4占点"
+  },
+  "roster": [
+    "us_m4a3_75w_vvss_1944",
+    "us_m24_m6_t85e1_1951",
+    "us_m26_m3_1945",
+    "us_m36_m4a1_1945"
+  ],
+  "samples": [
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -9.0,
+            0.0299999993294477,
+            185.0
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            9.0,
+            0.0299999993294477,
+            185.0
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            27.0,
+            0.0299999993294477,
+            185.0
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -27.0,
+            0.0299999993294477,
+            185.0
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -9.0,
+            0.0299999993294477,
+            -185.0
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            9.0,
+            0.0299999993294477,
+            -185.0
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            27.0,
+            0.0299999993294477,
+            -185.0
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -27.0,
+            0.0299999993294477,
+            -185.0
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4067,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "countdown",
+      "physics_ms": 92.463,
+      "primitives": 0,
+      "process_ms": 10.399,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 0.0,
+      "static_memory_bytes": 141254364,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -41.6437797546387,
+            0.000943452119827271,
+            185.052993774414
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            29.1358261108398,
+            0.000943997874855995,
+            185.442428588867
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            55.3902053833008,
+            0.000941203907132149,
+            185.130035400391
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -53.5892715454102,
+            0.000941384467296302,
+            185.196182250977
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -41.6435966491699,
+            0.00094238668680191,
+            -185.05305480957
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            29.1352005004883,
+            0.000944009050726891,
+            -185.442428588867
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            55.3902740478516,
+            0.000942261889576912,
+            -185.129974365234
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -53.589282989502,
+            0.000941852107644081,
+            -185.196258544922
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4077,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 5.322,
+      "primitives": 0,
+      "process_ms": 5.382,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 10.0000000000001,
+      "static_memory_bytes": 141554300,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -73.3064193725586,
+            0.000943705439567566,
+            185.078109741211
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            61.1306610107422,
+            0.000942228361964226,
+            185.036163330078
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1864395141602,
+            0.00094182975590229,
+            183.843780517578
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.7300491333008,
+            0.000941793783567846,
+            185.088104248047
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -73.3058471679688,
+            0.000943560153245926,
+            -185.077911376953
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            61.1336669921875,
+            0.000942597165703774,
+            -185.036865234375
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1861190795898,
+            0.000941824167966843,
+            -183.84375
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.7350463867188,
+            0.000941360369324684,
+            -185.088088989258
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4075,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 5.7,
+      "primitives": 0,
+      "process_ms": 5.575,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 20.0000000000001,
+      "static_memory_bytes": 141545152,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.4759292602539,
+            0.000941785052418709,
+            177.904205322266
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            79.1035537719727,
+            0.000941820442676544,
+            182.081924438477
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1040573120117,
+            0.000941792502999306,
+            149.1171875
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9760131835938,
+            0.00094178703147918,
+            151.275665283203
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7030715942383,
+            0.000941775739192963,
+            -174.302276611328
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            79.1054153442383,
+            0.000941814854741097,
+            -182.081253051758
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1032104492188,
+            0.000941822305321693,
+            -149.117370605469
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9754791259766,
+            0.000941351056098938,
+            -151.275588989258
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4077,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 7.167,
+      "primitives": 0,
+      "process_ms": 6.706,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 29.9999999999996,
+      "static_memory_bytes": 141591404,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.927619934082,
+            0.000941349193453789,
+            137.668197631836
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1131362915039,
+            0.000941809266805649,
+            150.3203125
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1201629638672,
+            0.000941794365644455,
+            114.222763061523
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8985290527344,
+            0.000941786915063858,
+            119.475196838379
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9423904418945,
+            0.000941311940550804,
+            -135.992065429688
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1131286621094,
+            0.000941818580031395,
+            -150.321136474609
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1212005615234,
+            0.000941794365644455,
+            -114.222183227539
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8997802734375,
+            0.000941785052418709,
+            -119.410598754883
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4077,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 6.805,
+      "primitives": 0,
+      "process_ms": 6.627,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 39.999999999999,
+      "static_memory_bytes": 141602256,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9555511474609,
+            0.000941362231969833,
+            101.296760559082
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.6687927246094,
+            0.000941790640354156,
+            126.507095336914
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.2216186523438,
+            0.000942844897508621,
+            78.2863616943359
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8083724975586,
+            0.000940081372391433,
+            88.629753112793
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9674911499023,
+            0.000941818580031395,
+            -100.550872802734
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.674430847168,
+            0.000941803678870201,
+            -126.520652770996
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.221923828125,
+            0.000940928235650063,
+            -78.2870407104492
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8098068237305,
+            0.000943534076213837,
+            -88.5277709960938
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4083,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 15.942,
+      "primitives": 0,
+      "process_ms": 4.262,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 49.9999999999984,
+      "static_memory_bytes": 141693180,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 0,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.9307861328125,
+            0.000940904021263123,
+            65.2472763061523
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.6869735717773,
+            0.000941785052418709,
+            98.7598266601563
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1989898681641,
+            0.000940708443522453,
+            41.6724548339844
+          ]
+        },
+        "A:64": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7205810546875,
+            0.000941937731113285,
+            58.8555870056152
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.9382629394531,
+            0.000939998775720596,
+            -64.6656494140625
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.6908950805664,
+            0.000941775739192963,
+            -98.7704696655273
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1990509033203,
+            0.000940518453717232,
+            -41.6679840087891
+          ]
+        },
+        "B:68": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7200927734375,
+            0.00094289518892765,
+            -58.7941055297852
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 762,
+      "objects": 4083,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 188.376,
+      "primitives": 0,
+      "process_ms": 7.292,
+      "projectiles": 0,
+      "records": 0,
+      "resources": 228,
+      "seconds": 59.9999999999979,
+      "static_memory_bytes": 141710332,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 6,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.9144668579102,
+            0.000940959900617599,
+            30.429443359375
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.2897338867188,
+            0.000942427664995193,
+            69.0564651489258
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 103,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8495330810547,
+            0.000941821723245084,
+            24.3708324432373
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "engage",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.915885925293,
+            0.000940475612878799,
+            -33.26806640625
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.2862014770508,
+            0.000942472368478775,
+            -68.9707717895508
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            77.9750747680664,
+            0.000941775739192963,
+            -24.7991943359375
+          ]
+        },
+        "B:68": {
+          "ai_phase": "engage",
+          "ammo": 103,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8494033813477,
+            0.000941803678870201,
+            -24.3737182617188
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 768,
+      "objects": 4104,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 222.323,
+      "primitives": 0,
+      "process_ms": 7.173,
+      "projectiles": 0,
+      "records": 6,
+      "resources": 228,
+      "seconds": 69.9999999999973,
+      "static_memory_bytes": 142939431,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 11,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -59.3709831237793,
+            0.000941818580031395,
+            25.0400695800781
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 69,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.4101791381836,
+            0.000942880287766457,
+            42.2206420898438
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 102,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -46.5256004333496,
+            0.000941344420425594,
+            25.1830768585205
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "turn_recovery",
+          "p": [
+            -74.6914978027344,
+            0.000943727791309357,
+            -26.7487487792969
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 69,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.407600402832,
+            0.000943535938858986,
+            -42.2293395996094
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            71.2682495117188,
+            0.000941310077905655,
+            -24.6253662109375
+          ]
+        },
+        "B:68": {
+          "ai_phase": "repair",
+          "ammo": 102,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 7,
+      "draw_calls": 0,
+      "live": 7,
+      "local_controllers": 0,
+      "nodes": 775,
+      "objects": 4127,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 135.726,
+      "primitives": 0,
+      "process_ms": 6.478,
+      "projectiles": 2,
+      "records": 9,
+      "resources": 228,
+      "seconds": 79.9999999999967,
+      "static_memory_bytes": 143986598,
+      "vehicle_cameras": 0,
+      "wrecks": 1
+    },
+    {
+      "accepted_shots": 12,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "search",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -56.9732131958008,
+            0.000940978527069092,
+            24.8969573974609
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 69,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.424072265625,
+            -0.000199122354388237,
+            35.82177734375
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -50.0207939147949,
+            0.000943426042795181,
+            185.151794433594
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 102,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -45.0007247924805,
+            0.000941806414630264,
+            25.1643409729004
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "search",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.6083526611328,
+            0.000940779224038124,
+            -34.07568359375
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 69,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            69.4142074584961,
+            0.000941794365644455,
+            -24.1209716796875
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            36.1351203918457,
+            0.00094178318977356,
+            -22.0991821289063
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -27.0,
+            0.000102534890174866,
+            -185.0
+          ]
+        }
+      },
+      "actors": 10,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 862,
+      "objects": 4300,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 62.896,
+      "primitives": 0,
+      "process_ms": 14.191,
+      "projectiles": 0,
+      "records": 12,
+      "resources": 228,
+      "seconds": 89.9999999999962,
+      "static_memory_bytes": 144951865,
+      "vehicle_cameras": 0,
+      "wrecks": 2
+    },
+    {
+      "accepted_shots": 15,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7433853149414,
+            0.000942455604672432,
+            37.3978881835938
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.7150421142578,
+            0.000941848382353783,
+            63.8332214355469
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.0467300415039,
+            0.000941775739192963,
+            184.991760253906
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 101,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            -45.0007247924805,
+            0.000941806414630264,
+            25.1643409729004
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9144668579102,
+            0.000941295176744461,
+            -75.6543197631836
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 69,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            40.430908203125,
+            0.000941773876547813,
+            -24.4568176269531
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "engage",
+          "ammo": 45,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -59.3546562194824,
+            0.000942297279834747,
+            -185.078155517578
+          ]
+        }
+      },
+      "actors": 10,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 862,
+      "objects": 4302,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 70.377,
+      "primitives": 0,
+      "process_ms": 7.411,
+      "projectiles": 0,
+      "records": 15,
+      "resources": 228,
+      "seconds": 99.9999999999956,
+      "static_memory_bytes": 145431629,
+      "vehicle_cameras": 0,
+      "wrecks": 2
+    },
+    {
+      "accepted_shots": 18,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9250564575195,
+            0.00094081275165081,
+            77.9149475097656
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "search",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.7132720947266,
+            0.000942371785640717,
+            65.0042266845703
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.012321472168,
+            0.000941820442676544,
+            150.847137451172
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 100,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -43.0431137084961,
+            0.00094177492428571,
+            25.0674819946289
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9407653808594,
+            0.000942641869187355,
+            -114.783348083496
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            15.4004516601563,
+            0.00094180554151535,
+            -13.9285888671875
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.5549011230469,
+            0.000941785052418709,
+            -183.219039916992
+          ]
+        }
+      },
+      "actors": 10,
+      "ai_controllers": 7,
+      "draw_calls": 0,
+      "live": 7,
+      "local_controllers": 0,
+      "nodes": 865,
+      "objects": 4306,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 50.184,
+      "primitives": 0,
+      "process_ms": 15.151,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 109.999999999995,
+      "static_memory_bytes": 145489737,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 20,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.924072265625,
+            -0.00234431587159634,
+            112.548133850098
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.0189590454102,
+            0.000942494720220566,
+            62.5789947509766
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.9550628662109,
+            0.0000955238938331604,
+            117.943984985352
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 99,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -10.7612609863281,
+            0.00094181316671893,
+            7.38685417175293
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            -77.9246444702148,
+            0.000502577051520348,
+            -147.087005615234
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 67,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -34.9007263183594,
+            0.00094345398247242,
+            -184.766815185547
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9263763427734,
+            0.000144360587000847,
+            -152.481338500977
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4389,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 121.802,
+      "primitives": 0,
+      "process_ms": 7.766,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 119.999999999994,
+      "static_memory_bytes": 145628013,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 21,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.3403549194336,
+            0.000942142680287361,
+            120.32511138916
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            78.1004867553711,
+            0.00094144232571125,
+            82.0217132568359
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7873077392578,
+            0.000940423458814621,
+            130.773742675781
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 99,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.6921310424805,
+            0.000941818580031395,
+            -141.484222412109
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 66,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -70.5791931152344,
+            0.000942349433898926,
+            -184.865005493164
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9327850341797,
+            0.00094328448176384,
+            -153.588226318359
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4387,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 113.144,
+      "primitives": 0,
+      "process_ms": 5.691,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 129.999999999996,
+      "static_memory_bytes": 145654453,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 24,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9804077148438,
+            0.000943731516599655,
+            151.298248291016
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.629280090332,
+            0.000943426042795181,
+            101.31005859375
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9234848022461,
+            0.000943988561630249,
+            165.938079833984
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 98,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9267120361328,
+            0.000941814854741097,
+            -103.635581970215
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 64,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "turn_recovery",
+          "p": [
+            -78.3241119384766,
+            0.000940980389714241,
+            -181.364624023438
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "turn_recovery",
+          "p": [
+            -78.2429962158203,
+            0.00094178132712841,
+            -172.583541870117
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4392,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 83.165,
+      "primitives": 0,
+      "process_ms": 7.607,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 140.000000000004,
+      "static_memory_bytes": 145601541,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 26,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "reverse",
+          "p": [
+            -77.8901824951172,
+            0.000941786915063858,
+            180.608825683594
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "patrol",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            96.1465377807617,
+            0.000942990183830261,
+            94.8778228759766
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -72.037223815918,
+            0.000940093770623207,
+            185.286483764648
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 97,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -106.541442871094,
+            0.000941412523388863,
+            -99.9217147827148
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 63,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -71.7646179199219,
+            0.000943511724472046,
+            -184.553924560547
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.2905807495117,
+            0.00094180554151535,
+            -172.409683227539
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4390,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 85.417,
+      "primitives": 0,
+      "process_ms": 5.117,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 150.000000000012,
+      "static_memory_bytes": 145410853,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 28,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -62.5813102722168,
+            0.000943031162023544,
+            184.956604003906
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 68,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            95.1386260986328,
+            0.000940464437007904,
+            61.7078704833984
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -36.522590637207,
+            0.000942973420023918,
+            185.140502929688
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 96,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -142.43229675293,
+            -0.00719472579658031,
+            -99.9564666748047
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 62,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -36.2308349609375,
+            0.000942988321185112,
+            -185.13655090332
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9752426147461,
+            0.000941818580031395,
+            -167.522048950195
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 909,
+      "objects": 4396,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 39.143,
+      "primitives": 0,
+      "process_ms": 6.405,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 160.000000000019,
+      "static_memory_bytes": 145482105,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 30,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -27.0123615264893,
+            0.00094243511557579,
+            184.975921630859
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "observe",
+          "ammo": 67,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            94.6721878051758,
+            0.000940052792429924,
+            39.3291015625
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -0.635553359985352,
+            0.000941457226872444,
+            185.190170288086
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 96,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -159.94596862793,
+            0.000943019986152649,
+            -82.3452835083008
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 61,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -0.583086013793945,
+            0.000941447913646698,
+            -185.185592651367
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9028472900391,
+            0.000941777601838112,
+            -133.53791809082
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4391,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 63.877,
+      "primitives": 0,
+      "process_ms": 5.729,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 170.000000000027,
+      "static_memory_bytes": 145394028,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 32,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            12.7642860412598,
+            0.000941053032875061,
+            185.026336669922
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 67,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            95.0326690673828,
+            0.000943602994084358,
+            43.0205688476563
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            35.0598411560059,
+            0.000943979248404503,
+            185.148040771484
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 95,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -159.946029663086,
+            0.000941943377256393,
+            -41.6132659912109
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 60,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            35.1687507629395,
+            0.000942904502153397,
+            -185.155212402344
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.9869995117188,
+            0.000941811129450798,
+            -99.8285140991211
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4393,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 76.919,
+      "primitives": 0,
+      "process_ms": 6.014,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 180.000000000035,
+      "static_memory_bytes": 145429648,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 34,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            54.2435684204102,
+            0.000943079590797424,
+            185.078521728516
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 67,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            95.3772964477539,
+            0.000943679362535477,
+            23.5760192871094
+          ]
+        },
+        "A4:67": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            77.9755172729492,
+            0.000941779464483261,
+            24.8030090332031
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            70.8213729858398,
+            0.000942278653383255,
+            185.146408081055
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 94,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -159.952697753906,
+            0.000943949446082115,
+            -1.29188537597656
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 59,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            70.9222183227539,
+            0.000941993668675423,
+            -185.150085449219
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.1537628173828,
+            0.000940926373004913,
+            -66.6631164550781
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4390,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 94.048,
+      "primitives": 0,
+      "process_ms": 13.656,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 190.000000000043,
+      "static_memory_bytes": 145378690,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 37,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.1028594970703,
+            0.000941790640354156,
+            182.51203918457
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 67,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            70.0668411254883,
+            0.000941773876547813,
+            25.4420166015625
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.8878784179688,
+            0.000941820442676544,
+            166.231704711914
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 94,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -159.95866394043,
+            0.000942545011639595,
+            39.0619354248047
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 57,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.8900985717773,
+            0.000941356644034386,
+            -166.135284423828
+          ]
+        },
+        "B:68": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -67.464485168457,
+            0.000144354999065399,
+            -26.5285949707031
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 103,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.267822265625,
+            0.000940471887588501,
+            -37.6063537597656
+          ]
+        }
+      },
+      "actors": 10,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 862,
+      "objects": 4300,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 42.372,
+      "primitives": 0,
+      "process_ms": 5.826,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 200.000000000051,
+      "static_memory_bytes": 145188444,
+      "vehicle_cameras": 0,
+      "wrecks": 2
+    },
+    {
+      "accepted_shots": 42,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9283676147461,
+            0.000941809266805649,
+            141.995223999023
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 66,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            40.7624206542969,
+            0.000941777601838112,
+            25.3365325927734
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.8814926147461,
+            0.000941812992095947,
+            131.358291625977
+          ]
+        },
+        "A:64": {
+          "ai_phase": "engage",
+          "ammo": 93,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -159.966339111328,
+            0.000940598547458649,
+            79.8651733398438
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 56,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "search",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9307174682617,
+            0.000941809266805649,
+            -120.792533874512
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 102,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -59.4078102111816,
+            0.000941812992095947,
+            -25.153564453125
+          ]
+        }
+      },
+      "actors": 9,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 816,
+      "objects": 4206,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 105.813,
+      "primitives": 0,
+      "process_ms": 8.987,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 210.000000000059,
+      "static_memory_bytes": 144885902,
+      "vehicle_cameras": 0,
+      "wrecks": 1
+    },
+    {
+      "accepted_shots": 47,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            77.9350128173828,
+            0.000941772013902664,
+            102.70149230957
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 65,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            18.5037136077881,
+            0.000941777601838112,
+            15.2258758544922
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.8703079223633,
+            0.000940138474106789,
+            96.4556350708008
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 92,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -144.964569091797,
+            0.000941785052418709,
+            99.9623718261719
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 55,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:71": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7740592956543,
+            0.000941803678870201,
+            -5.91134643554688
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.8300476074219,
+            0.00094263069331646,
+            -115.930671691895
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 100,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            -44.4682464599609,
+            0.000941794365644455,
+            -25.1537780761719
+          ]
+        }
+      },
+      "actors": 9,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 816,
+      "objects": 4204,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 137.635,
+      "primitives": 0,
+      "process_ms": 4.912,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 220.000000000067,
+      "static_memory_bytes": 145056597,
+      "vehicle_cameras": 0,
+      "wrecks": 1
+    },
+    {
+      "accepted_shots": 50,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            77.9247589111328,
+            0.000941440463066101,
+            65.8441162109375
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 64,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.7900543212891,
+            0.000940660014748573,
+            59.8283843994141
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 92,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -108.277725219727,
+            0.000941818580031395,
+            100.014465332031
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 54,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9779586791992,
+            0.000941812992095947,
+            -99.3580703735352
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 99,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            -44.4682464599609,
+            0.000941794365644455,
+            -25.1537780761719
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 769,
+      "objects": 4106,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 94.786,
+      "primitives": 0,
+      "process_ms": 4.575,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 230.000000000075,
+      "static_memory_bytes": 144662253,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 57,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 45,
+          "destroyed": false,
+          "drive_phase": "yielding",
+          "p": [
+            77.8744354248047,
+            0.000942034646868706,
+            30.2989501953125
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 62,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "engage",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9753646850586,
+            0.000941773876547813,
+            24.8021545410156
+          ]
+        },
+        "A:64": {
+          "ai_phase": "repair",
+          "ammo": 92,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.9472045898438,
+            0.000940872356295586,
+            97.829345703125
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 53,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9361419677734,
+            0.00094090960919857,
+            -62.0743942260742
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 97,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -43.3177032470703,
+            0.000941777601838112,
+            -24.7173309326172
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 770,
+      "objects": 4115,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 114.362,
+      "primitives": 0,
+      "process_ms": 6.916,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 240.000000000083,
+      "static_memory_bytes": 144634380,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 65,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 43,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            61.7433929443359,
+            0.000941812992095947,
+            25.0437927246094
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 61,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "engage",
+          "ammo": 45,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            43.0886840820313,
+            0.00094178132712841,
+            25.0586853027344
+          ]
+        },
+        "A:64": {
+          "ai_phase": "observe",
+          "ammo": 91,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "patrol",
+          "ammo": 46,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.0430068969727,
+            0.000940555706620216,
+            57.1199035644531
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "engage",
+          "ammo": 52,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "engage",
+          "ammo": 45,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            77.9772872924805,
+            0.000940324738621712,
+            -24.8105316162109
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 96,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -8.56321716308594,
+            0.000941785052418709,
+            -6.26454162597656
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 770,
+      "objects": 4113,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 75.676,
+      "primitives": 0,
+      "process_ms": 8.044,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 250.000000000091,
+      "static_memory_bytes": 144553662,
+      "vehicle_cameras": 0,
+      "wrecks": 0
+    },
+    {
+      "accepted_shots": 72,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 42,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            27.4155235290527,
+            0.000941785052418709,
+            19.8381195068359
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 60,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "engage",
+          "ammo": 44,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            10.2881660461426,
+            0.000941794365644455,
+            7.14373779296875
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "engage",
+          "ammo": 45,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -76.3027191162109,
+            0.000941777601838112,
+            25.9874114990234
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "repair",
+          "ammo": 52,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "engage",
+          "ammo": 44,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            46.8931121826172,
+            0.000941811129450798,
+            -25.1510314941406
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 94,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 8,
+      "ai_controllers": 7,
+      "draw_calls": 0,
+      "live": 7,
+      "local_controllers": 0,
+      "nodes": 773,
+      "objects": 4119,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 56.299,
+      "primitives": 0,
+      "process_ms": 7.456,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 260.000000000092,
+      "static_memory_bytes": 144689176,
+      "vehicle_cameras": 0,
+      "wrecks": 1
+    },
+    {
+      "accepted_shots": 78,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 40,
+          "destroyed": false,
+          "drive_phase": "turn_recovery",
+          "p": [
+            6.96524238586426,
+            0.000941306352615356,
+            14.7285919189453
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 59,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "repair",
+          "ammo": 44,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -46.337085723877,
+            0.000943476334214211,
+            185.232192993164
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "engage",
+          "ammo": 44,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -39.0704078674316,
+            0.000941352918744087,
+            23.0314025878906
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "repair",
+          "ammo": 52,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "engage",
+          "ammo": 43,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            14.5385894775391,
+            0.000941812992095947,
+            -9.39727783203125
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 93,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 9,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 816,
+      "objects": 4207,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 75.171,
+      "primitives": 0,
+      "process_ms": 7.33,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 270.000000000083,
+      "static_memory_bytes": 145092144,
+      "vehicle_cameras": 0,
+      "wrecks": 1
+    },
+    {
+      "accepted_shots": 86,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 38,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            7.54475021362305,
+            0.000941803678870201,
+            14.8452301025391
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 59,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.4677047729492,
+            0.000942088663578033,
+            185.097457885742
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "repair",
+          "ammo": 43,
+          "destroyed": false,
+          "drive_phase": "reverse",
+          "p": [
+            -12.6507215499878,
+            0.000943737104535103,
+            8.57331848144531
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "engage",
+          "ammo": 41,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            7.7745246887207,
+            0.00094178318977356,
+            -5.9114990234375
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 91,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 9,
+      "ai_controllers": 6,
+      "draw_calls": 0,
+      "live": 6,
+      "local_controllers": 0,
+      "nodes": 819,
+      "objects": 4209,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 66.519,
+      "primitives": 0,
+      "process_ms": 5.597,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 280.000000000074,
+      "static_memory_bytes": 145329317,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 89,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 37,
+          "destroyed": false,
+          "drive_phase": "idle",
+          "p": [
+            7.54475021362305,
+            0.000941803678870201,
+            14.8452301025391
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 58,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A4:77": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -27.9637088775635,
+            0.000943116843700409,
+            184.867294311523
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.808349609375,
+            0.00094178318977356,
+            157.616851806641
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "repair",
+          "ammo": 43,
+          "destroyed": false,
+          "drive_phase": "reverse",
+          "p": [
+            -12.6507215499878,
+            0.000943737104535103,
+            8.57331848144531
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B3:76": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -45.6939926147461,
+            0.000943636521697044,
+            -185.380981445313
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "repair",
+          "ammo": 41,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            7.7745246887207,
+            0.00094178318977356,
+            -5.9114990234375
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 90,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 905,
+      "objects": 4387,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 73.847,
+      "primitives": 0,
+      "process_ms": 6.922,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 290.000000000065,
+      "static_memory_bytes": 145973165,
+      "vehicle_cameras": 0,
+      "wrecks": 3
+    },
+    {
+      "accepted_shots": 96,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 35,
+          "destroyed": false,
+          "drive_phase": "reverse",
+          "p": [
+            7.52023696899414,
+            0.000940930098295212,
+            14.9256134033203
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 57,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A4:77": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -62.6372566223145,
+            0.000940533354878426,
+            184.904220581055
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7789077758789,
+            0.000941822305321693,
+            127.677253723145
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -12.4232397079468,
+            0.000941459089517593,
+            12.720458984375
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B3:76": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -76.5284805297852,
+            0.000941524282097816,
+            -184.909744262695
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "engage",
+          "ammo": 40,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            7.7745246887207,
+            0.00094178318977356,
+            -5.9114990234375
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 88,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 11,
+      "ai_controllers": 7,
+      "draw_calls": 0,
+      "live": 7,
+      "local_controllers": 0,
+      "nodes": 908,
+      "objects": 4393,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 135.81,
+      "primitives": 0,
+      "process_ms": 9.94,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 300.000000000056,
+      "static_memory_bytes": 146069417,
+      "vehicle_cameras": 0,
+      "wrecks": 4
+    },
+    {
+      "accepted_shots": 99,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 35,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            23.7507019042969,
+            0.000941075384616852,
+            18.1054992675781
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 56,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A4:77": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.1033477783203,
+            0.000941779464483261,
+            170.156478881836
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.7599411010742,
+            0.000943966209888458,
+            96.6947250366211
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -12.4232397079468,
+            0.000941459089517593,
+            12.720458984375
+          ]
+        },
+        "B2:78": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -41.341869354248,
+            0.000943325459957123,
+            -184.893356323242
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B3:76": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.6961135864258,
+            0.000941785052418709,
+            -166.891357421875
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7745246887207,
+            0.00094178318977356,
+            -5.9114990234375
+          ]
+        },
+        "B:73": {
+          "ai_phase": "engage",
+          "ammo": 87,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 12,
+      "ai_controllers": 7,
+      "draw_calls": 0,
+      "live": 7,
+      "local_controllers": 0,
+      "nodes": 954,
+      "objects": 4491,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 140.576,
+      "primitives": 0,
+      "process_ms": 11.998,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 310.000000000047,
+      "static_memory_bytes": 146287549,
+      "vehicle_cameras": 0,
+      "wrecks": 5
+    },
+    {
+      "accepted_shots": 100,
+      "actor_status": {
+        "A2:65": {
+          "ai_phase": "engage",
+          "ammo": 34,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            38.2276725769043,
+            0.000941785052418709,
+            23.2260437011719
+          ]
+        },
+        "A3:66": {
+          "ai_phase": "engage",
+          "ammo": 56,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            2.40085220336914,
+            0.000941816717386246,
+            8.59202575683594
+          ]
+        },
+        "A4:72": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.76105117797852,
+            0.000941811129450798,
+            5.90779113769531
+          ]
+        },
+        "A4:77": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.0563354492188,
+            0.000941814854741097,
+            135.318252563477
+          ]
+        },
+        "A:64": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -7.33067226409912,
+            0.000941786216571927,
+            5.81810712814331
+          ]
+        },
+        "A:75": {
+          "ai_phase": "patrol",
+          "ammo": 104,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -77.8479919433594,
+            0.000943034887313843,
+            61.8618316650391
+          ]
+        },
+        "B2:69": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            -12.4232397079468,
+            0.000941459089517593,
+            12.720458984375
+          ]
+        },
+        "B2:78": {
+          "ai_phase": "patrol",
+          "ammo": 48,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -76.7235565185547,
+            0.000943584367632866,
+            -184.955444335938
+          ]
+        },
+        "B3:70": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            2.29029369354248,
+            0.00094178132712841,
+            -8.87004089355469
+          ]
+        },
+        "B3:76": {
+          "ai_phase": "patrol",
+          "ammo": 70,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -78.3276214599609,
+            0.000941809266805649,
+            -143.472106933594
+          ]
+        },
+        "B4:74": {
+          "ai_phase": "none",
+          "ammo": 0,
+          "destroyed": true,
+          "drive_phase": "none",
+          "p": [
+            7.7745246887207,
+            0.00094178318977356,
+            -5.9114990234375
+          ]
+        },
+        "B4:79": {
+          "ai_phase": "patrol",
+          "ammo": 47,
+          "destroyed": false,
+          "drive_phase": "following",
+          "p": [
+            -32.4324073791504,
+            0.00094320997595787,
+            -184.751373291016
+          ]
+        },
+        "B:73": {
+          "ai_phase": "repair",
+          "ammo": 87,
+          "destroyed": false,
+          "drive_phase": "arrived",
+          "p": [
+            -7.34313011169434,
+            0.000941818580031395,
+            -5.82118225097656
+          ]
+        }
+      },
+      "actors": 13,
+      "ai_controllers": 8,
+      "draw_calls": 0,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 997,
+      "objects": 4580,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "playing",
+      "physics_ms": 134.6,
+      "primitives": 0,
+      "process_ms": 4.309,
+      "projectiles": 0,
+      "records": 16,
+      "resources": 228,
+      "seconds": 320.000000000038,
+      "static_memory_bytes": 146684833,
+      "vehicle_cameras": 0,
+      "wrecks": 5
+    }
+  ],
+  "seed": 32001,
+  "shots": 102,
+  "spawns": 16,
+  "stop_reasons": {
+    "armor_ricochet_limit": 2,
+    "armor_stopped": 48,
+    "impact_world": 31,
+    "internal_burst": 17,
+    "wreck_block": 4
+  },
+  "swapped": false,
+  "unique_deaths": 8,
+  "vehicle_contacts": 175,
+  "wall_seconds": 278.109
+}

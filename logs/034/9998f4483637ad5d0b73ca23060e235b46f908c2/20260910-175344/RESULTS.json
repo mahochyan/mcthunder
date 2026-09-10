@@ -1,0 +1,66 @@
+{
+  "source_sha": "9998f4483637ad5d0b73ca23060e235b46f908c2",
+  "exe_sha256": "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+  "pck_sha256": "7182D9C9F3B8C4663EF046291BC2987D147234C0E9299BD8D8C6B2620840A875",
+  "command": "\"E:\\AIprogram\\PixelArmor交付\\1.0.0-rc.1-9998f448\\游戏\\PixelArmor.exe\" --resolution 1280x720 -- --verify-player-flow",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "checks": 80,
+  "missing_screenshots": [],
+  "images": [
+    {
+      "sha256": "557C526A4A7F8AA8EF01087FD0B8DCD34C9053FC424CB56194DE514C948262EE",
+      "name": "00_garage_main_menu.png"
+    },
+    {
+      "sha256": "E38B37FC66CD7E31683E2B77B468C406E30D2DD7A3E629859B507F28187D7DB7",
+      "name": "01_challenge_rules.png"
+    },
+    {
+      "sha256": "8E56E3D9B65B773460243F57357766C188CC7888026935C29201C986D2EEFE82",
+      "name": "02_flank_start.png"
+    },
+    {
+      "sha256": "CF21F378D21420B78FCFFC9111D97FF876AF706F68CFA8AD0D1541489335D494",
+      "name": "03_flank_aim.png"
+    },
+    {
+      "sha256": "20AF17BEC4DB78C3F9AF7FB50CFFB964C5282EE215FE947655D1484C862C1C75",
+      "name": "04_stars_saved.png"
+    },
+    {
+      "sha256": "21237BD818A56F15441824DBD02BAEE397825C43C4478B93D13B0C366D2F1099",
+      "name": "05_real_shot_replay.png"
+    },
+    {
+      "sha256": "2E64119B826EF19E402073484928346C6D32B90186C1B0E7360FE84A4E512FCB",
+      "name": "06_personal_best.png"
+    },
+    {
+      "sha256": "22B67C7FFB9B9177A46A8A1E232F3F3279D44B364B1160103B2FD3634D6B639B",
+      "name": "07_defense_start.png"
+    },
+    {
+      "sha256": "705121135B8E913FAD5F8CEF2E4BD82FE2FE46884D3238734D7C7029D2A4C04B",
+      "name": "08_m36_route_start.png"
+    },
+    {
+      "sha256": "667E9B6081EA223C81FEABDAA8DA95C3FAD8B82D8380345CFB5E8AFD4314BEFE",
+      "name": "09_battle_0.png"
+    },
+    {
+      "sha256": "29214DA2DA704E3F0316BF9A5F86D87A107870557F078EC0027A2FFDFE972CD3",
+      "name": "09_battle_1.png"
+    },
+    {
+      "sha256": "E197426779811DF63A662FF6AC7C09F5C9815C54347F2A113D1970CD4E423169",
+      "name": "10_settled_0.png"
+    },
+    {
+      "sha256": "0E68AA3F8A07D354F6B02FB1C8AA0FF99648D28D98B619CADA7735703DF6CC18",
+      "name": "10_settled_1.png"
+    }
+  ],
+  "human": "PENDING"
+}

@@ -1,0 +1,15 @@
+{
+  "small_sample_only": true,
+  "exit_code": 0,
+  "difficulty": "normal",
+  "source_sha": "29fd4ae144dbb656fcc4361ecbb4450931c90389",
+  "human": "PENDING",
+  "assertions": 32,
+  "command": "tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless --path . --fixed-fps 60 -s res://tests/run_balance_match_checks.gd",
+  "matches": 8,
+  "seeds": [
+    32001,
+    32138
+  ],
+  "source_provenance": "launched before commit; corresponding match scripts committed unchanged in 29fd4ae; later performance changes were not loaded into this running process"
+}
