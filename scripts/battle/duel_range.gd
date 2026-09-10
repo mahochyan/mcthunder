@@ -95,6 +95,7 @@ func _build_match_ui() -> void:
 	CoreUI.button(buttons,LocalizationService.text("ui_de66dcd1ba77"),func() -> void: replay.show_history(projectiles.shot_records.count()-1))
 	CoreUI.apply(result_panel)
 	result_panel.visible = false
+	ModalNavigation.attach(result_panel)
 
 func _start_fighting() -> void:
 	controller.reset_pending()

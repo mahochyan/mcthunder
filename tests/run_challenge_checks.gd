@@ -1,9 +1,12 @@
 extends SceneTree
+## Use the production entry's dependency order. Loading the entire challenge
+## fixture graph first pins cyclic script resources in this engine version.
+const APP_SCENE = preload("res://scenes/app.tscn")
 ## Rule fixtures may arrange starting poses/clocks. Shots and damage always use
 ## real VehicleCommand, turret, gunner, projectile manager and historical content.
 var count := 0
 var failed := 0
-var service := GarageService.new()
+var service: GarageService
 func _initialize() -> void: call_deferred("_run")
 func check(ok: bool, message: String) -> void:
 	count += 1
@@ -13,7 +16,13 @@ func frames(n: int) -> void:
 	for i in n: await physics_frame
 	await process_frame
 func _run() -> void:
+	service = GarageService.new()
 	root.size = Vector2i(1280,720)
+	if OS.get_cmdline_user_args().has("--route-only"):
+		await _route("hard")
+		print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
+		service = null
+		quit(0 if failed == 0 else 1); return
 	if OS.get_cmdline_user_args().has("--active-defense-only"):
 		await _hold_active("hard" if OS.get_cmdline_user_args().has("--hard-defense") else "normal")
 		print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
@@ -33,6 +42,7 @@ func _run() -> void:
 	await _hold_active("hard")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	if failed == 0: print("CHALLENGE_CHECKS_PASS")
+	service = null
 	quit(0 if failed == 0 else 1)
 func _rules() -> void:
 	check(ChallengeCatalog.create("unknown").is_empty() and ChallengeCatalog.create("td_route","impossible").is_empty(),"unknown challenge or difficulty rejected")
@@ -65,7 +75,7 @@ func _persistence() -> void:
 	check(not migrated.commit(bad).ok,"future schema still rejected")
 	await frames(1)
 func _flow() -> void:
-	var app := AppFlow.new(); app.profile = ProfileStore.new("",service); root.add_child(app); current_scene = app
+	var app := APP_SCENE.instantiate() as AppFlow; app.profile = ProfileStore.new("",service); root.add_child(app); current_scene = app
 	await frames(3)
 	app.garage._open_challenges()
 	check(app.garage.challenge_selection.task_choice.item_count == 3 and app.garage.challenge_selection.best_label.text.contains("暂无"),"garage exposes three tasks and honest empty personal best")
@@ -327,11 +337,18 @@ func _route(level := "normal") -> void:
 	var scene := ChallengeRange.new(); scene.challenge_id="td_route"; scene.difficulty=level; root.add_child(scene); await frames(195)
 	scene.actor.set_controller(null)
 	for point in scene.config.route:
-		check(await _drive(scene,point,2400),"actual M36 drives to authored checkpoint "+str(point))
+		# The script pilot waits for a side shot instead of wasting limited AP
+		# through the front's stacked gun shields. Enemy decisions are unchanged.
+		check(await _drive(scene,point,2400,"ammo_floor_left"),"actual M36 drives to authored checkpoint "+str(point))
 	check(scene.director.checkpoint==2,"ordered checkpoints advance from real actor positions")
-	check(await _drive(scene,Vector3.ZERO,2400),"actual M36 reaches central capture zone against active AI")
+	check(await _drive(scene,Vector3.ZERO,2400,"ammo_floor_left"),"actual M36 reaches central capture zone against active AI")
 	await frames(1000)
 	print("[route actual] ",scene.director.result," held=",scene.director.held," checkpoints=",scene.director.checkpoint," shots=",scene.actor.gunner.shots_fired," player_dead=",scene.actor.state.destroyed)
+	if scene.actor.state.destroyed:
+		print("[route death] ",scene.actor.state.death_record)
+		for i in scene.projectiles.shot_records.count():
+			var record := scene.projectiles.shot_records.get_record(i)
+			print("[route shot] ",record.identity," contacts=",record.contacts," damage=",record.damage)
 	check(scene.director.phase=="finished" and scene.director.result.status=="passed","real route and uninterrupted capture complete limited-ammo M36 task")
 	scene.free(); await frames(2)
 func _hold_active(level := "normal") -> void:

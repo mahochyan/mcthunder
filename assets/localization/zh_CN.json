@@ -907,5 +907,17 @@
   "menu_version": "版本 %s · 离线装甲战斗 · 四款车辆 / 两张地图 / 三项挑战",
   "menu_rules": "当前战斗规则版本",
   "menu_credits_body": "MCTHUNDER — 低多边形装甲战斗\n\nGodot 4.7.2 · Compatibility 渲染器\n坦克与环境采用项目内建模资源。车辆和弹药的未核验字段在车型资料中保留标记，游戏数值不作为历史性能结论。\n\n中文字体：Noto Sans CJK SC Regular\n字体来源：https://github.com/notofonts/noto-cjk\n字体及引擎许可原文如下。",
-  "menu_save_retry": "成绩尚未成功保存。请返回车库重试保存后再退出。"
+  "menu_save_retry": "成绩尚未成功保存。请返回车库重试保存后再退出。",
+  "flow_initialization_failed": "战场初始化未完成，请返回车库重试：%s",
+  "flow_error_title": "无法进入战场",
+  "flow_loading_body": "正在载入场景和车辆。准备完成后进入战场，Esc 可取消并返回车库。",
+  "flow_load_error": "场景加载失败：%s（错误 %s）",
+  "flow_missing_scene": "未找到可加载的场景：%s",
+  "flow_leave_body": "当前比赛尚未结束。确认返回将结束本局，不获得胜负研发奖励；挑战不会计星。",
+  "flow_leave_accept": "结束本局并返回",
+  "flow_leave_title": "返回车库？",
+  "flow_wrong_scene": "场景类型与游戏流程不符：%s",
+  "flow_loading": "正在准备战场",
+  "flow_combat_summary": "命中 %d 发 · 击穿 %d 发 · 击毁 %d 辆\n阵亡 %d 次 · 据点驻守 %.1f 秒",
+  "flow_last_death": "最近阵亡原因："
 }

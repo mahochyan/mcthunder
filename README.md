@@ -1,6 +1,6 @@
 # PixelArmor / MCTHUNDER
 
-当前接续版 **0.2.7** 位于 `E:/AIprogram/mcthunder-mainline`，双击本目录 `START_GAME.bat`。已接入集中中文文本、键盘菜单导航、车库声音与显示设置、制作许可和退出确认。主线继续从稳定化分支推进，详情与剩余项见 [027 接续记录](docs/IMPLEMENTATION_027_CONTINUATION.md)。
+当前接续版 **0.3.0** 位于 `E:/AIprogram/mcthunder-mainline`，双击本目录 `START_GAME.bat`。加载取消、错误返回、退出比赛确认与累计战斗结算已接入，两图可结算并重开。详情与剩余主线内容见 [030 接续记录](docs/IMPLEMENTATION_030.md)。
 
 原创 **low-poly（低多边形）装甲游戏**。视觉以准确车型轮廓、简洁分面和清楚的机械结构为准；总体玩法目标是尽可能还原战争雷霆式陆战。当前美术策略见 [低多边形方向](docs/ART_DIRECTION_LOW_POLY.md)，完整路线见 [开发计划](docs/handoff/DEVELOPMENT_007_036.md)。当前开发版包含装甲结算、内部损伤、弹药账本、火灾与维修/乘员替补、真实路径回放、中文车库与核心训练；1对1歼灭及4对4占点已有正常入口，正式HUD与第一张丘陵村落地图已接入。四车编成、配弹和小型研发已连通；第二地图与后续内容继续按计划开发。
 

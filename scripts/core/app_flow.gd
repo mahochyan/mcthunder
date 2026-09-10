@@ -16,6 +16,65 @@ var match_token := ""
 var pending_reward: Dictionary = {}
 var challenges: ChallengeProgression
 var pending_challenge := -1
+var loading_overlay: Control
+var navigation_overlay: Control
+var load_generation := 0
+
+func _begin_loading() -> int:
+	load_generation += 1
+	_transitioning = true
+	get_tree().paused = true
+	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	loading_overlay = AppDialog.show(ui_layer,LocalizationService.text("flow_loading"),LocalizationService.text("flow_loading_body"),"",Callable(),cancel_loading)
+	return load_generation
+
+func _end_loading() -> void:
+	if is_instance_valid(loading_overlay): loading_overlay.queue_free()
+	loading_overlay = null
+	get_tree().paused = false
+	_transitioning = false
+
+func cancel_loading() -> void:
+	if not is_instance_valid(loading_overlay): return
+	load_generation += 1
+	_end_loading()
+	return_to_garage()
+
+func _loading_failed(message: String) -> void:
+	_end_loading()
+	_clear_training()
+	_show_error(message)
+
+func request_leave_match(scene: BallisticsRange) -> void:
+	if _transitioning or scene != training or is_instance_valid(navigation_overlay): return
+	var finished := false
+	if scene is TeamRange: finished = scene.director.state.phase == "finished"
+	elif scene is DuelRange: finished = scene.match_director.phase == "finished"
+	elif scene is ChallengeRange: finished = scene.director.phase == "finished"
+	else: return
+	if finished:
+		scene.leave_match()
+		return
+	var was_paused := scene._paused
+	scene._pause()
+	var reference: WeakRef = weakref(scene)
+	var resume := func() -> void:
+		var prior := reference.get_ref() as BallisticsRange
+		navigation_overlay = null
+		if prior != null and prior == training and not was_paused: prior._resume()
+	var accept := func() -> void:
+		var prior := reference.get_ref() as BallisticsRange
+		navigation_overlay = null
+		if prior != null and prior == training: prior.leave_match()
+	navigation_overlay = AppDialog.show(ui_layer,LocalizationService.text("flow_leave_title"),LocalizationService.text("flow_leave_body"),LocalizationService.text("flow_leave_accept"),accept,resume)
+
+func _wire_leave_buttons(scene: BallisticsRange) -> void:
+	for button in scene.hud.find_children("*","Button",true,false):
+		for connection in button.pressed.get_connections():
+			var callback: Callable = connection.callable
+			if callback.get_object() == scene and callback.get_method() == "leave_match":
+				button.pressed.disconnect(callback)
+				button.pressed.connect(func() -> void: request_leave_match(scene))
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -81,8 +140,14 @@ func _ready() -> void:
 		demo.call_deferred("run",self)
 
 func _clear_training() -> void:
+	if is_instance_valid(navigation_overlay): navigation_overlay.queue_free()
+	navigation_overlay = null
 	get_tree().paused = false
 	if is_instance_valid(training):
+		if training is TeamRange and training.director != null and training.director.state.phase in ["countdown","playing"]:
+			training.director.finish_once("abandoned","player_returned")
+		elif training is ChallengeRange and training.director != null and training.director.phase in ["countdown","playing"]:
+			training.director.finish_once(false,"abandoned")
 		if training is BallisticsRange and training.projectiles != null: training.projectiles.cancel_all("cancelled_scene_exit")
 		training.free()
 	training = null
@@ -91,6 +156,7 @@ func _clear_training() -> void:
 	for action in ["fire","aim","move_forward","move_back","turn_left","turn_right"]: Input.action_release(action)
 
 func return_to_garage(result: Dictionary = {}) -> void:
+	if is_instance_valid(loading_overlay): cancel_loading(); return
 	if _transitioning: return
 	_transitioning = true
 	call_deferred("_show_garage",result.duplicate(true))
@@ -148,13 +214,20 @@ func _quit_application() -> void:
 	get_tree().quit()
 
 func _enter_challenge(id: String, level: String) -> void:
+	var generation := _begin_loading()
+	await get_tree().process_frame
+	if generation != load_generation: return
 	_clear_training()
 	if is_instance_valid(garage): garage.free()
 	garage = null
 	var scene := ChallengeRange.new(); scene.challenge_id = id; scene.difficulty = level
 	training = scene; add_child(scene)
 	_transitioning = false
-	if not scene.challenge_ready: _show_error(LocalizationService.text("ui_dbc7b91b29e9")); return
+	_end_loading()
+	if not scene.challenge_ready: _loading_failed(LocalizationService.text("ui_dbc7b91b29e9")); return
+	_wire_leave_buttons(scene)
+	for connection in scene.hud.training_requested.get_connections(): scene.hud.training_requested.disconnect(connection.callable)
+	scene.hud.training_requested.connect(func() -> void: request_leave_match(scene))
 	if not challenges.bind(scene.director):
 		scene.director.finish_once(false,"identity_changed")
 		scene.save_text.text = LocalizationService.text("ui_80e4b384e7ea")
@@ -190,6 +263,9 @@ func enter_training(loadout: Dictionary, case_index: int) -> void:
 	call_deferred("_enter_core")
 
 func _enter_core() -> void:
+	var generation := _begin_loading()
+	await get_tree().process_frame
+	if generation != load_generation: return
 	_clear_training()
 	if is_instance_valid(garage): garage.free()
 	garage = null
@@ -201,10 +277,11 @@ func _enter_core() -> void:
 	core.return_requested.connect(return_to_garage)
 	core.results_requested.connect(show_results)
 	_transitioning = false
-	if not core._core_ready: _show_error(LocalizationService.text("ui_e44d206f7d84"))
+	_end_loading()
+	if not core._core_ready: _loading_failed(LocalizationService.text("ui_e44d206f7d84"))
 
 func enter_laboratory(id: String) -> void:
-	if _transitioning: return
+	if _transitioning or not is_instance_valid(garage): return
 	if not pending_reward.is_empty():
 		_settle_match(pending_reward.token,pending_reward.result)
 		if not pending_reward.is_empty(): return
@@ -220,10 +297,6 @@ func enter_laboratory(id: String) -> void:
 		var saved := garage.preparation.save_settings()
 		if not saved.ok: return
 		match_config = configured.config
-		if id == "team":
-			var registered := progression.register_match(match_config)
-			if not registered.ok: garage.error_label.text = registered.reason; return
-			match_token = registered.token
 	if id == "team": allowed[id] = MapRegistry.scene_path(match_config.map_id() if match_config != null else "hill_village")
 	var prepared := garage.build_loadout()
 	if prepared.ok: settings = prepared.loadout
@@ -236,40 +309,52 @@ func restart_match() -> void:
 	if not pending_reward.is_empty():
 		_settle_match(pending_reward.token,pending_reward.result)
 		if not pending_reward.is_empty(): return
-	if match_config != null and training is TeamRange:
-		var registered := progression.register_match(match_config)
-		if not registered.ok:
-			training.result_text.text += "\n"+str(registered.reason)
-			return
-		match_token = registered.token
 	_transitioning = true
 	var path := "res://scenes/battle/team_range.tscn" if training is TeamRange else "res://scenes/battle/duel_range.tscn"
 	if training is VillageRange: path = MapRegistry.scene_path(match_config.map_id() if match_config != null else "hill_village")
 	call_deferred("_enter_lab",path)
 
 func _enter_lab(path: String) -> void:
+	var generation := _begin_loading()
+	await get_tree().process_frame
+	if DisplayServer.get_name() != "headless": await RenderingServer.frame_post_draw
+	if generation != load_generation: return
+	var requested := AppSceneLoader.load_scene(path)
+	if not requested.ok: _loading_failed(requested.reason); return
+	await get_tree().process_frame
+	if generation != load_generation: return
+	var scene: PackedScene = requested.scene
+	var candidate := scene.instantiate()
+	if not candidate is BallisticsRange:
+		candidate.free()
+		_loading_failed(LocalizationService.text("flow_wrong_scene") % path); return
 	_clear_training()
 	if is_instance_valid(garage): garage.free()
 	garage = null
-	var scene := load(path) as PackedScene
-	if scene == null:
-		_transitioning = false
-		_show_error(LocalizationService.text("ui_15f303ec08c9"))
-		return
-	training = scene.instantiate()
+	training = candidate
 	if training is TeamRange or path == "res://scenes/training/ballistics_range.tscn":
 		training.selected_vehicle_id = selected_vehicle_id
 	if training is BallisticsRange: training.prepared_match = match_config
 	add_child(training)
 	var lab := training as BallisticsRange
+	if not lab._initialized or lab.hud == null or (lab is TeamRange and not lab.team_ready):
+		_loading_failed(LocalizationService.text("flow_initialization_failed") % path); return
 	for connection in lab.hud.training_requested.get_connections(): lab.hud.training_requested.disconnect(connection.callable)
 	if lab is DuelRange or lab is TeamRange:
 		if lab is TeamRange:
+			match_token = ""
+			if match_config != null:
+				var registered := progression.register_match(match_config)
+				if not registered.ok: _loading_failed(registered.reason); return
+				match_token = registered.token
 			progression.bind_director(match_token,lab.director)
-			lab.director.match_finished.connect(func(result: Dictionary) -> void: _settle_match(match_token,result))
+			var token := match_token
+			lab.director.match_finished.connect(func(result: Dictionary) -> void:
+				if generation == load_generation and lab == training: _settle_match(token,result))
 		lab.restart_requested.connect(restart_match)
 		lab.return_requested.connect(return_to_garage)
-		lab.hud.training_requested.connect(lab.leave_match)
+		lab.hud.training_requested.connect(func() -> void: request_leave_match(lab))
+		_wire_leave_buttons(lab)
 	else:
 		lab.hud.training_requested.connect(func() -> void: return_to_garage())
 	lab.hud._training_btn.text = LocalizationService.text("ui_6ea101bebe06")
@@ -277,14 +362,17 @@ func _enter_lab(path: String) -> void:
 	lab.hud.damage_training_button.visible = false
 	lab.hud.recovery_training_button.visible = false
 	CoreUI.apply(lab.hud)
-	_transitioning = false
+	_end_loading()
 
 func _settle_match(token: String, result: Dictionary) -> void:
 	var earned := progression.apply_result_once(token,result)
+	# Keep the original receipt presentation when the same result is revisited.
+	if earned.get("duplicate",false) and last_result.get("match_id",-1) == result.get("match_id",-2) and last_result.get("progression",{}).get("ok",false):
+		earned = last_result.progression.duplicate(true)
 	last_result = result.duplicate(true)
 	last_result.progression = earned
 	pending_reward = {} if earned.ok else {"token":token,"result":result.duplicate(true)}
-	if training is TeamRange and is_instance_valid(training.result_text): training.result_text.text += "\n"+str(earned.reason)
+	if training is TeamRange and is_instance_valid(training.result_text): training.result_text.text = training.result_body+"\n"+str(earned.reason)
 	if is_instance_valid(garage):
 		garage.error_label.text = earned.reason
 		garage.preparation._refresh_research()
@@ -333,15 +421,9 @@ func _resume_training() -> void:
 	if is_instance_valid(training): training._resume()
 
 func _show_error(message: String) -> void:
-	var panel := PanelContainer.new()
-	ui_layer.add_child(panel)
-	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.theme = CoreUI.theme()
-	var box := VBoxContainer.new()
-	panel.add_child(box)
-	CoreUI.label(box,message)
-	CoreUI.button(box,LocalizationService.text("ui_6ea101bebe06"),func() -> void: panel.queue_free(); return_to_garage())
-	ModalNavigation.attach(panel,func() -> void: panel.queue_free(); return_to_garage())
+	if is_instance_valid(navigation_overlay): navigation_overlay.queue_free()
+	navigation_overlay = AppDialog.show(ui_layer,LocalizationService.text("flow_error_title"),message,"",Callable(),func() -> void:
+		navigation_overlay = null; return_to_garage())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_instance_valid(result_overlay) and InputBindingService.is_pause(event):

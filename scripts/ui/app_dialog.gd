@@ -1,9 +1,10 @@
 class_name AppDialog
 extends RefCounted
 ## Shared bounded dialogs for application navigation, with an always reachable exit.
-static func show(parent: Control, title: String, body: String, accept_text: String = "", accept: Callable = Callable()) -> Control:
+static func show(parent: Node, title: String, body: String, accept_text: String = "", accept: Callable = Callable(), cancel: Callable = Callable()) -> Control:
 	var root := Control.new()
 	root.name = "ApplicationDialog"
+	root.process_mode = Node.PROCESS_MODE_ALWAYS
 	parent.add_child(root)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.theme = CoreUI.theme()
@@ -21,7 +22,10 @@ static func show(parent: Control, title: String, body: String, accept_text: Stri
 	text.text = body
 	box.add_child(text)
 	var footer := HBoxContainer.new(); box.add_child(footer)
-	CoreUI.button(footer,LocalizationService.text("menu_back"),root.queue_free)
+	var dismiss := func() -> void:
+		root.queue_free()
+		if cancel.is_valid(): cancel.call()
+	CoreUI.button(footer,LocalizationService.text("menu_back"),dismiss)
 	if accept.is_valid(): CoreUI.button(footer,accept_text,func() -> void: root.queue_free(); accept.call())
-	ModalNavigation.attach(root,root.queue_free)
+	ModalNavigation.attach(root,dismiss)
 	return root

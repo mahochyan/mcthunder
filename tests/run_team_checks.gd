@@ -174,6 +174,44 @@ func projectile_cases() -> void:
 		var reason := "friendly_block" if mode.begins_with("friendly") else ("spawn_protected" if mode == "protected_enemy" else "wreck_block")
 		check(st.terminal_reason == reason and st.damage_records.is_empty() and target.state.damage_snapshot() == target_before and enemy.state.damage_snapshot() == enemy_before,"T016-05 actual nearest contact stops at "+mode+" without damage to it or enemy behind")
 		check(st.position_world.z > target.tank.global_position.z-3,"denied contact stops real flight at first physical surface")
+func summary_cases() -> void:
+	await fresh()
+	var enemy := scene.director.state.actor_for("B")
+	enemy.tank.global_transform = Transform3D(Basis.IDENTITY,Vector3(30,0.03,12))
+	var layout: VehicleLayoutDefinition = ArmorTrainingTargets.build([{"center":Vector3(0,1,-1),"thickness":10},{"center":Vector3(0,1,-2),"thickness":10}]).layout
+	enemy.set_damage_layout(layout)
+	scene.director.state.roster.B.protection_left = 0
+	await frames()
+	var records: Array = []
+	scene.projectiles.projectile_contact.connect(func(record: Dictionary) -> void: records.append(record.duplicate(true)))
+	shot += 1
+	# Explicit two-plate geometry fixture; the production flight/query/resolver emits contacts.
+	var spawned := scene.projectiles.try_spawn({"round_id":scene.get_round_id(),"shooter_id":"A","shooter_life_id":scene.actor.life_id,"shooter_team_id":1,"shot_id":shot,"shell_id":"fixture_ap","armor_policy":"resolve","penetration_curve":PackedVector2Array([Vector2(0,500)]),"position_world":enemy.tank.global_position+Vector3(0,1,0),"velocity_world":Vector3(0,0,-600),"gravity_world":Vector3.ZERO,"max_age_s":2.0,"max_distance_m":100.0})
+	check(spawned.ok,"summary fixture starts real projectile")
+	var projectile := scene.projectiles.get_projectile_state(spawned.projectile_id)
+	scene.projectiles.advance_projectile(projectile,1.0/30,[QuerySnapshotBuilder.build_from_vehicle(enemy.tank,layout)],scene.get_world_3d().direct_space_state)
+	check(records.size() >= 2 and scene.director.report.hits == 1 and scene.director.report.penetrations == 1,"two real armor contacts count one hit and one penetrating projectile")
+	var before := scene.director.report.duplicate(true)
+	for record in records: scene.director.observe_contact(record)
+	check(scene.director.report == before,"replayed contact cannot double count battle report")
+	if not records.is_empty():
+		for field in ["round_id","shooter_id","life_id","entity_id"]:
+			var stale: Dictionary = records[0].duplicate(true)
+			stale.projectile_id += 1000
+			stale[field] = "A2" if field in ["shooter_id","entity_id"] else -1
+			scene.director.observe_contact(stale)
+		check(scene.director.report == before,"wrong round, nonplayer shot, stale life and friendly target are excluded")
+	scene.abandon_vehicle(); scene.director.advance(0.01)
+	check(scene.director.report.deaths == 1 and scene.director.report.last_death == "abandoned_vehicle","actual abandon death records one loss and its cause")
+	scene.director.on_vehicle_destroyed(scene.actor.state.death_record); scene.director.advance(0.01)
+	check(scene.director.report.deaths == 1,"repeated death notification cannot inflate losses")
+	scene.director.finish_once("abandoned","player_returned")
+	var frozen := scene.director.state.result.duplicate(true)
+	for record in records: scene.director.observe_contact(record)
+	check(scene.director.state.result == frozen and frozen.combat_summary == scene.director.report,"finished result preserves immutable cumulative summary")
+	scene.director.begin()
+	check(scene.director.report.hits == 0 and scene.director.report.deaths == 0 and scene.director.player_shots == 0,"fresh match resets cumulative counters and projectile deduplication")
+
 func integration_cases() -> void:
 	await fresh(false)
 	await frames(120)
@@ -266,6 +304,7 @@ func _run() -> void:
 	mathematical_cases()
 	await lifecycle_cases()
 	await projectile_cases()
+	await summary_cases()
 	await integration_cases()
 	current_scene = null
 	await frames()

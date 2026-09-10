@@ -1,5 +1,6 @@
 extends SceneTree
-## Real renderer and normal InputEvent routes; no simulation outcomes are injected.
+## Real renderer and normal InputEvent routes. The last result layout uses an
+## explicitly abandoned fixture; it is not a played victory or a performance run.
 var app: AppFlow
 var checks := 0
 var failed := 0
@@ -125,7 +126,22 @@ func run() -> void:
 	await capture("07_battle_settings")
 	await tap(KEY_ESCAPE); await frames(8)
 	await activate(battle.hud._training_btn); await frames(25)
+	check(is_instance_valid(app.navigation_overlay) and paused and app.training == battle,"live battle return opens confirmation before ending match")
+	await capture("08_leave_confirmation")
+	await tap(KEY_ESCAPE); await frames(8)
+	check(not is_instance_valid(app.navigation_overlay) and battle._paused and paused,"cancel leave restores the existing pause menu")
+	await activate(battle.hud._training_btn); await frames(8)
+	await activate(find_button(app.navigation_overlay,LocalizationService.text("flow_leave_accept"))); await frames(25)
 	check(app.training == null and app.garage != null and not paused,"battle return releases map and restores garage")
+	await activate(find_button(app.garage,LocalizationService.text("ui_56b6b54bb00a"))); await frames(220)
+	battle = app.training as TeamRange
+	if battle == null: check(false,"result fixture starts actual map"); quit(1); return
+	battle.director.finish_once("abandoned","player_returned"); await frames(10)
+	check(battle.result_panel.visible and fits(battle.restart_button) and fits(battle.return_button),"result buttons fit at largest text scale")
+	check(battle.result_text.text.contains("命中") and battle.result_text.text.contains("据点驻守"),"result presents actual cumulative report")
+	await capture("09_abandoned_result_fixture")
+	await activate(battle.restart_button); await frames(100)
+	check(not is_instance_valid(battle) and app.training is TeamRange,"keyboard restarts from result panel")
 	check(LocalizationService.missing.is_empty(),"real UI route has no missing translation keys")
 	app.queue_free(); await frames(8)
 	print("=== 结果: %d 项检查, %d 失败 ===" % [checks,failed])

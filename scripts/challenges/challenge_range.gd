@@ -176,6 +176,7 @@ func _build_ui() -> void:
 	CoreUI.label(content,LocalizationService.text("ui_779e93362299"),15)
 	restart_button = CoreUI.button(content,LocalizationService.text("ui_4467a76bc964"),retry)
 	return_button = CoreUI.button(content,LocalizationService.text("ui_6ea101bebe06"),leave_match)
+	ModalNavigation.attach(result_panel)
 func _build_markers() -> void:
 	if config.id == "flank_hunter": return
 	var points: Array = config.route.duplicate()

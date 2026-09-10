@@ -16,6 +16,7 @@ var respawn_button: Button
 var vehicle_choice: OptionButton
 var result_panel: PanelContainer
 var result_text: Label
+var result_body := ""
 var restart_button: Button
 var return_button: Button
 var spectator: Camera3D
@@ -43,6 +44,7 @@ func _ready() -> void:
 	director = TeamMatchDirector.new()
 	add_child(director)
 	director.begin()
+	projectiles.projectile_contact.connect(director.observe_contact)
 	if ai_only: director.state.roster.A.player = false
 	nav.configure(navigation_graph())
 	director.respawns.spawn_provider = Callable(self,"spawn_slot")
@@ -301,6 +303,11 @@ func _finish_match(result: Dictionary) -> void:
 	var explanation: String = {"victory":LocalizationService.text("ui_7357b726ae6b"),"defeat":LocalizationService.text("ui_cfe636d7d427"),"draw":LocalizationService.text("ui_759487f44034"),"abandoned":LocalizationService.text("ui_876d78e52e6b")}.get(result.outcome,"")
 	if result.reason == "time_limit": explanation = LocalizationService.text("ui_8090ccc7d57b")
 	result_text.text = LocalizationService.text("ui_fd213e8aecf4")%[{"victory":LocalizationService.text("ui_943874ecb6bd"),"defeat":LocalizationService.text("ui_bd5cdcb6f4f6"),"draw":LocalizationService.text("ui_eff519ae471f"),"abandoned":LocalizationService.text("ui_4be334f6b7c5")}.get(result.outcome,LocalizationService.text("ui_c7b24e7997e9")),result.seconds,result.tickets[1],result.tickets[2],result.shots,explanation]
+	var summary: Dictionary = result.get("combat_summary",{})
+	if not summary.is_empty():
+		result_text.text += "\n\n"+LocalizationService.text("flow_combat_summary") % [summary.hits,summary.penetrations,summary.kills,summary.deaths,summary.capture_seconds]
+		if not str(summary.last_death).is_empty(): result_text.text += "\n"+LocalizationService.text("flow_last_death")+LocalizationService.status(summary.last_death)
+	result_body = result_text.text
 	hud.show_pause(false)
 	get_tree().paused = false
 	_paused = false
@@ -373,19 +380,26 @@ func _build_ui() -> void:
 	CoreUI.label(waiting,LocalizationService.text("ui_d5f1aabb1300"),16)
 	respawn_button = CoreUI.button(waiting,LocalizationService.text("ui_32043d8fbb16"),request_respawn)
 	CoreUI.button(waiting,LocalizationService.text("ui_6ea101bebe06"),leave_match)
+	ModalNavigation.attach(waiting_panel)
 	result_panel = _panel(Vector2(580,410))
 	var result_box := VBoxContainer.new()
 	result_box.add_theme_constant_override("separation",16)
 	result_panel.add_child(result_box)
-	result_text = CoreUI.label(result_box,"",22)
+	var result_scroll := ScrollContainer.new()
+	result_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	result_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	result_scroll.focus_mode = Control.FOCUS_ALL
+	result_box.add_child(result_scroll)
+	result_text = CoreUI.label(result_scroll,"",22)
 	result_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	result_text.custom_minimum_size.x = 540
+	result_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	result_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation",16)
 	result_box.add_child(buttons)
 	restart_button = CoreUI.button(buttons,LocalizationService.text("ui_db04b4c1355c"),func() -> void: restart_requested.emit())
 	return_button = CoreUI.button(buttons,LocalizationService.text("ui_6ea101bebe06"),leave_match)
+	ModalNavigation.attach(result_panel)
 	var abandon := CoreUI.button(hud._training_btn.get_parent(),LocalizationService.text("ui_19064416524b"),abandon_vehicle)
 	abandon.tooltip_text = LocalizationService.text("ui_b4c2af5575cc")
 	hud.resume_btn.text = LocalizationService.text("ui_7c9691192f1b")
