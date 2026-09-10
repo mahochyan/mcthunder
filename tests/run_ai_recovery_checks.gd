@@ -125,6 +125,26 @@ func _run() -> void:
 		elif ev.get("goal",Vector3.INF).is_finite(): second_hop = ev.goal
 	_check(reattempted,"arrival at a hop point re-attempts the original task objective, not just the hop")
 	_check(second_hop == Vector3.INF or second_hop.distance_to(first_hop) > 1.0,"a re-hop never re-lands on the same no-progress hop node")
+	# C13 (GPT final-close item): a real Actor left entirely to physics must
+	# NATURAL-COMPLETE recovery and then CONTINUE its task. Zero scripted nudges:
+	# the lab already binds the controller; vehicle physics drives poll() alone.
+	heal_all(bot)
+	revive_all(bot)
+	kill_track(bot)
+	bot.gunner.rounds_remaining = 0            # dry + immobile: the original 001-026 trap
+	scene.ai.advance_while_engaged = true
+	scene.ai.set_patrol(Vector3(0,0,-30),Vector3(0,0,-30))
+	var start_pos: Vector3 = bot.tank.global_position
+	var waited := 0
+	while waited < 3600 and scene.ai.phase == "repair":
+		await physics_frame
+		waited += 1
+	_check(scene.ai.phase != "repair","a real Actor completes recovery naturally under physics alone")
+	var moved := 0.0
+	for i in 240:
+		await physics_frame
+		moved = maxf(moved,bot.tank.global_position.distance_to(start_pos))
+	_check(moved > 1.0 or scene.ai.phase in ["patrol","retreat"],"after natural recovery the real Actor continues a movement task instead of stalling")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("AI_RECOVERY_CHECKS_PASS" if failed == 0 else "AI_RECOVERY_CHECKS_FAIL")
 	scene.free()
