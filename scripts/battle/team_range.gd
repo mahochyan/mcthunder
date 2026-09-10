@@ -31,6 +31,12 @@ var respawn_vehicle_id := ""
 var garage_service: GarageService
 
 func _ready() -> void:
+	# 027-A moved named input actions out of project.godot into the binding
+	# service; any path that instantiates a battle scene directly (tests, editor
+	# run of a scene) would otherwise get an EMPTY InputMap. The real game calls
+	# app_flow first with the persisted path — the static initialized guard then
+	# skips this default-only call, so user bindings are never overwritten.
+	InputBindingService.initialize()
 	super._ready()
 	if not _initialized: return
 	if prepared_match != null: garage_service = GarageService.new(); respawn_vehicle_id = prepared_match.selected()

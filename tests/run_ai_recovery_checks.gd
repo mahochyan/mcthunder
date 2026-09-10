@@ -108,6 +108,23 @@ func _run() -> void:
 	for ev in scene.ai.driver.events:
 		if ev.get("goal", Vector3.ZERO) != Vector3(0,0,900) and ev.get("goal", Vector3.INF).is_finite(): hop_events += 1
 	_check(hop_events > 0,"unreachable objective is replaced by a hop onto the nearest graph node, not re-planned identically")
+	# C12 (GPT Q2): reaching a hop point must NOT end the task — the original
+	# objective is re-attempted from the new ground, and a re-hop never lands
+	# back on the same no-progress node.
+	var first_hop: Vector3 = scene.ai._last_hop
+	scene.ai.driver.has_goal = false
+	scene.ai.driver.phase = "arrived"
+	scene.ai._next_objective_retry = -1.0
+	var events_before := scene.ai.driver.events.size()
+	cmd = scene.ai.update_command(0.3)
+	cmd = scene.ai.update_command(0.3)
+	var reattempted := false
+	var second_hop := Vector3.INF
+	for ev in scene.ai.driver.events.slice(events_before):
+		if ev.get("goal",Vector3.ZERO) == Vector3(0,0,900): reattempted = true
+		elif ev.get("goal",Vector3.INF).is_finite(): second_hop = ev.goal
+	_check(reattempted,"arrival at a hop point re-attempts the original task objective, not just the hop")
+	_check(second_hop == Vector3.INF or second_hop.distance_to(first_hop) > 1.0,"a re-hop never re-lands on the same no-progress hop node")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("AI_RECOVERY_CHECKS_PASS" if failed == 0 else "AI_RECOVERY_CHECKS_FAIL")
 	scene.free()

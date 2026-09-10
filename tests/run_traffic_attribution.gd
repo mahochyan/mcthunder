@@ -17,6 +17,10 @@ func _run() -> void:
 	var out_dir := "res://logs/027A/traffic-attribution"
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
 	for seed in seeds:
+		# One seed per process invocation keeps scene teardown entirely out of the
+		# picture: the harness crashed on the SECOND in-process scene (engine-level
+		# fault in _ready layout load after the first scene.free()); data for the
+		# completed seed was always intact. Loop seeds from the shell instead.
 		var scene: TeamRange = IndustrialRange.new() if map == "industrial" else VillageRange.new()
 		scene.match_seed = seed
 		scene.ai_only = true
