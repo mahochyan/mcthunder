@@ -41,7 +41,7 @@
       "title": "纵向驾驶与动力特征",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序。依赖：WT-002。\n\n在现有可控运动基础上加入可标定的发动机/传动抽象、加减速曲线、换挡迟滞、倒车、制动、坡度负载和地面阻力。首版不要求每个传动零件真实物理化。\n\n**交付**\n- DriveProfile 与运行时转速/挡位/牵引状态\n- 平地、坡道、制动、倒车基准场景\n- 两辆动力特征不同的完成样车\n\n**验收**\n- 不用 HUD 数字也能通过加速、刹车、倒车区分样车\n- 上坡不是到阈值前完全不受影响、到阈值瞬间归零的唯一变化\n- 已核验历史数据与设计曲线分栏，不能为通过测试随意改史料数值",
-      "evidence": ["WT004_POWERTRAIN.md"],
+      "evidence": ["WT004_POWERTRAIN.md", "WT004_SURFACE_RESISTANCE.md"],
       "human_accepted": false,
       "release_ready": false
     },

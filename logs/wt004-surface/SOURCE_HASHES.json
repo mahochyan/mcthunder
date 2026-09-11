@@ -1,0 +1,34 @@
+[
+  {
+    "path": "scripts/drive/drive_surface.gd",
+    "sha256": "C6EE93F792AD6AB056B235D9CB62ED69B0C69C61E0B02462B3545B4250111B63"
+  },
+  {
+    "path": "scripts/drive/drive_powertrain.gd",
+    "sha256": "46998860C5F75CAA09244F492C9D0328B288A7174659C89A8E8E7224051505C2"
+  },
+  {
+    "path": "scripts/drive/ground_probe.gd",
+    "sha256": "B90238291995BA7D0F57F1EF5A93E2FA0A3D5CD5A4866D5421D39EA957870623"
+  },
+  {
+    "path": "scripts/game_config.gd",
+    "sha256": "BEF6D85F84B1DEC5E2B5740FA06224B3E22016E77899F765EC27369997834454"
+  },
+  {
+    "path": "scripts/maps/village_world.gd",
+    "sha256": "703847444624DD2519E63267FD61F81A99A4FAC6E8E21E99E0F20349B574A1CD"
+  },
+  {
+    "path": "scripts/maps/industrial_world.gd",
+    "sha256": "302CDF49CBFD4E072E53EB2DFE1DC5CD5910E3AE4926D981DB3DDD8EB4AE044F"
+  },
+  {
+    "path": "scripts/tank.gd",
+    "sha256": "AF92FBE763A4AE45F40374E6DEC210FAEAC1E635D4B173C19453D9246D164079"
+  },
+  {
+    "path": "tests/run_surface_drive_checks.gd",
+    "sha256": "A8B859BDB527EF270389C194438CBFF7A785A76685E9A8AAEC32C97609ECEB4E"
+  }
+]

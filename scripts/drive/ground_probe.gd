@@ -7,6 +7,8 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 	var side := direction.cross(Vector3.UP).normalized()
 	var sum := Vector3.ZERO
 	var height := 0.0
+	var drag := 0.0
+	out.surface_drag=0.0
 	for pair in [Vector2(-1,-1),Vector2(1,-1),Vector2(-1,1),Vector2(1,1),Vector2.ZERO]:
 		var base: Vector3 = body.global_position+side*pair.x*half_size.x+direction*pair.y*half_size.y
 		var query := PhysicsRayQueryParameters3D.create(base+Vector3.UP*GameConfig.DRIVE_PROBE_UP_M,base-Vector3.UP*GameConfig.DRIVE_PROBE_DOWN_M,GameConfig.LAYER_WORLD,[body.get_rid()])
@@ -16,12 +18,14 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 		out.normals.append(hit.normal)
 		sum += hit.normal
 		height += hit.position.y
+		drag += DriveSurface.drag_at(hit.collider,hit.position)
 		out.support_count += 1
 	if out.support_count > 0 and sum.length_squared() > 0.01:
 		out.normal = sum.normalized()
 		out.center_height = height/out.support_count
 		out.slope_deg = rad_to_deg(acos(clampf(out.normal.dot(Vector3.UP),-1,1)))
 		out.grounded = body.is_on_floor() or absf(body.global_position.y-float(out.center_height)) < 0.55
+		if out.grounded: out.surface_drag=drag/out.support_count
 	return out
 
 static func blocks_uphill(sampled: Dictionary, movement: Vector3, max_slope: float) -> bool:

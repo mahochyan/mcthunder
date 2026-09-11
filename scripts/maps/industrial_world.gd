@@ -5,6 +5,7 @@ extends RefCounted
 static func build(parent: Node3D, map: MapDefinition, graybox: bool = false) -> StaticBody3D:
 	var terrain := TerrainFixtures.box(parent,Vector3(0,-0.5,0),Vector3(350,1,450),Color("666864"))
 	terrain.name = "IndustrialTerrain"
+	DriveSurface.configure(terrain,"concrete",map,7.0)
 	WorldCollisionRules.tag(terrain,"terrain")
 	for item in map.obstacles:
 		var color := ArtPalette.color("warehouse") if item.kind == "building" else ArtPalette.color("concrete")

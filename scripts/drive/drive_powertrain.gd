@@ -19,8 +19,9 @@ func update_gear(fraction: float, direction: float, p: DriveProfile) -> void:
 			elif gear>1 and fraction<float(gear-1)/p.gear_count-p.downshift_hysteresis:
 				gear-=1; shift_left=p.shift_seconds
 	rpm_fraction=clampf(fraction*p.gear_count-float(maxi(gear,1)-1),0,1) if gear>0 else fraction
-func step(speed: float, throttle: float, grade: float, grounded: bool, delta: float, definition: VehicleDefinition) -> float:
+func step(speed: float, throttle: float, grade: float, grounded: bool, delta: float, definition: VehicleDefinition, surface_drag: float=0.0) -> float:
 	var p: DriveProfile=definition.drive_profile
+	var resistance := maxf(0,surface_drag) if grounded and is_finite(surface_drag) else 0.0
 	var limit := definition.forward_max_speed if throttle>=0 else definition.reverse_max_speed
 	var fraction := clampf(absf(speed)/maxf(limit,0.001),0,1)
 	traction_acceleration=0
@@ -29,12 +30,12 @@ func step(speed: float, throttle: float, grade: float, grounded: bool, delta: fl
 	if braking:
 		# Brake to zero first; the reverse engine cannot borrow the stronger brake rate.
 		gear=0; shift_left=0; rpm_fraction=0
-		return move_toward(speed,0,definition.brake_decel*p.brake_scale*delta)
+		return move_toward(speed,0,(definition.brake_decel*p.brake_scale+resistance)*delta)
 	if throttle==0:
 		if absf(speed)<0.001: reset(); return 0
 		# Automatic holding brake: releasing controls still stops and holds on a slope.
 		var uphill_drag := maxf(0,grade*signf(speed))*p.grade_acceleration if grounded else 0.0
-		var next_speed := move_toward(speed,0,(definition.coast_decel*p.coast_scale+uphill_drag)*delta)
+		var next_speed := move_toward(speed,0,(definition.coast_decel*p.coast_scale+uphill_drag+resistance)*delta)
 		if next_speed==0: reset()
 		else:
 			var coast_limit := definition.forward_max_speed if speed>0 else definition.reverse_max_speed
@@ -45,9 +46,9 @@ func step(speed: float, throttle: float, grade: float, grounded: bool, delta: fl
 	var power := acceleration*(1.0-p.power_falloff*fraction*fraction)
 	if shift_left>0: power*=p.shift_power
 	var load := grade*signf(throttle)*p.grade_acceleration if grounded else 0.0
-	traction_acceleration=power*absf(throttle)-load
+	traction_acceleration=power*absf(throttle)-load-resistance
 	var target := absf(throttle)*limit
 	var magnitude := absf(speed)
-	if magnitude>target: magnitude=move_toward(magnitude,target,definition.coast_decel*p.coast_scale*delta)
+	if magnitude>target: magnitude=move_toward(magnitude,target,(definition.coast_decel*p.coast_scale+resistance)*delta)
 	else: magnitude=clampf(magnitude+traction_acceleration*delta,0,target)
 	return magnitude*signf(throttle)

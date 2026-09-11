@@ -106,7 +106,7 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
 	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
 	if track_pivot: powertrain.reset()
-	else: forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,definition)
+	else: forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,definition,ground_state.surface_drag)
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0

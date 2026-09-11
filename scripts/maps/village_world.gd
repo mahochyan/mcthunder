@@ -41,6 +41,7 @@ static func ground(parent: Node3D) -> StaticBody3D:
 
 static func build(parent: Node3D, map: MapDefinition, graybox: bool = false) -> StaticBody3D:
 	var terrain := ground(parent)
+	DriveSurface.configure(terrain,"grass",map,5.5)
 	for item in map.obstacles:
 		var color: Color = {"building":ArtPalette.color("plaster"),"stone_wall":ArtPalette.color("stone"),"solid_fence":ArtPalette.color("wood"),"boundary":ArtPalette.color("stone")}[item.kind]
 		var body := TerrainFixtures.box(parent,item.position,item.size,color if not graybox else Color("888888"))
