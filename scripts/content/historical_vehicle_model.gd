@@ -2,7 +2,7 @@ class_name HistoricalVehicleModel
 extends RefCounted
 ## Common reconstruction: rendered armor and shot-query armor share the same layout vertices.
 static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayoutDefinition) -> void:
-	for parent in [actor.tank,actor.turret]:
+	for parent in [actor.tank.hull_frame,actor.turret]:
 		for child in parent.get_children():
 			if child.is_in_group("base_vehicle_visual"): child.queue_free()
 	for child in actor.tank.get_children():
@@ -20,7 +20,8 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	# One skin surface per moving part. Every triangle still comes from the exact query layout.
 	for part in ["hull","turret","barrel"]:
 		VehicleAtlas.skin(actor,part,layout,str(packet.id))
-	build_details(actor.tank,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
+	build_details(actor.tank.hull_frame,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
+	HistoricalTrackMotion.new().setup(actor.tank,packet)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 
 static func build_details(hull: Node3D, turret: Node3D, gun: Node3D, packet: Dictionary, layer: int) -> void:

@@ -11,6 +11,7 @@ var chassis := ChassisResponse.new()
 var landing := LandingResponse.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
+var hull_frame: Node3D
 var turret_rig: TurretRig
 var camera_rig: CameraRig
 var _spawn := Transform3D()
@@ -50,6 +51,9 @@ func _ready() -> void:
 	_build()
 
 func _build() -> void:
+	hull_frame=Node3D.new()
+	hull_frame.name="HullFrame"
+	add_child(hull_frame)
 	var cs := CollisionShape3D.new()
 	var shape := BoxShape3D.new()
 	shape.size = defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
@@ -63,13 +67,13 @@ func _build() -> void:
 	turret_rig.name = "TurretPivot"
 	turret_rig.position = Vector3(0, 1.35, 0)
 	turret_rig.visual_layer = visual_layer
-	add_child(turret_rig)
+	hull_frame.add_child(turret_rig)
 	camera_rig = CameraRig.new()
 	camera_rig.presentation_enabled = presentation_enabled
 	camera_rig.name = "CameraPivot"
 	camera_rig.position = Vector3(0, 1.6, 0)
 	camera_rig.visual_layer = visual_layer
-	add_child(camera_rig)
+	hull_frame.add_child(camera_rig)
 
 func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
@@ -82,7 +86,7 @@ func _mesh_box(size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
 	mi.position = pos
 	mi.layers = visual_layer
 	mi.add_to_group("base_vehicle_visual")
-	add_child(mi)
+	hull_frame.add_child(mi)
 	return mi
 
 func apply_drive(throttle: float, steer: float, delta: float) -> void:
@@ -176,6 +180,7 @@ func reset() -> void:
 	tracks.reset()
 	chassis.reset()
 	landing.reset()
+	hull_frame.transform=Transform3D.IDENTITY
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

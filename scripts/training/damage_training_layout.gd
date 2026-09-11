@@ -61,4 +61,4 @@ static func part_node(actor: VehicleActor, part: String) -> Node3D:
 	match part:
 		"turret": return actor.turret
 		"barrel": return actor.turret.barrel_pivot
-	return actor.tank
+	return actor.tank.hull_frame

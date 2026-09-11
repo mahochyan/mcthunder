@@ -17,7 +17,7 @@ func setup(parent: TankVehicle, packet: Dictionary) -> void:
 	_center_x=HistoricalEvidenceGate.value(packet,"dimensions.width_m")*0.5-float(packet.geometry.track_width)*0.5
 	_repeat_metres=HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")*0.804/4.0
 	for side in [-1,1]:
-		var mesh:=tank.get_node_or_null("Cosmetic_track_left" if side<0 else "Cosmetic_track_right") as MeshInstance3D
+		var mesh:=tank.hull_frame.get_node_or_null("Cosmetic_track_left" if side<0 else "Cosmetic_track_right") as MeshInstance3D
 		if mesh==null: continue
 		var material:=ShaderMaterial.new(); material.shader=load("res://assets/shaders/vehicle_tracks.gdshader")
 		material.set_shader_parameter("atlas",load(VehicleAtlas.TEXTURE_PATH))

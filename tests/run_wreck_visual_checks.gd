@@ -115,7 +115,7 @@ func ammo_case(id: String) -> void:
 	target.freeze_wreck(); pose=target.turret.global_transform; await frames(5)
 	check(target.turret.global_transform==pose,"finished battle can freeze physical detached wreck")
 	target.reset_vehicle(); await frames(2)
-	check(target.turret.get_parent()==target.tank and target.turret.position.is_equal_approx(bind.origin) and not is_instance_valid(target.wreck_turret),id+": normal reset restores turret parent/bind position and removes extra collision")
+	check(target.turret.get_parent()==target.tank.hull_frame and target.turret.position.is_equal_approx(bind.origin) and not is_instance_valid(target.wreck_turret),id+": normal reset restores turret parent/bind position and removes extra collision")
 	check(not target.state.destroyed and visuals.blast_count==0 and not visuals._smoke.visible and not visuals._flames[0].visible,"new life clears char, blast and fire without persistent old effects")
 	world.free(); await frames()
 func fire_case() -> void:

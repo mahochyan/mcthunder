@@ -84,6 +84,8 @@ static func apply(actor: VehicleActor) -> void:
 	actor.definition.follow_camera_distance = 9.5
 	actor.tank.defs = actor.definition
 	actor.turret.defs = actor.definition
+	for child in actor.tank.hull_frame.get_children():
+		if child.is_in_group("base_vehicle_visual"): child.queue_free()
 	for child in actor.tank.get_children():
 		if child.is_in_group("base_vehicle_visual"): child.queue_free()
 		if child is CollisionShape3D:
@@ -99,8 +101,8 @@ static func apply(actor: VehicleActor) -> void:
 	actor.label3d.position.y = 3.2
 	var profile := layout(actor.state._damage_layout.recovery_enabled)
 	actor.set_damage_layout(profile)
-	build_skin(actor.tank,actor.turret,profile,actor.tank.visual_layer)
-	M4LowPolyDetails.build(actor.tank,actor.turret,actor.turret.barrel_pivot,actor.tank.visual_layer)
+	build_skin(actor.tank.hull_frame,actor.turret,profile,actor.tank.visual_layer)
+	M4LowPolyDetails.build(actor.tank.hull_frame,actor.turret,actor.turret.barrel_pivot,actor.tank.visual_layer)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 	for child in actor.get_children():
 		if child is RecoveryVisuals: child.refresh_materials()

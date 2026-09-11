@@ -19,6 +19,7 @@ func build(parent: Node3D, layer: int, dimensions: Dictionary = {}) -> void:
 	var width: float = dimensions.get("width",0.43)
 	parent.add_child(self)
 	tank = parent as TankVehicle
+	if tank==null: tank=parent.get_parent() as TankVehicle
 	for side in [-1,1]:
 		for pad in [false,true]:
 			var mesh := BoxMesh.new()

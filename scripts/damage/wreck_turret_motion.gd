@@ -52,6 +52,6 @@ func freeze() -> void:
 
 func restore() -> void:
 	if is_instance_valid(actor) and is_instance_valid(actor.turret) and actor.turret.get_parent()==self:
-		actor.turret.reparent(actor.tank,false); actor.turret.transform=original_transform
+		actor.turret.reparent(actor.tank.hull_frame,false); actor.turret.transform=original_transform
 		actor.turret.set_process(true)
 	collision_layer=0; collision_mask=0; set_physics_process(false); queue_free()
