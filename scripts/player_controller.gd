@@ -53,12 +53,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		return   # 005-d：面板打开期间不响应鼠标瞄准（避免炮塔随鼠标转向、姿态漂移）
 	if cam_rig == null:
 		return
+	if event.is_action("free_look"):
+		cam_rig.set_free_look(event.is_pressed())
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		cam_rig.set_aim(
 			cam_rig.aim_yaw - event.relative.x * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity,
 			cam_rig.aim_pitch - event.relative.y * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity * (-1.0 if AccessibilitySettings.invert_y else 1.0))
 
 func poll() -> VehicleCommand:
+	if cam_rig != null:
+		cam_rig.set_free_look(commands_enabled and not get_tree().paused and Input.is_action_pressed("free_look"))
 	# 每物理帧由 VehicleActor 调用；fire 请求在此消费一次（不重复射击）
 	var cmd := VehicleCommand.new()
 	if not commands_enabled:
@@ -79,6 +83,7 @@ func poll() -> VehicleCommand:
 	return cmd
 
 func require_fire_release() -> void:
+	if cam_rig != null: cam_rig.set_free_look(false)
 	_shell_pending = -1
 	_arm_recovery_release()
 	# 005-R1-C：重新允许意图前调用——关闭调试面板用的鼠标左键/暂停中按下的 fire
@@ -90,6 +95,7 @@ func require_fire_release() -> void:
 	_fire_release_after_frame = Engine.get_process_frames()+1
 
 func reset_pending() -> void:
+	if cam_rig != null: cam_rig.set_free_look(false)
 	_shell_pending = -1
 	_recovery_pending.clear()
 	_arm_recovery_release()

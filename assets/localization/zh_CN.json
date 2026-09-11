@@ -1,4 +1,6 @@
 {
+  "free_look": "自由观察（按住）",
+  "free_look_hint": " · {key:free_look} 自由观察",
   "status_A center -> B center": "A中心至B中心",
   "status_ALIVE": "存活",
   "status_AMMO": "弹药",

@@ -82,7 +82,7 @@ func _aim_point() -> Vector3:
 	return Vector3.ZERO
 
 func _process(delta: float) -> void:
-	if cam_rig != null or _has_aim_override:
+	if (cam_rig != null or _has_aim_override) and not (cam_rig != null and cam_rig.free_look):
 		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
 		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下

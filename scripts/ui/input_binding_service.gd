@@ -3,6 +3,7 @@ extends RefCounted
 ## One binding per semantic action. Esc is reserved for navigation everywhere.
 const PATH := "user://settings/input027.json"
 static var ACTIONS := {
+	"free_look": [LocalizationService.text("free_look"), KEY_B, "all"],
 	"move_forward": [LocalizationService.text("ui_d681c6e2947a"), KEY_W, "all"], "move_back": [LocalizationService.text("ui_2d1d8c1e3895"), KEY_S, "all"],
 	"turn_left": [LocalizationService.text("ui_0e9a81204e7d"), KEY_A, "all"], "turn_right": [LocalizationService.text("ui_b61b251950a2"), KEY_D, "all"],
 	"fire": [LocalizationService.text("ui_b0c797f7ef9a"), -MOUSE_BUTTON_LEFT, "all"], "aim": [LocalizationService.text("ui_6630e2fefc78"), -MOUSE_BUTTON_RIGHT, "all"],
@@ -91,6 +92,17 @@ static func read_settings(path: String) -> Dictionary:
 		if key not in allowed: return {"ok":false}
 	if schema==2 and data.size()!=5: return {"ok":false}
 	var candidate: Dictionary = data.bindings
+	# Older settings retain every existing binding; assign the new action an
+	# unused key rather than rejecting the entire settings document.
+	if not candidate.has("free_look") and candidate.size()==ACTIONS.size()-1:
+		var known := true
+		for action in candidate:
+			if not ACTIONS.has(action) or not valid_code(candidate[action],action): known = false
+		if known:
+			for code in [KEY_B,KEY_L,KEY_U,KEY_H,KEY_F7,KEY_F8,KEY_F9]:
+				if conflicts("free_look",code,candidate).is_empty():
+					candidate["free_look"] = code
+					break
 	if candidate.size()!=ACTIONS.size(): return {"ok":false}
 	# Validate all types before conflict detection (which converts other values).
 	for action in ACTIONS:
@@ -186,7 +198,7 @@ static func is_pause(event: InputEvent) -> bool:
 	return event.is_action_pressed("pause") or (event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE)
 
 static func driving_hint() -> String:
-	return LocalizationService.text("ui_5b792efcb19e")%[hint("move_forward"),hint("move_back"),hint("turn_left"),hint("turn_right"),hint("aim"),hint("fire")]
+	return LocalizationService.text("ui_5b792efcb19e")%[hint("move_forward"),hint("move_back"),hint("turn_left"),hint("turn_right"),hint("aim"),hint("fire")]+LocalizationService.text("free_look_hint")
 
 static func recovery_hint() -> String:
 	return LocalizationService.text("ui_2c2417b68269")%[hint("repair"),hint("extinguish"),hint("replace_crew"),hint("cancel_recovery")]

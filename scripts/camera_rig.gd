@@ -10,6 +10,19 @@ var tank: TankVehicle = null    # 由 actor 注入
 var aim_yaw := 0.0              # 全局观察朝向（弧度，0 = -Z）
 var aim_pitch := 0.0            # 观察俯仰（弧度，正 = 抬头）
 var sight := false
+var free_look := false
+var _saved_aim := Vector2.ZERO
+var _held_intent := Vector3.ZERO
+
+func set_free_look(on: bool) -> void:
+	if on == free_look: return
+	if on:
+		_held_intent = intent_point()
+		_saved_aim = Vector2(aim_yaw,aim_pitch)
+	else:
+		set_aim(_saved_aim.x,_saved_aim.y)
+	free_look = on
+	clear_intent_cache()
 var shake_enabled := false # Optical offset only; never changes the transform used by aiming or firing.
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
 
@@ -55,7 +68,7 @@ func _process(_delta: float) -> void:
 	recoil*=clampf(AccessibilitySettings.shake_strength,0,1)*(0.2 if _sight_requested else 1.0)
 	cam.h_offset = sin(recoil*80)*recoil*0.2
 	cam.v_offset = recoil*0.15
-	sight = _sight_requested and turret != null
+	sight = _sight_requested and turret != null and not free_look
 	if sight:
 		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 只剔除本车视觉层
 		var bdir := turret.barrel_direction()
@@ -106,6 +119,7 @@ func get_aim_point() -> Vector3:
 	return from + dir * 60.0
 
 func intent_point() -> Vector3:
+	if free_look: return _held_intent
 	if _precise_valid:
 		return _precise_point
 	# 002-R2：输入意图射线 → 期望世界瞄点 P（炮塔按 P 求目标角）。
@@ -126,6 +140,7 @@ func _physics_process(_delta: float) -> void:
 	_precise_valid = false
 	intent_contact.clear()
 	if not snapshot_provider.is_valid() or tank == null: return
+	if free_look: return
 	var snapshots: Array = snapshot_provider.call()
 	if snapshots.is_empty(): return
 	var from := cam.global_position
