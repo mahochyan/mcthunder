@@ -5,6 +5,8 @@ extends CharacterBody3D
 ## CharacterBody3D + 简化重力；速度/加速度全部来自 GameConfig。
 
 var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
+var powertrain := DrivePowertrain.new()
+var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var turret_rig: TurretRig
 var camera_rig: CameraRig
@@ -90,28 +92,13 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 			throttle = 0.0
 		if not caps.steer:
 			steer = 0.0
-	var fwd_max: float = defs.forward_max_speed if defs != null else GameConfig.FORWARD_MAX_SPEED
-	var rev_max: float = defs.reverse_max_speed if defs != null else GameConfig.REVERSE_MAX_SPEED
-	var fwd_acc: float = defs.forward_accel if defs != null else GameConfig.FORWARD_ACCEL
-	var rev_acc: float = defs.reverse_accel if defs != null else GameConfig.REVERSE_ACCEL
-	var brake: float = defs.brake_decel if defs != null else GameConfig.BRAKE_DECEL
-	var coast: float = defs.coast_decel if defs != null else GameConfig.COAST_DECEL
 	var turn: float = defs.hull_turn_speed if defs != null else GameConfig.HULL_TURN_SPEED
-	var target := 0.0
-	if throttle > 0.0:
-		target = throttle * fwd_max
-	elif throttle < 0.0:
-		target = throttle * rev_max
-	if throttle != 0.0:
-		var braking: bool = signf(forward_speed) != signf(throttle) and absf(forward_speed) > 0.05
-		var rate := brake if braking else (fwd_acc if throttle > 0.0 else rev_acc)
-		forward_speed = move_toward(forward_speed, target, rate * delta)
-	else:
-		forward_speed = move_toward(forward_speed, 0.0, coast * delta)
 	var forward := VehiclePose.flat_forward(global_basis)
 	forward = forward.rotated(Vector3.UP,deg_to_rad(turn)*steer*delta)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
+	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
+	forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,defs if defs!=null else fallback_definition)
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0
@@ -152,6 +139,7 @@ func register_hit(identity: Dictionary) -> void:
 	hit_registered.emit(identity.duplicate(true))
 
 func reset() -> void:
+	powertrain.reset()
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

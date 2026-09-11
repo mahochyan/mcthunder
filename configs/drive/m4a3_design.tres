@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DriveProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/drive/drive_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+power_falloff = 0.5
+shift_seconds = 0.24
+grade_acceleration = 4.0

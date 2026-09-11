@@ -176,6 +176,10 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	var r: Dictionary = packet.runtime
 	v.forward_max_speed = r.forward_max_speed; v.reverse_max_speed = r.reverse_max_speed
 	v.forward_accel = r.acceleration; v.reverse_accel = r.acceleration*0.65
+	# Explicit design curves, separate from historical facts and their evidence gate.
+	match str(packet.id):
+		"us_m4a3_75w_vvss_1944": v.drive_profile=preload("res://configs/drive/m4a3_design.tres")
+		"us_m24_m6_t85e1_1951": v.drive_profile=preload("res://configs/drive/m24_design.tres")
 	v.hull_turn_speed = r.hull_turn_speed; v.turret_yaw_speed = r.get("turret_yaw_speed",24.0)
 	v.turret_pitch_speed = r.get("turret_pitch_speed",10.0)
 	v.barrel_pitch_min = r.pitch_min; v.barrel_pitch_max = r.pitch_max
