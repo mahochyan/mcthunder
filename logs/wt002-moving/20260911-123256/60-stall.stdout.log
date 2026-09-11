@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[moving target] contacts=[{ "tick": 96, "projectile": 1, "result": "penetrated", "point": [10.6145858764648, 1.22027432918549, -24.8259620666504], "target_speed": 1.60000002384186 }, { "tick": 97, "projectile": 1, "result": "penetrated", "point": [10.0460577011108, 1.14146947860718, -27.1758499145508], "target_speed": 1.60000002384186 }, { "tick": 246, "projectile": 2, "result": "penetrated", "point": [14.4639883041382, 1.22009479999542, -24.8259582519531], "target_speed": 1.60000002384186 }, { "tick": 246, "projectile": 2, "result": "penetrated", "point": [14.1905851364136, 1.14168524742126, -27.1758441925049], "target_speed": 1.60000002384186 }] terminals=[{ "tick": 103, "reason": "impact_world", "target": "" }, { "tick": 253, "reason": "impact_world", "target": "" }] shots=2
+MOVING_TARGET_TICK_CHECKS_PASS

@@ -31,7 +31,6 @@ var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
 var garage_service: GarageService
 var simulation_snapshot: SimulationSnapshot
-var vehicle_simulation: VehicleSimulationDriver
 
 func _ready() -> void:
 	# 027-A moved named input actions out of project.godot into the binding
@@ -43,9 +42,7 @@ func _ready() -> void:
 	super._ready()
 	if not _initialized: return
 	process_physics_priority = SimulationPhases.SUPPLY
-	vehicle_simulation=VehicleSimulationDriver.new()
 	vehicle_simulation.actor_provider=Callable(self,"combat_actors")
-	add_child(vehicle_simulation)
 	simulation_snapshot = SimulationSnapshot.new()
 	simulation_snapshot.battle = self
 	add_child(simulation_snapshot)

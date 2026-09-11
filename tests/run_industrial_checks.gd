@@ -75,7 +75,7 @@ func drive(map: MapDefinition, nav: DriveNavigator, type_id: String, team: int, 
 	var bounded := true; var steps := 0
 	# Explicit fixed-step driving fixture: normal command polling and actual CharacterBody collision.
 	for i in 18000:
-		actor._physics_process(1.0/60)
+		actor.advance_standalone_tick(1.0/60)
 		var p := actor.tank.global_position
 		bounded = bounded and p.is_finite() and p.distance_to(previous)<actor.definition.forward_max_speed/60+0.2 and map.bounds.has_point(Vector2(p.x,p.z))
 		previous = p; steps += 1

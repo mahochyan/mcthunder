@@ -2,6 +2,16 @@ class_name VehicleSimulationDriver
 extends Node
 ## One roster, one physical step: no actor moves before every controller polls.
 var actor_provider := Callable()
+static func for_scene(scene: Node) -> VehicleSimulationDriver:
+	var driver := VehicleSimulationDriver.new()
+	scene.add_child(driver)
+	driver.actor_provider=func() -> Array:
+		return scene.get_children().filter(func(child: Node) -> bool: return child is VehicleActor and child.state != null)
+	scene.child_entered_tree.connect(driver._register_actor)
+	for child in scene.get_children(): driver._register_actor(child)
+	return driver
+func _register_actor(child: Node) -> void:
+	if child is VehicleActor: child.simulation_driver=weakref(self)
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority=SimulationPhases.VEHICLES

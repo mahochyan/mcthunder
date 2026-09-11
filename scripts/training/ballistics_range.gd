@@ -16,6 +16,7 @@ var historical_catalog: VehicleCatalog
 var controller: PlayerController
 var actor: VehicleActor
 var projectiles: ProjectileManager
+var vehicle_simulation: VehicleSimulationDriver
 var hud: HUD
 var replay: ReplayController
 var _paused := false
@@ -46,6 +47,7 @@ var _terminated_pids: Dictionary = {}  # 已终止 projectile_id（HUD 在飞/�
 var projectile_visuals: ProjectileVisuals
 
 func _ready() -> void:
+	vehicle_simulation=VehicleSimulationDriver.for_scene(self)
 	InputBindingService.set_context(input_context())
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_world()

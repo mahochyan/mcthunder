@@ -33,7 +33,7 @@ func _run() -> void:
 				var bounded := true; var reached_speed := 0.0
 				var previous := actor.tank.global_position
 				for i in 12000:
-					actor._physics_process(1.0/60)
+					actor.advance_standalone_tick(1.0/60)
 					var point := actor.tank.global_position
 					bounded = bounded and point.is_finite() and point.distance_to(previous) < actor.definition.forward_max_speed/60+0.2
 					bounded = bounded and actor.tank.forward_speed <= actor.definition.forward_max_speed+0.001 and actor.tank.forward_speed >= -actor.definition.reverse_max_speed-0.001

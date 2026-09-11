@@ -163,7 +163,7 @@ func _run() -> void:
 	cmd.fire_requested = true
 	bot.submit_command(cmd)
 	await physics_frame
-	bot._physics_process(1.0/60)
+	bot.advance_standalone_tick(1.0/60)
 	await frames(30)
 	_check(not finished.is_empty() and not ai_result.is_empty() and finished.back().reason == ai_result.reason and finished.back().surface_id == ai_result.surface_id,"T014-05 player command and AI launch produce same actual frontal armor result")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])

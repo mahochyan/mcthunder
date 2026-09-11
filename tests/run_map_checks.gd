@@ -110,7 +110,7 @@ func drive_route(team: int, index: int, alternate: bool, wide: bool, flank: bool
 	var steps := 0
 	# Fixed-step integration fixture uses actual poll/submit/consume/drive/collision methods.
 	for i in 15000:
-		actor._physics_process(1.0/60)
+		actor.advance_standalone_tick(1.0/60)
 		var p := actor.tank.global_position
 		bounded = bounded and p.is_finite() and p.distance_to(previous)<actor.definition.forward_max_speed/60+0.2
 		previous = p

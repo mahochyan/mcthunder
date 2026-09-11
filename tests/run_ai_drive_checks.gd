@@ -17,7 +17,7 @@ func _simulate(limit: int = 9000) -> Dictionary:
 	var bounded := true
 	var steps := 0
 	for i in limit:
-		actor._physics_process(1.0/60) # Actual poll -> submit -> consume -> apply once, fixed physical-step fixture.
+		actor.advance_standalone_tick(1.0/60) # Actual poll -> submit -> consume -> apply once, fixed physical-step fixture.
 		var now := actor.tank.global_position
 		bounded = bounded and now.is_finite() and now.distance_to(previous) <= actor.definition.forward_max_speed/60+0.12
 		previous = now
@@ -70,12 +70,12 @@ func _run() -> void:
 	await physics_frame
 	var before := scene.target_actor.tank.global_position
 	scene.target_actor.state.module_states.engine.integrity = 0 # Explicit state fixture, actual drive command chain below.
-	for i in 240: scene.target_actor._physics_process(1.0/60)
+	for i in 240: scene.target_actor.advance_standalone_tick(1.0/60)
 	var displacement := scene.target_actor.tank.global_position-before
 	_check(scene.driver.phase == "disabled" and Vector2(displacement.x,displacement.z).length() < 0.03 and scene.target_actor.tank.forward_speed == 0,"AI cannot bypass destroyed engine capability")
 	var generation := scene.target_actor.state.generation
 	scene.target_actor.reset_vehicle()
-	scene.target_actor._physics_process(1.0/60)
+	scene.target_actor.advance_standalone_tick(1.0/60)
 	_check(scene.target_actor.state.generation > generation and not scene.driver.has_goal and scene.driver.path.is_empty(),"reset clears old AI goal and generation-bound route")
 	scene.driver.set_goal(Vector3(0,0,-8))
 	var requests := nav.request_count
@@ -86,7 +86,7 @@ func _run() -> void:
 	scene.target_actor.set_controller(scene.driver)
 	scene.driver.set_goal(Vector3(0,0,-8))
 	scene.target_actor.state.destroyed = true
-	scene.target_actor._physics_process(1.0/60)
+	scene.target_actor.advance_standalone_tick(1.0/60)
 	_check(scene.driver.phase == "destroyed" and not scene.driver.has_goal,"destroyed actor cancels AI path rather than retrying")
 	# A permanently blocked graph must terminate; all alternatives explicitly blocked in this fixture.
 	scene.select_trial(4)
@@ -97,7 +97,7 @@ func _run() -> void:
 	var blocked := _simulate(3000)
 	_check(blocked.phase in ["unreachable","failed"] and scene.driver.attempts <= GameConfig.AI_RECOVERY_ATTEMPTS+1,"permanent obstacle reaches bounded explicit failure")
 	var where := scene.target_actor.tank.global_position
-	for i in 600: scene.target_actor._physics_process(1.0/60)
+	for i in 600: scene.target_actor.advance_standalone_tick(1.0/60)
 	_check(scene.target_actor.tank.global_position.distance_to(where) < 3 and absf(scene.target_actor.tank.forward_speed)<0.01,"failed AI stops sending drive intent and coasts to rest")
 	_check(scene.driver.events.size() <= 64,"diagnostic transition history remains bounded")
 	# Two independent real actors meet on the same road, without either owning player input.
@@ -118,8 +118,8 @@ func _run() -> void:
 	var closest := INF
 	for i in 8000:
 		await physics_frame # Moving bodies require actual PhysicsServer synchronization between steps.
-		scene.target_actor._physics_process(1.0/60)
-		c._physics_process(1.0/60)
+		scene.target_actor.advance_standalone_tick(1.0/60)
+		c.advance_standalone_tick(1.0/60)
 		closest = minf(closest,c.tank.global_position.distance_to(scene.target_actor.tank.global_position))
 		if not scene.driver.has_goal and not other.has_goal: break
 	_check(not scene.driver.has_goal and not other.has_goal,"two oncoming AI actors arrive or explicitly fail within bounded simulation")
@@ -148,7 +148,7 @@ func _run() -> void:
 			reset_during_poll[0] = true
 			scene.target_actor.reset_vehicle())
 	for i in 300:
-		scene.target_actor._physics_process(1.0/60)
+		scene.target_actor.advance_standalone_tick(1.0/60)
 		if reset_during_poll[0]: break
 	_check(reset_during_poll[0] and not scene.driver.has_goal and scene.target_actor.tank.forward_speed == 0,"reset callback during AI poll prevents committing stale command")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])

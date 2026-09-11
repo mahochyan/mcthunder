@@ -1,0 +1,35 @@
+{
+  "base_commit": "34ae1c33650953325f8860663c0f583984d57107",
+  "workspace": "E:\\AIprogram\\mcthunder-mainline",
+  "build": "source-worktree",
+  "files": [
+    {
+      "path": "scripts/battle/vehicle_simulation_driver.gd",
+      "sha256": "A6D07AAF30D2611BDDBAC9836154B68BF79081673BA5D92D3D61C081451F04CB"
+    },
+    {
+      "path": "scripts/battle/team_range.gd",
+      "sha256": "20BE729D01F477FE22CB08C481EFA5BD5ECF6C2588ADA9A613B7B2839BF54753"
+    },
+    {
+      "path": "scripts/training/ballistics_range.gd",
+      "sha256": "F6BAD2F19C816D1FC743C7032E531ADDD5892A7942DFD3B6E07CD7CE5D437EAC"
+    },
+    {
+      "path": "scripts/main.gd",
+      "sha256": "56BB32D17F7B3ED0EBBAF4AE1E9485BE0898740CB7821FFE2A34386D53D38360"
+    },
+    {
+      "path": "scripts/vehicle_actor.gd",
+      "sha256": "25CE577FA0A257C4A07CA7AB43450CC3A048E9854492E6D117A8A384C27CBA1E"
+    },
+    {
+      "path": "tests/run_moving_target_tick_checks.gd",
+      "sha256": "AB2E84E45944394A71386505732BED3A305B694D52F4566B547FD5A773BAFB2B"
+    },
+    {
+      "path": "tests/run_moving_target_matrix.ps1",
+      "sha256": "937CB93A8A3A9638C63C5117CEC6B8F91AAC5048DE3E3848B524D77B1527CAF5"
+    }
+  ]
+}

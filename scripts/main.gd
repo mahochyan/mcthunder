@@ -50,6 +50,7 @@ var _marker_desired: MeshInstance3D   # 青色圆球 = 玩家想瞄的点（相�
 var _marker_actual: MeshInstance3D    # 橙色方块 = 炮管实际指向
 
 func _ready() -> void:
+	VehicleSimulationDriver.for_scene(self)
 	InputBindingService.initialize()
 	InputBindingService.set_context("range")
 	process_mode = Node.PROCESS_MODE_ALWAYS

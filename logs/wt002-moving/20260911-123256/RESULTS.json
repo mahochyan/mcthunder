@@ -1,0 +1,34 @@
+[
+  {
+    "case": "30",
+    "exit_code": 0,
+    "valid": true,
+    "exact_match": true,
+    "passed": true,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 30 -s res://tests/run_moving_target_tick_checks.gd -- \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt002-moving\\20260911-123256\\30.json\""
+  },
+  {
+    "case": "60",
+    "exit_code": 0,
+    "valid": true,
+    "exact_match": true,
+    "passed": true,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 60 -s res://tests/run_moving_target_tick_checks.gd -- \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt002-moving\\20260911-123256\\60.json\""
+  },
+  {
+    "case": "144",
+    "exit_code": 0,
+    "valid": true,
+    "exact_match": true,
+    "passed": true,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 144 -s res://tests/run_moving_target_tick_checks.gd -- \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt002-moving\\20260911-123256\\144.json\""
+  },
+  {
+    "case": "60-stall",
+    "exit_code": 0,
+    "valid": true,
+    "exact_match": true,
+    "passed": true,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 60 -s res://tests/run_moving_target_tick_checks.gd -- \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt002-moving\\20260911-123256\\60-stall.json\" --stall"
+  }
+]
