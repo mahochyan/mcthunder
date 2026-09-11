@@ -7,3 +7,5 @@ script = ExtResource("1")
 power_falloff = 0.5
 shift_seconds = 0.24
 grade_acceleration = 4.0
+brake_scale = 0.85
+coast_scale = 0.9

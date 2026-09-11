@@ -7,8 +7,13 @@ extends Resource
 @export var gear_count := 4
 @export var downshift_hysteresis := 0.08
 @export var grade_acceleration := 9.81
+@export var brake_scale := 1.0
+@export var coast_scale := 1.0
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
+	for key in ["brake_scale","coast_scale"]:
+		var value: float=get(key)
+		if not is_finite(value) or value<=0 or value>3: errors.append("drive_profile."+key+": expected (0,3]")
 	for key in ["power_falloff","shift_power","downshift_hysteresis"]:
 		var value: float=get(key)
 		if not is_finite(value) or value<0 or value>=1: errors.append("drive_profile."+key+": expected [0,1)")

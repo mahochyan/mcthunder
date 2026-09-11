@@ -20,6 +20,12 @@ func run() -> void:
 	check(drive.gear==2,"downshift hysteresis prevents gear hunting near threshold")
 	drive.step(1.0,1,0,true,1.0/60,definition)
 	check(drive.gear==1,"lower road speed permits a downshift")
+	drive.gear=4; drive.rpm_fraction=0.9
+	var coasting := drive.step(0.01,0,0,true,1.0/60,definition)
+	check(coasting==0 and drive.gear==0 and drive.rpm_fraction==0,"coasting stop clears drive state in the stopping step")
+	drive.gear=4; drive.rpm_fraction=0.9
+	for i in 30: drive.step(2.0,0,0,true,1.0/60,definition)
+	check(drive.gear<4 and drive.rpm_fraction<0.9,"coasting downshifts and refreshes engine state without a throttle input")
 	drive.reset()
 	var stopped := drive.step(0.01,-1,0,true,1.0/60,definition)
 	check(stopped==0 and drive.braking,"opposite input brakes to zero without instant powered reversal")
@@ -49,6 +55,24 @@ func run() -> void:
 	print("[MEASURE] 4s M4A3 distance=%.3f speed=%.3f gear=%d; M24 distance=%.3f speed=%.3f gear=%d"%[da,a.forward_speed,a.powertrain.gear,db,b.forward_speed,b.powertrain.gear])
 	check(da>5 and db>da+1,"same actor commands produce distinguishable actual four-second acceleration distances")
 	check(a.powertrain.gear>=2 and b.powertrain.gear>=2,"real vehicle drive updates powertrain bands")
+	var stop_ticks := [-1,-1]
+	var stop_distances := [0.0,0.0]
+	var stop_z := [0.0,0.0]
+	for actor in world.actors:
+		actor.reset_vehicle()
+		actor.tank.forward_speed=6.0 # Controlled equal-speed fixture, not a claimed normal-input approach.
+	for tick in 120:
+		for actor in world.actors:
+			var command := VehicleCommand.new(); command.throttle=-1; actor.submit_command(command)
+		await physics_frame
+		for index in 2:
+			var tank: TankVehicle=world.actors[index].tank
+			if stop_ticks[index]<0 and tank.forward_speed==0:
+				stop_ticks[index]=tick; stop_z[index]=tank.global_position.z
+				stop_distances[index]=absf(tank.global_position.z-12.0)
+	print("[MEASURE] 6m/s brake M4A3 ticks=%d distance=%.3f; M24 ticks=%d distance=%.3f; reverse retreat=%.3f/%.3f"%[stop_ticks[0],stop_distances[0],stop_ticks[1],stop_distances[1],a.global_position.z-stop_z[0],b.global_position.z-stop_z[1]])
+	check(stop_ticks[0]>stop_ticks[1] and stop_ticks[1]>0 and stop_distances[0]>stop_distances[1]+0.3,"equal-speed real vehicles show different stopping time and distance")
+	check(a.global_position.z>stop_z[0]+0.5 and b.global_position.z>stop_z[1]+0.5,"held reverse command brakes then withdraws both real vehicles")
 	world.actors[0].reset_vehicle()
 	check(a.powertrain.gear==0 and a.powertrain.shift_left==0 and a.forward_speed==0,"actor reset clears powertrain and motion together")
 	var ramp := StaticBody3D.new(); ramp.position=Vector3(1000,0,0); ramp.rotation.x=deg_to_rad(20)
