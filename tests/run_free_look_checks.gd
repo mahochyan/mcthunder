@@ -37,7 +37,9 @@ func run() -> void:
 	check(is_equal_approx(actor.turret.rotation.y,turret_angle) and is_equal_approx(actor.turret.barrel_pivot.rotation.x,pitch),"observation keeps both turret axes stationary")
 	check(actor.gunner.shots_fired==0,"looking around does not fire")
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://logs/rc3-free-look.png")
+	var args := OS.get_cmdline_user_args()
+	var shot_path := args[0] if not args.is_empty() else "res://logs/rc3-free-look.png"
+	check(root.get_texture().get_image().save_png(shot_path)==OK,"actual observation screenshot is saved")
 	await action("aim",true)
 	check(not cam.sight,"free observation takes precedence over held gun sight")
 	await action("free_look",false)

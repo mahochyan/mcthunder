@@ -185,7 +185,7 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	v.drive_collision_size = Vector3(HistoricalEvidenceGate.value(packet,"dimensions.width_m"),float(g.hull_rings[2][0]),length)
 	v.drive_collision_center = Vector3(0,v.drive_collision_size.y*0.5,(float(g.hull_rings[1][3])+float(g.hull_rings[1][2]))*0.5)
 	v.follow_camera_distance = maxf(9.5,length*1.8); v.follow_camera_height = 4.2
-	w.reload_time = r.reload_time; w.initial_rounds = r.rounds; w.gun_range = 2500
+	w.reload_time = r.reload_time; w.initial_rounds = r.rounds; w.gun_range = GameConfig.HISTORICAL_PROJECTILE_RANGE_M
 	w.barrel_pitch_min = r.pitch_min; w.barrel_pitch_max = r.pitch_max
 	w.verification = "estimated"; w.source_refs = v.source_refs.duplicate()
 	s.caliber_mm = packet.assembly.caliber_mm; s.muzzle_velocity_mps = r.muzzle_velocity

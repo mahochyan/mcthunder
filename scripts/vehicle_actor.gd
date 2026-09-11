@@ -102,6 +102,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	turret.defs = definition   # 003-R1：炮塔转速/俯仰限位唯一来源
 	cam_rig.turret = turret
 	cam_rig.tank = tank
+	cam_rig.configure_weapon(weapon)
 	cam_rig.visual_layer = visual_layer
 	cam_rig.snapshot_provider = Callable(self,"_aim_snapshots")
 	gunner = Gunner.new()

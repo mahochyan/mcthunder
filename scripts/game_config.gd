@@ -67,6 +67,20 @@ const SIGHT_FOV := 30.0          # 炮镜视场角
 # --- 射击 ---
 const RELOAD_TIME := 2.0         # 装填冷却 s（按住不绕过）
 const GUN_RANGE := 200.0         # 射线射程 m
+const HISTORICAL_PROJECTILE_RANGE_M := 2500.0 # Existing game budget, not historical effective range.
+const AIM_MIN_QUERY_M := 300.0
+const AIM_CAMERA_MARGIN_M := 20.0
+const VIEW_MIN_FAR_M := 400.0
+const VIEW_QUERY_MARGIN_M := 100.0
+const AI_OBSERVATION_RANGE_M := 180.0
+const COMBAT_AUDIO_RANGE_M := 240.0
+
+static func aim_query_distance(weapon_range: float) -> float:
+	var valid_range := weapon_range if is_finite(weapon_range) and weapon_range>0 else GUN_RANGE
+	return maxf(AIM_MIN_QUERY_M,valid_range+AIM_CAMERA_MARGIN_M)
+
+static func view_distance(query_distance: float) -> float:
+	return maxf(VIEW_MIN_FAR_M,query_distance+VIEW_QUERY_MARGIN_M)
 const RESUME_GRACE := 0.25       # 暂停恢复后的开炮宽限 s（防误击发）
 
 # --- 碰撞层（集中约定） ---

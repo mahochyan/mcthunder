@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] real observation input rotates the camera
+[PASS] observation keeps both turret axes stationary
+[PASS] looking around does not fire
+[PASS] actual observation screenshot is saved
+[PASS] free observation takes precedence over held gun sight
+[PASS] release restores original aim and held gun sight
+[PASS] opening a modal cancels observation
+[PASS] vehicle reset clears observation immediately
+[PASS] old settings migrate without stealing an occupied key
+=== 结果: 9 项检查, 0 失败 ===
+FREE_LOOK_CHECKS_PASS

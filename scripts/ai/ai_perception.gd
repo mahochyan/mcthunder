@@ -1,7 +1,7 @@
 class_name AIPerception
 extends RefCounted
 ## The sensor alone inspects world actors. Its public observations contain no internals.
-const RANGE_M := 180.0
+const RANGE_M := GameConfig.AI_OBSERVATION_RANGE_M
 const MEMORY_SECONDS := 6.0
 var memory: Dictionary = {}
 var actor_provider: Callable

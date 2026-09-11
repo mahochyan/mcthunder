@@ -24,7 +24,7 @@ func _ready() -> void:
 		AudioServer.add_bus_effect(AudioServer.get_bus_index(BUS),limiter)
 	for i in CAPACITY:
 		var player:=AudioStreamPlayer3D.new(); player.bus=BUS
-		player.unit_size=12.0; player.max_distance=240.0
+		player.unit_size=12.0; player.max_distance=GameConfig.COMBAT_AUDIO_RANGE_M
 		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE
 		add_child(player)
 		voices.append({"player":player,"key":"","priority":-1,"ttl":0.0,"loop":false,"loop_slot":i<LOOP_CAPACITY})
