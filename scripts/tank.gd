@@ -8,6 +8,7 @@ var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
 var powertrain := DrivePowertrain.new()
 var tracks := TrackDrive.new()
 var chassis := ChassisResponse.new()
+var landing := LandingResponse.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var turret_rig: TurretRig
@@ -147,7 +148,12 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var attenuation := exp(-GameConfig.CHASSIS_RECOIL_DAMPING*delta)
 	var recoil_step := recoil_velocity*(1.0-attenuation)/maxf(GameConfig.CHASSIS_RECOIL_DAMPING*delta,0.000001)
 	velocity += recoil_step
+	velocity = landing.consume(velocity)
+	var was_on_floor := is_on_floor()
+	var incident_velocity := velocity
 	move_and_slide()
+	if not was_on_floor and is_on_floor():
+		landing.contact(incident_velocity,get_floor_normal(),definition.drive_profile)
 	recoil_velocity *= attenuation
 	for i in get_slide_collision_count():
 		var normal := get_slide_collision(i).get_normal()
@@ -169,6 +175,7 @@ func reset() -> void:
 	powertrain.reset()
 	tracks.reset()
 	chassis.reset()
+	landing.reset()
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual terrain laboratory ready
+[PASS] vehicle supported on physical one-metre ledge
+[PASS] actual window capture 01_ledge_start
+[PASS] actual window capture 02_actual_landing_rebound
+[PASS] normal W drives off ledge and actual impact produces upward movement
+[PASS] landing settles without repeated impacts
+[PASS] actual window capture 03_landing_settled
+[PASS] pause freezes post-impact vehicle
+=== 结果: 8 项检查, 0 失败 ===
+LANDING_PLAYER_CHECKS_PASS

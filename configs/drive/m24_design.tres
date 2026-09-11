@@ -14,3 +14,4 @@ turn_drag_per_second = 0.25
 track_spacing_m = 2.4
 pitch_degrees_per_acceleration = 0.16
 pitch_response_rate = 10.0
+landing_restitution = 0.14

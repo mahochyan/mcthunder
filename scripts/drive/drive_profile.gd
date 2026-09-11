@@ -17,8 +17,14 @@ extends Resource
 @export var pitch_degrees_per_acceleration := 0.18
 @export var pitch_limit_degrees := 1.5
 @export var pitch_response_rate := 8.0
+@export var landing_min_speed := 2.0
+@export var landing_restitution := 0.12
+@export var landing_max_rebound := 1.0
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
+	if not is_finite(landing_min_speed) or landing_min_speed<1 or landing_min_speed>10: errors.append("drive_profile.landing_min_speed: expected [1,10]")
+	if not is_finite(landing_restitution) or landing_restitution<0 or landing_restitution>0.3: errors.append("drive_profile.landing_restitution: expected [0,0.3]")
+	if not is_finite(landing_max_rebound) or landing_max_rebound<=0 or landing_max_rebound>2: errors.append("drive_profile.landing_max_rebound: expected (0,2]")
 	for key in ["pitch_degrees_per_acceleration","pitch_limit_degrees","pitch_response_rate"]:
 		var value: float=get(key)
 		var ceiling: float={"pitch_degrees_per_acceleration":1.0,"pitch_limit_degrees":3.0,"pitch_response_rate":30.0}[key]
