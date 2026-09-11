@@ -1,0 +1,53 @@
+extends SceneTree
+var count := 0
+var failed := 0
+func _initialize() -> void: call_deferred("run")
+func check(ok: bool, message: String) -> void:
+	count+=1
+	if not ok: failed+=1
+	print(("[PASS] " if ok else "[FAIL] ")+message)
+func frames(n: int = 3) -> void:
+	for i in n: await physics_frame
+	await process_frame
+func run() -> void:
+	var scene := AICombatRange.new()
+	root.add_child(scene); current_scene = scene
+	var actor := scene.source_actor
+	actor.set_controller(null); scene.target_actor.set_controller(null)
+	await frames(30)
+	var cmd := VehicleCommand.new(); cmd.fire_requested=true; cmd.throttle=0.5
+	var packet := VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames())
+	var roundtrip: Variant = JSON.parse_string(JSON.stringify(packet))
+	check(VehicleCommandCodec.decode(roundtrip).ok,"JSON roundtrip preserves strict command types")
+	var start := actor.tank.global_position
+	check(actor.submit_command_envelope(roundtrip).ok,"versioned input enters real actor mailbox")
+	check(not actor.submit_command_envelope(roundtrip).ok,"duplicate sequence is rejected before consumption")
+	roundtrip.command.throttle=-1; roundtrip.command.fire_requested=false
+	await frames(2)
+	check(actor.gunner.shots_fired==1 and actor.tank.forward_speed>0,"copied command drives and fires once despite caller mutation")
+	check(actor.tank.global_position.distance_to(start)<1,"accepted input advances normally without teleporting")
+	var invalids: Array = []
+	for key in ["version","life_id","generation","control_epoch"]:
+		var bad := VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames()); bad[key]+=1; invalids.append(bad)
+	for tick in [Engine.get_physics_frames()+1,Engine.get_physics_frames()-GameConfig.COMMAND_MAX_AGE_TICKS-1]:
+		invalids.append(VehicleCommandCodec.encode(cmd,actor,2,tick))
+	var bad := VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames()); bad.command.throttle=2; invalids.append(bad)
+	bad=VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames()); bad.command.fire_requested=1; invalids.append(bad)
+	bad=VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames()); bad.command.aim_world_point=[0,NAN,0]; invalids.append(bad)
+	bad=VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames()); bad.command["declare_kill"]="B"; invalids.append(bad)
+	for value in invalids: check(not actor.submit_command_envelope(value).ok,"malformed/stale command rejected: "+str(value))
+	check(actor._last_input_sequence==1,"rejected higher sequence cannot poison subsequent valid input")
+	cmd.fire_requested=false
+	check(actor.submit_command_envelope(VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames())).ok,"valid next sequence remains accepted")
+	for transition in ["pause","reset","detach","clear"]:
+		var old := VehicleCommandCodec.encode(cmd,actor,100,Engine.get_physics_frames())
+		match transition:
+			"pause": actor.pause_block(true); actor.pause_block(false)
+			"reset": actor.reset_vehicle()
+			"detach": actor.set_controller(null)
+			"clear": actor.clear_commands()
+		check(not actor.submit_command_envelope(old).ok,transition+" invalidates earlier control epoch")
+	scene.free(); await process_frame
+	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
+	print("COMMAND_CONTRACT_CHECKS_PASS" if failed==0 else "COMMAND_CONTRACT_CHECKS_FAIL")
+	quit(0 if failed==0 else 1)

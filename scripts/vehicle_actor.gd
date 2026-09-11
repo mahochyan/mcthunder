@@ -33,6 +33,25 @@ var _mailbox := CommandMailbox.new()   # 003-R2：命令暂存
 var debug_command_trace := false       # 003-R2：提交/消费/执行三处调试记录（默认关）
 var command_observer := Callable() # Match rules may cancel spawn protection before an actual command executes.
 var supply_motion_active := false
+var control_epoch := 0
+var _last_input_sequence := -1
+
+func invalidate_input_epoch() -> void:
+	control_epoch += 1
+	_last_input_sequence = -1
+
+func submit_command_envelope(value: Variant) -> Dictionary:
+	if state == null or not is_inside_tree(): return {"ok":false,"reason":"actor_unavailable"}
+	var parsed := VehicleCommandCodec.decode(value)
+	if not parsed.ok: return parsed
+	if state.destroyed or value.entity_id!=entity_id or int(value.life_id)!=life_id or int(value.generation)!=state.generation or int(value.control_epoch)!=control_epoch:
+		return {"ok":false,"reason":"stale_identity"}
+	if int(value.sequence)<=_last_input_sequence: return {"ok":false,"reason":"stale_sequence"}
+	var age := Engine.get_physics_frames()-int(value.input_tick)
+	if age<0 or age>GameConfig.COMMAND_MAX_AGE_TICKS: return {"ok":false,"reason":"invalid_input_tick"}
+	if not submit_command(parsed.command): return {"ok":false,"reason":"command_rejected"}
+	_last_input_sequence = int(value.sequence)
+	return {"ok":true,"accepted_tick":Engine.get_physics_frames(),"sequence":_last_input_sequence}
 var _consume_count := 0                # 003-R2：本步消费计数（调试用）
 
 func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: int, spawn: Transform3D, visual_layer: int, ctrl: Node) -> Dictionary:
@@ -110,6 +129,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	return {"ok": true}
 
 func set_controller(ctrl: Node) -> void:
+	invalidate_input_epoch()
 	# 003-R1：统一控制者绑定/解绑——解绑清理引用；只有被控制的车拥有有效本地游戏相机
 	# 003-R2：控制者变更时清空暂存（不跨绑定继承旧请求）
 	_mailbox.clear()
@@ -205,11 +225,13 @@ func _notification(what: int) -> void:
 		_mailbox.clear()
 
 func pause_block(value: bool) -> void:
+	invalidate_input_epoch()
 	# 003-R2：暂停/恢复等状态切换的显式清理入口（main._pause/_resume 调用）——
 	# 不指望已停止物理回调的 actor 自己清掉暂存
 	_mailbox.set_blocked(value)
 
 func clear_commands() -> void:
+	invalidate_input_epoch()
 	# 003-R2：重开/解绑路径显式清空暂存
 	_mailbox.clear()
 
@@ -251,7 +273,8 @@ func _physics_process(delta: float) -> void:
 		var next_command: VehicleCommand = controller.poll()
 		if not is_instance_valid(self): return
 		if state.generation == before_generation and controller == bound_controller and not state.destroyed:
-			submit_command(next_command)
+			if next_command != null:
+				submit_command_envelope(VehicleCommandCodec.encode(next_command,self,_last_input_sequence+1,Engine.get_physics_frames()))
 	var cmd := _mailbox.consume()
 	_consume_count += 1
 	if debug_command_trace:
@@ -307,6 +330,7 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 		recovery_recorded.emit(last_recovery_record.duplicate(true))
 
 func reset_vehicle() -> void:
+	invalidate_input_epoch()
 	last_recovery_record = {}
 	if is_instance_valid(wreck_turret): wreck_turret.restore()
 	wreck_turret=null

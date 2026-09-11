@@ -14,9 +14,12 @@
     {
       "id": "WT-002",
       "title": "固定步长战斗状态与命令契约",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M0。职责：核心程序。依赖：WT-001。\n\n将权威炮塔/炮管状态从渲染 _process 移入固定物理步。统一输入、驾驶、炮塔、装填、发射与快照时序；视觉插值、震动和闪光不反写模拟。保留现有命令邮箱与生命周期身份。\n\n**交付**\n- 版本化 VehicleCommand / ShotRecord / MatchEvent / SimulationSnapshot 契约\n- physics_tick 顺序和事件提交时点说明\n- 渲染 30/60/144 FPS 与长帧输入回归\n\n**验收**\n- 同一带时间戳输入序列在不同渲染帧率下，射击次数、装填与命中结果一致；姿态误差符合预先定义容差\n- 暂停、重生、换车后不补发旧输入\n- 不把同一版本受控回归等同于跨平台浮点确定性保证",
-      "evidence": [],
+      "evidence": [
+        "WT002_FIXED_TURRET.md",
+        "WT002_COMMAND_CONTRACT.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
