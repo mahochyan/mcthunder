@@ -18,6 +18,13 @@ var capabilities_provider := Callable()
 var state_generation := 0
 var ground_state: Dictionary = {"grounded":false,"slope_deg":0.0,"normal":Vector3.UP,"points":[],"normals":[]}
 var slope_blocked := false
+var recoil_velocity := Vector3.ZERO # World-space response, separate from engine speed.
+
+func kick_recoil(shot_direction: Vector3) -> void:
+	if not shot_direction.is_finite() or shot_direction.length_squared() < 0.01: return
+	var up: Vector3 = ground_state.normal if ground_state.grounded else Vector3.UP
+	recoil_velocity -= shot_direction.normalized().slide(up)*GameConfig.CHASSIS_RECOIL_SPEED_MPS
+	recoil_velocity = recoil_velocity.limit_length(GameConfig.CHASSIS_RECOIL_MAX_MPS)
 
 signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
 
@@ -119,7 +126,17 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 		velocity.x = forward.x*forward_speed
 		velocity.z = forward.z*forward_speed
 		velocity.y -= GameConfig.GRAVITY * delta
+	# Use the same collision solver as driving, never teleport a presentation mesh.
+	# Integrate exponential damping over the step to avoid frame-rate-dependent travel.
+	var attenuation := exp(-GameConfig.CHASSIS_RECOIL_DAMPING*delta)
+	var recoil_step := recoil_velocity*(1.0-attenuation)/maxf(GameConfig.CHASSIS_RECOIL_DAMPING*delta,0.000001)
+	velocity += recoil_step
 	move_and_slide()
+	recoil_velocity *= attenuation
+	for i in get_slide_collision_count():
+		var normal := get_slide_collision(i).get_normal()
+		if recoil_velocity.dot(normal) < 0: recoil_velocity = recoil_velocity.slide(normal)
+	if recoil_velocity.length_squared() < 0.000001: recoil_velocity = Vector3.ZERO
 
 func set_spawn(t: Transform3D) -> void:
 	# 003：由 VehicleActor 在装配后记录真实出生点（reset 回到该点）
@@ -133,6 +150,7 @@ func register_hit(identity: Dictionary) -> void:
 	hit_registered.emit(identity.duplicate(true))
 
 func reset() -> void:
+	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0
 	velocity = Vector3.ZERO

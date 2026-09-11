@@ -285,6 +285,7 @@ func try_fire() -> bool:
 	last_query_events = []
 	_spawn_tracer(muz, muz + dir * 0.6)   # 006：仅炮口闪光（短线段）；不再画到未来目标
 	turret.kick_recoil()
+	tank.kick_recoil(dir)
 	if projectile_manager.feedback!=null: projectile_manager.feedback.on_shot(spec)
 	return true
 

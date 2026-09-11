@@ -192,6 +192,11 @@ func player_and_supply_cases() -> void:
 	record=scene.projectiles.shot_records.get_record(scene.projectiles.shot_records.count()-1)
 	check(gun.shots_fired==2 and record.identity.shell_id=="test_aphe96" and gun.rounds_remaining==18 and gun.inventory.conserved(),"second real shot uses loaded APHE and conserves typed stock")
 	var service := AmmunitionSupply.new()
+	# Chassis recoil is actual motion: parked supply begins only after settling.
+	var before_settle := gun.rounds_remaining
+	service.step(scene.actor,2.0,true)
+	check(gun.rounds_remaining==before_settle,"post-shot chassis motion prevents instant parked supply")
+	await frames(120)
 	# Deterministic timer fixture calls the same public supply transaction; window demo handles normal driving separately.
 	var before := gun.rounds_remaining
 	service.step(scene.actor,1.99,true)
