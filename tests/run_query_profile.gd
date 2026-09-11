@@ -5,6 +5,7 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.is_empty(): print("[FAIL] report path required"); quit(1); return
+	ShotQueryService.part_culling_enabled=not args.has("--no-part-culling")
 	var defs := VehicleDefs.new()
 	defs.load_defaults()
 	var catalog := VehicleCatalog.new()

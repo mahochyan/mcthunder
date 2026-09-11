@@ -1,0 +1,380 @@
+[
+  {
+    "utc": "2026-09-11T06:15:10.5577295Z",
+    "pid": 42980,
+    "private_bytes": 537493504,
+    "working_set_bytes": 335245312
+  },
+  {
+    "utc": "2026-09-11T06:15:15.8672416Z",
+    "pid": 42980,
+    "private_bytes": 496906240,
+    "working_set_bytes": 335409152
+  },
+  {
+    "utc": "2026-09-11T06:15:21.1569469Z",
+    "pid": 42980,
+    "private_bytes": 496906240,
+    "working_set_bytes": 335446016
+  },
+  {
+    "utc": "2026-09-11T06:15:26.4507341Z",
+    "pid": 42980,
+    "private_bytes": 497049600,
+    "working_set_bytes": 335630336
+  },
+  {
+    "utc": "2026-09-11T06:15:31.7330258Z",
+    "pid": 42980,
+    "private_bytes": 497049600,
+    "working_set_bytes": 334921728
+  },
+  {
+    "utc": "2026-09-11T06:15:37.0180570Z",
+    "pid": 42980,
+    "private_bytes": 497061888,
+    "working_set_bytes": 334987264
+  },
+  {
+    "utc": "2026-09-11T06:15:42.3169474Z",
+    "pid": 42980,
+    "private_bytes": 506114048,
+    "working_set_bytes": 343728128
+  },
+  {
+    "utc": "2026-09-11T06:15:47.6010359Z",
+    "pid": 42980,
+    "private_bytes": 517029888,
+    "working_set_bytes": 348323840
+  },
+  {
+    "utc": "2026-09-11T06:15:52.8892451Z",
+    "pid": 42980,
+    "private_bytes": 517582848,
+    "working_set_bytes": 349011968
+  },
+  {
+    "utc": "2026-09-11T06:15:58.1816507Z",
+    "pid": 42980,
+    "private_bytes": 519680000,
+    "working_set_bytes": 351195136
+  },
+  {
+    "utc": "2026-09-11T06:16:03.4747538Z",
+    "pid": 42980,
+    "private_bytes": 519708672,
+    "working_set_bytes": 351252480
+  },
+  {
+    "utc": "2026-09-11T06:16:08.7537981Z",
+    "pid": 42980,
+    "private_bytes": 520110080,
+    "working_set_bytes": 351682560
+  },
+  {
+    "utc": "2026-09-11T06:16:14.0354658Z",
+    "pid": 42980,
+    "private_bytes": 522477568,
+    "working_set_bytes": 354103296
+  },
+  {
+    "utc": "2026-09-11T06:16:19.3139607Z",
+    "pid": 42980,
+    "private_bytes": 522506240,
+    "working_set_bytes": 354148352
+  },
+  {
+    "utc": "2026-09-11T06:16:24.5884367Z",
+    "pid": 42980,
+    "private_bytes": 522506240,
+    "working_set_bytes": 354185216
+  },
+  {
+    "utc": "2026-09-11T06:16:29.8779142Z",
+    "pid": 42980,
+    "private_bytes": 522506240,
+    "working_set_bytes": 354205696
+  },
+  {
+    "utc": "2026-09-11T06:16:35.1743009Z",
+    "pid": 42980,
+    "private_bytes": 524017664,
+    "working_set_bytes": 355672064
+  },
+  {
+    "utc": "2026-09-11T06:16:40.4617398Z",
+    "pid": 42980,
+    "private_bytes": 524017664,
+    "working_set_bytes": 355688448
+  },
+  {
+    "utc": "2026-09-11T06:16:45.7459524Z",
+    "pid": 42980,
+    "private_bytes": 524017664,
+    "working_set_bytes": 355704832
+  },
+  {
+    "utc": "2026-09-11T06:16:51.0319728Z",
+    "pid": 42980,
+    "private_bytes": 524017664,
+    "working_set_bytes": 355721216
+  },
+  {
+    "utc": "2026-09-11T06:16:56.3226288Z",
+    "pid": 42980,
+    "private_bytes": 515104768,
+    "working_set_bytes": 355749888
+  },
+  {
+    "utc": "2026-09-11T06:17:01.6197335Z",
+    "pid": 42980,
+    "private_bytes": 515104768,
+    "working_set_bytes": 355770368
+  },
+  {
+    "utc": "2026-09-11T06:17:06.8939655Z",
+    "pid": 42980,
+    "private_bytes": 515149824,
+    "working_set_bytes": 355819520
+  },
+  {
+    "utc": "2026-09-11T06:17:12.1766212Z",
+    "pid": 42980,
+    "private_bytes": 515117056,
+    "working_set_bytes": 355811328
+  },
+  {
+    "utc": "2026-09-11T06:17:17.4608038Z",
+    "pid": 42980,
+    "private_bytes": 515117056,
+    "working_set_bytes": 355823616
+  },
+  {
+    "utc": "2026-09-11T06:17:22.7435224Z",
+    "pid": 42980,
+    "private_bytes": 515088384,
+    "working_set_bytes": 355852288
+  },
+  {
+    "utc": "2026-09-11T06:17:28.0394177Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 355975168
+  },
+  {
+    "utc": "2026-09-11T06:17:33.3200098Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 355983360
+  },
+  {
+    "utc": "2026-09-11T06:17:38.6147296Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 355995648
+  },
+  {
+    "utc": "2026-09-11T06:17:43.9117765Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 355999744
+  },
+  {
+    "utc": "2026-09-11T06:17:49.1992912Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 356003840
+  },
+  {
+    "utc": "2026-09-11T06:17:54.4863865Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 356003840
+  },
+  {
+    "utc": "2026-09-11T06:17:59.7691133Z",
+    "pid": 42980,
+    "private_bytes": 515203072,
+    "working_set_bytes": 356036608
+  },
+  {
+    "utc": "2026-09-11T06:18:05.0551277Z",
+    "pid": 42980,
+    "private_bytes": 515407872,
+    "working_set_bytes": 356139008
+  },
+  {
+    "utc": "2026-09-11T06:18:10.3485117Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356327424
+  },
+  {
+    "utc": "2026-09-11T06:18:15.6219396Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356327424
+  },
+  {
+    "utc": "2026-09-11T06:18:20.8982260Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356433920
+  },
+  {
+    "utc": "2026-09-11T06:18:26.1855832Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356433920
+  },
+  {
+    "utc": "2026-09-11T06:18:31.4604536Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356433920
+  },
+  {
+    "utc": "2026-09-11T06:18:36.7396354Z",
+    "pid": 42980,
+    "private_bytes": 518033408,
+    "working_set_bytes": 356446208
+  },
+  {
+    "utc": "2026-09-11T06:18:41.9997322Z",
+    "pid": 42980,
+    "private_bytes": 519426048,
+    "working_set_bytes": 357806080
+  },
+  {
+    "utc": "2026-09-11T06:18:47.2573109Z",
+    "pid": 42980,
+    "private_bytes": 519426048,
+    "working_set_bytes": 357834752
+  },
+  {
+    "utc": "2026-09-11T06:18:52.5294739Z",
+    "pid": 42980,
+    "private_bytes": 519454720,
+    "working_set_bytes": 357892096
+  },
+  {
+    "utc": "2026-09-11T06:18:57.8099855Z",
+    "pid": 42980,
+    "private_bytes": 521625600,
+    "working_set_bytes": 360075264
+  },
+  {
+    "utc": "2026-09-11T06:19:03.0905382Z",
+    "pid": 42980,
+    "private_bytes": 525271040,
+    "working_set_bytes": 361406464
+  },
+  {
+    "utc": "2026-09-11T06:19:08.3688939Z",
+    "pid": 42980,
+    "private_bytes": 525271040,
+    "working_set_bytes": 361406464
+  },
+  {
+    "utc": "2026-09-11T06:19:13.6811446Z",
+    "pid": 42980,
+    "private_bytes": 525271040,
+    "working_set_bytes": 361443328
+  },
+  {
+    "utc": "2026-09-11T06:19:18.9785653Z",
+    "pid": 42980,
+    "private_bytes": 525340672,
+    "working_set_bytes": 361492480
+  },
+  {
+    "utc": "2026-09-11T06:19:24.2539924Z",
+    "pid": 42980,
+    "private_bytes": 525340672,
+    "working_set_bytes": 361525248
+  },
+  {
+    "utc": "2026-09-11T06:19:29.5260226Z",
+    "pid": 42980,
+    "private_bytes": 525340672,
+    "working_set_bytes": 361525248
+  },
+  {
+    "utc": "2026-09-11T06:19:34.8088262Z",
+    "pid": 42980,
+    "private_bytes": 525303808,
+    "working_set_bytes": 361512960
+  },
+  {
+    "utc": "2026-09-11T06:19:40.0939621Z",
+    "pid": 42980,
+    "private_bytes": 525303808,
+    "working_set_bytes": 361512960
+  },
+  {
+    "utc": "2026-09-11T06:19:45.3565275Z",
+    "pid": 42980,
+    "private_bytes": 527405056,
+    "working_set_bytes": 363737088
+  },
+  {
+    "utc": "2026-09-11T06:19:50.6407536Z",
+    "pid": 42980,
+    "private_bytes": 527810560,
+    "working_set_bytes": 364167168
+  },
+  {
+    "utc": "2026-09-11T06:19:55.9293644Z",
+    "pid": 42980,
+    "private_bytes": 527810560,
+    "working_set_bytes": 364167168
+  },
+  {
+    "utc": "2026-09-11T06:20:01.2165228Z",
+    "pid": 42980,
+    "private_bytes": 527810560,
+    "working_set_bytes": 364167168
+  },
+  {
+    "utc": "2026-09-11T06:20:06.5001669Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:11.7891130Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:17.0714011Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:22.3510052Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:27.6380133Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:32.9230209Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  },
+  {
+    "utc": "2026-09-11T06:20:38.2022663Z",
+    "pid": 42980,
+    "private_bytes": 527990784,
+    "working_set_bytes": 364556288
+  }
+]

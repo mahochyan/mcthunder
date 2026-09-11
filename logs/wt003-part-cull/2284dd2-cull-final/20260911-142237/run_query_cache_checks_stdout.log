@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual four-vehicle geometry admitted
+[PASS] actual vehicle instantiated 0
+[PASS] actual vehicle instantiated 1
+[PASS] actual vehicle instantiated 2
+[PASS] actual vehicle instantiated 3
+[PASS] 64 real four-vehicle rays preserve complete armor/module/crew events with cold and warm caches
+[PASS] changed geometry is queried at its new position without stale shared bounds
+[PASS] warm part bounds detect in-place geometry edits without revision changes
+[PASS] part culling uses current transforms after vehicle movement
+[PASS] cache stays bounded after more than its capacity of distinct geometries
+[PASS] eviction and geometry edits preserve original production query results
+=== 结果: 11 项检查, 0 失败 ===
+QUERY_CACHE_CHECKS_PASS

@@ -27,14 +27,16 @@ func run() -> void:
 				requests.append({"from_world":center-direction*80,"to_world":center+direction*80,"include_modules":true,"include_crew":true})
 	var golden: Array=[]
 	ShotQueryService.bounds_cache_enabled=false
+	ShotQueryService.part_culling_enabled=false
 	for request in requests: golden.append(ShotQueryService.query(request,snapshots))
 	ShotQueryService.bounds_cache_enabled=true
+	ShotQueryService.part_culling_enabled=true
 	var equal:=true
 	for repetition in 2:
 		for index in requests.size(): equal=equal and ShotQueryService.query(requests[index],snapshots)==golden[index]
 	check(equal,"64 real four-vehicle rays preserve complete armor/module/crew events with cold and warm caches")
 	# Explicit mutable layout fixture: translation after warm-up must invalidate by value.
-	var altered: Dictionary=snapshots[0].duplicate()
+	var altered: Dictionary=snapshots[0].duplicate(true)
 	var layout:=altered.layout.duplicate(true) as VehicleLayoutDefinition
 	altered.layout=layout
 	for patch in layout.armor_patches:
@@ -42,9 +44,29 @@ func run() -> void:
 	var request: Dictionary=requests[0].duplicate(); request.from_world.x+=4; request.to_world.x+=4
 	var cached:=ShotQueryService.query(request,[altered])
 	ShotQueryService.bounds_cache_enabled=false
+	ShotQueryService.part_culling_enabled=false
 	var fresh:=ShotQueryService.query(request,[altered])
 	ShotQueryService.bounds_cache_enabled=true
+	ShotQueryService.part_culling_enabled=true
 	check(cached==fresh and not fresh.events.is_empty(),"changed geometry is queried at its new position without stale shared bounds")
+	# Warm the same resource, then mutate it in place: identity/revision are unchanged.
+	for patch in layout.armor_patches:
+		for index in patch.vertices_local_m.size(): patch.vertices_local_m[index]-=Vector3(8,0,0)
+	request.from_world.x-=8; request.to_world.x-=8
+	cached=ShotQueryService.query(request,[altered])
+	ShotQueryService.part_culling_enabled=false
+	fresh=ShotQueryService.query(request,[altered])
+	ShotQueryService.part_culling_enabled=true
+	check(cached==fresh and not fresh.events.is_empty(),"warm part bounds detect in-place geometry edits without revision changes")
+	for part_id in altered.part_world_transforms:
+		var transform: Transform3D=altered.part_world_transforms[part_id]
+		transform.origin+=Vector3(7,0,0); altered.part_world_transforms[part_id]=transform
+	request.from_world.x+=7; request.to_world.x+=7
+	cached=ShotQueryService.query(request,[altered])
+	ShotQueryService.part_culling_enabled=false
+	fresh=ShotQueryService.query(request,[altered])
+	ShotQueryService.part_culling_enabled=true
+	check(cached==fresh and not fresh.events.is_empty(),"part culling uses current transforms after vehicle movement")
 	for index in 600:
 		ShotQueryService._bounds(PackedVector3Array([Vector3(index,0,0),Vector3(index+1,1,1)]))
 	check(ShotQueryService._vertex_bounds.size()<=ShotQueryService.BOUNDS_CACHE_LIMIT,"cache stays bounded after more than its capacity of distinct geometries")

@@ -12,6 +12,32 @@ static var measured_usec := 0
 const BOUNDS_CACHE_LIMIT := 512
 static var bounds_cache_enabled := true
 static var _vertex_bounds := {}
+static var part_culling_enabled := true
+static var _part_bounds_cache := {}
+const PART_CACHE_LIMIT := 64
+
+static func _part_bounds(layout: VehicleLayoutDefinition) -> Dictionary:
+	# Value comparison detects edited/replaced vertices without trusting revision tags.
+	# Cache keys are explicitly duplicated: property element writes can alias packed arrays.
+	var signature: Array=[]
+	for patch in layout.armor_patches:
+		if patch!=null:
+			signature.append(patch.part_id); signature.append(patch.vertices_local_m)
+	var key := layout.get_instance_id()
+	var cached: Dictionary=_part_bounds_cache.get(key,{})
+	if not cached.is_empty() and cached.signature==signature: return cached.bounds
+	var bounds := {}
+	for patch in layout.armor_patches:
+		if patch==null or patch.vertices_local_m.is_empty(): continue
+		var row: PackedVector3Array=_bounds(patch.vertices_local_m)
+		if bounds.has(patch.part_id):
+			var old: PackedVector3Array=bounds[patch.part_id]
+			row=PackedVector3Array([old[0].min(row[0]),old[1].max(row[1])])
+		bounds[patch.part_id]=row
+	if _part_bounds_cache.size()>=PART_CACHE_LIMIT: _part_bounds_cache.clear()
+	for index in range(1,signature.size(),2): signature[index]=signature[index].duplicate()
+	_part_bounds_cache[key]={"signature":signature,"bounds":bounds}
+	return bounds
 
 static func _bounds(vertices: PackedVector3Array) -> PackedVector3Array:
 	# Packed arrays use value hashing/equality and copy-on-write. Changed geometry
@@ -25,7 +51,7 @@ static func _bounds(vertices: PackedVector3Array) -> PackedVector3Array:
 	var result:=PackedVector3Array([pmin,pmax])
 	if bounds_cache_enabled:
 		if _vertex_bounds.size()>=BOUNDS_CACHE_LIMIT: _vertex_bounds.clear()
-		_vertex_bounds[vertices]=result
+		_vertex_bounds[vertices.duplicate()]=result
 	return result
 
 
@@ -209,9 +235,23 @@ static func _collect_patches(
 	var entity_id: String = str(snapshot.get("entity_id", ""))
 	var life_id: int = int(snapshot.get("life_id", 0))
 	var local_segments := {}
+	var missed_parts := {}
+	if part_culling_enabled:
+		var part_bounds := _part_bounds(layout)
+		for part_id in part_bounds:
+			if not transforms.has(part_id): continue
+			var inv: Transform3D=transforms[part_id].affine_inverse()
+			var a := inv*from_world; var b := inv*to_world
+			var segment := PackedVector3Array([a,b,a.min(b),a.max(b)])
+			local_segments[part_id]=segment
+			var bound: PackedVector3Array=part_bounds[part_id]
+			if not AABB(bound[0],bound[1]-bound[0]).grow(QueryGeometry.EPS_M).intersects_segment(a,b):
+				missed_parts[part_id]=true
+		if missed_parts.size()==part_bounds.size() and part_bounds.size()>0: return true
 	for patch in layout.armor_patches:
 		if patch == null:
 			continue
+		if missed_parts.has(patch.part_id): continue
 		if not transforms.has(patch.part_id):
 			diagnostics.append("patch %s: missing part transform %s" % [patch.id, patch.part_id])
 			complete = false
