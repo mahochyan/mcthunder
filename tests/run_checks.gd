@@ -826,9 +826,13 @@ func _run() -> void:
 	defs2.vehicles["test_fast"] = fast_v
 	defs2.weapons["test_fast_gun"] = fast_w
 	defs2.shells["test_fast_shell"] = fast_s
-	var slow_a: VehicleActor = main.spawn_vehicle("test_slow", "SLOW", Vector3(0, 0, 30), null, defs2)
-	var fast_a: VehicleActor = main.spawn_vehicle("test_fast", "FAST", Vector3(0, 0, 40), null, defs2)
+	# Separate unobstructed lanes inside the real 60m ground; old z=30/40
+	# spawned one vehicle in the perimeter wall and the other beyond the ground.
+	var slow_a: VehicleActor = main.spawn_vehicle("test_slow", "SLOW", Vector3(-20, 0, 20), null, defs2)
+	var fast_a: VehicleActor = main.spawn_vehicle("test_fast", "FAST", Vector3(20, 0, 20), null, defs2)
 	_ok(slow_a != null and fast_a != null, "T003-07 两套配置实体生成成功")
+	for i in 5: await physics_frame
+	_ok(slow_a.tank.is_on_floor() and fast_a.tank.is_on_floor(), "T003-07 两车实际接地后才开始动力对照")
 	# 脚本持续命令驱动真实移动（慢车 vs 快车，120 物理帧 = 2s）
 	var cmd_slow := VehicleCommand.new()
 	cmd_slow.throttle = 1.0

@@ -1,0 +1,58 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "7a3f213-contact-integration",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_checks",
+    "source_sha": "7a3f213-contact-integration",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_checks.gd\"",
+    "exit_code": 1,
+    "timed_out": false,
+    "checks": 216,
+    "passed": false,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_network_controller_checks",
+    "source_sha": "7a3f213-contact-integration",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_network_controller_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 11,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_historical_road_checks",
+    "source_sha": "7a3f213-contact-integration",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --fixed-fps 60 -s \"res://tests/run_historical_road_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 17,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  }
+]

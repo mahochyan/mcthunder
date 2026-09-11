@@ -59,7 +59,7 @@
       "title": "地形接触与悬挂表现",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序/关卡。依赖：WT-004, WT-005。\n\n完善多点接地、坡顶/坡侧/沟坎、接地失去/恢复、车体俯仰侧倾、制动点头与收敛；新增受控推挤、翻覆/拖救规则。选择自定义运动或刚体混合方案须有对照实验。\n\n**交付**\n- 独立 VehicleDynamics 与 VehiclePresentation 边界\n- 坡顶、路沿、窄巷、残骸、碰车测试地图\n- 参数化悬挂视觉与碰撞方案记录\n\n**验收**\n- 履带不长期明显悬空；坡顶不反复弹跳或穿地\n- 物理姿态影响实际炮口与命中几何，纯镜头震动不改变命中\n- 没有证据前不因节点名称而强行替换整套物理框架",
-      "evidence": ["WT006_CONTACT_LOSS.md", "WT006_CHASSIS_RESPONSE.md"],
+      "evidence": ["WT006_CONTACT_LOSS.md", "WT006_CHASSIS_RESPONSE.md", "WT006_LANDING_CONTACT.md"],
       "human_accepted": false,
       "release_ready": false
     },

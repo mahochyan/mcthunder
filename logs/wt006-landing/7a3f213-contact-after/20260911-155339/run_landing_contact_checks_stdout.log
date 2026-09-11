@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical landing fixture ready
+[PASS] actual fall traverses former 0.55m early-contact band 1.0
+[PASS] near-ground flight retains speed and attitude until physical contact 1.0
+[PASS] collision solver confirms eventual landing 1.0
+[PASS] confirmed contact restores driving and attitude response 1.0
+[PASS] actual fall traverses former 0.55m early-contact band -1.0
+[PASS] near-ground flight retains speed and attitude until physical contact -1.0
+[PASS] collision solver confirms eventual landing -1.0
+[PASS] confirmed contact restores driving and attitude response -1.0
+[PASS] actual fall traverses former 0.55m early-contact band 0.0
+[PASS] near-ground flight retains speed and attitude until physical contact 0.0
+[PASS] collision solver confirms eventual landing 0.0
+[PASS] confirmed contact restores driving and attitude response 0.0
+=== 结果: 13 项检查, 0 失败 ===
+LANDING_CONTACT_CHECKS_PASS

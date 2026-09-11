@@ -29,7 +29,9 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 		out.normal = sum.normalized()
 		out.center_height = height/out.support_count
 		out.slope_deg = rad_to_deg(acos(clampf(out.normal.dot(Vector3.UP),-1,1)))
-		out.grounded = body.is_on_floor() or absf(body.global_position.y-float(out.center_height)) < GameConfig.DRIVE_SUPPORT_REACH_M
+		# Rays measure terrain/support reach; only the movement solver confirms landing.
+		# Proximity alone must not grant braking, steering or pose recovery in flight.
+		out.grounded = body.is_on_floor()
 		if out.grounded: out.surface_drag=drag/out.support_count
 	if out.grounded: out.traction_support=(out.left_support+out.right_support)*0.5
 	else: out.left_support=0.0; out.right_support=0.0
