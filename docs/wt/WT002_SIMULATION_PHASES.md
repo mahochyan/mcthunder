@@ -16,4 +16,8 @@ SimulationSnapshot v1由比赛规则之后的独立节点发布，含sequence、
 
 ## 后续
 
+2026-09-11 接续复测：游戏源码0ff23f3，测试runner仅修复日志读取；`run_suite_checks.ps1 -Suites run_village_battle_checks -Order wt002-village -SourceSha 0ff23f3-runner-wip -TimeoutSeconds 600` 已退出0，21项全部通过。完整输出及RESULTS.json位于 `logs/wt002-village/0ff23f3-runner-wip/20260911-120122`。七辆AI均到达中央接近区域，120秒自然仿真、真实弹丸地图遮挡及重开/回车库通过。600秒是墙钟上限，不是完整自然比赛时长；不覆盖整局性能门槛。
+
+runner以共享读取方式读取仍有重定向写入句柄的日志；无法读取时记录log_read_errors并令该项失败，继续落盘结果。`tests/run_suite_log_checks.ps1`两项通过；零秒超时反例 `logs/wt002-timeout-probe/runner-wip/20260911-120201/RESULTS.json` 正确记录timed_out=true、passed=false并退出1。这是预期超时夹具，不是游戏回归失败。上面的首次超时及异常记录保留。
+
 同优先级车辆仍按节点顺序更新，玩家意图快照查询可能看到其它车的不同更新阶段。本批没有解决所有车辆先统一输入/再统一运动的全局两阶段模型。继续补输入与观察采样契约、MatchEvent版本、同步/重连所需快照字段、移动目标与长帧验证；WT-002仍在进行。

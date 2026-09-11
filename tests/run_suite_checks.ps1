@@ -6,6 +6,7 @@ param(
     [string]$EnginePath = ''
 )
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'read_suite_log.ps1')
 if('run_art_checks' -in $Suites -and 'run_menu_fire_handoff_checks' -notin $Suites){$Suites += 'run_menu_fire_handoff_checks'}
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $engine = if ($EnginePath) { $EnginePath } else { Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.exe' }
@@ -28,8 +29,11 @@ foreach ($step in $steps) {
     $timedOut = -not $process.WaitForExit($TimeoutSeconds * 1000)
     if ($timedOut) { Stop-Process -Id $process.Id -Force }
     $process.WaitForExit()
-    $output = [IO.File]::ReadAllText($stdout)
-    $errors = [IO.File]::ReadAllText($stderr)
+    $outputRead = Read-SuiteLog -Path $stdout
+    $errorRead = Read-SuiteLog -Path $stderr
+    $output = $outputRead.Text
+    $errors = $errorRead.Text
+    $logReadErrors = @(@($outputRead.Error,$errorRead.Error) | Where-Object { $null -ne $_ })
     $errorLines = @([regex]::Matches($errors, '(?m)^ERROR:.*') | ForEach-Object { $_.Value.Trim() })
     $allowedErrors = @()
     if ($step.Name -eq 'run_layout_checks') {
@@ -46,9 +50,10 @@ foreach ($step in $steps) {
     $scriptError = ($errors + $output) -match 'SCRIPT ERROR:|Parse Error:'
     $checkMatch = [regex]::Match($output, '=== 结果: (\d+) 项检查, (\d+) 失败 ===')
     $assertionsPass = $step.Name -eq 'import' -or ($checkMatch.Success -and [int]$checkMatch.Groups[2].Value -eq 0 -and $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$')
-    $passed = -not $timedOut -and $process.ExitCode -eq 0 -and -not $scriptError -and $unexpected.Count -eq 0 -and $assertionsPass
+    $passed = -not $timedOut -and $process.ExitCode -eq 0 -and -not $scriptError -and $unexpected.Count -eq 0 -and $assertionsPass -and $logReadErrors.Count -eq 0
     $row = [pscustomobject]@{suite=$step.Name; source_sha=$sourceSha; engine=$engineVersion; command=$command; exit_code=$process.ExitCode; timed_out=$timedOut; checks=if($checkMatch.Success){[int]$checkMatch.Groups[1].Value}else{0}; passed=$passed; script_error=$scriptError; unexpected_errors=$unexpected; expected_error_count=$allowedErrors.Count}
     $summary.Add($row)
+    $row | Add-Member -NotePropertyName log_read_errors -NotePropertyValue $logReadErrors
     $summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $runPath 'RESULTS.json') -Encoding utf8
     Write-Output ("{0}: checks={1} exit={2} passed={3} unexpected_errors={4}" -f $step.Name,$row.checks,$row.exit_code,$passed,$unexpected.Count)
     if ($step.Name -eq 'import' -and -not $passed) { break }

@@ -35,3 +35,6 @@ WT-002 已实施炮塔机构固定步长第一批，见 `docs/wt/WT002_FIXED_TUR
 99A资源：E:/AIprogram/mcthunder/authoring/ztz99a/delivery/ZTZ99A_HIGH_AND_BAKED_LODS.zip；高模和3996/1988/989三档烘焙LOD。炮塔主参考99A多视图.png；外形真人验收待定，未作为本包第五辆玩法车集成。
 
 Git仅显式暂存本次文档、分析脚本和指定证据。其它未跟踪截图、诊断日志、Godot生成UID和四张GLB依赖PNG保持原样。原始日志保留字节，不因diff --check的CRLF提示归一化。
+# 接续更新：村庄回归已关闭
+
+0ff23f3游戏源码的村庄120秒自然仿真已完成，21项通过、退出0，日志在logs/wt002-village/0ff23f3-runner-wip/20260911-120122。测试runner的超时日志共享读取已修复，两项夹具和零秒超时结果落盘反例通过。下文村庄“待重测”仅保留首次失败历史。继续WT-002比赛事件契约与全车调度，未宣称完整游戏完成。

@@ -1,0 +1,14 @@
+{
+  "suite": "import",
+  "source_sha": "runner-wip",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --editor --import",
+  "exit_code": -1,
+  "timed_out": true,
+  "checks": 0,
+  "passed": false,
+  "script_error": false,
+  "unexpected_errors": [],
+  "expected_error_count": 0,
+  "log_read_errors": []
+}
