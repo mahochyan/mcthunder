@@ -1,0 +1,20 @@
+[
+  {
+    "cap": 30,
+    "passed": true,
+    "exit_code": 0,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 30 -s res://tests/run_world_vehicle_phase_checks.gd -- --stall"
+  },
+  {
+    "cap": 60,
+    "passed": true,
+    "exit_code": 0,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 60 -s res://tests/run_world_vehicle_phase_checks.gd -- --stall"
+  },
+  {
+    "cap": 144,
+    "passed": true,
+    "exit_code": 0,
+    "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --resolution 1280x720 --max-fps 144 -s res://tests/run_world_vehicle_phase_checks.gd -- --stall"
+  }
+]

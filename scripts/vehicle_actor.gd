@@ -5,7 +5,7 @@ extends Node3D
 ## 独立 VehicleRuntimeState、TankVehicle（驾驶）、TurretRig（瞄准）、
 ## CameraRig（观察）、Gunner（射击）、可选 PlayerController（本地控制者）。
 ## 003-R2：submit_command 是唯一命令提交入口（验证/复制/暂存，不执行）；
-## 每辆车唯一的 _physics_process 每步消费一次——玩家与脚本同一执行器。
+## 每步消费一次；团队由世界调度阶段调用，独立场景由本车物理回调调用同一执行器。
 
 static var _life_counter := 0   # 003-R2：实体生命周期计数（同名车销毁重建后新旧区分）
 
@@ -36,6 +36,7 @@ var supply_motion_active := false
 var control_epoch := 0
 var _last_input_sequence := -1
 var _pending_input_tick := -1
+var simulation_driver: WeakRef
 
 func _expire_pending_input() -> void:
 	if _pending_input_tick>=0 and Engine.get_physics_frames()-_pending_input_tick>GameConfig.COMMAND_MAX_AGE_TICKS:
@@ -273,6 +274,13 @@ func submit_command(cmd: VehicleCommand) -> bool:
 	return ok
 
 func _physics_process(delta: float) -> void:
+	if simulation_driver != null and is_instance_valid(simulation_driver.get_ref()): return
+	advance_standalone_tick(delta)
+
+func advance_standalone_tick(delta: float) -> void:
+	_apply_command_once(collect_simulation_command(delta),delta)
+
+func collect_simulation_command(delta: float) -> VehicleCommand:
 	# Expire the oldest merged input before a fresh controller poll can merge
 	# an old fire edge into a new driving sample.
 	# 003-R2：每辆车唯一物理执行器——有控制者先经同一提交入口收集本步命令，
@@ -287,7 +295,7 @@ func _physics_process(delta: float) -> void:
 		var before_epoch := control_epoch
 		var bound_controller := controller
 		var next_command: VehicleCommand = controller.poll()
-		if not is_instance_valid(self): return
+		if not is_instance_valid(self): return VehicleCommand.new()
 		if state.generation == before_generation and control_epoch == before_epoch and controller == bound_controller and not state.destroyed:
 			if next_command != null:
 				submit_command_envelope(VehicleCommandCodec.encode(next_command,self,_last_input_sequence+1,Engine.get_physics_frames()))
@@ -296,18 +304,29 @@ func _physics_process(delta: float) -> void:
 	_consume_count += 1
 	if debug_command_trace:
 		print("[cmd-trace] consume entity=%s tick=%d throttle=%.2f fire=%s" % [entity_id, Engine.get_physics_frames(), cmd.throttle, str(cmd.fire_requested)])
-	_apply_command_once(cmd, delta)
+	return cmd
 
 func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
+	var step := begin_simulation_command(cmd,delta)
+	if step.is_empty(): return
+	advance_simulation_drive(step,delta)
+	advance_simulation_aim(step,delta)
+	advance_simulation_mechanism(step,delta)
+	finish_simulation_command(step)
+
+func simulation_step_valid(step: Dictionary) -> bool:
+	return not step.is_empty() and is_inside_tree() and not get_tree().paused and state.generation==step.generation and control_epoch==step.epoch
+
+func begin_simulation_command(cmd: VehicleCommand, delta: float) -> Dictionary:
 	# 003-R2：命令执行体（由原 apply_command 改名而来；驾驶/瞄准算法不变）。
 	# 003-R1：入口合法性约束——实体无效拒绝、有限值、输入范围钳制
 	if not is_instance_valid(tank) or not is_instance_valid(gunner) or not is_instance_valid(turret):
-		return
+		return {}
 	if command_observer.is_valid():
 		var before_generation := state.generation
 		var before_epoch := control_epoch
 		command_observer.call(self,cmd)
-		if not is_instance_valid(self) or state.generation != before_generation or control_epoch != before_epoch or state.destroyed or get_tree().paused: return
+		if not is_instance_valid(self) or state.generation != before_generation or control_epoch != before_epoch or state.destroyed or get_tree().paused: return {}
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
 	supply_motion_active = absf(throttle)>0.01 or absf(steer)>0.01
@@ -318,16 +337,31 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	if died_now: _commit_death()
 	if debug_command_trace:
 		print("[cmd-trace] execute entity=%s tick=%d throttle=%.2f steer=%.2f fire=%s" % [entity_id, Engine.get_physics_frames(), throttle, steer, str(cmd.fire_requested)])
-	tank.apply_drive(throttle, steer, delta)
+	return {"cmd":cmd,"generation":state.generation,"epoch":control_epoch,"throttle":throttle,"steer":steer,"died_now":died_now,"completed_repair":completed_repair,"repair_target":repair_target,"repair_before":repair_before}
+
+func advance_simulation_drive(step: Dictionary, delta: float) -> void:
+	if not simulation_step_valid(step): return
+	tank.apply_drive(step.throttle,step.steer,delta)
+
+func advance_simulation_aim(step: Dictionary, _delta: float) -> void:
+	if not simulation_step_valid(step): return
+	var cmd: VehicleCommand = step.cmd
 	if cmd.has_aim_point:
 		turret.set_aim_point(cmd.aim_world_point)
 	elif cmd.clear_aim:
 		turret.clear_aim_point()
 	cam_rig.set_sight_requested(cmd.aim_held)
 	if cmd.clear_aim: cam_rig.refresh_intent()
+
+func advance_simulation_mechanism(step: Dictionary, delta: float) -> void:
+	if not simulation_step_valid(step): return
 	# Drive and aim intent are committed before the mechanism, then firing reads
 	# this tick's actual barrel transform. Rendering cannot advance these axes.
 	turret.advance_mechanism(delta)
+
+func finish_simulation_command(step: Dictionary) -> void:
+	if not simulation_step_valid(step): return
+	var cmd: VehicleCommand = step.cmd
 	if cmd.select_shell >= 0 and not state.destroyed: gunner.select_shell(cmd.select_shell)
 	if cmd.fire_requested:
 		gunner.request_fire()
@@ -340,10 +374,11 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	state.shots_fired = gunner.shots_fired
 	state.last_shot_result = gunner.last_shot_result
 	state.hits_taken = tank.hits_taken
-	if died_now: _publish_death()
-	if completed_repair:
+	if step.died_now: _publish_death()
+	if step.completed_repair and simulation_step_valid(step):
+		var repair_target: String = step.repair_target
 		_recovery_sequence += 1
-		last_recovery_record = {"event_id":"%s:%d:%d:repair:%d"%[entity_id,life_id,state.generation,_recovery_sequence],"entity_id":entity_id,"life_id":life_id,"generation":state.generation,"kind":"repair","item_id":repair_target,"before":repair_before,"after":float(state.module_states[repair_target].integrity)}
+		last_recovery_record = {"event_id":"%s:%d:%d:repair:%d"%[entity_id,life_id,state.generation,_recovery_sequence],"entity_id":entity_id,"life_id":life_id,"generation":state.generation,"kind":"repair","item_id":repair_target,"before":step.repair_before,"after":float(state.module_states[repair_target].integrity)}
 		last_recovery_record.make_read_only()
 		recovery_recorded.emit(last_recovery_record.duplicate(true))
 

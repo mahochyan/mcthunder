@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[runtime] display=Windows render_cap=60 physics_hz=60
+[PASS] all eight actual controller polls observe the same pre-movement world
+[PASS] all eight actual camera aim queries observe all vehicles after movement
+[PASS] aim queries share one turret geometry stage before any mechanism advances
+[PASS] every observed vehicle actually moves during the sampled physical step
+[PASS] later command observer invalidates earlier actor work before firing
+[PASS] fresh command fires once after cross-actor invalidation
+[PASS] explicitly disabled actor is not advanced by world driver
+[PASS] entity removed by another observer is skipped without aborting survivors' movement
+=== 结果: 8 项检查, 0 失败 ===
+WORLD_VEHICLE_PHASE_CHECKS_PASS

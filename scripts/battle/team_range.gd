@@ -31,6 +31,7 @@ var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
 var garage_service: GarageService
 var simulation_snapshot: SimulationSnapshot
+var vehicle_simulation: VehicleSimulationDriver
 
 func _ready() -> void:
 	# 027-A moved named input actions out of project.godot into the binding
@@ -42,6 +43,9 @@ func _ready() -> void:
 	super._ready()
 	if not _initialized: return
 	process_physics_priority = SimulationPhases.SUPPLY
+	vehicle_simulation=VehicleSimulationDriver.new()
+	vehicle_simulation.actor_provider=Callable(self,"combat_actors")
+	add_child(vehicle_simulation)
 	simulation_snapshot = SimulationSnapshot.new()
 	simulation_snapshot.battle = self
 	add_child(simulation_snapshot)
@@ -177,6 +181,7 @@ func vehicle_id_for_slot(id: String) -> String:
 	return VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
 
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
+	vehicle.simulation_driver=weakref(vehicle_simulation)
 	if id == "A" and prepared_match != null:
 		if not garage_service.install(vehicle,prepared_match.loadout(vehicle.definition.id)): push_error("respawn loadout rejected")
 	if vehicle.definition.id not in VehicleCatalog.IDS: M4EngineeringProfile.apply(vehicle)
