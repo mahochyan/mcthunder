@@ -35,10 +35,18 @@ var command_observer := Callable() # Match rules may cancel spawn protection bef
 var supply_motion_active := false
 var control_epoch := 0
 var _last_input_sequence := -1
+var _pending_input_tick := -1
+
+func _expire_pending_input() -> void:
+	if _pending_input_tick>=0 and Engine.get_physics_frames()-_pending_input_tick>GameConfig.COMMAND_MAX_AGE_TICKS:
+		_mailbox.clear()
+		_pending_input_tick = -1
 
 func invalidate_input_epoch() -> void:
 	control_epoch += 1
 	_last_input_sequence = -1
+	_pending_input_tick = -1
+	_mailbox.clear()
 
 func submit_command_envelope(value: Variant) -> Dictionary:
 	if state == null or not is_inside_tree(): return {"ok":false,"reason":"actor_unavailable"}
@@ -49,7 +57,9 @@ func submit_command_envelope(value: Variant) -> Dictionary:
 	if int(value.sequence)<=_last_input_sequence: return {"ok":false,"reason":"stale_sequence"}
 	var age := Engine.get_physics_frames()-int(value.input_tick)
 	if age<0 or age>GameConfig.COMMAND_MAX_AGE_TICKS: return {"ok":false,"reason":"invalid_input_tick"}
+	_expire_pending_input()
 	if not submit_command(parsed.command): return {"ok":false,"reason":"command_rejected"}
+	_pending_input_tick = int(value.input_tick) if _pending_input_tick<0 else mini(_pending_input_tick,int(value.input_tick))
 	_last_input_sequence = int(value.sequence)
 	return {"ok":true,"accepted_tick":Engine.get_physics_frames(),"sequence":_last_input_sequence}
 var _consume_count := 0                # 003-R2：本步消费计数（调试用）
@@ -154,6 +164,7 @@ func _aim_snapshots() -> Array:
 	return []
 
 func set_damage_layout(layout: VehicleLayoutDefinition) -> void:
+	invalidate_input_epoch()
 	damage_layout_override = layout
 	state.initialize_damage(layout)
 	tank.state_generation = state.generation
@@ -261,7 +272,10 @@ func submit_command(cmd: VehicleCommand) -> bool:
 	return ok
 
 func _physics_process(delta: float) -> void:
+	# Expire the oldest merged input before a fresh controller poll can merge
+	# an old fire edge into a new driving sample.
 	# 003-R2：每辆车唯一物理执行器——有控制者先经同一提交入口收集本步命令，
+	_expire_pending_input()
 	# 然后消费恰好一次（无输入 = 零命令静止）；脚本不再传入 delta 决定运动时间。
 	# 006：装填/宽限时钟在消费命令前推进一次（唯一入口，删除 Gunner._process 扣减）。
 	_consume_count = 0
@@ -269,13 +283,15 @@ func _physics_process(delta: float) -> void:
 		gunner.advance_timers(delta)
 	if controller != null:
 		var before_generation := state.generation
+		var before_epoch := control_epoch
 		var bound_controller := controller
 		var next_command: VehicleCommand = controller.poll()
 		if not is_instance_valid(self): return
-		if state.generation == before_generation and controller == bound_controller and not state.destroyed:
+		if state.generation == before_generation and control_epoch == before_epoch and controller == bound_controller and not state.destroyed:
 			if next_command != null:
 				submit_command_envelope(VehicleCommandCodec.encode(next_command,self,_last_input_sequence+1,Engine.get_physics_frames()))
 	var cmd := _mailbox.consume()
+	_pending_input_tick = -1
 	_consume_count += 1
 	if debug_command_trace:
 		print("[cmd-trace] consume entity=%s tick=%d throttle=%.2f fire=%s" % [entity_id, Engine.get_physics_frames(), cmd.throttle, str(cmd.fire_requested)])
@@ -288,8 +304,9 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 		return
 	if command_observer.is_valid():
 		var before_generation := state.generation
+		var before_epoch := control_epoch
 		command_observer.call(self,cmd)
-		if not is_instance_valid(self) or state.generation != before_generation: return
+		if not is_instance_valid(self) or state.generation != before_generation or control_epoch != before_epoch or state.destroyed or get_tree().paused: return
 	var throttle := clampf(cmd.throttle if is_finite(cmd.throttle) else 0.0, -1.0, 1.0)
 	var steer := clampf(cmd.steer if is_finite(cmd.steer) else 0.0, -1.0, 1.0)
 	supply_motion_active = absf(throttle)>0.01 or absf(steer)>0.01

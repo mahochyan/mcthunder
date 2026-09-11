@@ -47,6 +47,34 @@ func run() -> void:
 			"detach": actor.set_controller(null)
 			"clear": actor.clear_commands()
 		check(not actor.submit_command_envelope(old).ok,transition+" invalidates earlier control epoch")
+	# A valid envelope can age while this actor is temporarily not processing.
+	actor.reset_vehicle(); actor.set_physics_process(false)
+	var shots_before := actor.gunner.shots_fired
+	cmd.fire_requested=true; cmd.throttle=0
+	check(actor.submit_command_envelope(VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames())).ok,"valid fire can be staged before suspension")
+	await frames(GameConfig.COMMAND_MAX_AGE_TICKS+3)
+	actor.set_physics_process(true)
+	await frames(3)
+	check(actor.gunner.shots_fired==shots_before,"staged fire expires before resumed physical consumption")
+	# Production observer may change focus/control without changing generation.
+	actor.command_observer = func(_a: VehicleActor, _c: VehicleCommand) -> void: actor.clear_commands()
+	check(actor.submit_command(cmd),"observer race fixture enters original command path")
+	await frames(3)
+	check(actor.gunner.shots_fired==shots_before,"observer control-epoch change cancels already-consumed fire")
+	actor.command_observer = Callable()
+	check(actor.submit_command_envelope(VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames())).ok,"fresh epoch accepts a new legitimate command")
+	await frames(3)
+	check(actor.gunner.shots_fired==shots_before+1,"fresh input still fires after invalidation")
+	await frames(150)
+	actor.set_physics_process(false)
+	var before_merge := actor.gunner.shots_fired
+	check(actor.submit_command_envelope(VehicleCommandCodec.encode(cmd,actor,2,Engine.get_physics_frames())).ok,"old fire staged for merge-expiration case")
+	await frames(GameConfig.COMMAND_MAX_AGE_TICKS+3)
+	cmd.fire_requested=false; cmd.throttle=0.5
+	check(actor.submit_command_envelope(VehicleCommandCodec.encode(cmd,actor,3,Engine.get_physics_frames())).ok,"fresh driving replaces expired pending input")
+	actor.set_physics_process(true)
+	await frames(1)
+	check(actor.gunner.shots_fired==before_merge and actor.tank.forward_speed>0,"fresh drive survives without inheriting expired fire edge")
 	scene.free(); await process_frame
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("COMMAND_CONTRACT_CHECKS_PASS" if failed==0 else "COMMAND_CONTRACT_CHECKS_FAIL")
