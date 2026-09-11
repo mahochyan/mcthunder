@@ -193,7 +193,7 @@ func _rotated_and_runtime_cases() -> void:
 	_step(st)
 	var before := b.turret.rotation
 	b.turret.set_aim_point(b.tank.global_position+Vector3(50,20,0))
-	b.turret._process(1.0)
+	b.turret.advance_mechanism(1.0)
 	_ok(b.turret.rotation == before,"destroyed turret drive blocks actual tracking")
 	_clear()
 	b.reset_vehicle()

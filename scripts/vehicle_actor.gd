@@ -283,6 +283,9 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	elif cmd.clear_aim:
 		turret.clear_aim_point()
 	cam_rig.set_sight_requested(cmd.aim_held)
+	# Drive and aim intent are committed before the mechanism, then firing reads
+	# this tick's actual barrel transform. Rendering cannot advance these axes.
+	turret.advance_mechanism(delta)
 	if cmd.select_shell >= 0 and not state.destroyed: gunner.select_shell(cmd.select_shell)
 	if cmd.fire_requested:
 		gunner.request_fire()

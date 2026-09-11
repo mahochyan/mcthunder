@@ -1025,6 +1025,9 @@ func _aim_at_b() -> void:
 		var last_dir: Vector3 = _main.actor_a.turret.barrel_direction()
 		settled = false
 		for i in 30:
+			# Mechanism now advances on physics ticks; two render-only samples
+			# can be identical while the mechanism has not advanced at all.
+			await physics_frame
 			await process_frame
 			var cp: Vector3 = _main.cam_rig.cam.global_position
 			var bd: Vector3 = _main.actor_a.turret.barrel_direction()
