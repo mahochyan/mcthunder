@@ -26,6 +26,7 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 		if m.kind in ["engine","transmission","track"]: drive.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
 		if m.kind in ["breech","turret_drive"]: weapon.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
 	if not state.role_available("driver"): drive.append(REASONS.driver)
+	if caps.get("track_pivot",false): drive.append(LocalizationService.text("drive_single_track_pivot"))
 	if not state.role_available("gunner"): weapon.append(REASONS.gunner)
 	if not state.role_available("loader"): weapon.append(LocalizationService.text("ui_f8a03ec8abed"))
 	var crew: Array[Dictionary] = []

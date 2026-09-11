@@ -1,0 +1,46 @@
+[
+  {
+    "path": "scripts/damage/vehicle_capabilities.gd",
+    "sha256": "40F0D9715C86E0AA55824CBA0C1DDB818EF73CEE2D98D959992C5EE80BF68CF7"
+  },
+  {
+    "path": "scripts/drive/drive_profile.gd",
+    "sha256": "BD6D6F5AD85230E61FED75A549F7FF42F3CF772F1E0BFAAF37E0C0224AFE297B"
+  },
+  {
+    "path": "scripts/drive/track_drive.gd",
+    "sha256": "24E3FB7E5A4127A33CED2BDA33DB5A8872866F216BA3F7FF2D4045C8A7B8F714"
+  },
+  {
+    "path": "scripts/tank.gd",
+    "sha256": "FFAEFA36F2CDDFD739EAE7FA8667D6570F4621A66AFEC688C304AF6269F2D10F"
+  },
+  {
+    "path": "scripts/art/historical_track_motion.gd",
+    "sha256": "1AB695128BBA026983063804B69B5B1768186AF28F86D6E1C7D1C1E8BBCF41F4"
+  },
+  {
+    "path": "scripts/ui/hud_presenter.gd",
+    "sha256": "7261E6AADA9D0AA7C78B000409800266C4535D5F485F5F8527C00F9BE2D2B38F"
+  },
+  {
+    "path": "tests/run_track_damage_checks.gd",
+    "sha256": "D4D4532FABC6E4A51A1085E83953E97BBB805D9D287212E8EFE68022BE45B8A1"
+  },
+  {
+    "path": "tests/run_track_damage_player_checks.gd",
+    "sha256": "DDC7ED544209EA836FAABE361DBE29DEBD7F0E5032EE1805789CC23E63095852"
+  },
+  {
+    "path": "tests/run_hud_checks.gd",
+    "sha256": "2FF80CCC0B9A2BAF1FD52FDB02A23832F22CE2826BE00805195EF72949A7AD0B"
+  },
+  {
+    "path": "tests/run_art_checks.gd",
+    "sha256": "3698192A35F4F27596EA25E28E4AE3AA8861828770FDBB559532C66F18EE7CBA"
+  },
+  {
+    "path": "assets/localization/zh_CN.json",
+    "sha256": "D4425F9925FCCFC1E1D758BE3EE435F2CB400DDC6E79AB8AD3F900DC4B15A66A"
+  }
+]

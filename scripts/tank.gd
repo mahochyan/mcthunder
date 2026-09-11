@@ -87,20 +87,26 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	# 003：统一命令驱动（throttle ∈ [-1,1]，steer ∈ [-1,1] 正 = 右转）
 	# 003-R1：参数来自 VehicleDefinition（defs 注入）；null 时回退 GameConfig 常量
 	_drive_calls += 1   # 003-R2：执行计数（提交≠执行的验证证据）
+	var track_pivot := false
+	var left_available := true
 	if capabilities_provider.is_valid():
 		var caps: Dictionary = capabilities_provider.call()
+		track_pivot=caps.get("track_pivot",false)
+		left_available=caps.get("left_track",true)
 		if not caps.drive:
 			throttle = 0.0
 		if not caps.steer:
 			steer = 0.0
 	var definition := defs if defs!=null else fallback_definition
 	forward_speed=tracks.step(forward_speed,steer,delta,definition)
+	if track_pivot: forward_speed=tracks.single_track_pivot(steer,left_available,definition)
 	var forward := VehiclePose.flat_forward(global_basis)
 	forward = forward.rotated(Vector3.UP,tracks.yaw_rate*delta)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
 	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
-	forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,defs if defs!=null else fallback_definition)
+	if track_pivot: powertrain.reset()
+	else: forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,definition)
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0

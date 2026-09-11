@@ -13,12 +13,13 @@ extends Resource
 @export var turn_drag_per_second := 0.35
 @export var track_spacing_m := 2.5
 @export var neutral_turn := true
+@export var damaged_track_turn_scale := 0.25
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
 	for key in ["brake_scale","coast_scale"]:
 		var value: float=get(key)
 		if not is_finite(value) or value<=0 or value>3: errors.append("drive_profile."+key+": expected (0,3]")
-	for key in ["power_falloff","shift_power","downshift_hysteresis","turn_speed_falloff"]:
+	for key in ["power_falloff","shift_power","downshift_hysteresis","turn_speed_falloff","damaged_track_turn_scale"]:
 		var value: float=get(key)
 		if not is_finite(value) or value<0 or value>=1: errors.append("drive_profile."+key+": expected [0,1)")
 	if not is_finite(shift_seconds) or shift_seconds<0 or shift_seconds>2: errors.append("drive_profile.shift_seconds: expected [0,2]")

@@ -37,6 +37,8 @@ func _process(_delta: float) -> void:
 	# Reset/teleport does not spin a texture through the entire map distance.
 	if displacement.length_squared()>4.0: return
 	var distance:=displacement.dot(-tank.global_basis.z)
+	var caps: Dictionary=tank.capabilities_provider.call() if tank.capabilities_provider.is_valid() else {}
 	for row in tracks:
+		if not caps.get("left_track" if row.side<0 else "right_track",true): continue
 		row.phase=fposmod(float(row.phase)+(distance+float(row.side)*yaw_delta*_center_x)/_repeat_metres,1.0)
 		row.material.set_shader_parameter("travel",row.phase)

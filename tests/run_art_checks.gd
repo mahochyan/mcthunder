@@ -41,6 +41,15 @@ func _run() -> void:
 		check(tracks!=null and absf(float(tracks.tracks[0].phase))>0.01 and absf(float(tracks.tracks[1].phase))>0.01,id+": real hull steering advances both track textures")
 		check(report.ok and absf(actor.turret.rotation.y)>0.1,id+": real steering/slew preserves moving visual/query alignment")
 		check(actor.definition.drive_collision_size==original and actor.turret.recoil_visual.get_parent()==actor.turret.barrel_pivot,id+": original driving envelope and cannon recoil hierarchy preserved")
+		# Explicit damage fixture for presentation; projectile/repair chain has its own actor test.
+		actor.state.module_states.track_left.integrity=0
+		var broken_phase: float=tracks.tracks[0].phase
+		var working_phase: float=tracks.tracks[1].phase
+		for tick in 60:
+			var cmd:=VehicleCommand.new(); cmd.steer=0.4
+			actor.submit_command(cmd); await frames(1)
+		check(is_equal_approx(broken_phase,tracks.tracks[0].phase),id+": disabled track texture stays stationary during real single-track pivot")
+		check(not is_equal_approx(working_phase,tracks.tracks[1].phase),id+": healthy track texture follows actual hull motion during restricted pivot")
 		var phases: Array = tracks.tracks.map(func(row: Dictionary) -> float: return float(row.phase))
 		paused=true
 		for i in 3: await process_frame

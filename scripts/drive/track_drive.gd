@@ -23,3 +23,11 @@ func refresh(speed: float, spacing: float) -> void:
 	# Positive Godot yaw turns toward -X: right track travels further than left.
 	left_speed=speed-yaw_rate*spacing*0.5
 	right_speed=speed+yaw_rate*spacing*0.5
+
+func single_track_pivot(steer: float, left_available: bool, definition: VehicleDefinition) -> float:
+	var p := definition.drive_profile
+	yaw_rate=deg_to_rad(definition.hull_turn_speed)*p.damaged_track_turn_scale*steer
+	# Broken side is the stationary support; the hull center follows a slow arc.
+	var speed := yaw_rate*p.track_spacing_m*0.5*(-1.0 if left_available else 1.0)
+	refresh(speed,p.track_spacing_m)
+	return speed

@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] straight input has no turn loss or differential
+[PASS] high speed steering reduces speed and yaw rate
+[PASS] track differential reconstructs longitudinal speed and yaw
+[PASS] reverse turn loses magnitude without reversing travel direction
+[PASS] neutral steering counter-rotates tracks without translation
+[PASS] profile can prohibit neutral steering
+[PASS] turn damping remains close across fixed-step subdivisions
+[PASS] zero track spacing rejected
+[PASS] nonfinite steering curve rejected
+[PASS] actual M4 and M24 authority actors ready
+[MEASURE] actor=0 straight=8.7311 turn=6.2990 yaw=1.1446 tracks=5.5710/7.0271
+[PASS] real actor steering turns and costs speed 0
+[MEASURE] actor=1 straight=11.2638 turn=9.4053 yaw=1.3027 tracks=8.6544/10.1562
+[PASS] real actor steering turns and costs speed 1
+[PASS] actual neutral turn rotates without horizontal translation
+[PASS] capability denial prevents actual steering
+[PASS] vehicle reset clears track state
+=== 结果: 15 项检查, 0 失败 ===
+TRACK_DRIVE_CHECKS_PASS

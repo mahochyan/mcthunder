@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] normal garage click enters actual battle
+[PASS] production damage fixture breaks player left track
+[PASS] actual HUD displays single-track instruction
+[FAIL] normal D changes heading with broken side stopped
+[PASS] actual window capture 01_single_track_pivot
+[FAIL] normal T starts actual track repair
+[PASS] actual window capture 02_track_repair
+[FAIL] normal repair timer restores player mobility
+[FAIL] HUD removes restricted steering instruction after repair
+[FAIL] normal W accelerates after repaired track
+[PASS] actual window capture 03_repaired_mobility
+=== 结果: 11 项检查, 5 失败 ===
+TRACK_DAMAGE_PLAYER_CHECKS_FAIL

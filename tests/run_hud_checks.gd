@@ -54,9 +54,12 @@ func model_cases() -> void:
 	model.match.phase = "fake"
 	check(vehicle.state.damage_snapshot() == before.damage and scene.director.state.phase == "playing","view-model mutation cannot write into authoritative state")
 	damage("track_left")
+	model=HUDPresenter.present(vehicle,scene.battle_ui.match_info())
+	check(model.drive_text.contains("低速调整车头") and not model.drive_text.contains("[drive_single_track_pivot]"),"single-track damage explains restricted steering and repair in localized HUD")
 	damage("breech")
 	damage("engine")
 	model = HUDPresenter.present(vehicle,scene.battle_ui.match_info())
+	check(not model.drive_text.contains("低速调整车头"),"engine loss removes unavailable single-track steering hint")
 	check(model.drive_text.contains("左履带") and model.drive_text.contains("发动机") and model.weapon_text.contains("炮闩") and not model.ready,"damaged drive and gun show separate concrete capability reasons")
 	var command := VehicleCommand.new()
 	command.repair_requested = true

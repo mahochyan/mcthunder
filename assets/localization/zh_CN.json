@@ -980,5 +980,6 @@
   "display_countdown": "是否保留当前显示设置？\n%d 秒内未确认将自动恢复。按 Esc 立即恢复。全屏使用桌面分辨率，所选尺寸用于窗口模式。",
   "display_confirm": "保留设置",
   "display_saved": "显示设置已保存。",
-  "display_reverted": "显示设置已恢复，未保存预览。"
+  "display_reverted": "显示设置已恢复，未保存预览。",
+  "drive_single_track_pivot": "可低速调整车头；松开方向键后维修"
 }

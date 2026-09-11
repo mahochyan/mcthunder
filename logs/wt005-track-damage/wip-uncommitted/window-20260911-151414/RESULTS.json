@@ -1,0 +1,11 @@
+{
+  "source_sha": "4b538197a18518c6ab7f27e94dbbd8567271df0d",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-mainline\" --position 1280,0 --max-fps 60 -s \"res://tests/run_track_damage_player_checks.gd\" -- --shot-dir \"res://docs/evidence/wt005-track-damage/wip-uncommitted/window-20260911-151414\"",
+  "exit_code": 1,
+  "timed_out": false,
+  "passed": false,
+  "captures": "res://docs/evidence/wt005-track-damage/wip-uncommitted/window-20260911-151414",
+  "human": "NOT_RUN"
+}
