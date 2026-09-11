@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real authority world initialized without local controller or HUD
+[PASS] validated remote envelope enters actual actor mailbox
+[PASS] duplicate sequence rejected
+[PASS] continuous throttle persists between packets
+[PASS] one fire edge produces exactly one actual launch
+[PASS] held input expires at server tick age limit
+[PASS] packet loss releases throttle and vehicle coasts
+[PASS] reset invalidates remote life state and retained input
+[PASS] fresh generation can submit again
+[PASS] detach discards staged fire and held throttle
+=== 结果: 10 项检查, 0 失败 ===
+NETWORK_CONTROLLER_CHECKS_PASS

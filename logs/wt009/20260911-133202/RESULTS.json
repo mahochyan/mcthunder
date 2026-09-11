@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "role": "server",
+      "exit_code": 1,
+      "passed": false,
+      "digest": "68ee51ab6a932c1758a3a99b7e75197d77d7b0017e05f4f5d0afd719f73fbb8b"
+    },
+    {
+      "role": "client1",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "7af6b63cd25f7ff28b09c67ce7da83f7fb209e7704ec908a082cee8fae9843da"
+    },
+    {
+      "role": "client2",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "7af6b63cd25f7ff28b09c67ce7da83f7fb209e7704ec908a082cee8fae9843da"
+    }
+  ],
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "source": "925e819cf2d7d1e01d034180ac7baf2cfcf93fa4",
+  "passed": false
+}

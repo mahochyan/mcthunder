@@ -5,6 +5,7 @@ extends Node3D
 ## 炮镜沿炮管实际方向，cull_mask 只剔除本车视觉层（不隐藏其他车）。
 
 var cam: Camera3D
+var presentation_enabled := true
 var turret: TurretRig = null    # 由 actor 注入
 var tank: TankVehicle = null    # 由 actor 注入
 var aim_yaw := 0.0              # 全局观察朝向（弧度，0 = -Z）
@@ -44,6 +45,9 @@ func _query_distance() -> float:
 	return distance
 
 func _ready() -> void:
+	if not presentation_enabled:
+		set_process(false)
+		return
 	cam = Camera3D.new()
 	cam.near = 0.05
 	cam.far = GameConfig.view_distance(GameConfig.aim_query_distance(GameConfig.GUN_RANGE))
@@ -59,7 +63,7 @@ func set_aim(yaw: float, pitch: float) -> void:
 
 func set_local_control(on: bool) -> void:
 	# 003：本地控制者设置——只有被控制的车拥有有效本地游戏相机
-	cam.current = on
+	if is_instance_valid(cam): cam.current = on
 
 func set_sight_requested(on: bool) -> void:
 	_sight_requested = on
@@ -151,6 +155,7 @@ func intent_point() -> Vector3:
 
 func refresh_intent(update_pose: bool = true) -> void:
 	# Actual armor silhouette in resolve mode. World queries stay in the physical update.
+	if not presentation_enabled: return
 	if update_pose: _update_camera_pose()
 	_precise_valid = false
 	intent_contact.clear()

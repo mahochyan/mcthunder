@@ -5,6 +5,7 @@ extends CharacterBody3D
 ## CharacterBody3D + 简化重力；速度/加速度全部来自 GameConfig。
 
 var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
+var presentation_enabled := true
 var turret_rig: TurretRig
 var camera_rig: CameraRig
 var _spawn := Transform3D()
@@ -59,6 +60,7 @@ func _build() -> void:
 	turret_rig.visual_layer = visual_layer
 	add_child(turret_rig)
 	camera_rig = CameraRig.new()
+	camera_rig.presentation_enabled = presentation_enabled
 	camera_rig.name = "CameraPivot"
 	camera_rig.position = Vector3(0, 1.6, 0)
 	camera_rig.visual_layer = visual_layer

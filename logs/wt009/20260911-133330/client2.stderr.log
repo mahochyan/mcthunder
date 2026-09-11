@@ -1,0 +1,108 @@
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)
+ERROR: The multiplayer instance isn't currently active.
+   at: poll (modules/enet/enet_multiplayer_peer.cpp:167)
+   GDScript backtrace (most recent call first):
+       [0] run_client (res://tests/run_network_slice.gd:92)

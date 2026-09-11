@@ -84,9 +84,9 @@
     {
       "id": "WT-009",
       "title": "尽早做两客户端权威联网切片",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：NET-EARLY。职责：网络程序。依赖：WT-002。\n\n用独立本地服务器进程和两个客户端先验证输入上行、权威移动/炮塔/发射、快照下行与断线。只验证技术骨架，不能称完整联网游戏。与 M1 并行，不拖到内容量产后。\n\n**交付**\n- NetworkController 与本地/AI共享命令通道\n- 输入序号、服务器 tick、快照序号、版本握手\n- 独立服务器不依赖 Camera/HUD 的运行入口\n\n**验收**\n- 客户端不能直接宣布命中、击毁或获得弹药\n- 同一发射事件在两客户端只产生一次权威结果\n- 服务器无本地玩家节点也能推进世界",
-      "evidence": [],
+      "evidence": ["WT009_LOCAL_AUTHORITY.md"],
       "human_accepted": false,
       "release_ready": false
     },

@@ -1,0 +1,59 @@
+WorkerThreadPool: 16 threads, 4 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://scripts/network/server_main.gd remapped: res://scripts/network/server_main.gd
+Loading resource: res://assets/fonts/NotoSansCJKsc-Regular.otf remapped: res://assets/fonts/NotoSansCJKsc-Regular.otf
+Loading resource: res://.godot/imported/NotoSansCJKsc-Regular.otf-234b66ec4f6090cf3cb4fe9bcf1a8765.fontdata remapped: res://.godot/imported/NotoSansCJKsc-Regular.otf-234b66ec4f6090cf3cb4fe9bcf1a8765.fontdata
+Completed load for: 'res://assets/fonts/NotoSansCJKsc-Regular.otf' remapped 'res://assets/fonts/NotoSansCJKsc-Regular.otf' at thread -1
+Completed load for: 'res://scripts/network/server_main.gd' remapped 'res://scripts/network/server_main.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+MbedTLS: Some X509 certificates could not be parsed (1 certificates skipped).
+Loaded system CA certificates
+Loading resource: res://configs/player_tank_vehicle.tres remapped: res://configs/player_tank_vehicle.tres
+Completed load for: 'res://configs/player_tank_vehicle.tres' remapped 'res://configs/player_tank_vehicle.tres' at thread -1
+Loading resource: res://configs/player_tank_weapon.tres remapped: res://configs/player_tank_weapon.tres
+Completed load for: 'res://configs/player_tank_weapon.tres' remapped 'res://configs/player_tank_weapon.tres' at thread -1
+Loading resource: res://configs/ap_75_shell.tres remapped: res://configs/ap_75_shell.tres
+Completed load for: 'res://configs/ap_75_shell.tres' remapped 'res://configs/ap_75_shell.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://assets/vehicles/textures/vehicle_concept_atlas_v1.png remapped: res://assets/vehicles/textures/vehicle_concept_atlas_v1.png
+Loading resource: res://.godot/imported/vehicle_concept_atlas_v1.png-90020c9884103f91fa2ea3376c975de2.ctex remapped: res://.godot/imported/vehicle_concept_atlas_v1.png-90020c9884103f91fa2ea3376c975de2.ctex
+Completed load for: 'res://assets/vehicles/textures/vehicle_concept_atlas_v1.png' remapped 'res://assets/vehicles/textures/vehicle_concept_atlas_v1.png' at thread -1
+Loading resource: res://assets/vehicles/us_m4a3_75w_vvss_1944.glb remapped: res://assets/vehicles/us_m4a3_75w_vvss_1944.glb
+Loading resource: res://.godot/imported/us_m4a3_75w_vvss_1944.glb-990a500baf420f42b68f334fba2069f8.scn remapped: res://.godot/imported/us_m4a3_75w_vvss_1944.glb-990a500baf420f42b68f334fba2069f8.scn
+Loading resource: res://assets/vehicles/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png remapped: res://assets/vehicles/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png
+Loading resource: res://.godot/imported/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png-b55589f954bb5df32921b7e62ddbe897.ctex remapped: res://.godot/imported/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png-b55589f954bb5df32921b7e62ddbe897.ctex
+Completed load for: 'res://assets/vehicles/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png' remapped 'res://assets/vehicles/us_m4a3_75w_vvss_1944_vehicle_concept_atlas_v1.png' at thread -1
+Completed load for: 'res://assets/vehicles/us_m4a3_75w_vvss_1944.glb' remapped 'res://assets/vehicles/us_m4a3_75w_vvss_1944.glb' at thread -1
+Loading resource: res://assets/shaders/vehicle_tracks.gdshader remapped: res://assets/shaders/vehicle_tracks.gdshader
+Completed load for: 'res://assets/shaders/vehicle_tracks.gdshader' remapped 'res://assets/shaders/vehicle_tracks.gdshader' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://assets/vehicles/us_m24_m6_t85e1_1951.glb remapped: res://assets/vehicles/us_m24_m6_t85e1_1951.glb
+Loading resource: res://.godot/imported/us_m24_m6_t85e1_1951.glb-e9ae42b47250f7b17d2377db99f9c884.scn remapped: res://.godot/imported/us_m24_m6_t85e1_1951.glb-e9ae42b47250f7b17d2377db99f9c884.scn
+Loading resource: res://assets/vehicles/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png remapped: res://assets/vehicles/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png
+Loading resource: res://.godot/imported/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png-ba221b36eb3d4347a271399946689942.ctex remapped: res://.godot/imported/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png-ba221b36eb3d4347a271399946689942.ctex
+Completed load for: 'res://assets/vehicles/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png' remapped 'res://assets/vehicles/us_m24_m6_t85e1_1951_vehicle_concept_atlas_v1.png' at thread -1
+Completed load for: 'res://assets/vehicles/us_m24_m6_t85e1_1951.glb' remapped 'res://assets/vehicles/us_m24_m6_t85e1_1951.glb' at thread -1
+LOCAL_AUTHORITY_READY 127.0.0.1:19110 protocol=1 slots=2
+Loading resource: res://assets/audio/engine.wav remapped: res://assets/audio/engine.wav
+Loading resource: res://.godot/imported/engine.wav-13a2907be8290064892a1d44408db00f.sample remapped: res://.godot/imported/engine.wav-13a2907be8290064892a1d44408db00f.sample
+Completed load for: 'res://assets/audio/engine.wav' remapped 'res://assets/audio/engine.wav' at thread -1
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Leaked instance: AudioStreamWAV:9223372114902386806 - Reference count: 2
+Leaked instance: AudioStreamPlaybackWAV:9223372117200865399 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372117217642622 - Reference count: 1
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Orphan StringName: Combat (static: 0, total: 4)
+StringName: 1 unclaimed string names at exit.
+WARNING: 3 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

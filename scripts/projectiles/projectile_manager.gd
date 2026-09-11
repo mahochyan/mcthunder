@@ -31,6 +31,7 @@ var contact_policy := Callable() # Optional match-specific friendly/protection s
 
 var _next_projectile_id := 1
 var feedback: CombatFeedback
+var presentation_enabled := true
 var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + flying）
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
@@ -51,7 +52,8 @@ var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, l
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = SimulationPhases.PROJECTILES
-	feedback=CombatFeedback.new(); feedback.name="CombatFeedback"; add_child(feedback)
+	if presentation_enabled:
+		feedback=CombatFeedback.new(); feedback.name="CombatFeedback"; add_child(feedback)
 
 func _exit_tree() -> void:
 	# 006：场景销毁/初始化失败——静默清理（不发出信号；旧回调不得访问已释放对象）

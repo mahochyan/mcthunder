@@ -37,6 +37,7 @@ var control_epoch := 0
 var _last_input_sequence := -1
 var _pending_input_tick := -1
 var simulation_driver: WeakRef
+var presentation_enabled := true
 
 func _expire_pending_input() -> void:
 	if _pending_input_tick>=0 and Engine.get_physics_frames()-_pending_input_tick>GameConfig.COMMAND_MAX_AGE_TICKS:
@@ -90,6 +91,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	transform = spawn
 	var ps: PackedScene = load("res://scenes/tank.tscn")
 	tank = ps.instantiate()
+	tank.presentation_enabled = presentation_enabled
 	tank.name = "Tank"
 	tank.visual_layer = visual_layer
 	tank.defs = definition   # 003-R1：驾驶参数唯一来源
@@ -98,7 +100,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank.set_spawn(tank.transform)   # 003：局部出生点（世界位置 = actor 全局变换）
 	turret = tank.turret_rig
 	cam_rig = tank.camera_rig
-	turret.cam_rig = cam_rig
+	turret.cam_rig = cam_rig if presentation_enabled else null
 	turret.defs = definition   # 003-R1：炮塔转速/俯仰限位唯一来源
 	cam_rig.turret = turret
 	cam_rig.tank = tank

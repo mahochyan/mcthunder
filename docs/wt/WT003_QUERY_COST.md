@@ -21,3 +21,7 @@
 `tests/run_suite_checks.ps1 -Suites run_query_checks,run_query_cache_checks,run_projectile_checks,run_armor_checks,run_damage_checks,run_ai_combat_checks,run_engagement_distance_checks -Order wt003-query -SourceSha 5591da7-query-wip`：480项、退出0，无脚本错误。证据`logs/wt003-query/5591da7-query-wip/20260911-132135`，覆盖缓存冷/热、几何编辑与淘汰、几何边界/身份/遮挡、实际射击、毁伤和远距瞄准。
 
 尚需修改后完整局帧时间与查询计时。6.4%的局部下降不足以证明已达到60FPS；后续仍需更深入的查询候选筛选/数据复用，且必须保留移动、重生、几何变化和未知结果语义。AI观察是否同tick集中也尚未单独量化，不以猜测修改难度或观察频率。16/32车容量和真人体验未验收。
+
+## 修改后整局补测
+
+cd09d47，证据`logs/wt003-benchmark/cd09d47a5ae03e08ae09a6e6adc36c925125087e/village-20260911-132338`，自然401.650秒比赛终局、退出0，实际1920×1080截图已目视。相同175908次查询，累计耗时198829.454→181681.199ms；15337帧，平均37.487FPS（前次计时版31.587），p95 75.848ms、p99 143.904ms、最慢241.263ms。两轮比赛时长、查询计数与终局HUD统计一致，但没有逐tick全状态同轨迹证明；保留原始证据，不把帧率变化百分比当成精确算法加速比。性能有改善证据，仍未达到目标。该批先于WT-009呈现开关改动，不冒称最新源码完整局全量重测。

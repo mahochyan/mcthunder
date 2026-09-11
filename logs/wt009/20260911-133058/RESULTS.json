@@ -1,0 +1,13 @@
+{
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "results": [
+    {
+      "role": "server",
+      "exit_code": 1,
+      "passed": false,
+      "digest": null
+    }
+  ],
+  "source": "925e819cf2d7d1e01d034180ac7baf2cfcf93fa4",
+  "passed": false
+}

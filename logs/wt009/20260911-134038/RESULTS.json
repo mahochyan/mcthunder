@@ -1,0 +1,50 @@
+{
+  "source": "925e819cf2d7d1e01d034180ac7baf2cfcf93fa4",
+  "launches": {
+    "client2": {
+      "pid": 13696,
+      "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19109 \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt009\\20260911-134038\\client2.json\""
+    },
+    "client1": {
+      "pid": 19244,
+      "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19109 \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt009\\20260911-134038\\client1.json\""
+    },
+    "server": {
+      "pid": 57196,
+      "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --max-fps 120 -s res://tests/run_network_slice.gd -- server 19109 \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt009\\20260911-134038\\server.json\""
+    }
+  },
+  "file_hashes": {
+    "scripts/tank.gd": "C49AF94C88EFEE405710207A9F35A5A0970668E9216DCCF32A226907086FD636",
+    "scripts/network/network_controller.gd": "E9407A8338F98AF91501AC0C4AE33F05B7396F518C278578CE943131E25E1D0F",
+    "scripts/projectiles/projectile_manager.gd": "F0181C673624F20C3F90E41E7821923D722B4E649C9B1A3A259A064F01863C8D",
+    "tests/run_network_slice.gd": "FB1CB9D3743AB3134F9A97F3038DE1D5998E1E961E533714D2B7E078940E010E",
+    "scripts/vehicle_actor.gd": "5696041D42DB27D131ED9386711F660AA1F0507B18B0E5090E8B57AF9DDBA692",
+    "scripts/camera_rig.gd": "D97D98100DD59F931FCA28874C362C6ADD5968DAB82E2D878BA50A4F16E6F34E",
+    "scripts/network/network_battle_server.gd": "F2D8C6E9C00854789449E77399E44C9CE0CC2B689EB8E49AB430A66B4441D2D9",
+    "scripts/network/network_battle_world.gd": "6FBFF052CAC535DEC9AFD6839DD0F066E85DDE85616549A543E2605D72CC3A1C"
+  },
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "build": "source-worktree",
+  "passed": true,
+  "results": [
+    {
+      "role": "client2",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "8f1ae95febdf7f9f71a9d251eb990ef0c9aac42dbb2e04f09be1a831da02fef1"
+    },
+    {
+      "role": "client1",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "8f1ae95febdf7f9f71a9d251eb990ef0c9aac42dbb2e04f09be1a831da02fef1"
+    },
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "8f1ae95febdf7f9f71a9d251eb990ef0c9aac42dbb2e04f09be1a831da02fef1"
+    }
+  ]
+}

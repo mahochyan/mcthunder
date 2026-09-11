@@ -1,0 +1,83 @@
+{
+  "accepted": 320,
+  "acks": 0,
+  "digest": "68ee51ab6a932c1758a3a99b7e75197d77d7b0017e05f4f5d0afd719f73fbb8b",
+  "final": {
+    "event_sequence": 4,
+    "events": [
+      {
+        "projectile_id": 1,
+        "reason": "expired_distance",
+        "sequence": 1,
+        "shooter_id": "A",
+        "shot_id": 1
+      },
+      {
+        "projectile_id": 2,
+        "reason": "expired_distance",
+        "sequence": 2,
+        "shooter_id": "B",
+        "shot_id": 1
+      },
+      {
+        "projectile_id": 3,
+        "reason": "cancelled_match_finished",
+        "sequence": 3,
+        "shooter_id": "B",
+        "shot_id": 2
+      },
+      {
+        "projectile_id": 4,
+        "reason": "cancelled_match_finished",
+        "sequence": 4,
+        "shooter_id": "A",
+        "shot_id": 2
+      }
+    ],
+    "sequence": 185,
+    "tick": 552,
+    "vehicles": [
+      {
+        "accepted_sequence": -1,
+        "control_epoch": 3,
+        "destroyed": false,
+        "entity_id": "A",
+        "generation": 1,
+        "gun_pitch": 0.0343913733959198,
+        "life_id": 1,
+        "position": [
+          0.0,
+          0.000941783888265491,
+          10.3510408401489
+        ],
+        "shots": 2,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      },
+      {
+        "accepted_sequence": -1,
+        "control_epoch": 3,
+        "destroyed": false,
+        "entity_id": "B",
+        "generation": 1,
+        "gun_pitch": 0.0401555299758911,
+        "life_id": 2,
+        "position": [
+          16.0,
+          0.000941783771850169,
+          8.79268360137939
+        ],
+        "shots": 2,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      }
+    ],
+    "version": 1
+  },
+  "passed": false,
+  "rejected": {
+    "not_owner": 2,
+    "stale_sequence": 2
+  },
+  "shots": 4
+}
