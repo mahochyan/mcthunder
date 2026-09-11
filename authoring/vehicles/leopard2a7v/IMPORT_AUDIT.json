@@ -1,0 +1,8967 @@
+{
+  "input": "E:\\AIprogram\\mcthunder\\artifacts\\leopard2a7_source_corrected\\Leopard2A7V_10000_Redesigned.glb",
+  "selection": "part custom property",
+  "mesh_count": 232,
+  "triangles": 10000,
+  "evaluated_triangles": 10000,
+  "objects": {
+    "D10_Antenna foot": {
+      "triangles": 44,
+      "evaluated_triangles": 44,
+      "geometry_sha256": "b2106168b15a0d53f5ee12c0acab1a269d487899eb1810ea7a22eb4eb687abfb",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Antenna foot.001": {
+      "triangles": 44,
+      "evaluated_triangles": 44,
+      "geometry_sha256": "43dfd0d35ec65fe512f632f84faa6f824f9f70b282e4a2616822bd7775e15d0f",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Antenna spring": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "18803d39964714a98dfdae729a2da48a1cedd41ddcae1ed30394df467f376483",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Antenna spring.001": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "38c832050df7922e5974041208a3ecaf0f7a44475c050ca5b58e383e739d64d3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Antenna whip": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "85d2b1b97ed020f51d2aada013bffc8d788dcf2e58d5c8ebfa1d58b57d711d18",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Antenna whip.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "078d8d6d7dd70e677e7b756ebd0953721336e171be33ca4dbffe0a504861c66f",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "55ccc455d26522281c81e06ffa6698dccc11cb2e09f332939d4cc35c9c17e1e0",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "68d1010d10506e4f98157db992987527ee25d5f9c5e7e3d265540b65587b77ff",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "787172df575c16c9050661b05c6aded91b0859221152c30075a9428b1137bc30",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "0ac1b95a7c1501098f6d88cdd884bbc0c303c7bff042eca2c388e97ca2a88119",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "5140682910b635a11d1d2ace333cb505cd6de83aa50b708047acdda29519027e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Basket upright.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "93d287613f51bfd6274930dcbe7eef34e6f1e55ff3a29a350ac35687724b9d2c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "acb51f29229d6f3e272a758b8847e1d87e61c04d8d84cad952685df986e8e4c5",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "3719e562193818f86c0265d03d4163bdd01c2f010f6a9aa5d71c6c51c5a02f98",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "5940a8eb6b990b04154dfce46771d24415de923cd5891a694be467e9c3188f05",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "330904b4d6127ba8f7d22ca3ee49110bfab5a081f023abdadfa5665247a55a01",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "ecc9dd4582ebb5ff36e99b16194c66783b6a81489a5cd48fb51215d19013cfdc",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "dd07fea0a28c06b2a656abafb25d1519754a1a614ae09ca0158f56866a422a15",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.006": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "c3749378f4ac31131bf63121b5c532466464c85d3ec645573ae0e2b81f7fee5b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.007": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "508dbe03625b12212166793df3e95a67c99909f3127ed3bb6af0dec46b103cd3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.008": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "36880b6477105bf3150d06cb3c3270b5700497949a41c2e54c5692cd124963f4",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.009": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "af75660235c16fadc7c02ab7bd7db4b640d882f93d7909de6ca67212a1e08699",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.010": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "19ac52e0537c877e6945ebce49473d9c1f06624c2fadf2e7ba2d7aa97d0ea795",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Bustle frame.011": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "fc01935202bb40d693f949b82b36e3cddab98b8d77e1b17af59defeac1985369",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Commander optical window": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "967d7667611a04899d14ab80836f68c3fc638e1367028cb4a44f00d8db9d9224",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Commander sight pedestal": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "3d3827026d94d12b9ff82ec3e26df368eff4d5c3f5f1d7bc4726b5059e261a61",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Commander sight rotating body": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "36e4052eeb7de850f6813e6f41c07b2e6a7176cd04d9c5566b7d536b8cb5a014",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Commander sight top cap": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "db7ec261a42000e97d8bc6e3687b8e6bf017dca667f69359b19f6d78decf6741",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Commander window seal": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "056fac30b06d17c5fe3e8722ee5f3bba24b97c75eb2c87d6e12df94822be21a9",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "6fd6da6fbf5ac10a79f5be57e75dde9d36a08d208c9d089b850722d676e55fa7",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "a822b6ab567590cfe0027a09404a7e053d4c55be661a6fb36b293b4f0cc83bd5",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "87cb289d99ce3e3020c489425a3521b2e403ad997dc21a701e1e3105e0a5821e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "d4d6126e0bbc83dae12774acad4188d605ec112e632750a1703f03bce645957d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "842cb2ddaf7a381585560610351d32cee8073c133e34f1363616e6027b5cdf08",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "2607a9ae9ade4f707dbd0ef62a7127724c3afba82a472307df6648de6bb2abd1",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.006": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "a759735bc2465f6fb05184ab1366bb24e381496b402578c8ae1c85cd6f1a2cf3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.007": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "514391697ba4c4a916b21ce63b937bd648bdc1d7352299f79de1b34f5af83165",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel bolt.008": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "6bc67fc0c14249e2619a178876a3584c2068c4e88dc049247a086c63c952a20e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel hinge": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "1ed6e0eb4af13c800666f669027ffcec34a50384658d0d8d1b5f18bd15b84f3e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment panel hinge.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "a08d268a124aa0a087e2a1474e964b17cdb4c761a5c6662c00264d41aca5be5b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "0069f85f31742628c52dc415ab0c8780787bbd293ae154ffb31f682cab5b8a87",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "5fdc17eadd80355cd949eb2d593bfd7037c8e6cff34941388c6d9aa93d0ae73b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "0b8eea803d21fab5fb0b3cb05106e7498901ee15cc96f6dd3443829f1dfae767",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ae21b3e92d7704c2ca5f25a243901e25f1be392a2150dd06eb8c28849860580c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.004": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "4d4c4584356364d3488373804d15a472e33b655ca64e26dd55198b24b2ab9557",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.005": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "bd0605a9d614985c58e536f418e928df326915f8caf5ec3c30d328a33b7fe1ee",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.006": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "1833c3e90860098ddbdd309c1bd4f3a495b981b48d0226fd8eecee93d24d7eac",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.007": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "cb41bca3e14aa5136912a15c38b06233fbec3219a253a60fbc8346167f8db64b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.008": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "e1f03262dd10fe473a605c3717cff89c09dfcc56d7c6d2ebe71edc6b8310e619",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Equipment vent louver.009": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ff05431d5ae5c2a16046cb04fb434ce15b2e0a0cc0b46fecd9b397f3187818f1",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner armored eyebrow": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "3a3ab978521515e522f98b63c77a30db585b418176ffd60539960681efee8c08",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner glass": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "a86cace99779548b4f04db879b4b015e233d93c208bbf8fa12bbb1ed609f76b3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner optical recess": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ce876f9d7eb41f0dfbb3ed6bdc7f9db087acd9fab4ca19815acd37f614494f11",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner sight cheek": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "b7c9f8c5b79188ec3c6a8e1d84f72f76d309ceeb494901b28488c2a2575ba7ca",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner sight cheek.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ae0d06fdde7d2bdaa6e2ec83178ae26036715a41c243fa42fbf49898aef7ad16",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Gunner sight housing": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "3ff36563e0d629481e822dd8fdef4be41ee2f1a40ba2b69d9292d64276562ed2",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Handle foot": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "f5d5eae24a4282a63074cdb5938ea04f31046ed794bb2359f76231d5c0a67753",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Handle foot.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "7e4fb49f2a2ca782f4a227abcfc89b388f86448fe30de296d0593997efd54d65",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Handle foot.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "b14a97b178826e21fa19b828865d3b6baf96780afc6bbae7e9b97794aebd3c21",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Handle foot.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "a2c0eda9f1b69654aecc769fe46d030fdf8d5920868dd4eddc95b1a15b23c374",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "75ab9040dbcb49ec36e40733419cf14e3afa05bceb1f256be75383ec87dbf5e8",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle.001": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "afe789aad0921b6b13075251132ef88fff91f2ac528807e732e2b2be95f47177",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle.002": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "2095be84d51be3030c6fe1a6a6fa71d33ec7ea008cdbf2a522c8fd285d0c38ab",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle.003": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "37aa986a023baea03d09adfb6e1857ebd53cdda26673a15661c9691a0b4e9a6e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle.004": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "8e0d343286eda5c60f5e4a402354004127841845d6f590d7185576aef2211686",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch handle.005": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "1af08aac631b9b21bb01df332b4059aa394239d2ba359cdb2bba6b9a9f2deb09",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch hinge": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "7ded58b0719657377eea2fe746457145d1c6a2f05c738a69f57ea7d92ac0cad7",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch hinge.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "3eb1239f35a850d1685abf402959368f615ca953247ca49d0b93e1b652a6958b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch lid": {
+      "triangles": 124,
+      "evaluated_triangles": 124,
+      "geometry_sha256": "f5a305c96d40837445c6516d93001c9588614f583df0b25761f51b0956a22df1",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch lid.001": {
+      "triangles": 124,
+      "evaluated_triangles": 124,
+      "geometry_sha256": "50c67a81c892254a0cc28d3bf3d3ae9a8c50322c746ff380b47c9a0311700c13",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim": {
+      "triangles": 124,
+      "evaluated_triangles": 124,
+      "geometry_sha256": "2ca6d88d3935e89af04a53c2f17975c0836fa192d0533aac835c4f196476bc96",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "274249b272df6f2fddd755bc7f1278cb6095bb04d4ce174a47f427a9c657ae42",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "d3c209dbd174e50c7f63d16e8fccf7fac17f28da87a2fbb93f93d30f2513d223",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "47e823b5016847fab51e9475281a1dba76d0e39a3e0911104ae7fdefd66d377a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "ad78977aac073684afc75b981ce8463e11ee900d06826e240a66ab713df9d0a2",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "bcd721e6eccd1f3d08d2653448c2a2e13cad4736c316663781f7169586a6cfad",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "f758812050f796635073eb5d789bfee0adee0098f27dcf89cf6b0b1d6c0b4165",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.006": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "ce3e6d24f1612b0d69ca3ef5073346cb52a9c597d2d458a6edf7d0ee6d264728",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim bolt.007": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "55d74a5386a94c01f6de9139e6756b87a6eb5053f2c77b9b4f06e55ffc6e5186",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Hatch rim.001": {
+      "triangles": 124,
+      "evaluated_triangles": 124,
+      "geometry_sha256": "51397ce4b9092789a78f9754928e84c37af6dfab6180a8d1b7df88407b9f30d0",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG ammo box": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "335264624c43cb19ac3332813794ea758ff4b21268ad4870a23d0e6b430fb221",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_MG barrel": {
+      "triangles": 44,
+      "evaluated_triangles": 44,
+      "geometry_sha256": "cd2c84fdc339d9773b3b463df0d04f54afe2f74aa1dd40ec9d9daaa740189750",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG cradle": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "cbeff4359e7ba3b5c5eb80a878b65dfff1bd3614bd143fb0c2d82de21982aad9",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG mount stem": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "7767358e6ea2fa36626530b2d5124cd5ec840e8e0b5f8742d840c80a08bab5de",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG muzzle": {
+      "triangles": 60,
+      "evaluated_triangles": 60,
+      "geometry_sha256": "d15480795906372f48108e1d76553ccd88aa6214156f761e9220feef2634bfb3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG receiver": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "cd19a9e9fd9d8b6b2b5303de8d5a41ab81dfca293ad321918e610efe3e9a92e4",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG stock": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "e9d5660a5bc58a706cc75c6b90d7b8f0a348811209f4d852401cfbb2ae86fa62",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG trigger grip": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "d0d5fda438acaa80140b44340ad7cdfc562524fe38331bdc2104181a84eb3723",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_MG trigger grip.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "315a4b6b708d511124bacf07edc76946d7d4ed1c449562e975a2c585e1ca446a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "b9d9523b959baafe45f2980ff59cc3d7f16ee4326b2b1488649298c0b370f9fe",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ed70a4b15b60c877bfdc6e20558e97e1af78fcec796f4dc64bbfb3a62258a91c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "3003efbc7e3913d28511bb439a5b5a3fe6d1f28fdfcb0e918672cc7b183cdb2b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "6b2b55e58e9dc27781ed4cc50d9cba650b644af357c49995af623740487b682e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.004": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "9d2097ab7406556f4547080cd69b35b69fec2b18b0c1698219eee36eae9504ea",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.005": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "d8a8c4eadaf44f8b6b6ae80ed069a82a71b10365774974030c53586bb6b0b73d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.006": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "4d1d8ec7afd128c33e023212268dabb2b550ab338c9c10c8962f99d3dafe057e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Optical window frame.007": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "41d950eba764df08a0fce604215dcb8da61c9116e26688e0e658a8f6a3f1d7c9",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Panoramic side glass": {
+      "triangles": 2,
+      "evaluated_triangles": 2,
+      "geometry_sha256": "907487fa880bb0ebc083dc5c2bea18397a3bf2f29a7311741ccb5558b238cd0a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Panoramic side glass.001": {
+      "triangles": 2,
+      "evaluated_triangles": 2,
+      "geometry_sha256": "02bd720e8c47874ccb9a6ac22ee495e4c5ac5c7594739638769a0a2046e66e3c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Panoramic side window frame": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c197dd4cef678596229735ed1faf3156b00b734c377e875b03689cecb370644f",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Panoramic side window frame.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "d2ca0a233e71bfb9b9a646d456d7a042820ba8824200db0bc20c3fb7b0af43eb",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "a0d14e48b39ba6f1136c2315c985a54e291b6ed6cf2a7138af1294560c3fb4b3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "2ced24470b509b0b4c110dbdc74bfe19e4e7905e573f2f8bf7dd272909bbdcb3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c88970d06328fa3a89dd33dd18998e5fc98d34e47e4f3f0f4e247aa3a5a76ece",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "b1d184798b8ec6a3a89d3714756d3e464e9964dba7598ad26d5f791d9faa00ac",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor.004": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "829285fa601e340baa0455cc07eb6346181f72a859fac6fadaa9b10c9b161831",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope armor.005": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "715e8ac481b5942762f720817d98fdc1841bd6e1fd9dc46be0611d39be7ad66d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c05447f5d1d4554b08ded435b5fc9ae4306c91d5a4dcef13b9e715f4cba12c5d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "0f62ce03d3c4cac9ae44ae894377091b4af2308a54ba23a791f14fc1ac17b4df",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c89ae8bcc37dc272deea9731614240d2f489a5ff82e199d85615f98e7e680d18",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "e43fdbcd5a6cb5b0bfcb62355063a8d0ac0a8f171ccfc00efe667234c7a6bf49",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass.004": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "ef349ad7a4722cf09745ac733c386a61ba2c9dc1faf7c4e33a68dcedd8524c53",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Periscope glass.005": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "de9626164c939df09bbceb8d19344fa323f7ceeda56bc47536aca9570d65149f",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof equipment panel": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "5681b37cbfb3ea43e02c42be441d41ba87b1723674cc0510d8ff9e759e8c721d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "3bb441b60e813fb1a18c11047ae0c6ec16ed8b79645cb8db49d846681d5010e9",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "c149e9ee99d7e404e9a3d53f3ac76de65aee230a1d4c295a8f6282484958d6f2",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "2a411dd5060cee13751d68291263ec829b6a3affc6dc0c644e00bf60e66ec418",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "2888b9b35e7ac3603ebfb826637a19f4d4accf8e1c08fef76ab23d735e792fa8",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "9cab70ad1221b7be63d16d91da82886a1d168138f23d830676be01bfb6409817",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Roof handrail.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "9a1bd06b0bb609824bc8af19ab91c1f1ea8f1522cc1c2e386fd21b4a4008c758",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Sight rear electronics": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "05673d4f6debfec9121116c56fded05083c5d42ee480fd75dc2f30d6e7535d34",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Sight side shield": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "f2feb901af6988ffcf46b7c2ab55ce099aeb8b755ee9038f5a47642c449035e2",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Sight side shield.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "d844f4c55af982eeee13a9828bc4073e4b79ba493a6766e75b49f836f75f77e3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher carrier": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "5651ded24a814ca4cdf4c2ea0b8cf65bc1385632a62d873e30a7cf124a6233f6",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher carrier.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "646f2de1a70365af98f850ff81c321ce0b8b7e5609d7f62bedd97b11e3657828",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "05a29d534bd45d13c68da03f7a015238e2e23ef82e3f1db8d5b16425614bdb3b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.001": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "7b6a44afa6bc3b6d21eaff1fe0498c0556b59b419e0c2825d0c2e384f396e770",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.002": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "7d7bcef1a5330e79b3c7be263df23d56589d5d0c3660de84665e51d7b2b5839a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.003": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "f83908b3fc7a6ffd725b83d4b7b6a6dba733d820cfa3c15f7a1eae8446784b22",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.004": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "d5d90a284713b6635dd05ec0e8eaaa2d698f09e94347a8052bd7b4760e2d7c51",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.005": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "72966d3af4f0d4635954b2d41213155b852a5e6d72c85d71744c29a82b939a24",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.006": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "a406915fcd27bdf1ecc66b29e5d8e6f97a59bb97c183cd430a9c8bd28a82e073",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.007": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "09d3b4ecef08762feee96e1bb8d9aff4000f13a5bcac566833626e1339c34458",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.008": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "198371ee07ff7819e05d55851689f4949482dc0775c822312754a6d76118ec51",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.009": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "7f61609daf269b9c83a970626539b7ae47a6fb142be50977eea5170e25a56655",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.010": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "17ded3a577321ce7d48387c28bbc831012b270b069b54231a2aa3ffdbc2ebd2c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.011": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "75eb290db1fb087cf7dab4175ef8942f65717a4da90a789e29a3baa9b50d9524",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.012": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "4602b648f503ddf4dcd9fcdf1d7c615a8aa596fb14fe216e913859da7ef3da0b",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.013": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "5c2e5652f57718cf610c23dac5095b7c638579396415b135091040062bf81aa4",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.014": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "9788c070d22b2c9dfb75488cfc437910a9316d88391bbb4ef114dd2a8b54e61a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke launcher tube.015": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "4551354c0f5a16501dfaa9d84de569f0283ecacf503f0fc4c8dd98863fb70b04",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "fe3a9c7f27720ac10912808caf18a0ae3a350e4a9d176a00b42e22d74b66e4a9",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.001": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "de7d2eeeba85ae6dcea65512dc8fcb31d3b3a874ce720ab840db1ecc5bfc3c68",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.002": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "eb57b1d5ae441ab16a5087db94ed193b7916421f281eeaf065259f39dd86cb3a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.003": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "14faca7090a807d12f8b9ce5770e20bf31e844577a1c9f65647a4a4bed9ae686",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.004": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "7cf312bcc940745699919da2f6247fcaa7846bbe265a4e30d42571e41736c49d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.005": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "1ead8dca47fde8a7e7dd28144601faf09f194c09b51c6d826aca278e4b448e03",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.006": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "fded06c05cb68e7fd904b818c58cd70cc9b5118180b2a31e0221166cd5d4d8d7",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.007": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "5fce8ce585e62b0739e0471a7dc9af14476ec593be30595ae585f16b93ada26a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.008": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "0625d6cf283d9f99ac769aac892bd42d5962b7c624450329c658e8746adeeccc",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.009": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "f484ecbdcc5fc4317e4806d42780502c28cef3b569e25d9d4a1094659c296f22",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.010": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "1b952b714a9d8a5f9c4140b537a80db62b44de66dd7cb207d03f569635acaf3a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.011": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "db7255114efdfded09f3a840e40032616fbfdc4251fd9ca0253b80f3c974bc4d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.012": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "1304b9f2ef5bb9833089ffdabf785bebb6c2c8f31656d0b9049548d8c8b21235",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.013": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "e6910eb94763597d2849cbb104f21c3f619e783ea1243030f2f4184cc68ee129",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.014": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "137ed756aa949077f8665bf8c4570d597a50945a6b1a468d53de4294a8bfa6a1",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Smoke retaining collar.015": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "211180c980612cdb472abd42ab8744a39976c390d9f70af3f9c0a3e16628ae70",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "932a6e843c4cbb8136d47b28698a880363a740d05010250d5a7cf00529575a6e",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "607c3c4b99e7742c7d0aceaccfdbe55c1824609e7964056bb71bbdf9ac48e3e7",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "35b3450105056f1f8f49c8f878810f337d3a52589e1ab0024e6adad558d06b63",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "5de09150ad175702d73a626d88cc4dd84d6e8b189c173a899aa9678e17cc5a77",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "076cb34e75816d2087fa22d7361d82e3b8c29f5209e053eb42e0edeabf2e5770",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Storage lid grab handle.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "5d97e53fffae3b0cdaa2c0946d07ca0b9440ab3ea4cedb565ceef96ac3890c2d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Stowage lid hinge": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c3766e1ea6987f28293a72c214d0b10b0fcdbd33b493f622607558388b863289",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Stowage lid hinge.001": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "bbdda140ba65b01926fdee1793f89c0a41d5f444cfffeca5ff9f81a2024663bb",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Stowage lid hinge.002": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "e6eb022811c9f65209327ea2a8d863aff95ca6b650a9d71924f8a8509c4aafdb",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Stowage lid hinge.003": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "25b680aee6c006552f987455e9c853f99a3c01bc2d2f81149e334e921ff1e337",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "1322f0d86d423a0b46183b29061007a1412a0d675a5a6f96b444591fd27f102d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.001": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "b8baaffd68150ac4ce4473c457e933503c6fd89a416cd2a0d80112d63277dc10",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.002": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "6a3fc955d96f720176cff607af1a7d36e6b54930b05524b04bdd650bc2a8cf6f",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.003": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "4f75db6f12e8124b2efdf15f743eca0885c791e41b94e61b0d345eb6b11c95ae",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.004": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "4ca395ec7ecc5a75eb74b7d950f0434740c3128e27fc5cd16fc51b16f07522a3",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.005": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "3462de4fc9df92b2de65d1a2e1ba4a62ce7532f42a67953efd91a2cab3aa33d0",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.006": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "3c43c91e6e63eafe3e9d7c4c53d1c045aa415fce4e27088549f39b4af1a3c2bd",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.007": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "19838b57038888126b2eda5e44ffb57bbd039bd88a8336d60719d569e4a33835",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.008": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "89d3313dceaeebf105fda8f057f859f1364987bdeb320ff1fa72179e9bed9b27",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.009": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "085714c939e08518364a2b7b7dd818ab4a02225f89f78cb48882e02bbcce6e4d",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.010": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "39113d0faa94ed4558d7975ab147d81e3a6749b24046ea528a14a91d6320e511",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "D10_Turret seam bolt.011": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "aa669604e1b0535156dc85d8a759225d4ee798ec0540ce419b7b93062296a187",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002"
+      ],
+      "modifiers": []
+    },
+    "Low_Bustle_left": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "c699cc998d85b0d0ce9d55527fef92def41e2928a4534d6fd91ea849dc5b790a",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Bustle_right": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "792981a392b80b6b1a38a7742341f864bbd43b6646043130d172e559d6c2760c",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Engine_deck": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "80530ef6e05a1bb8a60e6fd43d97192693a40f2b941e16300a9c3553e711e9fa",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Gun_barrel": {
+      "triangles": 556,
+      "evaluated_triangles": 556,
+      "geometry_sha256": "4b1bcc1575874104c965290b886a517ae0a9454d0f0d78889d80ccedef0332d5",
+      "parent": "Gun",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          1.862645149230957e-09
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Hull_shell": {
+      "triangles": 176,
+      "evaluated_triangles": 176,
+      "geometry_sha256": "c4a3b361227dbd37b991760cad195934c540d8808adf1513e8a69d5f5defc815",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Mantlet": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "281980fa2b20363f51d9cb569b2cb77461f2b498883ac188e5ad6e499813eb23",
+      "parent": "Gun",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          1.862645149230957e-09
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Tracks": {
+      "triangles": 288,
+      "evaluated_triangles": 288,
+      "geometry_sha256": "b8530a9b2293fd2880a067f0317256f2c2d0dd1aae5873063b0efc9474ed89ec",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Turret_core": {
+      "triangles": 50,
+      "evaluated_triangles": 50,
+      "geometry_sha256": "57a6c03308160cc350bff44ee132f70a531d6a5135446d45666b02e331609ca0",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Turret_ring": {
+      "triangles": 92,
+      "evaluated_triangles": 92,
+      "geometry_sha256": "95a382fec3e3ddbd7d47798be53aecadf391462fba0a50527f7409577b265524",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_Wheels": {
+      "triangles": 2592,
+      "evaluated_triangles": 2592,
+      "geometry_sha256": "1446767a91e31d46143ca6881de725346c472bce4c79a64dd8d12716d19872d2",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_01": {
+      "triangles": 26,
+      "evaluated_triangles": 26,
+      "geometry_sha256": "ffe221a81d00c221d11f5e53ec2f9485db982e08b2516f5ef2b45f3535550882",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_03": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "09c793fdd66570d43b7339c7062de658823c06cfd699a4a732cd88cc68da9a4c",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_04": {
+      "triangles": 18,
+      "evaluated_triangles": 18,
+      "geometry_sha256": "7ac80634e4479c56b977443f714d1233a4277ddf8e3f222147b8897cf9af71c0",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_05": {
+      "triangles": 12,
+      "evaluated_triangles": 12,
+      "geometry_sha256": "d6adc19e3c0ba949ed76b627c1869917f5fa4979506ccd657eee09551badf0c4",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_06": {
+      "triangles": 22,
+      "evaluated_triangles": 22,
+      "geometry_sha256": "5874d26b2fdfa41c43964af006a35822fc691e6d31f4203d396c089fdbd503d8",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_07": {
+      "triangles": 20,
+      "evaluated_triangles": 20,
+      "geometry_sha256": "04ee3d2e9b544c8b4aeef69fc274b5382df42f94baae3fe283baec507dd08fba",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_body_09": {
+      "triangles": 22,
+      "evaluated_triangles": 22,
+      "geometry_sha256": "c34c2cdcf09aa38726bde5b5734269ba4ecbd8811e962383993b46e6410a66df",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_01": {
+      "triangles": 22,
+      "evaluated_triangles": 22,
+      "geometry_sha256": "773ca312d40974d5b1178d78f92be6035c91793c66fcdc2ccf718571a0d37f92",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_02": {
+      "triangles": 32,
+      "evaluated_triangles": 32,
+      "geometry_sha256": "38eef8666a065ab92697774e402bc216dc8575dc807069e30a559511bd8ed399",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_03": {
+      "triangles": 26,
+      "evaluated_triangles": 26,
+      "geometry_sha256": "3b0628b41c34205e8ab3c6d1b713f821d7b0d4c7a9a232adcd5a1a9f8d4fdf1c",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_04": {
+      "triangles": 34,
+      "evaluated_triangles": 34,
+      "geometry_sha256": "faa45770fea89cc9529f1eb5376cba0156d728ed77c083f1e0fada64bbf89a65",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_05": {
+      "triangles": 28,
+      "evaluated_triangles": 28,
+      "geometry_sha256": "848782656f9366d43f74f2147a7d900629c0a920fbd8671c64ab5d961f8a8f17",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_06": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "e41c07030299fa08b7a4edc687e32716eff21a87acfa265e4e64a636196f402e",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_07": {
+      "triangles": 30,
+      "evaluated_triangles": 30,
+      "geometry_sha256": "be7b7fe17f8be56b22b8df85757cee459b37c8409e660dd05da41a50e24d817c",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_08": {
+      "triangles": 32,
+      "evaluated_triangles": 32,
+      "geometry_sha256": "a2b982117964c5acfb498b4a6a2332e9fa06ed07c7b6c01bdcc7a4b7e7f20d03",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_09": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "2aa5d8a13f6f5d73f80892da6cc733828080b5ea3aff06e9f71c801218ce8652",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_10": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "e8c78d1a5d872fd6b96a0c8941c3788db552b93c7dc685b410b5188aa3ca080b",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_11": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "eca2337246d0363ace82d4baa6f6b99dc4a9e24741ef149a6cc7b8628d07eac5",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_12": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "eda3f0a9d27763c1ca29c18cc9e5f83e60b8dd9d019f13aa7765a933b727ef70",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_13": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "80c57fc05fdf1eea287daae99273bd116924bbd76eba5d82ed2461be20cda9b0",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_14": {
+      "triangles": 18,
+      "evaluated_triangles": 18,
+      "geometry_sha256": "761fc01544e07edd2c0f6d84214e714235b2234c6b957af412f9e0bfad74236a",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_15": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "564b825b0ceae4c9159dc11e7b718673324bf805638c97ed93d087c392ec84ac",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_16": {
+      "triangles": 38,
+      "evaluated_triangles": 38,
+      "geometry_sha256": "cdbd3053a1343d325518c6768e63bbd43da3108a2fd4ba6f0c51255b4aef9afe",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_17": {
+      "triangles": 34,
+      "evaluated_triangles": 34,
+      "geometry_sha256": "3f6959cd5b8a4934877f76c8537227e3d4c431dd2dc263bdc1d66a6afaf96f47",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_l_18": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "9bc7ba6c916855247c17c71e0992cc3deb4eaec2bf6fb61ff7ee3f91b8a7b016",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_01": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "f6a94cfd400f8efaacdc9ab9cc9a78e604bf865bbc347d070ab04d2099b04690",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_02": {
+      "triangles": 30,
+      "evaluated_triangles": 30,
+      "geometry_sha256": "8193eb153d7e6d09434473ccf806b425648f2c824d7d089738476ca322819359",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_03": {
+      "triangles": 26,
+      "evaluated_triangles": 26,
+      "geometry_sha256": "4bacf31b4a8efd7c41047d35ec1f8453c8f9895d82a48f1926a48629aa35b9a9",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_04": {
+      "triangles": 32,
+      "evaluated_triangles": 32,
+      "geometry_sha256": "d0d9e101dd47ab49b4461d7ba0172276c146708a2a8f3983687bc9d9b4780a32",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_05": {
+      "triangles": 30,
+      "evaluated_triangles": 30,
+      "geometry_sha256": "0d8b15ceee199e61345a0addb61bf75398ec224d20169849b89658a6585f554c",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_06": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "c67fa5eddfa11218be990ec176a9be254ca4834aacfe499690dcf8954d4e209f",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_07": {
+      "triangles": 26,
+      "evaluated_triangles": 26,
+      "geometry_sha256": "549d29afa2ef7a30f57eab422b73bdfc91d4dbe2d095518539565a8d59cb5a65",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_08": {
+      "triangles": 36,
+      "evaluated_triangles": 36,
+      "geometry_sha256": "b3455a229988ad42ca47637ad631aeb1b7a9ad0cf2f56a481cf3632e0e254e04",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_09": {
+      "triangles": 26,
+      "evaluated_triangles": 26,
+      "geometry_sha256": "ad88a4256c3e61fa380e9f963e1f165e6446962b6712f8cbb6945cff7a195646",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_10": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "4f448876ddb40b36ab7a6860551e8a96ba3c98e76c2cfc74b7455ed744ec6f3f",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_11": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "4e18dcdf935f9315bdcf58b1d2937558c2d014438a309b08cdab430cd93a990a",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_12": {
+      "triangles": 24,
+      "evaluated_triangles": 24,
+      "geometry_sha256": "a96202c5a4bad7532b9036ae36d9a46b0de5aa7a2c3fd55a83dbbc40bfebe5e1",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_13": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "fd115761de7c6c8908b2d328a16e5190c87cf4849dacf068e0a2657a93205391",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_14": {
+      "triangles": 18,
+      "evaluated_triangles": 18,
+      "geometry_sha256": "a1ef294381f86b8b51742fc28c23e6ae71a58ea61e49504c9ccae45d5d3ad698",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_15": {
+      "triangles": 14,
+      "evaluated_triangles": 14,
+      "geometry_sha256": "ac1c7fd4365ece9cda43333a10e706ba5dd2569ee1198bff3200abfd056c0e8a",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_16": {
+      "triangles": 38,
+      "evaluated_triangles": 38,
+      "geometry_sha256": "7665a027dc0ce85bbca72f754597a48d4ba4dcf2701de8e91a57f05fcbf07f22",
+      "parent": "Hull",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_17": {
+      "triangles": 32,
+      "evaluated_triangles": 32,
+      "geometry_sha256": "94ba6a2b1b8a065d67eafe47b081c7ad6bbf4afe32deb2abdefc7f04b96605ef",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    },
+    "Low_ex_armor_r_18": {
+      "triangles": 30,
+      "evaluated_triangles": 30,
+      "geometry_sha256": "91ca0c3524a19a1588d0034b715c1be3cc2479802e9c0e35a7c1f6355e963634",
+      "parent": "Turret",
+      "world_matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001",
+        "UVMap.002",
+        "UVMap.003",
+        "UVMap.004"
+      ],
+      "modifiers": []
+    }
+  },
+  "images": {
+    "Redesigned_Albedo": {
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true,
+      "path": "",
+      "external_file_exists": false
+    }
+  },
+  "note": "Image inventory covers direct image nodes, not nested node groups. Inspect renders separately.",
+  "errors": []
+}

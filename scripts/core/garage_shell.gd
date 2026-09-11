@@ -61,6 +61,8 @@ func _ready() -> void:
 		panel.progress_reset.connect(func() -> void: progress_reset.emit())
 		add_child(panel))
 	settings_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	CoreUI.button(toolbar,"模型展厅 / Models",func() -> void:
+		if get_node_or_null("ModelShowroom") == null: add_child(ModelShowroom.new()))
 	CoreUI.button(toolbar,LocalizationService.text("menu_credits"),_show_credits)
 	CoreUI.button(toolbar,LocalizationService.text("menu_quit"),func() -> void:
 		AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit()))

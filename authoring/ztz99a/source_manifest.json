@@ -1,0 +1,15 @@
+{
+  "vehicle": "ZTZ-99A reference interpretation",
+  "source": "user-provided multiview, concept and atlas",
+  "dimensions_m": {
+    "hull_length": 7.6,
+    "width": 3.55,
+    "overall_gun_forward": 10.95,
+    "turret_roof_height": 2.38
+  },
+  "road_wheels_per_side": 6,
+  "high_triangles_evaluated": 493196,
+  "high_mesh_objects": 2288,
+  "blender": "5.2.1 LTS",
+  "evidence": "Reference artwork conflicts on wheel count. Six chosen for 99A; proportions and unseen details estimated, not surveyed engineering data."
+}

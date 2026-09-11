@@ -1,6 +1,6 @@
 # PixelArmor / MCTHUNDER
 
-当前源码候选位于 `E:/AIprogram/mcthunder-mainline`、分支 `codex/rc3-playability-fixes`，双击本目录 `START_GAME.bat`。候选身份与引擎哈希见 [WT 基线](docs/wt/BASELINE.json)，实现/工程验证/真人接受/发行状态分别见 [当前状态](docs/wt/CURRENT_STATUS.md)。历史 RC2 独立包不包含之后的 RC3 修复。当前是陆战原型，不能以旧 036 完成记录认定完整游戏完成。
+当前统一工程位于 `E:/AIprogram/mcthunder`、分支 `main`，双击本目录 `START_GAME.bat`。最新游戏主线已合并，整理记录见 [工作区说明](docs/WORKSPACE.md)。历史候选身份与引擎哈希见 [WT 基线](docs/wt/BASELINE.json)，实现/工程验证/真人接受/发行状态分别见 [当前状态](docs/wt/CURRENT_STATUS.md)。历史 RC2 独立包不包含之后的 RC3 修复。当前是陆战原型，不能以旧 036 完成记录认定完整游戏完成。
 
 后续以用户提供的 [完整开发方案](docs/wt/DEVELOPMENT_PLAN_2026-09-11.md) 为路线：先 WT-001 基线、WT-002 固定步长、WT-003 距离与性能，再深化两辆样车的驾驶/火控/毁伤和战术对局；权威联网切片、现代车与空海扩展按依赖继续。全部 42 个工作包的要求保留在 [缺口台账](docs/wt/GAP_REGISTER.json)。
 
@@ -11,7 +11,7 @@
 025已完成四辆约1000三角面的贴图模型、两图可破坏木棚/砖墙，以及殉爆飞头与残骸表现。见[025交付与实际测试](docs/DELIVERY_025.md)；制作和移植模型见[完整流程](docs/TANK_MODEL_WORKFLOW.md)。工程自审通过，真人试玩待验收。
 
 双击本目录 **START_GAME.bat**，固定 Godot 4.7.2 stable 普通版 / GDScript / Compatibility。
-旧工作目录（保留未提交改动）：E:/AIprogram/mcthunder-development；原 E:/AIprogram/mcthunder 保留旧 main。
+旧工作区已迁入 `E:/AIprogram/mcthunder-archive/retired`。车库顶栏“模型展厅 / Models”可查看豹 2A7V、M1A1 HC、ZTZ-99A；这三款现代车目前仅作美术预览，战斗参数与内构待接入。
 四款具体历史配置：M4A3(75)W 1944 VVSS、M24 M6/T85E1 1951五人、M26(T26E3) M3 1945、M36 M4A1炮架1945。车库下拉选择后可检视外观/装甲/内构、查阅逐字段来源、正常驾驶与射击；4对4及再出击使用所选车型。021候选接入每车两种弹药：75 mm M72/M61、90 mm M77/M82；1/2只选择下一次取弹，膛内和正在搬运的弹不变。所有局部几何、未实测性能与未知字段明确标注，详见[车型与来源](docs/vehicles/HISTORICAL_020.md)和[当前弹种资料](docs/vehicles/HISTORICAL_SHELLS_021.md)。
 四个完整Blender源文件与GLB外饰已接入；使用本机已安装的Blender5.2.1LTS，编辑/导出及装甲一致性检查见[建模流程](authoring/vehicles/README.md)。
 022车库：点击车辆卡片，切换外观/装甲/内构后可选择具体面片、部件或乘员；名义厚度与依据状态直接显示。展开“配弹与编成”，设置两种弹的数量、首发、最多三车编成和AI难度。少带弹会隐藏空弹药架，初次出生与再出击使用同一份确认配置；底部固定提供训练和4对4入口。

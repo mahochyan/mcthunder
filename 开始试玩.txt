@@ -1,7 +1,7 @@
 MCTHUNDER / low-poly低多边形装甲 0.2.7 中文与主流程接续版
 
-当前目录：E:/AIprogram/mcthunder-mainline。双击本目录 START_GAME.bat。
-也可从旧工程目录双击“启动主线试玩.bat”，避免运行旧 001 版本。
+当前目录：E:/AIprogram/mcthunder。双击本目录 START_GAME.bat。
+游戏主体已合并。车库顶栏“模型展厅 / Models”可查看三款现代坦克模型（尚未接入战斗）。
 车库顶栏提供设置、制作与许可、退出游戏。Tab / Shift+Tab 移动焦点，Enter 激活按钮，Space 打开下拉框，Esc 返回。
 车库设置可改绑操作，调整声音、字幕、特效与字号；进入战斗后也可从暂停菜单调整。
 

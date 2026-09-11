@@ -1,0 +1,498 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "4000 GLB exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 full export triangles",
+      "pass": true,
+      "detail": {
+        "actual": 3996,
+        "budget": 4000
+      }
+    },
+    {
+      "name": "4000 nondegenerate triangles",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "4000 finite unit normals",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 atlas UV bounds",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 atlas interior overlap sample",
+      "pass": true,
+      "detail": {
+        "overlap_pixels": 0,
+        "sample_resolution": 512,
+        "occupied_fraction": 0.41222381591796875
+      }
+    },
+    {
+      "name": "4000 baked tangent export",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 hierarchy hull/turret",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 hierarchy turret/barrel",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 hierarchy barrel/gun_recoil",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 hierarchy gun_recoil/muzzle",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 no high/camera/studio in GLB",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 all textures embedded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 PBR color normal ORM connected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4000 basecolor actual dimensions",
+      "pass": true,
+      "detail": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "4000 basecolor nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.003921568859368563,
+          0.003921568859368563
+        ],
+        "max": [
+          0.917647123336792,
+          0.9019608497619629,
+          0.8509804606437683
+        ],
+        "std": [
+          0.10571050643920898,
+          0.09240695834159851,
+          0.07777490466833115
+        ]
+      }
+    },
+    {
+      "name": "4000 normal actual dimensions",
+      "pass": true,
+      "detail": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "4000 normal nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "std": [
+          0.09576237201690674,
+          0.06774666160345078,
+          0.26100170612335205
+        ]
+      }
+    },
+    {
+      "name": "4000 orm actual dimensions",
+      "pass": true,
+      "detail": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "4000 orm nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.18039216101169586,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.9098039865493774,
+          0.6980392336845398
+        ],
+        "std": [
+          0.26017412543296814,
+          0.09605306386947632,
+          0.20321708917617798
+        ]
+      }
+    },
+    {
+      "name": "2000 GLB exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 full export triangles",
+      "pass": true,
+      "detail": {
+        "actual": 1988,
+        "budget": 2000
+      }
+    },
+    {
+      "name": "2000 nondegenerate triangles",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "2000 finite unit normals",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 atlas UV bounds",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 atlas interior overlap sample",
+      "pass": true,
+      "detail": {
+        "overlap_pixels": 0,
+        "sample_resolution": 512,
+        "occupied_fraction": 0.3997688293457031
+      }
+    },
+    {
+      "name": "2000 baked tangent export",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 hierarchy hull/turret",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 hierarchy turret/barrel",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 hierarchy barrel/gun_recoil",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 hierarchy gun_recoil/muzzle",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 no high/camera/studio in GLB",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 all textures embedded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 PBR color normal ORM connected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2000 basecolor actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "2000 basecolor nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.019607843831181526,
+          0.019607843831181526,
+          0.019607843831181526
+        ],
+        "max": [
+          0.917647123336792,
+          0.9019608497619629,
+          0.8509804606437683
+        ],
+        "std": [
+          0.11169793456792831,
+          0.09840662032365799,
+          0.07712273299694061
+        ]
+      }
+    },
+    {
+      "name": "2000 normal actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "2000 normal nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "std": [
+          0.09581724554300308,
+          0.07113198190927505,
+          0.25742968916893005
+        ]
+      }
+    },
+    {
+      "name": "2000 orm actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "2000 orm nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.18039216101169586,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.9098039865493774,
+          0.6980392336845398
+        ],
+        "std": [
+          0.2747977674007416,
+          0.10063844174146652,
+          0.21128524839878082
+        ]
+      }
+    },
+    {
+      "name": "1000 GLB exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 full export triangles",
+      "pass": true,
+      "detail": {
+        "actual": 989,
+        "budget": 1000
+      }
+    },
+    {
+      "name": "1000 nondegenerate triangles",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "1000 finite unit normals",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 atlas UV bounds",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 atlas interior overlap sample",
+      "pass": true,
+      "detail": {
+        "overlap_pixels": 0,
+        "sample_resolution": 512,
+        "occupied_fraction": 0.4348030090332031
+      }
+    },
+    {
+      "name": "1000 baked tangent export",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 hierarchy hull/turret",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 hierarchy turret/barrel",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 hierarchy barrel/gun_recoil",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 hierarchy gun_recoil/muzzle",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 no high/camera/studio in GLB",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 all textures embedded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 PBR color normal ORM connected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1000 basecolor actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "1000 basecolor nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.011764707043766975,
+          0.011764707043766975,
+          0.011764707043766975
+        ],
+        "max": [
+          0.917647123336792,
+          0.9019608497619629,
+          0.8509804606437683
+        ],
+        "std": [
+          0.10849049687385559,
+          0.09420547634363174,
+          0.07400110363960266
+        ]
+      }
+    },
+    {
+      "name": "1000 normal actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "1000 normal nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "std": [
+          0.09646304696798325,
+          0.07152333110570908,
+          0.2684236168861389
+        ]
+      }
+    },
+    {
+      "name": "1000 orm actual dimensions",
+      "pass": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "1000 orm nonempty finite bake",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.0,
+          0.18039216101169586,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.9098039865493774,
+          0.6980392336845398
+        ],
+        "std": [
+          0.2936926782131195,
+          0.09977096319198608,
+          0.22311988472938538
+        ]
+      }
+    }
+  ],
+  "blender": "5.2.1 LTS"
+}

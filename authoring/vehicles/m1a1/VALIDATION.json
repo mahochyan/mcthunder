@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "tier": 4,
+      "triangles": 3896,
+      "meshes": 3,
+      "materials": 1,
+      "degenerate_triangles": 0,
+      "closed_after_uv_seam_weld": true,
+      "uv_in_0_1": true,
+      "source_units_metres": true,
+      "axis": "Blender +Y forward -> glTF -Z forward",
+      "size_blender_xyz": [
+        3.6588938236236572,
+        9.786101341247559,
+        2.9050745768472552
+      ],
+      "silhouette_iou_vs_retained_high": {
+        "front": 0.9749995021804496,
+        "side": 0.9449656628435198,
+        "rear": 0.9873916630172422,
+        "top": 0.9990935923954726
+      }
+    },
+    {
+      "tier": 2,
+      "triangles": 1922,
+      "meshes": 3,
+      "materials": 1,
+      "degenerate_triangles": 0,
+      "closed_after_uv_seam_weld": true,
+      "uv_in_0_1": true,
+      "source_units_metres": true,
+      "axis": "Blender +Y forward -> glTF -Z forward",
+      "size_blender_xyz": [
+        3.6588938236236572,
+        9.786101341247559,
+        2.9130010409280658
+      ],
+      "silhouette_iou_vs_retained_high": {
+        "front": 0.9744579033946463,
+        "side": 0.9432460012340406,
+        "rear": 0.9865914838078147,
+        "top": 0.9959171024598101
+      }
+    },
+    {
+      "tier": 1,
+      "triangles": 966,
+      "meshes": 3,
+      "materials": 1,
+      "degenerate_triangles": 0,
+      "closed_after_uv_seam_weld": true,
+      "uv_in_0_1": true,
+      "source_units_metres": true,
+      "axis": "Blender +Y forward -> glTF -Z forward",
+      "size_blender_xyz": [
+        3.6588938236236572,
+        9.785172462463379,
+        2.779064635746181
+      ],
+      "silhouette_iou_vs_retained_high": {
+        "front": 0.9685483709873953,
+        "side": 0.9291160890324727,
+        "rear": 0.9740969145004186,
+        "top": 0.9929111531190926
+      }
+    }
+  ],
+  "comparison": "Identical cameras; original high-poly components retained by 4K model; deliberate decorative omissions excluded; IoU measures outline overlap only, not full visual quality.",
+  "status": "Geometry/export checks passed; not a game performance or user-art acceptance test."
+}

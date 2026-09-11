@@ -1,5 +1,7 @@
 # 试玩基线（稳定化候选 · 修复前对照）
 
+此文件为历史修复前对照，当前工程入口与目录以 README.md、docs/WORKSPACE.md 为准。
+
 **版本**：`work/stabilization` @ 见 `git log -1`（基线 = 026 远端 tip `a737871` + 027-A 改键切片 + AI 维修修复）
 **启动**：双击本目录 `START_GAME.bat`（引擎经 junction 指向 `tools/godot`）
 

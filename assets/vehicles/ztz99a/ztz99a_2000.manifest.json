@@ -1,0 +1,58 @@
+{
+  "id": "cn_ztz99a_lod_2000",
+  "budget_triangles": 2000,
+  "actual_triangles": 1988,
+  "triangles_by_group": {
+    "hull": 152,
+    "skirt_L": 26,
+    "skirt_R": 26,
+    "track_L": 56,
+    "wheels_L": 414,
+    "track_R": 56,
+    "wheels_R": 414,
+    "turret": 640,
+    "mantlet": 30,
+    "gun": 174
+  },
+  "texture_size": [
+    1024,
+    1024
+  ],
+  "bake": "Cycles selected-to-active, corresponding mechanical groups; source high evaluated geometry; tangent OpenGL normal; diffuse COLOR only; ORM emission with local AO, roughness, metallic",
+  "bake_margin_px": 6,
+  "uv": "unique nonoverlapping smart projection, separate unwrap per LOD",
+  "rig": [
+    "hull",
+    "turret",
+    "barrel",
+    "gun_recoil",
+    "muzzle"
+  ],
+  "axes": "Blender +Y forward / +Z up -> glTF -Z forward / +Y up",
+  "source_high_manifest": {
+    "vehicle": "ZTZ-99A reference interpretation",
+    "source": "user-provided multiview, concept and atlas",
+    "dimensions_m": {
+      "hull_length": 7.6,
+      "width": 3.55,
+      "overall_gun_forward": 10.95,
+      "turret_roof_height": 2.38
+    },
+    "road_wheels_per_side": 6,
+    "high_triangles_evaluated": 493196,
+    "high_mesh_objects": 2288,
+    "blender": "5.2.1 LTS",
+    "evidence": "Reference artwork conflicts on wheel count. Six chosen for 99A; proportions and unseen details estimated, not surveyed engineering data."
+  },
+  "textures": {
+    "BaseColor": "ztz99a_2000_basecolor.png",
+    "Normal": "ztz99a_2000_normal.png",
+    "ORM": "ztz99a_2000_orm.png"
+  },
+  "sha256": {
+    "ztz99a_2000.glb": "b5d6c6868a384dfc3e96d9e698504226bc621764f339287cd27d8d7f0b153bec",
+    "ztz99a_2000_basecolor.png": "3132acc2b90a263d2876e31fcd5160cc0bf817c5df6b1ea6541b803c6601590c",
+    "ztz99a_2000_normal.png": "66154b99c954114836334bb87456362b96dca4ce546394c1b996138bf444f19d",
+    "ztz99a_2000_orm.png": "4166b603ff1b58826411832b26f67aa3d36cec6a0f16b051b8d949c5d5e5f577"
+  }
+}

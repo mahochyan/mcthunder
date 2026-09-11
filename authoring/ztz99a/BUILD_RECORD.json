@@ -1,0 +1,156 @@
+{
+  "date": "2026-09-10",
+  "task": "99A reference reconstruction + high-to-low bake; turret rebuilt against multiview after user feedback",
+  "primary_reference": "reference/multiview.png",
+  "working_directory": "E:\\AIprogram\\mcthunder",
+  "git_head": "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
+  "git_branch": "main",
+  "changes": "New isolated asset authoring and runtime files; existing game not integrated or replaced",
+  "commands": [
+    {
+      "argv": [
+        "E:/blender/blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "authoring/ztz99a/build_ztz99a.py",
+        "--",
+        "high"
+      ],
+      "exit_code": 0,
+      "log": "high_build.log"
+    },
+    {
+      "argv": [
+        "E:/blender/blender.exe",
+        "--background",
+        "--threads",
+        "4",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "authoring/ztz99a/build_ztz99a.py",
+        "--",
+        "lod",
+        "4000"
+      ],
+      "exit_code": 0,
+      "log": "lod4000_build.log"
+    },
+    {
+      "argv": [
+        "E:/blender/blender.exe",
+        "--background",
+        "--threads",
+        "4",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "authoring/ztz99a/build_ztz99a.py",
+        "--",
+        "lod",
+        "2000"
+      ],
+      "exit_code": 0,
+      "log": "lod2000_build.log"
+    },
+    {
+      "argv": [
+        "E:/blender/blender.exe",
+        "--background",
+        "--threads",
+        "4",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "authoring/ztz99a/build_ztz99a.py",
+        "--",
+        "lod",
+        "1000"
+      ],
+      "exit_code": 0,
+      "log": "lod1000_build.log"
+    },
+    {
+      "argv": [
+        "E:/blender/blender.exe",
+        "--background",
+        "--threads",
+        "4",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "authoring/ztz99a/verify_assets.py"
+      ],
+      "exit_code": 0,
+      "log": "verification.log"
+    },
+    {
+      "argv": [
+        "E:/AIprogram/mcthunder-development/tools/godot/Godot_v4.7.2-stable_win64_console.exe",
+        "--headless",
+        "--path",
+        "authoring/ztz99a/validation",
+        "-s",
+        "res://check_assets.gd"
+      ],
+      "exit_code": 0,
+      "log": "godot_verification.log"
+    }
+  ],
+  "verification": {
+    "asset_passed": true,
+    "asset_checks": 60,
+    "godot_passed": true,
+    "godot_checks": 27
+  },
+  "human_acceptance": "PENDING; earlier feedback rejected initial turret, subsequent multi-view turret revision has not been explicitly accepted by user",
+  "reference_limitations": "Art has contradictory wheel count. Six road wheels per side chosen. Unseen geometry and dimensions estimated; not a War Thunder asset extraction.",
+  "lods": [
+    {
+      "id": "cn_ztz99a_lod_4000",
+      "budget_triangles": 4000,
+      "actual_triangles": 3996,
+      "texture_size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "id": "cn_ztz99a_lod_2000",
+      "budget_triangles": 2000,
+      "actual_triangles": 1988,
+      "texture_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "id": "cn_ztz99a_lod_1000",
+      "budget_triangles": 1000,
+      "actual_triangles": 989,
+      "texture_size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "next_action": "Review the revised high turret and LOD comparison; any further shape changes invalidate corresponding LOD bakes. Game integration requires a separate scoped task.",
+  "delivered_source_sha256": {
+    "build_ztz99a.py": "83cf6091d8f9506cec36d287470e47ea1f0a3c2d1808e51dd459fee9533e6dfe",
+    "turret_multiview.py": "1f1fc68d54d791e6736d9cac31511f1c90415e1a215a06035b15aa3c73d5244f",
+    "ztz99a_high.blend": "661bec743bb5c05d9cd97293bce30964bc74ec8b29c859b737eeadf9133a6b02"
+  },
+  "reference_sha256": {
+    "concept.png": "68f3be3e44e3e9093d2a6840d2d63f9987fd2f9255cfc61ba76e59a7bb3915f5",
+    "multiview.png": "a026c25622e999f7883581b3139b0c5cb288e0b2b88cdeb814c8641af33af17e",
+    "paint_wear.png": "bae87003bfe5a9e0eac1665987430477bb70021aaa32505ddc93d317e5d2cd5f",
+    "source_atlas.png": "e3ef90ba5b59cfe662d3c4d431e695705c949241005ee8523b0e445d263e42c2",
+    "turret_front_crop.png": "f9b4dd0329b604f3bc501e85a1269c73b80c9b36767f6e83e2d87f16b99a19c8",
+    "turret_side_crop.png": "3f8fc9cf7df2ac142a6b7911a8e3154fdb555c64224437a8919ea09870065f37",
+    "turret_top_crop.png": "c6634e070adb45522bd261692bbf4b1ff2fba548901b158ff6ffddf184672d48"
+  }
+}

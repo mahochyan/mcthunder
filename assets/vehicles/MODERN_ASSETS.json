@@ -1,0 +1,61 @@
+{
+  "status": "art_showroom_only_combat_integration_pending",
+  "assets": [
+    {
+      "path": "res://assets/vehicles/leopard2a7v/leopard2a7v.glb",
+      "original_path_in_archive": "mcthunder/artifacts/leopard2a7_source_corrected/Leopard2A7V_10000_Redesigned.glb",
+      "sha256": "886331a6bbaf8e517092fba406fe4c6c2bea5b5b1f12d7f253aa16ce447361a3",
+      "triangles": 10000,
+      "meshes": 232,
+      "embedded_images": 1
+    },
+    {
+      "path": "res://assets/vehicles/m1a1/m1a1.glb",
+      "original_path_in_archive": "mcthunder/authoring/m1a1_rebuild/production_lods/4k_tri/m1a1.glb",
+      "sha256": "37d372ac12f3a2f96eec4470cd17e28da47c89f82d9f10f5e5b6bc922563313c",
+      "triangles": 3896,
+      "meshes": 3,
+      "embedded_images": 3
+    },
+    {
+      "path": "res://assets/vehicles/m1a1/m1a1_1k.glb",
+      "original_path_in_archive": "mcthunder/authoring/m1a1_rebuild/production_lods/1k_tri/m1a1.glb",
+      "sha256": "db3567af7bd2a9fc1264e38a4639a4a9a1ed3b5174df323a49d4a74d50c938f1",
+      "triangles": 966,
+      "meshes": 3,
+      "embedded_images": 3
+    },
+    {
+      "path": "res://assets/vehicles/m1a1/m1a1_2k.glb",
+      "original_path_in_archive": "mcthunder/authoring/m1a1_rebuild/production_lods/2k_tri/m1a1.glb",
+      "sha256": "a25c403b42532d3a2287e73eac138a8f33dbbd8b7c644f8b52a41421eef2d5f7",
+      "triangles": 1922,
+      "meshes": 3,
+      "embedded_images": 3
+    },
+    {
+      "path": "res://assets/vehicles/ztz99a/ztz99a_1000.glb",
+      "original_path_in_archive": "mcthunder/assets/vehicles/ztz99a/ztz99a_1000.glb",
+      "sha256": "a31db91987a87058d1f05b9b1edcd6451d8ceb634d206c5802b2cee3ec2c796f",
+      "triangles": 989,
+      "meshes": 10,
+      "embedded_images": 3
+    },
+    {
+      "path": "res://assets/vehicles/ztz99a/ztz99a_2000.glb",
+      "original_path_in_archive": "mcthunder/assets/vehicles/ztz99a/ztz99a_2000.glb",
+      "sha256": "b5d6c6868a384dfc3e96d9e698504226bc621764f339287cd27d8d7f0b153bec",
+      "triangles": 1988,
+      "meshes": 10,
+      "embedded_images": 3
+    },
+    {
+      "path": "res://assets/vehicles/ztz99a/ztz99a_4000.glb",
+      "original_path_in_archive": "mcthunder/assets/vehicles/ztz99a/ztz99a_4000.glb",
+      "sha256": "d9df90f031c82f7efd153822400730f1d91f89d4fa3e6f446b116180de87609c",
+      "triangles": 3996,
+      "meshes": 10,
+      "embedded_images": 3
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # PixelArmor — AGENTS.md
 
+## 当前工作区（2026-09-11 整理）
+用户已授权合并游戏主体及整理模型。统一工程为 `E:/AIprogram/mcthunder`、分支 `main`；9f59025 主线已快进合并。后续在此目录开发。旧工作区位于 `E:/AIprogram/mcthunder-archive/retired`，仅作恢复使用；详情见 `docs/WORKSPACE.md`。完整游戏路线见 `docs/wt/DEVELOPMENT_PLAN_2026-09-11.md`，进度见 `NEXT_ACTION.md`，下方早期工作单边界属于历史记录。
+
+本机 Blender 为 `E:/blender/blender.exe`；可用 Blender MCP 时应先查询场景，后台检查不要关闭用户已打开的 Blender。
+
 ## 当前执行授权（2026-09-08，优先于下方历史条款）
 用户已明确要求按接手计划完成后续开发；最新定位为 low-poly（低多边形）装甲游戏，尽可能还原战争雷霆陆战内容。
 用户最新策略取代旧体素/方块风要求：以低多边形面构建准确比例与车型轮廓，保留炮塔炮盾、悬挂履带和外部附件；圆形与曲面按形体需要分面，不要求方块化。执行 `docs/ART_DIRECTION_LOW_POLY.md` 与 `docs/MODELING_STANDARD.md`。

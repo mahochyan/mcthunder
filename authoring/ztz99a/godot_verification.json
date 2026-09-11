@@ -1,0 +1,151 @@
+{
+  "checks": [
+    {
+      "details": 0,
+      "name": "4000 glTF parse",
+      "pass": true
+    },
+    {
+      "details": 3996,
+      "name": "4000 engine triangle count",
+      "pass": true
+    },
+    {
+      "details": 10,
+      "name": "4000 engine PBR channels",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "4000 independent motion nodes",
+      "pass": true
+    },
+    {
+      "details": "(0.0, 2.06, -7.2)",
+      "name": "4000 muzzle meter scale and -Z forward",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "4000 turret rotation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "4000 gun elevation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "4000 pose restores",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "4000 recoil travel",
+      "pass": true
+    },
+    {
+      "details": 0,
+      "name": "2000 glTF parse",
+      "pass": true
+    },
+    {
+      "details": 1988,
+      "name": "2000 engine triangle count",
+      "pass": true
+    },
+    {
+      "details": 10,
+      "name": "2000 engine PBR channels",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "2000 independent motion nodes",
+      "pass": true
+    },
+    {
+      "details": "(0.0, 2.06, -7.2)",
+      "name": "2000 muzzle meter scale and -Z forward",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "2000 turret rotation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "2000 gun elevation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "2000 pose restores",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "2000 recoil travel",
+      "pass": true
+    },
+    {
+      "details": 0,
+      "name": "1000 glTF parse",
+      "pass": true
+    },
+    {
+      "details": 989,
+      "name": "1000 engine triangle count",
+      "pass": true
+    },
+    {
+      "details": 10,
+      "name": "1000 engine PBR channels",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "1000 independent motion nodes",
+      "pass": true
+    },
+    {
+      "details": "(0.0, 2.06, -7.2)",
+      "name": "1000 muzzle meter scale and -Z forward",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "1000 turret rotation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "1000 gun elevation propagates",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "1000 pose restores",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "1000 recoil travel",
+      "pass": true
+    }
+  ],
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "passed": true
+}
