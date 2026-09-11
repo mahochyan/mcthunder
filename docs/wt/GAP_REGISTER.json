@@ -32,7 +32,7 @@
       "title": "性能与交战距离基准",
       "status": "in_progress",
       "requirements": "阶段：M0。职责：核心程序/质量。依赖：WT-001。\n\n先记录硬件和完整对局帧时间；收拢相机远裁剪、瞄准查询、弹丸寿命/射程、AI感知、声音距离、地图边界和 LOD。检查每次查询重建全车快照等热点，但不凭静态阅读认定瓶颈。\n\n**交付**\n- BENCHMARK_PROFILE.json 与原始帧时间/节点数/内存数据\n- EngagementProfile 配置及硬编码审计\n- 8/16/32 车阶梯压力场景，32 车仅为后续容量目标\n\n**验收**\n- 配置能够覆盖约定的最远交战距离，不出现看得到却不能正常瞄准的断层\n- 所有性能报告绑定源码、机器、画质、分辨率、人数与采样场景\n- 未运行的容量档不标达标",
-      "evidence": ["WT003_ENGAGEMENT_DISTANCES.md", "WT003_BENCHMARK.md", "WT003_QUERY_COST.md"],
+      "evidence": ["WT003_ENGAGEMENT_DISTANCES.md", "WT003_BENCHMARK.md", "WT003_QUERY_COST.md", "WT003_LATE_MATCH_PERFORMANCE.md"],
       "human_accepted": false,
       "release_ready": false
     },

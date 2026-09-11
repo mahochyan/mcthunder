@@ -1,0 +1,380 @@
+[
+  {
+    "utc": "2026-09-11T06:33:46.0546551Z",
+    "pid": 26292,
+    "private_bytes": 542109696,
+    "working_set_bytes": 335818752
+  },
+  {
+    "utc": "2026-09-11T06:33:51.3580565Z",
+    "pid": 26292,
+    "private_bytes": 502652928,
+    "working_set_bytes": 336265216
+  },
+  {
+    "utc": "2026-09-11T06:33:56.6272962Z",
+    "pid": 26292,
+    "private_bytes": 502722560,
+    "working_set_bytes": 336351232
+  },
+  {
+    "utc": "2026-09-11T06:34:01.8982030Z",
+    "pid": 26292,
+    "private_bytes": 502722560,
+    "working_set_bytes": 336384000
+  },
+  {
+    "utc": "2026-09-11T06:34:07.1872679Z",
+    "pid": 26292,
+    "private_bytes": 502722560,
+    "working_set_bytes": 335675392
+  },
+  {
+    "utc": "2026-09-11T06:34:12.4640405Z",
+    "pid": 26292,
+    "private_bytes": 502677504,
+    "working_set_bytes": 335699968
+  },
+  {
+    "utc": "2026-09-11T06:34:17.7434163Z",
+    "pid": 26292,
+    "private_bytes": 525811712,
+    "working_set_bytes": 352108544
+  },
+  {
+    "utc": "2026-09-11T06:34:23.0236762Z",
+    "pid": 26292,
+    "private_bytes": 525811712,
+    "working_set_bytes": 352133120
+  },
+  {
+    "utc": "2026-09-11T06:34:28.2948939Z",
+    "pid": 26292,
+    "private_bytes": 525811712,
+    "working_set_bytes": 352325632
+  },
+  {
+    "utc": "2026-09-11T06:34:33.5682971Z",
+    "pid": 26292,
+    "private_bytes": 527478784,
+    "working_set_bytes": 354045952
+  },
+  {
+    "utc": "2026-09-11T06:34:38.8356567Z",
+    "pid": 26292,
+    "private_bytes": 527724544,
+    "working_set_bytes": 354308096
+  },
+  {
+    "utc": "2026-09-11T06:34:44.0975122Z",
+    "pid": 26292,
+    "private_bytes": 527925248,
+    "working_set_bytes": 354586624
+  },
+  {
+    "utc": "2026-09-11T06:34:49.3597130Z",
+    "pid": 26292,
+    "private_bytes": 530034688,
+    "working_set_bytes": 356610048
+  },
+  {
+    "utc": "2026-09-11T06:34:54.6287723Z",
+    "pid": 26292,
+    "private_bytes": 530034688,
+    "working_set_bytes": 356679680
+  },
+  {
+    "utc": "2026-09-11T06:34:59.8951815Z",
+    "pid": 26292,
+    "private_bytes": 530034688,
+    "working_set_bytes": 356761600
+  },
+  {
+    "utc": "2026-09-11T06:35:05.1595520Z",
+    "pid": 26292,
+    "private_bytes": 530034688,
+    "working_set_bytes": 356786176
+  },
+  {
+    "utc": "2026-09-11T06:35:10.4406636Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 358293504
+  },
+  {
+    "utc": "2026-09-11T06:35:15.7043881Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 358318080
+  },
+  {
+    "utc": "2026-09-11T06:35:20.9645935Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 358338560
+  },
+  {
+    "utc": "2026-09-11T06:35:26.2289919Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 358367232
+  },
+  {
+    "utc": "2026-09-11T06:35:31.5052905Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 358387712
+  },
+  {
+    "utc": "2026-09-11T06:35:36.7704409Z",
+    "pid": 26292,
+    "private_bytes": 531656704,
+    "working_set_bytes": 358453248
+  },
+  {
+    "utc": "2026-09-11T06:35:42.0432284Z",
+    "pid": 26292,
+    "private_bytes": 531656704,
+    "working_set_bytes": 358473728
+  },
+  {
+    "utc": "2026-09-11T06:35:47.3067345Z",
+    "pid": 26292,
+    "private_bytes": 531775488,
+    "working_set_bytes": 358584320
+  },
+  {
+    "utc": "2026-09-11T06:35:52.5699673Z",
+    "pid": 26292,
+    "private_bytes": 531775488,
+    "working_set_bytes": 358604800
+  },
+  {
+    "utc": "2026-09-11T06:35:57.8423067Z",
+    "pid": 26292,
+    "private_bytes": 531746816,
+    "working_set_bytes": 358653952
+  },
+  {
+    "utc": "2026-09-11T06:36:03.1001074Z",
+    "pid": 26292,
+    "private_bytes": 532193280,
+    "working_set_bytes": 359116800
+  },
+  {
+    "utc": "2026-09-11T06:36:08.3689592Z",
+    "pid": 26292,
+    "private_bytes": 532193280,
+    "working_set_bytes": 359190528
+  },
+  {
+    "utc": "2026-09-11T06:36:13.6381980Z",
+    "pid": 26292,
+    "private_bytes": 532193280,
+    "working_set_bytes": 359190528
+  },
+  {
+    "utc": "2026-09-11T06:36:18.9177715Z",
+    "pid": 26292,
+    "private_bytes": 532193280,
+    "working_set_bytes": 359190528
+  },
+  {
+    "utc": "2026-09-11T06:36:24.2001913Z",
+    "pid": 26292,
+    "private_bytes": 523214848,
+    "working_set_bytes": 359411712
+  },
+  {
+    "utc": "2026-09-11T06:36:29.4868241Z",
+    "pid": 26292,
+    "private_bytes": 523214848,
+    "working_set_bytes": 359411712
+  },
+  {
+    "utc": "2026-09-11T06:36:34.7462348Z",
+    "pid": 26292,
+    "private_bytes": 523214848,
+    "working_set_bytes": 359436288
+  },
+  {
+    "utc": "2026-09-11T06:36:40.0122518Z",
+    "pid": 26292,
+    "private_bytes": 523624448,
+    "working_set_bytes": 359866368
+  },
+  {
+    "utc": "2026-09-11T06:36:45.2982548Z",
+    "pid": 26292,
+    "private_bytes": 527364096,
+    "working_set_bytes": 360017920
+  },
+  {
+    "utc": "2026-09-11T06:36:50.5618177Z",
+    "pid": 26292,
+    "private_bytes": 527396864,
+    "working_set_bytes": 360058880
+  },
+  {
+    "utc": "2026-09-11T06:36:55.8363018Z",
+    "pid": 26292,
+    "private_bytes": 527396864,
+    "working_set_bytes": 360075264
+  },
+  {
+    "utc": "2026-09-11T06:37:01.0934453Z",
+    "pid": 26292,
+    "private_bytes": 527396864,
+    "working_set_bytes": 360075264
+  },
+  {
+    "utc": "2026-09-11T06:37:06.3605225Z",
+    "pid": 26292,
+    "private_bytes": 527396864,
+    "working_set_bytes": 360075264
+  },
+  {
+    "utc": "2026-09-11T06:37:11.6346205Z",
+    "pid": 26292,
+    "private_bytes": 527396864,
+    "working_set_bytes": 360087552
+  },
+  {
+    "utc": "2026-09-11T06:37:16.9002705Z",
+    "pid": 26292,
+    "private_bytes": 528297984,
+    "working_set_bytes": 360919040
+  },
+  {
+    "utc": "2026-09-11T06:37:22.1638572Z",
+    "pid": 26292,
+    "private_bytes": 528314368,
+    "working_set_bytes": 361013248
+  },
+  {
+    "utc": "2026-09-11T06:37:27.4267170Z",
+    "pid": 26292,
+    "private_bytes": 529145856,
+    "working_set_bytes": 361725952
+  },
+  {
+    "utc": "2026-09-11T06:37:32.6982519Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 361967616
+  },
+  {
+    "utc": "2026-09-11T06:37:37.9688665Z",
+    "pid": 26292,
+    "private_bytes": 531611648,
+    "working_set_bytes": 361967616
+  },
+  {
+    "utc": "2026-09-11T06:37:43.2313494Z",
+    "pid": 26292,
+    "private_bytes": 532717568,
+    "working_set_bytes": 362999808
+  },
+  {
+    "utc": "2026-09-11T06:37:48.4885471Z",
+    "pid": 26292,
+    "private_bytes": 532717568,
+    "working_set_bytes": 363106304
+  },
+  {
+    "utc": "2026-09-11T06:37:53.7507638Z",
+    "pid": 26292,
+    "private_bytes": 532717568,
+    "working_set_bytes": 363139072
+  },
+  {
+    "utc": "2026-09-11T06:37:59.0175621Z",
+    "pid": 26292,
+    "private_bytes": 532791296,
+    "working_set_bytes": 363220992
+  },
+  {
+    "utc": "2026-09-11T06:38:04.2806413Z",
+    "pid": 26292,
+    "private_bytes": 532791296,
+    "working_set_bytes": 363220992
+  },
+  {
+    "utc": "2026-09-11T06:38:09.5390227Z",
+    "pid": 26292,
+    "private_bytes": 532791296,
+    "working_set_bytes": 363220992
+  },
+  {
+    "utc": "2026-09-11T06:38:14.8068679Z",
+    "pid": 26292,
+    "private_bytes": 533151744,
+    "working_set_bytes": 363581440
+  },
+  {
+    "utc": "2026-09-11T06:38:20.0848604Z",
+    "pid": 26292,
+    "private_bytes": 535367680,
+    "working_set_bytes": 365854720
+  },
+  {
+    "utc": "2026-09-11T06:38:25.3754939Z",
+    "pid": 26292,
+    "private_bytes": 535515136,
+    "working_set_bytes": 366006272
+  },
+  {
+    "utc": "2026-09-11T06:38:30.6454272Z",
+    "pid": 26292,
+    "private_bytes": 535695360,
+    "working_set_bytes": 366108672
+  },
+  {
+    "utc": "2026-09-11T06:38:35.9009432Z",
+    "pid": 26292,
+    "private_bytes": 535695360,
+    "working_set_bytes": 366182400
+  },
+  {
+    "utc": "2026-09-11T06:38:41.1615916Z",
+    "pid": 26292,
+    "private_bytes": 535826432,
+    "working_set_bytes": 366551040
+  },
+  {
+    "utc": "2026-09-11T06:38:46.4283449Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366559232
+  },
+  {
+    "utc": "2026-09-11T06:38:51.7506641Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366559232
+  },
+  {
+    "utc": "2026-09-11T06:38:57.0246869Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366559232
+  },
+  {
+    "utc": "2026-09-11T06:39:02.3101190Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366559232
+  },
+  {
+    "utc": "2026-09-11T06:39:07.5931144Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366575616
+  },
+  {
+    "utc": "2026-09-11T06:39:12.8603445Z",
+    "pid": 26292,
+    "private_bytes": 535830528,
+    "working_set_bytes": 366575616
+  }
+]

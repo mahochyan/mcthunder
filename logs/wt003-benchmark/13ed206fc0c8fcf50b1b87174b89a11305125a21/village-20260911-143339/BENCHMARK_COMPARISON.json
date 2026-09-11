@@ -1,0 +1,49 @@
+{
+  "before_report": "logs/wt003-benchmark/2284dd2d2f6e38ef63bfdea4b1f746365c10758c/village-20260911-141504/FRAME_PROFILE_village_19001.json",
+  "after_report": "logs/wt003-benchmark/13ed206fc0c8fcf50b1b87174b89a11305125a21/village-20260911-143339/FRAME_PROFILE_village_19001.json",
+  "matching_settings": {
+    "vsync": true,
+    "render_cap": true,
+    "fx_level": true,
+    "gpu": true,
+    "engine": true,
+    "seed": true,
+    "renderer": true,
+    "cpu": true,
+    "map": true,
+    "resolution": true,
+    "physics_tick_hz": true,
+    "selected_vehicle": true
+  },
+  "before": {
+    "count": 11626,
+    "fps_from_mean": 34.7391698060927,
+    "max_ms": 235.619,
+    "mean_ms": 28.7859498537761,
+    "p50_ms": 16.812,
+    "p95_ms": 96.639,
+    "p99_ms": 158.922
+  },
+  "after": {
+    "count": 19277,
+    "fps_from_mean": 57.8615895129431,
+    "max_ms": 97.994,
+    "mean_ms": 17.2826223478757,
+    "p50_ms": 16.475,
+    "p95_ms": 34.304,
+    "p99_ms": 53.728
+  },
+  "query_cpu_ms_before": 147539.325,
+  "query_cpu_ms_after": 66985.297,
+  "query_calls_before": 157249,
+  "query_calls_after": 157249,
+  "simulation_seconds_before": 326.466666666698,
+  "simulation_seconds_after": 326.466666666698,
+  "finished_projectiles_before": 121,
+  "finished_projectiles_after": 121,
+  "exact_per_tick_equivalence_proven": false,
+  "target_fps": 60,
+  "target_p95_ms": 20,
+  "target_p99_ms": 33.3,
+  "frame_time_targets_met": false
+}
