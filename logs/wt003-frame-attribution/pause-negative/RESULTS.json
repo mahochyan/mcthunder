@@ -1,0 +1,6 @@
+{
+  "expected_failure": true,
+  "reason": "paused_during_measurement",
+  "exit_code": 1,
+  "frames": 57
+}

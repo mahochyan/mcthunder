@@ -1,0 +1,549 @@
+{
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13400",
+  "display": "Windows",
+  "driver": "3.3.0 NVIDIA 591.86",
+  "engine": "4.7.2-stable (official)",
+  "frame_queries": [
+    [
+      1,
+      0,
+      0.0,
+      7
+    ],
+    [
+      2,
+      0,
+      0.0,
+      8
+    ],
+    [
+      3,
+      0,
+      0.0,
+      1
+    ],
+    [
+      4,
+      0,
+      0.0,
+      0
+    ],
+    [
+      5,
+      0,
+      0.0,
+      1
+    ],
+    [
+      6,
+      0,
+      0.0,
+      1
+    ],
+    [
+      7,
+      0,
+      0.0,
+      1
+    ],
+    [
+      8,
+      0,
+      0.0,
+      1
+    ],
+    [
+      9,
+      0,
+      0.0,
+      1
+    ],
+    [
+      10,
+      0,
+      0.0,
+      1
+    ],
+    [
+      11,
+      0,
+      0.0,
+      1
+    ],
+    [
+      12,
+      0,
+      0.0,
+      1
+    ],
+    [
+      13,
+      0,
+      0.0,
+      1
+    ],
+    [
+      14,
+      0,
+      0.0,
+      1
+    ],
+    [
+      15,
+      0,
+      0.0,
+      1
+    ],
+    [
+      16,
+      0,
+      0.0,
+      1
+    ],
+    [
+      17,
+      0,
+      0.0,
+      1
+    ],
+    [
+      18,
+      0,
+      0.0,
+      1
+    ],
+    [
+      19,
+      0,
+      0.0,
+      1
+    ],
+    [
+      20,
+      0,
+      0.0,
+      1
+    ],
+    [
+      21,
+      0,
+      0.0,
+      1
+    ],
+    [
+      22,
+      0,
+      0.0,
+      1
+    ],
+    [
+      23,
+      0,
+      0.0,
+      1
+    ],
+    [
+      24,
+      0,
+      0.0,
+      1
+    ],
+    [
+      25,
+      0,
+      0.0,
+      1
+    ],
+    [
+      26,
+      0,
+      0.0,
+      1
+    ],
+    [
+      27,
+      0,
+      0.0,
+      1
+    ],
+    [
+      28,
+      0,
+      0.0,
+      1
+    ],
+    [
+      29,
+      0,
+      0.0,
+      1
+    ],
+    [
+      30,
+      0,
+      0.0,
+      1
+    ],
+    [
+      31,
+      0,
+      0.0,
+      1
+    ],
+    [
+      32,
+      0,
+      0.0,
+      1
+    ],
+    [
+      33,
+      0,
+      0.0,
+      1
+    ],
+    [
+      34,
+      0,
+      0.0,
+      1
+    ],
+    [
+      35,
+      0,
+      0.0,
+      1
+    ],
+    [
+      36,
+      0,
+      0.0,
+      1
+    ],
+    [
+      37,
+      0,
+      0.0,
+      1
+    ],
+    [
+      38,
+      0,
+      0.0,
+      1
+    ],
+    [
+      39,
+      0,
+      0.0,
+      1
+    ],
+    [
+      40,
+      0,
+      0.0,
+      1
+    ],
+    [
+      41,
+      0,
+      0.0,
+      1
+    ],
+    [
+      42,
+      0,
+      0.0,
+      1
+    ],
+    [
+      43,
+      0,
+      0.0,
+      1
+    ],
+    [
+      44,
+      0,
+      0.0,
+      1
+    ],
+    [
+      45,
+      0,
+      0.0,
+      1
+    ],
+    [
+      46,
+      0,
+      0.0,
+      1
+    ],
+    [
+      47,
+      0,
+      0.0,
+      1
+    ],
+    [
+      48,
+      0,
+      0.0,
+      1
+    ],
+    [
+      49,
+      0,
+      0.0,
+      1
+    ],
+    [
+      50,
+      0,
+      0.0,
+      1
+    ],
+    [
+      51,
+      0,
+      0.0,
+      1
+    ],
+    [
+      52,
+      0,
+      0.0,
+      1
+    ],
+    [
+      53,
+      0,
+      0.0,
+      1
+    ],
+    [
+      54,
+      0,
+      0.0,
+      1
+    ],
+    [
+      55,
+      0,
+      0.0,
+      1
+    ],
+    [
+      56,
+      0,
+      0.0,
+      1
+    ],
+    [
+      57,
+      0,
+      0.0,
+      1
+    ]
+  ],
+  "frame_query_columns": [
+    "frame_index",
+    "query_calls",
+    "query_cpu_ms",
+    "physics_ticks"
+  ],
+  "frames_after_warmup": {
+    "note": "run shorter than warmup window"
+  },
+  "frames_from_match_start": {
+    "count": 57,
+    "fps_from_mean": 56.8570613477717,
+    "max_ms": 87.972,
+    "mean_ms": 17.5879649122807,
+    "p50_ms": 16.71,
+    "p95_ms": 17.542,
+    "p99_ms": 87.972
+  },
+  "full_requested": false,
+  "fx_level": 2,
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "headless": false,
+  "incomplete": false,
+  "load_coverage": {
+    "audio": {
+      "accepted": 0,
+      "driver": "WASAPI",
+      "peak_db": -100.0,
+      "peak_voices": 0,
+      "status": "not_covered"
+    },
+    "building_collapse": "not_covered",
+    "building_sections_collapsed": 0,
+    "building_sections_hit": 0,
+    "projectiles_finished": 0,
+    "shell_types_observed": {},
+    "vehicle_config": {
+      "A": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "A2": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "A3": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "A4": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "B": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "B2": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "B3": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      },
+      "B4": {
+        "shell": "",
+        "shell_counts": {},
+        "vehicle_id": "player_tank"
+      }
+    },
+    "wreck_load": "not_covered",
+    "wrecks_peak": 0
+  },
+  "map": "industrial",
+  "match_finished": false,
+  "measurement_end_sim_time": 0.0,
+  "measurement_scope": "rendered frames after scene ready; setup measured separately",
+  "measurement_start_sim_time": 0.0,
+  "observer_far_m": 400.0,
+  "observer_fov": 75.0,
+  "physics_tick_hz": 60,
+  "query_metrics": {
+    "calls": 0,
+    "cpu_ms": 0.0,
+    "enabled": true,
+    "scope": "ShotQueryService only; excludes snapshot building, physics server and rendering"
+  },
+  "query_sources": {},
+  "render_cap": 60,
+  "renderer": "gl_compatibility",
+  "resolution": [
+    1280,
+    720
+  ],
+  "samples_ms": [
+    87.972,
+    17.273,
+    4.552,
+    9.325,
+    17.341,
+    17.157,
+    15.89,
+    16.341,
+    16.745,
+    16.542,
+    16.99,
+    16.36,
+    17.542,
+    16.174,
+    17.445,
+    15.529,
+    17.21,
+    16.188,
+    17.086,
+    16.097,
+    16.643,
+    17.199,
+    16.71,
+    16.581,
+    16.611,
+    16.883,
+    17.698,
+    15.055,
+    16.778,
+    16.769,
+    16.937,
+    16.315,
+    17.267,
+    16.127,
+    16.583,
+    16.906,
+    16.828,
+    17.271,
+    16.493,
+    16.206,
+    17.384,
+    16.002,
+    16.261,
+    16.914,
+    16.78,
+    16.348,
+    16.475,
+    17.082,
+    16.805,
+    16.95,
+    16.507,
+    16.608,
+    16.881,
+    15.899,
+    17.261,
+    16.211,
+    16.527
+  ],
+  "scene_setup_ms": 269.775,
+  "seed": 19001,
+  "selected_vehicle": "player_tank",
+  "snapshots": [
+    {
+      "accepted_shots": 0,
+      "actors": 8,
+      "ai_controllers": 8,
+      "draw_calls": 1248,
+      "frame_index": 30,
+      "live": 8,
+      "local_controllers": 0,
+      "nodes": 1482,
+      "objects": 6775,
+      "observer_camera": true,
+      "orphans": 0,
+      "phase": "countdown",
+      "physics_ms": 0.789,
+      "primitives": 176330,
+      "process_ms": 5.018,
+      "projectiles": 0,
+      "query_calls_total": 0,
+      "query_cpu_ms_total": 0.0,
+      "records": 0,
+      "resources": 147,
+      "seconds": 0.0,
+      "static_memory_bytes": 136254450,
+      "vehicle_cameras": 0,
+      "wall_seconds": 0.552686,
+      "wrecks": 0
+    }
+  ],
+  "termination_reason": "paused_during_measurement",
+  "time_scale": 1.0,
+  "vsync": 0,
+  "wall_limit_seconds": 15.0,
+  "wall_seconds": 1.02165,
+  "warmup_seconds": 15.0
+}

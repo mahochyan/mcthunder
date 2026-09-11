@@ -9,6 +9,7 @@ const EPS_DIST_GROUP := 0.001   # 排序后的容差分组（米）
 static var measure_enabled := false
 static var measured_calls := 0
 static var measured_usec := 0
+static var measured_sources := {}
 const BOUNDS_CACHE_LIMIT := 512
 static var bounds_cache_enabled := true
 static var _vertex_bounds := {}
@@ -83,7 +84,14 @@ static func query(request: Dictionary, snapshots: Array) -> Dictionary:
 	if not measure_enabled: return _query(request,snapshots)
 	var started:=Time.get_ticks_usec()
 	var result:=_query(request,snapshots)
-	measured_calls+=1; measured_usec+=Time.get_ticks_usec()-started
+	var elapsed := Time.get_ticks_usec()-started
+	measured_calls+=1; measured_usec+=elapsed
+	var id := str(request.get("query_id",""))
+	var source := "other"
+	for prefix in ["aim_","proj_","fragment_"]:
+		if id.begins_with(prefix): source=prefix; break
+	if not measured_sources.has(source): measured_sources[source]={"calls":0,"cpu_usec":0}
+	measured_sources[source].calls+=1; measured_sources[source].cpu_usec+=elapsed
 	return result
 
 static func _query(request: Dictionary, snapshots: Array) -> Dictionary:

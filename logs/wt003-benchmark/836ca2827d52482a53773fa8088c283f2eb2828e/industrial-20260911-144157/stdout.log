@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[progress] { "wall_seconds": 0.092926, "sim_seconds": 0.0, "phase": "countdown", "frames": 1, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 15.095571, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 902, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 30.112253, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 1803, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 45.127401, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 2704, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 60.144017, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 3605, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 75.16006, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 4506, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 90.175681, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 5407, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 105.191738, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 6308, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 120.207892, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 7209, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 135.224167, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 8110, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 150.240194, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 9011, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 165.256753, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 9912, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 180.272892, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 10813, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 195.288815, "sim_seconds": 0.71666666666667, "phase": "playing", "frames": 11714, "projectiles_finished": 0 }

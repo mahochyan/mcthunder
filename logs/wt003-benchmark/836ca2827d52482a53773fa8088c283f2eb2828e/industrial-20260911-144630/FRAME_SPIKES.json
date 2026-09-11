@@ -1,0 +1,149 @@
+{
+  "frames": 897,
+  "long_frames": 1,
+  "scope": "Drawn-frame interval counters; query time excludes snapshot construction and other simulation. Source other is not automatically equivalent to AI.",
+  "worst_frames": [
+    {
+      "frame": 1,
+      "frame_ms": 92.432,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 0
+    },
+    {
+      "frame": 2,
+      "frame_ms": 23.209,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 8
+    },
+    {
+      "frame": 176,
+      "frame_ms": 21.269,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 864,
+      "frame_ms": 19.282,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 446,
+      "frame_ms": 19.112,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 614,
+      "frame_ms": 19.02,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 450,
+      "frame_ms": 18.875,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 540,
+      "frame_ms": 18.253,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 592,
+      "frame_ms": 18.209,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 832,
+      "frame_ms": 18.188,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 834,
+      "frame_ms": 18.179,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 444,
+      "frame_ms": 18.179,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 877,
+      "frame_ms": 18.167,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 219,
+      "frame_ms": 18.131,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 508,
+      "frame_ms": 18.088,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 460,
+      "frame_ms": 18.076,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 610,
+      "frame_ms": 18.008,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 531,
+      "frame_ms": 17.991,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 426,
+      "frame_ms": 17.986,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 640,
+      "frame_ms": 17.985,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 1
+    }
+  ],
+  "multiple_tick_long_frames": 0,
+  "query_sources": {}
+}
