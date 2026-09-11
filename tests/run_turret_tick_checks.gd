@@ -20,6 +20,12 @@ func run() -> void:
 		if args.has("--stall") and tick in [60,180,300]: OS.delay_msec(100)
 		var cmd := VehicleCommand.new()
 		cmd.has_aim_point = true; cmd.aim_world_point = aim
+		if args.has("--local-intent"):
+			# Replay view input before this tick, exercising the player's clear-aim
+			# path rather than bypassing the camera with a scripted world target.
+			actor.cam_rig.set_aim(0.4*sin(tick*0.015),0.05*cos(tick*0.01))
+			cmd.has_aim_point = false; cmd.clear_aim = true
+			cmd.aim_held = tick>=180
 		cmd.fire_requested = tick in [90,240]
 		actor.submit_command(cmd)
 		await physics_frame

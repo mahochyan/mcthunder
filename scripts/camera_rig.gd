@@ -68,6 +68,9 @@ func _process(_delta: float) -> void:
 	recoil*=clampf(AccessibilitySettings.shake_strength,0,1)*(0.2 if _sight_requested else 1.0)
 	cam.h_offset = sin(recoil*80)*recoil*0.2
 	cam.v_offset = recoil*0.15
+	_update_camera_pose()
+
+func _update_camera_pose() -> void:
 	sight = _sight_requested and turret != null and not free_look
 	if sight:
 		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 只剔除本车视觉层
@@ -135,8 +138,9 @@ func intent_point() -> Vector3:
 		return pivot + dir3d * 60.0
 	return get_aim_point()
 
-func _physics_process(_delta: float) -> void:
+func refresh_intent(update_pose: bool = true) -> void:
 	# Actual armor silhouette in resolve mode. World queries stay in the physical update.
+	if update_pose: _update_camera_pose()
 	_precise_valid = false
 	intent_contact.clear()
 	if not snapshot_provider.is_valid() or tank == null: return

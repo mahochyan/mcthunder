@@ -205,7 +205,7 @@ func _aim_case(defs: VehicleDefs) -> void:
 	observer.gunner.snapshot_provider = func() -> Array: return [QuerySnapshotBuilder.build_from_vehicle(actor.tank,actor.damage_layout_override)]
 	observer.cam_rig.cam.global_position = Vector3(0,4,8)
 	observer.cam_rig.cam.look_at(Vector3(-0.46,1.68,0))
-	observer.cam_rig._physics_process(1.0/60)
+	observer.cam_rig.refresh_intent(false) # Explicit optical-position fixture, not player input.
 	var point := observer.cam_rig.intent_point()
 	_ok(observer.cam_rig.intent_contact.get("entity_id","") == actor.entity_id and point.y > 1.5,"precise camera intent detects turret above driving collision box")
 	observer.reset_vehicle()
