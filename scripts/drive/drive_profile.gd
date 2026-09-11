@@ -14,8 +14,15 @@ extends Resource
 @export var track_spacing_m := 2.5
 @export var neutral_turn := true
 @export var damaged_track_turn_scale := 0.25
+@export var pitch_degrees_per_acceleration := 0.18
+@export var pitch_limit_degrees := 1.5
+@export var pitch_response_rate := 8.0
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
+	for key in ["pitch_degrees_per_acceleration","pitch_limit_degrees","pitch_response_rate"]:
+		var value: float=get(key)
+		var ceiling: float={"pitch_degrees_per_acceleration":1.0,"pitch_limit_degrees":3.0,"pitch_response_rate":30.0}[key]
+		if not is_finite(value) or value<=0 or value>ceiling: errors.append("drive_profile."+key+": outside response tuning range")
 	for key in ["brake_scale","coast_scale"]:
 		var value: float=get(key)
 		if not is_finite(value) or value<=0 or value>3: errors.append("drive_profile."+key+": expected (0,3]")

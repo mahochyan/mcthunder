@@ -7,6 +7,7 @@ extends CharacterBody3D
 var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
 var powertrain := DrivePowertrain.new()
 var tracks := TrackDrive.new()
+var chassis := ChassisResponse.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var turret_rig: TurretRig
@@ -98,6 +99,7 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 		if not caps.steer:
 			steer = 0.0
 	var definition := defs if defs!=null else fallback_definition
+	var previous_speed := forward_speed
 	var forward := VehiclePose.flat_forward(global_basis)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
@@ -124,7 +126,13 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var up := Vector3.UP if ground_state.grounded else global_basis.y.normalized()
 	if ground_state.grounded and float(ground_state.slope_deg) <= limit+0.1:
 		up = ground_state.normal
-	global_basis = VehiclePose.approach(global_basis,VehiclePose.compose(forward,up),delta)
+	if ground_state.grounded:
+		# Remove last step's response before following terrain: never accumulate tilt.
+		var terrain_basis := global_basis*Basis(Vector3.RIGHT,-chassis.pitch)
+		var acceleration := (forward_speed-previous_speed)/delta if delta>0 else 0.0
+		chassis.step(acceleration,delta,definition.drive_profile)
+		global_basis = VehiclePose.approach(terrain_basis,VehiclePose.compose(forward,up),delta)*Basis(Vector3.RIGHT,chassis.pitch)
+	# In flight preserve the complete attitude, including the take-off response.
 	# 003-R1：前向用 global basis——actor 带非零 Y 旋转出生时移动沿车头方向
 	# （velocity 是全局坐标；local basis 在旋转父级下会丢失出生朝向）
 	var fwd := forward.slide(up).normalized()
@@ -160,6 +168,7 @@ func register_hit(identity: Dictionary) -> void:
 func reset() -> void:
 	powertrain.reset()
 	tracks.reset()
+	chassis.reset()
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

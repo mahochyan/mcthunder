@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] interactive client receives server-assigned vehicle
+[PASS] second connected peer owns a different vehicle
+[PASS] rendered replica moves between authoritative packet arrivals (36 frames)
+[PASS] rendered client receives actual server acceleration pitch
+[PASS] keyboard drive traverses real network and returns as server movement
+[PASS] mouse edge creates one server-authoritative shot
+[PASS] own ammunition and reload feedback comes from server
+[PASS] client replica does not run local gunner or driving
+[PASS] actual interactive client frame saved
+[PASS] disconnect and new handshake change authoritative control epoch
+[PASS] R key reconnect restores interactive control
+[PASS] disconnect does not retain a fire edge
+[PASS] transport disconnect clears interpolation and disables input
+=== 结果: 13 项检查, 0 失败 ===
+NETWORK_VIEW_CHECKS_PASS

@@ -12,3 +12,5 @@ coast_scale = 0.9
 turn_speed_falloff = 0.5
 turn_drag_per_second = 0.45
 track_spacing_m = 2.6
+pitch_degrees_per_acceleration = 0.22
+pitch_response_rate = 7.0

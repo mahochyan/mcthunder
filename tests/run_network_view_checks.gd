@@ -24,14 +24,17 @@ func run() -> void:
 	var intermediate_frames := 0
 	var previous_sequence := -1
 	var previous_position := start
+	var observed_hull_pitch := false
 	while Time.get_ticks_msec()<until:
 		await RenderingServer.frame_post_draw
 		var sequence := int(view.connection.latest.get("sequence",-1))
 		var position := view.owned.tank.global_position
+		if absf(view.owned.tank.global_rotation.x)>0.0001: observed_hull_pitch=true
 		if sequence==previous_sequence and position.distance_to(previous_position)>0.0001:
 			intermediate_frames+=1
 		previous_sequence=sequence; previous_position=position
 	check(intermediate_frames>=5,"rendered replica moves between authoritative packet arrivals (%d frames)"%intermediate_frames)
+	check(observed_hull_pitch,"rendered client receives actual server acceleration pitch")
 	Input.action_release("move_forward")
 	await wait_seconds(0.5)
 	check(view.owned.tank.global_position.distance_to(start)>0.5,"keyboard drive traverses real network and returns as server movement")

@@ -16,7 +16,7 @@ func push(snapshot: Dictionary) -> bool:
 		for key in ["life_id","generation","control_epoch"]:
 			if not VehicleCommandCodec.integer(row.get(key)): return false
 		if not row.get("position") is Array or row.position.size()!=3: return false
-		for value in row.position+[row.get("yaw"),row.get("turret_yaw"),row.get("gun_pitch")]:
+		for value in row.position+[row.get("yaw"),row.get("turret_yaw"),row.get("gun_pitch"),row.get("hull_pitch",0),row.get("hull_roll",0)]:
 			if not (value is int or value is float) or not is_finite(float(value)): return false
 	# The final snapshot may share a simulation tick with the last broadcast.
 	if not frames.is_empty() and snapshot.tick==frames[-1].tick: frames.pop_back()
@@ -51,5 +51,6 @@ func sample(tick: float) -> Array:
 			var b := Vector3(next.position[0],next.position[1],next.position[2])
 			var p := a.lerp(b,alpha); pose.position=[p.x,p.y,p.z]
 			for angle in ["yaw","turret_yaw","gun_pitch"]: pose[angle]=lerp_angle(float(old[angle]),float(next[angle]),alpha)
+			for angle in ["hull_pitch","hull_roll"]: pose[angle]=lerp_angle(float(old.get(angle,0)),float(next.get(angle,0)),alpha)
 		result.append(pose)
 	return result

@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] ordered authoritative samples admitted
+[PASS] midpoint is interpolated between server samples
+[PASS] angle crosses wrap by shortest arc
+[PASS] missing packets freeze at latest position without extrapolation
+[PASS] late or duplicate snapshot cannot rewind timeline
+[PASS] newer final snapshot at same tick replaces last state
+[PASS] invalid pose rejected atomically
+[PASS] new life snaps instead of crossing old vehicle path
+[PASS] control epoch change clears old pose interpolation
+[PASS] presentation consumers cannot mutate authoritative samples
+[PASS] timeline memory remains bounded
+[PASS] server hull attitude accepted
+[PASS] hull pitch and roll follow server interpolation
+[PASS] nonfinite hull attitude rejected
+[PASS] fresh connection accepts restarted server timeline
+=== 结果: 15 项检查, 0 失败 ===
+NETWORK_POSE_CHECKS_PASS

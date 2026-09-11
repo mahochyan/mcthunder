@@ -16,6 +16,8 @@ func _run() -> void:
 	check(not AssetManifestValidator.vehicle("../escape",true).ok,"unknown or traversal vehicle IDs are rejected before file access")
 	check(ArtPalette.material("olive")==ArtPalette.material("olive") and is_equal_approx(ArtPalette.material("olive").roughness,0.9),"palette materials are shared at the declared roughness")
 	var world:=Node3D.new(); root.add_child(world)
+	# Track motion requires physical contact since WT-006 removed airborne traction.
+	TerrainFixtures.box(world,Vector3(0,-0.5,0),Vector3(100,1,100))
 	for id in VehicleCatalog.IDS:
 		var manifest:=AssetManifestValidator.vehicle(id,true)
 		check(manifest.ok,id+": source/GLB/palette hashes and relative import provenance validate "+str(manifest.errors))

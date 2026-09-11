@@ -89,7 +89,7 @@ func _process(delta: float) -> void:
 		if not actors.has(row.entity_id): continue
 		var actor: VehicleActor=actors[row.entity_id]
 		actor.tank.global_position=Vector3(row.position[0],row.position[1],row.position[2])
-		actor.tank.global_rotation=Vector3(0,row.yaw,0)
+		actor.tank.global_rotation=Vector3(row.get("hull_pitch",0),row.yaw,row.get("hull_roll",0))
 		actor.turret.rotation.y=row.turret_yaw; actor.turret.barrel_pivot.rotation.x=row.gun_pitch
 func _physics_process(_delta: float) -> void:
 	var label: String={"connecting":"正在连接","connected":"已连接","disconnected":"连接已断开，按 R 重试","finished":"训练已结束"}.get(connection.status,connection.status)

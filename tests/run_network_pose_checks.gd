@@ -30,6 +30,14 @@ func _initialize() -> void:
 	for tick in range(103,160): buffer.push(frame(tick,tick,0,2))
 	check(buffer.frames.size()==NetworkPoseBuffer.CAPACITY,"timeline memory remains bounded")
 	buffer.clear()
+	var tilted := frame(3,1,0); tilted.vehicles[0].hull_pitch=0.1; tilted.vehicles[0].hull_roll=-0.2
+	var tilted_next := frame(9,2,0); tilted_next.vehicles[0].hull_pitch=0.3; tilted_next.vehicles[0].hull_roll=0.2
+	check(buffer.push(tilted) and buffer.push(tilted_next),"server hull attitude accepted")
+	var tilted_middle: Dictionary=buffer.sample(6)[0]
+	check(absf(tilted_middle.hull_pitch-0.2)<0.00001 and absf(tilted_middle.hull_roll)<0.00001,"hull pitch and roll follow server interpolation")
+	var invalid_tilt := frame(12,3,0); invalid_tilt.vehicles[0].hull_pitch=NAN
+	check(not buffer.push(invalid_tilt),"nonfinite hull attitude rejected")
+	buffer.clear()
 	check(buffer.push(frame(3,1,0)) and buffer.sample(3)[0].position[0]==1,"fresh connection accepts restarted server timeline")
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
 	print("NETWORK_POSE_CHECKS_PASS" if failures==0 else "NETWORK_POSE_CHECKS_FAIL")
