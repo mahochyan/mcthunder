@@ -86,5 +86,7 @@ func _physics_process(_delta: float) -> void:
 	if final_snapshot.is_empty() and Engine.get_physics_frames()%3==0:
 		snapshot_sequence+=1
 		var snapshot := world.snapshot(snapshot_sequence)
-		for id in owners: send_to(id,{"type":"snapshot","snapshot":snapshot})
+		for id in owners:
+			var actor: VehicleActor=owners[id].vehicle
+			send_to(id,{"type":"snapshot","snapshot":snapshot,"own_status":{"cooldown":actor.gunner.cooldown_left,"ammo":actor.gunner.rounds_remaining,"speed":actor.tank.forward_speed}})
 func _exit_tree() -> void: peer.close()
