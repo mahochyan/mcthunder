@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] successful real shot pushes chassis opposite barrel (0.0, 0.0, -1.0)
+[PASS] cooldown rejection adds no recoil
+[PASS] pause freezes physical reaction
+[PASS] real chassis travels a bounded distance and settles (0.0, 0.000082, 0.127981)
+[PASS] recoil does not become a persistent engine command
+[PASS] successful real shot pushes chassis opposite barrel (1.0, 0.0, 0.0)
+[PASS] cooldown rejection adds no recoil
+[PASS] pause freezes physical reaction
+[PASS] real chassis travels a bounded distance and settles (-0.127981, 0.000082, -0.000374)
+[PASS] recoil does not become a persistent engine command
+[PASS] successful real shot pushes chassis opposite barrel (-1.0, 0.0, 0.0)
+[PASS] cooldown rejection adds no recoil
+[PASS] pause freezes physical reaction
+[PASS] real chassis travels a bounded distance and settles (0.127981, 0.000082, -0.000374)
+[PASS] recoil does not become a persistent engine command
+[PASS] successful real shot pushes chassis opposite barrel (0.0, 0.0, 1.0)
+[PASS] cooldown rejection adds no recoil
+[PASS] pause freezes physical reaction
+[PASS] real chassis travels a bounded distance and settles (0.0, 0.000082, -0.127981)
+[PASS] recoil does not become a persistent engine command
+[PASS] reset clears pending recoil
+[PASS] recoil cannot move the chassis through a blocking wall
+[PASS] 30/60/120 Hz recoil travel agrees within two millimetres: [0.12798447906971, 0.12798446416855, 0.12798450887203]
+=== 结果: 23 项检查, 0 失败 ===
+CHASSIS_RECOIL_CHECKS_PASS

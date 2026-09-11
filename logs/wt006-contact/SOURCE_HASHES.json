@@ -1,0 +1,10 @@
+[
+  {
+    "path": "scripts/tank.gd",
+    "sha256": "06F66C44E7163590F603760A4300AA487E7BA7093721431CBC98F166A2FB5DEF"
+  },
+  {
+    "path": "tests/run_airborne_drive_checks.gd",
+    "sha256": "674E46E49482A35D42A0E6E53491971689FF2E2EC1A490CCF4CB2226F3A1968B"
+  }
+]

@@ -98,20 +98,27 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 		if not caps.steer:
 			steer = 0.0
 	var definition := defs if defs!=null else fallback_definition
-	forward_speed=tracks.step(forward_speed,steer,delta,definition)
-	if track_pivot: forward_speed=tracks.single_track_pivot(steer,left_available,definition)
 	var forward := VehiclePose.flat_forward(global_basis)
-	forward = forward.rotated(Vector3.UP,tracks.yaw_rate*delta)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
+	if ground_state.grounded:
+		forward_speed=tracks.step(forward_speed,steer,delta,definition)
+		if track_pivot: forward_speed=tracks.single_track_pivot(steer,left_available,definition)
+		forward = forward.rotated(Vector3.UP,tracks.yaw_rate*delta)
+	else:
+		# Tracks cannot apply longitudinal or yaw traction without ground support.
+		tracks.yaw_rate=0
+		powertrain.traction_acceleration=0
+		powertrain.braking=false
 	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
-	if track_pivot: powertrain.reset()
-	else: forward_speed=powertrain.step(forward_speed,throttle,grade,ground_state.grounded,delta,definition,ground_state.surface_drag)
+	if ground_state.grounded:
+		if track_pivot: powertrain.reset()
+		else: forward_speed=powertrain.step(forward_speed,throttle,grade,true,delta,definition,ground_state.surface_drag)
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0
 	tracks.refresh(forward_speed,definition.drive_profile.track_spacing_m)
-	var up := Vector3.UP
+	var up := Vector3.UP if ground_state.grounded else global_basis.y.normalized()
 	if ground_state.grounded and float(ground_state.slope_deg) <= limit+0.1:
 		up = ground_state.normal
 	global_basis = VehiclePose.approach(global_basis,VehiclePose.compose(forward,up),delta)
