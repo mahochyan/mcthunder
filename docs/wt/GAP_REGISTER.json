@@ -48,9 +48,9 @@
     {
       "id": "WT-005",
       "title": "差速转向与履带能力",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序。依赖：WT-004。\n\n做左右履带速度/牵引能力、转向损速、速度相关转向、是否可原地转向、侧滑限制与单侧履带失能。\n\n**交付**\n- 左右履带运行状态与参数\n- 原地/行进/倒车转向夹具\n- 单侧损伤与维修后的能力回归\n\n**验收**\n- 高速转向不能像无质量旋转盒子；损速及转弯半径按车配置体现\n- 双履带失能不能继续正常行驶；单履带行为按设计明确限制\n- 履带动画读取真实运动结果，不仅按 W/A/S/D 播放",
-      "evidence": [],
+      "evidence": ["WT005_TRACK_DRIVE.md"],
       "human_accepted": false,
       "release_ready": false
     },

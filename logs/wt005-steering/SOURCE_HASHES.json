@@ -1,0 +1,30 @@
+[
+  {
+    "path": "scripts/drive/track_drive.gd",
+    "sha256": "5B35F2D19C73DDE401F3A370B7708A698E1AD3462CD7365D0BDBE6D5E8E56D11"
+  },
+  {
+    "path": "scripts/drive/drive_profile.gd",
+    "sha256": "E8A1978812022FBBF0D5BEF9859C359D3A55F861A4A9EFF14D84FE283806FD40"
+  },
+  {
+    "path": "scripts/tank.gd",
+    "sha256": "A35B56E79776FC66DBD59B7694FA5D145B39895FBC27480693B4EA22C50783AE"
+  },
+  {
+    "path": "configs/drive/m4a3_design.tres",
+    "sha256": "07F1A783E029160B34311313A509B5F940C11748F9E88371F42E3D79A6DD4239"
+  },
+  {
+    "path": "configs/drive/m24_design.tres",
+    "sha256": "003855F6E3432A0D84C47A38B3E3DA7218B9481F304D663FF3AD7156A0B1DCE8"
+  },
+  {
+    "path": "tests/run_track_drive_checks.gd",
+    "sha256": "581A4CB9873F959C573548F3B4B9591D720AB6D9B2D3C8777600FBC1AD284E27"
+  },
+  {
+    "path": "tests/run_drive_player_checks.gd",
+    "sha256": "67F27D4172C6D6DF76282DF64E42B4EF748D7B91279AE8D9BED1307E4DABE24B"
+  }
+]

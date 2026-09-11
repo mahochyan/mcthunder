@@ -70,21 +70,39 @@ func _run() -> void:
 	await _click(_find(app.garage,"转左"))
 	await _capture("01c_m4_side")
 	# Reach lower laboratory controls through normal wheel scrolling.
-	for i in 9:
+	var hover := InputEventMouseMotion.new()
+	hover.position=Vector2(260,400); hover.global_position=hover.position
+	Input.parse_input_event(hover)
+	await _frames(3)
+	for i in 50:
+		var target := _find(app.garage,"地形")
+		if target != null and target.get_global_rect().get_center().y<470: break
 		for pressed in [true,false]:
 			var wheel := InputEventMouseButton.new()
 			wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
-			wheel.position = Vector2(260,460)
+			wheel.position = Vector2(260,400)
+			wheel.global_position = wheel.position
 			wheel.pressed = pressed
 			Input.parse_input_event(wheel)
 			await _frames(2)
 	var button := _find(app.garage,"地形")
-	_check(button != null and button.get_global_rect().get_center().y < 660,"terrain laboratory control reachable by scrolling")
+	_check(button != null and button.get_global_rect().get_center().y < 470,"terrain laboratory control reachable by scrolling")
 	await _click(button)
 	scene = app.training as TerrainRange
 	_check(scene != null and scene.ready_drive,"normal garage click enters actual terrain laboratory")
 	if scene == null: quit(1); return
 	await _capture("02_route_start")
+	var turn_start := scene.actor.tank.global_position
+	var turn_yaw := scene.actor.tank.global_rotation.y
+	await _key(KEY_D,true)
+	await _frames(60)
+	await _key(KEY_D,false)
+	var turn_delta := scene.actor.tank.global_position-turn_start
+	turn_delta.y=0
+	_check(absf(angle_difference(turn_yaw,scene.actor.tank.global_rotation.y))>0.3 and turn_delta.length()<0.03,"normal D turns actual vehicle in place without horizontal drift")
+	await _capture("02b_keyboard_turn")
+	await _tap(KEY_1)
+	_check(absf(scene.actor.tank.global_rotation.y)<0.01 and scene.actor.tank.tracks.yaw_rate==0,"normal route restart clears steering pose and track state")
 	await _key(KEY_W,true)
 	await _frames(190)
 	await _key(KEY_W,false)

@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] actual window capture 01_m4_garage
+[PASS] actual window capture 01b_m4_rear_quarter
+[PASS] actual window capture 01c_m4_side
+[FAIL] terrain laboratory control reachable by scrolling
+[FAIL] normal garage click enters actual terrain laboratory

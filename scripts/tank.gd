@@ -6,6 +6,7 @@ extends CharacterBody3D
 
 var forward_speed := 0.0     # m/s，正值 = 沿 -Z 前进
 var powertrain := DrivePowertrain.new()
+var tracks := TrackDrive.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var turret_rig: TurretRig
@@ -92,9 +93,10 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 			throttle = 0.0
 		if not caps.steer:
 			steer = 0.0
-	var turn: float = defs.hull_turn_speed if defs != null else GameConfig.HULL_TURN_SPEED
+	var definition := defs if defs!=null else fallback_definition
+	forward_speed=tracks.step(forward_speed,steer,delta,definition)
 	var forward := VehiclePose.flat_forward(global_basis)
-	forward = forward.rotated(Vector3.UP,deg_to_rad(turn)*steer*delta)
+	forward = forward.rotated(Vector3.UP,tracks.yaw_rate*delta)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
 	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
@@ -102,6 +104,7 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0
+	tracks.refresh(forward_speed,definition.drive_profile.track_spacing_m)
 	var up := Vector3.UP
 	if ground_state.grounded and float(ground_state.slope_deg) <= limit+0.1:
 		up = ground_state.normal
@@ -140,6 +143,7 @@ func register_hit(identity: Dictionary) -> void:
 
 func reset() -> void:
 	powertrain.reset()
+	tracks.reset()
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

@@ -9,3 +9,6 @@ shift_seconds = 0.24
 grade_acceleration = 4.0
 brake_scale = 0.85
 coast_scale = 0.9
+turn_speed_falloff = 0.5
+turn_drag_per_second = 0.45
+track_spacing_m = 2.6
