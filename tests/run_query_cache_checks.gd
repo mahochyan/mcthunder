@@ -8,6 +8,22 @@ func check(ok: bool, label: String) -> void:
 	if not ok: failed+=1
 	print(("[PASS] " if ok else "[FAIL] ")+label)
 func run() -> void:
+	var edge_layout := VehicleLayoutDefinition.new()
+	var part := LayoutPartDefinition.new(); part.id="hull"; edge_layout.parts.append(part)
+	var edge_patch := ArmorPatchDefinition.new(); edge_patch.id="edge"; edge_patch.part_id="hull"
+	edge_patch.vertices_local_m=PackedVector3Array([Vector3.ZERO,Vector3(1,0,0),Vector3(0,0,1)])
+	edge_patch.triangles=PackedInt32Array([0,1,2]); edge_layout.armor_patches.append(edge_patch)
+	var edge_snapshot := QuerySnapshotBuilder.build_identity_snapshot("edge",1,"edge",edge_layout,{"hull":Transform3D.IDENTITY})
+	var edge_request := {"from_world":Vector3(-1,0,0.5),"to_world":Vector3(0.5,0,2),"include_modules":false}
+	ShotQueryService.part_culling_enabled=false
+	var edge_reference := ShotQueryService.query(edge_request,[edge_snapshot])
+	ShotQueryService.part_culling_enabled=true
+	check(not edge_reference.complete and ShotQueryService.query(edge_request,[edge_snapshot])==edge_reference,"coarse part filtering preserves legacy coplanar unresolved semantics")
+	edge_patch.triangles=PackedInt32Array([0,0,2])
+	ShotQueryService.part_culling_enabled=false
+	edge_reference=ShotQueryService.query(edge_request,[edge_snapshot])
+	ShotQueryService.part_culling_enabled=true
+	check(not edge_reference.complete and ShotQueryService.query(edge_request,[edge_snapshot])==edge_reference,"warm cache detects triangle edits and preserves degenerate geometry diagnostics")
 	var defs:=VehicleDefs.new(); defs.load_defaults()
 	var catalog:=VehicleCatalog.new(); check(catalog.load_all(defs).ok,"actual four-vehicle geometry admitted")
 	var world:=Node3D.new(); root.add_child(world)

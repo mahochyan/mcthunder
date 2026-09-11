@@ -1,8 +1,9 @@
 param([Parameter(Mandatory=$true)][string]$Report)
 $ErrorActionPreference='Stop'
 $data=Get-Content -LiteralPath $Report -Raw | ConvertFrom-Json
+if(-not $data.query_metrics.enabled) { throw 'Stage query attribution requires a report recorded with -QueryMetrics.' }
 $stages=@()
-foreach($group in ($data.snapshots | Group-Object { [math]::Floor($_.wall_seconds/60) })) {
+foreach($group in ($data.snapshots | Group-Object { [math]::Floor($_.wall_seconds/60) } | Sort-Object { [int]$_.Name })) {
     $rows=@($group.Group | Sort-Object frame_index)
     if($rows.Count -lt 2) { continue }
     $first=$rows[0]; $last=$rows[-1]

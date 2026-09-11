@@ -10,10 +10,18 @@
 
 ## 修改与验证
 
-ShotQueryService先按刚体部件的局部包围盒，用原生线段相交排除整段未经过的部件，再进入既有逐装甲面精查；模块/乘员查询不改变。每次使用当前部件变换，缺失/非法变换仍先按原规则报告。包围盒只缓存局部几何，最多64份，逐次按顶点值和部件ID比较，不信任未更新的revision。缓存签名和顶点键显式复制PackedVector3Array，修复元素修改可通过引用影响缓存键的问题。
+ShotQueryService先按刚体部件的局部包围盒排除整段未经过的部件，再进入既有逐装甲面精查；模块/乘员查询不改变。原生线段筛选仅在三角形无退化且线段未贴合任何三角形平面时使用，否则保留原AABB筛选和精查，避免将coplanar_unresolved错误变成clear。平面检测保留每个三角形的参考顶点，使用与旧几何内核相同的坐标差运算。每次使用当前部件变换，缺失/非法变换仍先按原规则报告。最多缓存64份局部几何，逐次按顶点、三角形索引和部件ID比较，不信任未更新的revision。缓存签名和顶点键显式复制Packed数组，防止元素修改影响缓存键。
 
 首轮追加的原地几何修改/车辆移动检查出现失败；分别修正测试夹具共享变换字典和缓存签名未独立冻结的问题，失败日志保留。最终`run_query_checks,run_query_cache_checks,run_projectile_checks,run_armor_checks,run_damage_checks,run_ai_combat_checks,run_engagement_distance_checks`共482项通过，证据`logs/wt003-part-cull/2284dd2-cull-final/20260911-142237`。
 
 固定八车128条混合查询、7批计时：关闭部件筛选150.371ms，开启65.412ms，约减少56.5%。两端425接触，完整输出指纹相同`e2abd1cdf44031878f87a57730e1dc9c225b37da9399ce14a9bdbfbe88c8c880`。证据`logs/wt003-part-cull/before.json`、`after.json`与COMPARISON.json中的源码哈希。两次都是本轮代码，只切换part_culling_enabled；不是拿不同玩法场景作微基准。命令为引擎`--headless --path . -s res://tests/run_query_profile.gd -- res://logs/wt003-part-cull/before.json --no-part-culling`及同脚本after.json（不带关闭开关），均退出0。
 
-完整局优化后对照尚待运行，56.5%是查询微基准收益，不是整局FPS增幅。没有减少AI观察频率、删掉碰撞或降低画质。完整目标仍为后期性能改善并继续向60FPS与帧时间门槛推进，不能凭此标记WT-003完成。
+上面的56.5%属于首轮未经共面反例覆盖的实现，已被下述最终版本取代，不再作为最终收益。未减少AI观察频率、删掉碰撞或降低画质；WT-003仍未完成。
+
+## 共面边界修订
+
+追加反例：线段的AABB与三角形AABB重叠、线段在三角形平面内，但实际不穿过部件包围盒。旧服务按约定输出coplanar_unresolved，首轮原生筛选错误略过，反例`e46ef90-coplanar-r2/20260911-142814`退出1。第一次反例脚本变量重名的解析失败也保留，不能当成几何反例证据。
+
+因此主动终止e46ef90完整局（自身Godot子进程），`logs/wt003-benchmark/e46ef90a260190c6457ed48e51047071f199293e/village-20260911-142453`明确passed=false、非完整局，不纳入前后性能比较。纯AABB保守版结果相同但微基准仅153.33→135.24ms；最终增加几何有效性与共面保护，在安全条件下使用快速筛选。
+
+最终同7套件484项通过，证据`logs/wt003-part-cull/e46ef90-guard-final/20260911-143201`，包含暖缓存后顶点/索引编辑、退化三角形、共面未决、真实移动姿态。最终微基准151.521→77.357ms（约减少48.95%），425接触与完整指纹相同；GUARD_COMPARISON.json记录源码哈希，guard-before/after记录原始七批。最终代码完整局对照仍待执行，不将局部收益当成实际FPS提升。

@@ -1,0 +1,188 @@
+[
+  {
+    "utc": "2026-09-11T06:24:59.6639725Z",
+    "pid": 5040,
+    "private_bytes": 536682496,
+    "working_set_bytes": 334495744
+  },
+  {
+    "utc": "2026-09-11T06:25:04.9816754Z",
+    "pid": 5040,
+    "private_bytes": 496824320,
+    "working_set_bytes": 334598144
+  },
+  {
+    "utc": "2026-09-11T06:25:10.2682821Z",
+    "pid": 5040,
+    "private_bytes": 496824320,
+    "working_set_bytes": 334651392
+  },
+  {
+    "utc": "2026-09-11T06:25:15.5462560Z",
+    "pid": 5040,
+    "private_bytes": 496967680,
+    "working_set_bytes": 334819328
+  },
+  {
+    "utc": "2026-09-11T06:25:20.8278122Z",
+    "pid": 5040,
+    "private_bytes": 496967680,
+    "working_set_bytes": 334856192
+  },
+  {
+    "utc": "2026-09-11T06:25:26.1145334Z",
+    "pid": 5040,
+    "private_bytes": 496922624,
+    "working_set_bytes": 334880768
+  },
+  {
+    "utc": "2026-09-11T06:25:31.3890988Z",
+    "pid": 5040,
+    "private_bytes": 506781696,
+    "working_set_bytes": 344526848
+  },
+  {
+    "utc": "2026-09-11T06:25:36.6614642Z",
+    "pid": 5040,
+    "private_bytes": 506781696,
+    "working_set_bytes": 344547328
+  },
+  {
+    "utc": "2026-09-11T06:25:41.9438955Z",
+    "pid": 5040,
+    "private_bytes": 518070272,
+    "working_set_bytes": 349585408
+  },
+  {
+    "utc": "2026-09-11T06:25:47.2404676Z",
+    "pid": 5040,
+    "private_bytes": 519639040,
+    "working_set_bytes": 351256576
+  },
+  {
+    "utc": "2026-09-11T06:25:52.5090609Z",
+    "pid": 5040,
+    "private_bytes": 519815168,
+    "working_set_bytes": 351465472
+  },
+  {
+    "utc": "2026-09-11T06:25:57.7839717Z",
+    "pid": 5040,
+    "private_bytes": 520847360,
+    "working_set_bytes": 352432128
+  },
+  {
+    "utc": "2026-09-11T06:26:03.0513336Z",
+    "pid": 5040,
+    "private_bytes": 522784768,
+    "working_set_bytes": 354496512
+  },
+  {
+    "utc": "2026-09-11T06:26:08.3551341Z",
+    "pid": 5040,
+    "private_bytes": 522854400,
+    "working_set_bytes": 354570240
+  },
+  {
+    "utc": "2026-09-11T06:26:13.6266465Z",
+    "pid": 5040,
+    "private_bytes": 523853824,
+    "working_set_bytes": 355569664
+  },
+  {
+    "utc": "2026-09-11T06:26:18.9027084Z",
+    "pid": 5040,
+    "private_bytes": 523862016,
+    "working_set_bytes": 355602432
+  },
+  {
+    "utc": "2026-09-11T06:26:24.1785675Z",
+    "pid": 5040,
+    "private_bytes": 525717504,
+    "working_set_bytes": 357429248
+  },
+  {
+    "utc": "2026-09-11T06:26:29.4494073Z",
+    "pid": 5040,
+    "private_bytes": 525832192,
+    "working_set_bytes": 357564416
+  },
+  {
+    "utc": "2026-09-11T06:26:34.7253672Z",
+    "pid": 5040,
+    "private_bytes": 525832192,
+    "working_set_bytes": 357584896
+  },
+  {
+    "utc": "2026-09-11T06:26:39.9763702Z",
+    "pid": 5040,
+    "private_bytes": 525832192,
+    "working_set_bytes": 357605376
+  },
+  {
+    "utc": "2026-09-11T06:26:45.2503725Z",
+    "pid": 5040,
+    "private_bytes": 525832192,
+    "working_set_bytes": 357625856
+  },
+  {
+    "utc": "2026-09-11T06:26:50.5038210Z",
+    "pid": 5040,
+    "private_bytes": 525848576,
+    "working_set_bytes": 357662720
+  },
+  {
+    "utc": "2026-09-11T06:26:55.7881046Z",
+    "pid": 5040,
+    "private_bytes": 525852672,
+    "working_set_bytes": 356937728
+  },
+  {
+    "utc": "2026-09-11T06:27:01.0511615Z",
+    "pid": 5040,
+    "private_bytes": 525819904,
+    "working_set_bytes": 356941824
+  },
+  {
+    "utc": "2026-09-11T06:27:06.3149064Z",
+    "pid": 5040,
+    "private_bytes": 525819904,
+    "working_set_bytes": 356958208
+  },
+  {
+    "utc": "2026-09-11T06:27:11.5904769Z",
+    "pid": 5040,
+    "private_bytes": 525783040,
+    "working_set_bytes": 356966400
+  },
+  {
+    "utc": "2026-09-11T06:27:16.8713488Z",
+    "pid": 5040,
+    "private_bytes": 525950976,
+    "working_set_bytes": 357109760
+  },
+  {
+    "utc": "2026-09-11T06:27:22.1498727Z",
+    "pid": 5040,
+    "private_bytes": 525950976,
+    "working_set_bytes": 357208064
+  },
+  {
+    "utc": "2026-09-11T06:27:27.4535132Z",
+    "pid": 5040,
+    "private_bytes": 516689920,
+    "working_set_bytes": 357212160
+  },
+  {
+    "utc": "2026-09-11T06:27:32.7427603Z",
+    "pid": 5040,
+    "private_bytes": 516689920,
+    "working_set_bytes": 357212160
+  },
+  {
+    "utc": "2026-09-11T06:27:38.0448088Z",
+    "pid": 5040,
+    "private_bytes": 516689920,
+    "working_set_bytes": 357212160
+  }
+]

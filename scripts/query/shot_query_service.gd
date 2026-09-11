@@ -22,11 +22,12 @@ static func _part_bounds(layout: VehicleLayoutDefinition) -> Dictionary:
 	var signature: Array=[]
 	for patch in layout.armor_patches:
 		if patch!=null:
-			signature.append(patch.part_id); signature.append(patch.vertices_local_m)
+			signature.append(patch.part_id); signature.append(patch.vertices_local_m); signature.append(patch.triangles)
 	var key := layout.get_instance_id()
 	var cached: Dictionary=_part_bounds_cache.get(key,{})
-	if not cached.is_empty() and cached.signature==signature: return cached.bounds
+	if not cached.is_empty() and cached.signature==signature: return cached
 	var bounds := {}
+	var planes := {}; var unsafe := {}
 	for patch in layout.armor_patches:
 		if patch==null or patch.vertices_local_m.is_empty(): continue
 		var row: PackedVector3Array=_bounds(patch.vertices_local_m)
@@ -34,10 +35,33 @@ static func _part_bounds(layout: VehicleLayoutDefinition) -> Dictionary:
 			var old: PackedVector3Array=bounds[patch.part_id]
 			row=PackedVector3Array([old[0].min(row[0]),old[1].max(row[1])])
 		bounds[patch.part_id]=row
+		if not planes.has(patch.part_id): planes[patch.part_id]={}
+		var vertices := patch.vertices_local_m
+		var triangles := patch.triangles
+		if triangles.size()%3!=0: unsafe[patch.part_id]=true; continue
+		for start in range(0,triangles.size(),3):
+			var indices := [triangles[start],triangles[start+1],triangles[start+2]]
+			if indices.min()<0 or indices.max()>=vertices.size(): unsafe[patch.part_id]=true; continue
+			var a:=vertices[indices[0]]; var b:=vertices[indices[1]]; var c:=vertices[indices[2]]
+			var normal := (b-a).cross(c-a)
+			var area2 := normal.length()
+			if not a.is_finite() or not b.is_finite() or not c.is_finite() or not is_finite(area2) or area2<=QueryGeometry.EPS_AREA or minf(a.distance_to(b),minf(b.distance_to(c),c.distance_to(a)))<=QueryGeometry.EPS_M:
+				unsafe[patch.part_id]=true; continue
+			normal/=area2
+			planes[patch.part_id][PackedVector3Array([normal,a])]=true
 	if _part_bounds_cache.size()>=PART_CACHE_LIMIT: _part_bounds_cache.clear()
-	for index in range(1,signature.size(),2): signature[index]=signature[index].duplicate()
-	_part_bounds_cache[key]={"signature":signature,"bounds":bounds}
-	return bounds
+	for index in signature.size():
+		if index%3!=0: signature[index]=signature[index].duplicate()
+	for part_id in planes: planes[part_id]=planes[part_id].keys()
+	_part_bounds_cache[key]={"signature":signature,"bounds":bounds,"planes":planes,"unsafe":unsafe}
+	return _part_bounds_cache[key]
+
+static func _safe_slab_miss(data: Dictionary, part_id: String, a: Vector3, b: Vector3, bound: PackedVector3Array) -> bool:
+	if data.unsafe.has(part_id) or AABB(bound[0],bound[1]-bound[0]).grow(QueryGeometry.EPS_M*4).intersects_segment(a,b): return false
+	# Preserve the existing unresolved result even for a coplanar line outside a triangle.
+	for plane: PackedVector3Array in data.planes.get(part_id,[]):
+		if absf(plane[0].dot(a-plane[1]))<=QueryGeometry.EPS_M*4 and absf(plane[0].dot(b-plane[1]))<=QueryGeometry.EPS_M*4: return false
+	return true
 
 static func _bounds(vertices: PackedVector3Array) -> PackedVector3Array:
 	# Packed arrays use value hashing/equality and copy-on-write. Changed geometry
@@ -237,7 +261,8 @@ static func _collect_patches(
 	var local_segments := {}
 	var missed_parts := {}
 	if part_culling_enabled:
-		var part_bounds := _part_bounds(layout)
+		var part_data := _part_bounds(layout)
+		var part_bounds: Dictionary=part_data.bounds
 		for part_id in part_bounds:
 			if not transforms.has(part_id): continue
 			var inv: Transform3D=transforms[part_id].affine_inverse()
@@ -245,8 +270,11 @@ static func _collect_patches(
 			var segment := PackedVector3Array([a,b,a.min(b),a.max(b)])
 			local_segments[part_id]=segment
 			var bound: PackedVector3Array=part_bounds[part_id]
-			if not AABB(bound[0],bound[1]-bound[0]).grow(QueryGeometry.EPS_M).intersects_segment(a,b):
+			# Match the existing patch AABB gate. A tighter slab test could suppress
+			# its coplanar/degenerate diagnostics and incorrectly turn unknown into clear.
+			if segment[3].x<bound[0].x or segment[2].x>bound[1].x or segment[3].y<bound[0].y or segment[2].y>bound[1].y or segment[3].z<bound[0].z or segment[2].z>bound[1].z:
 				missed_parts[part_id]=true
+			elif _safe_slab_miss(part_data,str(part_id),a,b,bound): missed_parts[part_id]=true
 		if missed_parts.size()==part_bounds.size() and part_bounds.size()>0: return true
 	for patch in layout.armor_patches:
 		if patch == null:
