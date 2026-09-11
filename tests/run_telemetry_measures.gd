@@ -49,6 +49,16 @@ func _run() -> void:
 	life = snap.per_life[key]
 	var open_eps: Array = life.episodes.filter(func(e: Dictionary) -> bool: return e.outcome == "open_at_end")
 	_check(open_eps.size() == 1 and int(life.open_at_end) == 1,"stall unrecovered at end is recorded as open_at_end, never as success")
+	_check(life.total_s == life.closed_total_s+life.open_total_s and life.open_total_s>0 and life.longest_s>=life.open_total_s,"open wait contributes to total and longest without closing it")
+	_check(tm.snapshot()==snap,"repeated snapshots do not double-count open waits")
+	var before := int(tm.planning.replanned)
+	for i in 100: scene.ai.driver.set_goal(here+Vector3(0,0,300))
+	tm.step([bot],0.1)
+	_check(scene.ai.driver.events.size()==64 and int(tm.planning.replanned)-before==100,"one hundred actual planning requests survive 64-event ring rollover")
+	scene.ai.phase = "retreat"
+	scene.ai.driver.cancel("fixture outside supply")
+	tm.step([bot],0.1)
+	_check(not tm.snapshot().per_life[key].holds.has("resupply"),"retreat outside a real supply area is not resupply")
 	print("=== done: %d checks, %d failed ==="%[count,failed])
 	print("TELEMETRY_MEASURES_PASS" if failed == 0 else "TELEMETRY_MEASURES_FAIL")
 	scene.free()

@@ -17,6 +17,8 @@ var clock := 0.0
 var last_command := VehicleCommand.new()
 var patrol_goal := Vector3.ZERO
 var _last_hop := Vector3.INF   # navigation sub-target from the last hop (never re-hopped onto)
+var _task_hops: Array[Vector3] = []
+var objective_blocked := false
 var retreat_goal := Vector3.ZERO
 var has_patrol := false
 var advance_while_engaged := false # Objective match policy; does not supply enemy information.
@@ -42,6 +44,8 @@ func configure(vehicle: VehicleActor, nav: DriveNavigator, provider: Callable, l
 func is_local_controller() -> bool: return false
 func actor() -> VehicleActor: return _actor_ref.get_ref() as VehicleActor if _actor_ref != null else null
 func reset_pending() -> void:
+	_task_hops.clear()
+	objective_blocked = false
 	sensor.clear()
 	sensor.preferred_sample = 0
 	var vehicle := actor()
@@ -54,6 +58,9 @@ func reset_pending() -> void:
 	last_command = VehicleCommand.new()
 func on_detached() -> void: reset_pending()
 func set_patrol(point: Vector3, fallback: Vector3) -> void:
+	if not has_patrol or point != patrol_goal:
+		_task_hops.clear()
+		objective_blocked = false
 	patrol_goal = point
 	retreat_goal = fallback
 	has_patrol = true
@@ -75,12 +82,18 @@ func _drive_patrol_or_hop() -> void:
 	# retry loop re-attempts it from every new position (GPT Q2 ruling). Reusing
 	# the same hop node is excluded, so repeated hops always move onto new ground.
 	if driver.set_goal(patrol_goal).ok:
+		objective_blocked = false
 		_last_hop = Vector3.INF
 		return
-	var hop := driver.escape_goal(_last_hop)
+	if _task_hops.size() >= GameConfig.AI_TASK_HOP_LIMIT:
+		objective_blocked = true
+		return
+	var hop := driver.escape_goal(_last_hop,_task_hops)
 	if hop.is_finite():
 		_last_hop = hop
+		_task_hops.append(hop)
 		driver.set_goal(hop)
+	else: objective_blocked = true
 
 func update_command(delta: float) -> VehicleCommand:
 	var cmd := VehicleCommand.new()

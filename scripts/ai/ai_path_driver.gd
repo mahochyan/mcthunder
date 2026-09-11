@@ -21,6 +21,7 @@ var _generation := -1
 var _blocked_edges := {}
 var stuck := StuckDetector.new()
 var events: Array[Dictionary] = []
+var planning_counts := {"failed":0,"unreachable":0,"replanned":0}
 var last_command := VehicleCommand.new()
 var debug_log := false
 
@@ -37,6 +38,7 @@ func _transition(value: String, why: String = "") -> void:
 	if phase == value and reason == why: return
 	phase = value
 	reason = why
+	if value in ["failed","unreachable"]: planning_counts[value] += 1
 	var vehicle := actor()
 	var event := {"time":clock,"phase":phase,"reason":reason,"attempts":attempts,"waypoint":waypoint,"goal":goal,"position":vehicle.tank.global_position if vehicle != null and is_instance_valid(vehicle.tank) and vehicle.tank.is_inside_tree() else Vector3.ZERO}
 	events.append(event.duplicate(true))
@@ -74,7 +76,7 @@ func set_goal(value: Vector3) -> Dictionary:
 	_last_plan = -INF
 	return _plan()
 
-func escape_goal(exclude: Vector3 = Vector3.INF) -> Vector3:
+func escape_goal(exclude: Vector3 = Vector3.INF, visited: Array[Vector3] = []) -> Vector3:
 	# Nearest graph node to self: stepping back onto the graph is always one hop
 	# and gives a repeatedly-unplannable goal a chance to be re-attempted from a
 	# connected position instead of idling on the same failure. The exclude point
@@ -86,7 +88,12 @@ func escape_goal(exclude: Vector3 = Vector3.INF) -> Vector3:
 	for id in navigator.nodes:
 		var node: Vector3 = navigator.nodes[id]
 		if exclude.is_finite() and node.distance_to(exclude) < 1.0: continue
+		var used := false
+		for point in visited:
+			if point.distance_to(node) < 1.0: used = true; break
+		if used: continue
 		var d: float = vehicle.tank.global_position.distance_to(node)
+		if d <= GameConfig.AI_GOAL_RADIUS_M: continue
 		if d < best_d:
 			best_d = d
 			best = node
@@ -97,6 +104,7 @@ func _plan() -> Dictionary:
 	if vehicle == null or not has_goal: return {"ok":false,"reason":"cancelled"}
 	if clock-_last_plan < GameConfig.AI_REPLAN_INTERVAL_S: return {"ok":false,"reason":"rate_limited"}
 	_last_plan = clock
+	planning_counts.replanned += 1
 	var result := navigator.request_path(vehicle.tank.global_position,goal,vehicle.definition.drive_collision_size.x,_blocked_edges)
 	if not result.ok:
 		has_goal = false

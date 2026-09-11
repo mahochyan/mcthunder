@@ -26,10 +26,10 @@ func _run() -> void:
 	scene.match_seed = seed
 	root.add_child(scene)
 	current_scene = scene
-	var shots_fired := 0
+	var shot_counts := {"finished":0}
 	var shells_by_type := {}
 	scene.projectiles.projectile_finished.connect(func(record: Dictionary) -> void:
-		shots_fired += 1
+		shot_counts.finished += 1
 		var shell := str(record.get("shell_id","?"))
 		shells_by_type[shell] = int(shells_by_type.get(shell,0)) + 1)
 	var samples := PackedFloat64Array()        # every drawn frame from match start
@@ -39,6 +39,8 @@ func _run() -> void:
 	var t0 := Time.get_ticks_usec()
 	var measure_start_sim: float = scene.director.state.elapsed if scene.director != null else -1.0
 	var wall_limit_ms := 600000 if full else 45000
+	index = args.find("--seconds")
+	if not full and index >= 0 and index+1 < args.size(): wall_limit_ms = clampi(int(args[index+1]),2,45)*1000
 	var match_finished := false
 	var last := t0
 	while Time.get_ticks_usec()-t0 < wall_limit_ms*1000:
@@ -46,7 +48,6 @@ func _run() -> void:
 		var now := Time.get_ticks_usec()
 		var ms := float(now-last)/1000.0
 		last = now
-		if samples.is_empty(): continue   # first frame has no interval baseline
 		samples.append(ms)
 		if now-t0 >= warmup_ms*1000: steady.append(ms)
 		if samples.size()%30 == 0: snapshots.append(TelemetrySnapshot.capture(scene))
@@ -83,7 +84,7 @@ func _run() -> void:
 		loadouts[actor.entity_id] = {"shell_counts":actor.gunner.initial_shell_counts.duplicate(true),"shell":str(actor.gunner.initial_shell_id)}
 	var load_coverage := {
 		"vehicle_config":loadouts,
-		"shots_fired":shots_fired,
+		"projectiles_finished":shot_counts.finished,
 		"shell_types_observed":shells_by_type,
 		"building_sections_hit":sections_hit,
 		"building_sections_collapsed":sections_collapsed,
@@ -113,10 +114,10 @@ func _run() -> void:
 	var capture := root.get_texture().get_image()
 	var saved := not capture.is_empty() and capture.save_png(ProjectSettings.globalize_path(out_dir.path_join("FRAME_PROFILE_%s_%d.png" % [map,seed]))) == OK
 	print("[frame profile] from_start=%s after_warmup=%s"%[report.frames_from_match_start,report.frames_after_warmup])
-	print("[load coverage] shots=%d shells=%s collapse=%d/%d wreaks=%d audio=%s"%[shots_fired,shells_by_type,sections_collapsed,sections_hit,wrecks_peak,load_coverage.audio])
-	print("[PASS] actual rendered frame intervals saved from match start")
+	print("[load coverage] projectiles_finished=%d shells=%s collapse=%d/%d wrecks=%d audio=%s"%[shot_counts.finished,shells_by_type,sections_collapsed,sections_hit,wrecks_peak,load_coverage.audio])
+	print("[PASS] actual rendered frame intervals saved from match start" if samples.size()>1 else "[FAIL] no usable frame sample")
 	print("[PASS] original frame saved" if saved else "[FAIL] actual frame capture missing")
-	var complete := saved and (match_finished or not full)
+	var complete := saved and samples.size()>1 and not snapshots.is_empty() and (match_finished or not full)
 	if full and not match_finished: print("[INCOMPLETE] wall timeout at %ds — partial data kept, NOT a full-match pass"%int(wall_limit_ms/1000))
 	print("FRAME_PROFILE_CHECKS_PASS" if complete else "FRAME_PROFILE_CHECKS_FAIL")
 	scene.free()

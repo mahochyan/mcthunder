@@ -5,6 +5,7 @@ var label: Label
 var recent: Array[Dictionary] = []
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 4
 	label = Label.new()
 	label.theme = CoreUI.theme()
@@ -29,6 +30,12 @@ func present(kind: String, point: Vector3) -> void:
 	while recent.size() > 3: recent.pop_front()
 
 func _process(delta: float) -> void:
+	var feedback := get_parent() as CombatFeedback
+	if get_tree().paused or (feedback != null and feedback.manager != null and feedback.manager._shut_down):
+		recent.clear()
+		label.text = ""
+		label.hide()
+		return
 	if not AccessibilitySettings.subtitles_enabled: recent.clear()
 	var lines: Array[String] = []
 	for item in recent: item.ttl -= delta

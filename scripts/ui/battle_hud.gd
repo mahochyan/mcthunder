@@ -308,6 +308,9 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	for module in model.modules:
 		if not module_labels.has(module.id): module_labels[module.id] = _label(module_grid,"",14)
 		var label: Label = module_labels[module.id]
+		# Keep the driving view clear; damage appears immediately and the full
+		# component list remains available while the battle overview is open.
+		label.visible = module.fraction < 1.0 or scoreboard.visible
 		label.text = ("× " if module.fraction <= 0 else ("! " if module.fraction < 1 else "· "))+module.name+" "+module.status
 		label.modulate = Color("ffca80") if module.fraction < 1 else Color("d7e2dc")
 	drive_label.text = LocalizationService.text("ui_8642a98dce3b") if model.drive_text.is_empty() else LocalizationService.text("ui_2646035954a7")+model.drive_text

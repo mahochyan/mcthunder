@@ -90,7 +90,9 @@ func _run() -> void:
 	check(feedback.fx.active_count()==0 and allocated==feedback.get_child_count()+feedback.audio.get_child_count()+feedback.fx.get_child_count(),"finished effects recycle without node growth")
 	check(feedback.audio.active_count()>0,"live vehicle has a real engine loop")
 	paused=true
+	feedback.subtitles.recent.append({"text":"pause fixture","ttl":2.0})
 	for i in 4: await process_frame
+	check(not feedback.subtitles.label.visible and feedback.subtitles.recent.is_empty(),"pause clears captions even while combat parent is paused")
 	check(feedback.audio.active_count()==0,"pause stops all live audio sources immediately")
 	paused=false; await frames(6)
 	check(feedback.audio.active_count()>0,"resume recreates only current continuous sound")
@@ -109,7 +111,9 @@ func _run() -> void:
 	var hashes_ok:=true
 	for clip in manifest.clips.values(): hashes_ok=hashes_ok and FileAccess.get_sha256(clip.path)==clip.sha256
 	check(hashes_ok,"independent file SHA256 checks match every recorded original audio clip")
+	feedback.subtitles.recent.append({"text":"result fixture","ttl":2.0})
 	manager.close_round(); await frames(5)
+	check(not feedback.subtitles.label.visible and feedback.subtitles.recent.is_empty(),"match close clears captions before the result screen")
 	check(feedback.audio.voices.all(func(voice: Dictionary) -> bool: return voice.key.is_empty() or not voice.loop),"match close stops all continuous sounds while final impact can finish")
 	await frames(130)
 	check(feedback.audio.active_count()==0 and feedback.fx.active_count()==0,"final impact sounds and transient visuals expire after match close")

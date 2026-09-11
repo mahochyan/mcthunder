@@ -19,6 +19,7 @@ var clock := 0.0
 var records: Dictionary = {}   # "entity:life" -> {episodes, longest_s, total_s, ...}
 var active: Dictionary = {}    # key -> {t0, driver_phase, ...} current stall episode
 var planning: Dictionary = {"failed":0,"unreachable":0,"replanned":0}
+var _planning_seen: Dictionary = {} # Driver instance, independent of vehicle respawn.
 
 func step(vehicles: Array, delta: float) -> void:
 	clock += delta
@@ -31,16 +32,17 @@ func step(vehicles: Array, delta: float) -> void:
 		seen[key] = true
 		var rec: Dictionary = records.get(key, {})
 		if rec.is_empty():
-			rec = {"team":vehicle.state.team_id,"episodes":[],"longest_s":0.0,"total_s":0.0,"holds":{},"events_seen":0}
+			rec = {"team":vehicle.state.team_id,"episodes":[],"longest_s":0.0,"total_s":0.0,"holds":{}}
 			records[key] = rec
 		# GPT fix (a): planning counters come from real planning-request outcomes in
-		# the driver event log, never from phase polling that can miss transitions.
-		var evs: Array = drv.events
-		while int(rec.events_seen) < evs.size():
-			var ev: Dictionary = evs[int(rec.events_seen)]
-			if ev.get("phase","") in ["failed","unreachable"]:
-				planning[ev.phase] = int(planning.get(ev.phase,0)) + 1
-			rec.events_seen = int(rec.events_seen) + 1
+		# cumulative driver counters, independent of its bounded event history.
+		var driver_key := drv.get_instance_id()
+		var prior: Dictionary = _planning_seen.get(driver_key,{})
+		for kind in drv.planning_counts:
+			var count := int(drv.planning_counts[kind])
+			planning[kind] += maxi(0,count-int(prior.get(kind,0)))
+			prior[kind] = count
+		_planning_seen[driver_key] = prior
 		if vehicle.state.destroyed:
 			_close(key,"destroyed")
 			continue
@@ -59,7 +61,7 @@ func step(vehicles: Array, delta: float) -> void:
 		elif not caps.drive: hold = "immobile"
 		elif drv.phase in ["failed","unreachable"]: hold = "planning_"+drv.phase
 		elif ai.has_patrol and patrol_dist <= GameConfig.AI_GOAL_RADIUS_M: hold = "at_objective"
-		elif ai.phase == "retreat" and not drv.has_goal: hold = "resupply"
+		elif ai.phase == "retreat" and not drv.has_goal and vehicle.get_parent().has_method("_in_supply_area") and vehicle.get_parent().call("_in_supply_area",vehicle): hold = "resupply"
 		elif drv.has_goal: pass   # normal advance intent
 		elif ai.has_patrol: pass  # GPT fix (d): objective pending without a nav goal = task stall, NOT a hold
 		else: hold = "no_task"
@@ -67,8 +69,6 @@ func step(vehicles: Array, delta: float) -> void:
 			_close(key,"state:"+hold)
 			rec.holds[hold] = float(rec.holds.get(hold,0.0)) + delta
 			continue
-		if drv.phase == "replanning" or drv.phase == "escape":
-			planning.replanned = int(planning.replanned) + 1
 		if speed >= MOVE_EPS:
 			_close(key,"resumed")
 			continue
@@ -120,15 +120,17 @@ func snapshot() -> Dictionary:
 		var rec: Dictionary = records[key]
 		var episodes: Array = rec.episodes.duplicate(true)
 		var open_at_end := 0
+		var open_duration := 0.0
 		var ep: Dictionary = active.get(key, {})
 		if ep.has("opened"):
+			open_duration = maxf(0,clock-float(ep.opened))
 			episodes.append({"start_s":ep.opened,"end_s":clock,"duration_s":clock-float(ep.opened),
 				"outcome":"open_at_end","blocker":ep.blocker,"driver_phase":ep.driver_phase,
 				"ai_phase":ep.get("ai_phase","?"),"waypoint":ep.waypoint})
 			open_at_end = 1
-		out[key] = {"team":rec.team,"episodes":episodes,"longest_s":rec.longest_s,
-			"total_s":rec.total_s,"holds":rec.holds,"open_at_end":open_at_end}
-	return {"clock":clock,"per_life":out,"planning":planning,
+		out[key] = {"team":rec.team,"episodes":episodes,"longest_s":maxf(rec.longest_s,open_duration),
+			"total_s":rec.total_s+open_duration,"closed_total_s":rec.total_s,"open_total_s":open_duration,"holds":rec.holds,"open_at_end":open_at_end}
+	return {"clock":clock,"per_life":out,"planning":planning.duplicate(),
 		"thresholds":{"move_eps":MOVE_EPS,"wait_start_s":WAIT_START_S}}
 
 func write_evidence(path: String) -> bool:

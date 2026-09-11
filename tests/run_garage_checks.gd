@@ -103,7 +103,7 @@ func _persistence() -> void:
 	var unchanged := failing.snapshot()
 	_check(not ResearchGraph.unlock(failing,VehicleCatalog.IDS[1]).ok and failing.snapshot()==unchanged,"write failure cannot subtract points or unlock in memory")
 	# 029 small item (GPT ruling round two): lock age NEVER authorizes takeover —
-	# only suspected-stale messaging; only own-pid leaks reclaim; release checks ownership.
+	# only suspected-stale messaging; existing same-PID locks are also preserved.
 	var lock_root := "user://tests/lockfix_"+str(Time.get_ticks_usec())
 	var lock_path := lock_root+"/commander"
 	DirAccess.make_dir_recursive_absolute(lock_root+"/commander.lock")
@@ -113,14 +113,16 @@ func _persistence() -> void:
 	var suspect_bump := suspect.snapshot(); suspect_bump.research_points += 7
 	var refused_old := suspect.commit(suspect_bump)
 	_check(not refused_old.ok and refused_old.reason.contains("疑似遗留") and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"old foreign lock is refused as suspected-stale and never auto-deleted by age alone")
-	# Own-pid leak (an earlier release that never ran inside this live process) is the one reclaimable state.
+	# A same-PID stamp cannot prove that another live store has finished.
 	var leak := FileAccess.open(lock_root+"/commander.lock/owner.txt",FileAccess.WRITE)
 	leak.store_string("%d %d" % [OS.get_process_id(), int(Time.get_unix_time_from_system())-30]); leak.close()
 	var revived := ProfileStore.new(lock_path,service)
 	var bump := revived.snapshot(); bump.research_points += 7
-	_check(revived.commit(bump).ok,"own-pid leaked lock is reclaimed and the save proceeds")
-	var after := ProfileStore.new(lock_path,service)
-	_check(after.snapshot().research_points == bump.research_points and DirAccess.open(lock_root+"/commander.lock") == null,"reclaimed commit persisted and the lock was released")
+	_check(not revived.commit(bump).ok,"existing same-PID lock is refused")
+	_check(revived.snapshot().research_points != bump.research_points and FileAccess.file_exists(lock_root+"/commander.lock/owner.txt"),"refused save preserves memory and the lock")
+	# Remove only this test's artificial stamp before the independent process case.
+	DirAccess.remove_absolute(lock_root+"/commander.lock/owner.txt")
+	DirAccess.remove_absolute(lock_root+"/commander.lock")
 	# GPT counterexample: a REAL live second process holds the lock; the game side must refuse
 	# untouched, and the holder must later finish and release cleanly for a valid commit.
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(lock_root))
@@ -130,7 +132,7 @@ func _persistence() -> void:
 	var deadline := Time.get_ticks_msec()+20000
 	while Time.get_ticks_msec() < deadline and not stamp_seen:
 		await process_frame
-		stamp_seen = FileAccess.file_exists(lock_root+"/commander.lock/owner.txt")
+		stamp_seen = ProfileStore._read_lock_owner(lock_root+"/commander.lock").get("pid",-1) == holder
 	_check(stamp_seen and holder > 0,"real second process acquired the lock with a fresh stamp")
 	var holder_store := ProfileStore.new(lock_path,service)
 	var want := holder_store.snapshot(); want.research_points += 3

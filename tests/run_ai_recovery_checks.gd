@@ -125,26 +125,41 @@ func _run() -> void:
 		elif ev.get("goal",Vector3.INF).is_finite(): second_hop = ev.goal
 	_check(reattempted,"arrival at a hop point re-attempts the original task objective, not just the hop")
 	_check(second_hop == Vector3.INF or second_hop.distance_to(first_hop) > 1.0,"a re-hop never re-lands on the same no-progress hop node")
+	for i in 12: scene.ai._drive_patrol_or_hop()
+	var unique_hops := {}
+	for point in scene.ai._task_hops: unique_hops[point] = true
+	_check(unique_hops.size()==scene.ai._task_hops.size() and scene.ai._task_hops.size()<=GameConfig.AI_TASK_HOP_LIMIT and scene.ai.objective_blocked and scene.ai.patrol_goal==Vector3(0,0,900),"repeated retries have a per-task unique hop budget and preserve the blocked original objective")
 	# C13 (GPT final-close item): a real Actor left entirely to physics must
 	# NATURAL-COMPLETE recovery and then CONTINUE its task. Zero scripted nudges:
 	# the lab already binds the controller; vehicle physics drives poll() alone.
-	heal_all(bot)
-	revive_all(bot)
+	scene.free()
+	scene = AICombatRange.new()
+	root.add_child(scene); current_scene = scene
+	await frames(5)
+	bot = scene.target_actor
+	scene.source_actor.set_controller(null)
+	scene.source_actor.tank.global_position = Vector3(0,0.03,60)
+	bot.state.recovery_enabled = true
 	kill_track(bot)
-	bot.gunner.rounds_remaining = 0            # dry + immobile: the original 001-026 trap
+	bot.gunner.rounds_remaining = 0
 	scene.ai.advance_while_engaged = true
-	scene.ai.set_patrol(Vector3(0,0,-30),Vector3(0,0,-30))
+	scene.ai.set_patrol(Vector3(12,0,-34),Vector3(12,0,-34))
 	var start_pos: Vector3 = bot.tank.global_position
 	var waited := 0
-	while waited < 3600 and scene.ai.phase == "repair":
+	var began := false
+	while waited < 3600:
 		await physics_frame
 		waited += 1
-	_check(scene.ai.phase != "repair","a real Actor completes recovery naturally under physics alone")
+		began = began or bot.state.recovery_action == "repair"
+		if began and bot.capabilities().drive and bot.state.recovery_action.is_empty(): break
+	_check(bot.is_physics_processing() and began and waited>1 and waited<3600 and bot.capabilities().drive and bot.last_recovery_record.get("kind","")=="repair","real physics begins and completes repair with a committed repair record and restored drive")
 	var moved := 0.0
 	for i in 240:
 		await physics_frame
 		moved = maxf(moved,bot.tank.global_position.distance_to(start_pos))
-	_check(moved > 1.0 or scene.ai.phase in ["patrol","retreat"],"after natural recovery the real Actor continues a movement task instead of stalling")
+	_check(moved > 1.0 and scene.ai.driver.goal == scene.ai.retreat_goal,"after repair actual displacement exceeds one metre toward the resupply task")
+	print("[natural recovery] frames=%d moved=%.3f record=%s"%[waited,moved,bot.last_recovery_record])
+	print("[recovery drive] caps=%s phase=%s driver=%s reason=%s goal=%s command=%s"%[bot.capabilities(),scene.ai.phase,scene.ai.driver.phase,scene.ai.driver.reason,scene.ai.driver.goal,scene.ai.last_command.throttle])
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("AI_RECOVERY_CHECKS_PASS" if failed == 0 else "AI_RECOVERY_CHECKS_FAIL")
 	scene.free()

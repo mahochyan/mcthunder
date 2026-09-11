@@ -1,5 +1,7 @@
 # 主线交付与后续工作
 
+2026-09-11 更新：用户要求完善问题和可玩性，当前开发已切换到 `codex/rc3-playability-fixes`（本工作树），基于下面的 RC2 文档提交 664e1c8。本轮修复与实际验证见 `docs/RC3_PLAYABILITY_FIXES.md`。下文保留 RC2 历史交付身份，不代表新增修复已进入旧安装包。
+
 用户要求先完成主线、再优化细节。007—036已完成本地RC工程交付，版本1.0.0-rc.2，运行源码b90511496fe84195ee8421bd3b4c6bfce2768b7a。工作树E:/AIprogram/mcthunder-mainline，分支codex/mainline-027-continuation；不要改其它工作树、合并main、推送或公开发布，不代签真人验收。
 
 交付目录E:/AIprogram/PixelArmor交付/1.0.0-rc.2-b9051149，双击开始试玩.bat。原始ZIP、解压游戏、交付资料和DELIVERY_MANIFEST.json共同保存；运行身份与证据见docs/RELEASE_FREEZE_RC.json，整体结论见docs/DELIVERY_036.md和docs/GATE_E.md。最终文档提交不改变运行源码身份。

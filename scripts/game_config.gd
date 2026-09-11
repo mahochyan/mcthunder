@@ -77,3 +77,4 @@ const VIS_LAYER_VEHICLE_B := 4  # 003：B 车视觉层 bit——炮镜只剔除�
 
 # --- 输入动作名（project.godot 已注册全部映射） ---
 const ACTIONS := ["move_forward", "move_back", "turn_left", "turn_right", "fire", "aim", "reset", "pause", "debug_toggle"]
+const AI_TASK_HOP_LIMIT := 4

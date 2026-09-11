@@ -93,6 +93,11 @@ func _ready() -> void:
 func _build_world() -> void: TeamArena.build(self)
 func supply_positions(_team: int) -> Array[Vector3]: return []
 
+func _in_supply_area(vehicle: VehicleActor) -> bool:
+	for point in supply_positions(vehicle.state.team_id):
+		if Vector2(vehicle.tank.global_position.x-point.x,vehicle.tank.global_position.z-point.z).length() <= AmmunitionSupply.RADIUS_M: return true
+	return false
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	if not team_ready: return
@@ -101,10 +106,7 @@ func _physics_process(delta: float) -> void:
 		_telemetry_phase = director.state.phase
 	if get_tree().paused or director.state.phase != "playing": return
 	for vehicle in combat_actors():
-		var inside := false
-		for point in supply_positions(vehicle.state.team_id):
-			if Vector2(vehicle.tank.global_position.x-point.x,vehicle.tank.global_position.z-point.z).length() <= AmmunitionSupply.RADIUS_M: inside = true
-		ammunition_supply.step(vehicle,delta,inside)
+		ammunition_supply.step(vehicle,delta,_in_supply_area(vehicle))
 	telemetry.step(combat_actors(),delta)
 func navigation_graph() -> Dictionary: return TeamArena.graph()
 func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
