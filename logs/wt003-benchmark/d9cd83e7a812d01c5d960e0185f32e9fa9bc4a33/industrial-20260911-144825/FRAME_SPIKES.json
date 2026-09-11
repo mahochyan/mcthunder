@@ -1,0 +1,164 @@
+{
+  "query_sources": {
+    "fragment_": {
+      "calls": 235,
+      "cpu_usec": 169927
+    },
+    "other": {
+      "calls": 129979,
+      "cpu_usec": 56356667
+    },
+    "proj_": {
+      "calls": 2821,
+      "cpu_usec": 1683783
+    }
+  },
+  "long_frames": 927,
+  "frames": 22429,
+  "query_majority_long_frames": 777,
+  "worst_frames": [
+    {
+      "frame": 7752,
+      "frame_ms": 101.69,
+      "query_calls": 156,
+      "query_ms": 80.285,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 8114,
+      "frame_ms": 101.664,
+      "query_calls": 159,
+      "query_ms": 83.102,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 8135,
+      "frame_ms": 99.264,
+      "query_calls": 152,
+      "query_ms": 77.389,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 8180,
+      "frame_ms": 97.91,
+      "query_calls": 152,
+      "query_ms": 77.115,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7896,
+      "frame_ms": 97.168,
+      "query_calls": 155,
+      "query_ms": 74.811,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 8145,
+      "frame_ms": 94.897,
+      "query_calls": 147,
+      "query_ms": 74.401,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7680,
+      "frame_ms": 94.722,
+      "query_calls": 150,
+      "query_ms": 73.481,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7824,
+      "frame_ms": 92.953,
+      "query_calls": 147,
+      "query_ms": 69.895,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7655,
+      "frame_ms": 91.832,
+      "query_calls": 138,
+      "query_ms": 70.071,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 1,
+      "frame_ms": 91.297,
+      "query_calls": 0,
+      "query_ms": 0.0,
+      "physics_ticks": 0
+    },
+    {
+      "frame": 7968,
+      "frame_ms": 90.747,
+      "query_calls": 140,
+      "query_ms": 70.041,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 8055,
+      "frame_ms": 89.566,
+      "query_calls": 137,
+      "query_ms": 68.755,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7513,
+      "frame_ms": 89.523,
+      "query_calls": 114,
+      "query_ms": 66.896,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7290,
+      "frame_ms": 88.974,
+      "query_calls": 141,
+      "query_ms": 68.282,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7557,
+      "frame_ms": 88.932,
+      "query_calls": 126,
+      "query_ms": 68.388,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7943,
+      "frame_ms": 88.029,
+      "query_calls": 130,
+      "query_ms": 67.382,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7534,
+      "frame_ms": 88.006,
+      "query_calls": 140,
+      "query_ms": 67.557,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7607,
+      "frame_ms": 87.547,
+      "query_calls": 139,
+      "query_ms": 66.511,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7848,
+      "frame_ms": 86.443,
+      "query_calls": 139,
+      "query_ms": 65.114,
+      "physics_ticks": 1
+    },
+    {
+      "frame": 7907,
+      "frame_ms": 86.272,
+      "query_calls": 125,
+      "query_ms": 66.268,
+      "physics_ticks": 1
+    }
+  ],
+  "single_tick_long_frames": 903,
+  "scope": "Drawn-frame interval counters; query time excludes snapshot construction and other simulation. Source other is not automatically equivalent to AI.",
+  "multiple_tick_long_frames": 23
+}
