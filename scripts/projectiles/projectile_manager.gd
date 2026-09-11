@@ -50,7 +50,7 @@ var exclude_provider := Callable()        # 由 Main 注入：func(shooter_id, l
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	process_physics_priority = 100
+	process_physics_priority = SimulationPhases.PROJECTILES
 	feedback=CombatFeedback.new(); feedback.name="CombatFeedback"; add_child(feedback)
 
 func _exit_tree() -> void:

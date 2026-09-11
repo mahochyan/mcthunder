@@ -119,6 +119,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank.life_id = life_id       # 003-R2：目标生命周期标识
 	process_mode = Node.PROCESS_MODE_PAUSABLE   # 003：暂停时整实体（驱动/武器）冻结
 	tank.process_mode = Node.PROCESS_MODE_PAUSABLE
+	process_physics_priority = SimulationPhases.VEHICLES
 	gunner.process_mode = Node.PROCESS_MODE_PAUSABLE
 	set_controller(ctrl)   # 003-R1：统一控制者绑定入口（含相机 current 管理）
 	# 003：A/PLAYER 与 B/TEST TARGET 明确标识（不改共享配置伪造实例状态）

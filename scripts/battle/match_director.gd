@@ -19,7 +19,7 @@ var finish_count := 0
 var _seen: Dictionary = {}
 
 func _ready() -> void:
-	process_physics_priority = 300
+	process_physics_priority = SimulationPhases.MATCH
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
 func begin(vehicles: Array, id: int) -> bool:

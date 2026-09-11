@@ -28,7 +28,7 @@ func observe_contact(record: Dictionary) -> void:
 		report.penetrations += 1
 
 func _ready() -> void:
-	process_physics_priority = 300
+	process_physics_priority = SimulationPhases.MATCH
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
 func begin() -> void:

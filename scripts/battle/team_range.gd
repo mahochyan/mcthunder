@@ -30,6 +30,7 @@ var _telemetry_phase := ""
 var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
 var garage_service: GarageService
+var simulation_snapshot: SimulationSnapshot
 
 func _ready() -> void:
 	# 027-A moved named input actions out of project.godot into the binding
@@ -40,6 +41,10 @@ func _ready() -> void:
 	InputBindingService.initialize()
 	super._ready()
 	if not _initialized: return
+	process_physics_priority = SimulationPhases.SUPPLY
+	simulation_snapshot = SimulationSnapshot.new()
+	simulation_snapshot.battle = self
+	add_child(simulation_snapshot)
 	if prepared_match != null: garage_service = GarageService.new(); respawn_vehicle_id = prepared_match.selected()
 	director = TeamMatchDirector.new()
 	add_child(director)
