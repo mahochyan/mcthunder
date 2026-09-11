@@ -1,0 +1,8 @@
+{
+  "source_sha": "f682d3b1b307d6a98894076e7ad00f8de03d2d35",
+  "command": "START_GAME.bat --position 40,40 --quit-after 120",
+  "exit_code": 0,
+  "scope": "normal launcher finite-window startup only; not gameplay or acceptance",
+  "stdout": "launcher.stdout.log",
+  "stderr": "launcher.stderr.log"
+}

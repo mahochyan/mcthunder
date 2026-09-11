@@ -1,6 +1,8 @@
 # PixelArmor / MCTHUNDER
 
-当前接续版 **0.3.1** 位于 `E:/AIprogram/mcthunder-mainline`，双击本目录 `START_GAME.bat`。车库顶部可进入十章交互教学，章节进度会保存；加载取消、错误返回、退出比赛确认与累计战斗结算已接入，两图可结算并重开。详见 [交互教学](docs/IMPLEMENTATION_028.md) 和 [比赛流程](docs/IMPLEMENTATION_030.md)。
+当前源码候选位于 `E:/AIprogram/mcthunder-mainline`、分支 `codex/rc3-playability-fixes`，双击本目录 `START_GAME.bat`。候选身份与引擎哈希见 [WT 基线](docs/wt/BASELINE.json)，实现/工程验证/真人接受/发行状态分别见 [当前状态](docs/wt/CURRENT_STATUS.md)。历史 RC2 独立包不包含之后的 RC3 修复。当前是陆战原型，不能以旧 036 完成记录认定完整游戏完成。
+
+后续以用户提供的 [完整开发方案](docs/wt/DEVELOPMENT_PLAN_2026-09-11.md) 为路线：先 WT-001 基线、WT-002 固定步长、WT-003 距离与性能，再深化两辆样车的驾驶/火控/毁伤和战术对局；权威联网切片、现代车与空海扩展按依赖继续。全部 42 个工作包的要求保留在 [缺口台账](docs/wt/GAP_REGISTER.json)。
 
 原创 **low-poly（低多边形）装甲游戏**。视觉以准确车型轮廓、简洁分面和清楚的机械结构为准；总体玩法目标是尽可能还原战争雷霆式陆战。当前美术策略见 [低多边形方向](docs/ART_DIRECTION_LOW_POLY.md)，完整路线见 [开发计划](docs/handoff/DEVELOPMENT_007_036.md)。当前开发版包含装甲结算、内部损伤、弹药账本、火灾与维修/乘员替补、真实路径回放、中文车库与核心训练；1对1歼灭及4对4占点已有正常入口，正式HUD与第一张丘陵村落地图已接入。四车编成、配弹和小型研发已连通；第二地图与后续内容继续按计划开发。
 

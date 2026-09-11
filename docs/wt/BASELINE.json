@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "baseline_id": "WT-001-20260911",
+  "source_sha": "f682d3b1b307d6a98894076e7ad00f8de03d2d35",
+  "branch": "codex/rc3-playability-fixes",
+  "worktree": "E:\\AIprogram\\mcthunder-mainline",
+  "engine": {
+    "version": "4.7.2.stable.official.ed1daf0bf",
+    "sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+    "launcher_binary_sha256": "AB1824F85BFD8E0E4128182C000C4003A3E042245B2967848D089B2A04B22424"
+  },
+  "build": {
+    "id": null,
+    "status": "source_candidate_not_packaged",
+    "entry": "START_GAME.bat",
+    "older_release_manifest": "docs/RELEASE_FREEZE_RC.json",
+    "older_release_includes_rc3": false
+  },
+  "content_version": "existing_four_vehicle_two_map_prototype",
+  "rules_version": "legacy_rules_plus_rc3_recoil_and_free_look",
+  "contract_version_status": "not_yet_versioned_WT002",
+  "remote_checked_at": "2026-09-11T11:33:29.4221953+08:00",
+  "remote_stab_sha": "12a7d2810240a631cc2094324ee5f6c5c5033ae3",
+  "remote_main_sha": "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
+  "art_candidate_sha": "fa4bb588f58dee6271b34a4bd83c4eb4a134382a",
+  "art_merge_base": "de0bb6171d6252447284f8d9229d9e3233017914",
+  "plan_sha256": "39A49BD8C00DF4481520AFDE3CCFCA94916E6F4D0AE43AF6E729442FB3E68134",
+  "human_accepted": false,
+  "release_ready": false
+}

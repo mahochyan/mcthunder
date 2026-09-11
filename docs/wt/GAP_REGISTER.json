@@ -1,0 +1,384 @@
+{
+  "schema": 1,
+  "plan": "DEVELOPMENT_PLAN_2026-09-11.md",
+  "items": [
+    {
+      "id": "WT-001",
+      "title": "统一开发与试玩基线",
+      "status": "in_progress",
+      "requirements": "阶段：M0。职责：集成/质量。依赖：无。\n\n以已读取的 stab-dev 快照为审查基准，执行时重新读取远端与工作区。建立唯一候选清单，比较美术分支，保留所有用户文件。修正 README、NEXT_ACTION 与实际交付状态的冲突。\n\n**交付**\n- BASELINE.json：源码 SHA、分支、引擎实际版本/哈希、构建编号、内容与规则版本\n- CURRENT_STATUS.md：implemented / automated_verified / human_accepted / release_ready 四列\n- GAP_REGISTER.md：本文全部目标与当前差距\n\n**验收**\n- 正常启动入口、被测源码与交付包能够互相对应\n- 既不从旧 main 重建，也不整分支覆盖稳定化修复\n- 未完成测试与真人验收仍明确标为待验证",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-002",
+      "title": "固定步长战斗状态与命令契约",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M0。职责：核心程序。依赖：WT-001。\n\n将权威炮塔/炮管状态从渲染 _process 移入固定物理步。统一输入、驾驶、炮塔、装填、发射与快照时序；视觉插值、震动和闪光不反写模拟。保留现有命令邮箱与生命周期身份。\n\n**交付**\n- 版本化 VehicleCommand / ShotRecord / MatchEvent / SimulationSnapshot 契约\n- physics_tick 顺序和事件提交时点说明\n- 渲染 30/60/144 FPS 与长帧输入回归\n\n**验收**\n- 同一带时间戳输入序列在不同渲染帧率下，射击次数、装填与命中结果一致；姿态误差符合预先定义容差\n- 暂停、重生、换车后不补发旧输入\n- 不把同一版本受控回归等同于跨平台浮点确定性保证",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-003",
+      "title": "性能与交战距离基准",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M0。职责：核心程序/质量。依赖：WT-001。\n\n先记录硬件和完整对局帧时间；收拢相机远裁剪、瞄准查询、弹丸寿命/射程、AI感知、声音距离、地图边界和 LOD。检查每次查询重建全车快照等热点，但不凭静态阅读认定瓶颈。\n\n**交付**\n- BENCHMARK_PROFILE.json 与原始帧时间/节点数/内存数据\n- EngagementProfile 配置及硬编码审计\n- 8/16/32 车阶梯压力场景，32 车仅为后续容量目标\n\n**验收**\n- 配置能够覆盖约定的最远交战距离，不出现看得到却不能正常瞄准的断层\n- 所有性能报告绑定源码、机器、画质、分辨率、人数与采样场景\n- 未运行的容量档不标达标",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-004",
+      "title": "纵向驾驶与动力特征",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M1。职责：载具程序。依赖：WT-002。\n\n在现有可控运动基础上加入可标定的发动机/传动抽象、加减速曲线、换挡迟滞、倒车、制动、坡度负载和地面阻力。首版不要求每个传动零件真实物理化。\n\n**交付**\n- DriveProfile 与运行时转速/挡位/牵引状态\n- 平地、坡道、制动、倒车基准场景\n- 两辆动力特征不同的完成样车\n\n**验收**\n- 不用 HUD 数字也能通过加速、刹车、倒车区分样车\n- 上坡不是到阈值前完全不受影响、到阈值瞬间归零的唯一变化\n- 已核验历史数据与设计曲线分栏，不能为通过测试随意改史料数值",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-005",
+      "title": "差速转向与履带能力",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M1。职责：载具程序。依赖：WT-004。\n\n做左右履带速度/牵引能力、转向损速、速度相关转向、是否可原地转向、侧滑限制与单侧履带失能。\n\n**交付**\n- 左右履带运行状态与参数\n- 原地/行进/倒车转向夹具\n- 单侧损伤与维修后的能力回归\n\n**验收**\n- 高速转向不能像无质量旋转盒子；损速及转弯半径按车配置体现\n- 双履带失能不能继续正常行驶；单履带行为按设计明确限制\n- 履带动画读取真实运动结果，不仅按 W/A/S/D 播放",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-006",
+      "title": "地形接触与悬挂表现",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M1。职责：载具程序/关卡。依赖：WT-004, WT-005。\n\n完善多点接地、坡顶/坡侧/沟坎、接地失去/恢复、车体俯仰侧倾、制动点头与收敛；新增受控推挤、翻覆/拖救规则。选择自定义运动或刚体混合方案须有对照实验。\n\n**交付**\n- 独立 VehicleDynamics 与 VehiclePresentation 边界\n- 坡顶、路沿、窄巷、残骸、碰车测试地图\n- 参数化悬挂视觉与碰撞方案记录\n\n**验收**\n- 履带不长期明显悬空；坡顶不反复弹跳或穿地\n- 物理姿态影响实际炮口与命中几何，纯镜头震动不改变命中\n- 没有证据前不因节点名称而强行替换整套物理框架",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-007",
+      "title": "观察、炮镜与测距操控",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M1。职责：玩法/UI。依赖：WT-002, WT-003。\n\n把视线、观察点、炮手瞄准意图和炮管实际指向分离。实现自由观察、望远镜、炮镜缩放、准星刻度、测距与距离装定；镜位和倍率按车型配置。\n\n**交付**\n- OpticsProfile / AimIntent\n- 第三人称意图圈与实际炮口圈\n- 遮挡、镜位偏置、炮口被挡和远目标测试\n\n**验收**\n- 自由观察不会强制炮塔一直跟随\n- 测距与装定影响射击解，不是只改 HUD 字符串\n- 镜头可见但炮口受阻时反馈清楚；辅助信息按模式授权",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-008",
+      "title": "炮塔机构与稳定器能力",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M1。职责：载具/火控程序。依赖：WT-006, WT-007。\n\n加入转动加速度/减速度、追随滞后、动态俯仰遮挡、无稳定/单向/双向稳定等能力，按车型设置速度与响应约束。受损后机构与相关系统能够降级。\n\n**交付**\n- FireControlProfile 与固定步长执行器\n- 意图方向、炮管方向、稳定器状态可观测记录\n- 同一路线移动与急停射击对比\n\n**验收**\n- 无稳定器车辆与具稳定能力的车辆产生可感知的开火时机差异\n- 准星稳定不等于炮管已对准；出炮由实际炮管状态决定\n- 视觉舒适选项不得移除实际武器限制",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-009",
+      "title": "尽早做两客户端权威联网切片",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：NET-EARLY。职责：网络程序。依赖：WT-002。\n\n用独立本地服务器进程和两个客户端先验证输入上行、权威移动/炮塔/发射、快照下行与断线。只验证技术骨架，不能称完整联网游戏。与 M1 并行，不拖到内容量产后。\n\n**交付**\n- NetworkController 与本地/AI共享命令通道\n- 输入序号、服务器 tick、快照序号、版本握手\n- 独立服务器不依赖 Camera/HUD 的运行入口\n\n**验收**\n- 客户端不能直接宣布命中、击毁或获得弹药\n- 同一发射事件在两客户端只产生一次权威结果\n- 服务器无本地玩家节点也能推进世界",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-010",
+      "title": "弹道标定与移动接触一致性",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：战斗程序。依赖：WT-002, WT-003。\n\n保持有限弹速与连续飞行，校准初速、弹道衰减/重力、相对运动和生命周期。在车辆运动、炮塔旋转时验证碰撞与采样时间；首发不能由显示用射线另算结果。\n\n**交付**\n- 版本化 BallisticProfile 与射程测试集\n- 短/中/远程及横移目标回归\n- 弹丸单步耗尽/续飞/终止记录\n\n**验收**\n- 高速弹丸与运动目标不因一帧跨越而随机漏判\n- 显示弹道、服务器记录与命中计算对应同一发弹\n- 数据不足字段有估计范围/设计标签，不写成精确历史结论",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-011",
+      "title": "体积弹丸与装甲几何",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：战斗程序/技术美术。依赖：WT-010。\n\n在现有射线/面片查询上设计有限截面的连续碰撞方案。处理炮盾叠层、接缝、边缘、履带/外挂物、入射/出射以及炮塔运动几何。把用于移动的外壳碰撞与用于毁伤的装甲分开。\n\n**交付**\n- ShapeContact / ArmorLayer 接触契约\n- 标准板、双层板、窄缝、边缘扫射夹具\n- 几何叠层与重复扣减诊断\n\n**验收**\n- 弹丸不以一个无尺寸点穿过不应通过的窄缝\n- 同一实体连续装甲层不会因查询重复而无限增加抗性\n- 切换视觉 LOD 不改变装甲命中结果",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-012",
+      "title": "按弹族的穿透与跳弹规则",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：战斗程序/数据。依赖：WT-010, WT-011。\n\n升级全局厚度/cos 与统一跳弹阈值：按动能弹族、装甲材料、角度与尺寸关系配置规则。保留旧测试规则版本；新的预算或残余能量模型必须有一致单位与消费契约。\n\n**交付**\n- ArmorResponseProfile 与 ShellResponseProfile\n- AP/APHE/HE 首批有取舍的规则集\n- 距离×角度×材料×弹族矩阵\n\n**验收**\n- 不同弹族不只是不同穿深整数\n- 不穿、跳弹、穿透停止、续飞有稳定可解释边界\n- 设计可解释性与可标定性优先，不宣称复制了未公开的原游戏内部公式",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-013",
+      "title": "穿后效应、破片与引信",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：战斗程序。依赖：WT-012。\n\n在已有直接命中与 APHE 路径上补足版本化穿后效应：贯穿路径、装甲背面破片、内部遮挡、APHE 起爆条件/延迟与离体起爆、HE 对外部/薄弱结构的区别。\n\n**交付**\n- PostPenetrationProfile 与独立随机流\n- 同一命中事件派生的破片/爆炸记录\n- 内部遮挡和弹体出车后起爆测试\n\n**验收**\n- 空腔、内部部件遮挡与有乘员区域的结果不同\n- 不把每次命中都变成全车球形扣血\n- 随机效果可在同一规则版本下复现；视觉随机数不扰动毁伤随机数",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-014",
+      "title": "模块与乘员能力模型深化",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：战斗程序。依赖：WT-013。\n\n继续无整车总血条的路线。分别表达动力、传动、左右履带、炮管、炮闩、炮塔驱动、光电设备、人员岗位的能力变化，死亡由明确规则而不是隐藏总 HP 决定。\n\n**交付**\n- 统一 CapabilityState 与失能原因码\n- 岗位可用性及替补限制\n- 部件位置与可见轮廓的对应校验\n\n**验收**\n- 不同命中部位导致不同后续操作限制\n- 已击毁部件/空岗位不继续吸收无限假伤害\n- HUD、AI、音效和回放只读同一能力状态",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-015",
+      "title": "弹药、火灾与恢复的战术闭环",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2。职责：玩法程序。依赖：WT-014。\n\n深化现有弹药账本、换弹、火灾、维修、乘员替补与补给；加入待发弹架/搬运（按车型）、维修选择与时间风险、协助维修/拖救接口。少带弹必须影响实际占用。\n\n**交付**\n- Inventory/Reload/Recovery 版本化状态机\n- 人工与自动装填能力接口，不为所有车辆硬套自动装填\n- 灭火、维修、换位、取消、再受损完整回归\n\n**验收**\n- 少带弹能改变实际弹药架风险，而不只改车库数字\n- 炮闩损坏、装填手受伤、待发弹用尽各有可理解后果\n- 殉爆、起火失能、乘员丧失等死因对应真实记录与一致残骸",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-016",
+      "title": "两辆完成样车核心验收",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M2-GATE。职责：玩法负责人/真人测试。依赖：WT-004, WT-005, WT-006, WT-007, WT-008, WT-010, WT-011, WT-012, WT-013, WT-014, WT-015。\n\n用两辆特征不同的样车验证驾驶、观察、首发、部位选择和受损应对。不是两辆车必须直接平衡配对，也不是覆盖现有四车全部历史细节。\n\n**交付**\n- 正常输入的坡顶急停射击、绕侧攻击、断履带恢复三段完整录屏\n- 新玩家与熟悉战雷玩家的原话记录\n- 核心体验问题按阻断/非阻断分级\n\n**验收**\n- 玩家不看开发说明也能解释典型一炮结果及失能原因\n- 模型/界面合格不是自动认定驾驶射击手感合格\n- 工程自审与真人体验独立签收，缺失时不能冒签",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-017",
+      "title": "统一视觉、声音与烟幕情报",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M3。职责：玩法/AI/网络。依赖：WT-007, WT-014。\n\n建立世界真实状态与玩家可知信息的边界：观察点、可见比例、距离、开火暴露、声音线索、最后位置与记忆衰减。烟幕在图形、AI和网络反馈中一致。\n\n**交付**\n- ObservationState / VisibilityPolicy\n- 目击、最后位置、失去目标原因\n- 击中反馈/击毁回放/观战权限规则\n\n**验收**\n- AI不能隔墙跟踪实时目标或直接读取敌方乘员/弹药库存\n- 实时命中小窗只展示被授权的事件，不泄露其余敌人的实时状态\n- 降低画质不会移除关键玩法遮蔽",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-018",
+      "title": "机枪、烟幕与支援操作",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M3。职责：战斗/玩法程序。依赖：WT-015, WT-017。\n\n加入按车型可用的同轴/车顶武器、独立弹药/射界和烟幕释放，补齐侦察标记、协助维修与支援奖励入口。先做载具玩法，不扩展不必要的人体步兵系统。\n\n**交付**\n- WeaponMount 列表与独立状态\n- SmokeVolume 玩法实体与表现\n- 支援事件与结算归属\n\n**验收**\n- 机枪不是只有声音动画，射界/弹药/装甲交互可验证\n- 烟幕不是仅玩家可见、AI完全无视的贴图\n- 辅助操作不能绕开核心命令和权限检查",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-019",
+      "title": "一张真正服务陆战的地图",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M3。职责：关卡/玩法。依赖：WT-003, WT-006, WT-017。\n\n以接敌时间和交战距离设计地图，不直接按倍数拉大现有场景。规划近战区、中距离主线、绕侧路、坡顶位置、反制角度、多个出生出口与多个目标点。\n\n**交付**\n- 地图流线与射界/出生安全分析\n- 与交战配置匹配的原创灰盒地图\n- 出生到接敌、击毁位置、停留点与路线热区记录\n\n**验收**\n- 默认出生点不能被单个安全位置直接覆盖全部出口\n- 重装正面、机动绕行与远射位置都有作用且能被反制\n- 尺寸只作为试验参数；不能用跑图空白时间伪造战场规模",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-020",
+      "title": "战术 AI 选位与交战",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M3。职责：AI程序。依赖：WT-008, WT-017, WT-018, WT-019。\n\n在现有反应、视线、搜索与维修基础上，加入掩体、射界、暴露风险、侧翼机会、自身装填/损伤状态的行动评分；允许射击后后撤、换位和放弃无效正面互射。\n\n**交付**\n- TacticalPosition 与行动评分日志\n- 选择位置/射击/后撤的理由码\n- 可观察目标资料而非读取敌方隐蔽状态的接口\n\n**验收**\n- AI不只是看见最近敌人就驻车互射或直冲目标\n- 困难度优先改变观察/决策/误差，而不是偷偷强化装甲\n- 真人能识别其战术意图且有反制机会",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-021",
+      "title": "团队 AI 与交通协调",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M3。职责：AI/关卡程序。依赖：WT-020。\n\n任务分配包含占点、防守、侧翼、支援；导航有车宽、倒车脱困、路口让行、局部路径重算与窄口协调，继续区分合法驻守和实际堵塞。\n\n**交付**\n- TeamObjectiveAllocator\n- 交通状态分类、脱困与重规划记录\n- 两图多种出生与随机种子完整局采样\n\n**验收**\n- 不同队员不全部挤向同一小入口\n- 堵塞有可追溯的原因与处理，不把原地旋转算完成导航\n- 维修/等装填/战术伏击不是交通故障，不能为降堵塞指标强迫其乱跑",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-022",
+      "title": "正式比赛规则与编成再出击",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M4。职责：玩法/网络。依赖：WT-015, WT-019。\n\n保留现有票池/重生框架，新增可配置多点占领、争夺/失守、出击点数、每玩家编成可用状态、阵亡观察/换车、助攻与补给。拟真和辅助预设分别版本化。\n\n**交付**\n- MatchRules / LineupState / SpawnBudget\n- 完整比赛事件表及结算收据\n- 保护取消、友伤、残骸、拖救、断线规则\n\n**验收**\n- 想再出击不只是等待固定秒数，还取决于规则和剩余编成/资源\n- 地图控制、支援与击杀都能影响胜负\n- 结束、重生、重复事件不能造成刷票/刷奖励",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-023",
+      "title": "完整离线与合作对局体验",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M4-GATE。职责：玩法/质量。依赖：WT-016, WT-018, WT-021, WT-022。\n\n将车库→出击→驾驶交战→失能恢复→阵亡→再出击→胜负→战绩→返回串成正常入口；既有挑战继续使用真实战斗规则。离线作为完整模式，不冒充联网终点。\n\n**交付**\n- 完整一局和紧接下一局的独立构建\n- 难度与模式规则说明\n- 至少一次新玩家首次启动体验报告\n\n**验收**\n- 不依赖开发菜单、改内存、清冷却或脚本造击毁才能完成\n- 比赛能结束与玩家愿意再玩分别记录\n- 试玩问题能对应系统/地图/界面的具体修复而非只写不好玩",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-024",
+      "title": "服务器权威多人比赛",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M4。职责：网络程序。依赖：WT-009, WT-022。\n\n从两客户端切片扩展到真实 4v4，再由压测证明能进入 8v8。同步生命周期、炮塔、弹丸事件、毁伤、建筑破坏、烟幕、再出击与胜负；单机和联网复用战斗规则。\n\n**交付**\n- 独立服务器构建和多人客户端构建\n- 可靠生命周期/结果通道与有序快照通道\n- 4v4 全局一致性与场景切换测试\n\n**验收**\n- 不能只同步坦克位置而由各端独立裁定毁伤\n- 死亡、弹药、建筑缺口在各端对应同一权威状态\n- 观战、重连和复活不会收到错误生命周期的数据",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-025",
+      "title": "预测、插值与延迟下的射击",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M4。职责：网络/核心程序。依赖：WT-024, WT-010。\n\n本地控制预测与服务器纠正、远端插值、有限历史快照和时间戳验证。有限弹速武器采用明确的延迟政策，不能直接复制即时命中射线的无限回溯。\n\n**交付**\n- 网络时间轴和最大补偿窗口说明\n- RTT/抖动/丢包可重复测试场景\n- 纠正幅度、事件延迟和争议命中日志\n\n**验收**\n- 建议测试 RTT 50/100/150ms 与 1%/3% 丢包，结果逐档报告而非一概宣称流畅\n- 客户端伪造旧时间戳不能获得额外命中优势\n- 炮弹与移动目标使用一致时间基准；视觉命中不覆盖服务器结果",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-026",
+      "title": "联网权限、身份与进度安全",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：M4。职责：网络/后端。依赖：WT-024。\n\n验证输入频率、拥有者、数值范围、弹药、装填、出生成本和版本。联机战绩/研究由权威服务提交，不能直接信任本地 JSON。日志最小化，规划数据删除/备份恢复。\n\n**交付**\n- RPC白名单、权限和速率限制\n- 账户/会话身份及服务器收据幂等提交\n- 断连/重连/重复提交/无效输入测试\n\n**验收**\n- 本地改存档不能增加在线资源或解锁未允许车辆\n- 未经认证的客户端不能调用比赛管理或写入其他玩家状态\n- 安全测试失败不能以多人能连上为由放行",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-027",
+      "title": "M1A1现代能力样车",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：MODERN。职责：载具/战斗/技术美术。依赖：WT-008, WT-012, WT-013, WT-015, WT-017。\n\n按确切改型把 M1A1 从外观资产提升为能力样车：现代瞄具、测距、稳定、对应弹族、装甲层、乘员/弹药布置。该工作在通用核心成熟后即可启动，不等几十辆二战车。\n\n**交付**\n- 明确改型的 VehiclePackage 与能力清单\n- 公开史料、形状估计、设计参数分栏\n- 热像/烟幕/火控受损与中远距正常射击测试\n\n**验收**\n- 不是把现代外壳套到旧车参数上\n- 人工装填车辆不能因统一现代模板被误装自动装弹机\n- 未知防护与材料不冒充真实精确值；每种能力只分配给确有依据的配置",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-028",
+      "title": "现代装备和毁伤扩展",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：MODERN。职责：战斗/载具程序。依赖：WT-027。\n\n以具体车型需要加入 APFSDS/HEAT 类规则、复合/间隙/反应装甲、自动装填、供电与火控依赖、夜视/热像、激光告警等；雷达/主动防护等只在对应车型有需求时做。\n\n**交付**\n- ModernCapabilityGraph 与装备可用性\n- ERA消耗/重复命中及设备损坏测试\n- 自动装填与人工装填分别配置\n\n**验收**\n- 被击毁的传感器和火控不继续提供完整辅助能力\n- 普通烟幕、具有遮蔽相应波段能力的烟幕与热像交互按设计明确\n- 不为所有现代车统一开启全部装备",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-029",
+      "title": "现代对抗样片与车池冻结",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：MODERN-GATE。职责：玩法/数据/真人测试。依赖：WT-027, WT-028, WT-019, WT-022。\n\n把用户关注的99A等车型纳入候选研究，确定确切改型和一组能力相近、可组成多车编成的对手。验证现代战斗距离与节奏，再冻结首发年代车池。\n\n**交付**\n- 现代样车对抗和完整比赛录屏\n- 车池与角色/能力覆盖矩阵\n- 因公开资料不足而采用的游戏抽象说明\n\n**验收**\n- 不因两车都叫主战坦克就宣称天然平衡\n- 真实/有依据数据、玩法平衡与匹配档位分开管理\n- 现代陆战发布目标必须通过本门，不能拿经典车离线首版替代",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-030",
+      "title": "可量产的低模载具流水线",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：技术美术/数据。依赖：WT-001。\n\n资产入库先核实来源与使用范围，再做轮廓、部件拆分、轴心、UV/烘焙、材质、LOD、运动碰撞、装甲与内构、弹药、光学挂点。保留可编辑源和自动校验。\n\n**交付**\n- VehiclePackage规范及导入/检查工具\n- 可见网格、移动碰撞、装甲层、内部模块四层分离\n- 按目标硬件测试的近/中/远档预算\n\n**验收**\n- 换贴图/LOD不能改变命中轮廓和装甲规则\n- 同一车型可由另一名制作者按规范重建或修订\n- 现有约1k模型与M1A1高面数方案需统一到明确画质档，不能只写low-poly就认为预算完成",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-031",
+      "title": "首发载具内容包",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：美术/数据/玩法。依赖：WT-016, WT-030。\n\n建议以窄年代、至少两个可对抗阵营、每阵营可组成实用编成为首包，先约8—12辆完整载具；数量是规划目标，不是战雷内容等量复制。现代包额外依赖WT-029。\n\n**交付**\n- 逐车研究档案与完成度矩阵\n- 轻/中或主战/重或突击/火力支援等角色组合\n- 每车可重复的驾驶、射击、装甲与内构验收\n\n**验收**\n- 车型差异不只是模型颜色和最高速度\n- 三车编成有用途而不全是同一功能替皮\n- 未支持装备的车辆不能仅凭模型入正式车池",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-032",
+      "title": "三张差异化正式地图",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：关卡/美术。依赖：WT-019, WT-021, WT-022。\n\n建议完成城市近战、丘陵混合、开阔机动三类地图。原两图可改造保留；每张有适合规则的占点/目标变体、遮挡、地形反馈、局部可破坏物和完整导航。\n\n**交付**\n- 三图地图包与地图专属预算\n- 出生安全、路径、长射界与反制检查\n- 人数/车池不同配置下的对局数据\n\n**验收**\n- 三张地图改变选车和打法，不是替换贴图的同一布局\n- 木棚/墙破坏同步视觉、碰撞、视线与导航\n- 可破坏规模不能让出生保护失效或产生不可清理残骸堆",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-033",
+      "title": "车库、编成、研究与长期动力",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：玩法/UI/后端。依赖：WT-022, WT-026, WT-031。\n\n扩展现有车库和研发为完整产品：车辆试驾、装甲/内构/防护分析、配弹、编成预设、改装/乘员角色、战绩与战后反馈。匹配参考整套编成和规则版本。\n\n**交付**\n- 车库→排队/房间→结算→研究完整交互\n- 离线与在线档案边界、迁移与备份规则\n- 成长成本/奖励和新手车辆可用性表\n\n**验收**\n- 不靠长时间强制重复劳动掩盖内容不足\n- 任何影响核心战斗的改装都有明确来源与公平规则\n- 在线结算幂等，损坏存档和断网恢复不吞掉唯一好档",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-034",
+      "title": "战场视听与低模统一",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：音频/美术/玩法。依赖：WT-006, WT-017, WT-030。\n\n从已有合成音效继续制作发动机负载/转速、履带地面、炮塔、电机、炮口冲击、远处射击和命中材质的层次；配合尘土、履带痕、烟幕、火灾和死因相关残骸。\n\n**交付**\n- 统一美术/材质/光照/轮廓规范\n- 近远距离声音分层和优先级池\n- 不同效果档位的可读性/信息公平测试\n\n**验收**\n- 音量电平合格不等于声音有重量或可辨识，需实际试听\n- 能区分未穿、跳弹、穿透和击毁，而不是全靠长文字\n- 视觉效果不遮住必须读取的瞄准信息，关键提示有无障碍替代",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-035",
+      "title": "主界面、战斗HUD与首次教学",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：CONTENT。职责：UI/玩法/质量。依赖：WT-023, WT-033。\n\n正式入口与实验室分离。完善可理解的部件损坏、岗位限制、装填、炮口受阻、准星状态、据点/票池/再出击成本；教学教观察和战术，不只列按键。\n\n**交付**\n- 中文完整交互、字库来源清单、改键与设置导出验证\n- 720p/1080p/高DPI布局检查\n- 新玩家首次启动→首场完整比赛记录\n\n**验收**\n- 测试入口不能挤占正常玩家主流程\n- 损坏后玩家知道为什么不能移动/开火以及可以采取什么操作\n- 反馈不依赖只有开发者理解的内部字段或错误码",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-036",
+      "title": "性能、回归与长时稳定",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：RELEASE。职责：质量/核心/网络。依赖：WT-023, WT-025, WT-032, WT-034, WT-035。\n\n覆盖出生密集、烟幕、破片、残骸、建筑破坏、连续换图与重连。按性能数据优化快照缓存、实体索引、空间过滤、对象池、LOD和音源，不先按代码行数重构。\n\n**交付**\n- 指定硬件/画质下完整局p50/p95/p99报告\n- 连续对局和崩溃/节点/内存趋势\n- 全部被测源码与独立构建对应的证据清单\n\n**验收**\n- 建议1080p目标60FPS；p95≤20ms、p99≤33.3ms为初始待标定门槛，不是当前测量值\n- 服务器60Hz建议模拟步p99≤12ms保留余量，发布前按目标机器重新定标\n- 样本长度、首局预热、测试人数和未通过项不可省略",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-037",
+      "title": "房间、匹配与运行服务",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：RELEASE。职责：网络/后端/质量。依赖：WT-024, WT-026, WT-035。\n\n先可选房间/邀请好友/AI补位，再做小车池匹配；规划服务器启动关闭、故障恢复、版本兼容、日志与投诉处理。部署和付费服务必须另获授权。\n\n**交付**\n- 房间大厅、准备/加载超时/取消/掉线规则\n- 服务监测、日志保留和故障处理手册\n- 小规模实测连接与完整多人局\n\n**验收**\n- 自定义房间完整可用，不能只在编辑器里手写IP演示\n- 失去服务器与重连有明确玩家反馈，不静默吞结算\n- 没有擅自购买服务、公开上传或上线",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "WT-038",
+      "title": "完整陆战产品发布候选",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：RELEASE-GATE。职责：全组/真人验收。依赖：WT-023, WT-025, WT-026, WT-031, WT-032, WT-033, WT-034, WT-035, WT-036, WT-037。\n\n交付可独立安装运行、离线与联网均闭环的低模陆战游戏。现代首发候选还必须经过WT-029；旧036离线范围只是内部历史里程碑，不再作为整体目标完成证明。\n\n**交付**\n- 独立客户端和服务器包、版本清单、回退方法\n- 明确支持的车池/地图/模式与未完成功能清单\n- 核心玩家与新玩家的实际比赛反馈及修订记录\n\n**验收**\n- 玩法、内容、稳定性、可用性、网络可信性分别验收\n- 公开发布、商店提交和收费行为另行授权\n- 可宣称完成约定陆战版本，不宣称覆盖战争雷霆全部年代/载具/海空模式",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "EXT-01",
+      "title": "固定翼与防空同步进入合成战斗",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：EXT。职责：飞行/网络/关卡。依赖：WT-038。\n\n新增独立的飞行运动、操控、失速/能量与空中毁伤；机枪炮、炸弹等虚拟武器采用统一战斗记录。同时加入有实际反制能力的防空载具，避免只加对地飞机。\n\n**交付**\n- 一架可完整作战飞机、一辆可反制防空车\n- 空地共有时间轴/可见性/射击与毁伤事件\n- 飞行模式的单独操作与训练\n\n**验收**\n- 固定翼不是坦克控制器加飞行高度\n- 地面玩家有预警、躲避和反制空间\n- 对地、对空、空战收益和出击成本能限制单方面滚雪球",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "EXT-02",
+      "title": "空地编成与直升机等现代扩展",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：EXT。职责：飞行/玩法/网络。依赖：EXT-01, WT-029。\n\n增加空地联合编成、机场补给与出生规则，再研究直升机、雷达/光电、制导与反制。按具体车型和游戏规则建能力，不把真实系统细节当作必须逐物理复现。\n\n**交付**\n- 完整空地对局模式\n- 直升机与防空/地形/烟幕的对抗链\n- 专门的地图范围、可见距离与网络负载配置\n\n**验收**\n- 空中内容不会绕过既有服务器权限与反作弊检查\n- 视距与弹丸生命周期按空地规模重新验收\n- 没有防空反制与节奏平衡就不把新增空中单位视为完成",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "EXT-03",
+      "title": "独立空战与海战模块",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：EXT。职责：飞行/海战专线。依赖：EXT-01。\n\n完整战雷式产品谱系仍需独立空战规则，以及海战船体浮力、舱室/进水/灭火/损管、舰炮测距、多武器与海战地图。它们是单独版本，不是把坦克场景改名。\n\n**交付**\n- 空战：战斗、任务、机场、编成、结算与教学闭环\n- 海战：两类舰艇、舱室损管、完整对局与专用地图样片\n- 通用账户/编成/事件基础的复用边界\n\n**验收**\n- 各模式先通过自己的完成样片再扩量\n- 不因已有陆战模块就虚报空海战完成度\n- 使用陆战成熟底座但不硬套地面驾驶/碰撞/毁伤模板",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    },
+    {
+      "id": "EXT-04",
+      "title": "长期内容、创作与运营",
+      "status": "not_verified_against_new_acceptance",
+      "requirements": "阶段：EXT。职责：工具/内容/运行服务。依赖：WT-038。\n\n建立车辆/地图/任务编辑和验证工具、版本化资料库、数据回归与平衡复盘；按用户与服务规模再扩国家/年代、模式和内容。\n\n**交付**\n- 新车和新地图的稳定产能记录\n- 版本迁移/回放兼容/内容审核规范\n- 长期缺口与优先级可追溯台账\n\n**验收**\n- 扩展速度不能以牺牲现有车型的可解释规则为代价\n- 运行成本与实际用户规模对应，不先搭庞大后台\n- 每次内容发布都有历史数据变更与游戏平衡变更的区别记录",
+      "evidence": [],
+      "human_accepted": false,
+      "release_ready": false
+    }
+  ]
+}
