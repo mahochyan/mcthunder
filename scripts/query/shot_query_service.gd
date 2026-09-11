@@ -16,7 +16,10 @@ static var _vertex_bounds := {}
 static func _bounds(vertices: PackedVector3Array) -> PackedVector3Array:
 	# Packed arrays use value hashing/equality and copy-on-write. Changed geometry
 	# gets a different key; no metadata is written onto shared layout resources.
-	if bounds_cache_enabled and _vertex_bounds.has(vertices): return _vertex_bounds[vertices]
+	if bounds_cache_enabled:
+		# Packed geometry keys hash by value: one lookup avoids hashing twice per patch.
+		var cached: PackedVector3Array = _vertex_bounds.get(vertices,PackedVector3Array())
+		if not cached.is_empty(): return cached
 	var pmin:=vertices[0]; var pmax:=vertices[0]
 	for vertex in vertices: pmin=pmin.min(vertex); pmax=pmax.max(vertex)
 	var result:=PackedVector3Array([pmin,pmax])
@@ -213,17 +216,21 @@ static func _collect_patches(
 			diagnostics.append("patch %s: missing part transform %s" % [patch.id, patch.part_id])
 			complete = false
 			continue
-		var part_world: Transform3D = transforms[patch.part_id]
-		if not local_segments.has(patch.part_id):
+		var segment: PackedVector3Array = local_segments.get(patch.part_id,PackedVector3Array())
+		if segment.is_empty():
+			var part_world: Transform3D = transforms[patch.part_id]
 			var inv:=part_world.affine_inverse()
-			local_segments[patch.part_id]=PackedVector3Array([inv*from_world,inv*to_world])
-		var local_from: Vector3=local_segments[patch.part_id][0]
-		var local_to: Vector3=local_segments[patch.part_id][1]
+			var start_local := inv*from_world
+			var end_local := inv*to_world
+			segment=PackedVector3Array([start_local,end_local,start_local.min(end_local),start_local.max(end_local)])
+			local_segments[patch.part_id]=segment
+		var local_from: Vector3=segment[0]
+		var local_to: Vector3=segment[1]
 		# 保守 AABB 粗筛（局部系）
 		var bounds:=_bounds(patch.vertices_local_m)
 		var pmin:=bounds[0]; var pmax:=bounds[1]
-		var seg_min := local_from.min(local_to)
-		var seg_max := local_from.max(local_to)
+		var seg_min := segment[2]
+		var seg_max := segment[3]
 		if seg_max.x < pmin.x or seg_min.x > pmax.x \
 				or seg_max.y < pmin.y or seg_min.y > pmax.y \
 				or seg_max.z < pmin.z or seg_min.z > pmax.z:
@@ -245,6 +252,7 @@ static func _collect_patches(
 				continue
 			var t: float = r["t"]
 			var point_world := from_world.lerp(to_world, t)
+			var part_world: Transform3D = transforms[patch.part_id]
 			var normal_world := part_world.basis * (r["normal_local"] as Vector3)
 			events.append({
 				"distance_m": seg_length * t,

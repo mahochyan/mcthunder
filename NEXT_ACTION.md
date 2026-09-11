@@ -1,6 +1,6 @@
 # 主线交付与后续工作
 
-当前正在跑查询归因完整局（不是尚未跑的基线）：源码01337a2，`tests/run_wt_benchmark.ps1 -Map village -QueryMetrics`，exec session 56559，console PID50408，目录logs/wt003-benchmark/01337a220bdb2d4a75ba1423b79dc57942b375b0/village-20260911-131315。接续此进程并等自然终局，勿并行启动其他Godot负载；读取带wall_seconds/frame_index的snapshots差分查询耗时，再确定瓶颈。短45秒开关验证已通过，不重复做预检。原始基线两图已完成，下文旧运行句子是历史记录。
+查询归因完整局01337a2已自然终局、退出0：175908次查询累计198.829秒，占墙钟47.9%，重区间74.1%。据此减少每面片重复哈希和线段包围盒计算，固定八车128查询平均157.959→147.872ms（-6.4%），完整输出指纹一致；相关480项回归通过。见docs/wt/WT003_QUERY_COST.md。下一步修改后完整局对照，再推进候选筛选/数据复用；局部收益不能当60FPS达标，下文旧运行句子是历史记录。
 
 村落与工业区完整局均自然终局并退出0，原始帧已重算、终局截图已目视。村落32.46FPS、p95 98.64ms、p99 168.16ms；工业区45.54FPS、p95 60.98ms、p99 110.40ms，两图性能目标均未达标。证据分别在logs/wt003-benchmark/727b78afa617e6f482b3ba5149a588b26fdcddc5/village-20260911-125543与ad5dc771ecc064f4e85ab46eef521fcf3ac71fd4/industrial-20260911-130600。下一步以-QueryMetrics记录完整交火阶段查询耗时，再决定查询索引/缓存或其他瓶颈修复；16/32未测。详见docs/wt/WT003_BENCHMARK.md。
 

@@ -20,10 +20,37 @@ if (Test-Path -LiteralPath $rolesPath) {
     $roles=Get-Content -LiteralPath $rolesPath -Raw | ConvertFrom-Json
     $memory=@($rawMemory | Where-Object { $roles.PSObject.Properties[[string]$_.pid].Value -like 'Godot*' })
 }
+$queryAnalysis=$null
+if ($report.query_metrics.enabled) {
+    $previousFrame=0; $previousWall=0.0; $previousCalls=0; $previousCpu=0.0
+    $queryWindows=@(foreach ($snapshot in $report.snapshots) {
+        $endFrame=[int]$snapshot.frame_index
+        $wallMs=1000*([double]$snapshot.wall_seconds-$previousWall)
+        $calls=[long]$snapshot.query_calls_total-$previousCalls
+        $cpuMs=[double]$snapshot.query_cpu_ms_total-$previousCpu
+        if ($endFrame -le $previousFrame -or $endFrame -gt $frames.Count -or $wallMs -le 0 -or $calls -lt 0 -or $cpuMs -lt 0) { throw 'Invalid query timing window' }
+        $windowFrames=@($frames[$previousFrame..($endFrame-1)] | Sort-Object)
+        [pscustomobject]@{
+            start_wall_seconds=$previousWall;end_wall_seconds=$snapshot.wall_seconds
+            start_frame=($previousFrame+1);end_frame=$endFrame;calls=$calls;query_cpu_ms=$cpuMs
+            query_percent_of_wall=100*$cpuMs/$wallMs
+            p95_ms=$windowFrames[[Math]::Ceiling($windowFrames.Count*0.95)-1];max_ms=$windowFrames[-1]
+        }
+        $previousFrame=$endFrame; $previousWall=[double]$snapshot.wall_seconds
+        $previousCalls=[long]$snapshot.query_calls_total; $previousCpu=[double]$snapshot.query_cpu_ms_total
+    })
+    $queryAnalysis=[ordered]@{
+        calls=$report.query_metrics.calls;cpu_ms=$report.query_metrics.cpu_ms
+        percent_of_wall=100*$report.query_metrics.cpu_ms/($report.wall_seconds*1000)
+        heaviest_windows=@($queryWindows | Sort-Object query_percent_of_wall -Descending | Select-Object -First 10)
+        scope='Inclusive query CPU time divided by wall time; windows span 30 rendered frames, not individual stalls. Excludes snapshot building, other simulation and rendering.'
+    }
+}
 $summary=[ordered]@{
     source_sha=$identity.source_sha;map=$identity.map;seed=$identity.seed;full_match_verified=[bool]$complete;raw_statistics_verified=$rawMatches
     resolution=$report.resolution;cpu=$report.cpu;gpu=$report.gpu;renderer=$report.renderer;render_cap=$report.render_cap;fx_level=$report.fx_level
     ram_bytes=$identity.ram_bytes;physics_tick_hz=$report.physics_tick_hz;time_scale=$report.time_scale;query_metrics=$report.query_metrics
+    query_analysis=$queryAnalysis
     observer_far_m=$report.observer_far_m;wall_seconds=$report.wall_seconds;sim_seconds=$report.measurement_end_sim_time;termination=$report.termination_reason
     frames=$frames.Count;mean_ms=$mean;fps_from_mean=1000/$mean;p95_ms=$p95;p99_ms=$p99;max_ms=$sorted[-1]
     p95_within_20ms=($complete -and $p95 -le 20);p99_within_33_3ms=($complete -and $p99 -le 33.3)

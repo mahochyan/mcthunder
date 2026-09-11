@@ -1,0 +1,19 @@
+{
+  "actors": 8,
+  "batch_ms": [
+    157.115,
+    157.463,
+    160.928,
+    159.11,
+    156.61,
+    155.694,
+    158.794
+  ],
+  "contacts": 425,
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13400",
+  "engine": "4.7.2-stable (official)",
+  "fingerprint": "e2abd1cdf44031878f87a57730e1dc9c225b37da9399ce14a9bdbfbe88c8c880",
+  "outputs_identical": true,
+  "requests_per_batch": 128,
+  "scope": "fixed eight historical vehicle geometry; mixed external and internal rays; warm cache; excludes rendering and snapshot construction"
+}

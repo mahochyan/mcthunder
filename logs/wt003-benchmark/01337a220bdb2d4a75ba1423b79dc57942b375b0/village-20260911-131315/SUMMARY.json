@@ -1,0 +1,257 @@
+{
+  "source_sha": "01337a220bdb2d4a75ba1423b79dc57942b375b0",
+  "map": "village",
+  "seed": 19001,
+  "full_match_verified": true,
+  "raw_statistics_verified": true,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13400",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "renderer": "gl_compatibility",
+  "render_cap": 60,
+  "fx_level": 2,
+  "ram_bytes": 34088460288,
+  "physics_tick_hz": 60,
+  "time_scale": 1.0,
+  "query_metrics": {
+    "calls": 175908,
+    "cpu_ms": 198829.454,
+    "enabled": true,
+    "scope": "ShotQueryService only; excludes snapshot building, physics server and rendering"
+  },
+  "query_analysis": {
+    "calls": 175908,
+    "cpu_ms": 198829.454,
+    "percent_of_wall": 47.90538576724358,
+    "heaviest_windows": [
+      {
+        "start_wall_seconds": 311.213147,
+        "end_wall_seconds": 316.202232,
+        "start_frame": 10441,
+        "end_frame": 10470,
+        "calls": 2852,
+        "query_cpu_ms": 3695.768000000011,
+        "query_percent_of_wall": 74.0770702443438,
+        "p95_ms": 220.001,
+        "max_ms": 249.112
+      },
+      {
+        "start_wall_seconds": 316.202232,
+        "end_wall_seconds": 320.775935,
+        "start_frame": 10471,
+        "end_frame": 10500,
+        "calls": 2552,
+        "query_cpu_ms": 3318.780999999988,
+        "query_percent_of_wall": 72.56223239681219,
+        "p95_ms": 214.444,
+        "max_ms": 229.965
+      },
+      {
+        "start_wall_seconds": 154.662174,
+        "end_wall_seconds": 158.289291,
+        "start_frame": 6511,
+        "end_frame": 6540,
+        "calls": 1742,
+        "query_cpu_ms": 2623.241000000002,
+        "query_percent_of_wall": 72.32303231464557,
+        "p95_ms": 266.173,
+        "max_ms": 269.365
+      },
+      {
+        "start_wall_seconds": 276.413558,
+        "end_wall_seconds": 281.127592,
+        "start_frame": 10081,
+        "end_frame": 10110,
+        "calls": 2544,
+        "query_cpu_ms": 3401.3150000000023,
+        "query_percent_of_wall": 72.1529585913047,
+        "p95_ms": 210.922,
+        "max_ms": 279.875
+      },
+      {
+        "start_wall_seconds": 281.127592,
+        "end_wall_seconds": 285.790322,
+        "start_frame": 10111,
+        "end_frame": 10140,
+        "calls": 2481,
+        "query_cpu_ms": 3357.4939999999915,
+        "query_percent_of_wall": 72.0070430842014,
+        "p95_ms": 225.562,
+        "max_ms": 244.854
+      },
+      {
+        "start_wall_seconds": 290.289711,
+        "end_wall_seconds": 294.501554,
+        "start_frame": 10171,
+        "end_frame": 10200,
+        "calls": 2319,
+        "query_cpu_ms": 3016.7839999999997,
+        "query_percent_of_wall": 71.62622158518273,
+        "p95_ms": 213.646,
+        "max_ms": 222.231
+      },
+      {
+        "start_wall_seconds": 294.501554,
+        "end_wall_seconds": 298.846358,
+        "start_frame": 10201,
+        "end_frame": 10230,
+        "calls": 2426,
+        "query_cpu_ms": 3109.4550000000017,
+        "query_percent_of_wall": 71.56720993628237,
+        "p95_ms": 205.228,
+        "max_ms": 245.39
+      },
+      {
+        "start_wall_seconds": 320.775935,
+        "end_wall_seconds": 325.608834,
+        "start_frame": 10501,
+        "end_frame": 10530,
+        "calls": 2667,
+        "query_cpu_ms": 3456.609999999986,
+        "query_percent_of_wall": 71.52249612499635,
+        "p95_ms": 237.466,
+        "max_ms": 250.24
+      },
+      {
+        "start_wall_seconds": 253.304572,
+        "end_wall_seconds": 256.840488,
+        "start_frame": 9571,
+        "end_frame": 9600,
+        "calls": 2072,
+        "query_cpu_ms": 2487.976999999999,
+        "query_percent_of_wall": 70.36301201725405,
+        "p95_ms": 182.777,
+        "max_ms": 192.003
+      },
+      {
+        "start_wall_seconds": 285.790322,
+        "end_wall_seconds": 290.289711,
+        "start_frame": 10141,
+        "end_frame": 10170,
+        "calls": 2486,
+        "query_cpu_ms": 3119.2230000000127,
+        "query_percent_of_wall": 69.32547952622026,
+        "p95_ms": 216.973,
+        "max_ms": 221.471
+      }
+    ],
+    "scope": "Inclusive query CPU time divided by wall time; windows span 30 rendered frames, not individual stalls. Excludes snapshot building, other simulation and rendering."
+  },
+  "observer_far_m": 2620.0,
+  "wall_seconds": 415.046139,
+  "sim_seconds": 401.649999999963,
+  "termination": "tickets",
+  "frames": 13110,
+  "mean_ms": 31.658643096872694,
+  "fps_from_mean": 31.58695074012133,
+  "p95_ms": 107.985,
+  "p99_ms": 169.646,
+  "max_ms": 279.875,
+  "p95_within_20ms": false,
+  "p99_within_33_3ms": false,
+  "raw_memory_samples": 78,
+  "memory_samples": 78,
+  "memory_source_verified": true,
+  "private_bytes_peak": 541749248.0,
+  "working_set_bytes_peak": 366452736.0,
+  "nodes_peak": 1027.0,
+  "physics_ms_peak": 147.925,
+  "process_ms_peak": 21.54,
+  "load_coverage": {
+    "audio": {
+      "accepted": 9719,
+      "driver": "WASAPI",
+      "peak_db": -16.2610321044922,
+      "peak_voices": 30,
+      "status": "observed"
+    },
+    "building_collapse": "not_covered",
+    "building_sections_collapsed": 0,
+    "building_sections_hit": 0,
+    "projectiles_finished": 155,
+    "shell_types_observed": {
+      "us_m24_m6_t85e1_1951_shell": 36,
+      "us_m26_m3_1945_shell": 45,
+      "us_m36_m4a1_1945_shell": 43,
+      "us_m4a3_75w_vvss_1944_shell": 31
+    },
+    "vehicle_config": {
+      "A": {
+        "shell": "us_m4a3_75w_vvss_1944_shell",
+        "shell_counts": {
+          "us_m4a3_75w_vvss_1944_m61_m3": 31,
+          "us_m4a3_75w_vvss_1944_shell": 73
+        },
+        "vehicle_id": "us_m4a3_75w_vvss_1944"
+      },
+      "A2": {
+        "shell": "us_m24_m6_t85e1_1951_shell",
+        "shell_counts": {
+          "us_m24_m6_t85e1_1951_m72_m6": 14,
+          "us_m24_m6_t85e1_1951_shell": 34
+        },
+        "vehicle_id": "us_m24_m6_t85e1_1951"
+      },
+      "A3": {
+        "shell": "us_m26_m3_1945_shell",
+        "shell_counts": {
+          "us_m26_m3_1945_m82_m3_2800": 21,
+          "us_m26_m3_1945_shell": 49
+        },
+        "vehicle_id": "us_m26_m3_1945"
+      },
+      "A4": {
+        "shell": "us_m36_m4a1_1945_shell",
+        "shell_counts": {
+          "us_m36_m4a1_1945_m82_m3_2800": 14,
+          "us_m36_m4a1_1945_shell": 33
+        },
+        "vehicle_id": "us_m36_m4a1_1945"
+      },
+      "B": {
+        "shell": "us_m4a3_75w_vvss_1944_shell",
+        "shell_counts": {
+          "us_m4a3_75w_vvss_1944_m61_m3": 31,
+          "us_m4a3_75w_vvss_1944_shell": 73
+        },
+        "vehicle_id": "us_m4a3_75w_vvss_1944"
+      },
+      "B2": {
+        "shell": "us_m24_m6_t85e1_1951_shell",
+        "shell_counts": {
+          "us_m24_m6_t85e1_1951_m72_m6": 14,
+          "us_m24_m6_t85e1_1951_shell": 34
+        },
+        "vehicle_id": "us_m24_m6_t85e1_1951"
+      },
+      "B3": {
+        "shell": "us_m26_m3_1945_shell",
+        "shell_counts": {
+          "us_m26_m3_1945_m82_m3_2800": 21,
+          "us_m26_m3_1945_shell": 49
+        },
+        "vehicle_id": "us_m26_m3_1945"
+      },
+      "B4": {
+        "shell": "us_m36_m4a1_1945_shell",
+        "shell_counts": {
+          "us_m36_m4a1_1945_m82_m3_2800": 14,
+          "us_m36_m4a1_1945_shell": 33
+        },
+        "vehicle_id": "us_m36_m4a1_1945"
+      }
+    },
+    "wreck_load": "observed",
+    "wrecks_peak": 4
+  },
+  "limitations": [
+    "single seed and observer camera",
+    "instrumented source build",
+    "virtual display present",
+    "16 and 32 actors not measured",
+    "frame intervals do not attribute a specific bottleneck"
+  ]
+}

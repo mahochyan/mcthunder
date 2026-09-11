@@ -1,0 +1,11 @@
+{
+  "baseline_source": "5591da7",
+  "candidate_source": "5591da7 plus query worktree patch",
+  "service_sha256": "610D5C0F89B95E069892935F8791DE947ED97233D97EA7FAEAF1D8CD4AC99650",
+  "profiler_sha256": "715E33AF758406F75AFAB2CD1E2BDA845892144E1874FDF7BAA691D489AD70E0",
+  "fingerprints_match": true,
+  "before_batch_mean_ms": 157.95914285714284,
+  "after_batch_mean_ms": 147.87214285714285,
+  "reduction_percent": 6.385828523469894,
+  "scope": "Fixed eight-vehicle 128-query batch; not full-match FPS improvement"
+}

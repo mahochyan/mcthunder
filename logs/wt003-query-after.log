@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[query profile] {"actors":8,"batch_ms":[142.65,142.468,145.289,152.3,149.847,152.522,150.029],"contacts":425,"cpu":"13th Gen Intel(R) Core(TM) i5-13400","engine":"4.7.2-stable (official)","fingerprint":"e2abd1cdf44031878f87a57730e1dc9c225b37da9399ce14a9bdbfbe88c8c880","outputs_identical":true,"requests_per_batch":128,"scope":"fixed eight historical vehicle geometry; mixed external and internal rays; warm cache; excludes rendering and snapshot construction"}
+QUERY_PROFILE_PASS
