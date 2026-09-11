@@ -13,7 +13,7 @@ $logs=@('view.log','view.err.log','server.log','server.err.log') | ForEach-Objec
 $text=($logs.Text -join "`n")
 $passed=$view.ExitCode -eq 0 -and $server.ExitCode -eq 0 -and @($logs | Where-Object Error).Count -eq 0 -and $text -match 'NETWORK_VIEW_CHECKS_PASS' -and $text -notmatch 'SCRIPT ERROR:|(?m)^ERROR:|\[FAIL\]'
 $hashes=@{}
-foreach ($file in @('scripts/network/network_battle_client.gd','scripts/network/network_client_view.gd','scripts/network/network_battle_server.gd','tests/run_network_view_checks.gd')) { $hashes[$file]=(Get-FileHash (Join-Path $projectRoot $file)).Hash }
+foreach ($file in @('scripts/network/network_battle_client.gd','scripts/network/network_client_view.gd','scripts/network/network_pose_buffer.gd','scripts/network/network_battle_server.gd','tests/run_network_view_checks.gd')) { $hashes[$file]=(Get-FileHash (Join-Path $projectRoot $file)).Hash }
 @{passed=$passed;source=(& git -C $projectRoot rev-parse HEAD).Trim();build='source-worktree';engine_sha256=(Get-FileHash $engine).Hash;file_hashes=$hashes;server_command=$serverArgs;view_command=$viewArgs;server_exit=$server.ExitCode;view_exit=$view.ExitCode} | ConvertTo-Json -Depth 4 | Set-Content (Join-Path $folder 'RESULTS.json')
 Write-Output $text
 Write-Output ('EVIDENCE='+$folder)

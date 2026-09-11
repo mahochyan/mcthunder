@@ -20,7 +20,18 @@ func run() -> void:
 	var start := view.owned.tank.global_position
 	view.player.commands_enabled=true
 	Input.action_press("move_forward")
-	await wait_seconds(1)
+	var until := Time.get_ticks_msec()+1000
+	var intermediate_frames := 0
+	var previous_sequence := -1
+	var previous_position := start
+	while Time.get_ticks_msec()<until:
+		await RenderingServer.frame_post_draw
+		var sequence := int(view.connection.latest.get("sequence",-1))
+		var position := view.owned.tank.global_position
+		if sequence==previous_sequence and position.distance_to(previous_position)>0.0001:
+			intermediate_frames+=1
+		previous_sequence=sequence; previous_position=position
+	check(intermediate_frames>=5,"rendered replica moves between authoritative packet arrivals (%d frames)"%intermediate_frames)
 	Input.action_release("move_forward")
 	await wait_seconds(0.5)
 	check(view.owned.tank.global_position.distance_to(start)>0.5,"keyboard drive traverses real network and returns as server movement")
@@ -52,6 +63,8 @@ func run() -> void:
 	check(epoch>previous_epoch,"disconnect and new handshake change authoritative control epoch")
 	check(view.owned!=null and view.player.commands_enabled,"R key reconnect restores interactive control")
 	check(not view.player._fire_pending,"disconnect does not retain a fire edge")
+	view.connection.disconnected.emit()
+	check(view.pose_buffer.frames.is_empty() and not view.player.commands_enabled,"transport disconnect clears interpolation and disables input")
 	view.free(); observer.free()
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
 	print("NETWORK_VIEW_CHECKS_PASS" if failures==0 else "NETWORK_VIEW_CHECKS_FAIL")

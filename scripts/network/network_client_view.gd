@@ -10,7 +10,9 @@ var last_event := "尚无命中结果"
 var port := 19109
 var pending := CommandMailbox.new()
 var pending_since := 0
+var pose_buffer := NetworkPoseBuffer.new()
 func _ready() -> void:
+	process_priority=-10 # Move displayed replicas before their cameras update.
 	InputBindingService.initialize()
 	var ground := StaticBody3D.new(); add_child(ground)
 	var shape := CollisionShape3D.new(); var box := BoxShape3D.new(); box.size=Vector3(6000,1,6000)
@@ -32,7 +34,7 @@ func _ready() -> void:
 		actors[id]=actor
 	add_child(player)
 	connection.snapshot_received.connect(apply_snapshot)
-	connection.disconnected.connect(clear_input)
+	connection.disconnected.connect(connection_lost)
 	add_child(connection)
 	build_ui()
 	connection.connect_local(port)
@@ -50,6 +52,9 @@ func build_ui() -> void:
 func clear_input() -> void:
 	pending.clear(); player.commands_enabled=false; player.require_fire_release()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+func connection_lost() -> void:
+	clear_input()
+	pose_buffer.clear()
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode==KEY_ESCAPE: clear_input()
@@ -57,15 +62,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			player.commands_enabled=true; player.require_fire_release(); Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 		if event.keycode==KEY_R:
 			clear_input()
+			pose_buffer.clear()
 			if owned!=null: owned.set_controller(null); owned.label3d.visible=true
 			owned=null; connection.connect_local(port)
 func apply_snapshot(snapshot: Dictionary) -> void:
+	if not pose_buffer.push(snapshot): return
+	if connection.status=="finished":
+		pose_buffer.render_tick=float(snapshot.tick)
+		clear_input()
+	if not snapshot.events.is_empty():
+		var event: Dictionary=snapshot.events[-1]
+		var reason: String={"impact_world":"击中地面或掩体","impact_vehicle":"命中车辆","expired_distance":"炮弹超出射程","expired_time":"炮弹飞行结束","cancelled_match_finished":"训练结束"}.get(str(event.reason),"弹道已结束")
+		last_event="%s 第%d发：%s"%[event.shooter_id,event.shot_id,reason]
 	for row in snapshot.vehicles:
 		if not actors.has(row.entity_id): continue
 		var actor: VehicleActor=actors[row.entity_id]
-		actor.tank.global_position=Vector3(row.position[0],row.position[1],row.position[2])
-		actor.tank.global_rotation=Vector3(0,row.yaw,0)
-		actor.turret.rotation.y=row.turret_yaw; actor.turret.barrel_pivot.rotation.x=row.gun_pitch
 		actor.state.destroyed=row.destroyed
 		if row.entity_id==connection.entity_id:
 			if owned!=actor:
@@ -73,10 +84,13 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 				owned=actor; owned.set_controller(player); owned.label3d.visible=false; player.commands_enabled=true; player.require_fire_release()
 			var stats := connection.own_status
 			details_label.text="炮弹余 %d 发 · 装填 %.1f 秒 · 速度 %.1f km/h · 已射击 %d 发\n%s · %s"%[stats.get("ammo",0),stats.get("cooldown",0),absf(float(stats.get("speed",0)))*3.6,row.shots,"车辆已失能" if row.destroyed else "车辆可操作",last_event]
-	if not snapshot.events.is_empty():
-		var event: Dictionary=snapshot.events[-1]
-		var reason: String={"impact_world":"击中地面或掩体","impact_vehicle":"命中车辆","expired_distance":"炮弹超出射程","expired_time":"炮弹飞行结束","cancelled_match_finished":"训练结束"}.get(str(event.reason),"弹道已结束")
-		last_event="%s 第%d发：%s"%[event.shooter_id,event.shot_id,reason]
+func _process(delta: float) -> void:
+	for row in pose_buffer.advance(delta):
+		if not actors.has(row.entity_id): continue
+		var actor: VehicleActor=actors[row.entity_id]
+		actor.tank.global_position=Vector3(row.position[0],row.position[1],row.position[2])
+		actor.tank.global_rotation=Vector3(0,row.yaw,0)
+		actor.turret.rotation.y=row.turret_yaw; actor.turret.barrel_pivot.rotation.x=row.gun_pitch
 func _physics_process(_delta: float) -> void:
 	var label: String={"connecting":"正在连接","connected":"已连接","disconnected":"连接已断开，按 R 重试","finished":"训练已结束"}.get(connection.status,connection.status)
 	status_label.text="本机联网训练 · %s · 控制车辆 %s"%[label,connection.entity_id]
