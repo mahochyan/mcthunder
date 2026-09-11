@@ -100,3 +100,4 @@ const CHASSIS_RECOIL_DAMPING := 5.0
 const CHASSIS_RECOIL_MAX_MPS := 1.3
 # Authored rolling resistance acceleration, game tuning in m/s².
 const DRIVE_SURFACE_DRAG := {"unclassified":0.0,"road":0.12,"concrete":0.2,"grass":0.55,"soft_soil":1.0}
+const DRIVE_SUPPORT_REACH_M := 0.55 # Effective track support reach; game tuning.

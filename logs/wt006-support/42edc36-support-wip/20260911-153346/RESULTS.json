@@ -1,0 +1,58 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "42edc36-support-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_drive_checks",
+    "source_sha": "42edc36-support-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_drive_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 25,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_airborne_drive_checks",
+    "source_sha": "42edc36-support-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_airborne_drive_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 13,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_track_damage_checks",
+    "source_sha": "42edc36-support-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-mainline\" -s \"res://tests/run_track_damage_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 21,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "source_sha": "42edc368f1b0a78010984aad4219a6bde0b7a7fb",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder-mainline\" --position 1280,0 --max-fps 60 -s \"res://tests/run_drive_player_checks.gd\" -- --shot-dir \"res://docs/evidence/wt006-support/wip-uncommitted/window-20260911-153653\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/wt006-support/wip-uncommitted/window-20260911-153653",
+  "human": "NOT_RUN"
+}

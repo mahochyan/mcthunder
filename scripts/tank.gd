@@ -101,6 +101,9 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var forward := VehiclePose.flat_forward(global_basis)
 	var size := defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
+	if track_pivot:
+		steer*=float(ground_state.left_support if left_available else ground_state.right_support)
+	else: steer*=minf(ground_state.left_support,ground_state.right_support)
 	if ground_state.grounded:
 		forward_speed=tracks.step(forward_speed,steer,delta,definition)
 		if track_pivot: forward_speed=tracks.single_track_pivot(steer,left_available,definition)
@@ -113,7 +116,7 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var grade := forward.slide(ground_state.normal).normalized().y if ground_state.grounded else 0.0
 	if ground_state.grounded:
 		if track_pivot: powertrain.reset()
-		else: forward_speed=powertrain.step(forward_speed,throttle,grade,true,delta,definition,ground_state.surface_drag)
+		else: forward_speed=powertrain.step(forward_speed,throttle,grade,true,delta,definition,ground_state.surface_drag,ground_state.traction_support)
 	var limit := defs.max_slope_deg if defs != null else GameConfig.DRIVE_MAX_SLOPE_DEG
 	slope_blocked = GroundProbe.blocks_uphill(ground_state,forward*signf(forward_speed),limit)
 	if slope_blocked: forward_speed = 0.0

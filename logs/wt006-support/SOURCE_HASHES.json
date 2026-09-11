@@ -1,0 +1,22 @@
+[
+  {
+    "path": "scripts/tank.gd",
+    "sha256": "D2C441D5BF9465743CFF408B39619A5CE012F9CEBF48A4803BB2AC42423AF514"
+  },
+  {
+    "path": "scripts/drive/ground_probe.gd",
+    "sha256": "7D17AE2478CAE19CF3ED9623CA1D663FFEB08A628B58D548A9B9817C2BCE043D"
+  },
+  {
+    "path": "scripts/drive/drive_powertrain.gd",
+    "sha256": "349746553CD3CBF5840FF0D8448336E8B68F5EB46152A754DEBFFE71C25DF361"
+  },
+  {
+    "path": "scripts/game_config.gd",
+    "sha256": "FC72E03CD9ED9E69E92B12C0540C2596E2E384DDD59AFF0AD03DE492DE4B74DB"
+  },
+  {
+    "path": "tests/run_partial_support_checks.gd",
+    "sha256": "5C41285C4744DB937B1F585E23089CD414AEFB8A345FDFEF6728C0C4F666BA94"
+  }
+]
