@@ -1,0 +1,17 @@
+{
+  "source_sha": "727b78afa617e6f482b3ba5149a588b26fdcddc5",
+  "build": "source-worktree",
+  "full_requested": false,
+  "map": "village",
+  "seed": 19001,
+  "command": "E:\\AIprogram\\mcthunder-mainline\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder-mainline\" --borderless --resolution 1920x1080 --position 0,0 --max-fps 60 -s res://tests/run_frame_profile.gd -- --report-dir \"E:\\AIprogram\\mcthunder-mainline\\logs\\wt003-benchmark\\727b78afa617e6f482b3ba5149a588b26fdcddc5\\village-20260911-125515\" --map village --seed 19001 --vehicle us_m4a3_75w_vvss_1944 --benchmark-1080 --seconds 5",
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "profiler_sha256": "F0F019D02F1918621FA79240F9F6AF8D397CC6480EFE27CF1802B03B3719718D",
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13400",
+  "ram_bytes": 34088460288,
+  "capacity": {
+    "8": "probe_only",
+    "32": "not_run",
+    "16": "not_run"
+  }
+}

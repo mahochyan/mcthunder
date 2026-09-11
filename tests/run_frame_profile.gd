@@ -8,8 +8,14 @@ extends SceneTree
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	if DisplayServer.get_name() == "headless": print("[FAIL] frame profile requires a real window"); quit(1); return
-	root.size = Vector2i(1280,720)
 	var args := OS.get_cmdline_user_args()
+	if args.has("--benchmark-1080"):
+		root.borderless=true
+		root.mode=Window.MODE_FULLSCREEN
+		await process_frame
+		if root.size!=Vector2i(1920,1080):
+			print("[FAIL] actual fullscreen size is ",root.size,"; expected 1920x1080")
+			quit(1); return
 	var out_dir := "res://logs/027A/frame-baseline"
 	var index := args.find("--report-dir")
 	if index>=0 and index+1<args.size(): out_dir = args[index+1]
@@ -21,11 +27,18 @@ func _run() -> void:
 	if index>=0 and index+1<args.size(): seed = int(args[index+1])
 	var full := args.has("--full")   # full_requested: a request, NOT a completion claim
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
+	var setup_started := Time.get_ticks_usec()
 	var scene: TeamRange = IndustrialRange.new() if map == "industrial" else VillageRange.new()
+	index=args.find("--vehicle")
+	if index>=0 and index+1<args.size(): scene.selected_vehicle_id=args[index+1]
 	scene.ai_only = true
 	scene.match_seed = seed
 	root.add_child(scene)
 	current_scene = scene
+	var setup_ms := (Time.get_ticks_usec()-setup_started)/1000.0
+	if not scene.team_ready: print("[FAIL] benchmark battle initialization failed"); scene.free(); quit(1); return
+	scene.spectator.far=scene.actor.cam_rig.cam.far
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	var shot_counts := {"finished":0}
 	var shells_by_type := {}
 	scene.projectiles.projectile_finished.connect(func(record: Dictionary) -> void:
@@ -38,11 +51,14 @@ func _run() -> void:
 	var warmup_ms := 15000
 	var t0 := Time.get_ticks_usec()
 	var measure_start_sim: float = scene.director.state.elapsed if scene.director != null else -1.0
-	var wall_limit_ms := 600000 if full else 45000
+	var wall_limit_ms := 900000 if full else 45000
+	index=args.find("--wall-seconds")
+	if full and index>=0 and index+1<args.size(): wall_limit_ms=clampi(int(args[index+1]),600,3600)*1000
 	index = args.find("--seconds")
 	if not full and index >= 0 and index+1 < args.size(): wall_limit_ms = clampi(int(args[index+1]),2,45)*1000
 	var match_finished := false
 	var last := t0
+	var next_progress := 0
 	while Time.get_ticks_usec()-t0 < wall_limit_ms*1000:
 		await RenderingServer.frame_post_draw
 		var now := Time.get_ticks_usec()
@@ -51,6 +67,12 @@ func _run() -> void:
 		samples.append(ms)
 		if now-t0 >= warmup_ms*1000: steady.append(ms)
 		if samples.size()%30 == 0: snapshots.append(TelemetrySnapshot.capture(scene))
+		if now-t0>=next_progress:
+			next_progress=int(now-t0)+15000000
+			var progress := {"wall_seconds":(now-t0)/1000000.0,"sim_seconds":scene.director.state.elapsed,"phase":scene.director.state.phase,"frames":samples.size(),"projectiles_finished":shot_counts.finished}
+			var progress_file := FileAccess.open(out_dir.path_join("PROGRESS.json"),FileAccess.WRITE)
+			if progress_file != null: progress_file.store_string(JSON.stringify(progress)); progress_file.close()
+			print("[progress] ",progress)
 		if scene.director.state.phase == "finished":
 			match_finished = true
 			break
@@ -81,7 +103,7 @@ func _run() -> void:
 		for child in another.get_children(): astack.append(child)
 	var loadouts := {}
 	for actor in scene.combat_actors():
-		loadouts[actor.entity_id] = {"shell_counts":actor.gunner.initial_shell_counts.duplicate(true),"shell":str(actor.gunner.initial_shell_id)}
+		loadouts[actor.entity_id] = {"vehicle_id":actor.definition.id,"shell_counts":actor.gunner.initial_shell_counts.duplicate(true),"shell":str(actor.gunner.initial_shell_id)}
 	var load_coverage := {
 		"vehicle_config":loadouts,
 		"projectiles_finished":shot_counts.finished,
@@ -96,11 +118,16 @@ func _run() -> void:
 			"status":"observed" if audio_accepted>0 else ("dummy_driver" if AudioServer.get_driver_name()=="Dummy" else "not_covered")},
 	}
 	var report := {"engine":Engine.get_version_info().string,"display":DisplayServer.get_name(),
+		"scene_setup_ms":setup_ms,"measurement_scope":"rendered frames after scene ready; setup measured separately",
 		"cpu":OS.get_processor_name(),"gpu":RenderingServer.get_video_adapter_name(),
 		"map":map,"seed":seed,"full_requested":full,"match_finished":match_finished,
 		"termination_reason":termination_reason,"incomplete":full and not match_finished,
 		"measurement_start_sim_time":measure_start_sim,"measurement_end_sim_time":measure_end_sim,
-		"warmup_seconds":warmup_ms/1000.0,"resolution":[1280,720],
+		"warmup_seconds":warmup_ms/1000.0,"resolution":[root.size.x,root.size.y],
+		"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_video_adapter_api_version(),
+		"render_cap":Engine.max_fps,"vsync":DisplayServer.window_get_vsync_mode(),"fx_level":AccessibilitySettings.fx_level,
+		"selected_vehicle":scene.selected_vehicle_id,"observer_far_m":scene.spectator.far,"observer_fov":scene.spectator.fov,
+		"wall_limit_seconds":wall_limit_ms/1000.0,"wall_seconds":(Time.get_ticks_usec()-t0)/1000000.0,
 		"physics_tick_hz":Engine.physics_ticks_per_second,"time_scale":Engine.time_scale,
 		"headless":false,
 		"frames_from_match_start":TelemetrySnapshot.frame_summary(samples),
