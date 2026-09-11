@@ -9,6 +9,11 @@ func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	if DisplayServer.get_name() == "headless": print("[FAIL] frame profile requires a real window"); quit(1); return
 	var args := OS.get_cmdline_user_args()
+	# Optional attribution run; keep the uninstrumented frame baseline separate.
+	var query_metrics := args.has("--query-metrics")
+	ShotQueryService.measure_enabled = false
+	ShotQueryService.measured_calls = 0
+	ShotQueryService.measured_usec = 0
 	if args.has("--benchmark-1080"):
 		root.borderless=true
 		root.mode=Window.MODE_FULLSCREEN
@@ -49,6 +54,7 @@ func _run() -> void:
 	var steady: PackedFloat64Array = []        # subset after the warmup window
 	var snapshots: Array = []
 	var warmup_ms := 15000
+	ShotQueryService.measure_enabled = query_metrics
 	var t0 := Time.get_ticks_usec()
 	var measure_start_sim: float = scene.director.state.elapsed if scene.director != null else -1.0
 	var wall_limit_ms := 900000 if full else 45000
@@ -66,7 +72,14 @@ func _run() -> void:
 		last = now
 		samples.append(ms)
 		if now-t0 >= warmup_ms*1000: steady.append(ms)
-		if samples.size()%30 == 0: snapshots.append(TelemetrySnapshot.capture(scene))
+		if samples.size()%30 == 0:
+			var snapshot := TelemetrySnapshot.capture(scene)
+			snapshot["wall_seconds"] = (now-t0)/1000000.0
+			snapshot["frame_index"] = samples.size()
+			if query_metrics:
+				snapshot["query_calls_total"] = ShotQueryService.measured_calls
+				snapshot["query_cpu_ms_total"] = ShotQueryService.measured_usec/1000.0
+			snapshots.append(snapshot)
 		if now-t0>=next_progress:
 			next_progress=int(now-t0)+15000000
 			var progress := {"wall_seconds":(now-t0)/1000000.0,"sim_seconds":scene.director.state.elapsed,"phase":scene.director.state.phase,"frames":samples.size(),"projectiles_finished":shot_counts.finished}
@@ -118,6 +131,8 @@ func _run() -> void:
 			"status":"observed" if audio_accepted>0 else ("dummy_driver" if AudioServer.get_driver_name()=="Dummy" else "not_covered")},
 	}
 	var report := {"engine":Engine.get_version_info().string,"display":DisplayServer.get_name(),
+		"query_metrics":{"enabled":query_metrics,"calls":ShotQueryService.measured_calls,"cpu_ms":ShotQueryService.measured_usec/1000.0,
+			"scope":"ShotQueryService only; excludes snapshot building, physics server and rendering"},
 		"scene_setup_ms":setup_ms,"measurement_scope":"rendered frames after scene ready; setup measured separately",
 		"cpu":OS.get_processor_name(),"gpu":RenderingServer.get_video_adapter_name(),
 		"map":map,"seed":seed,"full_requested":full,"match_finished":match_finished,

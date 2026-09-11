@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[progress] { "wall_seconds": 0.096944, "sim_seconds": 0.0, "phase": "countdown", "frames": 1, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 15.105845, "sim_seconds": 12.1000000000002, "phase": "playing", "frames": 902, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 30.121003, "sim_seconds": 27.1166666666664, "phase": "playing", "frames": 1803, "projectiles_finished": 0 }
+[progress] { "wall_seconds": 45.131288, "sim_seconds": 42.1333333333322, "phase": "playing", "frames": 2680, "projectiles_finished": 12 }
+[progress] { "wall_seconds": 60.147272, "sim_seconds": 57.1333333333314, "phase": "playing", "frames": 3534, "projectiles_finished": 21 }
+[progress] { "wall_seconds": 75.150986, "sim_seconds": 72.1499999999972, "phase": "playing", "frames": 4186, "projectiles_finished": 27 }
+[progress] { "wall_seconds": 90.250172, "sim_seconds": 87.1499999999963, "phase": "playing", "frames": 4921, "projectiles_finished": 32 }
+[progress] { "wall_seconds": 105.253228, "sim_seconds": 102.016666666662, "phase": "playing", "frames": 5344, "projectiles_finished": 40 }
+[progress] { "wall_seconds": 120.299752, "sim_seconds": 116.999999999995, "phase": "playing", "frames": 5954, "projectiles_finished": 48 }
+[progress] { "wall_seconds": 135.330246, "sim_seconds": 131.58333333333, "phase": "playing", "frames": 6209, "projectiles_finished": 54 }
+[progress] { "wall_seconds": 150.341776, "sim_seconds": 146.650000000009, "phase": "playing", "frames": 6508, "projectiles_finished": 59 }
+[progress] { "wall_seconds": 165.343822, "sim_seconds": 160.666666666687, "phase": "playing", "frames": 6752, "projectiles_finished": 64 }
+[progress] { "wall_seconds": 180.423487, "sim_seconds": 175.700000000032, "phase": "playing", "frames": 7231, "projectiles_finished": 70 }
+[progress] { "wall_seconds": 195.454922, "sim_seconds": 190.666666666711, "phase": "playing", "frames": 7764, "projectiles_finished": 76 }
+[progress] { "wall_seconds": 210.488883, "sim_seconds": 205.666666666722, "phase": "playing", "frames": 8376, "projectiles_finished": 82 }
+[progress] { "wall_seconds": 225.510811, "sim_seconds": 220.666666666734, "phase": "playing", "frames": 8837, "projectiles_finished": 89 }
+[progress] { "wall_seconds": 240.560898, "sim_seconds": 235.70000000008, "phase": "playing", "frames": 9465, "projectiles_finished": 94 }
+[progress] { "wall_seconds": 255.566604, "sim_seconds": 250.250000000091, "phase": "playing", "frames": 9886, "projectiles_finished": 100 }
+[progress] { "wall_seconds": 270.574423, "sim_seconds": 265.183333333421, "phase": "playing", "frames": 10222, "projectiles_finished": 104 }
+[progress] { "wall_seconds": 285.651417, "sim_seconds": 278.450000000075, "phase": "playing", "frames": 10483, "projectiles_finished": 109 }
+[progress] { "wall_seconds": 300.705834, "sim_seconds": 292.450000000063, "phase": "playing", "frames": 10621, "projectiles_finished": 113 }
+[progress] { "wall_seconds": 315.710062, "sim_seconds": 305.833333333384, "phase": "playing", "frames": 10851, "projectiles_finished": 120 }
+[progress] { "wall_seconds": 330.804051, "sim_seconds": 319.316666666705, "phase": "playing", "frames": 10981, "projectiles_finished": 124 }
+[progress] { "wall_seconds": 345.822567, "sim_seconds": 334.166666666691, "phase": "playing", "frames": 11259, "projectiles_finished": 129 }
+[progress] { "wall_seconds": 360.828311, "sim_seconds": 349.116666666678, "phase": "playing", "frames": 11625, "projectiles_finished": 136 }
+[progress] { "wall_seconds": 375.846915, "sim_seconds": 364.166666666664, "phase": "playing", "frames": 12094, "projectiles_finished": 142 }
+[progress] { "wall_seconds": 390.892334, "sim_seconds": 379.083333333317, "phase": "playing", "frames": 12605, "projectiles_finished": 144 }
+[progress] { "wall_seconds": 405.933659, "sim_seconds": 393.99999999997, "phase": "playing", "frames": 13025, "projectiles_finished": 153 }
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[frame profile] from_start={ "count": 13425, "mean_ms": 30.8076875977653, "fps_from_mean": 32.4594306803, "p50_ms": 17.049, "p95_ms": 98.636, "p99_ms": 168.155, "max_ms": 258.927 } after_warmup={ "count": 12530, "mean_ms": 31.8120673583399, "fps_from_mean": 31.4346121783198, "p50_ms": 17.202, "p95_ms": 104.285, "p99_ms": 169.54, "max_ms": 258.927 }
+[load coverage] projectiles_finished=155 shells={ "us_m36_m4a1_1945_shell": 43, "us_m4a3_75w_vvss_1944_shell": 31, "us_m26_m3_1945_shell": 45, "us_m24_m6_t85e1_1951_shell": 36 } collapse=0/0 wrecks=4 audio={ "accepted": 8802, "peak_voices": 30, "peak_db": -15.8326892852783, "driver": "WASAPI", "status": "observed" }
+[PASS] actual rendered frame intervals saved from match start
+[PASS] original frame saved
+FRAME_PROFILE_CHECKS_PASS

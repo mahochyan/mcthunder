@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[progress] { "wall_seconds": 0.107063, "sim_seconds": 0.0, "phase": "countdown", "frames": 1, "projectiles_finished": 0 }
+[frame profile] from_start={ "count": 296, "mean_ms": 16.9426013513514, "fps_from_mean": 59.0228135138314, "p50_ms": 16.654, "p95_ms": 17.699, "p99_ms": 22.608, "max_ms": 107.063 } after_warmup={ "note": "run shorter than warmup window" }
+[load coverage] projectiles_finished=0 shells={  } collapse=0/0 wrecks=0 audio={ "accepted": 12, "peak_voices": 12, "peak_db": -48.9776000976563, "driver": "WASAPI", "status": "observed" }
+[PASS] actual rendered frame intervals saved from match start
+[PASS] original frame saved
+FRAME_PROFILE_CHECKS_PASS
