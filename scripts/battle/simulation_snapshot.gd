@@ -24,5 +24,6 @@ func _physics_process(_delta: float) -> void:
 	var state := battle.director.state
 	sequence += 1
 	_latest = {"version":VERSION,"sequence":sequence,"physics_tick":Engine.get_physics_frames(),"match_id":state.match_id,
+		"event_sequence":state.event_sequence,
 		"phase":state.phase,"elapsed":state.elapsed,"tickets":state.tickets.duplicate(),"capture_owner":state.capture_owner,
 		"capture_progress":state.capture_progress,"contested":state.contested,"result":state.result.duplicate(true),"vehicles":vehicles}

@@ -48,6 +48,7 @@ func advance(delta: float) -> void:
 		state.countdown = maxf(0,state.countdown-delta)
 		if state.countdown <= 0:
 			state.phase = "playing"
+			state.record("match_started",{})
 			round_started.emit()
 		return
 	if state.phase != "playing": return
@@ -112,7 +113,9 @@ func finish_once(outcome: String, reason: String) -> bool:
 	state.finish_count += 1
 	for row in state.roster.values(): row.respawn_at = -1.0; row.request_sent = false
 	state.pending_deaths.clear()
+	state.record("match_finished",{"outcome":outcome,"reason":reason,"tickets":state.tickets.duplicate()})
 	state.result = {"title":LocalizationService.text("ui_0dd5e3593738"),"outcome":outcome,"reason":reason,"status":"passed" if outcome == "victory" else "failed","shots":player_shots,"match_id":state.match_id,"seconds":state.elapsed,"tickets":state.tickets.duplicate(),"events":state.events.duplicate(true)}
+	state.result["event_sequence"] = state.event_sequence
 	state.result["combat_summary"] = report.duplicate(true)
 	match_finished.emit(state.result.duplicate(true))
 	return true

@@ -7,6 +7,8 @@ const RESPAWN_DELAY := 8.0
 const PROTECTION_SECONDS := 3.0
 const CAPTURE_RADIUS := 12.0
 const CAPTURE_SECONDS := 12.0
+const EVENT_SCHEMA_VERSION := 1
+const EVENT_HISTORY_LIMIT := 128
 static var next_match_id := 100
 var match_id := 0
 var phase := "loading"
@@ -21,6 +23,7 @@ var roster: Dictionary = {}
 var pending_deaths: Dictionary = {}
 var seen_deaths: Dictionary = {}
 var events: Array[Dictionary] = []
+var event_sequence := 0
 var result: Dictionary = {}
 var finish_count := 0
 
@@ -35,10 +38,16 @@ func initialize() -> void:
 
 func record(kind: String, data: Dictionary) -> void:
 	var event := data.duplicate(true)
+	event_sequence += 1
+	# Metadata belongs to the committing match, never to caller-supplied payload.
+	event["schema_version"] = EVENT_SCHEMA_VERSION
+	event["match_id"] = match_id
+	event["sequence"] = event_sequence
+	event["physics_tick"] = Engine.get_physics_frames()
 	event["kind"] = kind
 	event["time"] = elapsed
 	events.append(event)
-	if events.size() > 128: events.pop_front()
+	if events.size() > EVENT_HISTORY_LIMIT: events.pop_front()
 
 func actor_for(id: String) -> VehicleActor:
 	if not roster.has(id) or roster[id].actor == null: return null

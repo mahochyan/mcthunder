@@ -19,7 +19,8 @@
       "evidence": [
         "WT002_FIXED_TURRET.md",
         "WT002_COMMAND_CONTRACT.md",
-        "WT002_SIMULATION_PHASES.md"
+        "WT002_SIMULATION_PHASES.md",
+        "WT002_MATCH_EVENTS.md"
       ],
       "human_accepted": false,
       "release_ready": false
