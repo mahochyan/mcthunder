@@ -77,6 +77,7 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 	for batch in st.spall_events:
 		if batch.fragment_count!=st.post_penetration_profile.count:
 			complete=false; reason="interrupted_spall_batch"
+	if not st.chemical_effect.is_empty() and not st.chemical_effect.get("complete",false): complete=false; reason="interrupted_chemical_effect"
 	var record := {"schema_version":SCHEMA_VERSION,
 		"rules_versions":{"armor":GameConfig.ARMOR_RULES_VERSION,"damage":GameConfig.DAMAGE_RULES_VERSION,"recovery":RecoveryRules.VERSION},
 		"record_id":JSON.stringify([st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id]),
@@ -85,20 +86,23 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 		"launch":{"position_world":st.launch_position,"velocity_world":st.launch_velocity,"gravity_world":st.gravity_world,
 			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy,"effect_policy":st.effect_policy,
 			"fuze_policy":st.fuze_policy.duplicate(true),"impact_profile":st.impact_profile.duplicate(true),"caliber_mm":st.caliber_mm,
-			"post_penetration_profile":st.post_penetration_profile.duplicate(true)},
+			"post_penetration_profile":st.post_penetration_profile.duplicate(true),"chemical_profile":st.chemical_profile.duplicate(true)},
 		"complete":complete,"unavailable_reason":reason,"path":st.replay_path.duplicate(true),
 		"frames":st.replay_frames.duplicate(true),"contacts":st.contacts.duplicate(true),
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
 		"spall_events":st.spall_events.duplicate(true),
+		"chemical_effect":st.chemical_effect.duplicate(true),
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
 	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=st.impact_profile.version
 	if not st.post_penetration_profile.is_empty(): record.rules_versions["post_penetration"]=SpallProfile.VERSION
+	if not st.chemical_profile.is_empty(): record.rules_versions["chemical"]=ChemicalProfile.VERSION
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
 	record.terminal.erase("burst")
 	record.terminal.erase("fragments")
 	record.terminal.erase("spall_events")
+	record.terminal.erase("chemical_effect")
 	freeze_containers(record)
 	return record
 
@@ -136,12 +140,17 @@ static func validate(record: Dictionary) -> Dictionary:
 	var post: Variant=record.launch.get("post_penetration_profile",{})
 	if not SpallProfile.validate(post,str(record.launch.get("effect_policy","kinetic"))).is_empty(): return _bad("invalid_post_penetration_profile")
 	if (not post.is_empty() and versions.get("post_penetration")!=SpallProfile.VERSION) or (post.is_empty() and versions.has("post_penetration")): return _bad("invalid_post_penetration_version")
+	var chemical: Variant=record.launch.get("chemical_profile",{})
+	if not ChemicalProfile.validate(chemical,str(record.launch.get("effect_policy","kinetic"))).is_empty(): return _bad("invalid_chemical_profile")
+	if (not chemical.is_empty() and versions.get("chemical")!=ChemicalProfile.VERSION) or (chemical.is_empty() and versions.has("chemical")): return _bad("invalid_chemical_version")
 	if not record.terminal.get("reason") is String or not _number(record.terminal.get("flight_time_s")): return _bad("invalid_terminal")
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
 	if record.path.is_empty() or record.path.size()>MAX_PATH_POINTS or record.frames.size()>MAX_GEOMETRY_FRAMES: return _bad("record_limits")
 	if record.contacts.size()>GameConfig.ARMOR_CONTACTS_PER_SHOT or record.damage.size()>GameConfig.DAMAGE_MAX_CONTACTS: return _bad("event_limits")
 	var fragment_check := validate_fragments(record)
 	if not fragment_check.ok: return fragment_check
+	var chemical_check := ChemicalRecordValidator.validate(record)
+	if not chemical_check.ok: return chemical_check
 	var previous := -1.0
 	for point in record.path:
 		if not point is Dictionary or not point.get("point_world") is Vector3 or not point.get("velocity_world") is Vector3: return _bad("invalid_path_point")

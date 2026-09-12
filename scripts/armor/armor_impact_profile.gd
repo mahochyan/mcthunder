@@ -3,15 +3,17 @@ extends RefCounted
 ## Explicit full-caliber game response, separate from measured armor geometry.
 const VERSION := "wt012-full-caliber-v1"
 const LONG_ROD_VERSION := "wt012-long-rod-v1"
+const CHEMICAL_VERSION := "wt012-chemical-v1"
 const UNIT := "game_rha_equivalent_mm"
 
 static func validate(value: Variant, effect: String, fragment: bool = false) -> Array[String]:
 	var errors: Array[String] = []
 	if not value is Dictionary: return ["impact_profile: expected dictionary"]
 	if value.is_empty():
-		if effect=="long_rod": errors.append("impact_profile: long_rod requires explicit rules")
+		if effect in ["long_rod","chemical"]: errors.append("impact_profile: modern terminal effect requires explicit rules")
 		return errors
 	if value.get("version")==LONG_ROD_VERSION: return _validate_long_rod(value,effect,fragment)
+	if value.get("version")==CHEMICAL_VERSION: return _validate_chemical(value,effect,fragment)
 	if value.get("version") != VERSION: errors.append("impact_profile: unsupported version")
 	if not fragment and effect not in ["kinetic","internal_burst"]: errors.append("impact_profile: unsupported effect")
 	var family := "fragment" if fragment else ("APHE" if effect=="internal_burst" else "AP")
@@ -47,6 +49,10 @@ static func fragment_profile(parent: Dictionary) -> Dictionary:
 
 static func response(profile: Dictionary, material: String, caliber: float, thickness: float, angle: float) -> Dictionary:
 	if not profile.material_coefficients.has(material): return {"ok":false,"reason":"unknown_material"}
+	if profile.get("version")==CHEMICAL_VERSION:
+		var multiplier := float(profile.material_coefficients[material])
+		return {"ok":true,"resistance_mm":thickness/cos(deg_to_rad(angle))*multiplier,"adjusted_angle_deg":angle,
+			"material_multiplier":multiplier,"overmatch":false,"ricochet":false}
 	if profile.get("version")==LONG_ROD_VERSION:
 		var factor := _angle_factor(profile.angle_resistance_curve,angle)
 		var material_factor := float(profile.material_coefficients[material])
@@ -89,6 +95,19 @@ static func _validate_long_rod(value: Dictionary, effect: String, fragment: bool
 
 static func _number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
+
+static func _validate_chemical(value: Dictionary, effect: String, fragment: bool) -> Array[String]:
+	var errors: Array[String]=[]
+	if effect!="chemical" or fragment or value.get("family")!="HEAT": errors.append("impact_profile: chemical family/effect mismatch")
+	if value.get("provenance")!="game_rule" or not value.get("reason") is String or str(value.get("reason","")).strip_edges().is_empty(): errors.append("impact_profile: chemical game-rule explanation required")
+	for field in ["normalization_deg","overmatch_ratio","ricochet_deg"]:
+		if value.has(field): errors.append("impact_profile: chemical ray cannot inherit kinetic "+field)
+	var materials: Variant=value.get("material_coefficients")
+	if not materials is Dictionary or materials.size()!=2 or not materials.has("rolled") or not materials.has("cast"): errors.append("impact_profile: explicit chemical rolled/cast response required")
+	else:
+		for coefficient in materials.values():
+			if not _number(coefficient) or coefficient<=0 or coefficient>10: errors.append("impact_profile: invalid chemical material coefficient")
+	return errors
 
 static func _angle_factor(curve: Array, angle: float) -> float:
 	for index in range(1,curve.size()):

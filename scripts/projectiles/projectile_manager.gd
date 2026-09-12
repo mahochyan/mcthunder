@@ -136,7 +136,7 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "projectile_capacity"}
 	var armor_policy := str(spec.get("armor_policy", "resolve"))
 	var effect_policy := str(spec.get("effect_policy","kinetic"))
-	if effect_policy not in ["kinetic","internal_burst","long_rod"] or (effect_policy in ["internal_burst","long_rod"] and armor_policy != "resolve"):
+	if effect_policy not in ["kinetic","internal_burst","long_rod","chemical"] or (effect_policy in ["internal_burst","long_rod","chemical"] and armor_policy != "resolve"):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_effect_policy"}
 	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
 	var fuze: Variant = spec.get("fuze_policy", {})
@@ -160,6 +160,9 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	var post: Variant=spec.get("post_penetration_profile",{})
 	if not SpallProfile.validate(post,effect_policy).is_empty(): return {"ok":false,"projectile_id":0,"reason":"invalid_post_penetration_profile"}
 	st.post_penetration_profile=post.duplicate(true)
+	var chemical: Variant=spec.get("chemical_profile",{})
+	if not ChemicalProfile.validate(chemical,effect_policy).is_empty() or not ChemicalProfile.matches_curve(chemical,curve): return {"ok":false,"projectile_id":0,"reason":"invalid_chemical_profile"}
+	st.chemical_profile=chemical.duplicate(true)
 	st.caliber_mm = float(caliber) if caliber is float or caliber is int else 0.0
 	st.effect_policy = effect_policy
 	st.fuze_policy = fuze.duplicate(true)
@@ -352,6 +355,11 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 						finish_once(st.projectile_id,str(policy.get("reason","blocked_by_rules")),{"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0),"surface_id":ev.get("surface_id",ev.get("module_id",""))})
 						return
 			remaining_dt = maxf(0.0, remaining_dt - contact_time)
+			if st.effect_policy=="chemical" and status in ["vehicle","world","damage"]:
+				var chemical_snapshots := TranslationSweep.frame_at(snapshots,float(ev.get("motion_fraction",1.0)))
+				ChemicalJetSystem.emit(st,ev,status,chemical_snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event"),Callable(self,"record_chemical_armor"),contact_policy,Callable(self,"_live"))
+				if _live(st): finish_once(st.projectile_id,"chemical_detonation",{"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0)})
+				return
 			if status == "effect_entry":
 				st.burst_inside_started=true; st.burst_entry_distance=st.travelled_m; pending_h.clear(); continue
 			if status == "effect_exit":
@@ -527,6 +535,21 @@ func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		return false
 	return _live(st)
 
+func record_chemical_armor(st: ProjectileState, event: Dictionary, result: Dictionary, point: Vector3, direction: Vector3) -> Dictionary:
+	if not _live(st) or st.contacts.size()>=GameConfig.ARMOR_CONTACTS_PER_SHOT: return {"ok":false,"reason":"contact_budget_or_lifecycle"}
+	var target_key := JSON.stringify([event.get("entity_id",""),event.get("life_id",0)])
+	var first := not st.contacted_targets.has(target_key); st.contacted_targets[target_key]=true
+	var record := event.duplicate(true); record.merge(result,true)
+	record.merge({"projectile_id":st.projectile_id,"round_id":st.round_id,"shot_id":st.shot_id,
+		"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,"shell_id":st.shell_id,
+		"target_id":event.get("entity_id",""),"target_life_id":event.get("life_id",0),
+		"contact_index":st.contacts.size()+1,"first_for_target":first,"armor_policy":"resolve","effect_channel":"chemical_jet",
+		"flight_time_s":st.age_s,"travelled_m":st.travelled_m,"impact_point":point,"impact_velocity":direction,
+		"incoming_velocity":direction,"outgoing_velocity":direction,"physics_tick":Engine.get_physics_frames()},true)
+	st.contacts.append(record.duplicate(true)); st.chemical_effect.contact_indices.append(st.contacts.size()-1)
+	projectile_contact.emit(record.duplicate(true))
+	return {"ok":_live(st)}
+
 func _commit_damage_event(st: ProjectileState, ev: Dictionary, before: float, point: Vector3, velocity: Vector3, fragment_id: int = -1) -> Dictionary:
 	if not _live(st) or not damage_handler.is_valid() or st.damage_records.size() >= GameConfig.DAMAGE_MAX_CONTACTS:
 		return {"ok":false,"reason":"damage_budget_or_lifecycle"}
@@ -547,7 +570,7 @@ func _commit_damage_event(st: ProjectileState, ev: Dictionary, before: float, po
 	var spent := float(delta.get("consumed_mm",0))
 	if not is_finite(spent) or spent < 0 or spent > before + 1e-5:
 		return {"ok":false,"reason":"invalid damage budget"}
-	if fragment_id < 0:
+	if fragment_id < 0 and ev.get("effect_channel","")!="chemical_jet":
 		st.consumed_mm += spent
 		st.damage_seen[DamageResolver.item_key(ev)] = true
 	event.merge(delta,true)
@@ -560,6 +583,9 @@ func _commit_damage_event(st: ProjectileState, ev: Dictionary, before: float, po
 	},true)
 	st.damage_records.append(event.duplicate(true))
 	if fragment_id >= 0: st.fragments[fragment_id].damage_indices.append(st.damage_records.size()-1)
+	if ev.get("effect_channel","")=="chemical_jet":
+		st.chemical_effect.damage_indices.append(st.damage_records.size()-1)
+		st.chemical_effect.remaining_mm=maxf(0,before-spent)
 	projectile_damage.emit(event.duplicate(true))
 	return {"ok":_live(st),"consumed_mm":spent,"event":event}
 
@@ -637,6 +663,7 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 	record["burst"] = st.burst.duplicate(true)
 	record["fragments"] = st.fragments.duplicate(true)
 	record["spall_events"] = st.spall_events.duplicate(true)
+	record["chemical_effect"] = st.chemical_effect.duplicate(true)
 	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
 	ShotRecordBuilder.sample_path(st)
 	var replay_record: Dictionary = {}

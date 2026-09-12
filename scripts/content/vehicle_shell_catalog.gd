@@ -3,7 +3,7 @@ extends RefCounted
 ## Shared inventory interface. Reference shells use only actually implemented effects.
 const MAX_SHELLS := 8
 const FAMILIES := {"AP":{"source":"ap_tank","effect":"kinetic"},"APHE":{"source":"aphe_tank","effect":"internal_burst"},
-	"APFSDS":{"source":"game_rule_apfsds","effect":"long_rod"}}
+	"APFSDS":{"source":"game_rule_apfsds","effect":"long_rod"},"HEAT":{"source":"heat_fs_tank","effect":"chemical"}}
 
 static func number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
@@ -76,6 +76,10 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+".post_penetration",data.evidence.get("post_penetration"),vehicle_packet,"structured"))
 				if not data.evidence.get("post_penetration") is Dictionary or data.evidence.post_penetration.get("value")!=data.post_penetration_profile:
 					errors.append("shell."+data.id+": post-penetration rules differ from separate evidence")
+			if data.has("chemical_profile"):
+				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+".chemical",data.evidence.get("chemical"),vehicle_packet,"structured"))
+				if not data.evidence.get("chemical") is Dictionary or data.evidence.chemical.get("value")!=data.chemical_profile or data.evidence.chemical.get("origin")!="game_rule":
+					errors.append("shell."+data.id+": chemical rules require matching independent game-design evidence")
 		if errors.size()!=start_errors: continue
 		var shell := ShellDefinition.new()
 		var fuze: Variant = data.get("fuze_policy", {})
@@ -90,6 +94,10 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 		var post_errors := SpallProfile.validate(post,data.effect_policy)
 		if not post_errors.is_empty(): errors.append_array(post_errors); continue
 		shell.post_penetration_profile=post.duplicate(true)
+		var chemical: Variant=data.get("chemical_profile",{})
+		var chemical_errors := ChemicalProfile.validate(chemical,data.effect_policy)
+		if not chemical_errors.is_empty(): errors.append_array(chemical_errors); continue
+		shell.chemical_profile=chemical.duplicate(true)
 		shell.id = str(vehicle_packet.id)+("_shell" if data.id==packet.default else "_"+data.id)
 		if runtime_ids.has(shell.id): errors.append("shell.id: runtime ID collision"); continue
 		runtime_ids[shell.id]=true

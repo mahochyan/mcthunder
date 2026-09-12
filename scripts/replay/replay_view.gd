@@ -264,7 +264,8 @@ func _build_fragments() -> void:
 	_fragments.mesh = null; _burst_dot.visible = false
 	var burst: Dictionary = record.get("burst",{})
 	var spalls: Array=record.get("spall_events",[])
-	if burst.is_empty() and spalls.is_empty(): return
+	var chemical: Dictionary=record.get("chemical_effect",{})
+	if burst.is_empty() and spalls.is_empty() and chemical.is_empty(): return
 	if not burst.is_empty() and current_time+1e-7>=float(burst.time_s):
 		_burst_dot.visible = true; _burst_dot.position = burst.point_world
 	var vertices: Array[Vector3] = []
@@ -274,6 +275,10 @@ func _build_fragments() -> void:
 		for i in range(1,fragment.path.size()):
 			if fragment.path[i-1].distance_to(fragment.path[i]) > 1e-6:
 				vertices.append(fragment.path[i-1]); vertices.append(fragment.path[i])
+	if not chemical.is_empty() and current_time+1e-7>=float(chemical.time_s):
+		for i in range(1,chemical.path.size()):
+			if chemical.path[i-1].distance_to(chemical.path[i])>1e-6:
+				vertices.append(chemical.path[i-1]); vertices.append(chemical.path[i])
 	if vertices.is_empty(): return
 	var mesh := ImmediateMesh.new()
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES)

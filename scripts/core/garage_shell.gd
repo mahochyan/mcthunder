@@ -393,8 +393,12 @@ func _show_dossier() -> void:
 				view.add_text("穿过足够厚的装甲后延迟起爆，出车后仍有效。当前为游戏设计规则；历史引信数值未知。\n")
 			if not entry.get("post_penetration_profile",{}).is_empty():
 				view.add_text("穿甲后按剩余预算分配定向破片，母弹继续飞行；破片受装甲、内构和掩体阻挡。当前为游戏设计规则。\n")
+			if not entry.get("chemical_profile",{}).is_empty():
+				view.add_text("HEAT首次接触后弹体结束飞行，独立射流按有限路径、装甲和内构消耗预算；不按弹体飞行距离衰减。当前为游戏设计规则。\n")
 			if not entry.get("impact_profile", {}).is_empty():
-				if entry.impact_profile.get("family")=="APFSDS":
+				if entry.impact_profile.get("family")=="HEAT":
+					view.add_text("射流使用独立化学防护系数与实际斜向厚度，不套用动能弹法线化和口径碾压。\n")
+				elif entry.impact_profile.get("family")=="APFSDS":
 					view.add_text("长杆弹按独立角度曲线与装甲材质结算；炮口口径不作为弹芯直径。当前为游戏设计规则。\n")
 				else:
 					view.add_text("命中结果结合装甲材质、入射角与弹径／板厚；当前响应参数为独立游戏设计值。\n")

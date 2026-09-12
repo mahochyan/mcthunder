@@ -1,0 +1,311 @@
+{
+  "base_commit": "01d5bdafab17411bcf890caa153aaadf5038a1fe",
+  "captured_at": "2026-09-12T11:48:42.828447+00:00",
+  "stage": "final integration capture; not a retroactive prelaunch source snapshot",
+  "requirements_preserved": 42,
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "bfe24691efc83db2edfd62215dc6634863d48ef4f54d0fc5f44798aa606daecf"
+    },
+    {
+      "path": "NEXT_ACTION.md",
+      "sha256": "3672f7864414046ba89c7d51bfc92802f33b4dc694999dd90e2b01a922656eb2"
+    },
+    {
+      "path": "docs/wt/CURRENT_STATUS.md",
+      "sha256": "ad9bb81e8e361714f33caa74e1beec585e65cd8bc41bf9bd25bc3ad669312873"
+    },
+    {
+      "path": "docs/wt/EXECUTION_PLAN.json",
+      "sha256": "a27bc19492445cfae062626a0a8162d59b334dc13a7efd6bd23bd6552be1c86a"
+    },
+    {
+      "path": "docs/wt/GAP_REGISTER.json",
+      "sha256": "4e9a8eb5c9c76acd79e46b4fcd99700c0f720b4f82633569d2469cc1e73745c5"
+    },
+    {
+      "path": "scripts/armor/armor_impact_profile.gd",
+      "sha256": "5c114f4daca0e94f92254df3589d8fe44e9b7cd29e1484c166ada9a2b3855f99"
+    },
+    {
+      "path": "scripts/content/vehicle_shell_catalog.gd",
+      "sha256": "02b1bb3f1addd38ebe7abfc35fd54063cf93a49b1488dbf786c45ca0accbc1e6"
+    },
+    {
+      "path": "scripts/core/garage_shell.gd",
+      "sha256": "71936c4c9b87dfdde9dc6fc9c72f30d9ac5ec1aaf92cdd7ce1ec6f3a721aee0c"
+    },
+    {
+      "path": "scripts/defs/shell_definition.gd",
+      "sha256": "6f94c51890279ac3c5f2adb639a0cb37866e81798cb10e46c048a86e1a8408a1"
+    },
+    {
+      "path": "scripts/gunner.gd",
+      "sha256": "34541c08b6fe25261b5b4a7ea1a2a4574b5b1cc4be09659d8bf660530c31d6a9"
+    },
+    {
+      "path": "scripts/projectiles/projectile_manager.gd",
+      "sha256": "559eca5ee3eef9bf5ceecb063b71e1e79d537499bf99931952002af086a020ae"
+    },
+    {
+      "path": "scripts/projectiles/projectile_state.gd",
+      "sha256": "fcdb4f1571356182e8bc7ea6b0ce61751c188ebac831c7585b20f89fca658786"
+    },
+    {
+      "path": "scripts/replay/replay_view.gd",
+      "sha256": "b79421543a508c9b05185500e1bcb14ad2fe19a1859f73434a1f151dbe0850bc"
+    },
+    {
+      "path": "scripts/replay/shot_record_builder.gd",
+      "sha256": "531edcae7cee759fa932df20699b8dd827540279eb6677ef3a851ccfd12e8993"
+    },
+    {
+      "path": "docs/wt/WT013_CHEMICAL_JET.md",
+      "sha256": "93c2adf03313b017f23df08acbf0370b9bb5aee31649e453fc0045d19a56e5ea"
+    },
+    {
+      "path": "scripts/projectiles/chemical_profile.gd",
+      "sha256": "b268a91e09e7b9e11c114acb868a26670b9984ada4d538858d6c96ee176a7cbf"
+    },
+    {
+      "path": "scripts/projectiles/chemical_profile.gd.uid",
+      "sha256": "69e25b384387dd51bd91c76bc5ff4ee13f50b5270846efdbe5c9d2a5d716ab44"
+    },
+    {
+      "path": "scripts/projectiles/chemical_jet_system.gd",
+      "sha256": "db9831d9bb0713a0fe3111c06d2ff2b01b829eea3ab6f6eb21a4a20dfc821f36"
+    },
+    {
+      "path": "scripts/projectiles/chemical_jet_system.gd.uid",
+      "sha256": "9c57d0cc29b894cf8deaaba27da69b81fa81d10308dd94984972d2d67d633d6c"
+    },
+    {
+      "path": "scripts/replay/chemical_record_validator.gd",
+      "sha256": "3f75e5678f02ca12c44c59d5f468638100deefb5a53e4b0771ad9410f2977e7e"
+    },
+    {
+      "path": "scripts/replay/chemical_record_validator.gd.uid",
+      "sha256": "f80ecf607628a1dc847e32c9d172dccf22c13bc563d1d3d74e6136122eafa49c"
+    },
+    {
+      "path": "tests/fixtures/chemical_profile.gd",
+      "sha256": "91eca8bc82405f043dbe819ab72b1c5826f1964126311134818738964ec8f64f"
+    },
+    {
+      "path": "tests/fixtures/chemical_profile.gd.uid",
+      "sha256": "9a1902bbb78665b289a6a368ecefba1039414509bad01b7c9050ee1c8609f9d8"
+    },
+    {
+      "path": "tests/run_chemical_checks.gd",
+      "sha256": "fce87aa6f8d7caeb5454adbe8be76b190cf8c91e2e7c44e05f2b4204c6af976e"
+    },
+    {
+      "path": "tests/run_chemical_checks.gd.uid",
+      "sha256": "07deeadbddafd8afbd884180c2107113b62e1555ac21044de80ed41e6fbb3ac8"
+    },
+    {
+      "path": "tests/run_chemical_content_checks.gd",
+      "sha256": "bbfd01a25b789bc90ecf8696e957ece74cd5d61dda2e5c385424c8079395cf6a"
+    },
+    {
+      "path": "tests/run_chemical_content_checks.gd.uid",
+      "sha256": "754bdc9c6b8186fba47dfab0d7ba86720ee78964db2b4a33f3b1cc989c771351"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/WT013-chemical/wip-uncommitted/window-20260912-194536/chemical_jet_replay.png",
+      "sha256": "3dd243fd1575edc6c4eea19e2ab01535a21640bc2e78b75dfcc81fa322952a72"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/RESULTS.json",
+      "sha256": "d43dcc0d0360364408e5c16fdf820af57aedcfb6667d653f5ea644705c359756"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/import_stdout.log",
+      "sha256": "2a875c460b5358b37713208b98c88717718a6f764b965d319b0bcdadfced2d9d"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_chemical_checks_stderr.log",
+      "sha256": "3e39a5284c8dc7cb61bab057ae22796bbc183b7b9d0ba95c205bc9aa86c4777b"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_chemical_checks_stdout.log",
+      "sha256": "de88b9876c5fef0031ca8c2add86443bf199652254b7eaa6e25ab7959aeea13e"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_chemical_content_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_chemical_content_checks_stdout.log",
+      "sha256": "c9a9de6a1b03042892d74b3d0414c988deb020a50082ea31f76bff22b32eaa0e"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_fuze_checks_stderr.log",
+      "sha256": "ec7002a4c8321f9bf438f9f3f5dc415798cd8c1cd2d69084d79f612defa9d421"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_fuze_checks_stdout.log",
+      "sha256": "463830630c9c0aa99025db07ed2a676cba8d3c899f37acb1e39d35ef3361a463"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_reference_admission_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_reference_admission_checks_stdout.log",
+      "sha256": "52ca963d07b7f3281bed0153445b4a32b42979de73b9375790b6ba70b8bb3e57"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_spall_checks_stderr.log",
+      "sha256": "36ea497a2243549a606abcb9b189d5a0b4456a4007d3991f41926884adfc5f2a"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final3/20260912-194250/run_spall_checks_stdout.log",
+      "sha256": "5c14f7038ec92307a7cd28262945a635f81946b7cfbf27c134ed1cd32ab34a30"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/RESULTS.json",
+      "sha256": "5eac6cbfecfe9225e8dfd0610454e59842a6e29760b13048c422a3e4d3202b7d"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/import_stdout.log",
+      "sha256": "0014d7da63e761b4ff3f07d225af4bd5ca204e469522c63bf8e5d8973662fe7b"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_chemical_checks_stderr.log",
+      "sha256": "ea31ec1f2e5aa49f2d3e5dff2ab94215eec59634e3fadb2292de512da19f9552"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_chemical_checks_stdout.log",
+      "sha256": "5a22307e0417180a9a749611787035290ec70d53ad607aba6b3f398e2c861e6f"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_chemical_content_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_chemical_content_checks_stdout.log",
+      "sha256": "c9a9de6a1b03042892d74b3d0414c988deb020a50082ea31f76bff22b32eaa0e"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_network_event_recovery_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_network_event_recovery_checks_stdout.log",
+      "sha256": "a0d0b5061faf8478645aef306edf2a08ba47566d404515f157763c6d6d88a058"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_shell_checks_stderr.log",
+      "sha256": "75210730dda77c9e7ca6e0c858d0b3154575cb456331781d54e4ac06ae708dc2"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-final4/20260912-194448/run_shell_checks_stdout.log",
+      "sha256": "c1cdcdb1af5d0f2c6186b3f4cc8e63bcaca6103a841d33e573f9a9676508386a"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/RESULTS.json",
+      "sha256": "c6d2194db854d780d2853f0fac76543815c0fa740ef14914f669d273ecf1a6c9"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/import_stdout.log",
+      "sha256": "a5fe73780192ef78464a37aaa5197edeada0f6ce16cc4405d1e94be0c92bc326"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/run_material_replay_checks_stderr.log",
+      "sha256": "f0367ae827a7fb112aa579bdfb25507a872e7aa37bd4d5984d7f5ced1ca3e9ed"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/run_material_replay_checks_stdout.log",
+      "sha256": "ed706aafc71bbc4065c45a5b25869acb5663c91eddfd8ebe00b39edd75c4b1f5"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/run_spall_checks_stderr.log",
+      "sha256": "36ea497a2243549a606abcb9b189d5a0b4456a4007d3991f41926884adfc5f2a"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip1/20260912-193740/run_spall_checks_stdout.log",
+      "sha256": "5c14f7038ec92307a7cd28262945a635f81946b7cfbf27c134ed1cd32ab34a30"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip2/20260912-194055/RESULTS.json",
+      "sha256": "9f090de79bf8c63e3509955634ad9f26e89bfa6aacfe76afca51e091eb2f0c10"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip2/20260912-194055/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip2/20260912-194055/import_stdout.log",
+      "sha256": "e5d391406d606e3d1463221e7188e1021711f271106f076656b82c12053043ef"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip2/20260912-194055/run_chemical_checks_stderr.log",
+      "sha256": "e667756784b023335c517a9c907322cf81c91175c91e0dda5d9071303f03a959"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-chemical-wip2/20260912-194055/run_chemical_checks_stdout.log",
+      "sha256": "7a85cdade448eb9caea66cfa49bcb27b1ccbf1633cc275f1757330fcd451249d"
+    },
+    {
+      "path": "logs/WT013-chemical/01d5bdaf-integration/DELEGATION_RESULT.json",
+      "sha256": "eeafd5ed444f076b061ad832f82383e1d700c4bd36097dac0cc469ea91798283"
+    },
+    {
+      "path": "logs/WT013-chemical/wip-uncommitted/window-20260912-194536/RESULTS.json",
+      "sha256": "a8c6899676d959e46f4c3a83d2e0644d5b93820c8347c39a4c2de7c3a363514d"
+    },
+    {
+      "path": "logs/WT013-chemical/wip-uncommitted/window-20260912-194536/stderr.log",
+      "sha256": "ea31ec1f2e5aa49f2d3e5dff2ab94215eec59634e3fadb2292de512da19f9552"
+    },
+    {
+      "path": "logs/WT013-chemical/wip-uncommitted/window-20260912-194536/stdout.log",
+      "sha256": "1f80f4f24dcfc8718071eae010f4752d5e3537526aef77997fe3bf691fb913ec"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ],
+  "human": "NOT_RUN",
+  "performance": "HOLD_BY_USER",
+  "release_ready": false
+}
