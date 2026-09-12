@@ -20,6 +20,8 @@ var _has_aim_override := false
 var capabilities_provider := Callable()
 var recoil_visual: Node3D
 var observation_hold := false
+var mechanism := TurretMechanismState.new()
+var fallback_fire_control := FireControlProfile.new()
 
 func _ready() -> void:
 	var tm := MeshInstance3D.new()
@@ -84,29 +86,23 @@ func _aim_point() -> Vector3:
 
 func advance_mechanism(delta: float) -> void:
 	if not is_finite(delta) or delta <= 0 or get_tree().paused: return
-	if (cam_rig != null or _has_aim_override) and not observation_hold and not (cam_rig != null and cam_rig.is_observing()):
-		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
-		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
-		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
-		# 前向 = (-sin yaw, 0, -cos yaw)，故世界 yaw = atan2(-dx, -dz)
-		# 003-R1：转速/限位来自 VehicleDefinition（defs 注入）
-		var yaw_speed: float = defs.turret_yaw_speed if defs != null else GameConfig.TURRET_YAW_SPEED
-		var pitch_speed: float = defs.turret_pitch_speed if defs != null else GameConfig.TURRET_PITCH_SPEED
-		if capabilities_provider.is_valid():
-			var caps: Dictionary = capabilities_provider.call()
-			yaw_speed *= float(caps.turret_speed)
-			pitch_speed *= float(caps.turret_speed)
-		var P := _aim_point()
-		var target := _target_angles(P)
-		var limited := defs != null and (defs.turret_yaw_min > -180 or defs.turret_yaw_max < 180)
-		var desired_local := target.y if limited else wrapf(target.y, -PI, PI)
-		var max_step := deg_to_rad(yaw_speed) * delta
-		var cur := rotation.y
-		if limited:
-			rotation.y = move_toward(clampf(cur,deg_to_rad(defs.turret_yaw_min),deg_to_rad(defs.turret_yaw_max)),desired_local,max_step)
-		else:
-			rotation.y = cur + clampf(wrapf(desired_local - cur, -PI, PI), -max_step, max_step)
-		barrel_pivot.rotation.x = move_toward(barrel_pivot.rotation.x, target.x, deg_to_rad(pitch_speed) * delta)
+	var hull := get_parent() as Node3D
+	var current := Vector2(barrel_pivot.rotation.x,rotation.y)
+	if observation_hold or (cam_rig!=null and cam_rig.is_observing()) or (cam_rig==null and not _has_aim_override):
+		mechanism.hold(current,hull.global_basis); return
+	var yaw_speed: float=defs.turret_yaw_speed if defs!=null else GameConfig.TURRET_YAW_SPEED
+	var pitch_speed: float=defs.turret_pitch_speed if defs!=null else GameConfig.TURRET_PITCH_SPEED
+	var caps: Dictionary=capabilities_provider.call() if capabilities_provider.is_valid() else {}
+	var limited := defs!=null and (defs.turret_yaw_min>-180 or defs.turret_yaw_max<180)
+	caps["yaw_limited"]=limited
+	var tank := hull.get_parent() as TankVehicle
+	var speed := tank.forward_speed if tank!=null else 0.0
+	var profile := defs.fire_control_profile if defs!=null else fallback_fire_control
+	var result := mechanism.step(current,_target_angles(_aim_point()),hull.global_basis,profile,Vector2(deg_to_rad(pitch_speed),deg_to_rad(yaw_speed)),speed,caps,delta)
+	if limited: result.y=clampf(result.y,deg_to_rad(defs.turret_yaw_min),deg_to_rad(defs.turret_yaw_max))
+	result.x=clampf(result.x,deg_to_rad(defs.barrel_pitch_min if defs!=null else GameConfig.BARREL_PITCH_MIN),deg_to_rad(defs.barrel_pitch_max if defs!=null else GameConfig.BARREL_PITCH_MAX))
+	mechanism.constrain(result)
+	rotation.y=result.y; barrel_pivot.rotation.x=result.x
 func _process(delta: float) -> void:
 	# Presentation never advances authoritative yaw or pitch.
 	_recoil = move_toward(_recoil, 0.0, delta * 2.0)
@@ -134,6 +130,7 @@ func _target_angles(P: Vector3) -> Vector2:
 	return Vector2(pitch, yaw_local)
 
 func snap_to_aim() -> void:
+	mechanism.reset()
 	# 立即对齐期望世界瞄点 P（重置与自动检查使用；正常运行靠有限转速追随）
 	if cam_rig == null and not _has_aim_override:
 		return
@@ -168,6 +165,7 @@ func barrel_direction() -> Vector3:
 	return -barrel_pivot.global_transform.basis.z
 
 func reset_state() -> void:
+	mechanism.reset()
 	observation_hold=false
 	_recoil = 0.0
 	_flash_left = 0.0

@@ -6,6 +6,10 @@ static var ACTIONS := {
 	"free_look": [LocalizationService.text("free_look"), KEY_B, "all"],
 	"binoculars": [LocalizationService.text("optics_binoculars"), KEY_L, "all"],
 	"optic_zoom": [LocalizationService.text("optics_zoom"), KEY_Z, "all"],
+	"rangefinder": [LocalizationService.text("range_action_measure"), KEY_Y, "all"],
+	"apply_range": [LocalizationService.text("range_action_apply"), KEY_H, "all"],
+	"zeroing_up": [LocalizationService.text("range_action_up"), KEY_BRACKETRIGHT, "all"],
+	"zeroing_down": [LocalizationService.text("range_action_down"), KEY_BRACKETLEFT, "all"],
 	"move_forward": [LocalizationService.text("ui_d681c6e2947a"), KEY_W, "all"], "move_back": [LocalizationService.text("ui_2d1d8c1e3895"), KEY_S, "all"],
 	"turn_left": [LocalizationService.text("ui_0e9a81204e7d"), KEY_A, "all"], "turn_right": [LocalizationService.text("ui_b61b251950a2"), KEY_D, "all"],
 	"fire": [LocalizationService.text("ui_b0c797f7ef9a"), -MOUSE_BUTTON_LEFT, "all"], "aim": [LocalizationService.text("ui_6630e2fefc78"), -MOUSE_BUTTON_RIGHT, "all"],
@@ -13,6 +17,7 @@ static var ACTIONS := {
 	"repair": [LocalizationService.text("ui_fede1630f0f8"), KEY_T, "recovery"], "extinguish": [LocalizationService.text("ui_e00a264128bd"), KEY_F, "recovery"],
 	"replace_crew": [LocalizationService.text("ui_cd350baf5c61"), KEY_C, "recovery"], "cancel_recovery": [LocalizationService.text("ui_d52a1bfa5f30"), KEY_G, "recovery"],
 	"shell_1": [LocalizationService.text("ui_53cbca1a701a"), KEY_1, "shell"], "shell_2": [LocalizationService.text("ui_dfdb963b2395"), KEY_2, "shell"],
+	"cycle_shell": [LocalizationService.text("shell_cycle_action"), KEY_M, "shell"],
 	"toggle_target": [LocalizationService.text("ui_a59c105384d2"), KEY_T, "range"],
 	"scoreboard": [LocalizationService.text("ui_460a00f80c93"), KEY_TAB, "combat"],
 	"spectate_previous": [LocalizationService.text("ui_f1e4b95d6143"), KEY_Q, "combat"], "spectate_next": [LocalizationService.text("ui_600d90cea973"), KEY_E, "combat"],
@@ -98,9 +103,9 @@ static func read_settings(path: String) -> Dictionary:
 	# unused key rather than rejecting the entire settings document.
 	for action in candidate:
 		if not ACTIONS.has(action) or not valid_code(candidate[action],action): return {"ok":false}
-	for action in ["free_look","binoculars","optic_zoom"]:
+	for action in ["free_look","binoculars","optic_zoom","rangefinder","apply_range","zeroing_up","zeroing_down","cycle_shell"]:
 		if candidate.has(action): continue
-		for code in [ACTIONS[action][1],KEY_U,KEY_H,KEY_K,KEY_F7,KEY_F8,KEY_F9]:
+		for code in [ACTIONS[action][1],KEY_U,KEY_H,KEY_K,KEY_F7,KEY_F8,KEY_F9,KEY_F10,KEY_F11,KEY_F12,KEY_I,KEY_O,KEY_M]:
 			if conflicts(action,code,candidate).is_empty():
 				candidate[action]=code
 				break
@@ -192,6 +197,8 @@ static func code_for(event: InputEvent) -> int:
 
 static func hint(action: String) -> String:
 	var code := int(bindings.get(action,ACTIONS.get(action,["",0])[1]))
+	if code==KEY_BRACKETLEFT: return "["
+	if code==KEY_BRACKETRIGHT: return "]"
 	if code < 0: return {-1:LocalizationService.text("ui_2c3c432593de"),-2:LocalizationService.text("ui_12b284d44fff"),-3:LocalizationService.text("ui_43645a86c3b9"),-8:LocalizationService.text("ui_01e583b6d76e"),-9:LocalizationService.text("ui_98ff73996ef7")}.get(code,LocalizationService.text("ui_848955060aa6"))
 	return OS.get_keycode_string(code)
 

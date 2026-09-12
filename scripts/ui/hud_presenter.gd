@@ -5,6 +5,11 @@ static var REASONS := {"engine":LocalizationService.text("ui_9df15869823f"),"tra
 static var RECOVERY := {"not_on_fire":LocalizationService.text("ui_24c0a4f151d7"),"no_extinguishers":LocalizationService.text("ui_e0dd0811114a"),"cannot_repair_on_fire":LocalizationService.text("ui_e037ba61fff4"),"stop_to_repair":LocalizationService.text("ui_85971dca1413"),"nothing_to_repair":LocalizationService.text("ui_8c698299cca5"),"no_valid_replacement":LocalizationService.text("ui_bfc04978a32f"),"repair_interrupted_fire":LocalizationService.text("ui_d8163239b96e"),"repair_interrupted_motion_or_fire":LocalizationService.text("ui_bc2432f4a699"),"module_repaired":LocalizationService.text("ui_c07e7ebd9007"),"fire_extinguished":LocalizationService.text("ui_8108ab671c86"),"crew_replaced":LocalizationService.text("ui_f44b610d039e"),"replacement_cancelled":LocalizationService.text("ui_bdf0e676f94c"),"cancelled":LocalizationService.text("ui_176ead7baf1a"),"vehicle_destroyed":LocalizationService.text("ui_aaeb6d850849")}
 
 static func reason(value: String) -> String: return REASONS.get(value,LocalizationService.text("ui_e0d07fde57bb"))
+static var MECHANISM_REASONS := {
+	"turret_horizontal_drive":LocalizationService.text("turret_horizontal_drive_disabled"),
+	"turret_vertical_drive":LocalizationService.text("turret_vertical_drive_disabled"),
+	"stabilizer":LocalizationService.text("stabilizer_disabled")
+}
 static func recovery_reason(value: String) -> String:
 	if value == "cannot_repair_on_fire": return LocalizationService.text("ui_06e38b03bc8c")+InputBindingService.hint("extinguish")+LocalizationService.text("ui_8dc96c377cc2")
 	if value == "stop_to_repair": return LocalizationService.text("ui_1aee287f279c")+InputBindingService.hint("repair")
@@ -25,6 +30,7 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 		if fraction > 0: continue
 		if m.kind in ["engine","transmission","track"]: drive.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
 		if m.kind in ["breech","turret_drive"]: weapon.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
+		elif MECHANISM_REASONS.has(m.kind): weapon.append(MECHANISM_REASONS[m.kind])
 	if not state.role_available("driver"): drive.append(REASONS.driver)
 	if caps.get("track_pivot",false): drive.append(LocalizationService.text("drive_single_track_pivot"))
 	if not state.role_available("gunner"): weapon.append(REASONS.gunner)

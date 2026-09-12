@@ -10,12 +10,17 @@ var has_aim_point: bool = false  # 003：显式指定瞄点（脚本命令；零
 var clear_aim: bool = false      # 003：清除脚本瞄点（本地玩家每帧清除，回到相机意图）
 var aim_held: bool = false       # 炮镜请求（本地玩家右键）
 var hold_aim := false           # Observation holds mechanical axes, including on authority.
+var aim_intent := AimIntent.new()
+var range_requested := false
+var apply_range_requested := false
+var zeroing_steps := 0
 var fire_requested: bool = false
 var repair_requested := false
 var extinguish_requested := false
 var replace_crew_requested := false
 var cancel_recovery_requested := false
-var select_shell: int = -1       # 021：0/1 选择下一次取弹；-1 保持，不改变膛内或搬运中弹种。
+var cycle_shell_requested := false # Authority cycles its actual installed catalog.
+var select_shell: int = -1       # 0..7 选择下一次取弹；-1 保持，不改变膛内或搬运中弹种。
 
 func reset() -> void:
 	throttle = 0.0
@@ -25,9 +30,14 @@ func reset() -> void:
 	clear_aim = false
 	aim_held = false
 	hold_aim = false
+	aim_intent = AimIntent.new()
+	range_requested = false
+	apply_range_requested = false
+	zeroing_steps = 0
 	fire_requested = false
 	repair_requested = false
 	extinguish_requested = false
 	replace_crew_requested = false
 	cancel_recovery_requested = false
+	cycle_shell_requested = false
 	select_shell = -1

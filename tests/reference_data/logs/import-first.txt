@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "entries": 393,
+  "per_nation": {
+    "USSR_����": 205,
+    "Germany_�¹�": 188
+  },
+  "deep_candidates": [
+    "germ_leopard_2a4",
+    "ussr_t_80b"
+  ],
+  "source_errors": 0,
+  "model_candidates": 100,
+  "rejected_model_reports": 22,
+  "exact_model_links": 92,
+  "index_sha256": "9e460d48499c88b339d668c8eea86d0361a1ad5cf36e788cfa7b89eb42a38968",
+  "historical_verified": false,
+  "combat_vehicles_admitted": 0,
+  "models_published": 0
+}

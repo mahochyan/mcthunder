@@ -47,6 +47,9 @@ func record_finished(record: Dictionary) -> void:
 	event_sequence+=1
 	events.append({"sequence":event_sequence,"projectile_id":record.get("projectile_id"),"shot_id":record.get("shot_id"),"shooter_id":record.get("shooter_id"),"reason":record.get("reason")})
 	if events.size()>64: events.pop_front()
+func own_status(actor: VehicleActor) -> Dictionary:
+	# This status accompanies the same public snapshot, only for its owner.
+	return {"cooldown":actor.gunner.cooldown_left,"ammo":actor.gunner.rounds_remaining,"speed":actor.tank.forward_speed,"consumed_sequence":actor.last_consumed_sequence,"fire_control":actor.fire_control.snapshot()}
 func snapshot(sequence: int) -> Dictionary:
 	var vehicles: Array=[]
 	for actor in actors:

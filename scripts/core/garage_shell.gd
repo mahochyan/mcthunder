@@ -40,6 +40,9 @@ func _open_challenges() -> void:
 	challenge_selection.chosen.connect(func(id: String, difficulty: String) -> void: challenge_requested.emit(id,difficulty))
 
 func _ready() -> void:
+	if profile == null: profile = ProfileStore.new()
+	catalog = profile.service.catalog
+	historical_defs = profile.service.definitions
 	theme = CoreUI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
@@ -105,17 +108,17 @@ func _ready() -> void:
 	vehicle_choice.fit_to_longest_item = false
 	vehicle_choice.add_item(LocalizationService.text("ui_5b2b85fb2264"))
 	vehicle_choice.set_item_metadata(0,"player_tank")
-	var admitted := catalog.load_all(historical_defs)
-	for id in VehicleCatalog.IDS:
-		vehicle_choice.add_item(id if not catalog.packages.has(id) else str(catalog.packages[id].packet.display_name))
+	var admitted := {"ok":profile.service.ready,"errors":[]}
+	for rejected in catalog.rejected.values(): admitted.errors.append_array(rejected.errors)
+	var vehicle_ids := profile.service.vehicle_ids()
+	for id in vehicle_ids:
+		vehicle_choice.add_item(profile.service.vehicle_label(id))
 		var index := vehicle_choice.item_count-1
 		vehicle_choice.set_item_metadata(index,id)
-		vehicle_choice.set_item_disabled(index,not catalog.packages.has(id))
 		if id == initial_vehicle_id: vehicle_choice.select(index)
 	controls.add_child(vehicle_choice)
 	vehicle_choice.item_selected.connect(_select_vehicle)
 	dossier_button = CoreUI.button(controls,LocalizationService.text("ui_3291552243b5"),_show_dossier)
-	if profile == null: profile = ProfileStore.new()
 	preparation = GaragePreparation.new(); controls.add_child(preparation)
 	preparation.setup(self,profile)
 	CoreUI.label(controls,LocalizationService.text("ui_3d45d76aac43"),16)
@@ -163,9 +166,9 @@ func _ready() -> void:
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(right)
-	var cards := HBoxContainer.new(); right.add_child(cards)
-	for i in VehicleCatalog.IDS.size():
-		var card := CoreUI.button(cards,[LocalizationService.text("ui_0f6da48c7d5b"),LocalizationService.text("ui_25441e6328a5"),LocalizationService.text("ui_13684e5a770f"),LocalizationService.text("ui_0868e13fa0b1")][i],func() -> void: vehicle_choice.select(i+1); _select_vehicle(i+1))
+	var cards := HFlowContainer.new(); right.add_child(cards)
+	for i in vehicle_ids.size():
+		var card := CoreUI.button(cards,profile.service.vehicle_label(vehicle_ids[i]),func() -> void: vehicle_choice.select(i+1); _select_vehicle(i+1))
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var viewport_container := SubViewportContainer.new()
 	viewport_container.stretch = true
@@ -241,7 +244,7 @@ func build_loadout() -> Dictionary:
 	return TrainingLoadout.validate({"vehicle_id":"test_vehicle","shell_id":"ap70" if shell_choice.selected == 0 else "ap120","rounds":int(rounds.value),"infinite":infinite.button_pressed})
 
 func _start() -> void:
-	if selected_vehicle_id() in VehicleCatalog.IDS:
+	if profile.service.has_vehicle(selected_vehicle_id()):
 		laboratory_requested.emit("historical")
 		return
 	var value := build_loadout()
@@ -292,7 +295,7 @@ func _select_inspection(index: int) -> void:
 		preview.select_module(entry.id)
 		for module in preview.layout.modules:
 			if module.id == entry.id: inspection_value.text = CoreUI.word(module.kind)+LocalizationService.text("ui_7a954e969839")+_evidence_word(module.geometry_status)
-		if preparation.current_id in VehicleCatalog.IDS:
+		if profile.service.has_vehicle(preparation.current_id):
 			var checked := profile.service.build_loadout(preparation.loadouts[preparation.current_id])
 			if checked.ok and checked.inventory.racks.has(entry.id): inspection_value.text += LocalizationService.text("ui_cf4bdbed893a")%checked.inventory.racks[entry.id]
 	else:
@@ -321,7 +324,7 @@ func selected_vehicle_id() -> String:
 func _select_vehicle(_index: int) -> void:
 	if preview == null or preview_note == null: return
 	var id := selected_vehicle_id()
-	var historical := catalog.packages.has(id)
+	var historical := profile.service.has_vehicle(id)
 	shell_choice.disabled = historical
 	rounds.editable = not historical; infinite.disabled = historical; case_choice.disabled = historical
 	dossier_button.disabled = not historical
@@ -333,17 +336,22 @@ func _select_vehicle(_index: int) -> void:
 			preview._extra_nodes.erase(extra); extra.queue_free()
 	if historical:
 		var packet: Dictionary = catalog.packages[id].packet
+		var reference: bool = packet.get("evidence_profile","historical_verified")=="game_reference"
+		if reference: start_button.text="驾驶所选参考车辆"
 		if shell_choice.item_count < 3: shell_choice.add_item("")
 		shell_choice.set_item_text(2,str(packet.assembly.shell)+" · "+str(packet.assembly.caliber_mm)+" mm")
 		shell_choice.select(2)
 		rounds.max_value = 150; rounds.value = packet.runtime.rounds
 		HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
 		preview_note.text = LocalizationService.text("ui_299e3fe8604d")%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
-		var ammo := HistoricalShellCatalog.build(packet)
+		if reference: preview_note.text="%s\n%s · %d 发 · %.1f km/h 参考／设计速度\n游戏参考与工程估计，未做历史核验。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
+		var ammo := VehicleShellCatalog.build(packet)
 		if ammo.ok:
-			preview_note.text += LocalizationService.text("ui_800e253ef3d2")+ammo.options[0].display_name+" / "+ammo.options[1].display_name
-			preview_note.text += LocalizationService.text("ui_b35c0ab2610a")
-			if id.begins_with("us_m24"): preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
+			var names := PackedStringArray()
+			for option in ammo.options: names.append(option.display_name)
+			preview_note.text += "\n可用弹种："+" / ".join(names)
+			preview_note.text += "\n默认全部携带此弹种。" if ammo.options.size()==1 else "\n默认主弹70%，其余弹种合计30%；可在备战中调整。"
+			if not reference and id.begins_with("us_m24"): preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
 		var extent: float = maxf(float(HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")),float(packet.geometry.barrel_length)+3.5)
 		preview_camera.position = Vector3(5.3,3.8,-6.4)*extent/6.0
 	else:
@@ -374,20 +382,29 @@ func _show_dossier() -> void:
 	var view := RichTextLabel.new()
 	view.bbcode_enabled = true; view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	view.selection_enabled = true; box.add_child(view)
-	view.append_text(LocalizationService.text("ui_286db738c052"))
-	var ammunition := HistoricalShellCatalog.build(packet)
+	var reference: bool = packet.get("evidence_profile","historical_verified")=="game_reference"
+	view.append_text("游戏参考／工程估计；未做历史核验。\n" if reference else LocalizationService.text("ui_286db738c052"))
+	var ammunition := VehicleShellCatalog.build(packet)
 	if ammunition.ok:
-		view.append_text(LocalizationService.text("ui_0f251c001808"))
+		view.append_text("\n[b]当前参考弹种[/b]\n" if reference else LocalizationService.text("ui_0f251c001808"))
 		for entry in ammunition.entries:
 			view.append_text("\n[b]"+str(entry.label)+"[/b] · "+str(entry.gun)+"\n")
+			if reference:
+				view.add_text(str(entry.muzzle_velocity_mps)+" m/s · estimated\n"+JSON.stringify(entry.penetration_curve)+" · estimated\n")
+				for claim in entry.evidence.values():
+					view.add_text(str(claim.origin)+" / "+str(claim.status)+"\n"+str(claim.location)+"\n"+str(claim.note)+"\n")
+					for ref in claim.source_refs:
+						var source: Dictionary=ammunition.sources[ref]
+						view.add_text(str(source.artifact)+"\nSHA256 "+str(source.sha256)+"\n")
+				continue
 			view.add_text(LocalizationService.text("ui_51a92c8c7d53")+str(entry.muzzle_velocity_mps)+" m/s · "+str(entry.muzzle_velocity_status)+"\n")
 			view.add_text(LocalizationService.text("ui_9a5d1dcbcbb9")+JSON.stringify(entry.penetration_curve)+" · estimated\n"+str(entry.estimate_reason)+"\n"+str(entry.historical_observations)+"\n")
 			for ref in entry.source_refs:
 				var source: Dictionary = ammunition.sources[ref]
 				view.append_text("[url="+str(source.url)+"]"+str(source.title)+"[/url]\n")
 				view.add_text(str(source.location)+"\nSHA256 "+str(source.sha256)+"\n")
-		view.append_text(LocalizationService.text("ui_0c1302ad4a39"))
-	for limitation in packet.limitations: view.add_text(str(limitation)+"\n")
+		view.append_text("\n[b]车型包字段来源与估计[/b]\n" if reference else LocalizationService.text("ui_0c1302ad4a39"))
+	for limitation in packet.get("limitations",[]): view.add_text(str(limitation)+"\n")
 	for field in packet.facts:
 		var row: Dictionary = packet.facts[field]
 		view.append_text("\n[b]"+field+"[/b]  ·  "+str(row.status)+" / "+str(row.origin)+"\n")

@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] construct real authority scene with three isolated gameplay profiles
+[PASS] all identical test vehicles settle on real track probes under actual PlayerController polling
+[PASS] stabilizer comparison uses declared game rules without binding historical vehicles
+[ROUTE] none position=(-2.386936, 1.40619, -24.06322) ramp={ "samples": 280, "pitch": 0.00486515490338, "yaw": 0.00010023755687, "hull_pitch": 0.10472048819065, "spring_pitch": 0.03001432679594, "compensation": 0.0, "valid": true } turn={ "samples": 120, "pitch": 0.00230830662573, "yaw": 0.06971733992298, "hull_pitch": 0.08727332949638, "spring_pitch": 0.00000003709605, "compensation": 0.0, "valid": true }
+[PASS] real driving ramp excites sprung hull and retains valid authoritative poses: none
+[ROUTE] vertical position=(-2.386786, 1.406217, -24.06353) ramp={ "samples": 280, "pitch": 0.00036805692528, "yaw": 0.00004496255091, "hull_pitch": 0.10472513735294, "spring_pitch": 0.03001434728503, "compensation": 0.54454696178436, "valid": true } turn={ "samples": 120, "pitch": 0.00230521528671, "yaw": 0.06971744497617, "hull_pitch": 0.08727333694696, "spring_pitch": 0.00000003613352, "compensation": 0.00000111758709, "valid": true }
+[PASS] real driving ramp excites sprung hull and retains valid authoritative poses: vertical
+[ROUTE] two_axis position=(-2.386894, 1.406215, -24.06351) ramp={ "samples": 280, "pitch": 0.00036851549521, "yaw": 0.00000977718404, "hull_pitch": 0.104720659554, "spring_pitch": 0.03001433424652, "compensation": 0.54458659887314, "valid": true } turn={ "samples": 120, "pitch": 0.00013626320288, "yaw": 0.00458713471889, "hull_pitch": 0.0872733220458, "spring_pitch": 0.0000000331426, "compensation": 0.45169651508331, "valid": true }
+[PASS] real driving ramp excites sprung hull and retains valid authoritative poses: two_axis
+[PASS] vertical and two-axis profiles reduce measured pitch error on the same actual ramp route
+[PASS] single-axis mode retains horizontal lag while two-axis mode reduces it during real steering
+[PASS] unstabilized production rig has no hull disturbance feed-forward throughout driving
+[PASS] normal fire input launches exactly one actual projectile while driving: none
+[PASS] same-tick projectile launch uses physical muzzle and barrel plus vehicle velocity: none
+[PASS] shot preserves unstabilized barrel lag instead of snapping the projectile to optical aim
+[PASS] normal fire input launches exactly one actual projectile while driving: vertical
+[PASS] same-tick projectile launch uses physical muzzle and barrel plus vehicle velocity: vertical
+[PASS] normal fire input launches exactly one actual projectile while driving: two_axis
+[PASS] same-tick projectile launch uses physical muzzle and barrel plus vehicle velocity: two_axis

@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] long range uses admitted historical vehicle and unchanged weapon definition
+[FAIL] third-person world/vehicle ray reaches 500m target
+[PASS] scope world/vehicle ray reaches 500m target
+[PASS] precise armor aim reaches 500m target
+[PASS] third-person world/vehicle ray reaches 1500m target
+[PASS] scope world/vehicle ray reaches 1500m target
+[PASS] precise armor aim reaches 1500m target
+[FAIL] third-person world/vehicle ray reaches 2400m target
+[PASS] scope world/vehicle ray reaches 2400m target
+[PASS] precise armor aim reaches 2400m target
+[PASS] render far plane covers weapon budget and camera offset
+[PASS] empty scope ray converges at shared horizon instead of artificial 60m
+[PASS] precise empty-sky fallback uses the same horizon
+[PASS] distant world cover still occludes precise target geometry
+[PASS] real historical shell reaches actual vehicle armor at 1000m
+[long flight] contacts=2 muzzle_velocity=618.744 query_horizon=2520.0 camera_far=2620.0
+=== 结果: 15 项检查, 2 失败 ===
+ENGAGEMENT_DISTANCE_CHECKS_FAIL

@@ -1,14 +1,16 @@
 class_name VehicleCommandCodec
 extends RefCounted
 ## Data-only contract; authenticated ownership belongs to the future transport.
-const VERSION := 2
-const FLAGS := ["has_aim_point","clear_aim","aim_held","hold_aim","fire_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested"]
+const VERSION := 3
+const FLAGS := ["has_aim_point","clear_aim","aim_held","hold_aim","fire_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested","range_requested","apply_range_requested","cycle_shell_requested"]
 static func integer(v: Variant) -> bool:
 	return (v is int or v is float) and is_finite(float(v)) and absf(float(v))<=9007199254740991 and float(v)==floor(float(v))
 static func encode(cmd: VehicleCommand, actor: VehicleActor, sequence: int, input_tick: int) -> Dictionary:
-	var body := {"throttle":cmd.throttle,"steer":cmd.steer,"select_shell":cmd.select_shell,"aim_world_point":[cmd.aim_world_point.x,cmd.aim_world_point.y,cmd.aim_world_point.z]}
+	return {"version":VERSION,"entity_id":actor.entity_id,"life_id":actor.life_id,"generation":actor.state.generation,"control_epoch":actor.control_epoch,"sequence":sequence,"input_tick":input_tick,"command":encode_body(cmd)}
+static func encode_body(cmd: VehicleCommand) -> Dictionary:
+	var body := {"throttle":cmd.throttle,"steer":cmd.steer,"select_shell":cmd.select_shell,"aim_world_point":[cmd.aim_world_point.x,cmd.aim_world_point.y,cmd.aim_world_point.z],"aim_intent":cmd.aim_intent.snapshot() if cmd.aim_intent!=null else {},"zeroing_steps":cmd.zeroing_steps}
 	for key in FLAGS: body[key] = cmd.get(key)
-	return {"version":VERSION,"entity_id":actor.entity_id,"life_id":actor.life_id,"generation":actor.state.generation,"control_epoch":actor.control_epoch,"sequence":sequence,"input_tick":input_tick,"command":body}
+	return body
 static func decode(value: Variant) -> Dictionary:
 	if not value is Dictionary or value.size()!=8: return {"ok":false,"reason":"invalid_envelope"}
 	for key in ["version","life_id","generation","control_epoch","sequence","input_tick"]:
@@ -17,14 +19,17 @@ static func decode(value: Variant) -> Dictionary:
 	if not value.get("entity_id") is String or value.entity_id.is_empty() or value.entity_id.length()>128: return {"ok":false,"reason":"invalid_entity"}
 	if not value.get("command") is Dictionary: return {"ok":false,"reason":"invalid_command"}
 	var body: Dictionary = value.command
-	if body.size()!=FLAGS.size()+4: return {"ok":false,"reason":"invalid_fields"}
+	if body.size()!=FLAGS.size()+6: return {"ok":false,"reason":"invalid_fields"}
+	if not AimIntent.valid_snapshot(body.get("aim_intent")): return {"ok":false,"reason":"invalid_optical_intent"}
+	if not integer(body.get("zeroing_steps")) or absf(float(body.zeroing_steps))>20: return {"ok":false,"reason":"invalid_zeroing_steps"}
+	if body.aim_intent.active and body.get("has_aim_point",false): return {"ok":false,"reason":"ambiguous_optical_intent"}
 	for key in ["throttle","steer"]:
 		var v: Variant = body.get(key)
 		if not (v is int or v is float) or not is_finite(float(v)) or absf(float(v))>1: return {"ok":false,"reason":"invalid_"+key}
 	for key in FLAGS:
 		if not body.get(key) is bool: return {"ok":false,"reason":"invalid_"+key}
 	if body.has_aim_point and body.clear_aim: return {"ok":false,"reason":"ambiguous_aim"}
-	if not integer(body.get("select_shell")) or int(body.select_shell) not in [-1,0,1]: return {"ok":false,"reason":"invalid_shell"}
+	if not integer(body.get("select_shell")) or int(body.select_shell)<-1 or int(body.select_shell)>7: return {"ok":false,"reason":"invalid_shell"}
 	var point: Variant = body.get("aim_world_point")
 	if not point is Array or point.size()!=3: return {"ok":false,"reason":"invalid_aim"}
 	for coordinate in point:
@@ -32,5 +37,6 @@ static func decode(value: Variant) -> Dictionary:
 	var cmd := VehicleCommand.new()
 	cmd.throttle = body.throttle; cmd.steer = body.steer; cmd.select_shell = int(body.select_shell)
 	cmd.aim_world_point = Vector3(point[0],point[1],point[2])
+	cmd.aim_intent=AimIntent.from_snapshot(body.aim_intent); cmd.zeroing_steps=int(body.zeroing_steps)
 	for key in FLAGS: cmd.set(key,body[key])
 	return {"ok":true,"command":cmd}

@@ -50,10 +50,35 @@ func run() -> void:
 	await key(KEY_Z,true); await key(KEY_Z,false)
 	check(camera.cam.fov==camera.optics().sight_fovs[1] and camera.zoom_step==1,"Z changes real client projection to second magnification")
 	check(Vector2(authority.turret.rotation.y,authority.turret.barrel_pivot.rotation.x).distance_to(before)<0.0001,"zoom does not change authoritative weapon angles")
+	# The untouched horizontal view passes above this shorter opposing tank.
+	# Aim through a real mouse event before asking the rangefinder to sample it.
+	var target_direction: Vector3 = (view.actors.B.tank.global_position+Vector3.UP*1.2-camera.sight_origin()).normalized()
+	var wanted_yaw := atan2(-target_direction.x,-target_direction.z)
+	var wanted_pitch := asin(target_direction.y)
+	var sensitivity := GameConfig.MOUSE_SENS*AccessibilitySettings.mouse_sensitivity*camera.input_sensitivity_scale()
+	await motion(Vector2(wrapf(camera.aim_yaw-wanted_yaw,-PI,PI)/sensitivity,(camera.aim_pitch-wanted_pitch)/sensitivity))
+	await ticks(160)
+	await key(KEY_Y,true); await key(KEY_Y,false)
+	check(authority.fire_control.status=="measuring","normal Y input starts authority range timer")
+	await ticks(140)
+	check(authority.fire_control.status=="measured" and view.owned.fire_control.measured_range_m>0,"normal optical aim measures actual opposing vehicle")
+	await key(KEY_H,true); await key(KEY_H,false); await ticks(15)
+	check(authority.fire_control.zeroing_m==authority.fire_control.measured_range_m and authority.fire_control.zeroing_m>0,"normal H input adopts measured range without a debug shortcut")
+	var measured := authority.fire_control.zeroing_m
+	await key(KEY_BRACKETRIGHT,true); await key(KEY_BRACKETRIGHT,false); await ticks(10)
+	check(authority.fire_control.zeroing_m==measured+100,"normal bracket input increments authority zeroing once")
+	await shot("01_range_and_graduations")
+	for i in 3:
+		await key(KEY_BRACKETLEFT,true); await key(KEY_BRACKETLEFT,false)
+	await ticks(15)
+	check(authority.fire_control.zeroing_m==0,"manual decrement returns to direct aiming at zero")
 	var yaw := camera.aim_yaw
+	var authority_yaw := authority.turret.rotation.y
 	var scale := camera.input_sensitivity_scale()
 	await motion(Vector2(100,0))
 	check(is_equal_approx(wrapf(yaw-camera.aim_yaw,-PI,PI),100*GameConfig.MOUSE_SENS*AccessibilitySettings.mouse_sensitivity*scale),"real magnified mouse input uses FOV-scaled angular motion")
+	await ticks(120)
+	check(absf(wrapf(authority.turret.rotation.y-authority_yaw,-PI,PI))>0.01 and authority.turret.aim_error_deg()<0.05,"real window mouse input reaches authority and finishes finite mechanical pursuit at zero setting")
 	await shot("01_scope_zoom")
 	await mouse(MOUSE_BUTTON_RIGHT,false); await ticks(90)
 	var saved := Vector2(camera.aim_yaw,camera.aim_pitch)

@@ -74,7 +74,8 @@ func finish() -> void:
 	# Acknowledge the exact wire representation, not reserialized JSON variants:
 	# JSON decoding changes int/float types and may round floating point text.
 	final_payload=JSON.stringify(final_snapshot,"",true,true)
-	for id in owners: send_to(id,{"type":"final","payload":final_payload})
+	for id in owners:
+		send_to(id,{"type":"final","payload":final_payload,"own_status":world.own_status(owners[id].vehicle)})
 func _physics_process(_delta: float) -> void:
 	if world==null: return
 	per_tick_packets.clear()
@@ -88,5 +89,5 @@ func _physics_process(_delta: float) -> void:
 		var snapshot := world.snapshot(snapshot_sequence)
 		for id in owners:
 			var actor: VehicleActor=owners[id].vehicle
-			send_to(id,{"type":"snapshot","snapshot":snapshot,"own_status":{"cooldown":actor.gunner.cooldown_left,"ammo":actor.gunner.rounds_remaining,"speed":actor.tank.forward_speed}})
+			send_to(id,{"type":"snapshot","snapshot":snapshot,"own_status":world.own_status(actor)})
 func _exit_tree() -> void: peer.close()

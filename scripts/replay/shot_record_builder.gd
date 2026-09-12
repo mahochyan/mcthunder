@@ -19,7 +19,7 @@ static func sample_path(st: ProjectileState) -> void:
 
 static func capture_frame(st: ProjectileState, event: Dictionary, snapshots: Array) -> int:
 	if not st.replay_error.is_empty(): return -1
-	var key := JSON.stringify([event.get("entity_id",""),event.get("life_id",0),event.get("target_generation",-1),Engine.get_physics_frames()])
+	var key := JSON.stringify([event.get("entity_id",""),event.get("life_id",0),event.get("target_generation",-1),Engine.get_physics_frames(),event.get("motion_fraction",-1.0)])
 	if st.replay_frame_keys.has(key): return int(st.replay_frame_keys[key])
 	if st.replay_frames.size() >= MAX_GEOMETRY_FRAMES:
 		st.replay_error = "geometry_frame_limit"

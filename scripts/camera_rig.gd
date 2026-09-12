@@ -15,6 +15,7 @@ var free_look := false
 var binoculars := false
 var zoom_step := 0
 var fallback_optics := OpticsProfile.new()
+var fire_control: FireControlState
 var _saved_aim := Vector2.ZERO
 var _held_intent := Vector3.ZERO
 
@@ -43,6 +44,9 @@ func input_sensitivity_scale() -> float:
 	if _sight_requested and not is_observing(): return 1.0/OpticsProfile.magnification(optics().sight_fovs[zoom_step])
 	return 1.0
 func optics_text() -> String:
+	return _mode_text()+(" · "+fire_control.hud_text() if fire_control!=null else "")
+
+func _mode_text() -> String:
 	if binoculars: return LocalizationService.text("optics_binocular_mode")%OpticsProfile.magnification(optics().binocular_fov)
 	if free_look: return LocalizationService.text("free_look")
 	if sight: return LocalizationService.text("optics_sight_mode")%[OpticsProfile.magnification(optics().sight_fovs[zoom_step]),InputBindingService.hint("optic_zoom")]
@@ -74,6 +78,56 @@ func _query_distance() -> float:
 func sight_origin() -> Vector3:
 	return turret.barrel_pivot.to_global(optics().sight_offset)
 
+func build_aim_intent(sight_requested: bool) -> AimIntent:
+	var intent := AimIntent.new()
+	intent.active=true; intent.yaw=aim_yaw; intent.pitch=aim_pitch
+	intent.mode="binocular" if binoculars else ("free" if free_look else ("sight" if sight_requested else "chase"))
+	return intent
+
+func apply_aim_intent(intent: AimIntent) -> void:
+	# Observation transitions restore their saved direction before the newest
+	# input is applied. A remote controller therefore follows the local path.
+	set_observation(intent.mode=="free",intent.mode=="binocular")
+	set_aim(intent.yaw,intent.pitch)
+	set_sight_requested(intent.mode=="sight")
+
+func optical_ray() -> Dictionary:
+	var direction := Vector3(-sin(aim_yaw)*cos(aim_pitch),sin(aim_pitch),-cos(aim_yaw)*cos(aim_pitch))
+	if binoculars:
+		var desired := tank.hull_frame.to_global(optics().binocular_offset)
+		var obstruction := _ray(tank.hull_frame.global_position+Vector3.UP*0.3,desired)
+		if not obstruction.is_empty(): desired=obstruction.position+obstruction.normal*0.1
+		return {"origin":desired,"direction":direction}
+	if _sight_requested: return {"origin":sight_origin(),"direction":direction}
+	var dir_h := Vector3(-sin(aim_yaw),0,-cos(aim_yaw))
+	var distance := tank.defs.follow_camera_distance if tank!=null and tank.defs!=null else GameConfig.CAM_DISTANCE
+	var height := tank.defs.follow_camera_height if tank!=null and tank.defs!=null else GameConfig.CAM_HEIGHT
+	var desired := global_position-dir_h*distance+Vector3.UP*height
+	var hit := _ray(global_position+Vector3.UP*0.3,desired)
+	if not hit.is_empty(): desired=hit.position+hit.normal*0.3
+	return {"origin":desired,"direction":direction}
+
+func measure_contact(distance: float) -> Dictionary:
+	# Only the authority calls this to measure. Never use a client world point,
+	# interpolated pose or the sky fallback as a successful distance reading.
+	var ray := optical_ray()
+	var world := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state,ray.origin,ray.direction,distance,_exclude())
+	if not world.get("ok",false): return {"ok":false,"reason":"unresolved"}
+	var snapshots: Array=snapshot_provider.call() if snapshot_provider.is_valid() else []
+	var query := ShotQueryService.query({"from_world":ray.origin,"to_world":ray.origin+ray.direction*distance,
+		"excluded_instances":[{"entity_id":tank.entity_id,"life_id":tank.life_id}],
+		"include_modules":true,"include_crew":false,"world_stop":world.get("contact",{})},snapshots)
+	var selected := ExternalContactSelector.select_contact(query)
+	var contact: Dictionary={}
+	if selected.status=="vehicle": contact=selected.event
+	elif selected.status=="world": contact=selected.contact
+	elif selected.status=="unresolved": return {"ok":false,"reason":"unresolved"}
+	var boundary := float(contact.get("distance_m",INF))
+	var external := DamageResolver.next_contact(query,{}, {},boundary)
+	if not external.is_empty(): contact=external
+	if contact.is_empty(): return {"ok":false,"reason":"no_contact"}
+	return {"ok":true,"distance_m":ray.origin.distance_to(contact.point_world)}
+
 func _ready() -> void:
 	if not presentation_enabled:
 		set_process(false)
@@ -85,6 +139,12 @@ func _ready() -> void:
 	add_child(cam)
 	cam.current = false # VehicleActor explicitly assigns the local controller's camera.
 	cam.position = Vector3(0, 1.0, 6.5)
+	var layer := CanvasLayer.new()
+	layer.layer=1
+	add_child(layer)
+	var marks := SightGraduations.new()
+	marks.camera_rig=self
+	layer.add_child(marks)
 
 func set_aim(yaw: float, pitch: float) -> void:
 	# 003：PlayerController 唯一入口（不再由本脚本读鼠标）
@@ -167,8 +227,12 @@ func get_aim_point() -> Vector3:
 	# 003：意图射线查 WORLD|VEHICLE（排除本车）——B 等车辆可被瞄准，
 	# 否则炮塔会越过车辆对准其后方世界点，炮管射线从目标上方掠过。
 	# All aim paths cover the current weapon budget plus the chase-camera offset.
-	var from := cam.global_position
-	var dir := -cam.global_transform.basis.z
+	var ray := optical_ray()
+	var from: Vector3=ray.origin
+	var dir: Vector3=ray.direction
+	if is_instance_valid(cam):
+		from=cam.global_position
+		dir=-cam.global_basis.z
 	var distance := _query_distance()
 	var hit := _ray(from, from + dir * distance, GameConfig.LAYER_WORLD | GameConfig.LAYER_VEHICLE)
 	if not hit.is_empty():
@@ -195,19 +259,20 @@ func intent_point() -> Vector3:
 
 func refresh_intent(update_pose: bool = true) -> void:
 	# Actual armor silhouette in resolve mode. World queries stay in the physical update.
-	if not presentation_enabled: return
-	if update_pose: _update_camera_pose()
+	if update_pose and presentation_enabled: _update_camera_pose()
 	_precise_valid = false
 	intent_contact.clear()
 	if not snapshot_provider.is_valid() or tank == null: return
 	if is_observing(): return
 	var snapshots: Array = snapshot_provider.call()
-	if snapshots.is_empty(): return
-	var from := cam.global_position
-	var direction := -cam.global_basis.z
-	if _sight_requested and turret != null:
-		from = sight_origin()
-		direction = Vector3(-sin(aim_yaw)*cos(aim_pitch),sin(aim_pitch),-cos(aim_yaw)*cos(aim_pitch))
+	var ray := optical_ray()
+	var from: Vector3=ray.origin
+	var direction: Vector3=ray.direction
+	# Explicit camera-position callers can query a frozen rendered view. Normal
+	# authority updates continue to derive their ray from the angular intent.
+	if not update_pose and is_instance_valid(cam) and not _sight_requested:
+		from=cam.global_position
+		direction=-cam.global_basis.z
 	var distance := _query_distance()
 	var world := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state,from,direction,distance,_exclude())
 	if not world.get("ok",false): return

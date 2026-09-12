@@ -182,6 +182,8 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	var fa: bool = gunner.try_fire()
 	_ok(fa, "T002-03a 开火（炮根→炮口无遮挡）")
+	# Finite-flight contact must finish while this fixture's wall still exists.
+	await _wait_flight_done(main)
 	_ok(tgt.hit_count == 0, "T002-03a 近墙挡住炮射线，墙后靶板未被命中 (hits=%d)" % tgt.hit_count)
 	tall_wall.queue_free()
 	tgt.queue_free()
@@ -854,7 +856,9 @@ func _run() -> void:
 	cmd_turn_f.aim_world_point = fast_a.tank.global_position + Vector3(20, 0, 0)
 	var yaw0_s: float = slow_a.turret.global_rotation.y
 	var yaw0_f: float = fast_a.turret.global_rotation.y
-	for i in 30:
+	# Compare after the finite acceleration interval, not only its first half
+	# second when both motors intentionally share the same acceleration limit.
+	for i in 60:
 		slow_a.submit_command(cmd_turn_s)
 		fast_a.submit_command(cmd_turn_f)
 		await physics_frame
@@ -1087,7 +1091,9 @@ func _stable_converge(main) -> Dictionary:
 	var hold_time := 0.0
 	var max_err := 0.0
 	var final_err := 0.0
-	for i in 240:
+	# Acceleration/braking and response lag now precede the same one-second
+	# stable hold. Keep the angular threshold and hold duration unchanged.
+	for i in 300:
 		await physics_frame
 		var bdir: Vector3 = main.turret.barrel_direction()
 		var want: Vector3 = (P - main.turret.barrel_pivot.global_position).normalized()

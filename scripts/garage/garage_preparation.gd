@@ -42,10 +42,9 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	rack_label = CoreUI.label(details,"",14)
 	rack_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	CoreUI.label(details,LocalizationService.text("ui_e183b39e4637"),16)
-	for i in VehicleCatalog.IDS.size():
-		var id: String = VehicleCatalog.IDS[i]
+	for id in store.service.vehicle_ids():
 		var check := CheckBox.new()
-		check.text = [LocalizationService.text("ui_630df3385277"),LocalizationService.text("ui_651318f7d9c9"),LocalizationService.text("ui_5211307c7c48"),LocalizationService.text("ui_0589441d0606")][i]
+		check.text = store.service.vehicle_label(id)
 		details.add_child(check); lineup_checks[id] = check
 		check.toggled.connect(func(on: bool) -> void: _lineup_changed(id,on))
 	CoreUI.label(details,LocalizationService.text("ui_61b938d8df0b"),15)
@@ -70,8 +69,8 @@ func select_vehicle(id: String) -> void:
 	for child in ammo_box.get_children(): child.free()
 	shell_spins.clear()
 	first_choice = null
-	settings_button.disabled = id not in VehicleCatalog.IDS
-	if id in VehicleCatalog.IDS:
+	settings_button.disabled = not store.service.has_vehicle(id)
+	if store.service.has_vehicle(id):
 		# Editing may leave a temporarily invalid total; UI metadata still comes from the admitted catalog.
 		var prepared := store.service.build_loadout(store.service.default_loadout(id))
 		CoreUI.label(ammo_box,LocalizationService.text("ui_ddaff5a533fe"),14)
@@ -102,13 +101,13 @@ func _mode_changed(_index: int) -> void:
 		var unlocked: Array = store.snapshot().unlocked
 		lineup_ids = lineup_ids.filter(func(id: String) -> bool: return id in unlocked)
 		if lineup_ids.is_empty(): lineup_ids = [ResearchGraph.STARTER]
-		if current_id not in VehicleCatalog.IDS:
+		if not store.service.has_vehicle(current_id):
 			garage.vehicle_choice.select(1); garage._select_vehicle(1)
 	_refresh_research(); _refresh_lineup()
 
 func _refresh_research() -> void:
 	var profile := store.snapshot()
-	if current_id not in VehicleCatalog.IDS:
+	if not store.service.has_vehicle(current_id):
 		research_label.text = LocalizationService.text("ui_741319de5a0c")%profile.research_points
 		research_button.visible = false
 		return
@@ -146,7 +145,7 @@ func _ammo_changed() -> void:
 	_refresh_racks()
 
 func _refresh_racks() -> void:
-	if current_id not in VehicleCatalog.IDS: rack_label.text = ""; return
+	if not store.service.has_vehicle(current_id): rack_label.text = ""; return
 	var checked := store.service.build_loadout(loadouts[current_id])
 	if not checked.ok:
 		rack_label.text = checked.reason
@@ -159,14 +158,15 @@ func _refresh_racks() -> void:
 	garage.rounds.value = inventory.available
 	var packet: Dictionary = store.service.catalog.packages[current_id].packet
 	garage.preview_note.text = LocalizationService.text("ui_f18548e09801")%[packet.display_name,inventory.available,inventory.capacity,packet.assembly.caliber_mm,packet.runtime.forward_max_speed*3.6,packet.runtime.reload_time]
-	if current_id.begins_with("us_m24"): garage.preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
+	if packet.get("evidence_profile","historical_verified")=="game_reference": garage.preview_note.text = "%s · %d / %d 发\n%.0f mm · 参考／设计速度 %.1f km/h · 装填 %.1f秒（估算）\n游戏参考与工程估计，未做历史核验。"%[packet.display_name,inventory.available,inventory.capacity,packet.assembly.caliber_mm,packet.runtime.forward_max_speed*3.6,packet.runtime.reload_time]
+	elif current_id.begins_with("us_m24"): garage.preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
 	rack_label.text = LocalizationService.text("ui_7c2a6d68853f")%[inventory.available,inventory.capacity]
 	for id in inventory.racks: rack_label.text += "%s：%d\n"%[CoreUI.word(id),inventory.racks[id]]
 	apply_rack_preview()
 	if garage.inspection_choice != null and garage._view_mode == 2: garage._select_inspection(garage.inspection_choice.selected)
 
 func apply_rack_preview() -> void:
-	if current_id not in VehicleCatalog.IDS or garage.preview == null: return
+	if not store.service.has_vehicle(current_id) or garage.preview == null: return
 	var checked := store.service.build_loadout(loadouts[current_id])
 	if not checked.ok: return
 	for id in checked.inventory.racks:

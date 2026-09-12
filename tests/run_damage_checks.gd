@@ -221,6 +221,8 @@ func _rotated_and_runtime_cases() -> void:
 func _run() -> void:
 	world = Node3D.new()
 	root.add_child(world)
+	# Propulsion needs real ground support; airborne vehicles have no traction.
+	TerrainFixtures.box(world,Vector3(0,-0.5,0),Vector3(100,1,100))
 	var defs := VehicleDefs.new()
 	_ok(defs.load_defaults().ok,"load real definitions")
 	a = VehicleActor.new()

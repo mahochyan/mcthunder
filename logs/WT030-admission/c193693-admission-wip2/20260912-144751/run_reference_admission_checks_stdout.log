@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] us_m4a3_75w_vvss_1944: omitted profile retains original complete historical gate
+[PASS] us_m4a3_75w_vvss_1944: dispatcher preserves historical two-shell catalog
+[PASS] us_m24_m6_t85e1_1951: omitted profile retains original complete historical gate
+[PASS] us_m24_m6_t85e1_1951: dispatcher preserves historical two-shell catalog
+[PASS] us_m26_m3_1945: omitted profile retains original complete historical gate
+[PASS] us_m26_m3_1945: dispatcher preserves historical two-shell catalog
+[PASS] us_m36_m4a1_1945: omitted profile retains original complete historical gate
+[PASS] us_m36_m4a1_1945: dispatcher preserves historical two-shell catalog
+[PASS] complete explicit reference/game-rule package passes common geometry/layout/definition gates
+[PASS] engineering validation never promotes historical verification
+[PASS] validation does not mutate serialized candidate status
+[PASS] new reference policy does not weaken historical evidence gate
+[PASS] reference catalog accepts 1 implemented AP/APHE options
+[PASS] complete 1-shell reference package passes pipeline
+[PASS] reference catalog accepts 3 implemented AP/APHE options
+[PASS] complete 3-shell reference package passes pipeline
+[PASS] zero shells rejected
+[PASS] unbounded shell catalog rejected
+[PASS] rejects malformed/incomplete reference: fake_verified
+[PASS] rejects malformed/incomplete reference: top_verified
+[PASS] rejects malformed/incomplete reference: unknown_numeric
+[PASS] rejects malformed/incomplete reference: source_identity
+[PASS] rejects malformed/incomplete reference: project_identity
+[PASS] rejects malformed/incomplete reference: missing_source
+[PASS] rejects malformed/incomplete reference: missing_hash
+[PASS] rejects malformed/incomplete reference: missing_locator
+[PASS] rejects malformed/incomplete reference: missing_note
+[PASS] rejects malformed/incomplete reference: wrong_unit
+[PASS] rejects malformed/incomplete reference: unit_contract
+[PASS] rejects malformed/incomplete reference: missing_geometry
+[PASS] rejects malformed/incomplete reference: missing_module
+[PASS] rejects malformed/incomplete reference: shell_effect
+[PASS] rejects malformed/incomplete reference: shell_family
+[PASS] rejects malformed/incomplete reference: masked_heat
+[PASS] rejects malformed/incomplete reference: shell_value
+[PASS] rejects malformed/incomplete reference: shell_source
+[PASS] rejects malformed/incomplete reference: shell_locator
+[PASS] rejects malformed/incomplete reference: shell_verified
+[PASS] rejects malformed/incomplete reference: shell_duplicate
+[PASS] rejects malformed/incomplete reference: shell_default
+[PASS] rejects malformed/incomplete reference: foreign_shell
+[PASS] rejects malformed/incomplete reference: bad_profile
+[PASS] ussr_t_80b: imported lossy TXT candidate cannot be admitted as a complete vehicle
+[PASS] germ_leopard_2a4: imported lossy TXT candidate cannot be admitted as a complete vehicle
+[PASS] unvalidated reference VehicleDefinition cannot enter production
+[PASS] validated reference definition is independent from historical verified
+[PASS] reference definition rejects forged historical verified even when validated
+=== 结果: 47 项检查, 0 失败 ===
+REFERENCE_ADMISSION_CHECKS_PASS

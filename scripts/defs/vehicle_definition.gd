@@ -14,6 +14,9 @@ extends Resource
 @export var source_refs: Array[String] = []
 # verification: "verified"（有依据）/ "estimated"（估算，标估算）/ "unknown"（未知，不编造）
 @export var verification: String = "unknown"
+## Historical truth and engineering admission are separate. Legacy packets retain their gate.
+@export var evidence_profile: String = "historical_verified"
+@export var admission_status: String = "candidate"
 # 004-c：关联布局 id（us_m4a3_75w_vvss_1944 等）；空 = 无布局关联（向后兼容：旧资源缺省空串不破坏校验）
 @export var layout_id: String = ""
 
@@ -27,6 +30,7 @@ extends Resource
 @export var hull_turn_speed: float = 75.0
 @export var drive_profile: DriveProfile = DriveProfile.new()
 @export var optics_profile: OpticsProfile = OpticsProfile.new()
+@export var fire_control_profile: FireControlProfile = FireControlProfile.new()
 @export var max_slope_deg: float = GameConfig.DRIVE_MAX_SLOPE_DEG
 @export var drive_collision_size: Vector3 = GameConfig.DRIVE_COLLISION_SIZE
 @export var drive_collision_center: Vector3 = GameConfig.DRIVE_COLLISION_CENTER
@@ -47,6 +51,8 @@ extends Resource
 func validate() -> Dictionary:
 	# 返回 {ok: bool, errors: Array[String]}；errors 以字段名开头，便于定位
 	var errors: Array[String] = []
+	if fire_control_profile==null: errors.append("fire_control_profile: missing")
+	else: errors.append_array(fire_control_profile.validate())
 	if optics_profile==null: errors.append("optics_profile: missing")
 	else: errors.append_array(optics_profile.validate())
 	if drive_profile==null: errors.append("drive_profile: missing")
@@ -90,8 +96,14 @@ func validate() -> Dictionary:
 		errors.append("content_tier: must be test/research/production")
 	if verification not in ["verified", "estimated", "unknown"]:
 		errors.append("verification: must be verified/estimated/unknown")
-	if content_tier == "production" and verification != "verified":
+	if evidence_profile not in ["historical_verified","game_reference"]: errors.append("evidence_profile: unsupported")
+	if admission_status not in ["candidate","validated"]: errors.append("admission_status: unsupported")
+	if evidence_profile == "game_reference" and verification == "verified": errors.append("verification: game reference cannot claim historical verified")
+	if content_tier == "production" and evidence_profile == "historical_verified" and verification != "verified":
 		errors.append("verification: production vehicle must be verified")
+	if content_tier == "production" and evidence_profile == "game_reference":
+		if admission_status != "validated": errors.append("admission_status: production game reference requires engineering validation")
+		if source_refs.is_empty(): errors.append("source_refs: game reference requires provenance")
 	# 003-R1：正式/已核验条目必须有实质来源（非空、非空白、非仅 TEST ONLY 声明）
 	if verification == "verified":
 		var has_source := false

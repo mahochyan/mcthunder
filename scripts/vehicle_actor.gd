@@ -38,17 +38,25 @@ var _last_input_sequence := -1
 var _pending_input_tick := -1
 var simulation_driver: WeakRef
 var presentation_enabled := true
+var fire_control := FireControlState.new()
+var last_consumed_sequence := -1
+var _staged_sequence := -1
 
 func _expire_pending_input() -> void:
 	if _pending_input_tick>=0 and Engine.get_physics_frames()-_pending_input_tick>GameConfig.COMMAND_MAX_AGE_TICKS:
 		_mailbox.clear()
 		_pending_input_tick = -1
+		_staged_sequence = -1
 
 func invalidate_input_epoch() -> void:
 	control_epoch += 1
 	_last_input_sequence = -1
 	_pending_input_tick = -1
 	_mailbox.clear()
+	_staged_sequence=-1; last_consumed_sequence=-1
+	fire_control.cancel_measurement("input_reset")
+	if is_instance_valid(turret) and is_instance_valid(turret.barrel_pivot):
+		turret.mechanism.hold(Vector2(turret.barrel_pivot.rotation.x,turret.rotation.y),turret.get_parent().global_basis)
 
 func submit_command_envelope(value: Variant) -> Dictionary:
 	if state == null or not is_inside_tree(): return {"ok":false,"reason":"actor_unavailable"}
@@ -63,6 +71,7 @@ func submit_command_envelope(value: Variant) -> Dictionary:
 	if not submit_command(parsed.command): return {"ok":false,"reason":"command_rejected"}
 	_pending_input_tick = int(value.input_tick) if _pending_input_tick<0 else mini(_pending_input_tick,int(value.input_tick))
 	_last_input_sequence = int(value.sequence)
+	_staged_sequence = _last_input_sequence
 	return {"ok":true,"accepted_tick":Engine.get_physics_frames(),"sequence":_last_input_sequence}
 var _consume_count := 0                # 003-R2：本步消费计数（调试用）
 
@@ -100,6 +109,7 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank.set_spawn(tank.transform)   # 003：局部出生点（世界位置 = actor 全局变换）
 	turret = tank.turret_rig
 	cam_rig = tank.camera_rig
+	cam_rig.fire_control=fire_control
 	turret.cam_rig = cam_rig if presentation_enabled else null
 	turret.defs = definition   # 003-R1：炮塔转速/俯仰限位唯一来源
 	cam_rig.turret = turret
@@ -138,13 +148,14 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	tank.add_child(label3d)
 	if res.has("packet"): HistoricalVehicleModel.apply(self,res.packet,res.layout)
 	if res.has("packet") and definition.content_tier == "production":
-		var shell_result := HistoricalShellCatalog.install(self,res.packet)
+		var shell_result := VehicleShellCatalog.install(self,res.packet)
 		if not shell_result.ok: return shell_result
 		if OS.get_cmdline_user_args().has("--geometry-overlay"): GeometryOverlay.attach(self)
 	return {"ok": true}
 
 func set_controller(ctrl: Node) -> void:
 	invalidate_input_epoch()
+	fire_control.reset()
 	# 003-R1：统一控制者绑定/解绑——解绑清理引用；只有被控制的车拥有有效本地游戏相机
 	# 003-R2：控制者变更时清空暂存（不跨绑定继承旧请求）
 	_mailbox.clear()
@@ -217,6 +228,7 @@ func present_damage_record(record: Dictionary) -> void:
 		_publish_death()
 
 func _commit_death() -> void:
+	fire_control.reset()
 	state.death_record["point_world"] = tank.global_position
 	state.death_record["ammo_before_loss"] = gunner.inventory.snapshot()
 	if state.death_record.get("cause","")=="ammo_detonation" and definition.id in VehicleCatalog.IDS and not is_instance_valid(wreck_turret):
@@ -239,6 +251,8 @@ func _notification(what: int) -> void:
 	# 暂停/重置/解绑路径另有显式清理，见 pause_block/clear_commands）
 	if what == NOTIFICATION_PAUSED:
 		_mailbox.clear()
+		_staged_sequence=-1
+		fire_control.cancel_measurement("input_reset")
 
 func pause_block(value: bool) -> void:
 	invalidate_input_epoch()
@@ -303,6 +317,8 @@ func collect_simulation_command(delta: float) -> VehicleCommand:
 			if next_command != null:
 				submit_command_envelope(VehicleCommandCodec.encode(next_command,self,_last_input_sequence+1,Engine.get_physics_frames()))
 	var cmd := _mailbox.consume()
+	if _staged_sequence>=0: last_consumed_sequence=_staged_sequence
+	_staged_sequence=-1
 	_pending_input_tick = -1
 	_consume_count += 1
 	if debug_command_trace:
@@ -346,16 +362,27 @@ func advance_simulation_drive(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
 	tank.apply_drive(step.throttle,step.steer,delta)
 
-func advance_simulation_aim(step: Dictionary, _delta: float) -> void:
+func advance_simulation_aim(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
 	var cmd: VehicleCommand = step.cmd
 	turret.observation_hold=cmd.hold_aim
+	if cmd.aim_intent.active:
+		cam_rig.apply_aim_intent(cmd.aim_intent)
+	turret.observation_hold=cmd.hold_aim or cam_rig.is_observing()
 	if cmd.has_aim_point:
 		turret.set_aim_point(cmd.aim_world_point)
 	elif cmd.clear_aim:
 		turret.clear_aim_point()
-	cam_rig.set_sight_requested(cmd.aim_held)
-	if cmd.clear_aim: cam_rig.refresh_intent()
+	if not cmd.aim_intent.active: cam_rig.set_sight_requested(cmd.aim_held)
+	if cmd.clear_aim or cmd.aim_intent.active: cam_rig.refresh_intent()
+	fire_control.advance(self,cmd,delta)
+	if cmd.aim_intent.active and not turret.observation_hold:
+		turret.set_aim_point(cam_rig.intent_point())
+		var solution := fire_control.aim_solution(self)
+		if solution.get("ok",false):
+			# A direction target at the pivot preserves the solved muzzle direction;
+			# finite mechanism motion and the actual weapon remain authoritative.
+			turret.set_aim_point(turret.barrel_pivot.global_position+solution.direction*maxf(100,fire_control.zeroing_m))
 
 func advance_simulation_mechanism(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
@@ -367,7 +394,16 @@ func finish_simulation_command(step: Dictionary) -> void:
 	if not simulation_step_valid(step): return
 	var cmd: VehicleCommand = step.cmd
 	if cmd.select_shell >= 0 and not state.destroyed: gunner.select_shell(cmd.select_shell)
-	if cmd.fire_requested:
+	elif cmd.cycle_shell_requested and not state.destroyed and not gunner.shell_options.is_empty():
+		# Relative selection is resolved here, never against a client replica's
+		# possibly delayed inventory. Explicit numbered selection wins a merged tick.
+		var selected_index := -1
+		for index in gunner.shell_options.size():
+			if gunner.shell_options[index].id == gunner.inventory.selected_shell:
+				selected_index = index
+				break
+		gunner.select_shell((selected_index + 1) % gunner.shell_options.size())
+	if cmd.fire_requested and not cam_rig.binoculars:
 		gunner.request_fire()
 	# 状态同步：真实状态来源（HUD/试射目标只读，不另算一套显示用结果）
 	state.forward_speed = tank.forward_speed
@@ -388,6 +424,7 @@ func finish_simulation_command(step: Dictionary) -> void:
 
 func reset_vehicle() -> void:
 	invalidate_input_epoch()
+	fire_control.reset()
 	last_recovery_record = {}
 	if is_instance_valid(wreck_turret): wreck_turret.restore()
 	wreck_turret=null

@@ -24,7 +24,8 @@
         "WT002_SIMULATION_PHASES.md",
         "WT002_MATCH_EVENTS.md",
         "WT002_WORLD_VEHICLE_PHASES.md",
-        "WT002_TRAINING_MOVING_TARGET.md"
+        "WT002_TRAINING_MOVING_TARGET.md",
+        "WT007_RANGE_AND_ZEROING.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -34,7 +35,12 @@
       "title": "性能与交战距离基准",
       "status": "in_progress",
       "requirements": "阶段：M0。职责：核心程序/质量。依赖：WT-001。\n\n先记录硬件和完整对局帧时间；收拢相机远裁剪、瞄准查询、弹丸寿命/射程、AI感知、声音距离、地图边界和 LOD。检查每次查询重建全车快照等热点，但不凭静态阅读认定瓶颈。\n\n**交付**\n- BENCHMARK_PROFILE.json 与原始帧时间/节点数/内存数据\n- EngagementProfile 配置及硬编码审计\n- 8/16/32 车阶梯压力场景，32 车仅为后续容量目标\n\n**验收**\n- 配置能够覆盖约定的最远交战距离，不出现看得到却不能正常瞄准的断层\n- 所有性能报告绑定源码、机器、画质、分辨率、人数与采样场景\n- 未运行的容量档不标达标",
-      "evidence": ["WT003_ENGAGEMENT_DISTANCES.md", "WT003_BENCHMARK.md", "WT003_QUERY_COST.md", "WT003_LATE_MATCH_PERFORMANCE.md"],
+      "evidence": [
+        "WT003_ENGAGEMENT_DISTANCES.md",
+        "WT003_BENCHMARK.md",
+        "WT003_QUERY_COST.md",
+        "WT003_LATE_MATCH_PERFORMANCE.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -43,7 +49,10 @@
       "title": "纵向驾驶与动力特征",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序。依赖：WT-002。\n\n在现有可控运动基础上加入可标定的发动机/传动抽象、加减速曲线、换挡迟滞、倒车、制动、坡度负载和地面阻力。首版不要求每个传动零件真实物理化。\n\n**交付**\n- DriveProfile 与运行时转速/挡位/牵引状态\n- 平地、坡道、制动、倒车基准场景\n- 两辆动力特征不同的完成样车\n\n**验收**\n- 不用 HUD 数字也能通过加速、刹车、倒车区分样车\n- 上坡不是到阈值前完全不受影响、到阈值瞬间归零的唯一变化\n- 已核验历史数据与设计曲线分栏，不能为通过测试随意改史料数值",
-      "evidence": ["WT004_POWERTRAIN.md", "WT004_SURFACE_RESISTANCE.md"],
+      "evidence": [
+        "WT004_POWERTRAIN.md",
+        "WT004_SURFACE_RESISTANCE.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -52,7 +61,9 @@
       "title": "差速转向与履带能力",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序。依赖：WT-004。\n\n做左右履带速度/牵引能力、转向损速、速度相关转向、是否可原地转向、侧滑限制与单侧履带失能。\n\n**交付**\n- 左右履带运行状态与参数\n- 原地/行进/倒车转向夹具\n- 单侧损伤与维修后的能力回归\n\n**验收**\n- 高速转向不能像无质量旋转盒子；损速及转弯半径按车配置体现\n- 双履带失能不能继续正常行驶；单履带行为按设计明确限制\n- 履带动画读取真实运动结果，不仅按 W/A/S/D 播放",
-      "evidence": ["WT005_TRACK_DRIVE.md"],
+      "evidence": [
+        "WT005_TRACK_DRIVE.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -61,7 +72,16 @@
       "title": "地形接触与悬挂表现",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具程序/关卡。依赖：WT-004, WT-005。\n\n完善多点接地、坡顶/坡侧/沟坎、接地失去/恢复、车体俯仰侧倾、制动点头与收敛；新增受控推挤、翻覆/拖救规则。选择自定义运动或刚体混合方案须有对照实验。\n\n**交付**\n- 独立 VehicleDynamics 与 VehiclePresentation 边界\n- 坡顶、路沿、窄巷、残骸、碰车测试地图\n- 参数化悬挂视觉与碰撞方案记录\n\n**验收**\n- 履带不长期明显悬空；坡顶不反复弹跳或穿地\n- 物理姿态影响实际炮口与命中几何，纯镜头震动不改变命中\n- 没有证据前不因节点名称而强行替换整套物理框架",
-      "evidence": ["WT006_CONTACT_LOSS.md", "WT006_CHASSIS_RESPONSE.md", "WT006_LANDING_CONTACT.md", "WT006_LANDING_RESPONSE.md", "WT006_HULL_FRAME.md", "WT006B_TRACK_ASSEMBLY.md", "WT006C_FRAME_POSE.md", "WT006C_SUSPENSION.md"],
+      "evidence": [
+        "WT006_CONTACT_LOSS.md",
+        "WT006_CHASSIS_RESPONSE.md",
+        "WT006_LANDING_CONTACT.md",
+        "WT006_LANDING_RESPONSE.md",
+        "WT006_HULL_FRAME.md",
+        "WT006B_TRACK_ASSEMBLY.md",
+        "WT006C_FRAME_POSE.md",
+        "WT006C_SUSPENSION.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -70,18 +90,29 @@
       "title": "观察、炮镜与测距操控",
       "status": "in_progress",
       "requirements": "阶段：M1。职责：玩法/UI。依赖：WT-002, WT-003。\n\n把视线、观察点、炮手瞄准意图和炮管实际指向分离。实现自由观察、望远镜、炮镜缩放、准星刻度、测距与距离装定；镜位和倍率按车型配置。\n\n**交付**\n- OpticsProfile / AimIntent\n- 第三人称意图圈与实际炮口圈\n- 遮挡、镜位偏置、炮口被挡和远目标测试\n\n**验收**\n- 自由观察不会强制炮塔一直跟随\n- 测距与装定影响射击解，不是只改 HUD 字符串\n- 镜头可见但炮口受阻时反馈清楚；辅助信息按模式授权",
-      "evidence": ["WT007_OPTICS.md"],
+      "evidence": [
+        "WT007_OPTICS.md",
+        "WT007_RANGE_AND_ZEROING.md"
+      ],
       "progress": "2026-09-12：M4A3/M24生产OpticsProfile、车型镜位/FOV、可改键望远镜和炮镜倍率、权威机械观察保持及HUD意图/实际炮口与未钳制方向偏差已接入。命令v2、网络握手/快照v3、相对姿态v1。最终窗口logs/WT007-optics/wip-uncommitted/window-20260912-134335记录26项、0失败、退出0，含联网对方实际网格可见性、观察中驾驶/机械保持及暂停/重置；真人NOT_RUN。性能专项继续暂缓。",
-      "remaining": ["独立AimIntent契约", "炮镜准星刻度", "测距及进入真实射击解的距离装定", "光学镜位受窄墙/棚顶侵入边界验证", "衔接WT-008机构与稳定器能力、横滚呈现及两样车完整体验验收"],
+      "remaining": [
+        "独立AimIntent契约",
+        "炮镜准星刻度",
+        "测距及进入真实射击解的距离装定",
+        "光学镜位受窄墙/棚顶侵入边界验证",
+        "衔接WT-008机构与稳定器能力、横滚呈现及两样车完整体验验收"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
     {
       "id": "WT-008",
       "title": "炮塔机构与稳定器能力",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M1。职责：载具/火控程序。依赖：WT-006, WT-007。\n\n加入转动加速度/减速度、追随滞后、动态俯仰遮挡、无稳定/单向/双向稳定等能力，按车型设置速度与响应约束。受损后机构与相关系统能够降级。\n\n**交付**\n- FireControlProfile 与固定步长执行器\n- 意图方向、炮管方向、稳定器状态可观测记录\n- 同一路线移动与急停射击对比\n\n**验收**\n- 无稳定器车辆与具稳定能力的车辆产生可感知的开火时机差异\n- 准星稳定不等于炮管已对准；出炮由实际炮管状态决定\n- 视觉舒适选项不得移除实际武器限制",
-      "evidence": [],
+      "evidence": [
+        "WT008_MECHANISM.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -90,16 +121,22 @@
       "title": "尽早做两客户端权威联网切片",
       "status": "in_progress",
       "requirements": "阶段：NET-EARLY。职责：网络程序。依赖：WT-002。\n\n用独立本地服务器进程和两个客户端先验证输入上行、权威移动/炮塔/发射、快照下行与断线。只验证技术骨架，不能称完整联网游戏。与 M1 并行，不拖到内容量产后。\n\n**交付**\n- NetworkController 与本地/AI共享命令通道\n- 输入序号、服务器 tick、快照序号、版本握手\n- 独立服务器不依赖 Camera/HUD 的运行入口\n\n**验收**\n- 客户端不能直接宣布命中、击毁或获得弹药\n- 同一发射事件在两客户端只产生一次权威结果\n- 服务器无本地玩家节点也能推进世界",
-      "evidence": ["WT009_LOCAL_AUTHORITY.md", "WT009_INTERACTIVE_CLIENT.md"],
+      "evidence": [
+        "WT009_LOCAL_AUTHORITY.md",
+        "WT009_INTERACTIVE_CLIENT.md",
+        "WT007_RANGE_AND_ZEROING.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
     {
       "id": "WT-010",
       "title": "弹道标定与移动接触一致性",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M2。职责：战斗程序。依赖：WT-002, WT-003。\n\n保持有限弹速与连续飞行，校准初速、弹道衰减/重力、相对运动和生命周期。在车辆运动、炮塔旋转时验证碰撞与采样时间；首发不能由显示用射线另算结果。\n\n**交付**\n- 版本化 BallisticProfile 与射程测试集\n- 短/中/远程及横移目标回归\n- 弹丸单步耗尽/续飞/终止记录\n\n**验收**\n- 高速弹丸与运动目标不因一帧跨越而随机漏判\n- 显示弹道、服务器记录与命中计算对应同一发弹\n- 数据不足字段有估计范围/设计标签，不写成精确历史结论",
-      "evidence": [],
+      "evidence": [
+        "WT010_TRANSLATION_CONTACT.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -277,9 +314,11 @@
     {
       "id": "WT-030",
       "title": "可量产的低模载具流水线",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：CONTENT。职责：技术美术/数据。依赖：WT-001。\n\n资产入库先核实来源与使用范围，再做轮廓、部件拆分、轴心、UV/烘焙、材质、LOD、运动碰撞、装甲与内构、弹药、光学挂点。保留可编辑源和自动校验。\n\n**交付**\n- VehiclePackage规范及导入/检查工具\n- 可见网格、移动碰撞、装甲层、内部模块四层分离\n- 按目标硬件测试的近/中/远档预算\n\n**验收**\n- 换贴图/LOD不能改变命中轮廓和装甲规则\n- 同一车型可由另一名制作者按规范重建或修订\n- 现有约1k模型与M1A1高面数方案需统一到明确画质档，不能只写low-poly就认为预算完成",
-      "evidence": [],
+      "evidence": [
+        "WT030_REFERENCE_DATA.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },

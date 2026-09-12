@@ -1,0 +1,1236 @@
+{
+  "matching": "exact_report_id_and_directory_component",
+  "models": [
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_flakpz_I_Gepard/vehicle.glb",
+      "glb_sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
+      "id": "germ_flakpz_I_Gepard",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_flakpz_I_Gepard/build_report.json",
+      "report_sha256": "84cf291c402d09954f0076c79f6e698291f11cb66e4bfd5c293570b9f6299391",
+      "triangles_reported": 13767
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_jgdpz_38t/vehicle.glb",
+      "glb_sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400",
+      "id": "germ_jgdpz_38t",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_jgdpz_38t/build_report.json",
+      "report_sha256": "09805d1fd9e1b331299560b74c6e15603d2a58f4a4bb1beceaa4385f7281452c",
+      "triangles_reported": 8145
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_jgdpz_IV_L48/vehicle.glb",
+      "glb_sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0",
+      "id": "germ_jgdpz_IV_L48",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_jgdpz_IV_L48/build_report.json",
+      "report_sha256": "376a112dc84c54a433787fc42c8ae037d2af6ad8f96bf9d08221f71450225ab9",
+      "triangles_reported": 13372
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_2a4/vehicle.glb",
+      "glb_sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+      "id": "germ_leopard_2a4",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_2a4/build_report.json",
+      "report_sha256": "4e93a70fcbea15ffdefb912fce9dddf96b99891ec5271795f2d2fabd5bf1925a",
+      "triangles_reported": 13540
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_I/vehicle.glb",
+      "glb_sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56",
+      "id": "germ_leopard_I",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_I/build_report.json",
+      "report_sha256": "d2b2fdc1f16ae4615707fb5896c56dc4ad78392f4fb6c6c36688bba7bb471054",
+      "triangles_reported": 12164
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_marder_1a1/vehicle.glb",
+      "glb_sha256": "769d754ac9a4126a8f93df5878839662e20ec92b4e322ab35166ef3fb2dbc199",
+      "id": "germ_marder_1a1",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_marder_1a1/build_report.json",
+      "report_sha256": "caf86cf947c2a1b58d8d16d57bba4ce55844c635a97758ed78001aab5b80efe4",
+      "triangles_reported": 14461
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_panther/vehicle.glb",
+      "glb_sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d",
+      "id": "germ_panzerjager_panther",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_panther/build_report.json",
+      "report_sha256": "5678e4b2bde8e7258687569710ef1a79d5172489d1705246fa65683fba65c2a9",
+      "triangles_reported": 13110
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_tiger/vehicle.glb",
+      "glb_sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83",
+      "id": "germ_panzerjager_tiger",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_tiger/build_report.json",
+      "report_sha256": "d06314419b4a5f2f9bbf204f5e438e8ccac7e2f559e09d95beb49cf5faec4ba1",
+      "triangles_reported": 13789
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_tiger_P_ferdinand/vehicle.glb",
+      "glb_sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
+      "id": "germ_panzerjager_tiger_P_ferdinand",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_panzerjager_tiger_P_ferdinand/build_report.json",
+      "report_sha256": "0ef37ccfecdf29907e2706ec9249857d833e645a2a2335fd0e867cb2ef2b971d",
+      "triangles_reported": 14640
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_35t/vehicle.glb",
+      "glb_sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
+      "id": "germ_pzkpfw_35t",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_35t/build_report.json",
+      "report_sha256": "cc63250975e9a2f8825cd1747131e9bf3635b84751f05706df1dca9947f7e41d",
+      "triangles_reported": 12953
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_38t_ausf_A/vehicle.glb",
+      "glb_sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4",
+      "id": "germ_pzkpfw_38t_ausf_A",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_38t_ausf_A/build_report.json",
+      "report_sha256": "be6833b3bfcae51ac44bbc48107fc60a4d0295b922c4f0a9a9165803479f8b5e",
+      "triangles_reported": 9232
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_III_ausf_B/vehicle.glb",
+      "glb_sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2",
+      "id": "germ_pzkpfw_III_ausf_B",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_III_ausf_B/build_report.json",
+      "report_sha256": "21ea6b0dbf44ccfbf70af97432ff8f9f916862f569ac09c845bbe706e4508ce1",
+      "triangles_reported": 11715
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_II_ausf_C/vehicle.glb",
+      "glb_sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77",
+      "id": "germ_pzkpfw_II_ausf_C",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_II_ausf_C/build_report.json",
+      "report_sha256": "39a6bb080feb5b3cb1f7a0dff928481265f1a66fc904aa505a70ba02e1ef73e9",
+      "triangles_reported": 11122
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_IV_ausf_C/vehicle.glb",
+      "glb_sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7",
+      "id": "germ_pzkpfw_IV_ausf_C",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_IV_ausf_C/build_report.json",
+      "report_sha256": "cf7ec65e7b9e702aab1c73d510426f83312b42e9aa14f640e0613e20888cf9d0",
+      "triangles_reported": 12727
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_Maus/vehicle.glb",
+      "glb_sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2",
+      "id": "germ_pzkpfw_Maus",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_Maus/build_report.json",
+      "report_sha256": "24bdbd0155e274af26849873aac5f87e8f2e0fbf5433840f67d6f638fd263a49",
+      "triangles_reported": 12129
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_ausf_b_tiger_IIh/vehicle.glb",
+      "glb_sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f",
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_ausf_b_tiger_IIh/build_report.json",
+      "report_sha256": "86700571deb0b01fb4683e44fa4d5c553b5ef216b3ea4e2e7bbe5508efacb507",
+      "triangles_reported": 14708
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_ausf_h1_tiger/vehicle.glb",
+      "glb_sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf",
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_ausf_h1_tiger/build_report.json",
+      "report_sha256": "17f4bebe7823996b335a4ba28085a302e0a06f66b7688ad126a289731bc32bac",
+      "triangles_reported": 14374
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_tiger_P/vehicle.glb",
+      "glb_sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620",
+      "id": "germ_pzkpfw_VI_tiger_P",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_VI_tiger_P/build_report.json",
+      "report_sha256": "c169c66d5200b8b57b65858f685f000ca91f7cf447c0bfb1a67a4f51877a89af",
+      "triangles_reported": 9816
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_V_ausf_d_panther/vehicle.glb",
+      "glb_sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67",
+      "id": "germ_pzkpfw_V_ausf_d_panther",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_pzkpfw_V_ausf_d_panther/build_report.json",
+      "report_sha256": "f4fa475f0c85bbb15f03d289ac10a59eed38a928b85c11d0aa129574924ae421",
+      "triangles_reported": 12205
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_ru251/vehicle.glb",
+      "glb_sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395",
+      "id": "germ_ru251",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_ru251/build_report.json",
+      "report_sha256": "dc7bae70e31c8be3a283f220268c73d20433f47330e83f096cfe2f663fa5cb54",
+      "triangles_reported": 14750
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_schutzenpanzer_puma/vehicle.glb",
+      "glb_sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4",
+      "id": "germ_schutzenpanzer_puma",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_schutzenpanzer_puma/build_report.json",
+      "report_sha256": "249d20c2cbc98dd886fa953541ee667c537d2023a8069168ffc141e9edf9b419",
+      "triangles_reported": 14709
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_stug_III_ausf_A/vehicle.glb",
+      "glb_sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
+      "id": "germ_stug_III_ausf_A",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_stug_III_ausf_A/build_report.json",
+      "report_sha256": "3b8a2f2a3c5d65e3ab469b0f29b8bda08b05f7f5633338658d8d92f4ad042fa6",
+      "triangles_reported": 11696
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_sturmmorser_sturmtiger/vehicle.glb",
+      "glb_sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933",
+      "id": "germ_sturmmorser_sturmtiger",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_sturmmorser_sturmtiger/build_report.json",
+      "report_sha256": "3a36fece3b608615e5e9ebe9a65226dca2d40e368dfdd2c5fab7142105b67e6c",
+      "triangles_reported": 11830
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "glb_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_sturmpanzer_IV_brummbar/vehicle.glb",
+      "glb_sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37",
+      "id": "germ_sturmpanzer_IV_brummbar",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_sturmpanzer_IV_brummbar/build_report.json",
+      "report_sha256": "d771fe5873aeb74dc645dc3a9be065f4d081ba24f0ef8a1b85c229b71849edf0",
+      "triangles_reported": 12668
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_m4a2_76w_sherman/制作中/vehicle.glb",
+      "glb_sha256": "1807cdf346474b2000e92b972febf3d7406e6760d4b8cae8b98fc6f7d8aafefc",
+      "id": "ussr_m4a2_76w_sherman",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_m4a2_76w_sherman/制作中/build_report.json",
+      "report_sha256": "b87012fc63630d76897d4739ae254d982dc741a00c3d66ffa532494a0c5e0466",
+      "triangles_reported": 10241
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_140/制作中/vehicle.glb",
+      "glb_sha256": "20755ef0a4d5704950677e3cda2f49f35d658d576046eab902da38bc9e2bc0b7",
+      "id": "ussr_object_140",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_140/制作中/build_report.json",
+      "report_sha256": "7ea452575d027c35bb5e0af7ad99caa362947da3337d82cdba8e3d01ee105a0c",
+      "triangles_reported": 11403
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_292/制作中/vehicle.glb",
+      "glb_sha256": "af0288384f2e362bff94791e0c79c62fef11ccf3c8008185354fdd3a01282936",
+      "id": "ussr_object_292",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_292/制作中/build_report.json",
+      "report_sha256": "c8bcad372292947b72a9a4f05a9bb34ae146e109f892c9c1f0ae9fb77097b974",
+      "triangles_reported": 10773
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_435/制作中/vehicle.glb",
+      "glb_sha256": "94de897b24f8e29fea74f8007d619ae9eba1565fd60eced9a0a26632d57c3539",
+      "id": "ussr_object_435",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_435/制作中/build_report.json",
+      "report_sha256": "2cb9092651a247d5f9680ef3a924ccff1e11498653426cae7e240456fe734b9c",
+      "triangles_reported": 10442
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_pzkpfw_III_ausf_J_L42/制作中/vehicle.glb",
+      "glb_sha256": "fd14f2f970d854fc7fb6b734393440ac9f4922fa1d95d69e453e5e0ae25c6022",
+      "id": "ussr_pzkpfw_III_ausf_J_L42",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_pzkpfw_III_ausf_J_L42/制作中/build_report.json",
+      "report_sha256": "0d66448743f1fc2a69e0d7b23462c7ba2c190b2d35990fd36ab51d86069e9fc9",
+      "triangles_reported": 10553
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_pzkpfw_V/制作中/vehicle.glb",
+      "glb_sha256": "c5ddab631fa5d0f296c5372b2e20450bcb653c517457131934c39afaaf6c67dc",
+      "id": "ussr_pzkpfw_V",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_pzkpfw_V/制作中/build_report.json",
+      "report_sha256": "8fe063d16c83d5c1796a17cba9013d4dd4d832c0dce61b0da0068fce95228df9",
+      "triangles_reported": 9536
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_independent_and_visual_checks",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_34_1941/vehicle.glb",
+      "glb_sha256": "693c9de708541d859e7b08a95444bbf95dc4e0de060de2eeba464fe1ef2168b0",
+      "id": "ussr_t_34_1941",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_34_1941/build_report.json",
+      "report_sha256": "620a71d9f0c90436264aec97d85b9f7944ce333bc67387c40d1c97500cc33c48",
+      "triangles_reported": 14664
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_34_1941/制作中/vehicle.glb",
+      "glb_sha256": "fd8e1ea146dcd5564b59d1ca05f4c1c09381a8b95daa6a40a00c2340804e16f3",
+      "id": "ussr_t_34_1941",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_34_1941/制作中/build_report.json",
+      "report_sha256": "78337922ef0320865df8d33d2aa8cb1623355067e37de0cb66aa7c62da0d6812",
+      "triangles_reported": 7422
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": null,
+      "glb_sha256": null,
+      "id": "ussr_t_34_1941",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_34_1941/历史版本/2869857e6ac1/build_report.json",
+      "report_sha256": "2869857e6ac1a4c6b03907612cc43bbd73055cf7493e4fe3a6a41708a1021ed3",
+      "triangles_reported": 4994
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_44/制作中/vehicle.glb",
+      "glb_sha256": "7fcd1bd5e96d7920e1cb2ab00b7bd244f35376e857286202273a85f26eecdd9b",
+      "id": "ussr_t_44",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_44/制作中/build_report.json",
+      "report_sha256": "37936564af2571c62b066ba35621e2a2304b2bef6f0d9eaa16ccbc56743b83f6",
+      "triangles_reported": 7412
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_pending_independent_and_visual_checks",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_54_1947/vehicle.glb",
+      "glb_sha256": "68919f0859919ed6f7b39d51a8d50ee67e540d5bb8f88e22dc8875f61658b1db",
+      "id": "ussr_t_54_1947",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_54_1947/build_report.json",
+      "report_sha256": "1d0165a65234aca38fcb4f9f75f1296e2767be03b11a6abb486c64bffb09b44a",
+      "triangles_reported": 13956
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_54_1947/制作中/vehicle.glb",
+      "glb_sha256": "20d3dd21a0ee0ed2bd2394be0b2685469d53b9764e27eb0a307a67fe8685b4dc",
+      "id": "ussr_t_54_1947",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_54_1947/制作中/build_report.json",
+      "report_sha256": "6e4f5481a6186109b5f8d9ba4290ce16b4522f30c3e7c1e32acd46e43157ccf7",
+      "triangles_reported": 8389
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_55a/制作中/vehicle.glb",
+      "glb_sha256": "a82b65246b86fb0dc03ca0bf5cac69747ebdc6f2952cc4ef712e862907231793",
+      "id": "ussr_t_55a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_55a/制作中/build_report.json",
+      "report_sha256": "24979a27d77afa3fc45d823940b3b2f543a1287847a039e06ddba15f940f80d3",
+      "triangles_reported": 9418
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_62/制作中/vehicle.glb",
+      "glb_sha256": "86211449cd88c8aef368d1be459bb20fbd83f2e447457e3996d820bf045a39aa",
+      "id": "ussr_t_62",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_62/制作中/build_report.json",
+      "report_sha256": "cbc41f325fac14820b34add71d53fe645d75b344fb1ce027122c6104553f278a",
+      "triangles_reported": 9909
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_64a_1971/制作中/vehicle.glb",
+      "glb_sha256": "1ed4c199cfd38db248856e16a317200efb46e8e8bf928c684c36e063c51554ee",
+      "id": "ussr_t_64a_1971",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_64a_1971/制作中/build_report.json",
+      "report_sha256": "192f4682148615ba33581cb4fed459376067f1aaac2e3263821efae9c01cf2fc",
+      "triangles_reported": 10666
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_72a/制作中/vehicle.glb",
+      "glb_sha256": "988b6e81a5939f5b42e6b45d28fe13a51e9d4b0419bbcdbd999bfb5f2fb9d054",
+      "id": "ussr_t_72a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_72a/制作中/build_report.json",
+      "report_sha256": "d2b3c91fe59d8cda959850a90e92436919eb150bc44a14059d8641c1e6a527b8",
+      "triangles_reported": 11289
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_80b/制作中/vehicle.glb",
+      "glb_sha256": "8f47a0a27d254e3d677a7f0baf78c3c081586cd75f126f3e7751fcb94a3ae5af",
+      "id": "ussr_t_80b",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_80b/制作中/build_report.json",
+      "report_sha256": "60745d4b98bca368153f2512afb93fd870843fc7a400a7cb7f83f2e735a8a941",
+      "triangles_reported": 12972
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_90a/制作中/vehicle.glb",
+      "glb_sha256": "63bc06a77282372414ddd01cbcc58e24059868da4c3d78cb1e68fd5a2211da60",
+      "id": "ussr_t_90a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_90a/制作中/build_report.json",
+      "report_sha256": "060ef194b776ab6efb67569408e71bc7006335b498153e63afe9485d3db0518a",
+      "triangles_reported": 14572
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": null,
+      "glb_sha256": null,
+      "id": "ussr_t_90a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_90a/制作中/历史版本/cee3dfdd4570/build_report.json",
+      "report_sha256": "cee3dfdd4570851d1195ea23b06dcf9e36ef3232f39469d78233489582bb4fce",
+      "triangles_reported": 12596
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_valentine_mk_9/制作中/vehicle.glb",
+      "glb_sha256": "2871a1ee69bd798f680b3ac214242a6e6de0d358949a079145dd218c17a114f4",
+      "id": "ussr_valentine_mk_9",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_valentine_mk_9/制作中/build_report.json",
+      "report_sha256": "aa0d83497cb0cf19b0293359f5cca630e453b7531904a324a634a9218c368670",
+      "triangles_reported": 10879
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s1/制作中/vehicle.glb",
+      "glb_sha256": "af99a081a69fb7f244dd7e9aeff62ecb7e8a7657223314c93e49f2eeb4bcbe49",
+      "id": "ussr_2s1",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s1/制作中/build_report.json",
+      "report_sha256": "5dc2adc52e29ee651bd3582e79e1e1798071d6dba7279f1aaf91e5977b787284",
+      "triangles_reported": 11005
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s19_m1/制作中/vehicle.glb",
+      "glb_sha256": "26399b72cad28fbb1843ebe6cd72836e1e30ec15328348b0378928b19c1bd90c",
+      "id": "ussr_2s19_m1",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s19_m1/制作中/build_report.json",
+      "report_sha256": "809e2217489c53feb79ad4208cb9a50cd425360ecfdd8efd2092cd9d3cb561f0",
+      "triangles_reported": 14377
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s3m/制作中/vehicle.glb",
+      "glb_sha256": "fbaa6b7a4b1604cb391e67297001984a57538e8d025d72c63cd04d9ac3ec1d2b",
+      "id": "ussr_2s3m",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_2s3m/制作中/build_report.json",
+      "report_sha256": "6633765f545a0854ac76c4fec0aca7c7514b4de5e547990270f2b7833c33a73c",
+      "triangles_reported": 12230
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_asu_85/制作中/vehicle.glb",
+      "glb_sha256": "da59141ddc8a3268908bfb2deaf4647969706ceaeee96535ca063e41aed0f4ca",
+      "id": "ussr_asu_85",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_asu_85/制作中/build_report.json",
+      "report_sha256": "3172f7f29316a761efd636b79e0c52948b750c9b5acbcf55658fe9f4fbc7c4fa",
+      "triangles_reported": 6388
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_isu_122/制作中/vehicle.glb",
+      "glb_sha256": "689143dd83b71a31f8d33459baf93c24c9d00cf94c7c832ef90965c627e7a5a9",
+      "id": "ussr_isu_122",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_isu_122/制作中/build_report.json",
+      "report_sha256": "93f57c592abb82ea84e944f55be4abbafa69d2d14f2fae99504ebe0cdb276498",
+      "triangles_reported": 9282
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_isu_152/制作中/vehicle.glb",
+      "glb_sha256": "40b5cb5c995c33878a25fb4626d83b70c0af3a4dd8d1971d17135fe754aed8c4",
+      "id": "ussr_isu_152",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_isu_152/制作中/build_report.json",
+      "report_sha256": "bb1c4dbfa4bda9cb10eb33a7babe598d5cd14d77892fb181d2501967f62ec50e",
+      "triangles_reported": 9292
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_120/制作中/vehicle.glb",
+      "glb_sha256": "cdd50b1c2f385469364829bff2948edc914073e9720d3d8b6e734efbcd47aa05",
+      "id": "ussr_object_120",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_120/制作中/build_report.json",
+      "report_sha256": "1a281be04c9669955a767ee904c33cd0b640caa99c22c7daa0794a53c6275d56",
+      "triangles_reported": 11021
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_268/制作中/vehicle.glb",
+      "glb_sha256": "9469ddadcfc7b0b9db55dff80c624db68392c7d38f21b8ab55b3949bcafb12d0",
+      "id": "ussr_object_268",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_268/制作中/build_report.json",
+      "report_sha256": "8d465edec7791764afde19acceb06e9829ee1eef3786d1b09e659f95c800fefd",
+      "triangles_reported": 8313
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_100Y/制作中/vehicle.glb",
+      "glb_sha256": "1f893aca3622425f976d3883669805d75d0f874383eddf4e35ae66b702f22bf5",
+      "id": "ussr_su_100Y",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_100Y/制作中/build_report.json",
+      "report_sha256": "bcdacbe0aea4c3f694d8de9b17bd636dfae74614347a7e99ff7663d58279e4ae",
+      "triangles_reported": 8133
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_100_1945/制作中/vehicle.glb",
+      "glb_sha256": "9d502e6e770fc647c40b312e8c4a1ee3bbf2d556f2f85b35ed7619687aa2656f",
+      "id": "ussr_su_100_1945",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_100_1945/制作中/build_report.json",
+      "report_sha256": "0fe7a894c886bbb0d6c64c13d6ba8bbd7cace79578f2ce147dc76bc34fe3b00c",
+      "triangles_reported": 6476
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122/制作中/vehicle.glb",
+      "glb_sha256": "f95497c767453494202cbb54965ab6175d5e70de688f1ccc4cbb4150ed90accc",
+      "id": "ussr_su_122",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122/制作中/build_report.json",
+      "report_sha256": "556d77a7b95e1aeaead195ff2802e5db7c7321201d1bc8680c14794086ecb730",
+      "triangles_reported": 5872
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122P/制作中/vehicle.glb",
+      "glb_sha256": "1ad945fd80ade3d1f30e8a9a46f845319f8b6676bfcca7c8b2c19ef102092795",
+      "id": "ussr_su_122P",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122P/制作中/build_report.json",
+      "report_sha256": "5c68de6876e772cb9c0acfd6b757d97776c4d49c976d4c08b671aa5699e321c1",
+      "triangles_reported": 5889
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122_54/制作中/vehicle.glb",
+      "glb_sha256": "2279c13e9a57001bc8a8ec083b7d5c64a6aa333ff55132139e15bd902a736eff",
+      "id": "ussr_su_122_54",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_122_54/制作中/build_report.json",
+      "report_sha256": "b3f27ce91b5f3c059b5adee5f9e19045651f54b1951f4956e87a0a1af0bb1f1a",
+      "triangles_reported": 5588
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_152/制作中/vehicle.glb",
+      "glb_sha256": "3ed68846183def05039b50a2e58f97720c9ea756c186b3038e032eb11bcc9d3f",
+      "id": "ussr_su_152",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_152/制作中/build_report.json",
+      "report_sha256": "50f3fc25bb7238332b8f82d5140431d45cc6f3f034c650b18c1fcbf120d4614d",
+      "triangles_reported": 9530
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_57b/制作中/vehicle.glb",
+      "glb_sha256": "fc32c645924f69d286ff984df4e3201f151847c3841be016d6da9c066406e170",
+      "id": "ussr_su_57b",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_57b/制作中/build_report.json",
+      "report_sha256": "880013de5f60468b1936fe00f34b4a0055cd764eb3f16c0d52e7eb011ac36076",
+      "triangles_reported": 7565
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_76d/制作中/vehicle.glb",
+      "glb_sha256": "b76638da16078565d0af8558457987766e6043b88c4b64ed0bc194833b03f7bc",
+      "id": "ussr_su_76d",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_76d/制作中/build_report.json",
+      "report_sha256": "6ae930986241e4caa2accae823162b126b57500e8e8d62121bce1e8bbee04f8c",
+      "triangles_reported": 7205
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/vehicle.glb",
+      "glb_sha256": "fbb6113ef5c3f0249894e91b28f06a43631253d44fcb1c1fe357bae3ad85cb47",
+      "id": "ussr_su_85_1943",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/build_report.json",
+      "report_sha256": "5382c3c0894cf766082dbc35d65ae8b66028d1f95619c2c022ccb709448b654b",
+      "triangles_reported": 5956
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": null,
+      "glb_sha256": null,
+      "id": "ussr_su_85_1943",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/历史版本/86e0345d6a36/build_report.json",
+      "report_sha256": "86e0345d6a36030b58bbdbf60fd4e08e0de34b736536ff36e4a62a8b1a52f8f3",
+      "triangles_reported": 6916
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": null,
+      "glb_sha256": null,
+      "id": "ussr_su_85_1943",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/历史版本/fab5bc396370/build_report.json",
+      "report_sha256": "fab5bc3963701f4528ae357ec48d3bbaf77062b9aa6f2644e51fd99d22c40a28",
+      "triangles_reported": 5330
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "experimental_pending_four_view_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/德系方法对照/vehicle.glb",
+      "glb_sha256": "749aa67d981de55eea3b96bdce6c562f79a377b65efa35bc976154fc7ba25f66",
+      "id": "ussr_su_85_1943",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_85_1943/制作中/德系方法对照/build_report.json",
+      "report_sha256": "683a72e7dcc711c04b21a55a21d858ef8a10715effb8ebaf7469c4fc8eacce0e",
+      "triangles_reported": 14974
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/导弹载具/ussr_object_775/制作中/vehicle.glb",
+      "glb_sha256": "82abb29f450e4804dbd3dd7d515aeee9495808f6ed52e2cbe8a179c3c922a763",
+      "id": "ussr_object_775",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/导弹载具/ussr_object_775/制作中/build_report.json",
+      "report_sha256": "38c33d89bf7c39520d4f91e6754a0cbe63d9ec911635cc940915c86908deebb6",
+      "triangles_reported": 12276
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/自行防空炮/ussr_zut_37/制作中/vehicle.glb",
+      "glb_sha256": "5b307ba7695723dd1a0c5af2f1b441fb17a89db30fc466b4e191b2271955096e",
+      "id": "ussr_zut_37",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/自行防空炮/ussr_zut_37/制作中/build_report.json",
+      "report_sha256": "e176b362f235eea2a0214846f171d6601b666ee6a41b15c1139ff7f7851bae23",
+      "triangles_reported": 9298
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_2s25/制作中/vehicle.glb",
+      "glb_sha256": "09ddbb08ff89dd890b57149f5f6429658889a3e30579440551a53f1e9f6caf1e",
+      "id": "ussr_2s25",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_2s25/制作中/build_report.json",
+      "report_sha256": "bc6ebfee16e788b2c50937cc5724911edc7ea490dbf313d33c93337a36f40341",
+      "triangles_reported": 13251
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_2s38/制作中/vehicle.glb",
+      "glb_sha256": "50b97b1ad636197127d438a629ba653cf77bea32117d5cb945816721e4f4ef87",
+      "id": "ussr_2s38",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_2s38/制作中/build_report.json",
+      "report_sha256": "a29cf8df3cec21b2684ca4a5f2fbd2b1e3b866c34f4e006f9510169bd9ccc232",
+      "triangles_reported": 11223
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_ba_11/制作中/vehicle.glb",
+      "glb_sha256": "81efa4c52b6614cb63a3ff33d4cbf784b95e7ef690b9038d128fe2c6cfffe071",
+      "id": "ussr_ba_11",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_ba_11/制作中/build_report.json",
+      "report_sha256": "01e86ab10ba7a2e2b943e56f40532f742dfedd4cc0171b0c628e78b4c8aad1ec",
+      "triangles_reported": 7072
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bmp_1/制作中/vehicle.glb",
+      "glb_sha256": "94b76dce5cf83b2dad35aab07fd4b9d7b76da327556d72cf79c19d88783f535a",
+      "id": "ussr_bmp_1",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bmp_1/制作中/build_report.json",
+      "report_sha256": "f0dc8721c0d54744026bfee6875846c355a358bfb513d0b34b1d1b6a19dccb8e",
+      "triangles_reported": 10778
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bmp_2/制作中/vehicle.glb",
+      "glb_sha256": "755b3945222f6f4d4b8120b109172555d8ac9a5d5441cdaeea22cc9a2768e0d4",
+      "id": "ussr_bmp_2",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bmp_2/制作中/build_report.json",
+      "report_sha256": "e2d0fb9d159097cc842bc2939ad762a98d9daca5c9ebb7cdc6238f08be745bec",
+      "triangles_reported": 13280
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": null,
+      "glb_sha256": null,
+      "id": "ussr_bmp_2",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bmp_2/制作中/历史版本/267b57e84824/build_report.json",
+      "report_sha256": "267b57e84824f91fca9343599d6c02531cc495ef286313ab364ffa5be69fbc62",
+      "triangles_reported": 12928
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bt_5/制作中/vehicle.glb",
+      "glb_sha256": "14a596546bdeb3a7d4e243723e50c6100fcfeeb58a7e6d2197e67bdcd59f10f7",
+      "id": "ussr_bt_5",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bt_5/制作中/build_report.json",
+      "report_sha256": "178d6bc6212267d9fe33b894c7152d4f82f26108c72189051e389c84a935742a",
+      "triangles_reported": 6480
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bt_7_1937/制作中/vehicle.glb",
+      "glb_sha256": "9c8d9c98ded99c44128d79812c07834877c936d4c5342f99d227d2671e42cb90",
+      "id": "ussr_bt_7_1937",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_bt_7_1937/制作中/build_report.json",
+      "report_sha256": "a927015d1b97f70384e0089b1faf87868f1c211eacac757cfa527a0d0917788e",
+      "triangles_reported": 8727
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_btr_80a/制作中/vehicle.glb",
+      "glb_sha256": "abc2c141e402ef43136d077d271a57d3ae58eaf540c8c27e8008cf3b5b1a7295",
+      "id": "ussr_btr_80a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_btr_80a/制作中/build_report.json",
+      "report_sha256": "1a6bff912accc94c2114876d2fee6066099e48e85ac252520af6cb8efa976039",
+      "triangles_reported": 9760
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_m551_football/制作中/vehicle.glb",
+      "glb_sha256": "a79e7c44ff0ca0858d89e2b7c34c7274898c8f27c1fec278dec1151462c14459",
+      "id": "ussr_m551_football",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_m551_football/制作中/build_report.json",
+      "report_sha256": "b52f7addc766ed2eaf2e3a4570d465f139c4fc82cb6f6cf7f8635c954a09a252",
+      "triangles_reported": 9888
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_685/制作中/vehicle.glb",
+      "glb_sha256": "fa2eb1f836eb03ecaf36a5ba6eca19af6682a381cb8a2497c6a87d2c3a0d02a4",
+      "id": "ussr_object_685",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_685/制作中/build_report.json",
+      "report_sha256": "2ea84ed6f7951bf67d74becbac4bcb3312d14ab9b1c37c4c03134d63eefbb298",
+      "triangles_reported": 10276
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_906/制作中/vehicle.glb",
+      "glb_sha256": "bfa54c8aa8f81e05c3a2702b16a41e6a6f06a36688758a4c803b759dd279e297",
+      "id": "ussr_object_906",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_906/制作中/build_report.json",
+      "report_sha256": "23b7cc5ac0c4e49d066c29443b7ce4c806967a89a483ede146f59dfb84774415",
+      "triangles_reported": 9406
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_pt_76_57/制作中/vehicle.glb",
+      "glb_sha256": "c03af5c9c28dcc6f068fff6bf49b2c4ff94cf0692f94ec23a725a044f2fac453",
+      "id": "ussr_pt_76_57",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_pt_76_57/制作中/build_report.json",
+      "report_sha256": "4d7696517418811fd9ebae884ac5976b35a4d7212f7fe98aa3738bd0821679d8",
+      "triangles_reported": 8242
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_pt_76b/制作中/vehicle.glb",
+      "glb_sha256": "300c0a6e628ea82109c17a62520806ba90ede1e58a6745e50d8eb188fe3fb0a1",
+      "id": "ussr_pt_76b",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_pt_76b/制作中/build_report.json",
+      "report_sha256": "bd256f0280528ac4a185bea1ba60d2bab35a5f6f9739bc3749bd1d752f8bd94e",
+      "triangles_reported": 6950
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_126sp/制作中/vehicle.glb",
+      "glb_sha256": "b67efa506540171cf254ddde6bca62ed04c4750fe6a9e270fad3c6d2ba9e2571",
+      "id": "ussr_t_126sp",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_126sp/制作中/build_report.json",
+      "report_sha256": "9a60679386a5810caaad47f15154d163f3289eb93b0c475480ff56872fea88e4",
+      "triangles_reported": 9048
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_26_1940/制作中/vehicle.glb",
+      "glb_sha256": "f45de017c3d3baad3a294acf4b16e0d146e6d294467ecfab00e82e9c767c862c",
+      "id": "ussr_t_26_1940",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_26_1940/制作中/build_report.json",
+      "report_sha256": "3d904b63eeef0e886de24e34b53aa0e3bf1bb23999de19581c2c904854a80c2f",
+      "triangles_reported": 10304
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_50/制作中/vehicle.glb",
+      "glb_sha256": "9aa74eb84c18c3ef8256898eeb03f7401bfc5bc7ae952860f41f884afa782d7e",
+      "id": "ussr_t_50",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_50/制作中/build_report.json",
+      "report_sha256": "dfdd68bb2f325924df7cdcf84ae1d0156a9cd27d9ff48c7dc56445a9a7003f7f",
+      "triangles_reported": 10684
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_60_1941/制作中/vehicle.glb",
+      "glb_sha256": "337bc56a60fe29ce412ff732c4a5374b75b08a9e5b09e5e11ed4083478351151",
+      "id": "ussr_t_60_1941",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_60_1941/制作中/build_report.json",
+      "report_sha256": "87cd5793aecf3edd617d959f2483b7fb0529ccec31d27c4ee9a735794436a48d",
+      "triangles_reported": 8795
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_70_1942/制作中/vehicle.glb",
+      "glb_sha256": "80c194e71a932c317bbb5d5e1d36873943ad228d3c5eda7211ee062999b071ac",
+      "id": "ussr_t_70_1942",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_70_1942/制作中/build_report.json",
+      "report_sha256": "18def102bc31effeb745cd41f13a4c66dcd8b0f0b223e3af8c6601bbaf15b3bf",
+      "triangles_reported": 9254
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_80/制作中/vehicle.glb",
+      "glb_sha256": "db2a3e66ed65baa98c2e3fdb754ed972e54d5cbe8ccb0fbe595268364dc75a59",
+      "id": "ussr_t_80",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_t_80/制作中/build_report.json",
+      "report_sha256": "787aef031f16ff9fd778551d2b9bee3c2ccd72d585daa8c99ad4af1f035a29bb",
+      "triangles_reported": 9341
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_type_62/制作中/vehicle.glb",
+      "glb_sha256": "c61729a912eb7c91dc1ad5d00ff6eebe1c8214a7d78bdce36aa97d18857288da",
+      "id": "ussr_type_62",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_type_62/制作中/build_report.json",
+      "report_sha256": "ea50aa2ab72b86a3c43735b31ff683f7971bc63dfcb1da4e3fb2227a29a372f9",
+      "triangles_reported": 7800
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_a_12_mk_2_matilda_2A_F96/制作中/vehicle.glb",
+      "glb_sha256": "96985691fa5170c81031327b2060c2e6c9416ade84f7e4032c06a4a7bc820ef5",
+      "id": "ussr_a_12_mk_2_matilda_2A_F96",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_a_12_mk_2_matilda_2A_F96/制作中/build_report.json",
+      "report_sha256": "95ae7c59a78753ebef4fbbefc9bb10a63ffb96ae8964ddfeb2e22417ac1ed6cb",
+      "triangles_reported": 13341
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_1/制作中/vehicle.glb",
+      "glb_sha256": "fb48bbe3a8e588b666ed0d0aa6f721335d64a46b5fb84556eb6c2abc965dd9ac",
+      "id": "ussr_is_1",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_1/制作中/build_report.json",
+      "report_sha256": "cfc3932d55450b0ebf1d1d832555de28b400e345f4dcb8e2f4732f9d910c90ab",
+      "triangles_reported": 11343
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_2_1943/制作中/vehicle.glb",
+      "glb_sha256": "18b1d5b0300c0322119ef58e24c06fc37d37ab60457ee48d536465856b5c28a2",
+      "id": "ussr_is_2_1943",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_2_1943/制作中/build_report.json",
+      "report_sha256": "4c815c4dd2348394205f3e16859e43cfd237c17429182d299f6db5fb089292be",
+      "triangles_reported": 11622
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_3/制作中/vehicle.glb",
+      "glb_sha256": "77f48ec2ad905e84656d02e4b5d45271fdcd5e2c40fe148bbe319aa216cd77b0",
+      "id": "ussr_is_3",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_3/制作中/build_report.json",
+      "report_sha256": "bd123490428a0eade1b51a25d173156307b67dbc8ef8b14933f5e7f0ccc1bd68",
+      "triangles_reported": 10694
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_4m/制作中/vehicle.glb",
+      "glb_sha256": "802b7aaaf395844bbfe7f2af89831b2a2436ca4167e2ea54d6adfa183fd426c0",
+      "id": "ussr_is_4m",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_4m/制作中/build_report.json",
+      "report_sha256": "0cf22981edf419c6d2dffb39148023e22a19232d9074c1dbca47b100571d2139",
+      "triangles_reported": 11917
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_6/制作中/vehicle.glb",
+      "glb_sha256": "d08ca1bcd1bde3e19b97d9be8f63ff74d3e515dac4bab8626b19f518ae7ca256",
+      "id": "ussr_is_6",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_6/制作中/build_report.json",
+      "report_sha256": "d92a3630e8f19c2ededbd564410cea7684ef087cb035519a7e1dc6503a12c582",
+      "triangles_reported": 11883
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_7/制作中/vehicle.glb",
+      "glb_sha256": "0d9f5b5e6a715c944a2fe67320ae89a8e23bbcce4a467bd7fda8d5a02e205f37",
+      "id": "ussr_is_7",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_is_7/制作中/build_report.json",
+      "report_sha256": "c887f65d7d124a298d30b7a11fb6bf95ead9d4115bead12e15e24201b0504d72",
+      "triangles_reported": 11911
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_122/制作中/vehicle.glb",
+      "glb_sha256": "333254a2a0d212cc719963169599584aea52147224697d7fd32c69e54a1321e8",
+      "id": "ussr_kv_122",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_122/制作中/build_report.json",
+      "report_sha256": "2c92bc740053e0aeb2e565f638c1e1718fdc4e58e71fda8c4180610a2905db75",
+      "triangles_reported": 10354
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_1_L_11/制作中/vehicle.glb",
+      "glb_sha256": "a498a30a5fc38cff7a1251eed168ca3091c10f822f7fbe8deadf03458af9f90d",
+      "id": "ussr_kv_1_L_11",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_1_L_11/制作中/build_report.json",
+      "report_sha256": "324f96d2b7d0c78c34e1de66938d962624441ad0463b7a059e801a4f28540539",
+      "triangles_reported": 10170
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_220/制作中/vehicle.glb",
+      "glb_sha256": "ce1a1631022b68f6a0c1cd34127db5c596b711d3a5430760f2ea8bea29c1df3a",
+      "id": "ussr_kv_220",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_220/制作中/build_report.json",
+      "report_sha256": "27dbd550564c778d703dd9267dcec7d28afbba4273ed62566b54f18a96e2c997",
+      "triangles_reported": 11966
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_2_1939/制作中/vehicle.glb",
+      "glb_sha256": "662fb133f20a03898119645f31b49f8f01ea94ce1c09b998d94e4662d66d479d",
+      "id": "ussr_kv_2_1939",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_2_1939/制作中/build_report.json",
+      "report_sha256": "d83b061e82f79eae2dddc10828553894a4b95fbf5277d92aa9038d20f80369ce",
+      "triangles_reported": 10146
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_85/制作中/vehicle.glb",
+      "glb_sha256": "85616a6331d73a8f0f55f349d5bf541021b3201d8022299c90b262b4facd329e",
+      "id": "ussr_kv_85",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_kv_85/制作中/build_report.json",
+      "report_sha256": "e367ef79d4a79d3ddeb451de14809b65f5dc77f5601a92ff41183cf3e5848426",
+      "triangles_reported": 10376
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_object_248/制作中/vehicle.glb",
+      "glb_sha256": "250b65612b9ce7d3133b9444b523612d3d7f6d6ac0e37ce6b2a590bdac1db54e",
+      "id": "ussr_object_248",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_object_248/制作中/build_report.json",
+      "report_sha256": "281b9f42693adedf12f9e4369c6758c7d6903198a1a0950281e3f77e28360ae7",
+      "triangles_reported": 11724
+    },
+    {
+      "admission": "candidate_only",
+      "declared_status": "built_awaiting_visual_review",
+      "glb_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_t_10a/制作中/vehicle.glb",
+      "glb_sha256": "9a29d6553ddfd55d32627150ff3e01eb31a4a7f1a63af099c1b53d3d13f00171",
+      "id": "ussr_t_10a",
+      "published": false,
+      "report_path": "E:/AIprogram/aimodel/苏联/重型坦克/ussr_t_10a/制作中/build_report.json",
+      "report_sha256": "3583454de5811590d8aeeaa9ec2f1904fd8209b650b9b6d338ed0ab3fdf1952b",
+      "triangles_reported": 11504
+    }
+  ],
+  "rejected": [
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/35t/build_report.json",
+      "report_sha256": "cc63250975e9a2f8825cd1747131e9bf3635b84751f05706df1dca9947f7e41d"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/38t/build_report.json",
+      "report_sha256": "be6833b3bfcae51ac44bbc48107fc60a4d0295b922c4f0a9a9165803479f8b5e"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/三号坦克/build_report.json",
+      "report_sha256": "21ea6b0dbf44ccfbf70af97432ff8f9f916862f569ac09c845bbe706e4508ce1"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/三号突击炮/build_report.json",
+      "report_sha256": "3b8a2f2a3c5d65e3ab469b0f29b8bda08b05f7f5633338658d8d92f4ad042fa6"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/二号坦克/build_report.json",
+      "report_sha256": "39a6bb080feb5b3cb1f7a0dff928481265f1a66fc904aa505a70ba02e1ef73e9"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/保时捷虎/build_report.json",
+      "report_sha256": "c169c66d5200b8b57b65858f685f000ca91f7cf447c0bfb1a67a4f51877a89af"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/四号坦克/build_report.json",
+      "report_sha256": "cf7ec65e7b9e702aab1c73d510426f83312b42e9aa14f640e0613e20888cf9d0"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/四号坦克歼击车/build_report.json",
+      "report_sha256": "376a112dc84c54a433787fc42c8ae037d2af6ad8f96bf9d08221f71450225ab9"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/斐迪南/build_report.json",
+      "report_sha256": "0ef37ccfecdf29907e2706ec9249857d833e645a2a2335fd0e867cb2ef2b971d"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/灰熊/build_report.json",
+      "report_sha256": "d771fe5873aeb74dc645dc3a9be065f4d081ba24f0ef8a1b85c229b71849edf0"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/猎虎/build_report.json",
+      "report_sha256": "d06314419b4a5f2f9bbf204f5e438e8ccac7e2f559e09d95beb49cf5faec4ba1"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/猎豹/build_report.json",
+      "report_sha256": "5678e4b2bde8e7258687569710ef1a79d5172489d1705246fa65683fba65c2a9"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/猎豹防空车/build_report.json",
+      "report_sha256": "84cf291c402d09954f0076c79f6e698291f11cb66e4bfd5c293570b9f6299391"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/突击虎/build_report.json",
+      "report_sha256": "3a36fece3b608615e5e9ebe9a65226dca2d40e368dfdd2c5fab7142105b67e6c"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/美洲狮步战车/build_report.json",
+      "report_sha256": "249d20c2cbc98dd886fa953541ee667c537d2023a8069168ffc141e9edf9b419"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/虎I/build_report.json",
+      "report_sha256": "17f4bebe7823996b335a4ba28085a302e0a06f66b7688ad126a289731bc32bac"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/虎II/build_report.json",
+      "report_sha256": "86700571deb0b01fb4683e44fa4d5c553b5ef216b3ea4e2e7bbe5508efacb507"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/豹1/build_report.json",
+      "report_sha256": "d2b2fdc1f16ae4615707fb5896c56dc4ad78392f4fb6c6c36688bba7bb471054"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/豹2/build_report.json",
+      "report_sha256": "4e93a70fcbea15ffdefb912fce9dddf96b99891ec5271795f2d2fabd5bf1925a"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/追猎者/build_report.json",
+      "report_sha256": "09805d1fd9e1b331299560b74c6e15603d2a58f4a4bb1beceaa4385f7281452c"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/黄鼠狼步战车/build_report.json",
+      "report_sha256": "caf86cf947c2a1b58d8d16d57bba4ce55844c635a97758ed78001aab5b80efe4"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/黑豹/build_report.json",
+      "report_sha256": "f4fa475f0c85bbb15f03d289ac10a59eed38a928b85c11d0aa129574924ae421"
+    },
+    {
+      "reason": "declared ID has no exact directory match",
+      "report_path": "E:/AIprogram/aimodel/德国/鼠式/build_report.json",
+      "report_sha256": "24bdbd0155e274af26849873aac5f87e8f2e0fbf5433840f67d6f638fd263a49"
+    }
+  ],
+  "root": "E:/AIprogram/aimodel",
+  "schema": 1,
+  "selected_for_publication": []
+}

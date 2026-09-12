@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "working_directory": "E:/AIprogram/mcthunder",
+  "python": "Python 3.13.14",
+  "round": "r3",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/reference_data -p 'test_*.py' -v",
+      "exit_code": 0,
+      "output": "unittest-r3.txt",
+      "tests": 18
+    },
+    {
+      "command": "python authoring/reference_data/import_reference_data.py",
+      "exit_code": 0,
+      "output": "import-r3.txt"
+    },
+    {
+      "command": "python tests/reference_data/verify_generated.py",
+      "exit_code": 0,
+      "output": "generated-verification-r3.txt"
+    }
+  ],
+  "importer_sha256": "6c8702ee0699986c80380ca5e188264c494d21bb3dedbf98d92d21b80593f5e9",
+  "index_sha256": "6daff91e7b405b1566fdea3e6aa3b078f76495bdb41873732897acda4b65a964",
+  "godot": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "combat_vehicles_admitted": 0,
+  "models_published": 0
+}

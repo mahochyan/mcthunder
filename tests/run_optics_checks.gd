@@ -47,7 +47,7 @@ func run() -> void:
 	check(actor.turret.aim_error_deg()<0.01 and model.aim_error_degrees>45,"pitch stop cannot falsely report aligned to unreachable target")
 	var cmd := VehicleCommand.new(); cmd.hold_aim=true; cmd.has_aim_point=true; cmd.aim_world_point=Vector3(100,5,-30)
 	var packet := VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames())
-	check(packet.version==2 and VehicleCommandCodec.decode(JSON.parse_string(JSON.stringify(packet))).command.hold_aim,"observation hold has a strict versioned wire contract")
+	check(packet.version==VehicleCommandCodec.VERSION and VehicleCommandCodec.decode(JSON.parse_string(JSON.stringify(packet))).command.hold_aim,"observation hold has a strict versioned wire contract")
 	packet.command.hold_aim=1
 	check(not VehicleCommandCodec.decode(packet).ok,"numeric observation flag is rejected")
 	packet=VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames()); packet.version=1

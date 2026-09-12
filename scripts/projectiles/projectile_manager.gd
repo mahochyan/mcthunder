@@ -10,9 +10,10 @@ extends Node3D
 ##
 ## 每物理步只取一次当前车辆快照（_snapshot_provider），供本步全部飞弹查询使用；
 ## 下一物理步重新采样，不使用开火瞬间保存的整车快照一直算到落点。
-## 目标几何视为在单个物理步内固定：支持目标移动后后续步看到新位置，
-## 但不保证检测"目标在一个 tick 内高速横穿弹道"（连续路径检测针对炮弹扫掠，
-## 不等于双方完整连续碰撞）。
+## 相邻权威快照中 basis 不变且平移有界的部件使用相对运动扫掠。
+## 旋转、超界位移或不连续身份仍按步末静态几何查询；这不是完整体积 CCD。
+## 本批仅 kinetic 使用平移扫掠；internal_burst 的接触/内部路径/破片统一
+## 保留原步末静态几何，避免接触时刻与内部效应混用不同姿态。
 
 const MAX_ACTIVE := 64          # 活动炮弹上限（含已接收尚未推进的）
 const MIN_SEG_M := 1.0e-6       # 近零位移段阈值（不触发零长度射线）
@@ -36,6 +37,8 @@ var _active: Dictionary = {}     # projectile_id -> ProjectileState（pending + 
 var _pending: Array = []         # 已接收尚未开始推进（出生当步不推进）
 var _accepted_launches: Dictionary = {}   # "shooter:shot" -> true（duplicate_launch 守卫）
 var _shut_down := false                   # 006-R1-B：退出/清理后拒绝新发射
+var _previous_snapshots: Array = []
+var _snapshot_tick := -1
 
 func close_round() -> void:
 	# A finished battle retains immutable replay records but rejects every later launch.
@@ -62,6 +65,7 @@ func _exit_tree() -> void:
 	shot_records.clear()
 	_active.clear()
 	_pending.clear()
+	_previous_snapshots.clear()
 
 
 func active_count() -> int:
@@ -174,9 +178,14 @@ func _physics_process(delta: float) -> void:
 	# 006-R1-A：唯一推进循环内明确检查出生 tick——无论发射发生在管理器之前
 	# （正常车辆 priority 0 < 100）还是之后（演示 200 > 100），出生 tick 都不推进。
 	var now_tick := Engine.get_physics_frames()
+	# Sample after authority vehicle mechanisms even when no projectile exists,
+	# so the first advancing flight tick has the correct beginning target pose.
+	var current: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
+	var snapshots := TranslationSweep.bind(_previous_snapshots, current, _snapshot_tick == now_tick - 1, delta)
+	_previous_snapshots = current.duplicate(true)
+	_snapshot_tick = now_tick
 	if _active.is_empty():
 		return
-	var snapshots: Array = snapshot_provider.call() if snapshot_provider.is_valid() else []
 	var space := get_world_3d().direct_space_state
 	for pid in _active.keys():
 		var st: ProjectileState = _active.get(pid)
@@ -194,10 +203,15 @@ func _physics_process(delta: float) -> void:
 func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
 	if not _live(st):
 		return
+	if st.effect_policy == "internal_burst":
+		# Its inside-path and fragments are still instantaneous static rules.
+		# Continuous motion must not be enabled for just one half of that path.
+		snapshots = TranslationSweep.frame_at(snapshots, 1.0)
 	if not is_finite(delta) or delta < 0.0:
 		finish_once(st.projectile_id, "unresolved_query", {"detail": "invalid delta"})
 		return
 	var remaining_dt := minf(delta, st.max_age_s - st.age_s)
+	var age_at_start := st.age_s
 	if remaining_dt <= 0.0:
 		finish_once(st.projectile_id, "expired_time", {})
 		return
@@ -249,6 +263,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			"query_id": "proj_%d_%d" % [st.projectile_id, Engine.get_physics_frames()],
 			"physics_tick": Engine.get_physics_frames(),
 			"from_world": st.position_world, "to_world": query_end,
+			"motion_fraction": Vector2(clampf((st.age_s - age_at_start) / delta, 0.0, 1.0), clampf((st.age_s - age_at_start + used_h) / delta, 0.0, 1.0)),
 			"excluded_instances": [{"entity_id": st.shooter_id, "life_id": st.shooter_life_id}],
 			"include_modules": true, "include_crew": st.armor_policy == "resolve", "world_stop": world_contact,
 		}, snapshots)
@@ -297,7 +312,10 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			st.travelled_m += st.previous_position_world.distance_to(impact_p)
 			ShotRecordBuilder.sample_path(st)
 			if status in ["vehicle","damage"]:
-				ev["geometry_frame"] = ShotRecordBuilder.capture_frame(st,ev,snapshots)
+				var impact_snapshots := snapshots
+				if ev.has("motion_fraction"):
+					impact_snapshots = TranslationSweep.frame_at(snapshots, float(ev.motion_fraction))
+				ev["geometry_frame"] = ShotRecordBuilder.capture_frame(st,ev,impact_snapshots)
 				if contact_policy.is_valid():
 					var policy: Dictionary = contact_policy.call({"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,"shooter_team_id":st.shooter_team_id},ev.duplicate(true))
 					if not _live(st): return

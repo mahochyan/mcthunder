@@ -7,21 +7,41 @@ var ready := false
 func _init() -> void:
 	ready = catalog.load_all(definitions).ok
 
+func has_vehicle(id: String) -> bool:
+	# The curated roster is a publication boundary. Import candidates and temporary
+	# registrations never become purchasable just because a dictionary contains them.
+	return ready and id in VehicleCatalog.IDS and catalog.packages.get(id,{}).get("ok",false) and definitions.vehicles.has(id)
+
+func vehicle_ids() -> Array[String]:
+	var ids: Array[String]=[]
+	for id in VehicleCatalog.IDS:
+		if has_vehicle(id): ids.append(id)
+	return ids
+
+func vehicle_label(id: String) -> String:
+	return str(catalog.packages[id].packet.display_name) if has_vehicle(id) else id
+
 func default_loadout(id: String) -> Dictionary:
-	if not ready or not catalog.packages.has(id): return {}
-	var ammo := HistoricalShellCatalog.build(catalog.packages[id].packet)
+	if not has_vehicle(id): return {}
+	var ammo := VehicleShellCatalog.build(catalog.packages[id].packet)
 	if not ammo.ok: return {}
 	var total: int = int(catalog.packages[id].packet.runtime.rounds)
-	var alternate := floori(total*0.3)
+	var alternate := floori(total*0.3) if ammo.options.size()>1 else 0
 	var counts := {}
-	for option in ammo.options: counts[option.id] = total-alternate if option.id == ammo.default_id else alternate
+	var remaining := alternate
+	var nondefault: int=ammo.options.size()-1
+	for option in ammo.options:
+		if option.id==ammo.default_id: counts[option.id]=total-alternate
+		else:
+			var share := ceili(float(remaining)/float(nondefault))
+			counts[option.id]=share; remaining-=share; nondefault-=1
 	return {"vehicle_id":id,"counts":counts,"first_shell":ammo.default_id}
 
 func build_loadout(value: Dictionary) -> Dictionary:
-	if not value.get("vehicle_id") is String or not catalog.packages.has(value.vehicle_id): return _reject(LocalizationService.text("ui_2fccbd4d8788"))
+	if not value.get("vehicle_id") is String or not has_vehicle(value.vehicle_id): return _reject(LocalizationService.text("ui_2fccbd4d8788"))
 	if not value.get("counts") is Dictionary or not value.get("first_shell") is String: return _reject(LocalizationService.text("ui_23b3dc158d62"))
 	var pack: Dictionary = catalog.packages[value.vehicle_id]
-	var ammo := HistoricalShellCatalog.build(pack.packet)
+	var ammo := VehicleShellCatalog.build(pack.packet)
 	if not ammo.ok: return _reject(LocalizationService.text("ui_bc6810c01ecc"))
 	var expected: Array = []
 	for option in ammo.options: expected.append(option.id)

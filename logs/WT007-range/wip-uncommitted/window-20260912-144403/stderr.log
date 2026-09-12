@@ -1,0 +1,44 @@
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'Array' on a base object of type 'Resource (VehicleDefinition)'.
+   at: definitions_for (res://scripts/content/vehicle_content_pipeline.gd:182)
+   GDScript backtrace (most recent call first):
+       [0] definitions_for (res://scripts/content/vehicle_content_pipeline.gd:182)
+       [1] validate_package (res://scripts/content/vehicle_content_pipeline.gd:49)
+       [2] register (res://scripts/content/vehicle_catalog.gd:20)
+       [3] load_all (res://scripts/content/vehicle_catalog.gd:14)
+       [4] _ready (res://scripts/network/network_battle_world.gd:18)
+       [5] start (res://scripts/network/network_battle_server.gd:22)
+       [6] run (res://tests/run_optics_player_checks.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'vehicle' on a base object of type 'Dictionary'.
+   at: validate_package (res://scripts/content/vehicle_content_pipeline.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] validate_package (res://scripts/content/vehicle_content_pipeline.gd:53)
+       [1] register (res://scripts/content/vehicle_catalog.gd:20)
+       [2] load_all (res://scripts/content/vehicle_catalog.gd:14)
+       [3] _ready (res://scripts/network/network_battle_world.gd:18)
+       [4] start (res://scripts/network/network_battle_server.gd:22)
+       [5] run (res://tests/run_optics_player_checks.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: VehicleCatalog.register (res://scripts/content/vehicle_catalog.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] register (res://scripts/content/vehicle_catalog.gd:22)
+       [1] load_all (res://scripts/content/vehicle_catalog.gd:14)
+       [2] _ready (res://scripts/network/network_battle_world.gd:18)
+       [3] start (res://scripts/network/network_battle_server.gd:22)
+       [4] run (res://tests/run_optics_player_checks.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: VehicleCatalog.load_all (res://scripts/content/vehicle_catalog.gd:15)
+   GDScript backtrace (most recent call first):
+       [0] load_all (res://scripts/content/vehicle_catalog.gd:15)
+       [1] _ready (res://scripts/network/network_battle_world.gd:18)
+       [2] start (res://scripts/network/network_battle_server.gd:22)
+       [3] run (res://tests/run_optics_player_checks.gd:32)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: NetworkBattleWorld._ready (res://scripts/network/network_battle_world.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/network/network_battle_world.gd:18)
+       [1] start (res://scripts/network/network_battle_server.gd:22)
+       [2] run (res://tests/run_optics_player_checks.gd:32)
+SCRIPT ERROR: Out of bounds get index '1' (on base: 'Array[VehicleActor]')
+   at: run (res://tests/run_optics_player_checks.gd:33)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/run_optics_player_checks.gd:33)

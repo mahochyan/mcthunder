@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] production authority starts with observation contract
+[PASS] normal client connects
+[PASS] right mouse enters actual client gun sight
+[PASS] gun sight renders opposing armor while hiding only own armor
+[PASS] actual capture 00_scope_enemy_visible
+[PASS] Z changes real client projection to second magnification
+[PASS] zoom does not change authoritative weapon angles
+[PASS] normal Y input starts authority range timer
+[FAIL] normal optical aim measures actual opposing vehicle
+[FAIL] normal H input adopts measured range without a debug shortcut
+[PASS] normal bracket input increments authority zeroing once
+[PASS] actual capture 01_range_and_graduations
+[PASS] manual decrement returns to direct aiming at zero
+[PASS] real magnified mouse input uses FOV-scaled angular motion
+[PASS] real window mouse input reaches authority and finishes finite mechanical pursuit at zero setting
+[PASS] actual capture 01_scope_zoom
+[PASS] held L activates binocular view and real server hold
+[PASS] binocular view preserves opposing vehicle visibility
+[PASS] normal controls still steer and move during observation
+[PASS] server preserves both local gun axes while hull turns during binocular observation
+[PASS] binocular observation does not accidentally fire
+[OBSERVATION] camera=[X: (0.983594, -0.0, 0.180394), Y: (-0.003791, 0.999779, 0.020668), Z: (-0.180354, -0.021013, 0.983377), O: (1.866102, 2.995387, 10.30757)] aim=(-0.181387, 0.021015) authority_hold=true root=(2.087888, 0.012096, 10.22873) accepted=242 rejected={  }
+[PASS] actual capture 02_binocular_observation
+[PASS] releasing L restores original aiming direction
+[PASS] release resumes pursuit without replaying held fire edge
+[PASS] new mouse edge fires one real authoritative projectile
+[PASS] Escape cancels optics through normal input pause
+[PASS] held L cannot reactivate observation across pause
+[PASS] fresh binocular press works after release guard
+[PASS] server generation reset clears client optics without inheriting held key
+[PASS] normal battle HUD explains mechanical pursuit separately from reload readiness
+[PASS] actual capture 03_battle_tracking
+[PASS] binocular input also uses normal offline battle path
+[PASS] actual capture 04_battle_binocular
+=== 结果: 33 项检查, 2 失败 ===
+OPTICS_PLAYER_CHECKS_FAIL

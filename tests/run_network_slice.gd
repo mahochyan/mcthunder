@@ -85,8 +85,7 @@ func run_client(port: int, path: String) -> void:
 			command.throttle=0.5 if Time.get_ticks_msec()-started<1000 else 0.0
 			command.has_aim_point=true; command.aim_world_point=Vector3(row.position[0],5,-70)
 			command.fire_requested=true
-			var body := {"throttle":command.throttle,"steer":command.steer,"select_shell":-1,"aim_world_point":[command.aim_world_point.x,command.aim_world_point.y,command.aim_world_point.z]}
-			for flag in VehicleCommandCodec.FLAGS: body[flag]=command.get(flag)
+			var body := VehicleCommandCodec.encode_body(command)
 			var envelope := {"version":VehicleCommandCodec.VERSION,"entity_id":entity,"life_id":row.life_id,"generation":row.generation,"control_epoch":row.control_epoch,"sequence":sequence,"input_tick":latest.tick,"command":body}
 			if not malicious_sent:
 				var spoof: Dictionary=envelope.duplicate(true); spoof.entity_id="B" if entity=="A" else "A"

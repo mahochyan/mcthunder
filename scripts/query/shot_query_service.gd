@@ -112,6 +112,11 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 	var seg_length := seg.length()
 	if not is_finite(seg_length) or seg_length <= QueryGeometry.EPS_M:
 		return _fail(query_id, "zero_or_invalid_segment")
+	if not request.get("motion_fraction", Vector2.ONE) is Vector2:
+		return _fail(query_id, "invalid_motion_fraction")
+	var fractions: Vector2 = request.get("motion_fraction", Vector2.ONE)
+	if not fractions.is_finite() or fractions.x < 0.0 or fractions.y > 1.0 or fractions.x > fractions.y:
+		return _fail(query_id, "invalid_motion_fraction")
 	if snapshots.size() > MAX_ENTITIES:
 		return _fail(query_id, "too_many_entities (%d > %d)" % [snapshots.size(), MAX_ENTITIES])
 
@@ -157,6 +162,8 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 			complete = false
 			continue
 		var transforms: Dictionary = snapshot.get("part_world_transforms", {})
+		if request.has("motion_fraction"):
+			diagnostics.append_array(snapshot.get("motion_diagnostics", []))
 		# 缺失/非有限变换：明确失败，不使用单位变换伪装；该实体整体跳过
 		var bad := _first_invalid_part(layout, transforms, snapshot)
 		if not bad.is_empty():
@@ -164,13 +171,13 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 				entity_id, bad, str(snapshot.get("missing_parts", []))])
 			complete = false
 			continue
-		if not _collect_patches(snapshot, layout, transforms, from_world, to_world, seg_length, events, diagnostics):
+		if not _collect_patches(snapshot, layout, transforms, from_world, to_world, seg_length, events, diagnostics, fractions):
 			complete = false
 		if include_modules:
-			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "module", events, intervals, diagnostics):
+			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "module", events, intervals, diagnostics, fractions):
 				complete = false
 		if include_crew:
-			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "crew", events, intervals, diagnostics):
+			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "crew", events, intervals, diagnostics, fractions):
 				complete = false
 
 	# 去重：只合并同一个面片的重复三角形交点（同 entity/life/part/surface + 接近位置）
@@ -260,7 +267,7 @@ static func _excluded_set(excluded_instances: Array) -> Dictionary:
 static func _collect_patches(
 		snapshot: Dictionary, layout: VehicleLayoutDefinition, transforms: Dictionary,
 		from_world: Vector3, to_world: Vector3, seg_length: float,
-		events: Array, diagnostics: Array
+		events: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE
 	) -> bool:
 	# 返回 complete（false = 存在未解几何关系/退化三角形——保守未决）
 	var complete := true
@@ -273,9 +280,8 @@ static func _collect_patches(
 		var part_bounds: Dictionary=part_data.bounds
 		for part_id in part_bounds:
 			if not transforms.has(part_id): continue
-			var inv: Transform3D=transforms[part_id].affine_inverse()
-			var a := inv*from_world; var b := inv*to_world
-			var segment := PackedVector3Array([a,b,a.min(b),a.max(b)])
+			var segment := TranslationSweep.local_segment(snapshot, str(part_id), from_world, to_world, fractions)
+			var a := segment[0]; var b := segment[1]
 			local_segments[part_id]=segment
 			var bound: PackedVector3Array=part_bounds[part_id]
 			# Match the existing patch AABB gate. A tighter slab test could suppress
@@ -294,11 +300,7 @@ static func _collect_patches(
 			continue
 		var segment: PackedVector3Array = local_segments.get(patch.part_id,PackedVector3Array())
 		if segment.is_empty():
-			var part_world: Transform3D = transforms[patch.part_id]
-			var inv:=part_world.affine_inverse()
-			var start_local := inv*from_world
-			var end_local := inv*to_world
-			segment=PackedVector3Array([start_local,end_local,start_local.min(end_local),start_local.max(end_local)])
+			segment = TranslationSweep.local_segment(snapshot, patch.part_id, from_world, to_world, fractions)
 			local_segments[patch.part_id]=segment
 		var local_from: Vector3=segment[0]
 		var local_to: Vector3=segment[1]
@@ -328,9 +330,10 @@ static func _collect_patches(
 				continue
 			var t: float = r["t"]
 			var point_world := from_world.lerp(to_world, t)
-			var part_world: Transform3D = transforms[patch.part_id]
+			var contact_fraction := lerpf(fractions.x, fractions.y, t)
+			var part_world := TranslationSweep.part_transform(snapshot, patch.part_id, contact_fraction)
 			var normal_world := part_world.basis * (r["normal_local"] as Vector3)
-			events.append({
+			var event := {
 				"distance_m": seg_length * t,
 				"t": t,
 				"kind": "armor",
@@ -354,14 +357,17 @@ static func _collect_patches(
 				"layout_id": layout.id,
 				"layout_revision": layout.schema_version,
 				"content_tier": layout.content_tier,
-			})
+			}
+			if snapshot.get(TranslationSweep.PREVIOUS_KEY, {}).has(patch.part_id):
+				event["motion_fraction"] = contact_fraction
+			events.append(event)
 	return complete
 
 
 static func _collect_boxes(
 		snapshot: Dictionary, layout: VehicleLayoutDefinition, transforms: Dictionary,
 		from_world: Vector3, to_world: Vector3, seg_length: float,
-		kind: String, events: Array, intervals: Array, diagnostics: Array
+		kind: String, events: Array, intervals: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE
 	) -> bool:
 	# 返回 complete（false = 缺部件变换/非有限——保守未决）
 	var complete := true
@@ -375,12 +381,14 @@ static func _collect_boxes(
 			diagnostics.append("%s %s: missing part transform %s" % [kind, item.id, item.part_id])
 			complete = false
 			continue
-		var part_world: Transform3D = transforms[item.part_id]
+		var part_world := TranslationSweep.part_transform(snapshot, item.part_id, fractions.x)
 		var box_world: Transform3D = part_world * item.local_box_transform
 		var inv: Transform3D = box_world.affine_inverse()
 		var local_from: Vector3 = inv * from_world
-		var local_to: Vector3 = inv * to_world
-		var r := QueryGeometry.segment_box_local(local_from, local_to, item.size_m)
+		var end_box: Transform3D = TranslationSweep.part_transform(snapshot, item.part_id, fractions.y) * item.local_box_transform
+		var local_to: Vector3 = end_box.affine_inverse() * to_world
+		var moving: bool = snapshot.get(TranslationSweep.PREVIOUS_KEY, {}).has(item.part_id)
+		var r := TranslationSweep.box_query(local_from, local_to, item.size_m) if moving else QueryGeometry.segment_box_local(local_from, local_to, item.size_m)
 		if not r.get("ok", false):
 			# 005-R1 收尾 A：盒查询错误不得静默忽略——追加诊断并整体未决（complete=false）
 			diagnostics.append("%s %s: box query error: %s" % [kind, item.id, str(r.get("error", "unknown"))])
@@ -390,9 +398,10 @@ static func _collect_boxes(
 			continue
 		var t_enter: float = r["t_enter"]
 		var t_exit: float = r["t_exit"]
+		box_world = TranslationSweep.part_transform(snapshot, item.part_id, lerpf(fractions.x, fractions.y, t_enter)) * item.local_box_transform
 		var id_key := "module_id" if kind == "module" else "crew_id"
 		var item_id: String = item.id
-		intervals.append({
+		var interval := {
 			"kind": kind,
 			"entity_id": entity_id,
 			"life_id": life_id,
@@ -412,20 +421,23 @@ static func _collect_boxes(
 			"event_type": "enter",
 			"box_world_transform": box_world,
 			"box_size_m": item.size_m,
-		})
+		}
+		if moving:
+			interval["motion_fraction"] = lerpf(fractions.x, fractions.y, t_enter)
+		intervals.append(interval)
 		if r.get("grazing", false):
 			# 擦边/沿表面退化接触——UI 区分，不当作穿过有效体积
 			events.append(_box_event(kind, id_key, item_id, snapshot, item.part_id,
-				"touch", t_enter, from_world, to_world, seg_length, Vector3.ZERO, false))
+				"touch", t_enter, from_world, to_world, seg_length, Vector3.ZERO, false, lerpf(fractions.x, fractions.y, t_enter) if moving else -1.0))
 			continue
 		if r.get("has_entry_boundary", false):
 			events.append(_box_event(kind, id_key, item_id, snapshot, item.part_id,
 				"enter", t_enter, from_world, to_world, seg_length,
-				(box_world.basis * (r["normal_enter_local"] as Vector3)).normalized(), true))
+				(box_world.basis * (r["normal_enter_local"] as Vector3)).normalized(), true, lerpf(fractions.x, fractions.y, t_enter) if moving else -1.0))
 		if r.get("has_exit_boundary", false):
 			events.append(_box_event(kind, id_key, item_id, snapshot, item.part_id,
 				"exit", t_exit, from_world, to_world, seg_length,
-				(box_world.basis * (r["normal_exit_local"] as Vector3)).normalized(), true))
+				(box_world.basis * (r["normal_exit_local"] as Vector3)).normalized(), true, lerpf(fractions.x, fractions.y, t_exit) if moving else -1.0))
 	return complete
 
 
@@ -433,7 +445,7 @@ static func _box_event(
 		kind: String, id_key: String, item_id: String, snapshot: Dictionary,
 		part_id: String, event_type: String, t: float,
 		from_world: Vector3, to_world: Vector3, seg_length: float,
-		normal_world: Vector3, normal_known: bool
+		normal_world: Vector3, normal_known: bool, motion_fraction: float = -1.0
 	) -> Dictionary:
 	var ev := {
 		"distance_m": seg_length * t,
@@ -451,6 +463,9 @@ static func _box_event(
 		"at_end": t >= 1.0 - QueryGeometry.EPS_M / maxf(seg_length, 0.0001),
 		"on_edge": false,
 	}
+	if motion_fraction >= 0.0:
+		ev["motion_fraction"] = motion_fraction
+		ev["target_generation"] = snapshot.get("target_generation", -1)
 	return ev
 
 

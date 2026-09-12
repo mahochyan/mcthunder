@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] default profile declares unstabilized gameplay response without historical claim
+[PASS] axes independently accelerate from rest rather than immediately reaching full rate
+[PASS] integrated first movement respects finite mechanism acceleration
+[PASS] fixed target converges without overshoot or repeated sign chatter
+[PASS] maximum rates and acceleration/braking limits hold across complete acquisition
+[PASS] mechanism settles at rest rather than retaining hidden motor velocity
+[PASS] opposite aim request first brakes existing yaw motion instead of reversing instantly
+[PASS] reversal eventually reacquires and settles at the opposite target
+[PASS] unlimited turret crosses the wrap along the short arc
+[PASS] wrap crossing converges without a full rotation
+[PASS] limited turret takes the permitted interior path instead of turning into its end stop
+[PASS] limited output remains unwrapped so the owning rig clamps the correct physical stop
+[PASS] none mode adds no hull disturbance feed-forward
+[PASS] vertical stabilization handles hull-roll coupling when the gun points sideways
+[PASS] vertical mode leaves horizontal disturbance while two-axis mode compensates yaw
+[PASS] dual-axis correction reduces actual world-direction error
+[PASS] stabilizer disables above configured vehicle speed
+[PASS] speed hysteresis prevents chatter just below the threshold
+[PASS] stabilizer restores after crossing the recovery threshold
+[PASS] loss of stabilizer leaves working manual mechanism available
+[PASS] pitch drive failure disables only its corresponding axis and compensation
+[PASS] legacy combined drive failure freezes both axes
+[PASS] physical pitch stop feedback clears only blocked motor velocity
+[PASS] observation hold stops both mechanism axes without moving them
+[FAIL] leaving observation does not repay accumulated hull rotation
+[PASS] hold capability also freezes the normal step entry
+[PASS] reset clears rates and pose history
+[PASS] invalid response profile is rejected without changing pose
+[PASS] nonfinite axis acceleration fails profile admission
+[PASS] impossible hysteresis fails profile admission
+[PASS] non-rigid hull transform cannot inject a compensation impulse
+[PASS] zero-duration step cannot advance mechanism
+=== 结果: 32 项检查, 1 失败 ===
+TURRET_MECHANISM_CHECKS_FAIL

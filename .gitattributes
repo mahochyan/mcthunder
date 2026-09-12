@@ -10,3 +10,11 @@ logs/031/b90511496fe84195ee8421bd3b4c6bfce2768b7a/** -text
 logs/033/b90511496fe84195ee8421bd3b4c6bfce2768b7a/** -text
 logs/034/b90511496fe84195ee8421bd3b4c6bfce2768b7a/** -text
 logs/031/source-audit-b905114.json -text
+assets/reference_data/source_snapshots/** -text
+tests/reference_data/fixtures/*.txt -text
+tests/reference_data/logs/** -text
+logs/WT007-range/** -text
+logs/WT030-admission/** -text
+logs/WT-parallel/** -text
+logs/WT008/** -text
+logs/wt009/20260912-152310/** -text

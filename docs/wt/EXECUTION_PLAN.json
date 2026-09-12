@@ -7,7 +7,7 @@
   "source_roadmap_sha256": "96801FBDF55279DB50461F87D03F8B03C2D2C274D68CE4931B5CF5F884EEDB24",
   "requirements_registry": "GAP_REGISTER.json",
   "execution_document": "REMAINING_WORK_PLAN_2026-09-12.md",
-  "verification": "本轮只读源码/记录审计及计划完整性检查；没有重跑游戏，不新增功能或真人签收。",
+  "verification": "已开始并行实施；实际检查记录按增量保存，真人及完整版本验收分别登记。",
   "performance": {
     "state": "HOLD_BY_USER",
     "resume_condition": "玩法/首发内容趋稳且用户解除性能暂停；正确性维护持续",
@@ -23,10 +23,24 @@
       "M24"
     ],
     "core_map": "先改进丘陵村落，保留工业边缘回归",
-    "modern_pilot": "按WT-027先M1A1族，确切改型在实现前完成资料/资产核对",
+    "modern_pilot": "苏联T-80B / 德国豹2A4优先；M1A1族保留后续扩充",
     "land_content_target": "两个合理对抗阵营、约8—12完整车辆、3张战术地图；名单/年代为待冻结规划目标",
     "network_matrix": "主矩阵RTT 0/80/150ms与丢包0/1/3%；抖动界限在网络包开始时固定；旧50/100ms可作兼容回归",
-    "schedule": "按依赖和质量门推进，不虚报日历工期"
+    "schedule": "按依赖和质量门推进，不虚报日历工期",
+    "first_factions": [
+      "苏联",
+      "德国"
+    ],
+    "release_direction": "现代陆战优先",
+    "reference_cache": "E:/AIprogram/tank_data/cache",
+    "model_source": "E:/AIprogram/aimodel",
+    "external_source_policy": "只读快照、准确车型ID匹配；候选不冒充完整战斗车",
+    "parallel_lanes": [
+      "root集成与共享契约",
+      "弹道毁伤",
+      "网络权威",
+      "数据内容"
+    ]
   },
   "acceptance_gates": [
     "逻辑正确：生产规则及反例验证",
@@ -53,11 +67,11 @@
       "dependencies": [
         "WT-001"
       ],
-      "current": "固定步炮塔、命令v2、生命身份、调度与快照已有；恢复与输入确认未完整。",
-      "remaining": "补已消费输入确认、事件缺口/恢复、完整可恢复状态；随火控及毁伤版本升级契约。",
+      "current": "命令v3含角度意图、测距装定和循环选弹；网络v4区分公开姿态与车主火控，已消费输入确认已接入。",
+      "remaining": "继续完整事件恢复、可恢复战斗状态与版本迁移。",
       "deliverables": "命令/发射/比赛事件/快照版本与恢复规范，固定步时序和迁移测试。",
       "acceptance": "30/60/144帧及长帧输入结果一致；暂停/换车无旧输入；恢复后的状态与持续运行对照一致。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {
@@ -120,11 +134,11 @@
         "WT-002",
         "WT-003"
       ],
-      "current": "OpticsProfile、两档炮镜、望远镜、观察保持、意图/炮口圈与偏差已接入。",
-      "remaining": "补AimIntent、炮镜刻度、测距及真实距离装定；处理镜位侵入窄墙/棚顶，按模式限制辅助情报。",
+      "current": "手动估测、刻度、距离装定、AimIntent和车主私有FireControlState已进入生产；静止600m真实弹道与正常输入已验证。",
+      "remaining": "完成镜位侵入窄墙/棚顶、模式情报限制和窗口/真人边界；现代激光测距另验。",
       "deliverables": "版本化光学意图/测距装定状态，输入/UI/联机契约，真实弹道验证。",
       "acceptance": "装定改变实际炮管射击解；射击仍从真实炮口出发；无回波/限位/换弹/暂停/重生/联机边界均可解释。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {
@@ -134,11 +148,11 @@
         "WT-006",
         "WT-007"
       ],
-      "current": "有限机械速度和静态俯仰限制已有；完整稳定器、机构加减速未完成。",
-      "remaining": "加入加减速、追随滞后、动态俯仰限制、无/单向/双向稳定能力及损伤降级；纠正按车型的横滚呈现。",
+      "current": "FireControlProfile和固定步加减速/制动、无/垂直/双轴稳定、速度迟滞与独立轴战损恢复已接入；34纯机制+41实际路线通过。",
+      "remaining": "补动态俯仰禁区、逐车型能力和数值审定、横滚呈现及真人同路线体验。",
       "deliverables": "FireControlProfile、固定步执行器、意图/视线/炮管/稳定状态记录。",
       "acceptance": "同一路线移动和急停射击有能力差异；稳定准星不冒充炮管已到位；舒适设置不增加武器能力。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {
@@ -147,11 +161,11 @@
       "dependencies": [
         "WT-002"
       ],
-      "current": "独立本机服务器+双客户端、权威移动/射击和姿态插值已验证；仍是固定两车切片。",
-      "remaining": "补客户端弹丸/炮声/命中呈现、完整下行校验、消费确认、事件缺口补发及恢复；随核心状态更新同步。",
+      "current": "命令v3/网络v4权威火控与已消费输入确认进入本机两车；公开姿态和车主测量分离。",
+      "remaining": "继续事件连续游标/补发与超窗恢复、客户端弹丸音效、完整状态恢复及实际异常网络验证。",
       "deliverables": "三进程回归、每发弹丸身份链、恢复快照与事件确认。",
       "acceptance": "超过缓存长度及短断包不漏/重复结果；服务器无本地玩家也能运行；不能由客户端宣告命中。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {
@@ -161,11 +175,11 @@
         "WT-002",
         "WT-003"
       ],
-      "current": "有限弹速、恒重力分段积分和部分移动目标回归已有。",
-      "remaining": "标定短/中/远距离、弹速/重力/衰减、相对运动、炮塔运动和生命周期；统一视觉/物理/服务器时间轴。",
+      "current": "共用恒重力静态求解、实际装定与有界动能点弹丸平移接触已接入；67移动接触检查通过。",
+      "remaining": "AI提前量共用求解、旋转/有限弹体、APHE时变内部路径和全程时间轴仍需补齐。",
       "deliverables": "BallisticProfile和版本、射程/移动目标测试集、单步续飞/终止记录。",
       "acceptance": "高速弹丸及横移/旋转目标连续接触可靠；同一发弹的显示/命中/记录相符；未知数据明确标识。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {
@@ -411,7 +425,7 @@
         "WT-017"
       ],
       "current": "M1A1已有美术候选/外观试驾改动，现代作战包未完成。",
-      "remaining": "沿现有工单先做M1A1族现代样车，冻结确切改型；接稳定/测距/热像/弹族/防护/乘员弹架与火控损伤。",
+      "remaining": "优先接入T-80B/豹2A4完整现代车辆包：装备配置、稳定器、测距/光电、弹族/防护、乘员弹架与火控损伤；M1A1后续保留。",
       "deliverables": "完整VehiclePackage、能力/来源/估计/设计分栏、中远距与受损光电测试。",
       "acceptance": "现代外壳不套旧车全部参数；人工装填不误配自动机；未知防护不冒充精确历史值。",
       "execution_status": "planned",
@@ -440,7 +454,7 @@
         "WT-022"
       ],
       "current": "99A/豹2等有资产候选，尚未证明现代对抗。",
-      "remaining": "研究确切对手改型，验证现代距离/节奏/反制，冻结首发年代、双方阵营和角色覆盖。",
+      "remaining": "完成苏德现代对抗的距离、节奏、反制与角色覆盖验收，再扩量车池。",
       "deliverables": "现代对抗完整局、车池能力矩阵、设计近似及平衡说明。",
       "acceptance": "现代首发必须过此门；不能用两辆都叫主战坦克证明平衡，也不把旧车首版当现代完成。",
       "execution_status": "planned",
@@ -452,11 +466,11 @@
       "dependencies": [
         "WT-001"
       ],
-      "current": "可编辑源、导出/挂点、四层几何和资产校验已有基础。",
-      "remaining": "统一完整车辆包及低模预算、轴心/LOD/UV/材质/许可/来源/碰撞/装甲/内构/弹药/光学；补另一制作者可复现流程。",
+      "current": "393份苏德来源快照、准确ID候选解析、独立参考准入、1..8弹目录和正常车库/循环输入已接入；18 Python解析、96准入车库、41选弹检查通过。",
+      "remaining": "补T80B/Leo2A4缺失数据、真实模型/几何、现代规则、整车流程验收与正式名册/存档迁移。",
       "deliverables": "VehiclePackage规范、入库/升级工具、质量档预算与样车模板。",
       "acceptance": "换贴图/LOD不改战斗几何；别人可据此修订完整车型；美术预览不自动进正式车池。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {

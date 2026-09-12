@@ -19,6 +19,18 @@ func run() -> void:
 	var packet := VehicleCommandCodec.encode(cmd,actor,1,Engine.get_physics_frames())
 	var roundtrip: Variant = JSON.parse_string(JSON.stringify(packet))
 	check(VehicleCommandCodec.decode(roundtrip).ok,"JSON roundtrip preserves strict command types")
+	var selection := VehicleCommand.new(); selection.select_shell=2
+	var decoded := VehicleCommandCodec.decode(JSON.parse_string(JSON.stringify(VehicleCommandCodec.encode(selection,actor,1,Engine.get_physics_frames()))))
+	check(decoded.ok and decoded.command.select_shell==2,"third shell selection survives actual wire encoding")
+	var mailbox := CommandMailbox.new()
+	mailbox.submit(decoded.command); mailbox.submit(VehicleCommand.new())
+	check(mailbox.consume().select_shell==2 and mailbox.consume().select_shell==-1,"held driving sample cannot erase or replay pending shell selection")
+	selection.select_shell=7
+	check(VehicleCommandCodec.decode(VehicleCommandCodec.encode(selection,actor,1,Engine.get_physics_frames())).ok,"catalog eighth slot is accepted")
+	mailbox.submit(selection); selection.select_shell=1; mailbox.submit(selection)
+	check(mailbox.consume().select_shell==1,"latest explicit selection supersedes earlier edge")
+	selection.select_shell=8
+	check(not VehicleCommandCodec.decode(VehicleCommandCodec.encode(selection,actor,1,Engine.get_physics_frames())).ok and not mailbox.submit(selection),"selection outside catalog maximum is rejected in local and wire paths")
 	var start := actor.tank.global_position
 	var consumed := {"peak_speed":0.0,"throttle":0.0,"fire":false}
 	actor.command_observer=func(current: VehicleActor, input: VehicleCommand) -> void:

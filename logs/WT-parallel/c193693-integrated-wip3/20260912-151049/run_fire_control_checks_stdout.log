@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] two-speed typed loadout is admitted through production Gunner
+[PASS] raised firing platform provides a stationary real launcher
+[PASS] real optical query reaches the 600m wall, not a fallback or stock near lane
+[PASS] range command starts the configured two-second authority measurement
+[PASS] measurement cannot publish a contact before its timer completes
+[PASS] real contact becomes the expected 25m-resolution range estimate
+[PASS] measuring alone leaves zero setting and mechanical aim unchanged
+[PASS] unadjusted 300m/s shot: actual command launches exactly one round
+[PASS] actual unadjusted low-speed shell visibly falls below the observed wall point
+[PASS] applying measured range changes aim demand while finite gun motion still has error
+[PASS] finite mechanism naturally reaches the stationary firing solution
+[PASS] selecting next ammo does not change the loaded round's ballistic demand
+[PASS] adjusted 300m/s shot: actual command launches exactly one round
+[PASS] range application corrects the real slow-shell impact within 75cm (error=0.051m)
+[PASS] ordinary post-shot transfer really chambers the selected faster round
+[PASS] ballistic demand recomputes from the actual chambered shell, not Actor's original shell
+[PASS] elevated wall point can be measured with the new chambered shell
+[PASS] second impact scenario has a real positive target height difference
+[PASS] adjusted elevated 600m/s shot: actual command launches exactly one round
+[PASS] actual faster projectile reaches the elevated sight point within 75cm (error=0.001m)
+[PASS] returning to zero clears old ballistic override even without clear_aim
+[PASS] unreachable lifetime reports failure and removes the previous successful ballistic override
+[PASS] lifecycle fixture obtains a real successful measurement
+[PASS] paused production scene freezes measurement validity and manual setting
+[PASS] authority time expiry marks the range stale
+[PASS] expired reading cannot overwrite the retained manual range setting
+[PASS] pausing cancels an unfinished authority measurement
+[PASS] resume never completes a cancelled measurement or replays its old edge
+[PASS] changing from sight to free observation cancels the pending sample
+[PASS] changing optical bearing during measurement invalidates the sample
+[PASS] admitted sample vehicle has an actual gunner crew assignment
+[PASS] loss of assigned gunner cancels the gun-sight measurement
+[PASS] binocular command cannot fire the real main gun
+[PASS] commander binocular mode measures a real contact while gun axes remain held
+[PASS] chase view cannot request a range estimate
+[PASS] sky fallback never becomes a successful measurement
+[PASS] wall outside the 2km instrument limit is not reported as max range
+[PASS] vehicle reset clears reading, measurement timer and manual range setting
+[PASS] new vehicle generation does not inherit a pending range request
+[PASS] mailbox accepts a valid optical input edge
+[PASS] mailbox deep-copies nested AimIntent and edge flags
+[PASS] merged inputs preserve both edges, add signed range steps and use newest optical direction
+[PASS] consumed range edges and steps never repeat on the next tick
+[PASS] strict versioned JSON command round trip preserves range operations
+[PASS] malformed optical command is rejected: nan_yaw
+[PASS] malformed optical command is rejected: unknown_mode
+[PASS] malformed optical command is rejected: numeric_active
+[PASS] malformed optical command is rejected: missing_intent
+[PASS] malformed optical command is rejected: extra_measured_range
+[PASS] malformed optical command is rejected: too_many_steps
+[PASS] malformed optical command is rejected: fractional_steps
+[PASS] malformed optical command is rejected: numeric_range_edge
+[PASS] malformed optical command is rejected: ambiguous_point
+[PASS] local mailbox rejects nonfinite AimIntent before mutation
+[PASS] local mailbox rejects a missing intent object
+[PASS] VehicleCommand.reset clears all fire-control input state
+=== 结果: 56 项检查, 0 失败 ===
+FIRE_CONTROL_CHECKS_PASS

@@ -1,0 +1,437 @@
+==============================================================================
+战争雷霆 · 载具数据：germ_leopard_2k
+==============================================================================
+载具 ID      : germ_leopard_2k
+国家（科技树）: 德国 Germany  [country_germany]
+操作国        : country_germany_modern
+车型标签      : type_medium_tank
+首发日期      : 2018-03-13 00:00:00
+模型名        : leopard_2k
+内部类型      : typeMediumTank / heavyVehicle
+数据来源      : E:\WarThunder 解包（资源版本 2.57.1.137）
+
+------------------------------------------------------------------------------
+【总体】
+------------------------------------------------------------------------------
+质量（设计）  : 31800.0 kg
+物理质量      : 空车 49500.0 kg / 含油 50000.0 kg（油 500.0 kg，履带 1150.0 kg）
+重心 (x,y,z)  : -0.22, 0.5, 0.0
+转动惯量      : 2.5, 2.5, 6.0
+前进极速      : 75.0 km/h
+倒车极速      : 10.0 km/h
+最大车体转速  : 30.0 °/s
+加减速度      : 4.0 / 8.0
+角加速度      : 20.0 → 40.0
+雷达特征      : tracked
+街机功率倍率  : ×1.5
+发动机        :   / 1500.0 hp
+转速          : 怠速 600.0 / 额定 2600.0 RPM
+战地补烟时间  : 60.0 s
+
+------------------------------------------------------------------------------
+【装甲 · 卡片值（钢板基础厚度 mm，前/侧/后）】
+------------------------------------------------------------------------------
+armorThicknessHull                : 59, 29, 12
+armorThicknessTurret              : 122, 45, 29
+
+------------------------------------------------------------------------------
+【装甲 · 复合与附加模块（游戏内结算）】
+------------------------------------------------------------------------------
+整车主结构 hp : 10000.0   损伤格式版本: 2
+
+[turret]  (27 个部件)
+    节属性 armorClass = CHA_tank_modern
+    turret_01_side_dm                      armorThickness=16.0  armorClass=RHAHH_tank
+    turret_01_front_dm                     armorThickness=50.0  armorClass=RHAHH_tank
+    turret_01_top_dm                       armorThickness=50.0  armorClass=RHAHH_tank
+    turret_01_back_dm                      armorThickness=29.0  armorClass=RHA_tank_modern
+    turret_01_bottom_dm                    armorThickness=14.5
+    turret_02_front_dm                     armorThickness=38.0  armorClass=RHAHH_tank
+    turret_02_top_dm                       armorThickness=20.0  armorClass=RHA_tank_modern
+    turret_02_side_dm                      armorThickness=8.0  armorClass=RHA_tank_modern
+    turret_02_bottom_dm                    armorThickness=45.0  armorClass=RHA_tank_modern
+    turret_03_front_dm                     armorThickness=50.0
+    turret_03_top_dm                       armorThickness=20.0  armorClass=RHA_tank_modern
+    turret_03_back_dm                      armorThickness=38.0  armorClass=RHAHH_tank
+    turret_03_bottom_dm                    armorThickness=50.0
+    turret_04_side_dm                      armorThickness=29.0  armorClass=RHA_tank_modern
+    turret_04_front_dm                     armorThickness=12.0  armorClass=RHAHH_tank
+    turret_08_side_dm                      armorThickness=12.0  armorClass=RHA_tank_modern
+    turret_09_side_dm                      armorThickness=12.0  armorClass=RHA_tank_modern
+    turret_04_top_dm                       armorThickness=20.0
+    turret_04_back_dm                      armorThickness=33.0  armorClass=RHAHH_tank
+    turret_04_bottom_dm                    armorThickness=33.0  armorClass=RHAHH_tank
+    turret_05_side_dm                      armorThickness=12.0  armorClass=RHA_tank_modern
+    turret_05_front_dm                     armorThickness=84.0
+    turret_08_front_dm                     armorThickness=20.0
+    turret_05_bottom_dm                    armorThickness=38.1
+    turret_05_top_dm                       armorThickness=12.0  armorClass=RHA_tank_modern
+    turret_05_back_dm                      armorThickness=14.5  armorClass=RHA_tank_modern
+    turret_08_top_dm                       armorThickness=20.0  armorClass=RHA_tank_modern
+
+[mask]  (6 个部件)
+    节属性 armorClass = CHA_tank_modern
+    gun_mask_dm                            armorThickness=20.0
+    gun_mask_01_dm                         armorThickness=35.0
+    gun_mask_02_dm                         armorThickness=100.0
+    gun_mask_03_dm                         armorThickness=25.5  armorClass=RHAHH_tank
+    gun_mask_04_dm                         armorThickness=20.0  armorClass=RHAHH_tank
+    gun_mask_05_dm                         armorThickness=25.0  armorClass=RHA_tank_modern
+
+[gun]  (9 个部件)
+    节属性 armorClass = tank_barrel
+    节属性 armorThickness = 35.0
+    gun_barrel_dm                          (几何定义)
+    gun_barrel_01_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_02_dm                       armorThrough=10.0, 10.0  armorThickness=5.0, 10.0  hp=50.0, 100.0
+    gun_barrel_03_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_04_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_05_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_06_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_07_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+    gun_barrel_08_dm                       armorThrough=10.0  armorThickness=5.0  hp=50.0
+
+[body_screens]  (10 个部件)
+    节属性 armorClass = rubber_metal_screens
+    节属性 armorThickness = 10.0
+    节属性 createSecondaryShatters = 否
+    ex_armor_body_r_01_dm                  (几何定义)
+    ex_armor_body_r_02_dm                  (几何定义)
+    ex_armor_body_r_03_dm                  (几何定义)
+    ex_armor_body_r_04_dm                  (几何定义)
+    ex_armor_body_r_05_dm                  (几何定义)
+    ex_armor_body_l_01_dm                  (几何定义)
+    ex_armor_body_l_02_dm                  (几何定义)
+    ex_armor_body_l_03_dm                  (几何定义)
+    ex_armor_body_l_04_dm                  (几何定义)
+    ex_armor_body_l_05_dm                  (几何定义)
+
+------------------------------------------------------------------------------
+【模块 / 内构（损伤模型部件）】
+------------------------------------------------------------------------------
+[crew]  共 27 项
+    genericDamageMult                      3.0
+    pressureDamageMult                     1.0
+    napalmDamageMult                       0.0
+    ignoreSolidDimension                   是
+    driver_dm                              (几何定义)
+    loader_dm                              (几何定义)
+    loader_01_dm                           (几何定义)
+    loader_02_dm                           (几何定义)
+    loader_03_dm                           (几何定义)
+    gunner_dm                              (几何定义)
+    gunner_01_dm                           (几何定义)
+    gunner_02_dm                           (几何定义)
+    gunner_03_dm                           (几何定义)
+    commander_dm                           (几何定义)
+    machine_gunner_dm                      (几何定义)
+    machine_gunner_01_dm                   (几何定义)
+    machine_gunner_02_dm                   (几何定义)
+    machine_gunner_03_dm                   (几何定义)
+    machine_gunner_04_dm                   (几何定义)
+    machine_gunner_05_dm                   (几何定义)
+    machine_gunner_06_dm                   (几何定义)
+    machine_gunner_07_dm                   (几何定义)
+    machine_gunner_08_dm                   (几何定义)
+    machine_gunner_09_dm                   (几何定义)
+    machine_gunner_10_dm                   (几何定义)
+    machine_gunner_11_dm                   (几何定义)
+    machine_gunner_12_dm                   (几何定义)
+
+[power_block]  共 4 项
+    fireProtectionHp                       5.0
+    restrainDamage                         0.5
+    engine_dm                              (几何定义)
+    transmission_dm                        (几何定义)
+
+[ammo]  共 208 项
+    genericDamageMult                      2.0
+    cumulativeDamageMult                   1.25
+    fireProtectionHp                       20.0
+    ammo_turret_dm                         (几何定义)
+    ammo_turret_01_dm                      (几何定义)
+    ammo_turret_02_dm                      (几何定义)
+    ammo_turret_03_dm                      (几何定义)
+    ammo_turret_04_dm                      (几何定义)
+    ammo_turret_05_dm                      (几何定义)
+    ammo_turret_06_dm                      (几何定义)
+    ammo_turret_07_dm                      (几何定义)
+    ammo_turret_08_dm                      (几何定义)
+    ammo_turret_09_dm                      (几何定义)
+    ammo_turret_10_dm                      (几何定义)
+    ammo_turret_11_dm                      (几何定义)
+    ammo_turret_12_dm                      (几何定义)
+    ammo_turret_13_dm                      (几何定义)
+    ammo_turret_14_dm                      (几何定义)
+    ammo_turret_15_dm                      (几何定义)
+    ammo_turret_16_dm                      (几何定义)
+    ammo_turret_17_dm                      (几何定义)
+    ammo_turret_18_dm                      (几何定义)
+    ammo_turret_19_dm                      (几何定义)
+    ammo_turret_20_dm                      (几何定义)
+    ammo_turret_21_dm                      (几何定义)
+    ammo_turret_22_dm                      (几何定义)
+    ammo_turret_23_dm                      (几何定义)
+    ammo_turret_24_dm                      (几何定义)
+    ammo_turret_25_dm                      (几何定义)
+    ammo_turret_26_dm                      (几何定义)
+    ammo_turret_27_dm                      (几何定义)
+    ammo_turret_28_dm                      (几何定义)
+    ammo_turret_29_dm                      (几何定义)
+    ammo_turret_30_dm                      (几何定义)
+    ammo_turret_31_dm                      (几何定义)
+    ammo_turret_32_dm                      (几何定义)
+    ammo_turret_33_dm                      (几何定义)
+    ammo_turret_34_dm                      (几何定义)
+    ammo_turret_35_dm                      (几何定义)
+    ammo_turret_36_dm                      (几何定义)
+    ammo_turret_37_dm                      (几何定义)
+    ammo_turret_38_dm                      (几何定义)
+    ammo_turret_39_dm                      (几何定义)
+    ammo_turret_40_dm                      (几何定义)
+    ammo_turret_41_dm                      (几何定义)
+    ammo_turret_42_dm                      (几何定义)
+    ammo_turret_43_dm                      (几何定义)
+    ammo_turret_44_dm                      (几何定义)
+    ammo_turret_45_dm                      (几何定义)
+    ammo_turret_46_dm                      (几何定义)
+    ammo_turret_47_dm                      (几何定义)
+    ammo_turret_48_dm                      (几何定义)
+    ammo_turret_49_dm                      (几何定义)
+    ammo_turret_50_dm                      (几何定义)
+    ammo_turret_51_dm                      (几何定义)
+    ammo_turret_52_dm                      (几何定义)
+    ammo_turret_53_dm                      (几何定义)
+    ammo_turret_54_dm                      (几何定义)
+    ammo_turret_55_dm                      (几何定义)
+    ammo_turret_56_dm                      (几何定义)
+    ...（其余 148 项略，可查原始 JSON）
+
+[fuel_tanks]  共 19 项
+    fireProtectionHp                       15.0
+    stopChanceOnDeadPart                   0.0
+    fireParamsPreset                       fuel_internal
+    fuel_tank_dm                           (几何定义)
+    fuel_tank_01_dm                        (几何定义)
+    fuel_tank_02_dm                        (几何定义)
+    fuel_tank_03_dm                        (几何定义)
+    fuel_tank_04_dm                        (几何定义)
+    fuel_tank_05_dm                        (几何定义)
+    fuel_tank_r_01_dm                      (几何定义)
+    fuel_tank_r_02_dm                      (几何定义)
+    fuel_tank_r_03_dm                      (几何定义)
+    fuel_tank_r_04_dm                      (几何定义)
+    fuel_tank_r_05_dm                      (几何定义)
+    fuel_tank_l_01_dm                      (几何定义)
+    fuel_tank_l_02_dm                      (几何定义)
+    fuel_tank_l_03_dm                      (几何定义)
+    fuel_tank_l_04_dm                      (几何定义)
+    fuel_tank_l_05_dm                      (几何定义)
+
+[fuel_tanks_exterior]  共 16 项
+    fireProtectionHp                       15.0
+    fireParamsPreset                       fuel_exterior
+    stopChanceOnDeadPart                   0.0
+    fuel_tank_exterior_r_01_dm             (几何定义)
+    fuel_tank_exterior_r_02_dm             (几何定义)
+    fuel_tank_exterior_r_03_dm             (几何定义)
+    fuel_tank_exterior_r_04_dm             (几何定义)
+    fuel_tank_exterior_r_05_dm             (几何定义)
+    fuel_tank_exterior_l_01_dm             (几何定义)
+    fuel_tank_exterior_l_02_dm             (几何定义)
+    fuel_tank_exterior_l_03_dm             (几何定义)
+    fuel_tank_exterior_l_04_dm             (几何定义)
+    fuel_tank_exterior_l_05_dm             (几何定义)
+    fuel_tank_exterior_01_dm               (几何定义)
+    fuel_tank_exterior_02_dm               (几何定义)
+    fuel_tank_exterior_03_dm               (几何定义)
+
+[cannon_breech]  共 10 项
+    fireProtectionHp                       5.0
+    hidableInViewer                        否
+    cannon_breech_dm                       restrainDamage=0.5
+    cannon_breech_01_dm                    armorThickness=10.0
+    cannon_breech_02_dm                    armorThickness=10.0
+    cannon_breech_03_dm                    armorThickness=10.0
+    cannon_breech_04_dm                    armorThickness=10.0
+    cannon_breech_05_dm                    armorThickness=10.0
+    autoloader_dm                          armorThickness=2.0  armorThrough=1.0  ignoreSolidDimension=是
+    autoloader_01_dm                       armorThickness=2.0  armorThrough=1.0  ignoreSolidDimension=是
+
+[chassis]  共 47 项
+    wheel_r_01_dm                          (几何定义)
+    wheel_r_02_dm                          (几何定义)
+    wheel_r_03_dm                          (几何定义)
+    wheel_r_04_dm                          (几何定义)
+    wheel_r_05_dm                          (几何定义)
+    wheel_r_06_dm                          (几何定义)
+    wheel_r_07_dm                          (几何定义)
+    wheel_r_08_dm                          (几何定义)
+    wheel_r_09_dm                          (几何定义)
+    wheel_r_10_dm                          (几何定义)
+    wheel_r_11_dm                          (几何定义)
+    wheel_r_12_dm                          (几何定义)
+    wheel_r_13_dm                          (几何定义)
+    wheel_r_14_dm                          (几何定义)
+    wheel_r_15_dm                          (几何定义)
+    wheel_r_16_dm                          (几何定义)
+    wheel_l_01_dm                          (几何定义)
+    wheel_l_02_dm                          (几何定义)
+    wheel_l_03_dm                          (几何定义)
+    wheel_l_04_dm                          (几何定义)
+    wheel_l_05_dm                          (几何定义)
+    wheel_l_06_dm                          (几何定义)
+    wheel_l_07_dm                          (几何定义)
+    wheel_l_08_dm                          (几何定义)
+    wheel_l_09_dm                          (几何定义)
+    wheel_l_10_dm                          (几何定义)
+    wheel_l_11_dm                          (几何定义)
+    wheel_l_12_dm                          (几何定义)
+    wheel_l_13_dm                          (几何定义)
+    wheel_l_14_dm                          (几何定义)
+    wheel_l_15_dm                          (几何定义)
+    wheel_l_16_dm                          (几何定义)
+    wheel_r_drive_dm                       (几何定义)
+    wheel_l_drive_dm                       (几何定义)
+    wheel_r_back_dm                        (几何定义)
+    wheel_l_back_dm                        (几何定义)
+    wheel_l_front_dm                       (几何定义)
+    wheel_r_front_dm                       (几何定义)
+    wheel_l_top_01_dm                      (几何定义)
+    wheel_l_top_02_dm                      (几何定义)
+    wheel_l_top_03_dm                      (几何定义)
+    wheel_l_top_04_dm                      (几何定义)
+    wheel_r_top_01_dm                      (几何定义)
+    wheel_r_top_02_dm                      (几何定义)
+    wheel_r_top_03_dm                      (几何定义)
+    wheel_r_top_04_dm                      (几何定义)
+    wheel_support_dm                       armorThickness=10.0
+
+[tracks]  共 8 项
+    allowRicochet                          是
+    genericEffectiveThicknessMax           20.0
+    genericDamageMult                      1.8
+    cumulativeDamageMult                   1.8
+    track_r_dm                             (几何定义)
+    track_l_dm                             (几何定义)
+    track_r_01_dm                          (几何定义)
+    track_l_01_dm                          (几何定义)
+
+[optics]  共 8 项
+    optic_gun_dm                           armorThickness=10.0  hp=50.0
+    optic_turret_01_dm                     armorThickness=3.0  hp=20.0
+    optic_turret_02_dm                     armorThickness=3.0  hp=20.0
+    optic_turret_03_dm                     armorThickness=3.0  hp=20.0
+    optic_turret_04_dm                     armorThickness=3.0  hp=20.0
+    optic_turret_05_dm                     armorThickness=3.0  hp=20.0
+    optic_turret_06_dm                     armorThickness=3.0  hp=20.0
+    optic_body_01_dm                       armorThickness=3.0  hp=20.0
+
+[commander_panoramic_sight]  共 1 项
+    commander_panoramic_sight_dm           armorClass=optics_tank  armorThrough=20.0  armorThickness=10.0  hp=20.0
+
+[equipment_body_turret]  共 29 项
+    fireProtectionHp                       5.0
+    hidableInViewer                        否
+    drive_turret_v_dm                      armorThrough=15.0  fireParamsPreset=hydraulic_internal
+    drive_turret_h_dm                      armorThrough=15.0  fireParamsPreset=hydraulic_internal
+    driver_controls_dm                     armorThrough=15.0
+    drive_turret_v_01_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_h_01_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_v_02_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_h_02_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_v_03_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_h_03_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_v_04_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_h_04_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_v_05_dm                   hp=40.0  armorThrough=15.0
+    drive_turret_h_05_dm                   hp=40.0  armorThrough=15.0
+    turret_hydraulics_dm                   hp=250.0  armorThrough=15.0  fireParamsPreset=hydraulic_internal
+    turret_hydraulics_01_dm                hp=250.0  armorThrough=15.0
+    turret_hydraulics_02_dm                hp=250.0  armorThrough=15.0
+    radiator_dm                            hp=50.0  armorThrough=5.0
+    radiator_l_dm                          hp=50.0  armorThrough=5.0
+    radiator_r_dm                          hp=50.0  armorThrough=5.0
+    radio_station_dm                       hp=50.0  armorThrough=3.0
+    auxiliary_power_unit                   hp=50.0  armorThrough=3.0
+    electronic_equipment_dm                hp=60.0  armorThrough=3.0
+    electronic_equipment_01_dm             hp=60.0  armorThrough=3.0
+    fire_control_system_dm                 hp=60.0  armorThrough=3.0
+    fire_control_system_01_dm              hp=60.0  armorThrough=3.0
+    power_system_dm                        hp=60.0  armorThrough=15.0
+    power_system_01_dm                     hp=60.0  armorThrough=15.0
+
+------------------------------------------------------------------------------
+【乘员岗位与替补】
+------------------------------------------------------------------------------
+换位耗时倍率 : 1.0
+gunner         模块=gunner_dm  角色=tank_gunner  替补自=commander, loader
+driver         模块=driver_dm  角色=driver  替补自=commander, loader
+loader         模块=loader_dm  角色=loader  替补自=commander
+commander      模块=commander_dm  角色=tank_gunner, commander  替补自=
+
+------------------------------------------------------------------------------
+【弹药架与补弹】
+------------------------------------------------------------------------------
+[ammo1] 武器=gunner0  补弹时间=15.0s  补弹延迟=4.0s  取出已装填=是
+    弹组 首发=是 起火预设= 致命起火= 致命殉爆=
+    弹格 11 个，合计 11 发
+    弹组 首发= 起火预设= 致命起火= 致命殉爆=
+    弹格 30 个，合计 30 发
+[ammo2] 武器=gunner1  补弹时间=s  补弹延迟=s  取出已装填=否
+    弹组 首发= 起火预设=turret_bustle 致命起火=否 致命殉爆=否
+    弹格 1 个，合计 750 发
+
+------------------------------------------------------------------------------
+【武器与弹药】
+------------------------------------------------------------------------------
+[primary]  120mm_Rheinmetall_L44_user_cannon
+    文件      : gameData/Weapons/groundModels_weapons/120mm_Rheinmetall_L44_user_cannon.blk
+    触发点    : gunner0
+    备弹      : 41 发
+    转速      : yaw 40.0 °/s, pitch 20.0 °/s
+    bulletName            : 120mm_dm12
+    bulletType            : heat_fs_tank
+    caliber               : 0.12
+    mass                  : 13.5
+    speed                 : 1140.0
+    maxDistance           : 7000.0
+    explosiveType         : comp_b
+    explosiveMass         : 1.64
+    hitPower              : 260.0
+    Cx                    : 0.55327
+    bulletCount           : 25
+    normalizationPreset   : heat
+    ricochetPreset        : heat_fs
+    secondaryShattersPreset: ap
+    fuseDelayDist         : 0.05
+    explodeTreshold       : 0.1
+    stabilityThreshold    : 0.5
+
+[machinegun]  20mm_Rh_202_user_cannon
+    文件      : gameData/Weapons/groundModels_weapons/20mm_Rh_202_user_cannon.blk
+    触发点    : gunner1
+    备弹      : 750 发
+    转速      : yaw 90.0 °/s, pitch 60.0 °/s
+
+[coaxial]  7_92mm_MG3_user_machinegun
+    文件      : gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk
+    触发点    : gunner2
+    备弹      : 4000 发
+    转速      : yaw 5.5 °/s, pitch 4.0 °/s
+
+[commander]  dummy_weapon
+    文件      : gameData/Weapons/dummy_weapon.blk
+    触发点    : gunner3
+    转速      : yaw 120.0 °/s, pitch 90.0 °/s
+
+------------------------------------------------------------------------------
+【其他】
+------------------------------------------------------------------------------
+夜视/热成像        : {"gunnerIr": {"resolution": [800, 600], "lightMult": 8.0, "ghosting": 0.75, "noiseFactor": 0.2}, "commanderViewIr": {"resolution": [800, 600], "lightMult": 8.0, "ghosting": 0.75, "noiseFactor": 0.2}, "driverIr": {"resolution": [800, 600], "lightMult": 5.0, "ghosting": 0.7, "noiseFactor": 0.2}}
+改装项           : 21 项: new_tank_tracks, new_tank_suspension, new_tank_filter, new_tank_brakes, new_tank_transmission, new_tank_engine, manual_extinguisher, tank_tool_kit, new_tank_horizontal_aiming, new_tank_vertical_aiming, art_support, tank_new_gun, tank_medical_kit, tank_medical_kit_expendable, modern_tank_laser_rangefinder, 120mm_NATO_HEAT_FS, 120mm_NATO_APDS_FS, 120mm_NATO_APDS_FS_ammo_pack, 120mm_DM_APDS_FS, 120mm_DM_APDS_FS_ammo_pack, tank_smoke_screen_system_mod
+
+==============================================================================
+说明：以上为游戏内结算参数（客户端资源），非真实车辆性能，也不是史料。
+     装甲等效厚度与穿深曲线不在客户端资源内，故本文件不含。
+==============================================================================

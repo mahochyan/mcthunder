@@ -1,0 +1,50 @@
+{
+  "source": "c1936939d177b3ceabce3e98a90af20297ddf7fa",
+  "launches": {
+    "client1": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-152310\\client1.json\"",
+      "pid": 52824
+    },
+    "client2": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-152310\\client2.json\"",
+      "pid": 8680
+    },
+    "server": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- server 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-152310\\server.json\"",
+      "pid": 41888
+    }
+  },
+  "build": "source-worktree",
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "results": [
+    {
+      "role": "client1",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "5481a7a81dc650ef75ecbd28033cff2057466429d69db528870218131f48d95e"
+    },
+    {
+      "role": "client2",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "5481a7a81dc650ef75ecbd28033cff2057466429d69db528870218131f48d95e"
+    },
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "5481a7a81dc650ef75ecbd28033cff2057466429d69db528870218131f48d95e"
+    }
+  ],
+  "file_hashes": {
+    "scripts/network/network_battle_server.gd": "DF674DD464B534C9F2C7FD3D8244FE3C988FEFD964FE23F5825F6DB9D34ABE46",
+    "scripts/camera_rig.gd": "596A2F9E370B22B2896E89CD20209CDA1AB4C5BBD8DFC96CA5EAE83BB5EC2FD2",
+    "scripts/tank.gd": "395DB1D059541A3E62387974D8E2F1CA798FF32E1097D374824D6F7D39D799C1",
+    "scripts/network/network_controller.gd": "F4888CED7156C9E260245401E4056AA049841BE517F988B8E742DF12D3CC4EBD",
+    "scripts/vehicle_actor.gd": "AC030C83559E33CD87B1A5AB9C6AC1CDA83DDDF1854056D422B353811E1B2340",
+    "tests/run_network_slice.gd": "BF1CF011ED38C30BB68790A242FEA7C076EC2F11B7466B8278C30B490EA08679",
+    "scripts/projectiles/projectile_manager.gd": "869D5DBB13E5856B6B949AB184A363E8DE8A7A79F395CEAF2E0BF2A6C909FE73",
+    "scripts/network/network_battle_world.gd": "602EFBE55B3FF42F340402AA3A813C798E735EDDC832F0A4E525134A179462EC"
+  },
+  "passed": true
+}

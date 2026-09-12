@@ -16,6 +16,7 @@ func receive(envelope: Variant) -> Dictionary:
 	held.has_aim_point=command.has_aim_point; held.aim_world_point=command.aim_world_point
 	held.clear_aim=command.clear_aim; held.aim_held=command.aim_held
 	held.hold_aim=command.hold_aim
+	held.aim_intent=command.aim_intent.copy()
 	identity={"life":vehicle.life_id,"generation":vehicle.state.generation,"epoch":vehicle.control_epoch,"tick":int(envelope.input_tick)}
 	return result
 func poll() -> VehicleCommand:

@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "snapshots_verified": 393,
+  "deep_candidates_verified": 2,
+  "source_errors": 0,
+  "combat_vehicles_admitted": 0
+}

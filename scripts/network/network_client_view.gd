@@ -5,6 +5,7 @@ var actors: Dictionary = {}
 var player := PlayerController.new()
 var owned: VehicleActor
 var own_generation := -1
+var own_identity: Dictionary = {}
 var status_label: Label
 var details_label: Label
 var optics_label: Label
@@ -58,6 +59,7 @@ func clear_input() -> void:
 func connection_lost() -> void:
 	clear_input()
 	pose_buffer.clear()
+	own_identity.clear(); own_generation=-1
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode==KEY_ESCAPE: clear_input()
@@ -67,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			clear_input()
 			pose_buffer.clear()
 			if owned!=null: owned.set_controller(null); owned.label3d.visible=true
-			owned=null; connection.connect_local(port)
+			owned=null; own_generation=-1; own_identity.clear(); connection.connect_local(port)
 func apply_snapshot(snapshot: Dictionary) -> void:
 	if not pose_buffer.push(snapshot): return
 	if connection.status=="finished":
@@ -84,11 +86,14 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 		if row.entity_id==connection.entity_id:
 			if owned!=actor:
 				if owned!=null: owned.set_controller(null); owned.label3d.visible=true
-				owned=actor; owned.set_controller(player); owned.label3d.visible=false; player.commands_enabled=true; player.require_fire_release()
-			if own_generation!=int(row.generation):
+				owned=actor; own_generation=-1; own_identity.clear(); owned.set_controller(player); owned.label3d.visible=false; player.commands_enabled=true; player.require_fire_release()
+			var identity := {"life_id":int(row.life_id),"generation":int(row.generation),"control_epoch":int(row.control_epoch)}
+			if own_identity!=identity:
+				own_identity=identity
 				own_generation=int(row.generation)
-				owned.cam_rig.reset_optics(); player.reset_pending()
+				owned.cam_rig.reset_optics(); player.reset_pending(); player.require_fire_release(); pending.clear()
 			var stats := connection.own_status
+			owned.fire_control.apply_snapshot(stats.fire_control)
 			details_label.text="炮弹余 %d 发 · 装填 %.1f 秒 · 速度 %.1f km/h · 已射击 %d 发\n%s · %s"%[stats.get("ammo",0),stats.get("cooldown",0),absf(float(stats.get("speed",0)))*3.6,row.shots,"车辆已失能" if row.destroyed else "车辆可操作",last_event]
 func _process(delta: float) -> void:
 	if owned!=null: optics_label.text=owned.cam_rig.optics_text()
@@ -106,8 +111,9 @@ func _physics_process(_delta: float) -> void:
 	var command := player.poll()
 	owned.cam_rig.set_sight_requested(command.aim_held)
 	owned.cam_rig.refresh_intent()
-	command.clear_aim=false; command.has_aim_point=true
-	command.aim_world_point=owned.cam_rig.intent_point()
+	# Submit the player's angular optical intention. Only authority queries its
+	# own geometry and range; a client world point is not an authoritative fact.
+	command.clear_aim=true; command.has_aim_point=false
 	if pending.has_staged() and Time.get_ticks_msec()-pending_since>200: pending.clear()
 	if not pending.has_staged(): pending_since=Time.get_ticks_msec()
 	pending.submit(command) # Preserve short fire edges between 20Hz send opportunities.

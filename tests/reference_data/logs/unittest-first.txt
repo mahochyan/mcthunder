@@ -1,0 +1,21 @@
+test_output_cannot_modify_source_tree (test_import_reference_data.ImportTests.test_output_cannot_modify_source_tree) ... ok
+test_real_fixture_import_is_idempotent_and_sources_unchanged (test_import_reference_data.ImportTests.test_real_fixture_import_is_idempotent_and_sources_unchanged) ... ok
+test_caliber_speed_and_capacity_units (test_import_reference_data.RealSummaryTests.test_caliber_speed_and_capacity_units) ... ok
+test_card_and_local_armor_remain_separate_with_inheritance (test_import_reference_data.RealSummaryTests.test_card_and_local_armor_remain_separate_with_inheritance) ... ok
+test_distinct_traverse_and_roster_not_generic_module_counts (test_import_reference_data.RealSummaryTests.test_distinct_traverse_and_roster_not_generic_module_counts) ... ok
+test_duplicate_identity_rejected (test_import_reference_data.RealSummaryTests.test_duplicate_identity_rejected) ... ok
+test_duplicate_numeric_values_are_conflicts_not_last_wins (test_import_reference_data.RealSummaryTests.test_duplicate_numeric_values_are_conflicts_not_last_wins) ... ok
+test_empty_not_false_or_one (test_import_reference_data.RealSummaryTests.test_empty_not_false_or_one) ... ok
+test_fixture_identity_and_version (test_import_reference_data.RealSummaryTests.test_fixture_identity_and_version) ... ok
+test_hitpower_and_stability_not_armor_or_stabilizer (test_import_reference_data.RealSummaryTests.test_hitpower_and_stability_not_armor_or_stabilizer) ... ok
+test_ir_and_upgrades_not_automatic_thermal_capability (test_import_reference_data.RealSummaryTests.test_ir_and_upgrades_not_automatic_thermal_capability) ... ok
+test_rack_replenishment_is_not_shot_reload (test_import_reference_data.RealSummaryTests.test_rack_replenishment_is_not_shot_reload) ... ok
+test_source_truncation_is_an_explicit_gap (test_import_reference_data.RealSummaryTests.test_source_truncation_is_an_explicit_gap) ... ok
+test_truncated_tail_preserves_missing_fields (test_import_reference_data.RealSummaryTests.test_truncated_tail_preserves_missing_fields) ... ok
+test_wrong_id_rejected (test_import_reference_data.RealSummaryTests.test_wrong_id_rejected) ... ok
+test_wrong_units_do_not_silently_convert (test_import_reference_data.RealSummaryTests.test_wrong_units_do_not_silently_convert) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.274s
+
+OK

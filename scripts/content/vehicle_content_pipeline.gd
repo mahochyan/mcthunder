@@ -4,7 +4,9 @@ extends RefCounted
 static func validate_package(packet: Dictionary) -> Dictionary:
 	var shape_errors := check_shape(packet)
 	if not shape_errors.is_empty(): return {"ok":false,"errors":shape_errors,"notes":[]}
-	var evidence := HistoricalEvidenceGate.check(packet)
+	var profile: Variant = packet.get("evidence_profile","historical_verified")
+	if profile not in ["historical_verified","game_reference"]: return {"ok":false,"errors":["evidence_profile: unsupported"],"notes":[]}
+	var evidence: Dictionary = ReferenceEvidenceGate.check(packet) if profile=="game_reference" else HistoricalEvidenceGate.check(packet)
 	var compatibility := VariantCompatibility.check(packet)
 	var errors: Array[String] = []
 	errors.append_array(evidence.errors); errors.append_array(compatibility.errors)
@@ -45,10 +47,13 @@ static func validate_package(packet: Dictionary) -> Dictionary:
 		if str(overlap).begins_with("SUSPICIOUS"): errors.append(overlap)
 		else: evidence.notes.append(overlap)
 	var definitions := definitions_for(packet,layout)
-	var shell_set := HistoricalShellCatalog.build(packet)
+	var shell_set := VehicleShellCatalog.build(packet)
 	for error in shell_set.errors: errors.append(error)
+	# Only the full pipeline may promote engineering admission; serialized status is not proof.
+	if errors.is_empty(): definitions.vehicle.admission_status="validated"
 	for definition in [definitions.vehicle,definitions.weapon,definitions.shell]:
 		for error in definition.validate().errors: errors.append(str(definition.id)+": "+error)
+	if not errors.is_empty(): definitions.vehicle.admission_status="candidate"
 	return {"ok":errors.is_empty(),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet}
 
 static func number(value: Variant) -> bool:
@@ -170,8 +175,11 @@ static func layout_evidence(packet: Dictionary, layout: VehicleLayoutDefinition)
 static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition) -> Dictionary:
 	var v := VehicleDefinition.new(); var w := WeaponDefinition.new(); var s := ShellDefinition.new()
 	v.id = packet.id; v.display_name_key = packet.display_name; v.layout_id = layout.id
-	v.content_tier = "production"; v.verification = "verified" # Identity admission; field estimates remain in packet.
-	v.source_refs = ["res://configs/vehicles/historical/"+str(packet.id)+".json: field evidence"]
+	v.content_tier = "production"
+	v.evidence_profile = str(packet.get("evidence_profile","historical_verified"))
+	v.verification = "estimated" if v.evidence_profile=="game_reference" else "verified"
+	v.admission_status = "candidate"
+	v.source_refs.assign(["game_reference:"+str(packet.id)+": field evidence"] if v.evidence_profile=="game_reference" else ["res://configs/vehicles/historical/"+str(packet.id)+".json: field evidence"])
 	v.weapon_id = packet.id+"_gun"; w.id = v.weapon_id; w.shell_id = packet.id+"_shell"; s.id = w.shell_id
 	var r: Dictionary = packet.runtime
 	v.forward_max_speed = r.forward_max_speed; v.reverse_max_speed = r.reverse_max_speed
@@ -201,7 +209,7 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	for pair in r.penetration_curve: s.penetration_curve.append(Vector2(pair[0],pair[1]))
 	s.penetration_mm = s.penetration_curve[0].y; s.max_flight_time_s = 12
 	s.verification = "estimated"; s.source_refs = v.source_refs.duplicate()
-	var current_shells := HistoricalShellCatalog.build(packet)
+	var current_shells := VehicleShellCatalog.build(packet)
 	if current_shells.ok:
 		for option in current_shells.options:
 			if option.id == current_shells.default_id: s = option

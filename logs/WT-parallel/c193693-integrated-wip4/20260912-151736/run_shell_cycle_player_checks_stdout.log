@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] next-shell action defaults to rebindable M in shell contexts
+[PASS] 3-option fixture passes production reference admission
+[PASS] 3-option actor installs its complete authoritative catalog
+[PASS] real M key selects second option without replacing the loaded shell
+[PASS] real M key selects third option from authority inventory even when player replica has no catalog
+[PASS] real fire input launches the previously chambered first option
+[PASS] firing begins ordinary transfer of the selected third option
+[PASS] cycling wraps the selected catalog without changing the round already being carried
+[PASS] unmodified production reload naturally chambers the third option
+[PASS] real fire input launches the third option with its own frozen initial speed
+[PASS] actual first and third launches preserve the inventory ledger
+[PASS] existing 2 shortcut still selects the second option
+[PASS] existing 1 shortcut still selects the first option
+[PASS] next-shell action can be rebound through the production binding service
+[PASS] old M binding no longer changes ammo after rebinding
+[PASS] rebound physical key changes the real authoritative selection
+[PASS] default cycling key is restored for following checks
+[PASS] holding or key-repeat echo cycles once per press
+[PASS] real input edge is pending before the pause boundary
+[PASS] pause notification clears a captured cycle edge
+[PASS] resume while M remains held cannot replay the pending selection
+[PASS] release followed by a new press restores normal cycling
+[PASS] input-disabled overlays cannot leave a delayed cycle edge
+[PASS] mailbox copies and OR-merges the cycle edge for one consumption only
+[PASS] current v3 command transports the cycle intent without a client-computed index
+[PASS] numeric cycle flag is rejected by the strict command contract
+[PASS] command reset clears the new cycle edge
+[PASS] 8-option fixture passes production reference admission
+[PASS] 8-option actor installs its complete authoritative catalog
+[PASS] real M input reaches catalog option 2 and wraps by actual count
+[PASS] real M input reaches catalog option 3 and wraps by actual count
+[PASS] real M input reaches catalog option 4 and wraps by actual count
+[PASS] real M input reaches catalog option 5 and wraps by actual count
+[PASS] real M input reaches catalog option 6 and wraps by actual count
+[PASS] real M input reaches catalog option 7 and wraps by actual count
+[PASS] real M input reaches catalog option 8 and wraps by actual count
+[PASS] real M input reaches catalog option 1 and wraps by actual count
+[PASS] 1-option fixture passes production reference admission
+[PASS] 1-option actor installs its complete authoritative catalog
+[PASS] single-option catalog cycles safely without an invented second option
+[PASS] older settings preserve occupied M while assigning the new action a free key
+=== 结果: 41 项检查, 0 失败 ===
+SHELL_CYCLE_PLAYER_CHECKS_PASS

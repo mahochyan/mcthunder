@@ -165,6 +165,8 @@ func _build() -> void:
 	reload_bar = _bar(gun)
 	reason_label = _label(gun,"",15)
 	optics_label = _label(gun,"",15)
+	optics_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	optics_label.custom_minimum_size.x=300
 	fire_label = _label(gun,LocalizationService.text("ui_a9f80686bf4a"),16)
 	action_label = _label(gun,LocalizationService.text("ui_ae2b01ef58c0"),15)
 	action_bar = _bar(gun)
@@ -331,7 +333,12 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	optics_label.modulate=Color("ffcf8f") if error>0.5 else Color("d7e2dc")
 	ammo_label.text = LocalizationService.text("ui_0abaaeb13f23")%[model.shell,model.ammo,model.chamber]
 	if model.has("next_shell"):
-		ammo_label.text += LocalizationService.text("ui_fa574d6d0cc4")+str(model.next_shell)+" · "+InputBindingService.hint("shell_1")+"/"+InputBindingService.hint("shell_2")+LocalizationService.text("ui_ca364d1c36c4")
+		var quick_keys := InputBindingService.hint("shell_1")
+		if int(model.get("shell_option_count", 2)) > 1:
+			quick_keys += "/" + InputBindingService.hint("shell_2")
+		ammo_label.text += LocalizationService.text("ui_fa574d6d0cc4")+str(model.next_shell)+" · "+quick_keys+LocalizationService.text("ui_ca364d1c36c4")
+		if int(model.get("shell_option_count", 2)) > 1:
+			ammo_label.text += " · " + LocalizationService.text("shell_cycle_hint") % InputBindingService.hint("cycle_shell")
 		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += LocalizationService.text("ui_b9c816a8cf71")+str(model.carrying_shell)
 	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)

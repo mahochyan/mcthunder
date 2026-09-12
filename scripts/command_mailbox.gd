@@ -34,6 +34,10 @@ func submit(cmd: VehicleCommand) -> bool:
 		return false
 	if cmd.has_aim_point and cmd.clear_aim:
 		return false
+	if cmd.aim_intent==null or not AimIntent.valid_snapshot(cmd.aim_intent.snapshot()) or absi(cmd.zeroing_steps)>20:
+		return false
+	if cmd.aim_intent.active and cmd.has_aim_point: return false
+	if cmd.select_shell < -1 or cmd.select_shell > 7: return false
 	var copy := VehicleCommand.new()
 	copy.throttle = clampf(cmd.throttle, -1.0, 1.0)
 	copy.steer = clampf(cmd.steer, -1.0, 1.0)
@@ -42,7 +46,12 @@ func submit(cmd: VehicleCommand) -> bool:
 	copy.clear_aim = cmd.clear_aim
 	copy.aim_held = cmd.aim_held
 	copy.hold_aim = cmd.hold_aim
+	copy.aim_intent=cmd.aim_intent.copy()
+	copy.range_requested=cmd.range_requested
+	copy.apply_range_requested=cmd.apply_range_requested
+	copy.zeroing_steps=cmd.zeroing_steps
 	copy.select_shell = cmd.select_shell
+	copy.cycle_shell_requested = cmd.cycle_shell_requested
 	# 同一步多次提交合并：开火做逻辑或；驾驶/炮镜用最新样本；
 	# fire-only 的后续提交不覆盖本步已暂存的显式瞄点操作
 	copy.fire_requested = cmd.fire_requested
@@ -51,12 +60,18 @@ func submit(cmd: VehicleCommand) -> bool:
 	copy.replace_crew_requested = cmd.replace_crew_requested
 	copy.cancel_recovery_requested = cmd.cancel_recovery_requested
 	if _pending != null:
+		if copy.select_shell == -1: copy.select_shell = _pending.select_shell
+		copy.cycle_shell_requested = copy.cycle_shell_requested or _pending.cycle_shell_requested
+		copy.range_requested=copy.range_requested or _pending.range_requested
+		copy.apply_range_requested=copy.apply_range_requested or _pending.apply_range_requested
+		copy.zeroing_steps=clampi(copy.zeroing_steps+_pending.zeroing_steps,-20,20)
+		if not copy.aim_intent.active and not copy.has_aim_point and not copy.clear_aim: copy.aim_intent=_pending.aim_intent.copy()
 		copy.fire_requested = copy.fire_requested or _pending.fire_requested
 		copy.repair_requested = copy.repair_requested or _pending.repair_requested
 		copy.extinguish_requested = copy.extinguish_requested or _pending.extinguish_requested
 		copy.replace_crew_requested = copy.replace_crew_requested or _pending.replace_crew_requested
 		copy.cancel_recovery_requested = copy.cancel_recovery_requested or _pending.cancel_recovery_requested
-		if not copy.has_aim_point and not copy.clear_aim:
+		if not copy.has_aim_point and not copy.clear_aim and not copy.aim_intent.active:
 			copy.has_aim_point = _pending.has_aim_point
 			copy.aim_world_point = _pending.aim_world_point
 			copy.clear_aim = _pending.clear_aim

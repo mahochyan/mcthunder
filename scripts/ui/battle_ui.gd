@@ -181,6 +181,7 @@ func _process(_delta: float) -> void:
 	if player().gunner.inventory.typed:
 		var gun := player().gunner
 		model["next_shell"] = gun.shell_label(gun.inventory.selected_shell)
+		model["shell_option_count"] = gun.shell_options.size()
 		model["carrying_shell"] = gun.shell_label(gun.inventory.transfer_shell) if gun.inventory.in_transfer>0 else ""
 	if battle is TeamRange: model["supply_status"] = battle.ammunition_supply.status.get(str(player().life_id),"")
 	overlay.present(model,intel.snapshot(player()),camera,roster())

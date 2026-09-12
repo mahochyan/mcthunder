@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] both endpoint-only snapshots miss the unexpanded 6cm-wide target
+[PASS] time-correlated translation detects target crossing between both missed endpoint poses
+[PASS] contact time and world point describe the same actual crossing
+[PASS] contact distance remains projectile world travel, not the longer relative-motion line
+[PASS] event carries the target authority transform at impact rather than step end
+[PASS] target crossing the same spatial path at the wrong time does not create a hit
+[PASS] splitting projectile chords preserves crossing time and accumulated world distance
+[PASS] earlier static world wall still wins over a later moving armor contact
+[PASS] unchanged module and crew boxes use the same translational time interval
+[PASS] moving volume entry/exit retains exact size and contact-time pose: module
+[PASS] moving volume entry/exit retains exact size and contact-time pose: crew
+[PASS] replay snapshot is frozen at actual contact time
+[PASS] later producer mutation cannot change a bound pair of snapshots
+[PASS] invalid motion interval is rejected
+[PASS] invalid motion interval is rejected
+[PASS] invalid motion interval is rejected
+[PASS] invalid motion interval is rejected
+[PASS] unchanged target is not registered as translated motion
+[PASS] static geometry still produces its original single deduplicated surface event
+[PASS] static events preserve original fields instead of acquiring artificial motion fractions
+[PASS] static same-tick contacts retain shared replay frames and do not consume the motion frame budget
+[PASS] same-velocity remote boxes remain a clear miss instead of a zero-relative-segment query failure
+[PASS] same-velocity interior occupancy has continuous intervals without fabricated entry or exit boundaries
+[PASS] co-moving interior interval retains projectile world distance: module
+[PASS] co-moving interior interval retains projectile world distance: crew
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: life
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: generation
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: layout_revision
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: layout_resource
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: tick_gap
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: long_step
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: teleport
+[PASS] static fallback states its incomplete continuous coverage: teleport
+[PASS] unsupported or discontinuous target pose is not joined by an invented sweep: rotation
+[PASS] static fallback states its incomplete continuous coverage: rotation
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] real manager first flight tick detects high-speed thin target crossing between endpoint misses
+[PASS] real terminal identity, lifetime and path distance use the same physical crossing
+[PASS] real projectile impact is on the moving thin surface at contact time
+[PASS] actual contact and replay use authority pose at impact despite unrelated visual geometry
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] real manager rejects different-time crossing instead of intersecting a spatial union
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] real near wall prevents later moving-target damage
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] lifetime clipping keeps target time on the full authority tick rather than stretching its motion
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] weapon path clipping preserves the substep's actual target time
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] actual generation change cannot sweep old life geometry across the new target
+[PASS] actual moving-contact fixture projectile is admitted
+[PASS] birth tick does not advance or manufacture a hit
+[PASS] authority sample, birth and target motion execute on consecutive physics ticks
+[PASS] internal-burst policy retains the existing static path until its entire moving inside calculation is implemented
+[PASS] same-tick replay cache distinguishes separate moving contact times
+=== 结果: 67 项检查, 0 失败 ===
+MOVING_CONTACT_CHECKS_PASS
