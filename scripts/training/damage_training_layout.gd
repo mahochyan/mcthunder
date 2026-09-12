@@ -59,6 +59,9 @@ static func build(with_recovery: bool = false) -> VehicleLayoutDefinition:
 
 static func part_node(actor: VehicleActor, part: String) -> Node3D:
 	match part:
+		"drive": return actor.tank
+		TrackAssembly.LEFT: return actor.tank.track_left_frame
+		TrackAssembly.RIGHT: return actor.tank.track_right_frame
 		"turret": return actor.turret
 		"barrel": return actor.turret.barrel_pivot
 	return actor.tank.hull_frame

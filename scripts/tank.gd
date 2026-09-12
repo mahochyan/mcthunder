@@ -12,6 +12,9 @@ var landing := LandingResponse.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var hull_frame: Node3D
+var track_left_frame: Node3D
+var track_right_frame: Node3D
+var track_probe_offsets: Dictionary = {}
 var turret_rig: TurretRig
 var camera_rig: CameraRig
 var _spawn := Transform3D()
@@ -54,6 +57,12 @@ func _build() -> void:
 	hull_frame=Node3D.new()
 	hull_frame.name="HullFrame"
 	add_child(hull_frame)
+	track_left_frame=Node3D.new()
+	track_left_frame.name="TrackLeftFrame"
+	add_child(track_left_frame)
+	track_right_frame=Node3D.new()
+	track_right_frame.name="TrackRightFrame"
+	add_child(track_right_frame)
 	var cs := CollisionShape3D.new()
 	var shape := BoxShape3D.new()
 	shape.size = defs.drive_collision_size if defs != null else GameConfig.DRIVE_COLLISION_SIZE
@@ -181,6 +190,8 @@ func reset() -> void:
 	chassis.reset()
 	landing.reset()
 	hull_frame.transform=Transform3D.IDENTITY
+	track_left_frame.transform=Transform3D.IDENTITY
+	track_right_frame.transform=Transform3D.IDENTITY
 	recoil_velocity = Vector3.ZERO
 	transform = _spawn
 	forward_speed = 0.0

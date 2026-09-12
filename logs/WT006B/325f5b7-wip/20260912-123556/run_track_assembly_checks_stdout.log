@@ -1,0 +1,85 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical layouts pass production admission
+[PASS] normal assembly us_m4a3_75w_vvss_1944
+[PASS] independent running gear parents us_m4a3_75w_vvss_1944
+[PASS] tracks and road wheels split by side us_m4a3_75w_vvss_1944
+[PASS] hull compression cannot drag track visuals or shot volumes us_m4a3_75w_vvss_1944
+[PASS] query snapshot freezes hull and running gear separately us_m4a3_75w_vvss_1944
+[PASS] displaced hull armor still matches appearance us_m4a3_75w_vvss_1944
+[PASS] one side articulation leaves opposite hit volume unchanged us_m4a3_75w_vvss_1944
+[PASS] reset clears every relative frame us_m4a3_75w_vvss_1944
+[PASS] external damage uses matching side frame us_m4a3_75w_vvss_1944track_left
+[PASS] both authored support points contact ground us_m4a3_75w_vvss_1944track_left
+[PASS] real projectile spawned us_m4a3_75w_vvss_1944track_left
+[PASS] actual projectile query breaks selected track us_m4a3_75w_vvss_1944track_left
+[PASS] shot preserves other track and enables only damaged pivot us_m4a3_75w_vvss_1944track_left
+[PASS] broken track retains physical ground support us_m4a3_75w_vvss_1944track_left
+[PASS] external damage uses matching side frame us_m4a3_75w_vvss_1944track_right
+[PASS] both authored support points contact ground us_m4a3_75w_vvss_1944track_right
+[PASS] real projectile spawned us_m4a3_75w_vvss_1944track_right
+[PASS] actual projectile query breaks selected track us_m4a3_75w_vvss_1944track_right
+[PASS] shot preserves other track and enables only damaged pivot us_m4a3_75w_vvss_1944track_right
+[PASS] broken track retains physical ground support us_m4a3_75w_vvss_1944track_right
+[PASS] normal assembly us_m24_m6_t85e1_1951
+[PASS] independent running gear parents us_m24_m6_t85e1_1951
+[PASS] tracks and road wheels split by side us_m24_m6_t85e1_1951
+[PASS] hull compression cannot drag track visuals or shot volumes us_m24_m6_t85e1_1951
+[PASS] query snapshot freezes hull and running gear separately us_m24_m6_t85e1_1951
+[PASS] displaced hull armor still matches appearance us_m24_m6_t85e1_1951
+[PASS] one side articulation leaves opposite hit volume unchanged us_m24_m6_t85e1_1951
+[PASS] reset clears every relative frame us_m24_m6_t85e1_1951
+[PASS] external damage uses matching side frame us_m24_m6_t85e1_1951track_left
+[PASS] both authored support points contact ground us_m24_m6_t85e1_1951track_left
+[PASS] real projectile spawned us_m24_m6_t85e1_1951track_left
+[PASS] actual projectile query breaks selected track us_m24_m6_t85e1_1951track_left
+[PASS] shot preserves other track and enables only damaged pivot us_m24_m6_t85e1_1951track_left
+[PASS] broken track retains physical ground support us_m24_m6_t85e1_1951track_left
+[PASS] external damage uses matching side frame us_m24_m6_t85e1_1951track_right
+[PASS] both authored support points contact ground us_m24_m6_t85e1_1951track_right
+[PASS] real projectile spawned us_m24_m6_t85e1_1951track_right
+[PASS] actual projectile query breaks selected track us_m24_m6_t85e1_1951track_right
+[PASS] shot preserves other track and enables only damaged pivot us_m24_m6_t85e1_1951track_right
+[PASS] broken track retains physical ground support us_m24_m6_t85e1_1951track_right
+[PASS] normal assembly us_m26_m3_1945
+[PASS] independent running gear parents us_m26_m3_1945
+[PASS] tracks and road wheels split by side us_m26_m3_1945
+[PASS] hull compression cannot drag track visuals or shot volumes us_m26_m3_1945
+[PASS] query snapshot freezes hull and running gear separately us_m26_m3_1945
+[PASS] displaced hull armor still matches appearance us_m26_m3_1945
+[PASS] one side articulation leaves opposite hit volume unchanged us_m26_m3_1945
+[PASS] reset clears every relative frame us_m26_m3_1945
+[PASS] external damage uses matching side frame us_m26_m3_1945track_left
+[PASS] both authored support points contact ground us_m26_m3_1945track_left
+[PASS] real projectile spawned us_m26_m3_1945track_left
+[PASS] actual projectile query breaks selected track us_m26_m3_1945track_left
+[PASS] shot preserves other track and enables only damaged pivot us_m26_m3_1945track_left
+[PASS] broken track retains physical ground support us_m26_m3_1945track_left
+[PASS] external damage uses matching side frame us_m26_m3_1945track_right
+[PASS] both authored support points contact ground us_m26_m3_1945track_right
+[PASS] real projectile spawned us_m26_m3_1945track_right
+[PASS] actual projectile query breaks selected track us_m26_m3_1945track_right
+[PASS] shot preserves other track and enables only damaged pivot us_m26_m3_1945track_right
+[PASS] broken track retains physical ground support us_m26_m3_1945track_right
+[PASS] normal assembly us_m36_m4a1_1945
+[PASS] independent running gear parents us_m36_m4a1_1945
+[PASS] tracks and road wheels split by side us_m36_m4a1_1945
+[PASS] hull compression cannot drag track visuals or shot volumes us_m36_m4a1_1945
+[PASS] query snapshot freezes hull and running gear separately us_m36_m4a1_1945
+[PASS] displaced hull armor still matches appearance us_m36_m4a1_1945
+[PASS] one side articulation leaves opposite hit volume unchanged us_m36_m4a1_1945
+[PASS] reset clears every relative frame us_m36_m4a1_1945
+[PASS] external damage uses matching side frame us_m36_m4a1_1945track_left
+[PASS] both authored support points contact ground us_m36_m4a1_1945track_left
+[PASS] real projectile spawned us_m36_m4a1_1945track_left
+[PASS] actual projectile query breaks selected track us_m36_m4a1_1945track_left
+[PASS] shot preserves other track and enables only damaged pivot us_m36_m4a1_1945track_left
+[PASS] broken track retains physical ground support us_m36_m4a1_1945track_left
+[PASS] external damage uses matching side frame us_m36_m4a1_1945track_right
+[PASS] both authored support points contact ground us_m36_m4a1_1945track_right
+[PASS] real projectile spawned us_m36_m4a1_1945track_right
+[PASS] actual projectile query breaks selected track us_m36_m4a1_1945track_right
+[PASS] shot preserves other track and enables only damaged pivot us_m36_m4a1_1945track_right
+[PASS] broken track retains physical ground support us_m36_m4a1_1945track_right
+=== 结果: 81 项检查, 0 失败 ===
+TRACK_ASSEMBLY_CHECKS_PASS

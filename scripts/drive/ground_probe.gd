@@ -10,11 +10,24 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 	var drag := 0.0
 	out.surface_drag=0.0
 	out.left_support=0.0; out.right_support=0.0; out.traction_support=0.0
+	out.track_contacts={TrackAssembly.LEFT:[],TrackAssembly.RIGHT:[]}
 	for pair in [Vector2(-1,-1),Vector2(1,-1),Vector2(-1,1),Vector2(1,1),Vector2.ZERO]:
 		var base: Vector3 = body.global_position+side*pair.x*half_size.x+direction*pair.y*half_size.y
+		var part := TrackAssembly.LEFT if pair.x<0 else TrackAssembly.RIGHT
+		var frame := body.track_left_frame if pair.x<0 else body.track_right_frame
+		var offset := Vector3.ZERO
+		var authored: bool = pair.x!=0 and body.track_probe_offsets.has(part)
+		if authored:
+			offset=body.track_probe_offsets[part][0 if pair.y>0 else 1]
+			base=frame.to_global(offset)
+		var contact := {"id":"front" if pair.y>0 else "rear","hit":false,"supported":false,"position":Vector3.ZERO,"normal":Vector3.UP,"gap_m":INF}
+		if pair.x!=0: out.track_contacts[part].append(contact)
 		var query := PhysicsRayQueryParameters3D.create(base+Vector3.UP*GameConfig.DRIVE_PROBE_UP_M,base-Vector3.UP*GameConfig.DRIVE_PROBE_DOWN_M,GameConfig.LAYER_WORLD,[body.get_rid()])
 		var hit := space.intersect_ray(query)
 		if hit.is_empty() or (hit.normal as Vector3).dot(Vector3.UP) <= 0.1: continue
+		var gap := absf(frame.to_local(hit.position).y-offset.y) if authored else absf(body.to_local(hit.position).y)
+		contact.hit=true; contact.position=hit.position; contact.normal=hit.normal; contact.gap_m=gap
+		contact.supported=body.is_on_floor() and gap<=GameConfig.DRIVE_SUPPORT_REACH_M
 		out.points.append(hit.position)
 		out.normals.append(hit.normal)
 		sum += hit.normal
@@ -22,7 +35,7 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 		drag += DriveSurface.drag_at(hit.collider,hit.position)
 		out.support_count += 1
 		# A ray can see the bottom of a ditch without supporting the track above it.
-		if pair.x!=0 and absf(body.to_local(hit.position).y)<=GameConfig.DRIVE_SUPPORT_REACH_M:
+		if pair.x!=0 and contact.supported:
 			if pair.x<0: out.left_support+=0.5
 			else: out.right_support+=0.5
 	if out.support_count > 0 and sum.length_squared() > 0.01:

@@ -19,6 +19,9 @@ static func build_from_vehicle(vehicle: TankVehicle, layout: VehicleLayoutDefini
 	var transforms := {}
 	var missing: Array = []
 	transforms[PART_HULL] = vehicle.hull_frame.global_transform
+	transforms["drive"] = vehicle.global_transform
+	transforms[TrackAssembly.LEFT] = vehicle.track_left_frame.global_transform
+	transforms[TrackAssembly.RIGHT] = vehicle.track_right_frame.global_transform
 	if vehicle.turret_rig != null and is_instance_valid(vehicle.turret_rig):
 		transforms[PART_TURRET] = vehicle.turret_rig.global_transform
 		if vehicle.turret_rig.barrel_pivot != null and is_instance_valid(vehicle.turret_rig.barrel_pivot):

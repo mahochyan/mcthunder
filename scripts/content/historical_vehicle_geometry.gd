@@ -112,6 +112,7 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		c.role_placement_status = packet.facts["crew.placement"].status
 		c.evidence_keys = PackedStringArray(["crew.placement","geometry.crew"])
 		out.crew_stations.append(c)
+	TrackAssembly.bind_layout(out)
 	return out
 
 static func declare_opening(out: VehicleLayoutDefinition, part: String, id: String, loop: Array) -> void:

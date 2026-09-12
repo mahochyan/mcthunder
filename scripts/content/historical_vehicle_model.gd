@@ -21,6 +21,7 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	for part in ["hull","turret","barrel"]:
 		VehicleAtlas.skin(actor,part,layout,str(packet.id))
 	build_details(actor.tank.hull_frame,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
+	TrackAssembly.install(actor,layout)
 	HistoricalTrackMotion.new().setup(actor.tank,packet)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
 
