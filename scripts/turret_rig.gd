@@ -19,6 +19,7 @@ var _aim_override: Vector3 = Vector3.ZERO   # 003：脚本命令瞄准点（B �
 var _has_aim_override := false
 var capabilities_provider := Callable()
 var recoil_visual: Node3D
+var observation_hold := false
 
 func _ready() -> void:
 	var tm := MeshInstance3D.new()
@@ -83,7 +84,7 @@ func _aim_point() -> Vector3:
 
 func advance_mechanism(delta: float) -> void:
 	if not is_finite(delta) or delta <= 0 or get_tree().paused: return
-	if (cam_rig != null or _has_aim_override) and not (cam_rig != null and cam_rig.free_look):
+	if (cam_rig != null or _has_aim_override) and not observation_hold and not (cam_rig != null and cam_rig.is_observing()):
 		# 002-R2：目标角由期望世界瞄点 P 反推（相机与炮管位置不同，
 		# 方向不必相同，但必须汇聚到同一点）；保留有限转速与俯仰限位
 		# 002-R3：水平目标角符号修正——炮管 -Z 前向、右手系、无镜像约定下
@@ -150,6 +151,12 @@ func aim_error_deg() -> float:
 	var dp := absf(target.x - barrel_pivot.rotation.x)
 	return rad_to_deg(maxf(dy, dp))
 
+func alignment_error_deg() -> float:
+	# Unclamped target error: reaching a pitch stop does not mean aimed on target.
+	if cam_rig==null and not _has_aim_override: return 0.0
+	var direction := _aim_point()-barrel_pivot.global_position
+	return rad_to_deg(barrel_direction().angle_to(direction)) if direction.length_squared()>0.0001 else 0.0
+
 func kick_recoil() -> void:
 	_recoil = 0.22
 	_flash.visible = flash_enabled and AccessibilitySettings.fx_level>0 and not AccessibilitySettings.reduce_flashes
@@ -161,6 +168,7 @@ func barrel_direction() -> Vector3:
 	return -barrel_pivot.global_transform.basis.z
 
 func reset_state() -> void:
+	observation_hold=false
 	_recoil = 0.0
 	_flash_left = 0.0
 	_flash.visible = false

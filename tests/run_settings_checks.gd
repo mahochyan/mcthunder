@@ -60,7 +60,9 @@ func run() -> void:
 	check(not InputBindingService.writable and not InputBindingService.save().is_empty(),"T029-02 future backup is protected too")
 	write(path+".bak",good); reopen(path)
 	DirAccess.make_dir_absolute(path+".tmp")
-	check(not InputBindingService.apply_binding("fire",KEY_L).is_empty() and InputBindingService.bindings.fire==KEY_K and FileAccess.get_file_as_string(path)==good,"T029-03 temp write failure retains disk and active binding")
+	# Keep this a storage failure: L is now the binocular binding.
+	var candidate_is_valid := InputBindingService.valid_code(KEY_O,"fire") and InputBindingService.conflicts("fire",KEY_O).is_empty()
+	check(candidate_is_valid and not InputBindingService.apply_binding("fire",KEY_O).is_empty() and InputBindingService.bindings.fire==KEY_K and FileAccess.get_file_as_string(path)==good,"T029-03 temp write failure retains disk and active binding")
 	DirAccess.remove_absolute(path+".tmp")
 	DirAccess.make_dir_absolute(path+".bak.tmp")
 	check(not InputBindingService.save().is_empty() and FileAccess.get_file_as_string(path)==good,"T029-03 backup failure retains primary")

@@ -19,6 +19,7 @@ func _physics_process(_delta: float) -> void:
 			"velocity":actor.tank.velocity,"turret_yaw":actor.turret.rotation.y,"gun_pitch":actor.turret.barrel_pivot.rotation.x,
 			"frame_pose":VehicleFramePose.capture(actor.tank),
 			"suspension":actor.tank.suspension.snapshot(),
+			"observation_hold":actor.turret.observation_hold,
 			"shots_fired":actor.gunner.shots_fired,"cooldown":actor.gunner.cooldown_left,
 			"ammunition":actor.gunner.inventory.shell_counts().duplicate(true),"destroyed":actor.state.destroyed,
 			"capabilities":actor.capabilities().duplicate(true)})

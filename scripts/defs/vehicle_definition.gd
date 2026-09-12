@@ -26,6 +26,7 @@ extends Resource
 @export var coast_decel: float = 3.0
 @export var hull_turn_speed: float = 75.0
 @export var drive_profile: DriveProfile = DriveProfile.new()
+@export var optics_profile: OpticsProfile = OpticsProfile.new()
 @export var max_slope_deg: float = GameConfig.DRIVE_MAX_SLOPE_DEG
 @export var drive_collision_size: Vector3 = GameConfig.DRIVE_COLLISION_SIZE
 @export var drive_collision_center: Vector3 = GameConfig.DRIVE_COLLISION_CENTER
@@ -46,6 +47,8 @@ extends Resource
 func validate() -> Dictionary:
 	# 返回 {ok: bool, errors: Array[String]}；errors 以字段名开头，便于定位
 	var errors: Array[String] = []
+	if optics_profile==null: errors.append("optics_profile: missing")
+	else: errors.append_array(optics_profile.validate())
 	if drive_profile==null: errors.append("drive_profile: missing")
 	else: errors.append_array(drive_profile.validate())
 	if id.is_empty():

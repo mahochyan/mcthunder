@@ -59,7 +59,7 @@ func submit(command: VehicleCommand) -> bool:
 		if row.entity_id!=entity_id: continue
 		var body := {"throttle":command.throttle,"steer":command.steer,"select_shell":command.select_shell,"aim_world_point":[command.aim_world_point.x,command.aim_world_point.y,command.aim_world_point.z]}
 		for flag in VehicleCommandCodec.FLAGS: body[flag]=command.get(flag)
-		var envelope := {"version":1,"entity_id":entity_id,"life_id":row.life_id,"generation":row.generation,"control_epoch":row.control_epoch,"sequence":sequence,"input_tick":latest.tick,"command":body}
+		var envelope := {"version":VehicleCommandCodec.VERSION,"entity_id":entity_id,"life_id":row.life_id,"generation":row.generation,"control_epoch":row.control_epoch,"sequence":sequence,"input_tick":latest.tick,"command":body}
 		send({"type":"command","envelope":envelope}); sequence+=1; last_sent_tick=int(latest.tick)
 		return true
 	return false

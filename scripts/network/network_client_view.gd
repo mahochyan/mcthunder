@@ -4,8 +4,10 @@ var connection := NetworkBattleClient.new()
 var actors: Dictionary = {}
 var player := PlayerController.new()
 var owned: VehicleActor
+var own_generation := -1
 var status_label: Label
 var details_label: Label
+var optics_label: Label
 var last_event := "尚无命中结果"
 var port := 19109
 var pending := CommandMailbox.new()
@@ -27,7 +29,7 @@ func _ready() -> void:
 	for i in 2:
 		var actor := VehicleActor.new(); add_child(actor)
 		var id := "A" if i==0 else "B"
-		actor.setup(defs,VehicleCatalog.IDS[i],id,i+1,Transform3D.IDENTITY,4,null)
+		actor.setup(defs,VehicleCatalog.IDS[i],id,i+1,Transform3D.IDENTITY,1<<(i+1),null)
 		actor.label3d.text=id
 		actor.set_physics_process(false) # Remote replica never drives, reloads or fires locally.
 		actor.tank.set_process(false)
@@ -45,9 +47,10 @@ func build_ui() -> void:
 	var column := VBoxContainer.new(); panel.add_child(column)
 	status_label=Label.new(); status_label.add_theme_font_override("font",CoreUI.FONT); column.add_child(status_label)
 	details_label=Label.new(); details_label.add_theme_font_override("font",CoreUI.FONT); column.add_child(details_label)
+	optics_label=Label.new(); optics_label.add_theme_font_override("font",CoreUI.FONT); column.add_child(optics_label)
 	var cross := Label.new(); cross.text="+"; cross.set_anchors_and_offsets_preset(Control.PRESET_CENTER); layer.add_child(cross)
 	var help := Label.new(); help.add_theme_font_override("font",CoreUI.FONT)
-	help.text="W/S 驾驶 · A/D 转向 · 鼠标瞄准 · 左键射击 · 右键炮镜 · B 自由观察\nEsc 释放鼠标/暂停输入 · Enter 继续 · R 重新连接"
+	help.text=InputBindingService.driving_hint()+LocalizationService.text("optics_hint")+"\nEsc 释放鼠标/暂停输入 · Enter 继续 · R 重新连接"
 	help.position=Vector2(16,120); layer.add_child(help)
 func clear_input() -> void:
 	pending.clear(); player.commands_enabled=false; player.require_fire_release()
@@ -82,9 +85,13 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 			if owned!=actor:
 				if owned!=null: owned.set_controller(null); owned.label3d.visible=true
 				owned=actor; owned.set_controller(player); owned.label3d.visible=false; player.commands_enabled=true; player.require_fire_release()
+			if own_generation!=int(row.generation):
+				own_generation=int(row.generation)
+				owned.cam_rig.reset_optics(); player.reset_pending()
 			var stats := connection.own_status
 			details_label.text="炮弹余 %d 发 · 装填 %.1f 秒 · 速度 %.1f km/h · 已射击 %d 发\n%s · %s"%[stats.get("ammo",0),stats.get("cooldown",0),absf(float(stats.get("speed",0)))*3.6,row.shots,"车辆已失能" if row.destroyed else "车辆可操作",last_event]
 func _process(delta: float) -> void:
+	if owned!=null: optics_label.text=owned.cam_rig.optics_text()
 	for row in pose_buffer.advance(delta):
 		if not actors.has(row.entity_id): continue
 		var actor: VehicleActor=actors[row.entity_id]
@@ -97,6 +104,8 @@ func _physics_process(_delta: float) -> void:
 	status_label.text="本机联网训练 · %s · 控制车辆 %s"%[label,connection.entity_id]
 	if owned==null or connection.status!="connected": return
 	var command := player.poll()
+	owned.cam_rig.set_sight_requested(command.aim_held)
+	owned.cam_rig.refresh_intent()
 	command.clear_aim=false; command.has_aim_point=true
 	command.aim_world_point=owned.cam_rig.intent_point()
 	if pending.has_staged() and Time.get_ticks_msec()-pending_since>200: pending.clear()

@@ -13,7 +13,7 @@ func frames(n: int = 3) -> void:
 	for i in n: await physics_frame
 	await process_frame
 func set_sight(camera: CameraRig, point: Vector3) -> void:
-	var direction := (point-camera.turret.barrel_pivot.global_position).normalized()
+	var direction := (point-camera.sight_origin()).normalized()
 	camera.set_aim(atan2(-direction.x,-direction.z),asin(direction.y))
 	camera.sight=true; camera.set_sight_requested(true); camera.clear_intent_cache()
 func run() -> void:
@@ -39,7 +39,7 @@ func run() -> void:
 		check(camera.intent_contact.get("entity_id","")=="B" and camera.intent_point().distance_to(point)<6,"precise armor aim reaches %.0fm target"%distance)
 	check(camera.cam.far>=shooter.weapon.gun_range+GameConfig.AIM_CAMERA_MARGIN_M,"render far plane covers weapon budget and camera offset")
 	camera.set_aim(0,deg_to_rad(10)); camera.sight=true; camera.set_sight_requested(true); camera.clear_intent_cache()
-	var pivot := shooter.turret.barrel_pivot.global_position
+	var pivot := camera.sight_origin()
 	var horizon := GameConfig.aim_query_distance(shooter.weapon.gun_range)
 	check(absf(camera.intent_point().distance_to(pivot)-horizon)<0.01,"empty scope ray converges at shared horizon instead of artificial 60m")
 	camera.refresh_intent(false)

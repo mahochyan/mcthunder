@@ -1,8 +1,8 @@
 class_name VehicleCommandCodec
 extends RefCounted
 ## Data-only contract; authenticated ownership belongs to the future transport.
-const VERSION := 1
-const FLAGS := ["has_aim_point","clear_aim","aim_held","fire_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested"]
+const VERSION := 2
+const FLAGS := ["has_aim_point","clear_aim","aim_held","hold_aim","fire_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested"]
 static func integer(v: Variant) -> bool:
 	return (v is int or v is float) and is_finite(float(v)) and absf(float(v))<=9007199254740991 and float(v)==floor(float(v))
 static func encode(cmd: VehicleCommand, actor: VehicleActor, sequence: int, input_tick: int) -> Dictionary:

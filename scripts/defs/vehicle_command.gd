@@ -9,6 +9,7 @@ var aim_world_point: Vector3 = Vector3.ZERO   # 期望世界瞄点（配合 has_
 var has_aim_point: bool = false  # 003：显式指定瞄点（脚本命令；零命令不改变现有瞄准）
 var clear_aim: bool = false      # 003：清除脚本瞄点（本地玩家每帧清除，回到相机意图）
 var aim_held: bool = false       # 炮镜请求（本地玩家右键）
+var hold_aim := false           # Observation holds mechanical axes, including on authority.
 var fire_requested: bool = false
 var repair_requested := false
 var extinguish_requested := false
@@ -23,6 +24,7 @@ func reset() -> void:
 	has_aim_point = false
 	clear_aim = false
 	aim_held = false
+	hold_aim = false
 	fire_requested = false
 	repair_requested = false
 	extinguish_requested = false

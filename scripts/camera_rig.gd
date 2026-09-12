@@ -12,17 +12,44 @@ var aim_yaw := 0.0              # 全局观察朝向（弧度，0 = -Z）
 var aim_pitch := 0.0            # 观察俯仰（弧度，正 = 抬头）
 var sight := false
 var free_look := false
+var binoculars := false
+var zoom_step := 0
+var fallback_optics := OpticsProfile.new()
 var _saved_aim := Vector2.ZERO
 var _held_intent := Vector3.ZERO
 
 func set_free_look(on: bool) -> void:
-	if on == free_look: return
-	if on:
+	set_observation(on,binoculars)
+
+func set_observation(free: bool, binocular: bool) -> void:
+	var was_observing := is_observing()
+	var observing := free or binocular
+	if observing and not was_observing:
 		_held_intent = intent_point()
 		_saved_aim = Vector2(aim_yaw,aim_pitch)
-	else:
+	elif was_observing and not observing:
 		set_aim(_saved_aim.x,_saved_aim.y)
-	free_look = on
+	if free_look==free and binoculars==binocular: return
+	free_look=free; binoculars=binocular
+	clear_intent_cache()
+
+func is_observing() -> bool: return free_look or binoculars
+func optics() -> OpticsProfile:
+	return tank.defs.optics_profile if tank!=null and tank.defs!=null else fallback_optics
+func cycle_zoom() -> void:
+	if _sight_requested and not is_observing(): zoom_step=(zoom_step+1)%optics().sight_fovs.size()
+func input_sensitivity_scale() -> float:
+	if binoculars: return 1.0/OpticsProfile.magnification(optics().binocular_fov)
+	if _sight_requested and not is_observing(): return 1.0/OpticsProfile.magnification(optics().sight_fovs[zoom_step])
+	return 1.0
+func optics_text() -> String:
+	if binoculars: return LocalizationService.text("optics_binocular_mode")%OpticsProfile.magnification(optics().binocular_fov)
+	if free_look: return LocalizationService.text("free_look")
+	if sight: return LocalizationService.text("optics_sight_mode")%[OpticsProfile.magnification(optics().sight_fovs[zoom_step]),InputBindingService.hint("optic_zoom")]
+	return LocalizationService.text("optics_default_mode")
+func reset_optics() -> void:
+	set_observation(false,false)
+	zoom_step=0; _sight_requested=false; sight=false
 	clear_intent_cache()
 var shake_enabled := false # Optical offset only; never changes the transform used by aiming or firing.
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
@@ -44,6 +71,9 @@ func _query_distance() -> float:
 	if is_instance_valid(cam): cam.far=GameConfig.view_distance(distance)
 	return distance
 
+func sight_origin() -> Vector3:
+	return turret.barrel_pivot.to_global(optics().sight_offset)
+
 func _ready() -> void:
 	if not presentation_enabled:
 		set_process(false)
@@ -64,6 +94,7 @@ func set_aim(yaw: float, pitch: float) -> void:
 func set_local_control(on: bool) -> void:
 	# 003：本地控制者设置——只有被控制的车拥有有效本地游戏相机
 	if is_instance_valid(cam): cam.current = on
+	if not on: reset_optics()
 
 func set_sight_requested(on: bool) -> void:
 	_sight_requested = on
@@ -86,14 +117,23 @@ func _process(_delta: float) -> void:
 	_update_camera_pose()
 
 func _update_camera_pose() -> void:
-	sight = _sight_requested and turret != null and not free_look
-	if sight:
+	sight = _sight_requested and turret != null and not is_observing()
+	if binoculars:
+		var from := tank.hull_frame.global_position+Vector3.UP*0.3
+		var desired := tank.hull_frame.to_global(optics().binocular_offset)
+		var obstruction := _ray(from,desired)
+		if not obstruction.is_empty(): desired=obstruction.position+obstruction.normal*0.1
+		cam.global_position=desired
+		var direction := Vector3(-sin(aim_yaw)*cos(aim_pitch),sin(aim_pitch),-cos(aim_yaw)*cos(aim_pitch))
+		cam.look_at(desired+direction*50)
+		cam.fov=optics().binocular_fov
+		cam.cull_mask &= ~visual_layer
+	elif sight:
 		# 炮镜：贴在炮根上方、沿炮管实际方向看；cull_mask 只剔除本车视觉层
 		var bdir := turret.barrel_direction()
-		var bp := turret.barrel_pivot.global_position
-		cam.global_position = bp + Vector3.UP * 0.45 - bdir * 0.35
+		cam.global_position = sight_origin()
 		cam.look_at(cam.global_position + bdir * 50.0)
-		cam.fov = GameConfig.SIGHT_FOV
+		cam.fov = optics().sight_fovs[zoom_step]
 		cam.cull_mask &= ~visual_layer
 	else:
 		var pivot_pos := global_position
@@ -136,14 +176,14 @@ func get_aim_point() -> Vector3:
 	return from + dir * distance
 
 func intent_point() -> Vector3:
-	if free_look: return _held_intent
+	if is_observing(): return _held_intent
 	if _precise_valid:
 		return _precise_point
 	# 002-R2：输入意图射线 → 期望世界瞄点 P（炮塔按 P 求目标角）。
-	# 第三人称：相机中心射线；炮镜：沿意图方向从炮根发出（独立输入意图，
+	# 第三人称：相机中心射线；炮镜：沿意图方向从车型镜位发出（独立输入意图，
 	# 不以实际炮管方向反向锁死——否则炮塔会跟随自己、无法继续改变目标）。
 	if sight and turret != null:
-		var pivot := turret.barrel_pivot.global_position
+		var pivot := sight_origin()
 		var cp := cos(aim_pitch)
 		var dir3d := Vector3(-sin(aim_yaw) * cp, sin(aim_pitch), -cos(aim_yaw) * cp)
 		var distance := _query_distance()
@@ -160,13 +200,13 @@ func refresh_intent(update_pose: bool = true) -> void:
 	_precise_valid = false
 	intent_contact.clear()
 	if not snapshot_provider.is_valid() or tank == null: return
-	if free_look: return
+	if is_observing(): return
 	var snapshots: Array = snapshot_provider.call()
 	if snapshots.is_empty(): return
 	var from := cam.global_position
 	var direction := -cam.global_basis.z
 	if _sight_requested and turret != null:
-		from = turret.barrel_pivot.global_position
+		from = sight_origin()
 		direction = Vector3(-sin(aim_yaw)*cos(aim_pitch),sin(aim_pitch),-cos(aim_yaw)*cos(aim_pitch))
 	var distance := _query_distance()
 	var world := WorldQueryAdapter.query_world_stop(get_world_3d().direct_space_state,from,direction,distance,_exclude())

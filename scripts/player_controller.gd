@@ -16,6 +16,8 @@ var _recovery_pending: Dictionary = {}
 var _recovery_release_guard: Dictionary = {}
 var _need_fire_release := false   # 005-R1-C：面板关闭/暂停后必须观察到火键释放才重新允许捕获
 var _fire_release_after_frame := -1
+var _observation_release_required := false
+var _binocular_fire_release := false
 
 func _process(_delta: float) -> void:
 	if get_tree().paused:
@@ -29,6 +31,13 @@ func _process(_delta: float) -> void:
 		_recovery_pending.clear()
 		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
 		return
+	var in_binoculars := cam_rig!=null and cam_rig.binoculars
+	if in_binoculars:
+		_fire_pending=false
+		if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"): _binocular_fire_release=true
+	if _binocular_fire_release:
+		_fire_pending=false
+		if not Input.is_action_pressed("fire") and not Input.is_action_just_pressed("fire"): _binocular_fire_release=false
 	if _need_fire_release:
 		if Engine.get_process_frames()<=_fire_release_after_frame or Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
 			_fire_pending = false
@@ -38,7 +47,7 @@ func _process(_delta: float) -> void:
 		# report just_pressed after held became false; discard this entire edge.
 		_fire_pending = false
 		return
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("fire") and not in_binoculars and not _binocular_fire_release:
 		_fire_pending = true
 	for i in 2:
 		if Input.is_action_just_pressed("shell_%d"%(i+1)): _shell_pending = i
@@ -53,16 +62,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		return   # 005-d：面板打开期间不响应鼠标瞄准（避免炮塔随鼠标转向、姿态漂移）
 	if cam_rig == null:
 		return
-	if event.is_action("free_look"):
+	if event.is_action_pressed("fire") and cam_rig.binoculars:
+		_binocular_fire_release=true; _fire_pending=false
+	if event.is_action("free_look") and not _observation_release_required:
 		cam_rig.set_free_look(event.is_pressed())
+	if event.is_action("binoculars") and not _observation_release_required:
+		cam_rig.set_observation(cam_rig.free_look,event.is_pressed())
+		if cam_rig.binoculars:
+			_fire_pending=false
+			if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"): _binocular_fire_release=true
+	if event.is_action_pressed("optic_zoom") and not event.is_echo():
+		cam_rig.cycle_zoom()
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		var sensitivity := GameConfig.MOUSE_SENS*AccessibilitySettings.mouse_sensitivity*cam_rig.input_sensitivity_scale()
 		cam_rig.set_aim(
-			cam_rig.aim_yaw - event.relative.x * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity,
-			cam_rig.aim_pitch - event.relative.y * GameConfig.MOUSE_SENS * AccessibilitySettings.mouse_sensitivity * (-1.0 if AccessibilitySettings.invert_y else 1.0))
+			cam_rig.aim_yaw - event.relative.x*sensitivity,
+			cam_rig.aim_pitch - event.relative.y*sensitivity*(-1.0 if AccessibilitySettings.invert_y else 1.0))
 
 func poll() -> VehicleCommand:
 	if cam_rig != null:
-		cam_rig.set_free_look(commands_enabled and not get_tree().paused and Input.is_action_pressed("free_look"))
+		if not Input.is_action_pressed("free_look") and not Input.is_action_pressed("binoculars"): _observation_release_required=false
+		var observing_allowed := commands_enabled and not get_tree().paused and not _observation_release_required
+		cam_rig.set_observation(observing_allowed and Input.is_action_pressed("free_look"),observing_allowed and Input.is_action_pressed("binoculars"))
 	# 每物理帧由 VehicleActor 调用；fire 请求在此消费一次（不重复射击）
 	var cmd := VehicleCommand.new()
 	if not commands_enabled:
@@ -70,8 +91,10 @@ func poll() -> VehicleCommand:
 	cmd.throttle = (1.0 if Input.is_action_pressed("move_forward") else 0.0) - (1.0 if Input.is_action_pressed("move_back") else 0.0)
 	cmd.steer = Input.get_axis("turn_right", "turn_left")
 	cmd.aim_held = Input.is_action_pressed("aim")
+	cmd.hold_aim = cam_rig!=null and cam_rig.is_observing()
 	cmd.clear_aim = true   # 本地玩家每帧清除脚本瞄点，回到相机意图
 	cmd.fire_requested = _fire_pending
+	if _binocular_fire_release or (cam_rig!=null and cam_rig.binoculars): cmd.fire_requested=false
 	cmd.select_shell = _shell_pending
 	_shell_pending = -1
 	cmd.repair_requested = _recovery_pending.get("repair",false)
@@ -83,7 +106,8 @@ func poll() -> VehicleCommand:
 	return cmd
 
 func require_fire_release() -> void:
-	if cam_rig != null: cam_rig.set_free_look(false)
+	_observation_release_required=true
+	if cam_rig != null: cam_rig.set_observation(false,false)
 	_shell_pending = -1
 	_arm_recovery_release()
 	# 005-R1-C：重新允许意图前调用——关闭调试面板用的鼠标左键/暂停中按下的 fire
@@ -95,7 +119,8 @@ func require_fire_release() -> void:
 	_fire_release_after_frame = Engine.get_process_frames()+1
 
 func reset_pending() -> void:
-	if cam_rig != null: cam_rig.set_free_look(false)
+	_observation_release_required=true
+	if cam_rig != null: cam_rig.set_observation(false,false)
 	_shell_pending = -1
 	_recovery_pending.clear()
 	_arm_recovery_release()

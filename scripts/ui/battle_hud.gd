@@ -22,6 +22,7 @@ var module_grid: GridContainer
 var module_labels: Dictionary = {}
 var speed_label: Label
 var weapon_label: Label
+var optics_label: Label
 var ammo_label: Label
 var reload_bar: ProgressBar
 var drive_label: Label
@@ -47,6 +48,8 @@ var contrast_toggle: CheckButton
 var replay_controls: Control
 var replay_close_button: Button
 var actual_screen_point := Vector2.ZERO
+var intent_screen_point := Vector2.ZERO
+var intent_visible := false
 var aim_visible := false
 var aim_allowed := false
 var notice := ""
@@ -161,6 +164,7 @@ func _build() -> void:
 	ammo_label = _label(gun,LocalizationService.text("ui_d80df5f8d545"),17)
 	reload_bar = _bar(gun)
 	reason_label = _label(gun,"",15)
+	optics_label = _label(gun,"",15)
 	fire_label = _label(gun,LocalizationService.text("ui_a9f80686bf4a"),16)
 	action_label = _label(gun,LocalizationService.text("ui_ae2b01ef58c0"),15)
 	action_bar = _bar(gun)
@@ -318,6 +322,13 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	speed_label.text = "%.0f km/h"%model.speed_kph
 	weapon_label.text = model.weapon_status
 	weapon_label.modulate = Color("a6deb5") if model.ready else Color("ffcf8f")
+	var error := float(model.get("aim_error_degrees",0))
+	var optics: String=model.get("optics_text","")
+	if not model.get("observing",false):
+		var tracking := LocalizationService.text("optics_tracking")%error if error>0.5 else LocalizationService.text("optics_aligned")
+		optics=(optics+" · " if not optics.is_empty() else "")+tracking
+	optics_label.text=optics
+	optics_label.modulate=Color("ffcf8f") if error>0.5 else Color("d7e2dc")
 	ammo_label.text = LocalizationService.text("ui_0abaaeb13f23")%[model.shell,model.ammo,model.chamber]
 	if model.has("next_shell"):
 		ammo_label.text += LocalizationService.text("ui_fa574d6d0cc4")+str(model.next_shell)+" · "+InputBindingService.hint("shell_1")+"/"+InputBindingService.hint("shell_2")+LocalizationService.text("ui_ca364d1c36c4")
@@ -349,13 +360,17 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 		AccessibilitySettings.apply(board_rows)
 	aim_visible = not model.destroyed and info.phase == "playing" and is_instance_valid(camera) and not camera.is_position_behind(model.actual_point)
 	if aim_visible: actual_screen_point = camera.unproject_position(model.actual_point)
+	intent_visible=is_instance_valid(camera) and model.has("intent_point") and not camera.is_position_behind(model.intent_point)
+	if intent_visible: intent_screen_point=camera.unproject_position(model.intent_point)
 	queue_redraw()
 func _draw() -> void:
-	if not aim_allowed or not aim_visible or not main_margin.visible or scoreboard.visible or settings_root.visible: return
+	if not aim_allowed or not main_margin.visible or scoreboard.visible or settings_root.visible: return
 	var center := size/2
 	draw_line(center+Vector2(-7,0),center+Vector2(7,0),Color(1,1,1,0.65),1.5,true)
 	draw_line(center+Vector2(0,-7),center+Vector2(0,7),Color(1,1,1,0.65),1.5,true)
-	if Rect2(Vector2.ZERO,size).has_point(actual_screen_point):
-		var color := Color("b5edba") if view_model.get("ready",false) else Color("ffd492")
+	if view_model.get("observing",false): return
+	if intent_visible and Rect2(Vector2.ZERO,size).has_point(intent_screen_point): draw_arc(intent_screen_point,7,0,TAU,32,Color(1,1,1,0.7),1.5,true)
+	if aim_visible and Rect2(Vector2.ZERO,size).has_point(actual_screen_point):
+		var color := Color("b5edba") if view_model.get("ready",false) and float(view_model.get("aim_error_degrees",0))<=0.5 else Color("ffd492")
 		draw_arc(actual_screen_point,11,0,TAU,40,color,2,true)
 		draw_circle(actual_screen_point,2,color)

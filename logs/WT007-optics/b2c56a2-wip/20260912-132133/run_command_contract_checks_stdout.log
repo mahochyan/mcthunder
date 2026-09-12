@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] JSON roundtrip preserves strict command types
+[PASS] versioned input enters real actor mailbox
+[PASS] duplicate sequence is rejected before consumption
+[FAIL] copied command drives and fires once despite caller mutation
+[PASS] accepted input advances normally without teleporting
+[PASS] malformed/stale command rejected: { "version": 3, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 2, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 5, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 7, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 34, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 20, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 2, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": 1, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0, nan, 0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false } }
+[PASS] malformed/stale command rejected: { "version": 2, "entity_id": "A", "life_id": 1, "generation": 4, "control_epoch": 6, "sequence": 2, "input_tick": 33, "command": { "throttle": 0.5, "steer": 0.0, "select_shell": -1, "aim_world_point": [0.0, 0.0, 0.0], "has_aim_point": false, "clear_aim": false, "aim_held": false, "hold_aim": false, "fire_requested": true, "repair_requested": false, "extinguish_requested": false, "replace_crew_requested": false, "cancel_recovery_requested": false, "declare_kill": "B" } }
+[PASS] rejected higher sequence cannot poison subsequent valid input
+[PASS] valid next sequence remains accepted
+[PASS] pause invalidates earlier control epoch
+[PASS] reset invalidates earlier control epoch
+[PASS] detach invalidates earlier control epoch
+[PASS] clear invalidates earlier control epoch
+[PASS] valid fire can be staged before suspension
+[PASS] staged fire expires before resumed physical consumption
+[PASS] observer race fixture enters original command path
+[PASS] observer control-epoch change cancels already-consumed fire
+[PASS] fresh epoch accepts a new legitimate command
+[PASS] fresh input still fires after invalidation
+[PASS] old fire staged for merge-expiration case
+[PASS] fresh driving replaces expired pending input
+[PASS] fresh drive survives without inheriting expired fire edge
+=== 结果: 30 项检查, 1 失败 ===
+COMMAND_CONTRACT_CHECKS_FAIL

@@ -4,6 +4,8 @@ extends RefCounted
 const PATH := "user://settings/input027.json"
 static var ACTIONS := {
 	"free_look": [LocalizationService.text("free_look"), KEY_B, "all"],
+	"binoculars": [LocalizationService.text("optics_binoculars"), KEY_L, "all"],
+	"optic_zoom": [LocalizationService.text("optics_zoom"), KEY_Z, "all"],
 	"move_forward": [LocalizationService.text("ui_d681c6e2947a"), KEY_W, "all"], "move_back": [LocalizationService.text("ui_2d1d8c1e3895"), KEY_S, "all"],
 	"turn_left": [LocalizationService.text("ui_0e9a81204e7d"), KEY_A, "all"], "turn_right": [LocalizationService.text("ui_b61b251950a2"), KEY_D, "all"],
 	"fire": [LocalizationService.text("ui_b0c797f7ef9a"), -MOUSE_BUTTON_LEFT, "all"], "aim": [LocalizationService.text("ui_6630e2fefc78"), -MOUSE_BUTTON_RIGHT, "all"],
@@ -94,15 +96,14 @@ static func read_settings(path: String) -> Dictionary:
 	var candidate: Dictionary = data.bindings
 	# Older settings retain every existing binding; assign the new action an
 	# unused key rather than rejecting the entire settings document.
-	if not candidate.has("free_look") and candidate.size()==ACTIONS.size()-1:
-		var known := true
-		for action in candidate:
-			if not ACTIONS.has(action) or not valid_code(candidate[action],action): known = false
-		if known:
-			for code in [KEY_B,KEY_L,KEY_U,KEY_H,KEY_F7,KEY_F8,KEY_F9]:
-				if conflicts("free_look",code,candidate).is_empty():
-					candidate["free_look"] = code
-					break
+	for action in candidate:
+		if not ACTIONS.has(action) or not valid_code(candidate[action],action): return {"ok":false}
+	for action in ["free_look","binoculars","optic_zoom"]:
+		if candidate.has(action): continue
+		for code in [ACTIONS[action][1],KEY_U,KEY_H,KEY_K,KEY_F7,KEY_F8,KEY_F9]:
+			if conflicts(action,code,candidate).is_empty():
+				candidate[action]=code
+				break
 	if candidate.size()!=ACTIONS.size(): return {"ok":false}
 	# Validate all types before conflict detection (which converts other values).
 	for action in ACTIONS:

@@ -20,11 +20,19 @@ func run() -> void:
 	var roundtrip: Variant = JSON.parse_string(JSON.stringify(packet))
 	check(VehicleCommandCodec.decode(roundtrip).ok,"JSON roundtrip preserves strict command types")
 	var start := actor.tank.global_position
+	var consumed := {"peak_speed":0.0,"throttle":0.0,"fire":false}
+	actor.command_observer=func(current: VehicleActor, input: VehicleCommand) -> void:
+		consumed.peak_speed=maxf(consumed.peak_speed,current.tank.forward_speed)
+		if input.fire_requested:
+			consumed.throttle=input.throttle; consumed.fire=true
 	check(actor.submit_command_envelope(roundtrip).ok,"versioned input enters real actor mailbox")
 	check(not actor.submit_command_envelope(roundtrip).ok,"duplicate sequence is rejected before consumption")
 	roundtrip.command.throttle=-1; roundtrip.command.fire_requested=false
 	await frames(2)
-	check(actor.gunner.shots_fired==1 and actor.tank.forward_speed>0,"copied command drives and fires once despite caller mutation")
+	actor.command_observer=Callable()
+	# One input pulse can coast back to zero by the second tick. Observe its actual
+	# positive speed before that tick, rather than requiring persistent throttle.
+	check(actor.gunner.shots_fired==1 and consumed.peak_speed>0 and consumed.throttle==0.5 and consumed.fire,"copied command drives and fires once despite caller mutation")
 	check(actor.tank.global_position.distance_to(start)<1,"accepted input advances normally without teleporting")
 	var invalids: Array = []
 	for key in ["version","life_id","generation","control_epoch"]:

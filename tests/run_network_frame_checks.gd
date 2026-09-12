@@ -20,7 +20,7 @@ func run() -> void:
 	# The view keeps its real receive/render paths; user commands are disabled.
 	view.set_physics_process(false)
 	await ticks(60)
-	check(view.owned!=null,"production client handshake accepts pose protocol v2")
+	check(view.owned!=null,"production client handshake accepts current protocol")
 	if view.owned==null: view.free(); server_space.free(); quit(1); return
 	var authority: VehicleActor
 	for actor in server.world.actors:
@@ -32,7 +32,7 @@ func run() -> void:
 	authority.tank.track_left_frame.transform=Transform3D(Basis(Vector3.RIGHT,0.03),Vector3(0,0.07,0))
 	authority.tank.track_right_frame.transform=Transform3D(Basis(Vector3.RIGHT,-0.02),Vector3(0,-0.04,0))
 	await ticks(30)
-	check(view.connection.latest.version==2,"wire snapshot explicitly identifies revised pose format")
+	check(view.connection.latest.version==VehicleFramePose.NETWORK_VERSION,"wire snapshot explicitly identifies current protocol")
 	for part in VehicleFramePose.PARTS:
 		check(VehicleFramePose.node(view.owned.tank,part).transform.is_equal_approx(VehicleFramePose.node(authority.tank,part).transform),"real transport and rendered replica preserve relative "+part)
 	var server_query := QuerySnapshotBuilder.build_from_vehicle(authority.tank,authority.damage_layout_override)

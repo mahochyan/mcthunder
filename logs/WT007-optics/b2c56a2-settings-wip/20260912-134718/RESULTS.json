@@ -1,0 +1,30 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "b2c56a2-settings-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_settings_checks",
+    "source_sha": "b2c56a2-settings-wip",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" --fixed-fps 60 -s \"res://tests/run_settings_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 36,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  }
+]

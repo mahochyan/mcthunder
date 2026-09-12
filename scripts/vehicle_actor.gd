@@ -349,6 +349,7 @@ func advance_simulation_drive(step: Dictionary, delta: float) -> void:
 func advance_simulation_aim(step: Dictionary, _delta: float) -> void:
 	if not simulation_step_valid(step): return
 	var cmd: VehicleCommand = step.cmd
+	turret.observation_hold=cmd.hold_aim
 	if cmd.has_aim_point:
 		turret.set_aim_point(cmd.aim_world_point)
 	elif cmd.clear_aim:
@@ -395,6 +396,7 @@ func reset_vehicle() -> void:
 	# 003-R2：重置清空暂存（不跨回合执行旧请求）
 	_mailbox.clear()
 	tank.reset()
+	cam_rig.reset_optics()
 	cam_rig.aim_yaw = 0.0
 	cam_rig.aim_pitch = 0.0
 	cam_rig.set_sight_requested(false)

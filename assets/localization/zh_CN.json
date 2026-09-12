@@ -1,4 +1,12 @@
 {
+  "optics_binoculars": "望远镜观察（按住）",
+  "optics_zoom": "切换炮镜倍率",
+  "optics_binocular_mode": "望远镜 %.1f× · 仅观察",
+  "optics_sight_mode": "炮镜 %.1f× · %s 切换倍率",
+  "optics_tracking": "追瞄中 · 偏差 %.1f°",
+  "optics_aligned": "炮管已对准",
+  "optics_hint": " · {key:binoculars} 望远镜 · {key:optic_zoom} 炮镜倍率",
+  "optics_default_mode": "{key:binoculars} 望远镜 · {key:optic_zoom} 炮镜倍率",
   "free_look": "自由观察（按住）",
   "free_look_hint": " · {key:free_look} 自由观察",
   "status_A center -> B center": "A中心至B中心",

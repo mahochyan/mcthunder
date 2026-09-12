@@ -1,0 +1,50 @@
+{
+  "source": "b2c56a209c66859b00456db732f57a845771c40b",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "human": "NOT_RUN",
+  "build": "source-worktree",
+  "cases": [
+    {
+      "name": "30",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 30 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-optics\\aim-matrix-20260912-133852\\30.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "60",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 60 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-optics\\aim-matrix-20260912-133852\\60.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "144",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 144 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-optics\\aim-matrix-20260912-133852\\144.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "60-stall",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 60 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-optics\\aim-matrix-20260912-133852\\60-stall.json\" --local-intent --stall",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    }
+  ],
+  "hashes": {
+    "scripts/vehicle_actor.gd": "C1D76FB8BC091C263407270C02C818CDDD762E105B3194958CCDD44BD704F4DD",
+    "scripts/turret_rig.gd": "2335BF31FB3BB0BFB234A8E6D69A65647BF57819D5354343123A2DD3A1492BD0",
+    "tests/run_turret_tick_checks.gd": "73EC62C3736ABDCD006960479AA1962F6A6B71A9049444961CC59F7BDF5B4374",
+    "scripts/camera_rig.gd": "47D42DA66565EAE4C0528E38F48051EE86A3DC0219B014FCB99ADA2E2795DD15"
+  }
+}

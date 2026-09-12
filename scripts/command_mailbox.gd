@@ -41,6 +41,7 @@ func submit(cmd: VehicleCommand) -> bool:
 	copy.aim_world_point = cmd.aim_world_point
 	copy.clear_aim = cmd.clear_aim
 	copy.aim_held = cmd.aim_held
+	copy.hold_aim = cmd.hold_aim
 	copy.select_shell = cmd.select_shell
 	# 同一步多次提交合并：开火做逻辑或；驾驶/炮镜用最新样本；
 	# fire-only 的后续提交不覆盖本步已暂存的显式瞄点操作

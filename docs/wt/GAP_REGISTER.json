@@ -66,9 +66,11 @@
     {
       "id": "WT-007",
       "title": "观察、炮镜与测距操控",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M1。职责：玩法/UI。依赖：WT-002, WT-003。\n\n把视线、观察点、炮手瞄准意图和炮管实际指向分离。实现自由观察、望远镜、炮镜缩放、准星刻度、测距与距离装定；镜位和倍率按车型配置。\n\n**交付**\n- OpticsProfile / AimIntent\n- 第三人称意图圈与实际炮口圈\n- 遮挡、镜位偏置、炮口被挡和远目标测试\n\n**验收**\n- 自由观察不会强制炮塔一直跟随\n- 测距与装定影响射击解，不是只改 HUD 字符串\n- 镜头可见但炮口受阻时反馈清楚；辅助信息按模式授权",
-      "evidence": [],
+      "evidence": ["WT007_OPTICS.md"],
+      "progress": "2026-09-12：M4A3/M24生产OpticsProfile、车型镜位/FOV、可改键望远镜和炮镜倍率、权威机械观察保持及HUD意图/实际炮口与未钳制方向偏差已接入。命令v2、网络握手/快照v3、相对姿态v1。最终窗口logs/WT007-optics/wip-uncommitted/window-20260912-134335记录26项、0失败、退出0，含联网对方实际网格可见性、观察中驾驶/机械保持及暂停/重置；真人NOT_RUN。性能专项继续暂缓。",
+      "remaining": ["独立AimIntent契约", "炮镜准星刻度", "测距及进入真实射击解的距离装定", "光学镜位受窄墙/棚顶侵入边界验证", "衔接WT-008机构与稳定器能力、横滚呈现及两样车完整体验验收"],
       "human_accepted": false,
       "release_ready": false
     },

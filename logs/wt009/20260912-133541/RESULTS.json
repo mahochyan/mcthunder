@@ -1,0 +1,50 @@
+{
+  "results": [
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "fd857604a6cf3f8ce421227e583df17df2df02e14c565eee3341d1d19d1f01f8"
+    },
+    {
+      "role": "client1",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "fd857604a6cf3f8ce421227e583df17df2df02e14c565eee3341d1d19d1f01f8"
+    },
+    {
+      "role": "client2",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "fd857604a6cf3f8ce421227e583df17df2df02e14c565eee3341d1d19d1f01f8"
+    }
+  ],
+  "passed": true,
+  "build": "source-worktree",
+  "source": "b2c56a209c66859b00456db732f57a845771c40b",
+  "launches": {
+    "server": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- server 19109 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-133541\\server.json\"",
+      "pid": 57964
+    },
+    "client1": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19109 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-133541\\client1.json\"",
+      "pid": 58276
+    },
+    "client2": {
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19109 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-133541\\client2.json\"",
+      "pid": 51324
+    }
+  },
+  "file_hashes": {
+    "scripts/network/network_battle_server.gd": "2FACFD66E0A4EFA3E0D0A87F5FCFE6C1AE54E92CCA5CEEF6917469AF00FBF133",
+    "scripts/network/network_controller.gd": "6D5C9BC52C166E0E8F15BEB130768C5693B770434D6522A834106247BBC7ECC0",
+    "scripts/projectiles/projectile_manager.gd": "181150832791EBECE39E12F204BB0DA32DE807578B0BCE2217894580A3D25BF7",
+    "scripts/camera_rig.gd": "47D42DA66565EAE4C0528E38F48051EE86A3DC0219B014FCB99ADA2E2795DD15",
+    "scripts/network/network_battle_world.gd": "2E0159ED14F3E3DD0EEE2313FEBE447D8D2793903C32AA00A1199AEDD4DD4E49",
+    "scripts/tank.gd": "395DB1D059541A3E62387974D8E2F1CA798FF32E1097D374824D6F7D39D799C1",
+    "tests/run_network_slice.gd": "DC10CE4308F71A52D5C6D854784AD79F2134EA352C8F3353CE375A2BD41752EF",
+    "scripts/vehicle_actor.gd": "C1D76FB8BC091C263407270C02C818CDDD762E105B3194958CCDD44BD704F4DD"
+  },
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643"
+}
