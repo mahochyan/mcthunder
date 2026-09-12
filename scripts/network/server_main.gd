@@ -7,4 +7,4 @@ func start() -> void:
 	var server := NetworkBattleServer.new(); root.add_child(server)
 	var error := server.start(port)
 	if error!=OK: printerr("Local authority server failed: ",error); quit(1); return
-	print("LOCAL_AUTHORITY_READY 127.0.0.1:",port," protocol=1 slots=2")
+	print("LOCAL_AUTHORITY_READY 127.0.0.1:",port," protocol=",NetworkBattleServer.VERSION," slots=2")

@@ -28,7 +28,8 @@ func run() -> void:
 	await frames(1)
 	check(actor.gunner.rounds_remaining==before,"same-tick driving prevents nearly-complete parked resupply")
 	var snap := scene.simulation_snapshot.read()
-	check(snap.version==1 and snap.match_id==scene.director.state.match_id and snap.vehicles.size()==8,"versioned snapshot identifies actual match and all live roster vehicles")
+	check(snap.version==2 and snap.match_id==scene.director.state.match_id and snap.vehicles.size()==8,"versioned snapshot identifies actual match and all live roster vehicles")
+	check(snap.vehicles.all(func(row: Dictionary) -> bool: return VehicleFramePose.valid(row.get("frame_pose"))),"snapshot includes every vehicle's relative hull and running gear poses")
 	var own: Dictionary = snap.vehicles.filter(func(v: Dictionary) -> bool: return v.entity_id==actor.entity_id)[0]
 	check(own.position==actor.tank.global_position and own.cooldown==actor.gunner.cooldown_left and own.ammunition==actor.gunner.inventory.shell_counts(),"snapshot observes committed movement and weapon state")
 	check(snap.elapsed==scene.director.state.elapsed and snap.tickets==scene.director.state.tickets,"snapshot observes current director tick rather than previous match state")

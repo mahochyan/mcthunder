@@ -1,7 +1,7 @@
 class_name NetworkBattleServer
 extends Node
 ## Explicit loopback-only technical session, not an internet lobby or account server.
-const VERSION := 1
+const VERSION := VehicleFramePose.NETWORK_VERSION
 const MAX_PACKET_BYTES := 4096
 var peer := ENetMultiplayerPeer.new()
 var world: NetworkBattleWorld

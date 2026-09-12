@@ -56,7 +56,8 @@ func run_client(port: int, path: String) -> void:
 		peer.set_target_peer(1); peer.transfer_mode=MultiplayerPeer.TRANSFER_MODE_RELIABLE
 		if not hello:
 			peer.put_packet(JSON.stringify({"type":"hello","version":true}).to_utf8_buffer())
-			peer.put_packet(JSON.stringify({"type":"hello","version":1}).to_utf8_buffer()); hello=true
+			peer.put_packet(JSON.stringify({"type":"hello","version":1}).to_utf8_buffer())
+			peer.put_packet(JSON.stringify({"type":"hello","version":VehicleFramePose.NETWORK_VERSION}).to_utf8_buffer()); hello=true
 		while peer.get_available_packet_count()>0:
 			var sender := peer.get_packet_peer()
 			var message: Variant=JSON.parse_string(peer.get_packet().get_string_from_utf8())

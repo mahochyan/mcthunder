@@ -30,23 +30,27 @@ func _physics_process(_delta: float) -> void:
 		close(); disconnected.emit(); return
 	peer.poll()
 	if peer.get_connection_status()!=MultiplayerPeer.CONNECTION_CONNECTED: return
-	if not hello_sent: send({"type":"hello","version":1}); hello_sent=true
+	if not hello_sent: send({"type":"hello","version":VehicleFramePose.NETWORK_VERSION}); hello_sent=true
 	while peer.get_available_packet_count()>0:
 		var sender := peer.get_packet_peer()
 		var packet := peer.get_packet()
 		if sender!=1 or packet.size()>65536: continue
 		var message: Variant=JSON.parse_string(packet.get_string_from_utf8())
 		if not message is Dictionary: continue
-		if message.get("type")=="welcome" and message.get("version")==1:
+		if message.get("type")=="welcome" and VehicleCommandCodec.integer(message.get("version")) and message.version==VehicleFramePose.NETWORK_VERSION:
 			entity_id=str(message.get("entity_id","")); status="connected"
 		var snapshot: Variant=null
 		if message.get("type")=="snapshot":
 			snapshot=message.get("snapshot")
-			if message.get("own_status") is Dictionary: own_status=message.own_status
 		if message.get("type")=="final" and message.get("payload") is String:
 			snapshot=JSON.parse_string(message.payload)
+		if not NetworkPoseBuffer.valid_snapshot(snapshot): continue
+		if int(snapshot.sequence)<int(latest.get("sequence",-1)): continue
+		if int(snapshot.tick)<int(latest.get("tick",-1)): continue
+		if message.get("type")=="final":
 			send({"type":"final_ack","digest":message.payload.sha256_text()}); status="finished"
-		if snapshot is Dictionary and snapshot.get("version")==1 and snapshot.get("vehicles") is Array and int(snapshot.get("sequence",-1))>int(latest.get("sequence",-1)):
+		if int(snapshot.sequence)>int(latest.get("sequence",-1)):
+			if message.get("own_status") is Dictionary: own_status=message.own_status
 			latest=snapshot
 			snapshot_received.emit(latest.duplicate(true))
 func submit(command: VehicleCommand) -> bool:

@@ -6,9 +6,9 @@ const CAPACITY := 32
 var frames: Array[Dictionary] = []
 var render_tick := 0.0
 func clear() -> void: frames.clear(); render_tick=0.0
-func push(snapshot: Dictionary) -> bool:
+static func valid_snapshot(snapshot: Variant) -> bool:
+	if not snapshot is Dictionary or not VehicleCommandCodec.integer(snapshot.get("version")) or snapshot.version!=VehicleFramePose.NETWORK_VERSION: return false
 	if not VehicleCommandCodec.integer(snapshot.get("tick")) or not VehicleCommandCodec.integer(snapshot.get("sequence")) or not snapshot.get("vehicles") is Array: return false
-	if not frames.is_empty() and (snapshot.tick<frames[-1].tick or snapshot.sequence<=frames[-1].sequence): return false
 	var ids := {}
 	for row in snapshot.vehicles:
 		if not row is Dictionary or not row.get("entity_id") is String or ids.has(row.entity_id): return false
@@ -18,6 +18,11 @@ func push(snapshot: Dictionary) -> bool:
 		if not row.get("position") is Array or row.position.size()!=3: return false
 		for value in row.position+[row.get("yaw"),row.get("turret_yaw"),row.get("gun_pitch"),row.get("hull_pitch",0),row.get("hull_roll",0)]:
 			if not (value is int or value is float) or not is_finite(float(value)): return false
+		if not VehicleFramePose.valid(row.get("frame_pose")): return false
+	return true
+func push(snapshot: Dictionary) -> bool:
+	if not valid_snapshot(snapshot): return false
+	if not frames.is_empty() and (snapshot.tick<frames[-1].tick or snapshot.sequence<=frames[-1].sequence): return false
 	# The final snapshot may share a simulation tick with the last broadcast.
 	if not frames.is_empty() and snapshot.tick==frames[-1].tick: frames.pop_back()
 	frames.append(snapshot.duplicate(true))
@@ -52,5 +57,6 @@ func sample(tick: float) -> Array:
 			var p := a.lerp(b,alpha); pose.position=[p.x,p.y,p.z]
 			for angle in ["yaw","turret_yaw","gun_pitch"]: pose[angle]=lerp_angle(float(old[angle]),float(next[angle]),alpha)
 			for angle in ["hull_pitch","hull_roll"]: pose[angle]=lerp_angle(float(old.get(angle,0)),float(next.get(angle,0)),alpha)
+			pose.frame_pose=VehicleFramePose.blend(old.frame_pose,next.frame_pose,alpha)
 		result.append(pose)
 	return result

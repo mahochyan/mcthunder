@@ -52,8 +52,11 @@ func snapshot(sequence: int) -> Dictionary:
 	for actor in actors:
 		var p := actor.tank.global_position
 		var rotation := actor.tank.global_rotation
+		# hull_pitch/roll are legacy names for drive-root angles. The sprung hull
+		# and running gear have their own local poses in frame_pose.
 		vehicles.append({"entity_id":actor.entity_id,"life_id":actor.life_id,"generation":actor.state.generation,"control_epoch":actor.control_epoch,
 			"position":[p.x,p.y,p.z],"yaw":actor.tank.global_rotation.y,"turret_yaw":actor.turret.rotation.y,"gun_pitch":actor.turret.barrel_pivot.rotation.x,
 			"hull_pitch":rotation.x,"hull_roll":rotation.z,
+			"frame_pose":VehicleFramePose.capture(actor.tank),
 			"shots":actor.gunner.shots_fired,"destroyed":actor.state.destroyed,"accepted_sequence":actor._last_input_sequence})
-	return {"version":1,"sequence":sequence,"tick":Engine.get_physics_frames(),"vehicles":vehicles,"event_sequence":event_sequence,"events":events.duplicate(true)}
+	return {"version":VehicleFramePose.NETWORK_VERSION,"sequence":sequence,"tick":Engine.get_physics_frames(),"vehicles":vehicles,"event_sequence":event_sequence,"events":events.duplicate(true)}

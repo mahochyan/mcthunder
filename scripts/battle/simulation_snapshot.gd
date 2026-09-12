@@ -1,7 +1,7 @@
 class_name SimulationSnapshot
 extends Node
 ## Internal authoritative state, not an observer-filtered network message.
-const VERSION := 1
+const VERSION := 2
 var battle: TeamRange
 var _latest: Dictionary = {}
 var sequence := 0
@@ -17,6 +17,7 @@ func _physics_process(_delta: float) -> void:
 		vehicles.append({"entity_id":actor.entity_id,"life_id":actor.life_id,"generation":actor.state.generation,
 			"control_epoch":actor.control_epoch,"position":actor.tank.global_position,"basis":actor.tank.global_basis,
 			"velocity":actor.tank.velocity,"turret_yaw":actor.turret.rotation.y,"gun_pitch":actor.turret.barrel_pivot.rotation.x,
+			"frame_pose":VehicleFramePose.capture(actor.tank),
 			"shots_fired":actor.gunner.shots_fired,"cooldown":actor.gunner.cooldown_left,
 			"ammunition":actor.gunner.inventory.shell_counts().duplicate(true),"destroyed":actor.state.destroyed,
 			"capabilities":actor.capabilities().duplicate(true)})
