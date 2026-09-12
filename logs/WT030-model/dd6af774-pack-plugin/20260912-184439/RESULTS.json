@@ -1,0 +1,44 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+      "--headless",
+      "--path",
+      "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-plugin\\20260912-184439\\project",
+      "--editor",
+      "--import"
+    ],
+    "exit_code": 0,
+    "passed": true
+  },
+  {
+    "name": "export",
+    "command": [
+      "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+      "--headless",
+      "--path",
+      "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-plugin\\20260912-184439\\project",
+      "--export-pack",
+      "Raw Source Probe",
+      "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-plugin\\20260912-184439\\probe.pck"
+    ],
+    "exit_code": 0,
+    "passed": true
+  },
+  {
+    "name": "clean_probe",
+    "command": [
+      "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+      "--headless",
+      "--path",
+      "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-plugin\\20260912-184439\\empty_runtime",
+      "--main-pack",
+      "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-plugin\\20260912-184439\\probe.pck",
+      "-s",
+      "res://probe.gd"
+    ],
+    "exit_code": 0,
+    "passed": true
+  }
+]

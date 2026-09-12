@@ -12,6 +12,7 @@ var weapons: Dictionary = {}    # id -> WeaponDefinition
 var shells: Dictionary = {}     # id -> ShellDefinition
 var layouts: Dictionary = {}    # Validated generated layouts; legacy resources still use LayoutCatalog.
 var content_packets: Dictionary = {}
+var model_sources: Dictionary = {} # Independent delivered-artifact records, copied at admission.
 
 func load_defaults() -> Dictionary:
 	# 返回 {ok, errors}；加载三个默认 .tres 并校验
@@ -76,4 +77,7 @@ func resolve_vehicle(id: String) -> Dictionary:
 		if not layouts.has(v.layout_id): return {"ok":false,"errors":["layout_id: registered historical layout is missing"]}
 		result["layout"] = layouts[v.layout_id]
 		result["packet"] = content_packets[id]
+		if content_packets[id].has("model_binding"):
+			if not model_sources.get(id) is Dictionary: return {"ok":false,"errors":["model_source: registered artifact record is missing or malformed"]}
+			result["model_source"]=model_sources[id].duplicate(true)
 	return result

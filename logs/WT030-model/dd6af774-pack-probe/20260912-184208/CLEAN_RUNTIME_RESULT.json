@@ -1,0 +1,16 @@
+{
+  "command": [
+    "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--path",
+    "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-probe\\20260912-184208\\empty_runtime",
+    "--main-pack",
+    "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-probe\\20260912-184208\\probe.pck",
+    "-s",
+    "res://probe.gd"
+  ],
+  "cwd": "E:\\AIprogram\\mcthunder\\logs\\WT030-model\\dd6af774-pack-probe\\20260912-184208\\empty_runtime",
+  "exit_code": 1,
+  "passed": false,
+  "loose_asset_present": false
+}

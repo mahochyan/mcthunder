@@ -1,7 +1,7 @@
 class_name VehicleContentPipeline
 extends RefCounted
 
-static func validate_package(packet: Dictionary) -> Dictionary:
+static func validate_package(packet: Dictionary, model_sources: Dictionary = {}) -> Dictionary:
 	var shape_errors := check_shape(packet)
 	if not shape_errors.is_empty(): return {"ok":false,"errors":shape_errors,"notes":[]}
 	var profile: Variant = packet.get("evidence_profile","historical_verified")
@@ -40,6 +40,13 @@ static func validate_package(packet: Dictionary) -> Dictionary:
 	if absf(mesh_width-width)/width > 0.16: errors.append("geometry.width: reconstructed envelope differs >16% from reference")
 	if absf(mesh_length-length)/length > 0.16: errors.append("geometry.length: hull envelope differs >16% from reference hull/travel length")
 	var layout := HistoricalVehicleGeometry.build(packet)
+	var model_check := {"ok":true,"status":"legacy_model_path"}
+	if packet.has("model_binding"):
+		var source: Variant=model_sources.get(str(packet.id),{})
+		model_check=BoundVehicleModel.check(packet,layout,source) if source is Dictionary else {"ok":false,"errors":["model_source: malformed registry record"]}
+		errors.append_array(model_check.errors)
+	elif str(packet.id) not in VehicleCatalog.IDS:
+		errors.append("model_binding: new vehicle requires explicit delivered model bindings")
 	if packet.has("loading_profile"):
 		var loading := LoadingProfile.from_packet(packet.loading_profile)
 		errors.append_array(loading.errors)
@@ -58,7 +65,7 @@ static func validate_package(packet: Dictionary) -> Dictionary:
 	for definition in [definitions.vehicle,definitions.weapon,definitions.shell]:
 		for error in definition.validate().errors: errors.append(str(definition.id)+": "+error)
 	if not errors.is_empty(): definitions.vehicle.admission_status="candidate"
-	return {"ok":errors.is_empty(),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet}
+	return {"ok":errors.is_empty(),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet,"model_check":model_check}
 
 static func number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
@@ -71,6 +78,7 @@ static func vector(value: Variant, size: int) -> bool:
 
 static func check_shape(packet: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
+	if packet.has("model_binding") and not packet.model_binding is Dictionary: errors.append("model_binding: expected dictionary")
 	if packet.has("loading_profile") and not packet.loading_profile is Dictionary: errors.append("loading_profile: expected dictionary")
 	for key in ["facts","sources","assembly","geometry","runtime","armor"]:
 		if not packet.get(key) is Dictionary: errors.append(key+": expected dictionary")

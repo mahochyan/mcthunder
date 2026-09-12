@@ -18,6 +18,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/resizable=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/bound_model_export/plugin.cfg")
+
 [input]
 
 move_forward={

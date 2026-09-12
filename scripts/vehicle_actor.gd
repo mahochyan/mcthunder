@@ -14,6 +14,7 @@ var weapon: WeaponDefinition
 var shell: ShellDefinition
 var state: VehicleRuntimeState
 var damage_layout_override: VehicleLayoutDefinition
+var model_binding_installed := false
 signal damage_recorded(record: Dictionary)
 signal vehicle_disabled(record: Dictionary)
 signal vehicle_destroyed(record: Dictionary)
@@ -146,7 +147,12 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	label3d.outline_size = 10
 	label3d.modulate = Color(0.4, 1.0, 0.4) if controller != null else Color(1.0, 0.85, 0.3)
 	tank.add_child(label3d)
-	if res.has("packet"): HistoricalVehicleModel.apply(self,res.packet,res.layout)
+	if res.has("packet"):
+		var model_result := HistoricalVehicleModel.apply(self,res.packet,res.layout,res.get("model_source",{}))
+		if not model_result.ok:
+			set_controller(null); tank.set_physics_process(false); set_physics_process(false)
+			return model_result
+		model_binding_installed=res.packet.has("model_binding")
 	if res.has("packet") and definition.content_tier == "production":
 		var shell_result := VehicleShellCatalog.install(self,res.packet)
 		if not shell_result.ok: return shell_result
@@ -231,7 +237,7 @@ func _commit_death() -> void:
 	fire_control.reset()
 	state.death_record["point_world"] = tank.global_position
 	state.death_record["ammo_before_loss"] = gunner.inventory.snapshot()
-	if state.death_record.get("cause","")=="ammo_detonation" and definition.id in VehicleCatalog.IDS and not is_instance_valid(wreck_turret):
+	if state.death_record.get("cause","")=="ammo_detonation" and (definition.id in VehicleCatalog.IDS or model_binding_installed) and not is_instance_valid(wreck_turret):
 		wreck_turret=WreckTurretMotion.new(); add_child(wreck_turret); wreck_turret.launch(self)
 		state.death_record["turret_detached"]=true
 	gunner.inventory.lose_all()

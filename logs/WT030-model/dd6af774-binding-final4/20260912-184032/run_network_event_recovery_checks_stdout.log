@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] authority and actual local ENet session start
+[PASS] initial client atomically accepts versioned baseline
+[PASS] initial baseline invents neither past effects nor flying projectiles
+[PASS] initial recovery callback already sees matching pose, private owner status and event cursor
+[PASS] closing from recovery callback cannot dispatch stale pose after disconnect
+[PASS] real player command crosses production encoder and transport
+[PASS] real Gunner launch and natural projectile finish enter the journal
+[PASS] one authoritative shot produces one ordered immutable fire/finish pair
+[PASS] baseline and ordinary publication run after phase399 with same-step pose, shots and event head
+[PASS] public timeline and poses do not embed private fire-control facts
+[PASS] late-join projectile admitted by actual manager
+[PASS] second real peer joins while projectile is in flight
+[PASS] late baseline carries current flying position and age rather than old launch origin
+[PASS] late joining skips historical transient effects at its explicit cursor
+[PASS] baseline identity permits exactly one subsequent finish without replaying its old fire
+[PASS] duplicate reliable batch neither replays effects nor moves any cursor
+[PASS] foreign session cannot contaminate state or acknowledgements
+[PASS] two same-tick manager cancellation pairs create a real missing tail
+[PASS] snapshot head never advances an unapplied event cursor
+[PASS] out-of-order batch cannot leap over a missing fire/finish pair
+[PASS] malformed suffix rejects the whole batch without partially spawning earlier fire
+[PASS] finish identity disagreement cannot consume its sequence
+[PASS] event tick regression is rejected across batch boundaries
+[PASS] continuous replay resumes from acknowledged prefix after lost delivery
+[PASS] recovery applies both launches and finishes without orphan projectiles
+[PASS] server refuses acknowledgement of an unsent future event
+[PASS] real disconnect releases vehicle controller
+[PASS] same-session reconnect recovers a retained event tail
+[PASS] event checkpoint survives reconnect independently of new control epoch
+[PASS] client applies real tail while outgoing event ACK is deliberately lost
+[PASS] authority ACK remains behind four already-applied client records
+[PASS] real bounded journal evicts old history without breaking fire/finish admission
+[PASS] overlapping resync counts only locally unseen events, not the four records with lost ACK
+[PASS] reconnect beyond retention window receives current baseline
+[PASS] resync explicitly counts skipped history and emits no invented recovered effects
+[PASS] overflow resync restores only currently active flight
+[PASS] both overflow recovery callbacks observe the complete new public and owner checkpoint
+[PASS] invalid checkpoint cannot partially reset event or owner state: unknown_field
+[PASS] invalid checkpoint cannot partially reset event or owner state: boolean_cursor
+[PASS] invalid checkpoint cannot partially reset event or owner state: nonfinite_active
+[PASS] invalid checkpoint cannot partially reset event or owner state: duplicate_active
+[PASS] invalid checkpoint cannot partially reset event or owner state: private_status
+[PASS] repeated baseline ACK does not reset current presentation twice
+[PASS] resync baselines also capture completed phase400 public and private state
+[PASS] final state is delivered with explicit terminal event head
+[PASS] final digest alone cannot acknowledge an unapplied terminal event
+[PASS] server rejects final ACK before that peer acknowledges the event prefix
+[PASS] terminal gap is replayed before client declares session finished
+[PASS] client final ACK contains fully applied cursor but dropped ACK remains unconfirmed on server
+[PASS] terminal retries retain completed tick and frozen movement without duplicate completion signal
+[PASS] reliable final retry obtains both exact digest and final cursor acknowledgements
+[PASS] finished client submits no input and authority retains no live flight
+[PASS] new transport after final receives explicit session-finished rejection
+[PASS] late final join cannot change ownership or immutable final snapshot
+[PASS] new authority session starts after old transport closes
+[PASS] retaining client accepts an explicit new-session baseline
+[PASS] server restart resets old event identity and flight state without resuming old history
+[PASS] new-session recovery callback cannot observe previous-session owner data
+=== 结果: 58 项检查, 0 失败 ===
+NETWORK_EVENT_RECOVERY_CHECKS_PASS

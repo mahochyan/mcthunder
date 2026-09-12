@@ -92,7 +92,7 @@ static func _shape(binding: Variant, expected_vehicle_id: String) -> Array[Strin
 	return errors
 
 ## Structural helper for an already instantiated scene. It cannot attest its bytes.
-static func check_scene(binding: Variant, expected_vehicle_id: String, model_root: Node3D, layout: VehicleLayoutDefinition) -> Dictionary:
+static func check_scene(binding: Variant, expected_vehicle_id: String, model_root: Node3D, layout: VehicleLayoutDefinition, geometry: Dictionary = {}, runtime: Dictionary = {}) -> Dictionary:
 	var errors := _shape(binding,expected_vehicle_id)
 	if not errors.is_empty(): return _result(errors)
 	if not is_instance_valid(model_root): return _result(["model: missing Node3D root"])
@@ -117,6 +117,7 @@ static func check_scene(binding: Variant, expected_vehicle_id: String, model_roo
 	if nodes.has("running_left") and nodes.has("running_right") and (nodes.running_left.is_ancestor_of(nodes.running_right) or nodes.running_right.is_ancestor_of(nodes.running_left)):
 		errors.append("hierarchy.running: left/right must be independent branches")
 	if errors.is_empty(): _axes_and_muzzle(binding,nodes,transforms,errors)
+	if errors.is_empty() and not geometry.is_empty(): _runtime_mounts(binding,nodes,transforms,geometry,runtime,errors)
 	_validate_layout(binding,expected_vehicle_id,model_root,nodes,transforms,layout,errors)
 	var measured := {}
 	if stats.meshes<=0: errors.append("model: no finite nonempty mesh envelope")
@@ -131,7 +132,7 @@ static func check_scene(binding: Variant, expected_vehicle_id: String, model_roo
 	return _result(errors,measured)
 
 ## File entry uses a separately supplied exact-ID source registry record, then actual bytes.
-static func check_file(binding: Variant, expected_vehicle_id: String, source_record: Dictionary, layout: VehicleLayoutDefinition) -> Dictionary:
+static func check_file(binding: Variant, expected_vehicle_id: String, source_record: Dictionary, layout: VehicleLayoutDefinition, geometry: Dictionary = {}, runtime: Dictionary = {}, retain_scene: bool = false) -> Dictionary:
 	var errors := _shape(binding,expected_vehicle_id)
 	if not errors.is_empty(): return _result(errors)
 	if source_record.get("id")!=expected_vehicle_id or source_record.get("path")!=binding.model.path:
@@ -141,14 +142,70 @@ static func check_file(binding: Variant, expected_vehicle_id: String, source_rec
 	if not errors.is_empty(): return _result(errors)
 	if not FileAccess.file_exists(binding.model.path): return _result(["model.path: artifact missing"])
 	if FileAccess.get_sha256(binding.model.path).to_lower()!=str(binding.model.sha256).to_lower(): return _result(["model.sha256: actual bytes differ"])
+	var container_errors := self_contained_glb(FileAccess.get_file_as_bytes(binding.model.path))
+	if not container_errors.is_empty(): return _result(container_errors)
 	var document := GLTFDocument.new(); var state := GLTFState.new()
 	if document.append_from_file(binding.model.path,state)!=OK: return _result(["model: GLB decode failed"])
 	var scene := document.generate_scene(state) as Node3D
 	if scene==null: return _result(["model: GLB produced no Node3D scene"])
-	var result := check_scene(binding,expected_vehicle_id,scene,layout)
+	var result := check_scene(binding,expected_vehicle_id,scene,layout,geometry,runtime)
+	if FileAccess.get_sha256(binding.model.path).to_lower()!=str(binding.model.sha256).to_lower():
+		scene.free(); return _result(["model.sha256: artifact changed during decode"])
 	result.artifact_verified=true
-	scene.free()
+	if retain_scene and result.ok: result["scene"]=scene
+	else: scene.free()
 	return result
+
+static func self_contained_glb(bytes: PackedByteArray) -> Array[String]:
+	if bytes.size()<20 or bytes.decode_u32(0)!=0x46546c67 or bytes.decode_u32(4)!=2 or bytes.decode_u32(8)!=bytes.size():
+		return ["model: invalid GLB container"]
+	var length := int(bytes.decode_u32(12))
+	if bytes.decode_u32(16)!=0x4e4f534a or length>bytes.size()-20: return ["model: missing GLB JSON chunk"]
+	var manifest: Variant=JSON.parse_string(bytes.slice(20,20+length).get_string_from_utf8())
+	if not manifest is Dictionary: return ["model: invalid GLB JSON"]
+	for category in ["buffers","images"]:
+		var rows: Variant=manifest.get(category,[])
+		if not rows is Array: return ["model: invalid GLB resource table"]
+		for row in rows:
+			if not row is Dictionary: return ["model: invalid GLB resource record"]
+			if row.has("uri") and (not row.uri is String or not row.uri.begins_with("data:")):
+				return ["model: external GLB dependencies are not packaged bindings"]
+	return []
+
+static func _runtime_mounts(binding: Dictionary, nodes: Dictionary, transforms: Dictionary, geometry: Dictionary, runtime: Dictionary, errors: Array[String]) -> void:
+	var unit := float(binding.units.meters_per_unit)
+	var tolerance := maxf(EPS,float(binding.units.attachment_tolerance_m))
+	for spec in [["hull","turret",_vec(geometry.turret_origin)],["turret","gun",_vec(geometry.gun_origin)],
+		["gun","muzzle",Vector3(0,0,-float(geometry.barrel_length))]]:
+		var local: Transform3D=(transforms[nodes[spec[0]].get_instance_id()] as Transform3D).affine_inverse()*transforms[nodes[spec[1]].get_instance_id()]
+		if (local.origin*unit).distance_to(spec[2])>tolerance or not local.basis.is_equal_approx(Basis.IDENTITY):
+			errors.append("runtime_mount."+str(spec[1])+": model rest pose differs from combat geometry")
+	for spec in [["turret",runtime.get("yaw_min",-180.0),runtime.get("yaw_max",180.0)],["gun",runtime.pitch_min,runtime.pitch_max]]:
+		if not is_equal_approx(float(binding.axes[spec[0]].limits_deg[0]),float(spec[1])) or not is_equal_approx(float(binding.axes[spec[0]].limits_deg[1]),float(spec[2])):
+			errors.append("runtime_mount."+str(spec[0])+": model limits differ from mechanism")
+	# All source meshes must belong to the explicit articulated hull subtree.
+	for instance_id in transforms:
+		var node := instance_from_id(instance_id) as Node3D
+		if node is MeshInstance3D and node!=nodes.hull and not nodes.hull.is_ancestor_of(node):
+			errors.append("runtime_mount: mesh outside bound hull")
+	var gun_forward := 0.0
+	for role in ["hull","turret","gun","running_left","running_right"]:
+		var mesh_count := 0
+		for instance_id in transforms:
+			var mesh := instance_from_id(instance_id) as MeshInstance3D
+			if mesh==null or mesh.mesh==null or (mesh!=nodes[role] and not nodes[role].is_ancestor_of(mesh)): continue
+			var separate := false
+			for other in ["turret","gun","running_left","running_right"]:
+				if other!=role and nodes[role].is_ancestor_of(nodes[other]) and (mesh==nodes[other] or nodes[other].is_ancestor_of(mesh)): separate=true
+			if separate: continue
+			mesh_count+=1
+			if role=="gun":
+				var relative: Transform3D=(transforms[nodes.gun.get_instance_id()] as Transform3D).affine_inverse()*transforms[instance_id]
+				var bounds: AABB=relative*mesh.mesh.get_aabb()
+				gun_forward=maxf(gun_forward,-bounds.position.z*unit)
+		if mesh_count==0: errors.append("runtime_mount."+role+": articulated part has no own visible mesh")
+	if absf(gun_forward-float(geometry.barrel_length))>maxf(0.1,tolerance):
+		errors.append("runtime_mount.gun: visible gun envelope does not reach declared muzzle")
 
 static func _walk(node: Node, parent_transform: Transform3D, transforms: Dictionary, stats: Dictionary, errors: Array[String]) -> void:
 	var transform := parent_transform
@@ -208,6 +265,10 @@ static func _validate_layout(binding: Dictionary, expected_id: String, root: Nod
 			if role.is_empty() or not nodes.has(role): errors.append("internal_attachments."+row.id+": unbound layout part"); continue
 			if anchor!=nodes[role] and not nodes[role].is_ancestor_of(anchor): errors.append("internal_attachments."+row.id+": wrong moving parent")
 			var part_transform: Transform3D=transforms[nodes[role].get_instance_id()]
+			# Runtime running frames share the drive origin at rest. Their authored
+			# branch anchors may sit at the left/right wheel centers instead.
+			if row.part_id in ["drive","running_left","running_right"]:
+				part_transform=transforms[nodes.hull.get_instance_id()]
 			var anchor_transform: Transform3D=transforms[anchor.get_instance_id()]
 			if LayoutMath.is_rigid(part_transform) and LayoutMath.is_rigid(anchor_transform) and LayoutMath.is_rigid(row.local_box_transform):
 				var local := part_transform.affine_inverse()*anchor_transform

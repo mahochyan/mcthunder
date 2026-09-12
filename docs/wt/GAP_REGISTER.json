@@ -328,7 +328,8 @@
       "evidence": [
         "WT030_REFERENCE_DATA.md",
         "WT030_MODEL_INSPECTION.md",
-        "WT030_BINDING_GATE.md"
+        "WT030_BINDING_GATE.md",
+        "WT030_MODEL_PACKAGE_BINDING.md"
       ],
       "human_accepted": false,
       "release_ready": false

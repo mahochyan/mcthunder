@@ -1,7 +1,7 @@
 class_name HistoricalVehicleModel
 extends RefCounted
 ## Common reconstruction: rendered armor and shot-query armor share the same layout vertices.
-static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayoutDefinition) -> void:
+static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayoutDefinition, model_source: Dictionary = {}) -> Dictionary:
 	for parent in [actor.tank.hull_frame,actor.turret]:
 		for child in parent.get_children():
 			if child.is_in_group("base_vehicle_visual"): child.queue_free()
@@ -17,6 +17,8 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	actor.turret._flash.position = actor.turret.muzzle.position-Vector3(0,0,0.05)
 	actor.cam_rig.position.y = float(g.turret_origin[1])+0.3
 	actor.label3d.position.y = float(g.turret_origin[1])+float(g.turret_top)+0.5
+	if packet.has("model_binding"):
+		return BoundVehicleModel.install(actor,packet,layout,model_source)
 	# One skin surface per moving part. Every triangle still comes from the exact query layout.
 	for part in ["hull","turret","barrel"]:
 		VehicleAtlas.skin(actor,part,layout,str(packet.id))
@@ -24,6 +26,7 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	TrackAssembly.install(actor,layout)
 	HistoricalTrackMotion.new().setup(actor.tank,packet)
 	actor.turret.recoil_visual = actor.turret.barrel_pivot.get_node("RecoilVisual")
+	return {"ok":true,"errors":[]}
 
 static func build_details(hull: Node3D, turret: Node3D, gun: Node3D, packet: Dictionary, layer: int) -> void:
 	var path := "res://assets/vehicles/"+str(packet.id)+".glb"
