@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-09-12T14:07:32.9768538+08:00",
+  "baseline": "5f24ae65835b99890ac90cf60381215cf63d26a3",
+  "result": "PASS",
+  "execution_items": 42,
+  "markdown_items": 42,
+  "unchanged_original_requirements": 42,
+  "dependency_graph": "all references valid; no cycles",
+  "all_four_extensions_retained": true,
+  "performance": "HOLD_BY_USER",
+  "incomplete_runtime_changes": "restored after saving draft",
+  "draft_patch": "git apply --check passed; not applied",
+  "engine_tests": "NOT_RUN: planning-only",
+  "human_acceptance": "NOT_RUN",
+  "game_completion_claimed": false,
+  "json_markdown_rows_consistent": 42,
+  "own_runtime_blobs_equal_HEAD": true,
+  "review_resolutions": [
+    "006E/015B rescue fundamentals before WT016; WT018 formal support follows",
+    "WT016 explicit eight-result real projectile matrix",
+    "WT033 same-rules protection analysis, test drive and named ammunition presets",
+    "WT034 accessible replacements across effect settings"
+  ],
+  "document_sha256": "A2CB8926481959F305A0A65CBE3084EA8F4E476405859973DF0443BE83573083",
+  "execution_json_sha256": "BB11B6E14BA78CF9ABA74FA5E6DB6308D054D3E149AF0B67DCF6F0949EA32E61"
+}

@@ -1,6 +1,8 @@
 {
   "schema": 1,
   "plan": "DEVELOPMENT_PLAN_2026-09-11.md",
+  "execution_plan": "EXECUTION_PLAN.json",
+  "execution_document": "REMAINING_WORK_PLAN_2026-09-12.md",
   "items": [
     {
       "id": "WT-001",

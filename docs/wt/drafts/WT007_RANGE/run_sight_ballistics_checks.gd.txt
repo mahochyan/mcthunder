@@ -1,0 +1,102 @@
+extends SceneTree
+const Solver = preload("res://scripts/projectiles/sight_ballistics.gd")
+var checks := 0
+var failures := 0
+
+func _initialize() -> void:
+	call_deferred("run")
+
+func check(ok: bool, message: String) -> void:
+	checks += 1
+	if not ok: failures += 1
+	print(("[PASS] " if ok else "[FAIL] ") + message)
+
+func flight_shell(speed: float = 600.0, gravity: float = 1.0, lifetime: float = 30.0) -> ShellDefinition:
+	var shell := ShellDefinition.new()
+	shell.muzzle_velocity_mps = speed
+	shell.gravity_scale = gravity
+	shell.max_flight_time_s = lifetime
+	return shell
+
+func run() -> void:
+	# This test calls the production free-flight integrator, independently of
+	# the inverse solver, to check the returned launch solution's endpoint.
+	var muzzle := Vector3(12.0, 4.0, -7.0)
+	var cases: Array = [
+		[50.0, Vector3(3,0,-20), 1.0],
+		[100.0, Vector3(200,50,-300), 1.0],
+		[400.0, Vector3(1200,-80,-800), 1.0],
+		[619.0, Vector3(-300,125,-1800), 1.0],
+		[792.0, Vector3(1000,-125,-3600), 1.0],
+		[100.0, Vector3(0,0,-500), 2.0],
+		[600.0, Vector3(0,0,-1000), 0.0],
+		[100000.0, Vector3(0,0,-1), 1.0],
+		[50.0, Vector3(0,20,0), 1.0],
+		[50.0, Vector3(0,-20,0), 1.0],
+		[50.0, Vector3(0,0.001,-0.001), 1.0],
+		[500.0, Vector3(0,0,-1000), 1.0e-12]
+	]
+	for index in cases.size():
+		var data: Array = cases[index]
+		var shell := flight_shell(data[0], data[2])
+		var target: Vector3 = muzzle + data[1]
+		var solved: Dictionary = Solver.solve(muzzle, target, shell)
+		check(solved.ok, "reachable stationary trajectory %d" % index)
+		if not solved.ok: continue
+		var direction: Vector3 = solved.direction
+		check(direction.is_finite() and absf(direction.length()-1.0)<0.000001 and solved.time_s>0 and solved.time_s<=shell.max_flight_time_s, "finite unit launch direction and allowed time %d" % index)
+		var gravity := Vector3(0,-9.81,0) * shell.gravity_scale
+		var endpoint := BallisticMath.advance_free(muzzle, direction*shell.muzzle_velocity_mps, gravity, solved.time_s)
+		var error: float = endpoint.position.distance_to(target) if endpoint.ok else INF
+		check(endpoint.ok and error<0.003, "production analytic integrator reaches target within 3mm %d, error=%.7fm" % [index,error])
+		if index in [1,3,4]:
+			var position := muzzle
+			var velocity := direction*shell.muzzle_velocity_mps
+			var elapsed := 0.0
+			var integrated := true
+			while elapsed < float(solved.time_s):
+				var step := minf(1.0/60.0, float(solved.time_s)-elapsed)
+				var plan := BallisticMath.plan_times(velocity, gravity, step)
+				if not plan.ok:
+					integrated = false
+					break
+				for segment in range(plan.times.size()-1):
+					var advanced := BallisticMath.advance_free(position, velocity, gravity, plan.times[segment+1]-plan.times[segment])
+					if not advanced.ok:
+						integrated = false
+						break
+					position = advanced.position
+					velocity = advanced.velocity
+				if not integrated: break
+				elapsed += step
+			check(integrated and position.distance_to(target)<0.05, "production 60Hz substeps reach stationary target within 5cm %d, error=%.7fm" % [index,position.distance_to(target)])
+	var flat_shell := flight_shell(100.0)
+	var flat_range := 500.0
+	var flat: Dictionary = Solver.solve(Vector3.ZERO,Vector3(0,0,-flat_range),flat_shell)
+	var expected_angle := 0.5*asin(9.81*flat_range/(100.0*100.0))
+	check(flat.ok and absf(asin(float(flat.direction.y))-expected_angle)<0.000001 and flat.time_s<100.0/9.81, "same-height solution selects analytic low arc instead of high arc")
+	var maximum: Dictionary = Solver.solve(Vector3.ZERO,Vector3(0,0,-981),flight_shell(98.1))
+	check(maximum.ok and absf(float(maximum.direction.y)-sqrt(0.5))<0.000001, "maximum-range tangent remains a reachable 45-degree solution")
+	check(not Solver.solve(Vector3.ZERO,Vector3(0,0,-982),flight_shell(98.1)).ok, "beyond maximum range is rejected")
+	check(not Solver.solve(Vector3.ZERO,Vector3(0,600,0),flight_shell(100.0)).ok, "vertical target above maximum apex is rejected")
+	var zero: Dictionary = Solver.solve(muzzle,muzzle+Vector3(30,40,0),flight_shell(50.0,0.0,1.0))
+	check(zero.ok and is_equal_approx(zero.time_s,1.0) and zero.direction.is_equal_approx(Vector3(0.6,0.8,0)), "zero gravity has direct direction and accepts exact flight-time endpoint")
+	check(Solver.solve(muzzle,muzzle+Vector3(30,40,0),flight_shell(50.0,0.0,0.999)).reason=="flight_time_exceeded", "zero-gravity trajectory beyond allowed lifetime is rejected")
+	check(Solver.solve(Vector3.ZERO,Vector3(0,0,-500),flight_shell(100.0,1.0,1.0)).reason=="flight_time_exceeded", "reachable gravitational arc beyond allowed lifetime is rejected")
+	check(Solver.solve(muzzle,muzzle,flight_shell()).reason=="coincident_target", "coincident target does not manufacture an aiming direction")
+	check(Solver.solve(muzzle,Vector3.ZERO,null).reason=="missing_shell", "missing shell is rejected")
+	for vector in [Vector3.INF,Vector3(NAN,0,0)]:
+		check(not Solver.solve(vector,Vector3.ZERO,flight_shell()).ok and not Solver.solve(Vector3.ZERO,vector,flight_shell()).ok, "nonfinite muzzle or target is rejected")
+	for field in ["muzzle_velocity_mps","gravity_scale","max_flight_time_s"]:
+		for invalid in [NAN,INF,-1.0]:
+			var shell := flight_shell()
+			shell.set(field,invalid)
+			check(not Solver.solve(muzzle,Vector3.ZERO,shell).ok, "invalid flight parameter rejected: %s=%s" % [field,invalid])
+	for field in ["muzzle_velocity_mps","max_flight_time_s"]:
+		var shell := flight_shell()
+		shell.set(field,0.0)
+		check(not Solver.solve(muzzle,Vector3.ZERO,shell).ok, "zero positive-only parameter rejected: "+field)
+	check(not Solver.solve(muzzle,Vector3.ZERO,flight_shell(1.0e200)).ok, "finite inputs whose intermediate arithmetic overflows are rejected")
+	print("=== 结果: %d 项检查, %d 失败 ===" % [checks,failures])
+	print("SIGHT_BALLISTICS_CHECKS_PASS" if failures==0 else "SIGHT_BALLISTICS_CHECKS_FAIL")
+	quit(0 if failures==0 else 1)

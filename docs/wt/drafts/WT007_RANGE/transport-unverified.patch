@@ -1,0 +1,140 @@
+diff --git a/scripts/command_mailbox.gd b/scripts/command_mailbox.gd
+index 6f37c4f..952908d 100644
+--- a/scripts/command_mailbox.gd
++++ b/scripts/command_mailbox.gd
+@@ -34,6 +34,10 @@ func submit(cmd: VehicleCommand) -> bool:
+ 		return false
+ 	if cmd.has_aim_point and cmd.clear_aim:
+ 		return false
++	if cmd.optical_intent!=null and not cmd.optical_intent.valid():
++		return false
++	if cmd.range_requested and cmd.optical_intent==null:
++		return false
+ 	var copy := VehicleCommand.new()
+ 	copy.throttle = clampf(cmd.throttle, -1.0, 1.0)
+ 	copy.steer = clampf(cmd.steer, -1.0, 1.0)
+@@ -42,6 +46,8 @@ func submit(cmd: VehicleCommand) -> bool:
+ 	copy.clear_aim = cmd.clear_aim
+ 	copy.aim_held = cmd.aim_held
+ 	copy.hold_aim = cmd.hold_aim
++	copy.optical_intent = cmd.optical_intent.copy() if cmd.optical_intent!=null else null
++	copy.range_requested = cmd.range_requested
+ 	copy.select_shell = cmd.select_shell
+ 	# 同一步多次提交合并：开火做逻辑或；驾驶/炮镜用最新样本；
+ 	# fire-only 的后续提交不覆盖本步已暂存的显式瞄点操作
+@@ -51,6 +57,10 @@ func submit(cmd: VehicleCommand) -> bool:
+ 	copy.replace_crew_requested = cmd.replace_crew_requested
+ 	copy.cancel_recovery_requested = cmd.cancel_recovery_requested
+ 	if _pending != null:
++		copy.range_requested = copy.range_requested or _pending.range_requested
++		# A later legacy/edge-only command cannot erase a queued observation ray.
++		if copy.optical_intent==null and _pending.optical_intent!=null:
++			copy.optical_intent = _pending.optical_intent.copy()
+ 		copy.fire_requested = copy.fire_requested or _pending.fire_requested
+ 		copy.repair_requested = copy.repair_requested or _pending.repair_requested
+ 		copy.extinguish_requested = copy.extinguish_requested or _pending.extinguish_requested
+diff --git a/scripts/defs/vehicle_command_codec.gd b/scripts/defs/vehicle_command_codec.gd
+index 7779caa..c5e5b3c 100644
+--- a/scripts/defs/vehicle_command_codec.gd
++++ b/scripts/defs/vehicle_command_codec.gd
+@@ -1,14 +1,17 @@
+ class_name VehicleCommandCodec
+ extends RefCounted
+ ## Data-only contract; authenticated ownership belongs to the future transport.
+-const VERSION := 2
+-const FLAGS := ["has_aim_point","clear_aim","aim_held","hold_aim","fire_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested"]
++const VERSION := 3
++const FLAGS := ["has_aim_point","clear_aim","aim_held","hold_aim","fire_requested","range_requested","repair_requested","extinguish_requested","replace_crew_requested","cancel_recovery_requested"]
+ static func integer(v: Variant) -> bool:
+ 	return (v is int or v is float) and is_finite(float(v)) and absf(float(v))<=9007199254740991 and float(v)==floor(float(v))
+ static func encode(cmd: VehicleCommand, actor: VehicleActor, sequence: int, input_tick: int) -> Dictionary:
+-	var body := {"throttle":cmd.throttle,"steer":cmd.steer,"select_shell":cmd.select_shell,"aim_world_point":[cmd.aim_world_point.x,cmd.aim_world_point.y,cmd.aim_world_point.z]}
+-	for key in FLAGS: body[key] = cmd.get(key)
++	var body := encode_body(cmd)
+ 	return {"version":VERSION,"entity_id":actor.entity_id,"life_id":actor.life_id,"generation":actor.state.generation,"control_epoch":actor.control_epoch,"sequence":sequence,"input_tick":input_tick,"command":body}
++static func encode_body(cmd: VehicleCommand) -> Dictionary:
++	var body := {"throttle":cmd.throttle,"steer":cmd.steer,"select_shell":cmd.select_shell,"aim_world_point":[cmd.aim_world_point.x,cmd.aim_world_point.y,cmd.aim_world_point.z],"optical_intent":cmd.optical_intent.encode() if cmd.optical_intent!=null else null}
++	for key in FLAGS: body[key] = cmd.get(key)
++	return body
+ static func decode(value: Variant) -> Dictionary:
+ 	if not value is Dictionary or value.size()!=8: return {"ok":false,"reason":"invalid_envelope"}
+ 	for key in ["version","life_id","generation","control_epoch","sequence","input_tick"]:
+@@ -17,7 +20,7 @@ static func decode(value: Variant) -> Dictionary:
+ 	if not value.get("entity_id") is String or value.entity_id.is_empty() or value.entity_id.length()>128: return {"ok":false,"reason":"invalid_entity"}
+ 	if not value.get("command") is Dictionary: return {"ok":false,"reason":"invalid_command"}
+ 	var body: Dictionary = value.command
+-	if body.size()!=FLAGS.size()+4: return {"ok":false,"reason":"invalid_fields"}
++	if body.size()!=FLAGS.size()+5 or not body.has("optical_intent"): return {"ok":false,"reason":"invalid_fields"}
+ 	for key in ["throttle","steer"]:
+ 		var v: Variant = body.get(key)
+ 		if not (v is int or v is float) or not is_finite(float(v)) or absf(float(v))>1: return {"ok":false,"reason":"invalid_"+key}
+@@ -29,8 +32,15 @@ static func decode(value: Variant) -> Dictionary:
+ 	if not point is Array or point.size()!=3: return {"ok":false,"reason":"invalid_aim"}
+ 	for coordinate in point:
+ 		if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)) or absf(float(coordinate))>1000000: return {"ok":false,"reason":"invalid_aim"}
++	var optical: AimIntent = null
++	if body.optical_intent!=null:
++		var decoded := AimIntent.decode(body.optical_intent)
++		if not decoded.get("ok",false): return {"ok":false,"reason":"invalid_optical_intent"}
++		optical=decoded.intent
++	if body.range_requested and optical==null: return {"ok":false,"reason":"missing_range_intent"}
+ 	var cmd := VehicleCommand.new()
+ 	cmd.throttle = body.throttle; cmd.steer = body.steer; cmd.select_shell = int(body.select_shell)
+ 	cmd.aim_world_point = Vector3(point[0],point[1],point[2])
++	cmd.optical_intent = optical
+ 	for key in FLAGS: cmd.set(key,body[key])
+ 	return {"ok":true,"command":cmd}
+diff --git a/scripts/drive/vehicle_frame_pose.gd b/scripts/drive/vehicle_frame_pose.gd
+index 13c8430..1ecc59d 100644
+--- a/scripts/drive/vehicle_frame_pose.gd
++++ b/scripts/drive/vehicle_frame_pose.gd
+@@ -3,7 +3,7 @@ extends RefCounted
+ ## Relative rigid poses. They belong to authority; render interpolation never
+ ## writes back to the server's query, driving or weapon state.
+ const VERSION := 1
+-const NETWORK_VERSION := 3 # Command v2 adds authoritative observation hold.
++const NETWORK_VERSION := 4 # Command v3 carries optics; private owner state carries range/zeroing.
+ const PARTS := ["hull", "running_left", "running_right"]
+ 
+ static func node(tank: TankVehicle, part: String) -> Node3D:
+diff --git a/scripts/network/network_battle_world.gd b/scripts/network/network_battle_world.gd
+index 2c640c1..c734a15 100644
+--- a/scripts/network/network_battle_world.gd
++++ b/scripts/network/network_battle_world.gd
+@@ -47,6 +47,10 @@ func record_finished(record: Dictionary) -> void:
+ 	event_sequence+=1
+ 	events.append({"sequence":event_sequence,"projectile_id":record.get("projectile_id"),"shot_id":record.get("shot_id"),"shooter_id":record.get("shooter_id"),"reason":record.get("reason")})
+ 	if events.size()>64: events.pop_front()
++func own_status(actor: VehicleActor) -> Dictionary:
++	# Observation and measured distance belong only to the authenticated owner.
++	# Public vehicle rows continue to contain externally visible physical state.
++	return {"cooldown":actor.gunner.cooldown_left,"ammo":actor.gunner.rounds_remaining,"speed":actor.tank.forward_speed,"fire_control":actor.fire_control.snapshot()}
+ func snapshot(sequence: int) -> Dictionary:
+ 	var vehicles: Array=[]
+ 	for actor in actors:
+diff --git a/scripts/network/network_controller.gd b/scripts/network/network_controller.gd
+index 2237b16..c3bf2ba 100644
+--- a/scripts/network/network_controller.gd
++++ b/scripts/network/network_controller.gd
+@@ -16,6 +16,7 @@ func receive(envelope: Variant) -> Dictionary:
+ 	held.has_aim_point=command.has_aim_point; held.aim_world_point=command.aim_world_point
+ 	held.clear_aim=command.clear_aim; held.aim_held=command.aim_held
+ 	held.hold_aim=command.hold_aim
++	held.optical_intent=command.optical_intent.copy() if command.optical_intent!=null else null
+ 	identity={"life":vehicle.life_id,"generation":vehicle.state.generation,"epoch":vehicle.control_epoch,"tick":int(envelope.input_tick)}
+ 	return result
+ func poll() -> VehicleCommand:
+diff --git a/tests/run_network_slice.gd b/tests/run_network_slice.gd
+index 754b80e..7c424f4 100644
+--- a/tests/run_network_slice.gd
++++ b/tests/run_network_slice.gd
+@@ -85,8 +85,7 @@ func run_client(port: int, path: String) -> void:
+ 			command.throttle=0.5 if Time.get_ticks_msec()-started<1000 else 0.0
+ 			command.has_aim_point=true; command.aim_world_point=Vector3(row.position[0],5,-70)
+ 			command.fire_requested=true
+-			var body := {"throttle":command.throttle,"steer":command.steer,"select_shell":-1,"aim_world_point":[command.aim_world_point.x,command.aim_world_point.y,command.aim_world_point.z]}
+-			for flag in VehicleCommandCodec.FLAGS: body[flag]=command.get(flag)
++			var body := VehicleCommandCodec.encode_body(command)
+ 			var envelope := {"version":VehicleCommandCodec.VERSION,"entity_id":entity,"life_id":row.life_id,"generation":row.generation,"control_epoch":row.control_epoch,"sequence":sequence,"input_tick":latest.tick,"command":body}
+ 			if not malicious_sent:
+ 				var spoof: Dictionary=envelope.duplicate(true); spoof.entity_id="B" if entity=="A" else "A"

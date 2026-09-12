@@ -1,0 +1,72 @@
+class_name SightBallistics
+extends RefCounted
+## Stationary-muzzle, stationary-target sight solution for the production
+## constant-gravity point projectile. No drag, target lead or tank-velocity
+## compensation. Weapon range, obstructions and mechanical limits belong to
+## the caller; a mathematical solution does not authorize a shot.
+const GRAVITY_MPS2 := 9.81 # Same projectile acceleration as Gunner.request_fire.
+const ROOT_RELATIVE_EPS := 1.0e-12
+
+static func solve(muzzle: Vector3, target: Vector3, shell: ShellDefinition) -> Dictionary:
+	if shell == null:
+		return _failure("missing_shell")
+	if not muzzle.is_finite() or not target.is_finite():
+		return _failure("non_finite_position")
+	var speed := shell.muzzle_velocity_mps
+	var scale := shell.gravity_scale
+	var limit := shell.max_flight_time_s
+	if not is_finite(speed) or speed <= 0.0:
+		return _failure("invalid_muzzle_speed")
+	if not is_finite(scale) or scale < 0.0:
+		return _failure("invalid_gravity")
+	if not is_finite(limit) or limit <= 0.0:
+		return _failure("invalid_flight_time")
+	var offset := target - muzzle
+	if not offset.is_finite():
+		return _failure("numeric_overflow")
+	# Keep scalar products in GDScript's double precision; Vector3 components
+	# themselves follow the engine build's real_t precision.
+	var range_squared: float = float(offset.x)*float(offset.x) + float(offset.y)*float(offset.y) + float(offset.z)*float(offset.z)
+	if range_squared == 0.0:
+		return _failure("coincident_target")
+	var speed_squared := speed * speed
+	var gravity := GRAVITY_MPS2 * scale
+	if not is_finite(range_squared) or not is_finite(speed_squared) or not is_finite(gravity):
+		return _failure("numeric_overflow")
+	var time_squared: float
+	if gravity == 0.0:
+		time_squared = range_squared / speed_squared
+	else:
+		# With u=t^2 and |v0|=speed:
+		# 0.25*g^2*u^2 - (speed^2-g*height)*u + |offset|^2 = 0.
+		# Rationalizing the smaller root avoids cancellation at short range,
+		# high muzzle velocity or nearly zero gravity. It also covers vertical
+		# targets without dividing by a horizontal distance.
+		var b := speed_squared - gravity * float(offset.y)
+		var b_squared := b * b
+		var gravity_term := gravity * gravity * range_squared
+		if not is_finite(b_squared) or not is_finite(gravity_term):
+			return _failure("numeric_overflow")
+		if b <= 0.0:
+			return _failure("unreachable")
+		var discriminant := b_squared - gravity_term
+		var tolerance := ROOT_RELATIVE_EPS * maxf(b_squared, gravity_term)
+		if discriminant < -tolerance:
+			return _failure("unreachable")
+		var denominator := b + sqrt(maxf(0.0, discriminant))
+		time_squared = 2.0 * range_squared / denominator
+	if not is_finite(time_squared) or time_squared <= 0.0:
+		return _failure("numeric_overflow")
+	var time := sqrt(time_squared)
+	if time > limit:
+		return _failure("flight_time_exceeded")
+	var launch_velocity := Vector3(float(offset.x)/time, (float(offset.y)+0.5*gravity*time_squared)/time, float(offset.z)/time)
+	if not launch_velocity.is_finite():
+		return _failure("numeric_overflow")
+	var direction := launch_velocity / speed
+	if not direction.is_finite() or direction.length_squared() <= 0.0:
+		return _failure("numeric_overflow")
+	return {"ok":true, "reason":"solved", "direction":direction.normalized(), "time_s":time}
+
+static func _failure(reason: String) -> Dictionary:
+	return {"ok":false, "reason":reason, "direction":Vector3.ZERO, "time_s":0.0}
