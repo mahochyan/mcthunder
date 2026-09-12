@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-13",
+  "base_commit": "572d7290",
+  "scope": "three_capture_point_design_and_garage_survey",
+  "capture_limit": 3,
+  "team_sizes_designed": [10, 16],
+  "tests": [
+    {"script":"tests/run_river_junction_checks.gd","mode":"headless","passed":45,"failed":0,"exit_code":0,"log":"headless-final.log"},
+    {"script":"tests/run_river_junction_checks.gd","mode":"actual_window_1600x900_and_1280x720","passed":51,"failed":0,"exit_code":0,"log":"window-final.log"},
+    {"script":"tests/run_garage_frontend_checks.gd","mode":"headless","passed":19,"failed":0,"exit_code":0,"log":"frontend-final.log"},
+    {"script":"tests/run_garage_checks.gd","mode":"headless","passed":151,"failed":0,"exit_code":0,"log":"garage-final.log"}
+  ],
+  "final_log_error_warning_scan": "no matches",
+  "screenshots": "docs/evidence/WT032-river/three-points-final/",
+  "visual_review": "reviewed_as_environment_sample_not_final_art_acceptance",
+  "input_evidence": "Actual window garage entry uses mouse events and return uses Escape. Mode and target controls use signals. Headless Escape calls the real modal handler directly.",
+  "world": {"terrain_tiles":120,"buildings":34,"trees":2735,"physical_bridges":5},
+  "geometry_checks": "Deployment support and bridge support use actual physics ray queries. Connectivity checks are strategic graph checks, not vehicle navigation acceptance.",
+  "protected_user_files": "All six hashes match logs/WT033-ui/7d65b325-families-final/SOURCE_MANIFEST.json protected_unstaged",
+  "human": "NOT_RUN",
+  "twenty_or_thirty_two_vehicle_match": "NOT_RUN",
+  "performance": "HOLD_BY_USER",
+  "combat_admitted": false,
+  "final_art_accepted": false,
+  "requirements_preserved": 42,
+  "release_ready": false
+}

@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS at most three capture points 10
+PASS preview is not battle admission 10
+PASS objective inside active area 10A
+PASS objective inside active area 10B
+PASS objective inside active area 10C
+PASS deployment capacity 10 team 1
+PASS nonoverlapping in-bounds deployment 10 team 1
+PASS deployment capacity 10 team 2
+PASS nonoverlapping in-bounds deployment 10 team 2
+PASS strategic route connectivity 10
+PASS alternate route with crossing closed 10 -520
+PASS alternate route with crossing closed 10 0
+PASS alternate route with crossing closed 10 520
+PASS at most three capture points 16
+PASS preview is not battle admission 16
+PASS objective inside active area 16A
+PASS objective inside active area 16B
+PASS objective inside active area 16C
+PASS deployment capacity 16 team 1
+PASS nonoverlapping in-bounds deployment 16 team 1
+PASS deployment capacity 16 team 2
+PASS nonoverlapping in-bounds deployment 16 team 2
+PASS strategic route connectivity 16
+PASS alternate route with crossing closed 16 -820
+PASS alternate route with crossing closed 16 -520
+PASS alternate route with crossing closed 16 0
+PASS alternate route with crossing closed 16 520
+PASS alternate route with crossing closed 16 820
+PASS garage training button opens map survey
+PASS survey world ready
+WORLD {"bridges":5,"buildings":34,"terrain_tiles":120,"trees":2735}
+PASS five real bridge decks
+PASS environment sample populated
+PASS actual terrain under deployment without building obstruction 10
+PASS physical bridge support 10
+PASS actual terrain under deployment without building obstruction 16
+PASS physical bridge support 16
+PASS 10v10 selector keeps three capture points
+PASS 16v16 keeps three capture points
+PASS real objective button positions survey camera
+PASS atlas fits default 1280x720 window
+PASS mode selector fits default window
+PASS focus loss stops survey movement
+PASS unverified 20/32 player mode not added to battle registry
+PASS Escape returns from survey to garage
+PASS survey does not change saved lineup or progress
+RESULT river_junction passed=45 failed=0

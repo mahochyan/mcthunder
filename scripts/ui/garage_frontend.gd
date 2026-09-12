@@ -12,6 +12,7 @@ var deploy: Button
 var page_index := 0
 var research_tree: VehicleResearchTree
 var tree_button: Button
+var map_survey_button: Button
 var short_names := {"player_tank":"M4A3", "us_m4a3_75w_vvss_1944":"M4A3 (75) W", "us_m24_m6_t85e1_1951":"M24 CHAFFEE", "us_m26_m3_1945":"M26 PERSHING", "us_m36_m4a1_1945":"M36 JACKSON"}
 
 func button(parent: Node, text: String, action: Callable) -> Button:
@@ -72,6 +73,8 @@ func compose(g: GarageShell) -> void:
 	move(g.vehicle_choice,pages[1]); move(g.dossier_button,pages[1]); move(g.preparation,pages[1]); g.preparation.settings_button.hide()
 	move(g.preview_note,pages[1]); g.preview_note.add_theme_color_override("font_color",GarageTheme.MUTED)
 	section(pages[2],"03  /  FIELD TRAINING","训练中心")
+	map_survey_button=button(pages[2],"河谷枢纽 · 大地图勘察",func() -> void:
+		if g.get_node_or_null("RiverJunctionSurvey")==null: g.add_child(RiverJunctionSurvey.new()))
 	for child in tutorial_row.get_children():
 		if child is Control: move(child,pages[2])
 	GarageTheme.text(pages[2],"自由靶场",18)

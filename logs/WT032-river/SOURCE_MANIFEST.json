@@ -1,0 +1,91 @@
+{
+  "base_commit": "572d72903990bc90d58a6a2f3e8e70e9ced904c6",
+  "captured_at": "2026-09-13T00:25:10.1657514+08:00",
+  "source_files": [
+    {
+      "path": "assets/shaders/river_buildings.gdshader",
+      "git_blob_sha1": "2aafd2fbd2a6dea377a275217d80d35e2214602a",
+      "working_tree_sha256": "0b2738375596778d33c6a84e55dba5ac349dab9c5108efdad7aebee5f7e8c7c0"
+    },
+    {
+      "path": "assets/shaders/river_ground.gdshader",
+      "git_blob_sha1": "88c6303e1fc7616c6e7e1ebde86f35f80ee148b3",
+      "working_tree_sha256": "9ff95e58cbfd6af0532cbdfb4cf0089ec931e73d88e1d82d32b711e36f375c11"
+    },
+    {
+      "path": "assets/shaders/river_ground.gdshader.uid",
+      "git_blob_sha1": "66822b6c7cd8668c45a5867e6d978d7afc992fd7",
+      "working_tree_sha256": "213e2e532bf5876b165c2bd1f3cfb04baa355feb3e5523a4028c762be9287415"
+    },
+    {
+      "path": "assets/shaders/river_water.gdshader",
+      "git_blob_sha1": "06e643ea3e42db4ccdb6e3f328c3931735ddce2a",
+      "working_tree_sha256": "de6585a477994f4dbba6d96ade254274bc93732346d8fd012f62d8a2f3816b9f"
+    },
+    {
+      "path": "assets/shaders/river_water.gdshader.uid",
+      "git_blob_sha1": "7faca3d6c641c132791eb2c1e8b8ddcd98285381",
+      "working_tree_sha256": "a27c536ff7c79cf4fe29936738a8885a953f9ff4fba4e7f40404b00022ede9ef"
+    },
+    {
+      "path": "scenes/maps/river_junction_survey.tscn",
+      "git_blob_sha1": "7b43f196152221aca0262450f91eb9c13860947a",
+      "working_tree_sha256": "7728dcdcfca771b599f67e6959732865b2bce5748e64aac09a896974677f1ed9"
+    },
+    {
+      "path": "scripts/maps/river_junction_definition.gd",
+      "git_blob_sha1": "8485c1975753b27099cde315a487e01b8ab5ccb1",
+      "working_tree_sha256": "497e1fb811edc943b061febcaf9736deec69f948b6311f9fc016ec08ae3b51d9"
+    },
+    {
+      "path": "scripts/maps/river_junction_definition.gd.uid",
+      "git_blob_sha1": "a973e677573e1a8383649fb80f05620b198c1c91",
+      "working_tree_sha256": "492e7d1854459bdf815755c2835cb543c6ec1be4d0e84bfd9697cc5e16f41791"
+    },
+    {
+      "path": "scripts/maps/river_junction_world.gd",
+      "git_blob_sha1": "b78275aa0be14840e7cfd10857b5c0a5961c4e97",
+      "working_tree_sha256": "55da7fbea4118440dec55ad05e8989794191f259f95578888e7f7498a1b51241"
+    },
+    {
+      "path": "scripts/maps/river_junction_world.gd.uid",
+      "git_blob_sha1": "3e2ea51ce7e397a831b38abefc49d14506c33029",
+      "working_tree_sha256": "cdce3d433da75249950f3e791f5e9059ca6e2acadedaad44ae53801d5db758d8"
+    },
+    {
+      "path": "scripts/ui/garage_frontend.gd",
+      "git_blob_sha1": "7ea7391d908e8d52758de2d1d691d1d9e87b8e10",
+      "working_tree_sha256": "65ec8c3b65439685fd715ff74f79faa179f1026aa7459942872db5cea3466d97"
+    },
+    {
+      "path": "scripts/ui/river_junction_atlas.gd",
+      "git_blob_sha1": "1cab2245f592e201572236286a57968bd61351d7",
+      "working_tree_sha256": "031eed4d5704eaedbcb6ce93eabb7ddb2920acc9731532e3b7e3b10d549dcd22"
+    },
+    {
+      "path": "scripts/ui/river_junction_atlas.gd.uid",
+      "git_blob_sha1": "5cfcc7c812943b67ba1e7351457aae0e91c5ce68",
+      "working_tree_sha256": "c4955e437d546832ee802651cb6da862a5440c1d66a2fbe7a96038e2dc824df3"
+    },
+    {
+      "path": "scripts/ui/river_junction_survey.gd",
+      "git_blob_sha1": "95bcb6c6f00ef1527b03df05cb0f4f6f368c260e",
+      "working_tree_sha256": "7e728157df16043b33534f9b48de2fff00c926555c8419a66c6297fd69e66cc3"
+    },
+    {
+      "path": "scripts/ui/river_junction_survey.gd.uid",
+      "git_blob_sha1": "bbce302d1c9dbb89c750bf1a0d0fa0c7cc3748f3",
+      "working_tree_sha256": "c309e326d883f0fa225758a3b601da251f4def0fc3742c43a25f49f6f8b3fe9c"
+    },
+    {
+      "path": "tests/run_river_junction_checks.gd",
+      "git_blob_sha1": "e4f948fd254655089e95181a2d4ebf198f155f89",
+      "working_tree_sha256": "ca823b4daa9936208f7b2b63001a6d6cf827a7a0ade8ba2b363acacdee8f8a4b"
+    }
+  ],
+  "source_identity": "git_blob_sha1 is checkout-line-ending independent",
+  "capture_limit": 3,
+  "performance": "HOLD_BY_USER",
+  "human": "NOT_RUN",
+  "combat_admitted": false
+}
