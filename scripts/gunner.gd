@@ -34,6 +34,11 @@ var initial_shell_id := ""
 var vehicle_definition_id := ""
 var training_resupply := false # Explicit training loadout only; does not bypass cooldown.
 var aim_preview_enabled := true # Non-player team AI has no HUD marker; actual firing never uses this preview.
+var loading_reason := ""
+var _loading_generation := -1
+var _replenishment_delay := 0.0
+var _replenishment_left := 0.0
+var _legacy_loading := LoadingProfile.new()
 var rounds_remaining: int:
 	get: return inventory.total_available()
 	set(value): inventory.configure(value,inventory.racks.keys()) # Explicit reset/loadout compatibility.
@@ -65,16 +70,91 @@ func _exclude() -> Array[RID]:
 	return ex
 
 func advance_timers(delta: float) -> void:
-	# 006：装填/宽限时钟唯一推进入口——由 VehicleActor._physics_process 在消费命令前
-	# 调用一次（删除原 _process 中的扣减；不再从其他回调重复调用）。
-	var rate := 1.0
-	if capabilities_provider.is_valid():
-		rate = float(capabilities_provider.call().reload_rate)
-	cooldown_left = maxf(0.0, cooldown_left - delta * rate)
-	if cooldown_left <= 0.0:
-		inventory.finish_transfer()
-		_sync_chamber_shell()
+	# Sole authority clock: Actor loading phase, after recovery/drive and before
+	# fire-control aim solving. A newly chambered shell affects this tick's solution.
+	if not is_finite(delta) or delta<=0 or (get_tree()!=null and get_tree().paused): return
+	var actor := get_parent() as VehicleActor
+	if actor!=null and actor.state!=null:
+		if _loading_generation>=0 and _loading_generation!=actor.state.generation:
+			_cancel_replenishment(); cooldown_left=0.0
+		_loading_generation=actor.state.generation
+	var caps := loading_capabilities()
+	cooldown_left = maxf(0.0, cooldown_left - delta * float(caps.reload_rate))
+	try_complete_load()
+	var profile := loading_profile()
+	if profile.mode=="automatic" or not profile.shot_feed_rack_ids.is_empty(): request_load()
+	_advance_replenishment(delta)
 	resume_grace = maxf(0.0, resume_grace - delta)
+
+func loading_profile() -> LoadingProfile:
+	return tank.defs.loading_profile if tank!=null and tank.defs!=null else _legacy_loading
+
+func loading_capabilities() -> Dictionary:
+	if capabilities_provider.is_valid(): return capabilities_provider.call()
+	return {"can_load":true,"reload_rate":1.0,"loading_mode":"crew","loading_reasons":[],"replenishment_allowed":false}
+
+func rack_usable(id: String) -> bool:
+	var actor := get_parent() as VehicleActor
+	return inventory.racks.has(id) and (actor==null or actor.state==null or not actor.state.module_states.has(id) or LoadingRules.module_available(actor.state,id))
+
+func supply_racks() -> Array:
+	var profile := loading_profile()
+	return Array(profile.supply_rack_ids) if not profile.supply_rack_ids.is_empty() else inventory.racks.keys()
+
+func request_load() -> bool:
+	if inventory.chamber>0 or inventory.in_transfer>0: return false
+	if get_tree()!=null and get_tree().paused: return false
+	var caps := loading_capabilities()
+	if not caps.get("can_load",true): loading_reason="loading_disabled"; return false
+	var profile := loading_profile()
+	var feeds: Array=Array(profile.shot_feed_rack_ids) if not profile.shot_feed_rack_ids.is_empty() else inventory.racks.keys()
+	for id in feeds:
+		if rack_usable(id) and inventory.begin_transfer_from(id,inventory.selected_shell):
+			cooldown_left=maxf(cooldown_left,weapon.reload_time if weapon!=null else GameConfig.RELOAD_TIME)
+			loading_reason=""; return true
+	loading_reason="feed_empty" if inventory.total_available()>0 else "no_ammo"
+	return false
+
+func try_complete_load() -> bool:
+	if cooldown_left>0 or inventory.in_transfer!=1 or not loading_capabilities().get("can_load",true) or not rack_usable(inventory.transfer_from): return false
+	if get_tree()!=null and get_tree().paused: return false
+	if not inventory.finish_transfer(): return false
+	_sync_chamber_shell(); loading_reason=""
+	return true
+
+func _cancel_replenishment() -> void:
+	var move := inventory.rack_move_snapshot()
+	if not move.is_empty(): inventory.cancel_rack_move(int(move.token))
+	_replenishment_delay=0.0; _replenishment_left=0.0
+
+func _advance_replenishment(delta: float) -> void:
+	var profile := loading_profile()
+	if not profile.replenishment_enabled: return
+	var actor := get_parent() as VehicleActor
+	var allowed: bool=loading_capabilities().get("replenishment_allowed",false)
+	if actor==null or (profile.replenishment_stationary and (actor.supply_motion_active or Vector2(tank.velocity.x,tank.velocity.z).length()>0.15)): allowed=false
+	var move := inventory.rack_move_snapshot()
+	if not move.is_empty() and (not rack_usable(move.from) or not rack_usable(move.to)): allowed=false
+	if not allowed: _cancel_replenishment(); return
+	# One job at a time: chamber loading takes priority without stealing the reserved round.
+	if inventory.in_transfer>0: return
+	if not move.is_empty():
+		_replenishment_left=maxf(0.0,_replenishment_left-delta)
+		if _replenishment_left<=0:
+			inventory.commit_rack_move(int(move.token)); _cancel_replenishment()
+		return
+	_replenishment_delay+=delta
+	if _replenishment_delay+0.000001<profile.replenishment_delay_s: return
+	var types: Array=[inventory.selected_shell]
+	for id in inventory.allowed_shells:
+		if id not in types: types.append(id)
+	for type in types:
+		for from in profile.reserve_rack_ids:
+			if not rack_usable(from): continue
+			for to in profile.shot_feed_rack_ids:
+				if rack_usable(to) and inventory.reserve_rack_move(from,to,type).ok:
+					_replenishment_left=profile.replenishment_interval_s; return
+	_replenishment_delay=0.0
 
 func _process(delta: float) -> void:
 	# 006：画面更新只保留表现工作（装填/宽限时钟已迁至 advance_timers）
@@ -135,6 +215,8 @@ func request_fire() -> bool:
 	return try_fire()
 
 func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary, first_id: String) -> bool:
+	var actor := get_parent() as VehicleActor
+	if actor!=null and not loading_profile().validate_bindings(actor.state._damage_layout).is_empty(): return false
 	var valid_ids := {}
 	for option in options:
 		if option == null or not option.validate().ok or valid_ids.has(option.id): return false
@@ -144,6 +226,12 @@ func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary
 		if not valid_ids.has(id): return false
 	if counts.size() != valid_ids.size(): return false
 	var ids := inventory.racks.keys()
+	if not loading_profile().shot_feed_rack_ids.is_empty():
+		# Array(typed_array) aliases its storage; ordering must not mutate the profile.
+		var ordered: Array=loading_profile().shot_feed_rack_ids.duplicate()
+		for id in ids:
+			if id not in ordered: ordered.append(id)
+		ids=ordered
 	var caps := inventory.rack_capacities.duplicate(true)
 	if caps.is_empty():
 		var left := weapon.initial_rounds if weapon != null else 30
@@ -151,6 +239,7 @@ func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary
 			caps[ids[i]] = ceili(float(left)/float(ids.size()-i)); left -= int(caps[ids[i]])
 	if not inventory.configure_loadout(counts,ids,caps,first_id): return false
 	shell_options = options.duplicate(); initial_shell_counts = counts.duplicate(true); initial_shell_id = first_id
+	_cancel_replenishment()
 	_sync_chamber_shell()
 	return true
 
@@ -158,8 +247,7 @@ func select_shell(index: int) -> bool:
 	if index < 0 or index >= shell_options.size(): return false
 	if not inventory.select_next(shell_options[index].id): return false
 	# Empty chamber can start a new ordinary load, but changing a pending transfer cannot replace it.
-	if inventory.chamber == 0 and inventory.in_transfer == 0 and inventory.begin_transfer():
-		cooldown_left = maxf(cooldown_left,weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME)
+	request_load()
 	return true
 
 func _sync_chamber_shell() -> void:
@@ -202,7 +290,7 @@ func try_fire() -> bool:
 		blocked_reason = "grace"
 		last_shot_result = "blocked:grace"
 		return false
-	inventory.finish_transfer() # Completion follows the same ready clock, including deterministic fixtures.
+	try_complete_load()
 	_sync_chamber_shell()
 	if rounds_remaining <= 0:
 		blocked_reason = "no_ammo"
@@ -276,8 +364,9 @@ func try_fire() -> bool:
 	inventory.consume_chamber()
 	if training_resupply and not inventory.racks.is_empty():
 		inventory.supply_round(1,str(inventory.racks.keys()[0]))
-	inventory.begin_transfer()
-	cooldown_left = weapon.reload_time if weapon != null else GameConfig.RELOAD_TIME
+	request_load()
+	# Preserve the original four vehicles' post-shot clock, including their last round.
+	if loading_profile().mode=="crew" and loading_profile().shot_feed_rack_ids.is_empty(): cooldown_left=weapon.reload_time if weapon!=null else GameConfig.RELOAD_TIME
 	shots_fired += 1
 	blocked_reason = ""
 	last_shot_result = "fired"
@@ -349,6 +438,7 @@ func reset_state() -> void:
 	# （普通暂停、F6 打开关闭不补弹；只有重置路径恢复）
 	cooldown_left = 0.0
 	resume_grace = 0.0
+	_cancel_replenishment(); _loading_generation=-1; loading_reason=""
 	blocked_reason = ""
 	last_shot_result = ""
 	rounds_remaining = weapon.initial_rounds if weapon != null else 30

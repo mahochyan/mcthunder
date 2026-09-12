@@ -1,0 +1,6 @@
+{
+  "human": "NOT_RUN",
+  "source": "5787094 plus authoring inspector",
+  "command": "--path \"E:\\AIprogram\\mcthunder\" --resolution 1280x720 --max-fps 60 -s res://authoring/reference_data/inspect_model_candidates.gd -- \"E:\\AIprogram\\mcthunder\\authoring\\reference_data\\MODEL_INSPECTION_INPUT.json\" \"E:\\AIprogram\\mcthunder\\docs\\evidence\\reference-models\\20260912-154010\" --capture",
+  "exit_code": 0
+}

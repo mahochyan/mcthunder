@@ -40,6 +40,10 @@ static func validate_package(packet: Dictionary) -> Dictionary:
 	if absf(mesh_width-width)/width > 0.16: errors.append("geometry.width: reconstructed envelope differs >16% from reference")
 	if absf(mesh_length-length)/length > 0.16: errors.append("geometry.length: hull envelope differs >16% from reference hull/travel length")
 	var layout := HistoricalVehicleGeometry.build(packet)
+	if packet.has("loading_profile"):
+		var loading := LoadingProfile.from_packet(packet.loading_profile)
+		errors.append_array(loading.errors)
+		if loading.ok: errors.append_array(loading.profile.validate_bindings(layout))
 	var validation := LayoutValidator.validate(layout,PackedStringArray(packet.facts.keys()),layout_evidence(packet,layout))
 	for err in validation.errors: errors.append(err)
 	for warning in validation.warnings: evidence.notes.append(warning)
@@ -67,6 +71,7 @@ static func vector(value: Variant, size: int) -> bool:
 
 static func check_shape(packet: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
+	if packet.has("loading_profile") and not packet.loading_profile is Dictionary: errors.append("loading_profile: expected dictionary")
 	for key in ["facts","sources","assembly","geometry","runtime","armor"]:
 		if not packet.get(key) is Dictionary: errors.append(key+": expected dictionary")
 	for key in ["modules","crew","compatible_shells"]:
@@ -74,6 +79,10 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 	for key in ["id","display_name","license"]:
 		if not packet.get(key) is String or str(packet[key]).is_empty(): errors.append(key+": expected nonempty string")
 	if not errors.is_empty(): return errors
+	if packet.has("loading_profile"):
+		if packet.loading_profile!=HistoricalEvidenceGate.value(packet,"loading.profile"): errors.append("loading.profile: actual policy differs from field evidence")
+		var equipment := {"mode":packet.loading_profile.get("mode","crew"),"crew_role":packet.loading_profile.get("crew_role","loader"),"required_module_ids":packet.loading_profile.get("required_module_ids",[])}
+		if equipment!=HistoricalEvidenceGate.value(packet,"equipment.loading"): errors.append("equipment.loading: actual installed mode/modules differ from field evidence")
 	for field in ["variant","suspension","gun","mount","shell"]:
 		if not packet.assembly.get(field) is String or str(packet.assembly.get(field,"")).is_empty(): errors.append("assembly."+field+": expected nonempty string")
 	for field in ["year","caliber_mm"]:
@@ -179,6 +188,9 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	v.evidence_profile = str(packet.get("evidence_profile","historical_verified"))
 	v.verification = "estimated" if v.evidence_profile=="game_reference" else "verified"
 	v.admission_status = "candidate"
+	if packet.has("loading_profile"):
+		var loading := LoadingProfile.from_packet(packet.loading_profile)
+		if loading.ok: v.loading_profile=loading.profile
 	v.source_refs.assign(["game_reference:"+str(packet.id)+": field evidence"] if v.evidence_profile=="game_reference" else ["res://configs/vehicles/historical/"+str(packet.id)+".json: field evidence"])
 	v.weapon_id = packet.id+"_gun"; w.id = v.weapon_id; w.shell_id = packet.id+"_shell"; s.id = w.shell_id
 	var r: Dictionary = packet.runtime

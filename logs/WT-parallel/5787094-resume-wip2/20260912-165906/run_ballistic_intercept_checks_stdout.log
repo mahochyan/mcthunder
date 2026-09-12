@@ -1,0 +1,153 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] zero-gravity lateral relative motion: solution exists
+[PASS] zero-gravity lateral relative motion: finite unit barrel direction within lifetime
+[PASS] zero-gravity lateral relative motion: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00003052 m
+[PASS] zero-gravity lateral relative motion: earliest time agrees with independent analytic case
+[PASS] approaching target: solution exists
+[PASS] approaching target: finite unit barrel direction within lifetime
+[PASS] approaching target: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] approaching target: earliest time agrees with independent analytic case
+[PASS] receding target and moving launcher: solution exists
+[PASS] receding target and moving launcher: finite unit barrel direction within lifetime
+[PASS] receding target and moving launcher: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] receding target and moving launcher: earliest time agrees with independent analytic case
+[PASS] mixed vertical motion and inherited own velocity: solution exists
+[PASS] mixed vertical motion and inherited own velocity: finite unit barrel direction within lifetime
+[PASS] mixed vertical motion and inherited own velocity: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000381 m
+[PASS] actual production 60 Hz subdivided flight meets the moving point within 5 cm
+[PASS] target below shooter: solution exists
+[PASS] target below shooter: finite unit barrel direction within lifetime
+[PASS] target below shooter: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00001526 m
+[PASS] very close target retains a positive time: solution exists
+[PASS] very close target retains a positive time: finite unit barrel direction within lifetime
+[PASS] very close target retains a positive time: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] almost equal forward speed: solution exists
+[PASS] almost equal forward speed: finite unit barrel direction within lifetime
+[PASS] almost equal forward speed: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] almost equal forward speed: earliest time agrees with independent analytic case
+[PASS] equal velocities reuse the stationary relative problem: solution exists
+[PASS] equal velocities reuse the stationary relative problem: finite unit barrel direction within lifetime
+[PASS] equal velocities reuse the stationary relative problem: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00006291 m
+[PASS] relative rest uses the frozen SightBallistics low arc without duplicating its solver
+[PASS] stationary interception: solution exists
+[PASS] stationary interception: finite unit barrel direction within lifetime
+[PASS] stationary interception: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00001526 m
+[PASS] adding a common velocity to both bodies preserves barrel-relative aim
+[PASS] flight longer than old two-second lead cap: solution exists
+[PASS] flight longer than old two-second lead cap: finite unit barrel direction within lifetime
+[PASS] flight longer than old two-second lead cap: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00006163 m
+[PASS] long interception retains its actual flight time instead of truncating to two seconds
+[PASS] old two-second approximate compensation misses the same moving encounter by over 30 m
+[PASS] omitting the production launcher's inherited velocity causes a measurable miss
+[PASS] zero-gravity double root without a sign change: solution exists
+[PASS] zero-gravity double root without a sign change: finite unit barrel direction within lifetime
+[PASS] zero-gravity double root without a sign change: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] zero-gravity double root without a sign change: earliest time agrees with independent analytic case
+[PASS] just beyond zero-gravity tangent is not manufactured into a solution
+[PASS] gravitational tangent with moving target: solution exists
+[PASS] gravitational tangent with moving target: finite unit barrel direction within lifetime
+[PASS] gravitational tangent with moving target: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] gravitational tangent with moving target: earliest time agrees with independent analytic case
+[PASS] above moving relative apex is unreachable
+[PASS] four-positive-root vertical encounter: solution exists
+[PASS] four-positive-root vertical encounter: finite unit barrel direction within lifetime
+[PASS] four-positive-root vertical encounter: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000048 m
+[PASS] four-positive-root vertical encounter: earliest time agrees with independent analytic case
+[PASS] four-root encounter selects earliest upward interception, not a later downward or high arc
+[PASS] degenerate zero-gravity linear equation: solution exists
+[PASS] degenerate zero-gravity linear equation: finite unit barrel direction within lifetime
+[PASS] degenerate zero-gravity linear equation: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] degenerate zero-gravity linear equation: earliest time agrees with independent analytic case
+[PASS] equal-speed receding target cannot be caught
+[PASS] faster receding target cannot be caught
+[PASS] zero-gravity inclusive lifetime: solution exists
+[PASS] zero-gravity inclusive lifetime: finite unit barrel direction within lifetime
+[PASS] zero-gravity inclusive lifetime: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] zero-gravity inclusive lifetime: earliest time agrees with independent analytic case
+[PASS] one microsecond before interception does not permit a post-lifetime hit
+[PASS] gravitational inclusive lifetime: solution exists
+[PASS] gravitational inclusive lifetime: finite unit barrel direction within lifetime
+[PASS] gravitational inclusive lifetime: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000191 m
+[PASS] gravitational inclusive lifetime: earliest time agrees with independent analytic case
+[PASS] gravitational root after lifetime is rejected
+[PASS] tangent exactly at lifetime: solution exists
+[PASS] tangent exactly at lifetime: finite unit barrel direction within lifetime
+[PASS] tangent exactly at lifetime: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] tangent exactly at lifetime: earliest time agrees with independent analytic case
+[PASS] forward-constructed encounter 0: solution exists
+[PASS] forward-constructed encounter 0: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 0: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00024462 m
+[PASS] constructed case 0 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 1: solution exists
+[PASS] forward-constructed encounter 1: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 1: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00001526 m
+[PASS] constructed case 1 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 2: solution exists
+[PASS] forward-constructed encounter 2: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 2: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] constructed case 2 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 3: solution exists
+[PASS] forward-constructed encounter 3: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 3: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] constructed case 3 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 4: solution exists
+[PASS] forward-constructed encounter 4: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 4: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00025350 m
+[PASS] constructed case 4 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 5: solution exists
+[PASS] forward-constructed encounter 5: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 5: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00013733 m
+[PASS] constructed case 5 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 6: solution exists
+[PASS] forward-constructed encounter 6: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 6: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00003052 m
+[PASS] constructed case 6 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 7: solution exists
+[PASS] forward-constructed encounter 7: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 7: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00001526 m
+[PASS] constructed case 7 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 8: solution exists
+[PASS] forward-constructed encounter 8: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 8: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00003412 m
+[PASS] constructed case 8 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 9: solution exists
+[PASS] forward-constructed encounter 9: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 9: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00024414 m
+[PASS] constructed case 9 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 10: solution exists
+[PASS] forward-constructed encounter 10: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 10: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00003052 m
+[PASS] constructed case 10 chooses no later than the known feasible intercept
+[PASS] forward-constructed encounter 11: solution exists
+[PASS] forward-constructed encounter 11: finite unit barrel direction within lifetime
+[PASS] forward-constructed encounter 11: production constant-acceleration flight intercepts the moving point within 6 mm; error=0.00000000 m
+[PASS] constructed case 11 chooses no later than the known feasible intercept
+[PASS] missing flight definition is rejected
+[PASS] coincident target rejects direction even when a future re-encounter exists
+[PASS] nonfinite muzzle rejected
+[PASS] nonfinite target rejected
+[PASS] nonfinite observed target velocity rejected
+[PASS] nonfinite inherited launcher velocity rejected
+[PASS] nonfinite muzzle rejected
+[PASS] nonfinite target rejected
+[PASS] nonfinite observed target velocity rejected
+[PASS] nonfinite inherited launcher velocity rejected
+[PASS] invalid field muzzle_velocity_mps rejected: nan
+[PASS] invalid field muzzle_velocity_mps rejected: inf
+[PASS] invalid field muzzle_velocity_mps rejected: -1.0
+[PASS] invalid field gravity_scale rejected: nan
+[PASS] invalid field gravity_scale rejected: inf
+[PASS] invalid field gravity_scale rejected: -1.0
+[PASS] invalid field max_flight_time_s rejected: nan
+[PASS] invalid field max_flight_time_s rejected: inf
+[PASS] invalid field max_flight_time_s rejected: -1.0
+[PASS] zero positive-only flight field rejected: muzzle_velocity_mps
+[PASS] zero positive-only flight field rejected: max_flight_time_s
+[PASS] gravity beyond production Vector3 range is rejected
+[PASS] underflowed shot displacement cannot create a plausible direction
+[PASS] finite relative intercept rejects shared world displacement that overflows production Vector3
+[PASS] world position plus finite common displacement must remain finite in production
+[PASS] ill-conditioned near-tangent coefficients cannot normalize a nonunit candidate into a claimed earliest intercept
+=== 结果: 149 项检查, 0 失败 ===
+BALLISTIC_INTERCEPT_CHECKS_PASS

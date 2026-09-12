@@ -1,0 +1,2 @@
+ERROR: Blender path is invalid or not set, check your Editor Settings. Cannot configure blender path in headless mode.
+   at: query (modules/gltf/editor/editor_scene_importer_blend.cpp:552)

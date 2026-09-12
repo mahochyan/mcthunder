@@ -1,0 +1,259 @@
+{
+  "base_commit": "57870948b7cae4804eeff58856e2b5d999146001",
+  "stage": "post-verification integration capture; not retroactive test launch identity",
+  "requirements_preserved": 42,
+  "execution_mode": "single_agent",
+  "subagents_allowed": false,
+  "files": [
+    {
+      "path": "assets/localization/zh_CN.json",
+      "sha256": "32f47bfcb305abcef772b34c40d6969fb9d8fa089c1045166b2762f5113c3102"
+    },
+    {
+      "path": "authoring/reference_data/MODEL_INSPECTION_INPUT.json",
+      "sha256": "224a7ce2865b9dcb2fbe3916b5f37919a0797c812447fb386a53c99426f4e57e"
+    },
+    {
+      "path": "authoring/reference_data/inspect_model_candidates.gd",
+      "sha256": "45d635db9b7d610a1f5c0e0ec2e772b6c585e2c298cf799c861d58a8daefa80d"
+    },
+    {
+      "path": "authoring/reference_data/model_snapshots/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scripts/ai/ai_perception.gd",
+      "sha256": "20827bcc8cc46492465dad2f840218cc66183922b0294da76c3f9977275b1050"
+    },
+    {
+      "path": "scripts/ai/ai_tank_controller.gd",
+      "sha256": "fc82ba8d2335e48a2de2cc1f16345223b4b621f2c42236aba4c1e5ff6aa4fe0d"
+    },
+    {
+      "path": "scripts/ai/aim_solver.gd",
+      "sha256": "88605f4fa231a7b11175fabb923a4ed3c83bc4d9b0e44fd91b94884a6cc4e21c"
+    },
+    {
+      "path": "scripts/battle/vehicle_simulation_driver.gd",
+      "sha256": "fa4b338c134e130bbdfb75d9c2ab1f72fa6c5c4e55e3b182f515e11a09285dd5"
+    },
+    {
+      "path": "scripts/content/model_binding_validator.gd",
+      "sha256": "85f5facac09dca9d525699877a7c61dfd30cf763430c2b11966e9186884959ef"
+    },
+    {
+      "path": "scripts/content/model_binding_validator.gd.uid",
+      "sha256": "25ad44889c51aa5b2b8460580a6fcc3bd4d037bb9ada38f09c75ee62873e5adf"
+    },
+    {
+      "path": "scripts/content/reference_evidence_gate.gd",
+      "sha256": "06423c484d8c2eb54ecf124df757f9e762fed3675d3f0cbd7e01380fdb35354f"
+    },
+    {
+      "path": "scripts/content/vehicle_content_pipeline.gd",
+      "sha256": "278afe4e5a83e93a05ac71ee3e5ca1988f78898c33d66c03ea86ee2c8ad4eda4"
+    },
+    {
+      "path": "scripts/core/core_ui.gd",
+      "sha256": "849020ec196c8d433a5441ead2fb8daf707fd6bef765b2dc0ce229ca2d574d11"
+    },
+    {
+      "path": "scripts/damage/ammo_inventory.gd",
+      "sha256": "c49ee2fd5dd835a5e7145c1f52080dad20a09b28b181efdfe15d6e6d94512408"
+    },
+    {
+      "path": "scripts/damage/ammunition_supply.gd",
+      "sha256": "8d4d3df4b92dd97b3585f87642b6cee12536d6ae772c6a4e0f85179310e60ff8"
+    },
+    {
+      "path": "scripts/damage/loading_rules.gd",
+      "sha256": "7607ac9ca57a9cbb48294fb9f6e9ddf0f4b63720ffb73c54596992cfbd13b218"
+    },
+    {
+      "path": "scripts/damage/loading_rules.gd.uid",
+      "sha256": "43e9d3d3d089a0d605f26f927ac804cad8453d163ad5ad3caef9a606ce75a733"
+    },
+    {
+      "path": "scripts/damage/recovery_rules.gd",
+      "sha256": "575f0452c38ca7f5e2bdc7b03f012023ed380fcbc192675ff5f14c92c0c133c6"
+    },
+    {
+      "path": "scripts/damage/vehicle_capabilities.gd",
+      "sha256": "6c63da9016b2ada8fc48a1dea370800cd02f41a127c5cba47efd910ebe5556cf"
+    },
+    {
+      "path": "scripts/defs/loading_profile.gd",
+      "sha256": "2665ed45164eb78a7687a7030800b44d7db6be770ae574877abb17c4c6d546ec"
+    },
+    {
+      "path": "scripts/defs/loading_profile.gd.uid",
+      "sha256": "e65dac4a0273dd407d8297e96c6f1c1dbc4e16efc9dd3ca40da54516ae9b8716"
+    },
+    {
+      "path": "scripts/defs/vehicle_definition.gd",
+      "sha256": "b9b436a113eb661a14f50612616913493bf2cee197c932c47429666cddf61b7a"
+    },
+    {
+      "path": "scripts/drive/vehicle_frame_pose.gd",
+      "sha256": "8ffda7ac68cb128c02ac5d090f5116842d5e6cd143170f72ee1cc19f9f268289"
+    },
+    {
+      "path": "scripts/gunner.gd",
+      "sha256": "df977a51ddc0d473aac61a3dd244620f17b01d8dcdc6036c4ba85627127c4f82"
+    },
+    {
+      "path": "scripts/network/network_battle_client.gd",
+      "sha256": "1d827b7721a0ae5c22c493e2a3ad0ca24c9e29cdf4c892fee796fd22c56ae692"
+    },
+    {
+      "path": "scripts/network/network_battle_server.gd",
+      "sha256": "8de303acd286092410cf7be314a50eaf108dd08b2a8c1fd9eb0d856dfe253dd9"
+    },
+    {
+      "path": "scripts/network/network_battle_world.gd",
+      "sha256": "0828eb20f1c409128463fc616d3823536377faa0882eefe29dde1e99a3df1a92"
+    },
+    {
+      "path": "scripts/network/network_client_view.gd",
+      "sha256": "0e009d10f02880241301ceb316624946a9d8b7c81d82c1597d311d0df29c60c1"
+    },
+    {
+      "path": "scripts/network/network_event_journal.gd",
+      "sha256": "6600285a73d9f458b4b75fea8c9447853132f35ecc7c38bd6b474f037163ad31"
+    },
+    {
+      "path": "scripts/network/network_event_journal.gd.uid",
+      "sha256": "879172a472a97827ef4926305de7fd9ea6ed529bb9651c277157eef24ad79eda"
+    },
+    {
+      "path": "scripts/network/network_pose_buffer.gd",
+      "sha256": "4dcbb2ae7607e17af7eaab2693c6a2c1637525364d7490dba172bc9a83634ee7"
+    },
+    {
+      "path": "scripts/projectiles/ballistic_intercept.gd",
+      "sha256": "b92bf8f5349eede40343c0d27c14060715c75a8ca3b2f02f63f5eba8ac26723c"
+    },
+    {
+      "path": "scripts/projectiles/ballistic_intercept.gd.uid",
+      "sha256": "e82b8315640bb9fa0801cb3bd53e978dccf0727c3cfe4901488980df7ee3d3b2"
+    },
+    {
+      "path": "scripts/ui/hud_presenter.gd",
+      "sha256": "b0d2c975115b9fe08561af4d1b4f589147e305905d4134c7239f8b99faed5fc3"
+    },
+    {
+      "path": "scripts/vehicle_actor.gd",
+      "sha256": "4f71d1b8a8619b7fa9ab25ef4ca4e3de7d5151fedf8542c86cf4bdc66a2b3f18"
+    },
+    {
+      "path": "tests/run_ai_intercept_checks.gd",
+      "sha256": "5fa7029076078aa1f4f51792e913c7ada17e08e84171bab8043d3128568e1678"
+    },
+    {
+      "path": "tests/run_ai_intercept_checks.gd.uid",
+      "sha256": "0c79ee1286f0f5f19deff616bd1efe3a6a6911022f736deafca2fffc817a255b"
+    },
+    {
+      "path": "tests/run_ballistic_intercept_checks.gd",
+      "sha256": "7c506bea549bc77902761d0bd0b44b6a729a755415ec6cf4dea88554e822a94f"
+    },
+    {
+      "path": "tests/run_ballistic_intercept_checks.gd.uid",
+      "sha256": "f5b62b641a423fea27d7016d67622503e8187ecbbccc32a1c08a428d4c231f4d"
+    },
+    {
+      "path": "tests/run_fire_control_checks.gd",
+      "sha256": "83c0418c6cc87f2b57684fab6d9c9b2645175ac937ec3011ac67f42ff47b662d"
+    },
+    {
+      "path": "tests/run_loading_checks.gd",
+      "sha256": "f5b4b5969868a75a04f70303b137207feb2da5e2adee331d6fddbcc84d9cfb42"
+    },
+    {
+      "path": "tests/run_loading_checks.gd.uid",
+      "sha256": "711ca18e25949209560789aeb9f0f3da878f2958fd07b4f91f429f7c76db6008"
+    },
+    {
+      "path": "tests/run_model_binding_checks.gd",
+      "sha256": "85b30c46c755bcf5d9e045ba2ae61e59a5be959051498e5fe12e0fc38f8e319a"
+    },
+    {
+      "path": "tests/run_model_binding_checks.gd.uid",
+      "sha256": "1eb19670be3d5fd412f3d3eb515c1d4a261c67b36899a524477b1725e4120f41"
+    },
+    {
+      "path": "tests/run_network_event_journal_checks.gd",
+      "sha256": "86ef8637453e9720023edcc1613cadf8e45b022ec387c685572ef81ffd12a9d3"
+    },
+    {
+      "path": "tests/run_network_event_journal_checks.gd.uid",
+      "sha256": "9b613db2bc6471e3533f3d141a7de23d0606a79b207b86a3b7aee5639651694a"
+    },
+    {
+      "path": "tests/run_network_event_recovery_checks.gd",
+      "sha256": "8f0510d25e0d7c8de5a8543382220eeab220aad3ce6c31e3bc25da16e6440181"
+    },
+    {
+      "path": "tests/run_network_event_recovery_checks.gd.uid",
+      "sha256": "edb1f1f8dd191d2c061c294950bf169cea0072f51960a0ecaf1071b4308fb272"
+    },
+    {
+      "path": "tests/run_network_pose_checks.gd",
+      "sha256": "17ea9c0de6ec0607a4f0b5448312e9b18f8249cfa9d3cbb51e218366fe164ced"
+    },
+    {
+      "path": "tests/run_network_slice.gd",
+      "sha256": "5a986e2779ea274d47ebfe05a334aea3b158913a67e2686ca6d37b738edc88d6"
+    }
+  ],
+  "evidence_roots": [
+    "authoring/reference_data/model_snapshots",
+    "docs/evidence/reference-models/20260912-154010",
+    "docs/evidence/reference-models/20260912-170125",
+    "docs/evidence/WT007-range/wip-uncommitted/window-20260912-171859",
+    "logs/WT007-range/wip-uncommitted/window-20260912-171859",
+    "logs/WT007-range/aim-matrix-20260912-172052",
+    "logs/WT010/5787094-moving-diagnostic/20260912-171306",
+    "logs/WT-parallel/5787094-resume-wip1/20260912-165822",
+    "logs/WT-parallel/5787094-resume-wip2/20260912-165906",
+    "logs/WT-parallel/5787094-resume-wip3/20260912-170201",
+    "logs/WT-parallel/5787094-resume-wip4/20260912-170419",
+    "logs/WT-parallel/5787094-resume-wip5/20260912-170913",
+    "logs/WT-parallel/5787094-network-final-wip6/20260912-171425",
+    "logs/WT-parallel/5787094-ai-tracking-wip7/20260912-171711",
+    "logs/WT-parallel/5787094-network-final-wip8/20260912-172256",
+    "logs/WT-parallel/5787094-model-binding-wip9/20260912-172624",
+    "logs/wt009/20260912-170745",
+    "logs/wt009/20260912-171141",
+    "logs/wt009/20260912-171548",
+    "logs/wt009/20260912-172400",
+    "logs/wt009-view/20260912-171624",
+    "logs/wt009-view/20260912-172506"
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ]
+}

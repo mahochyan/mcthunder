@@ -1,0 +1,141 @@
+{
+  "commands": 157,
+  "digest": "8791621b7b79c8f81a6a9f1fdc566d7f86998d4f902c69f624a9e71c23f1c57c",
+  "entity": "B",
+  "event_count": 8,
+  "event_cursor": 8,
+  "final": {
+    "event_sequence": 8.0,
+    "sequence": 164.0,
+    "session_id": "0c92326e24b4a60f35ad7da334d41672",
+    "tick": 567.0,
+    "vehicles": [
+      {
+        "accepted_sequence": -1.0,
+        "control_epoch": 3.0,
+        "destroyed": false,
+        "entity_id": "A",
+        "frame_pose": {
+          "hull": {
+            "position": [
+              0.0,
+              -0.0009292492759414,
+              0.0
+            ],
+            "rotation": [
+              0.00000000000000000091920187076014,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_left": {
+            "position": [
+              0.0,
+              -0.00094312836881726,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_right": {
+            "position": [
+              0.0,
+              -0.00094312836881726,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "version": 1.0
+        },
+        "generation": 1.0,
+        "gun_pitch": 0.0719810128211975,
+        "hull_pitch": -0.00000000000000000024553636392233,
+        "hull_roll": 0.0,
+        "life_id": 1.0,
+        "position": [
+          0.0,
+          0.00094312836881726,
+          10.8491144180298
+        ],
+        "shots": 2.0,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      },
+      {
+        "accepted_sequence": -1.0,
+        "control_epoch": 3.0,
+        "destroyed": false,
+        "entity_id": "B",
+        "frame_pose": {
+          "hull": {
+            "position": [
+              0.0,
+              -0.00094057206297293,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_left": {
+            "position": [
+              0.0,
+              -0.00094044563593342,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_right": {
+            "position": [
+              0.0,
+              -0.00094044563593342,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "version": 1.0
+        },
+        "generation": 1.0,
+        "gun_pitch": 0.0719545483589172,
+        "hull_pitch": -0.00000000000000000000000002127668,
+        "hull_roll": 0.0,
+        "life_id": 2.0,
+        "position": [
+          16.0,
+          0.00094044563593342,
+          10.0390357971191
+        ],
+        "shots": 2.0,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      }
+    ],
+    "version": 5.0
+  },
+  "initial_cursor": 0,
+  "passed": true,
+  "snapshot_and_event_order_verified": true
+}

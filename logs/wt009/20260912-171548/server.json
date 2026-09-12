@@ -1,0 +1,361 @@
+{
+  "accepted": 314,
+  "acks": 2,
+  "digest": "363b51baa49b9c42227fa330bb4a2aa37a16614d23809060b632b921d3560e42",
+  "final": {
+    "event_sequence": 8,
+    "sequence": 163,
+    "session_id": "46127af7d2777b2f87ac60840c076f24",
+    "tick": 576,
+    "vehicles": [
+      {
+        "accepted_sequence": -1,
+        "control_epoch": 3,
+        "destroyed": false,
+        "entity_id": "A",
+        "frame_pose": {
+          "hull": {
+            "position": [
+              0.0,
+              -0.000919357524253428,
+              0.0
+            ],
+            "rotation": [
+              0.00000000000000000195475848199959,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_left": {
+            "position": [
+              0.0,
+              -0.000940141675528139,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_right": {
+            "position": [
+              0.0,
+              -0.000940141675528139,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "version": 1
+        },
+        "generation": 1,
+        "gun_pitch": 0.0016468190588057,
+        "hull_pitch": -0.00000000000000000040654177102998,
+        "hull_roll": 0.0,
+        "life_id": 1,
+        "position": [
+          0.0,
+          0.000940141675528139,
+          10.813982963562
+        ],
+        "shots": 2,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      },
+      {
+        "accepted_sequence": -1,
+        "control_epoch": 3,
+        "destroyed": false,
+        "entity_id": "B",
+        "frame_pose": {
+          "hull": {
+            "position": [
+              0.0,
+              -0.000192341860383749,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_left": {
+            "position": [
+              0.0,
+              0.000098549819085747,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "running_right": {
+            "position": [
+              0.0,
+              0.000098549819085747,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "version": 1
+        },
+        "generation": 1,
+        "gun_pitch": 0.00166178878862411,
+        "hull_pitch": -0.00000000000000000000000002127668,
+        "hull_roll": 0.0,
+        "life_id": 2,
+        "position": [
+          16.0,
+          -0.000098549819085747,
+          10.0413618087769
+        ],
+        "shots": 2,
+        "turret_yaw": 0.0,
+        "yaw": 0.0
+      }
+    ],
+    "version": 5
+  },
+  "finished": 4,
+  "fired": 4,
+  "journal_events": [
+    {
+      "kind": "projectile_fired",
+      "payload": {
+        "gravity": [
+          0.0,
+          -9.8100004196167,
+          0.0
+        ],
+        "position": [
+          0.0,
+          2.28678035736084,
+          8.81771278381348
+        ],
+        "shell_id": "us_m4a3_75w_vvss_1944_shell",
+        "velocity": [
+          0.0,
+          0.86631166934967,
+          -619.42138671875
+        ]
+      },
+      "sequence": 1,
+      "shot": {
+        "projectile_id": 1,
+        "round_id": 1,
+        "shooter_id": "A",
+        "shooter_life_id": 1,
+        "shot_id": 1
+      },
+      "tick": 142,
+      "version": 1
+    },
+    {
+      "kind": "projectile_fired",
+      "payload": {
+        "gravity": [
+          0.0,
+          -9.8100004196167,
+          0.0
+        ],
+        "position": [
+          16.0,
+          1.88427650928497,
+          8.81879329681396
+        ],
+        "shell_id": "us_m24_m6_t85e1_1951_shell",
+        "velocity": [
+          0.0,
+          0.645259976387024,
+          -619.7607421875
+        ]
+      },
+      "sequence": 2,
+      "shot": {
+        "projectile_id": 2,
+        "round_id": 1,
+        "shooter_id": "B",
+        "shooter_life_id": 2,
+        "shot_id": 1
+      },
+      "tick": 142,
+      "version": 1
+    },
+    {
+      "kind": "projectile_finished",
+      "payload": {
+        "position": [
+          16.0,
+          0.0,
+          -418.231597900391
+        ],
+        "reason": "impact_world"
+      },
+      "sequence": 3,
+      "shot": {
+        "projectile_id": 2,
+        "round_id": 1,
+        "shooter_id": "B",
+        "shooter_life_id": 2,
+        "shot_id": 1
+      },
+      "tick": 184,
+      "version": 1
+    },
+    {
+      "kind": "projectile_finished",
+      "payload": {
+        "position": [
+          0.0,
+          0.0,
+          -472.342712402344
+        ],
+        "reason": "impact_world"
+      },
+      "sequence": 4,
+      "shot": {
+        "projectile_id": 1,
+        "round_id": 1,
+        "shooter_id": "A",
+        "shooter_life_id": 1,
+        "shot_id": 1
+      },
+      "tick": 189,
+      "version": 1
+    },
+    {
+      "kind": "projectile_fired",
+      "payload": {
+        "gravity": [
+          0.0,
+          -9.8100004196167,
+          0.0
+        ],
+        "position": [
+          16.0,
+          1.8828250169754,
+          7.05337047576904
+        ],
+        "shell_id": "us_m24_m6_t85e1_1951_shell",
+        "velocity": [
+          0.0,
+          1.02822160720825,
+          -618.7431640625
+        ]
+      },
+      "sequence": 5,
+      "shot": {
+        "projectile_id": 3,
+        "round_id": 1,
+        "shooter_id": "B",
+        "shooter_life_id": 2,
+        "shot_id": 2
+      },
+      "tick": 505,
+      "version": 1
+    },
+    {
+      "kind": "projectile_fired",
+      "payload": {
+        "gravity": [
+          0.0,
+          -9.8100004196167,
+          0.0
+        ],
+        "position": [
+          0.0,
+          2.28271722793579,
+          7.7175989151001
+        ],
+        "shell_id": "us_m4a3_75w_vvss_1944_shell",
+        "velocity": [
+          0.0,
+          1.01895880699158,
+          -618.7431640625
+        ]
+      },
+      "sequence": 6,
+      "shot": {
+        "projectile_id": 4,
+        "round_id": 1,
+        "shooter_id": "A",
+        "shooter_life_id": 1,
+        "shot_id": 2
+      },
+      "tick": 533,
+      "version": 1
+    },
+    {
+      "kind": "projectile_finished",
+      "payload": {
+        "position": [
+          16.0,
+          0.0,
+          -446.596710205078
+        ],
+        "reason": "impact_world"
+      },
+      "sequence": 7,
+      "shot": {
+        "projectile_id": 3,
+        "round_id": 1,
+        "shooter_id": "B",
+        "shooter_life_id": 2,
+        "shot_id": 2
+      },
+      "tick": 549,
+      "version": 1
+    },
+    {
+      "kind": "projectile_finished",
+      "payload": {
+        "position": [
+          0.0,
+          0.49370676279068,
+          -435.715667724609
+        ],
+        "reason": "cancelled_match_finished"
+      },
+      "sequence": 8,
+      "shot": {
+        "projectile_id": 4,
+        "round_id": 1,
+        "shooter_id": "A",
+        "shooter_life_id": 1,
+        "shot_id": 2
+      },
+      "tick": 576,
+      "version": 1
+    }
+  ],
+  "passed": true,
+  "rejected": {
+    "not_owner": 2,
+    "stale_sequence": 2,
+    "unsupported_message": 2,
+    "unsupported_version": 4
+  },
+  "shots": 4,
+  "terminal_reasons": {
+    "cancelled_match_finished": 1,
+    "impact_world": 3
+  },
+  "world_impacts": 3
+}

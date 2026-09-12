@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "human": "NOT_RUN",
+  "inspector_sha256": "45D635DB9B7D610A1F5C0E0EC2E772B6C585E2C298CF799C861D58A8DAEFA80D",
+  "input_sha256": "224A7CE2865B9DCB2FBE3916B5F37919A0797C812447FB386A53C99426F4E57E",
+  "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:/AIprogram/mcthunder\" -s res://authoring/reference_data/inspect_model_candidates.gd -- res://authoring/reference_data/MODEL_INSPECTION_INPUT.json \"E:\\AIprogram\\mcthunder\\docs\\evidence\\reference-models\\20260912-170125\"",
+  "source_base": "57870948b7cae4804eeff58856e2b5d999146001",
+  "passed": true,
+  "capture_requested": false
+}

@@ -1,0 +1,85 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[DETAIL] moving target, longer than two seconds solution={ "ok": false, "reason": "missing_shell", "direction": (0.0, 0.0, 0.0), "time_s": 0.0 } lane={  } gun=
+[FAIL] moving target, longer than two seconds: finite mechanism and observed motion produce one real projectile
+[PASS] moving target, longer than two seconds: lead uses velocity estimated by actual visible samples
+[FAIL] moving target, longer than two seconds: fire authorization ages the observation through the completed drive step
+[FAIL] moving target, longer than two seconds: bounded geometry preview permits the actual shot
+[FAIL] moving target, longer than two seconds: intercept retains flight time beyond former two-second cap
+[FAIL] moving target, longer than two seconds: actual moving authority geometry receives the flown shell
+[FAIL] moving target, longer than two seconds: actual projectile terminates on the intended enemy
+[FAIL] moving target, longer than two seconds: measured production flight exceeds two seconds
+[PASS] moving target, longer than two seconds: target actually changes world position during the shot
+[FAIL] moving target, longer than two seconds: real inventory debits one round and remains conserved
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[DETAIL] moving shooter and target solution={ "ok": false, "reason": "missing_shell", "direction": (0.0, 0.0, 0.0), "time_s": 0.0 } lane={  } gun=
+[FAIL] moving shooter and target: finite mechanism and observed motion produce one real projectile
+[PASS] moving shooter and target: lead uses velocity estimated by actual visible samples
+[FAIL] moving shooter and target: fire authorization ages the observation through the completed drive step
+[FAIL] moving shooter and target: bounded geometry preview permits the actual shot
+[FAIL] moving shooter and target: actual moving authority geometry receives the flown shell
+[FAIL] moving shooter and target: actual projectile terminates on the intended enemy
+[PASS] moving shooter and target: target actually changes world position during the shot
+[PASS] moving shooter and target: muzzle carrier actually moves during flight
+[FAIL] moving shooter and target: real inventory debits one round and remains conserved
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[PASS] unready weapon never performs full future geometry queries
+[FAIL] real perception and finite mechanism prepare an observable shot
+[FAIL] clear curved-path permission finds actual enemy exterior geometry
+[PASS] trajectory permission is read-only and cannot manufacture a hit or launch
+[FAIL] new world wall on actual predicted flight blocks stale-visible target permission
+[PASS] wall-blocked actual AI never emits a projectile
+[PASS] actual Actor.setup loads C
+[FAIL] actual friendly vehicle before target denies firing permission
+[PASS] friendly obstruction cannot generate an actual AI shot
+[FAIL] fresh barrel-root to muzzle check rejects a wall behind the muzzle
+[PASS] a target generation change invalidates its old observed identity
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[PASS] unreachable ballistic target generates neither permission queries nor actual shots
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[PASS] unready weapon never performs full future geometry queries
+[FAIL] real perception and finite mechanism prepare an observable shot
+[FAIL] ready aligned AI runs bounded permission only on its 0.12 s decision cadence
+[FAIL] weapon cumulative-flight budget rejects the otherwise solvable target
+[FAIL] mathematically reachable long path stops at the explicit geometry-segment budget
+[PASS] budget exhaustion never falls back to firing
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[PASS] Actor fire authorization runs once after actual drive moved the muzzle and set inherited velocity
+[PASS] false controller authorization cannot consume ammunition or create a projectile
+[PASS] authorization callback invalidating control epoch cannot fire from the stale simulation step
+[FAIL] valid current-epoch authorization reaches the same actual Gunner launch
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] real actors share the production simulation driver
+[FAIL] aim solver accounts for observation age before solving future interception
+[FAIL] aged observation uses the shared production intercept mathematics
+[PASS] observation older than the supported motion sample window is rejected
+[PASS] future-dated observation is rejected
+[FAIL] existing scripted training callers retain a finite compatible aim point
+[PASS] unreachable compatibility call cannot manufacture a valid fallback aim point
+=== 结果: 79 项检查, 27 失败 ===
+AI_INTERCEPT_CHECKS_FAIL

@@ -172,7 +172,7 @@ func set_controller(ctrl: Node) -> void:
 		cam_rig.set_local_control(false)
 
 func capabilities() -> Dictionary:
-	return VehicleCapabilities.compute(state)
+	return VehicleCapabilities.compute(state,definition.loading_profile if definition!=null else null)
 
 func _aim_snapshots() -> Array:
 	if gunner != null and gunner.shell != null and gunner.shell.armor_policy == "resolve" and gunner.snapshot_provider.is_valid():
@@ -297,16 +297,13 @@ func _physics_process(delta: float) -> void:
 func advance_standalone_tick(delta: float) -> void:
 	_apply_command_once(collect_simulation_command(delta),delta)
 
-func collect_simulation_command(delta: float) -> VehicleCommand:
+func collect_simulation_command(_delta: float) -> VehicleCommand:
 	# Expire the oldest merged input before a fresh controller poll can merge
 	# an old fire edge into a new driving sample.
 	# 003-R2：每辆车唯一物理执行器——有控制者先经同一提交入口收集本步命令，
 	_expire_pending_input()
 	# 然后消费恰好一次（无输入 = 零命令静止）；脚本不再传入 delta 决定运动时间。
-	# 006：装填/宽限时钟在消费命令前推进一次（唯一入口，删除 Gunner._process 扣减）。
 	_consume_count = 0
-	if is_instance_valid(gunner):
-		gunner.advance_timers(delta)
 	if controller != null:
 		var before_generation := state.generation
 		var before_epoch := control_epoch
@@ -329,6 +326,7 @@ func _apply_command_once(cmd: VehicleCommand, delta: float) -> void:
 	var step := begin_simulation_command(cmd,delta)
 	if step.is_empty(): return
 	advance_simulation_drive(step,delta)
+	advance_simulation_loading(step,delta)
 	advance_simulation_aim(step,delta)
 	advance_simulation_mechanism(step,delta)
 	finish_simulation_command(step)
@@ -361,6 +359,12 @@ func begin_simulation_command(cmd: VehicleCommand, delta: float) -> Dictionary:
 func advance_simulation_drive(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
 	tank.apply_drive(step.throttle,step.steer,delta)
+
+func advance_simulation_loading(step: Dictionary, delta: float) -> void:
+	if not simulation_step_valid(step): return
+	# Recovery and actual movement commit first. Complete the current chamber
+	# before solving this tick's sight trajectory so a new shell uses its own speed.
+	gunner.advance_timers(delta)
 
 func advance_simulation_aim(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
@@ -404,7 +408,13 @@ func finish_simulation_command(step: Dictionary) -> void:
 				break
 		gunner.select_shell((selected_index + 1) % gunner.shell_options.size())
 	if cmd.fire_requested and not cam_rig.binoculars:
-		gunner.request_fire()
+		# A controller may veto its own shot against the completed movement,
+		# chamber and mechanism state. Weapon admission remains in Gunner.
+		var permitted := true
+		if is_instance_valid(controller) and controller.has_method("authorize_fire"):
+			permitted = controller.call("authorize_fire",cmd) == true
+			if not simulation_step_valid(step): return
+		if permitted: gunner.request_fire()
 	# 状态同步：真实状态来源（HUD/试射目标只读，不另算一套显示用结果）
 	state.forward_speed = tank.forward_speed
 	state.turret_yaw = turret.global_rotation.y

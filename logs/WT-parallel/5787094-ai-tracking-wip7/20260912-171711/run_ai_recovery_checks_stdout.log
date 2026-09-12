@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] combat laboratory loads for recovery matrix
+[PASS] dry+immobile AI still delivers repair request instead of swallowed retreat command
+[PASS] retreat resumes with fallback goal once drive returns; repair not re-issued after heal
+[PASS] live fire gets extinguish request, not repair
+[PASS] dry+immobile+missing gunner requests legal replacement
+[PASS] dry+immobile+missing driver requests legal replacement
+[PASS] dry+immobile without patrol goal repairs rather than idling
+[PASS] recovery-disabled vehicle holds instead of wandering or fabricating repair
+[PASS] ammo+immobile repair regression holds
+[PASS] dry+mobile vehicle retreats for resupply rather than stalling on non-critical repair
+[PASS] unreachable objective is replaced by a hop onto the nearest graph node, not re-planned identically
+[PASS] arrival at a hop point re-attempts the original task objective, not just the hop
+[PASS] a re-hop never re-lands on the same no-progress hop node
+[PASS] repeated retries have a per-task unique hop budget and preserve the blocked original objective
+[PASS] real physics begins and completes repair with a committed repair record and restored drive
+[PASS] after repair actual displacement exceeds one metre toward the resupply task
+[natural recovery] frames=721 moved=12.953 record={ "event_id": "B:4:4:repair:1", "entity_id": "B", "life_id": 4, "generation": 4, "kind": "repair", "item_id": "track_left", "before": 0.0, "after": 50.0 }
+[recovery drive] caps={ "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": [], "crew_alive": 5, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false } phase=retreat driver=following reason=path_ready goal=(12.0, 0.0, -34.0) command=0.14036013614449
+=== 结果: 16 项检查, 0 失败 ===
+AI_RECOVERY_CHECKS_PASS

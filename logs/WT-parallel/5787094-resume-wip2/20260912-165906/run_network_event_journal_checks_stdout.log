@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] uninitialized journal cannot silently create a stream
+[PASS] session identifiers require the declared 16-byte lowercase hex token
+[PASS] first actual fire receives a sequence after semantic admission
+[PASS] event survives JSON numeric conversion under the exact schema
+[PASS] caller and returned dictionary mutation cannot rewrite journal facts
+[PASS] active launch identities also expose copies
+[PASS] invalid or same-session reset cannot reuse existing stream sequence numbers
+[PASS] duplicate fire is rejected without consuming a journal sequence
+[PASS] a finish without an admitted fire is rejected
+[PASS] past physics ticks cannot reorder an accepted fire and finish
+[PASS] finish cannot relabel a previous-life projectile as a new-life shot
+[PASS] finish cannot change the round identity
+[PASS] finish cannot change the shooter identity
+[PASS] finish cannot change the shot number
+[PASS] same-tick fire then finish is valid and releases the active slot
+[PASS] duplicate terminal callback cannot create another result
+[PASS] new projectile id cannot reuse the same logical shooter shot
+[PASS] next shot and new-life first shot are admitted
+[PASS] an older-life projectile may legitimately finish after its shooter starts a new life
+[PASS] old shooter life cannot submit another fire after a newer life
+[PASS] new round has its own shot sequence while older-round fire is rejected
+[PASS] booleans, fractions, nonfinite and unsafe integers cannot become event sequences
+[PASS] every shot identity counter must be a positive safe integer
+[PASS] boolean schema version cannot pass as version one
+[PASS] unsupported event schema is rejected
+[PASS] only authority fire and finish kinds are admitted
+[PASS] extra top-level fields fail exact event admission
+[PASS] unfrozen lifecycle fields cannot be smuggled into shot identity
+[PASS] private range data cannot enter public projectile payloads
+[PASS] wire vectors require three finite numeric array components within world bounds
+[PASS] initial velocity is nonzero and bounded by total speed, not just per-axis limits
+[PASS] unbounded acceleration cannot enter a launch record
+[PASS] identity labels are bounded printable protocol identifiers
+[PASS] finish has its own exact public reason and position schema
+[PASS] empty terminal reason cannot masquerade as a committed result
+[PASS] invalid append leaves sequence and active identity untouched atomically
+[PASS] sequence exhaustion stops admission before JSON precision is lost
+[PASS] 300 valid facts retain exactly the declared 256-event window
+[PASS] evicted history produces explicit resync metadata with no invented replacement events
+[PASS] retained boundary resumes with one bounded continuous batch
+[PASS] future, malformed cursors and oversized batch requests are rejected
+[PASS] bounded event batch survives actual JSON wire conversion
+[PASS] client advances only through delivered records rather than jumping to journal head
+[PASS] reliable retransmission delivers no duplicate effects
+[PASS] partially acknowledged batch applies only its contiguous unseen suffix
+[PASS] out-of-order delivery cannot skip a missing event
+[PASS] delayed packets from another server session cannot advance the cursor
+[PASS] malformed final entry rejects the complete batch before any client cursor commit
+[PASS] duplicate sequence within a batch fails continuity checks
+[PASS] in-batch fire and finish must carry exactly the same frozen shot identity
+[PASS] same projectile cannot finish twice under different event sequence numbers
+[PASS] empty batch cannot claim to cover a nonempty missing interval
+[PASS] unknown batch fields fail strict transport admission
+[PASS] cursor at current head receives a valid empty batch
+[PASS] all retained events replay exactly once through successive bounded pages
+[PASS] evicting old records does not permit reused projectile or shooter-shot identities
+[PASS] fresh and duplicate acknowledgments are valid within the actual sent range
+[PASS] knowing journal head cannot acknowledge events the server has never sent to that peer
+[PASS] acknowledgments cannot regress or cross server sessions
+[PASS] ACK schema does not accept booleans or additional authority claims
+[PASS] active identity storage cannot exceed the current projectile manager capacity
+[PASS] one committed finish frees exactly one active admission slot
+[PASS] deduplication watermarks remain bounded even across many distinct shooter identities
+[PASS] new server session explicitly clears event, active and shooter history
+=== 结果: 64 项检查, 0 失败 ===
+NETWORK_EVENT_JOURNAL_CHECKS_PASS

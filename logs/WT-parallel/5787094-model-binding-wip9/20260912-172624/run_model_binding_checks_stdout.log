@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] explicit 1.0 conversion binds actual synthetic geometry
+[PASS] structural success never attests file bytes/history or promotes a vehicle
+[PASS] validation does not mutate binding arrays or scene transforms
+[PASS] explicit 0.01 conversion binds actual synthetic geometry
+[PASS] structural success never attests file bytes/history or promotes a vehicle
+[PASS] validation does not mutate binding arrays or scene transforms
+[PASS] reject binding defect: non_dictionary
+[PASS] reject binding defect: schema
+[PASS] reject binding defect: unknown_field
+[PASS] reject binding defect: vehicle_id
+[PASS] reject binding defect: model_id
+[PASS] reject binding defect: hash_shape
+[PASS] reject binding defect: artifact_path
+[PASS] reject binding defect: unit_name
+[PASS] reject binding defect: unit_scale
+[PASS] reject binding defect: unit_nan
+[PASS] reject binding defect: dimensions_nan
+[PASS] reject binding defect: dimensions_zero
+[PASS] reject binding defect: dimensions_wrong
+[PASS] reject binding defect: tolerance
+[PASS] reject binding defect: attachment_tolerance
+[PASS] reject binding defect: missing_role
+[PASS] reject binding defect: wrong_path
+[PASS] reject binding defect: absolute_path
+[PASS] reject binding defect: parent_path
+[PASS] reject binding defect: property_path
+[PASS] reject binding defect: unique_path
+[PASS] reject binding defect: duplicate_role
+[PASS] reject binding defect: axis_space
+[PASS] reject binding defect: axis_vector
+[PASS] reject binding defect: axis_nan
+[PASS] reject binding defect: axis_limits
+[PASS] reject binding defect: node_scale
+[PASS] reject binding defect: node_shear
+[PASS] reject binding defect: node_reflection
+[PASS] reject binding defect: node_nan
+[PASS] reject binding defect: top_level
+[PASS] reject binding defect: gun_parent
+[PASS] reject binding defect: muzzle_parent
+[PASS] reject binding defect: running_parent
+[PASS] reject binding defect: running_sides
+[PASS] reject binding defect: muzzle_mesh
+[PASS] reject binding defect: muzzle_behind
+[PASS] reject binding defect: muzzle_direction
+[PASS] reject binding defect: turret_orientation
+[PASS] reject binding defect: gun_orientation
+[PASS] reject binding defect: missing_layout
+[PASS] reject binding defect: layout_identity
+[PASS] reject binding defect: layout_empty
+[PASS] reject binding defect: missing_attachment
+[PASS] reject binding defect: unknown_attachment
+[PASS] reject binding defect: attachment_path
+[PASS] reject binding defect: attachment_parent
+[PASS] reject binding defect: attachment_position
+[PASS] reject binding defect: attachment_orientation
+[CANDIDATE_GAPS] germ_leopard_2a4 ["nodes.muzzle: missing Node3D at VehicleRoot/TurretPivot/GunPivot/Muzzle", "nodes.running_left: missing Node3D at VehicleRoot/RunningLeft", "nodes.running_right: missing Node3D at VehicleRoot/RunningRight", "layout: matching combat geometry is missing"]
+[PASS] germ_leopard_2a4: exact frozen GLB remains rejected for missing muzzle/combat layout
+[PASS] germ_leopard_2a4: reading preserves artifact hash and candidate status
+[PASS] same artifact filename/hash cannot override wrong registry vehicle ID
+[PASS] binding and registry cannot assert a fabricated hash over actual model bytes
+[CANDIDATE_GAPS] ussr_t_80b ["nodes.muzzle: missing Node3D at ussr_t_80b/TurretPivot/GunPivot/Muzzle", "nodes.running_left: missing Node3D at ussr_t_80b/RunningLeft", "nodes.running_right: missing Node3D at ussr_t_80b/RunningRight", "layout: matching combat geometry is missing"]
+[PASS] ussr_t_80b: exact frozen GLB remains rejected for missing muzzle/combat layout
+[PASS] ussr_t_80b: reading preserves artifact hash and candidate status
+[PASS] same artifact filename/hash cannot override wrong registry vehicle ID
+[PASS] binding and registry cannot assert a fabricated hash over actual model bytes
+=== 结果: 63 项检查, 0 失败 ===
+MODEL_BINDING_CHECKS_PASS

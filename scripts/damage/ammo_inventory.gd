@@ -11,6 +11,9 @@ var transfer_shell := ""
 var selected_shell := LEGACY
 var allowed_shells: Array = [LEGACY]
 var transfer_from := ""
+var chamber_from := ""
+var _rack_move: Dictionary = {}
+var _move_sequence := 0
 var supplied := 0
 var fired := 0
 var lost := 0
@@ -33,11 +36,15 @@ func configure(total: int, rack_ids: Array = [], capacities: Dictionary = {}) ->
 	rack_capacities = capacities.duplicate(true)
 	chamber_shell = LEGACY if total > 0 else ""
 	transfer_shell = ""; transfer_from = ""
+	chamber_from=""; _rack_move.clear()
 	supplied = maxi(total,0); fired = 0; lost = 0
 	var ids: Array = []
 	for id in rack_ids:
 		if not str(id).is_empty() and not ids.has(str(id)): ids.append(str(id))
 	if ids.is_empty(): ids.append("reserve")
+	if chamber>0:
+		for id in ids:
+			if capacities.is_empty() or int(capacities.get(id,0))>0: chamber_from=str(id); break
 	for id in ids: _rack_shells[str(id)] = {LEGACY:0}
 	capacity = 0
 	for id in ids: capacity += maxi(0,int(capacities.get(id,0)))
@@ -76,7 +83,7 @@ func configure_loadout(counts: Dictionary, rack_ids: Array, capacities: Dictiona
 	for id in rack_ids:
 		var room := int(capacities[id])
 		if chamber > 0 and room > 0 and not chamber_deducted:
-			room -= 1; chamber_deducted = true
+			room -= 1; chamber_deducted = true; chamber_from=id
 		for shell_id in left:
 			var amount := mini(room,int(left[shell_id]))
 			_rack_shells[id][shell_id] = amount; left[shell_id] -= amount; room -= amount
@@ -105,8 +112,7 @@ func supply_round(amount: int, rack_id: String, shell_id: String = "") -> bool:
 	if shell_id.is_empty(): shell_id = selected_shell
 	if amount <= 0 or not _rack_shells.has(rack_id) or not allowed_shells.has(shell_id): return false
 	if total_available()+amount > capacity: return false
-	var occupied := int(racks[rack_id])+(in_transfer if transfer_from == rack_id else 0)
-	if not rack_capacities.is_empty() and occupied+amount > int(rack_capacities.get(rack_id,0)): return false
+	if not rack_capacities.is_empty() and rack_occupied(rack_id)+amount > int(rack_capacities.get(rack_id,0)): return false
 	_rack_shells[rack_id][shell_id] = int(_rack_shells[rack_id].get(shell_id,0))+amount
 	supplied += amount
 	return true
@@ -116,25 +122,62 @@ func conserved() -> bool:
 	for row in _rack_shells.values():
 		for n in row.values():
 			if not n is int or n < 0: return false
+	for id in rack_capacities:
+		if rack_occupied(id)>int(rack_capacities[id]): return false
+	if not _rack_move.is_empty() and int(_rack_shells.get(_rack_move.from,{}).get(_rack_move.shell,0))<1: return false
 	return true
 
 func consume_chamber() -> bool:
 	if chamber != 1: return false
-	chamber_shell = ""; fired += 1
+	chamber_shell = ""; chamber_from=""; fired += 1
 	return true
 
 func begin_transfer() -> bool:
 	if chamber > 0 or in_transfer > 0: return false
 	for id in _rack_shells:
-		if int(_rack_shells[id].get(selected_shell,0)) > 0:
-			_rack_shells[id][selected_shell] -= 1
-			transfer_shell = selected_shell; transfer_from = id
-			return true
+		if begin_transfer_from(id,selected_shell): return true
 	return false
+
+func available_in_rack(rack_id: String, shell_id: String) -> int:
+	var reserved := 1 if _rack_move.get("from","")==rack_id and _rack_move.get("shell","")==shell_id else 0
+	return maxi(0,int(_rack_shells.get(rack_id,{}).get(shell_id,0))-reserved)
+
+func rack_occupied(rack_id: String) -> int:
+	return int(racks.get(rack_id,0))+(chamber if chamber_from==rack_id else 0)+(in_transfer if transfer_from==rack_id else 0)+(1 if _rack_move.get("to","")==rack_id else 0)
+
+func begin_transfer_from(rack_id: String, shell_id: String) -> bool:
+	if chamber>0 or in_transfer>0 or shell_id not in allowed_shells or available_in_rack(rack_id,shell_id)<1: return false
+	_rack_shells[rack_id][shell_id]-=1
+	transfer_shell=shell_id; transfer_from=rack_id
+	return true
+
+func reserve_rack_move(from: String, to: String, shell_id: String) -> Dictionary:
+	if not _rack_move.is_empty() or from==to or not _rack_shells.has(to) or not rack_capacities.has(to) or available_in_rack(from,shell_id)<1: return {"ok":false}
+	if rack_occupied(to)>=int(rack_capacities[to]): return {"ok":false}
+	_move_sequence+=1
+	_rack_move={"token":_move_sequence,"from":from,"to":to,"shell":shell_id}
+	return {"ok":true,"token":_move_sequence}
+
+func commit_rack_move(token: int) -> bool:
+	if _rack_move.is_empty() or _rack_move.token!=token: return false
+	var move := _rack_move.duplicate()
+	if int(_rack_shells.get(move.from,{}).get(move.shell,0))<1 or rack_occupied(move.to)>int(rack_capacities.get(move.to,0)): return false
+	_rack_shells[move.from][move.shell]-=1
+	_rack_shells[move.to][move.shell]=int(_rack_shells[move.to].get(move.shell,0))+1
+	_rack_move.clear()
+	return true
+
+func cancel_rack_move(token: int) -> bool:
+	if _rack_move.is_empty() or _rack_move.token!=token: return false
+	_rack_move.clear()
+	return true
+
+func rack_move_snapshot() -> Dictionary: return _rack_move.duplicate(true)
+func has_rack_move() -> bool: return not _rack_move.is_empty()
 
 func complete_load() -> bool:
 	if chamber > 0 or in_transfer != 1: return false
-	chamber_shell = transfer_shell; transfer_shell = ""; transfer_from = ""
+	chamber_shell = transfer_shell; chamber_from=transfer_from; transfer_shell = ""; transfer_from = ""
 	return true
 
 func finish_transfer() -> bool:
@@ -150,9 +193,10 @@ func lose_all() -> void:
 	for id in _rack_shells:
 		for shell_id in _rack_shells[id]: _rack_shells[id][shell_id] = 0
 	chamber_shell = ""; transfer_shell = ""; transfer_from = ""
+	chamber_from=""; _rack_move.clear()
 
 func snapshot() -> Dictionary:
 	return {"racks":racks,"rack_shells":_rack_shells.duplicate(true),"chamber":chamber,"in_transfer":in_transfer,
 		"chamber_shell":chamber_shell,"transfer_shell":transfer_shell,"selected_shell":selected_shell,
 		"transfer_from":transfer_from,"available":total_available(),"capacity":capacity,"shell_counts":shell_counts(),
-		"supplied":supplied,"fired":fired,"lost":lost}
+		"supplied":supplied,"fired":fired,"lost":lost,"chamber_from":chamber_from,"rack_move":rack_move_snapshot()}

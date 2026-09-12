@@ -7,22 +7,27 @@ var frames: Array[Dictionary] = []
 var render_tick := 0.0
 func clear() -> void: frames.clear(); render_tick=0.0
 static func valid_snapshot(snapshot: Variant) -> bool:
-	if not snapshot is Dictionary or not VehicleCommandCodec.integer(snapshot.get("version")) or snapshot.version!=VehicleFramePose.NETWORK_VERSION: return false
-	if not VehicleCommandCodec.integer(snapshot.get("tick")) or not VehicleCommandCodec.integer(snapshot.get("sequence")) or not snapshot.get("vehicles") is Array: return false
+	if not snapshot is Dictionary or snapshot.size()!=6 or not NetworkEventJournal.integer(snapshot.get("version")) or snapshot.version!=VehicleFramePose.NETWORK_VERSION: return false
+	if not NetworkEventJournal.valid_session(snapshot.get("session_id")): return false
+	for key in ["tick","sequence","event_sequence"]:
+		if not NetworkEventJournal.integer(snapshot.get(key)): return false
+	if not snapshot.get("vehicles") is Array or snapshot.vehicles.is_empty() or snapshot.vehicles.size()>2: return false
 	var ids := {}
 	for row in snapshot.vehicles:
-		if not row is Dictionary or not row.get("entity_id") is String or ids.has(row.entity_id): return false
+		if not row is Dictionary or row.size()!=14 or not NetworkEventJournal.identifier(row.get("entity_id")) or ids.has(row.entity_id): return false
 		ids[row.entity_id]=true
-		for key in ["life_id","generation","control_epoch"]:
-			if not VehicleCommandCodec.integer(row.get(key)): return false
-		if not row.get("position") is Array or row.position.size()!=3: return false
-		for value in row.position+[row.get("yaw"),row.get("turret_yaw"),row.get("gun_pitch"),row.get("hull_pitch",0),row.get("hull_roll",0)]:
-			if not (value is int or value is float) or not is_finite(float(value)): return false
+		for key in ["life_id","generation","control_epoch","shots"]:
+			if not NetworkEventJournal.integer(row.get(key)): return false
+		if row.life_id<1 or not row.get("destroyed") is bool or not NetworkEventJournal.integer(row.get("accepted_sequence"),-1): return false
+		if not NetworkEventJournal.vector(row.get("position"),NetworkEventJournal.POSITION_LIMIT): return false
+		for key in ["yaw","turret_yaw","gun_pitch","hull_pitch","hull_roll"]:
+			var value: Variant=row.get(key)
+			if not (value is int or value is float) or not is_finite(float(value)) or absf(float(value))>TAU*1000.0: return false
 		if not VehicleFramePose.valid(row.get("frame_pose")): return false
 	return true
 func push(snapshot: Dictionary) -> bool:
 	if not valid_snapshot(snapshot): return false
-	if not frames.is_empty() and (snapshot.tick<frames[-1].tick or snapshot.sequence<=frames[-1].sequence): return false
+	if not frames.is_empty() and (snapshot.session_id!=frames[-1].session_id or snapshot.tick<frames[-1].tick or snapshot.sequence<=frames[-1].sequence or snapshot.event_sequence<frames[-1].event_sequence): return false
 	# The final snapshot may share a simulation tick with the last broadcast.
 	if not frames.is_empty() and snapshot.tick==frames[-1].tick: frames.pop_back()
 	frames.append(snapshot.duplicate(true))

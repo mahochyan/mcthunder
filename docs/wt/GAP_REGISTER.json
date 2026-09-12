@@ -25,7 +25,10 @@
         "WT002_MATCH_EVENTS.md",
         "WT002_WORLD_VEHICLE_PHASES.md",
         "WT002_TRAINING_MOVING_TARGET.md",
-        "WT007_RANGE_AND_ZEROING.md"
+        "WT007_RANGE_AND_ZEROING.md",
+        "WT009_EVENT_RECOVERY.md",
+        "WT010_AI_INTERCEPT.md",
+        "WT027_LOADING_DESIGN.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -124,7 +127,8 @@
       "evidence": [
         "WT009_LOCAL_AUTHORITY.md",
         "WT009_INTERACTIVE_CLIENT.md",
-        "WT007_RANGE_AND_ZEROING.md"
+        "WT007_RANGE_AND_ZEROING.md",
+        "WT009_EVENT_RECOVERY.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -135,7 +139,8 @@
       "status": "in_progress",
       "requirements": "阶段：M2。职责：战斗程序。依赖：WT-002, WT-003。\n\n保持有限弹速与连续飞行，校准初速、弹道衰减/重力、相对运动和生命周期。在车辆运动、炮塔旋转时验证碰撞与采样时间；首发不能由显示用射线另算结果。\n\n**交付**\n- 版本化 BallisticProfile 与射程测试集\n- 短/中/远程及横移目标回归\n- 弹丸单步耗尽/续飞/终止记录\n\n**验收**\n- 高速弹丸与运动目标不因一帧跨越而随机漏判\n- 显示弹道、服务器记录与命中计算对应同一发弹\n- 数据不足字段有估计范围/设计标签，不写成精确历史结论",
       "evidence": [
-        "WT010_TRANSLATION_CONTACT.md"
+        "WT010_TRANSLATION_CONTACT.md",
+        "WT010_AI_INTERCEPT.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -287,9 +292,11 @@
     {
       "id": "WT-027",
       "title": "M1A1现代能力样车",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：MODERN。职责：载具/战斗/技术美术。依赖：WT-008, WT-012, WT-013, WT-015, WT-017。\n\n按确切改型把 M1A1 从外观资产提升为能力样车：现代瞄具、测距、稳定、对应弹族、装甲层、乘员/弹药布置。该工作在通用核心成熟后即可启动，不等几十辆二战车。\n\n**交付**\n- 明确改型的 VehiclePackage 与能力清单\n- 公开史料、形状估计、设计参数分栏\n- 热像/烟幕/火控受损与中远距正常射击测试\n\n**验收**\n- 不是把现代外壳套到旧车参数上\n- 人工装填车辆不能因统一现代模板被误装自动装弹机\n- 未知防护与材料不冒充真实精确值；每种能力只分配给确有依据的配置",
-      "evidence": [],
+      "evidence": [
+        "WT027_LOADING_DESIGN.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -317,7 +324,9 @@
       "status": "in_progress",
       "requirements": "阶段：CONTENT。职责：技术美术/数据。依赖：WT-001。\n\n资产入库先核实来源与使用范围，再做轮廓、部件拆分、轴心、UV/烘焙、材质、LOD、运动碰撞、装甲与内构、弹药、光学挂点。保留可编辑源和自动校验。\n\n**交付**\n- VehiclePackage规范及导入/检查工具\n- 可见网格、移动碰撞、装甲层、内部模块四层分离\n- 按目标硬件测试的近/中/远档预算\n\n**验收**\n- 换贴图/LOD不能改变命中轮廓和装甲规则\n- 同一车型可由另一名制作者按规范重建或修订\n- 现有约1k模型与M1A1高面数方案需统一到明确画质档，不能只写low-poly就认为预算完成",
       "evidence": [
-        "WT030_REFERENCE_DATA.md"
+        "WT030_REFERENCE_DATA.md",
+        "WT030_MODEL_INSPECTION.md",
+        "WT030_BINDING_GATE.md"
       ],
       "human_accepted": false,
       "release_ready": false

@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[DETAIL] moving target, longer than two seconds solution={ "ok": true, "reason": "solved", "direction": (0.258776, 0.154056, -0.953573), "time_s": 2.16727941838956, "ideal_direction": (0.258776, 0.154056, -0.953573), "aim_point": (35.78255, 23.40624, -132.3761), "aim_distance_m": 135.150283813477, "target_point_now": (15.59054, 1.248612, -137.8333), "target_velocity": (10.00008, 0.0, 0.0), "observation_age_s": 0.01666666666667, "shell_id": "test_ai_intercept_65.0" } lane={  } gun=
+[TRACKING] moving target, longer than two seconds phase=engage chamber=1 cooldown=0.0 grace=0.0 authorization={  } min_error_deg=0.89565199065218 mean_error_deg=0.94174622307187 actual_axis_rate=(0.003194, -0.069772) command_error_deg=0.92227201261207
+[FAIL] moving target, longer than two seconds: finite mechanism and observed motion produce one real projectile
+[PASS] moving target, longer than two seconds: lead uses velocity estimated by actual visible samples
+[FAIL] moving target, longer than two seconds: fire authorization ages the observation through the completed drive step
+[FAIL] moving target, longer than two seconds: post-drive interception does not reuse the pre-drive observed target position
+[FAIL] moving target, longer than two seconds: bounded geometry preview permits the actual shot
+[PASS] moving target, longer than two seconds: intercept retains flight time beyond former two-second cap
+[FAIL] moving target, longer than two seconds: actual moving authority geometry receives the flown shell
+[FAIL] moving target, longer than two seconds: actual projectile terminates on the intended enemy
+[FAIL] moving target, longer than two seconds: measured production flight exceeds two seconds
+[PASS] moving target, longer than two seconds: target actually changes world position during the shot
+[FAIL] moving target, longer than two seconds: real inventory debits one round and remains conserved
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[DETAIL] moving shooter and target solution={ "ok": true, "reason": "solved", "direction": (-0.401413, 0.150351, -0.903472), "time_s": 2.11984298835618, "ideal_direction": (-0.401413, 0.150351, -0.903472), "aim_point": (-17.40739, 21.9831, -119.9648), "aim_distance_m": 129.085144042969, "target_point_now": (0.296904, 1.250085, -127.8292), "target_velocity": (-3.000011, 0.0, 0.0), "observation_age_s": 0.03333333333333, "shell_id": "test_ai_intercept_65.0" } lane={  } gun=
+[TRACKING] moving shooter and target phase=engage chamber=1 cooldown=0.0 grace=0.0 authorization={  } min_error_deg=0.87258436075178 mean_error_deg=0.94030867902696 actual_axis_rate=(0.005185, 0.069463) command_error_deg=0.92036724360728
+[FAIL] moving shooter and target: finite mechanism and observed motion produce one real projectile
+[PASS] moving shooter and target: lead uses velocity estimated by actual visible samples
+[FAIL] moving shooter and target: fire authorization ages the observation through the completed drive step
+[FAIL] moving shooter and target: post-drive interception does not reuse the pre-drive observed target position
+[FAIL] moving shooter and target: bounded geometry preview permits the actual shot
+[FAIL] moving shooter and target: actual moving authority geometry receives the flown shell
+[FAIL] moving shooter and target: actual projectile terminates on the intended enemy
+[PASS] moving shooter and target: target actually changes world position during the shot
+[PASS] moving shooter and target: muzzle carrier actually moves during flight
+[FAIL] moving shooter and target: real inventory debits one round and remains conserved
+AI_INTERCEPT_MOVING_DIAGNOSTIC checks=31 failures=15

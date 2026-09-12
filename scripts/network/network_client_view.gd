@@ -10,6 +10,7 @@ var status_label: Label
 var details_label: Label
 var optics_label: Label
 var last_event := "尚无命中结果"
+var recovery_text := ""
 var port := 19109
 var pending := CommandMailbox.new()
 var pending_since := 0
@@ -37,6 +38,9 @@ func _ready() -> void:
 		actors[id]=actor
 	add_child(player)
 	connection.snapshot_received.connect(apply_snapshot)
+	connection.public_events_received.connect(apply_events)
+	connection.event_recovery_changed.connect(apply_recovery)
+	connection.session_finished.connect(finish_session)
 	connection.disconnected.connect(connection_lost)
 	add_child(connection)
 	build_ui()
@@ -60,6 +64,25 @@ func connection_lost() -> void:
 	clear_input()
 	pose_buffer.clear()
 	own_identity.clear(); own_generation=-1
+func apply_recovery(info: Dictionary) -> void:
+	if info.reason in ["initial","new_session","history_evicted"]:
+		pose_buffer.clear(); pending.clear(); player.reset_pending(); player.require_fire_release()
+		if info.reason!="history_evicted": own_identity.clear(); own_generation=-1
+		last_event="已同步当前弹道状态"
+	recovery_text="历史超窗：跳过 %d 条旧事件，已同步当前状态"%info.skipped if info.reason=="history_evicted" else ("事件已连续恢复" if info.reason=="recovered" else "")
+func apply_events(events: Array) -> void:
+	for event in events:
+		if event.kind!="projectile_finished": continue
+		var reason: String={"impact_world":"击中地面或掩体","impact_vehicle":"命中车辆","expired_distance":"炮弹超出射程","expired_time":"炮弹飞行结束","cancelled_match_finished":"训练结束"}.get(str(event.payload.reason),"弹道已结束")
+		last_event="%s 第%d发：%s"%[event.shot.shooter_id,event.shot.shot_id,reason]
+	for row in connection.latest.get("vehicles",[]):
+		if row.entity_id==connection.entity_id: update_details(row)
+func update_details(row: Dictionary) -> void:
+	var stats := connection.own_status
+	details_label.text="炮弹余 %d 发 · 装填 %.1f 秒 · 速度 %.1f km/h · 已射击 %d 发\n%s · %s"%[stats.get("ammo",0),stats.get("cooldown",0),absf(float(stats.get("speed",0)))*3.6,row.shots,"车辆已失能" if row.destroyed else "车辆可操作",last_event]
+func finish_session() -> void:
+	clear_input()
+	if not connection.latest.is_empty(): pose_buffer.render_tick=float(connection.latest.tick)
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode==KEY_ESCAPE: clear_input()
@@ -75,10 +98,6 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 	if connection.status=="finished":
 		pose_buffer.render_tick=float(snapshot.tick)
 		clear_input()
-	if not snapshot.events.is_empty():
-		var event: Dictionary=snapshot.events[-1]
-		var reason: String={"impact_world":"击中地面或掩体","impact_vehicle":"命中车辆","expired_distance":"炮弹超出射程","expired_time":"炮弹飞行结束","cancelled_match_finished":"训练结束"}.get(str(event.reason),"弹道已结束")
-		last_event="%s 第%d发：%s"%[event.shooter_id,event.shot_id,reason]
 	for row in snapshot.vehicles:
 		if not actors.has(row.entity_id): continue
 		var actor: VehicleActor=actors[row.entity_id]
@@ -94,7 +113,7 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 				owned.cam_rig.reset_optics(); player.reset_pending(); player.require_fire_release(); pending.clear()
 			var stats := connection.own_status
 			owned.fire_control.apply_snapshot(stats.fire_control)
-			details_label.text="炮弹余 %d 发 · 装填 %.1f 秒 · 速度 %.1f km/h · 已射击 %d 发\n%s · %s"%[stats.get("ammo",0),stats.get("cooldown",0),absf(float(stats.get("speed",0)))*3.6,row.shots,"车辆已失能" if row.destroyed else "车辆可操作",last_event]
+			update_details(row)
 func _process(delta: float) -> void:
 	if owned!=null: optics_label.text=owned.cam_rig.optics_text()
 	for row in pose_buffer.advance(delta):
@@ -105,8 +124,8 @@ func _process(delta: float) -> void:
 		VehicleFramePose.apply(actor.tank,row.frame_pose)
 		actor.turret.rotation.y=row.turret_yaw; actor.turret.barrel_pivot.rotation.x=row.gun_pitch
 func _physics_process(_delta: float) -> void:
-	var label: String={"connecting":"正在连接","connected":"已连接","disconnected":"连接已断开，按 R 重试","finished":"训练已结束"}.get(connection.status,connection.status)
-	status_label.text="本机联网训练 · %s · 控制车辆 %s"%[label,connection.entity_id]
+	var label: String={"connecting":"正在连接","synchronizing":"正在同步当前状态","connected":"已连接","finishing":"正在补齐终局事件","disconnected":"连接已断开，按 R 重试","finished":"训练已结束"}.get(connection.status,connection.status)
+	status_label.text="本机联网训练 · %s · 控制车辆 %s%s"%[label,connection.entity_id,"\n"+recovery_text if not recovery_text.is_empty() else ""]
 	if owned==null or connection.status!="connected": return
 	var command := player.poll()
 	owned.cam_rig.set_sight_requested(command.aim_held)

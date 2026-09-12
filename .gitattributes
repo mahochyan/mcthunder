@@ -18,3 +18,7 @@ logs/WT030-admission/** -text
 logs/WT-parallel/** -text
 logs/WT008/** -text
 logs/wt009/20260912-152310/** -text
+logs/wt009/** -text
+logs/wt009-view/** -text
+logs/WT010/** -text
+docs/evidence/reference-models/** -text

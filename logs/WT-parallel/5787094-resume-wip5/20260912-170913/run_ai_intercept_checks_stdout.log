@@ -1,0 +1,104 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[DETAIL] moving target, longer than two seconds solution={ "ok": true, "reason": "solved", "direction": (0.258776, 0.154056, -0.953573), "time_s": 2.16727941838956, "ideal_direction": (0.258776, 0.154056, -0.953573), "aim_point": (35.78255, 23.40624, -132.3761), "aim_distance_m": 135.150283813477, "target_point_now": (15.59054, 1.248612, -137.8333), "target_velocity": (10.00008, 0.0, 0.0), "observation_age_s": 0.01666666666667, "shell_id": "test_ai_intercept_65.0" } lane={  } gun=
+[FAIL] moving target, longer than two seconds: finite mechanism and observed motion produce one real projectile
+[PASS] moving target, longer than two seconds: lead uses velocity estimated by actual visible samples
+[FAIL] moving target, longer than two seconds: fire authorization ages the observation through the completed drive step
+[FAIL] moving target, longer than two seconds: post-drive interception does not reuse the pre-drive observed target position
+[FAIL] moving target, longer than two seconds: bounded geometry preview permits the actual shot
+[PASS] moving target, longer than two seconds: intercept retains flight time beyond former two-second cap
+[FAIL] moving target, longer than two seconds: actual moving authority geometry receives the flown shell
+[FAIL] moving target, longer than two seconds: actual projectile terminates on the intended enemy
+[FAIL] moving target, longer than two seconds: measured production flight exceeds two seconds
+[PASS] moving target, longer than two seconds: target actually changes world position during the shot
+[FAIL] moving target, longer than two seconds: real inventory debits one round and remains conserved
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[DETAIL] moving shooter and target solution={ "ok": true, "reason": "solved", "direction": (-0.397349, 0.150002, -0.905325), "time_s": 2.1154105472211, "ideal_direction": (-0.397349, 0.150002, -0.905325), "aim_point": (-17.26762, 21.9117, -120.0556), "aim_distance_m": 128.914657592773, "target_point_now": (0.474455, 1.25008, -127.8297), "target_velocity": (-3.000011, 0.0, 0.0), "observation_age_s": 0.1, "shell_id": "test_ai_intercept_65.0" } lane={  } gun=
+[FAIL] moving shooter and target: finite mechanism and observed motion produce one real projectile
+[PASS] moving shooter and target: lead uses velocity estimated by actual visible samples
+[FAIL] moving shooter and target: fire authorization ages the observation through the completed drive step
+[FAIL] moving shooter and target: post-drive interception does not reuse the pre-drive observed target position
+[FAIL] moving shooter and target: bounded geometry preview permits the actual shot
+[FAIL] moving shooter and target: actual moving authority geometry receives the flown shell
+[FAIL] moving shooter and target: actual projectile terminates on the intended enemy
+[PASS] moving shooter and target: target actually changes world position during the shot
+[PASS] moving shooter and target: muzzle carrier actually moves during flight
+[FAIL] moving shooter and target: real inventory debits one round and remains conserved
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] unready weapon never performs full future geometry queries
+[PASS] real perception and finite mechanism prepare an observable shot
+[PASS] clear curved-path permission finds actual enemy exterior geometry
+[PASS] trajectory permission is read-only and cannot manufacture a hit or launch
+[PASS] new world wall on actual predicted flight blocks stale-visible target permission
+[PASS] wall-blocked actual AI never emits a projectile
+[PASS] actual Actor.setup loads C
+[PASS] actual friendly vehicle before target denies firing permission
+[PASS] friendly obstruction cannot generate an actual AI shot
+[PASS] fresh barrel-root to muzzle check rejects a wall behind the muzzle
+[PASS] a target generation change invalidates its old observed identity
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] unreachable ballistic target generates neither permission queries nor actual shots
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] unready weapon never performs full future geometry queries
+[PASS] real perception and finite mechanism prepare an observable shot
+[PASS] ready aligned AI runs bounded permission only on its 0.12 s decision cadence
+[PASS] weapon cumulative-flight budget rejects the otherwise solvable target
+[PASS] mathematically reachable long path stops at the explicit geometry-segment budget
+[PASS] budget exhaustion never falls back to firing
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] Actor fire authorization runs once after actual drive moved the muzzle and set inherited velocity
+[PASS] false controller authorization cannot consume ammunition or create a projectile
+[PASS] authorization callback invalidating control epoch cannot fire from the stale simulation step
+[PASS] valid current-epoch authorization reaches the same actual Gunner launch
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] natural loading test installs two real shell definitions
+[PASS] first chambered shell launches normally before the AI reload boundary
+[PASS] AI poll before loading cannot request fire with the old shell on the exact tick the new shell is chambered
+[PASS] next ready AI solution and actual launch both use the newly chambered shell
+[PASS] AI interception fixture loads production definitions
+[PASS] actual Actor.setup loads A
+[PASS] actual Actor.setup loads B
+[PASS] TEST ONLY interception shell passes the actual flight-definition validator
+[PASS] real actors share the production simulation driver
+[PASS] automatic AI fixture uses explicit validated mechanism and ammo-rack bindings
+[PASS] destroyed loader mechanism disables loading while retaining the actual chambered round
+[PASS] AI may fire its already chambered round after automatic loading machinery fails
+[PASS] empty-chamber AI naturally requests and starts legal repair using can_load capability
+[PASS] repair-in-progress cannot invent another loaded shell or repeat fire
+[PASS] aim solver accounts for observation age before solving future interception
+[PASS] aged observation uses the shared production intercept mathematics
+[PASS] observation older than the supported motion sample window is rejected
+[PASS] future-dated observation is rejected
+[PASS] existing scripted training callers retain a finite compatible aim point
+[PASS] unreachable compatibility call cannot manufacture a valid fallback aim point
+=== 结果: 98 项检查, 15 失败 ===
+AI_INTERCEPT_CHECKS_FAIL

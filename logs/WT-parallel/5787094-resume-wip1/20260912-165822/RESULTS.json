@@ -1,0 +1,16 @@
+{
+  "suite": "import",
+  "source_sha": "5787094-resume-wip1",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" --editor --import",
+  "exit_code": 0,
+  "timed_out": false,
+  "checks": 0,
+  "passed": false,
+  "script_error": false,
+  "unexpected_errors": [
+    "ERROR: Blender path is invalid or not set, check your Editor Settings. Cannot configure blender path in headless mode."
+  ],
+  "expected_error_count": 0,
+  "log_read_errors": []
+}

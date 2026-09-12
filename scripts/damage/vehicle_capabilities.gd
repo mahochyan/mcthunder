@@ -1,7 +1,7 @@
 class_name VehicleCapabilities
 extends RefCounted
 ## Single derivation shared by player/AI command consumers and the HUD.
-static func compute(state: VehicleRuntimeState) -> Dictionary:
+static func compute(state: VehicleRuntimeState, loading_profile: LoadingProfile = null) -> Dictionary:
 	var drive := true
 	var propulsion := true
 	var left_track := true
@@ -51,8 +51,6 @@ static func compute(state: VehicleRuntimeState) -> Dictionary:
 			fire = false
 			reasons.append("gunner")
 			turret_scale = 0.0
-		if not state.role_available("loader"):
-			reload_rate = GameConfig.DAMAGE_MISSING_LOADER_RATE
 	if state.destroyed:
 		drive = false
 		propulsion = false
@@ -63,6 +61,10 @@ static func compute(state: VehicleRuntimeState) -> Dictionary:
 	var track_pivot := propulsion and left_track!=right_track
 	yaw_scale*=turret_scale; pitch_scale*=turret_scale
 	stabilizer_available=stabilizer_available and turret_scale>0 and not state.destroyed
-	return {"drive":drive,"steer":drive or track_pivot,"track_pivot":track_pivot,"left_track":left_track,"right_track":right_track,"fire":fire,"turret_speed":turret_scale,
+	var loading := LoadingRules.compute(loading_profile,state)
+	reload_rate=float(loading.reload_rate)
+	var result := {"drive":drive,"steer":drive or track_pivot,"track_pivot":track_pivot,"left_track":left_track,"right_track":right_track,"fire":fire,"turret_speed":turret_scale,
 		"yaw_scale":yaw_scale,"pitch_scale":pitch_scale,"stabilizer_available":stabilizer_available,
 		"reload_rate":reload_rate,"reasons":reasons,"crew_alive":state.alive_crew_count()}
+	result.merge(loading,true)
+	return result

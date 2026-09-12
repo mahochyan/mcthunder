@@ -1,0 +1,101 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (18 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AITankController[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | CoreUI[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | AmmunitionSupply[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | LoadingProfile[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | NetworkBattleClient[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | NetworkBattleServer[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | NetworkClientView[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | NetworkPoseBuffer[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | HUDPresenter[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | Gunner[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | VehicleActor[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 正在扫描动作…… (61 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | j16_high.fbx[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | j16_high.glb[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | j16_high.obj[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | j16_low.fbx[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | j16_low.glb[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | j16_low.obj[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | smoke2_blender_eevee.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | smoke_eevee.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | smoke_workbench.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | _crop_ccas2023_gear.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | _crop_nose_aviadarts.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | _su27_side.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | _su27_top.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | 17.08.21-aviadarts-1200-J16.jpg[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | Aerial_refueling_formation_of_YY-20A_J-20_and_J-16_at_CCAS2023_20230724102118_.jpg[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | Chinese_Air_Force_61248_Shenyang_J-16_51524684603_.jpg[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Formation_of_YY-20A_and_2_J-16s_at_CCAS2025_20250922104401_.jpg[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | J-16_2021.jpg[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | J-16_at_CCAS2023_20230724102737_.jpg[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | J-16_at_Changchun_Air_Show_20250921.jpg[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | J-16_at_China_s_Air_Force_Aviation_Open_Activity_20250921.jpg[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | J-16_at_China_s_Air_Force_Aviation_Open_Day_20250921.jpg[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | J-16_J-20_J-35A.jpg[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | J-16_Авиадартс2021.jpg[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | J-16_Авиадартс2021_11.jpg[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | PLAAF_H-6_and_J-16_2024-11-29.jpg[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_2024-11-30.jpg[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_20231214_-_1.jpg[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_20231214_-_2.jpg[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_20251209_-_1.jpg[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_20251209_-_2.jpg[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | PLAAF_J-16_-_2.jpg[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | Sukhoi_Su-27_3-view_line_drawing.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | Two_J-16s_using_afterburners_at_CCAS2023_20230724102606_.jpg[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | Y-20U_and_J-16_formation_at_China_s_Air_Force_Aviation_Open_Day_20250921_.jpg[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | high_bottom.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | high_front.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | high_iso_fl.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | high_iso_rr.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | high_iso_top.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | high_left.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | high_plan3view.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | high_rear.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | high_right.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | high_top.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | low_bottom.png[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | low_front.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | low_iso_fl.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | low_iso_rr.png[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | low_iso_top.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | low_left.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | low_plan3view.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | low_rear.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | low_right.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | low_top.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | j16_high.blend[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | j16_low.blend[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | t90m_15000.glb[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | t90m_15000_atlas.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | t90m_15000_t90m_atlas.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | t90m_15000.glb[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

@@ -1,0 +1,50 @@
+{
+  "results": [
+    {
+      "role": "client2",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "6c2391048db42cef039f135323f749c93e03b36061d6ab7dca54580d4b087b90"
+    },
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "6c2391048db42cef039f135323f749c93e03b36061d6ab7dca54580d4b087b90"
+    },
+    {
+      "role": "client1",
+      "exit_code": 0,
+      "passed": true,
+      "digest": "6c2391048db42cef039f135323f749c93e03b36061d6ab7dca54580d4b087b90"
+    }
+  ],
+  "build": "source-worktree",
+  "file_hashes": {
+    "scripts/camera_rig.gd": "596A2F9E370B22B2896E89CD20209CDA1AB4C5BBD8DFC96CA5EAE83BB5EC2FD2",
+    "scripts/tank.gd": "395DB1D059541A3E62387974D8E2F1CA798FF32E1097D374824D6F7D39D799C1",
+    "scripts/projectiles/projectile_manager.gd": "869D5DBB13E5856B6B949AB184A363E8DE8A7A79F395CEAF2E0BF2A6C909FE73",
+    "scripts/network/network_controller.gd": "F4888CED7156C9E260245401E4056AA049841BE517F988B8E742DF12D3CC4EBD",
+    "tests/run_network_slice.gd": "5A986E2779EA274D47EBFE05A334AEA3B158913A67E2686CA6D37B738EDC88D6",
+    "scripts/vehicle_actor.gd": "4F71D1B8A8619B7FA9AB25EF4CA4E3DE7D5151FEDF8542C86CF4BDC66A2B3F18",
+    "scripts/network/network_battle_world.gd": "0828EB20F1C409128463FC616D3823536377FAA0882EEFE29DDE1E99A3DF1A92",
+    "scripts/network/network_battle_server.gd": "8DE303ACD286092410CF7BE314A50EAF108DD08B2A8C1FD9EB0D856DFE253DD9"
+  },
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "launches": {
+    "client2": {
+      "pid": 50436,
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-172400\\client2.json\""
+    },
+    "server": {
+      "pid": 38660,
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- server 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-172400\\server.json\""
+    },
+    "client1": {
+      "pid": 15300,
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 120 -s res://tests/run_network_slice.gd -- client 19119 \"E:\\AIprogram\\mcthunder\\logs\\wt009\\20260912-172400\\client1.json\""
+    }
+  },
+  "passed": true,
+  "source": "57870948b7cae4804eeff58856e2b5d999146001"
+}

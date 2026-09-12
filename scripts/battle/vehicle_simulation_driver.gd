@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 		var actor: VehicleActor=entry.actor
 		if not actor.simulation_step_valid(entry): continue
 		entry["step"]=actor.begin_simulation_command(entry.command,delta)
-	for phase in ["advance_simulation_drive","advance_simulation_aim","advance_simulation_mechanism","finish_simulation_command"]:
+	for phase in ["advance_simulation_drive","advance_simulation_loading","advance_simulation_aim","advance_simulation_mechanism","finish_simulation_command"]:
 		for entry in work:
 			if not _active(entry.actor): continue
 			var actor: VehicleActor=entry.actor

@@ -3,7 +3,7 @@ extends RefCounted
 ## Relative rigid poses. They belong to authority; render interpolation never
 ## writes back to the server's query, driving or weapon state.
 const VERSION := 1
-const NETWORK_VERSION := 4 # Command v3: optical intent and private authoritative fire control.
+const NETWORK_VERSION := 5 # Journal v1: recoverable public events; command v3 and frame pose v1.
 const PARTS := ["hull", "running_left", "running_right"]
 
 static func node(tank: TankVehicle, part: String) -> Node3D:

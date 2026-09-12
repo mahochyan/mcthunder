@@ -1,0 +1,141 @@
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:95)
+       [2] spawn_actor (res://tests/run_ai_intercept_checks.gd:86)
+       [3] build_case (res://tests/run_ai_intercept_checks.gd:106)
+       [4] moving_shot (res://tests/run_ai_intercept_checks.gd:159)
+       [5] run (res://tests/run_ai_intercept_checks.gd:146)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] moving_shot (res://tests/run_ai_intercept_checks.gd:159)
+       [3] run (res://tests/run_ai_intercept_checks.gd:146)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] moving_shot (res://tests/run_ai_intercept_checks.gd:159)
+       [3] run (res://tests/run_ai_intercept_checks.gd:147)
+       [4] moving_shot (res://tests/run_ai_intercept_checks.gd:195)
+       [5] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] blockers_and_readonly (res://tests/run_ai_intercept_checks.gd:206)
+       [3] run (res://tests/run_ai_intercept_checks.gd:148)
+       [4] moving_shot (res://tests/run_ai_intercept_checks.gd:195)
+       [5] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] rejected_and_cadence (res://tests/run_ai_intercept_checks.gd:240)
+       [3] run (res://tests/run_ai_intercept_checks.gd:149)
+       [4] blockers_and_readonly (res://tests/run_ai_intercept_checks.gd:237)
+       [5] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] rejected_and_cadence (res://tests/run_ai_intercept_checks.gd:245)
+       [3] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [4] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] rejected_and_cadence (res://tests/run_ai_intercept_checks.gd:256)
+       [2] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] fire_authorization_order (res://tests/run_ai_intercept_checks.gd:277)
+       [3] run (res://tests/run_ai_intercept_checks.gd:150)
+       [4] rejected_and_cadence (res://tests/run_ai_intercept_checks.gd:262)
+       [5] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:298)
+       [3] run (res://tests/run_ai_intercept_checks.gd:151)
+       [4] fire_authorization_order (res://tests/run_ai_intercept_checks.gd:295)
+       [5] dispose_case (res://tests/run_ai_intercept_checks.gd:143)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:299)
+       [2] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [3] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:300)
+       [2] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [3] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid access to property or key 'id' on a base object of type 'Nil'.
+   at: newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:302)
+   GDScript backtrace (most recent call first):
+       [0] newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:302)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [2] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:114)
+       [2] automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:320)
+       [3] run (res://tests/run_ai_intercept_checks.gd:152)
+       [4] newly_loaded_shell (res://tests/run_ai_intercept_checks.gd:302)
+       [5] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [6] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:337)
+       [2] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [3] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid access to property or key 'id' on a base object of type 'Nil'.
+   at: automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:339)
+   GDScript backtrace (most recent call first):
+       [0] automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:339)
+       [1] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [2] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] check_age_and_compatibility (res://tests/run_ai_intercept_checks.gd:266)
+       [2] run (res://tests/run_ai_intercept_checks.gd:153)
+       [3] automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:339)
+       [4] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [5] frames (res://tests/run_ai_intercept_checks.gd:70)
+SCRIPT ERROR: Invalid assignment of property or key 'source_refs' with value of type 'PackedStringArray' on a base object of type 'Resource (ShellDefinition)'.
+   at: ammunition (res://tests/run_ai_intercept_checks.gd:79)
+   GDScript backtrace (most recent call first):
+       [0] ammunition (res://tests/run_ai_intercept_checks.gd:79)
+       [1] check_age_and_compatibility (res://tests/run_ai_intercept_checks.gd:274)
+       [2] run (res://tests/run_ai_intercept_checks.gd:153)
+       [3] automatic_loading_recovery (res://tests/run_ai_intercept_checks.gd:339)
+       [4] build_case (res://tests/run_ai_intercept_checks.gd:138)
+       [5] frames (res://tests/run_ai_intercept_checks.gd:70)

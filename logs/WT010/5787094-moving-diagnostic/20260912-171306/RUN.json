@@ -1,0 +1,13 @@
+{
+  "source_base": "57870948b7cae4804eeff58856e2b5d999146001",
+  "diagnostic": true,
+  "source_hashes": {
+    "scripts/ai/ai_tank_controller.gd": "4498B028BC6FEE0C19D8204886346D11F4CF9C632B915DFA304D552509CDBE98",
+    "scripts/ai/aim_solver.gd": "88605F4FA231A7B11175FABB923A4ED3C83BC4D9B0E44FD91B94884A6CC4E21C",
+    "scripts/ai/ai_perception.gd": "20827BCC8CC46492465DAD2F840218CC66183922B0294DA76C3F9977275B1050",
+    "tests/run_ai_intercept_checks.gd": "34A50BD998672DF12753F952C9A4221CD6B5C1C667B84C39E0FAB9B6E59AD008"
+  },
+  "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --headless --path \"E:/AIprogram/mcthunder\" -s res://tests/run_ai_intercept_checks.gd -- --moving-only",
+  "timed_out": false,
+  "exit_code": 1
+}

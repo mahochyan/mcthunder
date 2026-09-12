@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "models": [
+    {
+      "id": "germ_leopard_2a4",
+      "status": "snapshot_ready",
+      "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+      "path": "res://authoring/reference_data/model_snapshots/germ_leopard_2a4/4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88.glb",
+      "declared_status": "built_pending_visual_and_roundtrip",
+      "triangles_reported": 13540,
+      "admission": "candidate_only"
+    },
+    {
+      "id": "ussr_t_80b",
+      "status": "snapshot_ready",
+      "sha256": "8f47a0a27d254e3d677a7f0baf78c3c081586cd75f126f3e7751fcb94a3ae5af",
+      "path": "res://authoring/reference_data/model_snapshots/ussr_t_80b/8f47a0a27d254e3d677a7f0baf78c3c081586cd75f126f3e7751fcb94a3ae5af.glb",
+      "declared_status": "built_awaiting_visual_review",
+      "triangles_reported": 12972,
+      "admission": "candidate_only"
+    }
+  ]
+}

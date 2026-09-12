@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "human": "NOT_RUN",
+  "reviewer": "assistant engineering visual inspection",
+  "admission": "candidate_only",
+  "viewed": [
+    "germ_leopard_2a4_front.png",
+    "ussr_t_80b_side.png",
+    "ussr_t_80b_top.png",
+    "germ_leopard_2a4_side.png"
+  ],
+  "blocking_findings": {
+    "ussr_t_80b": [
+      "Detached vertical sheet ahead of gun muzzle is visible in side view; Body extends to z=-6.48905m, gun to -6.13411m."
+    ],
+    "both": [
+      "No separately named Muzzle marker in the inspected node trees; explicit physical firing and damage bindings still required."
+    ]
+  },
+  "inspector_sha256": "cb470f68b20952ded9340125e08c15dd020f07514acbf080cd6e393593a96014",
+  "report_sha256": "ff6da00cd74abe05f3da910c96392128ef5917c6d6b6623fd4825d88796275fc"
+}

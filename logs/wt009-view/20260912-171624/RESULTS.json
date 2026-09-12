@@ -1,0 +1,17 @@
+{
+  "file_hashes": {
+    "scripts/network/network_battle_server.gd": "8DE303ACD286092410CF7BE314A50EAF108DD08B2A8C1FD9EB0D856DFE253DD9",
+    "scripts/network/network_battle_client.gd": "713A67BE27805A6AC5E46CEDD695071C9E4CE827E424ED5E62FC1BCBD0CB3BF6",
+    "scripts/network/network_pose_buffer.gd": "4DCBB2AE7607E17AF7EAAB2693C6A2C1637525364D7490DBA172BC9A83634EE7",
+    "scripts/network/network_client_view.gd": "0E009D10F02880241301CEB316624946A9D8B7C81D82C1597D311D0DF29C60C1",
+    "tests/run_network_view_checks.gd": "F2FE0B134A225F74C7673668D91A04F7C6E66AB2B319B9F337E71360F66F6975"
+  },
+  "server_command": "--headless --path \"E:\\AIprogram\\mcthunder\" --max-fps 60 --quit-after 1200 -s res://scripts/network/server_main.gd -- 19111",
+  "passed": true,
+  "view_exit": 0,
+  "engine_sha256": "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+  "server_exit": 0,
+  "source": "57870948b7cae4804eeff58856e2b5d999146001",
+  "view_command": "--path \"E:\\AIprogram\\mcthunder\" --max-fps 60 -s res://tests/run_network_view_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\wt009-view\\20260912-171624\\client.png\"",
+  "build": "source-worktree"
+}

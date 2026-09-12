@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] three-second real countdown starts a valid duel
+[PASS] both combatants share gun and vehicle performance
+[PASS] covered spawns prevent opening direct fire
+[PASS] playing duel hides inspection replay and automatic replay
+[PASS] formal duel does not allow free R reset
+[PASS] stale shooter lifetime cannot add damage or contact statistics
+[PASS] hitting an already destroyed component does not inflate effective damage count
+[PASS] duplicate destruction signal is ignored before adjudication
+[PASS] T015-01 real damage state produces one player victory
+[PASS] T015-04 enemy death is recorded exactly once
+[PASS] finished duel exposes result panel and replay permission
+[PASS] finished duel freezes actor damage clocks and cancels in-flight projectiles
+[PASS] late damage callback cannot change finished vehicle state
+[PASS] finished manager rejects late launch without ammunition loss
+[PASS] terminal result cannot be overwritten
+[PASS] active fire stops applying damage and exposure after match ends
+[PASS] T015-01 player loss has normal final state
+[PASS] both deaths in one physics step become one draw
+[PASS] ten-minute timeout is a deterministic draw
+[PASS] T015-03 AI engine loss still allows actual counterfire
+[PASS] disabled AI repairs while firing without translating
+[PASS] finished real counterfire round can be replayed
+[PASS] T015-04 replay animation cannot alter battle outcome or damage
+[PASS] dead AI cannot continue firing
+[PASS] T015-H03 twenty actual AppFlow starts/returns leave stable nodes and one callback
+[PASS] AppFlow restart frees prior round and spawns unique new lives
+[PASS] active return commits abandoned summary and reaches garage
+=== 结果: 27 项检查, 0 失败 ===
+DUEL_CHECKS_PASS

@@ -9,6 +9,24 @@ var scene: BallisticsRange
 var actor: VehicleActor
 var wall: StaticBody3D
 var records: Array[Dictionary] = []
+var chamber_probe: ChamberAimProbe
+
+class ChamberAimProbe extends Node:
+	var actor: VehicleActor
+	var previous_shell := ""
+	var transitions := 0
+	var maximum_error := 0.0
+	func _physics_process(_delta: float) -> void:
+		if not is_instance_valid(actor) or actor.gunner.shell == null: return
+		var current_shell := actor.gunner.shell.id
+		if current_shell != previous_shell and not previous_shell.is_empty() and actor.fire_control.zeroing_m > 0.0:
+			transitions += 1
+			var ray := actor.cam_rig.optical_ray()
+			var target: Vector3 = ray.origin + ray.direction * actor.fire_control.zeroing_m
+			var expected := SightBallistics.solve(actor.turret.muzzle.global_position, target, actor.gunner.shell)
+			var demanded := (actor.turret._aim_point() - actor.turret.barrel_pivot.global_position).normalized()
+			maximum_error = maxf(maximum_error, demanded.angle_to(expected.direction) if expected.get("ok", false) else INF)
+		previous_shell = current_shell
 
 func _initialize() -> void:
 	create_timer(180.0).timeout.connect(func() -> void:
@@ -112,6 +130,10 @@ func run() -> void:
 	fast.muzzle_velocity_mps = 600.0
 	var options: Array[ShellDefinition] = [slow, fast]
 	check(actor.gunner.configure_shell_loadout(options, {slow.id: 8, fast.id: 8}, slow.id), "two-speed typed loadout is admitted through production Gunner")
+	chamber_probe = ChamberAimProbe.new()
+	chamber_probe.actor = actor
+	chamber_probe.process_physics_priority = SimulationPhases.SNAPSHOT
+	scene.add_child(chamber_probe)
 	await ticks(50)
 	check(actor.tank.velocity.length() < 0.01, "raised firing platform provides a stationary real launcher")
 	await check_live_shots(slow, fast)
@@ -160,6 +182,7 @@ func check_live_shots(slow: ShellDefinition, fast: ShellDefinition) -> void:
 		var error := (corrected.impact_point as Vector3).distance_to(contact)
 		check(corrected.reason == "impact_world" and corrected.shell_id == slow.id and error < 0.75 and error < baseline_error * 0.15, "range application corrects the real slow-shell impact within 75cm (error=%.3fm)" % error)
 	check(actor.gunner.shell.id == fast.id and actor.gunner.inventory.chamber_shell == fast.id, "ordinary post-shot transfer really chambers the selected faster round")
+	check(chamber_probe.transitions > 0 and chamber_probe.maximum_error < 0.001, "the first tick that chambers a new shell already demands that shell's trajectory (error=%.6frad)" % chamber_probe.maximum_error)
 	var fast_solution := actor.fire_control.aim_solution(actor)
 	check(fast_solution.get("ok", false) and slow_solution.get("ok", false) and fast_solution.time_s < slow_solution.time_s * 0.6 and fast_solution.direction.angle_to(slow_solution.direction) > 0.01, "ballistic demand recomputes from the actual chambered shell, not Actor's original shell")
 	# A different optical pitch creates a genuinely different target elevation.

@@ -31,6 +31,7 @@ extends Resource
 @export var drive_profile: DriveProfile = DriveProfile.new()
 @export var optics_profile: OpticsProfile = OpticsProfile.new()
 @export var fire_control_profile: FireControlProfile = FireControlProfile.new()
+@export var loading_profile: LoadingProfile = LoadingProfile.new()
 @export var max_slope_deg: float = GameConfig.DRIVE_MAX_SLOPE_DEG
 @export var drive_collision_size: Vector3 = GameConfig.DRIVE_COLLISION_SIZE
 @export var drive_collision_center: Vector3 = GameConfig.DRIVE_COLLISION_CENTER
@@ -51,6 +52,8 @@ extends Resource
 func validate() -> Dictionary:
 	# 返回 {ok: bool, errors: Array[String]}；errors 以字段名开头，便于定位
 	var errors: Array[String] = []
+	if loading_profile==null: errors.append("loading_profile: missing")
+	else: errors.append_array(loading_profile.validate())
 	if fire_control_profile==null: errors.append("fire_control_profile: missing")
 	else: errors.append_array(fire_control_profile.validate())
 	if optics_profile==null: errors.append("optics_profile: missing")

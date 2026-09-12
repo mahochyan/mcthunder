@@ -1014,5 +1014,9 @@
   "range_reason_no_measurement": "没有有效读数，请先测距",
   "range_zeroing": "装定 %dm",
   "range_solution_unavailable": "弹道解不可达，保持直瞄",
-  "range_help": "{key:rangefinder} 测距 · {key:apply_range} 采用距离 · {key:zeroing_down}/{key:zeroing_up} 手动装定（降至0恢复直瞄）"
+  "range_help": "{key:rangefinder} 测距 · {key:apply_range} 采用距离 · {key:zeroing_down}/{key:zeroing_up} 手动装定（降至0恢复直瞄）",
+  "loading_mechanism_disabled": "装填机构故障",
+  "loading_stopped": "装填停止：机构或岗位不可用",
+  "loading_feed_empty": "供弹架无此弹；等待补架",
+  "loading_automatic_module": "自动装填机"
 }

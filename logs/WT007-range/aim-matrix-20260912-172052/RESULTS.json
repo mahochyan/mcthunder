@@ -1,0 +1,50 @@
+{
+  "hashes": {
+    "tests/run_turret_tick_checks.gd": "73EC62C3736ABDCD006960479AA1962F6A6B71A9049444961CC59F7BDF5B4374",
+    "scripts/turret_rig.gd": "503247FA7ADE8294064DE42FB2155017EDFD70D02FE24321850739AD04BF87EA",
+    "scripts/camera_rig.gd": "596A2F9E370B22B2896E89CD20209CDA1AB4C5BBD8DFC96CA5EAE83BB5EC2FD2",
+    "scripts/vehicle_actor.gd": "4F71D1B8A8619B7FA9AB25EF4CA4E3DE7D5151FEDF8542C86CF4BDC66A2B3F18"
+  },
+  "human": "NOT_RUN",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "build": "source-worktree",
+  "source": "57870948b7cae4804eeff58856e2b5d999146001",
+  "cases": [
+    {
+      "name": "30",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 30 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-range\\aim-matrix-20260912-172052\\30.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "60",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 60 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-range\\aim-matrix-20260912-172052\\60.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "144",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 144 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-range\\aim-matrix-20260912-172052\\144.json\" --local-intent",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    },
+    {
+      "name": "60-stall",
+      "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --max-fps 60 -s res://tests/run_turret_tick_checks.gd -- \"E:\\AIprogram\\mcthunder\\logs\\WT007-range\\aim-matrix-20260912-172052\\60-stall.json\" --local-intent --stall",
+      "exit_code": 0,
+      "timed_out": false,
+      "passed": true,
+      "max_state_error": 0.0,
+      "same_events": true
+    }
+  ]
+}

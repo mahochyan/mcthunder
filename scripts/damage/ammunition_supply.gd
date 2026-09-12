@@ -7,6 +7,7 @@ var clocks: Dictionary = {}
 var status: Dictionary = {}
 
 func step(vehicle: VehicleActor, delta: float, in_friendly_area: bool) -> void:
+	if vehicle.get_tree()!=null and vehicle.get_tree().paused: return
 	var key := str(vehicle.life_id)
 	if not is_finite(delta) or delta<=0: return
 	if not in_friendly_area:
@@ -23,12 +24,11 @@ func step(vehicle: VehicleActor, delta: float, in_friendly_area: bool) -> void:
 	clocks[key] = float(clocks.get(key,0))+delta
 	status[key] = LocalizationService.text("ui_2b2ab656a7d2")%float(clocks[key])
 	if float(clocks[key])+1e-8 < INTERVAL_S: return
-	for rack in gun.inventory.racks:
-		if gun.inventory.supply_round(1,rack,selected):
+	for rack in gun.supply_racks():
+		if gun.rack_usable(rack) and gun.inventory.supply_round(1,rack,selected):
 			clocks[key] = maxf(0,float(clocks[key])-INTERVAL_S)
 			status[key] = "+1 "+gun.shell_label(selected)
 			# Replenishing an empty chamber still starts a complete ordinary loading cycle.
-			if gun.inventory.chamber==0 and gun.inventory.in_transfer==0 and gun.inventory.begin_transfer():
-				gun.cooldown_left = maxf(gun.cooldown_left,gun.weapon.reload_time)
+			gun.request_load()
 			return
 	clocks[key] = 0.0; status[key] = LocalizationService.text("ui_516a7bbda1e5")

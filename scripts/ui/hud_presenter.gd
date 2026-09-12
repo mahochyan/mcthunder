@@ -26,7 +26,7 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 		var m: Dictionary = state.module_states[id]
 		var fraction := float(m.integrity)/maxf(1,float(m.max_integrity))
 		var condition := LocalizationService.text("ui_b0272ae322c9") if fraction <= 0 else (LocalizationService.text("ui_cefe31e5adf3") if fraction < 1 else LocalizationService.text("ui_955d487fd519"))
-		modules.append({"id":id,"name":CoreUI.word(id),"status":condition,"fraction":fraction})
+		modules.append({"id":id,"name":CoreUI.word("autoloader" if m.kind=="autoloader" else id),"status":condition,"fraction":fraction})
 		if fraction > 0: continue
 		if m.kind in ["engine","transmission","track"]: drive.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
 		if m.kind in ["breech","turret_drive"]: weapon.append(REASONS.get(id,CoreUI.word(id)+LocalizationService.text("ui_b0272ae322c9")))
@@ -34,7 +34,8 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 	if not state.role_available("driver"): drive.append(REASONS.driver)
 	if caps.get("track_pivot",false): drive.append(LocalizationService.text("drive_single_track_pivot"))
 	if not state.role_available("gunner"): weapon.append(REASONS.gunner)
-	if not state.role_available("loader"): weapon.append(LocalizationService.text("ui_f8a03ec8abed"))
+	if caps.get("loading_mode","crew")=="crew" and not state.role_available(vehicle.definition.loading_profile.crew_role): weapon.append(LocalizationService.text("ui_f8a03ec8abed"))
+	elif not caps.get("can_load",true): weapon.append(LocalizationService.text("loading_mechanism_disabled"))
 	var crew: Array[Dictionary] = []
 	for role in state.crew_assignments:
 		crew.append({"role":role,"name":CoreUI.word(role),"available":state.role_available(role)})
@@ -43,7 +44,9 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 	if state.destroyed: gun_text = LocalizationService.text("ui_aaeb6d850849")
 	elif not caps.fire: gun_text = LocalizationService.text("ui_99d18b371d7d")
 	elif gun.rounds_remaining <= 0: gun_text = LocalizationService.text("ui_c15ff473042d")
+	elif not caps.get("can_load",true) and gun.inventory.chamber==0: gun_text=LocalizationService.text("loading_stopped")
 	elif gun.cooldown_left > 0: gun_text = LocalizationService.text("ui_779427f939dd")%gun.cooldown_left
+	elif gun.inventory.chamber==0 and gun.loading_reason=="feed_empty": gun_text=LocalizationService.text("loading_feed_empty")
 	elif gun.inventory.chamber <= 0: gun_text = LocalizationService.text("ui_609f061f5455")
 	elif gun.resume_grace > 0: gun_text = LocalizationService.text("ui_73f95a191364")%gun.resume_grace
 	var duration := float({"repair":RecoveryRules.REPAIR_SECONDS,"extinguish":RecoveryRules.EXTINGUISH_SECONDS,"replace":RecoveryRules.REPLACEMENT_SECONDS}.get(state.recovery_action,0))

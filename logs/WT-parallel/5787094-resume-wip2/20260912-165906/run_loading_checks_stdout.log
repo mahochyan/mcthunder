@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] complete authored crew loading package enters real pipeline
+[PASS] serialized loading policy reaches admitted estimated definition
+[PASS] complete authored automatic loading package enters real pipeline
+[PASS] serialized loading policy reaches admitted estimated definition
+[PASS] loading package rejects mode
+[PASS] loading package rejects fake_crew
+[PASS] loading package rejects empty_modules
+[PASS] loading package rejects wrong_module
+[PASS] loading package rejects wrong_kind
+[PASS] loading package rejects wrong_rack
+[PASS] loading package rejects empty_feed
+[PASS] loading package rejects overlap
+[PASS] loading package rejects nan
+[PASS] loading package rejects negative
+[PASS] loading package rejects wrong_type
+[PASS] loading package rejects unknown_field
+[PASS] loading package rejects equipment_missing
+[PASS] loading package rejects profile_mismatch
+[PASS] loading package rejects fake_verified
+[PASS] loading package rejects unknown_equipment
+[PASS] us_m4a3_75w_vvss_1944: omitted profile preserves legacy authored crew policy
+[PASS] us_m24_m6_t85e1_1951: omitted profile preserves legacy authored crew policy
+[PASS] us_m26_m3_1945: omitted profile preserves legacy authored crew policy
+[PASS] us_m36_m4a1_1945: omitted profile preserves legacy authored crew policy
+[PASS] finite six-round fixture includes chamber within declared rack capacities
+[PASS] full ready rack including chamber rejects reservation
+[PASS] rack reservation retains canonical source ownership and total stock
+[PASS] destination reservation prevents duplicate move and external overflow
+[PASS] internal move commits once without increasing external supplied ledger
+[PASS] explicit feed-rack transaction takes exactly one round
+[PASS] cancelling reserved move never adds a round
+[PASS] death cancels reserved move and loses ammunition once
+[PASS] reconfiguration cannot revive a stale reservation token
+[PASS] runtime false package registers with actual layout/model gate
+[PASS] actual Actor installs serialized loading policy and rack loadout
+[FAIL] accurate test roster has no fictitious loader or initial penalty
+[FAIL] manual loader casualty retains legacy 1/1.6 loading rate
+[PASS] manual fixture fires actual chambered round
+[FAIL] manual casualty cannot complete the healthy 0.5-second cycle
+[FAIL] manual slowed cycle naturally finishes without changing ledger
+[PASS] runtime true package registers with actual layout/model gate
+[PASS] actual Actor installs serialized loading policy and rack loadout
+[FAIL] accurate test roster has no fictitious loader or initial penalty
+[PASS] automatic three-person HUD does not claim a missing loader
+[PASS] automatic fixture fires through real projectile manager
+[PASS] actual module transaction disables automatic mechanism
+[PASS] broken mechanism holds partial progress and transferred round without a completion bypass
+[PASS] broken in-progress mechanism cannot fire an empty chamber
+[FAIL] external supply cannot bypass mechanical pause
+[FAIL] actual repair sequence restores bound mechanism at existing repair threshold
+[FAIL] repaired mechanism naturally completes held cycle without replenishing rounds
+[FAIL] mechanical failure permits existing chambered round once but cannot start next cycle
+[PASS] reset restores original typed loadout and three-person configuration
+[PASS] exhausted feed rack cannot directly draw remaining reserve or start a fictitious reload
+[FAIL] independent reserve-to-feed move then full shot cycle restores a chamber without adding ammo
+[PASS] paused public loading/supply calls cannot advance transactions
+[FAIL] same-tick recovery fire commits before loading completion and prevents a stale-capability chamber
+=== 结果: 57 项检查, 11 失败 ===
