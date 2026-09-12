@@ -391,6 +391,8 @@ func _show_dossier() -> void:
 			view.append_text("\n[b]"+str(entry.label)+"[/b] · "+str(entry.gun)+"\n")
 			if not entry.get("fuze_policy", {}).is_empty():
 				view.add_text("穿过足够厚的装甲后延迟起爆，出车后仍有效。当前为游戏设计规则；历史引信数值未知。\n")
+			if not entry.get("post_penetration_profile",{}).is_empty():
+				view.add_text("穿甲后按剩余预算分配定向破片，母弹继续飞行；破片受装甲、内构和掩体阻挡。当前为游戏设计规则。\n")
 			if not entry.get("impact_profile", {}).is_empty():
 				if entry.impact_profile.get("family")=="APFSDS":
 					view.add_text("长杆弹按独立角度曲线与装甲材质结算；炮口口径不作为弹芯直径。当前为游戏设计规则。\n")

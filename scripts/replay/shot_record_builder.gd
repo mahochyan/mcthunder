@@ -74,6 +74,9 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 		if int(contact.get("geometry_frame",-1)) < 0:
 			complete = false
 			reason = "missing_contact_frame"
+	for batch in st.spall_events:
+		if batch.fragment_count!=st.post_penetration_profile.count:
+			complete=false; reason="interrupted_spall_batch"
 	var record := {"schema_version":SCHEMA_VERSION,
 		"rules_versions":{"armor":GameConfig.ARMOR_RULES_VERSION,"damage":GameConfig.DAMAGE_RULES_VERSION,"recovery":RecoveryRules.VERSION},
 		"record_id":JSON.stringify([st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id]),
@@ -81,17 +84,21 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 			"shooter_team_id":st.shooter_team_id,"shot_id":st.shot_id,"projectile_id":st.projectile_id,"shell_id":st.shell_id,"seed":st.seed},
 		"launch":{"position_world":st.launch_position,"velocity_world":st.launch_velocity,"gravity_world":st.gravity_world,
 			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy,"effect_policy":st.effect_policy,
-			"fuze_policy":st.fuze_policy.duplicate(true),"impact_profile":st.impact_profile.duplicate(true),"caliber_mm":st.caliber_mm},
+			"fuze_policy":st.fuze_policy.duplicate(true),"impact_profile":st.impact_profile.duplicate(true),"caliber_mm":st.caliber_mm,
+			"post_penetration_profile":st.post_penetration_profile.duplicate(true)},
 		"complete":complete,"unavailable_reason":reason,"path":st.replay_path.duplicate(true),
 		"frames":st.replay_frames.duplicate(true),"contacts":st.contacts.duplicate(true),
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
+		"spall_events":st.spall_events.duplicate(true),
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
 	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=st.impact_profile.version
+	if not st.post_penetration_profile.is_empty(): record.rules_versions["post_penetration"]=SpallProfile.VERSION
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
 	record.terminal.erase("burst")
 	record.terminal.erase("fragments")
+	record.terminal.erase("spall_events")
 	freeze_containers(record)
 	return record
 
@@ -126,6 +133,9 @@ static func validate(record: Dictionary) -> Dictionary:
 	if not impact.is_empty() and (not _number(record.launch.get("caliber_mm")) or record.launch.caliber_mm<=0): return _bad("invalid_impact_caliber")
 	if not impact.is_empty() and versions.get("impact")!=impact.version: return _bad("unsupported_impact_rules")
 	if impact.is_empty() and versions.has("impact"): return _bad("missing_impact_profile")
+	var post: Variant=record.launch.get("post_penetration_profile",{})
+	if not SpallProfile.validate(post,str(record.launch.get("effect_policy","kinetic"))).is_empty(): return _bad("invalid_post_penetration_profile")
+	if (not post.is_empty() and versions.get("post_penetration")!=SpallProfile.VERSION) or (post.is_empty() and versions.has("post_penetration")): return _bad("invalid_post_penetration_version")
 	if not record.terminal.get("reason") is String or not _number(record.terminal.get("flight_time_s")): return _bad("invalid_terminal")
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
 	if record.path.is_empty() or record.path.size()>MAX_PATH_POINTS or record.frames.size()>MAX_GEOMETRY_FRAMES: return _bad("record_limits")
@@ -176,7 +186,8 @@ static func validate(record: Dictionary) -> Dictionary:
 			if not checked.ok: return checked
 		for fragment in record.get("fragments",[]):
 			for contact in fragment.contacts:
-				var checked := _validate_impact_contact(record,contact,ArmorImpactProfile.fragment_profile(impact),fragment.direction,true)
+				var fragment_profile: Dictionary=post.fragment_impact_profile if not post.is_empty() else ArmorImpactProfile.fragment_profile(impact)
+				var checked := _validate_impact_contact(record,contact,fragment_profile,fragment.direction,true)
 				if not checked.ok: return checked
 	return {"ok":true}
 
@@ -221,6 +232,8 @@ static func append_fragments(st: ProjectileState) -> Dictionary:
 	return {"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true)}
 
 static func validate_fragments(record: Dictionary) -> Dictionary:
+	if not record.launch.get("post_penetration_profile",{}).is_empty(): return SpallRecordValidator.validate(record)
+	if not record.get("spall_events",[]) is Array or not record.get("spall_events",[]).is_empty(): return _bad("unexpected_spall_events")
 	var burst: Variant = record.get("burst",{})
 	var fragments: Variant = record.get("fragments",[])
 	if not burst is Dictionary or not fragments is Array or fragments.size()>ShellEffectPolicy.MAX_FRAGMENTS: return _bad("invalid_fragments")
@@ -247,29 +260,34 @@ static func validate_fragments(record: Dictionary) -> Dictionary:
 	var linked_damage := {}
 	for i in fragments.size():
 		var fragment: Variant = fragments[i]
-		if not fragment is Dictionary or fragment.get("id",-1) != i or not fragment.get("path") is Array or not fragment.get("contacts") is Array or not fragment.get("damage_indices") is Array: return _bad("invalid_fragment")
-		if fragment.path.is_empty() or fragment.path.size()>ShellEffectPolicy.FRAGMENT_CONTACTS+1 or fragment.contacts.size()>ShellEffectPolicy.FRAGMENT_CONTACTS: return _bad("fragment_limits")
-		if not fragment.get("direction") is Vector3 or not fragment.direction.is_finite() or absf(fragment.direction.length()-1.0)>0.001: return _bad("invalid_fragment_direction")
-		if not _number(fragment.get("queries")) or int(fragment.queries)!=fragment.queries or fragment.queries<0 or fragment.queries>ShellEffectPolicy.FRAGMENT_CONTACTS or not fragment.get("reason") is String: return _bad("invalid_fragment_metadata")
-		var length := 0.0
-		var previous: Vector3 = burst.point_world
-		for point in fragment.path:
-			if not point is Vector3 or not point.is_finite(): return _bad("invalid_fragment_point")
-			length += previous.distance_to(point); previous = point
-		if length > ShellEffectPolicy.FRAGMENT_RANGE_M+0.001 or fragment.path[0].distance_to(burst.point_world)>0.001: return _bad("fragment_range")
-		for index in fragment.damage_indices:
-			if not _number(index) or int(index)!=index or index<0 or index>=record.damage.size() or not record.damage[int(index)] is Dictionary or record.damage[int(index)].get("fragment_id",-1)!=i or linked_damage.has(int(index)): return _bad("invalid_fragment_damage")
-			linked_damage[int(index)] = true
-		for contact in fragment.contacts:
-			if not contact is Dictionary or not contact.get("point_world") is Vector3 or not contact.point_world.is_finite() or not contact.get("result") is String: return _bad("invalid_fragment_contact")
-			if record.complete:
-				if not _number(contact.get("geometry_frame")) or int(contact.geometry_frame)!=contact.geometry_frame or contact.geometry_frame<0 or contact.geometry_frame>=record.frames.size(): return _bad("invalid_fragment_contact_frame")
-				var frame: Variant = record.frames[int(contact.geometry_frame)]
-				if not frame is Dictionary or contact.get("entity_id")!=frame.get("entity_id") or contact.get("life_id")!=frame.get("life_id"): return _bad("invalid_fragment_contact_target")
+		var checked := validate_fragment_trace(record,fragment,i,burst.point_world,ShellEffectPolicy.FRAGMENT_RANGE_M,linked_damage)
+		if not checked.ok: return checked
 	for index in record.damage.size():
 		var event: Variant = record.damage[index]
 		if not event is Dictionary: return _bad("invalid_fragment_damage_event")
 		if event.get("fragment_id",-1)!=-1 and not linked_damage.has(index): return _bad("unlinked_fragment_damage")
+	return {"ok":true}
+
+static func validate_fragment_trace(record: Dictionary, fragment: Variant, i: int, origin: Vector3, maximum_range: float, linked_damage: Dictionary) -> Dictionary:
+	if not fragment is Dictionary or fragment.get("id",-1) != i or not fragment.get("path") is Array or not fragment.get("contacts") is Array or not fragment.get("damage_indices") is Array: return _bad("invalid_fragment")
+	if fragment.path.is_empty() or fragment.path.size()>ShellEffectPolicy.FRAGMENT_CONTACTS+1 or fragment.contacts.size()>ShellEffectPolicy.FRAGMENT_CONTACTS: return _bad("fragment_limits")
+	if not fragment.get("direction") is Vector3 or not fragment.direction.is_finite() or absf(fragment.direction.length()-1.0)>0.001: return _bad("invalid_fragment_direction")
+	if not _number(fragment.get("queries")) or int(fragment.queries)!=fragment.queries or fragment.queries<0 or fragment.queries>ShellEffectPolicy.FRAGMENT_CONTACTS or not fragment.get("reason") is String: return _bad("invalid_fragment_metadata")
+	var length := 0.0
+	var previous: Vector3 = origin
+	for point in fragment.path:
+		if not point is Vector3 or not point.is_finite(): return _bad("invalid_fragment_point")
+		length += previous.distance_to(point); previous = point
+	if length > maximum_range+0.001 or fragment.path[0].distance_to(origin)>0.001: return _bad("fragment_range")
+	for index in fragment.damage_indices:
+		if not _number(index) or int(index)!=index or index<0 or index>=record.damage.size() or not record.damage[int(index)] is Dictionary or record.damage[int(index)].get("fragment_id",-1)!=i or linked_damage.has(int(index)): return _bad("invalid_fragment_damage")
+		linked_damage[int(index)] = true
+	for contact in fragment.contacts:
+		if not contact is Dictionary or not contact.get("point_world") is Vector3 or not contact.point_world.is_finite() or not contact.get("result") is String: return _bad("invalid_fragment_contact")
+		if record.complete:
+			if not _number(contact.get("geometry_frame")) or int(contact.geometry_frame)!=contact.geometry_frame or contact.geometry_frame<0 or contact.geometry_frame>=record.frames.size(): return _bad("invalid_fragment_contact_frame")
+			var frame: Variant = record.frames[int(contact.geometry_frame)]
+			if not frame is Dictionary or contact.get("entity_id")!=frame.get("entity_id") or contact.get("life_id")!=frame.get("life_id"): return _bad("invalid_fragment_contact_target")
 	return {"ok":true}
 
 static func _number(value: Variant) -> bool:

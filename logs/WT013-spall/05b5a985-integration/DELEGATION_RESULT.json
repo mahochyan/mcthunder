@@ -1,0 +1,14 @@
+{
+  "tool": "delegate_deepseek_readonly",
+  "result": "completed baseline invariants analysis",
+  "implementation": "root",
+  "findings": [
+    "global fragment IDs",
+    "independent per-batch origins and seeded directions",
+    "commit before callback and recheck live",
+    "keep fragment trace ledger separate from mother after explicit budget allocation",
+    "do not use APHE terminal burst"
+  ],
+  "scope": "baseline analysis, not final patch independent acceptance",
+  "workspace_delegation": "not retried"
+}

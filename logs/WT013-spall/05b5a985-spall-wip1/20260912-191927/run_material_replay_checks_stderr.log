@@ -1,0 +1,38 @@
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:96)
+       [2] _run (res://tests/run_material_replay_checks.gd:84)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[Vector3]".
+   at: emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+       [1] _emit_internal_burst (res://scripts/projectiles/projectile_manager.gd:576)
+       [2] _detonate_due_fuze (res://scripts/projectiles/projectile_manager.gd:428)
+       [3] advance_projectile (res://scripts/projectiles/projectile_manager.gd:245)
+       [4] advance_until_done (res://tests/run_fuze_checks.gd:23)
+       [5] material_record (res://tests/run_material_replay_checks.gd:10)
+       [6] replay_cases (res://tests/run_material_replay_checks.gd:16)
+       [7] _run (res://tests/run_material_replay_checks.gd:89)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[Vector3]".
+   at: emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+       [1] _emit_internal_burst (res://scripts/projectiles/projectile_manager.gd:576)
+       [2] _detonate_due_fuze (res://scripts/projectiles/projectile_manager.gd:428)
+       [3] advance_projectile (res://scripts/projectiles/projectile_manager.gd:245)
+       [4] advance_until_done (res://tests/run_fuze_checks.gd:23)
+       [5] material_record (res://tests/run_material_replay_checks.gd:10)
+       [6] replay_cases (res://tests/run_material_replay_checks.gd:47)
+       [7] _run (res://tests/run_material_replay_checks.gd:89)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[Vector3]".
+   at: emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] emit_bounded (res://scripts/projectiles/fragment_system.gd:11)
+       [1] _emit_internal_burst (res://scripts/projectiles/projectile_manager.gd:576)
+       [2] _detonate_due_fuze (res://scripts/projectiles/projectile_manager.gd:428)
+       [3] advance_projectile (res://scripts/projectiles/projectile_manager.gd:245)
+       [4] advance_until_done (res://tests/run_fuze_checks.gd:23)
+       [5] replay_cases (res://tests/run_material_replay_checks.gd:48)
+       [6] _run (res://tests/run_material_replay_checks.gd:89)

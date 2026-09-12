@@ -73,6 +73,7 @@ func _run() -> void:
 		check(rod.contacts.size()==2 and rod.contacts[0].result=="penetrated" and rod.terminal_reason=="armor_stopped","normally fired APFSDS penetrates actual first plate and stops at second")
 		var record := manager.shot_records.get_record(manager.shot_records.count()-1)
 		check(not record.is_empty() and ShotRecordBuilder.validate(record).ok,"normal selection reload and muzzle shot produce valid complete modern replay")
+		inspect_modern_shot(rod,record)
 	manager.cancel_all("cancelled_fixture_complete")
 	actor.reset_vehicle()
 	check(gun.rounds_remaining==48 and gun.inventory.conserved() and gun.shell.effect_policy=="kinetic","reset restores initial mixed loadout and original chamber")
@@ -80,3 +81,6 @@ func _run() -> void:
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
 	print("LONG_ROD_CONTENT_CHECKS_PASS" if failures==0 else "LONG_ROD_CONTENT_CHECKS_FAIL")
 	quit(0 if failures==0 else 1)
+
+func inspect_modern_shot(_rod: ProjectileState, _record: Dictionary) -> void:
+	pass

@@ -263,10 +263,14 @@ func _build_trail() -> void:
 func _build_fragments() -> void:
 	_fragments.mesh = null; _burst_dot.visible = false
 	var burst: Dictionary = record.get("burst",{})
-	if burst.is_empty() or current_time+1e-7 < float(burst.time_s): return
-	_burst_dot.visible = true; _burst_dot.position = burst.point_world
+	var spalls: Array=record.get("spall_events",[])
+	if burst.is_empty() and spalls.is_empty(): return
+	if not burst.is_empty() and current_time+1e-7>=float(burst.time_s):
+		_burst_dot.visible = true; _burst_dot.position = burst.point_world
 	var vertices: Array[Vector3] = []
 	for fragment in record.get("fragments",[]):
+		var birth: float=float(spalls[int(fragment.spall_event_id)].time_s) if fragment.has("spall_event_id") else float(burst.time_s)
+		if current_time+1e-7<birth: continue
 		for i in range(1,fragment.path.size()):
 			if fragment.path[i-1].distance_to(fragment.path[i]) > 1e-6:
 				vertices.append(fragment.path[i-1]); vertices.append(fragment.path[i])

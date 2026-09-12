@@ -1,0 +1,11 @@
+{
+  "source_sha": "05b5a9850c5c26749e68dada62121038cf869dc9",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder\" --position 1280,0 --max-fps 60 -s \"res://tests/run_spall_checks.gd\" -- --shot-dir \"res://docs/evidence/WT013-spall/wip-uncommitted/window-20260912-192756\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/WT013-spall/wip-uncommitted/window-20260912-192756",
+  "human": "NOT_RUN"
+}

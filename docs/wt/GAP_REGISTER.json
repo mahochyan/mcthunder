@@ -172,7 +172,8 @@
       "status": "in_progress",
       "requirements": "阶段：M2。职责：战斗程序。依赖：WT-012。\n\n在已有直接命中与 APHE 路径上补足版本化穿后效应：贯穿路径、装甲背面破片、内部遮挡、APHE 起爆条件/延迟与离体起爆、HE 对外部/薄弱结构的区别。\n\n**交付**\n- PostPenetrationProfile 与独立随机流\n- 同一命中事件派生的破片/爆炸记录\n- 内部遮挡和弹体出车后起爆测试\n\n**验收**\n- 空腔、内部部件遮挡与有乘员区域的结果不同\n- 不把每次命中都变成全车球形扣血\n- 随机效果可在同一规则版本下复现；视觉随机数不扰动毁伤随机数",
       "evidence": [
-        "WT013_DELAYED_FUZE.md"
+        "WT013_DELAYED_FUZE.md",
+        "WT013_DIRECTIONAL_SPALL.md"
       ],
       "human_accepted": false,
       "release_ready": false

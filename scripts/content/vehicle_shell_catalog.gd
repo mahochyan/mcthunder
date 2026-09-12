@@ -72,6 +72,10 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+".impact",data.evidence.get("impact"),vehicle_packet,"structured"))
 				if not data.evidence.get("impact") is Dictionary or data.evidence.impact.get("value") != data.impact_profile:
 					errors.append("shell."+data.id+": impact response differs from separate design evidence")
+			if data.has("post_penetration_profile"):
+				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+".post_penetration",data.evidence.get("post_penetration"),vehicle_packet,"structured"))
+				if not data.evidence.get("post_penetration") is Dictionary or data.evidence.post_penetration.get("value")!=data.post_penetration_profile:
+					errors.append("shell."+data.id+": post-penetration rules differ from separate evidence")
 		if errors.size()!=start_errors: continue
 		var shell := ShellDefinition.new()
 		var fuze: Variant = data.get("fuze_policy", {})
@@ -82,6 +86,10 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 		var impact_errors := ArmorImpactProfile.validate(impact, data.effect_policy)
 		if not impact_errors.is_empty(): errors.append_array(impact_errors); continue
 		shell.impact_profile = impact.duplicate(true)
+		var post: Variant=data.get("post_penetration_profile",{})
+		var post_errors := SpallProfile.validate(post,data.effect_policy)
+		if not post_errors.is_empty(): errors.append_array(post_errors); continue
+		shell.post_penetration_profile=post.duplicate(true)
 		shell.id = str(vehicle_packet.id)+("_shell" if data.id==packet.default else "_"+data.id)
 		if runtime_ids.has(shell.id): errors.append("shell.id: runtime ID collision"); continue
 		runtime_ids[shell.id]=true

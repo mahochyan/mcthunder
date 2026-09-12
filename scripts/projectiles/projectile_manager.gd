@@ -157,6 +157,9 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	if not impact.is_empty() and (not (caliber is float or caliber is int) or not is_finite(float(caliber)) or float(caliber)<=0.0):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_impact_caliber"}
 	st.impact_profile = impact.duplicate(true)
+	var post: Variant=spec.get("post_penetration_profile",{})
+	if not SpallProfile.validate(post,effect_policy).is_empty(): return {"ok":false,"projectile_id":0,"reason":"invalid_post_penetration_profile"}
+	st.post_penetration_profile=post.duplicate(true)
 	st.caliber_mm = float(caliber) if caliber is float or caliber is int else 0.0
 	st.effect_policy = effect_policy
 	st.fuze_policy = fuze.duplicate(true)
@@ -385,6 +388,10 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			step_contacts += 1
 			if not handle_contact(st, ev):
 				return
+			if not st.post_penetration_profile.is_empty():
+				var spall_snapshots := TranslationSweep.frame_at(snapshots,float(ev.get("motion_fraction",1.0)))
+				_emit_spall(st,ev,spall_snapshots,space)
+				if not _live(st): return
 			pending_h.clear() # Replan remaining time with reflected/current velocity.
 			continue
 		if status == "unresolved":
@@ -569,6 +576,22 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"))
 	if _live(st): finish_once(st.projectile_id,"internal_burst",{"target_id":st.burst.target_id,"target_life_id":st.burst.target_life_id})
 
+func _emit_spall(st: ProjectileState, event: Dictionary, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
+	if st.post_penetration_profile.is_empty() or st.spall_events.size()>=SpallProfile.MAX_EVENTS or st.contacts.is_empty(): return
+	var contact: Dictionary=st.contacts.back()
+	var surface := _surface_key(event)
+	if contact.result!="penetrated" or contact.backface or st.spall_surfaces.has(surface): return
+	var allocated := SpallProfile.allocation(st.post_penetration_profile,float(contact.after_mm))
+	if allocated<=0: return
+	var batch := {"id":st.spall_events.size(),"contact_index":st.contacts.size()-1,"point_world":st.position_world,
+		"time_s":st.age_s,"geometry_frame":event.geometry_frame,"direction":st.velocity_world.normalized(),
+		"allocated_mm":allocated,"parent_before_mm":contact.after_mm,"parent_after_mm":float(contact.after_mm)-allocated,
+		"fragment_start":st.fragments.size(),"fragment_count":0,"rules_version":SpallProfile.VERSION}
+	# Commit budget and batch before any damage callback can reset or finish the shot.
+	st.spall_surfaces[surface]=true; st.consumed_mm+=allocated; st.spall_events.append(batch)
+	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event"),contact_policy,Callable(self,"_live"),
+		{"batch":batch,"contact":event,"profile":st.post_penetration_profile})
+
 
 
 func _exclude_for(st: ProjectileState) -> Array[RID]:
@@ -613,6 +636,7 @@ func finish_once(projectile_id: int, reason: String, terminal_data: Dictionary) 
 	record["damage_records"] = st.damage_records.duplicate(true)
 	record["burst"] = st.burst.duplicate(true)
 	record["fragments"] = st.fragments.duplicate(true)
+	record["spall_events"] = st.spall_events.duplicate(true)
 	record["rules_version"] = GameConfig.ARMOR_RULES_VERSION
 	ShotRecordBuilder.sample_path(st)
 	var replay_record: Dictionary = {}
