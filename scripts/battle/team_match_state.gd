@@ -1,5 +1,5 @@
 class_name TeamMatchState
-extends RefCounted
+extends CapturePointState
 const START_TICKETS := 300
 const DEATH_COST := 30
 const TIME_LIMIT := 600.0
@@ -16,9 +16,8 @@ var elapsed := 0.0
 var countdown := 3.0
 var tickets := {1:START_TICKETS,2:START_TICKETS}
 var drain_bank := {1:0.0,2:0.0}
-var capture_progress := 0.0
-var capture_owner := 0
-var contested := false
+var objectives: BattleObjectives
+var team_size := 4
 var roster: Dictionary = {}
 var pending_deaths: Dictionary = {}
 var seen_deaths: Dictionary = {}
@@ -27,14 +26,21 @@ var event_sequence := 0
 var result: Dictionary = {}
 var finish_count := 0
 
-func initialize() -> void:
+func initialize(capacity: int = 4) -> bool:
+	if capacity < 1 or capacity > 16: return false
+	team_size = capacity
+	elapsed=0; countdown=3; tickets={1:START_TICKETS,2:START_TICKETS}; drain_bank={1:0.0,2:0.0}
+	capture_progress=0; capture_owner=0; contested=false; objectives=null
+	roster.clear(); pending_deaths.clear(); seen_deaths.clear(); events.clear(); event_sequence=0
+	result.clear(); finish_count=0
 	next_match_id += 1
 	match_id = next_match_id
 	phase = "countdown"
 	for team in [1,2]:
-		for index in 4:
+		for index in team_size:
 			var id := ("A" if team == 1 else "B")+(str(index+1) if index>0 else "")
 			roster[id] = {"team":team,"actor":null,"life_id":-1,"generation":-1,"respawn_at":-1.0,"protection_left":0.0,"player":id == "A","deaths":0,"spawns":0,"waiting_reason":"","request_sent":false,"respawn_requested":false}
+	return true
 
 func record(kind: String, data: Dictionary) -> void:
 	var event := data.duplicate(true)

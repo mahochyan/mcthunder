@@ -28,7 +28,7 @@ func run() -> void:
 	await frames(1)
 	check(actor.gunner.rounds_remaining==before,"same-tick driving prevents nearly-complete parked resupply")
 	var snap := scene.simulation_snapshot.read()
-	check(snap.version==3 and snap.match_id==scene.director.state.match_id and snap.vehicles.size()==8,"versioned snapshot identifies actual match and all live roster vehicles")
+	check(snap.version==4 and snap.match_id==scene.director.state.match_id and snap.vehicles.size()==8 and snap.team_size==4 and snap.objectives.is_empty(),"versioned snapshot identifies actual match, legacy objective mode and all live roster vehicles")
 	check(snap.vehicles.all(func(row: Dictionary) -> bool: return VehicleFramePose.valid(row.get("frame_pose"))),"snapshot includes every vehicle's relative hull and running gear poses")
 	var own: Dictionary = snap.vehicles.filter(func(v: Dictionary) -> bool: return v.entity_id==actor.entity_id)[0]
 	check(own.suspension==actor.tank.suspension.snapshot() and own.suspension.version==1,"snapshot captures same-tick spring integration state")
@@ -43,6 +43,15 @@ func run() -> void:
 	for i in 5: await process_frame
 	check(scene.simulation_snapshot.sequence==sequence,"pause stops snapshot sequence with simulation")
 	paused=false
+	scene.director.state.objectives=BattleObjectives.new()
+	scene.director.state.objectives.configure([{ "id":"A","center":Vector3.ZERO,"radius":8 },{ "id":"B","center":Vector3(30,0,0),"radius":8 },{ "id":"C","center":Vector3(-30,0,0),"radius":8 }])
+	scene.director.state.roster.A.protection_left=0
+	scene.director.advance(12)
+	await frames(1)
+	var point_snapshot := scene.simulation_snapshot.read()
+	check(point_snapshot.objectives.size()==3 and point_snapshot.objectives[0].owner==1,"same production snapshot publishes all independent point states after real-Actor capture")
+	point_snapshot.objectives[0].owner=2
+	check(scene.simulation_snapshot.read().objectives[0].owner==1 and scene.director.state.objectives.snapshot()[0].owner==1,"point snapshot mutation cannot alter cached or live authority")
 	scene.director.state.elapsed=TeamMatchState.TIME_LIMIT-0.001 # Boundary fixture, not a natural full match.
 	await frames(1)
 	var final_state := scene.simulation_snapshot.read()

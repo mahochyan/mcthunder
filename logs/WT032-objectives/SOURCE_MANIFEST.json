@@ -1,0 +1,114 @@
+{
+  "base_commit": "af8fc50df418aefd070ed17da35595adcd747467",
+  "captured_at": "2026-09-13T01:14:18.8093079+08:00",
+  "source_files": [
+    {
+      "path": "scripts/battle/battle_objectives.gd",
+      "git_blob_sha1": "3c678ba0caeefd21fc42f24ebdb9a56cb7af346c",
+      "working_tree_sha256": "d17bb9ba1ccb0813715f41b2dc11b3aa2d66956a777647f7fbd2c2fbf1d4fb14"
+    },
+    {
+      "path": "scripts/battle/battle_objectives.gd.uid",
+      "git_blob_sha1": "4fa49acc268bd92980ff4c19f9f377234486d56b",
+      "working_tree_sha256": "8b34d66921a6a23745a9050f21da32e8e8f6211c4811313e1d8ae3189dfd30d1"
+    },
+    {
+      "path": "scripts/battle/capture_point.gd",
+      "git_blob_sha1": "8a87b209adcc2b1f0f1b48bff4acec9b7b039e5c",
+      "working_tree_sha256": "f26571308e41d04cfef0683f5e47087e66adfc22e15289514bb409624c079653"
+    },
+    {
+      "path": "scripts/battle/capture_point_state.gd",
+      "git_blob_sha1": "7786f76c713f886cbc5b382ccaed6647176f0b76",
+      "working_tree_sha256": "dfc0d4eab2577a4e95f8374e6e821dd8966b9f16d708d697c1402e6aa43ea40e"
+    },
+    {
+      "path": "scripts/battle/capture_point_state.gd.uid",
+      "git_blob_sha1": "ae2159777eb34eaf22d7fc4a212ad5555a822e70",
+      "working_tree_sha256": "1c5ecd3349d360255ed4eeb0ad6d84b1998ed9aa92d868549dde490e0b0489f1"
+    },
+    {
+      "path": "scripts/battle/simulation_snapshot.gd",
+      "git_blob_sha1": "f66b3624b2a05589ee2661e62e1eb1df595bb5c2",
+      "working_tree_sha256": "809744812bf8eabc5ccf5362facd3df2733644e5d157e929a4193d27086ce4d0"
+    },
+    {
+      "path": "scripts/battle/team_match_director.gd",
+      "git_blob_sha1": "6be7700da0c31dcf7fb9bb641f434af95b2f866f",
+      "working_tree_sha256": "2095da92e0f7c7b3b95e35639b74eae03ba3f7c65882afa070c0b16c4b19044d"
+    },
+    {
+      "path": "scripts/battle/team_match_state.gd",
+      "git_blob_sha1": "9ad55a446df13fa698fa51a6d6a956a02a6c3089",
+      "working_tree_sha256": "872de78ff24d218f129c76e2747177e82abb98f133079cb37196a8d6a8a97d26"
+    },
+    {
+      "path": "scripts/maps/river_junction_definition.gd",
+      "git_blob_sha1": "d693eb7feb561472a3308949f8da4ec66689ffa5",
+      "working_tree_sha256": "a61835947a89b94416d477fdaa477fde532bab06944880b466b3e414ec87025a"
+    },
+    {
+      "path": "scripts/maps/river_junction_range.gd",
+      "git_blob_sha1": "c55ad0241423c7ae5cf189c3bc6ce751deac05a8",
+      "working_tree_sha256": "5ffbdb53709b845c996044846964ba355232565498c9da4b352873d5951fbe6d"
+    },
+    {
+      "path": "scripts/ui/river_junction_atlas.gd",
+      "git_blob_sha1": "e6648db278e7e8d7aee994a6abde838974aa8f71",
+      "working_tree_sha256": "0959b4e543530e6e6dbef1a2a7d9b12a6e5db0426b5a0fa868c070ac5d0778c5"
+    },
+    {
+      "path": "scripts/ui/river_objective_hud.gd",
+      "git_blob_sha1": "4ec4d9597b9c6173d48b14cb8063961d086d3537",
+      "working_tree_sha256": "07263039e32ba0b2c3f9b5b5e7f69f04812a023a9f485cb167f647149e2c8630"
+    },
+    {
+      "path": "scripts/ui/river_objective_hud.gd.uid",
+      "git_blob_sha1": "4b6a0e98400d14ad25905246cc8ff3d2248e3af1",
+      "working_tree_sha256": "bc64e38edcf36a3496cdfab46e6e06dacb8ee0c6d6516fb58722c6f6c19e685b"
+    },
+    {
+      "path": "tests/run_multi_objective_checks.gd",
+      "git_blob_sha1": "522307941f0422e3734505b29201e3c84c1b11ef",
+      "working_tree_sha256": "54515002b17754464acaecf809f0bcfa1ab45c9266ba468a01d6af202b6a6810"
+    },
+    {
+      "path": "tests/run_simulation_phase_checks.gd",
+      "git_blob_sha1": "08278a00cc8e9db1749b6cbc9c6b915e8e101e80",
+      "working_tree_sha256": "c75f704132ae0bb184a1e0e60c21afc898bf49abe8be8a383fad6accca26a999"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f",
+      "unchanged": true
+    }
+  ],
+  "results": "RESULTS.json"
+}

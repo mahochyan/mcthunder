@@ -1,7 +1,7 @@
 class_name CapturePoint
 extends RefCounted
 ## Returns exact owned durations; capture that finishes at the end of this step drains no earlier time.
-static func step(state: TeamMatchState, teams: Array, delta: float) -> Dictionary:
+static func step(state: CapturePointState, teams: Array, delta: float) -> Dictionary:
 	var owned := {1:0.0,2:0.0}
 	if delta <= 0 or not is_finite(delta): return owned
 	var unique := {}

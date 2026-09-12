@@ -1,7 +1,7 @@
 class_name SimulationSnapshot
 extends Node
 ## Internal authoritative state, not an observer-filtered network message.
-const VERSION := 3
+const VERSION := 4
 var battle: TeamRange
 var _latest: Dictionary = {}
 var sequence := 0
@@ -30,3 +30,5 @@ func _physics_process(_delta: float) -> void:
 		"event_sequence":state.event_sequence,
 		"phase":state.phase,"elapsed":state.elapsed,"tickets":state.tickets.duplicate(),"capture_owner":state.capture_owner,
 		"capture_progress":state.capture_progress,"contested":state.contested,"result":state.result.duplicate(true),"vehicles":vehicles}
+	_latest["objectives"] = state.objectives.snapshot() if state.objectives != null else []
+	_latest["team_size"] = state.team_size

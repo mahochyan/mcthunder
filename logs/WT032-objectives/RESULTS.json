@@ -1,0 +1,136 @@
+{
+  "base_commit": "af8fc50df418aefd070ed17da35595adcd747467",
+  "captured_at": "2026-09-13T01:14:17.4224581+08:00",
+  "scope": "Three independent objectives on River Junction driving exercise; configurable authoritative roster; legacy team match regression",
+  "tests": [
+    {
+      "actual_actors_in_controlled_fixture": 32,
+      "appdata": "headless-reviewed-userdata",
+      "exit_code": 0,
+      "failed": 0,
+      "script": "tests/run_multi_objective_checks.gd",
+      "passed": 35,
+      "log": "headless-reviewed.log",
+      "mode": "headless"
+    },
+    {
+      "actual_actors_in_controlled_fixture": 4,
+      "appdata": "window-reviewed-userdata",
+      "exit_code": 0,
+      "failed": 0,
+      "script": "tests/run_multi_objective_checks.gd",
+      "passed": 41,
+      "log": "window-reviewed.log",
+      "mode": "actual 1280x720 window"
+    },
+    {
+      "mode": "headless",
+      "script": "tests/run_team_checks.gd",
+      "passed": 67,
+      "exit_code": 0,
+      "appdata": "team-userdata",
+      "failed": 0,
+      "log": "legacy-team-final.log"
+    },
+    {
+      "mode": "headless",
+      "script": "tests/run_simulation_phase_checks.gd",
+      "passed": 13,
+      "exit_code": 0,
+      "appdata": "snapshot-userdata",
+      "failed": 0,
+      "log": "snapshot-final.log"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/01_entering_C.png",
+      "sha256": "afe71bdefc937aad2fcf109c439dc334abe0cce6512725f7099871b62780b1f7",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/02_C_owned.png",
+      "sha256": "c66c9fdcb02b8de0eb9246f0295ccc0e001a269caccabe9503e5afc60a853c19",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/03_three_independent_points.png",
+      "sha256": "f9d78daff46abad5dfde0ad72969574d793343d788a544a8ae88123a7bf96f6d",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/04_contest_cleared.png",
+      "sha256": "5f53bd33c3efb12e162534b70c4c6d2e1ae8f4924cda9952b224f235824d78dc",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/05_training_result.png",
+      "sha256": "7fff265e8447b7a7dd98f24efd7e5f4630a197b913330db2e551188ace344150",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-objectives/window-reviewed/06_pause_restart.png",
+      "sha256": "f0241bf2dc6caa97b494ade9bfd9c54fdbcc9e115bc3348cc4846fb29a618b8e",
+      "visually_reviewed": true
+    }
+  ],
+  "command_common": "tools/godot/Godot_v4.7.2-stable_win64_console.exe --path . --fixed-fps 60 -s res://<script> --log-file <log>; each process APPDATA points to logs/WT032-objectives/<appdata>",
+  "command_modes": {
+    "snapshot": "-- --simulation-phase-check",
+    "headless": "--headless",
+    "multi": "-- --multi-objective-check",
+    "legacy": "-- --team-check",
+    "window": "--resolution 1280x720 -- --multi-objective-check --shot-dir res://docs/evidence/WT032-objectives/window-reviewed"
+  },
+  "known_warning": "Legacy test_player_vehicle_layout modules[1].barrel_box coarse AABB warning remains in team/snapshot regressions; no armor-fit admission claimed",
+  "scope_notes": [
+    "Normal garage mouse entry and W-driven M4 capture C",
+    "32 real Actors loaded and registered in controlled headless fixture; no 32-car AI/navigation/network claim",
+    "A ownership, B contest and C enemy ownership use controlled actor positions and manual director time",
+    "Actual window tests are automated, not human acceptance",
+    "Earlier exploratory UI test clicked before layout; final mouse check waits for visible layout",
+    "Final screenshots keep local controller camera active while fixture disables commands"
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f",
+      "unchanged": true
+    }
+  ],
+  "limitations": {
+    "formal_large_map_match_admitted": false,
+    "large_map_team_navigation": "NOT_RUN",
+    "remaining_work_packages_preserved": 42,
+    "performance": "HOLD_BY_USER",
+    "art": "Environment prototype; quarry road terrain intersections and BattleBit-level finish pending",
+    "human": "NOT_RUN",
+    "network_20_32": "NOT_RUN",
+    "release_accepted": false
+  }
+}

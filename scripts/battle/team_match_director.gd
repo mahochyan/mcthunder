@@ -31,15 +31,22 @@ func _ready() -> void:
 	process_physics_priority = SimulationPhases.MATCH
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
-func begin() -> void:
+func begin(team_size: int = 4, objectives: Array = []) -> bool:
+	if team_size < 1 or team_size > 16: return false
+	var capture_set: BattleObjectives = null
+	if not objectives.is_empty():
+		capture_set = BattleObjectives.new()
+		if not capture_set.configure(objectives): return false
 	state = TeamMatchState.new()
-	state.initialize()
+	state.initialize(team_size)
+	state.objectives = capture_set
 	player_shots = 0
 	_last_player_life = -1
 	_last_player_shot = 0
 	report = {"hits":0,"penetrations":0,"kills":0,"deaths":0,"capture_seconds":0.0,"last_death":""}
 	_hit_shots.clear()
 	_penetrating_shots.clear()
+	return true
 func _physics_process(delta: float) -> void: advance(delta)
 
 func advance(delta: float) -> void:
@@ -55,6 +62,7 @@ func advance(delta: float) -> void:
 	var used := minf(delta,maxf(0,TeamMatchState.TIME_LIMIT-state.elapsed))
 	state.elapsed += used
 	var teams: Array = []
+	var occupants: Array = []
 	var player_inside := false
 	for id in state.roster:
 		var vehicle := state.actor_for(id)
@@ -62,6 +70,7 @@ func advance(delta: float) -> void:
 		var protected_at_start := float(row.protection_left)>0
 		row.protection_left = maxf(0,float(row.protection_left)-used)
 		if vehicle == null: continue
+		if vehicle.life_id != row.life_id or vehicle.state.generation != row.generation: continue
 		if id == "A":
 			if vehicle.life_id != _last_player_life:
 				_last_player_life = vehicle.life_id
@@ -72,13 +81,20 @@ func advance(delta: float) -> void:
 			state.queue_death(vehicle.state.death_record)
 			continue
 		if protected_at_start: continue
+		occupants.append({"id":id,"team":row.team,"position":vehicle.tank.global_position})
 		var offset := vehicle.tank.global_position-center
 		offset.y = 0
 		if offset.length() <= TeamMatchState.CAPTURE_RADIUS:
 			teams.append(row.team)
 			if id == "A": player_inside = true
-	var owned := CapturePoint.step(state,teams,used)
-	if player_inside and not state.contested: report.capture_seconds += used
+	var owned: Dictionary
+	if state.objectives == null:
+		owned = CapturePoint.step(state,teams,used)
+		if player_inside and not state.contested: report.capture_seconds += used
+	else:
+		var capture := state.objectives.step(state,occupants,used)
+		owned = capture.owned
+		report.capture_seconds += capture.player_seconds
 	var deaths := TicketLedger.apply_events(state,owned)
 	for id in deaths:
 		var lost := state.actor_for(id)
@@ -116,6 +132,7 @@ func finish_once(outcome: String, reason: String) -> bool:
 	state.record("match_finished",{"outcome":outcome,"reason":reason,"tickets":state.tickets.duplicate()})
 	state.result = {"title":LocalizationService.text("ui_0dd5e3593738"),"outcome":outcome,"reason":reason,"status":"passed" if outcome == "victory" else "failed","shots":player_shots,"match_id":state.match_id,"seconds":state.elapsed,"tickets":state.tickets.duplicate(),"events":state.events.duplicate(true)}
 	state.result["event_sequence"] = state.event_sequence
+	if state.objectives != null: state.result["objectives"] = state.objectives.snapshot()
 	state.result["combat_summary"] = report.duplicate(true)
 	match_finished.emit(state.result.duplicate(true))
 	return true

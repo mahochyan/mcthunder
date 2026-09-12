@@ -27,6 +27,12 @@ static func layout(team_size: int) -> Dictionary:
 
 static func river_z(x: float) -> float: return 32.0*sin(x/210.0)
 
+static func capture_definitions() -> Array[Dictionary]:
+	var rows: Array[Dictionary] = []
+	for id in OBJECTIVES:
+		rows.append({"id":id,"center":point(OBJECTIVES[id].xz),"radius":45.0})
+	return rows
+
 static func lane_x(lane: float,z: float) -> float:
 	var street_alignment := 1.0
 	if lane==520.0: street_alignment=1.0-smoothstep(10.0,50.0,z)*(1.0-smoothstep(200.0,250.0,z))

@@ -3,6 +3,7 @@ extends Control
 signal point_selected(point: Vector2)
 var team_size := 16
 var camera_xz := Vector2.ZERO
+var objective_states: Dictionary = {}
 
 func _ready() -> void:
 	custom_minimum_size=Vector2(240,210); mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
@@ -26,7 +27,9 @@ func _draw() -> void:
 	draw_rect(Rect2(project(bounds.position),bounds.size/RiverJunctionDefinition.WORLD.size*size),Color("bfad74"),false,2)
 	for id in config.objectives:
 		var p := project(RiverJunctionDefinition.OBJECTIVES[id].xz)
-		draw_circle(p,8,Color("d3bc77")); draw_string(ThemeDB.fallback_font,p+Vector2(-4,4),id,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("172425"))
+		var color: Color=RiverObjectiveHUD.COLORS[int(objective_states.get(id,{}).get("owner",0))]
+		draw_circle(p,8,color); draw_string(ThemeDB.fallback_font,p+Vector2(-4,4),id,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("172425"))
+		if objective_states.get(id,{}).get("contested",false): draw_arc(p,10,0,TAU,20,Color("eac76b"),2,true)
 	for team in [1,2]:
 		for pose in RiverJunctionDefinition.spawns(team_size,team):
 			draw_circle(project(Vector2(pose.origin.x,pose.origin.z)),2,Color("85bfd2") if team==1 else Color("d99572"))
