@@ -4,6 +4,7 @@ signal point_selected(point: Vector2)
 var team_size := 16
 var camera_xz := Vector2.ZERO
 var objective_states: Dictionary = {}
+var route := PackedVector2Array()
 
 func _ready() -> void:
 	custom_minimum_size=Vector2(240,210); mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
@@ -25,6 +26,10 @@ func _draw() -> void:
 	var config := RiverJunctionDefinition.layout(team_size)
 	var bounds: Rect2=config.bounds
 	draw_rect(Rect2(project(bounds.position),bounds.size/RiverJunctionDefinition.WORLD.size*size),Color("bfad74"),false,2)
+	if route.size()>1:
+		var route_pixels := PackedVector2Array()
+		for p in route: route_pixels.append(project(p))
+		draw_polyline(route_pixels,Color("f2d18b"),2,true)
 	for id in config.objectives:
 		var p := project(RiverJunctionDefinition.OBJECTIVES[id].xz)
 		var color: Color=RiverObjectiveHUD.COLORS[int(objective_states.get(id,{}).get("owner",0))]

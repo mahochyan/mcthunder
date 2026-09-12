@@ -14,6 +14,12 @@ var capture_director: TeamMatchDirector
 var objective_hud: RiverObjectiveHUD
 var objective_materials: Dictionary = {}
 var restart_capture_button: Button
+var navigation := RiverJunctionNavigation.new()
+var navigator := DriveNavigator.new()
+var route_choice: OptionButton
+var route_button: Button
+var route_active := false
+var route_note := ""
 
 func _build_world() -> void:
 	world_builder=RiverJunctionWorld.new(); world_builder.build(self)
@@ -51,6 +57,25 @@ func _ready() -> void:
 	restart_capture_button.pressed.connect(restart_capture)
 	_build_objective_rings()
 	restart_capture()
+	navigator.configure(navigation.build(trial_team_size))
+	route_choice=OptionButton.new()
+	for id in RiverJunctionDefinition.OBJECTIVES: route_choice.add_item("导航目标："+id+" "+RiverJunctionDefinition.OBJECTIVES[id].title)
+	hud.resume_btn.get_parent().add_child(route_choice)
+	route_choice.item_selected.connect(func(_index: int) -> void:
+		if route_active: plan_route())
+	route_button=Button.new(); route_button.text="显示行驶路线"; hud.resume_btn.get_parent().add_child(route_button)
+	route_button.pressed.connect(func() -> void: route_active=true; plan_route())
+
+func plan_route() -> void:
+	if route_choice==null: return
+	var target: String=RiverJunctionDefinition.OBJECTIVES.keys()[route_choice.selected]
+	var result := navigator.request_path(actor.tank.global_position,navigation.goals[target],actor.definition.drive_collision_size.x)
+	map_atlas.route.clear()
+	if not result.ok:
+		route_note="导航：请回到道路或部署区再规划"; return
+	map_atlas.route.append(Vector2(actor.tank.global_position.x,actor.tank.global_position.z))
+	for p in result.points: map_atlas.route.append(Vector2(p.x,p.z))
+	route_note="导航 %s · 已规划 %.0f m"%[target,result.cost]
 
 func restart_capture() -> void:
 	if capture_director==null: return
@@ -82,6 +107,8 @@ func set_trial_size(value: int) -> void:
 	map_atlas.team_size=value
 	select_stop(2+RiverJunctionDefinition.layout(value).crossings.find(0.0))
 	restart_capture()
+	navigator.configure(navigation.build(trial_team_size))
+	if route_active: plan_route()
 
 func select_stop(index: int) -> void:
 	if not ready_drive or index<0 or index>=RiverJunctionDefinition.driving_stops(trial_team_size).size(): return
@@ -95,6 +122,7 @@ func select_stop(index: int) -> void:
 	actor.pause_block(_paused)
 	deployment_choice.select(index); boundary_seconds=0; boundary_warning=""
 	if capture_director!=null: capture_director.state.register_spawn("A",actor)
+	if route_active: plan_route()
 
 func _reset_range() -> void:
 	if ready_drive: select_stop(stop_index)
@@ -112,6 +140,7 @@ func _process(delta: float) -> void:
 	map_atlas.camera_xz=Vector2(p.x,p.z); map_atlas.queue_redraw(); map_atlas.visible=not _paused and not actor.cam_rig.sight
 	hud.control_label.text="河谷枢纽 · 单车实地驾驶（%dv%d布局）/ "%[trial_team_size,trial_team_size]+deployment_choice.get_item_text(stop_index)
 	hud.hint_label.text="正常驾驶 / 瞄准 / 射击 · 暂停菜单可选择部署位置 · 重置返回当前部署点"
+	if route_active: hud.hint_label.text+=" · "+route_note
 	hud.projectiles_label.text="%.0f / %.0f m   坡度 %.1f°   %s"%[p.x,p.z,float(actor.tank.ground_state.get("slope_deg",0)),boundary_warning]
 	if capture_director!=null:
 		var state := capture_director.state

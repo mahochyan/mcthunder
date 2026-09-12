@@ -6,6 +6,7 @@ var edges: Array[Dictionary] = []
 var map_id := ""
 var valid := false
 var request_count := 0
+var through_waypoints := false
 
 func load_graph(path: String) -> Dictionary:
 	var value = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -15,9 +16,11 @@ func configure(value: Variant) -> Dictionary:
 	valid = false
 	nodes.clear()
 	edges.clear()
+	through_waypoints=false
 	if not value is Dictionary or value.get("schema_version",0) != 1: return {"ok":false,"reason":"schema"}
 	if not value.get("nodes") is Array or not value.get("edges") is Array: return {"ok":false,"reason":"structure"}
-	if value.nodes.is_empty() or value.nodes.size() > 256 or value.edges.size() > 1024: return {"ok":false,"reason":"capacity"}
+	if value.nodes.is_empty() or value.nodes.size() > 1024 or value.edges.size() > 4096: return {"ok":false,"reason":"capacity"}
+	if value.has("through_waypoints") and not value.through_waypoints is bool: return {"ok":false,"reason":"waypoint_mode"}
 	for row in value.nodes:
 		if not row is Dictionary or not row.get("id") is String or str(row.id).is_empty() or nodes.has(row.id): return {"ok":false,"reason":"node_id"}
 		if not row.get("position") is Array or row.position.size() != 3: return {"ok":false,"reason":"position"}
@@ -33,6 +36,7 @@ func configure(value: Variant) -> Dictionary:
 		seen[key] = true
 		edges.append({"a":row.a,"b":row.b,"width":float(row.width),"key":key})
 	map_id = str(value.get("map_id",""))
+	through_waypoints=bool(value.get("through_waypoints",false))
 	valid = true
 	return {"ok":true}
 

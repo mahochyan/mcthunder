@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS real navigator accepts 10 layout
+PASS all 60 spawn/objective combinations reachable in graph
+PASS single bridge closure retains a cross-river alternative: -520.0 / 10
+PASS single bridge closure retains a cross-river alternative: 0.0 / 10
+PASS single bridge closure retains a cross-river alternative: 520.0 / 10
+GEOMETRY nodes=408 edges=417 blocked=0 unsupported=0
+PASS navigation corridors clear physical world at tank hull width
+PASS navigation segments have physical ground or bridge support
+PASS real navigator accepts 16 layout
+PASS all 96 spawn/objective combinations reachable in graph
+PASS single bridge closure retains a cross-river alternative: -820.0 / 16
+PASS single bridge closure retains a cross-river alternative: -520.0 / 16
+PASS single bridge closure retains a cross-river alternative: 0.0 / 16
+PASS single bridge closure retains a cross-river alternative: 520.0 / 16
+PASS single bridge closure retains a cross-river alternative: 820.0 / 16
+GEOMETRY nodes=857 edges=880 blocked=0 unsupported=0
+PASS navigation corridors clear physical world at tank hull width
+PASS navigation segments have physical ground or bridge support
+PASS production driver plans deployment to B / 16 / 1
+DRIVING 16 B tick=6000 pos=(-16.11993, 8.000941, 450.3185) phase=following waypoint=30/56
+ARRIVAL 16 team=1 slot=5 target=B ticks=10512 phase=arrived reason=goal_reached position=(-20.56396, 8.032466, -129.4551)
+PASS actual M4 reaches objective through authored road network
+PASS production driver plans deployment to A / 10 / 2
+DRIVING 10 A tick=6000 pos=(-547.4741, 8.000943, -165.3771) phase=following waypoint=28/41
+ARRIVAL 10 team=2 slot=0 target=A ticks=8263 phase=arrived reason=goal_reached position=(-504.3343, 8.032473, 119.2445)
+PASS actual M4 reaches objective through authored road network
+PASS production driver plans deployment to C / 16 / 1
+DRIVING 16 C tick=6000 pos=(505.7316, 8.000941, 440.7664) phase=following waypoint=30/46
+ARRIVAL 16 team=1 slot=13 target=C ticks=8733 phase=arrived reason=goal_reached position=(520.0172, 8.032831, 100.3277)
+PASS actual M4 reaches objective through authored road network
+RESULT river_navigation passed=22 failed=0

@@ -1,0 +1,89 @@
+{
+  "base_commit": "fc09daf5d7c8375c7acbeb9f15c1db8b3d125b8c",
+  "captured_at": "2026-09-13T01:31:17.5270195+08:00",
+  "source_files": [
+    {
+      "path": "scripts/ai/ai_path_driver.gd",
+      "git_blob_sha1": "d49115d162592d92784a54040b8ef631aba1d349",
+      "working_tree_sha256": "b995b3225c20a0ba0316ba7f3eea60b2de9f52d4db9b3e6ae172359ebceb1e1a"
+    },
+    {
+      "path": "scripts/ai/drive_navigator.gd",
+      "git_blob_sha1": "62ba26691838268aa74a36b2397ef07ec8d28e04",
+      "working_tree_sha256": "ba295104e5f1647c99a4d97cd870063fce08de6ef3f5e372722ecbde7a8cf6fe"
+    },
+    {
+      "path": "scripts/maps/river_junction_definition.gd",
+      "git_blob_sha1": "93c0ab89103df1c098245da37aa637abe0d90072",
+      "working_tree_sha256": "47f6400dda4bb3764b75e67abd76ea7e71cacb8a7294c0df1fd5d919fc0177f5"
+    },
+    {
+      "path": "scripts/maps/river_junction_navigation.gd",
+      "git_blob_sha1": "4aa77e003a27c7ee6d985b01fbcb0495e06cef1f",
+      "working_tree_sha256": "3d8e16f9f34a6802ed7ff4f0d0ee98c11c4457aac147a9762a95a28f72b64927"
+    },
+    {
+      "path": "scripts/maps/river_junction_navigation.gd.uid",
+      "git_blob_sha1": "25520f5a7ca1a499b7a25f94d35aa12508fc4714",
+      "working_tree_sha256": "3b776184639393913118096a17de93b3a845a2de1c4c0bcc56d2b9ee7f2fba61"
+    },
+    {
+      "path": "scripts/maps/river_junction_range.gd",
+      "git_blob_sha1": "8337a2f010921703c6435dc5ee93504efd563a6f",
+      "working_tree_sha256": "bdcf401544cc1545836bac85faddffaef7b88177d02d10293de9f421a3e9e93c"
+    },
+    {
+      "path": "scripts/maps/river_junction_world.gd",
+      "git_blob_sha1": "675afa62597ecfb2375b293e8425a84ebae36957",
+      "working_tree_sha256": "be862c6bf5071b0b65215e6282125e482dd79ee6263c2670150eccf9ecde656f"
+    },
+    {
+      "path": "scripts/ui/river_junction_atlas.gd",
+      "git_blob_sha1": "35bf0f3aab86f19d9ed586149ec1cd6df2968223",
+      "working_tree_sha256": "97fa95d45282d2856569e8ac8d8c90b9a106ce24165b561c2a99ba70b46cfb9d"
+    },
+    {
+      "path": "tests/run_river_navigation_checks.gd",
+      "git_blob_sha1": "968fb37240833878b6033ce4f16576a109199926",
+      "working_tree_sha256": "4a52ab0fc3c659b2aa394e525ac2454dbfbf2caa16a3f4bacfed88649ce2f9f7"
+    },
+    {
+      "path": "tests/run_river_route_ui_checks.gd",
+      "git_blob_sha1": "fe427649703e5f3ec47bf8349fc233a78e129846",
+      "working_tree_sha256": "7b70469dfde29f157665098bf254b12561200f11e74c56eaf89c9a3fa42f269d"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f",
+      "unchanged": true
+    }
+  ],
+  "results": "RESULTS.json"
+}

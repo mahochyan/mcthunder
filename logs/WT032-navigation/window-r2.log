@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PASS garage driving entry builds admitted local navigation graph
+PASS real pause button plans route to B without resuming
+PASS last pause action fits default window
+PASS actual screenshot 01_route_menu
+PASS route guide preserves local driver and terminates at real objective approach
+PASS actual screenshot 02_south_to_B
+PASS changing objective replans through normal selector
+PASS layout switch uses inner road graph and clears outer route
+PASS off-network location clears stale route and gives recovery instruction
+PASS actual screenshot 03_quarry_road
+PASS quarry road and shoulders remain above physical terrain across 156 samples
+PASS normal W input continues driving on corrected quarry road
+PASS actual screenshot 04_quarry_driving
+PASS route planning returns normally without changing profile or creating match rewards
+RESULT river_route_ui passed=14 failed=0

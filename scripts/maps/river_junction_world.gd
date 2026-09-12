@@ -63,9 +63,16 @@ func _terrain() -> void:
 
 func ribbon(points: PackedVector2Array,width: float,tint: Color,title: String,level: float=8.09) -> MeshInstance3D:
 	var st := SurfaceTool.new(); st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var sides: Array[Vector2]=[]
+	for i in points.size():
+		var incoming := (points[i]-points[maxi(0,i-1)]).normalized() if i>0 else (points[1]-points[0]).normalized()
+		var outgoing := (points[mini(i+1,points.size()-1)]-points[i]).normalized() if i<points.size()-1 else incoming
+		var normal := Vector2(-incoming.y,incoming.x)
+		var miter := (normal+Vector2(-outgoing.y,outgoing.x)).normalized()
+		sides.append(miter*width*.5/maxf(.5,miter.dot(normal)))
 	for i in range(1,points.size()):
-		var a := points[i-1]; var b := points[i]; var tangent := (b-a).normalized(); var side := Vector2(-tangent.y,tangent.x)*width*.5
-		for p in [a-side,b-side,a+side,a+side,b-side,b+side]:
+		var a := points[i-1]; var b := points[i]; var sa := sides[i-1]; var sb := sides[i]
+		for p in [a-sa,b-sb,a+sa,a+sa,b-sb,b+sb]:
 			st.set_normal(Vector3.UP); st.add_vertex(Vector3(p.x,level,p.y))
 	var mesh := MeshInstance3D.new(); mesh.name=title; mesh.mesh=st.commit(); mesh.material_override=material(tint); mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF; root.add_child(mesh); return mesh
 
@@ -192,7 +199,7 @@ func _districts() -> void:
 	var rail := StaticArtBatch.new()
 	house(rail,Vector2(38,-155),Vector3(25,7,54),Color("ab9b80"),Color("59665f"))
 	house(rail,Vector2(-95,-160),Vector3(36,10,75),Color("8b8b7c"),Color("596560"))
-	house(rail,Vector2(70,-225),Vector3(22,5,25),Color("b9a98b"),Color("75594b"))
+	house(rail,Vector2(70,-260),Vector3(22,5,25),Color("b9a98b"),Color("75594b"))
 	for x in [-72.0,-57.0]:
 		for z in [-260.0,-243.0,-226.0]:
 			var tint := Color("666e5d") if x==-72 else Color("985f49")
@@ -247,7 +254,7 @@ func _vegetation() -> void:
 	for i in 6500:
 		var p := Vector2(rng.randf_range(-1170,1170),rng.randf_range(-970,970))
 		if RiverJunctionDefinition.road_distance(p.x,p.y)<25 or absf(p.y-RiverJunctionDefinition.river_z(p.x))<44: continue
-		if absf(absf(p.x)-260)<80 and (absf(absf(p.y)-490)<60 or absf(absf(p.y)-690)<60): continue
+		if absf(absf(p.x)-260)<125 and (absf(absf(p.y)-490)<60 or absf(absf(p.y)-690)<60): continue
 		var near_building := false
 		for rectangle in buildings:
 			if rectangle.grow(12).has_point(p): near_building=true; break

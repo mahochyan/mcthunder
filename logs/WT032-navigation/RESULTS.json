@@ -1,0 +1,133 @@
+{
+  "base_commit": "fc09daf5d7c8375c7acbeb9f15c1db8b3d125b8c",
+  "captured_at": "2026-09-13T01:32:10.0019831+08:00",
+  "scope": "River Junction road geometry, local road graph, real single M4 AI traversal and player route guide",
+  "tests": [
+    {
+      "exit_code": 0,
+      "failed": 0,
+      "log": "final.log",
+      "script": "tests/run_river_navigation_checks.gd",
+      "mode": "headless fixed-fps 60",
+      "appdata": "final-userdata",
+      "passed": 22,
+      "args": "--river-navigation-check"
+    },
+    {
+      "exit_code": 0,
+      "failed": 0,
+      "log": "window-r2.log",
+      "script": "tests/run_river_route_ui_checks.gd",
+      "mode": "actual 1280x720 window fixed-fps 60",
+      "appdata": "window-r2-userdata",
+      "passed": 14,
+      "args": "--river-route-ui-check --shot-dir res://docs/evidence/WT032-navigation/window-r2"
+    },
+    {
+      "exit_code": 0,
+      "failed": 0,
+      "log": "legacy-ai.log",
+      "script": "tests/run_ai_drive_checks.gd",
+      "mode": "headless fixed-fps 60",
+      "appdata": "legacy-ai-userdata",
+      "passed": 40,
+      "args": "--ai-drive-check"
+    },
+    {
+      "exit_code": 0,
+      "failed": 0,
+      "log": "driving.log",
+      "script": "tests/run_river_driving_checks.gd",
+      "mode": "headless fixed-fps 60",
+      "appdata": "driving-userdata",
+      "passed": 34,
+      "args": "--river-driving-check"
+    }
+  ],
+  "command": "Set process APPDATA to logs/WT032-navigation/<appdata>; tools/godot/Godot_v4.7.2-stable_win64_console.exe --path . --fixed-fps 60 [--headless or --resolution 1280x720] -s res://<script> --log-file <log> -- <args>",
+  "graph_checks": {
+    "quarry_terrain_samples": 156,
+    "hull_span_m": 3.8,
+    "blocked_edges": 0,
+    "support_samples_per_edge": 4,
+    "unsupported_edges": 0,
+    "hull_rays_per_edge": 3,
+    "layouts": [
+      {
+        "team_size": 10,
+        "edges": 417,
+        "nodes": 408,
+        "spawn_to_objective_paths": 60
+      },
+      {
+        "team_size": 16,
+        "edges": 880,
+        "nodes": 857,
+        "spawn_to_objective_paths": 96
+      }
+    ],
+    "single_bridge_closure_cases": 8
+  },
+  "traversals": [
+    {
+      "layout": 16,
+      "phase": "arrived",
+      "physics_ticks": 10512,
+      "team": 1,
+      "objective": "B",
+      "slot": 5
+    },
+    {
+      "layout": 10,
+      "phase": "arrived",
+      "physics_ticks": 8263,
+      "team": 2,
+      "objective": "A",
+      "slot": 0
+    },
+    {
+      "layout": 16,
+      "phase": "arrived",
+      "physics_ticks": 8733,
+      "team": 1,
+      "objective": "C",
+      "slot": 13
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/WT032-navigation/window-r2/01_route_menu.png",
+      "sha256": "edfca61abaef9cb8b7a2d494bc7c71bd1f4b8385ef383229a47489aeb79930ea",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-navigation/window-r2/02_south_to_B.png",
+      "sha256": "3b556ebbc20f42610cf28a3472f5e0f5dc6e7d4b8a574d738c90c5460f253f58",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-navigation/window-r2/03_quarry_road.png",
+      "sha256": "0591c1a44201a34fe09837526cb125a3865d72d6da2bbdd5e523438571229c25",
+      "visually_reviewed": true
+    },
+    {
+      "path": "docs/evidence/WT032-navigation/window-r2/04_quarry_driving.png",
+      "sha256": "9805993757ce717ceb2c06ba2541d9ef78ac42b8ff23d4f741e47de55722d0de",
+      "visually_reviewed": true
+    }
+  ],
+  "known_warning": "Legacy test_player_vehicle_layout barrel module coarse AABB warning in AI regression; no armor fit claim",
+  "cleanup": "Final accelerated headless navigation check waits 150ms after scene release for audio mixing thread to release stopped voices; final log has no ObjectDB leak warning",
+  "limitations": {
+    "release_accepted": false,
+    "formal_20_32_player_match": "NOT_RUN",
+    "network": "NOT_RUN",
+    "human": "NOT_RUN",
+    "visual": "Road intersections corrected; final BattleBit-level environment polish pending",
+    "simultaneous_multi_vehicle_navigation": "NOT_RUN",
+    "remaining_work_packages_preserved": 42,
+    "all_vehicle_swept_clearance": "NOT_RUN",
+    "performance": "HOLD_BY_USER",
+    "battle_admitted": false
+  }
+}

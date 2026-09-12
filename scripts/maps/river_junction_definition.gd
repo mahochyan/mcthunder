@@ -51,7 +51,8 @@ static func height(x: float,z: float) -> float:
 	# Terrain, rather than foliage, screens deployment and interrupts long views.
 	hills+=28.0*exp(-pow((absf(x)-1030.0)/130.0,2))
 	hills+=20.0*exp(-pow((absf(z)-840.0)/100.0,2))
-	var flat := 1.0-smoothstep(18.0,65.0,road_distance(x,z))
+	# Include the road shoulder plus an 8 m terrain cell diagonal in the level platform.
+	var flat := 1.0-smoothstep(30.0,65.0,road_distance(x,z))
 	var town_rect := Vector2((x-522.0)/105.0,(z-125.0)/92.0).abs()
 	flat=maxf(flat,1.0-smoothstep(1.0,1.5,maxf(town_rect.x,town_rect.y)))
 	for p in [Vector2(520,100),Vector2(0,-130),Vector2(-520,-320),Vector2(520,340),Vector2(-820,350),Vector2(820,-350)]:
