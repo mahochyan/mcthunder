@@ -47,6 +47,10 @@ static func build(vehicle_packet: Dictionary, packet: Dictionary = {}) -> Dictio
 			if not source.get("url") is String or not source.url.begins_with("https://") or not source.get("sha256") is String or hash_pattern.search(source.sha256) == null or source.get("read_state","") not in ["text_read","image_and_text_read"]: errors.append(key+": unread/unhashed source")
 		if not _number(data.get("muzzle_velocity_mps")) or not data.get("penetration_curve") is Array: errors.append(key+": malformed performance"); continue
 		var s := ShellDefinition.new()
+		var fuze: Variant = data.get("fuze_policy", {})
+		var fuze_errors := ShellFuze.validate(fuze, data.effect_policy)
+		if not fuze_errors.is_empty(): errors.append_array(fuze_errors); continue
+		s.fuze_policy = fuze.duplicate(true)
 		s.id = id+"_shell" if key == row.default else id+"_"+key
 		s.display_name = str(data.get("label",key)); s.allowed_vehicle_ids = [id]
 		s.caliber_mm = data.caliber_mm; s.muzzle_velocity_mps = data.muzzle_velocity_mps

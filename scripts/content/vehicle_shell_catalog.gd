@@ -61,8 +61,16 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 			for claim in [["identity",identity,"structured"],["ballistics",ballistics,"structured"],["effect",data.effect_policy,"text"]]:
 				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+"."+claim[0],data.evidence.get(claim[0]),vehicle_packet,claim[2]))
 				if not data.evidence.get(claim[0]) is Dictionary or data.evidence[claim[0]].get("value") != claim[1]: errors.append("shell."+data.id+": actual values differ from evidence record")
+			if data.has("fuze_policy"):
+				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+".fuze",data.evidence.get("fuze"),vehicle_packet,"structured"))
+				if not data.evidence.get("fuze") is Dictionary or data.evidence.fuze.get("value") != data.fuze_policy:
+					errors.append("shell."+data.id+": fuze differs from separate design evidence")
 		if errors.size()!=start_errors: continue
 		var shell := ShellDefinition.new()
+		var fuze: Variant = data.get("fuze_policy", {})
+		var fuze_errors := ShellFuze.validate(fuze, data.effect_policy)
+		if not fuze_errors.is_empty(): errors.append_array(fuze_errors); continue
+		shell.fuze_policy = fuze.duplicate(true)
 		shell.id = str(vehicle_packet.id)+("_shell" if data.id==packet.default else "_"+data.id)
 		if runtime_ids.has(shell.id): errors.append("shell.id: runtime ID collision"); continue
 		runtime_ids[shell.id]=true

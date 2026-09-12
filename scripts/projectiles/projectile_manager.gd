@@ -139,6 +139,11 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	if effect_policy not in ["kinetic","internal_burst"] or (effect_policy == "internal_burst" and armor_policy != "resolve"):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_effect_policy"}
 	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
+	var fuze: Variant = spec.get("fuze_policy", {})
+	if not ShellFuze.validate(fuze, effect_policy).is_empty():
+		return {"ok":false,"projectile_id":0,"reason":"invalid_fuze_policy"}
+	if not fuze.is_empty() and not is_finite(max_age + float(fuze.delay_s)):
+		return {"ok":false,"projectile_id":0,"reason":"invalid_fuze_policy"}
 	if armor_policy not in ["resolve", "legacy_contact_only"] \
 			or (armor_policy == "resolve" and not PenetrationCurve.validate(curve)) \
 			or (armor_policy == "legacy_contact_only" and not spec.get("test_only", false)):
@@ -146,6 +151,7 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 
 	var st := ProjectileState.new()
 	st.effect_policy = effect_policy
+	st.fuze_policy = fuze.duplicate(true)
 	st.projectile_id = _next_projectile_id
 	_next_projectile_id += 1
 	st.round_id = int(spec.get("round_id", -1))
@@ -210,7 +216,14 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 	if not is_finite(delta) or delta < 0.0:
 		finish_once(st.projectile_id, "unresolved_query", {"detail": "invalid delta"})
 		return
+	if delta == 0.0: return
 	var remaining_dt := minf(delta, st.max_age_s - st.age_s)
+	if st.fuze_resting and not st.fuze_rest_target.is_empty():
+		var carrier := ShellEffectPolicy.target_snapshot(st.fuze_rest_target, snapshots)
+		var part_id := str(st.fuze_rest_target.get("part_id", ""))
+		if not carrier.is_empty() and carrier.get("part_world_transforms", {}).has(part_id):
+			st.previous_position_world = st.position_world
+			st.position_world = carrier.part_world_transforms[part_id] * st.fuze_rest_local
 	var age_at_start := st.age_s
 	if remaining_dt <= 0.0:
 		finish_once(st.projectile_id, "expired_time", {})
@@ -218,8 +231,10 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 	var pending_h: Array[float] = []
 	var step_contacts := 0
 	while remaining_dt > BallisticMath.TIME_EPS and _live(st):
+		if _detonate_due_fuze(st, snapshots, space): return
+		var acceleration := st.acceleration_world()
 		if pending_h.is_empty():
-			var plan := BallisticMath.plan_times(st.velocity_world, st.gravity_world, remaining_dt)
+			var plan := BallisticMath.plan_times(st.velocity_world, acceleration, remaining_dt)
 			if not plan.get("ok", false):
 				finish_once(st.projectile_id, "unresolved_query", {"detail": str(plan.get("reason", ""))})
 				return
@@ -227,7 +242,10 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			for i in range(times.size() - 1):
 				pending_h.append(times[i + 1] - times[i])
 		var h: float = pending_h.pop_front()
-		var adv := BallisticMath.advance_free(st.position_world, st.velocity_world, st.gravity_world, h)
+		if st.fuze_due_age_s >= 0.0:
+			h = minf(h, maxf(0.0, st.fuze_due_age_s - st.age_s))
+			pending_h.clear() # Replan the unconsumed remainder after an exact timer boundary.
+		var adv := BallisticMath.advance_free(st.position_world, st.velocity_world, acceleration, h)
 		if not adv.get("ok", false):
 			finish_once(st.projectile_id, "unresolved_query", {"detail": str(adv.get("reason", ""))})
 			return
@@ -292,7 +310,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			if not damage_contact.is_empty():
 				status = "damage"
 				sel.event = damage_contact
-		if status != "unresolved" and not st.burst_target.is_empty():
+		if status != "unresolved" and st.fuze_policy.is_empty() and not st.burst_target.is_empty():
 			var boundary := query_len+ShellEffectPolicy.EPS
 			if status in ["vehicle","damage"]: boundary = float(sel.event.distance_m)
 			elif status == "world": boundary = float(sel.contact.distance_m)
@@ -337,11 +355,18 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 					world_damage = collider.apply_shell_impact({"manager_id":get_instance_id(),"projectile_id":st.projectile_id,
 						"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
 						"shot_id":st.shot_id,"point":st.position_world,"velocity":st.velocity_world})
-				finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact","world_damage":world_damage})
+				var waiting := _rest_for_fuze(st, {}, "impact_world")
+				if not waiting: finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact","world_damage":world_damage})
 				if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
 					collider.register_hit({})
-				return
+				if not waiting: return
+				pending_h.clear()
+				continue
 			if status == "damage":
+				if st.fuze_due_age_s >= 0.0:
+					var damaged := ShellEffectPolicy.target_snapshot(ev, snapshots)
+					if damaged.get("part_world_transforms", {}).has(ev.get("part_id", "")):
+						ev["part_world_transform"] = damaged.part_world_transforms[ev.part_id]
 				if not handle_damage_contact(st,ev):
 					return
 				pending_h.clear()
@@ -373,6 +398,31 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 		finish_once(st.projectile_id, "expired_time", {})
 	elif st.travelled_m >= st.max_distance_m - END_EPS:
 		finish_once(st.projectile_id, "expired_distance", {})
+	else:
+		_detonate_due_fuze(st, snapshots, space)
+
+
+func _detonate_due_fuze(st: ProjectileState, snapshots: Array, space: PhysicsDirectSpaceState3D) -> bool:
+	if not ShellFuze.due(st): return false
+	# Lifetime/range win the tie. Physical contacts commit first; an armed
+	# arrested body keeps its timer and can burst at the contact position.
+	if st.age_s >= st.max_age_s - END_EPS:
+		finish_once(st.projectile_id,"expired_time",{}); return true
+	if st.travelled_m >= st.max_distance_m - END_EPS:
+		finish_once(st.projectile_id,"expired_distance",{}); return true
+	_emit_internal_burst(st, snapshots, space)
+	return true
+
+
+func _rest_for_fuze(st: ProjectileState, event: Dictionary, reason: String) -> bool:
+	if st.fuze_due_age_s < 0.0 or not _live(st): return false
+	st.fuze_resting = true
+	st.fuze_stop_reason = reason
+	st.velocity_world = Vector3.ZERO
+	if event.get("part_world_transform") is Transform3D:
+		st.fuze_rest_target = event.duplicate(true)
+		st.fuze_rest_local = (event.part_world_transform as Transform3D).affine_inverse() * st.position_world
+	return true
 
 
 func _live(st: ProjectileState) -> bool:
@@ -398,9 +448,10 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		if result.result == "ricochet":
 			st.velocity_world = result.direction * st.velocity_world.length() * float(result.speed_scale)
 		if result.result == "penetrated":
+			ShellFuze.arm(st, ev, result)
 			st.interior_targets[DamageResolver.target_key(ev)] = not bool(result.backface)
 			var key := DamageResolver.target_key(ev)
-			if st.effect_policy == "internal_burst" and not bool(result.backface) and st.burst_target.is_empty() and not st.burst_visited.has(key):
+			if st.effect_policy == "internal_burst" and st.fuze_policy.is_empty() and not bool(result.backface) and st.burst_target.is_empty() and not st.burst_visited.has(key):
 				st.burst_target = ev.duplicate(true); st.burst_entry_distance = st.travelled_m; st.burst_inside_started=false; st.burst_visited[key] = true
 	# Prune only surfaces left behind. Multiple surfaces at the same point each cost once.
 	for key in st.start_surfaces.keys():
@@ -411,6 +462,9 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	var first_for_target := not st.contacted_targets.has(target_key)
 	st.contacted_targets[target_key] = true
 	var record := ev.duplicate(true)
+	var waiting := false
+	if result.get("result", "") in ["stopped", "perforated_stop"]:
+		waiting = _rest_for_fuze(st, ev, "armor_"+str(result.result))
 	record.merge(result, true)
 	record.merge({
 		"projectile_id": st.projectile_id, "round_id": st.round_id, "shot_id": st.shot_id,
@@ -429,6 +483,7 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	if not _live(st):
 		return false
 	if not result.get("continue_flight", false):
+		if waiting: return true
 		var reason := "impact_vehicle" if st.armor_policy == "legacy_contact_only" else "armor_" + str(result.result)
 		finish_once(st.projectile_id, reason, {
 			"target_id": ev.get("entity_id", ""), "target_life_id": ev.get("life_id", 0),
@@ -443,6 +498,7 @@ func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		return false
 	var before := maxf(0,st.budget_scale * PenetrationCurve.sample_mm(st.penetration_curve,st.travelled_m) - st.consumed_mm)
 	if before <= 0:
+		if _rest_for_fuze(st, ev, "damage_budget_exhausted"): return true
 		finish_once(st.projectile_id,"damage_budget_exhausted",{})
 		return false
 	var committed := _commit_damage_event(st,ev,before,st.position_world,st.velocity_world)
@@ -450,6 +506,7 @@ func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		if _live(st): finish_once(st.projectile_id,"unresolved_damage",{"detail":committed.get("reason","")})
 		return false
 	if before - float(committed.consumed_mm) <= 1e-5:
+		if _rest_for_fuze(st, ev, "damage_budget_exhausted"): return true
 		finish_once(st.projectile_id,"damage_budget_exhausted",{})
 		return false
 	return _live(st)
@@ -491,9 +548,15 @@ func _commit_damage_event(st: ProjectileState, ev: Dictionary, before: float, po
 	return {"ok":_live(st),"consumed_mm":spent,"event":event}
 
 func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
-	var frame := ShotRecordBuilder.capture_frame(st,st.burst_target,snapshots)
+	var target := ShellEffectPolicy.target_snapshot(st.burst_target, snapshots)
+	var frame := ShotRecordBuilder.capture_frame(st,st.burst_target,snapshots) if not target.is_empty() else -1
 	st.burst = {"point_world":st.position_world,"time_s":st.age_s,"seed":st.seed,"geometry_frame":frame,
 		"target_id":st.burst_target.get("entity_id",""),"target_life_id":st.burst_target.get("life_id",0),"rules_version":ShellEffectPolicy.VERSION}
+	if not st.fuze_policy.is_empty():
+		st.burst["fuze"] = {"version":ShellFuze.VERSION,"policy":st.fuze_policy.duplicate(true),
+			"armed_age_s":st.fuze_armed_age_s,"due_age_s":st.fuze_due_age_s}
+		st.burst["external"] = target.is_empty() or not ShellEffectPolicy.inside(target, st.position_world)
+		st.burst["stop_reason"] = st.fuze_stop_reason
 	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"))
 	if _live(st): finish_once(st.projectile_id,"internal_burst",{"target_id":st.burst.target_id,"target_life_id":st.burst.target_life_id})
 

@@ -1,0 +1,144 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] definitions load
+[PASS] real target loads
+[PASS] legacy AP remains compatible
+[PASS] AP cannot silently acquire explosive fuze
+[PASS] invalid policy rejected: <null>
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: []
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "other" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "penetration_delay", "arming_thickness_mm": 8.0, "delay_s": 0.0, "provenance": "game_rule", "reason": "TEST ONLY timing and geometry fixture" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "penetration_delay", "arming_thickness_mm": 8.0, "delay_s": inf, "provenance": "game_rule", "reason": "TEST ONLY timing and geometry fixture" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "penetration_delay", "arming_thickness_mm": -1.0, "delay_s": 0.003, "provenance": "game_rule", "reason": "TEST ONLY timing and geometry fixture" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "penetration_delay", "arming_thickness_mm": 8.0, "delay_s": 0.003, "provenance": "historical_verified", "reason": "TEST ONLY timing and geometry fixture" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] invalid policy rejected: { "mode": "penetration_delay", "arming_thickness_mm": 8.0, "delay_s": 0.003, "provenance": "game_rule", "reason": "" }
+[PASS] invalid launch rejected before identity consumption
+[PASS] non-arming contact leaves clock unset
+[PASS] non-arming contact leaves clock unset
+[PASS] non-arming contact leaves clock unset
+[PASS] non-arming contact leaves clock unset
+[PASS] threshold inclusive; later armor never resets armed delay
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] step 0.03333333333333: detonated
+[PASS] step 0.03333333333333: exact simulated delay
+[PASS] step 0.03333333333333: real ballistic position
+[PASS] step 0.03333333333333: bounded real fragments
+[PASS] step 0.03333333333333: replay validates
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] step 0.01666666666667: detonated
+[PASS] step 0.01666666666667: exact simulated delay
+[PASS] step 0.01666666666667: real ballistic position
+[PASS] step 0.01666666666667: bounded real fragments
+[PASS] step 0.01666666666667: replay validates
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] step 0.00694444444444: detonated
+[PASS] step 0.00694444444444: exact simulated delay
+[PASS] step 0.00694444444444: real ballistic position
+[PASS] step 0.00694444444444: bounded real fragments
+[PASS] step 0.00694444444444: replay validates
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] step 0.001: detonated
+[PASS] step 0.001: exact simulated delay
+[PASS] step 0.001: real ballistic position
+[PASS] step 0.001: bounded real fragments
+[PASS] step 0.001: replay validates
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] different speed preserves time, changes path: detonated
+[PASS] different speed preserves time, changes path: exact simulated delay
+[PASS] different speed preserves time, changes path: real ballistic position
+[PASS] different speed preserves time, changes path: bounded real fragments
+[PASS] different speed preserves time, changes path: replay validates
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] thin/blocked/unknown armor cannot trigger: 5.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] thin/blocked/unknown armor cannot trigger: 100.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] thin/blocked/unknown armor cannot trigger: -1.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] exits before delay: detonated
+[PASS] exits before delay: exact simulated delay
+[PASS] exits before delay: real ballistic position
+[PASS] exits before delay: bounded real fragments
+[PASS] exits before delay: replay validates
+[PASS] exit armor does not cancel armed clock
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] armed projectile arrested by rear armor: detonated
+[PASS] armed projectile arrested by rear armor: exact simulated delay
+[PASS] armed projectile arrested by rear armor: real ballistic position
+[PASS] armed projectile arrested by rear armor: bounded real fragments
+[PASS] armed projectile arrested by rear armor: replay validates
+[PASS] stopped body retains independent delayed effect
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] network waiting pose has zero acceleration while launch gravity remains frozen
+[PASS] bounded fixture reaches real terminal state
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] armed projectile arrested by internal module: detonated
+[PASS] armed projectile arrested by internal module: exact simulated delay
+[PASS] armed projectile arrested by internal module: real ballistic position
+[PASS] armed projectile arrested by internal module: bounded real fragments
+[PASS] armed projectile arrested by internal module: replay validates
+[PASS] actual module transaction stops body without cancelling fuze
+[PASS] replay rejects corrupted due_age_s
+[PASS] replay rejects corrupted armed_age_s
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] lifetime before fuze prevents late detonation
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] range before fuze prevents late detonation
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] clock armed across physics steps
+[PASS] zero simulation time does not advance fuze
+[PASS] bounded fixture reaches real terminal state
+[PASS] cancelled projectile never detonates later
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] target removal does not erase independent timer
+[PASS] removed target detonation has valid replay without invented geometry
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] external burst damages real off-axis external module
+[PASS] external damage comes from traced fragment
+[PASS] external damage comes from traced fragment
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] real wall blocks external fragment damage
+[PASS] external fragment rays record actual world contact
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] armed projectile arrested by world: detonated
+[PASS] armed projectile arrested by world: exact simulated delay
+[PASS] armed projectile arrested by world: real ballistic position
+[PASS] armed projectile arrested by world: bounded real fragments
+[PASS] armed projectile arrested by world: replay validates
+[PASS] world stop preserves independent timer
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] accepted launch owns a frozen independent fuze policy
+[PASS] natural physics arms delayed round
+[PASS] actual SceneTree pause freezes active fuze
+[PASS] natural resume detonates once at original simulation deadline
+[PASS] production replay opens actual exterior detonation
+[PASS] production replay renders actual burst and traced fragments
+[PASS] replay presentation cannot repeat damage transactions
+[PASS] capture requires real window renderer
+[PASS] actual rendered replay screenshot saved
+=== 结果: 139 项检查, 0 失败 ===
+FUZE_CHECKS_PASS

@@ -1,0 +1,114 @@
+{
+  "base_commit": "dea5244dbd5c9100baf9d785d1d345902a0290d2",
+  "stage": "final integration capture; older runs retain their actual WIP provenance",
+  "requirements_preserved": 42,
+  "subagents_used": false,
+  "source_files": [
+    {
+      "path": "configs/shells/historical_loadouts.json",
+      "sha256": "cf5050fe280411db6c58c246a9c9ade93e0d9482fe8ae2889ffa0fac37a8e47a"
+    },
+    {
+      "path": "scripts/content/historical_shell_catalog.gd",
+      "sha256": "400e279877db503f25872354c1ac83382f192188c23a8b6d919bf6380872105c"
+    },
+    {
+      "path": "scripts/content/vehicle_shell_catalog.gd",
+      "sha256": "43ed142dca27ae06c0af5878df99111b3c873b731ce94467dd7bd98c4e385195"
+    },
+    {
+      "path": "scripts/core/garage_shell.gd",
+      "sha256": "ada4d1f8b79cfdd16c5157cf9d0918461a08b3d13b80e67db119670543626975"
+    },
+    {
+      "path": "scripts/defs/shell_definition.gd",
+      "sha256": "3024e8aaaed0ce3a93e4dc6b5c47a06e17653ca225e1fa61012a716ee678e1ee"
+    },
+    {
+      "path": "scripts/gunner.gd",
+      "sha256": "1f838267d5a074f46ac49a1a8d9068fa3ab3b5d42250707fe4aee88590cf57c6"
+    },
+    {
+      "path": "scripts/network/network_battle_world.gd",
+      "sha256": "80ffa59a08fe452a9f2dfca420dea865b4b2dc42ac4f70673a39bd42eb6091de"
+    },
+    {
+      "path": "scripts/projectiles/fragment_system.gd",
+      "sha256": "f063aa4e49d0cec2a94f138b9a725fcd61e0fae721a9d650d2356ac1c7257882"
+    },
+    {
+      "path": "scripts/projectiles/projectile_manager.gd",
+      "sha256": "1ba7325a7ff4194df8b352d8c13c975e3bffda9cb1315ec767fc198a105bd89e"
+    },
+    {
+      "path": "scripts/projectiles/projectile_state.gd",
+      "sha256": "3d934b222ed1869fad6bfc7de940a7a0d7fe60bc35d334497f597fd7183fde5e"
+    },
+    {
+      "path": "scripts/replay/shot_record_builder.gd",
+      "sha256": "dd2d81d07a8688ccca169197932d3c34c97014ca1b88553d6536266a97c0a5e2"
+    },
+    {
+      "path": "tests/run_reference_admission_checks.gd",
+      "sha256": "9f68d9d5d5ab4c853b645cfa5010b5dc5ed0713d50e8b0a2f241669c00dbcf49"
+    },
+    {
+      "path": "tests/run_shell_checks.gd",
+      "sha256": "bdfe715d0893307942507bd3942ab04b4784c225109ed8c6d228ddb0c4691e26"
+    },
+    {
+      "path": "scripts/projectiles/shell_fuze.gd",
+      "sha256": "6ee95e69f21f0ec8c733836a75fa052609345623321552f8171cb750ec24e630"
+    },
+    {
+      "path": "scripts/projectiles/shell_fuze.gd.uid",
+      "sha256": "f0dbf820a129fd470bcaefd2b6a7864640b7a79b556fab651cd0308eea868c9a"
+    },
+    {
+      "path": "tests/run_fuze_checks.gd",
+      "sha256": "d9a95575666840219260fdcf402b313962499cb140985f8de3ac00e764ef6de2"
+    },
+    {
+      "path": "tests/run_fuze_checks.gd.uid",
+      "sha256": "5e02ac8630e9c4bea2fae52e7340da87bcee033e7d5f8e19ded84fd33301546a"
+    }
+  ],
+  "evidence_roots": [
+    "logs/WT013/dea5244-fuze-wip1",
+    "logs/WT013/dea5244-fuze-wip2",
+    "logs/WT013/dea5244-fuze-wip3",
+    "logs/WT013/dea5244-fuze-wip4",
+    "logs/WT013/dea5244-fuze-wip5",
+    "logs/WT013/dea5244-fuze-wip6",
+    "logs/WT013/dea5244-fuze-window-wip7",
+    "logs/WT013/dea5244-zero-delta-counterexample-wip8",
+    "logs/WT013/dea5244-fuze-final-wip9",
+    "logs/WT013/dea5244-fuze-window-final-wip10"
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ]
+}

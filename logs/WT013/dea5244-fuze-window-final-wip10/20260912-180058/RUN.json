@@ -1,0 +1,39 @@
+{
+  "state": "uncommitted-wip10",
+  "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:\\AIprogram\\mcthunder\" --resolution 1280x720 --fixed-fps 60 --log-file \"E:\\AIprogram\\mcthunder\\logs\\WT013\\dea5244-fuze-window-final-wip10\\20260912-180058\\engine.log\" -s res://tests/run_fuze_checks.gd -- --fuze-capture-dir \"E:\\AIprogram\\mcthunder\\logs\\WT013\\dea5244-fuze-window-final-wip10\\20260912-180058\"",
+  "base_commit": "dea5244dbd5c9100baf9d785d1d345902a0290d2",
+  "files": [
+    {
+      "path": "scripts/projectiles/shell_fuze.gd",
+      "sha256": "6EE95E69F21F0EC8C733836A75FA052609345623321552F8171CB750EC24E630"
+    },
+    {
+      "path": "scripts/projectiles/projectile_manager.gd",
+      "sha256": "1BA7325A7FF4194DF8B352D8C13C975E3BFFDA9CB1315EC767FC198A105BD89E"
+    },
+    {
+      "path": "scripts/projectiles/projectile_state.gd",
+      "sha256": "3D934B222ED1869FAD6BFC7DE940A7A0D7FE60BC35D334497F597FD7183FDE5E"
+    },
+    {
+      "path": "scripts/projectiles/fragment_system.gd",
+      "sha256": "F063AA4E49D0CEC2A94F138B9A725FCD61E0FAE721A9D650D2356AC1C7257882"
+    },
+    {
+      "path": "scripts/replay/shot_record_builder.gd",
+      "sha256": "DD2D81D07A8688CCCA169197932D3C34C97014CA1B88553D6536266A97C0A5E2"
+    },
+    {
+      "path": "tests/run_fuze_checks.gd",
+      "sha256": "D9A95575666840219260FDCF402B313962499CB140985F8DE3AC00E764EF6DE2"
+    },
+    {
+      "path": "tests/run_shell_checks.gd",
+      "sha256": "BDFE715D0893307942507BD3942AB04B4784C225109ED8C6D228DDB0C4691E26"
+    },
+    {
+      "path": "configs/shells/historical_loadouts.json",
+      "sha256": "CF5050FE280411DB6C58C246A9C9ADE93E0D9482FE8AE2889FFA0FAC37A8E47A"
+    }
+  ]
+}

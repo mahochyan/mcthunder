@@ -183,6 +183,18 @@ func _garage_case(actor: VehicleActor, packet: Dictionary) -> void:
 	garage.queue_free(); await _frames(3)
 
 func _run() -> void:
+	var fuze_packet := _fixture(2)
+	var fuze_shell: Dictionary = fuze_packet.shell_catalog.shells[1]
+	var fuze := {"mode":"penetration_delay","arming_thickness_mm":8.0,"delay_s":0.003,"provenance":"game_rule","reason":"TEST ONLY separate game rule"}
+	fuze_shell.fuze_policy=fuze.duplicate(true)
+	check(not VehicleShellCatalog.build(fuze_packet).ok,"reference fuze requires separate design evidence")
+	fuze_shell.evidence.fuze=_claim(fuze.duplicate(true),"structured")
+	var admitted := VehicleShellCatalog.build(fuze_packet)
+	check(admitted.ok and admitted.options[1].fuze_policy==fuze,"reference fuze enters actual shell with matching separate design evidence")
+	fuze_shell.fuze_policy.delay_s=0.01
+	check(not VehicleShellCatalog.build(fuze_packet).ok,"reference fuze cannot drift from evidence value")
+	fuze_shell.fuze_policy.delay_s=0.003; fuze_shell.evidence.fuze.status="verified"
+	check(not VehicleShellCatalog.build(fuze_packet).ok,"game fuze design cannot claim historical verification")
 	root.size=Vector2i(1280,720)
 	for id in VehicleCatalog.IDS:
 		var original := _read("res://configs/vehicles/historical/"+id+".json")

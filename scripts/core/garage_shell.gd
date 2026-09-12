@@ -389,6 +389,8 @@ func _show_dossier() -> void:
 		view.append_text("\n[b]当前参考弹种[/b]\n" if reference else LocalizationService.text("ui_0f251c001808"))
 		for entry in ammunition.entries:
 			view.append_text("\n[b]"+str(entry.label)+"[/b] · "+str(entry.gun)+"\n")
+			if not entry.get("fuze_policy", {}).is_empty():
+				view.add_text("穿过足够厚的装甲后延迟起爆，出车后仍有效。当前为游戏设计规则；历史引信数值未知。\n")
 			if reference:
 				view.add_text(str(entry.muzzle_velocity_mps)+" m/s · estimated\n"+JSON.stringify(entry.penetration_curve)+" · estimated\n")
 				for claim in entry.evidence.values():

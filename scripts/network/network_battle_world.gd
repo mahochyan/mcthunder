@@ -75,7 +75,7 @@ func _physics_process(_delta: float) -> void:
 func active_projectiles() -> Array:
 	var result: Array=[]
 	for projectile: ProjectileState in projectiles.active_states():
-		result.append({"shot":_projectile_shot(projectile),"shell_id":projectile.shell_id,"position":_vector(projectile.position_world),"velocity":_vector(projectile.velocity_world),"gravity":_vector(projectile.gravity_world),"age_s":projectile.age_s})
+		result.append({"shot":_projectile_shot(projectile),"shell_id":projectile.shell_id,"position":_vector(projectile.position_world),"velocity":_vector(projectile.velocity_world),"gravity":_vector(projectile.acceleration_world()),"age_s":projectile.age_s})
 	return result
 func own_status(actor: VehicleActor) -> Dictionary:
 	# This status accompanies the same public snapshot, only for its owner.

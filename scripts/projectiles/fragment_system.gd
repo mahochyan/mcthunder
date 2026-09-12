@@ -5,7 +5,7 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 	var rng := RandomNumberGenerator.new()
 	rng.seed = st.seed
 	var target := ShellEffectPolicy.target_snapshot(st.burst_target,snapshots)
-	var eligible := {DamageResolver.target_key(st.burst_target):true}
+	var delayed := not st.fuze_policy.is_empty()
 	for index in ShellEffectPolicy.MAX_FRAGMENTS:
 		if not live.call(st): return
 		# Stratified sphere with seeded azimuth; all directions are fixed once and recorded.
@@ -20,11 +20,17 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 		var budget := ShellEffectPolicy.FRAGMENT_BUDGET_MM
 		var seen := {}
 		var surfaces := {}
+		var eligible := {DamageResolver.target_key(st.burst_target):true}
+		if delayed:
+			eligible.clear()
+			for snapshot in snapshots:
+				if snapshot is Dictionary and ShellEffectPolicy.inside(snapshot, point+direction*ShellEffectPolicy.EPS*2):
+					eligible[DamageResolver.target_key(snapshot)] = true
 		for iteration in ShellEffectPolicy.FRAGMENT_CONTACTS:
 			if not live.call(st): return
-			if not ShellEffectPolicy.inside(target,point+direction*ShellEffectPolicy.EPS*2):
+			if not delayed and not ShellEffectPolicy.inside(target,point+direction*ShellEffectPolicy.EPS*2):
 				fragment.reason = "left_target"; break
-			var leave := ShellEffectPolicy.exit_distance(target,point,direction,remaining)
+			var leave := INF if delayed else ShellEffectPolicy.exit_distance(target,point,direction,remaining)
 			var ws := WorldQueryAdapter.query_world_stop(space,point,direction,remaining,exclude)
 			if not ws.get("ok",false): fragment.reason = "unresolved_world"; break
 			var qr := ShotQueryService.query({"query_id":"fragment_%d_%d_%d"%[st.projectile_id,index,iteration],
@@ -55,7 +61,7 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 			fragment.path.append(point)
 			if status == "world": fragment.reason = "world"; break
 			if event.is_empty(): fragment.reason = "range"; break
-			if DamageResolver.target_key(event) != DamageResolver.target_key(st.burst_target): fragment.reason = "other_target"; break
+			if not delayed and DamageResolver.target_key(event) != DamageResolver.target_key(st.burst_target): fragment.reason = "other_target"; break
 			if policy.is_valid():
 				var allowed: Dictionary = policy.call({"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,"shooter_team_id":st.shooter_team_id},event.duplicate(true))
 				if not live.call(st): return
@@ -74,6 +80,8 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 				fragment.contacts.append(recorded)
 				surfaces.clear(); surfaces[ProjectileManager._surface_key(event)] = true
 				budget = float(resolved.after_mm)
+				if delayed and resolved.result == "penetrated":
+					eligible[DamageResolver.target_key(event)] = not bool(resolved.backface)
 				if not resolved.get("continue_flight",false) or resolved.result == "ricochet": fragment.reason = "armor_"+str(resolved.result); break
 			if budget <= 0.00001: fragment.reason = "budget_exhausted"; break
 			if remaining <= ShellEffectPolicy.EPS: fragment.reason = "range"; break

@@ -126,7 +126,16 @@
       "curve_status": "estimated",
       "effect_status": "game_rule",
       "historical_observations": "TM printed 101 data applies to M61 through printed 102 para.89: M3 2030 ft/s, 2.8 in homogeneous at 1000 yd, 0 degrees.",
-      "estimate_reason": "914.4m homogeneous anchor transcribed. Other ranges are game estimates. SOIC gives 2024 ft/s and angled table; retained as differing source, not silently combined. Inside burst is a toy game effect."
+      "estimate_reason": "914.4m homogeneous anchor transcribed. Other ranges are game estimates. SOIC gives 2024 ft/s and angled table; retained as differing source, not silently combined. Inside burst is a toy game effect.",
+      "fuze_policy": {
+        "mode": "penetration_delay",
+        "arming_thickness_mm": 8.0,
+        "delay_s": 0.003,
+        "provenance": "game_rule",
+        "historical_value": null,
+        "ruleset_id": "wt013-aphe-delay-design-v1",
+        "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      }
     },
     "m72_m6": {
       "label": "M72 AP-T (sight chart)",
@@ -205,7 +214,16 @@
       "curve_status": "estimated",
       "effect_status": "game_rule",
       "historical_observations": "TM9-729 printed 360 Table V authorizes fuzed M61; printed 345 Fig.197B/C explicitly gives M61/M61A1 2030 ft/s for M6.",
-      "estimate_reason": "Gun-specific compatibility and velocity verified. Penetration transfers the M3 M61 game curve as an estimate; no M6-specific terminal test curve found. Inside burst is a toy effect."
+      "estimate_reason": "Gun-specific compatibility and velocity verified. Penetration transfers the M3 M61 game curve as an estimate; no M6-specific terminal test curve found. Inside burst is a toy effect.",
+      "fuze_policy": {
+        "mode": "penetration_delay",
+        "arming_thickness_mm": 8.0,
+        "delay_s": 0.003,
+        "provenance": "game_rule",
+        "historical_value": null,
+        "ruleset_id": "wt013-aphe-delay-design-v1",
+        "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      }
     },
     "m77_m3": {
       "label": "M77 AP-T",
@@ -284,7 +302,16 @@
       "curve_status": "estimated",
       "effect_status": "game_rule",
       "historical_observations": "January 1945 OCO pamphlet explicitly names M82 2800 ft/s for M3 on T26E3 and M36. Its own 20/30 degree homogeneous curve is the visual calibration source.",
-      "estimate_reason": "Graph read approximately, then mapped into the simple LOS game rule. Deliberately not the older 2670 ft/s SOIC M82 curve. No AP multiplication. Inside burst is a toy effect."
+      "estimate_reason": "Graph read approximately, then mapped into the simple LOS game rule. Deliberately not the older 2670 ft/s SOIC M82 curve. No AP multiplication. Inside burst is a toy effect.",
+      "fuze_policy": {
+        "mode": "penetration_delay",
+        "arming_thickness_mm": 8.0,
+        "delay_s": 0.003,
+        "provenance": "game_rule",
+        "historical_value": null,
+        "ruleset_id": "wt013-aphe-delay-design-v1",
+        "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      }
     }
   },
   "vehicles": {

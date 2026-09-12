@@ -212,11 +212,11 @@
       "dependencies": [
         "WT-012"
       ],
-      "current": "已有APHE路径与有界破片基础。",
-      "remaining": "深化残余弹体、背面破片、内部遮挡、引信条件/延迟、出车后起爆和HE外部效果。",
+      "current": "正式历史车APHE已接入独立登记的游戏触发阈值、模拟延迟、离体起爆、挡停保留计时、实际车外破片与冻结回放；见WT013_DELAYED_FUZE.md。",
+      "remaining": "继续时变内构、有限弹体与材料响应、残余弹体及背面破片、HE外部效果、现代弹药与完整战斗验收；APHE几何仍采用每步末静态姿态。",
       "deliverables": "PostPenetrationProfile、独立随机流、同源破片/爆炸事件与遮挡夹具。",
       "acceptance": "空腔/遮挡/人员区结果不同；不是全车球形扣血；同版本可复现，视觉随机不影响毁伤。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {

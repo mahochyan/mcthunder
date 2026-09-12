@@ -1,4 +1,14 @@
 extends SceneTree
+class FuzeLaunchProbe extends Node:
+	var manager: ProjectileManager
+	var shooter_id: String
+	var records: Array[Dictionary] = []
+	var seen := {}
+	func _physics_process(_delta: float) -> void:
+		for state: ProjectileState in manager.active_states():
+			if state.shooter_id==shooter_id and not seen.has(state.projectile_id):
+				seen[state.projectile_id]=true
+				records.append({"shell_id":state.shell_id,"fuze":state.fuze_policy.duplicate(true)})
 var checks := 0
 var failed := 0
 var world: Node3D
@@ -228,6 +238,8 @@ func historical_loadout_case(id: String) -> void:
 	var scene := BallisticsRange.new(); scene.selected_vehicle_id=id; root.add_child(scene); await frames(20)
 	var gun := scene.actor.gunner
 	var initial := gun.inventory.snapshot()
+	var probe := FuzeLaunchProbe.new(); probe.manager=gun.projectile_manager; probe.shooter_id=scene.actor.entity_id
+	probe.process_physics_priority=99; scene.add_child(probe)
 	var loaded := gun.inventory.chamber_shell
 	var alternate := 1 if gun.shell_options[0].id==loaded else 0
 	await action("shell_2" if alternate==1 else "shell_1")
@@ -236,6 +248,8 @@ func historical_loadout_case(id: String) -> void:
 	await frames(800)
 	await action("fire")
 	check(gun.shots_fired==2 and gun.shell.id==gun.shell_options[alternate].id and gun.inventory.conserved() and gun.rounds_remaining==initial.available-2,id+": natural reload fires alternate with exact total debit")
+	var first_shell: ShellDefinition = gun.shell_options[1-alternate]
+	check(probe.records.size()==2 and probe.records[0].fuze==first_shell.fuze_policy and probe.records[1].fuze==gun.shell.fuze_policy and first_shell.fuze_policy.is_empty()!=gun.shell.fuze_policy.is_empty(),id+": real Gunner launch freezes AP/APHE policies in actual vehicle load order")
 	var alien := gun.shell_options[0].duplicate(true) as ShellDefinition; alien.allowed_vehicle_ids=["unrelated_vehicle"]
 	var before := gun.inventory.snapshot()
 	check(not gun.configure_shell_loadout([alien],{alien.id:10},alien.id) and gun.inventory.snapshot()==before,id+": incompatible historical shell cannot replace live ledger")

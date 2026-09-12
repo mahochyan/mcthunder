@@ -13,6 +13,13 @@ var shell_id := ""              # 弹种标识（冻结）
 var seed := 0                   # 021：冻结的内部破片种子；母弹不加入随机散布。
 var armor_policy := "resolve"
 var effect_policy := "kinetic"
+var fuze_policy: Dictionary = {}
+var fuze_armed_age_s := -1.0
+var fuze_due_age_s := -1.0
+var fuze_resting := false
+var fuze_rest_target: Dictionary = {}
+var fuze_rest_local := Vector3.ZERO
+var fuze_stop_reason := ""
 var burst_target: Dictionary = {}
 var burst_entry_distance := 0.0
 var burst_inside_started := false
@@ -51,3 +58,6 @@ var terminal_reason := ""       # 终止原因（见管理器 finish_once）
 
 func is_terminal() -> bool:
 	return status == "terminal"
+
+func acceleration_world() -> Vector3:
+	return Vector3.ZERO if fuze_resting else gravity_world

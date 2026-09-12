@@ -80,7 +80,8 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 		"identity":{"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
 			"shooter_team_id":st.shooter_team_id,"shot_id":st.shot_id,"projectile_id":st.projectile_id,"shell_id":st.shell_id,"seed":st.seed},
 		"launch":{"position_world":st.launch_position,"velocity_world":st.launch_velocity,"gravity_world":st.gravity_world,
-			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy},
+			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy,"effect_policy":st.effect_policy,
+			"fuze_policy":st.fuze_policy.duplicate(true)},
 		"complete":complete,"unavailable_reason":reason,"path":st.replay_path.duplicate(true),
 		"frames":st.replay_frames.duplicate(true),"contacts":st.contacts.duplicate(true),
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
@@ -181,10 +182,21 @@ static func validate_fragments(record: Dictionary) -> Dictionary:
 	if not burst.get("point_world") is Vector3 or not burst.point_world.is_finite() or not _number(burst.get("time_s")): return _bad("invalid_burst_point")
 	if burst.time_s < 0 or burst.time_s > record.terminal.flight_time_s+1e-5: return _bad("invalid_burst_time")
 	if not _number(burst.get("seed")) or burst.seed!=record.identity.seed: return _bad("invalid_burst_seed")
+	var delayed: bool = burst.has("fuze")
+	if delayed:
+		var fuze: Variant = burst.fuze
+		if not fuze is Dictionary or fuze.get("version") != ShellFuze.VERSION: return _bad("invalid_fuze_version")
+		if not ShellFuze.validate(fuze.get("policy"), "internal_burst").is_empty() or fuze.policy.is_empty(): return _bad("invalid_fuze_policy")
+		if record.launch.get("fuze_policy") != fuze.policy or record.launch.get("effect_policy") != "internal_burst": return _bad("fuze_launch_mismatch")
+		if not _number(fuze.get("armed_age_s")) or not _number(fuze.get("due_age_s")) or fuze.armed_age_s < 0: return _bad("invalid_fuze_time")
+		if absf(fuze.due_age_s-fuze.armed_age_s-float(fuze.policy.delay_s)) > 1e-6 or absf(fuze.due_age_s-burst.time_s) > 1e-6: return _bad("invalid_fuze_time")
+		if not burst.get("external") is bool: return _bad("invalid_fuze_location")
 	if record.complete:
-		if not _number(burst.get("geometry_frame")) or int(burst.geometry_frame)!=burst.geometry_frame or burst.geometry_frame<0 or burst.geometry_frame>=record.frames.size(): return _bad("invalid_burst_frame")
-		var frame: Variant = record.frames[int(burst.geometry_frame)]
-		if not frame is Dictionary or burst.get("target_id")!=frame.get("entity_id") or burst.get("target_life_id")!=frame.get("life_id"): return _bad("invalid_burst_target")
+		var absent_external: bool = delayed and burst.external and burst.get("geometry_frame") == -1
+		if not absent_external:
+			if not _number(burst.get("geometry_frame")) or int(burst.geometry_frame)!=burst.geometry_frame or burst.geometry_frame<0 or burst.geometry_frame>=record.frames.size(): return _bad("invalid_burst_frame")
+			var frame: Variant = record.frames[int(burst.geometry_frame)]
+			if not frame is Dictionary or burst.get("target_id")!=frame.get("entity_id") or burst.get("target_life_id")!=frame.get("life_id"): return _bad("invalid_burst_target")
 	var linked_damage := {}
 	for i in fragments.size():
 		var fragment: Variant = fragments[i]

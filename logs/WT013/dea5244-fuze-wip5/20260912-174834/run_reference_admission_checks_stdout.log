@@ -1,0 +1,100 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] us_m4a3_75w_vvss_1944: omitted profile retains original complete historical gate
+[PASS] us_m4a3_75w_vvss_1944: dispatcher preserves historical two-shell catalog
+[PASS] us_m24_m6_t85e1_1951: omitted profile retains original complete historical gate
+[PASS] us_m24_m6_t85e1_1951: dispatcher preserves historical two-shell catalog
+[PASS] us_m26_m3_1945: omitted profile retains original complete historical gate
+[PASS] us_m26_m3_1945: dispatcher preserves historical two-shell catalog
+[PASS] us_m36_m4a1_1945: omitted profile retains original complete historical gate
+[PASS] us_m36_m4a1_1945: dispatcher preserves historical two-shell catalog
+[PASS] local authored fixture source hash is stable across independently built packages
+[PASS] source hash identifies authored fixture bytes without claiming historical verification
+[PASS] complete explicit reference/game-rule package passes common geometry/layout/definition gates
+[PASS] engineering validation never promotes historical verification
+[PASS] validation does not mutate serialized candidate status
+[PASS] new reference policy does not weaken historical evidence gate
+[PASS] reference catalog accepts 1 implemented AP/APHE options
+[PASS] complete 1-shell reference package passes pipeline
+[PASS] reference catalog accepts 3 implemented AP/APHE options
+[PASS] complete 3-shell reference package passes pipeline
+[PASS] zero shells rejected
+[PASS] unbounded shell catalog rejected
+[PASS] rejects malformed/incomplete reference: fake_verified
+[PASS] rejects malformed/incomplete reference: top_verified
+[PASS] rejects malformed/incomplete reference: unknown_numeric
+[PASS] rejects malformed/incomplete reference: source_identity
+[PASS] rejects malformed/incomplete reference: project_identity
+[PASS] rejects malformed/incomplete reference: missing_source
+[PASS] rejects malformed/incomplete reference: missing_hash
+[PASS] rejects malformed/incomplete reference: missing_locator
+[PASS] rejects malformed/incomplete reference: missing_note
+[PASS] rejects malformed/incomplete reference: wrong_unit
+[PASS] rejects malformed/incomplete reference: unit_contract
+[PASS] rejects malformed/incomplete reference: missing_geometry
+[PASS] rejects malformed/incomplete reference: missing_module
+[PASS] rejects malformed/incomplete reference: shell_effect
+[PASS] rejects malformed/incomplete reference: shell_family
+[PASS] rejects malformed/incomplete reference: masked_heat
+[PASS] rejects malformed/incomplete reference: shell_value
+[PASS] rejects malformed/incomplete reference: shell_source
+[PASS] rejects malformed/incomplete reference: shell_locator
+[PASS] rejects malformed/incomplete reference: shell_verified
+[PASS] rejects malformed/incomplete reference: shell_duplicate
+[PASS] rejects malformed/incomplete reference: shell_default
+[PASS] rejects malformed/incomplete reference: foreign_shell
+[PASS] rejects malformed/incomplete reference: bad_profile
+[PASS] ussr_t_80b: imported lossy TXT candidate cannot be admitted as a complete vehicle
+[PASS] ussr_t_80b: local source snapshot matches recorded hash while remaining historically unverified
+[PASS] germ_leopard_2a4: imported lossy TXT candidate cannot be admitted as a complete vehicle
+[PASS] germ_leopard_2a4: local source snapshot matches recorded hash while remaining historically unverified
+[PASS] unvalidated reference VehicleDefinition cannot enter production
+[PASS] validated reference definition is independent from historical verified
+[PASS] reference definition rejects forged historical verified even when validated
+[PASS] 1-shell fixture registers through actual VehicleCatalog/VehicleDefs
+[PASS] 1-shell registered definitions preserve reference evidence on resolution
+[PASS] 1-shell actual Actor.setup installs dispatcher loadout
+[PASS] 1-shell installed inventory has exact authored 48-round allocation
+[PASS] 1-shell chamber is debited once and physical rack ledger conserves stock
+[PASS] 1-shell out-of-range selection preserves installed inventory
+[PASS] single-shell installed loadout fires and starts reload without requiring a second option
+[PASS] 1-shell actual vehicle reset restores original typed manifest
+[PASS] 1-shell explicit reference fixture enters isolated garage service
+[PASS] 1-shell garage default matches actual Actor dispatcher allocation
+[PASS] 1-shell garage refuses TXT candidate without changing published choices
+[PASS] 1-shell reference loadout survives actual profile validation
+[PASS] 1-shell normal garage builds matching dynamic ammo and first-shell controls
+[PASS] 1-shell normal garage exposes only published vehicles and labels reference estimates accurately
+[PASS] 1-shell actual dossier renders reference shell claims without historical-only fields
+[PASS] 1-shell actual garage editing commits typed counts and selected first shell
+[PASS] 1-shell saved garage loadout installs on real actor with one conserved chamber
+[PASS] 1-shell actor reset preserves customized garage manifest
+[PASS] 3-shell fixture registers through actual VehicleCatalog/VehicleDefs
+[PASS] 3-shell registered definitions preserve reference evidence on resolution
+[PASS] 3-shell actual Actor.setup installs dispatcher loadout
+[PASS] 3-shell installed inventory has exact authored 48-round allocation
+[PASS] 3-shell chamber is debited once and physical rack ledger conserves stock
+[PASS] 3-shell out-of-range selection preserves installed inventory
+[PASS] actual Gunner selection of third shell cannot replace loaded first shell
+[PASS] reference fixture fires its originally chambered shell through actual Gunner
+[PASS] first real launch freezes original shell despite selected third option
+[PASS] first launch debits one round and starts real transfer of selected third shell
+[PASS] selection during third-shell transfer preserves carried shell
+[PASS] real reload rejects premature fire without stock mutation
+[PASS] natural reload chambers third option and updates actual ballistic definition
+[PASS] reference third shell fires through the actual projectile manager
+[PASS] third real launch freezes its own ID, 640 m/s initial speed and reference curve
+[PASS] two real launches debit only original and third types and conserve all 46 remaining rounds
+[PASS] 3-shell actual vehicle reset restores original typed manifest
+[PASS] 3-shell explicit reference fixture enters isolated garage service
+[PASS] 3-shell garage default matches actual Actor dispatcher allocation
+[PASS] 3-shell garage refuses TXT candidate without changing published choices
+[PASS] 3-shell reference loadout survives actual profile validation
+[PASS] 3-shell normal garage builds matching dynamic ammo and first-shell controls
+[PASS] 3-shell normal garage exposes only published vehicles and labels reference estimates accurately
+[PASS] 3-shell actual dossier renders reference shell claims without historical-only fields
+[PASS] 3-shell actual garage editing commits typed counts and selected first shell
+[PASS] 3-shell saved garage loadout installs on real actor with one conserved chamber
+[PASS] 3-shell actor reset preserves customized garage manifest
+=== 结果: 96 项检查, 0 失败 ===
+REFERENCE_ADMISSION_CHECKS_PASS
