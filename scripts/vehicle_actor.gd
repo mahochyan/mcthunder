@@ -240,6 +240,7 @@ func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictiona
 	var record := event.duplicate(true)
 	record.merge(delta,true)
 	var secondary_death := VehicleRecovery.on_direct_damage(state,gunner.inventory,record)
+	if record.has("ammo_event"): delta["ammo_event"]=record.ammo_event.duplicate(true)
 	delta["newly_destroyed"] = commit.newly_destroyed or secondary_death
 	delta["state_generation"] = state.generation
 	if delta.newly_destroyed:

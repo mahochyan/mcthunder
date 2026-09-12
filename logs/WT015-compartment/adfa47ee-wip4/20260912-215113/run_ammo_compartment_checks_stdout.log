@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] create owned test model directory
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] modern compartment package validates with isolated TEST ONLY model
+[PASS] actual modern target installs authored internal modules
+[PASS] actual manager accepts modern APFSDS side shot
+[PASS] actual projectile crosses modern armor and completes finite flight
+[PASS] actual modern armor/rack strike produces distinct Soviet/German survival outcome
+[PASS] actual compartment shot produces complete validated replay
+[PASS] authored partition and vent bind independently evidenced rear rack geometry
+[PASS] admission rejects invalid compartment: fact
+[PASS] admission rejects invalid compartment: missing
+[PASS] admission rejects invalid compartment: wall
+[PASS] admission rejects invalid compartment: vent
+[PASS] admission rejects invalid compartment: crew
+[PASS] admission rejects invalid compartment: kind
+[PASS] admission rejects invalid compartment: version
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] modern compartment package validates with isolated TEST ONLY model
+[PASS] actual modern target installs authored internal modules
+[PASS] actual manager accepts modern APFSDS side shot
+[PASS] actual projectile crosses modern armor and completes finite flight
+[PASS] actual modern armor/rack strike produces distinct Soviet/German survival outcome
+[PASS] actual compartment shot produces complete validated replay
+[PASS] compartment replay requires versioned optional rule
+[PASS] closed bustle loses only fourteen stored rounds and keeps vehicle alive
+[PASS] reserve and already chambered round survive rack-only loss
+[PASS] spent vent state and localized recovery explanation are available
+[LEDGER] true JSON=false { "kind": "module", "entity_id": "compartment_target", "life_id": 2, "target_generation": 2, "event_id": "compartment_3", "round_id": 1515, "shooter_id": "fixture", "shooter_life_id": 1, "shot_id": 3, "projectile_id": 3, "module_id": "ammo_ready", "ok": true, "item_id": "ammo_ready", "consumed_mm": 10.0, "before": { "kind": "ammo", "integrity": 100.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [], "ammo_protection": { "version": "wt015-rear-bustle-v1", "mode": "rear_bustle", "provenance": "game_rule", "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.", "barrier_module_id": "bustle_partition", "vent_module_id": "bustle_vent" } }, "after": { "kind": "ammo", "integrity": 0.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [], "ammo_protection": { "version": "wt015-rear-bustle-v1", "mode": "rear_bustle", "provenance": "game_rule", "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.", "barrier_module_id": "bustle_partition", "vent_module_id": "bustle_vent" } }, "person_id": "", "reason": "module_destroyed", "source": { "round_id": 1515, "shooter_id": "fixture", "shooter_life_id": 1, "shot_id": 3, "projectile_id": 3, "event_id": "compartment_3" }, "ammo_event": { "version": "wt015-rear-bustle-v1", "outcome": "vented", "rack_id": "ammo_ready", "lost_shells": { "test_compartment_germ_leopard_2a4_game_heat_120_v1": 4, "test_compartment_germ_leopard_2a4_shell": 10 }, "barrier_module_id": "bustle_partition", "vent_module_id": "bustle_vent", "before": { "racks": { "ammo_ready": 14, "ammo_reserve": 27 }, "rack_shells": { "ammo_ready": { "test_compartment_germ_leopard_2a4_game_heat_120_v1": 4, "test_compartment_germ_leopard_2a4_shell": 10 }, "ammo_reserve": { "test_compartment_germ_leopard_2a4_game_heat_120_v1": 8, "test_compartment_germ_leopard_2a4_shell": 19 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "test_compartment_germ_leopard_2a4_shell", "transfer_shell": "", "selected_shell": "test_compartment_germ_leopard_2a4_shell", "transfer_from": "", "available": 42, "capacity": 42, "shell_counts": { "test_compartment_germ_leopard_2a4_shell": 30, "test_compartment_germ_leopard_2a4_game_heat_120_v1": 12 }, "supplied": 42, "fired": 0, "lost": 0, "chamber_from": "ammo_ready", "rack_move": {  } }, "after": { "racks": { "ammo_ready": 0, "ammo_reserve": 27 }, "rack_shells": { "ammo_ready": { "test_compartment_germ_leopard_2a4_game_heat_120_v1": 0, "test_compartment_germ_leopard_2a4_shell": 0 }, "ammo_reserve": { "test_compartment_germ_leopard_2a4_game_heat_120_v1": 8, "test_compartment_germ_leopard_2a4_shell": 19 } }, "chamber": 1, "in_transfer": 0, "chamber_shell": "test_compartment_germ_leopard_2a4_shell", "transfer_shell": "", "selected_shell": "test_compartment_germ_leopard_2a4_shell", "transfer_from": "", "available": 28, "capacity": 42, "shell_counts": { "test_compartment_germ_leopard_2a4_shell": 20, "test_compartment_germ_leopard_2a4_game_heat_120_v1": 8 }, "supplied": 42, "fired": 0, "lost": 14, "chamber_from": "ammo_ready", "rack_move": {  } }, "isolation": { "barrier": { "kind": "ammo_partition", "integrity": 100.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] }, "vent": { "kind": "blowout_panel", "integrity": 100.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] } } }, "newly_destroyed": false, "state_generation": 2 }
+[FAIL] ammo transaction validates both native and JSON decoded number types
+[PASS] replay rejects altered rack transaction: negative
+[PASS] replay rejects altered rack transaction: float
+[PASS] replay rejects altered rack transaction: missing
+[PASS] replay rejects altered rack transaction: reserve
+[PASS] replay rejects altered rack transaction: health
+[PASS] replay rejects altered rack transaction: amount
+[PASS] repeated damage event cannot debit stored ammunition twice
+[PASS] normal timed repair restores rack usability without creating ammunition
+[PASS] repaired ready rack receives real timed reserve transfer
+[PASS] repaired and replenished rack feeds ordinary shot loading
+[PASS] natural loading recovers firing readiness without restoring lost rounds
+[PASS] old generation cannot damage fresh life
+[PASS] actual damage obeys isolation and inventory state: partition
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] fixture opens actual ready-rack loading transfer
+[PASS] actual damage obeys isolation and inventory state: loading
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] fixture opens actual replenishment reservation
+[PASS] actual damage obeys isolation and inventory state: replenishing
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] actual damage obeys isolation and inventory state: reserve
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] actual damage obeys isolation and inventory state: spent_vent
+[PASS] actual damage obeys isolation and inventory state: empty
+[PASS] actual damage obeys isolation and inventory state: chamber_only
+[PASS] bustle protection does not immunize separately hit crew
+[PASS] test does not publish unadmitted modern models
+=== 结果: 55 项检查, 1 失败 ===
+AMMO_COMPARTMENT_CHECKS_FAIL

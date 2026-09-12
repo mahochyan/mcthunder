@@ -85,6 +85,7 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 		module_states[module.id] = {"kind":module.kind,"integrity":module.max_integrity,
 			"max_integrity":module.max_integrity,"resistance_mm":module.resistance_mm,"external":module.external,
 			"fire_module_targets":module.fire_module_targets.duplicate(),"fire_crew_targets":module.fire_crew_targets.duplicate()}
+		if not module.ammo_protection.is_empty(): module_states[module.id]["ammo_protection"]=module.ammo_protection.duplicate(true)
 	for station in layout.crew_stations:
 		crew_states[station.id] = {"alive":true,"original_role":station.role}
 		crew_assignments[station.role] = station.id

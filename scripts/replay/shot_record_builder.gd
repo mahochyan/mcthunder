@@ -99,6 +99,8 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=st.impact_profile.version
 	if not st.post_penetration_profile.is_empty(): record.rules_versions["post_penetration"]=SpallProfile.VERSION
 	if not st.chemical_profile.is_empty(): record.rules_versions["chemical"]=ChemicalProfile.VERSION
+	for event in st.damage_records:
+		if event.has("ammo_event"): record.rules_versions["ammo_compartment"]=AmmoCompartmentProfile.VERSION
 	if st.reactive_event_count>0: record.rules_versions["reactive"]=ReactiveArmorProfile.VERSION
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
@@ -150,6 +152,11 @@ static func validate(record: Dictionary) -> Dictionary:
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
 	if record.path.is_empty() or record.path.size()>MAX_PATH_POINTS or record.frames.size()>MAX_GEOMETRY_FRAMES: return _bad("record_limits")
 	if record.contacts.size()>GameConfig.ARMOR_CONTACTS_PER_SHOT or record.damage.size()>GameConfig.DAMAGE_MAX_CONTACTS: return _bad("event_limits")
+	var has_compartment := false
+	for event in record.damage:
+		if not event is Dictionary or not AmmoCompartmentProfile.valid_record(event): return _bad("invalid_ammo_compartment_record")
+		if event.has("ammo_event"): has_compartment=true
+	if has_compartment!=versions.has("ammo_compartment") or (has_compartment and versions.ammo_compartment!=AmmoCompartmentProfile.VERSION): return _bad("invalid_ammo_compartment_version")
 	var fragment_check := validate_fragments(record)
 	if not fragment_check.ok: return fragment_check
 	var chemical_check := ChemicalRecordValidator.validate(record)

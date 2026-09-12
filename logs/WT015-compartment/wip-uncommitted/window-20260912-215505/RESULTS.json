@@ -1,0 +1,11 @@
+{
+  "source_sha": "adfa47ee8f955d1e2cd7e8103ccbe336eeb56567",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder\" --position 1280,0 --max-fps 60 -s \"res://tests/run_ammo_compartment_checks.gd\" -- --shot-dir \"res://docs/evidence/WT015-compartment/wip-uncommitted/window-20260912-215505\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/WT015-compartment/wip-uncommitted/window-20260912-215505",
+  "human": "NOT_RUN"
+}

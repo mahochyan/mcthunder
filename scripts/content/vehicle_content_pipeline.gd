@@ -161,6 +161,7 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 		if not packet.facts[field] is Dictionary: errors.append("facts."+field+": expected dictionary")
 	if not errors.is_empty(): return errors
 	errors.append_array(VehicleEquipmentProfiles.check(packet))
+	errors.append_array(AmmoCompartmentProfile.check(packet))
 	if not errors.is_empty(): return errors
 	errors.append_array(VehicleArmorLayers.check(packet))
 	if not errors.is_empty(): return errors

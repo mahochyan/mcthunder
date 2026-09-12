@@ -153,6 +153,9 @@ def build(identity):
     facts["reference.heat_carrier_velocity"] = claim(field("shell.muzzle_velocity_mps")["candidate_value"], "m/s", field_location("shell.muzzle_velocity_mps"), True)
     for key, fact in [("geometry", "geometry.exterior"), ("modules", "geometry.modules"), ("crew", "geometry.crew"), ("runtime", "runtime.simulation")]:
         facts[fact] = claim(design[key])
+    for module in design["modules"]:
+        if module.get("ammo_protection"):
+            facts["protection.ammo." + module["id"]] = claim(module["ammo_protection"])
     armor = {}
     for zone, thickness in design["armor_mm"].items():
         facts["armor." + zone] = claim(thickness, "mm")

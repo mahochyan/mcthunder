@@ -414,6 +414,7 @@ static func validate_volumes(
 		if module.id.is_empty():
 			errors.append(_err(path + ".id", "empty"))
 		_register_id(global_ids, path + ".id", module.id, errors)
+		for issue in AmmoCompartmentProfile.validate(module.ammo_protection): errors.append(_err(path+".ammo_protection",issue))
 		if module.kind.is_empty():
 			errors.append(_err(path + ".kind", "empty"))
 		if module.part_id == "" or not part_ids.has(module.part_id):

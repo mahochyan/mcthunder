@@ -1,0 +1,1 @@
+{"command": ["python", "authoring/reference_data/build_modern_vehicle_packages.py", "--check"], "exit_code": 0}

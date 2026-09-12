@@ -102,6 +102,7 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		m.local_box_transform.origin = vec(row.position); m.size_m = vec(row.size)
 		m.external = row.get("external",false); m.geometry_status = "estimated"
 		m.ammo_capacity = int(row.get("ammo_capacity",0))
+		m.ammo_protection = row.get("ammo_protection",{}).duplicate(true)
 		m.evidence_keys = PackedStringArray(["geometry.modules"])
 		out.modules.append(m)
 	for row in packet.crew:

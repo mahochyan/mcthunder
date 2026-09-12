@@ -1,0 +1,76 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] reserve real round before standalone rack-loss transaction
+[PASS] lost source or destination cancels stale transfer without duplication
+[PASS] repeated rack loss is idempotent
+[PASS] reserve real round before standalone rack-loss transaction
+[PASS] lost source or destination cancels stale transfer without duplication
+[PASS] repeated rack loss is idempotent
+[PASS] create owned test model directory
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] modern compartment package validates with isolated TEST ONLY model
+[PASS] actual modern target installs authored internal modules
+[PASS] actual manager accepts modern APFSDS side shot
+[PASS] actual projectile crosses modern armor and completes finite flight
+[PASS] actual modern armor/rack strike produces distinct Soviet/German survival outcome
+[PASS] actual compartment shot produces complete validated replay
+[PASS] compartment replay capture requires actual window
+[PASS] production replay opens actual modern rack damage record
+[PASS] actual compartment replay image saved
+[PASS] viewing compartment replay does not repeat damage or ammo loss
+[PASS] authored partition and vent bind independently evidenced rear rack geometry
+[PASS] admission rejects invalid compartment: fact
+[PASS] admission rejects invalid compartment: missing
+[PASS] admission rejects invalid compartment: wall
+[PASS] admission rejects invalid compartment: vent
+[PASS] admission rejects invalid compartment: crew
+[PASS] admission rejects invalid compartment: kind
+[PASS] admission rejects invalid compartment: version
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] modern compartment package validates with isolated TEST ONLY model
+[PASS] actual modern target installs authored internal modules
+[PASS] actual manager accepts modern APFSDS side shot
+[PASS] actual projectile crosses modern armor and completes finite flight
+[PASS] actual modern armor/rack strike produces distinct Soviet/German survival outcome
+[PASS] actual compartment shot produces complete validated replay
+[PASS] compartment replay requires versioned optional rule
+[PASS] compartment replay capture requires actual window
+[PASS] production replay opens actual modern rack damage record
+[PASS] actual compartment replay image saved
+[PASS] viewing compartment replay does not repeat damage or ammo loss
+[PASS] closed bustle loses only fourteen stored rounds and keeps vehicle alive
+[PASS] reserve and already chambered round survive rack-only loss
+[PASS] spent vent state and localized recovery explanation are available
+[PASS] ammo transaction validates both native and JSON decoded number types
+[PASS] replay rejects altered rack transaction: negative
+[PASS] replay rejects altered rack transaction: float
+[PASS] replay rejects altered rack transaction: missing
+[PASS] replay rejects altered rack transaction: reserve
+[PASS] replay rejects altered rack transaction: health
+[PASS] replay rejects altered rack transaction: amount
+[PASS] production shot explanation reports actual frozen rack ammunition loss
+[PASS] repeated damage event cannot debit stored ammunition twice
+[PASS] normal timed repair restores rack usability without creating ammunition
+[PASS] repaired ready rack receives real timed reserve transfer
+[PASS] repaired and replenished rack feeds ordinary shot loading
+[PASS] natural loading recovers firing readiness without restoring lost rounds
+[PASS] normal fire command launches a real projectile after repair and replenishment
+[PASS] old generation cannot damage fresh life
+[PASS] actual damage obeys isolation and inventory state: partition
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] fixture opens actual ready-rack loading transfer
+[PASS] actual damage obeys isolation and inventory state: loading
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] fixture opens actual replenishment reservation
+[PASS] actual damage obeys isolation and inventory state: replenishing
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] actual damage obeys isolation and inventory state: reserve
+[PASS] unisolated stored rack produces attributed terminal detonation
+[PASS] actual damage obeys isolation and inventory state: spent_vent
+[PASS] actual damage obeys isolation and inventory state: empty
+[PASS] actual damage obeys isolation and inventory state: chamber_only
+[PASS] bustle protection does not immunize separately hit crew
+[PASS] test does not publish unadmitted modern models
+=== 结果: 71 项检查, 0 失败 ===
+AMMO_COMPARTMENT_CHECKS_PASS

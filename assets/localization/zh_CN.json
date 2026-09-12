@@ -41,6 +41,8 @@
   "status_VEHICLE": "车辆",
   "status_WORLD": "环境",
   "status_YES": "可用",
+  "ammo_compartment_replay_loss": "尾舱隔离生效：该架损失 %d 发，备用架与已入膛弹保留。",
+  "status_ammo_vented": "尾舱弹药损失；停车维修后可从备用架补弹",
   "status_ammo_detonation": "弹药殉爆",
   "status_armor": "装甲",
   "status_armor_stopped": "装甲阻止穿透",

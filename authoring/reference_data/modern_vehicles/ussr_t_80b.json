@@ -40,7 +40,7 @@
         "ussr_t_80b"
       ],
       "excluded_identity_ids": [],
-      "sha256": "b8e893a03c99535cff3c8bc3a81d043a3e978c8543b2bb57dcb859dbcef83dbb",
+      "sha256": "5a56edd47948f4d7608918eb2175f0f67a2fb1973a4dceb5140129a03ae8020c",
       "artifact": "res://authoring/reference_data/modern_vehicles/design_rules.json",
       "read_state": "authored"
     },
@@ -62,7 +62,7 @@
         "ussr_t_80b"
       ],
       "excluded_identity_ids": [],
-      "sha256": "cdcc0e63f4b43bea3f5af059b5fdb15bbf6319b75f30ebfe1fb52fe6488c2c3d",
+      "sha256": "46e380ecb6ae1f02adb6e6bc85e22c577fe2a3d1a430a56973d0373ac83ea1eb",
       "artifact": "res://authoring/reference_data/build_modern_vehicle_packages.py",
       "read_state": "authored"
     }

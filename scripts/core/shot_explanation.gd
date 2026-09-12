@@ -16,6 +16,9 @@ static func describe(record: Dictionary, target: VehicleActor) -> String:
 		if lines.size() >= 4: break
 	for damage in record.damage:
 		lines.append("%s：%s" % [CoreUI.word(str(damage.item_id)),CoreUI.word(str(damage.reason))])
+		if damage.has("ammo_event"):
+			var loss := int(damage.ammo_event.after.lost)-int(damage.ammo_event.before.lost)
+			lines.append(LocalizationService.text("ammo_compartment_replay_loss") % loss)
 	if record.damage.is_empty(): lines.append(LocalizationService.text("ui_e0243783d60b"))
 	if is_instance_valid(target):
 		var caps := target.capabilities()

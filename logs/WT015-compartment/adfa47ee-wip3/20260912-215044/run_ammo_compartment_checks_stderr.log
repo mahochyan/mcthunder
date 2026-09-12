@@ -1,0 +1,6 @@
+SCRIPT ERROR: Invalid access to property or key 'turret_pivot' on a base object of type 'Node3D (TurretRig)'.
+   at: fire_at_rack (res://tests/run_ammo_compartment_checks.gd:16)
+   GDScript backtrace (most recent call first):
+       [0] fire_at_rack (res://tests/run_ammo_compartment_checks.gd:16)
+       [1] combat_case (res://tests/run_ammo_compartment_checks.gd:122)
+       [2] _frames (res://tests/run_reference_admission_checks.gd:63)

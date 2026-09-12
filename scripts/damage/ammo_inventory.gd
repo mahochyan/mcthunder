@@ -219,6 +219,16 @@ func lose_all() -> void:
 	chamber_shell = ""; transfer_shell = ""; transfer_from = ""
 	chamber_from=""; _rack_move.clear()
 
+func lose_rack(rack_id: String) -> Dictionary:
+	# Stored rounds only. Chamber and the carried loading round are distinct physical
+	# locations. Cancel a reservation without resurrecting its already-lost source.
+	if not _rack_shells.has(rack_id): return {}
+	var removed: Dictionary=_rack_shells[rack_id].duplicate(true)
+	for id in _rack_shells[rack_id]:
+		lost+=int(_rack_shells[rack_id][id]); _rack_shells[rack_id][id]=0
+	if not _rack_move.is_empty() and (_rack_move.from==rack_id or _rack_move.to==rack_id): _rack_move.clear()
+	return removed
+
 func snapshot() -> Dictionary:
 	return {"racks":racks,"rack_shells":_rack_shells.duplicate(true),"chamber":chamber,"in_transfer":in_transfer,
 		"chamber_shell":chamber_shell,"transfer_shell":transfer_shell,"selected_shell":selected_shell,

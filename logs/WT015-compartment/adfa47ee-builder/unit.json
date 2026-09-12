@@ -1,0 +1,1 @@
+{"command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_modern_package_builder.py", "-v"], "exit_code": 0}

@@ -14,6 +14,15 @@ static func on_direct_damage(state: VehicleRuntimeState, ammo: AmmoInventory, re
 	var module: Dictionary = state.module_states[id]
 	var source := source_from(record)
 	if module.kind == "ammo" and float(module.integrity) <= 0 and int(ammo.racks.get(id,0)) > 0:
+		var policy: Dictionary=module.get("ammo_protection",{})
+		if AmmoCompartmentProfile.can_vent(policy,state,ammo,id):
+			var ammo_before := ammo.snapshot()
+			var isolation := {"barrier":state.module_states[policy.barrier_module_id].duplicate(true),"vent":state.module_states[policy.vent_module_id].duplicate(true)}
+			var removed := ammo.lose_rack(id)
+			state.module_states[policy.vent_module_id].integrity=0.0
+			state.recovery_reason="ammo_vented"
+			record["ammo_event"]={"version":AmmoCompartmentProfile.VERSION,"outcome":"vented","rack_id":id,"lost_shells":removed,"barrier_module_id":policy.barrier_module_id,"vent_module_id":policy.vent_module_id,"before":ammo_before,"after":ammo.snapshot(),"isolation":isolation}
+			return false
 		return state.destroy_once("ammo_detonation",source)
 	if module.kind == "engine" and float(module.integrity) <= float(module.max_integrity)*RecoveryRules.FIRE_IGNITION_INTEGRITY:
 		ignite(state,id,source)

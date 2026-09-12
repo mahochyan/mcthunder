@@ -36,3 +36,4 @@ assets/reference_data/candidates/*.json -text
 authoring/reference_data/modern_equipment/*.json -text
 authoring/reference_data/modern_vehicles/*.json -text
 authoring/reference_data/build_modern_vehicle_packages.py -text
+logs/WT015-compartment/** -text

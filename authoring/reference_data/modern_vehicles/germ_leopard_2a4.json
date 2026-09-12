@@ -40,7 +40,7 @@
         "germ_leopard_2a4"
       ],
       "excluded_identity_ids": [],
-      "sha256": "b8e893a03c99535cff3c8bc3a81d043a3e978c8543b2bb57dcb859dbcef83dbb",
+      "sha256": "5a56edd47948f4d7608918eb2175f0f67a2fb1973a4dceb5140129a03ae8020c",
       "artifact": "res://authoring/reference_data/modern_vehicles/design_rules.json",
       "read_state": "authored"
     },
@@ -62,7 +62,7 @@
         "germ_leopard_2a4"
       ],
       "excluded_identity_ids": [],
-      "sha256": "cdcc0e63f4b43bea3f5af059b5fdb15bbf6319b75f30ebfe1fb52fe6488c2c3d",
+      "sha256": "46e380ecb6ae1f02adb6e6bc85e22c577fe2a3d1a430a56973d0373ac83ea1eb",
       "artifact": "res://authoring/reference_data/build_modern_vehicle_packages.py",
       "read_state": "authored"
     }
@@ -437,7 +437,15 @@
             0.95
           ],
           "external": false,
-          "ammo_capacity": 15
+          "ammo_capacity": 15,
+          "ammo_protection": {
+            "version": "wt015-rear-bustle-v1",
+            "mode": "rear_bustle",
+            "provenance": "game_rule",
+            "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+            "barrier_module_id": "bustle_partition",
+            "vent_module_id": "bustle_vent"
+          }
         },
         {
           "id": "ammo_reserve",
@@ -487,6 +495,38 @@
             6.5
           ],
           "external": true
+        },
+        {
+          "id": "bustle_partition",
+          "kind": "ammo_partition",
+          "part": "turret",
+          "position": [
+            0,
+            0.43,
+            1.15
+          ],
+          "size": [
+            2.35,
+            0.74,
+            0.08
+          ],
+          "external": false
+        },
+        {
+          "id": "bustle_vent",
+          "kind": "blowout_panel",
+          "part": "turret",
+          "position": [
+            -0.55,
+            0.78,
+            2
+          ],
+          "size": [
+            0.95,
+            0.06,
+            1.05
+          ],
+          "external": false
         }
       ],
       "status": "estimated",
@@ -599,6 +639,25 @@
             310
           ]
         ]
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "location": "design_rules.json",
+      "unit": "structured",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery."
+    },
+    "protection.ammo.ammo_ready": {
+      "value": {
+        "version": "wt015-rear-bustle-v1",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "barrier_module_id": "bustle_partition",
+        "vent_module_id": "bustle_vent"
       },
       "status": "estimated",
       "origin": "game_rule",
@@ -1245,7 +1304,15 @@
         0.95
       ],
       "external": false,
-      "ammo_capacity": 15
+      "ammo_capacity": 15,
+      "ammo_protection": {
+        "version": "wt015-rear-bustle-v1",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "barrier_module_id": "bustle_partition",
+        "vent_module_id": "bustle_vent"
+      }
     },
     {
       "id": "ammo_reserve",
@@ -1295,6 +1362,38 @@
         6.5
       ],
       "external": true
+    },
+    {
+      "id": "bustle_partition",
+      "kind": "ammo_partition",
+      "part": "turret",
+      "position": [
+        0,
+        0.43,
+        1.15
+      ],
+      "size": [
+        2.35,
+        0.74,
+        0.08
+      ],
+      "external": false
+    },
+    {
+      "id": "bustle_vent",
+      "kind": "blowout_panel",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.78,
+        2
+      ],
+      "size": [
+        0.95,
+        0.06,
+        1.05
+      ],
+      "external": false
     }
   ],
   "crew": [
@@ -1869,7 +1968,7 @@
       "Model-aligned geometry and internal placement review; current original envelopes are provisional",
       "Source mass/default speeds, exact installed equipment, service year and complete ammunition identity unresolved",
       "HE/ATGM/secondary weapons, exact material stacks and finite-volume shell contact remain unfinished",
-      "Bustle blowout/nonlethal rack handling is not yet supported; all stocked racks still follow current lethal game rule",
+      "Bound partition/vent module rule implemented for direct rack damage; dynamic roof opening, pressure/fire propagation, visual damage and model geometry review still required.",
       "Human driving/combat/recovery and full battle admission NOT_RUN"
     ]
   },
