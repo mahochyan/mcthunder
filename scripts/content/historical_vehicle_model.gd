@@ -22,6 +22,7 @@ static func apply(actor: VehicleActor, packet: Dictionary, layout: VehicleLayout
 	# One skin surface per moving part. Every triangle still comes from the exact query layout.
 	for part in ["hull","turret","barrel"]:
 		VehicleAtlas.skin(actor,part,layout,str(packet.id))
+	VehicleArmorLayers.install_bound_visuals(actor,packet,layout,true)
 	build_details(actor.tank.hull_frame,actor.turret,actor.turret.barrel_pivot,packet,actor.tank.visual_layer)
 	TrackAssembly.install(actor,layout)
 	HistoricalTrackMotion.new().setup(actor.tank,packet)

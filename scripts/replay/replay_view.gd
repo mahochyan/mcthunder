@@ -317,6 +317,8 @@ func _update_details() -> void:
 	_details.text = LocalizationService.text("ui_bfc28a25b822") % [item.replace("_"," "),result,event.get("before_mm",0),event.get("after_mm",0)]
 	if chinese:
 		_details.text = LocalizationService.text("ui_3146efe37af8") % [CoreUI.word(item),CoreUI.word(str(event.get("result",event.get("reason","")))),event.get("before_mm",0),event.get("after_mm",0)]
+	if event.has("reactive_before"):
+		_details.text += "\nERA %d → %d · %s" % [event.reactive_before,event.reactive_after,("已触发" if chinese else "TRIGGERED") if event.reactive_triggered else ("未触发" if chinese else "NOT TRIGGERED")]
 
 static func _material(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()

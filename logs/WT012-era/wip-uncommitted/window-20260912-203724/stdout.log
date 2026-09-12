@@ -1,0 +1,125 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] test creates fresh isolated artifact directory
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[PASS] full pipeline binds actual artifact without historical promotion
+[PASS] real registration transaction rejects source_missing
+[PASS] real registration transaction rejects source_malformed
+[PASS] real registration transaction rejects source_candidate
+[PASS] real registration transaction rejects source_version
+[PASS] real registration transaction rejects source_hash
+[PASS] real registration transaction rejects source_id
+[PASS] real registration transaction rejects missing_binding
+[PASS] real registration transaction rejects missing_muzzle
+[PASS] real registration transaction rejects limits
+[PASS] real registration transaction rejects pivot
+[PASS] real registration transaction rejects external_path
+[PASS] real catalog registers complete bound reference fixture
+[PASS] actual Actor.setup loads checked explicit source instead of fixed legacy filename
+[PASS] runtime visual uses admitted hash and real meter conversion
+[PASS] articulated source subtrees are installed exactly once
+[PASS] gun visual attaches to actual recoil carrier
+[PASS] decoded visible armor matches actual query geometry after unit conversion
+[PASS] sprung hull motion leaves independent running frame stationary
+[PASS] actual yaw/pitch keeps authored muzzle and live firing marker coincident
+[PASS] bound vehicle accepts ordinary fire command
+[PASS] ordinary vehicle command fires from bound physical muzzle and consumes one round
+[PASS] explicit lifecycle fixture detaches complete bound turret subtree
+[PASS] detached bound turret keeps visible cannon, muzzle and query frame together
+[PASS] actual reset restores bound turret, stock and original hull parent
+[PASS] actual query finds attached ERA tile on hull
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] actual query finds attached ERA tile on turret
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] actual query finds attached ERA tile on barrel
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] bound model installs visible supplementary hull on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: hull
+[PASS] supplement remains authored metres on 1.0 source scale
+[PASS] bound model installs visible supplementary turret on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: turret
+[PASS] supplement remains authored metres on 1.0 source scale
+[PASS] bound model installs visible supplementary barrel on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: barrel
+[PASS] supplement remains authored metres on 1.0 source scale
+[PASS] bound model capture uses real window
+[PASS] actual bound model screenshot saved
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] changed artifact after admission cannot spawn an active vehicle
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[PASS] full pipeline binds actual artifact without historical promotion
+[PASS] real registration transaction rejects source_missing
+[PASS] real registration transaction rejects source_malformed
+[PASS] real registration transaction rejects source_candidate
+[PASS] real registration transaction rejects source_version
+[PASS] real registration transaction rejects source_hash
+[PASS] real registration transaction rejects source_id
+[PASS] real registration transaction rejects missing_binding
+[PASS] real registration transaction rejects missing_muzzle
+[PASS] real registration transaction rejects limits
+[PASS] real registration transaction rejects pivot
+[PASS] real registration transaction rejects external_path
+[PASS] real catalog registers complete bound reference fixture
+[PASS] actual Actor.setup loads checked explicit source instead of fixed legacy filename
+[PASS] runtime visual uses admitted hash and real meter conversion
+[PASS] articulated source subtrees are installed exactly once
+[PASS] gun visual attaches to actual recoil carrier
+[PASS] decoded visible armor matches actual query geometry after unit conversion
+[PASS] sprung hull motion leaves independent running frame stationary
+[PASS] actual yaw/pitch keeps authored muzzle and live firing marker coincident
+[PASS] bound vehicle accepts ordinary fire command
+[PASS] ordinary vehicle command fires from bound physical muzzle and consumes one round
+[PASS] explicit lifecycle fixture detaches complete bound turret subtree
+[PASS] detached bound turret keeps visible cannon, muzzle and query frame together
+[PASS] actual reset restores bound turret, stock and original hull parent
+[PASS] actual query finds attached ERA tile on hull
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] actual query finds attached ERA tile on turret
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] actual query finds attached ERA tile on barrel
+[PASS] actual armor transaction consumes only that mounted tile
+[PASS] spent casing remains visible with damaged material
+[PASS] bound model installs visible supplementary hull on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: hull
+[PASS] supplement remains authored metres on 0.01 source scale
+[PASS] bound model installs visible supplementary turret on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: turret
+[PASS] supplement remains authored metres on 0.01 source scale
+[PASS] bound model installs visible supplementary barrel on actual gameplay frame
+[PASS] rotated supplementary layer render/query coordinates agree without double unit conversion: barrel
+[PASS] supplement remains authored metres on 0.01 source scale
+[PASS] bound model capture uses real window
+[PASS] actual bound model screenshot saved
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] real reset restores both mounted tile state and appearance
+[PASS] changed artifact after admission cannot spawn an active vehicle
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete markers without visible cannon cannot pass package admission
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[PASS] matching source hashes cannot admit external buffer dependencies
+=== 结果: 120 项检查, 0 失败 ===
+BOUND_MODEL_PACKAGE_CHECKS_PASS

@@ -60,6 +60,9 @@ static func validate_package(packet: Dictionary, model_sources: Dictionary = {})
 	var definitions := definitions_for(packet,layout)
 	var shell_set := VehicleShellCatalog.build(packet)
 	for error in shell_set.errors: errors.append(error)
+	if shell_set.ok and layout.armor_patches.any(func(patch: ArmorPatchDefinition) -> bool: return not patch.reactive_profile.is_empty()):
+		for option in shell_set.options:
+			if option.impact_profile.is_empty(): errors.append("reactive armor: every admitted shell requires explicit terminal response rules")
 	# Only the full pipeline may promote engineering admission; serialized status is not proof.
 	if errors.is_empty(): definitions.vehicle.admission_status="validated"
 	for definition in [definitions.vehicle,definitions.weapon,definitions.shell]:

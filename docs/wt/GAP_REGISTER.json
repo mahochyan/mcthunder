@@ -128,7 +128,8 @@
         "WT009_LOCAL_AUTHORITY.md",
         "WT009_INTERACTIVE_CLIENT.md",
         "WT007_RANGE_AND_ZEROING.md",
-        "WT009_EVENT_RECOVERY.md"
+        "WT009_EVENT_RECOVERY.md",
+        "WT012_REACTIVE_ARMOR.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -163,7 +164,8 @@
         "WT012_MATERIAL_RESPONSE.md",
         "WT012_LONG_ROD_FOUNDATION.md",
         "WT013_CHEMICAL_JET.md",
-        "WT012_COMPOSITE_LAYERS.md"
+        "WT012_COMPOSITE_LAYERS.md",
+        "WT012_REACTIVE_ARMOR.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -177,7 +179,8 @@
         "WT013_DELAYED_FUZE.md",
         "WT013_DIRECTIONAL_SPALL.md",
         "WT013_CHEMICAL_JET.md",
-        "WT012_COMPOSITE_LAYERS.md"
+        "WT012_COMPOSITE_LAYERS.md",
+        "WT012_REACTIVE_ARMOR.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -338,7 +341,8 @@
         "WT030_MODEL_INSPECTION.md",
         "WT030_BINDING_GATE.md",
         "WT030_MODEL_PACKAGE_BINDING.md",
-        "WT012_COMPOSITE_LAYERS.md"
+        "WT012_COMPOSITE_LAYERS.md",
+        "WT012_REACTIVE_ARMOR.md"
       ],
       "human_accepted": false,
       "release_ready": false

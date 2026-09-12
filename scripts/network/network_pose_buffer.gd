@@ -14,7 +14,7 @@ static func valid_snapshot(snapshot: Variant) -> bool:
 	if not snapshot.get("vehicles") is Array or snapshot.vehicles.is_empty() or snapshot.vehicles.size()>2: return false
 	var ids := {}
 	for row in snapshot.vehicles:
-		if not row is Dictionary or row.size()!=14 or not NetworkEventJournal.identifier(row.get("entity_id")) or ids.has(row.entity_id): return false
+		if not row is Dictionary or row.size()!=15 or not NetworkEventJournal.identifier(row.get("entity_id")) or ids.has(row.entity_id): return false
 		ids[row.entity_id]=true
 		for key in ["life_id","generation","control_epoch","shots"]:
 			if not NetworkEventJournal.integer(row.get(key)): return false
@@ -23,7 +23,7 @@ static func valid_snapshot(snapshot: Variant) -> bool:
 		for key in ["yaw","turret_yaw","gun_pitch","hull_pitch","hull_roll"]:
 			var value: Variant=row.get(key)
 			if not (value is int or value is float) or not is_finite(float(value)) or absf(float(value))>TAU*1000.0: return false
-		if not VehicleFramePose.valid(row.get("frame_pose")): return false
+		if not VehicleFramePose.valid(row.get("frame_pose")) or not ReactiveArmorProfile.valid_state(row.get("reactive_armor")): return false
 	return true
 func push(snapshot: Dictionary) -> bool:
 	if not valid_snapshot(snapshot): return false

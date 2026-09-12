@@ -1,7 +1,7 @@
 class_name FragmentSystem
 extends RefCounted
 ## Finite synchronous ray effects. Uses production query, armor resolution and target damage transaction.
-static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDirectSpaceState3D, exclude: Array[RID], commit_damage: Callable, policy: Callable, live: Callable, spall: Dictionary = {}) -> void:
+static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDirectSpaceState3D, exclude: Array[RID], commit_damage: Callable, policy: Callable, live: Callable, spall: Dictionary = {}, resolve_armor: Callable = Callable()) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = st.seed
 	var directional := not spall.is_empty()
@@ -86,8 +86,11 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 				budget -= float(committed.consumed_mm)
 				seen[DamageResolver.item_key(event)] = true
 			else:
-				var resolved := ArmorResolver.resolve(event,direction,{"base_mm":budget,"scale":1.0,"consumed_mm":0.0,"ricochets":0,
-					"impact_profile":spall.profile.fragment_impact_profile if directional else ArmorImpactProfile.fragment_profile(st.impact_profile),"fragment":true})
+				event["armor_trace"]="fragment_%d_%d"%[fragment_id,fragment.contacts.size()]
+				var armor_budget := {"base_mm":budget,"scale":1.0,"consumed_mm":0.0,"ricochets":0,
+					"impact_profile":spall.profile.fragment_impact_profile if directional else ArmorImpactProfile.fragment_profile(st.impact_profile),"fragment":true}
+				var resolved: Dictionary=resolve_armor.call(st,event,direction,armor_budget) if resolve_armor.is_valid() else ArmorResolver.resolve(event,direction,armor_budget)
+				if not live.call(st): return
 				var recorded := event.duplicate(true)
 				recorded.merge(resolved,true); recorded["point_world"] = point
 				fragment.contacts.append(recorded)

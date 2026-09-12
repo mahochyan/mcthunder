@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] test creates fresh isolated artifact directory
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[DETAIL] ["protection.layer.attached_hull: missing or non-finite claim value", "protection.layer.attached_turret: missing or non-finite claim value", "protection.layer.attached_barrel: missing or non-finite claim value"]
+[FAIL] full pipeline binds actual artifact without historical promotion
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[DETAIL] ["protection.layer.attached_hull: missing or non-finite claim value", "protection.layer.attached_turret: missing or non-finite claim value", "protection.layer.attached_barrel: missing or non-finite claim value"]
+[FAIL] full pipeline binds actual artifact without historical promotion
+[PASS] real Godot GLB export creates isolated test artifact
+[FAIL] complete markers without visible cannon cannot pass package admission
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_evidence
+[PASS] complete ERA package rejects incomplete proof or shell policy: changed_threshold
+[PASS] complete ERA package rejects incomplete proof or shell policy: missing_channel
+[PASS] complete ERA package rejects incomplete proof or shell policy: legacy_shell
+[PASS] complete ERA package rejects incomplete proof or shell policy: wrong_origin
+[FAIL] matching source hashes cannot admit external buffer dependencies
+=== 结果: 24 项检查, 4 失败 ===
+BOUND_MODEL_PACKAGE_CHECKS_FAIL

@@ -1,0 +1,44 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "a65cda8d-final10",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_era_binding_checks",
+    "source_sha": "a65cda8d-final10",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_era_binding_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 119,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_era_network_checks",
+    "source_sha": "a65cda8d-final10",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_era_network_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 22,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  }
+]

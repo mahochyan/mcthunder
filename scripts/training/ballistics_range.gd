@@ -79,6 +79,7 @@ func _ready() -> void:
 	projectiles.exclude_provider = Callable(self, "projectile_exclude_rids")
 	projectiles.projectile_finished.connect(_on_projectile_finished)
 	projectiles.damage_handler = Callable(self,"_apply_projectile_damage")
+	projectiles.armor_handler = Callable(self,"_apply_projectile_armor")
 	projectiles.projectile_damage.connect(_on_projectile_damage)
 	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
 	projectile_visuals = ProjectileVisuals.new()
@@ -224,6 +225,13 @@ func projectile_exclude_rids(shooter_id: String, shooter_life_id: int) -> Array[
 			and actor.tank != null and is_instance_valid(actor.tank):
 		return [actor.tank.get_rid()]
 	return []
+
+func _apply_projectile_armor(event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if int(event.get("round_id",-1)) != get_round_id(): return {"ok":false,"reason":"stale_round"}
+	for child in get_children():
+		if child is VehicleActor and child.entity_id==event.get("entity_id","") and child.life_id==int(event.get("life_id",0)):
+			return child.apply_projectile_armor(event,direction,budget)
+	return {"ok":false,"reason":"missing_target"}
 
 func _apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if int(event.get("round_id",-1)) != get_round_id():

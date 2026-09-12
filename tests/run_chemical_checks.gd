@@ -131,7 +131,7 @@ func presentation_case() -> void:
 	replay.playing=false; replay.seek(0)
 	check(replay._fragments.mesh==null,"chemical path hidden before actual trigger time")
 	replay.seek(float(replay_sample.terminal.flight_time_s))
-	check(replay._fragments.mesh!=null and not replay._burst_dot.visible,"production replay shows jet without APHE sphere burst")
+	check((replay._fragments.mesh!=null)==(float(replay_sample.chemical_effect.distance_m)>0.00001) and not replay._burst_dot.visible,"production replay shows only actual jet length without APHE sphere burst")
 	check(target.state.damage_snapshot()==before,"viewing jet replay never repeats live damage")
 	var args := OS.get_cmdline_user_args(); var index := args.find("--shot-dir")
 	if index>=0 and index+1<args.size():

@@ -72,6 +72,7 @@ func _ready() -> void:
 		director.state.register_spawn(id,vehicle)
 	projectiles.contact_policy = Callable(self,"contact_policy")
 	projectiles.damage_handler = Callable(self,"_apply_projectile_damage")
+	projectiles.armor_handler = Callable(self,"_apply_projectile_armor")
 	replay.allowed_record = func(_record: Dictionary) -> bool: return director.state.phase == "finished"
 	replay.auto_replay = false
 	replay.view.chinese = true
@@ -238,6 +239,14 @@ func contact_policy(shooter: Dictionary, contact: Dictionary) -> Dictionary:
 	if target.state.destroyed: return {"allow":false,"reason":"wreck_block"}
 	if director.state.is_protected(target.entity_id,target.life_id): return {"allow":false,"reason":"spawn_protected"}
 	return {"allow":true}
+
+func _apply_projectile_armor(event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if director==null or director.state.phase!="playing" or event.get("round_id",-1)!=get_round_id(): return {"ok":false,"reason":"match_not_playing"}
+	var vehicle := find_actor(str(event.get("entity_id","")),int(event.get("life_id",0)))
+	if vehicle==null or vehicle.state.destroyed or director.state.is_protected(vehicle.entity_id,vehicle.life_id): return {"ok":false,"reason":"target_unavailable"}
+	var shooter := director.state.actor_for(str(event.get("shooter_id","")))
+	if shooter!=null and shooter.state.team_id==vehicle.state.team_id: return {"ok":false,"reason":"friendly_block"}
+	return vehicle.apply_projectile_armor(event,direction,budget)
 
 func _apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if director == null or director.state.phase != "playing" or int(event.get("round_id",-1)) != get_round_id(): return {"ok":false,"reason":"match_not_playing"}

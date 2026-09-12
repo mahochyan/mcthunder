@@ -59,7 +59,7 @@ static func freeze_geometry(snapshot: Dictionary) -> Dictionary:
 		frame.patches.append({"id":patch.id,"part_id":patch.part_id,"vertices_world":vertices,
 			"triangles":Array(patch.triangles),"normal_world":transform.basis*patch.outward_normal_local,
 			"has_thickness":patch.has_thickness,"thickness_mm":patch.thickness_mm,"thickness_status":patch.thickness_status,"material_kind":patch.material_kind,
-			"response_profile":patch.response_profile.duplicate(true)})
+			"response_profile":patch.response_profile.duplicate(true),"reactive_profile":patch.reactive_profile.duplicate(true)})
 	for kind in ["module","crew"]:
 		var items: Array = layout.modules if kind == "module" else layout.crew_stations
 		for item in items:
@@ -93,11 +93,13 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
 		"spall_events":st.spall_events.duplicate(true),
 		"chemical_effect":st.chemical_effect.duplicate(true),
+		"reactive_event_count":st.reactive_event_count,
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
 	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=st.impact_profile.version
 	if not st.post_penetration_profile.is_empty(): record.rules_versions["post_penetration"]=SpallProfile.VERSION
 	if not st.chemical_profile.is_empty(): record.rules_versions["chemical"]=ChemicalProfile.VERSION
+	if st.reactive_event_count>0: record.rules_versions["reactive"]=ReactiveArmorProfile.VERSION
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
 	record.terminal.erase("burst")
@@ -172,6 +174,7 @@ static func validate(record: Dictionary) -> Dictionary:
 		for patch in frame.patches:
 			if not patch is Dictionary or not patch.get("vertices_world") is Array or not patch.get("triangles") is Array: return _bad("invalid_patch")
 			if not ArmorLayerProfile.validate(patch.get("response_profile",{}),str(patch.get("material_kind","unknown"))).is_empty(): return _bad("invalid_layer_profile")
+			if not ReactiveArmorProfile.validate(patch.get("reactive_profile",{})).is_empty(): return _bad("invalid_reactive_profile")
 			if patch.vertices_world.size()<3 or patch.vertices_world.size()>1024 or patch.triangles.is_empty() or patch.triangles.size()%3 != 0: return _bad("invalid_triangles")
 			if not patch.get("normal_world") is Vector3 or not patch.normal_world.is_finite(): return _bad("invalid_normal")
 			for vertex in patch.vertices_world:
@@ -191,12 +194,17 @@ static func validate(record: Dictionary) -> Dictionary:
 			if not event.get("kind") is String or event.kind not in ["armor","module","crew"]: return _bad("invalid_event_kind")
 			var frame: Dictionary = record.frames[int(event.geometry_frame)]
 			if event.get("target_id","") != frame.entity_id or event.get("target_life_id",-1) != frame.life_id: return _bad("event_target_mismatch")
-	if record.complete and not impact.is_empty():
+	if record.complete:
+		var reactive_check := ReactiveArmorRecordValidator.validate(record)
+		if not reactive_check.ok: return reactive_check
+	if record.complete:
 		for contact in record.contacts:
+			if impact.is_empty() and contact.get("reactive_profile",{}).is_empty(): continue
 			var checked := _validate_impact_contact(record,contact,impact,contact.get("incoming_velocity"),false)
 			if not checked.ok: return checked
 		for fragment in record.get("fragments",[]):
 			for contact in fragment.contacts:
+				if impact.is_empty() and contact.get("reactive_profile",{}).is_empty(): continue
 				var fragment_profile: Dictionary=post.fragment_impact_profile if not post.is_empty() else ArmorImpactProfile.fragment_profile(impact)
 				var checked := _validate_impact_contact(record,contact,fragment_profile,fragment.direction,true)
 				if not checked.ok: return checked
@@ -210,9 +218,11 @@ static func _validate_impact_contact(record: Dictionary, contact: Dictionary, pr
 		if candidate.get("id")==contact.get("surface_id") and candidate.get("part_id")==contact.get("part_id"):
 			patch=candidate; break
 	if patch.is_empty(): return _bad("impact_missing_patch")
-	if patch.get("material_kind") == "composite" and not _on_patch(contact.get("point_world"),patch): return _bad("impact_layer_position_mismatch")
+	if (patch.get("material_kind") == "composite" or not patch.get("reactive_profile",{}).is_empty()) and not _on_patch(contact.get("point_world"),patch): return _bad("impact_layer_position_mismatch")
 	if patch.get("response_profile",{}) != contact.get("response_profile",{}): return _bad("impact_layer_geometry_mismatch")
 	if not ArmorLayerProfile.validate(patch.get("response_profile",{}),str(patch.get("material_kind","unknown"))).is_empty(): return _bad("invalid_layer_profile")
+	if not ReactiveArmorProfile.validate(patch.get("reactive_profile",{})).is_empty(): return _bad("invalid_reactive_profile")
+	if patch.get("reactive_profile",{})!=contact.get("reactive_profile",{}): return _bad("reactive_geometry_mismatch")
 	for key in ["has_thickness","thickness_status","material_kind"]:
 		if not patch.has(key) or contact.get(key)!=patch[key]: return _bad("impact_geometry_mismatch")
 	if not _same_number(contact.get("thickness_mm"),patch.get("thickness_mm")): return _bad("impact_geometry_mismatch")
@@ -229,7 +239,7 @@ static func _validate_impact_contact(record: Dictionary, contact: Dictionary, pr
 		if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
 	for key in ["impact_profile_version","terminal_family","budget_unit","material_kind","overmatch"]:
 		if expected.has(key) and contact.get(key)!=expected[key]: return _bad("impact_profile_mismatch")
-	for key in ["layer_profile_version", "layer_channel"]:
+	for key in ["layer_profile_version", "layer_channel", "reactive_version", "reactive_channel", "reactive_before", "reactive_after", "reactive_triggered", "reactive_bonus_mm"]:
 		if contact.get(key) != expected.get(key): return _bad("impact_layer_profile_mismatch")
 	for key in ["path_thickness_mm","adjusted_angle_deg","material_multiplier","angle_multiplier"]:
 		if expected.has(key):

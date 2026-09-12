@@ -205,6 +205,26 @@ func _configure_inventory(layout: VehicleLayoutDefinition) -> void:
 	if not gunner.initial_shell_counts.is_empty():
 		gunner.configure_shell_loadout(gunner.shell_options,gunner.initial_shell_counts,gunner.initial_shell_id)
 
+func apply_projectile_armor(event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if event.get("entity_id")!=entity_id or event.get("life_id")!=life_id or event.get("target_generation")!=state.generation:
+		return {"ok":false,"reason":"stale_armor_target"}
+	if state.destroyed: return {"ok":false,"reason":"target_destroyed"}
+	var id := str(event.get("surface_id",""))
+	var event_id := str(event.get("event_id",""))
+	if not state.reactive_armor.has(id) or event_id.is_empty() or state._armor_seen.has(event_id): return {"ok":false,"reason":"invalid_or_duplicate_armor"}
+	var patch: ArmorPatchDefinition
+	for item in state._damage_layout.armor_patches:
+		if item.id==id and item.part_id==event.get("part_id"): patch=item; break
+	if patch==null or patch.reactive_profile!=event.get("reactive_profile") or patch.response_profile!=event.get("response_profile",{}) or patch.material_kind!=event.get("material_kind") or patch.thickness_mm!=event.get("thickness_mm") or patch.has_thickness!=event.get("has_thickness") or patch.thickness_status!=event.get("thickness_status"):
+		return {"ok":false,"reason":"stale_armor_geometry"}
+	var actual := event.duplicate(true); actual.reactive_before=int(state.reactive_armor[id])
+	var result := ArmorResolver.resolve(actual,direction,budget)
+	if result.get("reactive_triggered",false): state.reactive_armor[id]=int(result.reactive_after)
+	state._armor_seen[event_id]=true
+	if state._armor_seen.size()>256: state._armor_seen.erase(state._armor_seen.keys()[0])
+	VehicleArmorLayers.refresh_reactive_visuals(self)
+	return {"ok":true,"result":result,"reactive_before":actual.reactive_before}
+
 func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if str(event.get("entity_id","")) != entity_id or int(event.get("life_id",0)) != life_id:
 		return {"ok":false,"reason":"stale_entity"}
@@ -463,6 +483,7 @@ func reset_vehicle() -> void:
 		controller.reset_pending()
 	state.reset()
 	tank.state_generation = state.generation
+	VehicleArmorLayers.refresh_reactive_visuals(self)
 
 func freeze_wreck() -> void:
 	if is_instance_valid(wreck_turret): wreck_turret.freeze()

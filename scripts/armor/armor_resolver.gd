@@ -28,6 +28,13 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 	var before := maxf(0.0, scale * base - consumed)
 	out.before_mm = before
 	out.after_mm = before
+	var reactive: Variant=contact.get("reactive_profile",{})
+	if not ReactiveArmorProfile.validate(reactive).is_empty(): out.result="invalid_reactive_profile"; return out
+	if not reactive.is_empty():
+		var charge: Variant=contact.get("reactive_before")
+		if not ReactiveArmorProfile._number(charge) or (charge!=0 and charge!=1): out.result="unresolved_reactive_state"; return out
+		out.merge(ReactiveArmorProfile.response(reactive,int(charge),str(profile.get("family","")),0.0,0.0,false,false),true)
+		if profile.is_empty(): out.result="unresolved_reactive_effect"; return out
 	if not contact.get("has_thickness", false) or str(contact.get("thickness_status", "unknown")) == "unknown":
 		out.result = "unknown_armor"
 		return out
@@ -66,6 +73,11 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 			if response.has(key): out[key] = response[key]
 		cost=float(response.resistance_mm)
 		should_ricochet=bool(response.ricochet)
+		out.effective_mm=cost
+	if not reactive.is_empty():
+		var reaction := ReactiveArmorProfile.response(reactive,int(out.reactive_before),str(profile.family),maxf(0,before-cost),float(out.angle_deg),signed_dot<0,should_ricochet)
+		out.merge(reaction,true)
+		cost+=float(reaction.reactive_bonus_mm)
 		out.effective_mm=cost
 	if should_ricochet:
 		if int(out.ricochets) >= GameConfig.ARMOR_MAX_RICOCHETS:

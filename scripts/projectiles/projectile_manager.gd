@@ -27,6 +27,7 @@ signal shot_records_cleared
 var shot_records := ShotRecordStore.new()
 var _record_epoch := 0
 var _notifying_record_clear := false
+var armor_handler := Callable() # Atomic reactive armor resolution on the matching live actor.
 var damage_handler := Callable() # Non-notifying commit to the matching live target's state.
 var contact_policy := Callable() # Optional match-specific friendly/protection stop, before armor or external modules.
 
@@ -357,7 +358,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			remaining_dt = maxf(0.0, remaining_dt - contact_time)
 			if st.effect_policy=="chemical" and status in ["vehicle","world","damage"]:
 				var chemical_snapshots := TranslationSweep.frame_at(snapshots,float(ev.get("motion_fraction",1.0)))
-				ChemicalJetSystem.emit(st,ev,status,chemical_snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event"),Callable(self,"record_chemical_armor"),contact_policy,Callable(self,"_live"))
+				ChemicalJetSystem.emit(st,ev,status,chemical_snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event"),Callable(self,"record_chemical_armor"),contact_policy,Callable(self,"_live"),Callable(self,"resolve_armor"))
 				if _live(st): finish_once(st.projectile_id,"chemical_detonation",{"target_id":ev.get("entity_id",""),"target_life_id":ev.get("life_id",0)})
 				return
 			if status == "effect_entry":
@@ -457,15 +458,31 @@ static func _surface_key(event: Dictionary) -> String:
 	return JSON.stringify([event.get("entity_id", ""), event.get("life_id", 0), event.get("part_id", ""), event.get("surface_id", "")])
 
 
+func resolve_armor(st: ProjectileState, event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if event.get("reactive_profile",{}).is_empty(): return ArmorResolver.resolve(event,direction,budget)
+	var fallback := ArmorResolver.resolve(event,direction,budget)
+	if not _live(st): return fallback
+	if not armor_handler.is_valid(): st.replay_error="missing_reactive_authority"; return fallback
+	event["round_id"]=st.round_id; event["shooter_id"]=st.shooter_id; event["shooter_life_id"]=st.shooter_life_id
+	event["event_id"]=JSON.stringify([st.round_id,st.shooter_id,st.shooter_life_id,st.shot_id,st.projectile_id,event.get("armor_trace","carrier_"+str(st.contacts.size())),event.get("entity_id"),event.get("life_id"),event.get("surface_id")])
+	var committed: Dictionary=armor_handler.call(event.duplicate(true),direction,budget.duplicate(true))
+	if not _live(st): return fallback
+	if not committed.get("ok",false): st.replay_error="reactive_commit_"+str(committed.get("reason","failed")); return fallback
+	event["reactive_before"]=committed.reactive_before
+	event["reactive_event_index"]=st.reactive_event_count
+	st.reactive_event_count+=1
+	return committed.result
+
 func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	var incoming_velocity := st.velocity_world
 	var result := {"result": "legacy_contact_only", "continue_flight": false}
 	if st.armor_policy == "resolve":
-		result = ArmorResolver.resolve(ev, st.velocity_world, {
+		result = resolve_armor(st, ev, st.velocity_world, {
 			"base_mm": PenetrationCurve.sample_mm(st.penetration_curve, st.travelled_m),
 			"scale": st.budget_scale, "consumed_mm": st.consumed_mm, "ricochets": st.ricochets,
 			"impact_profile":st.impact_profile,"caliber_mm":st.caliber_mm,"effect_policy":st.effect_policy,
 		})
+		if not _live(st): return false
 		st.budget_scale = result.scale
 		st.consumed_mm = result.consumed_mm
 		st.ricochets = result.ricochets
@@ -599,7 +616,7 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 			"armed_age_s":st.fuze_armed_age_s,"due_age_s":st.fuze_due_age_s}
 		st.burst["external"] = target.is_empty() or not ShellEffectPolicy.inside(target, st.position_world)
 		st.burst["stop_reason"] = st.fuze_stop_reason
-	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"))
+	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"),{},Callable(self,"resolve_armor"))
 	if _live(st): finish_once(st.projectile_id,"internal_burst",{"target_id":st.burst.target_id,"target_life_id":st.burst.target_life_id})
 
 func _emit_spall(st: ProjectileState, event: Dictionary, snapshots: Array, space: PhysicsDirectSpaceState3D) -> void:
@@ -616,7 +633,7 @@ func _emit_spall(st: ProjectileState, event: Dictionary, snapshots: Array, space
 	# Commit budget and batch before any damage callback can reset or finish the shot.
 	st.spall_surfaces[surface]=true; st.consumed_mm+=allocated; st.spall_events.append(batch)
 	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event"),contact_policy,Callable(self,"_live"),
-		{"batch":batch,"contact":event,"profile":st.post_penetration_profile})
+		{"batch":batch,"contact":event,"profile":st.post_penetration_profile},Callable(self,"resolve_armor"))
 
 
 

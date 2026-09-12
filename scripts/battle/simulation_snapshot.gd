@@ -1,7 +1,7 @@
 class_name SimulationSnapshot
 extends Node
 ## Internal authoritative state, not an observer-filtered network message.
-const VERSION := 2
+const VERSION := 3
 var battle: TeamRange
 var _latest: Dictionary = {}
 var sequence := 0
@@ -22,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 			"observation_hold":actor.turret.observation_hold,
 			"shots_fired":actor.gunner.shots_fired,"cooldown":actor.gunner.cooldown_left,
 			"ammunition":actor.gunner.inventory.shell_counts().duplicate(true),"destroyed":actor.state.destroyed,
-			"capabilities":actor.capabilities().duplicate(true)})
+			"reactive_armor":actor.state.reactive_armor.duplicate(true),"capabilities":actor.capabilities().duplicate(true)})
 	vehicles.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return a.entity_id<b.entity_id)
 	var state := battle.director.state
 	sequence += 1

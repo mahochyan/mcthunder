@@ -103,6 +103,7 @@ func _ready() -> void:
 	projectiles.projectile_finished.connect(_on_projectile_finished)
 	projectiles.projectile_contact.connect(_on_projectile_contact)
 	projectiles.damage_handler = Callable(self,"_apply_projectile_damage")
+	projectiles.armor_handler = Callable(self,"_apply_projectile_armor")
 	projectiles.projectile_damage.connect(_on_projectile_damage)
 	# 006-R1-C：飞弹可见显示层（只读模拟状态；不写回位置、不参与命中/计分）
 	projectile_visuals = ProjectileVisuals.new()
@@ -396,6 +397,11 @@ func _on_projectile_contact(record: Dictionary) -> void:
 	var target := find_vehicle(str(record.get("target_id","")), int(record.get("target_life_id",0)))
 	if target != null:
 		target.register_hit(record)
+
+func _apply_projectile_armor(event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if int(event.get("round_id",-1)) != _gate.round_id: return {"ok":false,"reason":"stale_round"}
+	var target := find_actor(str(event.get("entity_id","")),int(event.get("life_id",0)))
+	return target.apply_projectile_armor(event,direction,budget) if target != null else {"ok":false,"reason":"missing_target"}
 
 func _apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if int(event.get("round_id",-1)) != _gate.round_id:

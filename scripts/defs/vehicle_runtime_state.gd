@@ -31,6 +31,8 @@ var crew_assignments: Dictionary = {}
 var station_roles: Dictionary = {}
 var _damage_layout: VehicleLayoutDefinition
 var _damage_seen: Dictionary = {}
+var reactive_armor: Dictionary = {} # surface id -> remaining single-use charge; instance state only.
+var _armor_seen: Dictionary = {}
 var recovery_enabled := false
 var fires: Dictionary = {}
 var repair_progress: Dictionary = {}
@@ -64,6 +66,8 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 	crew_assignments.clear()
 	station_roles.clear()
 	_damage_seen.clear()
+	_armor_seen.clear()
+	reactive_armor.clear()
 	destroyed = false
 	recovery_enabled = layout != null and layout.recovery_enabled
 	fires.clear()
@@ -75,6 +79,8 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 	death_notified = false
 	if layout == null:
 		return
+	for patch in layout.armor_patches:
+		if not patch.reactive_profile.is_empty(): reactive_armor[patch.id]=1
 	for module in layout.modules:
 		module_states[module.id] = {"kind":module.kind,"integrity":module.max_integrity,
 			"max_integrity":module.max_integrity,"resistance_mm":module.resistance_mm,"external":module.external,

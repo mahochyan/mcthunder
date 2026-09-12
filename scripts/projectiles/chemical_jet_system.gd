@@ -2,7 +2,7 @@ class_name ChemicalJetSystem
 extends RefCounted
 ## Carrier ends at first contact. The terminal ray resolves at that contact pose.
 static func emit(st: ProjectileState, trigger: Dictionary, trigger_kind: String, snapshots: Array, space: PhysicsDirectSpaceState3D,
-		exclude: Array[RID], commit_damage: Callable, commit_armor: Callable, policy: Callable, live: Callable) -> void:
+		exclude: Array[RID], commit_damage: Callable, commit_armor: Callable, policy: Callable, live: Callable, resolve_armor: Callable) -> void:
 	var profile := st.chemical_profile
 	var direction := st.velocity_world.normalized()
 	st.chemical_effect={"rules_version":ChemicalProfile.VERSION,"point_world":st.position_world,"direction":direction,
@@ -64,7 +64,8 @@ static func emit(st: ProjectileState, trigger: Dictionary, trigger_kind: String,
 			if not result.get("ok",false): effect.reason=result.get("reason","unresolved_damage"); break
 			budget-=float(result.consumed_mm); seen[DamageResolver.item_key(event)]=true
 		else:
-			var result := ArmorResolver.resolve(event,direction,{"base_mm":budget,"impact_profile":st.impact_profile,"effect_policy":"chemical","caliber_mm":st.caliber_mm})
+			var result: Dictionary = resolve_armor.call(st,event,direction,{"base_mm":budget,"impact_profile":st.impact_profile,"effect_policy":"chemical","caliber_mm":st.caliber_mm})
+			if not live.call(st): return
 			budget=float(result.after_mm)
 			# Commit the budget observation before a contact callback can cancel the carrier.
 			effect.remaining_mm=budget

@@ -68,3 +68,5 @@ func is_terminal() -> bool:
 
 func acceleration_world() -> Vector3:
 	return Vector3.ZERO if fuze_resting else gravity_world
+
+var reactive_event_count := 0

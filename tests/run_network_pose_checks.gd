@@ -8,7 +8,7 @@ func check(ok: bool, message: String) -> void:
 func frame(tick: int, x: float, yaw: float, life: int=1) -> Dictionary:
 	var relative := {"version":VehicleFramePose.VERSION}
 	for part in VehicleFramePose.PARTS: relative[part]=VehicleFramePose.pack(Transform3D.IDENTITY)
-	return {"version":VehicleFramePose.NETWORK_VERSION,"session_id":"11111111111111111111111111111111","event_sequence":0,"tick":tick,"sequence":tick,"vehicles":[{"entity_id":"A","life_id":life,"generation":1,"control_epoch":1,"position":[x,0,0],"yaw":yaw,"turret_yaw":yaw,"gun_pitch":0,"hull_pitch":0,"hull_roll":0,"frame_pose":relative,"destroyed":false,"shots":0,"accepted_sequence":-1}]}
+	return {"version":VehicleFramePose.NETWORK_VERSION,"session_id":"11111111111111111111111111111111","event_sequence":0,"tick":tick,"sequence":tick,"vehicles":[{"entity_id":"A","life_id":life,"generation":1,"control_epoch":1,"position":[x,0,0],"yaw":yaw,"turret_yaw":yaw,"gun_pitch":0,"hull_pitch":0,"hull_roll":0,"frame_pose":relative,"reactive_armor":{},"destroyed":false,"shots":0,"accepted_sequence":-1}]}
 func _initialize() -> void:
 	var buffer := NetworkPoseBuffer.new()
 	var first := frame(90,0,deg_to_rad(179))

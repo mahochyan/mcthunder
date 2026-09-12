@@ -23,7 +23,7 @@ static func skin(actor: VehicleActor, part: String, layout: VehicleLayoutDefinit
 	var ids: Array[String] = []
 	var atlas: Dictionary = manifest(id).get("armor_uv",{})
 	for patch in layout.armor_patches:
-		if patch.part_id != part: continue
+		if patch.part_id != part or not patch.reactive_profile.is_empty(): continue
 		ids.append(patch.id)
 		var uvs: Array = atlas.get(patch.id,[])
 		for i in range(0,patch.triangles.size(),3):

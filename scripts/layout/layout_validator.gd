@@ -144,6 +144,10 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 			errors.append(_err(path + ".material_kind", "unknown '%s'" % patch.material_kind))
 		for issue in ArmorLayerProfile.validate(patch.response_profile, patch.material_kind):
 			errors.append(_err(path + ".response_profile", issue))
+		for issue in ReactiveArmorProfile.validate(patch.reactive_profile):
+			errors.append(_err(path + ".reactive_profile", issue))
+		if not patch.reactive_profile.is_empty() and (patch.id.length()>128 or not patch.id.is_valid_identifier()):
+			errors.append(_err(path + ".id", "reactive tile requires a bounded network-compatible identifier"))
 		for key in patch.evidence_keys:
 			if not evidence_keys.has(key):
 				errors.append(_err(path + ".evidence_keys", "unknown evidence key '%s'" % key))

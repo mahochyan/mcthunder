@@ -23,6 +23,7 @@ func _ready() -> void:
 	projectiles.snapshot_provider=query_snapshots
 	projectiles.exclude_provider=exclude_rids
 	projectiles.damage_handler=apply_damage
+	projectiles.armor_handler=apply_armor
 	projectiles.projectile_finished.connect(record_finished)
 	for index in 2:
 		var actor := VehicleActor.new(); actor.presentation_enabled=false; add_child(actor)
@@ -40,6 +41,13 @@ func exclude_rids(entity: String, life: int) -> Array[RID]:
 	for actor in actors:
 		if actor.entity_id==entity and actor.life_id==life: return [actor.tank.get_rid()]
 	return []
+func apply_armor(event: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
+	if event.get("round_id",-1)!=1: return {"ok":false,"reason":"stale_round"}
+	for actor in actors:
+		if actor.entity_id==event.get("entity_id") and actor.life_id==event.get("life_id"):
+			return actor.apply_projectile_armor(event,direction,budget)
+	return {"ok":false,"reason":"stale_entity"}
+
 func apply_damage(event: Dictionary, available_mm: float) -> Dictionary:
 	if event.get("round_id",-1)!=1: return {"ok":false,"reason":"stale_round"}
 	for actor in actors:
@@ -91,5 +99,6 @@ func snapshot(sequence: int) -> Dictionary:
 			"position":[p.x,p.y,p.z],"yaw":actor.tank.global_rotation.y,"turret_yaw":actor.turret.rotation.y,"gun_pitch":actor.turret.barrel_pivot.rotation.x,
 			"hull_pitch":rotation.x,"hull_roll":rotation.z,
 			"frame_pose":VehicleFramePose.capture(actor.tank),
+			"reactive_armor":actor.state.reactive_armor.duplicate(true),
 			"shots":actor.gunner.shots_fired,"destroyed":actor.state.destroyed,"accepted_sequence":actor._last_input_sequence})
 	return {"version":VehicleFramePose.NETWORK_VERSION,"session_id":journal.session_id,"sequence":sequence,"tick":Engine.get_physics_frames(),"vehicles":vehicles,"event_sequence":journal.head()}

@@ -1,0 +1,96 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] definitions load
+[PASS] real target loads
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] carrier ends at first actual plate and its real flight time
+[PASS] separate100 budget spends20 armor,10 module and30 terminal path loss
+[PASS] jet resolves actual plate then internal module
+[PASS] actual jet damage disables actual engine propulsion
+[PASS] chemical terminal path cannot become APHE/spall or reuse carrier kinetic budget
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] longer slower carrier flight preserves independent chemical budget
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] actual inter-plate gap consumes terminal path budget: 1.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] actual inter-plate gap consumes terminal path budget: 2.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] equal/stopped/unknown front prevents internal jet damage: 100.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] equal/stopped/unknown front prevents internal jet damage: 110.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] equal/stopped/unknown front prevents internal jet damage: -1.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] unknown material cannot borrow a chemical steel coefficient
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] chemical ray does not inherit kinetic ricochet at angle 60
+[PASS] 40mm sloped plate consumes80 chemical game mm without normalization
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] chemical ray does not inherit kinetic ricochet at angle 80
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] narrow jet does not apply radial APHE damage to off-axis module
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] world wall blocks carrier or post-contact jet at 3.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] world wall blocks carrier or post-contact jet at 1.5
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] real exterior module contact triggers independent jet before hull armor
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] jet module damage respects actual match policy
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] damage callback stops jet and reset prevents late damage
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] chemical profile cannot be attached to APHE
+[PASS] declining carrier distance curve cannot masquerade as chemical budget
+[PASS] chemical response rejects kinetic rules
+[PASS] chemical response rejects kinetic rules
+[PASS] chemical response rejects kinetic rules
+[PASS] reject inconsistent chemical replay: budget
+[PASS] reject inconsistent chemical replay: path
+[PASS] reject inconsistent chemical replay: direction
+[PASS] reject inconsistent chemical replay: link
+[PASS] reject inconsistent chemical replay: time
+[PASS] reject inconsistent chemical replay: version
+[PASS] reject inconsistent chemical replay: damage_budget
+[PASS] reject inconsistent chemical replay: carrier_direction
+[PASS] reject inconsistent chemical replay: trigger_frame
+[PASS] production replay opens actual carrier and jet paths
+[PASS] chemical path hidden before actual trigger time
+[PASS] production replay shows only actual jet length without APHE sphere burst
+[PASS] viewing jet replay never repeats live damage
+=== 结果: 92 项检查, 0 失败 ===
+CHEMICAL_CHECKS_PASS

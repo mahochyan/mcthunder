@@ -1,0 +1,80 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] definitions load
+[PASS] real ERA test actor loads
+[PASS] real manager admits explicit ERA test shot
+[PASS] first actual HEAT is stopped by20 passive plus100 reactive resistance
+[PASS] actual contact atomically consumes only the struck tile
+[PASS] first shot leaves real protected engine intact
+[PASS] same resource on another vehicle retains independent unused charge
+[PASS] actual chemical shot produces valid complete replay
+[PASS] duplicate authoritative transaction cannot apply twice
+[PASS] real manager admits explicit ERA test shot
+[PASS] second shot in same physics tick reads live charge despite reused query snapshot
+[PASS] spent ERA retains passive casing while second shot disables real engine
+[PASS] actual chemical shot produces valid complete replay
+[PASS] ordinary module repair cannot replenish expended ERA
+[PASS] vehicle reset restores independently initialized charge
+[PASS] old generation contact cannot consume new life charge
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] real APFSDS uses independent10 kinetic reduction instead of100 chemical reduction
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] real fragment obeys explicit zero ERA activation rule
+[PASS] mother rod subsequently activates tile that earlier fragments left charged
+[PASS] actual chemical shot produces valid complete replay
+[PASS] replay retains ordered carrier and fragment armor transactions
+[PASS] replay rejects tampered reactive ledger: profile
+[PASS] replay rejects tampered reactive ledger: charge
+[PASS] replay rejects tampered reactive ledger: version
+[PASS] replay rejects tampered reactive ledger: bonus
+[PASS] replay rejects tampered reactive ledger: index
+[PASS] replay rejects tampered reactive ledger: count
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] ERA cannot fill missing passive thickness: -1.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] match protection rejects hit before ERA can consume
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] reentrant reset prevents late records or damage after atomic armor call
+[PASS] real manager admits explicit ERA test shot
+[PASS] stale query generation is rejected through the actual projectile authority path
+[PASS] real manager admits explicit ERA test shot
+[PASS] finite carrier and terminal ray finish
+[PASS] missing authority cannot simulate reusable ERA or claim a complete replay
+[PASS] JSON numeric charge values survive real integer-to-float decoding
+[PASS] reject malformed reactive profile
+[PASS] reject malformed reactive profile
+[PASS] reject malformed reactive profile
+[PASS] reject malformed reactive profile
+[PASS] reject malformed reactive profile
+[PASS] reject malformed network reactive charge state
+[PASS] reject malformed network reactive charge state
+[PASS] reject malformed network reactive charge state
+[PASS] reject malformed network reactive charge state
+[PASS] reject malformed network reactive charge state
+[PASS] reject malformed network reactive charge state
+[PASS] spent/below threshold/oblique/backface hit does not activate ERA
+[PASS] spent/below threshold/oblique/backface hit does not activate ERA
+[PASS] spent/below threshold/oblique/backface hit does not activate ERA
+[PASS] spent/below threshold/oblique/backface hit does not activate ERA
+[PASS] production replay opens actual carrier and jet paths
+[PASS] chemical path hidden before actual trigger time
+[PASS] production replay shows only actual jet length without APHE sphere burst
+[PASS] viewing jet replay never repeats live damage
+[PASS] capture requires actual window renderer
+[PASS] actual chemical replay screenshot saved
+[PASS] seeking ERA replay cannot consume or restore live vehicle charge
+=== 结果: 75 项检查, 0 失败 ===
+ERA_CHECKS_PASS

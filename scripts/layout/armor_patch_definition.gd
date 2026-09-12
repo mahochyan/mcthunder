@@ -19,6 +19,7 @@ extends Resource
 @export var thickness_mm: float = 0.0
 @export var material_kind: String = "unknown"   # rolled / cast / composite / unknown
 @export var response_profile: Dictionary = {}
+@export var reactive_profile: Dictionary = {}
 @export var geometry_status: String = "unknown" # verified / estimated / unknown
 @export var thickness_status: String = "unknown" # verified / estimated / unknown
 @export var evidence_keys: PackedStringArray = []

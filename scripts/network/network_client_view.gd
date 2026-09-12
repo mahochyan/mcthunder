@@ -102,6 +102,8 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 		if not actors.has(row.entity_id): continue
 		var actor: VehicleActor=actors[row.entity_id]
 		actor.state.destroyed=row.destroyed
+		actor.state.reactive_armor=row.reactive_armor.duplicate(true)
+		VehicleArmorLayers.refresh_reactive_visuals(actor)
 		if row.entity_id==connection.entity_id:
 			if owned!=actor:
 				if owned!=null: owned.set_controller(null); owned.label3d.visible=true
