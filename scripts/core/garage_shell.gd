@@ -17,6 +17,7 @@ var inspect_button: Button
 var error_label: Label
 var preview: VehiclePreviewModel
 var result_label: Label
+var frontend: GarageFrontend
 var _view_mode := 0
 var initial_loadout := {"vehicle_id":"test_vehicle","shell_id":"ap120","rounds":10,"infinite":false}
 var initial_case := 0
@@ -50,6 +51,7 @@ func _ready() -> void:
 	add_child(bg)
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin := MarginContainer.new()
+	margin.name="GarageControlSource"
 	add_child(margin)
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
@@ -231,6 +233,7 @@ func _ready() -> void:
 	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	CoreUI.label(vertical,LocalizationService.text("ui_c2d8db90e0eb"),15)
 	_select_vehicle(vehicle_choice.selected)
+	frontend=GarageFrontend.new(); frontend.compose(self)
 	ModalNavigation.attach(self)
 
 func _show_credits() -> void:
@@ -365,6 +368,7 @@ func _select_vehicle(_index: int) -> void:
 	_collect_preview_extras(preview)
 	preparation.select_vehicle(id)
 	_apply_preview_mode()
+	if frontend!=null: frontend.refresh()
 
 func _show_dossier() -> void:
 	var id := selected_vehicle_id()

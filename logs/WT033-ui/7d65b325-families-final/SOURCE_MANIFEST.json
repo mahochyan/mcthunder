@@ -1,0 +1,1054 @@
+{
+  "base_commit": "7d65b32548fba2cb35b2160aae936baf86d11247",
+  "captured_at": "2026-09-12T14:51:14.274319+00:00",
+  "source_files": [
+    {
+      "path": "NEXT_ACTION.md",
+      "sha256": "50e990560196780cad40b1345796ac9fee4d97b399005810803935b52183c264"
+    },
+    {
+      "path": "assets/research/models/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/research/models/germ_9a35_m.glb",
+      "sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c"
+    },
+    {
+      "path": "assets/research/models/germ_amd_35_kwk.glb",
+      "sha256": "55a2ee8d015c4d885e1b3d0dc180d3fe8d836f2428dd7e327d4dc3bea69183e4"
+    },
+    {
+      "path": "assets/research/models/germ_begleitpanzer_57.glb",
+      "sha256": "ca92933bbcb919c1c51017c6036efc5507fd9da14f453ad920a491faf502fc8e"
+    },
+    {
+      "path": "assets/research/models/germ_bmp_1_ddr.glb",
+      "sha256": "61a361668bae28bdcbc5e7ccb4ac93240f8a3363463e9e8bd5316cdd59a6f0e0"
+    },
+    {
+      "path": "assets/research/models/germ_boxer_3105.glb",
+      "sha256": "454332c69c67950d32fbf101c00b890eee04fa1d89c78570b5e99e8476cff6ee"
+    },
+    {
+      "path": "assets/research/models/germ_boxer_swatrinf.glb",
+      "sha256": "61953c5820d9d26ad217767c2cc2cc16458234b3f52530e268315b69235a0450"
+    },
+    {
+      "path": "assets/research/models/germ_erprobungstrager_3_achs_turm.glb",
+      "sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810"
+    },
+    {
+      "path": "assets/research/models/germ_flakpanzer_IV_Kugelblitz.glb",
+      "sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553"
+    },
+    {
+      "path": "assets/research/models/germ_flakpz_I_Gepard.glb",
+      "sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8"
+    },
+    {
+      "path": "assets/research/models/germ_flarakpz_1.glb",
+      "sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375"
+    },
+    {
+      "path": "assets/research/models/germ_hummel.glb",
+      "sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece"
+    },
+    {
+      "path": "assets/research/models/germ_infanterie_kampfpanzer_churchill.glb",
+      "sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42"
+    },
+    {
+      "path": "assets/research/models/germ_jaguar_2.glb",
+      "sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256"
+    },
+    {
+      "path": "assets/research/models/germ_jgdpz_38t.glb",
+      "sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400"
+    },
+    {
+      "path": "assets/research/models/germ_jgdpz_IV_L48.glb",
+      "sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0"
+    },
+    {
+      "path": "assets/research/models/germ_kanonenjagdpanzer.glb",
+      "sha256": "a4832317782dc2c3fd17bd1ceb106b1afcc22848103df006302f66ac2057b4aa"
+    },
+    {
+      "path": "assets/research/models/germ_kpz_70.glb",
+      "sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89"
+    },
+    {
+      "path": "assets/research/models/germ_kpz_t72m1.glb",
+      "sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e"
+    },
+    {
+      "path": "assets/research/models/germ_kv_2_754r.glb",
+      "sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072"
+    },
+    {
+      "path": "assets/research/models/germ_le_kpz_m41.glb",
+      "sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b"
+    },
+    {
+      "path": "assets/research/models/germ_leopard_2a4.glb",
+      "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88"
+    },
+    {
+      "path": "assets/research/models/germ_leopard_I.glb",
+      "sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56"
+    },
+    {
+      "path": "assets/research/models/germ_m109g.glb",
+      "sha256": "991981e2e4e5b86230166ce66dec927169a73f5c2ef14f23c303c51abcaea9c0"
+    },
+    {
+      "path": "assets/research/models/germ_m44.glb",
+      "sha256": "edb409f29882719ca0ee613f1ff3d66b4703e2fee98306ea9aa7c49458a53b21"
+    },
+    {
+      "path": "assets/research/models/germ_m55.glb",
+      "sha256": "fe5e9ec431855abebd69967bd4db2c5c72151175bd0cc27cc72e72e743be6969"
+    },
+    {
+      "path": "assets/research/models/germ_marder_1a1.glb",
+      "sha256": "769d754ac9a4126a8f93df5878839662e20ec92b4e322ab35166ef3fb2dbc199"
+    },
+    {
+      "path": "assets/research/models/germ_marder_df_105.glb",
+      "sha256": "9baa1df319d682ceab6dedb9ea99cd9bbd072c7c585dfe632fd0cb1b73a3bde0"
+    },
+    {
+      "path": "assets/research/models/germ_mkpz_m47.glb",
+      "sha256": "17eb2006aab6c0f4ada7b4d5eae1575b0d183498c38723d4d6c969a078e8ab44"
+    },
+    {
+      "path": "assets/research/models/germ_mkpz_m48a2c.glb",
+      "sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b"
+    },
+    {
+      "path": "assets/research/models/germ_panther_II.glb",
+      "sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562"
+    },
+    {
+      "path": "assets/research/models/germ_panzerjager_1.glb",
+      "sha256": "9dbc2a95cabb90c15c260c4d591a895899700c7db6df3453d33b2891093ca421"
+    },
+    {
+      "path": "assets/research/models/germ_panzerjager_nashorn.glb",
+      "sha256": "a9e368cf65c27e53aede60dc6f2ee2b70bef538f08847a6cd7791bae35c3cdb8"
+    },
+    {
+      "path": "assets/research/models/germ_panzerjager_panther.glb",
+      "sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d"
+    },
+    {
+      "path": "assets/research/models/germ_panzerjager_tiger.glb",
+      "sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83"
+    },
+    {
+      "path": "assets/research/models/germ_panzerjager_tiger_P_ferdinand.glb",
+      "sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3"
+    },
+    {
+      "path": "assets/research/models/germ_pzh_2000.glb",
+      "sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_35t.glb",
+      "sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_38t_Aufklarungspanzer.glb",
+      "sha256": "3f095ae6d7634a4dbd34731549f95cda67720524636727d1c2460c4825856c0b"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_38t_Marder_III.glb",
+      "sha256": "4e5665fcd92b76d16d1984fcf525b75cd823d47e161751103cacab3513ee33a5"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_38t_ausf_A.glb",
+      "sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_III_ausf_B.glb",
+      "sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_II_ausf_C.glb",
+      "sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_IV_ausf_C.glb",
+      "sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_Maus.glb",
+      "sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_VI_ausf_b_tiger_IIh.glb",
+      "sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_VI_ausf_h1_tiger.glb",
+      "sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_VI_tiger_P.glb",
+      "sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_V_ausf_d_panther.glb",
+      "sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67"
+    },
+    {
+      "path": "assets/research/models/germ_pzkpfw_e_100.glb",
+      "sha256": "32a1945bd6be27220e2e64388432355f299855de22cda701826c7d9651c97a6c"
+    },
+    {
+      "path": "assets/research/models/germ_pzsfl_IVa_dickermax.glb",
+      "sha256": "db7927e8f8c4094e38ba34477627e481df22338a344294f03572ff5e07ab514a"
+    },
+    {
+      "path": "assets/research/models/germ_pzsflk40_sturer_emil.glb",
+      "sha256": "068577f469c1a831c10b065b321ba26e5d7142171c44e861a0dc6255d6ae2503"
+    },
+    {
+      "path": "assets/research/models/germ_radpanzer_90.glb",
+      "sha256": "12375c4668438db03a61b61beb46366a3910570ddf44b6241c3b1c81bde88418"
+    },
+    {
+      "path": "assets/research/models/germ_raketenjagdpanzer_2.glb",
+      "sha256": "b6c14763bfba83bc916f63ee1dbe0e5ab4b7995a5ee10dc372fc73a8736694ed"
+    },
+    {
+      "path": "assets/research/models/germ_ru251.glb",
+      "sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395"
+    },
+    {
+      "path": "assets/research/models/germ_schutzenpanzer_puma.glb",
+      "sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4"
+    },
+    {
+      "path": "assets/research/models/germ_sdkfz_221_s_pz_b_41.glb",
+      "sha256": "65bb5fe3f8c6384f7eb6f38ce0168447c26e3eedbfd7320a7ca2d75a2a91875d"
+    },
+    {
+      "path": "assets/research/models/germ_sdkfz_222.glb",
+      "sha256": "7088750bba5752d49c4aea0e58068d2d9e1d71a840d07cfc632eec3e6a65f761"
+    },
+    {
+      "path": "assets/research/models/germ_sdkfz_234_2.glb",
+      "sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c"
+    },
+    {
+      "path": "assets/research/models/germ_sk105_a2.glb",
+      "sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee"
+    },
+    {
+      "path": "assets/research/models/germ_sppz2_luchs_a2.glb",
+      "sha256": "83f856d031294490fd8274de2433648d93dc3d897a630b8b35ef6a717cf293b4"
+    },
+    {
+      "path": "assets/research/models/germ_spz_12_3.glb",
+      "sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417"
+    },
+    {
+      "path": "assets/research/models/germ_stug_III_ausf_A.glb",
+      "sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18"
+    },
+    {
+      "path": "assets/research/models/germ_sturmmorser_sturmtiger.glb",
+      "sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933"
+    },
+    {
+      "path": "assets/research/models/germ_sturmpanzer_II.glb",
+      "sha256": "31feb179335b9e60cc231dc93b068b46af745211ce012a29643c18237ae62236"
+    },
+    {
+      "path": "assets/research/models/germ_sturmpanzer_IV_brummbar.glb",
+      "sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37"
+    },
+    {
+      "path": "assets/research/models/germ_t_34_747.glb",
+      "sha256": "bab8bb396f3c454462bc4301c9859075990ef10c44f28068155aed4e7ba61423"
+    },
+    {
+      "path": "assets/research/models/germ_th_400.glb",
+      "sha256": "82c71dc1acf1719b8de52d6dc1b18f4e75d58837fbfc66425fea75aa0e167eed"
+    },
+    {
+      "path": "assets/research/models/germ_thyssen_henschel_tam.glb",
+      "sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe"
+    },
+    {
+      "path": "assets/research/models/germ_vilkas.glb",
+      "sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84"
+    },
+    {
+      "path": "assets/research/models/germ_vk_3002m.glb",
+      "sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51"
+    },
+    {
+      "path": "assets/research/models/germ_vt_1_2.glb",
+      "sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09"
+    },
+    {
+      "path": "assets/research/models/germ_waffentrager_krupp_steyr.glb",
+      "sha256": "03ce37358395983e40b8fe68df277fc6ac4a65890e92c3c9ea20dfd29883857b"
+    },
+    {
+      "path": "assets/research/models/germ_wiesel_1_mk20.glb",
+      "sha256": "e6f9c74f13b03ada730c0a62d82d9debba7fb223bbf490497a811eaffadc93ea"
+    },
+    {
+      "path": "assets/research/models/germ_wiesel_1_tow.glb",
+      "sha256": "74dae98ef6f1292b4dea141c6034584312fd224668f528040ec14646d7d740a6"
+    },
+    {
+      "path": "assets/research/models/germ_wiesel_2_adwc.glb",
+      "sha256": "d272933c2656edfc6f90ae49b466822feb65ac373988bd2cc54e37b1df34dd60"
+    },
+    {
+      "path": "assets/research/models/us_m4a2_1944_germ.glb",
+      "sha256": "eed359ea4ccb0b78c81b0b25141b3f841770cd5a74cbb4f1312dac00a5f84e62"
+    },
+    {
+      "path": "assets/research/models/ussr_asu_57.glb",
+      "sha256": "378b27314ce84e08b9cc5a4a62a56eb14e706c7021e66875a13313d70134adf2"
+    },
+    {
+      "path": "assets/research/models/ussr_asu_85.glb",
+      "sha256": "0489228105a94e2c0b911baa9e68b5157ad4baeee3160f9a5a57a9170b2ab679"
+    },
+    {
+      "path": "assets/research/models/ussr_bt_5.glb",
+      "sha256": "9a490f675932e909d8e3259d2b3e66643695bf4bfbacd34d7473d7353eaa63d5"
+    },
+    {
+      "path": "assets/research/models/ussr_is_1.glb",
+      "sha256": "4d874abf2b6c3e6bc8d5ba2b2df6fc50ac2bd88c0b1d5859f4bc213aa054e34d"
+    },
+    {
+      "path": "assets/research/models/ussr_is_2_1943.glb",
+      "sha256": "ab3514a901767a33cda939b311941da279aff13e4e178f1ee5d487a08bdbc1bc"
+    },
+    {
+      "path": "assets/research/models/ussr_is_3.glb",
+      "sha256": "57915a11126c9e0fe6536f5930e1312ec0b2c56a448f71470900fe05dcfdbf5e"
+    },
+    {
+      "path": "assets/research/models/ussr_is_4m.glb",
+      "sha256": "e44f00cd9e5e4844168177369b43e19b058da33bafcd7681f353ccc96addf520"
+    },
+    {
+      "path": "assets/research/models/ussr_is_6.glb",
+      "sha256": "30565efc826fd48fb5cfbb3544657b15e7cd54503c5f76232cfda94604fee727"
+    },
+    {
+      "path": "assets/research/models/ussr_is_7.glb",
+      "sha256": "4e1b8bb37ec83a2fcb9ce25019b006c9209b75d695afd918dcfbf768a0655c4a"
+    },
+    {
+      "path": "assets/research/models/ussr_isu_122.glb",
+      "sha256": "3d19902301cb0ff5817f5e6f7a58efb8ca96b33d575a32189a399cf46aea4365"
+    },
+    {
+      "path": "assets/research/models/ussr_isu_152.glb",
+      "sha256": "73e6a26e66ff56ededf61101e7e66c6a442241569d2832c7d56030b366364afa"
+    },
+    {
+      "path": "assets/research/models/ussr_kv_1_L_11.glb",
+      "sha256": "671efce10f603c1e96dee93a2d3552cb81e36585740fd0c16578661f8b4c96b1"
+    },
+    {
+      "path": "assets/research/models/ussr_kv_2_1939.glb",
+      "sha256": "2ff828d7e54fb7e54fe01ad8977adb3b01ee2edd68d942a30ec7a83f5311021c"
+    },
+    {
+      "path": "assets/research/models/ussr_pt_76b.glb",
+      "sha256": "3045c56e9b4d41bd99ce7bc31fbac302380c98a57d79e0bb16d15ddbd458f1a5"
+    },
+    {
+      "path": "assets/research/models/ussr_su_100Y.glb",
+      "sha256": "7eafe586da04ada56b619514850c435ac029c7e54613e8872fa1c1c880d9e8cf"
+    },
+    {
+      "path": "assets/research/models/ussr_su_100_1945.glb",
+      "sha256": "dd3dcc77901b1c8d3aaa33a319c5d6bcf6f1ddbcf616437a2566b7700e0766fe"
+    },
+    {
+      "path": "assets/research/models/ussr_su_122.glb",
+      "sha256": "e3528c4f31d0135e1590b50561210b4bc97099b2ee849effd20292d745a15d73"
+    },
+    {
+      "path": "assets/research/models/ussr_su_122_54.glb",
+      "sha256": "333d8b1ac1e94214f4137de894490a11edc2aaa9a8556cf6873ba188a7111d0b"
+    },
+    {
+      "path": "assets/research/models/ussr_su_152.glb",
+      "sha256": "a0ce96c7371a4119fc3f824b1a4c06ca52fc81cc1a0d2d3f4439270caab23b7a"
+    },
+    {
+      "path": "assets/research/models/ussr_su_57b.glb",
+      "sha256": "0a571304a89ddf616bf2c71ead9ac35e8cdeb1023d487fa187b5e3f0cceb915f"
+    },
+    {
+      "path": "assets/research/models/ussr_su_76m_1943.glb",
+      "sha256": "946a939fccfa8b5b322ba8829fa913a213d9bc3e10a3dd83de24ccb4740e86fc"
+    },
+    {
+      "path": "assets/research/models/ussr_su_85_1943.glb",
+      "sha256": "d359acfd04db8d58c641a9e13e546cb839f8aab01166838cc80e427a495ade21"
+    },
+    {
+      "path": "assets/research/models/ussr_t_10a.glb",
+      "sha256": "633afe20ce1f3aa50af8fdd1d6c3929062d007816727b0e601037381c99ecd19"
+    },
+    {
+      "path": "assets/research/models/ussr_t_26_1940.glb",
+      "sha256": "fdc3415dfed5165cc8ae6650b33821cdb74801da7ea04131dc1a5cbc2773b0ea"
+    },
+    {
+      "path": "assets/research/models/ussr_t_28.glb",
+      "sha256": "b67d184a3242482b36e03440edb604a90ea12382ec1557f2834fe73b10b81fc2"
+    },
+    {
+      "path": "assets/research/models/ussr_t_34_1941.glb",
+      "sha256": "026a30cdafe7834a8da4ee5e348222040616bb950df4ebfcae7c0d1ed17e44d1"
+    },
+    {
+      "path": "assets/research/models/ussr_t_35.glb",
+      "sha256": "70bb2bc2d2ea830d6b40e488aedc3e0583eadac6df3e1149eb74ccf932dbbb2d"
+    },
+    {
+      "path": "assets/research/models/ussr_t_44.glb",
+      "sha256": "cdfbc9b1d105e805214b71dca0db0c1a84de742e0caeceae14ee91b19c2cfd4f"
+    },
+    {
+      "path": "assets/research/models/ussr_t_50.glb",
+      "sha256": "28fe9b26f42ae8d3c3f97c9fd2103bf953a2da28c5f7d50953703a6d562b9a3f"
+    },
+    {
+      "path": "assets/research/models/ussr_t_54_1947.glb",
+      "sha256": "678f9084714e8881b1c4e45794047ae6eae3a1806b478c597e37e0b1d5a16d22"
+    },
+    {
+      "path": "assets/research/models/ussr_t_55a.glb",
+      "sha256": "f2ead162393d9f876c8cba7e56567e8ace4645dd9c7314bc0449a366ebb39f8a"
+    },
+    {
+      "path": "assets/research/models/ussr_t_62.glb",
+      "sha256": "cf9996469eb5e37ac7ce2caaf9cec96de803572c5fbf72f3126ff54700ddfe66"
+    },
+    {
+      "path": "assets/research/models/ussr_t_64a_1971.glb",
+      "sha256": "c5190dad49c964f82d1f20f3ea621de14c150212ae37aa01072fc308997434fb"
+    },
+    {
+      "path": "assets/research/models/ussr_t_72a.glb",
+      "sha256": "b93430f95643544b08efcb97838b3f400593609bcfcc623105b44688d5118856"
+    },
+    {
+      "path": "assets/research/models/ussr_t_80.glb",
+      "sha256": "ce00e8ceff7ded29e4d887f019437ca93e52b1cc908f74e9f87b4b57cdc87a9f"
+    },
+    {
+      "path": "assets/research/models/ussr_t_80b.glb",
+      "sha256": "05c48f76859d7b072a863262d389bf5d49e44129082db4b21cee4c7c473aca8d"
+    },
+    {
+      "path": "assets/research/models/ussr_t_90a.glb",
+      "sha256": "2f71d61d1d4f202b2484a34c3f2806777da5e66fc292b38f2f61dc3e5a51a101"
+    },
+    {
+      "path": "assets/research/plans/germany.json",
+      "sha256": "23ed17c09046e03595f95f6a89fe07fbe520281a5d7fc6f5bee61c94d71c1377"
+    },
+    {
+      "path": "assets/research/plans/ussr.json",
+      "sha256": "d42c4c00b3eea8dff2eca90ea2641afcbcd06dfd2886d5141da2b7867ed5695d"
+    },
+    {
+      "path": "assets/research/soviet_german_tree.json",
+      "sha256": "0ef969048ffbe389a6def2418030154318fbae79b31d5124bd5b83f3c399797b"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_9a35_m.png",
+      "sha256": "586a16e00e8c48f49ea32535dd521e832067a555ba56aca460e9cdeb116b1dc2"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_amd_35_kwk.png",
+      "sha256": "9cbc447477f87a1cd8344b8f2b41ef50c187b1b0e6cc86629237b03c88c7976c"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_begleitpanzer_57.png",
+      "sha256": "d2aa7ca88a39abd7eb19211e52b4b9ea93c4d1148ad1c17631015f79e10e5431"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_bmp_1_ddr.png",
+      "sha256": "f67547881df2bce60cb5d96ff2e7bc789d4363fd4f5f98af858775871263cf08"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_boxer_3105.png",
+      "sha256": "a948a2811a13096121bf0fd5638cb48121cba9b2e5404e55f49d40c110797024"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_boxer_swatrinf.png",
+      "sha256": "dad833ba84cdf9e037a3476c276b5f65a4c35f9cb82d014962d93dc12e73d1e6"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_erprobungstrager_3_achs_turm.png",
+      "sha256": "bfdc4408251bf933a536a3002a45d3f26b6771d04eaaac48da91b0858324c668"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_flakpanzer_IV_Kugelblitz.png",
+      "sha256": "ca7695c17ba3eed04c11a4bc84249e7eb82f3ea78a0323c573ebd34a5458b3a7"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_flakpz_I_Gepard.png",
+      "sha256": "729d540edca39d5306be2955ab281f59e6f8676c632d65d1e49130e44fe313c9"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_flarakpz_1.png",
+      "sha256": "c1faf94755eb94a3be4695bf44c1f47ecea115c4fac8747629f0332b2ef34e76"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_hummel.png",
+      "sha256": "291e39dd94131d513b25f7757a022ffb87614637b5a269a826fb12cc37d72f4d"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_infanterie_kampfpanzer_churchill.png",
+      "sha256": "6c1c13a94766a1f114e8f448d76b1e4ce6ce559ea8a2e39513bc40c6f1b88d7d"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_jaguar_2.png",
+      "sha256": "5abe457b327d74add8847e94f807f3260d1478b98976df21c0a48584c9b1281e"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_jgdpz_38t.png",
+      "sha256": "879ddadf0cbcf38619a6bc07afab69addce7fa246a8478a8bbf46a47c6374b63"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_jgdpz_IV_L48.png",
+      "sha256": "a72f7e1dec9d593711b00516e217fe95fca8dbde34dec3c2ed138e5bb03529ec"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_kanonenjagdpanzer.png",
+      "sha256": "69e9c552f05f5687917595535bd07028ccaab16e0ffb7d2783a74b014ee18e31"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_kpz_70.png",
+      "sha256": "a8c84dc324a6c6f1e0b352da5e51bb08c77cf25a67c79d8e126c566d51ee0f11"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_kpz_t72m1.png",
+      "sha256": "4ff2008068f489e108d83c57526a4cdca4ce365ea43661a66d00d652073a3939"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_kv_2_754r.png",
+      "sha256": "a8297dbf771a45936a5da1bca780c4698ce10277243f2d3414b27b4f233f6d2a"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_le_kpz_m41.png",
+      "sha256": "f4a323d28789cd269f5abcc58f17b4168556f09b0d34593a568434b58996bdab"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_leopard_2a4.png",
+      "sha256": "2c4a5688fd7212c9ced0724e53de4aeddc50009afccf4060beef9d35114ac2f6"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_leopard_I.png",
+      "sha256": "828bfffa4a2deb17d567f75e6e299951a8866698a2998e480d881887d3b319cb"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_m109g.png",
+      "sha256": "3604307516043a22a40df0c53ddbca1f0ec1e5b05d30df37f7583c39b266dcb0"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_m44.png",
+      "sha256": "dd3e8e05899fc815d1fa148a987d70078dc2639cb7883d54ef601fb9659c1288"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_m55.png",
+      "sha256": "76910093c6625d4587774b1f133bd0b9056b732611452de683e98722f0e409ea"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_marder_1a1.png",
+      "sha256": "ee6cd8fbce8b22fcc510f25c0e08c4730255cbc80e29e92817c1c6ed28f85fe8"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_marder_df_105.png",
+      "sha256": "23a2b6b3a7d39a94109047d766b6f14df46dee338c22102808747c894efac862"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_mkpz_m47.png",
+      "sha256": "3a5b4a3cca155d7dbcb44c241b37eee7c753ff43e3a874df17238ed1b071ca9f"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_mkpz_m48a2c.png",
+      "sha256": "6163bf6fbacb7052fd222fff385cccb54055b0b7b0cd0a477b89ebb57a816547"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panther_II.png",
+      "sha256": "080baab0925fd4677c506c665d5a682bc4c9a86083804ae8e45cfd891f170f53"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panzerjager_1.png",
+      "sha256": "3b1e392128fea7e99ee4794aec4c2c1f92501b3849d4d867cbd7b66d4f42af9b"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panzerjager_nashorn.png",
+      "sha256": "591c078daf8a0bfc97037be8154714555c8df97bd4c9b86e85251f094e292e4d"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panzerjager_panther.png",
+      "sha256": "a06d61bc0b8d8aa6da2edb1d181aafba4af47690aeb1941dba632ca04d19f80e"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panzerjager_tiger.png",
+      "sha256": "d5011f66ce4df93492e8ec6494ccab4375c4dbdfc3d087acd389e91f2e308d1f"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_panzerjager_tiger_P_ferdinand.png",
+      "sha256": "0eaa9f111c9497e62860e649947ee3d722cad9b729de97e05c30f6575b757fe1"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzh_2000.png",
+      "sha256": "cddaa3a0c6f4950f028eae2a42237cc6755fa042e968f59d02eb28426534d144"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_35t.png",
+      "sha256": "ea66528178a68c3fe0a118d34c9fed80aaeb041f33b9d9d0d6cdb487b6f382d6"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_38t_Aufklarungspanzer.png",
+      "sha256": "3cbf57882973e49b29b561b9f06f18e200417e7955f3f9b4d181d31ddb9fac2d"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_38t_Marder_III.png",
+      "sha256": "af3258268ea73707f939ebd6a2f56b26145eed87ed1059a802b7addbc540bca7"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_38t_ausf_A.png",
+      "sha256": "64896d416ac39def8e7ba8f78a428699143c25920168140b67cceef35ee7f727"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_III_ausf_B.png",
+      "sha256": "a4a3a9626306b53149a5a54aeaf8778c4d4f21b99b0f8ad38f01de0009267430"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_II_ausf_C.png",
+      "sha256": "984ee28d9f5e133ad0e2a341a937ef8752d231d0ff08fc65faf3318ca6afd1f1"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_IV_ausf_C.png",
+      "sha256": "a39fdc707997d9a5b8ee463b092571a0d1b6eb3e17616d1acf9f1ece5c86b7ec"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_Maus.png",
+      "sha256": "0f6644d3e7f9cb9969f4543b2dec02ebda2e4b6488ff26781a02e022e74a543a"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_VI_ausf_b_tiger_IIh.png",
+      "sha256": "a20dd9796c2fa898f60e4d091dffb67183c406b953420d558459e9395064a501"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_VI_ausf_h1_tiger.png",
+      "sha256": "2a65bce39217ee2d63144907b1ebf9114e5188fa0d6a8daea0284aedb105c66c"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_VI_tiger_P.png",
+      "sha256": "20228b0645b2a9d75acd9fa1ed6d68246988c686539f6f4a772674ae4aba4f36"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_V_ausf_d_panther.png",
+      "sha256": "91775d1ec2cea2ac924d25f0aaf69789db656f4fe8fd7e36f4e6b9bac35eaa37"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzkpfw_e_100.png",
+      "sha256": "a72ce7bee46184b3ce74d5a3a58e1dbbb82fd3c2e6f285bd73d1e142b90d91e5"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzsfl_IVa_dickermax.png",
+      "sha256": "f2a5ecd642c6d71f790322f9f6f4eefdbc7be4f3eb6d7fd1641fa8ff1a799348"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_pzsflk40_sturer_emil.png",
+      "sha256": "ec0c5538ddcbe5fa4cbf347572934929592df4cb13418f0a6099167b83f9bd0b"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_radpanzer_90.png",
+      "sha256": "b4ac87c44d3f64233b4628c6bc30101b3c0a89b5f7a7ff57b6805aa0439d0300"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_raketenjagdpanzer_2.png",
+      "sha256": "756ec1f2ec01e2792ad915135de84ab9799caf245bbcac02c7f54e64be2c9cd6"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_ru251.png",
+      "sha256": "1ac8be8fe137c1da6e565c8d544231247d0f311c5c6718be73496a9c7d88dd22"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_schutzenpanzer_puma.png",
+      "sha256": "f59d103481ad466445b782eeff06c0506a5743794ca835badd2c99c6d2a78be0"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sdkfz_221_s_pz_b_41.png",
+      "sha256": "1db4c80a9e49e3c6b546e6a6dc81f0c9b4058a78d8bfda1923383470234b25d1"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sdkfz_222.png",
+      "sha256": "72721004756054332bd7c3d1daa0208830bc38b5a92107af75231fc3fff5f60a"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sdkfz_234_2.png",
+      "sha256": "d0d05d5fbea45ad85a056c5881ed87a218c2bc3ee1bbdef4f284b02c587c4575"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sk105_a2.png",
+      "sha256": "97075aba0c72364eaf49ff91024b5e8a040911f0326211c4bfe54da3e8503c14"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sppz2_luchs_a2.png",
+      "sha256": "6b81034d438bbe937335e1e31842b7eac191fd3e98a548bd08323b9bb37af3a7"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_spz_12_3.png",
+      "sha256": "2b483c965e99af2231ac4f5fc0e1cd1cc03682309388a69b67b4bb7f4a13dd80"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_stug_III_ausf_A.png",
+      "sha256": "7085afbad06be7f975eb52eabc457c240ca50a5f162b10482a26e3d2d8297132"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sturmmorser_sturmtiger.png",
+      "sha256": "301af033fbfe05fcd4e90b4df25d818a2c40e061fabc12823c343e00858c5b72"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sturmpanzer_II.png",
+      "sha256": "00879fe7b205abb1b33d09c414d01e641999885b7d1dd32b3a50d6b7cfde1757"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_sturmpanzer_IV_brummbar.png",
+      "sha256": "1147785f60cbd3073f0941dee83e36e20c3c448b4ca5451d9c73b4e208429895"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_t_34_747.png",
+      "sha256": "93713beb7bc62e00dbb9b3fbd39928759450db47fb51ee83e5ae3441c4b278f9"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_th_400.png",
+      "sha256": "c4ee6fad6f9d1a9f2c183cb5faf9fed4ebbe77d6b5d482004364c93b1e0fc8dc"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_thyssen_henschel_tam.png",
+      "sha256": "6942d902901449125afd0d83a9a48271bfb62216444731891cf518b635720420"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_vilkas.png",
+      "sha256": "be9c5dba11b5d6e0662896b84b6873c972dd6018b708a2533a85eb0de1b0f9a0"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_vk_3002m.png",
+      "sha256": "6e16d4c21b1f50bf8fa541da6cb62929c2f6bb7eaffe5d582ffa8fa44c0f7746"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_vt_1_2.png",
+      "sha256": "e56f0ef0a6178c4a11b3e723654e760315a133061d2fde23e8d87bf94b52f3c9"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_waffentrager_krupp_steyr.png",
+      "sha256": "b26112abdbe07f679bfbb90f6f07dd757a451f8ebd2b946622bdcf156e74f75a"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_wiesel_1_mk20.png",
+      "sha256": "83172d72b6374ee28cdaa3f112c556dec43474da6e359bbbbecb4d090c90a835"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_wiesel_1_tow.png",
+      "sha256": "275c8c6b9b73b8e562b036f25d309fd1a57d1b07c696e699732312ed5542eeae"
+    },
+    {
+      "path": "assets/research/thumbnails/germ_wiesel_2_adwc.png",
+      "sha256": "6b1e512763a681b8d409d84fecc85b5e45837a0d2c31d04b33e3f4d9d6a124da"
+    },
+    {
+      "path": "assets/research/thumbnails/manifest.json",
+      "sha256": "78f218631f34329ae11966ac8a410fc767f08331408207ac0b4938ab0ee97eb9"
+    },
+    {
+      "path": "assets/research/thumbnails/us_m4a2_1944_germ.png",
+      "sha256": "9b0f3cdc66aea6d5873933e81aa36e0180f96e7f1f0a40e1128554b93ea5734d"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_asu_57.png",
+      "sha256": "bf1ab7aa0420f960a91f1d9962c33cf84ca446d750afa6e22573bac7c175465d"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_asu_85.png",
+      "sha256": "0aedf3f1a4cb07c89ffee414335012dc46eb81cc53c6ce2ae9c06672776a6630"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_bt_5.png",
+      "sha256": "13b07419b2307b31d68a157b73aea57e2cba68d3cf871761236039ca3dfc8700"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_1.png",
+      "sha256": "942d32487a9cae9bc58c17916c7b1d884a162eade4ec1267431009cb36348599"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_2_1943.png",
+      "sha256": "86303054f7153c9a34bda15a7e19254c1330db426150927a95e0e03ce43fcc41"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_3.png",
+      "sha256": "6acb24cbfc6a3f6b00ad80ee1135ebaeec240f03974d525bd916876756ef39c5"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_4m.png",
+      "sha256": "9c8d5436a1fbb37fce8cda6d5125b8d920aca7ec02b5920f5ce32e849b864f60"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_6.png",
+      "sha256": "d1d26cb9cc455e8afdf6c343dd01f38aac4c9f6fbccb4c07e3af290561d5f756"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_is_7.png",
+      "sha256": "22ba8d61acb2cdbd740fe578a060a33ebf22c8e58deed4aeb234bbfb4e911e37"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_isu_122.png",
+      "sha256": "24f55e17078d39a4f2985f73ac89a946849168073b6ef6c6f81e949c07165023"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_isu_152.png",
+      "sha256": "7733b06a1386041ea04d0dce18b99ac62121c29874e990590ed83b0f93222b1d"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_kv_1_L_11.png",
+      "sha256": "0abeeb9e1faedd43c841855ca7b7bbf48bd02c78b88cbdc76a46cf61ec0136ff"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_kv_2_1939.png",
+      "sha256": "6b7ebb9f1eee59de084e00b92ece76541f44450c435e3f27d1523dec1f15f01e"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_pt_76b.png",
+      "sha256": "8e1f6cba3ab5ca54653aadedda9c9979fc8f5eaef0e9037d85e8f5d1f8f7707a"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_100Y.png",
+      "sha256": "29f5e447406e951ac81c7151e3d27df3976e12724a4d77f7ca0276fb6004d622"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_100_1945.png",
+      "sha256": "d8ab61ffd25a2df6f5c7ab0ec162483fe1d3ab82d1d1f86840c3fe9a7caf6597"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_122.png",
+      "sha256": "7390fd418f0ab61dd50aa23f72b13d24257e03f6f70b8bd91478df6d57d56b6a"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_122_54.png",
+      "sha256": "f778a1a3eb0b5ff2d60a84453e885e9910e3bf4e99836f77c13072174a7ec4b8"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_152.png",
+      "sha256": "188636ff4f55d224c44b4fbac3c95227029e878351986f69a5b98ff574a73104"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_57b.png",
+      "sha256": "03de7013ad90d31fb06250a18ee12192faefe52a7ae1e2a43fa9a2e27de0aaf9"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_76m_1943.png",
+      "sha256": "390a0ddba761d5e2f89f92cb5d0a92f11a73ae0b9751d87db5ccb93a4327851b"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_su_85_1943.png",
+      "sha256": "51a0bfcc22ebd7648412a50ea2f7f61d02e2e2f510a50a2c9337c22f92c636d7"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_10a.png",
+      "sha256": "1e7f254381bd4b196f2688e6b141d81640f8270d14ffda5f4d622400de3038dc"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_26_1940.png",
+      "sha256": "d359f983796beb0b2aec1cd68f126f41b15b36d5b0acc0954a98ca69649c67d4"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_28.png",
+      "sha256": "5eee0327197359266623de1b4320089809e36713cec435944bc6982439ca73ec"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_34_1941.png",
+      "sha256": "185e52efd400f2cf7592a2715b0717e56daa7c3bdcafc8d12f94ee0a453a90c4"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_35.png",
+      "sha256": "3832a79e7b1e6249b1909ce92e547a77ce16d327317ab79af0db3fd438074e57"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_44.png",
+      "sha256": "3c8626fa4ad58a79e81fcc75f21c6bf98b78ecbb1a3cd554909ea45606457709"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_50.png",
+      "sha256": "86662a60a9a6b59f21db641c7d4d8e9f6dad84823dd05d4566fd39f4a835ea7a"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_54_1947.png",
+      "sha256": "d571975e124259dedb485d132253c1b1b91ae897daa79536fd64bbc293b56409"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_55a.png",
+      "sha256": "9f39c6f2096a330ef28ba291ce2e84e6beb96e0c029d9c24cb1a991ca921a969"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_62.png",
+      "sha256": "c4f251557c5f7354f5b9ad16dab236b8d6b8eae627eb3c9a08b2f7b7df959558"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_64a_1971.png",
+      "sha256": "e033a32a9f0ff467ec0f539c88553f98fcbc355de7d9539a0ffcd7095c55c049"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_72a.png",
+      "sha256": "d45015648a11ca46801f463b147db1aad5b29f9b52f8f594aa33db764a6b8c56"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_80.png",
+      "sha256": "901eef883184bc5eccece1d92c03144b6a8bf717655c8c30a764706742d52a01"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_80b.png",
+      "sha256": "2d7a6170997b01105f4ebc10eed9201c736435f6550608b2ba03f4d9208949d6"
+    },
+    {
+      "path": "assets/research/thumbnails/ussr_t_90a.png",
+      "sha256": "6c180adf53168c92d07ee0b44d9e20627275ed433839ffa942c43a218abf884a"
+    },
+    {
+      "path": "authoring/reference_data/build_research_families.py",
+      "sha256": "83b9d1dfe2aa4e4f1057e7d00f7fc7b728e6b428bbbf936b81330372cd961717"
+    },
+    {
+      "path": "authoring/reference_data/sync_research_models.py",
+      "sha256": "84d78a19cb33141d5e2fcc40eca38b935804ef8023a38d71be5c1a42396c6faa"
+    },
+    {
+      "path": "docs/wt/WT033_SOVIET_GERMAN_RESEARCH_TREE.md",
+      "sha256": "f52e98ce514bcb5890e24336f9e482e43b6542c510926e5c836212a94f3a0765"
+    },
+    {
+      "path": "export_presets.cfg",
+      "sha256": "7cefa9c629a03687e848df424362aae2d116585b7d95f817028b407d2eeb5893"
+    },
+    {
+      "path": "scripts/core/garage_shell.gd",
+      "sha256": "5859c54c0524205a85d6f19d9b5979e89927aefc1be9b5ecebb237eba1ad0977"
+    },
+    {
+      "path": "scripts/ui/garage_frontend.gd",
+      "sha256": "6690dd56389deb8ab5367418d38607c7fe129e565750b4f052d47e89e22edbb5"
+    },
+    {
+      "path": "scripts/ui/garage_frontend.gd.uid",
+      "sha256": "a0c8984fa9802291c53906b8d79e4724976c0d39186dff086e49691de3f932b1"
+    },
+    {
+      "path": "scripts/ui/garage_theme.gd",
+      "sha256": "cc2e6abaceee45770d25e3a5bdd65c427ef5d836effb214b871d97c5fbcce00a"
+    },
+    {
+      "path": "scripts/ui/garage_theme.gd.uid",
+      "sha256": "51f0f40b03779580c7d8bc28ee66a7494de3e87ddb2fc2740b50c7184ec24a14"
+    },
+    {
+      "path": "scripts/ui/research_model_view.gd",
+      "sha256": "dd45b60beab17305db4213c96bc314c9e8bfb052cb9ac1558dd47bbe4a484453"
+    },
+    {
+      "path": "scripts/ui/research_model_view.gd.uid",
+      "sha256": "680f36d29c64c3f8341b8c4863672d1211a104aec71ec11814d7ca40eb375d77"
+    },
+    {
+      "path": "scripts/ui/research_trial_drive.gd",
+      "sha256": "33813726fc65ac63cc7cac97e9b00e77a3647717e03039a294712072a01f9407"
+    },
+    {
+      "path": "scripts/ui/research_trial_drive.gd.uid",
+      "sha256": "eb27c078b6d46e7d20dc678bd3de6ed2f81c8259024826851566c7cf2d2e8041"
+    },
+    {
+      "path": "scripts/ui/vehicle_research_tree.gd",
+      "sha256": "672829a42d551b6aa77a1bac78d76c7ca81243b1f4fa43d819493fd47fb41350"
+    },
+    {
+      "path": "scripts/ui/vehicle_research_tree.gd.uid",
+      "sha256": "aa75cef8715b6758ba709763bf98afbbad413bd33b510586919431f38012ce2d"
+    },
+    {
+      "path": "tests/run_garage_frontend_checks.gd",
+      "sha256": "ef69ccce34986ae5bf6f0ad2b7c63b010f0f1852ff9d197969ac0968b706dcc1"
+    },
+    {
+      "path": "tests/run_garage_frontend_checks.gd.uid",
+      "sha256": "376689bbb6426998bb4cb1826362cf5840bc98b85e80aea668b2dce9598c9121"
+    },
+    {
+      "path": "tests/run_research_thumbnail_bake.gd",
+      "sha256": "4d7dc6c5e752161f4607c92d09e6fa92e14ee0ec43433f809807277fa3fe4791"
+    },
+    {
+      "path": "tests/run_research_thumbnail_bake.gd.uid",
+      "sha256": "8837c221e549f10f7f60de2ca0164332af8e4572933731566860e5c85d73539b"
+    },
+    {
+      "path": "tests/run_research_tree_checks.gd",
+      "sha256": "0f0352dcd070eb1eaea84b5072dd5a5389419d4c490075a77e623540f065b5c3"
+    },
+    {
+      "path": "tests/run_research_tree_checks.gd.uid",
+      "sha256": "82b1508775f28c14edc63679c7a95da9cd06bb2b11ff5c5f79116a618aeec29f"
+    },
+    {
+      "path": "tests/test_research_catalog.py",
+      "sha256": "7c0a77cf7725d8035a7a1d675d4158d0b62d3e431436a87781847070f22a78f0"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ],
+  "requirements_preserved": 42,
+  "human": "NOT_RUN",
+  "performance": "HOLD_BY_USER",
+  "release_ready": false,
+  "combat_admitted": false,
+  "scope": "Soviet German base family tree and isolated cosmetic trial"
+}

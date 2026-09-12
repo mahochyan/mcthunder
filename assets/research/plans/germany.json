@@ -1,0 +1,1096 @@
+{
+  "provenance": {
+    "nation": "germany",
+    "source_path": "E:/AIprogram/aimodel/_制作记录/德国/fleet_plan.json",
+    "sha256": "7a790d725e6119038428260d0b1818a1db34515031b3ea24443857399c81603b",
+    "base_count": 96
+  },
+  "mappings": [
+    {
+      "id": "germ_9a33bm3",
+      "family": "9a33bm3",
+      "base_id": "germ_9a33bm3",
+      "selection": "base"
+    },
+    {
+      "id": "germ_9a35_m",
+      "family": "9a35_m",
+      "base_id": "germ_9a35_m",
+      "selection": "base"
+    },
+    {
+      "id": "germ_amd_35_kwk",
+      "family": "AMD35",
+      "base_id": "germ_amd_35_kwk",
+      "selection": "base"
+    },
+    {
+      "id": "germ_amd_35_kwk39",
+      "family": "AMD35",
+      "base_id": "germ_amd_35_kwk",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_at_gun_flak36",
+      "family": "at_gun_flak36",
+      "base_id": "germ_at_gun_flak36",
+      "selection": "non_vehicle_reference"
+    },
+    {
+      "id": "germ_at_gun_pak36",
+      "family": "at_gun_pak36",
+      "base_id": "germ_at_gun_pak36",
+      "selection": "non_vehicle_reference"
+    },
+    {
+      "id": "germ_at_gun_pak38",
+      "family": "at_gun_pak38",
+      "base_id": "germ_at_gun_pak38",
+      "selection": "non_vehicle_reference"
+    },
+    {
+      "id": "germ_at_gun_pak40",
+      "family": "at_gun_pak40",
+      "base_id": "germ_at_gun_pak40",
+      "selection": "non_vehicle_reference"
+    },
+    {
+      "id": "germ_begleitpanzer_57",
+      "family": "begleitpanzer_57",
+      "base_id": "germ_begleitpanzer_57",
+      "selection": "base"
+    },
+    {
+      "id": "germ_bmp_1_ddr",
+      "family": "bmp_1_ddr",
+      "base_id": "germ_bmp_1_ddr",
+      "selection": "base"
+    },
+    {
+      "id": "germ_boxer_3105",
+      "family": "boxer_3105",
+      "base_id": "germ_boxer_3105",
+      "selection": "base"
+    },
+    {
+      "id": "germ_boxer_swatrinf",
+      "family": "boxer_swatrinf",
+      "base_id": "germ_boxer_swatrinf",
+      "selection": "base"
+    },
+    {
+      "id": "germ_erprobungstrager_3_achs_turm",
+      "family": "erprobungstrager_3_achs_turm",
+      "base_id": "germ_erprobungstrager_3_achs_turm",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_38t_Gepard",
+      "family": "flakpanzer_38t_Gepard",
+      "base_id": "germ_flakpanzer_38t_Gepard",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_IV_Kugelblitz",
+      "family": "flakpanzer_IV_Kugelblitz",
+      "base_id": "germ_flakpanzer_IV_Kugelblitz",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_IV_Ostwind",
+      "family": "东风",
+      "base_id": "germ_flakpanzer_IV_Ostwind",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_IV_Ostwind_2",
+      "family": "东风",
+      "base_id": "germ_flakpanzer_IV_Ostwind",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_flakpanzer_IV_Ostwind_2_net",
+      "family": "东风",
+      "base_id": "germ_flakpanzer_IV_Ostwind",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_flakpanzer_IV_Wirbelwind",
+      "family": "flakpanzer_IV_Wirbelwind",
+      "base_id": "germ_flakpanzer_IV_Wirbelwind",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_I_ausf_A",
+      "family": "flakpanzer_I_ausf_A",
+      "base_id": "germ_flakpanzer_I_ausf_A",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_V_Coelian",
+      "family": "flakpanzer_V_Coelian",
+      "base_id": "germ_flakpanzer_V_Coelian",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpanzer_zerstorer_45",
+      "family": "flakpanzer_zerstorer_45",
+      "base_id": "germ_flakpanzer_zerstorer_45",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flakpz_1a2_Gepard",
+      "family": "猎豹防空车",
+      "base_id": "germ_flakpz_I_Gepard",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_flakpz_I_Gepard",
+      "family": "猎豹防空车",
+      "base_id": "germ_flakpz_I_Gepard",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flarakpz_1",
+      "family": "flarakpz_1",
+      "base_id": "germ_flarakpz_1",
+      "selection": "base"
+    },
+    {
+      "id": "germ_flarakrad",
+      "family": "flarakrad",
+      "base_id": "germ_flarakrad",
+      "selection": "base"
+    },
+    {
+      "id": "germ_hummel",
+      "family": "hummel",
+      "base_id": "germ_hummel",
+      "selection": "base"
+    },
+    {
+      "id": "germ_infanterie_kampfpanzer_churchill",
+      "family": "infanterie_kampfpanzer_churchill",
+      "base_id": "germ_infanterie_kampfpanzer_churchill",
+      "selection": "base"
+    },
+    {
+      "id": "germ_iris_slm_fcs",
+      "family": "iris_slm_fcs",
+      "base_id": "germ_iris_slm_fcs",
+      "selection": "base"
+    },
+    {
+      "id": "germ_iris_slm_launcher",
+      "family": "iris_slm_launcher",
+      "base_id": "germ_iris_slm_launcher",
+      "selection": "base"
+    },
+    {
+      "id": "germ_jaguar_2",
+      "family": "jaguar_2",
+      "base_id": "germ_jaguar_2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_jgdpz_38t",
+      "family": "追猎者",
+      "base_id": "germ_jgdpz_38t",
+      "selection": "base"
+    },
+    {
+      "id": "germ_jgdpz_IV_L48",
+      "family": "四号坦克歼击车",
+      "base_id": "germ_jgdpz_IV_L48",
+      "selection": "base"
+    },
+    {
+      "id": "germ_kanonenjagdpanzer",
+      "family": "卡诺内坦克歼击车",
+      "base_id": "germ_kanonenjagdpanzer",
+      "selection": "base"
+    },
+    {
+      "id": "germ_kpz_70",
+      "family": "KPz70",
+      "base_id": "germ_kpz_70",
+      "selection": "base"
+    },
+    {
+      "id": "germ_kpz_t72m1",
+      "family": "kpz_t72m1",
+      "base_id": "germ_kpz_t72m1",
+      "selection": "base"
+    },
+    {
+      "id": "germ_kv_1_kwk_40",
+      "family": "kv_1_kwk_40",
+      "base_id": "germ_kv_1_kwk_40",
+      "selection": "base"
+    },
+    {
+      "id": "germ_kv_2_754r",
+      "family": "kv_2_754r",
+      "base_id": "germ_kv_2_754r",
+      "selection": "base"
+    },
+    {
+      "id": "germ_le_kpz_m41",
+      "family": "德军M41",
+      "base_id": "germ_le_kpz_m41",
+      "selection": "base"
+    },
+    {
+      "id": "germ_leichter_ladungstrager_303a",
+      "family": "leichter_ladungstrager_303a",
+      "base_id": "germ_leichter_ladungstrager_303a",
+      "selection": "base"
+    },
+    {
+      "id": "germ_leopard_1a5",
+      "family": "豹1",
+      "base_id": "germ_leopard_I",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2_pt14",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a4",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "base"
+    },
+    {
+      "id": "germ_leopard_2a4_pzbtl_123",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a4m_can",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a4m_can_sm",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a5",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a5_pso",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a5_yt_cup_2019",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a6",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2a7v",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2av",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2k",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_2pl",
+      "family": "豹2",
+      "base_id": "germ_leopard_2a4",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_I",
+      "family": "豹1",
+      "base_id": "germ_leopard_I",
+      "selection": "base"
+    },
+    {
+      "id": "germ_leopard_I_a1",
+      "family": "豹1",
+      "base_id": "germ_leopard_I",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_a1a1_120",
+      "family": "豹1",
+      "base_id": "germ_leopard_I",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_leopard_c2_mexas",
+      "family": "豹1",
+      "base_id": "germ_leopard_I",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_m109g",
+      "family": "m109g",
+      "base_id": "germ_m109g",
+      "selection": "base"
+    },
+    {
+      "id": "germ_m44",
+      "family": "m44",
+      "base_id": "germ_m44",
+      "selection": "base"
+    },
+    {
+      "id": "germ_m55",
+      "family": "m55",
+      "base_id": "germ_m55",
+      "selection": "base"
+    },
+    {
+      "id": "germ_marder_1a1",
+      "family": "黄鼠狼步战车",
+      "base_id": "germ_marder_1a1",
+      "selection": "base"
+    },
+    {
+      "id": "germ_marder_1a3",
+      "family": "黄鼠狼步战车",
+      "base_id": "germ_marder_1a1",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_marder_clovis",
+      "family": "黄鼠狼步战车",
+      "base_id": "germ_marder_1a1",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_marder_df_105",
+      "family": "marder_df_105",
+      "base_id": "germ_marder_df_105",
+      "selection": "base"
+    },
+    {
+      "id": "germ_mkpz_m47",
+      "family": "mkpz_m47",
+      "base_id": "germ_mkpz_m47",
+      "selection": "base"
+    },
+    {
+      "id": "germ_mkpz_m48a2c",
+      "family": "M48",
+      "base_id": "germ_mkpz_m48a2c",
+      "selection": "base"
+    },
+    {
+      "id": "germ_mkpz_m48a2ga2",
+      "family": "M48",
+      "base_id": "germ_mkpz_m48a2c",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_mkpz_super_m48",
+      "family": "M48",
+      "base_id": "germ_mkpz_m48a2c",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_nbfz_VI",
+      "family": "nbfz_VI",
+      "base_id": "germ_nbfz_VI",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panther_II",
+      "family": "黑豹II",
+      "base_id": "germ_panther_II",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panther_II_tutorial",
+      "family": "黑豹II",
+      "base_id": "germ_panther_II",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_panzerbefelhswagen_IV_ausf_J",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_panzerbefelhswagen_VI_P",
+      "family": "保时捷虎",
+      "base_id": "germ_pzkpfw_VI_tiger_P",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_panzerbefelhswagen_jagdpanther",
+      "family": "猎豹",
+      "base_id": "germ_panzerjager_panther",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_panzerjager_1",
+      "family": "panzerjager_1",
+      "base_id": "germ_panzerjager_1",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panzerjager_nashorn",
+      "family": "panzerjager_nashorn",
+      "base_id": "germ_panzerjager_nashorn",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panzerjager_panther",
+      "family": "猎豹",
+      "base_id": "germ_panzerjager_panther",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panzerjager_tiger",
+      "family": "猎虎",
+      "base_id": "germ_panzerjager_tiger",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panzerjager_tiger_P_elefant",
+      "family": "斐迪南",
+      "base_id": "germ_panzerjager_tiger_P_ferdinand",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_panzerjager_tiger_P_ferdinand",
+      "family": "斐迪南",
+      "base_id": "germ_panzerjager_tiger_P_ferdinand",
+      "selection": "base"
+    },
+    {
+      "id": "germ_panzerwerfer_42",
+      "family": "panzerwerfer_42",
+      "base_id": "germ_panzerwerfer_42",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pz_IV_L70",
+      "family": "四号坦克歼击车",
+      "base_id": "germ_jgdpz_IV_L48",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pz_IV_L70_A",
+      "family": "四号坦克歼击车",
+      "base_id": "germ_jgdpz_IV_L48",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzh_2000",
+      "family": "pzh_2000",
+      "base_id": "germ_pzh_2000",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_35t",
+      "family": "35t",
+      "base_id": "germ_pzkpfw_35t",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_35t_romania_mare",
+      "family": "35t",
+      "base_id": "germ_pzkpfw_35t",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_38t_Aufklarungspanzer",
+      "family": "pzkpfw_38t_Aufklarungspanzer",
+      "base_id": "germ_pzkpfw_38t_Aufklarungspanzer",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_38t_Marder_III",
+      "family": "黄鼠狼III",
+      "base_id": "germ_pzkpfw_38t_Marder_III",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_38t_Marder_III_ausf_H",
+      "family": "黄鼠狼III",
+      "base_id": "germ_pzkpfw_38t_Marder_III",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_38t_ausf_A",
+      "family": "38t",
+      "base_id": "germ_pzkpfw_38t_ausf_A",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_38t_ausf_F",
+      "family": "38t",
+      "base_id": "germ_pzkpfw_38t_ausf_A",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_38t_na",
+      "family": "38t",
+      "base_id": "germ_pzkpfw_38t_ausf_A",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_B",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_E",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_F",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_J",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_J_L42",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_J_td",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_L",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_M",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_III_ausf_N",
+      "family": "三号坦克",
+      "base_id": "germ_pzkpfw_III_ausf_B",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_II_ausf_C",
+      "family": "二号坦克",
+      "base_id": "germ_pzkpfw_II_ausf_C",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_II_ausf_C_DAK",
+      "family": "二号坦克",
+      "base_id": "germ_pzkpfw_II_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_II_ausf_C_td",
+      "family": "二号坦克",
+      "base_id": "germ_pzkpfw_II_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_II_ausf_F",
+      "family": "二号坦克",
+      "base_id": "germ_pzkpfw_II_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_II_ausf_H",
+      "family": "二号坦克",
+      "base_id": "germ_pzkpfw_II_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_C",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_E",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_F",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_F2",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_G",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_H",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_IV_ausf_J",
+      "family": "四号坦克",
+      "base_id": "germ_pzkpfw_IV_ausf_C",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_Maus",
+      "family": "鼠式",
+      "base_id": "germ_pzkpfw_Maus",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "family": "虎II",
+      "base_id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIh_kwk46",
+      "family": "虎II",
+      "base_id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIh_sla",
+      "family": "虎II",
+      "base_id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIp",
+      "family": "虎II",
+      "base_id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_e_tiger",
+      "family": "虎I",
+      "base_id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "family": "虎I",
+      "base_id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger_animal_version",
+      "family": "虎I",
+      "base_id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger_east",
+      "family": "虎I",
+      "base_id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger_west",
+      "family": "虎I",
+      "base_id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_VI_tiger_P",
+      "family": "保时捷虎",
+      "base_id": "germ_pzkpfw_VI_tiger_P",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_V_ausf_a_panther",
+      "family": "黑豹",
+      "base_id": "germ_pzkpfw_V_ausf_d_panther",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_V_ausf_d_panther",
+      "family": "黑豹",
+      "base_id": "germ_pzkpfw_V_ausf_d_panther",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzkpfw_V_ausf_f_panther",
+      "family": "黑豹",
+      "base_id": "germ_pzkpfw_V_ausf_d_panther",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_V_ausf_g_panther",
+      "family": "黑豹",
+      "base_id": "germ_pzkpfw_V_ausf_d_panther",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_V_ersatz_m10",
+      "family": "黑豹",
+      "base_id": "germ_pzkpfw_V_ausf_d_panther",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_pzkpfw_e_100",
+      "family": "E100超重型坦克",
+      "base_id": "germ_pzkpfw_e_100",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzsfl_IVa_dickermax",
+      "family": "pzsfl_IVa_dickermax",
+      "base_id": "germ_pzsfl_IVa_dickermax",
+      "selection": "base"
+    },
+    {
+      "id": "germ_pzsflk40_sturer_emil",
+      "family": "pzsflk40_sturer_emil",
+      "base_id": "germ_pzsflk40_sturer_emil",
+      "selection": "base"
+    },
+    {
+      "id": "germ_radpanzer_90",
+      "family": "radpanzer_90",
+      "base_id": "germ_radpanzer_90",
+      "selection": "base"
+    },
+    {
+      "id": "germ_raketenjagdpanzer_2",
+      "family": "火箭坦克歼击车2",
+      "base_id": "germ_raketenjagdpanzer_2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_raketenjagdpanzer_2_hot",
+      "family": "火箭坦克歼击车2",
+      "base_id": "germ_raketenjagdpanzer_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_ru251",
+      "family": "Ru251轻型坦克",
+      "base_id": "germ_ru251",
+      "selection": "base"
+    },
+    {
+      "id": "germ_schutzenpanzer_puma",
+      "family": "美洲狮步战车",
+      "base_id": "germ_schutzenpanzer_puma",
+      "selection": "base"
+    },
+    {
+      "id": "germ_schutzenpanzer_puma_vjtf",
+      "family": "美洲狮步战车",
+      "base_id": "germ_schutzenpanzer_puma",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_schutzenpanzer_puma_vjtf_mod",
+      "family": "美洲狮步战车",
+      "base_id": "germ_schutzenpanzer_puma",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_221_s_pz_b_41",
+      "family": "sdkfz_221_s_pz_b_41",
+      "base_id": "germ_sdkfz_221_s_pz_b_41",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sdkfz_222",
+      "family": "sdkfz_222",
+      "base_id": "germ_sdkfz_222",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sdkfz_234_1",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_234_2",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sdkfz_234_2_mod",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_234_2_td",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_234_3",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_234_4",
+      "family": "SdKfz234",
+      "base_id": "germ_sdkfz_234_2",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_251_10",
+      "family": "SdKfz251",
+      "base_id": "germ_sdkfz_251_9",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_251_21",
+      "family": "SdKfz251",
+      "base_id": "germ_sdkfz_251_9",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_251_22",
+      "family": "SdKfz251",
+      "base_id": "germ_sdkfz_251_9",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sdkfz_251_9",
+      "family": "SdKfz251",
+      "base_id": "germ_sdkfz_251_9",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sdkfz_6_2_flak36",
+      "family": "sdkfz_6_2_flak36",
+      "base_id": "germ_sdkfz_6_2_flak36",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sdkfz_9_flak37",
+      "family": "sdkfz_9_flak37",
+      "base_id": "germ_sdkfz_9_flak37",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sk105_a2",
+      "family": "sk105_a2",
+      "base_id": "germ_sk105_a2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sppz2_luchs_a2",
+      "family": "sppz2_luchs_a2",
+      "base_id": "germ_sppz2_luchs_a2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_spz_12_3",
+      "family": "spz_12_3",
+      "base_id": "germ_spz_12_3",
+      "selection": "base"
+    },
+    {
+      "id": "germ_spz_oerlikon_raketenautomat",
+      "family": "spz_oerlikon_raketenautomat",
+      "base_id": "germ_spz_oerlikon_raketenautomat",
+      "selection": "base"
+    },
+    {
+      "id": "germ_stug_III_ausf_A",
+      "family": "三号突击炮",
+      "base_id": "germ_stug_III_ausf_A",
+      "selection": "base"
+    },
+    {
+      "id": "germ_stug_III_ausf_F",
+      "family": "三号突击炮",
+      "base_id": "germ_stug_III_ausf_A",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_stug_III_ausf_G",
+      "family": "三号突击炮",
+      "base_id": "germ_stug_III_ausf_A",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_stuh_III_ausf_G",
+      "family": "三号突击炮",
+      "base_id": "germ_stug_III_ausf_A",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sturmmorser_sturmtiger",
+      "family": "突击虎",
+      "base_id": "germ_sturmmorser_sturmtiger",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sturmmorser_sturmtiger_event",
+      "family": "突击虎",
+      "base_id": "germ_sturmmorser_sturmtiger",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_sturmpanzer_II",
+      "family": "sturmpanzer_II",
+      "base_id": "germ_sturmpanzer_II",
+      "selection": "base"
+    },
+    {
+      "id": "germ_sturmpanzer_IV_brummbar",
+      "family": "灰熊",
+      "base_id": "germ_sturmpanzer_IV_brummbar",
+      "selection": "base"
+    },
+    {
+      "id": "germ_t_34_747",
+      "family": "t_34_747",
+      "base_id": "germ_t_34_747",
+      "selection": "base"
+    },
+    {
+      "id": "germ_th_400",
+      "family": "th_400",
+      "base_id": "germ_th_400",
+      "selection": "base"
+    },
+    {
+      "id": "germ_thyssen_henschel_tam",
+      "family": "TAM",
+      "base_id": "germ_thyssen_henschel_tam",
+      "selection": "base"
+    },
+    {
+      "id": "germ_thyssen_henschel_tam_2c",
+      "family": "TAM",
+      "base_id": "germ_thyssen_henschel_tam",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_thyssen_henschel_tam_2ip",
+      "family": "TAM",
+      "base_id": "germ_thyssen_henschel_tam",
+      "selection": "variant_reference"
+    },
+    {
+      "id": "germ_truck_sdkfz_6_2_tent",
+      "family": "truck_sdkfz_6_2_tent",
+      "base_id": "germ_truck_sdkfz_6_2_tent",
+      "selection": "base"
+    },
+    {
+      "id": "germ_vilkas",
+      "family": "vilkas",
+      "base_id": "germ_vilkas",
+      "selection": "base"
+    },
+    {
+      "id": "germ_vk_3002m",
+      "family": "VK30.02M",
+      "base_id": "germ_vk_3002m",
+      "selection": "base"
+    },
+    {
+      "id": "germ_vsw_flak_41",
+      "family": "vsw_flak_41",
+      "base_id": "germ_vsw_flak_41",
+      "selection": "base"
+    },
+    {
+      "id": "germ_vt_1_2",
+      "family": "vt_1_2",
+      "base_id": "germ_vt_1_2",
+      "selection": "base"
+    },
+    {
+      "id": "germ_waffentrager_krupp_steyr",
+      "family": "waffentrager_krupp_steyr",
+      "base_id": "germ_waffentrager_krupp_steyr",
+      "selection": "base"
+    },
+    {
+      "id": "germ_wiesel_1_mk20",
+      "family": "wiesel_1_mk20",
+      "base_id": "germ_wiesel_1_mk20",
+      "selection": "base"
+    },
+    {
+      "id": "germ_wiesel_1_tow",
+      "family": "wiesel_1_tow",
+      "base_id": "germ_wiesel_1_tow",
+      "selection": "base"
+    },
+    {
+      "id": "germ_wiesel_2_adwc",
+      "family": "wiesel_2_adwc",
+      "base_id": "germ_wiesel_2_adwc",
+      "selection": "base"
+    },
+    {
+      "id": "us_m4a2_1944_germ",
+      "family": "us_m4a2_1944_germ",
+      "base_id": "us_m4a2_1944_germ",
+      "selection": "base"
+    }
+  ]
+}
