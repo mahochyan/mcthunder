@@ -1,0 +1,15 @@
+{
+  "read_only": true,
+  "files": [
+    {
+      "path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_80b/制作中/状态.txt",
+      "sha256": "81b99e95490960ce7803cea749e200892e67824f5ce8aea8c47cfed34873b363",
+      "summary": "正在制作：不是最终验收版。\r\n几何检查：passed\r\n需要完成外形、平整性、完整性、表面细节和悬空面审阅。实际面数记录在build_report.json。\r\n"
+    },
+    {
+      "path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_2a4/verification.json",
+      "sha256": "677ff92c4340247f090744c54107ea4a08ca6c5df821bf28570aab885ae14c80",
+      "summary": "Geometry status PASS; not a delivered-model admission."
+    }
+  ]
+}

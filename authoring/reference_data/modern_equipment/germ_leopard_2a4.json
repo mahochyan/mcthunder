@@ -1,0 +1,95 @@
+{
+  "schema": "modern-equipment-draft-v1",
+  "id": "germ_leopard_2a4",
+  "admission_status": "candidate_only",
+  "historical_verified": false,
+  "source_candidate": {
+    "artifact": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
+    "sha256": "651a05634a30b408096f7d83532bb03c78abff8fbeaa1445b97fa31540bf6641"
+  },
+  "unresolved": [
+    "Reference summary does not establish installed laser rangefinder, thermal optics or stabilizer; IR is not thermal. Two-axis mode and measurement timing here are independently authored game choices.",
+    "External model is not admitted as delivered; binding, appearance and damage checks remain.",
+    "Combat geometry and damageable stabilizer module must be authored and validated before equipment admission.",
+    "Drive speeds/mass and shot loading policy remain unresolved; replenishment time is not reload time. These profiles neither supply engine horsepower physics nor copy hitPower into penetration."
+  ],
+  "drive_profile": {
+    "schema_version": 1,
+    "origin": "game_rule",
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "values": {
+      "power_falloff": 0.45,
+      "shift_seconds": 0.18,
+      "shift_power": 0.15,
+      "gear_count": 4,
+      "downshift_hysteresis": 0.08,
+      "grade_acceleration": 9.81,
+      "brake_scale": 1.0,
+      "coast_scale": 1.0,
+      "turn_speed_falloff": 0.35,
+      "turn_drag_per_second": 0.35,
+      "track_spacing_m": 2.9,
+      "neutral_turn": true,
+      "damaged_track_turn_scale": 0.25,
+      "pitch_degrees_per_acceleration": 0.18,
+      "pitch_limit_degrees": 1.5,
+      "pitch_response_rate": 8.0,
+      "landing_min_speed": 2.0,
+      "landing_restitution": 0.12,
+      "landing_max_rebound": 1.0,
+      "suspension_enabled": true,
+      "suspension_compression_m": 0.18,
+      "suspension_extension_m": 0.3,
+      "suspension_response_rate": 10.0,
+      "suspension_impact_scale": 0.28,
+      "suspension_angle_limit_degrees": 8.0,
+      "suspension_point_speed_limit": 4.0,
+      "suspension_contact_margin_m": 0.02
+    }
+  },
+  "optics_profile": {
+    "schema_version": 1,
+    "origin": "game_rule",
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "values": {
+      "sight_fovs": [
+        18,
+        6
+      ],
+      "sight_offset": [
+        0.35,
+        0.3,
+        0.1
+      ],
+      "binocular_fov": 12,
+      "binocular_offset": [
+        0,
+        2.8,
+        0
+      ],
+      "rangefinder_min_m": 25,
+      "rangefinder_max_m": 2500,
+      "rangefinder_resolution_m": 10,
+      "measurement_time_s": 0.6,
+      "measurement_valid_s": 15,
+      "zeroing_step_m": 50,
+      "zeroing_max_m": 2500
+    }
+  },
+  "fire_control_profile": {
+    "schema_version": 1,
+    "origin": "game_rule",
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "values": {
+      "provenance": "game_rule",
+      "pitch_accel_deg_s2": 40.0,
+      "yaw_accel_deg_s2": 80.0,
+      "pitch_brake_deg_s2": 60.0,
+      "yaw_brake_deg_s2": 120.0,
+      "response_time_s": 0.25,
+      "stabilizer_mode": "two_axis",
+      "speed_limit_mps": 15,
+      "speed_hysteresis_mps": 1
+    }
+  }
+}

@@ -160,6 +160,8 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 	for field in packet.facts:
 		if not packet.facts[field] is Dictionary: errors.append("facts."+field+": expected dictionary")
 	if not errors.is_empty(): return errors
+	errors.append_array(VehicleEquipmentProfiles.check(packet))
+	if not errors.is_empty(): return errors
 	errors.append_array(VehicleArmorLayers.check(packet))
 	if not errors.is_empty(): return errors
 	if g.wheel_count < 2 or int(g.wheel_count) != g.wheel_count: errors.append("geometry.wheel_count: expected whole wheel count >= 2")
@@ -217,6 +219,7 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 		"us_m24_m6_t85e1_1951":
 			v.drive_profile=preload("res://configs/drive/m24_design.tres")
 			v.optics_profile=preload("res://configs/optics/m24_design.tres")
+	VehicleEquipmentProfiles.apply(packet,v)
 	v.hull_turn_speed = r.hull_turn_speed; v.turret_yaw_speed = r.get("turret_yaw_speed",24.0)
 	v.turret_pitch_speed = r.get("turret_pitch_speed",10.0)
 	v.barrel_pitch_min = r.pitch_min; v.barrel_pitch_max = r.pitch_max

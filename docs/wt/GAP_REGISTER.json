@@ -95,7 +95,8 @@
       "requirements": "阶段：M1。职责：玩法/UI。依赖：WT-002, WT-003。\n\n把视线、观察点、炮手瞄准意图和炮管实际指向分离。实现自由观察、望远镜、炮镜缩放、准星刻度、测距与距离装定；镜位和倍率按车型配置。\n\n**交付**\n- OpticsProfile / AimIntent\n- 第三人称意图圈与实际炮口圈\n- 遮挡、镜位偏置、炮口被挡和远目标测试\n\n**验收**\n- 自由观察不会强制炮塔一直跟随\n- 测距与装定影响射击解，不是只改 HUD 字符串\n- 镜头可见但炮口受阻时反馈清楚；辅助信息按模式授权",
       "evidence": [
         "WT007_OPTICS.md",
-        "WT007_RANGE_AND_ZEROING.md"
+        "WT007_RANGE_AND_ZEROING.md",
+        "WT030_EQUIPMENT_PROFILES.md"
       ],
       "progress": "2026-09-12：M4A3/M24生产OpticsProfile、车型镜位/FOV、可改键望远镜和炮镜倍率、权威机械观察保持及HUD意图/实际炮口与未钳制方向偏差已接入。命令v2、网络握手/快照v3、相对姿态v1。最终窗口logs/WT007-optics/wip-uncommitted/window-20260912-134335记录26项、0失败、退出0，含联网对方实际网格可见性、观察中驾驶/机械保持及暂停/重置；真人NOT_RUN。性能专项继续暂缓。",
       "remaining": [
@@ -114,7 +115,8 @@
       "status": "in_progress",
       "requirements": "阶段：M1。职责：载具/火控程序。依赖：WT-006, WT-007。\n\n加入转动加速度/减速度、追随滞后、动态俯仰遮挡、无稳定/单向/双向稳定等能力，按车型设置速度与响应约束。受损后机构与相关系统能够降级。\n\n**交付**\n- FireControlProfile 与固定步长执行器\n- 意图方向、炮管方向、稳定器状态可观测记录\n- 同一路线移动与急停射击对比\n\n**验收**\n- 无稳定器车辆与具稳定能力的车辆产生可感知的开火时机差异\n- 准星稳定不等于炮管已对准；出炮由实际炮管状态决定\n- 视觉舒适选项不得移除实际武器限制",
       "evidence": [
-        "WT008_MECHANISM.md"
+        "WT008_MECHANISM.md",
+        "WT030_EQUIPMENT_PROFILES.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -342,7 +344,8 @@
         "WT030_BINDING_GATE.md",
         "WT030_MODEL_PACKAGE_BINDING.md",
         "WT012_COMPOSITE_LAYERS.md",
-        "WT012_REACTIVE_ARMOR.md"
+        "WT012_REACTIVE_ARMOR.md",
+        "WT030_EQUIPMENT_PROFILES.md"
       ],
       "human_accepted": false,
       "release_ready": false

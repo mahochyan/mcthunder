@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] available acceleration falls with road speed
+[PASS] upshift interrupts traction
+[PASS] downshift hysteresis prevents gear hunting near threshold
+[PASS] lower road speed permits a downshift
+[PASS] coasting stop clears drive state in the stopping step
+[PASS] coasting downshifts and refreshes engine state without a throttle input
+[PASS] opposite input brakes to zero without instant powered reversal
+[PASS] next step uses reverse engine acceleration, not brake strength
+[PASS] continuous signed grade affects drive before the impassable-slope cutoff
+[PASS] downhill/reverse engine remains within speed governor
+[PASS] released controls hold a stopped vehicle on a slope
+[PASS] invalid design curves rejected
+[PASS] two real historical actors load design profiles
+[MEASURE] 4s M4A3 distance=15.498 speed=7.318 gear=3; M24 distance=24.139 speed=11.451 gear=4
+[PASS] same actor commands produce distinguishable actual four-second acceleration distances
+[PASS] real vehicle drive updates powertrain bands
+[MEASURE] 6m/s brake M4A3 ticks=42 distance=2.068; M24 ticks=32 distance=1.587; reverse retreat=1.158/2.239
+[PASS] equal-speed real vehicles show different stopping time and distance
+[PASS] held reverse command brakes then withdraws both real vehicles
+[PASS] actor reset clears powertrain and motion together
+[MEASURE] M4A3 20deg actual ramp travel=1.948 speed=1.649 sampled_slope=20.000
+[PASS] historical M4A3 can start uphill on real 20-degree geometry with continuous load
+=== 结果: 19 项检查, 0 失败 ===
+POWERTRAIN_CHECKS_PASS

@@ -25,7 +25,7 @@ static func unit_for(field: String) -> String:
 		"mobility.forward_speed_mps": return "m/s"
 		"weapon.caliber_mm": return "mm"
 		"weapon.capacity": return "count"
-		"loading.profile", "equipment.loading": return "structured"
+		"loading.profile", "equipment.loading", "drive.profile", "optics.profile", "fire_control.profile", "equipment.stabilizer": return "structured"
 	return ""
 
 static func check_claim(field: String, value: Variant, packet: Dictionary, expected_unit: String = "") -> Array[String]:

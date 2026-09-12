@@ -1,0 +1,22 @@
+SCRIPT ERROR: Invalid assignment of property or key 'global_position' with value of type 'Vector3' on a base object of type 'Nil'.
+   at: CameraRig._update_camera_pose (res://scripts/camera_rig.gd:194)
+   GDScript backtrace (most recent call first):
+       [0] _update_camera_pose (res://scripts/camera_rig.gd:194)
+       [1] actor_case (res://tests/run_equipment_package_checks.gd:81)
+       [2] _frames (res://tests/run_reference_admission_checks.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'fov' on a base object of type 'Nil'.
+   at: actor_case (res://tests/run_equipment_package_checks.gd:83)
+   GDScript backtrace (most recent call first):
+       [0] actor_case (res://tests/run_equipment_package_checks.gd:83)
+       [1] _frames (res://tests/run_reference_admission_checks.gd:63)
+SCRIPT ERROR: Invalid assignment of property or key 'global_position' with value of type 'Vector3' on a base object of type 'Nil'.
+   at: CameraRig._update_camera_pose (res://scripts/camera_rig.gd:194)
+   GDScript backtrace (most recent call first):
+       [0] _update_camera_pose (res://scripts/camera_rig.gd:194)
+       [1] actor_case (res://tests/run_equipment_package_checks.gd:81)
+       [2] _frames (res://tests/run_reference_admission_checks.gd:63)
+SCRIPT ERROR: Invalid access to property or key 'fov' on a base object of type 'Nil'.
+   at: actor_case (res://tests/run_equipment_package_checks.gd:83)
+   GDScript backtrace (most recent call first):
+       [0] actor_case (res://tests/run_equipment_package_checks.gd:83)
+       [1] _frames (res://tests/run_reference_admission_checks.gd:63)
