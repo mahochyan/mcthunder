@@ -7,7 +7,7 @@
   "source_roadmap_sha256": "96801FBDF55279DB50461F87D03F8B03C2D2C274D68CE4931B5CF5F884EEDB24",
   "requirements_registry": "GAP_REGISTER.json",
   "execution_document": "REMAINING_WORK_PLAN_2026-09-12.md",
-  "verification": "已完成首批并行增量；2026-09-12用户要求后续不再使用子代理，由主代理单独按依赖实施。实际检查记录按增量保存，真人及完整版本验收分别登记。",
+  "verification": "2026-09-12用户最新允许恢复子代理，采用MCP外部委派；主集成者负责共享接口、验证和集成。实际检查记录按增量保存，真人及完整版本验收分别登记。",
   "performance": {
     "state": "HOLD_BY_USER",
     "resume_condition": "玩法/首发内容趋稳且用户解除性能暂停；正确性维护持续",
@@ -35,9 +35,9 @@
     "reference_cache": "E:/AIprogram/tank_data/cache",
     "model_source": "E:/AIprogram/aimodel",
     "external_source_policy": "只读快照、准确车型ID匹配；候选不冒充完整战斗车",
-    "execution_mode": "single_agent",
-    "subagents_allowed": false,
-    "parallel_lanes": []
+    "execution_mode": "mcp_external_delegation",
+    "subagents_allowed": true,
+    "parallel_lanes": ["有明确文件归属的实现", "独立只读审查与验证"]
   },
   "acceptance_gates": [
     "逻辑正确：生产规则及反例验证",
@@ -199,11 +199,11 @@
         "WT-010",
         "WT-011"
       ],
-      "current": "已有穿深曲线、厚度/cos、跳弹/续飞预算；弹族材料规则仍简化。",
-      "remaining": "分离弹族与材料响应、角度/尺寸关系、剩余能量或预算单位；完善AP/APHE/HE的用途。",
+      "current": "AP/APHE显式材质、角度修正和口径/名义板厚关系进入真实发射及连续预算；几何LOS与游戏抗力分离，旧规则兼容，详见WT012_MATERIAL_RESPONSE.md。",
+      "remaining": "HE及现代弹族、复合/反应材料、完整距离×角度×材料×弹族标定；本轮预算不是残余能量物理模型。",
       "deliverables": "ArmorResponseProfile/ShellResponseProfile、旧规则兼容、距离×角度×材料×弹族矩阵。",
       "acceptance": "未穿/跳弹/停止/续飞边界稳定；弹种选择有实际差异；不把设计公式当未公开史实。",
-      "execution_status": "planned",
+      "execution_status": "in_progress",
       "human_acceptance": "NOT_RUN"
     },
     {

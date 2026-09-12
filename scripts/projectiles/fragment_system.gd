@@ -74,7 +74,8 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 				budget -= float(committed.consumed_mm)
 				seen[DamageResolver.item_key(event)] = true
 			else:
-				var resolved := ArmorResolver.resolve(event,direction,{"base_mm":budget,"scale":1.0,"consumed_mm":0.0,"ricochets":0})
+				var resolved := ArmorResolver.resolve(event,direction,{"base_mm":budget,"scale":1.0,"consumed_mm":0.0,"ricochets":0,
+					"impact_profile":ArmorImpactProfile.fragment_profile(st.impact_profile),"fragment":true})
 				var recorded := event.duplicate(true)
 				recorded.merge(resolved,true); recorded["point_world"] = point
 				fragment.contacts.append(recorded)

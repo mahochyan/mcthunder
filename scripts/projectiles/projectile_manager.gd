@@ -150,6 +150,14 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "invalid_armor_policy"}
 
 	var st := ProjectileState.new()
+	var impact: Variant = spec.get("impact_profile", {})
+	if not ArmorImpactProfile.validate(impact, effect_policy).is_empty():
+		return {"ok":false,"projectile_id":0,"reason":"invalid_impact_profile"}
+	var caliber: Variant = spec.get("caliber_mm", 0.0)
+	if not impact.is_empty() and (not (caliber is float or caliber is int) or not is_finite(float(caliber)) or float(caliber)<=0.0):
+		return {"ok":false,"projectile_id":0,"reason":"invalid_impact_caliber"}
+	st.impact_profile = impact.duplicate(true)
+	st.caliber_mm = float(caliber) if caliber is float or caliber is int else 0.0
 	st.effect_policy = effect_policy
 	st.fuze_policy = fuze.duplicate(true)
 	st.projectile_id = _next_projectile_id
@@ -441,6 +449,7 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		result = ArmorResolver.resolve(ev, st.velocity_world, {
 			"base_mm": PenetrationCurve.sample_mm(st.penetration_curve, st.travelled_m),
 			"scale": st.budget_scale, "consumed_mm": st.consumed_mm, "ricochets": st.ricochets,
+			"impact_profile":st.impact_profile,"caliber_mm":st.caliber_mm,"effect_policy":st.effect_policy,
 		})
 		st.budget_scale = result.scale
 		st.consumed_mm = result.consumed_mm

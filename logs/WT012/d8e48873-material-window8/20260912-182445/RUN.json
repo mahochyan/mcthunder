@@ -1,0 +1,35 @@
+{
+  "base_commit": "d8e48873eb840df8e0bd1c3d1b07570842ce4888",
+  "command": "E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe --path \"E:/AIprogram/mcthunder\" --max-fps 60 -s res://tests/run_material_replay_checks.gd -- --material-capture-dir \"E:\\AIprogram\\mcthunder\\logs\\WT012\\d8e48873-material-window8\\20260912-182445\"",
+  "human": "NOT_RUN",
+  "source_files": [
+    {
+      "path": "scripts/armor/armor_impact_profile.gd",
+      "sha256": "4FFE1187CDCE1874E40AE05C99BAE75FBC3C54133045DC7E87F3A6EEB2B848CB"
+    },
+    {
+      "path": "scripts/armor/armor_resolver.gd",
+      "sha256": "755ECAA7C78A766CEA40D834A193ECD5617ABB9D428CD2916D5663527DA6A22F"
+    },
+    {
+      "path": "scripts/projectiles/projectile_manager.gd",
+      "sha256": "1D5FC38C6AADB304A9CD218C71339683E2081723F1690EF43631A0FC78CAB72F"
+    },
+    {
+      "path": "scripts/replay/shot_record_builder.gd",
+      "sha256": "7AFA64BC4EA2D6F38F194C58BEC1D3F9D60E006C02CCF31D642A790A64468200"
+    },
+    {
+      "path": "scripts/core/shot_explanation.gd",
+      "sha256": "EBF004846FB44094B33DBCE5F6E56544C6321FBACBB6FE616C19D1C30C8FCE94"
+    },
+    {
+      "path": "assets/localization/zh_CN.json",
+      "sha256": "0A00B00E8371A16D0D3453E802E21BE0760499DCE78DF5C674AB4F55B3870F65"
+    },
+    {
+      "path": "tests/run_material_replay_checks.gd",
+      "sha256": "71E5D4E2247CE731C4E7506C18EB879EEF68A9E582F0287E51EC26D46A624473"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "base_commit": "d8e48873eb840df8e0bd1c3d1b07570842ce4888",
+  "stage": "final integration capture; prior WIP runs retain their individual source provenance",
+  "requirements_preserved": 42,
+  "execution_mode": "mcp_external_delegation",
+  "mcp_readonly": "completed review",
+  "mcp_workspace": "external process setup failed; no code delivered; root implemented fix",
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "b97cda02c96bd304c4395c6b0dca807994f3162898f97b89e9f5578ee63ac9f6"
+    },
+    {
+      "path": "NEXT_ACTION.md",
+      "sha256": "1387d79af047d1ac2f3f1657716294b075bd96acd053545fd3eecec131aa8a1b"
+    },
+    {
+      "path": "assets/localization/zh_CN.json",
+      "sha256": "0a00b00e8371a16d0d3453e802e21be0760499dce78df5c674ab4f55b3870f65"
+    },
+    {
+      "path": "configs/shells/historical_loadouts.json",
+      "sha256": "f8ff15c8c889b07fb527a2d67a8352ac833db6348e09a3c294fd990fe468f07c"
+    },
+    {
+      "path": "docs/wt/EXECUTION_PLAN.json",
+      "sha256": "0dda9c1640ffb54ddfad622647e3ad113937efec409f4b38814a738f805b0db0"
+    },
+    {
+      "path": "docs/wt/GAP_REGISTER.json",
+      "sha256": "9b325e9b92fc0b4dc14b8497ca3507a480213f096c058e62c64741339db5ed69"
+    },
+    {
+      "path": "docs/wt/CURRENT_STATUS.md",
+      "sha256": "87be46f051e85af18b03923e25566f2667726a89890a1cfcabcaad7ef3a2b354"
+    },
+    {
+      "path": "docs/wt/WT012_MATERIAL_RESPONSE.md",
+      "sha256": "d95477d99736af423dbbbd5dfa1e326c855e89c0694a953adb526f314229d572"
+    },
+    {
+      "path": "scripts/armor/armor_impact_profile.gd",
+      "sha256": "4ffe1187cdce1874e40ae05c99bae75fbc3c54133045dc7e87f3a6eeb2b848cb"
+    },
+    {
+      "path": "scripts/armor/armor_impact_profile.gd.uid",
+      "sha256": "6cbdf8eadf345b787d2145db80565ac3e28bcfc01c7cda354729e713144196f0"
+    },
+    {
+      "path": "scripts/armor/armor_resolver.gd",
+      "sha256": "755ecaa7c78a766cea40d834a193ecd5617abb9d428cd2916d5663527da6a22f"
+    },
+    {
+      "path": "scripts/content/historical_shell_catalog.gd",
+      "sha256": "689ef9bfac5299766a71f85dd76f0c7ffb711c80d4fc7f6f600312f3f0c64e6c"
+    },
+    {
+      "path": "scripts/content/vehicle_shell_catalog.gd",
+      "sha256": "e73f783e246a1317d60d0cc2d5407108fb3fddceef2fd9e8d8d8b57559ff6315"
+    },
+    {
+      "path": "scripts/core/core_ui.gd",
+      "sha256": "df8cb77c63691bc5ee8b9fc55764d7ad906f835d6b54cfab47bafd840418479e"
+    },
+    {
+      "path": "scripts/core/garage_shell.gd",
+      "sha256": "9d53d35be09f4dd06289042654aa001eaee2e40c5debdbe5809d54aa416b2334"
+    },
+    {
+      "path": "scripts/core/shot_explanation.gd",
+      "sha256": "ebf004846fb44094b33dbce5f6e56544c6321fbacbb6fe616c19d1c30c8fce94"
+    },
+    {
+      "path": "scripts/defs/shell_definition.gd",
+      "sha256": "7c9dc5eeab795f690e2fd97abfcaa7c1e7c2dfdac65fab24d0b9747810d67935"
+    },
+    {
+      "path": "scripts/gunner.gd",
+      "sha256": "de4fd276d29319f581517c72d424bd3ddb80965fc0c5607d8d83d0b9d7d0f5b2"
+    },
+    {
+      "path": "scripts/projectiles/fragment_system.gd",
+      "sha256": "ba209dbbe0f489ea974499e6bcee683589f91d1a84f0b83753f074a65ed00b78"
+    },
+    {
+      "path": "scripts/projectiles/projectile_manager.gd",
+      "sha256": "1d5fc38c6aadb304a9cd218c71339683e2081723f1690ef43631a0fc78cab72f"
+    },
+    {
+      "path": "scripts/projectiles/projectile_state.gd",
+      "sha256": "45e9e6ea6c8fd44721f60db09b20797f0f36912d2ecd55206094bb843a655407"
+    },
+    {
+      "path": "scripts/projectiles/shell_fuze.gd",
+      "sha256": "faca6bc832058c47e90452c84b5216ddc86c1039d9a463c95fdc81b7ded4a301"
+    },
+    {
+      "path": "scripts/replay/shot_record_builder.gd",
+      "sha256": "7afa64bc4ea2d6f38f194c58bec1d3f9d60e006c02ccf31d642a790a64468200"
+    },
+    {
+      "path": "tests/run_reference_admission_checks.gd",
+      "sha256": "0ca691149258506a4b718ffaea03e2342e4d9d4ec2bf44a03f5be6ae0a69c05c"
+    },
+    {
+      "path": "tests/run_shell_checks.gd",
+      "sha256": "27d121a2739941a01ec77005e0affa0e05ffab1972e58396fd50205da4385c75"
+    },
+    {
+      "path": "tests/run_material_response_checks.gd",
+      "sha256": "deccc6cada1c0b35e9058254be7dc2e8aa309c10c6c26e38542145fd0a215aef"
+    },
+    {
+      "path": "tests/run_material_response_checks.gd.uid",
+      "sha256": "1d46b059111bc29f010075957932aab51426d98e8dc1f052eaf170cd080f4167"
+    },
+    {
+      "path": "tests/run_material_replay_checks.gd",
+      "sha256": "71e5d4e2247ce731c4e7506c18eb879eef68a9e582f0287e51ec26d46a624473"
+    },
+    {
+      "path": "tests/run_material_replay_checks.gd.uid",
+      "sha256": "1ea70a05a1b065972848594a17d485f515be37a2fdfeb46e6e0f08f43ddf055e"
+    }
+  ],
+  "evidence_roots": [
+    "logs/WT012/d8e48873-material-final5",
+    "logs/WT012/d8e48873-material-final6",
+    "logs/WT012/d8e48873-material-flow7",
+    "logs/WT012/d8e48873-material-window8",
+    "logs/WT012/d8e48873-material-wip1",
+    "logs/WT012/d8e48873-material-wip2",
+    "logs/WT012/d8e48873-material-wip3"
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ]
+}

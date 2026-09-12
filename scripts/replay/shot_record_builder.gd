@@ -58,7 +58,7 @@ static func freeze_geometry(snapshot: Dictionary) -> Dictionary:
 		for vertex in patch.vertices_local_m: vertices.append(transform*vertex)
 		frame.patches.append({"id":patch.id,"part_id":patch.part_id,"vertices_world":vertices,
 			"triangles":Array(patch.triangles),"normal_world":transform.basis*patch.outward_normal_local,
-			"has_thickness":patch.has_thickness,"thickness_mm":patch.thickness_mm,"thickness_status":patch.thickness_status})
+			"has_thickness":patch.has_thickness,"thickness_mm":patch.thickness_mm,"thickness_status":patch.thickness_status,"material_kind":patch.material_kind})
 	for kind in ["module","crew"]:
 		var items: Array = layout.modules if kind == "module" else layout.crew_stations
 		for item in items:
@@ -81,12 +81,13 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 			"shooter_team_id":st.shooter_team_id,"shot_id":st.shot_id,"projectile_id":st.projectile_id,"shell_id":st.shell_id,"seed":st.seed},
 		"launch":{"position_world":st.launch_position,"velocity_world":st.launch_velocity,"gravity_world":st.gravity_world,
 			"physics_tick":st.born_physics_tick,"armor_policy":st.armor_policy,"effect_policy":st.effect_policy,
-			"fuze_policy":st.fuze_policy.duplicate(true)},
+			"fuze_policy":st.fuze_policy.duplicate(true),"impact_profile":st.impact_profile.duplicate(true),"caliber_mm":st.caliber_mm},
 		"complete":complete,"unavailable_reason":reason,"path":st.replay_path.duplicate(true),
 		"frames":st.replay_frames.duplicate(true),"contacts":st.contacts.duplicate(true),
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
+	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=ArmorImpactProfile.VERSION
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
 	record.terminal.erase("burst")
@@ -120,6 +121,11 @@ static func validate(record: Dictionary) -> Dictionary:
 	if record.record_id != identity_key(record.identity): return _bad("record_identity_mismatch")
 	for key in ["position_world","velocity_world","gravity_world"]:
 		if not record.launch.get(key) is Vector3 or not record.launch[key].is_finite(): return _bad("invalid_launch")
+	var impact: Variant = record.launch.get("impact_profile", {})
+	if not ArmorImpactProfile.validate(impact,str(record.launch.get("effect_policy","kinetic"))).is_empty(): return _bad("invalid_impact_profile")
+	if not impact.is_empty() and (not _number(record.launch.get("caliber_mm")) or record.launch.caliber_mm<=0): return _bad("invalid_impact_caliber")
+	if not impact.is_empty() and versions.get("impact")!=ArmorImpactProfile.VERSION: return _bad("unsupported_impact_rules")
+	if impact.is_empty() and versions.has("impact"): return _bad("missing_impact_profile")
 	if not record.terminal.get("reason") is String or not _number(record.terminal.get("flight_time_s")): return _bad("invalid_terminal")
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
 	if record.path.is_empty() or record.path.size()>MAX_PATH_POINTS or record.frames.size()>MAX_GEOMETRY_FRAMES: return _bad("record_limits")
@@ -164,7 +170,48 @@ static func validate(record: Dictionary) -> Dictionary:
 			if not event.get("kind") is String or event.kind not in ["armor","module","crew"]: return _bad("invalid_event_kind")
 			var frame: Dictionary = record.frames[int(event.geometry_frame)]
 			if event.get("target_id","") != frame.entity_id or event.get("target_life_id",-1) != frame.life_id: return _bad("event_target_mismatch")
+	if record.complete and not impact.is_empty():
+		for contact in record.contacts:
+			var checked := _validate_impact_contact(record,contact,impact,contact.get("incoming_velocity"),false)
+			if not checked.ok: return checked
+		for fragment in record.get("fragments",[]):
+			for contact in fragment.contacts:
+				var checked := _validate_impact_contact(record,contact,ArmorImpactProfile.fragment_profile(impact),fragment.direction,true)
+				if not checked.ok: return checked
 	return {"ok":true}
+
+static func _validate_impact_contact(record: Dictionary, contact: Dictionary, profile: Dictionary, incoming: Variant, fragment: bool) -> Dictionary:
+	# Check frozen evidence only; never replay projectile motion or damage transactions.
+	var frame: Dictionary=record.frames[int(contact.geometry_frame)]
+	var patch := {}
+	for candidate in frame.patches:
+		if candidate.get("id")==contact.get("surface_id") and candidate.get("part_id")==contact.get("part_id"):
+			patch=candidate; break
+	if patch.is_empty(): return _bad("impact_missing_patch")
+	for key in ["has_thickness","thickness_status","material_kind"]:
+		if not patch.has(key) or contact.get(key)!=patch[key]: return _bad("impact_geometry_mismatch")
+	if not _same_number(contact.get("thickness_mm"),patch.get("thickness_mm")): return _bad("impact_geometry_mismatch")
+	if not incoming is Vector3 or not incoming.is_finite() or incoming.length_squared()<1e-12: return _bad("invalid_impact_direction")
+	if not contact.get("normal_world") is Vector3 or not contact.normal_world.is_finite() or contact.normal_world.distance_to(patch.normal_world)>0.001: return _bad("impact_normal_mismatch")
+	if not _number(contact.get("before_mm")) or contact.before_mm<0 or not _number(contact.get("ricochets")) or int(contact.ricochets)!=contact.ricochets or contact.ricochets<0: return _bad("invalid_impact_budget")
+	var prior_bounces := int(contact.ricochets)-(1 if contact.get("result")=="ricochet" else 0)
+	if prior_bounces<0: return _bad("invalid_impact_bounces")
+	var expected := ArmorResolver.resolve(contact,incoming,{"base_mm":contact.before_mm,"ricochets":prior_bounces,
+		"impact_profile":profile,"caliber_mm":record.launch.caliber_mm,"effect_policy":record.launch.get("effect_policy","kinetic"),"fragment":fragment})
+	for key in ["result","continue_flight","backface"]:
+		if contact.get(key)!=expected[key]: return _bad("impact_outcome_mismatch")
+	for key in ["angle_deg","effective_mm","before_mm","after_mm","speed_scale"]:
+		if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
+	for key in ["impact_profile_version","terminal_family","budget_unit","material_kind","overmatch"]:
+		if expected.has(key) and contact.get(key)!=expected[key]: return _bad("impact_profile_mismatch")
+	for key in ["path_thickness_mm","adjusted_angle_deg","material_multiplier"]:
+		if expected.has(key):
+			if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
+		elif contact.has(key): return _bad("unexpected_impact_value")
+	return {"ok":true}
+
+static func _same_number(a: Variant, b: Variant) -> bool:
+	return _number(a) and _number(b) and absf(float(a)-float(b))<=maxf(0.0001,absf(float(b))*0.00001)
 
 static func identity_key(identity: Dictionary) -> String:
 	return JSON.stringify([int(identity.round_id),identity.shooter_id,int(identity.shooter_life_id),int(identity.shot_id),int(identity.projectile_id)])

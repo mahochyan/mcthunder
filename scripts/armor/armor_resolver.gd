@@ -14,6 +14,11 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 	var base := float(budget.get("base_mm", -1.0))
 	var scale := float(out.scale)
 	var consumed := float(out.consumed_mm)
+	var profile: Variant = budget.get("impact_profile", {})
+	var fragment: bool = budget.get("fragment", false)
+	if not ArmorImpactProfile.validate(profile,str(budget.get("effect_policy","kinetic")),fragment).is_empty(): return out
+	var caliber: Variant = budget.get("caliber_mm",0.0)
+	if not profile.is_empty() and not fragment and (not (caliber is int or caliber is float) or not is_finite(float(caliber)) or float(caliber)<=0): return out
 	var normal: Vector3 = contact.get("normal_world", Vector3.ZERO)
 	if not direction.is_finite() or direction.length_squared() < 1e-12 \
 			or not normal.is_finite() or absf(normal.length() - 1.0) > 0.001 \
@@ -38,7 +43,23 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 		out.result = "grazing_unresolved"
 		return out
 	out.effective_mm = thickness / cos_angle
-	if float(out.angle_deg) >= GameConfig.ARMOR_RICOCHET_DEG - 1e-5:
+	var should_ricochet := float(out.angle_deg) >= GameConfig.ARMOR_RICOCHET_DEG - 1e-5
+	var cost := thickness / cos_angle
+	if not profile.is_empty():
+		out["impact_profile_version"] = ArmorImpactProfile.VERSION
+		out["terminal_family"] = profile.family
+		out["budget_unit"] = ArmorImpactProfile.UNIT
+		out["path_thickness_mm"] = thickness/cos_angle
+		var material := str(contact.get("material_kind","unknown"))
+		out["material_kind"] = material
+		var response := ArmorImpactProfile.response(profile,material,0.0 if fragment else float(caliber),thickness,float(out.angle_deg))
+		if not response.ok:
+			out.result=response.reason; return out
+		for key in ["adjusted_angle_deg","material_multiplier","overmatch"]: out[key]=response[key]
+		cost=float(response.resistance_mm)
+		should_ricochet=bool(response.ricochet)
+		out.effective_mm=cost
+	if should_ricochet:
 		if int(out.ricochets) >= GameConfig.ARMOR_MAX_RICOCHETS:
 			out.result = "ricochet_limit"
 			return out
@@ -51,7 +72,6 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 		out.after_mm = before * GameConfig.ARMOR_RICOCHET_BUDGET_SCALE
 		out.ricochets = int(out.ricochets) + 1
 		return out
-	var cost := thickness / cos_angle
 	out.effective_mm = cost
 	if before > cost + 1e-5:
 		out.result = "penetrated"

@@ -345,6 +345,8 @@ func try_fire() -> bool:
 		"armor_policy": shell.armor_policy,
 		"effect_policy": shell.effect_policy,
 		"fuze_policy": shell.fuze_policy.duplicate(true),
+		"impact_profile": shell.impact_profile.duplicate(true),
+		"caliber_mm": shell.caliber_mm,
 		"seed":hash(JSON.stringify([_current_round(),shooter_id,tank.life_id,next_shot_id])),
 		"penetration_curve": shell.penetration_curve.duplicate(),
 		"test_only": "TEST ONLY" in str(shell.source_refs),

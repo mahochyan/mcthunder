@@ -51,6 +51,10 @@ static func build(vehicle_packet: Dictionary, packet: Dictionary = {}) -> Dictio
 		var fuze_errors := ShellFuze.validate(fuze, data.effect_policy)
 		if not fuze_errors.is_empty(): errors.append_array(fuze_errors); continue
 		s.fuze_policy = fuze.duplicate(true)
+		var impact: Variant = data.get("impact_profile", {})
+		var impact_errors := ArmorImpactProfile.validate(impact, data.effect_policy)
+		if not impact_errors.is_empty(): errors.append_array(impact_errors); continue
+		s.impact_profile = impact.duplicate(true)
 		s.id = id+"_shell" if key == row.default else id+"_"+key
 		s.display_name = str(data.get("label",key)); s.allowed_vehicle_ids = [id]
 		s.caliber_mm = data.caliber_mm; s.muzzle_velocity_mps = data.muzzle_velocity_mps

@@ -157,9 +157,9 @@
     {
       "id": "WT-012",
       "title": "按弹族的穿透与跳弹规则",
-      "status": "not_verified_against_new_acceptance",
+      "status": "in_progress",
       "requirements": "阶段：M2。职责：战斗程序/数据。依赖：WT-010, WT-011。\n\n升级全局厚度/cos 与统一跳弹阈值：按动能弹族、装甲材料、角度与尺寸关系配置规则。保留旧测试规则版本；新的预算或残余能量模型必须有一致单位与消费契约。\n\n**交付**\n- ArmorResponseProfile 与 ShellResponseProfile\n- AP/APHE/HE 首批有取舍的规则集\n- 距离×角度×材料×弹族矩阵\n\n**验收**\n- 不同弹族不只是不同穿深整数\n- 不穿、跳弹、穿透停止、续飞有稳定可解释边界\n- 设计可解释性与可标定性优先，不宣称复制了未公开的原游戏内部公式",
-      "evidence": [],
+      "evidence": ["WT012_MATERIAL_RESPONSE.md"],
       "human_accepted": false,
       "release_ready": false
     },

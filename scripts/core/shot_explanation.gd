@@ -7,7 +7,12 @@ static func describe(record: Dictionary, target: VehicleActor) -> String:
 		lines.append(LocalizationService.text("ui_05df6d3bd66d") if not record.damage.is_empty() else LocalizationService.text("ui_befafc79e6cd"))
 	for contact in record.contacts:
 		lines.append(LocalizationService.text("ui_69a87e390eea") % [CoreUI.word(str(contact.get("surface_id",""))),CoreUI.word(str(contact.result)),contact.get("angle_deg",0)])
-		lines.append(LocalizationService.text("ui_47f51be2e1cb") % [contact.before_mm,contact.after_mm,contact.get("effective_mm",0)])
+		if contact.result=="unknown_material":
+			lines.append(LocalizationService.text("armor_unknown_material_detail"))
+		elif contact.get("budget_unit","")==ArmorImpactProfile.UNIT:
+			lines.append(LocalizationService.text("armor_game_budget_detail") % [contact.before_mm,contact.after_mm,contact.get("effective_mm",0),contact.get("path_thickness_mm",0)])
+		else:
+			lines.append(LocalizationService.text("ui_47f51be2e1cb") % [contact.before_mm,contact.after_mm,contact.get("effective_mm",0)])
 		if lines.size() >= 4: break
 	for damage in record.damage:
 		lines.append("%s：%s" % [CoreUI.word(str(damage.item_id)),CoreUI.word(str(damage.reason))])

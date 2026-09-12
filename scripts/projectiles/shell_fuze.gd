@@ -19,11 +19,13 @@ static func validate(policy: Variant, effect: String) -> Array[String]:
 	return errors
 
 static func arm(st: ProjectileState, event: Dictionary, result: Dictionary) -> void:
+	# Game trigger is one inward penetrated plate's geometric LOS; separated thin
+	# plates do not accumulate an arming thickness, and material resistance is not LOS.
 	if st.fuze_policy.is_empty() or st.fuze_due_age_s >= 0.0: return
 	# Only a successful inward perforation arms. Ricochet, unknown armor,
 	# blocked rounds and backfaces cannot borrow an earlier target's trigger.
 	if result.get("result") != "penetrated" or result.get("backface", true): return
-	if float(result.get("effective_mm", 0.0)) < float(st.fuze_policy.arming_thickness_mm): return
+	if float(result.get("path_thickness_mm", result.get("effective_mm", 0.0))) < float(st.fuze_policy.arming_thickness_mm): return
 	st.fuze_armed_age_s = st.age_s
 	st.fuze_due_age_s = st.age_s + float(st.fuze_policy.delay_s)
 	st.burst_target = event.duplicate(true)

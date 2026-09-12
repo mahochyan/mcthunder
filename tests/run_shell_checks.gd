@@ -8,7 +8,8 @@ class FuzeLaunchProbe extends Node:
 		for state: ProjectileState in manager.active_states():
 			if state.shooter_id==shooter_id and not seen.has(state.projectile_id):
 				seen[state.projectile_id]=true
-				records.append({"shell_id":state.shell_id,"fuze":state.fuze_policy.duplicate(true)})
+				records.append({"shell_id":state.shell_id,"fuze":state.fuze_policy.duplicate(true),
+					"impact":state.impact_profile.duplicate(true),"caliber_mm":state.caliber_mm})
 var checks := 0
 var failed := 0
 var world: Node3D
@@ -250,6 +251,7 @@ func historical_loadout_case(id: String) -> void:
 	check(gun.shots_fired==2 and gun.shell.id==gun.shell_options[alternate].id and gun.inventory.conserved() and gun.rounds_remaining==initial.available-2,id+": natural reload fires alternate with exact total debit")
 	var first_shell: ShellDefinition = gun.shell_options[1-alternate]
 	check(probe.records.size()==2 and probe.records[0].fuze==first_shell.fuze_policy and probe.records[1].fuze==gun.shell.fuze_policy and first_shell.fuze_policy.is_empty()!=gun.shell.fuze_policy.is_empty(),id+": real Gunner launch freezes AP/APHE policies in actual vehicle load order")
+	check(probe.records.size()==2 and not first_shell.impact_profile.is_empty() and probe.records[0].impact==first_shell.impact_profile and probe.records[1].impact==gun.shell.impact_profile and probe.records[0].caliber_mm==first_shell.caliber_mm and probe.records[1].caliber_mm==gun.shell.caliber_mm,id+": normal fire and natural reload preserve each shell impact response and caliber")
 	var alien := gun.shell_options[0].duplicate(true) as ShellDefinition; alien.allowed_vehicle_ids=["unrelated_vehicle"]
 	var before := gun.inventory.snapshot()
 	check(not gun.configure_shell_loadout([alien],{alien.id:10},alien.id) and gun.inventory.snapshot()==before,id+": incompatible historical shell cannot replace live ledger")

@@ -15,6 +15,7 @@ extends Resource
 @export var armor_policy: String = "resolve"
 @export var effect_policy: String = "kinetic"
 @export var fuze_policy: Dictionary = {}
+@export var impact_profile: Dictionary = {}
 @export var penetration_curve: PackedVector2Array = PackedVector2Array([Vector2(0, 60), Vector2(200, 50)])
 @export var gravity_scale: float = 1.0      # 006：重力倍率（0 = 无重力弹道）
 @export var max_flight_time_s: float = 8.0  # 006：最大飞行时间（模拟时间，>0）
@@ -26,6 +27,7 @@ extends Resource
 func validate() -> Dictionary:
 	var errors: Array[String] = []
 	errors.append_array(ShellFuze.validate(fuze_policy, effect_policy))
+	errors.append_array(ArmorImpactProfile.validate(impact_profile, effect_policy))
 	if effect_policy not in ["kinetic","internal_burst"]: errors.append("effect_policy: unsupported")
 	if effect_policy == "internal_burst" and armor_policy != "resolve": errors.append("internal_burst requires armor resolution")
 	if armor_policy not in ["resolve", "legacy_contact_only"]:

@@ -87,7 +87,21 @@
       "curve_status": "estimated",
       "effect_status": "game_rule",
       "historical_observations": "M3: 2030 ft/s; 3.1 in homogeneous and 2.6 in face-hardened plate at 1000 yd, 0 degrees (printed 103).",
-      "estimate_reason": "914.4m homogeneous anchor transcribed. Other ranges interpolate/extrapolate game estimates. No material-specific projectile failure model."
+      "estimate_reason": "914.4m homogeneous anchor transcribed. Other ranges interpolate/extrapolate game estimates. No material-specific projectile failure model.",
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "AP",
+        "normalization_deg": 4.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
+      }
     },
     "m61_m3": {
       "label": "M61 APC-T / APHE",
@@ -135,6 +149,20 @@
         "historical_value": null,
         "ruleset_id": "wt013-aphe-delay-design-v1",
         "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      },
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "APHE",
+        "normalization_deg": 2.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
       }
     },
     "m72_m6": {
@@ -175,7 +203,21 @@
       "effect_status": "game_rule",
       "historical_observations": "TM9-729 printed 345 Fig.197A ADC75-H-2 explicitly includes M6 on M24 and an M72 column. Table V printed 360 does not list M72.",
       "estimate_reason": "Technical compatibility from the M6 sight chart; 1951 field issue is unknown. M3 M72 velocity/penetration used as estimated M6 simulation transfer, not claimed as M6 test results.",
-      "issue_status": "unknown"
+      "issue_status": "unknown",
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "AP",
+        "normalization_deg": 4.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
+      }
     },
     "m61_m6": {
       "label": "M61 APC-T / APHE",
@@ -223,6 +265,20 @@
         "historical_value": null,
         "ruleset_id": "wt013-aphe-delay-design-v1",
         "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      },
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "APHE",
+        "normalization_deg": 2.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
       }
     },
     "m77_m3": {
@@ -262,7 +318,21 @@
       "curve_status": "estimated",
       "effect_status": "game_rule",
       "historical_observations": "SOIC PDF88 M3 column: 2700 ft/s, homogeneous 5.6 in at 500 yd and 4.8 in at 1000 yd at 20 degrees.",
-      "estimate_reason": "Angled thickness divided by cos(20 degrees) to calibrate the simple LOS game resolver; this is a game normalization, not a verified normal-impact test. Other ranges extrapolated."
+      "estimate_reason": "Angled thickness divided by cos(20 degrees) to calibrate the simple LOS game resolver; this is a game normalization, not a verified normal-impact test. Other ranges extrapolated.",
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "AP",
+        "normalization_deg": 4.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
+      }
     },
     "m82_m3_2800": {
       "label": "M82 APC-T 2800 / APHE",
@@ -311,6 +381,20 @@
         "historical_value": null,
         "ruleset_id": "wt013-aphe-delay-design-v1",
         "reason": "Independent gameplay initial values for arming and simulated delay; historical fuze values remain UNKNOWN. Not inferred from penetration, caliber, replenishment, or reference hitPower."
+      },
+      "impact_profile": {
+        "version": "wt012-full-caliber-v1",
+        "family": "APHE",
+        "normalization_deg": 2.0,
+        "overmatch_ratio": 3.0,
+        "ricochet_deg": 75.0,
+        "material_coefficients": {
+          "rolled": 1.0,
+          "cast": 0.95
+        },
+        "provenance": "game_rule",
+        "historical_value": null,
+        "reason": "Independent full-caliber gameplay initial response: nominal plate thickness, geometric LOS, and game RHA-equivalent budget are distinct. These coefficients and angle/size rules are not historical shell or steel performance."
       }
     }
   },

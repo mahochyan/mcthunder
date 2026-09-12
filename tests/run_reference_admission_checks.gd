@@ -183,6 +183,21 @@ func _garage_case(actor: VehicleActor, packet: Dictionary) -> void:
 	garage.queue_free(); await _frames(3)
 
 func _run() -> void:
+	var impact_packet := _fixture()
+	var impact_shell: Dictionary = impact_packet.shell_catalog.shells[0]
+	var impact := {"version":"wt012-full-caliber-v1","family":"AP","normalization_deg":4.0,
+		"overmatch_ratio":3.0,"ricochet_deg":75.0,"material_coefficients":{"rolled":1.0,"cast":0.95},
+		"provenance":"game_rule","reason":"TEST ONLY independent response evidence"}
+	impact_shell.impact_profile=impact.duplicate(true)
+	check(not VehicleShellCatalog.build(impact_packet).ok,"reference impact requires separate design evidence")
+	impact_shell.evidence.impact=_claim(impact.duplicate(true),"structured")
+	var impact_admitted := VehicleShellCatalog.build(impact_packet)
+	check(impact_admitted.ok and impact_admitted.options[0].impact_profile==impact,"matching impact evidence enters real shell definition")
+	impact_shell.impact_profile.material_coefficients.cast=1.0
+	check(not VehicleShellCatalog.build(impact_packet).ok,"material response cannot drift from its separate evidence")
+	check(impact_admitted.options[0].impact_profile.material_coefficients.cast==0.95,"admitted response freezes nested coefficients against source edits")
+	impact_shell.impact_profile.material_coefficients.cast=0.95; impact_shell.evidence.impact.status="verified"
+	check(not VehicleShellCatalog.build(impact_packet).ok,"game material response cannot claim historical verification")
 	var fuze_packet := _fixture(2)
 	var fuze_shell: Dictionary = fuze_packet.shell_catalog.shells[1]
 	var fuze := {"mode":"penetration_delay","arming_thickness_mm":8.0,"delay_s":0.003,"provenance":"game_rule","reason":"TEST ONLY separate game rule"}
