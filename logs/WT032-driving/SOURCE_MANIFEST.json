@@ -1,0 +1,84 @@
+{
+  "base_commit": "2724b27a7fe680b8666ee0a6945a5194411301d6",
+  "captured_at": "2026-09-13T01:00:29.2506291+08:00",
+  "source_files": [
+    {
+      "path": "assets/shaders/river_buildings.gdshader.uid",
+      "git_blob_sha1": "3b45eba0dc56b7d4979ed2ea77de3db481f6b941",
+      "working_tree_sha256": "3a86db2c824241a4cf9a24f1cfe5423797278e6101f53fb9f4ebb06072020b12"
+    },
+    {
+      "path": "scenes/maps/river_junction_range.tscn",
+      "git_blob_sha1": "0695864dae499f34b28c91b13e54abe38941575c",
+      "working_tree_sha256": "0d55dbfa04d80f2850ef91830a7d603ed56473aca0baeabf9b2f89f8a3c786e9"
+    },
+    {
+      "path": "scripts/core/app_flow.gd",
+      "git_blob_sha1": "fd44b8018c6e5cfb361c94aa15ad089ac9015aab",
+      "working_tree_sha256": "6c49b6dceb302a51b07a57ed58ab8e9bf73ad82d328618b994c80295caf4648e"
+    },
+    {
+      "path": "scripts/maps/river_junction_definition.gd",
+      "git_blob_sha1": "dd8696e87b4fb0512d21cfdbbc0b66077888c66e",
+      "working_tree_sha256": "4e4214a69cf274ada29c731d5fa231ed402da3720958e839942db491c2bdfa2c"
+    },
+    {
+      "path": "scripts/maps/river_junction_range.gd",
+      "git_blob_sha1": "8ecffa4ea87a2d54421c5824c4e3c7c251065921",
+      "working_tree_sha256": "adf8cc062f201e2db6afeed212a3a83f30bbbcba7f365684340f0ec315b88937"
+    },
+    {
+      "path": "scripts/maps/river_junction_range.gd.uid",
+      "git_blob_sha1": "ca169f4daaea978011c24d2e7d1e92e228318d9c",
+      "working_tree_sha256": "fcc2c062d22d3ed99a026c63fd5fdc0132911f4b6864cd52fec85121006b0fda"
+    },
+    {
+      "path": "scripts/maps/river_junction_world.gd",
+      "git_blob_sha1": "4547b1c76583613274d3e914a546c456d56def41",
+      "working_tree_sha256": "24fb7a0d92b830934c76a97e2d3e01ddc74883fbcdeb3ca6d127fb7c5c8c1295"
+    },
+    {
+      "path": "scripts/ui/garage_frontend.gd",
+      "git_blob_sha1": "eacccd776bfe524887be364466e3b3b189f76cde",
+      "working_tree_sha256": "3b4b7607e10877417baf465448e80133afd40b7a40202eef5e4f27f0eb963e23"
+    },
+    {
+      "path": "tests/run_river_driving_checks.gd",
+      "git_blob_sha1": "3af08fff6bf8abafc483589e7944198bba835fd0",
+      "working_tree_sha256": "9f83850846a5290c7cbd73f0850a0788a1945c245b8cfad0bae26a360ca1fa7b"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f",
+      "unchanged": true
+    }
+  ],
+  "test_results": "RESULTS.json"
+}

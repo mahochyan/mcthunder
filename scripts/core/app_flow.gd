@@ -360,6 +360,7 @@ func enter_laboratory(id: String) -> void:
 	var allowed := {"armor":"res://scenes/training/armor_range.tscn","ballistics":"res://scenes/training/ballistics_range.tscn","recovery":"res://scenes/training/recovery_range.tscn","terrain":"res://scenes/training/terrain_range.tscn","ai_drive":"res://scenes/training/ai_drive_range.tscn","ai_combat":"res://scenes/training/ai_combat_range.tscn","duel":"res://scenes/battle/duel_range.tscn","team":MapRegistry.scene_path("hill_village")}
 	allowed["historical"] = "res://scenes/training/ballistics_range.tscn"
 	allowed["shells"] = "res://scenes/training/shell_range.tscn"
+	allowed["river_drive"] = "res://scenes/maps/river_junction_range.tscn"
 	if not allowed.has(id): return
 	selected_vehicle_id = garage.selected_vehicle_id()
 	match_config = null; match_token = ""
@@ -404,7 +405,7 @@ func _enter_lab(path: String) -> void:
 	if is_instance_valid(garage): garage.free()
 	garage = null
 	training = candidate
-	if training is TeamRange or path == "res://scenes/training/ballistics_range.tscn":
+	if training is TeamRange or training is RiverJunctionRange or path == "res://scenes/training/ballistics_range.tscn":
 		training.selected_vehicle_id = selected_vehicle_id
 	if training is BallisticsRange: training.prepared_match = match_config
 	add_child(training)

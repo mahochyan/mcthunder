@@ -28,7 +28,9 @@ static func layout(team_size: int) -> Dictionary:
 static func river_z(x: float) -> float: return 32.0*sin(x/210.0)
 
 static func lane_x(lane: float,z: float) -> float:
-	return lane+28.0*sin(z/120.0)*smoothstep(70.0,150.0,absf(z))*clampf((760.0-absf(z))/100.0,0,1)
+	var street_alignment := 1.0
+	if lane==520.0: street_alignment=1.0-smoothstep(10.0,50.0,z)*(1.0-smoothstep(200.0,250.0,z))
+	return lane+28.0*sin(z/120.0)*smoothstep(70.0,150.0,absf(z))*clampf((760.0-absf(z))/100.0,0,1)*street_alignment
 
 static func road_distance(x: float,z: float) -> float:
 	var distance := INF
@@ -58,6 +60,33 @@ static func height(x: float,z: float) -> float:
 static func point(p: Vector2, lift: float=0.0) -> Vector3:
 	return Vector3(p.x,height(p.x,p.y)+lift,p.y)
 
+static func driving_stops(team_size: int=16) -> Array[Dictionary]:
+	var config := layout(team_size)
+	var stops: Array[Dictionary]=[
+		{"title":"南部部署场","xz":Vector2(-260,config.deployment_z)},
+		{"title":"北部部署场","xz":Vector2(260,-config.deployment_z),"yaw":PI}]
+	for lane in config.crossings:
+		stops.append({"title":"跨河通路 %d m"%lane,"xz":Vector2(lane,90)})
+	stops.append({"title":"A 采石场入口","xz":Vector2(lane_x(-520,210),210)})
+	stops.append({"title":"B 货运站入口","xz":Vector2(lane_x(0,-310),-310),"yaw":PI})
+	stops.append({"title":"C 河畔镇主街","xz":Vector2(520,185)})
+	return stops
+
+static func hard_cover() -> Array[Dictionary]:
+	var rows: Array[Dictionary]=[]
+	for depth in [480.0,680.0]:
+		for sign_z in [-1.0,1.0]:
+			for sector in [-260.0,260.0]:
+				var prefix := "Deployment_%d_%d"%[sector,depth*sign_z]
+				rows.append({"id":prefix+"_front","xz":Vector2(sector,sign_z*(depth-55)),"footprint":Vector2(152,16),"height":8.0})
+				for side in [-1,1]: rows.append({"id":prefix+"_wing"+str(side),"xz":Vector2(sector+side*73,sign_z*(depth-36)),"footprint":Vector2(10,35),"height":8.0})
+	for lane in [-520.0,0.0,520.0]:
+		for side in [-1,1]:
+			for z in [-110.0,105.0]: rows.append({"id":"BridgeCover_%d_%d_%d"%[lane,side,z],"xz":Vector2(lane_x(lane,z)+side*35,z),"footprint":Vector2(22,12),"height":3.2})
+	for x in [-285.0,285.0]:
+		for z in [-250.0,250.0]: rows.append({"id":"TransferCover_%d_%d"%[x,z],"xz":Vector2(x,z),"footprint":Vector2(32,12),"height":4.0})
+	return rows
+
 static func spawns(team_size: int, team: int) -> Array[Transform3D]:
 	var out: Array[Transform3D]=[]
 	var sign_z := 1.0 if team==1 else -1.0
@@ -66,7 +95,8 @@ static func spawns(team_size: int, team: int) -> Array[Transform3D]:
 	for i in team_size:
 		var sector := -1.0 if i<ceili(team_size/2.0) else 1.0
 		var slot := i%ceili(team_size/2.0)
-		var p := Vector2(sector*260.0+(float(slot%4)-1.5)*18.0,sign_z*(base_z+float(slot/4)*20.0))
+		var row := int(slot/4)
+		var p := Vector2(sector*260.0+(float(slot%4)-1.5)*18.0+row*9.0,sign_z*(base_z-row*20.0))
 		out.append(Transform3D(Basis.IDENTITY if team==1 else Basis(Vector3.UP,PI),point(p,0.15)))
 	return out
 

@@ -1,0 +1,132 @@
+{
+  "base_commit": "2724b27a7fe680b8666ee0a6945a5194411301d6",
+  "captured_at": "2026-09-13T01:00:28.3658270+08:00",
+  "scope": "River Junction single production vehicle driving; at most three capture points in both layouts",
+  "tests": [
+    {
+      "mode": "headless fixed simulation 60 Hz",
+      "log": "headless-final.log",
+      "passed": 34,
+      "exit_code": 0,
+      "failed": 0,
+      "source_note": "Before final UI-only hiding of inherited unbound inspector button; final UI checked by window-complete"
+    },
+    {
+      "mode": "actual 1280x720 window automated input",
+      "log": "window-complete.log",
+      "passed": 30,
+      "exit_code": 0,
+      "failed": 0,
+      "source_note": "Final source"
+    },
+    {
+      "passed": 127,
+      "failed": 0,
+      "exit_code": 0,
+      "mode": "headless regression",
+      "log": "app-flow.log"
+    },
+    {
+      "passed": 3,
+      "failed": 0,
+      "exit_code": 0,
+      "mode": "headless regression",
+      "log": "menu-handoff.log"
+    },
+    {
+      "mode": "headless survey regression",
+      "log": "survey-final.log",
+      "passed": 45,
+      "exit_code": 0,
+      "failed": 0,
+      "source_note": "Before town road alignment and final training UI-only adjustment; final driving verifies town road"
+    }
+  ],
+  "checks": {
+    "deployment_egress_routes": 2,
+    "hard_cover": 39,
+    "trees": 2654,
+    "complete_bridge_traversals": 5,
+    "spawn_line_of_sight_samples": 156,
+    "capture_points": [
+      "A",
+      "B",
+      "C"
+    ],
+    "vehicle": "production M4A3"
+  },
+  "screenshots": [
+    {
+      "visually_reviewed": true,
+      "sha256": "808e87817d678be5a7c98c8f2b23d506a7e0c8827ee4bbf75e138570550f938c",
+      "path": "docs/evidence/WT032-driving/window-complete/01_bridge_start.png"
+    },
+    {
+      "visually_reviewed": true,
+      "sha256": "872c53a02ba5edb4ed46c4716fd70138a245217428ab0fb175a163525dfed845",
+      "path": "docs/evidence/WT032-driving/window-complete/02_bridge_crossed.png"
+    },
+    {
+      "visually_reviewed": true,
+      "sha256": "afe9bcdbe75560ddd1a19d9110faed63a9076445566f44655f29b7f64ce74d70",
+      "path": "docs/evidence/WT032-driving/window-complete/03_deployment_menu.png"
+    },
+    {
+      "visually_reviewed": true,
+      "sha256": "6865921b10bef01b9cf7487e1a0f0126b44907002c1f54c73806fde41d72b516",
+      "path": "docs/evidence/WT032-driving/window-complete/04_town_driving.png"
+    },
+    {
+      "visually_reviewed": true,
+      "sha256": "005447133b170d096e2a7140205c37afce77c9ecdb6a2f79f33d4b191f5895fa",
+      "path": "docs/evidence/WT032-driving/window-complete/05_inner_layout.png"
+    },
+    {
+      "visually_reviewed": true,
+      "sha256": "32ac6c6af41946908d0d04814fd2cd6dbdb6c1f6cdbbac058dddb0c0626aae83",
+      "path": "docs/evidence/WT032-driving/window-complete/06_deployment_yard.png"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4",
+      "unchanged": true
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc",
+      "unchanged": true
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447",
+      "unchanged": true
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f",
+      "unchanged": true
+    }
+  ],
+  "limitations": {
+    "performance": "HOLD_BY_USER",
+    "remaining_work_packages_preserved": 42,
+    "battle_admitted": false,
+    "release_accepted": false,
+    "human_playtest": "NOT_RUN",
+    "art": "Functional environment prototype; BattleBit-level finish pending",
+    "multiplayer_20_32": "NOT_RUN",
+    "all_vehicle_traversal": "NOT_RUN"
+  }
+}

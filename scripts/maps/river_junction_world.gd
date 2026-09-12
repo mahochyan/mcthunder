@@ -11,7 +11,7 @@ var sphere := SphereMesh.new()
 func build(parent: Node3D) -> void:
 	root=parent; rng.seed=13092026
 	sphere.radial_segments=12; sphere.rings=7
-	_terrain(); _roads_and_river(); _districts(); _vegetation(); _lighting()
+	_terrain(); _roads_and_river(); _districts(); _defensive_positions(); _vegetation(); _lighting()
 	root.set_meta("river_junction_stats",stats.duplicate())
 
 func material(color: Color) -> StandardMaterial3D:
@@ -28,9 +28,13 @@ func finish(batch: StaticArtBatch,title: String, masonry: bool=false) -> MeshIns
 func box(batch: StaticArtBatch,p: Vector3,size: Vector3,color: Color,angle: float=0) -> void:
 	batch.mesh(cube,Transform3D(Basis(Vector3.UP,angle).scaled(size),p),color)
 
-func body(p: Vector3,size: Vector3,title: String) -> void:
+func body(p: Vector3,size: Vector3,title: String) -> StaticBody3D:
 	var node := StaticBody3D.new(); node.name=title; node.position=p; root.add_child(node)
+	node.collision_layer=GameConfig.LAYER_WORLD; node.collision_mask=0
 	var shape := CollisionShape3D.new(); var geometry := BoxShape3D.new(); geometry.size=size; shape.shape=geometry; node.add_child(shape)
+	WorldCollisionRules.tag(node,"building" if title=="BuildingShell" else "stone_wall")
+	DriveSurface.configure(node,"concrete")
+	return node
 
 func _terrain() -> void:
 	var mat := ShaderMaterial.new(); mat.shader=load("res://assets/shaders/river_ground.gdshader")
@@ -47,6 +51,15 @@ func _terrain() -> void:
 			st.generate_normals(); st.index()
 			var mesh := MeshInstance3D.new(); mesh.name="Terrain_%d_%d"%[tx,tz]; mesh.mesh=st.commit(); mesh.material_override=mat; root.add_child(mesh)
 			mesh.create_trimesh_collision(); stats.terrain_tiles+=1
+			var terrain_body := mesh.get_child(0) as StaticBody3D
+			WorldCollisionRules.tag(terrain_body,"terrain"); terrain_body.collision_mask=0
+			var strips: Array=[]
+			var tile := Rect2(tx-12,tz-12,224,224)
+			for line in RiverJunctionDefinition.road_lines():
+				for i in range(1,line.size()):
+					var extent := Rect2(line[i-1],Vector2.ZERO).expand(line[i]).grow(1)
+					if tile.intersects(extent): strips.append([line[i-1],line[i],7.5])
+			terrain_body.set_meta("drive_surface",{"kind":"grass","strips":strips})
 
 func ribbon(points: PackedVector2Array,width: float,tint: Color,title: String,level: float=8.09) -> MeshInstance3D:
 	var st := SurfaceTool.new(); st.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -74,12 +87,16 @@ func _roads_and_river() -> void:
 	for lane in RiverJunctionDefinition.LANES:
 		var z := RiverJunctionDefinition.river_z(lane)
 		box(batch,Vector3(lane,7.0,z),Vector3(23,2,104),Color("797c73"))
-		body(Vector3(lane,7.0,z),Vector3(23,2,104),"BridgeDeck")
+		# Foundations extend under the level road on both banks, past interpolated river-edge triangles.
+		body(Vector3(lane,7.0,z),Vector3(23,2,160),"BridgeDeck")
 		for side in [-1,1]:
 			box(batch,Vector3(lane+side*10.5,8.3,z),Vector3(1,.6,104),Color("99998b"))
+			body(Vector3(lane+side*10.5,8.3,z),Vector3(1,.6,104),"BridgeKerb")
 			for dz in range(-48,49,8):
 				box(batch,Vector3(lane+side*10.5,9.0,z+dz),Vector3(.16,1.2,.16),Color("555e59"))
-			for y in [8.8,9.5]: box(batch,Vector3(lane+side*10.5,y,z),Vector3(.12,.12,104),Color("6c736a"))
+			for y in [8.8,9.5]:
+				box(batch,Vector3(lane+side*10.5,y,z),Vector3(.12,.12,104),Color("6c736a"))
+				body(Vector3(lane+side*10.5,y,z),Vector3(.12,.12,104),"BridgeRail")
 		for dz in [-28,28]: box(batch,Vector3(lane,2,z+dz),Vector3(20,10,3),Color("666e66"))
 		stats.bridges+=1
 	# Two tracks, proper ballast, sleepers, rails and loading platform north of the river.
@@ -100,9 +117,13 @@ func house(batch: StaticArtBatch,p: Vector2,size: Vector3,tint: Color,roof_tint:
 	var center := Vector3(p.x,base+size.y*.5,p.y)
 	box(batch,center,size,tint)
 	box(batch,Vector3(p.x,base+.4,p.y),Vector3(size.x+.35,.8,size.z+.35),Color("7b7c70"))
-	body(center,size,"BuildingShell")
+	var building_body := body(center,size,"BuildingShell")
 	buildings.append(Rect2(p-Vector2(size.x,size.z)*.5,Vector2(size.x,size.z)))
 	var rise := size.x*.27
+	var roof_shape := CollisionShape3D.new(); var roof_hull := ConvexPolygonShape3D.new(); var roof_points := PackedVector3Array()
+	for side in [-1,1]:
+		roof_points.append(Vector3(-size.x*.5,size.y*.5,side*size.z*.5)); roof_points.append(Vector3(size.x*.5,size.y*.5,side*size.z*.5)); roof_points.append(Vector3(0,size.y*.5+rise,side*size.z*.5))
+	roof_hull.points=roof_points; roof_shape.shape=roof_hull; building_body.add_child(roof_shape)
 	var angle := atan2(rise,size.x*.5)
 	var roof_length := sqrt(pow(size.x*.5+.7,2)+pow(rise,2))
 	var gable := SurfaceTool.new(); gable.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -194,6 +215,33 @@ func _districts() -> void:
 	for i in 9: box(quarry,Vector3(-567+float(i%3)*10,9,180+float(i/3)*8),Vector3(8,2,6),Color("aea995"))
 	finish(quarry,"QuarryTerraces")
 
+func _defensive_positions() -> void:
+	var batch := StaticArtBatch.new(); stats["hard_cover"]=0
+	var architecture := buildings.duplicate()
+	for row in RiverJunctionDefinition.hard_cover():
+		var footprint := Rect2(row.xz-row.footprint*.5,row.footprint)
+		if architecture.any(func(rectangle: Rect2) -> bool: return rectangle.grow(3).intersects(footprint)): continue
+		var base := 8.0
+		for corner in [footprint.position,footprint.end,Vector2(footprint.end.x,footprint.position.y),Vector2(footprint.position.x,footprint.end.y)]: base=minf(base,RiverJunctionDefinition.height(corner.x,corner.y))
+		base-=1.0
+		var top: float=maxf(8.0,RiverJunctionDefinition.height(row.xz.x,row.xz.y))+float(row.height)
+		var points := PackedVector3Array()
+		for level in [0,1]:
+			var half: Vector2=row.footprint*.5-Vector2(2,2)*level
+			for offset in [Vector2(-half.x,-half.y),Vector2(half.x,-half.y),Vector2(half.x,half.y),Vector2(-half.x,half.y)]: points.append(Vector3(offset.x,base if level==0 else top,offset.y))
+		var st := SurfaceTool.new(); st.begin(Mesh.PRIMITIVE_TRIANGLES)
+		for face in [[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7],[4,5,6,7],[3,2,1,0]]:
+			for index in [0,1,2,0,2,3]: st.add_vertex(points[face[index]])
+		st.generate_normals()
+		var pose := Transform3D(Basis.IDENTITY,Vector3(row.xz.x,0,row.xz.y))
+		batch.mesh(st.commit(),pose,Color("7b775b"))
+		var collider := StaticBody3D.new(); collider.name=row.id; collider.position=pose.origin; collider.collision_layer=GameConfig.LAYER_WORLD; collider.collision_mask=0; root.add_child(collider)
+		var shape := CollisionShape3D.new(); var hull := ConvexPolygonShape3D.new(); hull.points=points; shape.shape=hull; collider.add_child(shape)
+		WorldCollisionRules.tag(collider,"stone_wall"); DriveSurface.configure(collider,"soft_soil")
+		buildings.append(footprint); stats.hard_cover+=1
+	var earthworks := finish(batch,"DefensiveEarthworks")
+	var ground_material := ShaderMaterial.new(); ground_material.shader=load("res://assets/shaders/river_ground.gdshader"); earthworks.material_override=ground_material
+
 func _vegetation() -> void:
 	var clusters := {}
 	for i in 6500:
@@ -228,6 +276,11 @@ func _vegetation() -> void:
 		instance.multimesh.instance_count=poses.size()
 		for i in poses.size(): instance.multimesh.set_instance_transform(i,poses[i])
 		root.add_child(instance); stats.trees+=poses.size()
+		var trunks := StaticBody3D.new(); trunks.name="TreeTrunks_%d_%d"%[key.x,key.y]; trunks.collision_layer=GameConfig.LAYER_WORLD; trunks.collision_mask=0; WorldCollisionRules.tag(trunks,"tree"); root.add_child(trunks)
+		for pose: Transform3D in poses:
+			var factor := pose.basis.get_scale().x
+			var shape := CollisionShape3D.new(); var cylinder := CylinderShape3D.new(); cylinder.radius=.32*factor; cylinder.height=7*factor
+			shape.shape=cylinder; shape.position=pose.origin+Vector3.UP*3.5*factor; trunks.add_child(shape)
 
 func append_smooth(st: SurfaceTool,mesh: Mesh,pose: Transform3D,tint: Color) -> void:
 	var arrays := mesh.surface_get_arrays(0)
