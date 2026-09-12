@@ -157,6 +157,8 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 	for field in packet.facts:
 		if not packet.facts[field] is Dictionary: errors.append("facts."+field+": expected dictionary")
 	if not errors.is_empty(): return errors
+	errors.append_array(VehicleArmorLayers.check(packet))
+	if not errors.is_empty(): return errors
 	if g.wheel_count < 2 or int(g.wheel_count) != g.wheel_count: errors.append("geometry.wheel_count: expected whole wheel count >= 2")
 	if int(packet.runtime.rounds) != packet.runtime.rounds: errors.append("runtime.rounds: expected whole round count")
 	if g.hull_rings.size() == 3:

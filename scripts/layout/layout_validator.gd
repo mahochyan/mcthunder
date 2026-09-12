@@ -8,7 +8,7 @@ extends RefCounted
 const CONTENT_TIERS := ["test", "research", "production"]
 const JOINT_KINDS := ["fixed", "yaw", "pitch"]
 const STATUS_VALUES := ["verified", "estimated", "unknown"]
-const MATERIAL_KINDS := ["rolled", "cast", "unknown"]
+const MATERIAL_KINDS := ["rolled", "cast", "composite", "unknown"]
 
 const REQUIRED_HISTORICAL_ROLES := [
 	"commander", "gunner", "loader", "driver", "assistant_driver_bow_gunner"
@@ -142,6 +142,8 @@ static func validate(layout: VehicleLayoutDefinition, evidence_keys: PackedStrin
 				errors.append(_err(path + ".geometry_status", "unknown status '%s'" % status_val))
 		if patch.material_kind not in MATERIAL_KINDS:
 			errors.append(_err(path + ".material_kind", "unknown '%s'" % patch.material_kind))
+		for issue in ArmorLayerProfile.validate(patch.response_profile, patch.material_kind):
+			errors.append(_err(path + ".response_profile", issue))
 		for key in patch.evidence_keys:
 			if not evidence_keys.has(key):
 				errors.append(_err(path + ".evidence_keys", "unknown evidence key '%s'" % key))

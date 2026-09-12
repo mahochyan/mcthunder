@@ -45,18 +45,25 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 	out.effective_mm = thickness / cos_angle
 	var should_ricochet := float(out.angle_deg) >= GameConfig.ARMOR_RICOCHET_DEG - 1e-5
 	var cost := thickness / cos_angle
+	var layer: Variant = contact.get("response_profile", {})
+	var material := str(contact.get("material_kind", "unknown"))
+	if not ArmorLayerProfile.validate(layer, material).is_empty():
+		out.result = "invalid_layer_profile"; return out
+	if material == "composite" and profile.is_empty():
+		out.result = "unknown_material"; return out
 	if not profile.is_empty():
 		out["impact_profile_version"] = profile.version
 		out["terminal_family"] = profile.family
 		out["budget_unit"] = ArmorImpactProfile.UNIT
 		out["path_thickness_mm"] = thickness/cos_angle
-		var material := str(contact.get("material_kind","unknown"))
 		out["material_kind"] = material
-		var response := ArmorImpactProfile.response(profile,material,0.0 if fragment else float(caliber),thickness,float(out.angle_deg))
+		var response := ArmorLayerProfile.response(layer,profile,thickness,float(out.angle_deg)) if material == "composite" else ArmorImpactProfile.response(profile,material,0.0 if fragment else float(caliber),thickness,float(out.angle_deg))
 		if not response.ok:
 			out.result=response.reason; return out
 		for key in ["adjusted_angle_deg","material_multiplier","overmatch"]: out[key]=response[key]
 		if response.has("angle_multiplier"): out["angle_multiplier"]=response.angle_multiplier
+		for key in ["layer_profile_version", "layer_channel"]:
+			if response.has(key): out[key] = response[key]
 		cost=float(response.resistance_mm)
 		should_ricochet=bool(response.ricochet)
 		out.effective_mm=cost

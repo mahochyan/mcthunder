@@ -162,7 +162,8 @@
       "evidence": [
         "WT012_MATERIAL_RESPONSE.md",
         "WT012_LONG_ROD_FOUNDATION.md",
-        "WT013_CHEMICAL_JET.md"
+        "WT013_CHEMICAL_JET.md",
+        "WT012_COMPOSITE_LAYERS.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -175,7 +176,8 @@
       "evidence": [
         "WT013_DELAYED_FUZE.md",
         "WT013_DIRECTIONAL_SPALL.md",
-        "WT013_CHEMICAL_JET.md"
+        "WT013_CHEMICAL_JET.md",
+        "WT012_COMPOSITE_LAYERS.md"
       ],
       "human_accepted": false,
       "release_ready": false
@@ -335,7 +337,8 @@
         "WT030_REFERENCE_DATA.md",
         "WT030_MODEL_INSPECTION.md",
         "WT030_BINDING_GATE.md",
-        "WT030_MODEL_PACKAGE_BINDING.md"
+        "WT030_MODEL_PACKAGE_BINDING.md",
+        "WT012_COMPOSITE_LAYERS.md"
       ],
       "human_accepted": false,
       "release_ready": false

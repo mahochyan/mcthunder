@@ -1,0 +1,109 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] definitions load
+[PASS] real target loads
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] 20 physical mm composite consumes40 chemical game mm
+[PASS] independent jet residual reaches actual engine through composite
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] geometry determines layer order independently of array order
+[PASS] actual gap and separate second chemical resistance consume shared jet budget
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] geometry determines layer order independently of array order
+[FAIL] actual gap and separate second chemical resistance consume shared jet budget
+[PASS] actual chemical shot produces valid complete replay
+[PASS] replay rejects mismatched frozen composite response: contact_profile
+[PASS] replay rejects mismatched frozen composite response: frame_profile
+[PASS] replay rejects mismatched frozen composite response: layer_version
+[PASS] replay rejects mismatched frozen composite response: layer_channel
+[PASS] replay rejects mismatched frozen composite response: coefficient
+[PASS] replay rejects mismatched frozen composite response: moved_layer
+[PASS] separate composite channel without full-bore overmatch: long_rod
+[PASS] composite angle rule retains geometry without steel normalization: long_rod
+[PASS] separate composite channel without full-bore overmatch: chemical
+[PASS] composite angle rule retains geometry without steel normalization: chemical
+[PASS] separate composite channel without full-bore overmatch: fragment
+[PASS] composite angle rule retains geometry without steel normalization: fragment
+[PASS] separate composite channel without full-bore overmatch: kinetic
+[PASS] composite angle rule retains geometry without steel normalization: kinetic
+[PASS] separate composite channel without full-bore overmatch: internal_burst
+[PASS] composite angle rule retains geometry without steel normalization: internal_burst
+[PASS] legacy shell cannot silently borrow composite rules
+[PASS] reject missing/mixed passive material rules
+[PASS] reject missing/mixed passive material rules
+[PASS] reject missing/mixed passive material rules
+[PASS] reject missing/mixed passive material rules
+[PASS] reject missing/mixed passive material rules
+[PASS] reject invalid composite channel 0
+[PASS] reject invalid composite channel -1
+[PASS] reject invalid composite channel inf
+[PASS] reject invalid composite channel 2
+[PASS] reject invalid composite channel true
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] real APFSDS carrier penetrates composite and disables actual module
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] actual spall ray resolves separately authored composite fragment channel
+[PASS] real inward long-rod impact produces spall that reaches separate liner geometry
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] actual chemical shot produces valid complete replay
+[PASS] shot evidence deep-copies nested armor rule
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] world wall blocks carrier or post-contact jet at 3.0
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] world wall blocks carrier or post-contact jet at 1.5
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] real exterior module contact triggers independent jet before hull armor
+[PASS] actual chemical shot produces valid complete replay
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] jet module damage respects actual match policy
+[PASS] real manager accepts explicit chemical fixture
+[PASS] finite carrier and terminal ray finish
+[PASS] damage callback stops jet and reset prevents late damage
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] reject missing or invalid chemical profile
+[PASS] chemical profile cannot be attached to APHE
+[PASS] declining carrier distance curve cannot masquerade as chemical budget
+[PASS] chemical response rejects kinetic rules
+[PASS] chemical response rejects kinetic rules
+[PASS] chemical response rejects kinetic rules
+[PASS] reject inconsistent chemical replay: budget
+[PASS] reject inconsistent chemical replay: path
+[PASS] reject inconsistent chemical replay: direction
+[PASS] reject inconsistent chemical replay: link
+[PASS] reject inconsistent chemical replay: time
+[PASS] reject inconsistent chemical replay: version
+[PASS] reject inconsistent chemical replay: damage_budget
+[PASS] reject inconsistent chemical replay: carrier_direction
+[PASS] reject inconsistent chemical replay: trigger_frame
+[PASS] production replay opens actual carrier and jet paths
+[PASS] chemical path hidden before actual trigger time
+[PASS] production replay shows jet without APHE sphere burst
+[PASS] viewing jet replay never repeats live damage
+=== 结果: 105 项检查, 1 失败 ===
+CHEMICAL_CHECKS_FAIL

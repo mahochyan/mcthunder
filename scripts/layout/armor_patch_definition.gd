@@ -17,7 +17,8 @@ extends Resource
 
 @export var has_thickness: bool = false
 @export var thickness_mm: float = 0.0
-@export var material_kind: String = "unknown"   # rolled / cast / unknown
+@export var material_kind: String = "unknown"   # rolled / cast / composite / unknown
+@export var response_profile: Dictionary = {}
 @export var geometry_status: String = "unknown" # verified / estimated / unknown
 @export var thickness_status: String = "unknown" # verified / estimated / unknown
 @export var evidence_keys: PackedStringArray = []

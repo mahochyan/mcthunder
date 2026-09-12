@@ -47,6 +47,7 @@ static func install(actor: VehicleActor, packet: Dictionary, layout: VehicleLayo
 	source.free()
 	checked.erase("scene")
 	TrackAssembly.install(actor,layout)
+	VehicleArmorLayers.install_bound_visuals(actor,packet,layout)
 	return checked
 
 static func _relative_pose(root: Node3D, node: Node3D) -> Transform3D:

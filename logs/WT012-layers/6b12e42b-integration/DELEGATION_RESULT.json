@@ -1,0 +1,21 @@
+{
+  "provider": "MCP DeepSeek readonly",
+  "attempts": [
+    {
+      "cell": "144",
+      "scope": "layer data flow and evidence analysis",
+      "status": "timed_out",
+      "timeout_seconds": 150,
+      "result": "DeepSeek worker timed out after 150s"
+    },
+    {
+      "cell": "166",
+      "scope": "bounded armor_layer_profile and vehicle_armor_layers review",
+      "status": "timed_out",
+      "timeout_seconds": 120,
+      "result": "DeepSeek worker timed out after 120s"
+    }
+  ],
+  "independent_review_passed": false,
+  "worker_implementation_delivered": false
+}

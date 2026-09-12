@@ -112,6 +112,7 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		c.role_placement_status = packet.facts["crew.placement"].status
 		c.evidence_keys = PackedStringArray(["crew.placement","geometry.crew"])
 		out.crew_stations.append(c)
+	VehicleArmorLayers.append_to(out,packet)
 	TrackAssembly.bind_layout(out)
 	return out
 
@@ -151,5 +152,6 @@ static func face(out: VehicleLayoutDefinition, packet: Dictionary, id: String, p
 	p.thickness_mm = float(armor.get("local_mm",evidence.value)) if p.has_thickness else 0.0
 	p.thickness_status = "estimated" if armor.has("local_mm") else evidence.status
 	p.geometry_status = "estimated"; p.material_kind = armor.get("material","rolled")
+	p.response_profile = armor.get("response_profile",{}).duplicate(true)
 	p.evidence_keys = PackedStringArray([armor.fact,"geometry.exterior"])
 	out.armor_patches.append(p)

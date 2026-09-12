@@ -58,7 +58,8 @@ static func freeze_geometry(snapshot: Dictionary) -> Dictionary:
 		for vertex in patch.vertices_local_m: vertices.append(transform*vertex)
 		frame.patches.append({"id":patch.id,"part_id":patch.part_id,"vertices_world":vertices,
 			"triangles":Array(patch.triangles),"normal_world":transform.basis*patch.outward_normal_local,
-			"has_thickness":patch.has_thickness,"thickness_mm":patch.thickness_mm,"thickness_status":patch.thickness_status,"material_kind":patch.material_kind})
+			"has_thickness":patch.has_thickness,"thickness_mm":patch.thickness_mm,"thickness_status":patch.thickness_status,"material_kind":patch.material_kind,
+			"response_profile":patch.response_profile.duplicate(true)})
 	for kind in ["module","crew"]:
 		var items: Array = layout.modules if kind == "module" else layout.crew_stations
 		for item in items:
@@ -170,6 +171,7 @@ static func validate(record: Dictionary) -> Dictionary:
 		if frame.patches.size()>MAX_PATCHES or frame.boxes.size()>MAX_BOXES: return _bad("geometry_limits")
 		for patch in frame.patches:
 			if not patch is Dictionary or not patch.get("vertices_world") is Array or not patch.get("triangles") is Array: return _bad("invalid_patch")
+			if not ArmorLayerProfile.validate(patch.get("response_profile",{}),str(patch.get("material_kind","unknown"))).is_empty(): return _bad("invalid_layer_profile")
 			if patch.vertices_world.size()<3 or patch.vertices_world.size()>1024 or patch.triangles.is_empty() or patch.triangles.size()%3 != 0: return _bad("invalid_triangles")
 			if not patch.get("normal_world") is Vector3 or not patch.normal_world.is_finite(): return _bad("invalid_normal")
 			for vertex in patch.vertices_world:
@@ -208,6 +210,9 @@ static func _validate_impact_contact(record: Dictionary, contact: Dictionary, pr
 		if candidate.get("id")==contact.get("surface_id") and candidate.get("part_id")==contact.get("part_id"):
 			patch=candidate; break
 	if patch.is_empty(): return _bad("impact_missing_patch")
+	if patch.get("material_kind") == "composite" and not _on_patch(contact.get("point_world"),patch): return _bad("impact_layer_position_mismatch")
+	if patch.get("response_profile",{}) != contact.get("response_profile",{}): return _bad("impact_layer_geometry_mismatch")
+	if not ArmorLayerProfile.validate(patch.get("response_profile",{}),str(patch.get("material_kind","unknown"))).is_empty(): return _bad("invalid_layer_profile")
 	for key in ["has_thickness","thickness_status","material_kind"]:
 		if not patch.has(key) or contact.get(key)!=patch[key]: return _bad("impact_geometry_mismatch")
 	if not _same_number(contact.get("thickness_mm"),patch.get("thickness_mm")): return _bad("impact_geometry_mismatch")
@@ -224,11 +229,29 @@ static func _validate_impact_contact(record: Dictionary, contact: Dictionary, pr
 		if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
 	for key in ["impact_profile_version","terminal_family","budget_unit","material_kind","overmatch"]:
 		if expected.has(key) and contact.get(key)!=expected[key]: return _bad("impact_profile_mismatch")
+	for key in ["layer_profile_version", "layer_channel"]:
+		if contact.get(key) != expected.get(key): return _bad("impact_layer_profile_mismatch")
 	for key in ["path_thickness_mm","adjusted_angle_deg","material_multiplier","angle_multiplier"]:
 		if expected.has(key):
 			if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
 		elif contact.has(key): return _bad("unexpected_impact_value")
 	return {"ok":true}
+
+static func _on_patch(point: Variant, patch: Dictionary) -> bool:
+	if not point is Vector3 or not point.is_finite(): return false
+	var normal: Vector3 = patch.normal_world
+	for i in range(0,patch.triangles.size(),3):
+		var a: Vector3=patch.vertices_world[patch.triangles[i]]
+		var b: Vector3=patch.vertices_world[patch.triangles[i+1]]
+		var c: Vector3=patch.vertices_world[patch.triangles[i+2]]
+		if absf((point-a).dot(normal))>0.0001: continue
+		var ab := b-a; var ac := c-a; var ap: Vector3=point-a
+		var denominator := ab.length_squared()*ac.length_squared()-pow(ab.dot(ac),2)
+		if denominator<=1e-12: continue
+		var u := (ac.length_squared()*ap.dot(ab)-ab.dot(ac)*ap.dot(ac))/denominator
+		var v := (ab.length_squared()*ap.dot(ac)-ab.dot(ac)*ap.dot(ab))/denominator
+		if u>=-0.0001 and v>=-0.0001 and u+v<=1.0001: return true
+	return false
 
 static func _same_number(a: Variant, b: Variant) -> bool:
 	return _number(a) and _number(b) and absf(float(a)-float(b))<=maxf(0.0001,absf(float(b))*0.00001)

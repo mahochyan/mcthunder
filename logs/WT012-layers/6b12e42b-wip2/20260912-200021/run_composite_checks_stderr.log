@@ -1,0 +1,4 @@
+SCRIPT ERROR: Parse Error: Cannot infer the type of "impact" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/run_composite_checks.gd:39)
+ERROR: Failed to load script "res://tests/run_composite_checks.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
