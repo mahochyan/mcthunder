@@ -9,6 +9,7 @@ var powertrain := DrivePowertrain.new()
 var tracks := TrackDrive.new()
 var chassis := ChassisResponse.new()
 var landing := LandingResponse.new()
+var suspension := SuspensionResponse.new()
 var fallback_definition := VehicleDefinition.new()
 var presentation_enabled := true
 var hull_frame: Node3D
@@ -167,6 +168,10 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	move_and_slide()
 	if not was_on_floor and is_on_floor():
 		landing.contact(incident_velocity,get_floor_normal(),definition.drive_profile)
+	if definition.drive_profile.suspension_enabled and track_probe_offsets.size()==2:
+		var contact := GroundProbe.sample(self,VehiclePose.flat_forward(global_basis),Vector2(size.x*0.42,size.z*0.53))
+		var impact := maxf(0.0,-incident_velocity.dot(get_floor_normal())) if not was_on_floor and is_on_floor() else 0.0
+		suspension.step(self,contact,delta,impact)
 	recoil_velocity *= attenuation
 	for i in get_slide_collision_count():
 		var normal := get_slide_collision(i).get_normal()
@@ -189,6 +194,7 @@ func reset() -> void:
 	tracks.reset()
 	chassis.reset()
 	landing.reset()
+	suspension.reset()
 	hull_frame.transform=Transform3D.IDENTITY
 	track_left_frame.transform=Transform3D.IDENTITY
 	track_right_frame.transform=Transform3D.IDENTITY

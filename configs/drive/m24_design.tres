@@ -15,3 +15,6 @@ track_spacing_m = 2.4
 pitch_degrees_per_acceleration = 0.16
 pitch_response_rate = 10.0
 landing_restitution = 0.14
+suspension_enabled = true
+suspension_response_rate = 12.0
+suspension_compression_m = 0.16

@@ -25,6 +25,9 @@ func run() -> void:
 	var authority: VehicleActor
 	for actor in server.world.actors:
 		if actor.entity_id==view.connection.entity_id: authority=actor
+	# Isolate pose transport from active terrain springs for this explicit fixture.
+	authority.tank.defs=authority.definition.duplicate(true)
+	authority.tank.defs.drive_profile.suspension_enabled=false
 	authority.tank.hull_frame.transform=Transform3D(Basis(Vector3.FORWARD,0.08),Vector3(0,-0.16,0))
 	authority.tank.track_left_frame.transform=Transform3D(Basis(Vector3.RIGHT,0.03),Vector3(0,0.07,0))
 	authority.tank.track_right_frame.transform=Transform3D(Basis(Vector3.RIGHT,-0.02),Vector3(0,-0.04,0))

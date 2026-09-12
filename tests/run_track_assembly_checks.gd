@@ -42,7 +42,10 @@ func run() -> void:
 		for i in 12: await physics_frame
 		var curb: Dictionary=tank.ground_state
 		check(curb.left_support==1 and curb.right_support==1 and curb.track_contacts.running_left.all(func(c: Dictionary) -> bool: return c.hit and is_equal_approx(c.position.y,0.25)) and curb.track_contacts.running_right.all(func(c: Dictionary) -> bool: return c.hit and absf(c.position.y)<0.001),"single-side curb records distinct terrain contacts " + id)
-		check(hull.transform==Transform3D.IDENTITY and left.transform==Transform3D.IDENTITY and right.transform==Transform3D.IDENTITY,"curb does not silently enable spring animation " + id)
+		if actor.definition.drive_profile.suspension_enabled:
+			check(right.position.y < -0.2 and hull.position.y < -0.01,"enabled suspension responds to measured curb " + id)
+		else:
+			check(hull.transform==Transform3D.IDENTITY and left.transform==Transform3D.IDENTITY and right.transform==Transform3D.IDENTITY,"unconfigured vehicles retain fixed frames " + id)
 		for side in [-1,1]:
 			actor.reset_vehicle()
 			for i in 5: await physics_frame

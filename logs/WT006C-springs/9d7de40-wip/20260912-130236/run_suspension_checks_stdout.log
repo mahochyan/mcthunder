@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual M4 and M24 production actors ready
+[PASS] sample vehicle enables suspension A
+[CURB] A hull=[X: (0.996807, -0.079852, 0.0), Y: (0.079852, 0.996807, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.089999, 0.0)] left=(0.0, 0.000003, 0.0) right=(0.0, -0.249997, 0.0) rates=[-0.0, -0.0, -0.00000101374971, -0.00000101374971]
+[PASS] unsprung sides follow real 25cm curb independently A
+[PASS] terrain changes actual hull height and roll A
+[PASS] parked suspension converges A
+[PASS] suspended hull armor and visual surfaces coincide A
+[PASS] weapon and shot query use sprung authority A
+[PASS] pause freezes spring state A
+[DROP] A compression=-0.09718400239944 impacts=1 hull=(0.0, -0.000058, 0.0) rates=[0.00000000000085, 0.00000000000085, 0.00000000000085, 0.00000000000085]
+[PASS] airborne running gear extends within travel A
+[PASS] real landing compresses sprung hull once A
+[PASS] spring travel and rigid poses remain bounded throughout drop A
+[PASS] landing returns to resting pose without recurring bounce A
+[PASS] respawn clears spring memory and relative hull pose A
+[PASS] sample vehicle enables suspension B
+[CURB] B hull=[X: (0.998062, -0.062224, 0.0), Y: (0.062224, 0.998062, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.079999, 0.0)] left=(0.0, 0.000003, 0.0) right=(0.0, -0.249997, 0.0) rates=[-0.0, -0.0, -0.00000084315348, -0.00000084315348]
+[PASS] unsprung sides follow real 25cm curb independently B
+[PASS] terrain changes actual hull height and roll B
+[PASS] parked suspension converges B
+[PASS] suspended hull armor and visual surfaces coincide B
+[PASS] weapon and shot query use sprung authority B
+[PASS] pause freezes spring state B
+[DROP] B compression=-0.07298653572798 impacts=1 hull=(0.0, -0.000006, 0.0) rates=[0.0, 0.0, 0.0, 0.0]
+[PASS] airborne running gear extends within travel B
+[PASS] real landing compresses sprung hull once B
+[PASS] spring travel and rigid poses remain bounded throughout drop B
+[PASS] landing returns to resting pose without recurring bounce B
+[PASS] respawn clears spring memory and relative hull pose B
+[PASS] invalid suspension tuning fails admission
+=== 结果: 26 项检查, 0 失败 ===
+SUSPENSION_CHECKS_PASS

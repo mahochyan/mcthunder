@@ -31,6 +31,9 @@ func run() -> void:
 	check(snap.version==2 and snap.match_id==scene.director.state.match_id and snap.vehicles.size()==8,"versioned snapshot identifies actual match and all live roster vehicles")
 	check(snap.vehicles.all(func(row: Dictionary) -> bool: return VehicleFramePose.valid(row.get("frame_pose"))),"snapshot includes every vehicle's relative hull and running gear poses")
 	var own: Dictionary = snap.vehicles.filter(func(v: Dictionary) -> bool: return v.entity_id==actor.entity_id)[0]
+	check(own.suspension==actor.tank.suspension.snapshot() and own.suspension.version==1,"snapshot captures same-tick spring integration state")
+	own.suspension.displacement[0]=999.0
+	check(actor.tank.suspension.displacement[0]!=999.0 and scene.simulation_snapshot.read().vehicles.all(func(row: Dictionary) -> bool: return row.suspension.displacement[0]!=999.0),"spring arrays are isolated from snapshot consumers")
 	check(own.position==actor.tank.global_position and own.cooldown==actor.gunner.cooldown_left and own.ammunition==actor.gunner.inventory.shell_counts(),"snapshot observes committed movement and weapon state")
 	check(snap.elapsed==scene.director.state.elapsed and snap.tickets==scene.director.state.tickets,"snapshot observes current director tick rather than previous match state")
 	snap.vehicles[0].position=Vector3.INF; snap.tickets[1]=-99

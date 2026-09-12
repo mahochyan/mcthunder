@@ -1,0 +1,87 @@
+WorkerThreadPool: 16 threads, 4 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/run_simulation_phase_checks.gd remapped: res://tests/run_simulation_phase_checks.gd
+Loading resource: res://assets/fonts/NotoSansCJKsc-Regular.otf remapped: res://assets/fonts/NotoSansCJKsc-Regular.otf
+Loading resource: res://.godot/imported/NotoSansCJKsc-Regular.otf-234b66ec4f6090cf3cb4fe9bcf1a8765.fontdata remapped: res://.godot/imported/NotoSansCJKsc-Regular.otf-234b66ec4f6090cf3cb4fe9bcf1a8765.fontdata
+Completed load for: 'res://assets/fonts/NotoSansCJKsc-Regular.otf' remapped 'res://assets/fonts/NotoSansCJKsc-Regular.otf' at thread -1
+Loading resource: res://configs/drive/m4a3_design.tres remapped: res://configs/drive/m4a3_design.tres
+Completed load for: 'res://configs/drive/m4a3_design.tres' remapped 'res://configs/drive/m4a3_design.tres' at thread -1
+Loading resource: res://configs/drive/m24_design.tres remapped: res://configs/drive/m24_design.tres
+Completed load for: 'res://configs/drive/m24_design.tres' remapped 'res://configs/drive/m24_design.tres' at thread -1
+Completed load for: 'res://tests/run_simulation_phase_checks.gd' remapped 'res://tests/run_simulation_phase_checks.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+MbedTLS: Some X509 certificates could not be parsed (1 certificates skipped).
+Loaded system CA certificates
+Loading resource: res://configs/player_tank_vehicle.tres remapped: res://configs/player_tank_vehicle.tres
+Completed load for: 'res://configs/player_tank_vehicle.tres' remapped 'res://configs/player_tank_vehicle.tres' at thread -1
+Loading resource: res://configs/player_tank_weapon.tres remapped: res://configs/player_tank_weapon.tres
+Completed load for: 'res://configs/player_tank_weapon.tres' remapped 'res://configs/player_tank_weapon.tres' at thread -1
+Loading resource: res://configs/ap_75_shell.tres remapped: res://configs/ap_75_shell.tres
+Completed load for: 'res://configs/ap_75_shell.tres' remapped 'res://configs/ap_75_shell.tres' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://scenes/tank.tscn remapped: res://scenes/tank.tscn
+Completed load for: 'res://scenes/tank.tscn' remapped 'res://scenes/tank.tscn' at thread -1
+Loading resource: res://configs/layouts/test_player_vehicle_layout.tres remapped: res://configs/layouts/test_player_vehicle_layout.tres
+Completed load for: 'res://configs/layouts/test_player_vehicle_layout.tres' remapped 'res://configs/layouts/test_player_vehicle_layout.tres' at thread -1
+Loading resource: res://assets/audio/engine.wav remapped: res://assets/audio/engine.wav
+Loading resource: res://.godot/imported/engine.wav-13a2907be8290064892a1d44408db00f.sample remapped: res://.godot/imported/engine.wav-13a2907be8290064892a1d44408db00f.sample
+Completed load for: 'res://assets/audio/engine.wav' remapped 'res://assets/audio/engine.wav' at thread -1
+Loading resource: res://assets/audio/turret.wav remapped: res://assets/audio/turret.wav
+Loading resource: res://.godot/imported/turret.wav-3aae4af4585a925a5566262cfbca53f3.sample remapped: res://.godot/imported/turret.wav-3aae4af4585a925a5566262cfbca53f3.sample
+Completed load for: 'res://assets/audio/turret.wav' remapped 'res://assets/audio/turret.wav' at thread -1
+Loading resource: res://assets/audio/tracks.wav remapped: res://assets/audio/tracks.wav
+Loading resource: res://.godot/imported/tracks.wav-a6cd79a1c4f9ba32206df8679694171c.sample remapped: res://.godot/imported/tracks.wav-a6cd79a1c4f9ba32206df8679694171c.sample
+Completed load for: 'res://assets/audio/tracks.wav' remapped 'res://assets/audio/tracks.wav' at thread -1
+[PASS] same-tick driving prevents nearly-complete parked resupply
+[PASS] versioned snapshot identifies actual match and all live roster vehicles
+[PASS] snapshot includes every vehicle's relative hull and running gear poses
+[PASS] snapshot captures same-tick spring integration state
+[PASS] spring arrays are isolated from snapshot consumers
+[PASS] snapshot observes committed movement and weapon state
+[PASS] snapshot observes current director tick rather than previous match state
+[PASS] consumer cannot mutate authoritative cached snapshot
+[PASS] pause stops snapshot sequence with simulation
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] final snapshot includes same-tick match result
+[PASS] finished match retains one final snapshot without endless copying
+=== 结果: 11 项检查, 0 失败 ===
+SIMULATION_PHASE_CHECKS_PASS
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

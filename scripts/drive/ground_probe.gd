@@ -19,7 +19,8 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 		var authored: bool = pair.x!=0 and body.track_probe_offsets.has(part)
 		if authored:
 			offset=body.track_probe_offsets[part][0 if pair.y>0 else 1]
-			base=frame.to_global(offset)
+			# Anchor rays to drive-rest coordinates, not last step's animated travel.
+			base=body.to_global(offset)
 		var contact := {"id":"front" if pair.y>0 else "rear","hit":false,"supported":false,"position":Vector3.ZERO,"normal":Vector3.UP,"gap_m":INF}
 		if pair.x!=0: out.track_contacts[part].append(contact)
 		var query := PhysicsRayQueryParameters3D.create(base+Vector3.UP*GameConfig.DRIVE_PROBE_UP_M,base-Vector3.UP*GameConfig.DRIVE_PROBE_DOWN_M,GameConfig.LAYER_WORLD,[body.get_rid()])
@@ -28,6 +29,10 @@ static func sample(body: TankVehicle, direction: Vector3, half_size: Vector2) ->
 		var gap := absf(frame.to_local(hit.position).y-offset.y) if authored else absf(body.to_local(hit.position).y)
 		contact.hit=true; contact.position=hit.position; contact.normal=hit.normal; contact.gap_m=gap
 		contact.supported=body.is_on_floor() and gap<=GameConfig.DRIVE_SUPPORT_REACH_M
+		if authored and body.defs.drive_profile.suspension_enabled:
+			var travel := body.to_local(hit.position).y-offset.y
+			var margin := body.defs.drive_profile.suspension_contact_margin_m
+			contact.supported=body.is_on_floor() and travel>=-body.defs.drive_profile.suspension_extension_m-margin and travel<=body.defs.drive_profile.suspension_compression_m+margin
 		out.points.append(hit.position)
 		out.normals.append(hit.normal)
 		sum += hit.normal

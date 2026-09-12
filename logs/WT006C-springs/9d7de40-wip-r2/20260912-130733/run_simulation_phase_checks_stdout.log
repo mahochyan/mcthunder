@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] same-tick driving prevents nearly-complete parked resupply
+[PASS] versioned snapshot identifies actual match and all live roster vehicles
+[PASS] snapshot includes every vehicle's relative hull and running gear poses
+[PASS] snapshot captures same-tick spring integration state
+[PASS] spring arrays are isolated from snapshot consumers
+[PASS] snapshot observes committed movement and weapon state
+[PASS] snapshot observes current director tick rather than previous match state
+[PASS] consumer cannot mutate authoritative cached snapshot
+[PASS] pause stops snapshot sequence with simulation
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] final snapshot includes same-tick match result
+[PASS] finished match retains one final snapshot without endless copying
+=== 结果: 11 项检查, 0 失败 ===
+SIMULATION_PHASE_CHECKS_PASS

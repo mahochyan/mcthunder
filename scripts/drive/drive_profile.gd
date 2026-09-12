@@ -20,8 +20,20 @@ extends Resource
 @export var landing_min_speed := 2.0
 @export var landing_restitution := 0.12
 @export var landing_max_rebound := 1.0
+@export var suspension_enabled := false
+@export var suspension_compression_m := 0.18
+@export var suspension_extension_m := 0.30
+@export var suspension_response_rate := 10.0
+@export var suspension_impact_scale := 0.28
+@export var suspension_angle_limit_degrees := 8.0
+@export var suspension_point_speed_limit := 4.0
+@export var suspension_contact_margin_m := 0.02
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
+	for key in ["suspension_compression_m","suspension_extension_m","suspension_response_rate","suspension_impact_scale","suspension_angle_limit_degrees","suspension_point_speed_limit","suspension_contact_margin_m"]:
+		var value: float=get(key)
+		var limits: Vector2={"suspension_compression_m":Vector2(0.02,0.3),"suspension_extension_m":Vector2(0.02,0.4),"suspension_response_rate":Vector2(2,30),"suspension_impact_scale":Vector2(0,0.5),"suspension_angle_limit_degrees":Vector2(1,12),"suspension_point_speed_limit":Vector2(0.5,8),"suspension_contact_margin_m":Vector2(0,0.05)}[key]
+		if not is_finite(value) or value<limits.x or value>limits.y: errors.append("drive_profile."+key+": invalid suspension tuning")
 	if not is_finite(landing_min_speed) or landing_min_speed<1 or landing_min_speed>10: errors.append("drive_profile.landing_min_speed: expected [1,10]")
 	if not is_finite(landing_restitution) or landing_restitution<0 or landing_restitution>0.3: errors.append("drive_profile.landing_restitution: expected [0,0.3]")
 	if not is_finite(landing_max_rebound) or landing_max_rebound<=0 or landing_max_rebound>2: errors.append("drive_profile.landing_max_rebound: expected (0,2]")
