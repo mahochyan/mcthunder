@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "C:\\Users\\lapyin\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+      "-X",
+      "utf8",
+      "tests/test_modern_package_builder.py"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "captured_at": "2026-09-12T21:26:01.706379+08:00"
+  },
+  {
+    "command": [
+      "C:\\Users\\lapyin\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+      "-X",
+      "utf8",
+      "authoring/reference_data/build_modern_vehicle_packages.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "captured_at": "2026-09-12T21:26:01.805291+08:00"
+  }
+]

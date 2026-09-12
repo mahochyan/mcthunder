@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] create isolated temporary engineering model directory
+[PASS] modern candidate retains exact source identity and incomplete status
+[PASS] modern candidate has independent source/design field evidence
+[CANDIDATE] ussr_t_80b ["model_binding: new vehicle requires explicit delivered model bindings", "SUSPICIOUS_OVERLAP module:engine <-> module:transmission (bounding boxes intersect; confirm intentional via allowed_overlaps or refine geometry)", "ussr_t_80b: admission_status: production game reference requires engineering validation"]
+[PASS] unbound modern candidate cannot enter production
+[PASS] real Godot GLB export creates isolated test artifact
+[FAIL] complete candidate geometry and equipment validate with separate TEST ONLY visual artifact
+[DETAIL] ["SUSPICIOUS_OVERLAP module:engine <-> module:transmission (bounding boxes intersect; confirm intentional via allowed_overlaps or refine geometry)", "test_combat_ussr_t_80b: admission_status: production game reference requires engineering validation"]
+[PASS] modern candidate retains exact source identity and incomplete status
+[PASS] modern candidate has independent source/design field evidence
+[CANDIDATE] germ_leopard_2a4 ["model_binding: new vehicle requires explicit delivered model bindings", "germ_leopard_2a4: admission_status: production game reference requires engineering validation"]
+[PASS] unbound modern candidate cannot enter production
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete candidate geometry and equipment validate with separate TEST ONLY visual artifact
+[PASS] modern combat engineering fixture registers transactionally
+[PASS] actual Actor installs distinct modern combat hull and internal layout
+[PASS] actual crew runtime uses exact three/four-person roster
+[PASS] actual typed inventory conserves source rack capacity
+[PASS] actual actor installs explicit separate crew/automatic loading policy
+[PASS] candidate geometry drives on actual ground with authored modern tuning
+[PASS] modern HEAT selection enters actual loading inventory
+[PASS] normal command fires the chambered APFSDS from real modern-length muzzle
+[FAIL] independent shot reload chambers selected HEAT without using replenishment interval
+[FAIL] normal second shot uses explicit chemical budget and reference-derived carrier speed
+[FAIL] modern APFSDS/HEAT normal firing conserves actual finite rack stock
+[PASS] normally fired long_rod resolves real first armor plate
+[PASS] modern long_rod produces validated combat replay
+[PASS] normally fired long_rod resolves real first armor plate
+[PASS] modern long_rod produces validated combat replay
+[PASS] reset restores modern candidate racks, chamber and loading state
+[PASS] modern engineering run never promotes unfinished candidates to official roster
+=== 结果: 28 项检查, 4 失败 ===
+MODERN_CANDIDATE_CHECKS_FAIL

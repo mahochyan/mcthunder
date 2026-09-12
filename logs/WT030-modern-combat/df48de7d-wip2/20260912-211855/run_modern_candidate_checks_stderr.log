@@ -1,0 +1,4 @@
+SCRIPT ERROR: Parse Error: Cannot infer the type of "initial_stowage" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/run_modern_candidate_checks.gd:38)
+ERROR: Failed to load script "res://tests/run_modern_candidate_checks.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

@@ -241,7 +241,7 @@
       "dependencies": [
         "WT-014"
       ],
-      "current": "真实弹药账本、膛内/搬运、火灾、维修、替补、补给已有。",
+      "current": "真实弹药账本、膛内/搬运、火灾、维修、替补、补给已有。 显式按比例配弹及待发架顺序已在车库与Gunner统一；现代两车正常射击/自然换弹与库存重置通过，尾舱非致命泄压尚未实现。",
       "remaining": "深化待发弹架、搬运/装填手影响、维修选择风险、再损坏取消；人工/自动装填分车型。015B协助维修/拖救接口与006E在016前完成，018随后接支援奖励。",
       "deliverables": "版本化Inventory/Reload/Recovery状态机、库存与空间占用核对、恢复条件/取消原因。",
       "acceptance": "少带弹改变弹架风险；换弹不偷换膛内弹；炮闩/装填手/待发耗尽后果不同；死因与残骸一致。",
@@ -466,7 +466,7 @@
       "dependencies": [
         "WT-001"
       ],
-      "current": "393份苏德来源快照、准确ID候选解析、参考准入和1..8弹目录已接入；模型绑定已进入VCP、实际Actor装配、单位换算、同炮口/轮履/内构及殉爆恢复，新增原始GLB打包读取。T80B/Leo2A4仍缺交付挂点与完整战斗包，详见WT030_MODEL_PACKAGE_BINDING.md。 显式附加装甲层、复合通道独立证据和GLB实际层网格已接入，见WT012_COMPOSITE_LAYERS.md。 ERA准确块配置/独立事实准入、可见消耗/恢复、米/厘米GLB装配与完整弹药响应门已接入，见WT012_REACTIVE_ARMOR.md。 车辆包显式驾驶/光学/机构配置和独立证据已进入实际Actor，苏德调参草案仍候选；74专项及实际窗口86项通过，见WT030_EQUIPMENT_PROFILES.md。",
+      "current": "393份苏德来源快照、准确ID候选解析、参考准入和1..8弹目录已接入；模型绑定已进入VCP、实际Actor装配、单位换算、同炮口/轮履/内构及殉爆恢复，新增原始GLB打包读取。T80B/Leo2A4仍缺交付挂点与完整战斗包，详见WT030_MODEL_PACKAGE_BINDING.md。 显式附加装甲层、复合通道独立证据和GLB实际层网格已接入，见WT012_COMPOSITE_LAYERS.md。 ERA准确块配置/独立事实准入、可见消耗/恢复、米/厘米GLB装配与完整弹药响应门已接入，见WT012_REACTIVE_ARMOR.md。 车辆包显式驾驶/光学/机构配置和独立证据已进入实际Actor，苏德调参草案仍候选；74专项及实际窗口86项通过，见WT030_EQUIPMENT_PROFILES.md。 两车独立战斗候选几何/乘员/弹架/APFSDS/HEAT已生成并经实际Actor验证，外部模型未交付且候选未上架；见WT030_MODERN_COMBAT_CANDIDATES.md。",
       "remaining": "补T80B/Leo2A4缺失数据、真实模型/几何、现代规则、整车流程验收与正式名册/存档迁移。",
       "deliverables": "VehiclePackage规范、入库/升级工具、质量档预算与样车模板。",
       "acceptance": "换贴图/LOD不改战斗几何；别人可据此修订完整车型；美术预览不自动进正式车池。",

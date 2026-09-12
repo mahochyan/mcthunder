@@ -1,0 +1,78 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] draft ussr_t_80b preserves candidate identity and no historical claim
+[PASS] draft ussr_t_80b binds the actual unchanged reference candidate hash
+[PASS] equipment draft alone cannot be admitted as a combat vehicle
+[PASS] ussr_t_80b fully authored drive profile parses from JSON
+[PASS] ussr_t_80b fully authored optics profile parses from JSON
+[PASS] ussr_t_80b fully authored fire_control profile parses from JSON
+[PASS] independent ussr_t_80b tuning admits on explicitly TEST ONLY existing hull
+[PASS] actual measurement timing cannot diverge from independent evidence
+[PASS] omitted independent drive evidence blocks package
+[PASS] two-axis capability without damageable stabilizer geometry is rejected
+[PASS] equipment claims require structured units
+[PASS] independent game tuning cannot be relabelled as source reference equipment
+[PASS] decoded resources and JSON remain isolated between admissions
+[PASS] draft germ_leopard_2a4 preserves candidate identity and no historical claim
+[PASS] draft germ_leopard_2a4 binds the actual unchanged reference candidate hash
+[PASS] equipment draft alone cannot be admitted as a combat vehicle
+[PASS] germ_leopard_2a4 fully authored drive profile parses from JSON
+[PASS] germ_leopard_2a4 fully authored optics profile parses from JSON
+[PASS] germ_leopard_2a4 fully authored fire_control profile parses from JSON
+[PASS] independent germ_leopard_2a4 tuning admits on explicitly TEST ONLY existing hull
+[PASS] actual measurement timing cannot diverge from independent evidence
+[PASS] omitted independent drive evidence blocks package
+[PASS] two-axis capability without damageable stabilizer geometry is rejected
+[PASS] equipment claims require structured units
+[PASS] independent game tuning cannot be relabelled as source reference equipment
+[PASS] decoded resources and JSON remain isolated between admissions
+[PASS] profile rejects invalid drive.gear_count
+[PASS] profile rejects invalid drive.gear_count
+[PASS] profile rejects invalid drive.neutral_turn
+[PASS] profile rejects invalid drive.power_falloff
+[PASS] profile rejects invalid optics.sight_fovs
+[PASS] profile rejects invalid optics.sight_offset
+[PASS] profile rejects invalid optics.sight_offset
+[PASS] profile rejects invalid optics.sight_fovs
+[PASS] profile rejects invalid fire_control.stabilizer_mode
+[PASS] profile rejects invalid fire_control.provenance
+[PASS] missing drive value cannot silently fall back to Resource default
+[PASS] profile drive cannot assign arbitrary resource properties
+[PASS] boolean schema rejected for drive
+[PASS] missing optics value cannot silently fall back to Resource default
+[PASS] profile optics cannot assign arbitrary resource properties
+[PASS] boolean schema rejected for optics
+[PASS] missing fire_control value cannot silently fall back to Resource default
+[PASS] profile fire_control cannot assign arbitrary resource properties
+[PASS] boolean schema rejected for fire_control
+[PASS] legacy M24 without profile envelopes retains admission
+[PASS] ussr_t_80b tuning registers through actual content registry
+[PASS] ussr_t_80b profiles reach actual Actor.setup
+[PASS] ussr_t_80b authored FOV and optical offset drive actual camera
+[PASS] ussr_t_80b actual camera consumes authored second zoom
+[PASS] ussr_t_80b actual stationary steering follows authored neutral-turn capability
+[PASS] ussr_t_80b actual mechanism enables authored two-axis capability
+[PASS] ussr_t_80b authority consumes authored 50m zeroing step
+[PASS] ussr_t_80b authority starts measurement using authored duration
+[PASS] ussr_t_80b actual geometry completes and quantizes the configured range measurement
+[PASS] ussr_t_80b apply-range command consumes measured authority value
+[PASS] ussr_t_80b installed stabilizer module failure disables actual mechanism assistance
+[PASS] ussr_t_80b reset restores capability while clearing measurement/zeroing
+[PASS] ussr_t_80b installed drive profile advances actual vehicle on real ground
+[PASS] ussr_t_80b configured Actor still fires through normal authority weapon phase
+[PASS] germ_leopard_2a4 tuning registers through actual content registry
+[PASS] germ_leopard_2a4 profiles reach actual Actor.setup
+[PASS] germ_leopard_2a4 authored FOV and optical offset drive actual camera
+[PASS] germ_leopard_2a4 actual camera consumes authored second zoom
+[PASS] germ_leopard_2a4 actual stationary steering follows authored neutral-turn capability
+[PASS] germ_leopard_2a4 actual mechanism enables authored two-axis capability
+[PASS] germ_leopard_2a4 authority consumes authored 50m zeroing step
+[PASS] germ_leopard_2a4 authority starts measurement using authored duration
+[PASS] germ_leopard_2a4 actual geometry completes and quantizes the configured range measurement
+[PASS] germ_leopard_2a4 apply-range command consumes measured authority value
+[PASS] germ_leopard_2a4 installed stabilizer module failure disables actual mechanism assistance
+[PASS] germ_leopard_2a4 reset restores capability while clearing measurement/zeroing
+[PASS] germ_leopard_2a4 installed drive profile advances actual vehicle on real ground
+[PASS] germ_leopard_2a4 configured Actor still fires through normal authority weapon phase
+=== 结果: 74 项检查, 0 失败 ===
+EQUIPMENT_PACKAGE_CHECKS_PASS

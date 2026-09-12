@@ -225,19 +225,13 @@ func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary
 	for id in counts:
 		if not valid_ids.has(id): return false
 	if counts.size() != valid_ids.size(): return false
-	var ids := inventory.racks.keys()
-	if not loading_profile().shot_feed_rack_ids.is_empty():
-		# Array(typed_array) aliases its storage; ordering must not mutate the profile.
-		var ordered: Array=loading_profile().shot_feed_rack_ids.duplicate()
-		for id in ids:
-			if id not in ordered: ordered.append(id)
-		ids=ordered
+	var ids := loading_profile().initial_rack_order(inventory.racks.keys())
 	var caps := inventory.rack_capacities.duplicate(true)
 	if caps.is_empty():
 		var left := weapon.initial_rounds if weapon != null else 30
 		for i in ids.size():
 			caps[ids[i]] = ceili(float(left)/float(ids.size()-i)); left -= int(caps[ids[i]])
-	if not inventory.configure_loadout(counts,ids,caps,first_id): return false
+	if not inventory.configure_loadout(counts,ids,caps,first_id,loading_profile().initial_distribution): return false
 	shell_options = options.duplicate(); initial_shell_counts = counts.duplicate(true); initial_shell_id = first_id
 	_cancel_replenishment()
 	_sync_chamber_shell()

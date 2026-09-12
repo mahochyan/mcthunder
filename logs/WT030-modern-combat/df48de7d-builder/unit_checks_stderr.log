@@ -1,0 +1,16 @@
+test_ambiguous_primary (__main__.ModernPackageBuilderChecks.test_ambiguous_primary) ... ok
+test_duplicate_field (__main__.ModernPackageBuilderChecks.test_duplicate_field) ... ok
+test_extra_loader_not_in_original_roster (__main__.ModernPackageBuilderChecks.test_extra_loader_not_in_original_roster) ... ok
+test_frozen_snapshot_hash_drift (__main__.ModernPackageBuilderChecks.test_frozen_snapshot_hash_drift) ... ok
+test_missing_muzzle_velocity (__main__.ModernPackageBuilderChecks.test_missing_muzzle_velocity) ... ok
+test_null_caliber (__main__.ModernPackageBuilderChecks.test_null_caliber) ... ok
+test_preserves_raw_reference_and_independent_rules (__main__.ModernPackageBuilderChecks.test_preserves_raw_reference_and_independent_rules) ... ok
+test_rack_count_conflict (__main__.ModernPackageBuilderChecks.test_rack_count_conflict) ... ok
+test_reproducible_and_project_local (__main__.ModernPackageBuilderChecks.test_reproducible_and_project_local) ... ok
+test_wrong_equipment_identity (__main__.ModernPackageBuilderChecks.test_wrong_equipment_identity) ... ok
+test_wrong_vehicle (__main__.ModernPackageBuilderChecks.test_wrong_vehicle) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.075s
+
+OK

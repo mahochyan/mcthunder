@@ -58,7 +58,9 @@ func build_loadout(value: Dictionary) -> Dictionary:
 	for module in pack.layout.modules:
 		if module.kind == "ammo": rack_ids.append(module.id); capacities[module.id] = module.ammo_capacity
 	var inventory := AmmoInventory.new()
-	if not inventory.configure_loadout(counts,rack_ids,capacities,value.first_shell): return _reject(LocalizationService.text("ui_3774b78e7ca6"))
+	var loading: LoadingProfile=definitions.vehicles[value.vehicle_id].loading_profile
+	rack_ids=loading.initial_rack_order(rack_ids)
+	if not inventory.configure_loadout(counts,rack_ids,capacities,value.first_shell,loading.initial_distribution): return _reject(LocalizationService.text("ui_3774b78e7ca6"))
 	return {"ok":true,"loadout":{"vehicle_id":value.vehicle_id,"counts":counts,"first_shell":value.first_shell},"inventory":inventory.snapshot(),"options":ammo.options}
 
 func install(vehicle: VehicleActor, loadout: Dictionary) -> bool:

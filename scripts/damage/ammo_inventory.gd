@@ -59,8 +59,9 @@ func configure(total: int, rack_ids: Array = [], capacities: Dictionary = {}) ->
 		_rack_shells[str(ids[i])][LEGACY] = amount
 		remaining -= amount
 
-func configure_loadout(counts: Dictionary, rack_ids: Array, capacities: Dictionary, first_shell: String) -> bool:
+func configure_loadout(counts: Dictionary, rack_ids: Array, capacities: Dictionary, first_shell: String, distribution: String = "sequential") -> bool:
 	# Validate before replacing the current inventory.
+	if distribution not in ["sequential","proportional"]: return false
 	var total := 0
 	var declared := 0
 	if counts.is_empty() or not counts.has(first_shell) or rack_ids.is_empty(): return false
@@ -84,10 +85,33 @@ func configure_loadout(counts: Dictionary, rack_ids: Array, capacities: Dictiona
 		var room := int(capacities[id])
 		if chamber > 0 and room > 0 and not chamber_deducted:
 			room -= 1; chamber_deducted = true; chamber_from=id
+		if distribution=="proportional":
+			var allocation := proportional_allocation(left,room)
+			for shell_id in allocation:
+				_rack_shells[id][shell_id]=allocation[shell_id]; left[shell_id]-=allocation[shell_id]
+			continue
 		for shell_id in left:
 			var amount := mini(room,int(left[shell_id]))
 			_rack_shells[id][shell_id] = amount; left[shell_id] -= amount; room -= amount
 	return conserved()
+
+static func proportional_allocation(left: Dictionary, room: int) -> Dictionary:
+	# Largest remainders distribute only physical rounds. Stable ID tie breaks make
+	# initial stowage independent of JSON/dictionary insertion order.
+	var total := 0
+	for count in left.values(): total+=int(count)
+	var take := mini(room,total)
+	var allocation := {}; var ranked: Array=[]; var assigned := 0
+	var ids: Array=left.keys(); ids.sort()
+	for id in ids:
+		var amount := floori(float(take)*float(left[id])/float(total)) if total>0 else 0
+		allocation[id]=amount; assigned+=amount
+		ranked.append({"id":id,"remainder":(take*int(left[id]))%total if total>0 else 0})
+	if total==0: return allocation
+	ranked.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
+		return a.remainder>b.remainder if a.remainder!=b.remainder else a.id<b.id)
+	for i in take-assigned: allocation[ranked[i].id]+=1
+	return allocation
 
 func total_available() -> int:
 	var total := chamber+in_transfer

@@ -3,6 +3,7 @@ extends Resource
 ## Explicit authored equipment/rack policy. Defaults preserve legacy crew loading.
 @export var schema_version: int = 1
 @export var mode: String = "crew"
+@export var initial_distribution: String = "sequential"
 @export var crew_role: String = "loader"
 @export var missing_crew_rate: float = GameConfig.DAMAGE_MISSING_LOADER_RATE
 @export var required_module_ids: Array[String] = []
@@ -18,10 +19,18 @@ extends Resource
 @export var origin: String = "game_rule"
 @export var note: String = "Legacy authored crew loading; no historical equipment claim."
 
+func initial_rack_order(available: Array) -> Array:
+	if shot_feed_rack_ids.is_empty(): return available.duplicate()
+	var ordered: Array=shot_feed_rack_ids.duplicate()
+	for id in available:
+		if id not in ordered: ordered.append(id)
+	return ordered
+
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
 	if schema_version!=1: errors.append("loading.schema_version: unsupported")
 	if mode not in ["crew","automatic"]: errors.append("loading.mode: unsupported")
+	if initial_distribution not in ["sequential","proportional"]: errors.append("loading.initial_distribution: unsupported")
 	if origin not in ["game_rule","warthunder_reference"] or note.strip_edges().is_empty(): errors.append("loading: explicit reference/design origin and explanation required")
 	if not is_finite(missing_crew_rate) or missing_crew_rate<0 or missing_crew_rate>1: errors.append("loading.missing_crew_rate: invalid")
 	if mode=="crew" and crew_role.is_empty(): errors.append("loading.crew_role: required")
@@ -42,7 +51,7 @@ static func from_packet(value: Variant) -> Dictionary:
 	var errors: Array[String]=[]
 	var profile := LoadingProfile.new()
 	if not value is Dictionary: return {"ok":false,"errors":["loading_profile: expected dictionary"]}
-	var strings := ["mode","crew_role","replenishment_role","origin","note"]
+	var strings := ["mode","initial_distribution","crew_role","replenishment_role","origin","note"]
 	var arrays := ["required_module_ids","shot_feed_rack_ids","supply_rack_ids","reserve_rack_ids","replenishment_module_ids"]
 	var numbers := ["missing_crew_rate","replenishment_delay_s","replenishment_interval_s"]
 	var flags := ["replenishment_enabled","replenishment_stationary"]

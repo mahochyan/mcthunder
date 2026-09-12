@@ -192,7 +192,9 @@
       "title": "模块与乘员能力模型深化",
       "status": "not_verified_against_new_acceptance",
       "requirements": "阶段：M2。职责：战斗程序。依赖：WT-013。\n\n继续无整车总血条的路线。分别表达动力、传动、左右履带、炮管、炮闩、炮塔驱动、光电设备、人员岗位的能力变化，死亡由明确规则而不是隐藏总 HP 决定。\n\n**交付**\n- 统一 CapabilityState 与失能原因码\n- 岗位可用性及替补限制\n- 部件位置与可见轮廓的对应校验\n\n**验收**\n- 不同命中部位导致不同后续操作限制\n- 已击毁部件/空岗位不继续吸收无限假伤害\n- HUD、AI、音效和回放只读同一能力状态",
-      "evidence": [],
+      "evidence": [
+        "WT030_MODERN_COMBAT_CANDIDATES.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -201,7 +203,9 @@
       "title": "弹药、火灾与恢复的战术闭环",
       "status": "not_verified_against_new_acceptance",
       "requirements": "阶段：M2。职责：玩法程序。依赖：WT-014。\n\n深化现有弹药账本、换弹、火灾、维修、乘员替补与补给；加入待发弹架/搬运（按车型）、维修选择与时间风险、协助维修/拖救接口。少带弹必须影响实际占用。\n\n**交付**\n- Inventory/Reload/Recovery 版本化状态机\n- 人工与自动装填能力接口，不为所有车辆硬套自动装填\n- 灭火、维修、换位、取消、再受损完整回归\n\n**验收**\n- 少带弹能改变实际弹药架风险，而不只改车库数字\n- 炮闩损坏、装填手受伤、待发弹用尽各有可理解后果\n- 殉爆、起火失能、乘员丧失等死因对应真实记录与一致残骸",
-      "evidence": [],
+      "evidence": [
+        "WT030_MODERN_COMBAT_CANDIDATES.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -210,7 +214,9 @@
       "title": "两辆完成样车核心验收",
       "status": "not_verified_against_new_acceptance",
       "requirements": "阶段：M2-GATE。职责：玩法负责人/真人测试。依赖：WT-004, WT-005, WT-006, WT-007, WT-008, WT-010, WT-011, WT-012, WT-013, WT-014, WT-015。\n\n用两辆特征不同的样车验证驾驶、观察、首发、部位选择和受损应对。不是两辆车必须直接平衡配对，也不是覆盖现有四车全部历史细节。\n\n**交付**\n- 正常输入的坡顶急停射击、绕侧攻击、断履带恢复三段完整录屏\n- 新玩家与熟悉战雷玩家的原话记录\n- 核心体验问题按阻断/非阻断分级\n\n**验收**\n- 玩家不看开发说明也能解释典型一炮结果及失能原因\n- 模型/界面合格不是自动认定驾驶射击手感合格\n- 工程自审与真人体验独立签收，缺失时不能冒签",
-      "evidence": [],
+      "evidence": [
+        "WT030_MODERN_COMBAT_CANDIDATES.md"
+      ],
       "human_accepted": false,
       "release_ready": false
     },
@@ -345,7 +351,8 @@
         "WT030_MODEL_PACKAGE_BINDING.md",
         "WT012_COMPOSITE_LAYERS.md",
         "WT012_REACTIVE_ARMOR.md",
-        "WT030_EQUIPMENT_PROFILES.md"
+        "WT030_EQUIPMENT_PROFILES.md",
+        "WT030_MODERN_COMBAT_CANDIDATES.md"
       ],
       "human_accepted": false,
       "release_ready": false

@@ -1,0 +1,333 @@
+{
+  "base_commit": "df48de7d05b8d0751f5204838341f349a4c06a23",
+  "captured_at": "2026-09-12T21:31:55.840276+08:00",
+  "stage": "final integration capture after tests; not a prelaunch snapshot of earlier WIP runs",
+  "requirements_preserved": 42,
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "5ddf73fdf31ee07c64b027a531e39899dfc1dd2d1fbcb2dd82381a6e192f78e3"
+    },
+    {
+      "path": "NEXT_ACTION.md",
+      "sha256": "b8df95814ae588566c740f62f1f07288fc3554b8509d96edcab83e8a22a255cd"
+    },
+    {
+      "path": "docs/wt/EXECUTION_PLAN.json",
+      "sha256": "4f09880ccd855171c50cd1e21f249268b78c65c60713cafcfed6e347848029d8"
+    },
+    {
+      "path": "docs/wt/GAP_REGISTER.json",
+      "sha256": "f3f081d0edc5b87d09620b171005980a6a767c0adbbbccec0d27efc7fd8572ee"
+    },
+    {
+      "path": "docs/wt/WT030_MODERN_COMBAT_CANDIDATES.md",
+      "sha256": "f23531a41a11fd5cf4aae4be430e660581b1f7d4b211580be4040e01dd0cb618"
+    },
+    {
+      "path": "scripts/damage/ammo_inventory.gd",
+      "sha256": "1b81c5ec9c112156e0e50850d645a1b972f1690bfa50a95ee82561465053be52"
+    },
+    {
+      "path": "scripts/defs/loading_profile.gd",
+      "sha256": "8cdbd3cb86b04acb01781e52566d7b05bc14edba6088f6ed19e84c58480049ab"
+    },
+    {
+      "path": "scripts/garage/garage_service.gd",
+      "sha256": "d6164d563cb524c9e72797f257395b1b65b1eead6e11b2b33986eac0d9470177"
+    },
+    {
+      "path": "scripts/gunner.gd",
+      "sha256": "cb94787f52a9d037beeaca4a3f5a22058bd96897acd922d9f3c0b8618d0ed4ee"
+    },
+    {
+      "path": "authoring/reference_data/build_modern_vehicle_packages.py",
+      "sha256": "cdcc0e63f4b43bea3f5af059b5fdb15bbf6319b75f30ebfe1fb52fe6488c2c3d"
+    },
+    {
+      "path": "authoring/reference_data/modern_vehicles/design_rules.json",
+      "sha256": "b8e893a03c99535cff3c8bc3a81d043a3e978c8543b2bb57dcb859dbcef83dbb"
+    },
+    {
+      "path": "authoring/reference_data/modern_vehicles/ussr_t_80b.json",
+      "sha256": "9381f91c0e9d11ff73ab59a3679ce555a0b537ee16ea7584efad6944e274e011"
+    },
+    {
+      "path": "authoring/reference_data/modern_vehicles/germ_leopard_2a4.json",
+      "sha256": "ca19e0735894312e176c3ca6f4ff442149394b6e35e4da5b447b3d15bb7d26ed"
+    },
+    {
+      "path": "authoring/reference_data/modern_equipment/ussr_t_80b.json",
+      "sha256": "1be85961fbae4e09bbf7989bf256c32567bbcb59763e68ad568ee882e83dd9ae"
+    },
+    {
+      "path": "authoring/reference_data/modern_equipment/germ_leopard_2a4.json",
+      "sha256": "f593124229a7c829b20cee737b6c8f52b7c3954cf0b218bed3b1fb363bf2c514"
+    },
+    {
+      "path": "tests/run_modern_candidate_checks.gd",
+      "sha256": "2096d95e2b8b88d4555cc3acb0848903244738816c47fe9f9769a81ed650b5b1"
+    },
+    {
+      "path": "tests/run_modern_candidate_checks.gd.uid",
+      "sha256": "446b4ca3da8c285ff269ac0644fd067942df14ebb9cb17612b8ffcd7c9098919"
+    },
+    {
+      "path": "tests/test_modern_package_builder.py",
+      "sha256": "871ccedc50b0db094ade4f8474cf8d1e87d8bfad3b98c257054cbffee8b1cff4"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212232/test_combat_germ_leopard_2a4.png",
+      "sha256": "4fcb8503268b541cace36059436689678b2a5bcc2e27b0b5363f2f90c35a500e"
+    },
+    {
+      "path": "docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212232/test_combat_ussr_t_80b.png",
+      "sha256": "3dc0fe0fcfe796176c030009a0aedcf3d315a820d1f9d88e98582c4b535ae8f2"
+    },
+    {
+      "path": "docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212644/test_combat_germ_leopard_2a4.png",
+      "sha256": "4fcb8503268b541cace36059436689678b2a5bcc2e27b0b5363f2f90c35a500e"
+    },
+    {
+      "path": "docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212644/test_combat_ussr_t_80b.png",
+      "sha256": "3dc0fe0fcfe796176c030009a0aedcf3d315a820d1f9d88e98582c4b535ae8f2"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-builder/RESULTS.json",
+      "sha256": "5563a995937bc4d779acd838f8f69ddfd51e17c192eb162a18eac4d69bc6f06c"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-builder/rebuild_check_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-builder/rebuild_check_stdout.log",
+      "sha256": "fbbc77a7f499c1e159891bb7b37b6b43b351124edf5c0349cbc5b5418e351400"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-builder/unit_checks_stderr.log",
+      "sha256": "797d4c68ee933654b073a2a70745fc5c78101e1f3552e9f34fb49f4adf71a1ee"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-builder/unit_checks_stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final4/20260912-212110/RESULTS.json",
+      "sha256": "f6f76bdb9f9bed638de7cd966ecd9ea16770a903821ea7dabba1b4ed2e9efc3e"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final4/20260912-212110/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final4/20260912-212110/import_stdout.log",
+      "sha256": "d41e6300cf6ac491b0a0d10ec7fdc44455cf584b0662d6fb50d14a917682c3a3"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final4/20260912-212110/run_modern_candidate_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final4/20260912-212110/run_modern_candidate_checks_stdout.log",
+      "sha256": "64b31ac7d77b7b744a950755bed7ee1548cf9989158cfff82e3e44aec2fa4dbf"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/RESULTS.json",
+      "sha256": "05c26049c4d0b4779959d8b3ad8caa23746da22cc515c7fe1a53091b91e1edbc"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/import_stdout.log",
+      "sha256": "6c603c1f02a4d03cdcb1809088d57f07c6422e89a4d1a93ee3c123980d517932"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_equipment_package_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_equipment_package_checks_stdout.log",
+      "sha256": "75d162d11e165389477135c20bcef19e5e63a12a89e1326bf6565cf7388d8ff4"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_garage_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_garage_checks_stdout.log",
+      "sha256": "f75bdba52dc00d8bcfa1d9b8314313d8c76a0eb8a3b50842069abe534da53c37"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_loading_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_loading_checks_stdout.log",
+      "sha256": "7108e043b4da30ff5267cadda86fa9e4b318b5ae52dff0712794942de6bf2436"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_modern_candidate_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_modern_candidate_checks_stdout.log",
+      "sha256": "ed36664ad67f8779ae3cf2b5a026779199d27983ca7bf9affd659a05d1015084"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_reference_admission_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-final5/20260912-212446/run_reference_admission_checks_stdout.log",
+      "sha256": "52ca963d07b7f3281bed0153445b4a32b42979de73b9375790b6ba70b8bb3e57"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-integration/EXTERNAL_STATUS.json",
+      "sha256": "95d2c2527243bc9c27afd1c6a99b0ada94a09c76d4c1b9724cd0b4531b6bdf58"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip1/20260912-211552/RESULTS.json",
+      "sha256": "64ae47542aa5aaa894c4ce1fc15e59a7f79a6374edd13c867ad8d2ba2e5706c6"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip1/20260912-211552/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip1/20260912-211552/import_stdout.log",
+      "sha256": "d41e6300cf6ac491b0a0d10ec7fdc44455cf584b0662d6fb50d14a917682c3a3"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip1/20260912-211552/run_modern_candidate_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip1/20260912-211552/run_modern_candidate_checks_stdout.log",
+      "sha256": "d9f9ca3c71ade711e0a3e2e66002f43979f20f0038f2f532e53412688e6af6be"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/RESULTS.json",
+      "sha256": "0f0b220ee1cf78cff43a88a549d2ea7c18f92fea0be6f0e6db8501f1d60cea3a"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/import_stdout.log",
+      "sha256": "cd76b4e212858a013105aee54be02afe15124190925f12dcd9ccf5b1ddd57a0a"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_loading_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_loading_checks_stdout.log",
+      "sha256": "7108e043b4da30ff5267cadda86fa9e4b318b5ae52dff0712794942de6bf2436"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_modern_candidate_checks_stderr.log",
+      "sha256": "e1ef845264d73d2e2cb31aa468accc4666fb220f7ab76a523f16a1a54d6eb922"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_modern_candidate_checks_stdout.log",
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_shell_checks_stderr.log",
+      "sha256": "a7f71304fc1924acaa8f17c489eabec3ddee967be1db9f0d94a814697f3b0eb2"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip2/20260912-211855/run_shell_checks_stdout.log",
+      "sha256": "c1cdcdb1af5d0f2c6186b3f4cc8e63bcaca6103a841d33e573f9a9676508386a"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip3/20260912-211928/RESULTS.json",
+      "sha256": "458b71f47ac9f0da4d6e5729d4c8e6b65ccd09e4241ec74bd3ee3cea1a1c0a85"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip3/20260912-211928/import_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip3/20260912-211928/import_stdout.log",
+      "sha256": "d41e6300cf6ac491b0a0d10ec7fdc44455cf584b0662d6fb50d14a917682c3a3"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip3/20260912-211928/run_modern_candidate_checks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/df48de7d-wip3/20260912-211928/run_modern_candidate_checks_stdout.log",
+      "sha256": "64b31ac7d77b7b744a950755bed7ee1548cf9989158cfff82e3e44aec2fa4dbf"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212232/RESULTS.json",
+      "sha256": "dce1afae03508131d0724bf888aded367c1e668d5b68fea4468122341e308bbe"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212232/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212232/stdout.log",
+      "sha256": "6b0df9ff524ce0f90e01232e2d3b5c8e90c0c4dd51c32a7b4e96452b516b5b17"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212644/RESULTS.json",
+      "sha256": "f5bac151d563b652cad4cb3d5d82c24d6a0a416c564ac315dd036f122dbeb4b8"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212644/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/WT030-modern-combat/wip-uncommitted/window-20260912-212644/stdout.log",
+      "sha256": "3573a940cb2054c4b0483cf0795163cfc8f6d573c7e7bf3a5a6b14df4efd351a"
+    }
+  ],
+  "protected_unstaged": [
+    {
+      "path": "assets/vehicles/MODERN_ASSETS.json",
+      "sha256": "b0e1ea941ebbc81fc86e2e749c67cbaf1c1b3e5f91d8503a7b968c6e36470ed4"
+    },
+    {
+      "path": "assets/vehicles/m1a1/m1a1.glb",
+      "sha256": "cccfd670a7d7899d6a55b20d7e64c726fcd811eb24cb0841c522b2edcdbc9e59"
+    },
+    {
+      "path": "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+      "sha256": "3867c9d76831e4aa1d450494e2b276294b8caf536981c54505fc3f4b1f417bcc"
+    },
+    {
+      "path": "authoring/vehicles/write_modern_asset_manifest.py",
+      "sha256": "2ed148167ee4492c17c494f0d812720e56958cbf68565f03319a2daa7dce8447"
+    },
+    {
+      "path": "docs/MODELING_STANDARD.md",
+      "sha256": "8488babef0ed010acdc5b78bc3949690cea9ed683407c36c85a13931f7261ffa"
+    },
+    {
+      "path": "scripts/core/model_showroom.gd",
+      "sha256": "ba49168e1720afa33af61409f19ee01aa0197aa93973a44f80e9137f944a714f"
+    }
+  ],
+  "protocol": {
+    "network": 6,
+    "command": 3,
+    "frame_pose": 1,
+    "simulation_snapshot": 3
+  },
+  "external_delegation": {
+    "readonly": "MCP DeepSeek returned a limited review of the supplied proportional allocation algorithm; no file review or test execution. Chamber debit, rack slot reservation and capacity prerequisites were verified locally.",
+    "workspace_write": "not retried; previous helper setup failure remains recorded in prior turn"
+  },
+  "human": "NOT_RUN",
+  "performance": "HOLD_BY_USER",
+  "release_ready": false
+}

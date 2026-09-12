@@ -1,0 +1,63 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] proportional loading configures exact 42-round stock
+[PASS] ready rack receives 11 AP including chamber and four HEAT without overcapacity
+[PASS] invalid initial distribution rejects before changing live stock
+[PASS] proportional rack allocation is independent of shell dictionary ordering
+[PASS] partial and empty loadouts conserve every type across zero/full-capacity racks
+[PASS] loading profile rejects unsupported distribution policy
+[PASS] create isolated temporary engineering model directory
+[PASS] modern candidate retains exact source identity and incomplete status
+[PASS] modern candidate has independent source/design field evidence
+[CANDIDATE] ussr_t_80b ["model_binding: new vehicle requires explicit delivered model bindings", "ussr_t_80b: admission_status: production game reference requires engineering validation"]
+[PASS] unbound modern candidate cannot enter production
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete candidate geometry and equipment validate with separate TEST ONLY visual artifact
+[PASS] modern combat engineering fixture registers transactionally
+[PASS] actual Actor installs distinct modern combat hull and internal layout
+[PASS] actual crew runtime uses exact three/four-person roster
+[PASS] actual typed inventory conserves source rack capacity
+[PASS] proportional initial stowage places selectable HEAT in real ready rack
+[PASS] actual actor installs explicit separate crew/automatic loading policy
+[PASS] candidate geometry drives on actual ground with authored modern tuning
+[PASS] modern HEAT selection enters actual loading inventory
+[PASS] normal command fires the chambered APFSDS from real modern-length muzzle
+[PASS] independent shot reload chambers selected HEAT without using replenishment interval
+[PASS] normal second shot uses explicit chemical budget and reference-derived carrier speed
+[PASS] modern APFSDS/HEAT normal firing conserves actual finite rack stock
+[PASS] normally fired long_rod resolves real first armor plate
+[PASS] modern long_rod produces validated combat replay
+[PASS] normally fired chemical resolves real first armor plate
+[PASS] modern chemical produces validated combat replay
+[PASS] reset restores exact modern candidate rack mix, chamber and loading state
+[PASS] modern geometry capture requires real window
+[PASS] actual distinct modern combat envelope image saved
+[PASS] modern candidate retains exact source identity and incomplete status
+[PASS] modern candidate has independent source/design field evidence
+[CANDIDATE] germ_leopard_2a4 ["model_binding: new vehicle requires explicit delivered model bindings", "germ_leopard_2a4: admission_status: production game reference requires engineering validation"]
+[PASS] unbound modern candidate cannot enter production
+[PASS] real Godot GLB export creates isolated test artifact
+[PASS] complete candidate geometry and equipment validate with separate TEST ONLY visual artifact
+[PASS] modern combat engineering fixture registers transactionally
+[PASS] actual Actor installs distinct modern combat hull and internal layout
+[PASS] actual crew runtime uses exact three/four-person roster
+[PASS] actual typed inventory conserves source rack capacity
+[PASS] proportional initial stowage places selectable HEAT in real ready rack
+[PASS] actual actor installs explicit separate crew/automatic loading policy
+[PASS] candidate geometry drives on actual ground with authored modern tuning
+[PASS] modern HEAT selection enters actual loading inventory
+[PASS] normal command fires the chambered APFSDS from real modern-length muzzle
+[PASS] independent shot reload chambers selected HEAT without using replenishment interval
+[PASS] normal second shot uses explicit chemical budget and reference-derived carrier speed
+[PASS] modern APFSDS/HEAT normal firing conserves actual finite rack stock
+[PASS] normally fired long_rod resolves real first armor plate
+[PASS] modern long_rod produces validated combat replay
+[PASS] normally fired chemical resolves real first armor plate
+[PASS] modern chemical produces validated combat replay
+[PASS] reset restores exact modern candidate rack mix, chamber and loading state
+[PASS] modern geometry capture requires real window
+[PASS] actual distinct modern combat envelope image saved
+[PASS] modern engineering run never promotes unfinished candidates to official roster
+=== 结果: 56 项检查, 0 失败 ===
+MODERN_CANDIDATE_CHECKS_PASS

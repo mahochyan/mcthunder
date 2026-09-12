@@ -1,0 +1,11 @@
+{
+  "source_sha": "df48de7d05b8d0751f5204838341f349a4c06a23",
+  "uncommitted_source": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --path \"E:\\AIprogram\\mcthunder\" --position 1280,0 --max-fps 60 -s \"res://tests/run_modern_candidate_checks.gd\" -- --shot-dir \"res://docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212644\"",
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "captures": "res://docs/evidence/WT030-modern-combat/wip-uncommitted/window-20260912-212644",
+  "human": "NOT_RUN"
+}
