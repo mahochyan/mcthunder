@@ -1,0 +1,112 @@
+{
+  "germ_leopard_2a4": {
+    "combat_admitted": false,
+    "derived": {
+      "delivery_status": "delivered",
+      "id": "germ_leopard_2a4",
+      "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+      "provenance": "authored_asset",
+      "resource_version": "ENGINEERING-MOUNT-ADAPTER-v1",
+      "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2"
+    },
+    "engineering_checked": true,
+    "geometry_mounts": {
+      "barrel_length": 4.1409502029418945,
+      "gun_origin": [
+        -0.05252999812364578,
+        0.3394700288772583,
+        -1.1755999326705933
+      ],
+      "turret_origin": [
+        0.020169999450445175,
+        1.6609300374984741,
+        -0.3804500102996826
+      ]
+    },
+    "historical_verified": false,
+    "human": "NOT_RUN",
+    "measured": {
+      "dimensions_m": [
+        3.5905513763427734,
+        4.581760883331299,
+        9.642004013061523
+      ],
+      "meshes": 45,
+      "paths": {
+        "gun": "VehicleRoot/TurretPivot/GunPivot",
+        "hull": "VehicleRoot",
+        "muzzle": "VehicleRoot/TurretPivot/GunPivot/Muzzle",
+        "running_left": "VehicleRoot/RunningLeft",
+        "running_right": "VehicleRoot/RunningRight",
+        "turret": "VehicleRoot/TurretPivot"
+      }
+    },
+    "muzzle_tip_vertices": 144,
+    "remaining": [
+      "Armor surface fit",
+      "Complete self-damage and restoration matrix",
+      "Final battle and trial admission"
+    ],
+    "source": {
+      "id": "germ_leopard_2a4",
+      "path": "res://assets/research/models/germ_leopard_2a4.glb",
+      "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88"
+    },
+    "source_meshes_preserved": 45
+  },
+  "ussr_t_80b": {
+    "combat_admitted": false,
+    "derived": {
+      "delivery_status": "delivered",
+      "id": "ussr_t_80b",
+      "path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+      "provenance": "authored_asset",
+      "resource_version": "ENGINEERING-MOUNT-ADAPTER-v1",
+      "sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5"
+    },
+    "engineering_checked": true,
+    "geometry_mounts": {
+      "barrel_length": 5.092188835144043,
+      "gun_origin": [
+        0.0,
+        0.1908813714981079,
+        -1.042360544204712
+      ],
+      "turret_origin": [
+        0.0,
+        1.4467270374298096,
+        0.0006769999745301902
+      ]
+    },
+    "historical_verified": false,
+    "human": "NOT_RUN",
+    "measured": {
+      "dimensions_m": [
+        3.638000011444092,
+        2.4273533821105957,
+        9.423871994018555
+      ],
+      "meshes": 42,
+      "paths": {
+        "gun": "ussr_t_80b/TurretPivot/GunPivot",
+        "hull": "ussr_t_80b",
+        "muzzle": "ussr_t_80b/TurretPivot/GunPivot/Muzzle",
+        "running_left": "ussr_t_80b/RunningLeft",
+        "running_right": "ussr_t_80b/RunningRight",
+        "turret": "ussr_t_80b/TurretPivot"
+      }
+    },
+    "muzzle_tip_vertices": 86,
+    "remaining": [
+      "Armor surface fit",
+      "Complete self-damage and restoration matrix",
+      "Final battle and trial admission"
+    ],
+    "source": {
+      "id": "ussr_t_80b",
+      "path": "res://assets/research/models/ussr_t_80b.glb",
+      "sha256": "05c48f76859d7b072a863262d389bf5d49e44129082db4b21cee4c7c473aca8d"
+    },
+    "source_meshes_preserved": 42
+  }
+}

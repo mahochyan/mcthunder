@@ -1,0 +1,18 @@
+{
+  "germ_leopard_2a4": {
+    "delivery_status": "delivered",
+    "id": "germ_leopard_2a4",
+    "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+    "provenance": "authored_asset",
+    "resource_version": "ENGINEERING-MOUNT-ADAPTER-v1",
+    "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2"
+  },
+  "ussr_t_80b": {
+    "delivery_status": "delivered",
+    "id": "ussr_t_80b",
+    "path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+    "provenance": "authored_asset",
+    "resource_version": "ENGINEERING-MOUNT-ADAPTER-v1",
+    "sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5"
+  }
+}

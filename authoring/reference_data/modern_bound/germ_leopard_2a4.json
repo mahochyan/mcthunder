@@ -1,0 +1,3109 @@
+{
+  "admission_status": "candidate",
+  "armor": {
+    "gun_shield": {
+      "fact": "armor.gun_shield",
+      "material": "rolled"
+    },
+    "hull_floor_front": {
+      "fact": "armor.hull_floor_front",
+      "material": "rolled"
+    },
+    "hull_floor_rear": {
+      "fact": "armor.hull_floor_rear",
+      "material": "rolled"
+    },
+    "hull_front_lower": {
+      "fact": "armor.hull_front_lower",
+      "material": "rolled"
+    },
+    "hull_front_upper": {
+      "fact": "armor.hull_front_upper",
+      "material": "composite",
+      "response_profile": {
+        "coefficients": {
+          "chemical": 2.4,
+          "fragment": 1.0,
+          "kinetic": 1.2
+        },
+        "provenance": "game_rule",
+        "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+        "version": "wt012-passive-composite-v1"
+      }
+    },
+    "hull_rear_lower": {
+      "fact": "armor.hull_rear_lower",
+      "material": "rolled"
+    },
+    "hull_rear_upper": {
+      "fact": "armor.hull_rear_upper",
+      "material": "rolled"
+    },
+    "hull_roof_front": {
+      "fact": "armor.hull_roof_front",
+      "material": "rolled"
+    },
+    "hull_roof_rear": {
+      "fact": "armor.hull_roof_rear",
+      "material": "rolled"
+    },
+    "hull_sides_front": {
+      "fact": "armor.hull_sides_front",
+      "material": "rolled"
+    },
+    "hull_sides_lower": {
+      "fact": "armor.hull_sides_lower",
+      "material": "rolled"
+    },
+    "hull_sides_lower_rear": {
+      "fact": "armor.hull_sides_lower_rear",
+      "material": "rolled"
+    },
+    "hull_sides_rear": {
+      "fact": "armor.hull_sides_rear",
+      "material": "rolled"
+    },
+    "turret_front": {
+      "fact": "armor.turret_front",
+      "material": "composite",
+      "response_profile": {
+        "coefficients": {
+          "chemical": 2.4,
+          "fragment": 1.0,
+          "kinetic": 1.6
+        },
+        "provenance": "game_rule",
+        "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+        "version": "wt012-passive-composite-v1"
+      }
+    },
+    "turret_rear": {
+      "fact": "armor.turret_rear",
+      "material": "rolled"
+    },
+    "turret_roof": {
+      "fact": "armor.turret_roof",
+      "material": "rolled"
+    },
+    "turret_sides": {
+      "fact": "armor.turret_sides",
+      "material": "rolled"
+    }
+  },
+  "assembly": {
+    "caliber_mm": 120.0,
+    "gun": "120mm_Rheinmetall_L44_user_cannon",
+    "mount": "game_rule_trunnion",
+    "shell": "game_apfsds_120_v1",
+    "suspension": "game_rule_tracked",
+    "variant": "germ_leopard_2a4",
+    "year": 2026.0
+  },
+  "compatible_shells": [
+    "game_apfsds_120_v1",
+    "game_heat_120_v1"
+  ],
+  "completion": {
+    "armor_surface_fit": "pending",
+    "combat_admitted": false,
+    "model_mount_binding": "engineering_checked",
+    "remaining": [
+      "External model delivery/binding and visual damage review",
+      "Model-aligned geometry and internal placement review; current original envelopes are provisional",
+      "Source mass/default speeds, exact installed equipment, service year and complete ammunition identity unresolved",
+      "HE/ATGM/secondary weapons, exact material stacks and finite-volume shell contact remain unfinished",
+      "Bound partition/vent module rule implemented for direct rack damage; dynamic roof opening, pressure/fire propagation, visual damage and model geometry review still required.",
+      "Human driving/combat/recovery and full battle admission NOT_RUN"
+    ],
+    "status": "candidate_only"
+  },
+  "crew": [
+    {
+      "id": "driver",
+      "part": "hull",
+      "position": [
+        0.62,
+        1.08,
+        -2.2
+      ],
+      "role": "driver",
+      "size": [
+        0.38,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": "gunner",
+      "part": "turret",
+      "position": [
+        0.65,
+        0.45,
+        -0.25
+      ],
+      "role": "gunner",
+      "size": [
+        0.38,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": "commander",
+      "part": "turret",
+      "position": [
+        0.65,
+        0.45,
+        0.55
+      ],
+      "role": "commander",
+      "size": [
+        0.38,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": "loader",
+      "part": "turret",
+      "position": [
+        -0.65,
+        0.45,
+        0.2
+      ],
+      "role": "loader",
+      "size": [
+        0.38,
+        0.6,
+        0.45
+      ]
+    }
+  ],
+  "display_name": "Leopard 2A4 — combat candidate",
+  "drive_profile": {
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "origin": "game_rule",
+    "schema_version": 1.0,
+    "values": {
+      "brake_scale": 1.0,
+      "coast_scale": 1.0,
+      "damaged_track_turn_scale": 0.25,
+      "downshift_hysteresis": 0.08,
+      "gear_count": 4.0,
+      "grade_acceleration": 9.81,
+      "landing_max_rebound": 1.0,
+      "landing_min_speed": 2.0,
+      "landing_restitution": 0.12,
+      "neutral_turn": true,
+      "pitch_degrees_per_acceleration": 0.18,
+      "pitch_limit_degrees": 1.5,
+      "pitch_response_rate": 8.0,
+      "power_falloff": 0.45,
+      "shift_power": 0.15,
+      "shift_seconds": 0.18,
+      "suspension_angle_limit_degrees": 8.0,
+      "suspension_compression_m": 0.18,
+      "suspension_contact_margin_m": 0.02,
+      "suspension_enabled": true,
+      "suspension_extension_m": 0.3,
+      "suspension_impact_scale": 0.28,
+      "suspension_point_speed_limit": 4.0,
+      "suspension_response_rate": 10.0,
+      "track_spacing_m": 2.9,
+      "turn_drag_per_second": 0.35,
+      "turn_speed_falloff": 0.35
+    }
+  },
+  "evidence_profile": "game_reference",
+  "facts": {
+    "armor.gun_shield": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 100.0
+    },
+    "armor.hull_floor_front": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_floor_rear": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_front_lower": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 80.0
+    },
+    "armor.hull_front_upper": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 100.0
+    },
+    "armor.hull_rear_lower": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.hull_rear_upper": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 40.0
+    },
+    "armor.hull_roof_front": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 30.0
+    },
+    "armor.hull_roof_rear": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 25.0
+    },
+    "armor.hull_sides_front": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 65.0
+    },
+    "armor.hull_sides_lower": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 50.0
+    },
+    "armor.hull_sides_lower_rear": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 45.0
+    },
+    "armor.hull_sides_rear": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 55.0
+    },
+    "armor.turret_front": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 160.0
+    },
+    "armor.turret_rear": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 60.0
+    },
+    "armor.turret_roof": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 30.0
+    },
+    "armor.turret_sides": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 80.0
+    },
+    "crew.placement": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "Provisional authored crew locations; exact internal geometry review pending"
+    },
+    "crew.roles": {
+      "location": "germ_leopard_2a4.txt:L433,L434,L435,L436",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "roles",
+      "value": [
+        "gunner",
+        "driver",
+        "loader",
+        "commander"
+      ]
+    },
+    "dimensions.reference_length_m": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "m",
+      "value": 7.3
+    },
+    "dimensions.width_m": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "m",
+      "value": 3.58
+    },
+    "drive.profile": {
+      "location": "drive_profile",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "equipment"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+        "origin": "game_rule",
+        "schema_version": 1.0,
+        "values": {
+          "brake_scale": 1.0,
+          "coast_scale": 1.0,
+          "damaged_track_turn_scale": 0.25,
+          "downshift_hysteresis": 0.08,
+          "gear_count": 4.0,
+          "grade_acceleration": 9.81,
+          "landing_max_rebound": 1.0,
+          "landing_min_speed": 2.0,
+          "landing_restitution": 0.12,
+          "neutral_turn": true,
+          "pitch_degrees_per_acceleration": 0.18,
+          "pitch_limit_degrees": 1.5,
+          "pitch_response_rate": 8.0,
+          "power_falloff": 0.45,
+          "shift_power": 0.15,
+          "shift_seconds": 0.18,
+          "suspension_angle_limit_degrees": 8.0,
+          "suspension_compression_m": 0.18,
+          "suspension_contact_margin_m": 0.02,
+          "suspension_enabled": true,
+          "suspension_extension_m": 0.3,
+          "suspension_impact_scale": 0.28,
+          "suspension_point_speed_limit": 4.0,
+          "suspension_response_rate": 10.0,
+          "track_spacing_m": 2.9,
+          "turn_drag_per_second": 0.35,
+          "turn_speed_falloff": 0.35
+        }
+      }
+    },
+    "equipment.loading": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "crew_role": "loader",
+        "mode": "crew",
+        "required_module_ids": []
+      }
+    },
+    "equipment.stabilizer": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "mode": "two_axis",
+        "module_ids": [
+          "stabilizer"
+        ]
+      }
+    },
+    "fire_control.profile": {
+      "location": "fire_control_profile",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "equipment"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+        "origin": "game_rule",
+        "schema_version": 1.0,
+        "values": {
+          "pitch_accel_deg_s2": 40.0,
+          "pitch_brake_deg_s2": 60.0,
+          "provenance": "game_rule",
+          "response_time_s": 0.25,
+          "speed_hysteresis_mps": 1.0,
+          "speed_limit_mps": 15.0,
+          "stabilizer_mode": "two_axis",
+          "yaw_accel_deg_s2": 80.0,
+          "yaw_brake_deg_s2": 120.0
+        }
+      }
+    },
+    "geometry.crew": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": [
+        {
+          "id": "driver",
+          "part": "hull",
+          "position": [
+            0.62,
+            1.08,
+            -2.2
+          ],
+          "role": "driver",
+          "size": [
+            0.38,
+            0.6,
+            0.45
+          ]
+        },
+        {
+          "id": "gunner",
+          "part": "turret",
+          "position": [
+            0.65,
+            0.45,
+            -0.25
+          ],
+          "role": "gunner",
+          "size": [
+            0.38,
+            0.6,
+            0.45
+          ]
+        },
+        {
+          "id": "commander",
+          "part": "turret",
+          "position": [
+            0.65,
+            0.45,
+            0.55
+          ],
+          "role": "commander",
+          "size": [
+            0.38,
+            0.6,
+            0.45
+          ]
+        },
+        {
+          "id": "loader",
+          "part": "turret",
+          "position": [
+            -0.65,
+            0.45,
+            0.2
+          ],
+          "role": "loader",
+          "size": [
+            0.38,
+            0.6,
+            0.45
+          ]
+        }
+      ]
+    },
+    "geometry.exterior": {
+      "location": "Original candidate envelope plus measured source TurretPivot/GunPivot and gun-tip mount positions",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery. Mount transforms measured from exact frozen authored model; armor surface fit remains pending.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder",
+        "mount_art",
+        "mount_recipe"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "barrel_length": 4.1409502029418945,
+        "gun_origin": [
+          -0.05252999812364578,
+          0.3394700288772583,
+          -1.1755999326705933
+        ],
+        "hull_rings": [
+          [
+            0.4,
+            1.15,
+            -2.95,
+            3.5
+          ],
+          [
+            0.95,
+            1.22,
+            -3.5,
+            3.8
+          ],
+          [
+            1.66,
+            1.18,
+            -2.85,
+            3.8
+          ]
+        ],
+        "mantlet_half_height": 0.27,
+        "mantlet_half_width": 0.5,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 0.95,
+        "track_width": 0.57,
+        "turret_bottom": 0.04,
+        "turret_origin": [
+          0.020169999450445175,
+          1.6609300374984741,
+          -0.3804500102996826
+        ],
+        "turret_outline": [
+          [
+            -0.7,
+            -1.55
+          ],
+          [
+            0.7,
+            -1.55
+          ],
+          [
+            1.2,
+            -0.8
+          ],
+          [
+            1.23,
+            0.4
+          ],
+          [
+            1.2,
+            2.8
+          ],
+          [
+            -1.2,
+            2.8
+          ],
+          [
+            -1.23,
+            0.4
+          ],
+          [
+            -1.2,
+            -0.8
+          ]
+        ],
+        "turret_taper": 0.96,
+        "turret_top": 0.82,
+        "wheel_count": 7.0,
+        "wheel_radius": 0.35
+      }
+    },
+    "geometry.modules": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": [
+        {
+          "external": false,
+          "id": "engine",
+          "kind": "engine",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.0,
+            2.65
+          ],
+          "size": [
+            1.6,
+            0.65,
+            1.25
+          ]
+        },
+        {
+          "external": false,
+          "id": "transmission",
+          "kind": "transmission",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.8,
+            3.45
+          ],
+          "size": [
+            1.5,
+            0.45,
+            0.25
+          ]
+        },
+        {
+          "external": false,
+          "id": "fuel",
+          "kind": "fuel",
+          "part": "hull",
+          "position": [
+            -0.99,
+            0.95,
+            2.65
+          ],
+          "size": [
+            0.22,
+            0.6,
+            1.1
+          ]
+        },
+        {
+          "external": false,
+          "id": "breech",
+          "kind": "breech",
+          "part": "barrel",
+          "position": [
+            0.0,
+            0.0,
+            0.35
+          ],
+          "size": [
+            0.5,
+            0.4,
+            0.6
+          ]
+        },
+        {
+          "external": false,
+          "id": "turret_drive",
+          "kind": "turret_drive",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.4,
+            -0.25
+          ],
+          "size": [
+            0.32,
+            0.15,
+            0.3
+          ]
+        },
+        {
+          "external": false,
+          "id": "stabilizer",
+          "kind": "stabilizer",
+          "part": "hull",
+          "position": [
+            0.9,
+            1.2,
+            0.5
+          ],
+          "size": [
+            0.2,
+            0.22,
+            0.25
+          ]
+        },
+        {
+          "ammo_capacity": 15.0,
+          "ammo_protection": {
+            "barrier_module_id": "bustle_partition",
+            "mode": "rear_bustle",
+            "provenance": "game_rule",
+            "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+            "vent_module_id": "bustle_vent",
+            "version": "wt015-rear-bustle-v1"
+          },
+          "external": false,
+          "id": "ammo_ready",
+          "kind": "ammo",
+          "part": "turret",
+          "position": [
+            -0.55,
+            0.4,
+            2.0
+          ],
+          "size": [
+            0.85,
+            0.6,
+            0.95
+          ]
+        },
+        {
+          "ammo_capacity": 27.0,
+          "external": false,
+          "id": "ammo_reserve",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.65,
+            1.0,
+            -2.2
+          ],
+          "size": [
+            0.65,
+            0.65,
+            1.0
+          ]
+        },
+        {
+          "external": true,
+          "id": "track_left",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            -1.49,
+            0.55,
+            0.1
+          ],
+          "size": [
+            0.55,
+            1.1,
+            6.5
+          ]
+        },
+        {
+          "external": true,
+          "id": "track_right",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            1.49,
+            0.55,
+            0.1
+          ],
+          "size": [
+            0.55,
+            1.1,
+            6.5
+          ]
+        },
+        {
+          "external": false,
+          "id": "bustle_partition",
+          "kind": "ammo_partition",
+          "part": "turret",
+          "position": [
+            0.0,
+            0.43,
+            1.15
+          ],
+          "size": [
+            2.35,
+            0.74,
+            0.08
+          ]
+        },
+        {
+          "external": false,
+          "id": "bustle_vent",
+          "kind": "blowout_panel",
+          "part": "turret",
+          "position": [
+            -0.55,
+            0.78,
+            2.0
+          ],
+          "size": [
+            0.95,
+            0.06,
+            1.05
+          ]
+        }
+      ]
+    },
+    "identity.suspension": {
+      "location": "build: assembly",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "game_rule_tracked"
+    },
+    "identity.variant": {
+      "location": "primary weapon/explicit candidate identity",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "germ_leopard_2a4"
+    },
+    "identity.year": {
+      "location": "build: assembly",
+      "note": "2026 is the project design revision year, not vehicle introduction/service year; historical year remains unresolved.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "year",
+      "value": 2026.0
+    },
+    "loading.profile": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "crew_role": "loader",
+        "initial_distribution": "proportional",
+        "missing_crew_rate": 0.45,
+        "mode": "crew",
+        "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+        "origin": "game_rule",
+        "replenishment_delay_s": 4.0,
+        "replenishment_enabled": true,
+        "replenishment_interval_s": 13.0,
+        "replenishment_module_ids": [],
+        "replenishment_role": "loader",
+        "replenishment_stationary": true,
+        "required_module_ids": [],
+        "reserve_rack_ids": [
+          "ammo_reserve"
+        ],
+        "schema_version": 1.0,
+        "shot_feed_rack_ids": [
+          "ammo_ready"
+        ],
+        "supply_rack_ids": [
+          "ammo_ready",
+          "ammo_reserve"
+        ]
+      }
+    },
+    "mobility.forward_speed_mps": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "m/s",
+      "value": 19.0
+    },
+    "optics.profile": {
+      "location": "optics_profile",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "equipment"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+        "origin": "game_rule",
+        "schema_version": 1.0,
+        "values": {
+          "binocular_fov": 12.0,
+          "binocular_offset": [
+            0.0,
+            2.8,
+            0.0
+          ],
+          "measurement_time_s": 0.6,
+          "measurement_valid_s": 15.0,
+          "rangefinder_max_m": 2500.0,
+          "rangefinder_min_m": 25.0,
+          "rangefinder_resolution_m": 10.0,
+          "sight_fovs": [
+            18.0,
+            6.0
+          ],
+          "sight_offset": [
+            0.35,
+            0.3,
+            0.1
+          ],
+          "zeroing_max_m": 2500.0,
+          "zeroing_step_m": 50.0
+        }
+      }
+    },
+    "protection.ammo.ammo_ready": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "barrier_module_id": "bustle_partition",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "vent_module_id": "bustle_vent",
+        "version": "wt015-rear-bustle-v1"
+      }
+    },
+    "protection.zone.hull_front_upper": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "composite",
+        "response_profile": {
+          "coefficients": {
+            "chemical": 2.4,
+            "fragment": 1.0,
+            "kinetic": 1.2
+          },
+          "provenance": "game_rule",
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt012-passive-composite-v1"
+        }
+      }
+    },
+    "protection.zone.turret_front": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "composite",
+        "response_profile": {
+          "coefficients": {
+            "chemical": 2.4,
+            "fragment": 1.0,
+            "kinetic": 1.6
+          },
+          "provenance": "game_rule",
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt012-passive-composite-v1"
+        }
+      }
+    },
+    "reference.heat_carrier_velocity": {
+      "location": "germ_leopard_2a4.txt:L459 武器与弹药/primary",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "m/s",
+      "value": 1140.0
+    },
+    "runtime.simulation": {
+      "location": "design_rules.json",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "acceleration": 4.5,
+        "forward_max_speed": 19.0,
+        "hull_turn_speed": 30.0,
+        "muzzle_velocity": 1650.0,
+        "penetration_curve": [
+          [
+            0.0,
+            440.0
+          ],
+          [
+            1000.0,
+            390.0
+          ],
+          [
+            2500.0,
+            310.0
+          ]
+        ],
+        "pitch_max": 20.0,
+        "pitch_min": -9.0,
+        "reload_time": 7.5,
+        "reverse_max_speed": 8.0,
+        "rounds": 42.0,
+        "turret_pitch_speed": 20.0,
+        "turret_yaw_speed": 40.0
+      }
+    },
+    "weapon.ammunition": {
+      "location": "build: assembly",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "game_apfsds_120_v1"
+    },
+    "weapon.caliber_mm": {
+      "location": "germ_leopard_2a4.txt:L457 武器与弹药/primary",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 120.0
+    },
+    "weapon.capacity": {
+      "location": "germ_leopard_2a4.txt:L453 武器与弹药/primary",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "count",
+      "value": 42.0
+    },
+    "weapon.gun": {
+      "location": "germ_leopard_2a4.txt:L450 [primary]",
+      "note": "Frozen War Thunder summary candidate; not historically verified.",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "120mm_Rheinmetall_L44_user_cannon"
+    },
+    "weapon.mount": {
+      "location": "build: assembly",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "status": "estimated",
+      "unit": "text",
+      "value": "game_rule_trunnion"
+    }
+  },
+  "fire_control_profile": {
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "origin": "game_rule",
+    "schema_version": 1.0,
+    "values": {
+      "pitch_accel_deg_s2": 40.0,
+      "pitch_brake_deg_s2": 60.0,
+      "provenance": "game_rule",
+      "response_time_s": 0.25,
+      "speed_hysteresis_mps": 1.0,
+      "speed_limit_mps": 15.0,
+      "stabilizer_mode": "two_axis",
+      "yaw_accel_deg_s2": 80.0,
+      "yaw_brake_deg_s2": 120.0
+    }
+  },
+  "geometry": {
+    "barrel_length": 4.1409502029418945,
+    "gun_origin": [
+      -0.05252999812364578,
+      0.3394700288772583,
+      -1.1755999326705933
+    ],
+    "hull_rings": [
+      [
+        0.4,
+        1.15,
+        -2.95,
+        3.5
+      ],
+      [
+        0.95,
+        1.22,
+        -3.5,
+        3.8
+      ],
+      [
+        1.66,
+        1.18,
+        -2.85,
+        3.8
+      ]
+    ],
+    "mantlet_half_height": 0.27,
+    "mantlet_half_width": 0.5,
+    "muzzle_brake": false,
+    "open_top": false,
+    "ring_half": 0.95,
+    "track_width": 0.57,
+    "turret_bottom": 0.04,
+    "turret_origin": [
+      0.020169999450445175,
+      1.6609300374984741,
+      -0.3804500102996826
+    ],
+    "turret_outline": [
+      [
+        -0.7,
+        -1.55
+      ],
+      [
+        0.7,
+        -1.55
+      ],
+      [
+        1.2,
+        -0.8
+      ],
+      [
+        1.23,
+        0.4
+      ],
+      [
+        1.2,
+        2.8
+      ],
+      [
+        -1.2,
+        2.8
+      ],
+      [
+        -1.23,
+        0.4
+      ],
+      [
+        -1.2,
+        -0.8
+      ]
+    ],
+    "turret_taper": 0.96,
+    "turret_top": 0.82,
+    "wheel_count": 7.0,
+    "wheel_radius": 0.35
+  },
+  "historical_verified": false,
+  "id": "germ_leopard_2a4",
+  "license": "Original project-authored geometry/rules; reference data use authorized by project owner",
+  "loading_profile": {
+    "crew_role": "loader",
+    "initial_distribution": "proportional",
+    "missing_crew_rate": 0.45,
+    "mode": "crew",
+    "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+    "origin": "game_rule",
+    "replenishment_delay_s": 4.0,
+    "replenishment_enabled": true,
+    "replenishment_interval_s": 13.0,
+    "replenishment_module_ids": [],
+    "replenishment_role": "loader",
+    "replenishment_stationary": true,
+    "required_module_ids": [],
+    "reserve_rack_ids": [
+      "ammo_reserve"
+    ],
+    "schema_version": 1.0,
+    "shot_feed_rack_ids": [
+      "ammo_ready"
+    ],
+    "supply_rack_ids": [
+      "ammo_ready",
+      "ammo_reserve"
+    ]
+  },
+  "model_binding": {
+    "axes": {
+      "gun": {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "limits_deg": [
+          -9.0,
+          20.0
+        ],
+        "space": "local"
+      },
+      "turret": {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "limits_deg": [
+          -180,
+          180
+        ],
+        "space": "local"
+      }
+    },
+    "internal_attachments": {
+      "crew": {
+        "commander": "VehicleRoot/TurretPivot/Attachment_commander",
+        "driver": "VehicleRoot/Attachment_driver",
+        "gunner": "VehicleRoot/TurretPivot/Attachment_gunner",
+        "loader": "VehicleRoot/TurretPivot/Attachment_loader"
+      },
+      "modules": {
+        "ammo_ready": "VehicleRoot/TurretPivot/Attachment_ammo_ready",
+        "ammo_reserve": "VehicleRoot/Attachment_ammo_reserve",
+        "breech": "VehicleRoot/TurretPivot/GunPivot/Attachment_breech",
+        "bustle_partition": "VehicleRoot/TurretPivot/Attachment_bustle_partition",
+        "bustle_vent": "VehicleRoot/TurretPivot/Attachment_bustle_vent",
+        "engine": "VehicleRoot/Attachment_engine",
+        "fuel": "VehicleRoot/Attachment_fuel",
+        "stabilizer": "VehicleRoot/Attachment_stabilizer",
+        "track_left": "VehicleRoot/RunningLeft/Attachment_track_left",
+        "track_right": "VehicleRoot/RunningRight/Attachment_track_right",
+        "transmission": "VehicleRoot/Attachment_transmission",
+        "turret_drive": "VehicleRoot/Attachment_turret_drive"
+      }
+    },
+    "model": {
+      "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+      "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "nodes": {
+      "gun": "VehicleRoot/TurretPivot/GunPivot",
+      "hull": "VehicleRoot",
+      "muzzle": "VehicleRoot/TurretPivot/GunPivot/Muzzle",
+      "running_left": "VehicleRoot/RunningLeft",
+      "running_right": "VehicleRoot/RunningRight",
+      "turret": "VehicleRoot/TurretPivot"
+    },
+    "schema_version": 1,
+    "units": {
+      "attachment_tolerance_m": 0.001,
+      "dimensions_m": [
+        3.5905513763427734,
+        4.581760883331299,
+        9.642004013061523
+      ],
+      "meters_per_unit": 1.0,
+      "source_unit": "m",
+      "tolerance_fraction": 0.001
+    },
+    "vehicle_id": "germ_leopard_2a4"
+  },
+  "modules": [
+    {
+      "external": false,
+      "id": "engine",
+      "kind": "engine",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.0,
+        2.65
+      ],
+      "size": [
+        1.6,
+        0.65,
+        1.25
+      ]
+    },
+    {
+      "external": false,
+      "id": "transmission",
+      "kind": "transmission",
+      "part": "hull",
+      "position": [
+        0.0,
+        0.8,
+        3.45
+      ],
+      "size": [
+        1.5,
+        0.45,
+        0.25
+      ]
+    },
+    {
+      "external": false,
+      "id": "fuel",
+      "kind": "fuel",
+      "part": "hull",
+      "position": [
+        -0.99,
+        0.95,
+        2.65
+      ],
+      "size": [
+        0.22,
+        0.6,
+        1.1
+      ]
+    },
+    {
+      "external": false,
+      "id": "breech",
+      "kind": "breech",
+      "part": "barrel",
+      "position": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "size": [
+        0.5,
+        0.4,
+        0.6
+      ]
+    },
+    {
+      "external": false,
+      "id": "turret_drive",
+      "kind": "turret_drive",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.4,
+        -0.25
+      ],
+      "size": [
+        0.32,
+        0.15,
+        0.3
+      ]
+    },
+    {
+      "external": false,
+      "id": "stabilizer",
+      "kind": "stabilizer",
+      "part": "hull",
+      "position": [
+        0.9,
+        1.2,
+        0.5
+      ],
+      "size": [
+        0.2,
+        0.22,
+        0.25
+      ]
+    },
+    {
+      "ammo_capacity": 15.0,
+      "ammo_protection": {
+        "barrier_module_id": "bustle_partition",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "vent_module_id": "bustle_vent",
+        "version": "wt015-rear-bustle-v1"
+      },
+      "external": false,
+      "id": "ammo_ready",
+      "kind": "ammo",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.4,
+        2.0
+      ],
+      "size": [
+        0.85,
+        0.6,
+        0.95
+      ]
+    },
+    {
+      "ammo_capacity": 27.0,
+      "external": false,
+      "id": "ammo_reserve",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "size": [
+        0.65,
+        0.65,
+        1.0
+      ]
+    },
+    {
+      "external": true,
+      "id": "track_left",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        -1.49,
+        0.55,
+        0.1
+      ],
+      "size": [
+        0.55,
+        1.1,
+        6.5
+      ]
+    },
+    {
+      "external": true,
+      "id": "track_right",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        1.49,
+        0.55,
+        0.1
+      ],
+      "size": [
+        0.55,
+        1.1,
+        6.5
+      ]
+    },
+    {
+      "external": false,
+      "id": "bustle_partition",
+      "kind": "ammo_partition",
+      "part": "turret",
+      "position": [
+        0.0,
+        0.43,
+        1.15
+      ],
+      "size": [
+        2.35,
+        0.74,
+        0.08
+      ]
+    },
+    {
+      "external": false,
+      "id": "bustle_vent",
+      "kind": "blowout_panel",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.78,
+        2.0
+      ],
+      "size": [
+        0.95,
+        0.06,
+        1.05
+      ]
+    }
+  ],
+  "optics_profile": {
+    "note": "Explicit project design tuning, not historical specifications or proof that reference equipment was installed. Units follow the named Resource fields: metres, seconds, degrees, m/s and deg/s2.",
+    "origin": "game_rule",
+    "schema_version": 1.0,
+    "values": {
+      "binocular_fov": 12.0,
+      "binocular_offset": [
+        0.0,
+        2.8,
+        0.0
+      ],
+      "measurement_time_s": 0.6,
+      "measurement_valid_s": 15.0,
+      "rangefinder_max_m": 2500.0,
+      "rangefinder_min_m": 25.0,
+      "rangefinder_resolution_m": 10.0,
+      "sight_fovs": [
+        18.0,
+        6.0
+      ],
+      "sight_offset": [
+        0.35,
+        0.3,
+        0.1
+      ],
+      "zeroing_max_m": 2500.0,
+      "zeroing_step_m": 50.0
+    }
+  },
+  "reference_trace": {
+    "ammo_racks": [
+      {
+        "count": 15.0,
+        "count_line": 443.0,
+        "flags": {
+          "fire_preset": {
+            "candidate_value": "turret_bustle",
+            "line": 442.0,
+            "raw_value": "turret_bustle",
+            "resolution_state": "explicit_reference_candidate"
+          },
+          "lethal_detonation": {
+            "candidate_value": false,
+            "line": 442.0,
+            "raw_value": "否",
+            "resolution_state": "explicit_reference_candidate"
+          },
+          "lethal_fire": {
+            "candidate_value": false,
+            "line": 442.0,
+            "raw_value": "否",
+            "resolution_state": "explicit_reference_candidate"
+          },
+          "ready_rack": {
+            "candidate_value": true,
+            "line": 442.0,
+            "raw_value": "是",
+            "resolution_state": "explicit_reference_candidate"
+          }
+        },
+        "geometry": null,
+        "resolution_state": "partial_reference_candidate",
+        "slots": 15.0,
+        "supply": {
+          "group": "ammo1",
+          "line": 441.0,
+          "raw_value": "[ammo1] 武器=gunner0  补弹时间=13.0s  补弹延迟=4.0s  取出已装填=是",
+          "remove_loaded_candidate": true,
+          "replenish_delay_seconds": 4.0,
+          "replenish_seconds": 13.0,
+          "shot_reload_seconds": null,
+          "unit": "s",
+          "weapon_trigger": "gunner0"
+        }
+      },
+      {
+        "count": 27.0,
+        "count_line": 445.0,
+        "flags": {
+          "fire_preset": {
+            "candidate_value": null,
+            "line": 444.0,
+            "raw_value": "",
+            "resolution_state": "unresolved_empty"
+          },
+          "lethal_detonation": {
+            "candidate_value": true,
+            "line": 444.0,
+            "raw_value": "是",
+            "resolution_state": "explicit_reference_candidate"
+          },
+          "lethal_fire": {
+            "candidate_value": true,
+            "line": 444.0,
+            "raw_value": "是",
+            "resolution_state": "explicit_reference_candidate"
+          },
+          "ready_rack": {
+            "candidate_value": null,
+            "line": 444.0,
+            "raw_value": "",
+            "resolution_state": "unresolved_empty"
+          }
+        },
+        "geometry": null,
+        "resolution_state": "partial_reference_candidate",
+        "slots": 27.0,
+        "supply": {
+          "group": "ammo1",
+          "line": 441.0,
+          "raw_value": "[ammo1] 武器=gunner0  补弹时间=13.0s  补弹延迟=4.0s  取出已装填=是",
+          "remove_loaded_candidate": true,
+          "replenish_delay_seconds": 4.0,
+          "replenish_seconds": 13.0,
+          "shot_reload_seconds": null,
+          "unit": "s",
+          "weapon_trigger": "gunner0"
+        }
+      }
+    ],
+    "artifact": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
+    "crew_roster": [
+      {
+        "geometry": null,
+        "line": 433.0,
+        "module_reference": "gunner_dm",
+        "raw_value": "gunner         模块=gunner_dm  角色=tank_gunner  替补自=commander, loader",
+        "replacement_from": [
+          "commander",
+          "loader"
+        ],
+        "resolution_state": "explicit_roster_candidate",
+        "roles": [
+          "tank_gunner"
+        ],
+        "station": "gunner"
+      },
+      {
+        "geometry": null,
+        "line": 434.0,
+        "module_reference": "driver_dm",
+        "raw_value": "driver         模块=driver_dm  角色=driver  替补自=commander, loader",
+        "replacement_from": [
+          "commander",
+          "loader"
+        ],
+        "resolution_state": "explicit_roster_candidate",
+        "roles": [
+          "driver"
+        ],
+        "station": "driver"
+      },
+      {
+        "geometry": null,
+        "line": 435.0,
+        "module_reference": "loader_dm",
+        "raw_value": "loader         模块=loader_dm  角色=loader  替补自=commander",
+        "replacement_from": [
+          "commander"
+        ],
+        "resolution_state": "explicit_roster_candidate",
+        "roles": [
+          "loader"
+        ],
+        "station": "loader"
+      },
+      {
+        "geometry": null,
+        "line": 436.0,
+        "module_reference": "commander_dm",
+        "raw_value": "commander      模块=commander_dm  角色=tank_gunner, commander  替补自=",
+        "replacement_from": [],
+        "resolution_state": "explicit_roster_candidate",
+        "roles": [
+          "tank_gunner",
+          "commander"
+        ],
+        "station": "commander"
+      }
+    ],
+    "fields": [
+      {
+        "candidate_value": 20.833333333333336,
+        "historical_verified": false,
+        "key": "drive.forward_speed_candidate",
+        "locator": [
+          {
+            "group": "",
+            "line": 20.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Reference summary only; mode, inheritance and physical interpretation require confirmation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "75.0 km/h"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "km/h",
+        "unit": "m/s"
+      },
+      {
+        "candidate_value": 2.7777777777777777,
+        "historical_verified": false,
+        "key": "drive.reverse_speed_candidate",
+        "locator": [
+          {
+            "group": "",
+            "line": 21.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Reference summary only; mode, inheritance and physical interpretation require confirmation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "10.0 km/h"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "km/h",
+        "unit": "m/s"
+      },
+      {
+        "candidate_value": 30.0,
+        "historical_verified": false,
+        "key": "drive.hull_turn_candidate",
+        "locator": [
+          {
+            "group": "",
+            "line": 22.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Reference summary only; mode, inheritance and physical interpretation require confirmation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "30.0 °/s"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "°/s",
+        "unit": "deg/s"
+      },
+      {
+        "candidate_value": 47000.0,
+        "historical_verified": false,
+        "key": "drive.design_mass",
+        "locator": [
+          {
+            "group": "",
+            "line": 16.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Reference summary only; mode, inheritance and physical interpretation require confirmation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "47000.0 kg"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "kg",
+        "unit": "kg"
+      },
+      {
+        "candidate_value": {
+          "empty": 53850.0,
+          "fuel": 1300.0,
+          "fueled": 55150.0,
+          "tracks": 2000.0
+        },
+        "historical_verified": false,
+        "key": "drive.mass_variants",
+        "locator": [
+          {
+            "group": "",
+            "line": 17.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "空车 53850.0 kg / 含油 55150.0 kg（油 1300.0 kg，履带 2000.0 kg）"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "kg",
+        "unit": "kg"
+      },
+      {
+        "candidate_value": {
+          "engine_id": "mtu mb_873_ka_501",
+          "power_hp": 1500.0
+        },
+        "historical_verified": false,
+        "key": "drive.engine",
+        "locator": [
+          {
+            "group": "",
+            "line": 27.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "mtu mb_873_ka_501 / 1500.0 hp"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "hp",
+        "unit": "hp"
+      },
+      {
+        "candidate_value": {
+          "idle": 800.0,
+          "rated": 2600.0
+        },
+        "historical_verified": false,
+        "key": "drive.rpm",
+        "locator": [
+          {
+            "group": "",
+            "line": 28.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "怠速 800.0 / 额定 2600.0 RPM"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "RPM",
+        "unit": "RPM"
+      },
+      {
+        "candidate_value": 1.5,
+        "historical_verified": false,
+        "key": "drive.arcade_power_multiplier",
+        "locator": [
+          {
+            "group": "",
+            "line": 26.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "×1.5"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": null,
+        "historical_verified": false,
+        "key": "drive.acceleration_unspecified_units",
+        "locator": [
+          {
+            "group": "",
+            "line": 23.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "4.0 / 8.0"
+        ],
+        "resolution_state": "unresolved_units_and_semantics",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": null,
+        "historical_verified": false,
+        "key": "drive.inertia_unspecified_units",
+        "locator": [
+          {
+            "group": "",
+            "line": 19.0,
+            "section": "总体"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "4.0, 5.0, 6.0"
+        ],
+        "resolution_state": "unresolved_units_and_semantics",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "2018-06-06 00:00:00",
+        "historical_verified": false,
+        "key": "identity.game_release_date",
+        "locator": [
+          {
+            "group": "",
+            "line": 8.0,
+            "section": "header"
+          }
+        ],
+        "note": "Do not infer units, historical year, absent multipliers or mass summation.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "2018-06-06 00:00:00"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": 120.0,
+        "historical_verified": false,
+        "key": "shell.caliber_mm",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 457.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Projectile source convention; candidate only, not an admitted shell definition.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "0.12"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "m",
+        "unit": "mm"
+      },
+      {
+        "candidate_value": 1140.0,
+        "historical_verified": false,
+        "key": "shell.muzzle_velocity_mps",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 459.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Projectile source convention; candidate only, not an admitted shell definition.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "1140.0"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "m/s",
+        "unit": "m/s"
+      },
+      {
+        "candidate_value": 13.5,
+        "historical_verified": false,
+        "key": "shell.mass_kg",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 458.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Projectile source convention; candidate only, not an admitted shell definition.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "13.5"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "kg",
+        "unit": "kg"
+      },
+      {
+        "candidate_value": 7000.0,
+        "historical_verified": false,
+        "key": "shell.max_distance_m",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 460.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Projectile source convention; candidate only, not an admitted shell definition.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "7000.0"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "m",
+        "unit": "m"
+      },
+      {
+        "candidate_value": 1.64,
+        "historical_verified": false,
+        "key": "shell.explosive_mass_kg",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 462.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Projectile source convention; candidate only, not an admitted shell definition.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "1.64"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "kg",
+        "unit": "kg"
+      },
+      {
+        "candidate_value": "120mm_dm12",
+        "historical_verified": false,
+        "key": "shell.reference.bulletName",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 455.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "120mm_dm12"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "heat_fs_tank",
+        "historical_verified": false,
+        "key": "shell.reference.bulletType",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 456.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "heat_fs_tank"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "comp_b",
+        "historical_verified": false,
+        "key": "shell.reference.explosiveType",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 461.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "comp_b"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "0.55327",
+        "historical_verified": false,
+        "key": "shell.reference.Cx",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 464.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "0.55327"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "260.0",
+        "historical_verified": false,
+        "key": "shell.reference.hitPower",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 463.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "260.0"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "0.5",
+        "historical_verified": false,
+        "key": "shell.reference.stabilityThreshold",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 471.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "0.5"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "heat",
+        "historical_verified": false,
+        "key": "shell.reference.normalizationPreset",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 466.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "heat"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "heat_fs",
+        "historical_verified": false,
+        "key": "shell.reference.ricochetPreset",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 467.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "heat_fs"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "ap",
+        "historical_verified": false,
+        "key": "shell.reference.secondaryShattersPreset",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 468.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "ap"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "0.05",
+        "historical_verified": false,
+        "key": "shell.reference.fuseDelayDist",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 469.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "0.05"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "0.1",
+        "historical_verified": false,
+        "key": "shell.reference.explodeTreshold",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 470.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "Opaque source parameter/preset. hitPower is not penetration_mm; stabilityThreshold is not a gun stabilizer.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "0.1"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": 42.0,
+        "historical_verified": false,
+        "key": "primary.capacity",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 453.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "42 发"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "rounds",
+        "unit": "rounds"
+      },
+      {
+        "candidate_value": {
+          "pitch": 40.0,
+          "yaw": 40.0
+        },
+        "historical_verified": false,
+        "key": "primary.traverse",
+        "locator": [
+          {
+            "group": "primary",
+            "line": 454.0,
+            "section": "武器与弹药"
+          }
+        ],
+        "note": "",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "yaw 40.0 °/s, pitch 40.0 °/s"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": "deg/s",
+        "unit": "deg/s"
+      },
+      {
+        "candidate_value": "80, 65, 25",
+        "historical_verified": false,
+        "key": "armor.card_hull",
+        "locator": [
+          {
+            "group": "",
+            "line": 34.0,
+            "section": "装甲 · 卡片值（钢板基础厚度 mm，前/侧/后）"
+          }
+        ],
+        "note": "Card summary; never override local layered armor.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "80, 65, 25"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "80, 80, 25",
+        "historical_verified": false,
+        "key": "armor.card_turret",
+        "locator": [
+          {
+            "group": "",
+            "line": 35.0,
+            "section": "装甲 · 卡片值（钢板基础厚度 mm，前/侧/后）"
+          }
+        ],
+        "note": "Card summary; never override local layered armor.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "80, 80, 25"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": {
+          "commanderViewIr": {
+            "ghosting": 0.75,
+            "lightMult": 8.0,
+            "noiseFactor": 0.2,
+            "resolution": [
+              800.0,
+              600.0
+            ]
+          },
+          "driverIr": {
+            "ghosting": 0.6,
+            "lightMult": 5.0,
+            "noiseFactor": 0.2,
+            "resolution": [
+              800.0,
+              600.0
+            ]
+          },
+          "nightVisionDmPart": "fire_control_system_dm"
+        },
+        "historical_verified": false,
+        "key": "optics.raw_ir",
+        "locator": [
+          {
+            "group": "",
+            "line": 493.0,
+            "section": "其他"
+          }
+        ],
+        "note": "IR is not automatically thermal; missing fields may be inherited; upgrade names do not specify capability.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "{\"nightVisionDmPart\": \"fire_control_system_dm\", \"commanderViewIr\": {\"resolution\": [800, 600], \"lightMult\": 8.0, \"ghosting\": 0.75, \"noiseFactor\": 0.2}, \"driverIr\": {\"resolution\": [800, 600], \"lightMult\": 5.0, \"ghosting\": 0.6, \"noiseFactor\": 0.2}}"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      },
+      {
+        "candidate_value": "25 项: new_tank_tracks, new_tank_suspension, new_tank_filter, new_tank_brakes, new_tank_transmission, new_tank_engine, tank_camouflage, tank_additional_armor, manual_extinguisher, tank_tool_kit, new_tank_horizontal_aiming, new_tank_vertical_aiming, art_support, tank_new_gun, tank_bulldozer_blade, tank_medical_kit, tank_medical_kit_expendable, 120mm_NATO_HEAT_FS, 120mm_NATO_APDS_FS, 120mm_NATO_APDS_FS_ammo_pack, 120mm_DM_APDS_FS, 120mm_DM_APDS_FS_ammo_pack, modern_tank_laser_rangefinder, tank_smoke_screen_system_mod, night_vision_system",
+        "historical_verified": false,
+        "key": "equipment.modification_references",
+        "locator": [
+          {
+            "group": "",
+            "line": 494.0,
+            "section": "其他"
+          }
+        ],
+        "note": "Inventory of references, not proof modifications are installed or implemented.",
+        "origin": "warthunder_reference",
+        "raw_value": [
+          "25 项: new_tank_tracks, new_tank_suspension, new_tank_filter, new_tank_brakes, new_tank_transmission, new_tank_engine, tank_camouflage, tank_additional_armor, manual_extinguisher, tank_tool_kit, new_tank_horizontal_aiming, new_tank_vertical_aiming, art_support, tank_new_gun, tank_bulldozer_blade, tank_medical_kit, tank_medical_kit_expendable, 120mm_NATO_HEAT_FS, 120mm_NATO_APDS_FS, 120mm_NATO_APDS_FS_ammo_pack, 120mm_DM_APDS_FS, 120mm_DM_APDS_FS_ammo_pack, modern_tank_laser_rangefinder, tank_smoke_screen_system_mod, night_vision_system"
+        ],
+        "resolution_state": "explicit_reference_candidate",
+        "runtime_admitted": false,
+        "source_unit": null,
+        "unit": null
+      }
+    ],
+    "sha256": "651a05634a30b408096f7d83532bb03c78abff8fbeaa1445b97fa31540bf6641",
+    "unresolved": [
+      {
+        "detail": "Defaults/includes, modes and modification application are not fully resolved.",
+        "id": "lossy_summary"
+      },
+      {
+        "detail": "Generic module lists are not active crew/equipment. Positions, sizes, transforms and armor layer ordering require an authored geometry map.",
+        "id": "active_geometry"
+      },
+      {
+        "detail": "No complete penetration curve, equivalent armor or preset definitions; existing engine lacks these modern effects. Never use hitPower as penetration.",
+        "id": "ballistics_and_materials"
+      },
+      {
+        "detail": "Shot reload time, pitch limits, stabilizer and sight FOV/offset/rangefinder behavior are missing; rack replenishment is not reload.",
+        "id": "fire_control"
+      },
+      {
+        "detail": "IR versus thermal, installed upgrades and autoloader presence require explicit resolution; dummy_weapon cannot fire.",
+        "id": "equipment_resolution"
+      },
+      {
+        "detail": "All source data remains warthunder_reference; game release date is not historical variant year.",
+        "id": "historical_evidence"
+      },
+      {
+        "detail": "Some module entries were omitted by the source exporter.",
+        "evidence": [
+          {
+            "line": 296.0,
+            "raw_value": "...（其余 148 项略，可查原始 JSON）"
+          }
+        ],
+        "id": "truncated_sections"
+      }
+    ],
+    "weapon_references": [
+      {
+        "kind": "weapon_reference",
+        "line": 450.0,
+        "raw_value": "[primary]  120mm_Rheinmetall_L44_user_cannon",
+        "runtime_admitted": false,
+        "slot": "primary",
+        "source_weapon_id": "120mm_Rheinmetall_L44_user_cannon"
+      },
+      {
+        "kind": "weapon_reference",
+        "line": 473.0,
+        "raw_value": "[coaxial]  7_92mm_MG3_user_machinegun",
+        "runtime_admitted": false,
+        "slot": "coaxial",
+        "source_weapon_id": "7_92mm_MG3_user_machinegun"
+      },
+      {
+        "kind": "weapon_reference",
+        "line": 479.0,
+        "raw_value": "[machinegun]  7_92mm_MG3_user_machinegun",
+        "runtime_admitted": false,
+        "slot": "machinegun",
+        "source_weapon_id": "7_92mm_MG3_user_machinegun"
+      },
+      {
+        "kind": "dummy_reference_only",
+        "line": 485.0,
+        "raw_value": "[commander]  dummy_weapon",
+        "runtime_admitted": false,
+        "slot": "commander",
+        "source_weapon_id": "dummy_weapon"
+      }
+    ]
+  },
+  "runtime": {
+    "acceleration": 4.5,
+    "forward_max_speed": 19.0,
+    "hull_turn_speed": 30.0,
+    "muzzle_velocity": 1650.0,
+    "penetration_curve": [
+      [
+        0.0,
+        440.0
+      ],
+      [
+        1000.0,
+        390.0
+      ],
+      [
+        2500.0,
+        310.0
+      ]
+    ],
+    "pitch_max": 20.0,
+    "pitch_min": -9.0,
+    "reload_time": 7.5,
+    "reverse_max_speed": 8.0,
+    "rounds": 42.0,
+    "turret_pitch_speed": 20.0,
+    "turret_yaw_speed": 40.0
+  },
+  "shell_catalog": {
+    "default": "game_apfsds_120_v1",
+    "schema_version": 1.0,
+    "shells": [
+      {
+        "caliber_mm": 120.0,
+        "effect_policy": "long_rod",
+        "evidence": {
+          "ballistics": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "gravity_scale": 1.0,
+              "max_flight_time_s": 12.0,
+              "muzzle_velocity_mps": 1650.0,
+              "penetration_curve": [
+                [
+                  0.0,
+                  440.0
+                ],
+                [
+                  1000.0,
+                  390.0
+                ],
+                [
+                  2500.0,
+                  310.0
+                ]
+              ]
+            }
+          },
+          "effect": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "text",
+            "value": "long_rod"
+          },
+          "identity": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "caliber_mm": 120.0,
+              "family": "APFSDS",
+              "gun": "120mm_Rheinmetall_L44_user_cannon",
+              "id": "game_apfsds_120_v1",
+              "source_bullet_type": "game_rule_apfsds"
+            }
+          },
+          "impact": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "angle_resistance_curve": [
+                [
+                  0.0,
+                  1.0
+                ],
+                [
+                  30.0,
+                  1.2
+                ],
+                [
+                  60.0,
+                  1.6
+                ],
+                [
+                  90.0,
+                  4.0
+                ]
+              ],
+              "family": "APFSDS",
+              "material_coefficients": {
+                "cast": 0.95,
+                "rolled": 1.0
+              },
+              "provenance": "game_rule",
+              "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+              "ricochet_deg": 82.0,
+              "version": "wt012-long-rod-v1"
+            }
+          },
+          "post_penetration": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "budget_fraction": 0.2,
+              "cone_deg": 25.0,
+              "count": 6.0,
+              "fragment_impact_profile": {
+                "family": "fragment",
+                "material_coefficients": {
+                  "cast": 0.95,
+                  "rolled": 1.0
+                },
+                "normalization_deg": 0.0,
+                "overmatch_ratio": 0.0,
+                "provenance": "game_rule",
+                "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+                "ricochet_deg": 75.0,
+                "version": "wt012-full-caliber-v1"
+              },
+              "max_total_mm": 60.0,
+              "min_residual_mm": 5.0,
+              "provenance": "game_rule",
+              "range_m": 3.0,
+              "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+              "version": "wt013-directional-spall-v1"
+            }
+          }
+        },
+        "family": "APFSDS",
+        "gravity_scale": 1.0,
+        "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "id": "game_apfsds_120_v1",
+        "impact_profile": {
+          "angle_resistance_curve": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              30.0,
+              1.2
+            ],
+            [
+              60.0,
+              1.6
+            ],
+            [
+              90.0,
+              4.0
+            ]
+          ],
+          "family": "APFSDS",
+          "material_coefficients": {
+            "cast": 0.95,
+            "rolled": 1.0
+          },
+          "provenance": "game_rule",
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "ricochet_deg": 82.0,
+          "version": "wt012-long-rod-v1"
+        },
+        "label": "120 mm APFSDS (game tuning)",
+        "max_flight_time_s": 12.0,
+        "muzzle_velocity_mps": 1650.0,
+        "penetration_curve": [
+          [
+            0.0,
+            440.0
+          ],
+          [
+            1000.0,
+            390.0
+          ],
+          [
+            2500.0,
+            310.0
+          ]
+        ],
+        "post_penetration_profile": {
+          "budget_fraction": 0.2,
+          "cone_deg": 25.0,
+          "count": 6.0,
+          "fragment_impact_profile": {
+            "family": "fragment",
+            "material_coefficients": {
+              "cast": 0.95,
+              "rolled": 1.0
+            },
+            "normalization_deg": 0.0,
+            "overmatch_ratio": 0.0,
+            "provenance": "game_rule",
+            "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+            "ricochet_deg": 75.0,
+            "version": "wt012-full-caliber-v1"
+          },
+          "max_total_mm": 60.0,
+          "min_residual_mm": 5.0,
+          "provenance": "game_rule",
+          "range_m": 3.0,
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt013-directional-spall-v1"
+        },
+        "source_bullet_type": "game_rule_apfsds"
+      },
+      {
+        "caliber_mm": 120.0,
+        "chemical_profile": {
+          "path_loss_mm_per_m": 20.0,
+          "penetration_mm": 480.0,
+          "provenance": "game_rule",
+          "range_m": 4.0,
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt013-chemical-jet-v1"
+        },
+        "effect_policy": "chemical",
+        "evidence": {
+          "ballistics": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "gravity_scale": 1.0,
+              "max_flight_time_s": 12.0,
+              "muzzle_velocity_mps": 1140.0,
+              "penetration_curve": [
+                [
+                  0.0,
+                  480.0
+                ],
+                [
+                  2500.0,
+                  480.0
+                ]
+              ]
+            }
+          },
+          "chemical": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "path_loss_mm_per_m": 20.0,
+              "penetration_mm": 480.0,
+              "provenance": "game_rule",
+              "range_m": 4.0,
+              "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+              "version": "wt013-chemical-jet-v1"
+            }
+          },
+          "effect": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "text",
+            "value": "chemical"
+          },
+          "identity": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "caliber_mm": 120.0,
+              "family": "HEAT",
+              "gun": "120mm_Rheinmetall_L44_user_cannon",
+              "id": "game_heat_120_v1",
+              "source_bullet_type": "heat_fs_tank"
+            }
+          },
+          "impact": {
+            "location": "design_rules.json",
+            "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery.",
+            "origin": "game_rule",
+            "source_refs": [
+              "design",
+              "builder"
+            ],
+            "status": "estimated",
+            "unit": "structured",
+            "value": {
+              "family": "HEAT",
+              "material_coefficients": {
+                "cast": 0.95,
+                "rolled": 1.0
+              },
+              "provenance": "game_rule",
+              "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+              "version": "wt012-chemical-v1"
+            }
+          }
+        },
+        "family": "HEAT",
+        "gravity_scale": 1.0,
+        "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "id": "game_heat_120_v1",
+        "impact_profile": {
+          "family": "HEAT",
+          "material_coefficients": {
+            "cast": 0.95,
+            "rolled": 1.0
+          },
+          "provenance": "game_rule",
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt012-chemical-v1"
+        },
+        "label": "120 mm HEAT (game tuning)",
+        "max_flight_time_s": 12.0,
+        "muzzle_velocity_mps": 1140.0,
+        "penetration_curve": [
+          [
+            0.0,
+            480.0
+          ],
+          [
+            2500.0,
+            480.0
+          ]
+        ],
+        "source_bullet_type": "heat_fs_tank"
+      }
+    ]
+  },
+  "source_binding": {
+    "primary_source": "reference",
+    "source_vehicle_id": "germ_leopard_2a4"
+  },
+  "sources": {
+    "builder": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://authoring/reference_data/build_modern_vehicle_packages.py",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "46e380ecb6ae1f02adb6e6bc85e22c577fe2a3d1a430a56973d0373ac83ea1eb",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "design": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://authoring/reference_data/modern_vehicles/design_rules.json",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "5a56edd47948f4d7608918eb2175f0f67a2fb1973a4dceb5140129a03ae8020c",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "equipment": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://authoring/reference_data/modern_equipment/germ_leopard_2a4.json",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "f593124229a7c829b20cee737b6c8f52b7c3954cf0b218bed3b1fb363bf2c514",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "mount_art": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://assets/research/models/germ_leopard_2a4.glb",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "mount_recipe": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://scripts/content/modern_model_mount_adapter.gd",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "fca05d1f5be984018072715486e58c3bc3e92c49e018fe7dbe397a35315e3814",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "reference": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://assets/reference_data/source_snapshots/germ_leopard_2a4.txt",
+      "excluded_identity_ids": [],
+      "origin": "warthunder_reference",
+      "read_state": "text_read",
+      "resource_version": "2.57.1.137",
+      "sha256": "fae1dc60e29f4811c31098613e938bae7671f5434db19eaf7a91d3816e806a6b",
+      "source_vehicle_id": "germ_leopard_2a4"
+    }
+  },
+  "unit_contract": {
+    "acceleration": "m/s2",
+    "angle": "deg",
+    "angular_speed": "deg/s",
+    "armor": "mm",
+    "caliber": "mm",
+    "distance": "m",
+    "mass": "kg",
+    "speed": "m/s",
+    "time": "s"
+  }
+}

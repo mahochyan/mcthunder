@@ -37,3 +37,6 @@ authoring/reference_data/modern_equipment/*.json -text
 authoring/reference_data/modern_vehicles/*.json -text
 authoring/reference_data/build_modern_vehicle_packages.py -text
 logs/WT015-compartment/** -text
+scripts/content/modern_model_mount_adapter.gd -text
+authoring/reference_data/modern_bound/*.json -text
+logs/WT030-mounts/** -text

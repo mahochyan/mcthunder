@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] create isolated adapter output directory
+[PASS] persisted model candidate validates without combat admission: ussr_t_80b
+[PASS] persisted binding records current recipe hash
+[ADAPTER] ussr_t_80b []
+[PASS] exact published model receives explicit articulated mounts: ussr_t_80b
+[PASS] adapter does not mutate original candidate or mark combat complete
+[PASS] all original visible meshes retain neutral world poses and muzzle uses actual gun tip
+[PASS] changed source rig is rejected: axes
+[PASS] changed source rig is rejected: running_mesh
+[PASS] adapted real model exports to its own artifact
+[PIPELINE] ussr_t_80b []
+[PASS] real model and measured mounts pass complete engineering package validation
+[PASS] isolated catalog registers real bound modern model
+[PASS] real Actor installs source hull, turret, cannon and running branches
+[PASS] ordinary driving command moves the actual bound model
+[PASS] authored and live muzzle remain coincident after yaw and pitch
+[PASS] articulated source turret is unique and real tracks move on independent frames
+[PASS] normal fire consumes one round at actual source cannon muzzle
+[PASS] source delivery bytes remain unchanged
+[PASS] adapter rejects identity before source mutation
+[PASS] adapter rejects hash before source mutation
+[PASS] adapter rejects status before source mutation
+[PASS] persisted model candidate validates without combat admission: germ_leopard_2a4
+[PASS] persisted binding records current recipe hash
+[ADAPTER] germ_leopard_2a4 []
+[PASS] exact published model receives explicit articulated mounts: germ_leopard_2a4
+[PASS] adapter does not mutate original candidate or mark combat complete
+[PASS] all original visible meshes retain neutral world poses and muzzle uses actual gun tip
+[PASS] Leopard actual lateral gun-pivot offset is retained
+[PASS] changed source rig is rejected: axes
+[PASS] changed source rig is rejected: running_mesh
+[PASS] adapted real model exports to its own artifact
+[PIPELINE] germ_leopard_2a4 []
+[PASS] real model and measured mounts pass complete engineering package validation
+[PASS] isolated catalog registers real bound modern model
+[PASS] real Actor installs source hull, turret, cannon and running branches
+[PASS] ordinary driving command moves the actual bound model
+[PASS] authored and live muzzle remain coincident after yaw and pitch
+[PASS] articulated source turret is unique and real tracks move on independent frames
+[PASS] normal fire consumes one round at actual source cannon muzzle
+[PASS] source delivery bytes remain unchanged
+[PASS] adapter rejects identity before source mutation
+[PASS] adapter rejects hash before source mutation
+[PASS] adapter rejects status before source mutation
+[PASS] binding increment does not bypass complete-vehicle admission
+=== 结果: 41 项检查, 0 失败 ===
+MODERN_MODEL_MOUNT_CHECKS_PASS
