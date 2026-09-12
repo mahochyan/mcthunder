@@ -136,7 +136,7 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "projectile_capacity"}
 	var armor_policy := str(spec.get("armor_policy", "resolve"))
 	var effect_policy := str(spec.get("effect_policy","kinetic"))
-	if effect_policy not in ["kinetic","internal_burst"] or (effect_policy == "internal_burst" and armor_policy != "resolve"):
+	if effect_policy not in ["kinetic","internal_burst","long_rod"] or (effect_policy in ["internal_burst","long_rod"] and armor_policy != "resolve"):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_effect_policy"}
 	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
 	var fuze: Variant = spec.get("fuze_policy", {})

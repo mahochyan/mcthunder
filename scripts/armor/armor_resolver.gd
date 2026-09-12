@@ -46,7 +46,7 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 	var should_ricochet := float(out.angle_deg) >= GameConfig.ARMOR_RICOCHET_DEG - 1e-5
 	var cost := thickness / cos_angle
 	if not profile.is_empty():
-		out["impact_profile_version"] = ArmorImpactProfile.VERSION
+		out["impact_profile_version"] = profile.version
 		out["terminal_family"] = profile.family
 		out["budget_unit"] = ArmorImpactProfile.UNIT
 		out["path_thickness_mm"] = thickness/cos_angle
@@ -56,6 +56,7 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 		if not response.ok:
 			out.result=response.reason; return out
 		for key in ["adjusted_angle_deg","material_multiplier","overmatch"]: out[key]=response[key]
+		if response.has("angle_multiplier"): out["angle_multiplier"]=response.angle_multiplier
 		cost=float(response.resistance_mm)
 		should_ricochet=bool(response.ricochet)
 		out.effective_mm=cost

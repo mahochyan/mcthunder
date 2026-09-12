@@ -37,7 +37,10 @@
     "external_source_policy": "只读快照、准确车型ID匹配；候选不冒充完整战斗车",
     "execution_mode": "mcp_external_delegation",
     "subagents_allowed": true,
-    "parallel_lanes": ["有明确文件归属的实现", "独立只读审查与验证"]
+    "parallel_lanes": [
+      "有明确文件归属的实现",
+      "独立只读审查与验证"
+    ]
   },
   "acceptance_gates": [
     "逻辑正确：生产规则及反例验证",
@@ -199,7 +202,7 @@
         "WT-010",
         "WT-011"
       ],
-      "current": "AP/APHE显式材质、角度修正和口径/名义板厚关系进入真实发射及连续预算；几何LOS与游戏抗力分离，旧规则兼容，详见WT012_MATERIAL_RESPONSE.md。",
+      "current": "AP/APHE显式材质、角度修正和口径/名义板厚关系进入真实发射及连续预算；几何LOS与游戏抗力分离，旧规则兼容，详见WT012_MATERIAL_RESPONSE.md。 APFSDS long_rod 独立角度/材质响应、实际分层命中和直接毁伤、正常选弹发射与版本化回放已接入；56/57/24项专项及旧弹药/引信/参考/网络回归通过，见WT012_LONG_ROD_FOUNDATION.md；完整长杆破片与HEAT等仍未完成。",
       "remaining": "HE及现代弹族、复合/反应材料、完整距离×角度×材料×弹族标定；本轮预算不是残余能量物理模型。",
       "deliverables": "ArmorResponseProfile/ShellResponseProfile、旧规则兼容、距离×角度×材料×弹族矩阵。",
       "acceptance": "未穿/跳弹/停止/续飞边界稳定；弹种选择有实际差异；不把设计公式当未公开史实。",

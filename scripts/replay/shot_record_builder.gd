@@ -87,7 +87,7 @@ static func freeze(st: ProjectileState, terminal: Dictionary) -> Dictionary:
 		"burst":st.burst.duplicate(true),"fragments":st.fragments.duplicate(true),
 		"damage":st.damage_records.duplicate(true),"terminal":terminal.duplicate(true)}
 	# Terminal already has the same events; avoid storing a second full copy inside it.
-	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=ArmorImpactProfile.VERSION
+	if not st.impact_profile.is_empty(): record.rules_versions["impact"]=st.impact_profile.version
 	record.terminal.erase("contacts")
 	record.terminal.erase("damage_records")
 	record.terminal.erase("burst")
@@ -124,7 +124,7 @@ static func validate(record: Dictionary) -> Dictionary:
 	var impact: Variant = record.launch.get("impact_profile", {})
 	if not ArmorImpactProfile.validate(impact,str(record.launch.get("effect_policy","kinetic"))).is_empty(): return _bad("invalid_impact_profile")
 	if not impact.is_empty() and (not _number(record.launch.get("caliber_mm")) or record.launch.caliber_mm<=0): return _bad("invalid_impact_caliber")
-	if not impact.is_empty() and versions.get("impact")!=ArmorImpactProfile.VERSION: return _bad("unsupported_impact_rules")
+	if not impact.is_empty() and versions.get("impact")!=impact.version: return _bad("unsupported_impact_rules")
 	if impact.is_empty() and versions.has("impact"): return _bad("missing_impact_profile")
 	if not record.terminal.get("reason") is String or not _number(record.terminal.get("flight_time_s")): return _bad("invalid_terminal")
 	if not record.terminal.get("impact_point") is Vector3 or not record.terminal.impact_point.is_finite(): return _bad("invalid_terminal_point")
@@ -204,7 +204,7 @@ static func _validate_impact_contact(record: Dictionary, contact: Dictionary, pr
 		if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
 	for key in ["impact_profile_version","terminal_family","budget_unit","material_kind","overmatch"]:
 		if expected.has(key) and contact.get(key)!=expected[key]: return _bad("impact_profile_mismatch")
-	for key in ["path_thickness_mm","adjusted_angle_deg","material_multiplier"]:
+	for key in ["path_thickness_mm","adjusted_angle_deg","material_multiplier","angle_multiplier"]:
 		if expected.has(key):
 			if not _same_number(contact.get(key),expected[key]): return _bad("impact_value_mismatch")
 		elif contact.has(key): return _bad("unexpected_impact_value")

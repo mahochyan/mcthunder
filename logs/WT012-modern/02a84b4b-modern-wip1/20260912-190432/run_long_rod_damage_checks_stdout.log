@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] load real definitions
+[PASS] create real actor A
+[PASS] create real actor B
+[PASS] actual manager accepts long-rod damage shot
+[FAIL] penetrated path destroys actual engine state
+[FAIL] engine disables propulsion but not weapon
+[PASS] same definition other vehicle stays healthy
+[FAIL] one armor contact plus one actual module event
+[FAIL] module resistance consumes remaining penetration
+[FAIL] same projectile does not damage one module twice
+[PASS] actual manager accepts long-rod damage shot
+[FAIL] 90-degree turret uses actual rotated module box
+[FAIL] 90-degree turret uses actual rotated crew station
+[FAIL] rotated module and crew each receive exactly one path event
+[PASS] actual manager accepts long-rod damage shot
+[FAIL] destroyed turret drive blocks actual tracking
+[PASS] missing loader changes real cooldown clock
+[PASS] same damage event ID is rejected
+[PASS] actual manager accepts long-rod damage shot
+[FAIL] damage callback reset terminates once
+[PASS] reset callback cannot leave late damage or duplicate finish
+=== 结果: 21 项检查, 10 失败 ===
+DAMAGE_CHECKS_FAIL

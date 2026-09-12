@@ -1,0 +1,80 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] rolled plate consumes independent game RHA budget
+[PASS] same 40mm cast plate has explicit 38mm game resistance
+[PASS] geometric LOS remains separate from material budget
+[PASS] AP angle response matches independent 40/cos56 constant, geometric path remains80
+[PASS] APHE separate angle response matches independent 40/cos58 constant
+[PASS] diameter/nominal plate threshold: 74.9
+[PASS] diameter/nominal plate threshold: 75.0
+[PASS] diameter/nominal plate threshold: 75.1
+[PASS] ricochet uses actual incidence before resistance normalization
+[PASS] unknown material cannot borrow rolled resistance or trigger ricochet
+[PASS] known material cannot fill unknown thickness
+[PASS] exact grazing retains bounded unresolved result
+[PASS] fragments do not inherit parent caliber or normalization
+[PASS] fuze threshold reads actual40mm path, not cast38mm budget
+[PASS] invalid profile rejected: <null>
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: []
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "APFSDS", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "future", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": inf, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": -1, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 0.1, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 90, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.0 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "unknown": 1.0, "cast": 1.0 }, "provenance": "game_rule", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] invalid profile rejected: { "version": "wt012-full-caliber-v1", "family": "AP", "normalization_deg": 4.0, "overmatch_ratio": 3.0, "ricochet_deg": 75.0, "material_coefficients": { "rolled": 1.0, "cast": 0.95 }, "provenance": "historical_verified", "reason": "TEST ONLY response constants" }
+[PASS] invalid profile cannot enter actual manager
+[PASS] response leaves shared configuration and budget immutable
+[PASS] real manager accepts complete response profile
+[PASS] same two-triangle plate resolves exactly once: rolled
+[PASS] actual shot response uses queried material: rolled
+[PASS] actual material shot replay validates
+[PASS] replay freezes impact policy, caliber and actual geometry material
+[PASS] normal explanation distinguishes unknown material and geometric thickness
+[PASS] real manager accepts complete response profile
+[PASS] same two-triangle plate resolves exactly once: cast
+[PASS] actual shot response uses queried material: cast
+[PASS] actual material shot replay validates
+[PASS] replay freezes impact policy, caliber and actual geometry material
+[PASS] normal explanation distinguishes unknown material and geometric thickness
+[PASS] real manager accepts complete response profile
+[PASS] same two-triangle plate resolves exactly once: unknown
+[PASS] actual shot response uses queried material: unknown
+[PASS] actual material shot replay validates
+[PASS] replay freezes impact policy, caliber and actual geometry material
+[PASS] normal explanation distinguishes unknown material and geometric thickness
+[PASS] real manager accepts complete response profile
+[PASS] separate cast and rolled layers consume one common residual budget in order
+[PASS] real manager accepts complete response profile
+[PASS] submillimeter separate layers retain distinct material costs
+[PASS] real manager accepts complete response profile
+[PASS] accepted shot freezes material table against later source edits
+[PASS] real manager accepts complete response profile
+[PASS] actual barrel-caliber response bypasses ricochet at exact ratio
+[PASS] real manager accepts complete response profile
+[PASS] slightly thicker actual plate retains reflected trajectory
+[PASS] us_m4a3_75w_vvss_1944: actual production geometry uses explicit supported material
+[PASS] us_m24_m6_t85e1_1951: actual production geometry uses explicit supported material
+[PASS] us_m26_m3_1945: actual production geometry uses explicit supported material
+[PASS] us_m36_m4a1_1945: actual production geometry uses explicit supported material
+[PASS] unknown source fixture retained; playable damage exercise explicitly authors game rolled steel
+[PASS] actual manager accepts material and single-plate arming fixture
+[PASS] actual APHE traverses all explicit cast plates
+[PASS] 40mm path arms despite38mm resistance; separated20+20mm never accumulate trigger
+[PASS] actual manager accepts material and single-plate arming fixture
+[PASS] actual APHE traverses all explicit cast plates
+[PASS] 40mm path arms despite38mm resistance; separated20+20mm never accumulate trigger
+=== 结果: 76 项检查, 0 失败 ===
+MATERIAL_RESPONSE_CHECKS_PASS

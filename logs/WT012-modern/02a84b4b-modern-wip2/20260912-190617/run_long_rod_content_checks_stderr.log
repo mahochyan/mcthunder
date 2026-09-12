@@ -1,0 +1,9 @@
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: build (res://scripts/content/vehicle_shell_catalog.gd:82)
+   GDScript backtrace (most recent call first):
+       [0] build (res://scripts/content/vehicle_shell_catalog.gd:82)
+       [1] _run (res://tests/run_long_rod_content_checks.gd:35)
+SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.
+   at: _run (res://tests/run_long_rod_content_checks.gd:35)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_long_rod_content_checks.gd:35)

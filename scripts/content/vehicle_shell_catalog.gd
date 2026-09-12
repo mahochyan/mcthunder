@@ -2,7 +2,8 @@ class_name VehicleShellCatalog
 extends RefCounted
 ## Shared inventory interface. Reference shells use only actually implemented effects.
 const MAX_SHELLS := 8
-const FAMILIES := {"AP":{"source":"ap_tank","effect":"kinetic"},"APHE":{"source":"aphe_tank","effect":"internal_burst"}}
+const FAMILIES := {"AP":{"source":"ap_tank","effect":"kinetic"},"APHE":{"source":"aphe_tank","effect":"internal_burst"},
+	"APFSDS":{"source":"game_rule_apfsds","effect":"long_rod"}}
 
 static func number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
@@ -40,7 +41,7 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 		if unique.has(data.id): errors.append("shell.id: duplicate"); continue
 		unique[data.id]=true
 		if data.family not in FAMILIES:
-			errors.append("shell.family: unsupported; HEAT/APFSDS and future families cannot fall back to AP")
+			errors.append("shell.family: unsupported family cannot fall back to AP")
 			continue
 		if data.source_bullet_type != FAMILIES[data.family].source or data.effect_policy != FAMILIES[data.family].effect:
 			errors.append("shell.family: source family/effect mismatch; no relabeling unsupported modern ammunition")
@@ -57,6 +58,8 @@ static func build(vehicle_packet: Dictionary) -> Dictionary:
 			errors.append("shell.evidence: identity/ballistics/effect claims required")
 		else:
 			var identity := {"id":data.id,"gun":data.gun,"family":data.family,"source_bullet_type":data.source_bullet_type,"caliber_mm":data.get("caliber_mm")}
+			if data.family=="APFSDS" and (not data.evidence.get("identity") is Dictionary or data.evidence.identity.get("origin")!="game_rule"):
+				errors.append("shell.identity: authored APFSDS identifier is not a decoded War Thunder bullet type")
 			var ballistics := {"muzzle_velocity_mps":data.get("muzzle_velocity_mps"),"penetration_curve":data.get("penetration_curve"),"gravity_scale":data.get("gravity_scale"),"max_flight_time_s":data.get("max_flight_time_s")}
 			for claim in [["identity",identity,"structured"],["ballistics",ballistics,"structured"],["effect",data.effect_policy,"text"]]:
 				errors.append_array(ReferenceEvidenceGate.check_claim("shell."+data.id+"."+claim[0],data.evidence.get(claim[0]),vehicle_packet,claim[2]))

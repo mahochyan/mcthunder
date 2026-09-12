@@ -28,8 +28,8 @@ func validate() -> Dictionary:
 	var errors: Array[String] = []
 	errors.append_array(ShellFuze.validate(fuze_policy, effect_policy))
 	errors.append_array(ArmorImpactProfile.validate(impact_profile, effect_policy))
-	if effect_policy not in ["kinetic","internal_burst"]: errors.append("effect_policy: unsupported")
-	if effect_policy == "internal_burst" and armor_policy != "resolve": errors.append("internal_burst requires armor resolution")
+	if effect_policy not in ["kinetic","internal_burst","long_rod"]: errors.append("effect_policy: unsupported")
+	if effect_policy in ["internal_burst","long_rod"] and armor_policy != "resolve": errors.append("terminal effect requires armor resolution")
 	if armor_policy not in ["resolve", "legacy_contact_only"]:
 		errors.append("armor_policy: unsupported")
 	if armor_policy == "resolve" and not PenetrationCurve.validate(penetration_curve):

@@ -1,0 +1,76 @@
+[
+  {
+    "suite": "import",
+    "source_sha": "02a84b4b-modern-wip2",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" --editor --import",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 0,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_long_rod_damage_checks",
+    "source_sha": "02a84b4b-modern-wip2",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_long_rod_damage_checks.gd\"",
+    "exit_code": 1,
+    "timed_out": false,
+    "checks": 56,
+    "passed": false,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_long_rod_content_checks",
+    "source_sha": "02a84b4b-modern-wip2",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_long_rod_content_checks.gd\"",
+    "exit_code": -1,
+    "timed_out": true,
+    "checks": 0,
+    "passed": false,
+    "script_error": true,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_reference_admission_checks",
+    "source_sha": "02a84b4b-modern-wip2",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_reference_admission_checks.gd\"",
+    "exit_code": 0,
+    "timed_out": false,
+    "checks": 105,
+    "passed": true,
+    "script_error": false,
+    "unexpected_errors": [],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  },
+  {
+    "suite": "run_replay_material_checks",
+    "source_sha": "02a84b4b-modern-wip2",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "command": "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder\" -s \"res://tests/run_replay_material_checks.gd\"",
+    "exit_code": 1,
+    "timed_out": false,
+    "checks": 0,
+    "passed": false,
+    "script_error": false,
+    "unexpected_errors": [
+      "ERROR: Attempt to open script 'res://tests/run_replay_material_checks.gd' resulted in error 'File not found'.",
+      "ERROR: Failed loading resource: res://tests/run_replay_material_checks.gd.",
+      "ERROR: Can't load script: res://tests/run_replay_material_checks.gd"
+    ],
+    "expected_error_count": 0,
+    "log_read_errors": []
+  }
+]
