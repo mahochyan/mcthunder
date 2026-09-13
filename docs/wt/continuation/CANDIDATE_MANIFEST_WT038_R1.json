@@ -1,0 +1,81 @@
+{
+    "schema":  1,
+    "work_order":  "WT-038-R1",
+    "generated_at":  "2026-09-13",
+    "source":  {
+                   "repo":  "E:/AIprogram/mcthunder-cont (linked worktree)",
+                   "branch":  "work/continuation-20260913",
+                   "commit":  "b9eeb245fb0b12f4720e636e0c322f68dee36e2d",
+                   "tree":  "04d71a2d2fcd4dbd6daba2116aa83dcfd11ef719",
+                   "display_version":  "1.0.0-rc.3-dev",
+                   "build_id":  "continuation-20260913",
+                   "previous_candidate":  "1e7b3b1e (WT-023-R1)"
+               },
+    "build":  {
+                  "engine_version":  "4.7.2.stable.official.ed1daf0bf",
+                  "engine_sha256":  "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+                  "preset":  "Windows Team Slice",
+                  "preset_file_sha256":  "D3C10AAB95507D03ABC0E2725D8210B9032EFCA543C7478FC56946531B288B83",
+                  "export_command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --export-release \"Windows Team Slice\" \u003cout\u003e\\PixelArmor.exe",
+                  "artifacts":  [
+                                    {
+                                        "name":  "PixelArmor.exe",
+                                        "bytes":  109137920,
+                                        "sha256":  "F0189283C16A6436151682AC8B078C298CDE893F27812E52747549462B25965A"
+                                    },
+                                    {
+                                        "name":  "PixelArmor.pck",
+                                        "bytes":  65796900,
+                                        "sha256":  "90040DA44A0151BD157B9DA414268E7E10865397719E9ECE20B65FC9A86565A6"
+                                    }
+                                ]
+              },
+    "content":  {
+                    "scenes_tscn":  18,
+                    "scripts_gd":  262,
+                    "configs_files":  20,
+                    "assets_glb":  126,
+                    "tests_gd":  193,
+                    "docs_delivery":  65,
+                    "font_sha256":  "2C76254F6FC379FDDFCE0A7E84FB5385BB135D3E399294F6EEB6680D0365B74B"
+                },
+    "rules":  {
+                  "id":  "team_standard_300",
+                  "version":  1,
+                  "file":  "scripts/battle/match_rule_preset.gd",
+                  "file_sha256":  "3CC9A83E3109F629B2F356A319455201401B16A60DFA462AF94539BF57CFE0BB"
+              },
+    "verification":  {
+                         "exported_headless_exit":  0,
+                         "exported_window_exit":  0,
+                         "engine_log_errors":  0,
+                         "profile_isolation":  {
+                                                   "isolated_dir":  "WT038R1/userdata",
+                                                   "real_profile_files_before":  832,
+                                                   "after":  832
+                                               },
+                         "regression_gate":  {
+                                                 "regressions_introduced":  0,
+                                                 "pass":  117,
+                                                 "suites":  140,
+                                                 "deferred":  11,
+                                                 "not_run_environmental":  7,
+                                                 "pre_existing_baseline_red":  4
+                                             },
+                         "human":  "NOT_RUN",
+                         "release_ready":  false
+                     },
+    "declared_limits":  [
+                            "modern pilots remain candidate_only and combat-unadmitted",
+                            "M1A1 and ZTZ-99A deferred: no reference entry and no packet model_binding",
+                            "model_sources.json registry still empty",
+                            "formal networking partial: loopback authority verified, public discovery/relay/hosting/accounts unauthorised and unimplemented",
+                            "performance HOLD_BY_USER with zero sampling",
+                            "human acceptance NOT_RUN, experience gate PENDING",
+                            "10v10/16v16 capacity matches NOT_RUN",
+                            "air/naval extensions unimplemented"
+                        ],
+    "authorization_requested":  [
+                                    "dedicated server/client export presets in export_presets.cfg (build/release flow change requires approval)"
+                                ]
+}
