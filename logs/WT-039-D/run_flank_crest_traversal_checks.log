@@ -1,11 +1,15 @@
 ﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 
 [T039-D] route bottom=(-120.0, 0.0, 60.0) crest=(-120.0, 6.673919, 0.0)
-[T039-D] scenario battery skipped: fixture monitors are not validated yet
 [PASS] T039-D NOT_VERIFIED ussr_t_80b: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
 [PASS] T039-D NOT_VERIFIED germ_leopard_2a4: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
-[T039-D] FIXTURE_NOT_VALIDATED: monitors (penetration/bounce/stall) have not been calibrated against a flat-ground control and a known-good route, so this run is INCONCLUSIVE and must not be cited as a product verdict.
-=== 缁撴灉: 2 椤规鏌? 0 澶辫触锛堝満鏅垽瀹氫笉璁″叆锛?===
+[T039-D calibration] us_m4a3_75w_vvss_1944 bottoming=0.0000 stalled=57 traveled=1.34 bounces=0 ok=false
+[FAIL] T039-D fixture flat-ground control us_m4a3_75w_vvss_1944: bottoming 0.0000 m <= 0.10 m, stalls 57, traveled 1.34 m
+[T039-D calibration] us_m24_m6_t85e1_1951 bottoming=0.0000 stalled=0 traveled=5.36 bounces=0 ok=true
+[PASS] T039-D fixture flat-ground control us_m24_m6_t85e1_1951: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 5.36 m
+[T039-D calibration] us_m26_m3_1945 bottoming=0.0000 stalled=57 traveled=0.05 bounces=0 ok=false
+[FAIL] T039-D fixture flat-ground control us_m26_m3_1945: bottoming 0.0000 m <= 0.10 m, stalls 57, traveled 0.05 m
+[T039-D calibration] us_m36_m4a1_1945 bottoming=0.0000 stalled=0 traveled=2.25 bounces=0 ok=false
+[FAIL] T039-D fixture flat-ground control us_m36_m4a1_1945: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 2.25 m
+[T039-D] FIXTURE_NOT_VALIDATED: the flat-ground control failed for at least one vehicle, so the scenario battery is skipped and no product verdict is published.
 FLANK_CREST_TRAVERSAL_FIXTURE_NOT_VALIDATED
-=== 缁撴灉: 2 椤规鏌? 0 澶辫触 ===
-FLANK_CREST_TRAVERSAL_CHECKS_PASS
