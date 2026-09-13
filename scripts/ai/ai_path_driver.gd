@@ -188,11 +188,6 @@ func update_command(delta: float) -> VehicleCommand:
 	if navigator.through_waypoints and waypoint<path.size()-1:
 		desired_speed=minf(vehicle.definition.forward_max_speed,8.0)
 	if absf(angle) > deg_to_rad(18): desired_speed = 0
-	# WT-039-R1: see GameConfig.AI_MIN_APPROACH_SPEED_MPS - a deceleration curve tuned for pavement
-	# pins a heavy hull on grass, which the stuck detector then reads as no progress until the
-	# driver exhausts its recoveries and reports failed on a route the other three vehicles finish.
-	if absf(angle) <= deg_to_rad(18) and distance > GameConfig.AI_GOAL_RADIUS_M*2.0 and float(vehicle.tank.ground_state.surface_drag) >= GameConfig.AI_MIN_APPROACH_DRAG:
-		desired_speed = maxf(desired_speed,minf(GameConfig.AI_MIN_APPROACH_SPEED_MPS,vehicle.definition.forward_max_speed))
 	cmd.throttle = desired_speed/vehicle.definition.forward_max_speed
 	cmd.has_aim_point = true
 	cmd.aim_world_point = vehicle.tank.global_position+offset.normalized()*35+Vector3.UP*2.3
