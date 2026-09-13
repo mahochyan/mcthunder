@@ -10,6 +10,11 @@ const CAPTURE_SECONDS := 12.0
 const EVENT_SCHEMA_VERSION := 1
 const EVENT_HISTORY_LIMIT := 128
 static var next_match_id := 100
+## WT-022-R1: the rules this match runs under, frozen as one versioned preset. The
+## constants above remain the implementation values; the preset is the auditable copy and
+## the rule suite guards the two against drift.
+var rules := MatchRulePreset.standard()
+func rule_fingerprint() -> String: return rules.fingerprint()
 var match_id := 0
 var phase := "loading"
 var elapsed := 0.0

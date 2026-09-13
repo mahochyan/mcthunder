@@ -1,0 +1,38 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS only the three authored objectives are admitted
+PASS invalid layout rejected atomically: 0
+PASS invalid layout rejected atomically: 4
+PASS invalid layout rejected atomically: 3
+PASS invalid layout rejected atomically: 3
+PASS invalid layout rejected atomically: 3
+PASS three simultaneous captures allocate only three owned seconds per point
+PASS point ownership is journaled with stable point identity
+PASS objective snapshots do not expose writable authority
+PASS all contested zones freeze capture while existing owners retain exact drain
+PASS three hostile reversals split old-owner, neutral and new-owner time
+PASS fractional ticks produce the same aggregate tickets as a large capture tick
+PASS finished match cannot change point ownership
+PASS unique authoritative slots for 4 per team
+PASS unique authoritative slots for 10 per team
+PASS unique authoritative slots for 16 per team
+PASS invalid capacity or fourth point cannot replace current match
+PASS reinitializing a smaller roster removes old lives, points and ledger state
+PASS normal garage route installs production objective director
+PASS countdown completes before real vehicle enters a zone
+PASS normal W input drives the real M4 into C and advances capture
+PASS pause freezes all objective progress and match time
+PASS real vehicle completes C and drains opponent tickets through production ledger
+PASS HUD and tactical atlas show authoritative C ownership
+PASS three point strip fits default viewport
+PASS configured roster accepts actual distinct vehicle lives (32 loaded)
+PASS spawn protection excludes A while opposing real tanks contest B
+PASS one tick independently resolves actual A capture, B contest and enemy C capture
+PASS destroyed enemy stops contesting and death ledger charges once
+PASS repeated destroyed actor cannot charge a second death
+PASS stale registered generation cannot capture
+PASS simultaneous opposing point drain settles one draw with all three final states
+PASS final result and point evidence remain immutable on late ticks
+PASS pause restart button creates a fresh three-point exercise without resuming
+PASS return restores garage without committing training reward or changing lineup
+RESULT multi_objective passed=35 failed=0

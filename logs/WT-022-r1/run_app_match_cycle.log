@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] normal garage starts map 0
+NATURAL_MATCH map=0 frame=0 seconds=0.0 tickets={ 1: 300, 2: 300 }
+NATURAL_MATCH map=0 frame=3600 seconds=57.1 tickets={ 1: 300, 2: 240 }
+NATURAL_MATCH map=0 frame=7200 seconds=117.1 tickets={ 1: 300, 2: 186 }
+NATURAL_MATCH map=0 frame=10800 seconds=177.1 tickets={ 1: 240, 2: 126 }
