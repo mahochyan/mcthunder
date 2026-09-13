@@ -26,9 +26,14 @@ const HINTS := {
 	"turret":["turretarmour","turret","turm","rotatingplatform","launcherpedestal","cupola"],
 	"gun":["maingunandmuzzl","maingun","barrel","kanone","rohr","cannon","gun"],
 	"muzzle":["muzzle"],
-	"running_left":["track_l","trackleft","laufwerk_l","wheel_l","lefttrack"],
-	"running_right":["track_r","trackright","laufwerk_r","wheel_r","righttrack"],
+	"running_left":["track_l","trackleft","laufwerk_l","wheel_l","wheels_l","lefttrack"],
+	"running_right":["track_r","trackright","laufwerk_r","wheel_r","wheels_r","righttrack"],
 }
+## Some chassis model the running gear as ONE node (e.g. `SixPneumaticWheelsAndSuspension`).
+## That is a real authoring style, not a missing role: it is reported as an unsplit group that
+## needs an authored left/right split instead of being counted as absent.
+const RUNNING_GROUP_HINTS := ["sixpneumaticwheels","runninggear","laufwerk","suspension","kette",
+	"wheelsand","tracksand","wheels","tracks"]
 ## Roles whose hint must match exactly or as a prefix: `muzzle` must really be a muzzle node,
 ## not the `...AndMuzzleBrake` compound gun mesh.
 const STRICT_ROLES := ["muzzle"]
@@ -171,6 +176,18 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 			if str(row.name).to_lower().contains(str(hint)):
 				launcher_paths.append(str(row.path))
 				break
+	# A single running-gear node is an authoring style, not an absent role: both sides then
+	# point at that group and are reported as unsplit so the gap is "author a split", not
+	# "author a missing role".
+	if str(roles.running_left.kind) != "node" and str(roles.running_right.kind) != "node":
+		var group_meshes: Array[Dictionary] = []
+		for row in _candidates(nodes,RUNNING_GROUP_HINTS,false):
+			if str(row.type) == "mesh": group_meshes.append(row)
+		if group_meshes.size() == 1:
+			for role in ["running_left","running_right"]:
+				roles[role] = {"kind":"group_unsplit","node":str(group_meshes[0].name),
+					"path":str(group_meshes[0].path),"parent":str(group_meshes[0].parent),
+					"reason":"single_running_group_needs_authored_left_right_split"}
 	var launchers := launcher_paths.size()
 	var armed: bool = str(roles.gun.kind) == "node" or str(roles.gun.kind) == "measured_frame"
 	var vehicle_class := "unarmed"
@@ -186,11 +203,18 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 		if kind != "node" and kind != "measured_frame": class_missing.append(str(role))
 	var needs_launcher: bool = vehicle_class in ["multi_launcher","support_unarmed"]
 	var class_ready: bool = class_missing.is_empty() and (launchers >= 1 or not needs_launcher)
+	# Recompute the tallies from the final role table so an earlier incremental count cannot
+	# leave a role counted as missing after it was resolved or measured.
+	counts = {"node":0,"ambiguous":0,"missing":0,"measured":0,"group_unsplit":0}
+	for role in ModelBindingValidator.ROLES:
+		var kind := str(roles[role].kind)
+		counts[kind] = int(counts.get(kind,0))+1
 	var missing_roles: Array[String] = []
 	for role in ModelBindingValidator.ROLES:
 		if str(roles[role].kind) == "missing": missing_roles.append(role)
 	return {"ok":true,"roles":roles,"counts":counts,"node_roles":int(counts.node),
-		"measured_roles":int(counts.get("measured",0)),"ambiguous_roles":int(counts.ambiguous),
+		"measured_roles":int(counts.get("measured",0)),"ambiguous_roles":int(counts.ambiguous)+int(counts.get("group_unsplit",0)),
+		"group_unsplit_roles":int(counts.get("group_unsplit",0)),
 		"missing_roles":int(counts.missing),"missing_role_names":missing_roles,
 		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"launcher_paths":launcher_paths,
 		"expected_roles":expected,"class_missing_roles":class_missing,"class_ready":class_ready,

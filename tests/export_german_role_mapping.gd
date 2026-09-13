@@ -28,6 +28,7 @@ func _run() -> void:
 	var role_ambiguous := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var role_node := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var role_measured := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
+	var role_group_unsplit := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var class_counts := {}
 	var class_ready_counts := {}
 	var class_not_ready := {}
@@ -66,6 +67,7 @@ func _run() -> void:
 				"node": role_node[role] = int(role_node[role])+1
 				"measured_frame": role_measured[role] = int(role_measured[role])+1
 				"ambiguous": role_ambiguous[role] = int(role_ambiguous[role])+1
+				"group_unsplit": role_group_unsplit[role] = int(role_group_unsplit[role])+1
 				"missing": role_missing[role] = int(role_missing[role])+1
 		class_counts[str(result.vehicle_class)] = int(class_counts.get(str(result.vehicle_class),0))+1
 		if bool(result.class_ready):
@@ -101,9 +103,9 @@ func _run() -> void:
 			"roles":result.roles})
 		print("[role] ",RoleMappingAudit.summary_line(folder,result))
 	print("[role] folders=%d rows=%d binding_ready=%d unparsable=%d"%[folders.size(),rows.size(),ready,unparsable])
-	print("[role] per role node/measured/ambiguous/missing:")
+	print("[role] per role node/measured/ambiguous/group_unsplit/missing:")
 	for role in ModelBindingValidator.ROLES:
-		print("[role]   %s: node=%d measured=%d ambiguous=%d missing=%d"%[role,int(role_node[role]),int(role_measured[role]),int(role_ambiguous[role]),int(role_missing[role])])
+		print("[role]   %s: node=%d measured=%d ambiguous=%d group_unsplit=%d missing=%d"%[role,int(role_node[role]),int(role_measured[role]),int(role_ambiguous[role]),int(role_group_unsplit[role]),int(role_missing[role])])
 	print("[role] vehicle classes: ",class_counts)
 	print("[role] class-ready (judged by each class's own roles): ",class_ready_counts)
 	print("[role] class-not-ready: ",class_not_ready)

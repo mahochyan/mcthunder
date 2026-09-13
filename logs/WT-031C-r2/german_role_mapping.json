@@ -1,5 +1,5 @@
 {
-  "binding_ready": 80,
+  "binding_ready": 87,
   "draft_binding": {
     "licence_blocked": 0,
     "path_inside_repo": 0,
@@ -13,16 +13,16 @@
       "gun": 1,
       "hull": 0,
       "muzzle": 0,
-      "running_left": 10,
-      "running_right": 10,
+      "running_left": 4,
+      "running_right": 4,
       "turret": 0
     },
     "missing": {
       "gun": 4,
       "hull": 0,
       "muzzle": 5,
-      "running_left": 4,
-      "running_right": 4,
+      "running_left": 0,
+      "running_right": 0,
       "turret": 4
     },
     "node": {
@@ -57,7 +57,7 @@
       "folder": "35t",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -308,7 +308,7 @@
       "folder": "38t",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -539,7 +539,7 @@
     },
     {
       "adapter_artifact_required": false,
-      "ambiguous_roles": 0,
+      "ambiguous_roles": 2,
       "axis_checks": {
         "gun": "n/a",
         "turret": true
@@ -562,11 +562,9 @@
       "measured_roles": 0,
       "missing_role_names": [
         "gun",
-        "muzzle",
-        "running_left",
-        "running_right"
+        "muzzle"
       ],
-      "missing_roles": 4,
+      "missing_roles": 2,
       "muzzle_state": "unmeasured",
       "node_roles": 2,
       "node_roles_resolved": 2,
@@ -575,8 +573,8 @@
       "pending_author_steps": [
         "gun(missing)",
         "muzzle(missing)",
-        "running_left(missing)",
-        "running_right(missing)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
       "ready": false,
       "registration_ready": false,
@@ -622,10 +620,18 @@
           "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "SixPneumaticWheelsAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SixPneumaticWheelsAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "SixPneumaticWheelsAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SixPneumaticWheelsAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -689,7 +695,7 @@
       "folder": "9a35_m",
       "launcher_nodes": 3,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -943,7 +949,7 @@
       "folder": "AMD35",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -1150,7 +1156,7 @@
       "folder": "E100超重型坦克",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -1401,7 +1407,7 @@
       "folder": "KPz70",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -1652,7 +1658,7 @@
       "folder": "M48",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -1903,7 +1909,7 @@
       "folder": "Ru251轻型坦克",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -2157,7 +2163,7 @@
       "folder": "SdKfz234",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -2368,7 +2374,7 @@
       "folder": "SdKfz251",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -2619,7 +2625,7 @@
       "folder": "TAM",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -2870,7 +2876,7 @@
       "folder": "VK30.02M",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -3121,7 +3127,7 @@
       "folder": "begleitpanzer_57",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -3369,7 +3375,7 @@
       "folder": "bmp_1_ddr",
       "launcher_nodes": 4,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -3623,7 +3629,7 @@
       "folder": "boxer_3105",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -3633,10 +3639,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -3751,24 +3757,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03",
-            "VehicleRoot/wheel_l_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03",
-            "VehicleRoot/wheel_r_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -3837,7 +3837,7 @@
       "folder": "boxer_swatrinf",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -3847,10 +3847,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -3965,24 +3965,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03",
-            "VehicleRoot/wheel_l_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03",
-            "VehicleRoot/wheel_r_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -4048,7 +4042,7 @@
       "folder": "erprobungstrager_3_achs_turm",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -4301,7 +4295,7 @@
       "folder": "flakpanzer_38t_Gepard",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -4552,7 +4546,7 @@
       "folder": "flakpanzer_IV_Kugelblitz",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -4803,7 +4797,7 @@
       "folder": "flakpanzer_IV_Wirbelwind",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -5054,7 +5048,7 @@
       "folder": "flakpanzer_I_ausf_A",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -5305,7 +5299,7 @@
       "folder": "flakpanzer_V_Coelian",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -5556,7 +5550,7 @@
       "folder": "flakpanzer_zerstorer_45",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -5804,7 +5798,7 @@
       "folder": "flarakpz_1",
       "launcher_nodes": 3,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -6035,7 +6029,7 @@
     },
     {
       "adapter_artifact_required": true,
-      "ambiguous_roles": 0,
+      "ambiguous_roles": 2,
       "axis_checks": {
         "gun": true,
         "turret": true
@@ -6055,12 +6049,9 @@
       "folder": "flarakrad",
       "launcher_nodes": 15,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
-      "missing_role_names": [
-        "running_left",
-        "running_right"
-      ],
-      "missing_roles": 2,
+      "measured_roles": 0,
+      "missing_role_names": [],
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
       "node_roles": 3,
       "node_roles_resolved": 3,
@@ -6068,10 +6059,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(missing)",
-        "running_right(missing)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -6188,10 +6179,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -6257,7 +6256,7 @@
       "folder": "hummel",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -6508,7 +6507,7 @@
       "folder": "infanterie_kampfpanzer_churchill",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -6739,7 +6738,7 @@
     },
     {
       "adapter_artifact_required": false,
-      "ambiguous_roles": 0,
+      "ambiguous_roles": 2,
       "axis_checks": {
         "gun": "n/a",
         "turret": "n/a"
@@ -6763,11 +6762,9 @@
       "missing_role_names": [
         "turret",
         "gun",
-        "muzzle",
-        "running_left",
-        "running_right"
+        "muzzle"
       ],
-      "missing_roles": 5,
+      "missing_roles": 3,
       "muzzle_state": "unmeasured",
       "node_roles": 1,
       "node_roles_resolved": 1,
@@ -6777,8 +6774,8 @@
         "turret(missing)",
         "gun(missing)",
         "muzzle(missing)",
-        "running_left(missing)",
-        "running_right(missing)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
       "ready": false,
       "registration_ready": false,
@@ -6824,10 +6821,18 @@
           "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "kind": "missing"
@@ -6846,7 +6851,7 @@
     },
     {
       "adapter_artifact_required": false,
-      "ambiguous_roles": 1,
+      "ambiguous_roles": 3,
       "axis_checks": {
         "gun": "n/a",
         "turret": "n/a"
@@ -6869,11 +6874,9 @@
       "measured_roles": 0,
       "missing_role_names": [
         "turret",
-        "muzzle",
-        "running_left",
-        "running_right"
+        "muzzle"
       ],
-      "missing_roles": 4,
+      "missing_roles": 2,
       "muzzle_state": "unmeasured",
       "node_roles": 1,
       "node_roles_resolved": 1,
@@ -6883,8 +6886,8 @@
         "turret(missing)",
         "gun(ambiguous)",
         "muzzle(missing)",
-        "running_left(missing)",
-        "running_right(missing)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
       "ready": false,
       "registration_ready": false,
@@ -6935,10 +6938,18 @@
           "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "kind": "missing"
+          "kind": "group_unsplit",
+          "node": "EightPneumaticWheelsAxlesAndSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/EightPneumaticWheelsAxlesAndSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "kind": "missing"
@@ -6974,7 +6985,7 @@
       "folder": "jaguar_2",
       "launcher_nodes": 2,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -7225,7 +7236,7 @@
       "folder": "kpz_t72m1",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -7476,7 +7487,7 @@
       "folder": "kv_1_kwk_40",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -7727,7 +7738,7 @@
       "folder": "kv_2_754r",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -8134,7 +8145,7 @@
       "folder": "m109g",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -8385,7 +8396,7 @@
       "folder": "m44",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -8636,7 +8647,7 @@
       "folder": "m55",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -8887,7 +8898,7 @@
       "folder": "marder_df_105",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -9138,7 +9149,7 @@
       "folder": "mkpz_m47",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -9389,7 +9400,7 @@
       "folder": "nbfz_VI",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -9640,7 +9651,7 @@
       "folder": "panzerjager_1",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -9891,7 +9902,7 @@
       "folder": "panzerjager_nashorn",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -10142,7 +10153,7 @@
       "folder": "panzerwerfer_42",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -10393,7 +10404,7 @@
       "folder": "pzh_2000",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -10644,7 +10655,7 @@
       "folder": "pzkpfw_38t_Aufklarungspanzer",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -10895,7 +10906,7 @@
       "folder": "pzsfl_IVa_dickermax",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -11146,7 +11157,7 @@
       "folder": "pzsflk40_sturer_emil",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -11400,7 +11411,7 @@
       "folder": "radpanzer_90",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -11410,10 +11421,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -11528,24 +11539,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03",
-            "VehicleRoot/wheel_l_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "SuspensionAxles",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SuspensionAxles",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03",
-            "VehicleRoot/wheel_r_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "SuspensionAxles",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SuspensionAxles",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -11614,7 +11619,7 @@
       "folder": "sdkfz_221_s_pz_b_41",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -11824,7 +11829,7 @@
       "folder": "sdkfz_222",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -12031,7 +12036,7 @@
       "folder": "sdkfz_6_2_flak36",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -12282,7 +12287,7 @@
       "folder": "sdkfz_9_flak37",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -12533,7 +12538,7 @@
       "folder": "sk105_a2",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -12787,7 +12792,7 @@
       "folder": "sppz2_luchs_a2",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -12797,10 +12802,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -12915,24 +12920,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03",
-            "VehicleRoot/wheel_l_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03",
-            "VehicleRoot/wheel_r_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -12998,7 +12997,7 @@
       "folder": "spz_12_3",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -13249,7 +13248,7 @@
       "folder": "spz_oerlikon_raketenautomat",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -13500,7 +13499,7 @@
       "folder": "sturmpanzer_II",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -13751,7 +13750,7 @@
       "folder": "t_34_747",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -14005,7 +14004,7 @@
       "folder": "th_400",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -14015,10 +14014,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14133,22 +14132,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03"
-          ],
-          "count": 3,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "SuspensionAxles",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SuspensionAxles",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03"
-          ],
-          "count": 3,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "SuspensionAxles",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/SuspensionAxles",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -14370,7 +14365,7 @@
       "folder": "us_m4a2_1944_germ",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -14624,7 +14619,7 @@
       "folder": "vilkas",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -14634,10 +14629,10 @@
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)",
-        "running_left(ambiguous)",
-        "running_right(ambiguous)"
+        "running_left(group_unsplit)",
+        "running_right(group_unsplit)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14752,24 +14747,18 @@
           "provenance": "measured"
         },
         "running_left": {
-          "candidates": [
-            "VehicleRoot/wheel_l_01",
-            "VehicleRoot/wheel_l_02",
-            "VehicleRoot/wheel_l_03",
-            "VehicleRoot/wheel_l_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "running_right": {
-          "candidates": [
-            "VehicleRoot/wheel_r_01",
-            "VehicleRoot/wheel_r_02",
-            "VehicleRoot/wheel_r_03",
-            "VehicleRoot/wheel_r_04"
-          ],
-          "count": 4,
-          "kind": "ambiguous"
+          "kind": "group_unsplit",
+          "node": "AxlesSuspension",
+          "parent": "VehicleRoot",
+          "path": "VehicleRoot/AxlesSuspension",
+          "reason": "single_running_group_needs_authored_left_right_split"
         },
         "turret": {
           "aabb_max": [
@@ -14835,7 +14824,7 @@
       "folder": "vsw_flak_41",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -15086,7 +15075,7 @@
       "folder": "vt_1_2",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -15337,7 +15326,7 @@
       "folder": "waffentrager_krupp_steyr",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -15588,7 +15577,7 @@
       "folder": "wiesel_1_mk20",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -15839,7 +15828,7 @@
       "folder": "wiesel_1_tow",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -16090,7 +16079,7 @@
       "folder": "wiesel_2_adwc",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -16341,7 +16330,7 @@
       "folder": "三号坦克",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -16592,7 +16581,7 @@
       "folder": "三号突击炮",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -16843,7 +16832,7 @@
       "folder": "东风",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -17094,7 +17083,7 @@
       "folder": "二号坦克",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -17345,7 +17334,7 @@
       "folder": "保时捷虎",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -17596,7 +17585,7 @@
       "folder": "卡诺内坦克歼击车",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -17847,7 +17836,7 @@
       "folder": "四号坦克",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -18098,7 +18087,7 @@
       "folder": "四号坦克歼击车",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -18349,7 +18338,7 @@
       "folder": "德军M41",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -18600,7 +18589,7 @@
       "folder": "斐迪南",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -18851,7 +18840,7 @@
       "folder": "火箭坦克歼击车2",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -19102,7 +19091,7 @@
       "folder": "灰熊",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -19353,7 +19342,7 @@
       "folder": "猎虎",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -19604,7 +19593,7 @@
       "folder": "猎豹",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -19852,7 +19841,7 @@
       "folder": "猎豹防空车",
       "launcher_nodes": 2,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -20103,7 +20092,7 @@
       "folder": "突击虎",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -20354,7 +20343,7 @@
       "folder": "美洲狮步战车",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -20605,7 +20594,7 @@
       "folder": "虎I",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -20856,7 +20845,7 @@
       "folder": "虎II",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -21107,7 +21096,7 @@
       "folder": "豹1",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -21358,7 +21347,7 @@
       "folder": "豹2",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -21609,7 +21598,7 @@
       "folder": "追猎者",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -21860,7 +21849,7 @@
       "folder": "黄鼠狼III",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -22108,7 +22097,7 @@
       "folder": "黄鼠狼步战车",
       "launcher_nodes": 5,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -22359,7 +22348,7 @@
       "folder": "黑豹",
       "launcher_nodes": 1,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -22610,7 +22599,7 @@
       "folder": "黑豹II",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
@@ -22861,7 +22850,7 @@
       "folder": "鼠式",
       "launcher_nodes": 0,
       "licence_gate": "needs_licence_basis",
-      "measured_roles": 1,
+      "measured_roles": 0,
       "missing_role_names": [],
       "missing_roles": 0,
       "muzzle_state": "measured_frame",
