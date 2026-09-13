@@ -19,6 +19,13 @@ var patrol_goal := Vector3.ZERO
 var _last_hop := Vector3.INF   # navigation sub-target from the last hop (never re-hopped onto)
 var _task_hops: Array[Vector3] = []
 var objective_blocked := false
+# WT-020-R1: public task layer. Inert unless an allocator is bound, so existing
+# single-vehicle suites keep their behaviour exactly.
+var allocator: AIRoleAllocator = null
+var role := ""
+var task_objective := ""
+var task_reason := ""
+var give_way_until := -INF
 var retreat_goal := Vector3.ZERO
 var has_patrol := false
 var advance_while_engaged := false # Objective match policy; does not supply enemy information.
@@ -75,6 +82,34 @@ func set_patrol(point: Vector3, fallback: Vector3) -> void:
 	retreat_goal = fallback
 	has_patrol = true
 	driver.set_goal(point)
+
+func bind_allocator(value: AIRoleAllocator) -> void:
+	allocator = value
+
+## Consume one allocation round: pick up the assigned public task and decide a bounded
+## head-on give-way from the friendly rows the caller publishes. Enemy internals are
+## never part of the context.
+func apply_task(context: Dictionary) -> void:
+	if allocator == null: return
+	var vehicle := actor()
+	if vehicle == null: return
+	var task := allocator.task_for(vehicle.entity_id)
+	var before := "%s:%s" % [role,task_objective]
+	role = str(task.get("role",""))
+	task_objective = str(task.get("objective",""))
+	task_reason = str(task.get("reason",""))
+	var point := allocator.objective_position(vehicle.entity_id,context)
+	if point != Vector3.ZERO: set_patrol(point,retreat_goal if has_patrol else point)
+	if before != "%s:%s" % [role,task_objective]:
+		events.append({"time":clock,"phase":phase,"reason":"task_assigned","task":role,"objective":task_objective,"detail":task_reason})
+	var my_forward := -vehicle.tank.global_basis.z
+	var mine := {"entity_id":vehicle.entity_id,"team":vehicle.state.team_id,
+		"position":vehicle.tank.global_position,"forward":my_forward}
+	for row in context.get("friendly_rows",[]):
+		if not row is Dictionary or str(row.get("entity_id","")) == vehicle.entity_id: continue
+		if allocator.should_give_way(mine,row):
+			give_way_until = maxf(give_way_until,clock+AIRoleAllocator.CHOKEPOINT_GIVE_WAY_S)
+			break
 
 func _new_error() -> void:
 	var amplitude := deg_to_rad(float(difficulty.error_degrees))
@@ -172,6 +207,15 @@ func update_command(delta: float) -> VehicleCommand:
 		if phase != "retreat": driver.set_goal(retreat_goal)
 		phase = "retreat"
 		return driver.update_command(delta)
+	# WT-020-R1: bounded head-on give-way. Recovery and retreat above keep priority; the
+	# hold is time-limited and only ever comes from the allocator's same-team, head-on,
+	# chokepoint rule, so it cannot deadlock a route.
+	if allocator != null and clock < give_way_until:
+		phase = "yielding"
+		if driver.phase != "yielding": driver.cancel("give_way")
+		cmd.throttle = 0.0
+		cmd.steer = 0.0
+		return cmd
 	# The objective order survives a temporary traffic failure or a completed repair.
 	# Individual path attempts remain bounded; retry uses only own state and the public point.
 	if advance_while_engaged and has_patrol and caps.drive and not recovering and clock >= _next_objective_retry:
