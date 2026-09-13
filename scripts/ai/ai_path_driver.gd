@@ -116,7 +116,13 @@ func _plan() -> Dictionary:
 	path_ids.assign(result.ids)
 	waypoint = 0
 	if path.size() > 1 and vehicle.tank.global_position.distance_to(path[0]) < 3: waypoint = 1
-	stuck.reset(vehicle.tank.global_position)
+	# WT-039-R1: do NOT reset the stuck window here. _plan() runs at most every
+	# AI_REPLAN_INTERVAL_S (1.0 s) while the detector needs AI_STUCK_WINDOW_S (2.0 s) of no
+	# progress, so resetting on every replan made the detector structurally unable to fire: a
+	# hull wedged against world geometry (throttle commanded, slope_blocked false, position
+	# frozen, phase following for hundreds of ticks - measured on the M26 road route) kept
+	# replanning to a waypoint ~2.6 m away and never entered recovery. The window is reset only
+	# on real progress (waypoint advance, observe()) and on a new goal (set_goal).
 	_transition("following","path_ready")
 	return {"ok":true}
 
@@ -191,7 +197,11 @@ func update_command(delta: float) -> VehicleCommand:
 		cmd.throttle = 0
 		_transition("yielding","physical_obstacle")
 	elif phase == "yielding": _transition("following","obstacle_cleared")
-	if stuck.observe(vehicle.tank.global_position,expecting_progress,delta):
+	# WT-039-R1: a no-progress window is only meaningful while the driver is actually asking the
+	# hull to move. Counting idle or planning ticks made vehicles that legitimately wait enter
+	# recovery, so the window now requires a real throttle command as well as an expectation of
+	# progress - which still catches the wedged case (throttle 0.31 with a frozen position).
+	if stuck.observe(vehicle.tank.global_position,expecting_progress and absf(cmd.throttle) > 0.1,delta):
 		attempts += 1
 		if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:
 			has_goal = false
