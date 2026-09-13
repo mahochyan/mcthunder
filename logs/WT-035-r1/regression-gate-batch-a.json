@@ -1,0 +1,620 @@
+{
+    "schema":  1,
+    "batch":  "A (first 70 of 140 runnable suites, alphabetical)",
+    "head":  "1591eb26e567f26a3d51bc377faa87b985dee467",
+    "generated_at":  "2026-09-13",
+    "totals":  {
+                   "suites":  70,
+                   "pass":  54,
+                   "exit_nonzero":  16
+               },
+    "classification_counts":  {
+                                  "DEFERRED_TIMEOUT_120s":  9,
+                                  "FLAKY_AND_IMPROVED":  1,
+                                  "PRE_EXISTING_BASELINE_RED":  2,
+                                  "PASS":  54,
+                                  "NOT_RUN_window_self_guarded":  4
+                              },
+    "regressions_introduced":  0,
+    "suites":  [
+                   {
+                       "suite":  "run_ai_combat_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.1,
+                       "marker":  "AI_COMBAT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ai_drive_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  42.6,
+                       "marker":  "AI_DRIVE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ai_intercept_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  18.1,
+                       "marker":  "AI_INTERCEPT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ai_recovery_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  17.9,
+                       "marker":  "AI_RECOVERY_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ai_tactics_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  10.7,
+                       "marker":  "AI_TACTICS_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_airborne_drive_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  13,
+                       "marker":  "AIRBORNE_DRIVE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ammo_compartment_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.7,
+                       "marker":  "AMMO_COMPARTMENT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_app_flow_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  61.1,
+                       "marker":  "APP_FLOW_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_armor_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.4,
+                       "marker":  "ARMOR_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_art_battle_render_checks",
+                       "status":  "FAIL",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.9,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_art_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  12.8,
+                       "marker":  "ART_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_art_showcase",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.2,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_asset_registry_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "ASSET_REGISTRY_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_authority_state_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "AUTHORITY_STATE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_balance_matrix_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  121,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_ballistic_intercept_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.7,
+                       "marker":  "BALLISTIC_INTERCEPT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_blender_asset_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.5,
+                       "marker":  "BLENDER_ASSET_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_bound_model_package_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.5,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_build_identity_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.9,
+                       "marker":  "BUILD_IDENTITY_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_challenge_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  121.1,
+                       "marker":  "actual challenge result freezes after exactly one settlement",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_chassis_recoil_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  23.9,
+                       "marker":  "CHASSIS_RECOIL_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_chassis_response_checks",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  23.1,
+                       "marker":  "CHASSIS_RESPONSE_CHECKS_FAIL",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_checks",
+                       "status":  "FAIL",
+                       "classification":  "FLAKY_AND_IMPROVED",
+                       "seconds":  54.2,
+                       "marker":  "CHECKS_FAIL",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_chemical_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "CHEMICAL_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_chemical_content_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.7,
+                       "marker":  "CHEMICAL_CONTENT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_command_contract_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5.4,
+                       "marker":  "COMMAND_CONTRACT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_composite_binding_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_composite_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "CHEMICAL_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_composite_content_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.5,
+                       "marker":  "CHEMICAL_CONTENT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_content_record_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.7,
+                       "marker":  "CONTENT_RECORD_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_core_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.3,
+                       "marker":  "CORE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_damage_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "DAMAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_diagnostic_budget_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.9,
+                       "marker":  "DIAGNOSTIC_BUDGET_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_drive_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.9,
+                       "marker":  "DRIVE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_duel_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  39.4,
+                       "marker":  "DUEL_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_engagement_distance_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.9,
+                       "marker":  "ENGAGEMENT_DISTANCE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_equipment_package_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.9,
+                       "marker":  "EQUIPMENT_PACKAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_era_binding_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_era_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.4,
+                       "marker":  "ERA_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_era_network_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.2,
+                       "marker":  "ERA_NETWORK_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_export_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_feedback_battle_render",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  2.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_feedback_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "mute/no-FX/no-shake/no-replay preserves actual penetration, module damage and disabled result exactly",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_fire_control_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  42.4,
+                       "marker":  "FIRE_CONTROL_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_free_look_checks",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.9,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_fuze_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "FUZE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_garage_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  30.5,
+                       "marker":  "GARAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_garage_frontend_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.3,
+                       "marker":  "GARAGE_FRONTEND_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_historical_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_historical_road_checks",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  114.6,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_hud_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  18.6,
+                       "marker":  "HUD_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_hull_frame_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.9,
+                       "marker":  "HULL_FRAME_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_industrial_battle_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_industrial_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_industrial_obstruction_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  52,
+                       "marker":  "INDUSTRIAL_OBSTRUCTION_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_industrial_overview",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.4,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_input_binding_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  13.8,
+                       "marker":  "INPUT_BINDING_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_landing_contact_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.5,
+                       "marker":  "LANDING_CONTACT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_landing_response_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  19.2,
+                       "marker":  "LANDING_RESPONSE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_layout_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.2,
+                       "marker":  "LAYOUT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_loading_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  20.2,
+                       "marker":  "LOADING_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_loading_mechanism_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "LOADING_MECHANISM_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_long_rod_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.6,
+                       "marker":  "LONG_ROD_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_long_rod_content_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.3,
+                       "marker":  "LONG_ROD_CONTENT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_long_rod_damage_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.4,
+                       "marker":  "DAMAGE_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_map_checks",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_TIMEOUT_120s",
+                       "seconds":  122.1,
+                       "marker":  "",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_map_pack_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.2,
+                       "marker":  "MAP_PACK_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_match_event_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5.7,
+                       "marker":  "MATCH_EVENT_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_match_rules_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "MATCH_RULES_CHECKS_PASS",
+                       "checks":  ""
+                   },
+                   {
+                       "suite":  "run_material_replay_checks",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "MATERIAL_REPLAY_CHECKS_PASS",
+                       "checks":  ""
+                   }
+               ],
+    "baseline_red_evidence":  [
+                                  {
+                                      "suite":  "run_chassis_response_checks",
+                                      "cont_fails":  2,
+                                      "baseline_fails":  2,
+                                      "identical":  true
+                                  },
+                                  {
+                                      "suite":  "run_historical_road_checks",
+                                      "cont_fails":  4,
+                                      "baseline_fails":  4,
+                                      "identical":  true
+                                  },
+                                  {
+                                      "suite":  "run_checks",
+                                      "cont":  "216 pass/1 fail then 217/0",
+                                      "baseline":  "212/5 on three runs",
+                                      "note":  "branch fixes five baseline failures; the remaining check is a one-frame margin flake"
+                                  }
+                              ],
+    "not_run_reasons":  [
+                            {
+                                "reason":  "window or render suite self-guarded in headless",
+                                "suites":  [
+                                               "run_art_battle_render_checks",
+                                               "run_feedback_battle_render",
+                                               "run_free_look_checks",
+                                               "run_industrial_overview"
+                                           ]
+                            },
+                            {
+                                "reason":  "excluded by name (window/player/demo/role/long/performance/profiling)",
+                                "count":  37
+                            },
+                            {
+                                "reason":  "120s watchdog while still progressing; needs a longer budget",
+                                "count":  9
+                            }
+                        ]
+}
