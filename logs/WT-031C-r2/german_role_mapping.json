@@ -125,6 +125,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.95000004768372,
+          "barrel_z_range_m": [
+            -1.95000004768372,
+            -0.899999976158142
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -137,20 +142,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.000039999998989515,
-            -1.72512996196747,
-            -1.10399001836777
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            0.00259995460510254,
+            -1.95000004768372
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.00259995460510254,
+            -1.95000004768372
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.43457996845245,
-            -0.324849992990494
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -346,6 +365,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.08999991416931,
+          "barrel_z_range_m": [
+            -2.08999991416931,
+            -0.819999933242798
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -358,20 +382,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -1.76818001270294,
-            -1.31851989030838
+            -0.021399974822998,
+            -2.08999991416931
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.021399974822998,
+            -2.08999991416931
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.44960999488831,
-            -0.213740006089211
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -689,6 +727,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 1.98249399662018,
+          "barrel_z_range_m": [
+            -0.287506014108658,
+            1.98249399662018
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -701,20 +744,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.78670597076416,
-            1.01375901699066
+            -0.0130000114440918,
+            1.98249399662018
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0130000114440918,
+            1.98249399662018
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.60770404338837,
-            0.973397970199585
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -912,6 +969,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.54099988937378,
+          "barrel_z_range_m": [
+            -2.54099988937378,
+            -0.410000085830688
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -924,20 +986,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.08896493911743,
-            -1.49968886375427
+            -0.0102057456970215,
+            -2.54099988937378
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0102057456970215,
+            -2.54099988937378
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.75881707668304,
-            -0.302837997674942
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -1087,6 +1163,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.78200006484985,
+          "barrel_z_range_m": [
+            -6.78200006484985,
+            -2.71999979019165
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -1099,20 +1180,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0289799999445677,
-            -2.48055005073547,
-            -5.26514005661011
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0425999164581299,
+            -6.78200006484985
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0425999164581299,
+            -6.78200006484985
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.79154992103577,
-            -0.0318999998271465
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -1308,6 +1403,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.61899995803833,
+          "barrel_z_range_m": [
+            -5.61899995803833,
+            -2.95000004768372
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -1320,20 +1420,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.00124000001233071,
-            -1.89374995231628,
-            -3.18477988243103
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0205999612808228,
+            -5.61899995803833
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0205999612808228,
+            -5.61899995803833
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.49783003330231,
-            -0.829999983310699
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -1529,6 +1643,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.28499984741211,
+          "barrel_z_range_m": [
+            -5.28499984741211,
+            -2.01999998092651
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -1541,20 +1660,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0118000004440546,
-            -1.99160003662109,
-            -3.59611988067627
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00970005989074707,
+            -5.28499984741211
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00970005989074707,
+            -5.28499984741211
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.00000999999974737875,
-            1.63955998420715,
-            -0.683470010757446
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -1750,6 +1883,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.91499996185303,
+          "barrel_z_range_m": [
+            -4.91499996185303,
+            -2.15000009536743
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -1762,20 +1900,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -1.7131199836731,
-            -3.15411996841431
+            -0.00329995155334473,
+            -4.91499996185303
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00329995155334473,
+            -4.91499996185303
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.37682008743286,
-            -0.699509978294373
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -1973,6 +2125,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.82999992370605,
+          "barrel_z_range_m": [
+            -3.82999992370605,
+            -1.11999988555908
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -1985,20 +2142,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0,
-            -2.05731177330017,
-            -2.44486248493195
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.000000186075340025127,
+            -0.00773096084594727,
+            -3.82999992370605
+          ],
+          "offset_in_turret_m": [
+            0.000000186075340025127,
+            -0.00773096084594727,
+            -3.82999992370605
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00016635176143609,
-            1.74140286445618,
-            -0.59986799955368
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -2152,6 +2323,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.55710005760193,
+          "barrel_z_range_m": [
+            -1.55710005760193,
+            0.730000019073486
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -2164,20 +2340,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.000125000005937181,
-            -2.07826209068298,
-            -1.14322105050087
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0188999176025391,
+            -1.55710005760193
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0188999176025391,
+            -1.55710005760193
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.000125000005937181,
-            2.05936217308044,
-            -0.413879007101059
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -2373,6 +2563,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.65999984741211,
+          "barrel_z_range_m": [
+            -4.65999984741211,
+            -0.740000009536743
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -2385,20 +2580,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0348899997770786,
-            -1.98145997524261,
-            -4.30646985769272
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0075000524520874,
+            -4.65999984741211
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0075000524520874,
+            -4.65999984741211
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.80559992790222,
-            0.75314998626709
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -2594,6 +2803,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.2020001411438,
+          "barrel_z_range_m": [
+            -5.2020001411438,
+            -1.32000017166138
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -2606,20 +2820,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.22879004478455,
-            -4.32025015354156
+            -0.0260000228881836,
+            -5.2020001411438
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0260000228881836,
+            -5.2020001411438
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.84606993198395,
-            0.232940003275871
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -2815,6 +3043,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.84999990463257,
+          "barrel_z_range_m": [
+            -3.84999990463257,
+            -0.00999999046325684
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -2827,20 +3060,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.000119999996968545,
-            -2.22550010681152,
-            -4.1130399107933
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00750017166137695,
+            -3.84999990463257
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00750017166137695,
+            -3.84999990463257
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0000299999992421363,
-            1.7427099943161,
-            0.679690003395081
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -3036,6 +3283,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.71700000762939,
+          "barrel_z_range_m": [
+            -1.71700000762939,
+            -0.639999985694885
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -3048,20 +3300,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00000999999974737875,
-            -1.86504995822906,
-            -1.56771001219749
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0000000000109139364212751,
+            0.0,
+            -1.71700000762939
+          ],
+          "offset_in_turret_m": [
+            0.0000000000109139364212751,
+            0.0,
+            -1.71700000762939
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.000380000012228265,
-            1.69275999069214,
-            0.532500028610229
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -3259,6 +3525,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.72599983215332,
+          "barrel_z_range_m": [
+            -4.72599983215332,
+            0.16234016418457
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -3271,20 +3542,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0320009998977184,
-            -2.88106608390808,
-            -4.5210388302803
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0253121852874756,
+            -4.72599983215332
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0253121852874756,
+            -4.72599983215332
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.41595602035522,
-            0.771229028701782
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -3440,6 +3725,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.27300000190735,
+          "barrel_z_range_m": [
+            -3.27300000190735,
+            0.0850000381469727
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -3452,20 +3742,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0235633160918951,
-            -2.90536189079285,
-            -3.28462597727776
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0479800701141357,
+            -3.27300000190735
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0479800701141357,
+            -3.27300000190735
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00113800005055964,
-            2.45524001121521,
-            0.695877015590668
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -3619,6 +3923,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.63350009918213,
+          "barrel_z_range_m": [
+            -5.63350009918213,
+            -1.46500015258789
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -3631,20 +3940,36 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot",
+            "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.000356000004103407,
-            -2.16076707839966,
-            -4.97009408473969
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00990009307861328,
+            -5.63350009918213
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00990009307861328,
+            -5.63350009918213
           ],
           "parent": "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.000356000004103407,
-            1.69322597980499,
-            -0.663406014442444
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -3840,6 +4165,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 2.14959669113159,
+          "barrel_z_range_m": [
+            -0.176400005817413,
+            2.14959669113159
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -3852,20 +4182,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0469047725200653,
-            -1.95616030693054,
-            0.598124861717224
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.010200023651123,
+            2.14959669113159
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.010200023651123,
+            2.14959669113159
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0320260003209114,
-            1.17174601554871,
-            1.91707801818848
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -4061,6 +4405,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.48775792121887,
+          "barrel_z_range_m": [
+            -2.48775792121887,
+            -1.07175731658936
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -4073,20 +4422,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0220361799001694,
-            -1.81092703342438,
-            -2.18805208802223
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.00000100024044513702,
+            -0.024399995803833,
+            -2.48775792121887
+          ],
+          "offset_in_turret_m": [
+            0.00000100024044513702,
+            -0.024399995803833,
+            -2.48775792121887
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.60639703273773,
-            -0.29660901427269
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -4282,6 +4645,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.82480001449585,
+          "barrel_z_range_m": [
+            -1.82480001449585,
+            0.380000114440918
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -4294,20 +4662,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0599274262785912,
-            -2.02267813682556,
-            -1.79727244004607
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.024399995803833,
+            -1.82480001449585
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.024399995803833,
+            -1.82480001449585
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0549999997019768,
-            1.57197201251984,
-            -0.000270999997155741
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -4503,6 +4885,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.87320005893707,
+          "barrel_z_range_m": [
+            -1.87320005893707,
+            0.354999899864197
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -4515,20 +4902,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0267360005527735,
-            -1.73467540740967,
-            -1.72778259217739
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            0.00349998474121094,
+            -1.87320005893707
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.00349998474121094,
+            -1.87320005893707
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0416139997541904,
-            1.20053601264954,
-            0.22019299864769
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -4724,6 +5125,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.24379992485046,
+          "barrel_z_range_m": [
+            -3.24379992485046,
+            0.299660444259644
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -4736,20 +5142,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.00225699995644391,
-            -2.23666310310364,
-            -3.22915634978563
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0232000350952148,
+            -3.24379992485046
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0232000350952148,
+            -3.24379992485046
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.78873598575592,
-            0.19157500565052
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -4945,6 +5365,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.12531995773315,
+          "barrel_z_range_m": [
+            -2.12531995773315,
+            0.149624109268188
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -4957,20 +5382,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.36974692344666,
-            -1.8458439707756
+            -0.0199999809265137,
+            -2.12531995773315
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0199999809265137,
+            -2.12531995773315
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.65594601631165,
-            -0.385257989168167
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -5166,6 +5605,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 1.88059198856354,
+          "barrel_z_range_m": [
+            -0.771607995033264,
+            1.88059198856354
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -5178,20 +5622,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -3.00699901580811,
-            0.821241021156311
+            -0.0199999809265137,
+            1.88059198856354
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0199999809265137,
+            1.88059198856354
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.89567899703979,
-            1.05935096740723
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -5392,6 +5850,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 2.08378767967224,
+          "barrel_z_range_m": [
+            -0.326765269041061,
+            2.08378767967224
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -5404,20 +5867,36 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot",
+            "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot",
+            "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -4.11126565933228,
-            0.999275684356689
+            0.0,
+            2.08378767967224
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0301918983459473,
+            2.08378767967224
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.98927187919617,
-            1.08451199531555
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "kind": "missing"
@@ -5557,6 +6036,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.34699988365173,
+          "barrel_z_range_m": [
+            -3.34699988365173,
+            2.09999966621399
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -5569,20 +6053,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.31995582580566,
-            -3.84972953796387
+            0.0,
+            -3.34699988365173
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.0,
+            -3.34699988365173
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.69316601753235,
-            0.338988989591599
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -5778,6 +6276,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.52335000038147,
+          "barrel_z_range_m": [
+            -2.52335000038147,
+            -0.87086820602417
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -5790,20 +6293,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0632107108831406,
-            -1.90887975692749,
-            -1.6524772644043
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            -0.000000998377799987793,
+            -0.0332000255584717,
+            -2.52335000038147
+          ],
+          "offset_in_turret_m": [
+            -0.000000998377799987793,
+            -0.0332000255584717,
+            -2.52335000038147
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.58389592170715,
-            -0.164206996560097
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -6195,6 +6712,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.4099999666214,
+          "barrel_z_range_m": [
+            -1.4099999666214,
+            -0.0967919826507568
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -6207,20 +6729,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0836199969053268,
-            -2.46375799179077,
-            -0.554593980312347
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0206999778747559,
+            -1.4099999666214
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0206999778747559,
+            -1.4099999666214
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0839829966425896,
-            2.15771913528442,
-            -0.855773985385895
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -6416,6 +6952,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.2350001335144,
+          "barrel_z_range_m": [
+            -6.2350001335144,
+            -1.59999990463257
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -6428,20 +6969,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.00007999999797903,
-            -1.64823997020721,
-            -5.0933700799942
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0247999429702759,
+            -6.2350001335144
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0247999429702759,
+            -6.2350001335144
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00000999999974737875,
-            1.38365006446838,
-            -0.088689997792244
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -6637,6 +7192,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.62799978256226,
+          "barrel_z_range_m": [
+            -4.62799978256226,
+            -1.30999994277954
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -6649,20 +7209,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0491074323654175,
-            -2.10886883735657,
-            -3.32788026332855
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0160000324249268,
+            -4.62799978256226
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0160000324249268,
+            -4.62799978256226
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.65985190868378,
-            -0.508569002151489
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -6858,6 +7432,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.72099995613098,
+          "barrel_z_range_m": [
+            -3.72099995613098,
+            -1.16999983787537
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -6870,20 +7449,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.60573196411133,
-            -2.37207019329071
+            -0.0160999298095703,
+            -3.72099995613098
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0160999298095703,
+            -3.72099995613098
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.38818717002869,
-            -0.495420008897781
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -7227,6 +7820,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.38000011444092,
+          "barrel_z_range_m": [
+            -3.38000011444092,
+            -1.17999982833862
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -7239,20 +7837,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00944000016897917,
-            -2.06055998802185,
-            -3.5778401196003
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0424001216888428,
+            -3.38000011444092
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0424001216888428,
+            -3.38000011444092
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.60896003246307,
-            1.05716001987457
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -7448,6 +8060,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.57599997520447,
+          "barrel_z_range_m": [
+            -2.57599997520447,
+            0.984999895095825
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -7460,20 +8077,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.000931999995373189,
-            -2.14020299911499,
-            -3.13492196798325
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.023900032043457,
+            -2.57599997520447
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.023900032043457,
+            -2.57599997520447
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            0.771606028079987,
-            0.351619005203247
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -7669,6 +8300,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.50300002098084,
+          "barrel_z_range_m": [
+            -3.50300002098084,
+            0.490000009536743
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -7681,20 +8317,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.43823003768921,
-            -4.41550201177597
+            -0.0286998748779297,
+            -3.50300002098084
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0286998748779297,
+            -3.50300002098084
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            0.979624032974243,
-            1.4556759595871
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -7890,6 +8540,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.06500005722046,
+          "barrel_z_range_m": [
+            -4.06500005722046,
+            -0.170000076293945
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -7902,20 +8557,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.34669995307922,
-            -4.46034005284309
+            -0.0224001407623291,
+            -4.06500005722046
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0224001407623291,
+            -4.06500005722046
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.77325999736786,
-            0.541710019111633
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -8111,6 +8780,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.55600023269653,
+          "barrel_z_range_m": [
+            -5.55600023269653,
+            -2.02999997138977
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -8123,20 +8797,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.0158998966217,
-            -3.99900019168854
+            -0.0273000001907349,
+            -5.55600023269653
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0273000001907349,
+            -5.55600023269653
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.4305499792099,
-            -0.65855997800827
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -8332,6 +9020,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.75500011444092,
+          "barrel_z_range_m": [
+            -2.75500011444092,
+            -1.44725000858307
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -8344,20 +9037,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0882508531212807,
-            -2.30413699150085,
-            -1.34104526042938
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            0.0,
+            -2.75500011444092
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0181000232696533,
+            -2.75500011444092
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.00100000004749745,
-            2.14215993881226,
-            -0.503000020980835
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -8553,6 +9260,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.08550000190735,
+          "barrel_z_range_m": [
+            -2.08550000190735,
+            0.190000057220459
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -8565,20 +9277,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.000133426205138676,
-            -1.68046581745148,
-            -1.80890050530434
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.000000426211045123637,
+            0.00360000133514404,
+            -2.08550000190735
+          ],
+          "offset_in_turret_m": [
+            0.000000426211045123637,
+            0.00360000133514404,
+            -2.08550000190735
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.000132999994093552,
-            1.43962001800537,
-            -0.339289009571075
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -8774,6 +9500,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.21799993515015,
+          "barrel_z_range_m": [
+            -5.21799993515015,
+            1.52500009536743
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -8786,20 +9517,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.23844575881958,
-            -5.50229042768478
+            -0.0243000984191895,
+            -5.21799993515015
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0243000984191895,
+            -5.21799993515015
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.70813202857971,
-            0.0860920026898384
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -8995,6 +9740,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 2.05567002296448,
+          "barrel_z_range_m": [
+            0.733269989490509,
+            2.05567002296448
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -9007,20 +9757,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.254802942276,
-            0.362896323204041
+            0.0225999355316162,
+            2.05567002296448
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.0225999355316162,
+            2.05567002296448
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.58736300468445,
-            1.53092503547668
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -9216,6 +9980,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -7.03200006484985,
+          "barrel_z_range_m": [
+            -7.03200006484985,
+            -0.0999999046325684
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -9228,20 +9997,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.50584006309509,
-            -8.30258011817932
+            -0.0203001499176025,
+            -7.03200006484985
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0203001499176025,
+            -7.03200006484985
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.85258996486664,
-            2.15817999839783
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -9437,6 +10220,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.25559997558594,
+          "barrel_z_range_m": [
+            -2.25559997558594,
+            -0.134999990463257
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -9449,20 +10237,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -1.91865694522858,
-            -1.94259798526764
+            -0.0113999843597412,
+            -2.25559997558594
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0113999843597412,
+            -2.25559997558594
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.66417300701141,
-            -0.309655010700226
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -9658,6 +10460,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.72940015792847,
+          "barrel_z_range_m": [
+            -4.72940015792847,
+            1.32000017166138
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -9670,20 +10477,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00708300014957786,
-            -1.94410002231598,
-            -4.08340013027191
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0101000070571899,
+            -4.72940015792847
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0101000070571899,
+            -4.72940015792847
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.49555003643036,
-            -0.711000025272369
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -9879,6 +10700,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.77400016784668,
+          "barrel_z_range_m": [
+            -5.77400016784668,
+            2.5
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -9891,20 +10717,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.22243595123291,
-            -5.88069716840982
+            -0.00519990921020508,
+            -5.77400016784668
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00519990921020508,
+            -5.77400016784668
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.65752100944519,
-            0.108756996691227
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -10102,6 +10942,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.86899995803833,
+          "barrel_z_range_m": [
+            -5.86899995803833,
+            -1.0
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -10114,20 +10959,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0000189999991562217,
-            -2.37437868118286,
-            -4.67341697216034
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00547266006469727,
+            -5.86899995803833
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00547266006469727,
+            -5.86899995803833
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.98305094242096,
-            0.0
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -10283,6 +11142,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.99100005626678,
+          "barrel_z_range_m": [
+            -1.99100005626678,
+            -0.25
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -10295,20 +11159,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -1.83675873279572,
-            -1.26519387960434
+            -0.0125800371170044,
+            -1.99099922180176
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0125800371170044,
+            -1.99099922180176
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.6386626958847,
-            -0.725805342197418
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -10460,6 +11338,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.77199995517731,
+          "barrel_z_range_m": [
+            -1.77199995517731,
+            0.354999899864197
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -10472,20 +11355,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -1.80266976356506,
-            -2.03524574637413
+            -0.00879001617431641,
+            -1.77199995517731
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00879001617431641,
+            -1.77199995517731
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            0.627307891845703,
-            0.117849625647068
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -10635,6 +11532,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 1.85609078407288,
+          "barrel_z_range_m": [
+            -1.7960000038147,
+            1.85609078407288
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -10647,20 +11549,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.1339259147644,
-            0.560848116874695
+            -0.0647712051868439,
+            1.47701776027679
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0647712051868439,
+            1.47701776027679
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.56452298164368,
-            1.24216294288635
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -10856,6 +11772,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 3.07975006103516,
+          "barrel_z_range_m": [
+            -2.62400007247925,
+            3.07975006103516
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -10868,20 +11789,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0195889994502068,
-            -2.90048003196716,
-            1.08630108833313
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.00999999046325684,
+            3.07975006103516
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00999999046325684,
+            3.07975006103516
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0174720007926226,
-            2.00314998626709,
-            1.31743896007538
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -11077,6 +12012,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.84999990463257,
+          "barrel_z_range_m": [
+            -4.84999990463257,
+            -1.04999995231628
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -11089,20 +12029,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -1.9585599899292,
-            -4.37476989626884
+            -0.0116000175476074,
+            -4.84999990463257
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0116000175476074,
+            -4.84999990463257
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.41203999519348,
-            -0.325210005044937
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -11300,6 +12254,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.50500011444092,
+          "barrel_z_range_m": [
+            -3.50500011444092,
+            -1.11234569549561
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -11312,20 +12271,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00384000758640468,
-            -2.44121527671814,
-            -2.24005508422852
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0221741199493408,
+            -3.50500011444092
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0221741199493408,
+            -3.50500011444092
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00573199987411499,
-            2.41148281097412,
-            -0.89139997959137
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -11479,6 +12452,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.17709994316101,
+          "barrel_z_range_m": [
+            -3.17709994316101,
+            -1.37999999523163
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -11491,20 +12469,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.116107001900673,
-            -1.73728799819946,
-            -1.63573288917542
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00580000877380371,
+            -3.17709994316101
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00580000877380371,
+            -3.17709994316101
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.264479994773865,
-            1.5687769651413,
-            -1.28354501724243
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -11700,6 +12692,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.7923800945282,
+          "barrel_z_range_m": [
+            -3.7923800945282,
+            -0.743280410766602
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -11712,20 +12709,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.914793014526367,
-            -1.9072870016098,
-            -2.76130104064941
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00590002536773682,
+            -3.7923800945282
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00590002536773682,
+            -3.7923800945282
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.265213012695313,
-            1.73087692260742,
-            -1.28026294708252
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -11921,6 +12932,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.24799990653992,
+          "barrel_z_range_m": [
+            -2.24799990653992,
+            0.355000019073486
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -11933,20 +12949,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0,
-            -1.52276599407196,
-            -2.04895490407944
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            -0.0000000676081981509924,
+            -0.0151000022888184,
+            -2.24799990653992
+          ],
+          "offset_in_turret_m": [
+            -0.0000000676081981509924,
+            -0.0151000022888184,
+            -2.24799990653992
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.000192999999853782,
-            0.85291600227356,
-            1.17806005477905
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -12142,6 +13172,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.58185005187988,
+          "barrel_z_range_m": [
+            -3.58185005187988,
+            -1.42999982833862
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -12154,20 +13189,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.002779999980703,
-            -1.97143971920013,
-            -2.28569352626801
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00450003147125244,
+            -3.58185005187988
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00450003147125244,
+            -3.58185005187988
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.5175609588623,
-            -0.543507993221283
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -12365,6 +13414,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.55000019073486,
+          "barrel_z_range_m": [
+            -5.55000019073486,
+            -1.11999988555908
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -12377,20 +13431,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.32630610466003,
-            -4.26169145107269
+            -0.00888609886169434,
+            -5.55000019073486
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00888609886169434,
+            -5.55000019073486
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.10550284385681,
-            -0.136655002832413
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -12690,6 +13758,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.69000005722046,
+          "barrel_z_range_m": [
+            -2.69000005722046,
+            -0.440000057220459
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -12702,20 +13775,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.13539981842041,
-            -2.03730010986328
+            -0.0327999591827393,
+            -2.69000005722046
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0327999591827393,
+            -2.69000005722046
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.76699995994568,
-            0.0444499999284744
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -12913,6 +14000,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.21300005912781,
+          "barrel_z_range_m": [
+            -2.21300005912781,
+            0.899999856948853
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -12925,20 +14017,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00577499996870756,
-            -3.0795841217041,
-            -2.87773007154465
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0253121852874756,
+            -2.21300005912781
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0253121852874756,
+            -2.21300005912781
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0000290000007225899,
-            2.49370503425598,
-            0.935751020908356
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "candidates": [
@@ -13092,6 +14198,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.08610010147095,
+          "barrel_z_range_m": [
+            -6.08610010147095,
+            1.61962223052979
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -13104,20 +14215,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.05990982055664,
-            -7.26531863212585
+            -0.00500011444091797,
+            -6.08610010147095
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00500011444091797,
+            -6.08610010147095
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.49453699588776,
-            0.0
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -13313,6 +14438,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.68200016021729,
+          "barrel_z_range_m": [
+            -4.68200016021729,
+            -0.380000114440918
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -13325,20 +14455,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            1.38900005817413,
-            -1.86297798156738,
-            -4.29405817389488
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00999999046325684,
+            -4.68200016021729
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00999999046325684,
+            -4.68200016021729
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00473499996587634,
-            1.85297799110413,
-            -0.391382992267609
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -13534,6 +14678,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.43100023269653,
+          "barrel_z_range_m": [
+            -5.43100023269653,
+            1.75
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -13546,20 +14695,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -1.69816064834595,
-            -5.86530458927155
+            -0.010699987411499,
+            -5.43100023269653
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.010699987411499,
+            -5.43100023269653
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.32323503494263,
-            1.12372004985809
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -13755,6 +14918,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.79700005054474,
+          "barrel_z_range_m": [
+            -1.79700005054474,
+            0.200000047683716
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -13767,20 +14935,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.140420004725456,
-            -1.62297999858856,
-            -2.34917002916336
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0075000524520874,
+            -1.79700005054474
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0075000524520874,
+            -1.79700005054474
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.063850000500679,
-            1.27717995643616,
-            0.867169976234436
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -13976,6 +15158,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 0.779999971389771,
+          "barrel_z_range_m": [
+            -0.615000009536743,
+            0.779999971389771
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -13988,20 +15175,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.000869999988935888,
-            -1.74646997451782,
-            0.269709944725037
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0075000524520874,
+            0.779999971389771
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0075000524520874,
+            0.779999971389771
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00124000001233071,
-            1.4538699388504,
-            0.508920013904572
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -14197,6 +15398,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": 2.24399995803833,
+          "barrel_z_range_m": [
+            0.660000026226044,
+            2.24399995803833
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -14209,20 +15415,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.3714300096035,
-            -2.37679004669189,
-            0.828220009803772
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0074000358581543,
+            2.24399995803833
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0074000358581543,
+            2.24399995803833
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.377229988574982,
-            1.83550000190735,
-            1.41740000247955
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -14418,6 +15638,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.23200011253357,
+          "barrel_z_range_m": [
+            -2.23200011253357,
+            -1.29999995231628
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -14430,20 +15655,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -1.89058995246887,
-            -1.17743015289307
+            -0.00699996948242188,
+            -2.23200011253357
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00699996948242188,
+            -2.23200011253357
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0000299999992421363,
-            1.58296000957489,
-            -0.24006000161171
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -14639,6 +15878,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.33800005912781,
+          "barrel_z_range_m": [
+            -2.33800005912781,
+            -1.54999995231628
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -14651,20 +15895,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.11761000007391,
-            -1.54464995861053,
-            -1.0118100643158
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            0.00569999217987061,
+            -2.33800005912781
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.00569999217987061,
+            -2.33800005912781
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.123250000178814,
-            1.4342999458313,
-            -1.32693004608154
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -14860,6 +16118,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.63899993896484,
+          "barrel_z_range_m": [
+            -2.63899993896484,
+            0.555682182312012
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -14872,20 +16135,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0589775741100311,
-            -2.17040085792542,
-            -2.79697851836681
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.024399995803833,
+            -2.63899993896484
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.024399995803833,
+            -2.63899993896484
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0549999997019768,
-            1.57197201251984,
-            -0.000270999997155741
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -15081,6 +16358,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.98800003528595,
+          "barrel_z_range_m": [
+            -1.98800003528595,
+            -0.850000023841858
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -15093,20 +16375,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.422120004892349,
-            -1.73406994342804,
-            -1.06205004453659
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0104000568389893,
+            -1.98800003528595
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0104000568389893,
+            -1.98800003528595
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.153769999742508,
-            1.54125988483429,
-            -0.332599997520447
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -15302,6 +16598,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.16499996185303,
+          "barrel_z_range_m": [
+            -6.16499996185303,
+            -2.3199999332428
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -15314,20 +16615,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0511500015854836,
-            -2.13609004020691,
-            -4.06637001037598
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            0.0255999565124512,
+            -6.16499996185303
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.0255999565124512,
+            -6.16499996185303
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.76999998092651,
-            -1.01300001144409
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -15523,6 +16838,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.31500005722046,
+          "barrel_z_range_m": [
+            -5.31500005722046,
+            -3.01999998092651
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -15535,20 +16855,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0745199993252754,
-            -1.47343003749847,
-            -2.60248994827271
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00339996814727783,
+            -5.31500005722046
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00339996814727783,
+            -5.31500005722046
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0745199993252754,
-            1.4700300693512,
-            -2.71251010894775
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -15744,6 +17078,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.0550000667572,
+          "barrel_z_range_m": [
+            -2.0550000667572,
+            -0.940000057220459
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -15756,20 +17095,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0594599992036819,
-            -1.90754997730255,
-            -1.2245300412178
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0121999979019165,
+            -2.0550000667572
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0121999979019165,
+            -2.0550000667572
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.0554200001060963,
-            1.58905005455017,
-            0.0
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -15965,6 +17318,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.30299997329712,
+          "barrel_z_range_m": [
+            -4.30299997329712,
+            -2.40000009536743
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -15977,20 +17335,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.203009992837906,
-            -1.4122200012207,
-            -2.68755996227264
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0121999979019165,
+            -4.30299997329712
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0121999979019165,
+            -4.30299997329712
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.203009992837906,
-            1.40002000331879,
-            -1.61544001102448
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -16186,6 +17558,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.23999977111816,
+          "barrel_z_range_m": [
+            -5.23999977111816,
+            -1.75999999046326
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -16198,20 +17575,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.00899000000208616,
-            -1.99978995323181,
-            -3.82151973247528
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.00849997997283936,
+            -5.23999977111816
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00849997997283936,
+            -5.23999977111816
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.65863001346588,
-            -0.268830001354218
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -16407,6 +17798,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -4.57499980926514,
+          "barrel_z_range_m": [
+            -4.57499980926514,
+            -0.349999904632568
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -16419,20 +17815,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0019000000320375,
-            -2.306960105896,
-            -4.58889980893582
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.011199951171875,
+            -4.57499980926514
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.011199951171875,
+            -4.57499980926514
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.000310000003082678,
-            1.87948000431061,
-            0.0138999996706843
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -16628,6 +18038,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.87151396274567,
+          "barrel_z_range_m": [
+            -1.87151396274567,
+            -0.625867009162903
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -16640,20 +18055,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.31564807891846,
-            -0.751513957977295
+            -0.00329995155334473,
+            -1.87151396274567
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00329995155334473,
+            -1.87151396274567
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.43413710594177,
-            -1.09716498851776
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -16849,6 +18278,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.49000000953674,
+          "barrel_z_range_m": [
+            -2.49000000953674,
+            -1.10000002384186
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -16861,20 +18295,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.150250002741814,
-            -1.80853998661041,
-            -1.16339004039764
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.014799952507019,
+            -2.49000000953674
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.014799952507019,
+            -2.49000000953674
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.150250002741814,
-            1.79374003410339,
-            -1.3266099691391
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -17070,6 +18518,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.27699995040894,
+          "barrel_z_range_m": [
+            -6.27699995040894,
+            -2.11999988555908
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -17082,20 +18535,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.18308997154236,
-            -5.04407000541687
+            0.000400066375732422,
+            -6.27699995040894
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            0.000400066375732422,
+            -6.27699995040894
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.18349003791809,
-            -1.23292994499207
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -17291,6 +18758,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.11899995803833,
+          "barrel_z_range_m": [
+            -6.11899995803833,
+            -1.46999979019165
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -17303,20 +18775,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0545100010931492,
-            -1.97156000137329,
-            -4.68096995353699
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0163999795913696,
+            -6.11899995803833
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0163999795913696,
+            -6.11899995803833
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0545100010931492,
-            1.62253999710083,
-            -1.46250998973846
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -17512,6 +18998,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.80999994277954,
+          "barrel_z_range_m": [
+            -3.80999994277954,
+            -0.799999952316284
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -17524,20 +19015,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.35694003105164,
-            -4.09036993980408
+            -0.0175001621246338,
+            -3.80999994277954
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0175001621246338,
+            -3.80999994277954
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.53086996078491,
-            -0.520900011062622
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -17733,6 +19238,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.92000007629395,
+          "barrel_z_range_m": [
+            -2.92000007629395,
+            -1.20000004768372
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -17745,20 +19255,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.263269990682602,
-            -2.01490998268127,
-            -1.24426007270813
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.00999999046325684,
+            -2.92000007629395
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.00999999046325684,
+            -2.92000007629395
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.263269990682602,
-            2.00490999221802,
-            -1.67574000358582
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -17954,6 +19478,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -2.60500001907349,
+          "barrel_z_range_m": [
+            -2.60500001907349,
+            -0.789999961853027
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -17966,20 +19495,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
             0.0,
-            -2.48230004310608,
-            -3.30937999486923
+            -0.0209000110626221,
+            -2.60500001907349
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0209000110626221,
+            -2.60500001907349
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.436809986829758,
-            1.9863600730896,
-            1.18335998058319
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -18175,6 +19718,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.17999982833862,
+          "barrel_z_range_m": [
+            -5.17999982833862,
+            -1.44000005722046
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -18187,20 +19735,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0500000007450581,
-            -2.19260001182556,
-            -4.05487978458405
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0309000015258789,
+            -5.17999982833862
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0309000015258789,
+            -5.17999982833862
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.78869998455048,
-            0.0
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -18396,6 +19958,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.59000015258789,
+          "barrel_z_range_m": [
+            -6.59000015258789,
+            -1.65999984741211
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -18408,20 +19975,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0302799995988607,
-            -2.31147003173828,
-            -5.07510018348694
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0106000900268555,
+            -6.59000015258789
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0106000900268555,
+            -6.59000015258789
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.00000999999974737875,
-            1.94260001182556,
-            -0.183190003037453
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -18617,6 +20198,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -6.00099992752075,
+          "barrel_z_range_m": [
+            -6.00099992752075,
+            -2.09999990463257
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -18629,20 +20215,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.00100000004749745,
-            -1.83343994617462,
-            -4.29730987548828
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0192999839782715,
+            -6.00099992752075
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0192999839782715,
+            -6.00099992752075
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.64100003242493,
-            -0.675000011920929
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -18838,6 +20438,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.69700002670288,
+          "barrel_z_range_m": [
+            -5.69700002670288,
+            -1.97000002861023
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -18850,20 +20455,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0323599986732006,
-            -2.01200008392334,
-            -4.14095008373261
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0116000175476074,
+            -5.69700002670288
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0116000175476074,
+            -5.69700002670288
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0201699994504452,
-            1.66093003749847,
-            -0.380450010299683
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -19059,6 +20678,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.81900000572205,
+          "barrel_z_range_m": [
+            -3.81900000572205,
+            -2.13000011444092
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -19071,20 +20695,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.387019991874695,
-            -1.45682001113892,
-            -2.41849994659424
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0226999521255493,
+            -3.81900000572205
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0226999521255493,
+            -3.81900000572205
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.387019991874695,
-            1.43412005901337,
-            -1.40050005912781
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -19280,6 +20918,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -3.71399998664856,
+          "barrel_z_range_m": [
+            -3.71399998664856,
+            0.970000028610229
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -19292,20 +20935,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0,
-            -2.12553310394287,
-            -3.90325398743153
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            -0.000000449246726930141,
+            -0.00810003280639648,
+            -3.71399998664856
+          ],
+          "offset_in_turret_m": [
+            -0.000000449246726930141,
+            -0.00810003280639648,
+            -3.71399998664856
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            -0.000954999995883554,
-            1.56668591499329,
-            -0.197504997253418
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -19501,6 +21158,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -1.56900000572205,
+          "barrel_z_range_m": [
+            -1.56900000572205,
+            -0.0499999523162842
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -19513,20 +21175,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            -0.0561899989843369,
-            -2.61106991767883,
-            -2.12106001377106
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": true,
+          "offset_in_root_m": [
+            0.0,
+            -0.0249998569488525,
+            -1.56900000572205
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0249998569488525,
+            -1.56900000572205
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0623800009489059,
-            1.87222003936768,
-            0.0399399995803833
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -19722,6 +21398,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.40999984741211,
+          "barrel_z_range_m": [
+            -5.40999984741211,
+            -1.30000019073486
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -19734,20 +21415,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.0215399991720915,
-            -2.29277992248535,
-            -4.50111985206604
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0232000350952148,
+            -5.40999984741211
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0232000350952148,
+            -5.40999984741211
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.84606993198395,
-            0.232940003275871
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -19943,6 +21638,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.58099985122681,
+          "barrel_z_range_m": [
+            -5.58099985122681,
+            -1.8899998664856
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -19955,20 +21655,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
             0.0,
-            -2.29444003105164,
-            -4.98744982481003
+            -0.000300168991088867,
+            -5.58099985122681
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.000300168991088867,
+            -5.58099985122681
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            1.86857998371124,
-            0.349429994821548
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [
@@ -20164,6 +21878,11 @@
           ]
         },
         "muzzle": {
+          "barrel_extent_z_m": -5.35900020599365,
+          "barrel_z_range_m": [
+            -5.35900020599365,
+            0.0
+          ],
           "basis": {
             "forward": [
               0.0,
@@ -20176,20 +21895,34 @@
               0.0
             ]
           },
+          "forward_convention": "barrel's longer side along local -Z (matches the mechanism's forward)",
+          "frame_chain_root": [
+            ".",
+            "VehicleRoot",
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
+          "frame_chain_turret": [
+            "VehicleRoot/TurretPivot",
+            "VehicleRoot/TurretPivot/GunPivot",
+            "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake"
+          ],
           "kind": "measured_frame",
-          "method": "barrel_mesh_forward_extremity",
-          "offset_m": [
-            0.024380000308156,
-            -2.72931003570557,
-            -5.26600020378828
+          "method": "barrel_mesh_extremity_composed_through_parent_chain",
+          "muzzle_within_envelope": false,
+          "offset_in_root_m": [
+            0.0,
+            -0.0155999660491943,
+            -5.35900020599365
+          ],
+          "offset_in_turret_m": [
+            0.0,
+            -0.0155999660491943,
+            -5.35900020599365
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured",
-          "turret_origin_m": [
-            0.0,
-            2.06731009483337,
-            1.44728994369507
-          ]
+          "provenance": "measured"
         },
         "running_left": {
           "aabb_max": [

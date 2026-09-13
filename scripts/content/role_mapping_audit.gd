@@ -58,6 +58,33 @@ static func _entry_for(row: Dictionary) -> Dictionary:
 		"type":str(row.type),"origin":row.origin,"forward":row.forward,"up":row.up,
 		"aabb_min":row.get("aabb_min",[0.0,0.0,0.0]),"aabb_max":row.get("aabb_max",[0.0,0.0,0.0])}
 
+static func _basis_of(row: Dictionary) -> Basis:
+	var up := _vec3(row.up)
+	var forward := _vec3(row.forward)
+	var right := forward.cross(up)
+	if right.length() < 0.001: right = Vector3.RIGHT
+	return Basis(right.normalized(),up.normalized(),-forward.normalized())
+
+## Compose a point from a target node's local space up to a frame node's local space by
+## walking the recorded parent chain, so a measured muzzle offset is expressed in the frame
+## the binding actually uses instead of one arbitrary node's space.
+static func _compose_point(rows_by_path: Dictionary, target_path: String, frame_path: String, local_point: Vector3) -> Dictionary:
+	var chain: Array[String] = []
+	var cursor := target_path
+	var guard := 0
+	while not cursor.is_empty() and guard < 64:
+		guard += 1
+		chain.push_front(cursor)
+		if not frame_path.is_empty() and cursor == frame_path: break
+		var row: Dictionary = rows_by_path.get(cursor,{})
+		cursor = str(row.get("parent",""))
+	var xform := Transform3D.IDENTITY
+	for path in chain:
+		var row: Dictionary = rows_by_path.get(path,{})
+		xform = xform*Transform3D(_basis_of(row),_vec3(row.origin))
+	var point := xform*local_point
+	return {"point_m":[point.x,point.y,point.z],"chain":chain}
+
 static func resolve(probe_report: Dictionary) -> Dictionary:
 	var roles: Dictionary = {}
 	if not probe_report.get("ok",false):
@@ -92,16 +119,24 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 			if str(row.type) == "mesh": meshes.append(row)
 		if meshes.size() == 1:
 			var barrel: Dictionary = meshes[0]
-			var barrel_origin := _vec3(barrel.origin)
-			var extremity := _vec3(barrel.aabb_max).z if absf(_vec3(barrel.aabb_max).z) >= absf(_vec3(barrel.aabb_min).z) else _vec3(barrel.aabb_min).z
-			var turret_origin := Vector3.ZERO
-			if str(roles.turret.kind) == "node": turret_origin = _vec3(roles.turret.origin)
-			var local := barrel_origin+turret_origin*0.0
-			roles.muzzle = {"kind":"measured_frame","parent":str(barrel.path),
-				"offset_m":[local.x,local.y,local.z+extremity],
+			var max_z := _vec3(barrel.aabb_max).z
+			var min_z := _vec3(barrel.aabb_min).z
+			var extremity := max_z if absf(max_z) >= absf(min_z) else min_z
+			var rows_by_path := {}
+			for row in nodes: rows_by_path[str(row.path)] = row
+			var barrel_path := str(barrel.path)
+			var in_root := _compose_point(rows_by_path,barrel_path,"",Vector3(0.0,0.0,extremity))
+			var turret_path := ""
+			if str(roles.turret.kind) == "node": turret_path = str(roles.turret.path)
+			var in_turret := _compose_point(rows_by_path,barrel_path,turret_path,Vector3(0.0,0.0,extremity)) if not turret_path.is_empty() else {"point_m":[],"chain":[]}
+			roles.muzzle = {"kind":"measured_frame","parent":barrel_path,
+				"offset_in_root_m":in_root.point_m,"offset_in_turret_m":in_turret.point_m,
+				"frame_chain_root":in_root.chain,"frame_chain_turret":in_turret.chain,
+				"barrel_extent_z_m":extremity,"barrel_z_range_m":[min_z,max_z],
+				"muzzle_within_envelope":absf(float(in_root.point_m[2])) <= float(probe_report.get("envelope_m",[0,0,0])[2])*0.5,
+				"forward_convention":"barrel's longer side along local -Z (matches the mechanism's forward)",
 				"basis":{"forward":barrel.forward,"up":barrel.up},
-				"method":"barrel_mesh_forward_extremity","provenance":"measured",
-				"turret_origin_m":[turret_origin.x,turret_origin.y,turret_origin.z]}
+				"method":"barrel_mesh_extremity_composed_through_parent_chain","provenance":"measured"}
 			muzzle_state = "measured_frame"
 			counts["missing"] = int(counts.get("missing",0))-1
 			counts["measured"] = int(counts.get("measured",0))+1
@@ -111,6 +146,11 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 	var axis_checks := {}
 	axis_checks["turret"] = (str(roles.turret.kind) == "node" and _vec3(roles.turret.up).distance_to(Vector3.UP) <= AXIS_EPS)
 	axis_checks["gun"] = (str(roles.gun.kind) == "node" and _vec3(roles.gun.forward).distance_to(Vector3.FORWARD) <= AXIS_EPS)
+	var axis_notes: Array[String] = []
+	if not bool(axis_checks.turret) and str(roles.turret.kind) == "node":
+		axis_notes.append("turret %s up=%s deviates from +Y" % [str(roles.turret.path),str(roles.turret.up)])
+	if not bool(axis_checks.gun) and str(roles.gun.kind) == "node":
+		axis_notes.append("gun %s forward=%s deviates from -Z" % [str(roles.gun.path),str(roles.gun.forward)])
 	var launchers := 0
 	for row in nodes:
 		for hint in LAUNCHER_HINTS:
@@ -128,7 +168,7 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 	return {"ok":true,"roles":roles,"counts":counts,"node_roles":int(counts.node),
 		"measured_roles":int(counts.get("measured",0)),"ambiguous_roles":int(counts.ambiguous),
 		"missing_roles":int(counts.missing),"missing_role_names":missing_roles,
-		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"axis_checks":axis_checks,
+		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"axis_checks":axis_checks,"axis_notes":axis_notes,
 		"muzzle_state":muzzle_state,
 		"binding_ready":int(counts.get("missing",0)) == 0 and int(counts.get("ambiguous",0)) == 0,
 		"note":"shape-only: hierarchy, muzzle direction, combat layout and internal modules still require check_scene()/check_file()"}
