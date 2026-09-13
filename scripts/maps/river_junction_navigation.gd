@@ -5,6 +5,7 @@ var nodes: Dictionary = {}
 var edges: Dictionary = {}
 var goals: Dictionary = {}
 var graph: Dictionary = {}
+var supply_goals: Dictionary = {}
 
 func node(p: Vector2, road: bool=true) -> String:
 	var id := "%.3f_%.3f"%[p.x,p.y]
@@ -23,7 +24,7 @@ func line(a: Vector2,b: Vector2,road: bool=true,width: float=12.0) -> void:
 		add_edge(previous,current,width); previous=current
 
 func build(team_size: int) -> Dictionary:
-	nodes.clear(); edges.clear(); goals.clear()
+	nodes.clear(); edges.clear(); goals.clear(); supply_goals.clear()
 	var config := RiverJunctionDefinition.layout(team_size)
 	var depth: float=config.deployment_z
 	var lane_rows: Array[float]=[-depth,depth,-220,220,-130,100,120]
@@ -60,6 +61,12 @@ func build(team_size: int) -> Dictionary:
 			columns.sort()
 			for i in range(1,columns.size()): line(Vector2(columns[i-1],aisle_z),Vector2(columns[i],aisle_z),false,8)
 			for x in [sector-110,sector+110]: line(Vector2(x,aisle_z),Vector2(x,sign_z*depth),false,8)
+	# Resupply sits on the rear deployment channel; the node already exists there, so the
+	# goal is exposed without adding a second graph or changing the serialized contract.
+	for row in RiverJunctionDefinition.supply_points(config.team_size):
+		var p: Vector2 = row.xz
+		var key := "%.3f_%.3f"%[p.x,p.y]
+		if nodes.has(key): supply_goals[str(row.id)] = nodes[key]
 	for id in RiverJunctionDefinition.OBJECTIVES:
 		var p: Vector2=RiverJunctionDefinition.OBJECTIVES[id].xz
 		goals[id]=nodes[node(Vector2(RiverJunctionDefinition.lane_x(p.x,p.y),p.y))]

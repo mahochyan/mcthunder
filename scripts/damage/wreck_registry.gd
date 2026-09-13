@@ -47,6 +47,17 @@ func _remove(index: int) -> void:
 	_entries.remove_at(index)
 	if is_instance_valid(actor): actor.queue_free()
 
+func wreck_positions() -> Array[Vector3]:
+	# WT-032-R1: spawn selection must know where wrecks still stand, otherwise a new
+	# vehicle can be placed inside a wreck. Tracking is pruned first so freed actors
+	# never contribute a stale position.
+	_prune_invalid()
+	var out: Array[Vector3] = []
+	for entry in _entries:
+		var actor: VehicleActor = entry.actor
+		if is_instance_valid(actor): out.append(actor.tank.global_position)
+	return out
+
 func count() -> int:
 	_prune_invalid()
 	return _entries.size()

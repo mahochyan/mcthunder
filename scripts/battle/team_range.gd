@@ -146,6 +146,9 @@ func spawn_slot(id: String) -> VehicleActor:
 	var row: Dictionary = director.state.roster[id]
 	var occupied: Array[Vector3] = []
 	for existing in combat_actors(): occupied.append(existing.tank.global_position)
+	# WT-032-R1: wrecks still occupy ground; without them a respawn could be placed inside
+	# a wreck. SpawnSelector then either picks another slot or reports spawn_blocked.
+	if wrecks != null: occupied.append_array(wrecks.wreck_positions())
 	var candidates := spawn_candidates(row.team)
 	var type_id := vehicle_id_for_slot(id)
 	var size: Vector3 = defs.get_vehicle(type_id).drive_collision_size if type_id in VehicleCatalog.IDS else Vector3(2.85,1.68,5.45)

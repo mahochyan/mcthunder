@@ -107,6 +107,21 @@ static func spawns(team_size: int, team: int) -> Array[Transform3D]:
 		out.append(Transform3D(Basis.IDENTITY if team==1 else Basis(Vector3.UP,PI),point(p,0.15)))
 	return out
 
+static func supply_points(team_size: int) -> Array[Dictionary]:
+	# WT-032-R1: the two older maps place a resupply reservation behind each deployment
+	# and wire a supply node into their graph; the river map had none, so spawn->supply
+	# reachability could not be verified. These two points sit on the rear deployment
+	# channel ends that the navigation graph already builds and the geometry check
+	# already verifies as supported.
+	var depth: float=layout(team_size).deployment_z
+	var out: Array[Dictionary]=[]
+	for team in [1,2]:
+		var sign_z := 1.0 if team==1 else -1.0
+		out.append({"team":team,"id":"supply%d"%team,
+			"title":("南部部署场后侧补给圈" if team==1 else "北部部署场后侧补给圈"),
+			"xz":Vector2(370.0,sign_z*(depth+32.0))})
+	return out
+
 static func road_lines() -> Array[PackedVector2Array]:
 	var result: Array[PackedVector2Array]=[]
 	for lane in LANES:

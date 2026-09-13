@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS garage opens actual large-map driving scene
+PASS garage selected historical vehicle reaches real Actor
+PASS normal input and projectile manager remain wired
+PASS driving tactical map stays inside the default window
+PASS physical earthworks installed
+WORLD { "buildings": 34, "trees": 2615, "bridges": 5, "terrain_tiles": 120, "hard_cover": 39 }
+DEPLOYMENT LOS 10 blocked=60 / 60
+PASS earthworks leave all deployment bays clear 10
+PASS three objective observation samples cannot see deployment roofs 10
+DEPLOYMENT LOS 16 blocked=96 / 96
+PASS earthworks leave all deployment bays clear 16
+PASS three objective observation samples cannot see deployment roofs 16
+PASS physical terrain reports road surface under road
+PASS off-road terrain reports grass drag
+TRAVERSE -820.0 ticks=1026 start=(-820.0, 8.00013, 90.0) end=(-820.0001, 8.003465, -68.75212) min_y=7.98513412475586
+PASS production M4 drives completely across bridge 0
+PASS bridge traversal retains support and lateral clearance 0
+TRAVERSE -520.0 ticks=1241 start=(-520.0, 8.00013, 90.0) end=(-520.0, 8.00386, -110.6421) min_y=8.00012969970703
+PASS production M4 drives completely across bridge 1
+PASS bridge traversal retains support and lateral clearance 1
+TRAVERSE 0.0 ticks=1140 start=(0.0, 8.00013, 90.0) end=(0.000121, 8.003477, -90.90211) min_y=7.99539804458618
+PASS production M4 drives completely across bridge 2
+PASS bridge traversal retains support and lateral clearance 2
+TRAVERSE 520.0 ticks=1037 start=(520.0, 8.00013, 90.0) end=(520.0, 8.003471, -71.06298) min_y=7.99549341201782
+PASS production M4 drives completely across bridge 3
+PASS bridge traversal retains support and lateral clearance 3
+TRAVERSE 820.0 ticks=1252 start=(820.0, 8.00013, 90.0) end=(820.0, 8.003858, -112.9191) min_y=8.00012969970703
+PASS production M4 drives completely across bridge 4
+PASS bridge traversal retains support and lateral clearance 4
+EGRESS -1 ticks=865 start=(-260.0, 8.00013, 680.0) end=(-366.018, 8.004601, 677.6263)
+PASS real tank clears deployment via west exit
+EGRESS 1 ticks=865 start=(-260.0, 8.00013, 680.0) end=(-153.9837, 8.004601, 677.6219)
+PASS real tank clears deployment via east exit
+PASS pause freezes real vehicle and loading
+PASS pause deployment selector resets to actual town location while remaining paused
+PASS normal player input drives through town street
+PASS reset returns to selected deployment location
+PASS normal player fire consumes exactly one loaded round on new map
+PASS leaving active driving area starts visible return countdown
+PASS out-of-bounds recovery returns to chosen deployment point
+PASS 10v10 driving layout uses inner crossings and its own deployment stops
+PASS layout change safely places tank at active central crossing
+PASS normal pause return restores garage
+PASS free driving does not create match rewards or overwrite profile
+RESULT river_driving passed=34 failed=0

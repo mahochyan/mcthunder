@@ -21,6 +21,16 @@ var route_button: Button
 var route_active := false
 var route_note := ""
 
+func supply_positions(team: int) -> Array[Vector3]:
+	# WT-032-R1: this map previously returned no resupply position at all, so
+	# "spawn -> A/B/C -> supply" could not be satisfied or verified here. The rear
+	# deployment channel end is used, mirroring the older maps' rule that resupply
+	# sits behind the deployment area.
+	var out: Array[Vector3] = []
+	for row in RiverJunctionDefinition.supply_points(trial_team_size):
+		if int(row.team) == team: out.append(RiverJunctionDefinition.point(row.xz))
+	return out
+
 func _build_world() -> void:
 	world_builder=RiverJunctionWorld.new(); world_builder.build(self)
 
