@@ -76,3 +76,18 @@
 - 现代能力进入**正常对局**：`NOT_RUN`（需先补两车战斗定义 + 准入）。
 - M1A1/ZTZ-99A：**延期**（阻断项未解除）。
 - 烟幕发射器在样车上的配置、窗口 UI、真人反馈、性能：`NOT_RUN` / `HOLD_BY_USER`。
+
+---
+
+## 更正记录（WT-030D-R1 追加，2026-09-13）
+
+本文件 §4 的两条延期阻断项**已被后续实测否定并更正**：
+
+| 早前写法 | 实测证据 | 更正 |
+|---|---|---|
+| `cn_ztz_99a`：**no_model_in_repository** | `assets/vehicles/ztz99a/ztz99a_1000.glb`（2,913,008 B）+ `.import` + `ztz99a_1000.manifest.json` | 改为 **`packet_has_no_model_binding`**（该车**有**标准 GLB，缺的是参考条目与绑定） |
+| `us_m1a1_abrams`：**model_is_an_unintegrated_lod_study** | `assets/vehicles/m1a1/{m1a1,m1a1_1k}.glb` **均带 `.import`**（目录合计 18,071,366 B） | 改为 **`packet_has_no_model_binding`**（资产在工程内可见；计划文档所指 LOD 研究是另一产物） |
+
+根因：早前用**内容 grep**（看不到文件名）。现行取证方式为目录枚举 + 逐文件字节数/SHA-256，见 `docs/wt/continuation/WT-030D-R1_DESIGN.md` 与 `scripts/content/asset_registry_audit.gd`。
+同步修正：`scripts/content/tech_segment.gd` 的 `DEFERRED_BLOCKERS`/`FACTS.note`，以及 `tests/run_tech_segment_checks.gd` 的断言（现断言旧错误阻断项**不再存在**）。
+**两车仍为延期**：阻断项变更为"缺内容树参考条目 + 缺 packet `model_binding`"，延期结论不变。

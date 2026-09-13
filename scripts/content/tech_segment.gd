@@ -36,17 +36,20 @@ const FACTS := {
 		"night_vision":false,"thermal":true,"reference_entry":"assets/reference_data/candidates/germ_leopard_2a4.json",
 		"model":"assets/research/models/germ_leopard_2a4.glb","combat_admitted":false},
 	"us_m1a1_abrams":{"reference_entry":"","model":"assets/vehicles/m1a1/m1a1.glb","combat_admitted":false,
-		"note":"asset present as an isolated LOD study, never integrated"},
-	"cn_ztz_99a":{"reference_entry":"","model":"","combat_admitted":false,
-		"note":"no reference entry and no model in this repository"},
+		"note":"canonical GLB with import companion present; no reference entry and no packet model_binding"},
+	"cn_ztz_99a":{"reference_entry":"","model":"assets/vehicles/ztz99a/ztz99a_1000.glb","combat_admitted":false,
+		"note":"canonical GLB with import companion and manifest present; no reference entry and no packet model_binding"},
 }
 const TUNING := {
 	"ussr_t_80b":{"reload_s":5.4,"ready_resupply_s":20.0},
 	"germ_leopard_2a4":{"reload_s":6.2,"ready_resupply_s":20.0},
 }
 const DEFERRED_BLOCKERS := {
-	"us_m1a1_abrams":["no_reference_entry_in_content_tree","model_is_an_unintegrated_lod_study","dirty_binary_assets_isolated_per_audit"],
-	"cn_ztz_99a":["no_reference_entry_in_content_tree","no_model_in_repository"],
+	# Corrected by WT-030D-R1: the earlier "unintegrated LOD study" and "no model" claims
+	# came from a content grep that cannot see file names. Both vehicles DO have canonical
+	# GLBs with import companions; what they lack is a reference entry and a model_binding.
+	"us_m1a1_abrams":["no_reference_entry_in_content_tree","dirty_binary_assets_isolated_per_audit","packet_has_no_model_binding"],
+	"cn_ztz_99a":["no_reference_entry_in_content_tree","packet_has_no_model_binding"],
 }
 ## Balance levers: matchmaking, mission, spawn resources and map - not a copied rating table.
 const LEVERS := [

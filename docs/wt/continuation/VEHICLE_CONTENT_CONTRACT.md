@@ -85,3 +85,12 @@
 - 六个脏文件继续按 WT-001-R1 隔离保全；M1A1 新二进制**输入/导出方式/用途未知** → **不选入构建**（仅登记为未整合 LOD 研究）。
 - **注册表仍为空**（113 模型尚未登记）；两样车布局未挂接；`armor/modules` 字段仍为 unknown → 属 WT-030 剩余工作。
 - 窗口 UI（模型展厅）与真人 `NOT_RUN`；性能 `HOLD_BY_USER`。
+
+---
+
+## 更正与补充（WT-030D-R1 追加，2026-09-13）
+
+1. **§5 的过强表述已更正**：`VehicleReadiness.resource_state()` **不依赖注册表**解析模型（用 `_model_paths()` + `FileAccess.file_exists()`，注释亦说明研究 GLB 按字节读取）。因此"未注册"**不等于不可用**；注册只对 `model_binding` 路径必要。
+2. **两样车另有标准副本**：`assets/vehicles/modern_bound/{ussr_t_80b,germ_leopard_2a4}.glb` 存在，但**该目录带 `.gdignore`**（对资源加载器隐藏）；本契约记录中登记的仍是研究目录副本（字节文件）。
+3. **注册表为何仍为空**：`BoundVehicleModel.check()` 要求 packet 带 `model_binding`、路径以 `res://assets/vehicles/` 开头、节点覆盖 `ModelBindingValidator.ROLES`，且注册行须有 `delivery_status/provenance/resource_version`。仓库内**当前无任何 packet 带 `model_binding`**（历史四车走 `legacy_model_path`），**贸然填表会让带绑定的车切到更严格路径** → 判决为 `deferred_pending_model_binding_and_source_fields`（见 `WT-030D-R1_DESIGN.md`）。
+4. **资产事实**：`assets/vehicles/` 下 M1A1（18,071,366 B）、ZTZ-99A（41,272,302 B）、leopard2a7v（34,549,612 B）、modern_bound（1,986,100 B，带 `.gdignore`）——均以目录枚举 + SHA-256 实测。

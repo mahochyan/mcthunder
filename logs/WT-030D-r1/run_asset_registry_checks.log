@@ -1,0 +1,48 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the audit covers the four vehicle asset directories
+[PASS] m1a1 is present under assets/vehicles
+[PASS] ztz99a is present under assets/vehicles
+[PASS] leopard2a7v is present under assets/vehicles
+[PASS] modern_bound is present under assets/vehicles
+[PASS] the model_sources registry is still empty (0 entries)
+[PASS] the audit reads the registry the catalog uses
+[PASS] ZTZ-99A DOES have a canonical GLB in the repository
+[PASS] its GLB is a real asset (2913008 bytes)
+[PASS] its hash is measured, not assumed
+[PASS] its GLB carries an import companion, so it is not byte-only
+[PASS] its manifest.json is present as well
+[PASS] M1A1 has an import-visible canonical GLB
+[PASS] the M1A1 directory carries a full asset set (24 files)
+[PASS] the T-80B also has a canonical copy under assets/vehicles
+[PASS] that directory is hidden from the resource loader by .gdignore
+[PASS] and its canonical copy has no import companion, so it stays byte-only
+[PASS] three earlier claims are recorded for correction
+[PASS] every correction names the earlier claim, the evidence, the corrected fact and its source order
+[PASS] the corrected claims include the ZTZ and M1A1 statements
+[PASS] the plan covers the four known modern vehicles
+[PASS] us_m1a1_abrams is not eligible for registration yet
+[PASS] us_m1a1_abrams names the binding and registry blockers
+[PASS] us_m1a1_abrams names the three source fields the consumer requires
+[PASS] us_m1a1_abrams records a deferred decision with its reason
+[PASS] cn_ztz_99a is not eligible for registration yet
+[PASS] cn_ztz_99a names the binding and registry blockers
+[PASS] cn_ztz_99a names the three source fields the consumer requires
+[PASS] cn_ztz_99a records a deferred decision with its reason
+[PASS] ussr_t_80b is not eligible for registration yet
+[PASS] ussr_t_80b names the binding and registry blockers
+[PASS] ussr_t_80b names the three source fields the consumer requires
+[PASS] ussr_t_80b records a deferred decision with its reason
+[PASS] germ_leopard_2a4 is not eligible for registration yet
+[PASS] germ_leopard_2a4 names the binding and registry blockers
+[PASS] germ_leopard_2a4 names the three source fields the consumer requires
+[PASS] germ_leopard_2a4 records a deferred decision with its reason
+[PASS] the plan keeps per-vehicle blockers distinct
+[PASS] the audit module contains no write path at all
+[PASS] the registry file on disk is still the untouched empty registry
+[PASS] the audit snapshot exposes scan
+[PASS] the audit snapshot exposes plan
+[PASS] the audit snapshot exposes corrections
+[PASS] the snapshot carries the whole plan and every correction
+=== 结果: 44 项检查, 0 失败 ===
+ASSET_REGISTRY_CHECKS_PASS

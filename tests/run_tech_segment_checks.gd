@@ -43,8 +43,8 @@ func _run() -> void:
 	# --- 3. promotion is refused while blockers stand ---
 	var blocked := TechSegment.promote("us_m1a1_abrams","first_release")
 	_check(not blocked.ok and str(blocked.reason) == "blockers_remain","a deferred vehicle cannot be promoted while blockers stand")
-	_check(blocked.blockers.has("no_reference_entry_in_content_tree") and blocked.blockers.has("model_is_an_unintegrated_lod_study"),"its blockers are named, including the unintegrated model")
-	_check(TechSegment.blockers_of("cn_ztz_99a").has("no_model_in_repository"),"the other deferred vehicle names its own blockers")
+	_check(blocked.blockers.has("no_reference_entry_in_content_tree") and blocked.blockers.has("packet_has_no_model_binding"),"its blockers are named, including the missing packet binding")
+	_check(TechSegment.blockers_of("cn_ztz_99a").has("packet_has_no_model_binding") and not TechSegment.blockers_of("cn_ztz_99a").has("no_model_in_repository"),"the ZTZ blocker was corrected: it has a model and lacks a reference entry and binding")
 	var not_admitted := TechSegment.promote("ussr_t_80b","first_release")
 	_check(not not_admitted.ok and str(not_admitted.reason) == "not_combat_admitted","a pilot is not promoted into the combat pool without admission")
 	_check(TechSegment.promote("ussr_t_80b","experimental").ok,"a pilot may stay in the experimental pool")

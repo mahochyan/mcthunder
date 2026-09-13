@@ -1,0 +1,54 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the technology segment carries a frozen id and version
+[PASS] the first-release pool matches the four admitted historical vehicles
+[PASS] every admitted vehicle is listed in the first-release pool
+[PASS] the two pilots sit in the experimental pool
+[PASS] M1A1 and ZTZ-99A are deferred rather than forced into the segment
+[PASS] an experimental pilot is not silently first-release
+[PASS] an admitted historical vehicle is first release
+[PASS] an unknown vehicle belongs to no pool
+[PASS] without human feedback the experience gate stays pending
+[PASS] rack counts, crew and loader presence are recorded as facts
+[PASS] reload and resupply durations are recorded as tuning values
+[PASS] a tuning field is recognised as tuning and a fact is not
+[PASS] no field is both a fact and a tuning value
+[PASS] the recorded rack facts match the loading mechanism definition
+[PASS] the second pilot's facts match its mechanism as well
+[PASS] both pilots are recorded as not combat admitted
+[PASS] a deferred vehicle cannot be promoted while blockers stand
+[PASS] its blockers are named, including the missing packet binding
+[PASS] the ZTZ blocker was corrected: it has a model and lacks a reference entry and binding
+[PASS] a pilot is not promoted into the combat pool without admission
+[PASS] a pilot may stay in the experimental pool
+[PASS] an unknown pool is refused
+[PASS] the difference table covers loading, sensors and crew
+[PASS] every recorded difference carries a counter for both vehicles
+[PASS] the loading difference is countered by a recorded mechanism fact, not by a name
+[PASS] the gap table covers both experimental pilots
+[PASS] ussr_t_80b has must-have equipment present
+[PASS] ussr_t_80b lists the five deferred systems
+[PASS] ussr_t_80b keeps the experience gate pending
+[PASS] germ_leopard_2a4 has must-have equipment present
+[PASS] germ_leopard_2a4 lists the five deferred systems
+[PASS] germ_leopard_2a4 keeps the experience gate pending
+[PASS] balance runs through matchmaking, mission, spawn resources and map
+[PASS] the spawn-resource lever quotes the frozen ticket rule
+[PASS] no battle-rating table is copied into the segment
+[PASS] all six sample records pass (6 of 6)
+[PASS] the sample states it is not a gunnery duel
+[PASS] the sample states modern equipment is not yet used in a normal match
+[PASS] the sample reports the pending experience gate
+[PASS] at long range through smoke the optical channel is blocked
+[PASS] the thermal channel keeps its own smoke rule at range
+[PASS] the 16v16 layout offers both an attack lane and a bypass
+[PASS] the 10v10 layout offers both an attack lane and a bypass
+[PASS] an observation position above the lane exists
+[PASS] the smoke retreat scenario passes for the second pilot
+[PASS] a different loadout chambers a different round, so the choice reaches the inventory
+[PASS] the rack composition itself differs with the loadout
+[PASS] firing returns the round that was actually loaded
+[PASS] ussr_t_80b recovers from loading damage with the account conserved
+[PASS] germ_leopard_2a4 recovers from loading damage with the account conserved
+=== 结果: 50 项检查, 0 失败 ===
+TECH_SEGMENT_CHECKS_PASS

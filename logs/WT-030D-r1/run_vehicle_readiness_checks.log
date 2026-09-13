@@ -1,0 +1,80 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] model source registry parses without errors
+[PASS] ledger contains admitted vehicle us_m4a3_75w_vvss_1944
+[PASS] resource complete for us_m4a3_75w_vvss_1944
+[PASS] combat configuration complete for us_m4a3_75w_vvss_1944
+[PASS] registered specialised evidence is applied for us_m4a3_75w_vvss_1944
+[PASS] set-level match evidence is registered as passed_set for us_m4a3_75w_vvss_1944
+[PASS] distribution licence stays unverified for us_m4a3_75w_vvss_1944
+[PASS] reference admission is reported as its own track for us_m4a3_75w_vvss_1944
+[PASS] ledger contains admitted vehicle us_m24_m6_t85e1_1951
+[PASS] resource complete for us_m24_m6_t85e1_1951
+[PASS] combat configuration complete for us_m24_m6_t85e1_1951
+[PASS] registered specialised evidence is applied for us_m24_m6_t85e1_1951
+[PASS] set-level match evidence is registered as passed_set for us_m24_m6_t85e1_1951
+[PASS] distribution licence stays unverified for us_m24_m6_t85e1_1951
+[PASS] reference admission is reported as its own track for us_m24_m6_t85e1_1951
+[PASS] ledger contains admitted vehicle us_m26_m3_1945
+[PASS] resource complete for us_m26_m3_1945
+[PASS] combat configuration complete for us_m26_m3_1945
+[PASS] registered specialised evidence is applied for us_m26_m3_1945
+[PASS] set-level match evidence is registered as passed_set for us_m26_m3_1945
+[PASS] distribution licence stays unverified for us_m26_m3_1945
+[PASS] reference admission is reported as its own track for us_m26_m3_1945
+[PASS] ledger contains admitted vehicle us_m36_m4a1_1945
+[PASS] resource complete for us_m36_m4a1_1945
+[PASS] combat configuration complete for us_m36_m4a1_1945
+[PASS] registered specialised evidence is applied for us_m36_m4a1_1945
+[PASS] set-level match evidence is registered as passed_set for us_m36_m4a1_1945
+[PASS] distribution licence stays unverified for us_m36_m4a1_1945
+[PASS] reference admission is reported as its own track for us_m36_m4a1_1945
+[PASS] ledger contains modern candidate ussr_t_80b
+[PASS] modern candidate ussr_t_80b carries preview_only
+[PASS] candidate file records candidate_only for ussr_t_80b
+[PASS] candidate is not claimed as historically verified (ussr_t_80b)
+[PASS] candidate combat configuration is not_applicable (ussr_t_80b)
+[PASS] repository frozen model is found for candidate ussr_t_80b
+[PASS] external declared model path is recorded for ussr_t_80b
+[PASS] external declared build status is recorded for ussr_t_80b
+[PASS] external triangle count is recorded for ussr_t_80b
+[PASS] research model is read as bytes and is not import-visible (ussr_t_80b)
+[PASS] ledger contains modern candidate germ_leopard_2a4
+[PASS] modern candidate germ_leopard_2a4 carries preview_only
+[PASS] candidate file records candidate_only for germ_leopard_2a4
+[PASS] candidate is not claimed as historically verified (germ_leopard_2a4)
+[PASS] candidate combat configuration is not_applicable (germ_leopard_2a4)
+[PASS] repository frozen model is found for candidate germ_leopard_2a4
+[PASS] external declared model path is recorded for germ_leopard_2a4
+[PASS] external declared build status is recorded for germ_leopard_2a4
+[PASS] external triangle count is recorded for germ_leopard_2a4
+[PASS] research model is read as bytes and is not import-visible (germ_leopard_2a4)
+[PASS] research tree carries 212 vehicle rows
+[PASS] all tree rows are base models
+[PASS] 113 tree rows have a model
+[PASS] 113 model GLB files exist in the repository
+[PASS] 160 variant references are recorded
+[PASS] no tree vehicle has a combat package
+[PASS] 113 rows are static_preview_only
+[PASS] 99 rows await a model
+[PASS] four vehicles are admitted for combat
+[PASS] no vehicle reaches all five dimensions yet
+[PASS] unknown vehicle is refused with a code
+[PASS] preview-only candidate cannot enter a formal match
+[PASS] save without research is refused as not_unlocked
+[PASS] unsupported mode is refused
+[PASS] empty vehicle id is refused
+[PASS] missing packet reports resource missing
+[PASS] missing packet carries resource_missing
+[PASS] historical packet loads for tamper test
+[PASS] tampered variant is reported as variant_conflict
+[PASS] packet without assembly is reported incomplete
+[PASS] training lineup still accepted through the shared gate
+[PASS] preview-only id refused by lineup with its code
+[PASS] normal lineup without research refused with not_unlocked
+[PASS] lineup larger than three vehicles is refused
+[PASS] AI slot falls back to an admitted vehicle instead of a preview id
+[PASS] AI fallback is reported, not silent
+[PASS] respawn request for a preview id resolves to an admitted vehicle
+=== 结果: 76 项检查, 0 失败 ===
+VEHICLE_READINESS_CHECKS_PASS
