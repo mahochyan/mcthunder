@@ -189,7 +189,10 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 			var base_line := ""
 			if driver != null: base_line = RouteHarness.trace_line(i,driver,actor,goal)
 			else: base_line = "tick=%d phase=%s speed=%.3f pos=%s" % [i,mode,actor.tank.forward_speed,str(actor.tank.global_position)]
-			trace.append(base_line+command_part+" on_floor="+str(actor.tank.is_on_floor())+" still="+str(still))
+			trace.append(base_line+command_part+" on_floor="+str(actor.tank.is_on_floor())+" still="+str(still)
+				+" grounded="+str(actor.tank.ground_state.grounded)
+				+" support_l=%.2f support_r=%.2f" % [float(actor.tank.ground_state.left_support),float(actor.tank.ground_state.right_support)]
+				+" yaw_rate=%.3f" % float(actor.tank.tracks.yaw_rate))
 		if driver != null and mode == "driver" and driver.phase in ["arrived","failed","unreachable"]:
 			reached = driver.phase == "arrived"; break
 		if mode != "driver" and pos.distance_to(goal) < 3.0: reached = true; break

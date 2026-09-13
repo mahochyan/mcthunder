@@ -38,6 +38,11 @@ const DRIVE_MAX_SLOPE_DEG := 28.0
 const DRIVE_FLOOR_SNAP_M := 0.4
 const DRIVE_PROBE_UP_M := 1.6
 const DRIVE_PROBE_DOWN_M := 1.8
+## WT-039-D: floor for the steering input after ground-support scaling. Multiplying steer by
+## min(left,right) support could zero it entirely when one probe lost contact (crest, slope
+## edge), which removed all yaw authority from a vehicle that can neutral-steer and deadlocked
+## the AI driver's pivot request.
+const DRIVE_MIN_STEER_SUPPORT := 0.35
 const DRIVE_POSE_DEG_PER_SECOND := 120.0
 const DRIVE_COLLISION_SIZE := Vector3(2.6,1.5,4.2)
 const DRIVE_COLLISION_CENTER := Vector3(0,0.75,0)

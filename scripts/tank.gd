@@ -120,7 +120,13 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	ground_state = GroundProbe.sample(self,forward,Vector2(size.x*0.42,size.z*0.53))
 	if track_pivot:
 		steer*=float(ground_state.left_support if left_available else ground_state.right_support)
-	else: steer*=minf(ground_state.left_support,ground_state.right_support)
+	else:
+		# WT-039-D: a track without ground contact must not zero the steering command outright.
+		# On the west flank road one probe loses support at the crest, min(left,right) became 0,
+		# yaw_rate became 0 and the AI driver - which requests a pivot (throttle 0, full steer)
+		# whenever the heading error exceeds 18 degrees - waited there forever. A floor keeps a
+		# reduced but real turn authority, which is also what a single supported track gives.
+		steer*=maxf(minf(ground_state.left_support,ground_state.right_support),GameConfig.DRIVE_MIN_STEER_SUPPORT)
 	if ground_state.grounded:
 		forward_speed=tracks.step(forward_speed,steer,delta,definition)
 		if track_pivot: forward_speed=tracks.single_track_pivot(steer,left_available,definition)
