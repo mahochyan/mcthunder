@@ -1,0 +1,72 @@
+WT-001-R2 build identity verification log
+generated_at_utc = 2026-09-13T09:0Z (approx, local +0800)
+worktree = E:/AIprogram/mcthunder-cont
+branch   = work/continuation-20260913
+engine   = E:/AIprogram/mcthunder/tools/godot/Godot_v4.7.2-stable_win64_console.exe (4.7.2.stable.official.ed1daf0bf)
+appdata  = E:/AIprogram/mcthunder-archive/continuation-preserve-20260913/run-userdata-r2 (isolated; real profile untouched)
+
+[1] import
+command : godot --headless --path <cont> --import
+result  : exit 0; no SCRIPT ERROR / Parse Error lines
+note    : generated .godot cache and .uid companions (build_identity.gd.uid 20 B,
+          run_build_identity_checks.gd.uid 19 B)
+
+[2] headless identity checks
+command : godot --headless --path <cont> -s res://tests/run_build_identity_checks.gd
+result  : exit 0, BUILD_IDENTITY_CHECKS_PASS (8 checks, 0 failed)
+output  :
+  [PASS] BuildIdentity.VERSION matches project.godot config/version (1.0.0-rc.3-dev)
+  [PASS] build id is the fixed continuation build id
+  [PASS] source base commit is a full 40-character SHA
+  [PASS] candidate never claims release_ready
+  [PASS] describe() carries version, build id, base SHA and the non-release state
+  [PASS] describe() is informative enough for the menu line
+  [PASS] menu identity wired into res://scripts/core/garage_shell.gd
+  [PASS] menu identity wired into res://scripts/ui/garage_frontend.gd
+
+[3] real-window identity check
+command : godot --path <cont> --resolution 1280x720 -s res://tests/run_build_identity_window.gd
+result  : exit 0, BUILD_IDENTITY_WINDOW_PASS (6 checks, 0 failed)
+output  :
+  [info] frames waited = 1
+  [PASS] running menu shows the build id
+  [PASS] menu line carries the display version
+  [PASS] menu line carries the source base SHA
+  [PASS] menu line declares a development candidate, not a release
+  [PASS] menu line never claims release readiness
+  [PASS] real-window menu screenshot saved to res://docs/evidence/WT-001-r2/menu_identity.png
+method  : the test instantiates res://scenes/app.tscn in a real window, waits for the
+          first frame, walks the live node tree collecting every Label, and requires a
+          single label that contains the build id, the display version, the base SHA
+          short form and the words for "development candidate", while containing no
+          "release ready" wording. This is the observable evidence for the requirement
+          "main menu shows the development candidate identity".
+
+[4] screenshot non-visual validation
+file    : docs/evidence/WT-001-r2/menu_identity.png
+bytes   : 156439
+sha256  : EBCFE7D8DF64E6F4D6EF5E8524C057A1170C1F2990F5FA956CA3492393BC5EAB
+geometry: 1280x720 (verified twice: System.Drawing 1280x720 Format32bppArgb, and raw
+          PNG IHDR bytes width=1280 height=720)
+non-blank: 427 distinct colours sampled in the bottom 20% band, 675 distinct colours in
+          a sparse whole-image sample
+
+[5] honesty boundary - visual review
+visual_review_by_agent = NOT_RUN
+reason : the executing model declares no image input, so the agent could not visually
+         inspect the screenshot; the local vision MCP tool also reported the image as
+         unavailable to this model. The requirement is covered objectively by the
+         runtime UI-tree assertion in [3]; human/vision-capable review of the PNG is
+         left to the user and must not be claimed as done here.
+
+[6] side observations (recorded, not committed)
+- the windowed autoshot run (godot --path <cont> --resolution 1280x720 -- --autoshot)
+  completed exit 0 and wrote 13 screenshots under <cont>/docs/autoshot_*.png; those are
+  untracked run artifacts in the isolated worktree only.
+- tests/run_garage_demo.gd hung in windowed mode and was terminated by the harness
+  timeout after 600 s; no Godot process was left behind (verified with Get-Process).
+- import/run left 4 untracked concept-atlas PNGs under <cont>/assets/vehicles/; their
+  SHA-256 matches the copies already untracked in the source worktree (same 9E123239BF87
+  prefix), so no source data was altered.
+- no tracked file in the source worktree changed at any point: HEAD stays a1bac406 and
+  porcelain stays at 379 entries.
