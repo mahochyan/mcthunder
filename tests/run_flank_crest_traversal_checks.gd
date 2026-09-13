@@ -107,6 +107,21 @@ func _settle(actor: VehicleActor, max_ticks: int = 300) -> Dictionary:
 		if on_floor >= 5: break
 	return {"settled":on_floor >= 5,"ticks":ticks,"on_floor_ticks":on_floor}
 
+## The navigator accepts a start within 16 m of a node but a goal only within
+## AI_GOAL_RADIUS_M (1.6 m), so a scenario goal must be a node position, not a point chosen
+## for convenience - two scenarios previously aborted on tick 1 with `unreachable` because
+## their goals sat 3-5 m off the graph.
+func _nearest_node(nav: DriveNavigator, position: Vector3) -> Vector3:
+	var best := position
+	var best_distance := INF
+	for id in nav.nodes.keys():
+		var candidate: Vector3 = nav.nodes[id]
+		var distance := position.distance_to(candidate)
+		if distance < best_distance:
+			best_distance = distance
+			best = candidate
+	return best
+
 func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600, yaw: float = PI) -> Dictionary:
 	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
 	var actor := _spawn(vehicle_id,start+Vector3(0,0.5,0),yaw)
@@ -226,6 +241,14 @@ func _run() -> void:
 	var crest := _ground_point(ROUTE_X,CREST_Z)
 	var bottom := _ground_point(ROUTE_X,BOTTOM_Z)
 	print("[T039-D] route bottom=",bottom," crest=",crest)
+	# A start may be 16 m off the graph but a GOAL must be within AI_GOAL_RADIUS_M (1.6 m), so
+	# every driver goal is snapped to the nearest node; two scenarios previously aborted on
+	# tick 1 because their goals sat 3-5 m away.
+	var nav := DriveNavigator.new()
+	nav.configure(map.graph)
+	var crest_node := _nearest_node(nav,crest)
+	var bottom_node := _nearest_node(nav,bottom)
+	print("[T039-D] graph-snapped goals: crest=",crest_node," bottom=",bottom_node)
 	# Vehicles without a production configuration are reported, never scaled to fit.
 	for pilot in ["ussr_t_80b","germ_leopard_2a4"]:
 		var definition: VehicleDefinition = defs.get_vehicle(pilot)
@@ -245,17 +268,15 @@ func _run() -> void:
 	# --- scenario battery on production vehicles ---
 	for vehicle_id in VehicleCatalog.IDS:
 		var results: Array[Dictionary] = []
-		results.append(await _drive(vehicle_id,"uphill-production-driver",bottom,crest,"driver"))
+		results.append(await _drive(vehicle_id,"uphill-production-driver",bottom,crest_node,"driver"))
 		results.append(await _drive(vehicle_id,"uphill-low-speed",bottom,crest,"low"))
 		results.append(await _drive(vehicle_id,"crest-stop-restart",bottom,crest,"crest",22.0))
 		# Reverse condition on the production path: start at the crest FACING AWAY from the
 		# bottom so the driver must turn around or reverse to get there, and record how many
 		# ticks were spent actually moving backwards.
-		results.append(await _drive(vehicle_id,"crest-turnaround-reverse",_ground_point(ROUTE_X,CREST_Z+3.0),bottom,"driver",INF,3600,0.0))
-		# Lateral offset goes AWAY from the hill: the flank road runs at x = -120 while the west
-		# hill is centred on x = -116, so +3 m drove the vehicle into the slope. The start and
-		# goal now take their height from the terrain AT that offset, not from the road centre.
-		results.append(await _drive(vehicle_id,"lateral-offset-3m",_ground_point(ROUTE_X-3.0,BOTTOM_Z),_ground_point(ROUTE_X-3.0,CREST_Z),"driver"))
+		results.append(await _drive(vehicle_id,"crest-turnaround-reverse",_ground_point(ROUTE_X,CREST_Z+3.0),bottom_node,"driver",INF,3600,0.0))
+		# The lateral deviation lives in the START; the goal stays a node.
+		results.append(await _drive(vehicle_id,"lateral-offset-3m",_ground_point(ROUTE_X-3.0,BOTTOM_Z),crest_node,"driver"))
 		for r in results:
 			var settled: bool = bool(r.settled)
 			var ok: bool = settled and bool(r.reached) and int(r.bounces) == 0 and int(r.stalled) == 0 and int(r.nonfinite) == 0 and float(r.on_floor_fraction) >= 0.9 and bool(r.muzzle_ok) and bool(r.armour_ok) and bool(r.internal_ok)
