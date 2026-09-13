@@ -43,9 +43,15 @@ static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goa
 	var bearing := 0.0
 	if flat_target.length() > 0.01:
 		bearing = rad_to_deg(flat_target.angle_to(flat_forward))
-	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)" % [
+	# Command columns matter when a vehicle stops while the terrain is fine: they separate "the
+	# driver asked for nothing" from "the driver asked and the hull did not respond".
+	var command := ""
+	if driver != null and driver.last_command != null:
+		command = " thr=%.2f steer=%.2f blocked=%s" % [driver.last_command.throttle,driver.last_command.steer,
+			str(actor.tank.slope_blocked)]
+	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)%s" % [
 		tick,str(driver.phase),str(driver.reason),driver.waypoint,to_target.length(),bearing,
-		actor.tank.forward_speed,position.x,position.y,position.z]
+		actor.tank.forward_speed,position.x,position.y,position.z,command]
 
 ## Write the collected trace and return its path (empty when there was nothing to write).
 static func dump_trace(name: String, lines: Array) -> String:
