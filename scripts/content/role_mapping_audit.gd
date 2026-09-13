@@ -67,10 +67,15 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 		"missing_roles":int(counts.missing),"binding_ready":counts.missing == 0 and counts.ambiguous == 0,
 		"muzzle_authored":counts.derived > 0}
 
-## Draft binding in the consumer's exact shape. The validator's own error strings revealed the
-## required wrapper (schema_version 1, vehicle_id equal to the requested identity, axes and
-## internal_attachments dictionaries) and that it REJECTS unknown fields, so audit-only data
-## such as the resolved-role count stays outside the binding.
+## Draft binding in the consumer's exact shape, read from the validator source rather than
+## guessed: axes are required only for turret and gun and must declare space "local", the
+## mechanism's +Y yaw / +X elevation axis and two degree limits; internal_attachments needs
+## both ID maps present; units need the measured envelope plus explicit tolerances. Values
+## that are measured are taken from the probe; the axis limits are game-design values and are
+## labelled as such in the audit documentation.
+const DRAFT_TURRET_LIMITS_DEG := [-180.0,180.0]
+const DRAFT_GUN_LIMITS_DEG := [-8.0,20.0]
+
 static func draft_binding(asset_root: String, folder: String, probe_report: Dictionary, result: Dictionary) -> Dictionary:
 	var nodes := {}
 	var pending: Array[String] = []
@@ -81,14 +86,17 @@ static func draft_binding(asset_root: String, folder: String, probe_report: Dict
 				"node": nodes[role] = str(entry.node)
 				"derived": pending.append("%s(framed on %s)"%[role,str(entry.parent)])
 				_: pending.append("%s(unresolved)"%role)
+	var envelope: Array = probe_report.get("envelope_m",[0.0,0.0,0.0])
 	return {"schema_version":1,"vehicle_id":folder,
 		"model":{"path":"%s/%s/vehicle.glb"%[asset_root,folder],"sha256":str(probe_report.get("sha256","")),
 			"source_vehicle_id":folder},
-		"units":{"meters_per_unit":float(probe_report.get("meters_per_unit",1.0)),
+		"units":{"dimensions_m":envelope,
 			"source_unit":str(probe_report.get("unit_candidate","m")),
+			"meters_per_unit":float(probe_report.get("meters_per_unit",1.0)),
 			"tolerance_fraction":0.02,"attachment_tolerance_m":0.02},
-		"axes":{"gun":[0,0,-1]},
-		"internal_attachments":{"modules":{}},
+		"axes":{"turret":{"space":"local","axis":[0,1,0],"limits_deg":DRAFT_TURRET_LIMITS_DEG},
+			"gun":{"space":"local","axis":[1,0,0],"limits_deg":DRAFT_GUN_LIMITS_DEG}},
+		"internal_attachments":{"modules":{},"crew":{}},
 		"nodes":nodes,"_pending_author_steps":pending}
 
 ## Shape validation through the production validator, plus the two gates that are decided
