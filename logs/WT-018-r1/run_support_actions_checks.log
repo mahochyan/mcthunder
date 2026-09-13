@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] M4A3 carries exactly its own auxiliary weapon set (1)
+[PASS] M24 carries a different set (2)
+[PASS] the heavy hull gun is a distinct weapon (12.7 mm)
+[PASS] M4A3 has no coaxial gun in its configuration
+[PASS] a vehicle without the capability is refused
+[PASS] the refusal reason is explicit
+[PASS] each auxiliary weapon declares its own arc and capacity
+[PASS] firing the auxiliary weapon consumes only its own pool
+[PASS] the support module exposes no main-gun inventory at all
+[PASS] changing vehicles does not carry auxiliary ammunition over
+[PASS] the new vehicle starts from its own capacity
+[PASS] an empty auxiliary pool refuses with aux_depleted
+[PASS] an empty pool never fires
+[PASS] the firing cooldown is enforced
+[PASS] a smoke launch consumes real stock (4 -> 3)
+[PASS] smoke has a reload gate
+[PASS] smoke that is used up refuses further launches
+[PASS] inside the cloud the shared occlusion object reports smoke
+[PASS] outside the cloud there is no occlusion
+[PASS] clouds expire on their own timer
+[PASS] AI, network and replay read the same cloud list from one snapshot
+[PASS] through smoke the optical channel refuses the observation
+[PASS] the thermal channel has its own smoke rule and is not blocked outright
+[PASS] smoke never blocks a projectile
+[PASS] replay cannot spawn smoke
+[PASS] spectator cannot spawn smoke
+[PASS] replay cannot create a recon mark
+[PASS] a recon mark carries the coarse design precision
+[PASS] a fresh mark is present
+[PASS] an expired mark is dropped
+[PASS] the expiry is recorded as an understandable refusal reason
+[PASS] a vehicle without recon is refused
+[PASS] repair assist starts on a valid target
+[PASS] cancelling repair assist reports both the action and the cause
+[PASS] cancelling without an active assist is refused
+[PASS] a wreck is outside the tow envelope
+[PASS] an immobile hull cannot be towed
+[PASS] terrain can refuse the connection
+[PASS] a valid target connects
+[PASS] a second connection is refused
+[PASS] disconnecting clears the connection
+[PASS] a vehicle without a tow capability is refused
+[PASS] a client cannot set its own smoke stock
+[PASS] a client cannot author a repair amount
+[PASS] a client cannot request an instant repair
+[PASS] a normal client smoke request is still served by the authority state machine
+[PASS] an unknown action is refused
+[PASS] the read-only snapshot exposes aux_pools for replay and network sync
+[PASS] the read-only snapshot exposes smoke_stock for replay and network sync
+[PASS] the read-only snapshot exposes active_clouds for replay and network sync
+[PASS] the read-only snapshot exposes recon_marks for replay and network sync
+=== 结果: 51 项检查, 0 失败 ===
+SUPPORT_ACTIONS_CHECKS_PASS
