@@ -84,12 +84,11 @@
       },
       "sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12953
     },
@@ -142,12 +141,11 @@
       },
       "sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9232
     },
@@ -193,12 +191,14 @@
       },
       "sha256": "1cb69e6eb24000463296ad385b4326e58e1f59c73c52e2c486cd7e10245b5ac2",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.gun: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14684
     },
@@ -251,12 +251,11 @@
       },
       "sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9013
     },
@@ -319,12 +318,13 @@
       },
       "sha256": "55a2ee8d015c4d885e1b3d0dc180d3fe8d836f2428dd7e327d4dc3bea69183e4",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 5834
     },
@@ -377,12 +377,11 @@
       },
       "sha256": "32a1945bd6be27220e2e64388432355f299855de22cda701826c7d9651c97a6c",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 8412
     },
@@ -435,12 +434,11 @@
       },
       "sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12890
     },
@@ -493,12 +491,11 @@
       },
       "sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11837
     },
@@ -551,12 +548,11 @@
       },
       "sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14750
     },
@@ -623,12 +619,13 @@
       },
       "sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11086
     },
@@ -681,12 +678,12 @@
       },
       "sha256": "24a7c301cb03a4ea79fab2359f26888eb243d55656875301c687850a0887dce6",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11012
     },
@@ -739,12 +736,11 @@
       },
       "sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12834
     },
@@ -797,12 +793,11 @@
       },
       "sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14251
     },
@@ -855,12 +850,11 @@
       },
       "sha256": "ca92933bbcb919c1c51017c6036efc5507fd9da14f453ad920a491faf502fc8e",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11895
     },
@@ -913,12 +907,11 @@
       },
       "sha256": "9242b424cb5ddf6f95a86241550d8f608776357cbe7674549c25c98f7a90070f",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12157
     },
@@ -985,12 +978,13 @@
       },
       "sha256": "454332c69c67950d32fbf101c00b890eee04fa1d89c78570b5e99e8476cff6ee",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11291
     },
@@ -1057,12 +1051,13 @@
       },
       "sha256": "61953c5820d9d26ad217767c2cc2cc16458234b3f52530e268315b69235a0450",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11905
     },
@@ -1115,12 +1110,11 @@
       },
       "sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11400
     },
@@ -1173,12 +1167,11 @@
       },
       "sha256": "90ab0c42345d34ed8d039271e704be9d14f4a79ccf3a6e89167a50fefc8c0bfa",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11919
     },
@@ -1231,12 +1224,11 @@
       },
       "sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12330
     },
@@ -1289,12 +1281,11 @@
       },
       "sha256": "7672d91fdbbb42e4ed0f04ab372d5cbb02846ad55e9ac35e6e28cfc904ff9b44",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14990
     },
@@ -1347,12 +1338,11 @@
       },
       "sha256": "5b73cefb3178aa27d2202a1062c8c4de1f883cdd82d7b7ab1caf551a9e05fbe0",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9769
     },
@@ -1405,12 +1395,11 @@
       },
       "sha256": "1249ebd8cb1bcc597c4012933de6c0cb3a58cca628e31caf9866d426b47120d8",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14460
     },
@@ -1463,12 +1452,11 @@
       },
       "sha256": "0d122a77d5e1e7a38f427123c07239b4459779e579946cfe751cea2f10da168b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14840
     },
@@ -1521,12 +1509,11 @@
       },
       "sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12231
     },
@@ -1579,12 +1566,13 @@
       },
       "sha256": "f117a684eb82953a124632360f40b354b4e436c8bbdd48389b70f0d3877b404d",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14865
     },
@@ -1637,12 +1625,12 @@
       },
       "sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13563
     },
@@ -1695,12 +1683,11 @@
       },
       "sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13369
     },
@@ -1746,12 +1733,15 @@
       },
       "sha256": "643f8b1892f8a3a1424522a5368c8f30ea230e993607279651e9e0411923cf48",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.gun: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13826
     },
@@ -1802,12 +1792,15 @@
       },
       "sha256": "035595788f16900f288b6f87868645849bede67cf764c0835260cdb8c9bada5d",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.gun: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14896
     },
@@ -1860,12 +1853,12 @@
       },
       "sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11926
     },
@@ -1918,12 +1911,11 @@
       },
       "sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11173
     },
@@ -1976,12 +1968,11 @@
       },
       "sha256": "fa18c59d2e4b2be0662638cd43fbaa77ba9a899a2e8c910e9d0c11c77ed6fc88",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12247
     },
@@ -2034,12 +2025,11 @@
       },
       "sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12228
     },
@@ -2085,12 +2075,13 @@
       },
       "sha256": "e1f3430757732126d777478ae4424713815fc24f3044329e40973a874b25ea05",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.gun: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 8327
     },
@@ -2143,12 +2134,11 @@
       },
       "sha256": "991981e2e4e5b86230166ce66dec927169a73f5c2ef14f23c303c51abcaea9c0",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11440
     },
@@ -2201,12 +2191,12 @@
       },
       "sha256": "edb409f29882719ca0ee613f1ff3d66b4703e2fee98306ea9aa7c49458a53b21",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13752
     },
@@ -2259,12 +2249,11 @@
       },
       "sha256": "fe5e9ec431855abebd69967bd4db2c5c72151175bd0cc27cc72e72e743be6969",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13232
     },
@@ -2317,12 +2306,11 @@
       },
       "sha256": "9baa1df319d682ceab6dedb9ea99cd9bbd072c7c585dfe632fd0cb1b73a3bde0",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12582
     },
@@ -2375,12 +2363,11 @@
       },
       "sha256": "17eb2006aab6c0f4ada7b4d5eae1575b0d183498c38723d4d6c969a078e8ab44",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11548
     },
@@ -2433,12 +2420,11 @@
       },
       "sha256": "72677a96a5641bd3f49b9e30249d5e092c4a41904c7e0a8cce32bc5f3b0d0640",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14300
     },
@@ -2491,12 +2477,12 @@
       },
       "sha256": "9dbc2a95cabb90c15c260c4d591a895899700c7db6df3453d33b2891093ca421",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9479
     },
@@ -2549,12 +2535,12 @@
       },
       "sha256": "a9e368cf65c27e53aede60dc6f2ee2b70bef538f08847a6cd7791bae35c3cdb8",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12928
     },
@@ -2607,12 +2593,11 @@
       },
       "sha256": "35ce1912d335019dd746a02fae55afadc95ee6dbdeb5b3dbc123b833ac47ce76",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14905
     },
@@ -2665,12 +2650,11 @@
       },
       "sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11866
     },
@@ -2723,12 +2707,11 @@
       },
       "sha256": "3f095ae6d7634a4dbd34731549f95cda67720524636727d1c2460c4825856c0b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9227
     },
@@ -2781,12 +2764,12 @@
       },
       "sha256": "db7927e8f8c4094e38ba34477627e481df22338a344294f03572ff5e07ab514a",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12399
     },
@@ -2839,12 +2822,12 @@
       },
       "sha256": "068577f469c1a831c10b065b321ba26e5d7142171c44e861a0dc6255d6ae2503",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12633
     },
@@ -2911,12 +2894,13 @@
       },
       "sha256": "12375c4668438db03a61b61beb46366a3910570ddf44b6241c3b1c81bde88418",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11340
     },
@@ -2979,12 +2963,14 @@
       },
       "sha256": "65bb5fe3f8c6384f7eb6f38ce0168447c26e3eedbfd7320a7ca2d75a2a91875d",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 5779
     },
@@ -3047,12 +3033,13 @@
       },
       "sha256": "7088750bba5752d49c4aea0e58068d2d9e1d71a840d07cfc632eec3e6a65f761",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 6243
     },
@@ -3105,12 +3092,11 @@
       },
       "sha256": "abe09a4760a1f6a21d0396dae3242086b411db27d2084edcdbf7f6e6a500fd51",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14784
     },
@@ -3163,12 +3149,11 @@
       },
       "sha256": "f042ed2ae1bf83bc913243bd69c1474bc13e8c5eebdf031aeb8910422a6d8fcd",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14631
     },
@@ -3221,12 +3206,11 @@
       },
       "sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11185
     },
@@ -3293,12 +3277,13 @@
       },
       "sha256": "83f856d031294490fd8274de2433648d93dc3d897a630b8b35ef6a717cf293b4",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11820
     },
@@ -3351,12 +3336,11 @@
       },
       "sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9838
     },
@@ -3409,12 +3393,11 @@
       },
       "sha256": "9e925267680dd37a5c1299315bb82811106567623e00a772762d639a8f48875d",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11629
     },
@@ -3467,12 +3450,12 @@
       },
       "sha256": "31feb179335b9e60cc231dc93b068b46af745211ce012a29643c18237ae62236",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10621
     },
@@ -3525,12 +3508,11 @@
       },
       "sha256": "bab8bb396f3c454462bc4301c9859075990ef10c44f28068155aed4e7ba61423",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9889
     },
@@ -3595,12 +3577,13 @@
       },
       "sha256": "82c71dc1acf1719b8de52d6dc1b18f4e75d58837fbfc66425fea75aa0e167eed",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10836
     },
@@ -3646,12 +3629,13 @@
       },
       "sha256": "aa5db018454561f8b5ec468fef8df6db2b641d68daf40645221ecc55a3b3bbc4",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.gun: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12879
     },
@@ -3704,12 +3688,11 @@
       },
       "sha256": "eed359ea4ccb0b78c81b0b25141b3f841770cd5a74cbb4f1312dac00a5f84e62",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12083
     },
@@ -3776,12 +3759,13 @@
       },
       "sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "nodes.running_left: explicit canonical relative path required",
+        "nodes.running_right: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10928
     },
@@ -3834,12 +3818,11 @@
       },
       "sha256": "c176f135887d940755224c8c7f1a4eee93b887bc40acc9ad6f5b0be1b27c3fad",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14622
     },
@@ -3892,12 +3875,12 @@
       },
       "sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10486
     },
@@ -3950,12 +3933,11 @@
       },
       "sha256": "03ce37358395983e40b8fe68df277fc6ac4a65890e92c3c9ea20dfd29883857b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 7392
     },
@@ -4008,12 +3990,11 @@
       },
       "sha256": "e6f9c74f13b03ada730c0a62d82d9debba7fb223bbf490497a811eaffadc93ea",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 8484
     },
@@ -4066,12 +4047,11 @@
       },
       "sha256": "74dae98ef6f1292b4dea141c6034584312fd224668f528040ec14646d7d740a6",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 8470
     },
@@ -4124,12 +4104,11 @@
       },
       "sha256": "d272933c2656edfc6f90ae49b466822feb65ac373988bd2cc54e37b1df34dd60",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10054
     },
@@ -4182,12 +4161,11 @@
       },
       "sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11715
     },
@@ -4240,12 +4218,12 @@
       },
       "sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11696
     },
@@ -4298,12 +4276,11 @@
       },
       "sha256": "972473435de7f165ea4e25a1f520312ded951f70e2df3c287d249d7c14812b1b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14866
     },
@@ -4356,12 +4333,11 @@
       },
       "sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11122
     },
@@ -4414,12 +4390,11 @@
       },
       "sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9816
     },
@@ -4472,12 +4447,12 @@
       },
       "sha256": "a4832317782dc2c3fd17bd1ceb106b1afcc22848103df006302f66ac2057b4aa",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11759
     },
@@ -4530,12 +4505,11 @@
       },
       "sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12727
     },
@@ -4588,12 +4562,12 @@
       },
       "sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13372
     },
@@ -4646,12 +4620,11 @@
       },
       "sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11429
     },
@@ -4704,12 +4677,12 @@
       },
       "sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14640
     },
@@ -4762,12 +4735,12 @@
       },
       "sha256": "b6c14763bfba83bc916f63ee1dbe0e5ab4b7995a5ee10dc372fc73a8736694ed",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 10648
     },
@@ -4820,12 +4793,12 @@
       },
       "sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12668
     },
@@ -4878,12 +4851,12 @@
       },
       "sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13789
     },
@@ -4936,12 +4909,12 @@
       },
       "sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13110
     },
@@ -4994,12 +4967,11 @@
       },
       "sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13767
     },
@@ -5052,12 +5024,12 @@
       },
       "sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 11830
     },
@@ -5110,12 +5082,11 @@
       },
       "sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14709
     },
@@ -5174,12 +5145,12 @@
       },
       "sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14374
     },
@@ -5232,12 +5203,11 @@
       },
       "sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14708
     },
@@ -5290,12 +5260,11 @@
       },
       "sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12164
     },
@@ -5348,12 +5317,11 @@
       },
       "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 13540
     },
@@ -5406,12 +5374,12 @@
       },
       "sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 8145
     },
@@ -5464,12 +5432,12 @@
       },
       "sha256": "4e5665fcd92b76d16d1984fcf525b75cd823d47e161751103cacab3513ee33a5",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.turret: explicit canonical relative path required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 9974
     },
@@ -5522,12 +5490,11 @@
       },
       "sha256": "079310065f0bec17f9550c267c61dcf2c7dbf118fcb50250c3d009d2f183a418",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 14837
     },
@@ -5580,12 +5547,11 @@
       },
       "sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12205
     },
@@ -5638,12 +5604,11 @@
       },
       "sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12682
     },
@@ -5696,12 +5661,11 @@
       },
       "sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2",
       "shape_errors": [
-        "binding: unknown field pending_author_steps",
-        "binding: unknown field node_roles_resolved",
-        "schema_version: expected 1",
-        "vehicle_id: exact requested identity required",
-        "axes: expected dictionary",
-        "internal_attachments: expected dictionary"
+        "units.dimensions_m: finite XYZ envelope required",
+        "nodes.muzzle: explicit canonical relative path required",
+        "axes.turret: explicit axis required",
+        "axes.gun: explicit axis required",
+        "internal_attachments.crew: explicit ID map required"
       ],
       "triangles": 12129
     }
