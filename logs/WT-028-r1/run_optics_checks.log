@@ -1,0 +1,30 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] M4 production package supplies two optic steps
+[PASS] M24 uses its own admitted optics profile
+[PASS] actual gun sight consumes first FOV
+[PASS] scope uses authored local optical offset
+[PASS] zoom changes actual projection without moving weapon
+[PASS] magnified input has reduced angular sensitivity
+[PASS] zoom cycles through only configured FOV steps
+[PASS] binocular view takes precedence over held gun sight
+[PASS] binocular origin follows actual sprung hull
+[PASS] switching observation modes does not overwrite saved gun intent
+[PASS] leaving observation restores pre-observation aim
+[PASS] offset scope observes beyond cover using the actual optical origin
+[PASS] visible optical line does not permit firing a barrel inside cover
+[PASS] pitch stop cannot falsely report aligned to unreachable target
+[PASS] observation hold has a strict versioned wire contract
+[PASS] numeric observation flag is rejected
+[PASS] old command version is explicitly rejected
+[PASS] authoritative command holds both axes without a local observation camera
+[PASS] released observation resumes finite mechanical pursuit
+[PASS] vehicle reset clears zoom observation and mechanical hold
+[PASS] leaving binoculars between render capture and physics cannot release an old fire edge
+[PASS] out-of-order zoom profiles fail admission
+[PASS] nonfinite optic geometry fails admission
+[PASS] old settings preserve occupied keys while adding optics actions
+=== 结果: 24 项检查, 0 失败 ===
+OPTICS_CHECKS_PASS
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
