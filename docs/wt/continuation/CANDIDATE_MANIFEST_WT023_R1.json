@@ -1,0 +1,81 @@
+{
+    "schema":  1,
+    "work_order":  "WT-023-R1",
+    "generated_at":  "2026-09-13",
+    "source":  {
+                   "repo":  "E:/AIprogram/mcthunder-cont",
+                   "branch":  "work/continuation-20260913",
+                   "commit":  "1e7b3b1ec5be92e3cbee7462748a11f6e7f1f577",
+                   "tree":  "c0f1e57f3702f43b7577bf09e76d1297efdaac82",
+                   "display_version":  "1.0.0-rc.3-dev",
+                   "build_id":  "continuation-20260913"
+               },
+    "build":  {
+                  "engine_version":  "4.7.2.stable.official.ed1daf0bf",
+                  "engine_sha256":  "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+                  "preset":  "Windows Team Slice",
+                  "preset_file_sha256":  "D3C10AAB95507D03ABC0E2725D8210B9032EFCA543C7478FC56946531B288B83",
+                  "template":  "%APPDATA%/Godot/export_templates/4.7.2.stable/windows_release_x86_64.exe",
+                  "export_command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --export-release \"Windows Team Slice\" \u003cout\u003e\\PixelArmor.exe",
+                  "artifacts":  [
+                                    {
+                                        "name":  "PixelArmor.exe",
+                                        "bytes":  109137920,
+                                        "sha256":  "F0189283C16A6436151682AC8B078C298CDE893F27812E52747549462B25965A"
+                                    },
+                                    {
+                                        "name":  "PixelArmor.pck",
+                                        "bytes":  65608880,
+                                        "sha256":  "5DE6E5C116099F06BDFE57656F2558B3ACC401C1BAA14AFA674BF1F9327D27AC"
+                                    }
+                                ]
+              },
+    "content":  {
+                    "scenes_tscn":  18,
+                    "scripts_gd":  245,
+                    "configs_files":  20,
+                    "assets_glb":  126,
+                    "tests_gd":  179,
+                    "font":  "assets/fonts/NotoSansCJKsc-Regular.otf",
+                    "font_sha256":  "2C76254F6FC379FDDFCE0A7E84FB5385BB135D3E399294F6EEB6680D0365B74B"
+                },
+    "rules":  {
+                  "id":  "team_standard_300",
+                  "version":  1,
+                  "file":  "scripts/battle/match_rule_preset.gd",
+                  "file_sha256":  "3CC9A83E3109F629B2F356A319455201401B16A60DFA462AF94539BF57CFE0BB",
+                  "fingerprint_reproducible_by":  "tests/run_match_rules_checks.gd (MATCH_RULES_CHECKS_PASS 43/43)",
+                  "start_tickets":  300,
+                  "death_cost":  30,
+                  "time_limit_s":  600,
+                  "capture_seconds":  12,
+                  "capture_radius_m":  12,
+                  "max_points":  3
+              },
+    "verification":  {
+                         "exported_headless_exit":  0,
+                         "exported_window_exit":  0,
+                         "engine_log_errors":  0,
+                         "profile_isolation":  {
+                                                   "isolated_dir":  "WT023R1/userdata",
+                                                   "real_profile_files_before":  781,
+                                                   "after":  781
+                                               },
+                         "human":  "NOT_RUN",
+                         "release_ready":  false
+                     },
+    "included":  [
+                     "four admitted historical vehicles with the full combat chain",
+                     "two formal maps for 4v4 plus training laboratories",
+                     "River Junction large map: three objectives, road navigation, deployment, resupply",
+                     "garage: selection, inspection, loadout, lineup, research, personal bests, model showroom",
+                     "Chinese UI, rebindable keys, accessibility, challenges"
+                 ],
+    "excluded":  [
+                     "modern candidates T-80B / Leopard 2A4 are not combat-admitted",
+                     "formal networking (WT-024..026/037)",
+                     "performance work (HOLD_BY_USER)",
+                     "10v10/16v16 match acceptance",
+                     "air/naval extensions"
+                 ]
+}
