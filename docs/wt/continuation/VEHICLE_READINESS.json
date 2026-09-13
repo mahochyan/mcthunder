@@ -49,7 +49,7 @@
     "scripts/battle/team_range.gd:vehicle_id_for_slot"
   ],
   "gate_entry": "VehicleReadiness.eligible(id, mode, profile, catalog)",
-  "generated_at_utc": "2026-09-13T08:35:27Z",
+  "generated_at_utc": "2026-09-13T08:45:32Z",
   "schema": 1,
   "vehicles": [
     {
@@ -68,7 +68,7 @@
       },
       "distribution_license": "unverified",
       "id": "us_m4a3_75w_vvss_1944",
-      "match_verified": "not_run",
+      "match_verified": "passed_set:tests/run_match_batch_checks.gd --runs 1 (5 checks, exit 0, seed 19001, 265.9 s, 214 shots, 8 AI slots)",
       "reason": "分发许可未核",
       "resource": "ok",
       "resource_detail": {
@@ -79,7 +79,7 @@
         "model_path": "res://assets/vehicles/us_m4a3_75w_vvss_1944.glb",
         "value": "ok"
       },
-      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+      "specialized_verified": "passed_vehicle:tests/run_garage_checks.gd (151 checks, exit 0)"
     },
     {
       "admitted": true,
@@ -97,7 +97,7 @@
       },
       "distribution_license": "unverified",
       "id": "us_m24_m6_t85e1_1951",
-      "match_verified": "not_run",
+      "match_verified": "passed_set:tests/run_match_batch_checks.gd --runs 1 (5 checks, exit 0, seed 19001, 265.9 s, 214 shots, 8 AI slots)",
       "reason": "分发许可未核",
       "resource": "ok",
       "resource_detail": {
@@ -108,7 +108,7 @@
         "model_path": "res://assets/vehicles/us_m24_m6_t85e1_1951.glb",
         "value": "ok"
       },
-      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+      "specialized_verified": "passed_vehicle:tests/run_garage_checks.gd (151 checks, exit 0)"
     },
     {
       "admitted": true,
@@ -126,7 +126,7 @@
       },
       "distribution_license": "unverified",
       "id": "us_m26_m3_1945",
-      "match_verified": "not_run",
+      "match_verified": "passed_set:tests/run_match_batch_checks.gd --runs 1 (5 checks, exit 0, seed 19001, 265.9 s, 214 shots, 8 AI slots)",
       "reason": "分发许可未核",
       "resource": "ok",
       "resource_detail": {
@@ -137,7 +137,7 @@
         "model_path": "res://assets/vehicles/us_m26_m3_1945.glb",
         "value": "ok"
       },
-      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+      "specialized_verified": "passed_vehicle:tests/run_garage_checks.gd (151 checks, exit 0)"
     },
     {
       "admitted": true,
@@ -155,7 +155,7 @@
       },
       "distribution_license": "unverified",
       "id": "us_m36_m4a1_1945",
-      "match_verified": "not_run",
+      "match_verified": "passed_set:tests/run_match_batch_checks.gd --runs 1 (5 checks, exit 0, seed 19001, 265.9 s, 214 shots, 8 AI slots)",
       "reason": "分发许可未核",
       "resource": "ok",
       "resource_detail": {
@@ -166,7 +166,7 @@
         "model_path": "res://assets/vehicles/us_m36_m4a1_1945.glb",
         "value": "ok"
       },
-      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+      "specialized_verified": "passed_vehicle:tests/run_garage_checks.gd (151 checks, exit 0)"
     },
     {
       "admission": "candidate_only",

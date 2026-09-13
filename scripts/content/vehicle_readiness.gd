@@ -245,7 +245,9 @@ static func ledger(catalog: VehicleCatalog, evidence: Dictionary = {}) -> Dictio
 		rows.append(row)
 	var complete := 0
 	for row in rows:
-		if row.resource == "ok" and row.combat_config == "ok" and str(row.specialized_verified).begins_with("passed") and str(row.match_verified).begins_with("passed"): complete += 1
+		# Set-level evidence ("passed_set:") proves the pipeline, not this vehicle, so it
+		# deliberately does not count towards per-vehicle combat readiness.
+		if row.resource == "ok" and row.combat_config == "ok" and str(row.specialized_verified).begins_with("passed_vehicle") and str(row.match_verified).begins_with("passed_vehicle"): complete += 1
 	return {
 		"dims": DIMENSIONS,
 		"catalog_summary": catalog_summary(),

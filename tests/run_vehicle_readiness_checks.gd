@@ -27,7 +27,7 @@ func _run() -> void:
 		_check(str(row.get("resource","")) == "ok","resource complete for %s" % id)
 		_check(str(row.get("combat_config","")) == "ok","combat configuration complete for %s" % id)
 		_check(str(row.get("specialized_verified","")).begins_with("passed"),"registered specialised evidence is applied for %s" % id)
-		_check(str(row.get("match_verified","")) == "not_run","match evidence stays not_run until a match suite is run for %s" % id)
+		_check(str(row.get("match_verified","")).begins_with("passed_set"),"set-level match evidence is registered as passed_set for %s" % id)
 		_check(str(row.get("distribution_license","")) == "unverified","distribution licence stays unverified for %s" % id)
 		var reference_ok: Variant = row.get("config_detail",{}).get("reference_admitted",true)
 		_check(reference_ok == false,"reference admission is reported as its own track for %s" % id)
