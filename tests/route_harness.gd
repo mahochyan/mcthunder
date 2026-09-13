@@ -49,9 +49,20 @@ static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goa
 	if driver != null and driver.last_command != null:
 		command = " thr=%.2f steer=%.2f blocked=%s attempts=%d stuck_s=%.2f" % [driver.last_command.throttle,driver.last_command.steer,
 			str(actor.tank.slope_blocked),driver.attempts,driver.stuck.elapsed]
-	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)%s" % [
+	# Pose and contact columns decide what a frozen hull is frozen by: a pose dug into the mesh,
+	# a body pressed against world geometry, or neither.
+	var contacts: Array[String] = []
+	for index in actor.tank.get_slide_collision_count():
+		var collision := actor.tank.get_slide_collision(index)
+		if collision == null: continue
+		var collider := collision.get_collider()
+		contacts.append(str(collider.name) if collider != null else "?")
+	var pose := " pitch=%.2f roll=%.2f normal_y=%.2f contacts=%d[%s]" % [
+		rad_to_deg(actor.tank.global_basis.get_euler().x),rad_to_deg(actor.tank.global_basis.get_euler().z),
+		float(actor.tank.ground_state.normal.y),contacts.size(),",".join(contacts)]
+	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)%s%s" % [
 		tick,str(driver.phase),str(driver.reason),driver.waypoint,to_target.length(),bearing,
-		actor.tank.forward_speed,position.x,position.y,position.z,command]
+		actor.tank.forward_speed,position.x,position.y,position.z,command,pose]
 
 ## Write the collected trace and return its path (empty when there was nothing to write).
 static func dump_trace(name: String, lines: Array) -> String:
