@@ -8,6 +8,7 @@
 > **未完成/需授权（如实）**：现代两车仍 `candidate_only` 未准入；M1A1/ZTZ-99A 延期（缺参考条目与 packet `model_binding`，M1A1 需重导出）；`model_sources.json` 仍为空；正式联网部分完成（公网/发现/中继/专管/账号未授权未实现）；**`export_presets.cfg` 的 server/client 预设需授权**；性能 `HOLD_BY_USER`（零采样）；真人 `NOT_RUN`（体验门 PENDING）；10v10/16v16 容量与空海扩展未做；11 个慢套件 `DEFERRED`、37 个按名排除套件需窗口/输入/性能预算。
 > 4 个既有红（`chassis_response`、`historical_road`、`team_checks`、`map_checks`）**基线即红**，需独立修复单；核心 `run_checks` 存在单帧余量抖动（建议收紧测量窗口，**不放宽阈值**）。
 > 原 `main` 工作区未被本分支改动（porcelain 恒为 379）。
+> **编号更正（自我更正）**：第 2 轮的「WT-035-R1 回归门」应计为 **WT-036-R1（回归部分）**；材料 03 的 **WT-035 是「主界面、战斗HUD与新手教学」且尚未开工**——不得以回归门冒充其交付。历史提交信息不改写。
 
 2026-09-13 WT-032接续：河谷实地驾驶新增暂停菜单A/B/C路线规划与地图路径，修复弯道路面穿插、货运站横路建筑占道和部署出口树木；两布局实际道路图408/857节点、全部156组泊位至占点可达，单桥封闭可绕行，三条代表性生产M4 AI路线到达。详见docs/wt/WT032_ROAD_NAVIGATION.md与logs/WT032-navigation/RESULTS.json。仍为单车/受控导航验证，下一步正式多车场景、会车堵塞与比赛；42项保留、性能HOLD、真人NOT_RUN。
 

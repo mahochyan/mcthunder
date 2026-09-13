@@ -1,0 +1,54 @@
+class_name RouteHarness
+extends RefCounted
+## WT-039-R1: test-side hardening for long route batteries.
+##
+## The investigation showed the seven failing checks could not be reproduced in isolation
+## and that the failing slot drifts between runs, so the harness gains diagnostics WITHOUT
+## touching a single assertion or threshold:
+##   * `occupancy()` makes "the next route starts on a clear spawn" an explicit, named check
+##     instead of an assumption;
+##   * `trace_line()` / `dump_trace()` keep a per-tick trail so any future intermittent
+##     failure is diagnosable rather than mysterious.
+##
+## Nothing here changes what a route is expected to achieve.
+
+const TRACE_DIR := "res://logs/route-traces"
+
+## Any vehicle body inside `radius` of the spawn (0 means the slot is clear).
+static func occupancy(world: Node3D, position: Vector3, radius: float = 8.0) -> int:
+	if world == null or not world.is_inside_tree(): return -1
+	var space := world.get_world_3d().direct_space_state
+	if space == null: return -1
+	var params := PhysicsShapeQueryParameters3D.new()
+	var sphere := SphereShape3D.new()
+	sphere.radius = radius
+	params.shape = sphere
+	params.transform = Transform3D(Basis.IDENTITY,position+Vector3(0,1.0,0))
+	params.collision_mask = GameConfig.LAYER_VEHICLE
+	params.collide_with_areas = false
+	return space.intersect_shape(params,16).size()
+
+## One diagnostic line for a tick.
+static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goal: Vector3) -> String:
+	if driver == null or actor == null: return ""
+	var position: Vector3 = actor.tank.global_position
+	var target := goal
+	if driver.path.size() > driver.waypoint: target = driver.path[driver.waypoint]
+	var to_target := target-position
+	var bearing := 0.0
+	if to_target.length() > 0.01:
+		bearing = rad_to_deg((-actor.tank.global_basis.z).signed_angle_to(to_target.normalized(),Vector3.UP))
+	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)" % [
+		tick,str(driver.phase),str(driver.reason),driver.waypoint,to_target.length(),bearing,
+		actor.tank.forward_speed,position.x,position.y,position.z]
+
+## Write the collected trace and return its path (empty when there was nothing to write).
+static func dump_trace(name: String, lines: Array) -> String:
+	if lines.is_empty(): return ""
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(TRACE_DIR))
+	var path := "%s/%s-%d.log" % [TRACE_DIR,name,Time.get_ticks_msec()]
+	var file := FileAccess.open(path,FileAccess.WRITE)
+	if file == null: return ""
+	for line in lines: file.store_line(str(line))
+	file.close()
+	return path

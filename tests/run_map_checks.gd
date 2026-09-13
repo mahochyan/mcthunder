@@ -66,6 +66,8 @@ func finish() -> void:
 	quit(0 if failed == 0 else 1)
 
 func drive_route(team: int, index: int, alternate: bool, wide: bool, flank: bool = false, blocked: bool = false) -> Dictionary:
+	var occupancy := RouteHarness.occupancy(world,map.spawns[team][index].origin)
+	check(occupancy == 0,"route team %d slot %d starts on a clear spawn (%d bodies within margin)"%[team,index,occupancy])
 	var parked: VehicleActor
 	if blocked:
 		parked = VehicleActor.new()
@@ -103,6 +105,7 @@ func drive_route(team: int, index: int, alternate: bool, wide: bool, flank: bool
 	driver.set_goal(goals.pop_front())
 	await frames()
 	var bounded := true
+	var trace: Array = []
 	var previous := actor.tank.global_position
 	var max_x := 0.0
 	var min_x := 0.0
@@ -118,9 +121,12 @@ func drive_route(team: int, index: int, alternate: bool, wide: bool, flank: bool
 		min_x = minf(min_x,p.x)
 		peak_y = maxf(peak_y,p.y)
 		steps += 1
+		if i % 30 == 0: trace.append(RouteHarness.trace_line(i,driver,actor,Vector3.ZERO)+" bounded=%s"%str(bounded))
 		if driver.phase == "arrived" and not goals.is_empty(): driver.set_goal(goals.pop_front())
 		elif driver.phase in ["arrived","failed","unreachable"]: break
 	var result := {"phase":driver.phase,"seconds":steps/60.0,"bounded":bounded,"max_x":max_x,"min_x":min_x,"peak_y":peak_y,"position":previous,"events":driver.events.duplicate(true)}
+	if not (driver.phase == "arrived" and bounded):
+		print("[route] trace saved: ",RouteHarness.dump_trace("map-t%d-s%d%s" % [team,index,"-alt" if alternate else ("-wide" if wide else "")],trace))
 	actor.free()
 	if parked != null: parked.free()
 	await frames()

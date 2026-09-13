@@ -20,6 +20,8 @@ func _run() -> void:
 	for id in VehicleCatalog.IDS:
 		for team in [1,2]:
 			for slot in [0,7]:
+				var occupancy := RouteHarness.occupancy(world,map.spawns[team][slot].origin)
+				check(occupancy == 0,"%s team %d slot %d starts on a clear spawn (%d bodies within margin)"%[id,team,slot,occupancy])
 				var actor := VehicleActor.new(); world.add_child(actor)
 				var setup := actor.setup(defs,id,"ROAD",team,map.spawns[team][slot],4,null)
 				actor.set_physics_process(false)
@@ -31,6 +33,7 @@ func _run() -> void:
 				driver.set_goal(TeamArena.goal(team,slot%4))
 				await frames()
 				var bounded := true; var reached_speed := 0.0
+				var trace: Array = []
 				var previous := actor.tank.global_position
 				for i in 12000:
 					actor.advance_standalone_tick(1.0/60)
@@ -38,10 +41,13 @@ func _run() -> void:
 					bounded = bounded and point.is_finite() and point.distance_to(previous) < actor.definition.forward_max_speed/60+0.2
 					bounded = bounded and actor.tank.forward_speed <= actor.definition.forward_max_speed+0.001 and actor.tank.forward_speed >= -actor.definition.reverse_max_speed-0.001
 					reached_speed = maxf(reached_speed,actor.tank.forward_speed)
+					if i % 30 == 0: trace.append(RouteHarness.trace_line(i,driver,actor,TeamArena.goal(team,slot%4))+" bounded=%s"%str(bounded))
 					previous = point
 					if driver.phase in ["arrived","failed","unreachable"]: break
 				print("[route] ",id," team=",team," slot=",slot," phase=",driver.phase," peak_speed=",reached_speed," endpoint=",previous)
 				check(setup.ok and bounded and driver.phase == "arrived",id+": actual hull from team %d slot %d reaches capture via roads within movement bounds"%[team,slot])
+				if not (setup.ok and bounded and driver.phase == "arrived"):
+					print("[route] trace saved: ",RouteHarness.dump_trace("historical-%s-t%d-s%d"%[id,team,slot],trace))
 				actor.free(); await frames()
 	world.free()
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failed])
