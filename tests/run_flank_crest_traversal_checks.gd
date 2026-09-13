@@ -92,9 +92,25 @@ func _hull_box_intersection(actor: VehicleActor) -> float:
 func _ground_point(x: float, z: float, lift: float = 0.05) -> Vector3:
 	return Vector3(x,VillageDefinition.height(x,z)+lift,z)
 
+## Drop the vehicle onto the real collision mesh and wait for the production floor state to
+## report contact. Placing a vehicle by the analytic height is unsafe on a 4 m faceted mesh:
+## on a convex slope the analytic value sits above the interpolated surface, so the vehicle
+## could hover (never touching the floor) and appear immobile for reasons that are entirely
+## the fixture's. No controller is bound yet, so this is gravity and contact only.
+func _settle(actor: VehicleActor, max_ticks: int = 300) -> Dictionary:
+	var ticks := 0
+	var on_floor := 0
+	for i in max_ticks:
+		ticks = i
+		actor.advance_standalone_tick(STEP)
+		if actor.tank.is_on_floor(): on_floor += 1
+		if on_floor >= 5: break
+	return {"settled":on_floor >= 5,"ticks":ticks,"on_floor_ticks":on_floor}
+
 func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600, yaw: float = PI) -> Dictionary:
 	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
-	var actor := _spawn(vehicle_id,start,yaw)
+	var actor := _spawn(vehicle_id,start+Vector3(0,0.5,0),yaw)
+	var settle := await _settle(actor)
 	var nav := DriveNavigator.new(); nav.configure(map.graph)
 	var driver := AIPathDriver.new()
 	var fixed: FixedThrottle = null
@@ -118,7 +134,9 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var released := false
 	var previous := actor.tank.global_position
 	var traveled := 0.0
+	var ticks_run := 0
 	for i in ticks_limit:
+		ticks_run = i+1
 		if fixed != null:
 			var to_goal := goal-actor.tank.global_position
 			var bearing := 0.0
@@ -153,7 +171,9 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var armour_ok: bool = actor.definition != null and actor.tank.defs != null
 	var internal_ok: bool = actor.state.module_states.size() > 0
 	var result := {"label":label,"reached":reached,"hull_box_intersection_m":hull_box_intersection,
-		"bounces":bounces,"stalled":stalled,"on_floor_fraction":float(on_floor_ticks)/float(maxi(1,ticks_limit)),
+		"settled":bool(settle.settled),"settle_ticks":int(settle.ticks),
+		"ticks_run":ticks_run,"final_phase":(str(driver.phase) if driver != null else "fixed"),
+		"bounces":bounces,"stalled":stalled,"on_floor_fraction":float(on_floor_ticks)/float(maxi(1,ticks_run)),
 		"reverse_ticks":reverse_ticks,
 		"nonfinite":nonfinite,"traveled":traveled,"muzzle_ok":muzzle_ok,"armour_ok":armour_ok,"internal_ok":internal_ok}
 	actor.free()
@@ -163,7 +183,8 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 ## Flat-ground control: no bottoming, no stall, and the vehicle actually moves.
 func _calibrate(vehicle_id: String) -> Dictionary:
 	var flat := Vector3(0.0,VillageDefinition.height(0.0,116.0)+0.05,116.0)
-	var actor := _spawn(vehicle_id,flat,PI)
+	var actor := _spawn(vehicle_id,flat+Vector3(0,0.5,0),PI)
+	var settle := await _settle(actor)
 	var fixed := FixedThrottle.new(); fixed.throttle = float(LOW_THROTTLE.get(vehicle_id,0.5))
 	actor.add_child(fixed); actor.set_controller(fixed)
 	await _frames()
@@ -236,9 +257,10 @@ func _run() -> void:
 		# goal now take their height from the terrain AT that offset, not from the road centre.
 		results.append(await _drive(vehicle_id,"lateral-offset-3m",_ground_point(ROUTE_X-3.0,BOTTOM_Z),_ground_point(ROUTE_X-3.0,CREST_Z),"driver"))
 		for r in results:
-			var ok: bool = bool(r.reached) and int(r.bounces) == 0 and int(r.stalled) == 0 and int(r.nonfinite) == 0 and float(r.on_floor_fraction) >= 0.9 and bool(r.muzzle_ok) and bool(r.armour_ok) and bool(r.internal_ok)
-			_check(ok,"T039-D %s %s: reached=%s hull_box_intersection=%.3f bounces=%d stalled=%d on_floor=%.2f reverse_ticks=%d nonfinite=%d traveled=%.1f muzzle=%s armour=%s internal=%s"%[
-				vehicle_id,str(r.label),str(r.reached),float(r.hull_box_intersection_m),int(r.bounces),int(r.stalled),float(r.on_floor_fraction),int(r.reverse_ticks),int(r.nonfinite),float(r.traveled),
+			var settled: bool = bool(r.settled)
+			var ok: bool = settled and bool(r.reached) and int(r.bounces) == 0 and int(r.stalled) == 0 and int(r.nonfinite) == 0 and float(r.on_floor_fraction) >= 0.9 and bool(r.muzzle_ok) and bool(r.armour_ok) and bool(r.internal_ok)
+			_check(ok,"T039-D %s %s: settled=%s reached=%s phase=%s ticks=%d hull_box_intersection=%.3f bounces=%d stalled=%d on_floor=%.2f reverse_ticks=%d nonfinite=%d traveled=%.1f muzzle=%s armour=%s internal=%s"%[
+				vehicle_id,str(r.label),str(settled),str(r.reached),str(r.final_phase),int(r.ticks_run),float(r.hull_box_intersection_m),int(r.bounces),int(r.stalled),float(r.on_floor_fraction),int(r.reverse_ticks),int(r.nonfinite),float(r.traveled),
 				str(r.muzzle_ok),str(r.armour_ok),str(r.internal_ok)])
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("FLANK_CREST_TRAVERSAL_CHECKS_PASS" if failed == 0 else "FLANK_CREST_TRAVERSAL_CHECKS_FAIL")
