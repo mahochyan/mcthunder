@@ -87,9 +87,14 @@ func _hull_box_intersection(actor: VehicleActor) -> float:
 			worst = maxf(worst,(hit.position as Vector3).y-bottom)
 	return worst
 
-func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600) -> Dictionary:
+## A point sits ON the terrain: the earlier scenarios reused the road-centre height at an
+## offset position, so the vehicle spawned in the air and never touched the floor.
+func _ground_point(x: float, z: float, lift: float = 0.05) -> Vector3:
+	return Vector3(x,VillageDefinition.height(x,z)+lift,z)
+
+func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600, yaw: float = PI) -> Dictionary:
 	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
-	var actor := _spawn(vehicle_id,start)
+	var actor := _spawn(vehicle_id,start,yaw)
 	var nav := DriveNavigator.new(); nav.configure(map.graph)
 	var driver := AIPathDriver.new()
 	var fixed: FixedThrottle = null
@@ -107,6 +112,7 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var still := 0
 	var nonfinite := 0
 	var on_floor_ticks := 0
+	var reverse_ticks := 0
 	var reached := false
 	var held := false
 	var released := false
@@ -130,6 +136,7 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 		if absf(actor.tank.get_real_velocity().y) > BOUNCE_LIMIT: bounces += 1
 		hull_box_intersection = maxf(hull_box_intersection,_hull_box_intersection(actor))
 		if actor.tank.is_on_floor(): on_floor_ticks += 1
+		if actor.tank.forward_speed < -0.05: reverse_ticks += 1
 		var move := pos.distance_to(previous)
 		traveled += move
 		if move < 0.01: still += 1
@@ -147,6 +154,7 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var internal_ok: bool = actor.state.module_states.size() > 0
 	var result := {"label":label,"reached":reached,"hull_box_intersection_m":hull_box_intersection,
 		"bounces":bounces,"stalled":stalled,"on_floor_fraction":float(on_floor_ticks)/float(maxi(1,ticks_limit)),
+		"reverse_ticks":reverse_ticks,
 		"nonfinite":nonfinite,"traveled":traveled,"muzzle_ok":muzzle_ok,"armour_ok":armour_ok,"internal_ok":internal_ok}
 	actor.free()
 	await _frames(2)
@@ -194,8 +202,8 @@ func _run() -> void:
 	world = Node3D.new(); root.add_child(world); current_scene = world
 	VillageWorld.build(world,map,true)
 	await _frames(8)
-	var crest := Vector3(ROUTE_X,VillageDefinition.height(ROUTE_X,CREST_Z),CREST_Z)
-	var bottom := Vector3(ROUTE_X,VillageDefinition.height(ROUTE_X,BOTTOM_Z),BOTTOM_Z)
+	var crest := _ground_point(ROUTE_X,CREST_Z)
+	var bottom := _ground_point(ROUTE_X,BOTTOM_Z)
 	print("[T039-D] route bottom=",bottom," crest=",crest)
 	# Vehicles without a production configuration are reported, never scaled to fit.
 	for pilot in ["ussr_t_80b","germ_leopard_2a4"]:
@@ -219,14 +227,18 @@ func _run() -> void:
 		results.append(await _drive(vehicle_id,"uphill-production-driver",bottom,crest,"driver"))
 		results.append(await _drive(vehicle_id,"uphill-low-speed",bottom,crest,"low"))
 		results.append(await _drive(vehicle_id,"crest-stop-restart",bottom,crest,"crest",22.0))
-		results.append(await _drive(vehicle_id,"downhill-reverse",crest+Vector3(0,0,5),bottom,"reverse"))
+		# Reverse condition on the production path: start at the crest FACING AWAY from the
+		# bottom so the driver must turn around or reverse to get there, and record how many
+		# ticks were spent actually moving backwards.
+		results.append(await _drive(vehicle_id,"crest-turnaround-reverse",_ground_point(ROUTE_X,CREST_Z+3.0),bottom,"driver",INF,3600,0.0))
 		# Lateral offset goes AWAY from the hill: the flank road runs at x = -120 while the west
-		# hill is centred on x = -116, so +3 m drove the vehicle into the slope (0 m travelled).
-		results.append(await _drive(vehicle_id,"lateral-offset-3m",bottom+Vector3(-3,0,0),crest+Vector3(-3,0,0),"driver"))
+		# hill is centred on x = -116, so +3 m drove the vehicle into the slope. The start and
+		# goal now take their height from the terrain AT that offset, not from the road centre.
+		results.append(await _drive(vehicle_id,"lateral-offset-3m",_ground_point(ROUTE_X-3.0,BOTTOM_Z),_ground_point(ROUTE_X-3.0,CREST_Z),"driver"))
 		for r in results:
 			var ok: bool = bool(r.reached) and int(r.bounces) == 0 and int(r.stalled) == 0 and int(r.nonfinite) == 0 and float(r.on_floor_fraction) >= 0.9 and bool(r.muzzle_ok) and bool(r.armour_ok) and bool(r.internal_ok)
-			_check(ok,"T039-D %s %s: reached=%s hull_box_intersection=%.3f bounces=%d stalled=%d on_floor=%.2f nonfinite=%d traveled=%.1f muzzle=%s armour=%s internal=%s"%[
-				vehicle_id,str(r.label),str(r.reached),float(r.hull_box_intersection_m),int(r.bounces),int(r.stalled),float(r.on_floor_fraction),int(r.nonfinite),float(r.traveled),
+			_check(ok,"T039-D %s %s: reached=%s hull_box_intersection=%.3f bounces=%d stalled=%d on_floor=%.2f reverse_ticks=%d nonfinite=%d traveled=%.1f muzzle=%s armour=%s internal=%s"%[
+				vehicle_id,str(r.label),str(r.reached),float(r.hull_box_intersection_m),int(r.bounces),int(r.stalled),float(r.on_floor_fraction),int(r.reverse_ticks),int(r.nonfinite),float(r.traveled),
 				str(r.muzzle_ok),str(r.armour_ok),str(r.internal_ok)])
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("FLANK_CREST_TRAVERSAL_CHECKS_PASS" if failed == 0 else "FLANK_CREST_TRAVERSAL_CHECKS_FAIL")
