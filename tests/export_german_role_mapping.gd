@@ -22,6 +22,12 @@ func _run() -> void:
 	var role_missing := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var role_ambiguous := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var role_node := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
+	var role_measured := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
+	var class_counts := {}
+	var missing_by_role := {}
+	var adapter_needed := 0
+	var axis_turret_bad := 0
+	var axis_gun_bad := 0
 	var shape_clean := 0
 	var pending_any := 0
 	var path_inside := 0
@@ -47,21 +53,35 @@ func _run() -> void:
 			var kind := str(result.roles.get(role,{}).get("kind","missing"))
 			match kind:
 				"node": role_node[role] = int(role_node[role])+1
+				"measured_frame": role_measured[role] = int(role_measured[role])+1
 				"ambiguous": role_ambiguous[role] = int(role_ambiguous[role])+1
 				"missing": role_missing[role] = int(role_missing[role])+1
+		class_counts[str(result.vehicle_class)] = int(class_counts.get(str(result.vehicle_class),0))+1
+		if bool(blockers.adapter_artifact_required): adapter_needed += 1
+		for role in result.missing_role_names: missing_by_role[str(role)] = int(missing_by_role.get(str(role),0))+1
+		if not bool(result.axis_checks.get("turret",false)): axis_turret_bad += 1
+		if not bool(result.axis_checks.get("gun",false)): axis_gun_bad += 1
 		rows.append({"folder":folder,"ok":true,"ready":bool(result.binding_ready),
-			"node_roles":int(result.node_roles),"derived_roles":int(result.derived_roles),
+			"vehicle_class":str(result.vehicle_class),"muzzle_state":str(result.muzzle_state),
+			"axis_checks":result.axis_checks,"missing_role_names":result.missing_role_names,
+			"node_roles":int(result.node_roles),"measured_roles":int(result.measured_roles),
 			"ambiguous_roles":int(result.ambiguous_roles),"missing_roles":int(result.missing_roles),
 			"triangles":int(probe.get("triangles",0)),"sha256":str(probe.get("sha256","")),
 			"shape_errors":blockers.shape_errors,"pending_author_steps":blockers.pending_author_steps,
 			"node_roles_resolved":int(blockers.node_roles_resolved),"path_gate":str(blockers.path_gate),
-			"licence_gate":str(blockers.licence_gate),"registration_ready":bool(blockers.registration_ready),
+			"licence_gate":str(blockers.licence_gate),
+			"adapter_artifact_required":bool(blockers.adapter_artifact_required),
+			"check_scene_run":bool(blockers.check_scene_run),"check_file_run":bool(blockers.check_file_run),
+			"registration_ready":bool(blockers.registration_ready),
 			"roles":result.roles})
 		print("[role] ",RoleMappingAudit.summary_line(folder,result))
 	print("[role] folders=%d rows=%d binding_ready=%d unparsable=%d"%[folders.size(),rows.size(),ready,unparsable])
-	print("[role] per role node/ambiguous/missing:")
+	print("[role] per role node/measured/ambiguous/missing:")
 	for role in ModelBindingValidator.ROLES:
-		print("[role]   %s: node=%d ambiguous=%d missing=%d"%[role,int(role_node[role]),int(role_ambiguous[role]),int(role_missing[role])])
+		print("[role]   %s: node=%d measured=%d ambiguous=%d missing=%d"%[role,int(role_node[role]),int(role_measured[role]),int(role_ambiguous[role]),int(role_missing[role])])
+	print("[role] vehicle classes: ",class_counts)
+	print("[role] missing by role: ",missing_by_role)
+	print("[role] axis convention: turret_bad=%d gun_bad=%d ; adapter artifact needed=%d"%[axis_turret_bad,axis_gun_bad,adapter_needed])
 	var payload := {"schema":1,"source_root":source_root,"rows":rows,"binding_ready":ready,
 		"unparsable":unparsable,"per_role":{"node":role_node,"ambiguous":role_ambiguous,"missing":role_missing},
 		"draft_binding":{"shape_clean":shape_clean,"pending_author_steps":pending_any,

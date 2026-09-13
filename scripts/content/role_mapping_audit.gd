@@ -1,20 +1,26 @@
 class_name RoleMappingAudit
 extends RefCounted
-## WT-031C-D / WT-030D-R2: read-only role resolution over an arbitrary model set.
+## WT-031C-D: read-only role resolution over an arbitrary model set.
 ##
-## The hint table is built from the node names actually observed in the German set (see
-## MODEL_BINDING_PROBE.md and the intake audit), not from guesswork:
-##   hull           -> HullArmour / SideArmour / Hull...
-##   turret         -> TurretArmour / Turret... / RotatingPlatform / LauncherPedestal...
-##   gun            -> MainGunAndMuzzleBrake / MainGun / barrel / SecondaryGun
-##   muzzle         -> no dedicated node in these assets (the brake is part of the gun mesh)
-##   running_left   -> track_l / wheel_l_* / Laufwerk...
-##   running_right  -> track_r / wheel_r_* / Laufwerk...
+## Corrections after review of 3fba101:
+##   * resolution scans EVERY node, not only meshes - the author assets carry empty pivots
+##     (`TurretPivot`, `GunPivot`) that a mesh-only scan misses, so the earlier "38 vehicles
+##     have real author gaps" figure does not hold and is withdrawn;
+##   * roles resolve to a FULL relative path with its parent recorded, and the local axis is
+##     checked against the mechanism's convention instead of trusting a node name;
+##   * the muzzle is measured per vehicle (a real muzzle node, else the forward extremity of
+##     the gun mesh). The earlier constant offset labelled `provenance="author"` is withdrawn:
+##     there was no per-vehicle measurement behind it;
+##   * vehicles are classified (armed single turret / multi-launcher / unarmed) because a
+##     six-role single-turret scheme must not be forced onto unarmed or multi-launcher hulls.
 ##
-## A role resolves to a node only when exactly one candidate matches; several candidates are
-## reported as AMBIGUOUS with the list, and no muzzle node becomes a DERIVED frame on the
-## gun node. Nothing is installed, registered or written into any asset.
+## Nothing is installed, registered or written into any asset; the muzzle frame an install
+## would need is an adapter artifact that must be produced separately with its own hash.
 
+const PIVOT_HINTS := {
+	"turret":["turretpivot","turret_pivot","turretroot","turret_root","turretmount","turm"],
+	"gun":["gunpivot","gun_pivot","gunroot","gun_root","gunmount","barrelpivot"],
+}
 const HINTS := {
 	"hull":["hullarmour","hullarmor","sidearmour","hull","body","wanne"],
 	"turret":["turretarmour","turret","turm","rotatingplatform","launcherpedestal","cupola"],
@@ -23,56 +29,100 @@ const HINTS := {
 	"running_left":["track_l","trackleft","laufwerk_l","wheel_l","lefttrack"],
 	"running_right":["track_r","trackright","laufwerk_r","wheel_r","righttrack"],
 }
-const DERIVED_ROLES := ["muzzle"]
-const DERIVED_OFFSET_M := [0.0,0.0,-2.4]
-## Roles whose hint must match exactly or as a prefix. Without this, `muzzle` matched the
-## compound gun mesh name `MainGunAndMuzzleBrake` and pointed the muzzle role at the whole
-## gun instead of a muzzle point; a muzzle node is accepted only when it truly is one.
+## Roles whose hint must match exactly or as a prefix: `muzzle` must really be a muzzle node,
+## not the `...AndMuzzleBrake` compound gun mesh.
 const STRICT_ROLES := ["muzzle"]
+const LAUNCHER_HINTS := ["launcher","missile","container","radar","reflector"]
+const AXIS_EPS := 0.02
+
+static func _vec3(value: Variant) -> Vector3:
+	if value is Array and (value as Array).size() == 3: return Vector3(float(value[0]),float(value[1]),float(value[2]))
+	return Vector3.ZERO
+
+static func _candidates(nodes: Array, hints: Array, strict: bool) -> Array[Dictionary]:
+	var found: Array[Dictionary] = []
+	for hint in hints:
+		found.clear()
+		for row in nodes:
+			var lowered := str(row.name).to_lower()
+			var hit := false
+			if strict: hit = lowered == str(hint) or lowered.begins_with(str(hint))
+			else: hit = lowered.contains(str(hint))
+			if hit: found.append(row)
+		if not found.is_empty(): break
+	return found
+
+static func _entry_for(row: Dictionary) -> Dictionary:
+	return {"kind":"node","node":str(row.name),"path":str(row.path),"parent":str(row.parent),
+		"type":str(row.type),"origin":row.origin,"forward":row.forward,"up":row.up,
+		"aabb_min":row.get("aabb_min",[0.0,0.0,0.0]),"aabb_max":row.get("aabb_max",[0.0,0.0,0.0])}
 
 static func resolve(probe_report: Dictionary) -> Dictionary:
 	var roles: Dictionary = {}
 	if not probe_report.get("ok",false):
 		return {"ok":false,"reason":str(probe_report.get("reason","unparsable")),"roles":roles,
-			"node_roles":0,"derived_roles":0,"ambiguous_roles":0,"missing_roles":ModelBindingValidator.ROLES.size()}
-	var names: Array[String] = []
-	for row in probe_report.get("nodes",[]):
-		if str(row.get("type","")) == "mesh": names.append(str(row.get("name","")))
-	var counts := {"node":0,"derived":0,"ambiguous":0,"missing":0}
+			"node_roles":0,"ambiguous_roles":0,"missing_roles":ModelBindingValidator.ROLES.size(),
+			"vehicle_class":"unknown","muzzle_state":"unknown"}
+	var nodes: Array = probe_report.get("nodes",[])
+	var counts := {"node":0,"ambiguous":0,"missing":0}
 	for role in ModelBindingValidator.ROLES:
-		var candidates: Array[String] = []
-		for hint in HINTS.get(role,[]):
-			candidates.clear()
-			for name in names:
-				var lowered := name.to_lower()
-				var hit := false
-				if STRICT_ROLES.has(role): hit = lowered == str(hint) or lowered.begins_with(str(hint))
-				else: hit = lowered.contains(str(hint))
-				if hit: candidates.append(name)
-			if not candidates.is_empty(): break
-		var entry: Dictionary = {}
+		# 1) an authored pivot wins (non-mesh nodes only), 2) then the name hints.
+		var candidates := _candidates(nodes,PIVOT_HINTS.get(role,[]),false)
+		if candidates.size() != 1:
+			candidates = _candidates(nodes,HINTS.get(role,[]),STRICT_ROLES.has(role))
 		if candidates.size() == 1:
-			entry = {"kind":"node","node":candidates[0]}
+			roles[role] = _entry_for(candidates[0])
 		elif candidates.size() > 1:
-			entry = {"kind":"ambiguous","candidates":candidates.slice(0,8),"count":candidates.size()}
-		elif DERIVED_ROLES.has(role) and roles.has("gun") and str(roles.gun.get("kind","")) == "node":
-			entry = {"kind":"derived","parent":str(roles.gun.node),"offset_m":DERIVED_OFFSET_M,"provenance":"author"}
+			var paths: Array[String] = []
+			for row in candidates: paths.append(str(row.path))
+			roles[role] = {"kind":"ambiguous","candidates":paths.slice(0,8),"count":paths.size()}
 		else:
-			entry = {"kind":"missing"}
-		counts[str(entry.kind)] = int(counts.get(str(entry.kind),0))+1
-		roles[role] = entry
-	var blocking := int(counts.missing)+int(counts.ambiguous)
+			roles[role] = {"kind":"missing"}
+		counts[str(roles[role].kind)] = int(counts.get(str(roles[role].kind),0))+1
+	# measured muzzle: a real node, else the gun mesh's forward extremity, else unmeasured.
+	var muzzle_state := "unmeasured"
+	if str(roles.muzzle.kind) == "node":
+		muzzle_state = "authored_node"
+	elif str(roles.gun.kind) == "node":
+		var gun: Dictionary = roles.gun
+		var half_extent := absf(_vec3(gun.aabb_max).z)
+		var origin := _vec3(gun.origin)
+		roles.muzzle = {"kind":"measured_frame","parent":str(gun.path),
+			"offset_m":[origin.x,origin.y,origin.z-half_extent],"basis":{"forward":gun.forward,"up":gun.up},
+			"method":"gun_mesh_forward_extremity","provenance":"measured"}
+		muzzle_state = "measured_frame"
+		counts["node"] = int(counts.node)-1
+		counts["measured"] = int(counts.get("measured",0))+1
+	# local axis checks against the mechanism convention (turret +Y yaw, gun +X elevation).
+	var axis_checks := {}
+	axis_checks["turret"] = (str(roles.turret.kind) == "node" and _vec3(roles.turret.up).distance_to(Vector3.UP) <= AXIS_EPS)
+	axis_checks["gun"] = (str(roles.gun.kind) == "node" and _vec3(roles.gun.forward).distance_to(Vector3.FORWARD) <= AXIS_EPS)
+	var launchers := 0
+	for row in nodes:
+		for hint in LAUNCHER_HINTS:
+			if str(row.name).to_lower().contains(str(hint)):
+				launchers += 1
+				break
+	var armed: bool = str(roles.gun.kind) == "node" or str(roles.gun.kind) == "measured_frame"
+	var vehicle_class := "unarmed"
+	if armed and launchers >= 2: vehicle_class = "multi_launcher"
+	elif armed: vehicle_class = "single_turret"
+	elif launchers >= 1: vehicle_class = "support_unarmed"
+	var missing_roles: Array[String] = []
+	for role in ModelBindingValidator.ROLES:
+		if str(roles[role].kind) == "missing": missing_roles.append(role)
 	return {"ok":true,"roles":roles,"counts":counts,"node_roles":int(counts.node),
-		"derived_roles":int(counts.derived),"ambiguous_roles":int(counts.ambiguous),
-		"missing_roles":int(counts.missing),"binding_ready":counts.missing == 0 and counts.ambiguous == 0,
-		"muzzle_authored":counts.derived > 0}
+		"measured_roles":int(counts.get("measured",0)),"ambiguous_roles":int(counts.ambiguous),
+		"missing_roles":int(counts.missing),"missing_role_names":missing_roles,
+		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"axis_checks":axis_checks,
+		"muzzle_state":muzzle_state,
+		"binding_ready":int(counts.get("missing",0)) == 0 and int(counts.get("ambiguous",0)) == 0,
+		"note":"shape-only: hierarchy, muzzle direction, combat layout and internal modules still require check_scene()/check_file()"}
 
-## Draft binding in the consumer's exact shape, read from the validator source rather than
-## guessed: axes are required only for turret and gun and must declare space "local", the
-## mechanism's +Y yaw / +X elevation axis and two degree limits; internal_attachments needs
-## both ID maps present; units need the measured envelope plus explicit tolerances. Values
-## that are measured are taken from the probe; the axis limits are game-design values and are
-## labelled as such in the audit documentation.
+## Draft binding in the consumer's exact shape (see model_binding_validator.gd::_shape).
+## Measured values only: the envelope, the source unit and the resolution come from the
+## probe; the axis limits are game-design values and are labelled as such; nothing here
+## claims author provenance.
 const DRAFT_TURRET_LIMITS_DEG := [-180.0,180.0]
 const DRAFT_GUN_LIMITS_DEG := [-8.0,20.0]
 
@@ -83,9 +133,8 @@ static func draft_binding(asset_root: String, folder: String, probe_report: Dict
 		for role in ModelBindingValidator.ROLES:
 			var entry: Dictionary = result.roles.get(role,{})
 			match str(entry.get("kind","")):
-				"node": nodes[role] = str(entry.node)
-				"derived": pending.append("%s(framed on %s)"%[role,str(entry.parent)])
-				_: pending.append("%s(unresolved)"%role)
+				"node": nodes[role] = str(entry.path)
+				_: pending.append("%s(%s)"%[role,str(entry.get("kind","missing"))])
 	var envelope: Array = probe_report.get("envelope_m",[0.0,0.0,0.0])
 	return {"schema_version":1,"vehicle_id":folder,
 		"model":{"path":"%s/%s/vehicle.glb"%[asset_root,folder],"sha256":str(probe_report.get("sha256","")),
@@ -97,29 +146,34 @@ static func draft_binding(asset_root: String, folder: String, probe_report: Dict
 		"axes":{"turret":{"space":"local","axis":[0,1,0],"limits_deg":DRAFT_TURRET_LIMITS_DEG},
 			"gun":{"space":"local","axis":[1,0,0],"limits_deg":DRAFT_GUN_LIMITS_DEG}},
 		"internal_attachments":{"modules":{},"crew":{}},
-		"nodes":nodes,"_pending_author_steps":pending}
+		"nodes":nodes,"_pending_author_steps":pending,"_axis_limits_provenance":"game_design"}
 
-## Shape validation through the production validator, plus the two gates that are decided
-## outside this repository (where the asset lives, and whether it may be redistributed).
 static func registration_blockers(asset_root: String, folder: String, probe_report: Dictionary, result: Dictionary) -> Dictionary:
 	var draft := draft_binding(asset_root,folder,probe_report,result)
 	var pending: Array = draft.get("_pending_author_steps",[])
 	var binding := draft.duplicate(true)
 	binding.erase("_pending_author_steps")
+	binding.erase("_axis_limits_provenance")
 	var shape: Array = []
 	if (binding.nodes as Dictionary).size() > 0:
 		shape = ModelBindingValidator._shape(binding,folder)
-	# The path rule lives in the model consumer, not in the binding shape, so it is reported
-	# separately and never counted as a structural defect.
-	var path_gate := str(draft.model.path).begins_with("res://assets/vehicles/")
+	# Three separate blocker classes, never merged: structural shape, author data, and the two
+	# decisions that live outside this repository (intake authorisation and licence basis).
 	var structure_errors: Array = []
 	for error in shape:
 		if str(error).contains("path"): continue
 		structure_errors.append(error)
+	var path_gate := str(draft.model.path).begins_with("res://assets/vehicles/")
 	return {"shape_errors":shape,"structure_errors":structure_errors,
 		"pending_author_steps":pending,"node_roles_resolved":int((binding.nodes as Dictionary).size()),
-		"path_inside_repo":path_gate,"path_gate":"internal" if path_gate else "external_asset_needs_intake_authorisation",
-		"licence":"unknown","licence_gate":"blocked_pending_source",
+		"vehicle_class":str(result.get("vehicle_class","unknown")),
+		"muzzle_state":str(result.get("muzzle_state","unknown")),
+		"axis_checks":result.get("axis_checks",{}),
+		"path_inside_repo":path_gate,
+		"path_gate":"internal" if path_gate else "external_needs_intake_authorisation",
+		"licence":"unknown","licence_gate":"needs_licence_basis",
+		"adapter_artifact_required":bool(result.get("muzzle_state","") == "measured_frame"),
+		"check_scene_run":false,"check_file_run":false,
 		"registration_ready":structure_errors.is_empty() and pending.is_empty() and path_gate}
 
 static func summary_line(folder: String, result: Dictionary) -> String:
@@ -128,10 +182,10 @@ static func summary_line(folder: String, result: Dictionary) -> String:
 	for role in ModelBindingValidator.ROLES:
 		var entry: Dictionary = result.roles.get(role,{})
 		match str(entry.get("kind","")):
-			"node": parts.append("%s=%s"%[role,str(entry.node)])
-			"derived": parts.append("%s=derived(%s)"%[role,str(entry.parent)])
+			"node": parts.append("%s=%s"%[role,str(entry.path)])
+			"measured_frame": parts.append("%s=measured(%s)"%[role,str(entry.parent)])
 			"ambiguous": parts.append("%s=AMBIGUOUS(%d)"%[role,int(entry.count)])
 			_: parts.append("%s=MISSING"%role)
-	return "%s: ready=%s node=%d derived=%d ambiguous=%d missing=%d | %s"%[folder,str(result.binding_ready),
-		int(result.node_roles),int(result.derived_roles),int(result.ambiguous_roles),int(result.missing_roles),
-		" ".join(parts)]
+	return "%s [%s]: ready=%s node=%d measured=%d ambiguous=%d missing=%d axis=%s | %s"%[folder,
+		str(result.vehicle_class),str(result.binding_ready),int(result.node_roles),int(result.measured_roles),
+		int(result.ambiguous_roles),int(result.missing_roles),str(result.axis_checks)," ".join(parts)]

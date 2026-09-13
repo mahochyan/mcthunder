@@ -57,11 +57,36 @@ static func probe(path: String) -> Dictionary:
 		"roles":roles,"unresolved_roles":unresolved,
 		"nodes":nodes}
 
+## Every node is recorded, not only meshes: the author assets carry empty pivots
+## (`TurretPivot`, `GunPivot`) that a mesh-only scan would miss. Full relative paths, the
+## parent path, the local axis directions and (for meshes) the local AABB are recorded so a
+## role can be checked against a real hierarchy, a real axis and a real muzzle position.
 static func _collect(root: Node, node: Node, out: Array[Dictionary]) -> void:
 	var kind := "node"
-	if node is MeshInstance3D: kind = "mesh"
-	elif node is Node3D: kind = "node3d"
-	out.append({"name":str(node.name),"path":str(root.get_path_to(node)),"type":kind})
+	var origin := [0.0,0.0,0.0]
+	var forward := [0.0,0.0,-1.0]
+	var up := [0.0,1.0,0.0]
+	var aabb_min := [0.0,0.0,0.0]
+	var aabb_max := [0.0,0.0,0.0]
+	if node is Node3D:
+		var n3: Node3D = node
+		origin = [n3.position.x,n3.position.y,n3.position.z]
+		forward = [(-n3.basis.z).x,(-n3.basis.z).y,(-n3.basis.z).z]
+		up = [n3.basis.y.x,n3.basis.y.y,n3.basis.y.z]
+		kind = "node3d"
+	if node is MeshInstance3D:
+		kind = "mesh"
+		var mi: MeshInstance3D = node
+		if mi.mesh != null:
+			var box := mi.mesh.get_aabb()
+			aabb_min = [box.position.x,box.position.y,box.position.z]
+			aabb_max = [box.end.x,box.end.y,box.end.z]
+	var parent_path := ""
+	if node != root and node.get_parent() != null:
+		parent_path = str(root.get_path_to(node.get_parent()))
+	out.append({"name":str(node.name),"path":str(root.get_path_to(node)),"type":kind,
+		"parent":parent_path,"origin":origin,"forward":forward,"up":up,
+		"aabb_min":aabb_min,"aabb_max":aabb_max})
 	for child in node.get_children(): _collect(root,child,out)
 
 static func _mesh_count(nodes: Array[Dictionary]) -> int:
