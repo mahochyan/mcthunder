@@ -71,7 +71,7 @@ func _ready() -> void:
 	CoreUI.button(toolbar,LocalizationService.text("menu_credits"),_show_credits)
 	CoreUI.button(toolbar,LocalizationService.text("menu_quit"),func() -> void:
 		AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit()))
-	CoreUI.label(vertical,LocalizationService.text("menu_version") % ProjectSettings.get_setting("application/config/version"),15)
+	CoreUI.label(vertical,LocalizationService.text("menu_version") % BuildIdentity.describe(),15)
 	var tutorial_row := HBoxContainer.new(); vertical.add_child(tutorial_row)
 	var checkpoint: Dictionary = profile.snapshot().tutorial if profile != null else {"chapter":0,"completed":[]}
 	var resume := CoreUI.button(tutorial_row,LocalizationService.text("tutorial_resume") % [checkpoint.completed.size(),TutorialCatalog.COUNT],func() -> void: tutorial_requested.emit(mini(int(checkpoint.chapter),TutorialCatalog.COUNT-1)))

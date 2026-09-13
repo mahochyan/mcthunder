@@ -499,8 +499,16 @@
       "remaining": "保留改造两图，新增有掩体反制的开阔机动图；完善模式目标/导航/破坏/地形/出生安全。",
       "deliverables": "3个地图包、专属交战与资源预算、不同人数车池对局记录。",
       "acceptance": "三图改变选车打法；破坏同步视觉/碰撞/观察/导航；残骸不造成不可清理出生封锁。",
-      "execution_status": "planned",
-      "human_acceptance": "NOT_RUN"
+      "execution_status": "in_progress",
+      "human_acceptance": "NOT_RUN",
+      "status_note": "2026-09-13 由 planned 更正为 in_progress（WT-001-R2）：a1bac406 起 4 个提交（2724b27a/af8fc50d/fc09daf5/a1bac406）与 docs/wt/WT032_*.md 四篇、logs/WT032-*/RESULTS.json 证明河谷枢纽三点规则、真实道路导航、部署掩体与补给可达已实际实施；三图正式质量、20/32 人容量与联网仍未完成，故不标 completed。源台账其余字段保留不变，五列见 docs/wt/continuation/EXECUTION_PLAN_ADDENDUM.json。",
+      "verification_columns": {
+        "implementation": "scripts/maps/river_junction_{definition,navigation,range,world}.gd, scripts/battle/{battle_objectives,capture_point,capture_point_state,team_match_director,team_match_state,simulation_snapshot}.gd, scripts/ui/{river_objective_hud,river_junction_atlas}.gd, scripts/ai/{drive_navigator,ai_path_driver}.gd (2724b27a, af8fc50d, fc09daf5, a1bac406)",
+        "automated_verification": "logs/WT032-navigation/RESULTS.json: run_river_navigation_checks 22 项 + run_river_route_ui_checks 14 项 + run_ai_drive_checks 40 项 + run_river_driving_checks 34 项，全部 exit 0；图检查 10 人 408 节点/417 边、16 人 857 节点/880 边，156 组泊位至占点可达，单桥封闭 8 例可绕行",
+        "normal_session_verification": "docs/evidence/WT032-navigation/window-r2/{01_route_menu,02_south_to_B,03_quarry_road,04_quarry_driving}.png（1280x720 真实窗口）；docs/evidence/WT032-objectives/window-reviewed/*.png 六张",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN（本增量未产出独立包）"
+      }
     },
     {
       "id": "WT-033",

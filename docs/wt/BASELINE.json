@@ -26,5 +26,23 @@
   "art_merge_base": "de0bb6171d6252447284f8d9229d9e3233017914",
   "plan_sha256": "39A49BD8C00DF4481520AFDE3CCFCA94916E6F4D0AE43AF6E729442FB3E68134",
   "human_accepted": false,
-  "release_ready": false
+  "release_ready": false,
+  "source_report_preserved": "上方 baseline_id/source_sha/branch/worktree/engine/remote_*/content_version/rules_version 为 WT-001-20260911 源报告原值，本次未改写；当前候选见 current_candidate。",
+  "current_candidate": {
+    "registered_by": "WT-001-R2",
+    "registered_at": "2026-09-13",
+    "branch": "work/continuation-20260913",
+    "isolation_worktree": "E:/AIprogram/mcthunder-cont",
+    "base_commit": "a1bac406d2bc12b32c7f7d130590f1c1a17907c9",
+    "display_version": "1.0.0-rc.3-dev",
+    "build_id": "continuation-20260913",
+    "release_ready": false,
+    "identity_source": "scripts/core/build_identity.gd",
+    "historical_packages": [
+      "1.0.0-rc.1-9998f448 (archived: E:/AIprogram/mcthunder-archive/retired/PixelArmor交付/)",
+      "1.0.0-rc.2-b9051149 (archived: same)"
+    ],
+    "note": "语义版本不包含自引用最终 SHA；源码 SHA 见 build_identity.gd 的 SOURCE_BASE_COMMIT 与打包步骤生成的 SOURCE_MANIFEST.json。旧 RC1/RC2 包保持历史身份，不代表当前能力。",
+    "historical_package_path_note": "README.md 与 NEXT_ACTION.md 引用的 E:/AIprogram/PixelArmor交付/... 与 backups/builds/019/... 路径在工作区整理后已迁入 mcthunder-archive/retired/；映射见 docs/wt/continuation/BUILD_IDENTITY.md 第 3 节。"
+  }
 }

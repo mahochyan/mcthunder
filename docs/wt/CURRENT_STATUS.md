@@ -1,5 +1,14 @@
 # 当前开发与验收状态
 
+> **WT-001-R2 增量登记（2026-09-13，隔离续作分支 `work/continuation-20260913`，基线 `a1bac406`）**
+>
+> - 源台账（`EXECUTION_PLAN.json`/`GAP_REGISTER.json`，基线 `5f24ae6`，日期 2026-09-12）与源码之间相差 **20 个提交**；本增量只登记差异，**保留源台账全部原值**。
+> - **唯一状态更正**：`WT-032` 由 `planned` → `in_progress`（证据：4 个提交 + `docs/wt/WT032_*.md` 四篇 + `logs/WT032-navigation/RESULTS.json`：22+14+40+34 项检查全 exit 0；10 人 408 节点/417 边、16 人 857 节点/880 边、156 组泊位至占点可达、单桥封闭 8 例可绕行）。
+> - **completed 仍为 0**：三图正式质量、20/32 人容量、正式联网、发布门均未闭合；WT-032 的 `limitations` 明示 `release_accepted=false`、`formal_20_32_player_match=NOT_RUN`、`network=NOT_RUN`、`simultaneous_multi_vehicle_navigation=NOT_RUN`、`human=NOT_RUN`、`performance=HOLD_BY_USER`、`battle_admitted=false`。
+> - **五列（实现/相关自动验证/正常场景验证/真人/构建）**：以 `docs/wt/continuation/EXECUTION_PLAN_ADDENDUM.json` 补齐本增量触及的 13 项（WT-032/022/030/031/033/012/013/010/015/027/007/008/009），其余 29 项按"源台账 + NOT_RUN"规则登记；每列取值均为证据指针或显式 `NOT_RUN`。
+> - **构建身份**：显示版本 `1.0.0-rc.3-dev`、build id `continuation-20260913`、源码基线 `a1bac406`、`RELEASE_READY=false`；见 `docs/wt/continuation/BUILD_IDENTITY.md` 与 `scripts/core/build_identity.gd`。
+> - **真人验收**：42/42 仍为 `NOT_RUN`（本包不代签）；**性能专项**：`HOLD_BY_USER`，本增量不做任何 FPS/p95/p99 或容量采样。
+
 2026-09-12 WT-013：HEAT首次接触结束载体飞行，独立射流接入实际装甲/内构/世界查询与回放；92/31项专项、旧弹药193/网络58及参考/破片/引信回归通过，最终实际窗口94项。见WT013_CHEMICAL_JET.md。复合装甲、ERA、完整触发/后效与苏德整车仍待继续；42项未缩减，性能HOLD、真人NOT_RUN、release_ready=false。
 
 2026-09-12 WT-013：长杆定向穿后破片、全弹唯一片ID、预算分配、多层批次和回放进入实际战斗路径；专项78、正常内容33、旧引信137及关联回归通过，实际窗口80项。证据见WT013_DIRECTIONAL_SPALL.md。继续HEAT/现代防护和苏德整车；42项范围未删减，性能HOLD、真人NOT_RUN、release_ready=false。

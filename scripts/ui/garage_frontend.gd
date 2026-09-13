@@ -107,7 +107,7 @@ func compose(g: GarageShell) -> void:
 		card.custom_minimum_size=Vector2(0,72); card.size_flags_horizontal=Control.SIZE_EXPAND_FILL; card.clip_text=true; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
 	var footer := HBoxContainer.new(); vertical.add_child(footer)
 	var hint := GarageTheme.text(footer,"TAB  切换焦点     ENTER  确认     ·     在车辆视图拖动以旋转",11,GarageTheme.MUTED); hint.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	GarageTheme.text(footer,"MCT  /  "+str(ProjectSettings.get_setting("application/config/version")),11,GarageTheme.MUTED)
+	GarageTheme.text(footer,"MCT  /  "+BuildIdentity.describe(),11,GarageTheme.MUTED)
 	viewport_container.gui_input.connect(_preview_input)
 	_stage(viewport_container.get_child(0))
 	show_page(0); refresh(); g._refresh_inspection()

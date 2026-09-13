@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "work_order": "WT-001-R2",
+  "generated_at": "2026-09-13",
+  "source_ledger": "docs/wt/EXECUTION_PLAN.json",
+  "source_ledger_baseline": "5f24ae6",
+  "source_ledger_date": "2026-09-12",
+  "source_values_preserved": true,
+  "delta_range": "5f24ae65..a1bac406",
+  "delta_commit_count": 20,
+  "column_semantics": {
+    "implementation": "实现落点：文件路径 + 提交哈希，或 source_report_only（本增量未变更）",
+    "automated_verification": "相关自动检查证据指针（documented = 文档/结果文件已存在但本单未重跑；NOT_RUN = 无）",
+    "normal_session_verification": "正常入口或真实窗口证据指针",
+    "human": "真人体验；本包不代签，恒为 NOT_RUN",
+    "build": "独立包/构建身份；本增量未产出包"
+  },
+  "items": [
+    {
+      "id": "WT-032",
+      "source_execution_status": "planned",
+      "corrected_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "scripts/maps/river_junction_{definition,navigation,range,world}.gd, scripts/battle/*, scripts/ui/{river_objective_hud,river_junction_atlas}.gd (2724b27a, af8fc50d, fc09daf5, a1bac406)",
+        "automated_verification": "logs/WT032-navigation/RESULTS.json: 22 + 14 + 40 + 34 checks, all exit 0; logs/WT032-objectives/RESULTS.json documented",
+        "normal_session_verification": "docs/evidence/WT032-navigation/window-r2/*.png (4), docs/evidence/WT032-objectives/window-reviewed/*.png (6)",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-022",
+      "source_execution_status": "planned",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "scripts/battle/{battle_objectives,capture_point,capture_point_state,team_match_director,team_match_state,simulation_snapshot}.gd (fc09daf5)",
+        "automated_verification": "documented: logs/WT032-objectives/RESULTS.json, tests/run_multi_objective_checks.gd, tests/run_simulation_phase_checks.gd (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: docs/evidence/WT032-objectives/window-reviewed/*.png",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-030",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "572d7290 (modern candidate model mounts), adfa47ee (Soviet/German combat candidates + proportional ready rack), df48de7d (explicit equipment profiles), 02a84b4b (model bindings into vehicle packages and runtime exports)",
+        "automated_verification": "documented: docs/wt/WT030_MODEL_PACKAGE_BINDING.md, WT030_EQUIPMENT_PROFILES.md, WT030_MODERN_COMBAT_CANDIDATES.md, WT030_REFERENCE_DATA.md, WT030_MODERN_MODEL_MOUNTS.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "NOT_RUN (no window evidence reviewed in this order)",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-031",
+      "source_execution_status": "planned",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "502d4835 (Soviet/German base-family trees with parallel branches and model trials)",
+        "automated_verification": "documented: docs/wt/WT033_SOVIET_GERMAN_RESEARCH_TREE.md lists 26 headless / 19 new garage / 151 legacy garage checks (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: logs/WT033-ui/wip-uncommitted/window-20260912-224629 (32 window checks)",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-033",
+      "source_execution_status": "planned",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "502d4835; scripts/ui/vehicle_research_tree.gd, scripts/ui/garage_frontend.gd; assets/vehicles/ussr_batch/catalog.json (untracked preview registry, 1 validated_preview entry as of a1bac406)",
+        "automated_verification": "documented: tests/run_research_tree_checks.gd, tests/test_research_catalog.py (3 data checks per docs/wt/WT033_SOVIET_GERMAN_RESEARCH_TREE.md; not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: docs/wt/WT033_SOVIET_GERMAN_RESEARCH_TREE.md window evidence",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-012",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "a65cda8d (passive composite armor + evidenced layers), 1c36486e (authoritative single-use reactive armor + network state), dd6af774 (full-caliber material response), 05b5a985 (APFSDS direct-impact policy)",
+        "automated_verification": "documented: docs/wt/WT012_COMPOSITE_LAYERS.md, WT012_REACTIVE_ARMOR.md, WT012_MATERIAL_RESPONSE.md, WT012_LONG_ROD_FOUNDATION.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: docs/wt/WT012_* window evidence sections",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-013",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "6b12e42b (HEAT carrier + chemical jet pipeline), 01d5bdaf (budgeted directional spall + multi-batch damage/replay), d8e48873 (configurable APHE delay + external fragmentation)",
+        "automated_verification": "documented: docs/wt/WT013_CHEMICAL_JET.md, WT013_DIRECTIONAL_SPALL.md, WT013_DELAYED_FUZE.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: docs/wt/WT013_* window evidence sections",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-010",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "05b5a985 (APFSDS direct-impact into real firing), dea5244d (AI interception + combat event recovery)",
+        "automated_verification": "documented: docs/wt/WT010_TRANSLATION_CONTACT.md, WT010_AI_INTERCEPT.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented in the same docs",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-015",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "7d65b325 (modern bustle ammunition loss + repair recovery), adfa47ee (proportional ready-rack stowage)",
+        "automated_verification": "documented: docs/wt/WT015_AMMO_COMPARTMENT.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: docs/wt/WT015_AMMO_COMPARTMENT.md window section",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-027",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "dea5244d (loading rules), 7d65b325 (bustle repair/reload), adfa47ee (ready rack)",
+        "automated_verification": "documented: docs/wt/WT027_LOADING_DESIGN.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "NOT_RUN",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-007",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "57870948 (range setting + turret response + reference vehicle intake)",
+        "automated_verification": "documented: docs/wt/WT007_OPTICS.md, WT007_RANGE_AND_ZEROING.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: logs/WT007-optics/wip-uncommitted/window-20260912-134335",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-008",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "57870948, scripts/defs/fire_control_profile.gd, scripts/defs/fire_control_state.gd",
+        "automated_verification": "documented: docs/wt/WT008_MECHANISM.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "NOT_RUN",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    },
+    {
+      "id": "WT-009",
+      "source_execution_status": "in_progress",
+      "source_human_acceptance": "NOT_RUN",
+      "verification_columns": {
+        "implementation": "1c36486e (network state for reactive armor), dea5244d (event recovery); scripts/network/*",
+        "automated_verification": "documented: docs/wt/WT009_EVENT_RECOVERY.md, WT009_INTERACTIVE_CLIENT.md, WT009_LOCAL_AUTHORITY.md (not re-run in WT-001-R2)",
+        "normal_session_verification": "documented: WT009 docs (three-process summaries)",
+        "human": "NOT_RUN",
+        "build": "NOT_RUN"
+      }
+    }
+  ],
+  "untouched_items_rule": {
+    "applies_to": "其余 29 项（WT-001, WT-002, WT-003, WT-004, WT-005, WT-006, WT-011, WT-014, WT-016, WT-017, WT-018, WT-019, WT-020, WT-021, WT-023, WT-024, WT-025, WT-026, WT-028, WT-029, WT-034, WT-035, WT-036, WT-037, WT-038, EXT-01, EXT-02, EXT-03, EXT-04）",
+    "implementation": "source_report_only（5f24ae6..a1bac406 期间无变更）",
+    "automated_verification": "NOT_RUN",
+    "normal_session_verification": "NOT_RUN",
+    "human": "NOT_RUN",
+    "build": "NOT_RUN",
+    "note": "WT-002 在本增量中被 dea5244d/57870948 间接触及（装填顺序、距离装定进入命令链），但其权威契约本身在 5f24ae6 后无独立提交，故仍按未变更处理，另见 WT-002-R1 执行单。"
+  },
+  "completed_count": 0,
+  "not_completed_reason": "42 项中仍无一项达到 completed 条件（三图正式质量、现代整车、正式联网、发布门均未闭合）；WT-001-R2 只补齐台账与身份，不改变完成度。"
+}
