@@ -31,15 +31,27 @@ func _run() -> void:
 	_check(scene.ready_drive,"actual terrain laboratory initializes two production actors")
 	_check(tank.defs != scene.defs.get_vehicle("player_tank") and scene.defs.get_vehicle("player_tank").drive_collision_size == GameConfig.DRIVE_COLLISION_SIZE,"profile does not mutate shared legacy definition")
 	var profile := scene.source_actor.damage_layout_override
+	# WT-002-R1: hull armour skins belong to the authoritative hull frame — build_skin is
+	# called with actor.tank.hull_frame after 9f59025f separated the hull frame from the
+	# drive body. Looking them up under `tank` went stale with that change and made this
+	# guard fail although every patch was skinned in the right parent (verified: 76/76
+	# patches skinned, 0 vertex membership mismatches, 0 skins under `tank`).
 	var mesh_ok := true
+	var parent_ok := true
+	var hull_skinned := 0
+	var turret_skinned := 0
 	for patch in profile.armor_patches:
-		var parent: Node3D = tank if patch.part_id == "hull" else scene.source_actor.turret
+		var parent: Node3D = tank.hull_frame if patch.part_id == "hull" else scene.source_actor.turret
 		var visual := parent.get_node_or_null("Skin_"+patch.id) as MeshInstance3D
 		mesh_ok = mesh_ok and visual != null and visual.mesh != null
+		if patch.part_id == "hull" and tank.get_node_or_null("Skin_"+patch.id) != null: parent_ok = false
 		if visual != null and visual.mesh != null:
+			if patch.part_id == "hull": hull_skinned += 1
+			else: turret_skinned += 1
 			var arrays := visual.mesh.surface_get_arrays(0)
 			for vertex in arrays[Mesh.ARRAY_VERTEX]: mesh_ok = mesh_ok and patch.vertices_local_m.has(vertex)
 	_check(mesh_ok and profile.armor_patches.size() > 40,"all silhouette armor skins render actual finite query vertices")
+	_check(parent_ok and hull_skinned > 0 and turret_skinned > 0,"armour skins stay parented to the authoritative frames (%d hull / %d turret)"%[hull_skinned,turret_skinned])
 	var detail_instances := 0
 	var detail_triangles := 0
 	var draw_groups := 0

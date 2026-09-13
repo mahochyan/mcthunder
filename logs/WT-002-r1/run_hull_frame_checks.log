@@ -1,0 +1,29 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical definitions loaded
+[PASS] actual vehicle assembled us_m4a3_75w_vvss_1944
+[PASS] weapon and camera belong to hull frame us_m4a3_75w_vvss_1944
+[PASS] hull can move independently of drive collision us_m4a3_75w_vvss_1944
+[PASS] muzzle and query follow displaced hull us_m4a3_75w_vvss_1944
+[PASS] all armor triangles remain aligned after hull displacement us_m4a3_75w_vvss_1944
+[PASS] reset clears relative hull displacement us_m4a3_75w_vvss_1944
+[PASS] actual vehicle assembled us_m24_m6_t85e1_1951
+[PASS] weapon and camera belong to hull frame us_m24_m6_t85e1_1951
+[PASS] hull can move independently of drive collision us_m24_m6_t85e1_1951
+[PASS] muzzle and query follow displaced hull us_m24_m6_t85e1_1951
+[PASS] all armor triangles remain aligned after hull displacement us_m24_m6_t85e1_1951
+[PASS] reset clears relative hull displacement us_m24_m6_t85e1_1951
+[PASS] actual vehicle assembled us_m26_m3_1945
+[PASS] weapon and camera belong to hull frame us_m26_m3_1945
+[PASS] hull can move independently of drive collision us_m26_m3_1945
+[PASS] muzzle and query follow displaced hull us_m26_m3_1945
+[PASS] all armor triangles remain aligned after hull displacement us_m26_m3_1945
+[PASS] reset clears relative hull displacement us_m26_m3_1945
+[PASS] actual vehicle assembled us_m36_m4a1_1945
+[PASS] weapon and camera belong to hull frame us_m36_m4a1_1945
+[PASS] hull can move independently of drive collision us_m36_m4a1_1945
+[PASS] muzzle and query follow displaced hull us_m36_m4a1_1945
+[PASS] all armor triangles remain aligned after hull displacement us_m36_m4a1_1945
+[PASS] reset clears relative hull displacement us_m36_m4a1_1945
+=== 结果: 25 项检查, 0 失败 ===
+HULL_FRAME_CHECKS_PASS

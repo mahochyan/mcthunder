@@ -1,0 +1,14 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual historical vehicles ready
+[SUPPORT] x=-2.0 left=1.0 right=1.0 rays=5
+[PASS] both tracks fully supported on platform
+[SUPPORT] x=-0.2 left=1.0 right=0.0 rays=5
+[PASS] rays see lower ground but unsupported right track contributes no grip
+[MEASURE] full/partial one_second_speed=[2.18727699190839, 1.09840149704361]
+[PASS] real partial support reduces acceleration instead of keeping full traction
+[PASS] normal two-track steering cannot use unsupported side
+[PASS] partial contact reduces brake authority
+[PASS] belly-only support does not create track coast resistance
+=== 结果: 7 项检查, 0 失败 ===
+PARTIAL_SUPPORT_CHECKS_PASS

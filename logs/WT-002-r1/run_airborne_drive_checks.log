@@ -1,0 +1,17 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual vehicle actors ready
+[PASS] airborne throttle/brake/coast preserves horizontal engine speed 1.0
+[PASS] airborne steering cannot rotate or auto-level hull 1.0
+[PASS] gravity still advances real airborne vehicle 1.0
+[PASS] airborne throttle/brake/coast preserves horizontal engine speed -1.0
+[PASS] airborne steering cannot rotate or auto-level hull -1.0
+[PASS] gravity still advances real airborne vehicle -1.0
+[PASS] airborne throttle/brake/coast preserves horizontal engine speed 0.0
+[PASS] airborne steering cannot rotate or auto-level hull 0.0
+[PASS] gravity still advances real airborne vehicle 0.0
+[PASS] vehicle regains actual floor contact after falling
+[PASS] landing restores propulsion and steering through same command path
+[PASS] normal throttle drives off physical ledge, loses support, falls and regains lower ground
+=== 结果: 13 项检查, 0 失败 ===
+AIRBORNE_DRIVE_CHECKS_PASS
