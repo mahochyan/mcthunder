@@ -99,7 +99,8 @@ static func registration_blockers(asset_root: String, folder: String, probe_repo
 		"licence":licence,"licence_gate":"blocked_pending_source" if licence == "unknown" else "redistributable",
 		"registration_ready":shape.is_empty() and draft.pending_author_steps.is_empty() and path_gate}
 
-static func summary_line(folder: String, result: Dictionary) -> String:	if not result.get("ok",false): return "%s: UNPARSABLE (%s)"%[folder,str(result.get("reason",""))]
+static func summary_line(folder: String, result: Dictionary) -> String:
+	if not result.get("ok",false): return "%s: UNPARSABLE (%s)"%[folder,str(result.get("reason",""))]
 	var parts: Array[String] = []
 	for role in ModelBindingValidator.ROLES:
 		var entry: Dictionary = result.roles.get(role,{})
