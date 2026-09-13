@@ -27,6 +27,10 @@ func _run() -> void:
 				actor.set_physics_process(false)
 				actor.gunner.aim_preview_enabled = false
 				actor.cam_rig.set_process(false); actor.cam_rig.set_physics_process(false)
+				# WT-039-R1: the M26 stalls on this route with the driver commanding 0.31 throttle on
+				# flat ground while a fresh or long-run hull moves there, so the open question is
+				# whether the command the actor actually consumes matches the driver's intent.
+				actor.debug_command_trace = id == "us_m26_m3_1945"
 				var navigator := DriveNavigator.new(); navigator.configure(map.graph)
 				var driver := AIPathDriver.new(); actor.add_child(driver)
 				driver.configure(actor,navigator); actor.set_controller(driver)
