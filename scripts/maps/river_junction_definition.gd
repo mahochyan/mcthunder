@@ -149,3 +149,63 @@ static func route_graph(team_size: int, blocked_crossing: float=INF) -> Dictiona
 				edges.append([a,b])
 			elif is_equal_approx(p.y,q.y) and absi(config.crossings.find(p.x)-config.crossings.find(q.x))==1: edges.append([a,b])
 	return {"nodes":nodes,"edges":edges,"scope":"strategic_design_only"}
+
+## WT-019/WT-021: the map owns its choke points. Bridges and the two central crossing
+## junctions are where opposing traffic must negotiate, so the tactical map publishes the
+## predicate instead of letting each AI invent one.
+const CHOKEPOINT_MARGIN_M := 22.0
+const BRIDGE_HALF_LENGTH_M := 55.0
+const LANE_HALF_WIDTH_M := 14.0
+
+static func bridge_centers(team_size: int = 16) -> Array[Vector3]:
+	var config := layout(team_size)
+	var out: Array[Vector3] = []
+	for lane in config.crossings:
+		var x := lane_x(lane,0.0)
+		out.append(Vector3(x,height(x,river_z(x)),river_z(x)))
+	return out
+
+static func chokepoint_test(position: Vector3, margin: float = CHOKEPOINT_MARGIN_M) -> bool:
+	var xz := Vector2(position.x,position.z)
+	# bridge deck and its approaches, per lane
+	for lane in LANES:
+		var lane_x_at_z := lane_x(lane,position.z)
+		if absf(position.x-lane_x_at_z) > LANE_HALF_WIDTH_M+margin: continue
+		if absf(position.z-river_z(lane_x_at_z)) <= BRIDGE_HALF_LENGTH_M+margin: return true
+	# the central crossing junctions themselves
+	for lane in [0.0]:
+		if xz.distance_to(Vector2(lane_x(lane,0.0),0.0)) <= 20.0+margin: return true
+	return false
+
+static func chokepoint_labels(team_size: int = 16) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for i in bridge_centers(team_size).size():
+		var center := bridge_centers(team_size)[i]
+		out.append({"kind":"bridge","index":i,"position":center})
+	return out
+
+## Route purposes for the tactical read: every deployment stop gets a named job so the
+## graph is not just "nodes that connect".
+static func route_purposes(team_size: int = 16) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	var stops := driving_stops(team_size)
+	# The outermost lanes of THIS layout carry the flank/observation job. In 10v10 the
+	# ±820 lanes do not exist at all, so the outermost available crossings (±520) are the
+	# bypass - otherwise that layout would have no flank route to label.
+	var crossings: Array = layout(team_size).crossings
+	var outer: Array = []
+	if not crossings.is_empty():
+		outer = [crossings[0],crossings[crossings.size()-1]]
+	for i in stops.size():
+		var stop: Dictionary = stops[i]
+		var job := "main_push"
+		var xz: Vector2 = stop.xz
+		var lane := 0.0
+		for candidate in crossings:
+			if absf(xz.x-lane_x(candidate,xz.y)) < 20.0: lane = candidate
+		if outer.has(lane): job = "flank_or_observation"
+		elif absf(xz.x-lane_x(0.0,xz.y)) < 20.0: job = "central_hook"
+		else: job = "secondary_push"
+		out.append({"index":i,"title":str(stop.get("title","")),"position":Vector3(xz.x,height(xz.x,xz.y),xz.y),
+			"purpose":job,"lane":lane,"outermost":outer.has(lane)})
+	return out
