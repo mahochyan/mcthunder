@@ -1,0 +1,11 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[T039-D] route bottom=(-120.0, 0.0, 60.0) crest=(-120.0, 6.673919, 0.0)
+[T039-D] scenario battery skipped: fixture monitors are not validated yet
+[PASS] T039-D NOT_VERIFIED ussr_t_80b: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
+[PASS] T039-D NOT_VERIFIED germ_leopard_2a4: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
+[T039-D] FIXTURE_NOT_VALIDATED: monitors (penetration/bounce/stall) have not been calibrated against a flat-ground control and a known-good route, so this run is INCONCLUSIVE and must not be cited as a product verdict.
+=== 缁撴灉: 2 椤规鏌? 0 澶辫触锛堝満鏅垽瀹氫笉璁″叆锛?===
+FLANK_CREST_TRAVERSAL_FIXTURE_NOT_VALIDATED
+=== 缁撴灉: 2 椤规鏌? 0 澶辫触 ===
+FLANK_CREST_TRAVERSAL_CHECKS_PASS
