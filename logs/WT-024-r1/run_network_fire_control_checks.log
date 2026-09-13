@@ -1,0 +1,40 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real authority starts for network ranging
+[PASS] two real clients receive distinct ownership
+[PASS] authority owns no Camera3D presentation dependency
+[PASS] first server binocular entry has a finite intention without a rendered camera
+[PASS] binocular packet cannot disable mechanical hold or force a shot
+[PASS] inactive intent cannot bypass retained binocular hold or fire inhibition
+[ANGULAR_NETWORK] local_yaw=0.525 authority_intent=0.525 turret_yaw=0.52504396438599 speed_deg_s=24.0 accepted=62 rejected={  }
+[PASS] client camera intention traverses actual player poll and network to turn the zeroed authority turret
+[PASS] range edge is sent through production command encoder
+[PASS] server starts a timed measurement from angular intent
+[PASS] held packets do not replay the range edge or restart its timer
+[PASS] authority measures its own distant wall with configured quantization
+[PASS] owner replica receives the authoritative measurement
+[PASS] measurement alone does not silently alter zeroing
+[PASS] other client receives only its own unmeasured status
+[PASS] public vehicle poses contain no private range or optical intention
+[PASS] owner receives a real consumed-input acknowledgement
+[PASS] apply measured range edge is sent
+[PASS] adopt-range request changes server zeroing and returns to owner
+[PASS] manual zeroing edge is sent
+[PASS] two manual increments execute once across held packets
+[PASS] binocular range request crosses network
+[PASS] binocular ranging preserves both authoritative mechanism axes while hull turns
+[PASS] new authoritative generation clears staged client actions
+[PASS] respawn replaces old measurement and zeroing on authority and owner
+[PASS] old generation cannot reapply optical input after respawn
+[PASS] same-generation control epoch change clears staged client range edges
+[PASS] empty sky returns authoritative failure without inventing a distance
+[PASS] malformed owner status rejected atomically: nan_range
+[PASS] malformed owner status rejected atomically: numeric_flag
+[PASS] malformed owner status rejected atomically: unknown_status
+[PASS] malformed owner status rejected atomically: missing_field
+[PASS] malformed owner status rejected atomically: expired_as_measured
+[PASS] malformed owner status rejected atomically: future_consumed
+[PASS] malformed owner status rejected atomically: extra_owner_field
+[PASS] range feedback never starts local combat authority
+=== 结果: 35 项检查, 0 失败 ===
+NETWORK_FIRE_CONTROL_CHECKS_PASS
