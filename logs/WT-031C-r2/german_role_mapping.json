@@ -1,5 +1,5 @@
 {
-  "binding_ready": 0,
+  "binding_ready": 80,
   "draft_binding": {
     "licence_blocked": 0,
     "path_inside_repo": 0,
@@ -48,16 +48,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -138,14 +138,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000039999998989515,
-            0.293149948120117,
-            -0.521160006523132
+            -0.000039999998989515,
+            -1.72512996196747,
+            -1.10399001836777
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.43457996845245,
+            -0.324849992990494
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -264,16 +269,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -354,14 +359,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.297170042991638,
-            -0.557740032672882
+            -1.76818001270294,
+            -1.31851989030838
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.44960999488831,
+            -0.213740006089211
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -536,7 +546,9 @@
           ]
         },
         "muzzle": {
-          "kind": "missing"
+          "barrel_candidates": 0,
+          "kind": "missing",
+          "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
           "kind": "missing"
@@ -600,16 +612,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -690,14 +702,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            1.1660019159317,
-            -0.00466299057006836
+            -2.78670597076416,
+            1.01375901699066
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.60770404338837,
+            0.973397970199585
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -816,9 +833,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -908,14 +925,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.319942116737366,
-            -0.738473057746887
+            -2.08896493911743,
+            -1.49968886375427
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.75881707668304,
+            -0.302837997674942
+          ]
         },
         "running_left": {
           "candidates": [
@@ -988,16 +1010,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -1078,14 +1100,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0289799999445677,
-            0.646400213241577,
-            -1.48495995998383
+            0.0289799999445677,
+            -2.48055005073547,
+            -5.26514005661011
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.79154992103577,
+            -0.0318999998271465
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -1204,16 +1231,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -1294,14 +1321,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.00124000001233071,
-            0.375319957733154,
-            -1.60422015190125
+            -0.00124000001233071,
+            -1.89374995231628,
+            -3.18477988243103
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.49783003330231,
+            -0.829999983310699
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -1420,16 +1452,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -1510,14 +1542,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0118100000545383,
-            0.342339992523193,
-            -1.00540995597839
+            0.0118000004440546,
+            -1.99160003662109,
+            -3.59611988067627
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.00000999999974737875,
+            1.63955998420715,
+            -0.683470010757446
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -1636,16 +1673,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -1726,14 +1763,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.33299994468689,
-            -1.06137001514435
+            -1.7131199836731,
+            -3.15411996841431
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.37682008743286,
+            -0.699509978294373
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -1852,9 +1894,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -1944,14 +1986,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000166537836776115,
-            0.308177947998047,
-            -0.785269439220428
+            0.0,
+            -2.05731177330017,
+            -2.44486248493195
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00016635176143609,
+            1.74140286445618,
+            -0.59986799955368
+          ]
         },
         "running_left": {
           "candidates": [
@@ -2028,16 +2075,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -2118,14 +2165,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            0.000125000005937181,
+            -2.07826209068298,
+            -1.14322105050087
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.000125000005937181,
+            2.05936217308044,
+            -0.413879007101059
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -2244,16 +2296,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -2334,14 +2386,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0348899997770786,
-            0.168359994888306,
-            -1.10667991638184
+            0.0348899997770786,
+            -1.98145997524261,
+            -4.30646985769272
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.80559992790222,
+            0.75314998626709
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -2460,16 +2517,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -2550,14 +2607,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.356720089912415,
-            -1.11468994617462
+            -2.22879004478455,
+            -4.32025015354156
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.84606993198395,
+            0.232940003275871
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -2676,16 +2738,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -2766,14 +2828,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000149999992572702,
-            0.475289940834045,
-            -0.416649997234344
+            -0.000119999996968545,
+            -2.22550010681152,
+            -4.1130399107933
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0000299999992421363,
+            1.7427099943161,
+            0.679690003395081
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -2892,16 +2959,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -2982,14 +3049,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.000390000001061708,
-            0.172289967536926,
-            -0.681789994239807
+            0.00000999999974737875,
+            -1.86504995822906,
+            -1.56771001219749
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.000380000012228265,
+            1.69275999069214,
+            0.532500028610229
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -3108,9 +3180,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -3200,14 +3272,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0320009998977184,
-            0.439797878265381,
-            -0.976190030574799
+            0.0320009998977184,
+            -2.88106608390808,
+            -4.5210388302803
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.41595602035522,
+            0.771229028701782
+          ]
         },
         "running_left": {
           "candidates": [
@@ -3284,9 +3361,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -3376,14 +3453,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0247013159096241,
-            0.402141809463501,
-            -0.684251070022583
+            -0.0235633160918951,
+            -2.90536189079285,
+            -3.28462597727776
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00113800005055964,
+            2.45524001121521,
+            0.695877015590668
+          ]
         },
         "running_left": {
           "candidates": [
@@ -3460,16 +3542,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -3550,14 +3632,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.000356000004103407,
+            -2.16076707839966,
+            -4.97009408473969
           ],
-          "parent": "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/TurretRollPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.000356000004103407,
+            1.69322597980499,
+            -0.663406014442444
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -3676,16 +3763,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -3766,14 +3853,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0148787721991539,
-            0.774214267730713,
-            -0.365606188774109
+            0.0469047725200653,
+            -1.95616030693054,
+            0.598124861717224
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0320260003209114,
+            1.17174601554871,
+            1.91707801818848
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -3892,16 +3984,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -3982,14 +4074,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0220351796597242,
-            0.180130004882813,
-            -0.0030968189239502
+            0.0220361799001694,
+            -1.81092703342438,
+            -2.18805208802223
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.60639703273773,
+            -0.29660901427269
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -4108,16 +4205,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -4198,14 +4295,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00492742657661438,
-            0.426306128501892,
-            -0.0272565744817257
+            0.0599274262785912,
+            -2.02267813682556,
+            -1.79727244004607
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0549999997019768,
+            1.57197201251984,
+            -0.000270999997155741
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -4324,16 +4426,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -4414,14 +4516,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.014877999201417,
-            0.537639379501343,
-            -0.365610480308533
+            -0.0267360005527735,
+            -1.73467540740967,
+            -1.72778259217739
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0416139997541904,
+            1.20053601264954,
+            0.22019299864769
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -4540,16 +4647,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -4630,14 +4737,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.00225699995644391,
-            0.424727082252502,
-            -0.206218585371971
+            -0.00225699995644391,
+            -2.23666310310364,
+            -3.22915634978563
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.78873598575592,
+            0.19157500565052
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -4756,16 +4868,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -4846,14 +4958,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.693800926208496,
-            0.105782002210617
+            -2.36974692344666,
+            -1.8458439707756
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.65594601631165,
+            -0.385257989168167
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -4972,16 +5089,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -5062,14 +5179,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            1.0913200378418,
-            0.0
+            -3.00699901580811,
+            0.821241021156311
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.89567899703979,
+            1.05935096740723
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -5191,9 +5313,9 @@
         "running_left",
         "running_right"
       ],
-      "missing_roles": 3,
+      "missing_roles": 2,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -5283,14 +5405,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.350788116455078,
-            0.0
+            -4.11126565933228,
+            0.999275684356689
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/LaunchRailsPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.98927187919617,
+            1.08451199531555
+          ]
         },
         "running_left": {
           "kind": "missing"
@@ -5353,16 +5480,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -5443,14 +5570,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.626789808273315,
-            0.163740664720535
+            -2.31995582580566,
+            -3.84972953796387
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.69316601753235,
+            0.338988989591599
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -5569,16 +5701,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -5659,14 +5791,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0632097125053406,
-            0.291783809661865,
-            -0.706665754318237
+            -0.0632107108831406,
+            -1.90887975692749,
+            -1.6524772644043
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.58389592170715,
+            -0.164206996560097
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -5843,7 +5980,9 @@
           ]
         },
         "muzzle": {
-          "kind": "missing"
+          "barrel_candidates": 0,
+          "kind": "missing",
+          "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
           "kind": "missing"
@@ -5941,7 +6080,9 @@
           ]
         },
         "muzzle": {
-          "kind": "missing"
+          "barrel_candidates": 0,
+          "kind": "missing",
+          "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
           "kind": "missing"
@@ -5977,16 +6118,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -6067,14 +6208,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000362999737262726,
-            0.285338878631592,
-            0.000367999076843262
+            0.0836199969053268,
+            -2.46375799179077,
+            -0.554593980312347
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0839829966425896,
+            2.15771913528442,
+            -0.855773985385895
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -6193,16 +6339,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -6283,14 +6429,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0000900000013643876,
-            0.239789962768555,
-            -1.05294001102448
+            -0.00007999999797903,
+            -1.64823997020721,
+            -5.0933700799942
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00000999999974737875,
+            1.38365006446838,
+            -0.088689997792244
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -6409,16 +6560,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -6499,14 +6650,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0491074323654175,
-            0.433016896247864,
-            -0.791550517082214
+            0.0491074323654175,
+            -2.10886883735657,
+            -3.32788026332855
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.65985190868378,
+            -0.508569002151489
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -6625,16 +6781,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -6715,14 +6871,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.201444864273071,
-            -0.853509783744812
+            -2.60573196411133,
+            -2.37207019329071
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.38818717002869,
+            -0.495420008897781
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -6895,7 +7056,9 @@
           ]
         },
         "muzzle": {
-          "kind": "missing"
+          "barrel_candidates": 0,
+          "kind": "missing",
+          "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
           "aabb_max": [
@@ -6987,16 +7150,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -7077,14 +7240,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00944000016897917,
-            0.409199833869934,
-            -0.859320044517517
+            0.00944000016897917,
+            -2.06055998802185,
+            -3.5778401196003
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.60896003246307,
+            1.05716001987457
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -7203,16 +7371,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -7293,14 +7461,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000931999995373189,
-            1.34469699859619,
-            0.207302987575531
+            -0.000931999995373189,
+            -2.14020299911499,
+            -3.13492196798325
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            0.771606028079987,
+            0.351619005203247
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -7419,16 +7592,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -7509,14 +7682,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            1.42990612983704,
-            -0.543173968791962
+            -2.43823003768921,
+            -4.41550201177597
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            0.979624032974243,
+            1.4556759595871
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -7635,16 +7813,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -7725,14 +7903,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.551039814949036,
-            -0.146370023488998
+            -2.34669995307922,
+            -4.46034005284309
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.77325999736786,
+            0.541710019111633
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -7851,16 +8034,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -7941,14 +8124,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.558049917221069,
-            -0.898440062999725
+            -2.0158998966217,
+            -3.99900019168854
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.4305499792099,
+            -0.65855997800827
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -8067,16 +8255,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -8157,14 +8345,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0872508510947227,
-            0.143877029418945,
-            -0.910954833030701
+            -0.0882508531212807,
+            -2.30413699150085,
+            -1.34104526042938
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.00100000004749745,
+            2.14215993881226,
+            -0.503000020980835
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -8283,16 +8476,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -8373,14 +8566,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.24444580078125,
-            0.0626895129680634
+            0.000133426205138676,
+            -1.68046581745148,
+            -1.80890050530434
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.000132999994093552,
+            1.43962001800537,
+            -0.339289009571075
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -8499,16 +8697,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -8589,14 +8787,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.506013631820679,
-            0.19819849729538
+            -2.23844575881958,
+            -5.50229042768478
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.70813202857971,
+            0.0860920026898384
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -8715,16 +8918,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -8805,14 +9008,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.690039873123169,
-            0.161848664283752
+            -2.254802942276,
+            0.362896323204041
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.58736300468445,
+            1.53092503547668
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -8931,16 +9139,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -9021,14 +9229,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.632949948310852,
-            -0.887599945068359
+            -2.50584006309509,
+            -8.30258011817932
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.85258996486664,
+            2.15817999839783
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -9147,16 +9360,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -9237,14 +9450,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.243083953857422,
-            -0.00334697961807251
+            -1.91865694522858,
+            -1.94259798526764
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.66417300701141,
+            -0.309655010700226
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -9363,16 +9581,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -9453,14 +9671,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00708300014957786,
-            0.43844997882843,
-            0.0649999976158142
+            0.00708300014957786,
+            -1.94410002231598,
+            -4.08340013027191
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.49555003643036,
+            -0.711000025272369
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -9579,16 +9802,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -9669,14 +9892,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.559715032577515,
-            -0.00205999612808228
+            -2.22243595123291,
+            -5.88069716840982
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.65752100944519,
+            0.108756996691227
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -9795,9 +10023,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -9887,14 +10115,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0000189999991562217,
-            0.385855078697205,
-            -1.19558298587799
+            0.0000189999991562217,
+            -2.37437868118286,
+            -4.67341697216034
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.98305094242096,
+            0.0
+          ]
         },
         "running_left": {
           "candidates": [
@@ -9971,9 +10204,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -10063,14 +10296,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.185515999794006,
-            0.0
+            -1.83675873279572,
+            -1.26519387960434
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.6386626958847,
+            -0.725805342197418
+          ]
         },
         "running_left": {
           "candidates": [
@@ -10143,9 +10381,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -10235,14 +10473,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            1.16657185554504,
-            0.145396173000336
+            -1.80266976356506,
+            -2.03524574637413
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            0.627307891845703,
+            0.117849625647068
+          ]
         },
         "running_left": {
           "candidates": [
@@ -10315,16 +10558,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -10395,24 +10638,29 @@
           "basis": {
             "forward": [
               0.0,
-              0.173648163676262,
-              -0.984807729721069
+              0.0,
+              -1.0
             ],
             "up": [
               0.0,
-              0.984807729721069,
-              0.173648163676262
+              1.0,
+              0.0
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.569602966308594,
-            0.0530796051025391
+            -2.1339259147644,
+            0.560848116874695
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.56452298164368,
+            1.24216294288635
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -10531,16 +10779,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -10621,14 +10869,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00211699865758419,
-            0.887330055236816,
-            0.676010012626648
+            0.0195889994502068,
+            -2.90048003196716,
+            1.08630108833313
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0174720007926226,
+            2.00314998626709,
+            1.31743896007538
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -10747,16 +11000,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -10837,14 +11090,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.53491997718811,
-            -0.150020003318787
+            -1.9585599899292,
+            -4.37476989626884
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.41203999519348,
+            -0.325210005044937
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -10963,9 +11221,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -11055,14 +11313,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.00189199228771031,
-            0.00755834579467773,
-            -0.373545050621033
+            0.00384000758640468,
+            -2.44121527671814,
+            -2.24005508422852
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00573199987411499,
+            2.41148281097412,
+            -0.89139997959137
+          ]
         },
         "running_left": {
           "candidates": [
@@ -11139,16 +11402,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -11229,14 +11492,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.148372992873192,
-            0.162711024284363,
-            -0.257822036743164
+            -0.116107001900673,
+            -1.73728799819946,
+            -1.63573288917542
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.264479994773865,
+            1.5687769651413,
+            -1.28354501724243
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -11355,16 +11623,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -11445,14 +11713,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             -0.914793014526367,
             -1.9072870016098,
-            0.287798643112183
+            -2.76130104064941
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured"
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.265213012695313,
+            1.73087692260742,
+            -1.28026294708252
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -11571,16 +11844,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -11661,14 +11934,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000192932391655631,
-            0.654749989509583,
-            -1.37710499763489
+            0.0,
+            -1.52276599407196,
+            -2.04895490407944
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.000192999999853782,
+            0.85291600227356,
+            1.17806005477905
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -11787,16 +12065,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -11877,14 +12155,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.002779999980703,
-            0.449378728866577,
-            -0.752648532390594
+            0.002779999980703,
+            -1.97143971920013,
+            -2.28569352626801
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.5175609588623,
+            -0.543507993221283
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -12003,9 +12286,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -12095,14 +12378,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.211917161941528,
-            -1.15165376663208
+            -2.32630610466003,
+            -4.26169145107269
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.10550284385681,
+            -0.136655002832413
+          ]
         },
         "running_left": {
           "candidates": [
@@ -12231,7 +12519,9 @@
           ]
         },
         "muzzle": {
-          "kind": "missing"
+          "barrel_candidates": 0,
+          "kind": "missing",
+          "reason": "no_muzzle_node_and_no_single_barrel_mesh"
         },
         "running_left": {
           "aabb_max": [
@@ -12323,16 +12613,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -12413,14 +12703,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.335599899291992,
-            -0.697149932384491
+            -2.13539981842041,
+            -2.03730010986328
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.76699995994568,
+            0.0444499999284744
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -12539,9 +12834,9 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 2,
+      "node_roles": 3,
       "node_roles_resolved": 3,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
@@ -12631,14 +12926,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00580399995669723,
-            0.560566902160645,
-            -0.271021008491516
+            0.00577499996870756,
+            -3.0795841217041,
+            -2.87773007154465
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0000290000007225899,
+            2.49370503425598,
+            0.935751020908356
+          ]
         },
         "running_left": {
           "candidates": [
@@ -12715,16 +13015,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -12805,14 +13105,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.560372710227966,
-            1.17921853065491
+            -2.05990982055664,
+            -7.26531863212585
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.49453699588776,
+            0.0
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -12931,16 +13236,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -13021,14 +13326,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             1.38900005817413,
             -1.86297798156738,
-            0.00794187188148499
+            -4.29405817389488
           ],
           "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
-          "provenance": "measured"
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00473499996587634,
+            1.85297799110413,
+            -0.391382992267609
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -13147,16 +13457,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -13237,14 +13547,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.364225625991821,
-            -0.689415693283081
+            -1.69816064834595,
+            -5.86530458927155
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.32323503494263,
+            1.12372004985809
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -13363,16 +13678,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -13453,14 +13768,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.204270005226135,
-            0.338299989700317,
-            -0.314999997615814
+            0.140420004725456,
+            -1.62297999858856,
+            -2.34917002916336
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.063850000500679,
+            1.27717995643616,
+            0.867169976234436
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -13579,16 +13899,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -13669,14 +13989,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000370000023394823,
-            0.285099983215332,
-            0.00137001276016235
+            0.000869999988935888,
+            -1.74646997451782,
+            0.269709944725037
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00124000001233071,
+            1.4538699388504,
+            0.508920013904572
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -13795,16 +14120,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -13885,14 +14210,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00579997897148132,
-            0.533890008926392,
-            -0.00162005424499512
+            -0.3714300096035,
+            -2.37679004669189,
+            0.828220009803772
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.377229988574982,
+            1.83550000190735,
+            1.41740000247955
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -14011,16 +14341,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14101,14 +14431,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0000299999992421363,
-            0.30062997341156,
-            -0.814509987831116
+            0.0,
+            -1.89058995246887,
+            -1.17743015289307
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0000299999992421363,
+            1.58296000957489,
+            -0.24006000161171
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -14227,16 +14562,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14317,14 +14652,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00564000010490417,
-            0.116050004959106,
-            0.00074005126953125
+            -0.11761000007391,
+            -1.54464995861053,
+            -1.0118100643158
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.123250000178814,
+            1.4342999458313,
+            -1.32693004608154
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -14443,16 +14783,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14533,14 +14873,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00397757440805435,
-            0.574028849601746,
-            0.158249586820602
+            0.0589775741100311,
+            -2.17040085792542,
+            -2.79697851836681
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0549999997019768,
+            1.57197201251984,
+            -0.000270999997155741
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -14659,16 +15004,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14749,14 +15094,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.268350005149841,
-            0.182410001754761,
-            -0.593349993228912
+            0.422120004892349,
+            -1.73406994342804,
+            -1.06205004453659
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.153769999742508,
+            1.54125988483429,
+            -0.332599997520447
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -14875,16 +15225,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -14965,14 +15315,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0511500015854836,
-            0.391690015792847,
-            -1.08562994003296
+            -0.0511500015854836,
+            -2.13609004020691,
+            -4.06637001037598
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.76999998092651,
+            -1.01300001144409
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -15091,16 +15446,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -15181,14 +15536,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.0745199993252754,
+            -1.47343003749847,
+            -2.60248994827271
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0745199993252754,
+            1.4700300693512,
+            -2.71251010894775
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -15307,16 +15667,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -15397,14 +15757,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00403999909758568,
-            0.306299924850464,
-            -0.830470025539398
+            0.0594599992036819,
+            -1.90754997730255,
+            -1.2245300412178
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.0554200001060963,
+            1.58905005455017,
+            0.0
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -15523,16 +15888,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -15613,14 +15978,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.203009992837906,
+            -1.4122200012207,
+            -2.68755996227264
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.203009992837906,
+            1.40002000331879,
+            -1.61544001102448
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -15739,16 +16109,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -15829,14 +16199,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.00899000000208616,
-            0.332659959793091,
-            -1.14965009689331
+            -0.00899000000208616,
+            -1.99978995323181,
+            -3.82151973247528
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.65863001346588,
+            -0.268830001354218
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -15955,16 +16330,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -16045,14 +16420,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.002210000064224,
-            0.416280150413513,
-            0.0
+            0.0019000000320375,
+            -2.306960105896,
+            -4.58889980893582
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.000310000003082678,
+            1.87948000431061,
+            0.0138999996706843
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -16171,16 +16551,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -16261,14 +16641,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.87821102142334,
-            -0.0228350162506104
+            -2.31564807891846,
+            -0.751513957977295
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.43413710594177,
+            -1.09716498851776
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -16387,16 +16772,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -16477,14 +16862,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.150250002741814,
+            -1.80853998661041,
+            -1.16339004039764
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.150250002741814,
+            1.79374003410339,
+            -1.3266099691391
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -16603,16 +16993,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -16693,14 +17083,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.0,
-            0.0
+            -2.18308997154236,
+            -5.04407000541687
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.18349003791809,
+            -1.23292994499207
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -16819,16 +17214,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -16909,14 +17304,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.332620024681091,
-            0.0244799852371216
+            -0.0545100010931492,
+            -1.97156000137329,
+            -4.68096995353699
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0545100010931492,
+            1.62253999710083,
+            -1.46250998973846
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -17035,16 +17435,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -17125,14 +17525,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.80856990814209,
-            0.801270008087158
+            -2.35694003105164,
+            -4.09036993980408
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.53086996078491,
+            -0.520900011062622
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -17251,16 +17656,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -17341,14 +17746,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.263269990682602,
+            -2.01490998268127,
+            -1.24426007270813
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.263269990682602,
+            2.00490999221802,
+            -1.67574000358582
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -17467,16 +17877,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -17557,14 +17967,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.436809986829758,
-            0.475039958953857,
-            -0.478980004787445
+            0.0,
+            -2.48230004310608,
+            -3.30937999486923
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.436809986829758,
+            1.9863600730896,
+            1.18335998058319
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -17683,16 +18098,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -17773,14 +18188,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0500000007450581,
-            0.373000025749207,
-            -1.12512004375458
+            -0.0500000007450581,
+            -2.19260001182556,
+            -4.05487978458405
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.78869998455048,
+            0.0
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -17899,16 +18319,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -17989,14 +18409,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.030290000140667,
-            0.358269929885864,
-            -1.33170998096466
+            -0.0302799995988607,
+            -2.31147003173828,
+            -5.07510018348694
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.00000999999974737875,
+            1.94260001182556,
+            -0.183190003037453
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -18115,16 +18540,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -18205,14 +18630,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00100000004749745,
-            0.173139929771423,
-            -1.02869009971619
+            0.00100000004749745,
+            -1.83343994617462,
+            -4.29730987548828
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.64100003242493,
+            -0.675000011920929
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -18331,16 +18761,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -18421,14 +18851,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0525299981236458,
-            0.339470028877258,
-            -1.17559993267059
+            0.0323599986732006,
+            -2.01200008392334,
+            -4.14095008373261
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0201699994504452,
+            1.66093003749847,
+            -0.380450010299683
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -18547,16 +18982,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -18637,14 +19072,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.0,
-            0.0,
-            0.0
+            -0.387019991874695,
+            -1.45682001113892,
+            -2.41849994659424
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.387019991874695,
+            1.43412005901337,
+            -1.40050005912781
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -18763,16 +19203,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -18853,14 +19293,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            0.000954550749156624,
-            0.550747156143188,
-            0.386758983135223
+            0.0,
+            -2.12553310394287,
+            -3.90325398743153
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            -0.000954999995883554,
+            1.56668591499329,
+            -0.197504997253418
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -18979,16 +19424,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -19069,14 +19514,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.00619000196456909,
-            0.713850021362305,
-            0.512120008468628
+            -0.0561899989843369,
+            -2.61106991767883,
+            -2.12106001377106
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0623800009489059,
+            1.87222003936768,
+            0.0399399995803833
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -19195,16 +19645,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -19285,14 +19735,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.0215399991720915,
-            0.423509955406189,
-            -1.14181995391846
+            0.0215399991720915,
+            -2.29277992248535,
+            -4.50111985206604
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.84606993198395,
+            0.232940003275871
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -19411,16 +19866,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -19501,14 +19956,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
             0.0,
-            0.425559878349304,
-            -0.942980051040649
+            -2.29444003105164,
+            -4.98744982481003
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            1.86857998371124,
+            0.349429994821548
+          ]
         },
         "running_left": {
           "aabb_max": [
@@ -19627,16 +20087,16 @@
       "licence_gate": "needs_licence_basis",
       "measured_roles": 1,
       "missing_role_names": [],
-      "missing_roles": 1,
+      "missing_roles": 0,
       "muzzle_state": "measured_frame",
-      "node_roles": 4,
+      "node_roles": 5,
       "node_roles_resolved": 5,
       "ok": true,
       "path_gate": "external_needs_intake_authorisation",
       "pending_author_steps": [
         "muzzle(measured_frame)"
       ],
-      "ready": false,
+      "ready": true,
       "registration_ready": false,
       "roles": {
         "gun": {
@@ -19717,14 +20177,19 @@
             ]
           },
           "kind": "measured_frame",
-          "method": "gun_mesh_forward_extremity",
+          "method": "barrel_mesh_forward_extremity",
           "offset_m": [
-            -0.024380000308156,
-            0.646399974822998,
-            -1.5402899980545
+            0.024380000308156,
+            -2.72931003570557,
+            -5.26600020378828
           ],
-          "parent": "VehicleRoot/TurretPivot/GunPivot",
-          "provenance": "measured"
+          "parent": "VehicleRoot/TurretPivot/GunPivot/MainGunAndMuzzleBrake",
+          "provenance": "measured",
+          "turret_origin_m": [
+            0.0,
+            2.06731009483337,
+            1.44728994369507
+          ]
         },
         "running_left": {
           "aabb_max": [

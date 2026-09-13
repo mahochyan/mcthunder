@@ -33,6 +33,7 @@ const HINTS := {
 ## not the `...AndMuzzleBrake` compound gun mesh.
 const STRICT_ROLES := ["muzzle"]
 const LAUNCHER_HINTS := ["launcher","missile","container","radar","reflector"]
+const GUN_MESH_HINTS := ["maingunandmuzzl","maingun","barrel","kanone","rohr","cannon"]
 const AXIS_EPS := 0.02
 
 static func _vec3(value: Variant) -> Vector3:
@@ -79,20 +80,33 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 		else:
 			roles[role] = {"kind":"missing"}
 		counts[str(roles[role].kind)] = int(counts.get(str(roles[role].kind),0))+1
-	# measured muzzle: a real node, else the gun mesh's forward extremity, else unmeasured.
+	# measured muzzle: a real muzzle node, else the forward extremity of the BARREL MESH -
+	# never the gun pivot's origin, which sits at the breech side and is not a muzzle.
 	var muzzle_state := "unmeasured"
 	if str(roles.muzzle.kind) == "node":
 		muzzle_state = "authored_node"
-	elif str(roles.gun.kind) == "node":
-		var gun: Dictionary = roles.gun
-		var half_extent := absf(_vec3(gun.aabb_max).z)
-		var origin := _vec3(gun.origin)
-		roles.muzzle = {"kind":"measured_frame","parent":str(gun.path),
-			"offset_m":[origin.x,origin.y,origin.z-half_extent],"basis":{"forward":gun.forward,"up":gun.up},
-			"method":"gun_mesh_forward_extremity","provenance":"measured"}
-		muzzle_state = "measured_frame"
-		counts["node"] = int(counts.node)-1
-		counts["measured"] = int(counts.get("measured",0))+1
+	else:
+		var barrels := _candidates(nodes,GUN_MESH_HINTS,false)
+		var meshes: Array[Dictionary] = []
+		for row in barrels:
+			if str(row.type) == "mesh": meshes.append(row)
+		if meshes.size() == 1:
+			var barrel: Dictionary = meshes[0]
+			var barrel_origin := _vec3(barrel.origin)
+			var extremity := _vec3(barrel.aabb_max).z if absf(_vec3(barrel.aabb_max).z) >= absf(_vec3(barrel.aabb_min).z) else _vec3(barrel.aabb_min).z
+			var turret_origin := Vector3.ZERO
+			if str(roles.turret.kind) == "node": turret_origin = _vec3(roles.turret.origin)
+			var local := barrel_origin+turret_origin*0.0
+			roles.muzzle = {"kind":"measured_frame","parent":str(barrel.path),
+				"offset_m":[local.x,local.y,local.z+extremity],
+				"basis":{"forward":barrel.forward,"up":barrel.up},
+				"method":"barrel_mesh_forward_extremity","provenance":"measured",
+				"turret_origin_m":[turret_origin.x,turret_origin.y,turret_origin.z]}
+			muzzle_state = "measured_frame"
+			counts["missing"] = int(counts.get("missing",0))-1
+			counts["measured"] = int(counts.get("measured",0))+1
+		else:
+			roles.muzzle = {"kind":"missing","reason":"no_muzzle_node_and_no_single_barrel_mesh","barrel_candidates":meshes.size()}
 	# local axis checks against the mechanism convention (turret +Y yaw, gun +X elevation).
 	var axis_checks := {}
 	axis_checks["turret"] = (str(roles.turret.kind) == "node" and _vec3(roles.turret.up).distance_to(Vector3.UP) <= AXIS_EPS)
