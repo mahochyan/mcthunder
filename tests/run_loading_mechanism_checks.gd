@@ -1,0 +1,153 @@
+extends SceneTree
+# WT-027: modern loading mechanisms. The autoloader carousel and the manual loader are
+# per-vehicle definitions with separate influence channels; ready rounds exhausted is not
+# the whole vehicle being empty; interruptions never duplicate ammunition; the next-shell
+# selection never changes the chambered round; every duration is a design value.
+var count := 0
+var failed := 0
+func _initialize() -> void:
+	call_deferred("_run")
+	var timer := create_timer(120.0)
+	timer.timeout.connect(func() -> void: print("[FAIL] loading suite watchdog timeout"); quit(1))
+func _check(ok: bool, message: String) -> void:
+	count += 1
+	if not ok: failed += 1
+	print(("[PASS] " if ok else "[FAIL] ")+message)
+func _load_one(mech: LoadingMechanism) -> void:
+	mech.start_load()
+	for i in 4: mech.advance(10.0)
+func _run() -> void:
+	root.size = Vector2i(1280,720)
+	# --- 1. per-vehicle mechanisms, not one shared constant ---
+	var t80 := LoadingMechanism.new()
+	var t80_begin := t80.begin("ussr_t_80b")
+	_check(t80_begin.ok and t80.mechanism == "autoloader_carousel","the T-80B uses its own autoloader carousel")
+	_check(t80.ready_rack.size() == 28 and t80.reserve_rack.size() == 10,"its ready and reserve racks match its configuration (28+10)")
+	var leo := LoadingMechanism.new()
+	var leo_begin := leo.begin("germ_leopard_2a4")
+	_check(leo_begin.ok and leo.mechanism == "manual_loader","the Leopard 2A4 uses a manual loader")
+	_check(leo.ready_rack.size() == 15 and leo.reserve_rack.size() == 27,"its racks match its configuration (15+27)")
+	_check(t80.mechanism != leo.mechanism,"the two modern vehicles do not share one loading state machine")
+	_check(not bool(t80.definition.requires_loader) and bool(leo.definition.requires_loader),"only the manual loader needs a loader crew member")
+	_check(not LoadingMechanism.new().begin("ussr_t_90").ok,"an unknown vehicle has no mechanism")
+	# --- 2. design values, no invented historical precision ---
+	_check(LoadingMechanism.times_are_design_values(),"every mechanism declares its stage durations")
+	_check(str(t80.definition.provenance) == "game_rule" and t80.definition.historical_value == null,"the durations are labelled game_rule with no historical value claimed")
+	_check(not bool(t80.definition.admitted_for_combat) and not bool(leo.definition.admitted_for_combat),"both vehicles stay outside combat admission")
+	# --- 3. the load cycle and conservation ---
+	var initial := t80.accounted_rounds()
+	_check(initial == 38,"the account starts at the full loadout (38)")
+	t80.start_load()
+	_check(t80.state == "extracting" and t80.chamber_shell.is_empty(),"a load starts by extracting from a rack")
+	t80.advance(10.0)
+	_check(t80.state == "transferring" and not t80.transfer_shell.is_empty(),"the round then moves into transfer")
+	t80.advance(10.0)
+	t80.advance(10.0)
+	_check(t80.state == "ready" and not t80.chamber_shell.is_empty(),"after chambering the mechanism is ready with a round in the bore")
+	_check(t80.accounted_rounds() == initial,"chambering conserves the account (%d)"%t80.accounted_rounds())
+	_check(t80.ready_rack.size() == 27,"the ready rack lost exactly one round")
+	_check(str(t80.select_next("heat").selected) == "heat" and t80.chamber_shell == t80.chamber_shell,"selecting the next shell leaves the chambered round alone")
+	var chamber_before := t80.chamber_shell
+	t80.select_next("ap")
+	_check(t80.chamber_shell == chamber_before,"the chambered shell is unchanged by a later selection")
+	# --- 4. ready exhausted is not the whole vehicle being empty ---
+	while t80.ready_rack.size() > 0:
+		t80.fire_chambered()
+		_load_one(t80)
+	t80.fire_chambered()
+	_check(t80.ready_rack.is_empty() and t80.ready_exhausted(),"the ready rack can be exhausted")
+	_check(t80.status() == "empty_ready" and not t80.vehicle_empty(),"ready rounds exhausted is a distinct state from vehicle empty")
+	_check(t80.accounted_rounds() == initial,"firing and reloading still conserve the account (%d)"%t80.accounted_rounds())
+	var from_reserve := t80.start_load()
+	_check(from_reserve.ok and str(from_reserve.source) == "reserve","with an empty ready rack the mechanism draws from the reserve rack")
+	_check(t80.reserve_rack.size() == 9,"the reserve rack lost the transferred round")
+	t80.advance(10.0); t80.advance(10.0); t80.advance(10.0)
+	t80.fire_chambered()
+	while not t80.reserve_rack.is_empty():
+		t80.start_load()
+		t80.advance(10.0); t80.advance(10.0); t80.advance(10.0)
+		t80.fire_chambered()
+	_check(t80.vehicle_empty() and t80.status() == "empty_all","only when the reserve is also gone is the vehicle empty")
+	_check(str(t80.start_load().reason) == "empty_all","an empty vehicle cannot start a load")
+	_check(t80.accounted_rounds() == initial,"every round fired is accounted for (%d)"%t80.accounted_rounds())
+	# --- 5. interruptions never duplicate ammunition ---
+	var interrupted := LoadingMechanism.new()
+	interrupted.begin("germ_leopard_2a4")
+	var before_interrupt := interrupted.accounted_rounds()
+	interrupted.start_load()
+	interrupted.advance(10.0)
+	var cut := interrupted.interrupt("breech_damaged")
+	_check(cut.ok and interrupted.transfer_shell.is_empty() and interrupted.state == "interrupted","an interruption takes the round back out of transfer")
+	_check(interrupted.accounted_rounds() == before_interrupt,"the interrupted round is neither lost nor duplicated (%d)"%interrupted.accounted_rounds())
+	for i in 3:
+		interrupted.set_channel("breech",false)
+		interrupted.resume()
+		interrupted.start_load()
+		interrupted.advance(10.0)
+		interrupted.interrupt("re_damaged")
+		_check(interrupted.accounted_rounds() == before_interrupt,"a repeated cancel and re-damage cycle never duplicates ammunition")
+	_check(str(interrupted.resume().ok) == "true","after repair the mechanism resumes")
+	# --- 6. influence channels are separate per mechanism ---
+	var auto := LoadingMechanism.new()
+	auto.begin("ussr_t_80b")
+	var loader_hit := auto.set_channel("loader",true)
+	_check(bool(loader_hit.get("ignored",false)),"a loader injury cannot stop an autoloader")
+	auto.start_load()
+	auto.advance(10.0)
+	auto.interrupt("crew_swap")
+	_check(auto.state == "interrupted","a crew swap can interrupt the autoloader cycle")
+	_check(auto.resume().ok and auto.state == "idle","after the interruption the autoloader resumes from idle")
+	auto.start_load()
+	auto.advance(10.0)
+	auto.set_channel("mechanism",true)
+	_check(auto.state == "interrupted" and auto.last_interrupt == "mechanism_damaged","a broken autoloader mechanism interrupts the cycle")
+	_check(str(auto.resume().reason) == "mechanism_still_unavailable","resume is refused while the mechanism is still broken")
+	auto.set_channel("mechanism",false)
+	_check(auto.resume().ok,"repairing the mechanism allows the cycle to resume")
+	auto.start_load()
+	auto.advance(10.0)
+	auto.set_channel("power",true)
+	_check(auto.state == "interrupted" and auto.last_interrupt == "power_damaged","losing power interrupts the autoloader")
+	auto.set_channel("power",false)
+	auto.resume()
+	var manual := LoadingMechanism.new()
+	manual.begin("germ_leopard_2a4")
+	_check(bool(manual.set_channel("mechanism",true).get("ignored",false)),"a mechanism failure cannot stop a manual loader")
+	manual.start_load()
+	manual.advance(10.0)
+	manual.set_channel("loader",true)
+	_check(manual.state == "interrupted" and manual.last_interrupt == "loader_damaged","an incapacitated loader interrupts the manual cycle")
+	manual.set_channel("loader",false)
+	_check(manual.resume().ok,"a replaced loader lets the manual cycle resume")
+	manual.start_load()
+	manual.advance(10.0)
+	manual.set_channel("fire",true)
+	_check(manual.state == "interrupted" and manual.last_interrupt == "fire_damaged","fire interrupts the manual loader as well")
+	_check(str(manual.set_channel("teleport",true).reason) == "unknown_channel","an unknown channel is refused")
+	# --- 7. ready-rack resupply (design value) conserves the account ---
+	var resupply := LoadingMechanism.new()
+	resupply.begin("germ_leopard_2a4")
+	while resupply.ready_rack.size() > 0:
+		resupply.start_load(); resupply.advance(10.0); resupply.advance(10.0); resupply.advance(10.0); resupply.fire_chambered()
+	var total_before := resupply.accounted_rounds()
+	var partial := resupply.resupply_ready(5.0,20.0)
+	_check(not partial.ok and str(partial.reason) == "resupply_incomplete","a partially completed resupply moves nothing")
+	var done := resupply.resupply_ready(20.0,20.0)
+	_check(done.ok and resupply.ready_rack.size() == 15 and resupply.reserve_rack.size() == 12,"a completed resupply refills the ready rack from the reserve")
+	_check(resupply.accounted_rounds() == total_before,"resupply conserves the account (%d)"%resupply.accounted_rounds())
+	_check(str(resupply.resupply_ready(30.0,20.0).reason) == "ready_full","a full ready rack needs no resupply")
+	# --- 8. one inventory interface, no second ammunition system ---
+	var diagram := auto.state_diagram()
+	var mapping: Dictionary = diagram.inventory_mapping
+	for key in ["ready_rack","reserve_rack","chamber","transfer","selected","allowed"]:
+		_check(mapping.has(key),"the inventory mapping names %s"%key)
+	_check(str(mapping.chamber).contains("chamber_shell") and str(mapping.selected).contains("selected_shell"),"the mapping points at the one inventory's own fields")
+	_check(str(mapping.allowed).contains("allowed_shells") and str(mapping.ready_rack).contains("rack_capacities"),"rack capacities and allowed shells come from the shared inventory")
+	_check(diagram.channels_in_use.size() >= 3,"the mechanism declares the channels that can affect it (%s)"%str(diagram.channels_in_use))
+	_check(diagram.states.size() >= 6,"the state diagram publishes its states")
+	var snap := auto.snapshot()
+	for field in ["mechanism","status","ready","reserve","chamber","accounted","history"]:
+		_check(snap.has(field),"the loading snapshot exposes %s"%field)
+	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
+	print("LOADING_MECHANISM_CHECKS_PASS" if failed == 0 else "LOADING_MECHANISM_CHECKS_FAIL")
+	quit(1 if failed else 0)

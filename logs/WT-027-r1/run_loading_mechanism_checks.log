@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the T-80B uses its own autoloader carousel
+[PASS] its ready and reserve racks match its configuration (28+10)
+[PASS] the Leopard 2A4 uses a manual loader
+[PASS] its racks match its configuration (15+27)
+[PASS] the two modern vehicles do not share one loading state machine
+[PASS] only the manual loader needs a loader crew member
+[PASS] an unknown vehicle has no mechanism
+[PASS] every mechanism declares its stage durations
+[PASS] the durations are labelled game_rule with no historical value claimed
+[PASS] both vehicles stay outside combat admission
+[PASS] the account starts at the full loadout (38)
+[PASS] a load starts by extracting from a rack
+[PASS] the round then moves into transfer
+[PASS] after chambering the mechanism is ready with a round in the bore
+[PASS] chambering conserves the account (38)
+[PASS] the ready rack lost exactly one round
+[PASS] selecting the next shell leaves the chambered round alone
+[PASS] the chambered shell is unchanged by a later selection
+[PASS] the ready rack can be exhausted
+[PASS] ready rounds exhausted is a distinct state from vehicle empty
+[PASS] firing and reloading still conserve the account (38)
+[PASS] with an empty ready rack the mechanism draws from the reserve rack
+[PASS] the reserve rack lost the transferred round
+[PASS] only when the reserve is also gone is the vehicle empty
+[PASS] an empty vehicle cannot start a load
+[PASS] every round fired is accounted for (38)
+[PASS] an interruption takes the round back out of transfer
+[PASS] the interrupted round is neither lost nor duplicated (42)
+[PASS] a repeated cancel and re-damage cycle never duplicates ammunition
+[PASS] a repeated cancel and re-damage cycle never duplicates ammunition
+[PASS] a repeated cancel and re-damage cycle never duplicates ammunition
+[PASS] after repair the mechanism resumes
+[PASS] a loader injury cannot stop an autoloader
+[PASS] a crew swap can interrupt the autoloader cycle
+[PASS] after the interruption the autoloader resumes from idle
+[PASS] a broken autoloader mechanism interrupts the cycle
+[PASS] resume is refused while the mechanism is still broken
+[PASS] repairing the mechanism allows the cycle to resume
+[PASS] losing power interrupts the autoloader
+[PASS] a mechanism failure cannot stop a manual loader
+[PASS] an incapacitated loader interrupts the manual cycle
+[PASS] a replaced loader lets the manual cycle resume
+[PASS] fire interrupts the manual loader as well
+[PASS] an unknown channel is refused
+[PASS] a partially completed resupply moves nothing
+[PASS] a completed resupply refills the ready rack from the reserve
+[PASS] resupply conserves the account (42)
+[PASS] a full ready rack needs no resupply
+[PASS] the inventory mapping names ready_rack
+[PASS] the inventory mapping names reserve_rack
+[PASS] the inventory mapping names chamber
+[PASS] the inventory mapping names transfer
+[PASS] the inventory mapping names selected
+[PASS] the inventory mapping names allowed
+[PASS] the mapping points at the one inventory's own fields
+[PASS] rack capacities and allowed shells come from the shared inventory
+[PASS] the mechanism declares the channels that can affect it (["mechanism", "power", "breech", "fire"])
+[PASS] the state diagram publishes its states
+[PASS] the loading snapshot exposes mechanism
+[PASS] the loading snapshot exposes status
+[PASS] the loading snapshot exposes ready
+[PASS] the loading snapshot exposes reserve
+[PASS] the loading snapshot exposes chamber
+[PASS] the loading snapshot exposes accounted
+[PASS] the loading snapshot exposes history
+=== 结果: 65 项检查, 0 失败 ===
+LOADING_MECHANISM_CHECKS_PASS
