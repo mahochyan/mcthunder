@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "work_order": "WT-031-R1",
+  "generated_at": "2026-09-13",
+  "policy": "Only evidence that was actually produced or that exists in the repository is registered. Anything else stays not_run / unverified; nothing is inferred from a design document.",
+  "suites_run": [
+    {
+      "entry": "tests/run_vehicle_readiness_checks.gd",
+      "result": "72 checks, 0 failed, exit 0",
+      "log": "logs/WT-031-r1/garage-and-readiness.log (readiness summary line)",
+      "covers": "five-dimension ledger semantics, in-repo tree grading, shared gate refusals, AI/respawn fallback"
+    },
+    {
+      "entry": "tests/run_garage_checks.gd",
+      "result": "151 checks, 0 failed, exit 0",
+      "log": "logs/WT-031-r1/garage-and-readiness.log",
+      "covers": "garage service readiness, default manifests, sparse loadouts, lineup and match configuration of the four admitted historical vehicles"
+    }
+  ],
+  "vehicles": {
+    "us_m4a3_75w_vvss_1944": {
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)",
+      "match_verified": "not_run",
+      "distribution_license": "unverified"
+    },
+    "us_m24_m6_t85e1_1951": {
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)",
+      "match_verified": "not_run",
+      "distribution_license": "unverified"
+    },
+    "us_m26_m3_1945": {
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)",
+      "match_verified": "not_run",
+      "distribution_license": "unverified"
+    },
+    "us_m36_m4a1_1945": {
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)",
+      "match_verified": "not_run",
+      "distribution_license": "unverified"
+    },
+    "ussr_t_80b": {
+      "specialized_verified": "not_run",
+      "match_verified": "not_run",
+      "distribution_license": "unverified",
+      "note": "candidate_only; no formal specialised or match verification has been produced"
+    },
+    "germ_leopard_2a4": {
+      "specialized_verified": "not_run",
+      "match_verified": "not_run",
+      "distribution_license": "unverified",
+      "note": "candidate_only; no formal specialised or match verification has been produced"
+    }
+  },
+  "not_registered": [
+    "整局/多局 match verification for any vehicle (tests/run_match_batch_checks.gd) - NOT_RUN in this order",
+    "distribution licence review for any vehicle - unverified; public release needs separate authorisation",
+    "human acceptance for any vehicle - NOT_RUN; the agent must not sign for a human"
+  ]
+}

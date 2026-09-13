@@ -1,0 +1,331 @@
+{
+  "blocked": 6,
+  "catalog_summary": {
+    "admitted_combat_vehicles": 4,
+    "admitted_ids": [
+      "us_m4a3_75w_vvss_1944",
+      "us_m24_m6_t85e1_1951",
+      "us_m26_m3_1945",
+      "us_m36_m4a1_1945"
+    ],
+    "ladder": "已准入可出战 4 辆（历史线）｜现代候选 2 辆（candidate_only）｜树内基础型 212 行｜改型引用 160 条｜有模型 113（与 assets/research/models 的 113 个 GLB 逐 id 匹配）｜有战斗配置 0",
+    "modern_candidates": [
+      "ussr_t_80b",
+      "germ_leopard_2a4"
+    ],
+    "note": "113 是树内可核实的模型数（苏联 37 + 德国 76），不是可出战车辆数；combat_package 全为空，故除历史四车外没有车辆达到战斗准入。",
+    "preview_registry_validated": [],
+    "research_model_glb_count": 113,
+    "tree_admission_status": {
+      "awaiting_model": 99,
+      "static_preview_only": 113
+    },
+    "tree_base_rows": 212,
+    "tree_counts": {
+      "germany": 96.0,
+      "ussr": 116.0
+    },
+    "tree_models": {
+      "germany": 76.0,
+      "ussr": 37.0
+    },
+    "tree_path": "res://assets/research/soviet_german_tree.json",
+    "tree_rows": 212,
+    "tree_rows_with_combat_package": 0,
+    "tree_rows_with_model": 113,
+    "tree_variant_refs": 160
+  },
+  "combat_ready": 0,
+  "dims": [
+    "resource",
+    "combat_config",
+    "specialized_verified",
+    "match_verified",
+    "distribution_license"
+  ],
+  "evidence_registry": "res://docs/wt/continuation/VEHICLE_EVIDENCE.json",
+  "gate_callers": [
+    "scripts/garage/lineup.gd",
+    "scripts/battle/team_range.gd:vehicle_id_for_slot"
+  ],
+  "gate_entry": "VehicleReadiness.eligible(id, mode, profile, catalog)",
+  "generated_at_utc": "2026-09-13T08:35:27Z",
+  "schema": 1,
+  "vehicles": [
+    {
+      "admitted": true,
+      "codes": [
+        "license_unverified"
+      ],
+      "combat_config": "ok",
+      "config_detail": {
+        "codes": [],
+        "errors": [
+          "reference track (separate from combat configuration): evidence_profile: expected game_reference, reference package requires facts/sources/source_binding"
+        ],
+        "reference_admitted": false,
+        "value": "ok"
+      },
+      "distribution_license": "unverified",
+      "id": "us_m4a3_75w_vvss_1944",
+      "match_verified": "not_run",
+      "reason": "分发许可未核",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 2781792,
+        "codes": [],
+        "declared_external": {},
+        "import_visible": true,
+        "model_path": "res://assets/vehicles/us_m4a3_75w_vvss_1944.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+    },
+    {
+      "admitted": true,
+      "codes": [
+        "license_unverified"
+      ],
+      "combat_config": "ok",
+      "config_detail": {
+        "codes": [],
+        "errors": [
+          "reference track (separate from combat configuration): evidence_profile: expected game_reference, reference package requires facts/sources/source_binding"
+        ],
+        "reference_admitted": false,
+        "value": "ok"
+      },
+      "distribution_license": "unverified",
+      "id": "us_m24_m6_t85e1_1951",
+      "match_verified": "not_run",
+      "reason": "分发许可未核",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 2768884,
+        "codes": [],
+        "declared_external": {},
+        "import_visible": true,
+        "model_path": "res://assets/vehicles/us_m24_m6_t85e1_1951.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+    },
+    {
+      "admitted": true,
+      "codes": [
+        "license_unverified"
+      ],
+      "combat_config": "ok",
+      "config_detail": {
+        "codes": [],
+        "errors": [
+          "reference track (separate from combat configuration): evidence_profile: expected game_reference, reference package requires facts/sources/source_binding"
+        ],
+        "reference_admitted": false,
+        "value": "ok"
+      },
+      "distribution_license": "unverified",
+      "id": "us_m26_m3_1945",
+      "match_verified": "not_run",
+      "reason": "分发许可未核",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 2780188,
+        "codes": [],
+        "declared_external": {},
+        "import_visible": true,
+        "model_path": "res://assets/vehicles/us_m26_m3_1945.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+    },
+    {
+      "admitted": true,
+      "codes": [
+        "license_unverified"
+      ],
+      "combat_config": "ok",
+      "config_detail": {
+        "codes": [],
+        "errors": [
+          "reference track (separate from combat configuration): evidence_profile: expected game_reference, reference package requires facts/sources/source_binding"
+        ],
+        "reference_admitted": false,
+        "value": "ok"
+      },
+      "distribution_license": "unverified",
+      "id": "us_m36_m4a1_1945",
+      "match_verified": "not_run",
+      "reason": "分发许可未核",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 2771332,
+        "codes": [],
+        "declared_external": {},
+        "import_visible": true,
+        "model_path": "res://assets/vehicles/us_m36_m4a1_1945.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "passed:tests/run_garage_checks.gd (151 checks, exit 0)"
+    },
+    {
+      "admission": "candidate_only",
+      "admitted": false,
+      "codes": [
+        "unknown_vehicle",
+        "preview_only",
+        "config_incomplete",
+        "match_evidence_missing",
+        "license_unverified"
+      ],
+      "combat_config": "not_applicable",
+      "config_detail": {
+        "codes": [
+          "config_incomplete"
+        ],
+        "combat_definition_present": false,
+        "errors": [],
+        "gaps": 7,
+        "note": "candidate package: not a production combat configuration",
+        "value": "not_applicable"
+      },
+      "distribution_license": "unverified",
+      "gaps": [
+        {
+          "detail": "Defaults/includes, modes and modification application are not fully resolved.",
+          "id": "lossy_summary"
+        },
+        {
+          "detail": "Generic module lists are not active crew/equipment. Positions, sizes, transforms and armor layer ordering require an authored geometry map.",
+          "id": "active_geometry"
+        },
+        {
+          "detail": "No complete penetration curve, equivalent armor or preset definitions; existing engine lacks these modern effects. Never use hitPower as penetration.",
+          "id": "ballistics_and_materials"
+        },
+        {
+          "detail": "Shot reload time, pitch limits, stabilizer and sight FOV/offset/rangefinder behavior are missing; rack replenishment is not reload.",
+          "id": "fire_control"
+        },
+        {
+          "detail": "IR versus thermal, installed upgrades and autoloader presence require explicit resolution; dummy_weapon cannot fire.",
+          "id": "equipment_resolution"
+        },
+        {
+          "detail": "All source data remains warthunder_reference; game release date is not historical variant year.",
+          "id": "historical_evidence"
+        },
+        {
+          "detail": "Some module entries were omitted by the source exporter.",
+          "evidence": [
+            {
+              "line": 283.0,
+              "raw_value": "...（其余 148 项略，可查原始 JSON）"
+            }
+          ],
+          "id": "truncated_sections"
+        }
+      ],
+      "historical_verified": false,
+      "id": "ussr_t_80b",
+      "match_verified": "not_run",
+      "reason": "未知车型：不在已准入目录中",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 892092,
+        "codes": [],
+        "declared_external": {
+          "path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_80b/制作中/vehicle.glb",
+          "published": false,
+          "sha256": "8f47a0a27d254e3d677a7f0baf78c3c081586cd75f126f3e7751fcb94a3ae5af",
+          "status": "built_awaiting_visual_review",
+          "triangles_reported": 12972
+        },
+        "import_visible": false,
+        "model_path": "res://assets/research/models/ussr_t_80b.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "not_run"
+    },
+    {
+      "admission": "candidate_only",
+      "admitted": false,
+      "codes": [
+        "unknown_vehicle",
+        "preview_only",
+        "config_incomplete",
+        "match_evidence_missing",
+        "license_unverified"
+      ],
+      "combat_config": "not_applicable",
+      "config_detail": {
+        "codes": [
+          "config_incomplete"
+        ],
+        "combat_definition_present": false,
+        "errors": [],
+        "gaps": 7,
+        "note": "candidate package: not a production combat configuration",
+        "value": "not_applicable"
+      },
+      "distribution_license": "unverified",
+      "gaps": [
+        {
+          "detail": "Defaults/includes, modes and modification application are not fully resolved.",
+          "id": "lossy_summary"
+        },
+        {
+          "detail": "Generic module lists are not active crew/equipment. Positions, sizes, transforms and armor layer ordering require an authored geometry map.",
+          "id": "active_geometry"
+        },
+        {
+          "detail": "No complete penetration curve, equivalent armor or preset definitions; existing engine lacks these modern effects. Never use hitPower as penetration.",
+          "id": "ballistics_and_materials"
+        },
+        {
+          "detail": "Shot reload time, pitch limits, stabilizer and sight FOV/offset/rangefinder behavior are missing; rack replenishment is not reload.",
+          "id": "fire_control"
+        },
+        {
+          "detail": "IR versus thermal, installed upgrades and autoloader presence require explicit resolution; dummy_weapon cannot fire.",
+          "id": "equipment_resolution"
+        },
+        {
+          "detail": "All source data remains warthunder_reference; game release date is not historical variant year.",
+          "id": "historical_evidence"
+        },
+        {
+          "detail": "Some module entries were omitted by the source exporter.",
+          "evidence": [
+            {
+              "line": 296.0,
+              "raw_value": "...（其余 148 项略，可查原始 JSON）"
+            }
+          ],
+          "id": "truncated_sections"
+        }
+      ],
+      "historical_verified": false,
+      "id": "germ_leopard_2a4",
+      "match_verified": "not_run",
+      "reason": "未知车型：不在已准入目录中",
+      "resource": "ok",
+      "resource_detail": {
+        "bytes": 889668,
+        "codes": [],
+        "declared_external": {
+          "path": "E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_2a4/vehicle.glb",
+          "published": false,
+          "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+          "status": "built_pending_visual_and_roundtrip",
+          "triangles_reported": 13540
+        },
+        "import_visible": false,
+        "model_path": "res://assets/research/models/germ_leopard_2a4.glb",
+        "value": "ok"
+      },
+      "specialized_verified": "not_run"
+    }
+  ],
+  "work_order": "WT-031-R1"
+}

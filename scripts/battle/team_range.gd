@@ -172,11 +172,22 @@ func spawn_slot(id: String) -> VehicleActor:
 
 func vehicle_id_for_slot(id: String) -> String:
 	if selected_vehicle_id not in VehicleCatalog.IDS: return "player_tank"
-	if id == "A": return respawn_vehicle_id if prepared_match != null else selected_vehicle_id
-	var ids: Array = director.state.roster.keys()
-	ids.sort()
-	# Same four-vehicle rotation on both teams, anchored on the player's selected type.
-	return VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
+	var requested := selected_vehicle_id
+	if id == "A":
+		requested = respawn_vehicle_id if prepared_match != null else selected_vehicle_id
+	else:
+		var ids: Array = director.state.roster.keys()
+		ids.sort()
+		# Same four-vehicle rotation on both teams, anchored on the player's selected type.
+		requested = VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
+	# WT-031-R1: AI slots and respawn go through the same readiness gate as the player;
+	# a preview-only or unadmitted id can never reach the battlefield.
+	var catalog := VehicleCatalog.new()
+	var checked := VehicleReadiness.eligible(requested,"training",{},catalog)
+	if checked.ok: return requested
+	var fallback := VehicleReadiness.first_eligible([requested,selected_vehicle_id],"training",{},catalog)
+	push_warning("vehicle readiness fallback slot=%s requested=%s code=%s" % [id,requested,checked.code])
+	return str(fallback.get("id","player_tank")) if fallback.ok else "player_tank"
 
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 	vehicle.simulation_driver=weakref(vehicle_simulation)
