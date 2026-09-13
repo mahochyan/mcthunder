@@ -32,6 +32,13 @@ var label3d: Label3D
 var wreck_turret: WreckTurretMotion
 var _mailbox := CommandMailbox.new()   # 003-R2：命令暂存
 var debug_command_trace := false       # 003-R2：提交/消费/执行三处调试记录（默认关）
+## WT-039-R1: read-only observability. A hull that sits still while its controller reports
+## throttle 0.31 cannot currently be told apart from a command that never reached it, because
+## debug_command_trace prints nothing on the standalone path; these fields record what the actor
+## actually consumed and whether the controller's submission was accepted.
+var last_consumed_throttle := 0.0
+var last_consumed_steer := 0.0
+var last_submit_accepted := false
 var command_observer := Callable() # Match rules may cancel spawn protection before an actual command executes.
 var supply_motion_active := false
 var control_epoch := 0
@@ -313,6 +320,7 @@ func submit_command(cmd: VehicleCommand) -> bool:
 		if not (is_finite(p.x) and is_finite(p.y) and is_finite(p.z)):
 			return false   # 无效瞄点整条拒绝（NaN/INF 不得进入瞄准）
 	var ok := _mailbox.submit(cmd)
+	last_submit_accepted = ok
 	if ok and debug_command_trace and cmd != null:
 		print("[cmd-trace] submit entity=%s throttle=%.2f fire=%s" % [entity_id, cmd.throttle, str(cmd.fire_requested)])
 	return ok
@@ -341,6 +349,8 @@ func collect_simulation_command(_delta: float) -> VehicleCommand:
 			if next_command != null:
 				submit_command_envelope(VehicleCommandCodec.encode(next_command,self,_last_input_sequence+1,Engine.get_physics_frames()))
 	var cmd := _mailbox.consume()
+	last_consumed_throttle = cmd.throttle if cmd != null else 0.0
+	last_consumed_steer = cmd.steer if cmd != null else 0.0
 	if _staged_sequence>=0: last_consumed_sequence=_staged_sequence
 	_staged_sequence=-1
 	_pending_input_tick = -1

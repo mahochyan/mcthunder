@@ -47,8 +47,9 @@ static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goa
 	# driver asked for nothing" from "the driver asked and the hull did not respond".
 	var command := ""
 	if driver != null and driver.last_command != null:
-		command = " thr=%.2f steer=%.2f blocked=%s attempts=%d stuck_s=%.2f" % [driver.last_command.throttle,driver.last_command.steer,
-			str(actor.tank.slope_blocked),driver.attempts,driver.stuck.elapsed]
+		command = " thr=%.2f steer=%.2f blocked=%s attempts=%d stuck_s=%.2f consumed=(%.2f,%.2f) submit_ok=%s" % [driver.last_command.throttle,driver.last_command.steer,
+			str(actor.tank.slope_blocked),driver.attempts,driver.stuck.elapsed,
+			actor.last_consumed_throttle,actor.last_consumed_steer,str(actor.last_submit_accepted)]
 	# Pose and contact columns decide what a frozen hull is frozen by: a pose dug into the mesh,
 	# a body pressed against world geometry, or neither.
 	var contacts: Array[String] = []
