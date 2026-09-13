@@ -152,7 +152,18 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 		var terrain_basis := global_basis*Basis(Vector3.RIGHT,-chassis.pitch)
 		var acceleration := (forward_speed-previous_speed)/delta if delta>0 else 0.0
 		chassis.step(acceleration,delta,definition.drive_profile)
-		global_basis = VehiclePose.approach(terrain_basis,VehiclePose.compose(forward,up),delta)*Basis(Vector3.RIGHT,chassis.pitch)
+		# WT-039-E: combine the two proven constraints. (1) Attempt three proved that rotating the
+		# BASIS itself about the ground normal restores the full pivot (175.9 deg at ~12 deg of
+		# slope) where the old path managed only ~20 deg. (2) The tilt and roll convention that
+		# aiming, perception and turret logic rely on comes from VehiclePose.compose, and replacing
+		# it broke village combat. So the hull is yawed about the ground normal and the basis is
+		# then rebuilt from ITS OWN in-plane forward through compose, which keeps that convention
+		# exactly while the target no longer carries the azimuth error that the flattened forward
+		# introduced as the hull turned.
+		var posed := terrain_basis.rotated(up,tracks.yaw_rate*delta)
+		var tangent := (-posed.z).slide(up)
+		var target := VehiclePose.compose(tangent,up) if tangent.length_squared() > 0.01 else posed
+		global_basis = VehiclePose.approach(terrain_basis,target,delta)*Basis(Vector3.RIGHT,chassis.pitch)
 	# In flight preserve the complete attitude, including the take-off response.
 	# 003-R1：前向用 global basis——actor 带非零 Y 旋转出生时移动沿车头方向
 	# （velocity 是全局坐标；local basis 在旋转父级下会丢失出生朝向）
