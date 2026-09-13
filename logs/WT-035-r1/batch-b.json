@@ -1,0 +1,492 @@
+﻿[
+    {
+        "suite":  "run_material_response_checks",
+        "status":  "PASS",
+        "seconds":  1.8,
+        "marker":  "MATERIAL_RESPONSE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_menu_fire_handoff_checks",
+        "status":  "PASS",
+        "seconds":  12.9,
+        "marker":  "MENU_FIRE_HANDOFF_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_model_binding_checks",
+        "status":  "PASS",
+        "seconds":  0.5,
+        "marker":  "MODEL_BINDING_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_model_binding_probe_checks",
+        "status":  "PASS",
+        "seconds":  1.8,
+        "marker":  "MODEL_BINDING_PROBE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_model_showroom_checks",
+        "status":  "PASS",
+        "seconds":  2.6,
+        "marker":  "MODEL_SHOWROOM_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_modern_candidate_checks",
+        "status":  "PASS",
+        "seconds":  21.3,
+        "marker":  "MODERN_CANDIDATE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_modern_equipment_checks",
+        "status":  "PASS",
+        "seconds":  1.3,
+        "marker":  "MODERN_EQUIPMENT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_modern_model_mount_checks",
+        "status":  "PASS",
+        "seconds":  5,
+        "marker":  "MODERN_MODEL_MOUNT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_moving_contact_checks",
+        "status":  "PASS",
+        "seconds":  1.8,
+        "marker":  "MOVING_CONTACT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_moving_target_tick_checks",
+        "status":  "PASS",
+        "seconds":  8,
+        "marker":  "MOVING_TARGET_TICK_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_multi_objective_checks",
+        "status":  "PASS",
+        "seconds":  32.5,
+        "marker":  "RESULT multi_objective passed=35 failed=0",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_authority_checks",
+        "status":  "PASS",
+        "seconds":  1.6,
+        "marker":  "NETWORK_AUTHORITY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_controller_checks",
+        "status":  "PASS",
+        "seconds":  2.3,
+        "marker":  "NETWORK_CONTROLLER_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_event_journal_checks",
+        "status":  "PASS",
+        "seconds":  0.6,
+        "marker":  "NETWORK_EVENT_JOURNAL_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_event_recovery_checks",
+        "status":  "PASS",
+        "seconds":  6.3,
+        "marker":  "NETWORK_EVENT_RECOVERY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_fault_checks",
+        "status":  "PASS",
+        "seconds":  1.5,
+        "marker":  "NETWORK_FAULT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_fire_control_checks",
+        "status":  "PASS",
+        "seconds":  14.6,
+        "marker":  "NETWORK_FIRE_CONTROL_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_frame_checks",
+        "status":  "PASS",
+        "seconds":  4,
+        "marker":  "NETWORK_FRAME_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_identity_checks",
+        "status":  "PASS",
+        "seconds":  0.5,
+        "marker":  "NETWORK_IDENTITY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_pose_checks",
+        "status":  "PASS",
+        "seconds":  1.5,
+        "marker":  "NETWORK_POSE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_network_view_checks",
+        "status":  "NO_MARKER",
+        "seconds":  3.7,
+        "marker":  "",
+        "fail_lines":  1
+    },
+    {
+        "suite":  "run_observation_policy_checks",
+        "status":  "PASS",
+        "seconds":  7.1,
+        "marker":  "OBSERVATION_POLICY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_optics_checks",
+        "status":  "PASS",
+        "seconds":  2.8,
+        "marker":  "OPTICS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_partial_support_checks",
+        "status":  "PASS",
+        "seconds":  4.1,
+        "marker":  "PARTIAL_SUPPORT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_powertrain_checks",
+        "status":  "PASS",
+        "seconds":  10.1,
+        "marker":  "POWERTRAIN_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_projectile_checks",
+        "status":  "PASS",
+        "seconds":  24.6,
+        "marker":  "PROJECTILE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_query_cache_checks",
+        "status":  "PASS",
+        "seconds":  3.5,
+        "marker":  "QUERY_CACHE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_query_checks",
+        "status":  "PASS",
+        "seconds":  2.3,
+        "marker":  "QUERY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_query_metrics_checks",
+        "status":  "PASS",
+        "seconds":  0.3,
+        "marker":  "QUERY_METRICS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_recovery_checks",
+        "status":  "PASS",
+        "seconds":  3,
+        "marker":  "RECOVERY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_reference_admission_checks",
+        "status":  "PASS",
+        "seconds":  10.3,
+        "marker":  "REFERENCE_ADMISSION_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_replay_checks",
+        "status":  "PASS",
+        "seconds":  1.8,
+        "marker":  "REPLAY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_research_thumbnail_bake",
+        "status":  "TIMEOUT",
+        "seconds":  122.2,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_research_tree_checks",
+        "status":  "PASS",
+        "seconds":  10.1,
+        "marker":  "RESEARCH_TREE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_river_driving_checks",
+        "status":  "TIMEOUT",
+        "seconds":  122.1,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_river_engagement_checks",
+        "status":  "TIMEOUT",
+        "seconds":  121,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_river_junction_checks",
+        "status":  "PASS",
+        "seconds":  4.5,
+        "marker":  "RESULT river_junction passed=45 failed=0",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_river_navigation_checks",
+        "status":  "TIMEOUT",
+        "seconds":  121.1,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_river_reachability_checks",
+        "status":  "PASS",
+        "seconds":  19.4,
+        "marker":  "RIVER_REACHABILITY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_role_mapping_checks",
+        "status":  "PASS",
+        "seconds":  1.6,
+        "marker":  "ROLE_MAPPING_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_room_service_checks",
+        "status":  "PASS",
+        "seconds":  0.4,
+        "marker":  "ROOM_SERVICE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_save_lock_checks",
+        "status":  "PASS",
+        "seconds":  1.4,
+        "marker":  "SAVE_LOCK_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_settings_checks",
+        "status":  "PASS",
+        "seconds":  2.8,
+        "marker":  "SETTINGS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_shell_checks",
+        "status":  "PASS",
+        "seconds":  85.9,
+        "marker":  "SHELL_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_sight_ballistics_checks",
+        "status":  "PASS",
+        "seconds":  0.5,
+        "marker":  "SIGHT_BALLISTICS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_simulation_phase_checks",
+        "status":  "PASS",
+        "seconds":  5.6,
+        "marker":  "SIMULATION_PHASE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_spall_checks",
+        "status":  "PASS",
+        "seconds":  2.3,
+        "marker":  "SPALL_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_spall_content_checks",
+        "status":  "PASS",
+        "seconds":  8.3,
+        "marker":  "LONG_ROD_CONTENT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_structure_checks",
+        "status":  "PASS",
+        "seconds":  46.8,
+        "marker":  "STRUCTURE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_support_actions_checks",
+        "status":  "PASS",
+        "seconds":  0.4,
+        "marker":  "SUPPORT_ACTIONS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_surface_drive_checks",
+        "status":  "PASS",
+        "seconds":  9.6,
+        "marker":  "SURFACE_DRIVE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_suspension_checks",
+        "status":  "PASS",
+        "seconds":  17.3,
+        "marker":  "SUSPENSION_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_suspension_network_checks",
+        "status":  "PASS",
+        "seconds":  11.1,
+        "marker":  "SUSPENSION_NETWORK_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_team_checks",
+        "status":  "FAIL",
+        "seconds":  53,
+        "marker":  "TEAM_CHECKS_FAIL",
+        "fail_lines":  1
+    },
+    {
+        "suite":  "run_team_traffic_checks",
+        "status":  "PASS",
+        "seconds":  0.4,
+        "marker":  "TEAM_TRAFFIC_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_tech_segment_checks",
+        "status":  "PASS",
+        "seconds":  1.3,
+        "marker":  "TECH_SEGMENT_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_telemetry_checks",
+        "status":  "PASS",
+        "seconds":  9.7,
+        "marker":  "TELEMETRY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_telemetry_measures",
+        "status":  "PASS",
+        "seconds":  1.6,
+        "marker":  "TELEMETRY_MEASURES_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_track_assembly_checks",
+        "status":  "PASS",
+        "seconds":  3.9,
+        "marker":  "TRACK_ASSEMBLY_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_track_damage_checks",
+        "status":  "PASS",
+        "seconds":  17.4,
+        "marker":  "TRACK_DAMAGE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_track_drive_checks",
+        "status":  "PASS",
+        "seconds":  6.4,
+        "marker":  "TRACK_DRIVE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_traffic_attribution",
+        "status":  "TIMEOUT",
+        "seconds":  122.1,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_traffic_telemetry_checks",
+        "status":  "TIMEOUT",
+        "seconds":  122,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_turret_mechanism_checks",
+        "status":  "PASS",
+        "seconds":  0.4,
+        "marker":  "TURRET_MECHANISM_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_turret_tick_checks",
+        "status":  "NO_MARKER",
+        "seconds":  1.4,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_tutorial_checks",
+        "status":  "PASS",
+        "seconds":  76.6,
+        "marker":  "TUTORIAL_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_vehicle_readiness_checks",
+        "status":  "PASS",
+        "seconds":  1.5,
+        "marker":  "VEHICLE_READINESS_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_village_battle_checks",
+        "status":  "TIMEOUT",
+        "seconds":  121.1,
+        "marker":  "",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_world_vehicle_phase_checks",
+        "status":  "PASS",
+        "seconds":  6,
+        "marker":  "WORLD_VEHICLE_PHASE_CHECKS_PASS",
+        "fail_lines":  0
+    },
+    {
+        "suite":  "run_wreck_visual_checks",
+        "status":  "PASS",
+        "seconds":  49.7,
+        "marker":  "WRECK_VISUAL_CHECKS_PASS",
+        "fail_lines":  0
+    }
+]

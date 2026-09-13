@@ -1,0 +1,56 @@
+﻿[
+    {
+        "suite":  "run_art_showcase",
+        "status":  "TIMEOUT_240s",
+        "seconds":  242.1,
+        "marker":  ""
+    },
+    {
+        "suite":  "run_balance_matrix_checks",
+        "status":  "PASS",
+        "seconds":  148.6,
+        "marker":  "BALANCE_MATRIX_CHECKS_PASS"
+    },
+    {
+        "suite":  "run_challenge_checks",
+        "status":  "TIMEOUT_240s",
+        "seconds":  242.1,
+        "marker":  "[PASS] actual challenge result freezes after exactly one settlement"
+    },
+    {
+        "suite":  "run_export_checks",
+        "status":  "TIMEOUT_240s",
+        "seconds":  241,
+        "marker":  ""
+    },
+    {
+        "suite":  "run_feedback_checks",
+        "status":  "PASS",
+        "seconds":  206.7,
+        "marker":  "FEEDBACK_CHECKS_PASS"
+    },
+    {
+        "suite":  "run_historical_checks",
+        "status":  "PASS",
+        "seconds":  124.8,
+        "marker":  "HISTORICAL_CHECKS_PASS"
+    },
+    {
+        "suite":  "run_industrial_battle_checks",
+        "status":  "TIMEOUT_240s",
+        "seconds":  241,
+        "marker":  ""
+    },
+    {
+        "suite":  "run_industrial_checks",
+        "status":  "TIMEOUT_240s",
+        "seconds":  241,
+        "marker":  ""
+    },
+    {
+        "suite":  "run_map_checks",
+        "status":  "FAIL",
+        "seconds":  102.2,
+        "marker":  "MAP_CHECKS_FAIL"
+    }
+]

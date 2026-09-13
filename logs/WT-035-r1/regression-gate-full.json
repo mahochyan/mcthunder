@@ -1,0 +1,1227 @@
+{
+    "schema":  1,
+    "scope":  "all 140 runnable run_* suites (177 total; 37 excluded by name)",
+    "head":  "7052fc2a95f1b3813a9486877af78c88be462e17",
+    "generated_at":  "2026-09-13",
+    "totals":  {
+                   "suites":  140,
+                   "pass":  117,
+                   "regressions_introduced":  0
+               },
+    "classification_counts":  {
+                                  "DEFERRED_OVER_120s":  6,
+                                  "NOT_RUN_requires_suite_argument":  1,
+                                  "FLAKY_AND_IMPROVED":  1,
+                                  "PRE_EXISTING_BASELINE_RED":  4,
+                                  "NOT_RUN_needs_live_server_role":  1,
+                                  "DEFERRED_OVER_240s":  5,
+                                  "NOT_RUN_window_self_guarded":  5,
+                                  "PASS":  117
+                              },
+    "suites":  [
+                   {
+                       "suite":  "run_ai_combat_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.1,
+                       "marker":  "AI_COMBAT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ai_drive_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  42.6,
+                       "marker":  "AI_DRIVE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ai_intercept_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  18.1,
+                       "marker":  "AI_INTERCEPT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ai_recovery_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  17.9,
+                       "marker":  "AI_RECOVERY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ai_tactics_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  10.7,
+                       "marker":  "AI_TACTICS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_airborne_drive_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  13,
+                       "marker":  "AIRBORNE_DRIVE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ammo_compartment_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.7,
+                       "marker":  "AMMO_COMPARTMENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_app_flow_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  61.1,
+                       "marker":  "APP_FLOW_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_armor_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.4,
+                       "marker":  "ARMOR_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_art_battle_render_checks",
+                       "batch":  "A",
+                       "status":  "FAIL",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.9,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_art_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  12.8,
+                       "marker":  "ART_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_asset_registry_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "ASSET_REGISTRY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_authority_state_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "AUTHORITY_STATE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_ballistic_intercept_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.7,
+                       "marker":  "BALLISTIC_INTERCEPT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_blender_asset_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.5,
+                       "marker":  "BLENDER_ASSET_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_bound_model_package_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.5,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_build_identity_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.9,
+                       "marker":  "BUILD_IDENTITY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_chassis_recoil_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  23.9,
+                       "marker":  "CHASSIS_RECOIL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_chassis_response_checks",
+                       "batch":  "A",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  23.1,
+                       "marker":  "CHASSIS_RESPONSE_CHECKS_FAIL"
+                   },
+                   {
+                       "suite":  "run_checks",
+                       "batch":  "A",
+                       "status":  "FAIL",
+                       "classification":  "FLAKY_AND_IMPROVED",
+                       "seconds":  54.2,
+                       "marker":  "CHECKS_FAIL"
+                   },
+                   {
+                       "suite":  "run_chemical_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "CHEMICAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_chemical_content_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.7,
+                       "marker":  "CHEMICAL_CONTENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_command_contract_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5.4,
+                       "marker":  "COMMAND_CONTRACT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_composite_binding_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_composite_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "CHEMICAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_composite_content_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.5,
+                       "marker":  "CHEMICAL_CONTENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_content_record_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.7,
+                       "marker":  "CONTENT_RECORD_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_core_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.3,
+                       "marker":  "CORE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_damage_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.7,
+                       "marker":  "DAMAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_diagnostic_budget_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.9,
+                       "marker":  "DIAGNOSTIC_BUDGET_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_drive_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.9,
+                       "marker":  "DRIVE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_duel_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  39.4,
+                       "marker":  "DUEL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_engagement_distance_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.9,
+                       "marker":  "ENGAGEMENT_DISTANCE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_equipment_package_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.9,
+                       "marker":  "EQUIPMENT_PACKAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_era_binding_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_era_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.4,
+                       "marker":  "ERA_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_era_network_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.2,
+                       "marker":  "ERA_NETWORK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_feedback_battle_render",
+                       "batch":  "A",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  2.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_fire_control_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  42.4,
+                       "marker":  "FIRE_CONTROL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_free_look_checks",
+                       "batch":  "A",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.9,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_fuze_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "FUZE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_garage_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  30.5,
+                       "marker":  "GARAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_garage_frontend_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.3,
+                       "marker":  "GARAGE_FRONTEND_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_historical_road_checks",
+                       "batch":  "A",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  114.6,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_hud_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  18.6,
+                       "marker":  "HUD_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_hull_frame_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.9,
+                       "marker":  "HULL_FRAME_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_industrial_obstruction_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  52,
+                       "marker":  "INDUSTRIAL_OBSTRUCTION_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_industrial_overview",
+                       "batch":  "A",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.4,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_input_binding_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  13.8,
+                       "marker":  "INPUT_BINDING_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_landing_contact_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.5,
+                       "marker":  "LANDING_CONTACT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_landing_response_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  19.2,
+                       "marker":  "LANDING_RESPONSE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_layout_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.2,
+                       "marker":  "LAYOUT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_loading_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  20.2,
+                       "marker":  "LOADING_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_loading_mechanism_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "LOADING_MECHANISM_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_long_rod_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.6,
+                       "marker":  "LONG_ROD_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_long_rod_content_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.3,
+                       "marker":  "LONG_ROD_CONTENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_long_rod_damage_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.4,
+                       "marker":  "DAMAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_map_pack_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.2,
+                       "marker":  "MAP_PACK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_match_event_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5.7,
+                       "marker":  "MATCH_EVENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_match_rules_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "MATCH_RULES_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_material_replay_checks",
+                       "batch":  "A",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "MATERIAL_REPLAY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_material_response_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "MATERIAL_RESPONSE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_menu_fire_handoff_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  12.9,
+                       "marker":  "MENU_FIRE_HANDOFF_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_model_binding_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.5,
+                       "marker":  "MODEL_BINDING_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_model_binding_probe_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "MODEL_BINDING_PROBE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_model_showroom_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.6,
+                       "marker":  "MODEL_SHOWROOM_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_modern_candidate_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  21.3,
+                       "marker":  "MODERN_CANDIDATE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_modern_equipment_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.3,
+                       "marker":  "MODERN_EQUIPMENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_modern_model_mount_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5,
+                       "marker":  "MODERN_MODEL_MOUNT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_moving_contact_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "MOVING_CONTACT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_moving_target_tick_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8,
+                       "marker":  "MOVING_TARGET_TICK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_multi_objective_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  32.5,
+                       "marker":  "RESULT multi_objective passed=35 failed=0"
+                   },
+                   {
+                       "suite":  "run_network_authority_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.6,
+                       "marker":  "NETWORK_AUTHORITY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_controller_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.3,
+                       "marker":  "NETWORK_CONTROLLER_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_event_journal_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.6,
+                       "marker":  "NETWORK_EVENT_JOURNAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_event_recovery_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  6.3,
+                       "marker":  "NETWORK_EVENT_RECOVERY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_fault_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.5,
+                       "marker":  "NETWORK_FAULT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_fire_control_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  14.6,
+                       "marker":  "NETWORK_FIRE_CONTROL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_frame_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  4,
+                       "marker":  "NETWORK_FRAME_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_identity_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.5,
+                       "marker":  "NETWORK_IDENTITY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_pose_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.5,
+                       "marker":  "NETWORK_POSE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_network_view_checks",
+                       "batch":  "B",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_needs_live_server_role",
+                       "seconds":  3.7,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_observation_policy_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  7.1,
+                       "marker":  "OBSERVATION_POLICY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_optics_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "OPTICS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_partial_support_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  4.1,
+                       "marker":  "PARTIAL_SUPPORT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_powertrain_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  10.1,
+                       "marker":  "POWERTRAIN_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_projectile_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  24.6,
+                       "marker":  "PROJECTILE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_query_cache_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.5,
+                       "marker":  "QUERY_CACHE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_query_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.3,
+                       "marker":  "QUERY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_query_metrics_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.3,
+                       "marker":  "QUERY_METRICS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_recovery_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3,
+                       "marker":  "RECOVERY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_reference_admission_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  10.3,
+                       "marker":  "REFERENCE_ADMISSION_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_replay_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.8,
+                       "marker":  "REPLAY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_research_thumbnail_bake",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  122.2,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_research_tree_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  10.1,
+                       "marker":  "RESEARCH_TREE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_river_driving_checks",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  122.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_river_engagement_checks",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  121,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_river_junction_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  4.5,
+                       "marker":  "RESULT river_junction passed=45 failed=0"
+                   },
+                   {
+                       "suite":  "run_river_navigation_checks",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "NOT_RUN_requires_suite_argument",
+                       "seconds":  121.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_river_reachability_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  19.4,
+                       "marker":  "RIVER_REACHABILITY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_role_mapping_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.6,
+                       "marker":  "ROLE_MAPPING_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_room_service_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "ROOM_SERVICE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_save_lock_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.4,
+                       "marker":  "SAVE_LOCK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_settings_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.8,
+                       "marker":  "SETTINGS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_shell_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  85.9,
+                       "marker":  "SHELL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_sight_ballistics_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.5,
+                       "marker":  "SIGHT_BALLISTICS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_simulation_phase_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  5.6,
+                       "marker":  "SIMULATION_PHASE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_spall_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  2.3,
+                       "marker":  "SPALL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_spall_content_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  8.3,
+                       "marker":  "LONG_ROD_CONTENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_structure_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  46.8,
+                       "marker":  "STRUCTURE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_support_actions_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "SUPPORT_ACTIONS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_surface_drive_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  9.6,
+                       "marker":  "SURFACE_DRIVE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_suspension_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  17.3,
+                       "marker":  "SUSPENSION_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_suspension_network_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  11.1,
+                       "marker":  "SUSPENSION_NETWORK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_team_checks",
+                       "batch":  "B",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  53,
+                       "marker":  "TEAM_CHECKS_FAIL"
+                   },
+                   {
+                       "suite":  "run_team_traffic_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "TEAM_TRAFFIC_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_tech_segment_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.3,
+                       "marker":  "TECH_SEGMENT_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_telemetry_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  9.7,
+                       "marker":  "TELEMETRY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_telemetry_measures",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.6,
+                       "marker":  "TELEMETRY_MEASURES_PASS"
+                   },
+                   {
+                       "suite":  "run_track_assembly_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  3.9,
+                       "marker":  "TRACK_ASSEMBLY_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_track_damage_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  17.4,
+                       "marker":  "TRACK_DAMAGE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_track_drive_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  6.4,
+                       "marker":  "TRACK_DRIVE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_traffic_attribution",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  122.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_traffic_telemetry_checks",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  122,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_turret_mechanism_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  0.4,
+                       "marker":  "TURRET_MECHANISM_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_turret_tick_checks",
+                       "batch":  "B",
+                       "status":  "NO_MARKER",
+                       "classification":  "NOT_RUN_window_self_guarded",
+                       "seconds":  1.4,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_tutorial_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  76.6,
+                       "marker":  "TUTORIAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_vehicle_readiness_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  1.5,
+                       "marker":  "VEHICLE_READINESS_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_village_battle_checks",
+                       "batch":  "B",
+                       "status":  "TIMEOUT",
+                       "classification":  "DEFERRED_OVER_120s",
+                       "seconds":  121.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_world_vehicle_phase_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  6,
+                       "marker":  "WORLD_VEHICLE_PHASE_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_wreck_visual_checks",
+                       "batch":  "B",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  49.7,
+                       "marker":  "WRECK_VISUAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_art_showcase",
+                       "batch":  "A-retry",
+                       "status":  "TIMEOUT_240s",
+                       "classification":  "DEFERRED_OVER_240s",
+                       "seconds":  242.1,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_balance_matrix_checks",
+                       "batch":  "A-retry",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  148.6,
+                       "marker":  "BALANCE_MATRIX_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_challenge_checks",
+                       "batch":  "A-retry",
+                       "status":  "TIMEOUT_240s",
+                       "classification":  "DEFERRED_OVER_240s",
+                       "seconds":  242.1,
+                       "marker":  "[PASS] actual challenge result freezes after exactly one settlement"
+                   },
+                   {
+                       "suite":  "run_export_checks",
+                       "batch":  "A-retry",
+                       "status":  "TIMEOUT_240s",
+                       "classification":  "DEFERRED_OVER_240s",
+                       "seconds":  241,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_feedback_checks",
+                       "batch":  "A-retry",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  206.7,
+                       "marker":  "FEEDBACK_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_historical_checks",
+                       "batch":  "A-retry",
+                       "status":  "PASS",
+                       "classification":  "PASS",
+                       "seconds":  124.8,
+                       "marker":  "HISTORICAL_CHECKS_PASS"
+                   },
+                   {
+                       "suite":  "run_industrial_battle_checks",
+                       "batch":  "A-retry",
+                       "status":  "TIMEOUT_240s",
+                       "classification":  "DEFERRED_OVER_240s",
+                       "seconds":  241,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_industrial_checks",
+                       "batch":  "A-retry",
+                       "status":  "TIMEOUT_240s",
+                       "classification":  "DEFERRED_OVER_240s",
+                       "seconds":  241,
+                       "marker":  ""
+                   },
+                   {
+                       "suite":  "run_map_checks",
+                       "batch":  "A-retry",
+                       "status":  "FAIL",
+                       "classification":  "PRE_EXISTING_BASELINE_RED",
+                       "seconds":  102.2,
+                       "marker":  "MAP_CHECKS_FAIL"
+                   }
+               ],
+    "verified_pre_existing_red":  [
+                                      {
+                                          "suite":  "run_chassis_response_checks",
+                                          "cont":  "2 FAIL",
+                                          "baseline":  "2 FAIL identical"
+                                      },
+                                      {
+                                          "suite":  "run_historical_road_checks",
+                                          "cont":  "4 FAIL",
+                                          "baseline":  "4 FAIL identical"
+                                      },
+                                      {
+                                          "suite":  "run_team_checks",
+                                          "cont":  "66/1",
+                                          "baseline":  "66/1 same single failure"
+                                      },
+                                      {
+                                          "suite":  "run_map_checks",
+                                          "cont":  "24/3",
+                                          "baseline":  "24/3 same failure themes"
+                                      }
+                                  ],
+    "flaky_improved":  [
+                           {
+                               "suite":  "run_checks",
+                               "cont":  "216/1, 217/0, 216/1",
+                               "baseline":  "212/5 on three runs",
+                               "note":  "branch removes five baseline failures"
+                           }
+                       ],
+    "not_run":  [
+                    {
+                        "reason":  "window or render self-guarded in headless",
+                        "suites":  [
+                                       "run_art_battle_render_checks",
+                                       "run_feedback_battle_render",
+                                       "run_free_look_checks",
+                                       "run_industrial_overview",
+                                       "run_turret_tick_checks"
+                                   ]
+                    },
+                    {
+                        "reason":  "needs a live server role",
+                        "suites":  [
+                                       "run_network_view_checks"
+                                   ]
+                    },
+                    {
+                        "reason":  "requires a suite argument",
+                        "suites":  [
+                                       "run_river_navigation_checks"
+                                   ]
+                    },
+                    {
+                        "reason":  "excluded by name (window/player/demo/role/long/profiling)",
+                        "count":  37
+                    }
+                ],
+    "deferred":  [
+                     {
+                         "budget":  "over 240s, still progressing",
+                         "suites":  [
+                                        "run_art_showcase",
+                                        "run_challenge_checks",
+                                        "run_export_checks",
+                                        "run_industrial_battle_checks",
+                                        "run_industrial_checks"
+                                    ]
+                     },
+                     {
+                         "budget":  "over 120s",
+                         "suites":  [
+                                        "run_research_thumbnail_bake",
+                                        "run_river_driving_checks",
+                                        "run_river_engagement_checks",
+                                        "run_traffic_attribution",
+                                        "run_traffic_telemetry_checks",
+                                        "run_village_battle_checks"
+                                    ]
+                     },
+                     {
+                         "note":  "river engagement and driving were verified green in their own orders with 600s budgets and with suite arguments"
+                     }
+                 ]
+}
