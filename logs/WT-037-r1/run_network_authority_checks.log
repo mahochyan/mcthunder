@@ -1,0 +1,66 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the network version matches the implementation (6)
+[PASS] the event journal version matches the implementation (1)
+[PASS] the command version matches the implementation (3)
+[PASS] the frame pose version matches the implementation (1)
+[PASS] the shipped protocol triple is 6/1/3
+[PASS] the server owns the match and the vehicles
+[PASS] the server owns match
+[PASS] the server owns objectives
+[PASS] the server owns vehicles
+[PASS] the server owns ammunition
+[PASS] the server owns damage
+[PASS] the server owns world
+[PASS] the server owns session
+[PASS] a client-side area is not server-owned
+[PASS] the authority table enumerates its fields (30)
+[PASS] no authoritative field is a display resource (authority is data, not presentation)
+[PASS] the handshake is accepted
+[PASS] baseline_ack is an accepted control message
+[PASS] events_ack is an accepted control message
+[PASS] events_request is an accepted control message
+[PASS] final_ack is an accepted control message
+[PASS] a well-formed command envelope is accepted
+[PASS] a message without a type is refused
+[PASS] an unknown message type is refused
+[PASS] a client cannot submit result
+[PASS] a client cannot submit tickets
+[PASS] a client cannot submit kills
+[PASS] a client cannot submit position
+[PASS] a client cannot submit ammo
+[PASS] a client cannot submit cooldown
+[PASS] a client cannot submit damage
+[PASS] a client cannot submit smoke_stock
+[PASS] a client cannot submit repair_amount
+[PASS] a client cannot submit instant_repair
+[PASS] a client cannot submit life_id
+[PASS] a state update carrying tickets and kills is refused
+[PASS] the accepted reason states that commands are the only gameplay input
+[PASS] two peers are assigned two different vehicles
+[PASS] two peers mean two controllable vehicles
+[PASS] a third peer cannot take an already-owned vehicle
+[PASS] a reconnect with a new life resumes the same vehicle and adds no second one
+[PASS] the resumed owner carries the new life id
+[PASS] a peer cannot resume someone else's vehicle
+[PASS] releasing a peer frees exactly its vehicle
+[PASS] the freed vehicle can be reassigned
+[PASS] releasing an unknown peer is refused
+[PASS] two observers with the same digest and sequence agree on the result
+[PASS] different digests mean the observers disagree
+[PASS] an empty digest never counts as agreement
+[PASS] a different event sequence is not the same result
+[PASS] the contract declares the authoritative path display independent
+[PASS] the in-repo research model file is present as bytes
+[PASS] it has no importable display resource (no .import companion), so a package may ship without it
+[PASS] the authoritative vehicle catalog lists the four admitted vehicles
+[PASS] the authoritative model-source registry is data on disk
+[PASS] authoritative optics data loads as a resource without any display asset
+[PASS] the authoritative content tree reads as data (430268 bytes)
+[PASS] the contract snapshot exposes authority for the authority state table
+[PASS] the contract snapshot exposes protocol for the authority state table
+[PASS] the contract snapshot exposes authoritative_state for the authority state table
+[PASS] the contract snapshot exposes accepted_client_messages for the authority state table
+[PASS] the contract snapshot exposes forbidden_client_fields for the authority state table
+=== 结果: 62 项检查, 0 失败 ===
+NETWORK_AUTHORITY_CHECKS_PASS
