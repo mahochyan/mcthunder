@@ -1,0 +1,134 @@
+{
+    "schema":  1,
+    "batch":  "round 1 R-orders (WT-001/002/007/012/020/022/023/031/032)",
+    "generated_at":  "2026-09-13",
+    "baseline":  "a1bac406d2bc12b32c7f7d130590f1c1a17907c9",
+    "head":  "bbf68e4d",
+    "branch":  "work/continuation-20260913",
+    "rule":  "An R-order passing does NOT complete its parent item; parent status only changes where evidence supports it. completed stays 0 for the 42-item plan.",
+    "orders":  [
+                   {
+                       "order":  "WT-001-R1",
+                       "parent":  "WT-001",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "0a330f98",
+                                        "208648ae"
+                                    ],
+                       "result":  "snapshot + full SHA-256 verification PASS (6/6 modified, 38615/38615 untracked); source worktree unchanged",
+                       "parent_effect":  "WT-001 stays in_progress (later R-orders remain)"
+                   },
+                   {
+                       "order":  "WT-001-R2",
+                       "parent":  "WT-001",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "81d848b9",
+                                        "1e098ca1",
+                                        "c5f53c31"
+                                    ],
+                       "result":  "ledger delta + build identity + delivery path index + architecture/test indexes; 8/8 headless and 6/6 real-window identity checks",
+                       "parent_effect":  "WT-032 corrected planned-\u003ein_progress with 20-commit evidence; completed still 0"
+                   },
+                   {
+                       "order":  "WT-031-R1",
+                       "parent":  "WT-030/031/033",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "19cad9cc",
+                                        "fdfd0da2"
+                                    ],
+                       "result":  "five-dimension readiness ledger, in-repo 113 grading, shared eligibility gate, two modern pilots frozen with named gaps; 76/76 + 151/151 + 5/5",
+                       "parent_effect":  "modern pair remains candidate_only and is not combat-admitted"
+                   },
+                   {
+                       "order":  "WT-002-R1",
+                       "parent":  "WT-002/004/005/006/008",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "f2fc6b9d"
+                                    ],
+                       "result":  "authority state table; baseline red test root-caused and fixed (25-\u003e26 checks); new 19-check authority regression",
+                       "parent_effect":  "no runtime authority defect found; each parent keeps its own acceptance"
+                   },
+                   {
+                       "order":  "WT-032-R1",
+                       "parent":  "WT-019/021/032",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "58db3640"
+                                    ],
+                       "result":  "river resupply wired into the road graph, wreck-aware spawn occupancy, 34/34 reachability checks",
+                       "parent_effect":  "river map is still not an 8-slot formal battle map (interactive end-to-end NOT_RUN)"
+                   },
+                   {
+                       "order":  "WT-007-R1",
+                       "parent":  "WT-003/007/008",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "14d6dce4"
+                                    ],
+                       "result":  "river engagement 36/36 (aim convergence, fire gate, muzzle occlusion, observation switching, turret-drive damage)",
+                       "parent_effect":  "river rangefinding and long-range hits require the real-window sight path (NOT_RUN here)"
+                   },
+                   {
+                       "order":  "WT-012-R1",
+                       "parent":  "WT-010..WT-015/WT-027",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "d1f7f7a9"
+                                    ],
+                       "result":  "18 damage/loading suites re-run green in the current tree (1217 checks); shell x protection matrix, pilot chain report, event JSON with lossless codec round-trip",
+                       "parent_effect":  "no runtime change needed; network suites NOT_RUN"
+                   },
+                   {
+                       "order":  "WT-020-R1",
+                       "parent":  "WT-017/020/021",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "b6267dbd"
+                                    ],
+                       "result":  "AI task allocator with hysteresis, auditable decision reasons and bounded chokepoint give-way; 39/39 plus 109 regression checks",
+                       "parent_effect":  "8-AI river tactical match NOT_RUN (no large-scale AI sampling per scope)"
+                   },
+                   {
+                       "order":  "WT-022-R1",
+                       "parent":  "WT-022/032/033/035",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "499a6a1f"
+                                    ],
+                       "result":  "frozen MatchRulePreset (values extracted unchanged) plus capture/ticket/outcome/reward contract verification 43/43",
+                       "parent_effect":  "balance and app match cycle suites are unusable headless (NOT_RUN)"
+                   },
+                   {
+                       "order":  "WT-023-R1",
+                       "parent":  "WT-016/023/029/032/035/038",
+                       "status":  "completed",
+                       "evidence":  [
+                                        "1e7b3b1e",
+                                        "bbf68e4d"
+                                    ],
+                       "result":  "real exported Windows candidate (exe+pck) launching headless and windowed with exit 0, engine log clean, real profile untouched (781-\u003e781)",
+                       "parent_effect":  "development candidate only; human acceptance NOT_RUN; release_ready false"
+                   }
+               ],
+    "not_run":  [
+                    "river 8-slot formal battle end-to-end",
+                    "river rangefinding/long-range hit (needs window)",
+                    "all window/player suites",
+                    "run_balance_match_checks, run_app_match_cycle (headless timeout/hang)",
+                    "modern vehicle combat chain",
+                    "10v10/16v16 capacity acceptance",
+                    "formal networking",
+                    "performance (HOLD_BY_USER)",
+                    "human acceptance",
+                    "full 62-suite sweep on this branch"
+                ],
+    "notes":  [
+                  "No combat parameter was changed in this batch.",
+                  "Zero performance sampling was performed.",
+                  "The original main worktree was never modified (porcelain constant at 379).",
+                  "Branch is local only; pushing needs explicit authorisation."
+              ]
+}
