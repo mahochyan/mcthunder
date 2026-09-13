@@ -1,0 +1,57 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] all historical definitions admitted for physical road matrix
+[PASS] us_m4a3_75w_vvss_1944 team 1 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m4a3_75w_vvss_1944 team=1 slot=0 phase=arrived peak_speed=2.52338027290871 endpoint=(-6.639526, 0.029512, 5.564384)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[PASS] us_m4a3_75w_vvss_1944 team 1 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m4a3_75w_vvss_1944 team=1 slot=7 phase=arrived peak_speed=2.91590674693029 endpoint=(6.704958, 0.03334, 5.685127)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[PASS] us_m4a3_75w_vvss_1944 team 2 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m4a3_75w_vvss_1944 team=2 slot=0 phase=failed peak_speed=2.4513105047618 endpoint=(-54.76877, 0.000987, -111.7122)
+[FAIL] us_m4a3_75w_vvss_1944: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] trace saved: res://logs/route-traces/historical-us_m4a3_75w_vvss_1944-t2-s0-15423.log
+[PASS] us_m4a3_75w_vvss_1944 team 2 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m4a3_75w_vvss_1944 team=2 slot=7 phase=arrived peak_speed=2.99448646533756 endpoint=(6.719692, 0.033819, -5.700172)
+[PASS] us_m4a3_75w_vvss_1944: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[PASS] us_m24_m6_t85e1_1951 team 1 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m24_m6_t85e1_1951 team=1 slot=0 phase=arrived peak_speed=3.45419260990327 endpoint=(-6.788078, 0.027181, 5.679092)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[PASS] us_m24_m6_t85e1_1951 team 1 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m24_m6_t85e1_1951 team=1 slot=7 phase=arrived peak_speed=3.41269436684947 endpoint=(6.702133, 0.027328, 5.674042)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[PASS] us_m24_m6_t85e1_1951 team 2 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m24_m6_t85e1_1951 team=2 slot=0 phase=arrived peak_speed=3.44669880048877 endpoint=(-6.69858, 0.027323, -5.672928)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[PASS] us_m24_m6_t85e1_1951 team 2 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m24_m6_t85e1_1951 team=2 slot=7 phase=arrived peak_speed=3.59985127761266 endpoint=(6.851042, 0.02743, -5.708939)
+[PASS] us_m24_m6_t85e1_1951: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[PASS] us_m26_m3_1945 team 1 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m26_m3_1945 team=1 slot=0 phase=failed peak_speed=2.77764056918272 endpoint=(-40.56755, 0.000467, 17.84695)
+[FAIL] us_m26_m3_1945: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[route] trace saved: res://logs/route-traces/historical-us_m26_m3_1945-t1-s0-51085.log
+[PASS] us_m26_m3_1945 team 1 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m26_m3_1945 team=1 slot=7 phase=failed peak_speed=2.85193388654115 endpoint=(39.99406, 0.000966, 17.83121)
+[FAIL] us_m26_m3_1945: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[route] trace saved: res://logs/route-traces/historical-us_m26_m3_1945-t1-s7-56273.log
+[PASS] us_m26_m3_1945 team 2 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m26_m3_1945 team=2 slot=0 phase=failed peak_speed=2.77967360866781 endpoint=(-40.2872, 0.000416, -18.02136)
+[FAIL] us_m26_m3_1945: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[route] trace saved: res://logs/route-traces/historical-us_m26_m3_1945-t2-s0-61722.log
+[PASS] us_m26_m3_1945 team 2 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m26_m3_1945 team=2 slot=7 phase=failed peak_speed=2.73315909233101 endpoint=(40.56354, 0.000427, -17.82031)
+[FAIL] us_m26_m3_1945: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+[route] trace saved: res://logs/route-traces/historical-us_m26_m3_1945-t2-s7-67105.log
+[PASS] us_m36_m4a1_1945 team 1 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m36_m4a1_1945 team=1 slot=0 phase=arrived peak_speed=3.16334011288593 endpoint=(-6.673843, 0.031779, 5.562614)
+[PASS] us_m36_m4a1_1945: actual hull from team 1 slot 0 reaches capture via roads within movement bounds
+[PASS] us_m36_m4a1_1945 team 1 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m36_m4a1_1945 team=1 slot=7 phase=arrived peak_speed=3.29228524440314 endpoint=(6.776365, 0.032092, 5.605591)
+[PASS] us_m36_m4a1_1945: actual hull from team 1 slot 7 reaches capture via roads within movement bounds
+[PASS] us_m36_m4a1_1945 team 2 slot 0 starts on a clear spawn (0 bodies within margin)
+[route] us_m36_m4a1_1945 team=2 slot=0 phase=arrived peak_speed=3.15393784939282 endpoint=(-6.660137, 0.031659, -5.552986)
+[PASS] us_m36_m4a1_1945: actual hull from team 2 slot 0 reaches capture via roads within movement bounds
+[PASS] us_m36_m4a1_1945 team 2 slot 7 starts on a clear spawn (0 bodies within margin)
+[route] us_m36_m4a1_1945 team=2 slot=7 phase=arrived peak_speed=3.29633099304903 endpoint=(6.679888, 0.032123, -5.595215)
+[PASS] us_m36_m4a1_1945: actual hull from team 2 slot 7 reaches capture via roads within movement bounds
+=== 缁撴灉: 33 椤规鏌? 5 澶辫触 ===
