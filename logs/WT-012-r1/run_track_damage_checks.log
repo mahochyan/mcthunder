@@ -1,0 +1,27 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real M4 and M24 actors ready
+[PASS] production damage disables track_left
+[PASS] single track enables only restricted pivot 0
+[PASS] production damage disables track_right
+[PASS] single track enables only restricted pivot 1
+[PASS] forward throttle cannot bypass broken track 0
+[PASS] forward throttle cannot bypass broken track 1
+[MEASURE] side=0 travel=0.4961 yaw=0.3840 speed=0.2496 tracks=0.0000/0.4992
+[PASS] real restricted arc leaves broken track stationary 0
+[PASS] opposite damaged side changes direction of center travel 0
+[MEASURE] side=1 travel=0.4579 yaw=0.3840 speed=-0.2304 tracks=-0.4608/0.0000
+[PASS] real restricted arc leaves broken track stationary 1
+[PASS] opposite damaged side changes direction of center travel 1
+[PASS] actual timed repair restores normal drive 0
+[PASS] actual timed repair restores normal drive 1
+[PASS] production damage disables track_left
+[PASS] production damage disables track_right
+[PASS] two broken tracks disable all powered turning
+[PASS] double-track damage blocks real commands
+[PASS] production damage disables track_left
+[PASS] production damage disables engine
+[PASS] engine failure cannot exploit healthy track
+[PASS] reset restores both independent track abilities
+=== 结果: 21 项检查, 0 失败 ===
+TRACK_DAMAGE_CHECKS_PASS

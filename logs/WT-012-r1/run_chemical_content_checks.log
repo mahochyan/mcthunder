@@ -1,0 +1,35 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] explicit game-rule AP and HEAT enter one typed catalog
+[PASS] admitted definition retains separate chemical policy
+[PASS] reject incomplete or mislabeled HEAT: missing_profile
+[PASS] reject incomplete or mislabeled HEAT: missing_evidence
+[PASS] reject incomplete or mislabeled HEAT: changed_material
+[PASS] reject incomplete or mislabeled HEAT: fake_source
+[PASS] reject incomplete or mislabeled HEAT: ap_relabel
+[PASS] reject incomplete or mislabeled HEAT: old_profile
+[PASS] reject incomplete or mislabeled HEAT: fuze
+[PASS] reject incomplete or mislabeled HEAT: missing_curve
+[PASS] reject incomplete or mislabeled HEAT: null_evidence
+[PASS] reject incomplete or mislabeled HEAT: missing_chemical
+[PASS] reject incomplete or mislabeled HEAT: changed_chemical
+[PASS] reject incomplete or mislabeled HEAT: missing_chemical_evidence
+[PASS] reject incomplete or mislabeled HEAT: declining_curve
+[PASS] complete test-only packet enters isolated catalog
+[PASS] real actor installs mixed shell catalog
+[PASS] select HEAT while retaining chambered AP
+[PASS] normal command submits first AP shot
+[PASS] normal command fires chambered AP and debits it once
+[PASS] ordinary reload physically chambers selected HEAT
+[PASS] normal command submits HEAT shot
+[PASS] actual launch freezes separate HEAT response
+[PASS] HEAT launch uses actual muzzle and its own authored speed
+[PASS] mixed normal firing conserves physical ammunition
+[PASS] normally fired HEAT penetrates actual first plate and stops at second
+[PASS] normal selection reload and muzzle shot produce valid complete modern replay
+[PASS] normal Gunner launch freezes separate chemical configuration and completes jet
+[PASS] normal HEAT carrier stops at first plate and uses a separate jet
+[PASS] normal HEAT replay preserves the exact chemical rules version
+[PASS] reset restores initial mixed loadout and original chamber
+=== 结果: 31 项检查, 0 失败 ===
+CHEMICAL_CONTENT_CHECKS_PASS

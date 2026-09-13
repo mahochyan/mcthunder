@@ -1,0 +1,53 @@
+{
+  "aligned_ticks_before_fire": 4,
+  "decode_matches_encode": true,
+  "decode_ok": false,
+  "encoded_record": {},
+  "fire_accepted": true,
+  "generated_by": "tests/export_engagement_record.gd",
+  "map": "AICombatRange (combat laboratory)",
+  "record_bytes": 830,
+  "record_keys": [
+    "projectile_id",
+    "round_id",
+    "shooter_id",
+    "shooter_life_id",
+    "shooter_team_id",
+    "shot_id",
+    "shell_id",
+    "reason",
+    "flight_time_s",
+    "travelled_m",
+    "impact_point",
+    "impact_velocity",
+    "target_id",
+    "target_life_id",
+    "surface_id",
+    "query_id",
+    "physics_tick",
+    "detail",
+    "armor_policy",
+    "contacts",
+    "damage_records",
+    "burst",
+    "fragments",
+    "spall_events",
+    "chemical_effect",
+    "rules_version"
+  ],
+  "schema": 1,
+  "shell_id": "training_ap120",
+  "shooter": {
+    "definition": "player_tank",
+    "entity": "A",
+    "life": 1
+  },
+  "target": {
+    "definition": "player_tank",
+    "entity": "B",
+    "life": 2
+  },
+  "terminal_reason": "impact_world",
+  "terminal_target": "",
+  "work_order": "WT-012-R1"
+}

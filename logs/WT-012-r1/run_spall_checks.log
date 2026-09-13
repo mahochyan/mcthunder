@@ -1,0 +1,88 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] definitions load
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:96)
+       [2] _run (res://tests/run_spall_checks.gd:161)
+[PASS] real target loads
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] plain rod misses all real off-axis modules without spall
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] one inward front penetration emits6 directional fragments; exit creates no APHE burst
+[PASS] real directional traces damage off-axis internal modules
+[PASS] all off-axis damage comes from actual fragment paths, not mother rod
+[PASS] front100-20 splits24 to fragments, mother reaches rear with56
+[PASS] spall does not end mother flight
+[PASS] actual spall replay is complete and valid
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] every seeded fragment stays inside authored forward cone
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] same shot seed reproduces real directions after reset
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] stopped/equal/unknown armor cannot emit internal spall: 100.0
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] stopped/equal/unknown armor cannot emit internal spall: 110.0
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] stopped/equal/unknown armor cannot emit internal spall: -1.0
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] unknown front material cannot authorize spall
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] accepted launch freezes full nested spall profile
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] multi-layer mother shot observes4-batch limit and global24 fragment IDs
+[PASS] global IDs remain unique and second batch has its own seeded directions
+[PASS] actual spall replay is complete and valid
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] actual inner armor stops every first-batch fragment before off-axis modules
+[PASS] actual spall replay is complete and valid
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] actual world wall blocks mother and spall without internal damage
+[PASS] actual spall replay is complete and valid
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] fragment damage respects actual match contact policy
+[PASS] actual manager accepts explicit long-rod spall fixture
+[PASS] actual finite shot reaches terminal
+[PASS] first damage callback cancellation stops remaining fragments and mother
+[PASS] callback reset restores target without late damage
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] reject invalid/mixed spall policy
+[PASS] APHE cannot acquire long-rod split policy
+[PASS] reject inconsistent spall replay: budget
+[PASS] reject inconsistent spall replay: origin
+[PASS] reject inconsistent spall replay: direction
+[PASS] reject inconsistent spall replay: link
+[PASS] reject inconsistent spall replay: version
+[PASS] reject inconsistent spall replay: frame
+[PASS] reject inconsistent spall replay: family
+[PASS] reject inconsistent spall replay: missing_fragment
+[PASS] production replay opens actual directional-spall shot
+[PASS] replay hides unborn spall and never displays APHE burst dot
+[PASS] production replay renders actual spall paths after their source contact
+[PASS] seeking spall replay never repeats live damage
+=== 结果: 78 项检查, 0 失败 ===
+SPALL_CHECKS_PASS

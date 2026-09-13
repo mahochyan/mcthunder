@@ -1,0 +1,53 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] definitions load
+WARNING: LayoutCatalog: test_player_vehicle_layout: WARNING modules[1].barrel_box: module box outside actual vehicle armor bounds (coarse AABB check; not a verdict of physical intersection)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_layout (res://scripts/layout/layout_catalog.gd:98)
+       [1] setup (res://scripts/vehicle_actor.gd:96)
+       [2] _run (res://tests/run_material_replay_checks.gd:84)
+[PASS] real target loads
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] actual profiled APHE record accepted: cast 20.0
+[PASS] new impact identity coexists with preserved legacy armor version
+[PASS] replay rejects altered contact effective_mm
+[PASS] replay rejects altered contact path_thickness_mm
+[PASS] replay rejects altered contact adjusted_angle_deg
+[PASS] replay rejects altered contact material_multiplier
+[PASS] replay rejects altered contact angle_deg
+[PASS] replay rejects altered contact after_mm
+[PASS] replay rejects inconsistent material
+[PASS] replay rejects inconsistent patch_material
+[PASS] replay rejects inconsistent profile
+[PASS] replay rejects inconsistent overmatch
+[PASS] replay rejects inconsistent unit
+[PASS] replay rejects inconsistent version
+[PASS] replay rejects inconsistent missing_profile
+[PASS] replay rejects inconsistent nonfinite
+[PASS] replay rejects inconsistent normal
+[PASS] replay rejects inconsistent surface
+[PASS] real burst records actual fragment armor contact
+[PASS] fragment replay rejects altered effective_mm
+[PASS] fragment replay rejects altered adjusted_angle_deg
+[PASS] fragment replay rejects altered material_multiplier
+[PASS] fragment replay rejects altered path_thickness_mm
+[PASS] fragment cannot acquire parent overmatch in replay
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] actual profiled APHE record accepted: rolled 20.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] actual profiled APHE record accepted: unknown 20.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] actual profiled APHE record accepted: cast -1.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] actual profiled APHE record accepted: cast 0.0
+[PASS] real manager admits TEST ONLY delayed round
+[PASS] bounded fixture reaches real terminal state
+[PASS] legacy record without optional fields remains compatible
+=== 结果: 43 项检查, 0 失败 ===
+MATERIAL_REPLAY_CHECKS_PASS
