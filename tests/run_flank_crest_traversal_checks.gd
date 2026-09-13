@@ -150,6 +150,7 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var previous := actor.tank.global_position
 	var traveled := 0.0
 	var ticks_run := 0
+	var trace: Array = []
 	for i in ticks_limit:
 		ticks_run = i+1
 		if fixed != null:
@@ -179,6 +180,16 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 		if i % 1500 == 0 and i > 0:
 			print("[T039-D progress] %s %s tick=%d traveled=%.1f speed=%.2f still=%d phase=%s" % [
 				vehicle_id,label,i,traveled,actor.tank.forward_speed,still,(driver.phase if driver != null else "fixed")])
+		if i % 30 == 0:
+			var command_part := ""
+			if driver != null and driver.last_command != null:
+				command_part = " thr=%.2f steer=%.2f" % [driver.last_command.throttle,driver.last_command.steer]
+			elif fixed != null:
+				command_part = " thr=%.2f steer=%.2f hold=%s" % [fixed.throttle,fixed.steer,str(fixed.hold)]
+			var base_line := ""
+			if driver != null: base_line = RouteHarness.trace_line(i,driver,actor,goal)
+			else: base_line = "tick=%d phase=%s speed=%.3f pos=%s" % [i,mode,actor.tank.forward_speed,str(actor.tank.global_position)]
+			trace.append(base_line+command_part+" on_floor="+str(actor.tank.is_on_floor())+" still="+str(still))
 		if driver != null and mode == "driver" and driver.phase in ["arrived","failed","unreachable"]:
 			reached = driver.phase == "arrived"; break
 		if mode != "driver" and pos.distance_to(goal) < 3.0: reached = true; break
@@ -193,6 +204,8 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 		"nonfinite":nonfinite,"traveled":traveled,"muzzle_ok":muzzle_ok,"armour_ok":armour_ok,"internal_ok":internal_ok}
 	actor.free()
 	await _frames(2)
+	if not (reached and stalled == 0):
+		print("[T039-D] trace saved: ",RouteHarness.dump_trace("t039d-%s-%s"%[vehicle_id,label],trace))
 	return result
 
 ## Flat-ground control: no bottoming, no stall, and the vehicle actually moves.
