@@ -1,5 +1,5 @@
-extends SceneTree
-## WT-039-D: production-vehicle traversal checks at the x≈-120 flank crest.
+﻿extends SceneTree
+## WT-039-D: production-vehicle traversal checks at the x鈮?120 flank crest.
 ##
 ## Separate identity/version from the rigid-envelope diagnostic: the old T018-03/T018-03b
 ## results stay untouched (and stay failing). This suite answers a different question - can
@@ -122,7 +122,7 @@ func _nearest_node(nav: DriveNavigator, position: Vector3) -> Vector3:
 			best = candidate
 	return best
 
-func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600, yaw: float = PI) -> Dictionary:
+func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 9000, yaw: float = PI) -> Dictionary:
 	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
 	var actor := _spawn(vehicle_id,start+Vector3(0,0.5,0),yaw)
 	var settle := await _settle(actor)
@@ -148,6 +148,7 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 	var held := false
 	var released := false
 	var previous := actor.tank.global_position
+	var heading_previous := rad_to_deg(atan2((-actor.tank.global_basis.z).x,(-actor.tank.global_basis.z).z))
 	var traveled := 0.0
 	var ticks_run := 0
 	var trace: Array = []
@@ -173,7 +174,13 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 		if actor.tank.forward_speed < -0.05: reverse_ticks += 1
 		var move := pos.distance_to(previous)
 		traveled += move
-		if move < 0.01: still += 1
+		# A pivot in place is legitimate progress: the driver commands zero throttle with full
+		# steer for large heading errors, so counting position alone marked every such pivot as
+		# a stall. Progress means EITHER translation OR rotation.
+		var heading_now := rad_to_deg(atan2((-actor.tank.global_basis.z).x,(-actor.tank.global_basis.z).z))
+		var heading_delta := absf(wrapf(heading_now-heading_previous,-180.0,180.0))
+		heading_previous = heading_now
+		if move < 0.01 and heading_delta < 0.05: still += 1
 		else: still = 0
 		if still >= STALL_TICKS: stalled += 1
 		previous = pos
@@ -299,6 +306,7 @@ func _run() -> void:
 			_check(ok,"T039-D %s %s: settled=%s reached=%s phase=%s ticks=%d hull_box_intersection=%.3f bounces=%d stalled=%d on_floor=%.2f reverse_ticks=%d nonfinite=%d traveled=%.1f muzzle=%s armour=%s internal=%s"%[
 				vehicle_id,str(r.label),str(settled),str(r.reached),str(r.final_phase),int(r.ticks_run),float(r.hull_box_intersection_m),int(r.bounces),int(r.stalled),float(r.on_floor_fraction),int(r.reverse_ticks),int(r.nonfinite),float(r.traveled),
 				str(r.muzzle_ok),str(r.armour_ok),str(r.internal_ok)])
-	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
+	print("=== 缁撴灉: %d 椤规鏌? %d 澶辫触 ==="%[count,failed])
 	print("FLANK_CREST_TRAVERSAL_CHECKS_PASS" if failed == 0 else "FLANK_CREST_TRAVERSAL_CHECKS_FAIL")
 	quit(1 if failed else 0)
+

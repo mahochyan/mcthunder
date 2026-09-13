@@ -35,9 +35,14 @@ static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goa
 	var target := goal
 	if driver.path.size() > driver.waypoint: target = driver.path[driver.waypoint]
 	var to_target := target-position
+	# Measure the bearing in the horizontal plane: `signed_angle_to` about UP is unstable when
+	# the target vector carries a large height difference, which made a rotating hull look as
+	# though its bearing were frozen.
+	var flat_target := Vector2(to_target.x,to_target.z)
+	var flat_forward := Vector2(-actor.tank.global_basis.z.x,-actor.tank.global_basis.z.z)
 	var bearing := 0.0
-	if to_target.length() > 0.01:
-		bearing = rad_to_deg((-actor.tank.global_basis.z).signed_angle_to(to_target.normalized(),Vector3.UP))
+	if flat_target.length() > 0.01:
+		bearing = rad_to_deg(flat_target.angle_to(flat_forward))
 	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)" % [
 		tick,str(driver.phase),str(driver.reason),driver.waypoint,to_target.length(),bearing,
 		actor.tank.forward_speed,position.x,position.y,position.z]
