@@ -47,10 +47,11 @@ static func probe(path: String) -> Dictionary:
 		roles[role] = {"state":("resolved" if matches.size() == 1 else ("ambiguous" if matches.size() > 1 else "missing")),
 			"candidates":matches}
 		if matches.size() != 1: unresolved.append(role)
+	var triangles := _triangles(scene)
 	scene.free()
 	return {"ok":true,"path":path,"sha256":FileAccess.get_sha256(path),
 		"bytes":int(FileAccess.get_file_as_bytes(path).size()),
-		"node_count":nodes.size(),"mesh_count":_mesh_count(nodes),
+		"node_count":nodes.size(),"mesh_count":_mesh_count(nodes),"triangles":triangles,
 		"envelope_m":[envelope.size.x,envelope.size.y,envelope.size.z],
 		"longest_m":longest,"unit_candidate":unit.key,"meters_per_unit":unit.value,
 		"roles":roles,"unresolved_roles":unresolved,
@@ -67,6 +68,16 @@ static func _mesh_count(nodes: Array[Dictionary]) -> int:
 	var total := 0
 	for row in nodes:
 		if str(row.type) == "mesh": total += 1
+	return total
+
+## Triangle count from the parsed meshes, so an author's stated budget can be checked.
+static func _triangles(root: Node) -> int:
+	var total := 0
+	for node in _all_nodes(root):
+		if not node is MeshInstance3D: continue
+		var mesh: MeshInstance3D = node
+		if mesh.mesh == null: continue
+		total += int(mesh.mesh.get_faces().size()/3)
 	return total
 
 static func _envelope(root: Node) -> AABB:

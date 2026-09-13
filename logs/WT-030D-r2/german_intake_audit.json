@@ -1,0 +1,1694 @@
+{
+  "audited": 96,
+  "folders": 96,
+  "missing_or_unparsable": [],
+  "note": "read-only: no source file was created, modified, moved or deleted",
+  "roles_full": 0,
+  "roles_none": 4,
+  "roles_partial": 92,
+  "rows": [
+    {
+      "bytes": 826648,
+      "folder": "35t",
+      "longest_m": 4.88445425033569,
+      "meshes": 44,
+      "nodes": 48,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
+      "triangles": 12953,
+      "unit": "m"
+    },
+    {
+      "bytes": 609100,
+      "folder": "38t",
+      "longest_m": 4.60485458374023,
+      "meshes": 29,
+      "nodes": 33,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4",
+      "triangles": 9232,
+      "unit": "m"
+    },
+    {
+      "bytes": 993096,
+      "folder": "9a33bm3",
+      "longest_m": 9.24052047729492,
+      "meshes": 8,
+      "nodes": 15,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "1cb69e6eb24000463296ad385b4326e58e1f59c73c52e2c486cd7e10245b5ac2",
+      "triangles": 14684,
+      "unit": "m"
+    },
+    {
+      "bytes": 556444,
+      "folder": "9a35_m",
+      "longest_m": 6.21999979019165,
+      "meshes": 27,
+      "nodes": 31,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c",
+      "triangles": 9013,
+      "unit": "m"
+    },
+    {
+      "bytes": 388920,
+      "folder": "AMD35",
+      "longest_m": 5.07100009918213,
+      "meshes": 9,
+      "nodes": 13,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "55a2ee8d015c4d885e1b3d0dc180d3fe8d836f2428dd7e327d4dc3bea69183e4",
+      "triangles": 5834,
+      "unit": "m"
+    },
+    {
+      "bytes": 542220,
+      "folder": "E100超重型坦克",
+      "longest_m": 10.9817008972168,
+      "meshes": 32,
+      "nodes": 36,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "32a1945bd6be27220e2e64388432355f299855de22cda701826c7d9651c97a6c",
+      "triangles": 8412,
+      "unit": "m"
+    },
+    {
+      "bytes": 825740,
+      "folder": "KPz70",
+      "longest_m": 9.21617984771729,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89",
+      "triangles": 12890,
+      "unit": "m"
+    },
+    {
+      "bytes": 842472,
+      "folder": "M48",
+      "longest_m": 8.63094329833984,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
+      "triangles": 11837,
+      "unit": "m"
+    },
+    {
+      "bytes": 1034448,
+      "folder": "Ru251轻型坦克",
+      "longest_m": 8.00997161865234,
+      "meshes": 33,
+      "nodes": 37,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395",
+      "triangles": 14750,
+      "unit": "m"
+    },
+    {
+      "bytes": 713020,
+      "folder": "SdKfz234",
+      "longest_m": 6.97000026702881,
+      "meshes": 15,
+      "nodes": 19,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c",
+      "triangles": 11086,
+      "unit": "m"
+    },
+    {
+      "bytes": 713308,
+      "folder": "SdKfz251",
+      "longest_m": 5.87721300125122,
+      "meshes": 26,
+      "nodes": 30,
+      "roles_resolved": 3,
+      "roles_unresolved": [
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "24a7c301cb03a4ea79fab2359f26888eb243d55656875301c687850a0887dce6",
+      "triangles": 11012,
+      "unit": "m"
+    },
+    {
+      "bytes": 857540,
+      "folder": "TAM",
+      "longest_m": 8.16862010955811,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe",
+      "triangles": 12834,
+      "unit": "m"
+    },
+    {
+      "bytes": 946092,
+      "folder": "VK30.02M",
+      "longest_m": 8.65462875366211,
+      "meshes": 32,
+      "nodes": 36,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51",
+      "triangles": 14251,
+      "unit": "m"
+    },
+    {
+      "bytes": 774760,
+      "folder": "begleitpanzer_57",
+      "longest_m": 7.38326454162598,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 0,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "ca92933bbcb919c1c51017c6036efc5507fd9da14f453ad920a491faf502fc8e",
+      "triangles": 11895,
+      "unit": "m"
+    },
+    {
+      "bytes": 788668,
+      "folder": "bmp_1_ddr",
+      "longest_m": 6.73742008209229,
+      "meshes": 37,
+      "nodes": 43,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "9242b424cb5ddf6f95a86241550d8f608776357cbe7674549c25c98f7a90070f",
+      "triangles": 12157,
+      "unit": "m"
+    },
+    {
+      "bytes": 720984,
+      "folder": "boxer_3105",
+      "longest_m": 8.54164981842041,
+      "meshes": 15,
+      "nodes": 19,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "454332c69c67950d32fbf101c00b890eee04fa1d89c78570b5e99e8476cff6ee",
+      "triangles": 11291,
+      "unit": "m"
+    },
+    {
+      "bytes": 759404,
+      "folder": "boxer_swatrinf",
+      "longest_m": 8.89200019836426,
+      "meshes": 15,
+      "nodes": 19,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "61953c5820d9d26ad217767c2cc2cc16458234b3f52530e268315b69235a0450",
+      "triangles": 11905,
+      "unit": "m"
+    },
+    {
+      "bytes": 697912,
+      "folder": "erprobungstrager_3_achs_turm",
+      "longest_m": 8.94339942932129,
+      "meshes": 36,
+      "nodes": 41,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810",
+      "triangles": 11400,
+      "unit": "m"
+    },
+    {
+      "bytes": 793160,
+      "folder": "flakpanzer_38t_Gepard",
+      "longest_m": 5.44724559783936,
+      "meshes": 22,
+      "nodes": 26,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "90ab0c42345d34ed8d039271e704be9d14f4a79ccf3a6e89167a50fefc8c0bfa",
+      "triangles": 11919,
+      "unit": "m"
+    },
+    {
+      "bytes": 775348,
+      "folder": "flakpanzer_IV_Kugelblitz",
+      "longest_m": 5.56471109390259,
+      "meshes": 39,
+      "nodes": 43,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553",
+      "triangles": 12330,
+      "unit": "m"
+    },
+    {
+      "bytes": 982884,
+      "folder": "flakpanzer_IV_Wirbelwind",
+      "longest_m": 5.78150939941406,
+      "meshes": 38,
+      "nodes": 42,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "7672d91fdbbb42e4ed0f04ab372d5cbb02846ad55e9ac35e6e28cfc904ff9b44",
+      "triangles": 14990,
+      "unit": "m"
+    },
+    {
+      "bytes": 627040,
+      "folder": "flakpanzer_I_ausf_A",
+      "longest_m": 4.22856903076172,
+      "meshes": 25,
+      "nodes": 29,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "5b73cefb3178aa27d2202a1062c8c4de1f883cdd82d7b7ab1caf551a9e05fbe0",
+      "triangles": 9769,
+      "unit": "m"
+    },
+    {
+      "bytes": 951032,
+      "folder": "flakpanzer_V_Coelian",
+      "longest_m": 7.0462064743042,
+      "meshes": 29,
+      "nodes": 33,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "1249ebd8cb1bcc597c4012933de6c0cb3a58cca628e31caf9866d426b47120d8",
+      "triangles": 14460,
+      "unit": "m"
+    },
+    {
+      "bytes": 964728,
+      "folder": "flakpanzer_zerstorer_45",
+      "longest_m": 5.75291538238525,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "0d122a77d5e1e7a38f427123c07239b4459779e579946cfe751cea2f10da168b",
+      "triangles": 14840,
+      "unit": "m"
+    },
+    {
+      "bytes": 780888,
+      "folder": "flarakpz_1",
+      "longest_m": 6.9041805267334,
+      "meshes": 33,
+      "nodes": 37,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375",
+      "triangles": 12231,
+      "unit": "m"
+    },
+    {
+      "bytes": 1017860,
+      "folder": "flarakrad",
+      "longest_m": 10.0125007629395,
+      "meshes": 20,
+      "nodes": 31,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f117a684eb82953a124632360f40b354b4e436c8bbdd48389b70f0d3877b404d",
+      "triangles": 14865,
+      "unit": "m"
+    },
+    {
+      "bytes": 856948,
+      "folder": "hummel",
+      "longest_m": 6.74097156524658,
+      "meshes": 36,
+      "nodes": 40,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece",
+      "triangles": 13563,
+      "unit": "m"
+    },
+    {
+      "bytes": 852616,
+      "folder": "infanterie_kampfpanzer_churchill",
+      "longest_m": 7.38108158111572,
+      "meshes": 34,
+      "nodes": 38,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42",
+      "triangles": 13369,
+      "unit": "m"
+    },
+    {
+      "bytes": 928460,
+      "folder": "iris_slm_fcs",
+      "longest_m": 10.7749996185303,
+      "meshes": 10,
+      "nodes": 17,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "643f8b1892f8a3a1424522a5368c8f30ea230e993607279651e9e0411923cf48",
+      "triangles": 13826,
+      "unit": "m"
+    },
+    {
+      "bytes": 1031828,
+      "folder": "iris_slm_launcher",
+      "longest_m": 11.6032466888428,
+      "meshes": 43,
+      "nodes": 59,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "035595788f16900f288b6f87868645849bede67cf764c0835260cdb8c9bada5d",
+      "triangles": 14896,
+      "unit": "m"
+    },
+    {
+      "bytes": 736160,
+      "folder": "jaguar_2",
+      "longest_m": 6.37520551681519,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 3,
+      "roles_unresolved": [
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256",
+      "triangles": 11926,
+      "unit": "m"
+    },
+    {
+      "bytes": 797820,
+      "folder": "kpz_t72m1",
+      "longest_m": 9.63279151916504,
+      "meshes": 37,
+      "nodes": 41,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e",
+      "triangles": 11173,
+      "unit": "m"
+    },
+    {
+      "bytes": 760884,
+      "folder": "kv_1_kwk_40",
+      "longest_m": 7.93949127197266,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "fa18c59d2e4b2be0662638cd43fbaa77ba9a899a2e8c910e9d0c11c77ed6fc88",
+      "triangles": 12247,
+      "unit": "m"
+    },
+    {
+      "bytes": 747356,
+      "folder": "kv_2_754r",
+      "longest_m": 7.00527763366699,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072",
+      "triangles": 12228,
+      "unit": "m"
+    },
+    {
+      "bytes": 523836,
+      "folder": "leichter_ladungstrager_303a",
+      "longest_m": 1.59686493873596,
+      "meshes": 23,
+      "nodes": 25,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "e1f3430757732126d777478ae4424713815fc24f3044329e40973a874b25ea05",
+      "triangles": 8327,
+      "unit": "mm"
+    },
+    {
+      "bytes": 722708,
+      "folder": "m109g",
+      "longest_m": 6.52164936065674,
+      "meshes": 33,
+      "nodes": 37,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "991981e2e4e5b86230166ce66dec927169a73f5c2ef14f23c303c51abcaea9c0",
+      "triangles": 11440,
+      "unit": "m"
+    },
+    {
+      "bytes": 870648,
+      "folder": "m44",
+      "longest_m": 6.09070014953613,
+      "meshes": 30,
+      "nodes": 34,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "edb409f29882719ca0ee613f1ff3d66b4703e2fee98306ea9aa7c49458a53b21",
+      "triangles": 13752,
+      "unit": "m"
+    },
+    {
+      "bytes": 840472,
+      "folder": "m55",
+      "longest_m": 8.36346626281738,
+      "meshes": 29,
+      "nodes": 33,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "fe5e9ec431855abebd69967bd4db2c5c72151175bd0cc27cc72e72e743be6969",
+      "triangles": 13232,
+      "unit": "m"
+    },
+    {
+      "bytes": 817360,
+      "folder": "marder_df_105",
+      "longest_m": 7.6199312210083,
+      "meshes": 34,
+      "nodes": 38,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "9baa1df319d682ceab6dedb9ea99cd9bbd072c7c585dfe632fd0cb1b73a3bde0",
+      "triangles": 12582,
+      "unit": "m"
+    },
+    {
+      "bytes": 836172,
+      "folder": "mkpz_m47",
+      "longest_m": 8.73601341247559,
+      "meshes": 37,
+      "nodes": 41,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "17eb2006aab6c0f4ada7b4d5eae1575b0d183498c38723d4d6c969a078e8ab44",
+      "triangles": 11548,
+      "unit": "m"
+    },
+    {
+      "bytes": 1007852,
+      "folder": "nbfz_VI",
+      "longest_m": 6.94517421722412,
+      "meshes": 48,
+      "nodes": 58,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "72677a96a5641bd3f49b9e30249d5e092c4a41904c7e0a8cce32bc5f3b0d0640",
+      "triangles": 14300,
+      "unit": "m"
+    },
+    {
+      "bytes": 597036,
+      "folder": "panzerjager_1",
+      "longest_m": 4.21365737915039,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "9dbc2a95cabb90c15c260c4d591a895899700c7db6df3453d33b2891093ca421",
+      "triangles": 9479,
+      "unit": "m"
+    },
+    {
+      "bytes": 816860,
+      "folder": "panzerjager_nashorn",
+      "longest_m": 8.3129997253418,
+      "meshes": 36,
+      "nodes": 40,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "a9e368cf65c27e53aede60dc6f2ee2b70bef538f08847a6cd7791bae35c3cdb8",
+      "triangles": 12928,
+      "unit": "m"
+    },
+    {
+      "bytes": 948120,
+      "folder": "panzerwerfer_42",
+      "longest_m": 5.91692209243774,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "35ce1912d335019dd746a02fae55afadc95ee6dbdeb5b3dbc123b833ac47ce76",
+      "triangles": 14905,
+      "unit": "m"
+    },
+    {
+      "bytes": 797400,
+      "folder": "pzh_2000",
+      "longest_m": 11.4730796813965,
+      "meshes": 40,
+      "nodes": 44,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f",
+      "triangles": 11866,
+      "unit": "m"
+    },
+    {
+      "bytes": 595348,
+      "folder": "pzkpfw_38t_Aufklarungspanzer",
+      "longest_m": 4.58930492401123,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "3f095ae6d7634a4dbd34731549f95cda67720524636727d1c2460c4825856c0b",
+      "triangles": 9227,
+      "unit": "m"
+    },
+    {
+      "bytes": 777000,
+      "folder": "pzsfl_IVa_dickermax",
+      "longest_m": 7.52070379257202,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "db7927e8f8c4094e38ba34477627e481df22338a344294f03572ff5e07ab514a",
+      "triangles": 12399,
+      "unit": "m"
+    },
+    {
+      "bytes": 785072,
+      "folder": "pzsflk40_sturer_emil",
+      "longest_m": 9.57142066955566,
+      "meshes": 33,
+      "nodes": 37,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "068577f469c1a831c10b065b321ba26e5d7142171c44e861a0dc6255d6ae2503",
+      "triangles": 12633,
+      "unit": "m"
+    },
+    {
+      "bytes": 727912,
+      "folder": "radpanzer_90",
+      "longest_m": 9.51534843444824,
+      "meshes": 16,
+      "nodes": 20,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "12375c4668438db03a61b61beb46366a3910570ddf44b6241c3b1c81bde88418",
+      "triangles": 11340,
+      "unit": "m"
+    },
+    {
+      "bytes": 386576,
+      "folder": "sdkfz_221_s_pz_b_41",
+      "longest_m": 4.61601448059082,
+      "meshes": 9,
+      "nodes": 13,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "65bb5fe3f8c6384f7eb6f38ce0168447c26e3eedbfd7320a7ca2d75a2a91875d",
+      "triangles": 5779,
+      "unit": "m"
+    },
+    {
+      "bytes": 417476,
+      "folder": "sdkfz_222",
+      "longest_m": 4.68304061889648,
+      "meshes": 10,
+      "nodes": 14,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "7088750bba5752d49c4aea0e58068d2d9e1d71a840d07cfc632eec3e6a65f761",
+      "triangles": 6243,
+      "unit": "m"
+    },
+    {
+      "bytes": 1016660,
+      "folder": "sdkfz_6_2_flak36",
+      "longest_m": 6.96070098876953,
+      "meshes": 25,
+      "nodes": 29,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "abe09a4760a1f6a21d0396dae3242086b411db27d2084edcdbf7f6e6a500fd51",
+      "triangles": 14784,
+      "unit": "m"
+    },
+    {
+      "bytes": 987040,
+      "folder": "sdkfz_9_flak37",
+      "longest_m": 8.8082160949707,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f042ed2ae1bf83bc913243bd69c1474bc13e8c5eebdf031aeb8910422a6d8fcd",
+      "triangles": 14631,
+      "unit": "m"
+    },
+    {
+      "bytes": 707880,
+      "folder": "sk105_a2",
+      "longest_m": 7.58999919891357,
+      "meshes": 32,
+      "nodes": 36,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee",
+      "triangles": 11185,
+      "unit": "m"
+    },
+    {
+      "bytes": 777164,
+      "folder": "sppz2_luchs_a2",
+      "longest_m": 8.01560974121094,
+      "meshes": 14,
+      "nodes": 18,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "83f856d031294490fd8274de2433648d93dc3d897a630b8b35ef6a717cf293b4",
+      "triangles": 11820,
+      "unit": "m"
+    },
+    {
+      "bytes": 609700,
+      "folder": "spz_12_3",
+      "longest_m": 5.90306091308594,
+      "meshes": 30,
+      "nodes": 34,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417",
+      "triangles": 9838,
+      "unit": "m"
+    },
+    {
+      "bytes": 736536,
+      "folder": "spz_oerlikon_raketenautomat",
+      "longest_m": 6.518385887146,
+      "meshes": 28,
+      "nodes": 33,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "9e925267680dd37a5c1299315bb82811106567623e00a772762d639a8f48875d",
+      "triangles": 11629,
+      "unit": "m"
+    },
+    {
+      "bytes": 655068,
+      "folder": "sturmpanzer_II",
+      "longest_m": 5.30782604217529,
+      "meshes": 32,
+      "nodes": 36,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "31feb179335b9e60cc231dc93b068b46af745211ce012a29643c18237ae62236",
+      "triangles": 10621,
+      "unit": "m"
+    },
+    {
+      "bytes": 629588,
+      "folder": "t_34_747",
+      "longest_m": 6.57777214050293,
+      "meshes": 21,
+      "nodes": 25,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "bab8bb396f3c454462bc4301c9859075990ef10c44f28068155aed4e7ba61423",
+      "triangles": 9889,
+      "unit": "m"
+    },
+    {
+      "bytes": 708228,
+      "folder": "th_400",
+      "longest_m": 8.79653072357178,
+      "meshes": 13,
+      "nodes": 17,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "82c71dc1acf1719b8de52d6dc1b18f4e75d58837fbfc66425fea75aa0e167eed",
+      "triangles": 10836,
+      "unit": "m"
+    },
+    {
+      "bytes": 870740,
+      "folder": "truck_sdkfz_6_2_tent",
+      "longest_m": 6.27896881103516,
+      "meshes": 23,
+      "nodes": 25,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "aa5db018454561f8b5ec468fef8df6db2b641d68daf40645221ecc55a3b3bbc4",
+      "triangles": 12879,
+      "unit": "m"
+    },
+    {
+      "bytes": 745320,
+      "folder": "us_m4a2_1944_germ",
+      "longest_m": 5.8481616973877,
+      "meshes": 30,
+      "nodes": 34,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "eed359ea4ccb0b78c81b0b25141b3f841770cd5a74cbb4f1312dac00a5f84e62",
+      "triangles": 12083,
+      "unit": "m"
+    },
+    {
+      "bytes": 706244,
+      "folder": "vilkas",
+      "longest_m": 8.52366638183594,
+      "meshes": 15,
+      "nodes": 19,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84",
+      "triangles": 10928,
+      "unit": "m"
+    },
+    {
+      "bytes": 961592,
+      "folder": "vsw_flak_41",
+      "longest_m": 10.0704078674316,
+      "meshes": 27,
+      "nodes": 31,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "c176f135887d940755224c8c7f1a4eee93b887bc40acc9ad6f5b0be1b27c3fad",
+      "triangles": 14622,
+      "unit": "m"
+    },
+    {
+      "bytes": 652864,
+      "folder": "vt_1_2",
+      "longest_m": 8.87660217285156,
+      "meshes": 28,
+      "nodes": 33,
+      "roles_resolved": 3,
+      "roles_unresolved": [
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09",
+      "triangles": 10486,
+      "unit": "m"
+    },
+    {
+      "bytes": 466976,
+      "folder": "waffentrager_krupp_steyr",
+      "longest_m": 8.1963005065918,
+      "meshes": 20,
+      "nodes": 24,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "03ce37358395983e40b8fe68df277fc6ac4a65890e92c3c9ea20dfd29883857b",
+      "triangles": 7392,
+      "unit": "m"
+    },
+    {
+      "bytes": 542144,
+      "folder": "wiesel_1_mk20",
+      "longest_m": 3.6831681728363,
+      "meshes": 22,
+      "nodes": 26,
+      "roles_resolved": 0,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "e6f9c74f13b03ada730c0a62d82d9debba7fb223bbf490497a811eaffadc93ea",
+      "triangles": 8484,
+      "unit": "m"
+    },
+    {
+      "bytes": 551804,
+      "folder": "wiesel_1_tow",
+      "longest_m": 3.7741425037384,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "74dae98ef6f1292b4dea141c6034584312fd224668f528040ec14646d7d740a6",
+      "triangles": 8470,
+      "unit": "m"
+    },
+    {
+      "bytes": 637924,
+      "folder": "wiesel_2_adwc",
+      "longest_m": 4.8428635597229,
+      "meshes": 25,
+      "nodes": 29,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "d272933c2656edfc6f90ae49b466822feb65ac373988bd2cc54e37b1df34dd60",
+      "triangles": 10054,
+      "unit": "m"
+    },
+    {
+      "bytes": 734132,
+      "folder": "三号坦克",
+      "longest_m": 5.68297576904297,
+      "meshes": 38,
+      "nodes": 42,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2",
+      "triangles": 11715,
+      "unit": "m"
+    },
+    {
+      "bytes": 792648,
+      "folder": "三号突击炮",
+      "longest_m": 5.24261951446533,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
+      "triangles": 11696,
+      "unit": "m"
+    },
+    {
+      "bytes": 993972,
+      "folder": "东风",
+      "longest_m": 5.78140544891357,
+      "meshes": 36,
+      "nodes": 40,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "972473435de7f165ea4e25a1f520312ded951f70e2df3c287d249d7c14812b1b",
+      "triangles": 14866,
+      "unit": "m"
+    },
+    {
+      "bytes": 733652,
+      "folder": "二号坦克",
+      "longest_m": 4.77860164642334,
+      "meshes": 36,
+      "nodes": 40,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77",
+      "triangles": 11122,
+      "unit": "m"
+    },
+    {
+      "bytes": 621776,
+      "folder": "保时捷虎",
+      "longest_m": 9.31655120849609,
+      "meshes": 28,
+      "nodes": 32,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620",
+      "triangles": 9816,
+      "unit": "m"
+    },
+    {
+      "bytes": 799280,
+      "folder": "卡诺内坦克歼击车",
+      "longest_m": 8.43478584289551,
+      "meshes": 30,
+      "nodes": 34,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "a4832317782dc2c3fd17bd1ceb106b1afcc22848103df006302f66ac2057b4aa",
+      "triangles": 11759,
+      "unit": "m"
+    },
+    {
+      "bytes": 798428,
+      "folder": "四号坦克",
+      "longest_m": 5.51170778274536,
+      "meshes": 41,
+      "nodes": 45,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7",
+      "triangles": 12727,
+      "unit": "m"
+    },
+    {
+      "bytes": 834652,
+      "folder": "四号坦克歼击车",
+      "longest_m": 6.90616321563721,
+      "meshes": 37,
+      "nodes": 41,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0",
+      "triangles": 13372,
+      "unit": "m"
+    },
+    {
+      "bytes": 744848,
+      "folder": "德军M41",
+      "longest_m": 8.34850025177002,
+      "meshes": 32,
+      "nodes": 36,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b",
+      "triangles": 11429,
+      "unit": "m"
+    },
+    {
+      "bytes": 1032084,
+      "folder": "斐迪南",
+      "longest_m": 8.00719165802002,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
+      "triangles": 14640,
+      "unit": "m"
+    },
+    {
+      "bytes": 664488,
+      "folder": "火箭坦克歼击车2",
+      "longest_m": 6.25,
+      "meshes": 30,
+      "nodes": 34,
+      "roles_resolved": 3,
+      "roles_unresolved": [
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "b6c14763bfba83bc916f63ee1dbe0e5ab4b7995a5ee10dc372fc73a8736694ed",
+      "triangles": 10648,
+      "unit": "m"
+    },
+    {
+      "bytes": 798440,
+      "folder": "灰熊",
+      "longest_m": 5.69911050796509,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37",
+      "triangles": 12668,
+      "unit": "m"
+    },
+    {
+      "bytes": 904620,
+      "folder": "猎虎",
+      "longest_m": 10.3433856964111,
+      "meshes": 31,
+      "nodes": 35,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83",
+      "triangles": 13789,
+      "unit": "m"
+    },
+    {
+      "bytes": 893104,
+      "folder": "猎豹",
+      "longest_m": 9.41950416564941,
+      "meshes": 28,
+      "nodes": 32,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d",
+      "triangles": 13110,
+      "unit": "m"
+    },
+    {
+      "bytes": 901364,
+      "folder": "猎豹防空车",
+      "longest_m": 7.73260021209717,
+      "meshes": 39,
+      "nodes": 43,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
+      "triangles": 13767,
+      "unit": "m"
+    },
+    {
+      "bytes": 770840,
+      "folder": "突击虎",
+      "longest_m": 6.19360160827637,
+      "meshes": 27,
+      "nodes": 31,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933",
+      "triangles": 11830,
+      "unit": "m"
+    },
+    {
+      "bytes": 918372,
+      "folder": "美洲狮步战车",
+      "longest_m": 7.67951011657715,
+      "meshes": 46,
+      "nodes": 50,
+      "roles_resolved": 0,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4",
+      "triangles": 14709,
+      "unit": "m"
+    },
+    {
+      "bytes": 904588,
+      "folder": "虎I",
+      "longest_m": 8.32999992370605,
+      "meshes": 38,
+      "nodes": 42,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf",
+      "triangles": 14374,
+      "unit": "m"
+    },
+    {
+      "bytes": 969396,
+      "folder": "虎II",
+      "longest_m": 10.0003042221069,
+      "meshes": 34,
+      "nodes": 38,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f",
+      "triangles": 14708,
+      "unit": "m"
+    },
+    {
+      "bytes": 771372,
+      "folder": "豹1",
+      "longest_m": 9.32660102844238,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56",
+      "triangles": 12164,
+      "unit": "m"
+    },
+    {
+      "bytes": 889668,
+      "folder": "豹2",
+      "longest_m": 9.64200401306152,
+      "meshes": 45,
+      "nodes": 49,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+      "triangles": 13540,
+      "unit": "m"
+    },
+    {
+      "bytes": 532180,
+      "folder": "追猎者",
+      "longest_m": 6.20850467681885,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "hull",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400",
+      "triangles": 8145,
+      "unit": "m"
+    },
+    {
+      "bytes": 648172,
+      "folder": "黄鼠狼III",
+      "longest_m": 6.02795267105103,
+      "meshes": 24,
+      "nodes": 28,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "4e5665fcd92b76d16d1984fcf525b75cd823d47e161751103cacab3513ee33a5",
+      "triangles": 9974,
+      "unit": "m"
+    },
+    {
+      "bytes": 1026044,
+      "folder": "黄鼠狼步战车",
+      "longest_m": 6.87000370025635,
+      "meshes": 38,
+      "nodes": 44,
+      "roles_resolved": 0,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "079310065f0bec17f9550c267c61dcf2c7dbf118fcb50250c3d009d2f183a418",
+      "triangles": 14837,
+      "unit": "m"
+    },
+    {
+      "bytes": 781696,
+      "folder": "黑豹",
+      "longest_m": 8.70680332183838,
+      "meshes": 33,
+      "nodes": 37,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67",
+      "triangles": 12205,
+      "unit": "m"
+    },
+    {
+      "bytes": 880652,
+      "folder": "黑豹II",
+      "longest_m": 9.14810276031494,
+      "meshes": 35,
+      "nodes": 39,
+      "roles_resolved": 1,
+      "roles_unresolved": [
+        "hull",
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562",
+      "triangles": 12682,
+      "unit": "m"
+    },
+    {
+      "bytes": 796548,
+      "folder": "鼠式",
+      "longest_m": 10.0312004089355,
+      "meshes": 63,
+      "nodes": 67,
+      "roles_resolved": 2,
+      "roles_unresolved": [
+        "turret",
+        "muzzle",
+        "running_left",
+        "running_right"
+      ],
+      "sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2",
+      "triangles": 12129,
+      "unit": "m"
+    }
+  ],
+  "schema": 1,
+  "source_root": "E:/AIprogram/aimodel/德国",
+  "total_bytes": 74764124,
+  "total_triangles": 1147100,
+  "triangle_budget": 15000,
+  "triangles_over_budget": 0
+}
