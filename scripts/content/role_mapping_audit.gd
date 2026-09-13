@@ -32,6 +32,14 @@ const HINTS := {
 ## Roles whose hint must match exactly or as a prefix: `muzzle` must really be a muzzle node,
 ## not the `...AndMuzzleBrake` compound gun mesh.
 const STRICT_ROLES := ["muzzle"]
+## Each class is judged by its own role set. Forcing the single-turret six roles onto
+## unarmed trucks, radar/FCS vehicles or multi-launcher carriers produced phantom gaps.
+const EXPECTED_BY_CLASS := {
+	"single_turret":["hull","turret","gun","muzzle","running_left","running_right"],
+	"multi_launcher":["hull","running_left","running_right"],
+	"support_unarmed":["hull","running_left","running_right"],
+	"unarmed":["hull","running_left","running_right"],
+}
 const LAUNCHER_HINTS := ["launcher","missile","container","radar","reflector"]
 const GUN_MESH_HINTS := ["maingunandmuzzl","maingun","barrel","kanone","rohr","cannon"]
 const AXIS_EPS := 0.02
@@ -143,32 +151,50 @@ static func resolve(probe_report: Dictionary) -> Dictionary:
 		else:
 			roles.muzzle = {"kind":"missing","reason":"no_muzzle_node_and_no_single_barrel_mesh","barrel_candidates":meshes.size()}
 	# local axis checks against the mechanism convention (turret +Y yaw, gun +X elevation).
+	# Axis convention is only meaningful for a node that exists: an absent role is reported
+	# as "n/a", never as a deviation, so "no gun" cannot masquerade as "bad gun axis".
 	var axis_checks := {}
-	axis_checks["turret"] = (str(roles.turret.kind) == "node" and _vec3(roles.turret.up).distance_to(Vector3.UP) <= AXIS_EPS)
-	axis_checks["gun"] = (str(roles.gun.kind) == "node" and _vec3(roles.gun.forward).distance_to(Vector3.FORWARD) <= AXIS_EPS)
+	axis_checks["turret"] = "n/a"
+	axis_checks["gun"] = "n/a"
 	var axis_notes: Array[String] = []
-	if not bool(axis_checks.turret) and str(roles.turret.kind) == "node":
-		axis_notes.append("turret %s up=%s deviates from +Y" % [str(roles.turret.path),str(roles.turret.up)])
-	if not bool(axis_checks.gun) and str(roles.gun.kind) == "node":
-		axis_notes.append("gun %s forward=%s deviates from -Z" % [str(roles.gun.path),str(roles.gun.forward)])
-	var launchers := 0
+	if str(roles.turret.kind) == "node":
+		var turret_ok := _vec3(roles.turret.up).distance_to(Vector3.UP) <= AXIS_EPS
+		axis_checks["turret"] = turret_ok
+		if not turret_ok: axis_notes.append("turret %s up=%s deviates from +Y" % [str(roles.turret.path),str(roles.turret.up)])
+	if str(roles.gun.kind) == "node":
+		var gun_ok := _vec3(roles.gun.forward).distance_to(Vector3.FORWARD) <= AXIS_EPS
+		axis_checks["gun"] = gun_ok
+		if not gun_ok: axis_notes.append("gun %s forward=%s deviates from -Z" % [str(roles.gun.path),str(roles.gun.forward)])
+	var launcher_paths: Array[String] = []
 	for row in nodes:
 		for hint in LAUNCHER_HINTS:
 			if str(row.name).to_lower().contains(str(hint)):
-				launchers += 1
+				launcher_paths.append(str(row.path))
 				break
+	var launchers := launcher_paths.size()
 	var armed: bool = str(roles.gun.kind) == "node" or str(roles.gun.kind) == "measured_frame"
 	var vehicle_class := "unarmed"
 	if armed and launchers >= 2: vehicle_class = "multi_launcher"
 	elif armed: vehicle_class = "single_turret"
 	elif launchers >= 1: vehicle_class = "support_unarmed"
+	var expected: Array = EXPECTED_BY_CLASS.get(vehicle_class,[])
+	var class_missing: Array[String] = []
+	for role in expected:
+		var kind := str(roles.get(role,{}).get("kind","missing"))
+		# A measured frame satisfies the role: the muzzle in these assets has no node and is
+		# measured from the barrel, so demanding kind == "node" marked every tank incomplete.
+		if kind != "node" and kind != "measured_frame": class_missing.append(str(role))
+	var needs_launcher: bool = vehicle_class in ["multi_launcher","support_unarmed"]
+	var class_ready: bool = class_missing.is_empty() and (launchers >= 1 or not needs_launcher)
 	var missing_roles: Array[String] = []
 	for role in ModelBindingValidator.ROLES:
 		if str(roles[role].kind) == "missing": missing_roles.append(role)
 	return {"ok":true,"roles":roles,"counts":counts,"node_roles":int(counts.node),
 		"measured_roles":int(counts.get("measured",0)),"ambiguous_roles":int(counts.ambiguous),
 		"missing_roles":int(counts.missing),"missing_role_names":missing_roles,
-		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"axis_checks":axis_checks,"axis_notes":axis_notes,
+		"vehicle_class":vehicle_class,"launcher_nodes":launchers,"launcher_paths":launcher_paths,
+		"expected_roles":expected,"class_missing_roles":class_missing,"class_ready":class_ready,
+		"axis_checks":axis_checks,"axis_notes":axis_notes,
 		"muzzle_state":muzzle_state,
 		"binding_ready":int(counts.get("missing",0)) == 0 and int(counts.get("ambiguous",0)) == 0,
 		"note":"shape-only: hierarchy, muzzle direction, combat layout and internal modules still require check_scene()/check_file()"}

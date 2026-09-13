@@ -84,7 +84,8 @@ func _max_bottoming(actor: VehicleActor) -> float:
 			worst = maxf(worst,(hit.position as Vector3).y-bottom)
 	return worst
 
-func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 6000) -> Dictionary:
+func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 3600) -> Dictionary:
+	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
 	var actor := _spawn(vehicle_id,start)
 	var nav := DriveNavigator.new(); nav.configure(map.graph)
 	var driver := AIPathDriver.new()
@@ -130,6 +131,9 @@ func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mo
 		else: still = 0
 		if still >= STALL_TICKS: stalled += 1
 		previous = pos
+		if i % 1500 == 0 and i > 0:
+			print("[T039-D progress] %s %s tick=%d traveled=%.1f speed=%.2f still=%d phase=%s" % [
+				vehicle_id,label,i,traveled,actor.tank.forward_speed,still,(driver.phase if driver != null else "fixed")])
 		if driver != null and mode == "driver" and driver.phase in ["arrived","failed","unreachable"]:
 			reached = driver.phase == "arrived"; break
 		if mode != "driver" and pos.distance_to(goal) < 3.0: reached = true; break
@@ -165,12 +169,15 @@ func _calibrate(vehicle_id: String) -> Dictionary:
 		if still >= STALL_TICKS: stalled += 1
 		previous = pos
 	var traveled := start.distance_to(actor.tank.global_position)
+	# Capture every field that lives on the actor's children BEFORE freeing the actor: reading
+	# `fixed.throttle` afterwards touches a freed object and silently aborted the calibration.
+	var throttle_used := fixed.throttle
 	actor.free()
 	await _frames(2)
 	var ok: bool = worst <= FIXTURE_TOLERANCE_M and stalled == 0 and traveled > CALIBRATION_MIN_TRAVEL and bounces == 0
 	var report := {"vehicle_id":vehicle_id,"max_bottoming":worst,"stalled":stalled,"traveled":traveled,
-		"bounces":bounces,"tolerance":FIXTURE_TOLERANCE_M,"throttle":fixed.throttle,"ok":ok}
-	print("[T039-D calibration] %s throttle=%.2f bottoming=%.4f stalled=%d traveled=%.2f bounces=%d ok=%s"%[vehicle_id,fixed.throttle,worst,stalled,traveled,bounces,str(ok)])
+		"bounces":bounces,"tolerance":FIXTURE_TOLERANCE_M,"throttle":throttle_used,"ok":ok}
+	print("[T039-D calibration] %s throttle=%.2f bottoming=%.4f stalled=%d traveled=%.2f bounces=%d ok=%s"%[vehicle_id,throttle_used,worst,stalled,traveled,bounces,str(ok)])
 	return report
 
 func _run() -> void:

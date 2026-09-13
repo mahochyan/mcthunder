@@ -10,6 +10,11 @@ const REPORT_PATH := "res://logs/WT-031C-r2/german_role_mapping.json"
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	root.size = Vector2i(1280,720)
+	# A script error must not leave the tree idling: the watchdog reports and exits.
+	var watchdog := create_timer(600.0)
+	watchdog.timeout.connect(func() -> void:
+		print("[role] WATCHDOG timeout: aborting inconclusively")
+		quit(3))
 	var args := OS.get_cmdline_user_args()
 	var source_root: String = args[0] if args.size() > 0 else DEFAULT_ROOT
 	var dir := DirAccess.open(source_root)
@@ -24,10 +29,16 @@ func _run() -> void:
 	var role_node := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var role_measured := {"hull":0,"turret":0,"gun":0,"muzzle":0,"running_left":0,"running_right":0}
 	var class_counts := {}
+	var class_ready_counts := {}
+	var class_not_ready := {}
 	var missing_by_role := {}
 	var adapter_needed := 0
 	var axis_turret_bad := 0
 	var axis_gun_bad := 0
+	var axis_turret_ok := 0
+	var axis_gun_ok := 0
+	var axis_turret_na := 0
+	var axis_gun_na := 0
 	var shape_clean := 0
 	var pending_any := 0
 	var path_inside := 0
@@ -57,12 +68,26 @@ func _run() -> void:
 				"ambiguous": role_ambiguous[role] = int(role_ambiguous[role])+1
 				"missing": role_missing[role] = int(role_missing[role])+1
 		class_counts[str(result.vehicle_class)] = int(class_counts.get(str(result.vehicle_class),0))+1
+		if bool(result.class_ready):
+			class_ready_counts[str(result.vehicle_class)] = int(class_ready_counts.get(str(result.vehicle_class),0))+1
+		else:
+			class_not_ready[str(result.vehicle_class)] = int(class_not_ready.get(str(result.vehicle_class),0))+1
 		if bool(blockers.adapter_artifact_required): adapter_needed += 1
 		for role in result.missing_role_names: missing_by_role[str(role)] = int(missing_by_role.get(str(role),0))+1
-		if not bool(result.axis_checks.get("turret",false)): axis_turret_bad += 1
-		if not bool(result.axis_checks.get("gun",false)): axis_gun_bad += 1
+		var turret_axis: Variant = result.axis_checks.get("turret",false)
+		if turret_axis is bool:
+			if bool(turret_axis): axis_turret_ok += 1
+			else: axis_turret_bad += 1
+		else: axis_turret_na += 1
+		var gun_axis: Variant = result.axis_checks.get("gun",false)
+		if gun_axis is bool:
+			if bool(gun_axis): axis_gun_ok += 1
+			else: axis_gun_bad += 1
+		else: axis_gun_na += 1
 		rows.append({"folder":folder,"ok":true,"ready":bool(result.binding_ready),
 			"vehicle_class":str(result.vehicle_class),"muzzle_state":str(result.muzzle_state),
+			"expected_roles":result.expected_roles,"class_missing_roles":result.class_missing_roles,
+			"class_ready":bool(result.class_ready),"launcher_nodes":int(result.launcher_nodes),
 			"axis_checks":result.axis_checks,"missing_role_names":result.missing_role_names,
 			"node_roles":int(result.node_roles),"measured_roles":int(result.measured_roles),
 			"ambiguous_roles":int(result.ambiguous_roles),"missing_roles":int(result.missing_roles),
@@ -80,8 +105,11 @@ func _run() -> void:
 	for role in ModelBindingValidator.ROLES:
 		print("[role]   %s: node=%d measured=%d ambiguous=%d missing=%d"%[role,int(role_node[role]),int(role_measured[role]),int(role_ambiguous[role]),int(role_missing[role])])
 	print("[role] vehicle classes: ",class_counts)
+	print("[role] class-ready (judged by each class's own roles): ",class_ready_counts)
+	print("[role] class-not-ready: ",class_not_ready)
 	print("[role] missing by role: ",missing_by_role)
-	print("[role] axis convention: turret_bad=%d gun_bad=%d ; adapter artifact needed=%d"%[axis_turret_bad,axis_gun_bad,adapter_needed])
+	print("[role] axis convention: turret ok=%d bad=%d n/a=%d ; gun ok=%d bad=%d n/a=%d ; adapter artifact needed=%d"%[
+		axis_turret_ok,axis_turret_bad,axis_turret_na,axis_gun_ok,axis_gun_bad,axis_gun_na,adapter_needed])
 	var payload := {"schema":1,"source_root":source_root,"rows":rows,"binding_ready":ready,
 		"unparsable":unparsable,"per_role":{"node":role_node,"ambiguous":role_ambiguous,"missing":role_missing},
 		"draft_binding":{"shape_clean":shape_clean,"pending_author_steps":pending_any,
