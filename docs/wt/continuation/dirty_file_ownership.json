@@ -1,0 +1,75 @@
+{
+    "schema":  1,
+    "work_order":  "WT-001-R1",
+    "generated_at_utc":  "2026-09-13T08:13:18.1727116Z",
+    "summary":  "All 6 tracked modifications belong to one workstream: M1A1 HC 15000-triangle model rebuild and the showroom cosmetic drive preview. They are preserved by hash and kept isolated from this round\u0027s candidate.",
+    "disposition":  "isolated_preserved_not_integrated",
+    "disposition_reason":  "02_棣栬疆10寮犳墽琛屽崟.md WT-031-R1 requires the M1A1 dirty binary to stay out of the candidate by default, and 06_鐩存帴鍙戠粰鎵ц妯″瀷.txt requires unknown-provenance M1A1 assets and showroom edits to remain isolated.",
+    "workstream":  {
+                       "id":  "M1A1-15K-SHOWROOM-PREVIEW",
+                       "date":  "2026-09-12",
+                       "deliverables_referenced":  [
+                                                       "authoring/m1a1_15k/DELIVERY.md",
+                                                       "authoring/m1a1_15k/m1a1_15000.blend"
+                                                   ],
+                       "related_work_orders":  [
+                                                   "WT-030",
+                                                   "WT-031",
+                                                   "WT-033"
+                                               ]
+                   },
+    "files":  [
+                  {
+                      "path":  "assets/vehicles/m1a1/m1a1.glb",
+                      "bytes":  7866852,
+                      "sha256":  "CCCFD670A7D7899D6A55B20D7E64C726FCD811EB24CB0841C522B2EDCDBC9E59",
+                      "change":  "binary 3869232 -\u003e 7866852 bytes (3896 -\u003e 15000 triangles)",
+                      "role":  "new M1A1 HC model replacing the previous 4k-triangle LOD"
+                  },
+                  {
+                      "path":  "assets/vehicles/MODERN_ASSETS.json",
+                      "bytes":  2789,
+                      "change":  "status + m1a1 entry rewritten by the generator",
+                      "role":  "asset manifest consumed by the showroom"
+                  },
+                  {
+                      "path":  "authoring/vehicles/write_modern_asset_manifest.py",
+                      "bytes":  2340,
+                      "change":  "+4/-1 lines",
+                      "role":  "generator that emits current_authoring_path / budget_groups / integration / geometry_method"
+                  },
+                  {
+                      "path":  "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+                      "bytes":  4051,
+                      "change":  "+2 lines",
+                      "role":  "historical-archive note pointing at the new 15k delivery"
+                  },
+                  {
+                      "path":  "docs/MODELING_STANDARD.md",
+                      "bytes":  3500,
+                      "change":  "+4 lines",
+                      "role":  "USSR batch budget policy + M1A1 HC 15000-triangle authorization (9000 turret / 6000 hull)"
+                  },
+                  {
+                      "path":  "scripts/core/model_showroom.gd",
+                      "bytes":  5781,
+                      "change":  "+27/-5 lines",
+                      "role":  "multi-model catalog loading (usrr_batch/catalog.json validated_preview) + M1A1 cosmetic drive preview button"
+                  }
+              ],
+    "untracked_wip":  {
+                          "note":  "Untracked content is inventoried by hash and classified; nothing was moved, deleted or added to the index of the source worktree.",
+                          "candidate_sources_for_later_orders":  [
+                                                                     "scripts/ (20 untracked)",
+                                                                     "tests/ (64 untracked)",
+                                                                     "aimodel/ (93 untracked, 66.5 MB of Blender sources)"
+                                                                 ],
+                          "evidence_class":  "logs/ (780 untracked) + docs/ evidence",
+                          "temporary_class":  ".tmp-edge-cdp/.tmp-edge-headless/.tmp-edge2 (972 untracked, 63.6 MB, live msedge profiles)"
+                      },
+    "concurrency":  {
+                        "other_writers_observed":  "five live msedge processes holding .tmp-edge* profile files",
+                        "game_or_godot_writers_observed":  "none (no Godot process running during the snapshot)",
+                        "source_mutation_during_snapshot":  "none detected: all 6 modified files and the 379 porcelain entries were identical before and after"
+                    }
+}

@@ -1,0 +1,228 @@
+{
+    "schema":  1,
+    "work_order":  "WT-001-R1",
+    "generated_at_utc":  "2026-09-13T08:13:18.1727116Z",
+    "verdict":  "PASS",
+    "source":  {
+                   "repo":  "E:\\AIprogram\\mcthunder",
+                   "branch":  "main",
+                   "head":  "a1bac406d2bc12b32c7f7d130590f1c1a17907c9",
+                   "head_subject":  "Connect River Junction roads to real vehicle navigation and route guide",
+                   "head_time":  "2026-09-13T01:32:10+08:00",
+                   "origin_main_head":  "29376e20e5675bd15747ac4bfd6b24382d6c3b15",
+                   "ahead_of_origin_main":  243,
+                   "behind_origin_main":  0,
+                   "upstream_configured":  false,
+                   "tags":  0
+               },
+    "isolation":  {
+                      "worktree":  "E:\\AIprogram\\mcthunder-cont",
+                      "branch":  "work/continuation-20260913",
+                      "base":  "a1bac406d2bc12b32c7f7d130590f1c1a17907c9",
+                      "clean_at_creation":  true,
+                      "note":  "All continuation work happens here; the original worktree is left byte-identical."
+                  },
+    "snapshot":  {
+                     "root":  "E:\\AIprogram\\mcthunder-archive\\continuation-preserve-20260913",
+                     "tree":  "E:\\AIprogram\\mcthunder-archive\\continuation-preserve-20260913\\tree",
+                     "tree_file_count":  46008,
+                     "tree_bytes":  4318169464,
+                     "git_bundle":  "E:\\AIprogram\\mcthunder-archive\\continuation-preserve-20260913\\mcthunder-all-refs.bundle",
+                     "git_bundle_bytes":  1363952256,
+                     "git_bundle_sha256":  "668A24AF49D03CA4E7C69348F49966A72D97AE1FB4FC4659E117D409CE15FE7B",
+                     "git_refs_recorded":  73,
+                     "method":  "robocopy /E of the whole worktree excluding .git and .godot, then targeted top-ups"
+                 },
+    "counts":  {
+                   "tracked_files":  6745,
+                   "untracked_files_file_level":  38615,
+                   "untracked_entries_porcelain_directory_collapsed":  379,
+                   "modified_tracked":  6,
+                   "deleted_tracked":  0,
+                   "staged":  0
+               },
+    "untracked_classification":  {
+                                     "source":  1872,
+                                     "evidence":  1826,
+                                     "other":  12,
+                                     "temp_browser_profile":  972,
+                                     "asset":  33933
+                                 },
+    "untracked_bytes_by_class":  {
+                                     "source":  134660677,
+                                     "evidence":  157799840,
+                                     "other":  17283916,
+                                     "temp_browser_profile":  66646803,
+                                     "asset":  2958067724
+                                 },
+    "untracked_by_top_level":  {
+                                   "value":  [
+                                                 {
+                                                     "top":  ".tmp-edge-cdp",
+                                                     "files":  163,
+                                                     "bytes":  13872170
+                                                 },
+                                                 {
+                                                     "top":  ".tmp-edge-headless",
+                                                     "files":  539,
+                                                     "bytes":  26503382
+                                                 },
+                                                 {
+                                                     "top":  ".tmp-edge2",
+                                                     "files":  270,
+                                                     "bytes":  26271251
+                                                 },
+                                                 {
+                                                     "top":  "README_T90M_15000.md",
+                                                     "files":  1,
+                                                     "bytes":  0
+                                                 },
+                                                 {
+                                                     "top":  "aimodel",
+                                                     "files":  93,
+                                                     "bytes":  66339946
+                                                 },
+                                                 {
+                                                     "top":  "assets",
+                                                     "files":  14,
+                                                     "bytes":  31739315
+                                                 },
+                                                 {
+                                                     "top":  "authoring",
+                                                     "files":  3681,
+                                                     "bytes":  1859570150
+                                                 },
+                                                 {
+                                                     "top":  "cap.log",
+                                                     "files":  1,
+                                                     "bytes":  1164
+                                                 },
+                                                 {
+                                                     "top":  "dev_tools",
+                                                     "files":  32490,
+                                                     "bytes":  1116459866
+                                                 },
+                                                 {
+                                                     "top":  "docs",
+                                                     "files":  455,
+                                                     "bytes":  101589195
+                                                 },
+                                                 {
+                                                     "top":  "dsh-tools",
+                                                     "files":  6,
+                                                     "bytes":  30114
+                                                 },
+                                                 {
+                                                     "top":  "import.log",
+                                                     "files":  1,
+                                                     "bytes":  96278
+                                                 },
+                                                 {
+                                                     "top":  "logs",
+                                                     "files":  780,
+                                                     "bytes":  76301507
+                                                 },
+                                                 {
+                                                     "top":  "scripts",
+                                                     "files":  20,
+                                                     "bytes":  9029
+                                                 },
+                                                 {
+                                                     "top":  "tests",
+                                                     "files":  64,
+                                                     "bytes":  13254798
+                                                 },
+                                                 {
+                                                     "top":  "tools",
+                                                     "files":  37,
+                                                     "bytes":  2420795
+                                                 }
+                                             ],
+                                   "Count":  16
+                               },
+    "verification":  {
+                         "method":  "full SHA-256 of every untracked entry and every modified file, source vs snapshot, long-path aware",
+                         "modified_all_match":  true,
+                         "untracked_match":  38615,
+                         "untracked_absent":  0,
+                         "untracked_hash_diff":  0,
+                         "source_unchanged_all":  true,
+                         "source_porcelain_after":  379,
+                         "report_txt":  "E:\\AIprogram\\mcthunder-archive\\continuation-preserve-20260913\\restore_check.txt",
+                         "report_json":  "E:\\AIprogram\\mcthunder-archive\\continuation-preserve-20260913\\restore_check.json"
+                     },
+    "modified_files":  {
+                           "value":  [
+                                         {
+                                             "path":  "assets/vehicles/MODERN_ASSETS.json",
+                                             "bytes":  2789,
+                                             "sha256":  "B0E1EA941EBBC81FC86E2E749C67CBAF1C1B3E5F91D8503A7B968C6E36470ED4",
+                                             "mtime":  "2026-09-11T16:04:18.9971195Z"
+                                         },
+                                         {
+                                             "path":  "assets/vehicles/m1a1/m1a1.glb",
+                                             "bytes":  7866852,
+                                             "sha256":  "CCCFD670A7D7899D6A55B20D7E64C726FCD811EB24CB0841C522B2EDCDBC9E59",
+                                             "mtime":  "2026-09-11T16:02:15.8621887Z"
+                                         },
+                                         {
+                                             "path":  "authoring/vehicles/m1a1/SOURCE_NOTES.md",
+                                             "bytes":  4051,
+                                             "sha256":  "3867C9D76831E4AA1D450494E2B276294B8CAF536981C54505FC3F4B1F417BCC",
+                                             "mtime":  "2026-09-11T16:09:23.0342486Z"
+                                         },
+                                         {
+                                             "path":  "authoring/vehicles/write_modern_asset_manifest.py",
+                                             "bytes":  2340,
+                                             "sha256":  "2ED148167EE4492C17C494F0D812720E56958CBF68565F03319A2DAA7DCE8447",
+                                             "mtime":  "2026-09-11T16:04:18.1361078Z"
+                                         },
+                                         {
+                                             "path":  "docs/MODELING_STANDARD.md",
+                                             "bytes":  3500,
+                                             "sha256":  "8488BABEF0ED010ACDC5B78BC3949690CEA9ED683407C36C85A13931F7261FFA",
+                                             "mtime":  "2026-09-12T03:54:55.9278478Z"
+                                         },
+                                         {
+                                             "path":  "scripts/core/model_showroom.gd",
+                                             "bytes":  5781,
+                                             "sha256":  "BA49168E1720AFA33AF61409F19EE01AA0197AA93973A44F80E9137F944A714F",
+                                             "mtime":  "2026-09-12T03:05:06.5705202Z"
+                                         }
+                                     ],
+                           "Count":  6
+                       },
+    "tool_identity":  {
+                          "git":  "git version 2.54.0.windows.1",
+                          "powershell":  "5.1.26100.9444",
+                          "os":  "Microsoft Windows NT 10.0.26200.0",
+                          "engine_present":  true,
+                          "engine_bytes":  198152,
+                          "engine_sha256":  "C8F0A6BC45A19B33541501E57F6F7CD972AB18453743266339D495CBBE846643",
+                          "export_templates_dir_present":  false
+                      },
+    "captured":  [
+                     "entire worktree contents (tracked + untracked + .gitignore-hidden files present on disk)",
+                     "Git history of all refs as a verified bundle",
+                     "git refs table, HEAD, index (ls-files -s), porcelain status, tracked diff incl. binary patch",
+                     "per-file SHA-256 for all 38615 untracked entries and all 6 modified tracked files"
+                 ],
+    "not_captured":  [
+                         ".git directory itself (2.7 GB) - history is preserved in the bundle instead",
+                         ".godot import cache - regenerable from source",
+                         "external read-only sources E:/AIprogram/tank_data/cache and E:/AIprogram/aimodel (outside the repo)",
+                         "E:/AIprogram/mcthunder-archive (15.3 GB) - excluded from this order by the plan scope"
+                     ],
+    "findings":  [
+                     "The 6 tracked modifications are one coherent workstream: M1A1 HC 15000-triangle rebuild + showroom cosmetic drive preview.",
+                     "Snapshotting hit two Windows path limits: destination paths exceed MAX_PATH 260 for deep Godot shader-cache entries (fixed with \\\\?\\ extended-length IO), and PowerShell Test-Path silently reports such paths absent (verification made long-path aware).",
+                     "Live msedge processes hold the .tmp-edge* browser profiles; those 972 entries were copied and hashed anyway and matched at the moment of capture."
+                 ],
+    "restore_procedure":  [
+                              "1. Restore the worktree copy: robocopy /E \u003croot\u003e\\tree \u003ctarget\u003e, or copy per-file with \\\\?\\ prefixes for deep paths.",
+                              "2. Verify: recompute SHA-256 and compare against manifest/untracked_hashes.json and manifest/modified_hashes.json.",
+                              "3. Restore Git history: git clone \u003croot\u003e\\mcthunder-all-refs.bundle \u003ctarget-repo\u003e (bundle verified).",
+                              "4. Compare HEAD with manifest/HEAD.txt and git status with manifest/status_porcelain.txt.",
+                              "5. Do not overwrite a live worktree with the snapshot; restore into a new directory first."
+                          ]
+}
