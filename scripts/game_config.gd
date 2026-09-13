@@ -53,6 +53,12 @@ const AI_STUCK_PROGRESS_M := 0.35
 const AI_RECOVERY_ATTEMPTS := 3
 const AI_REVERSE_SECONDS := 1.2
 const AI_TURN_RECOVERY_SECONDS := 0.7
+## WT-039-R1: on high-drag ground the arrival-speed profile can ask for so little throttle that a
+## heavy hull cannot make headway (measured: M26 commanded 0.36 on grass with drag 0.55 crept at
+## 0.02 m/s where the same hull did 2.17 m/s on a lower-drag surface). While still well short of
+## the waypoint and on such ground, keep at least this much speed demand.
+const AI_MIN_APPROACH_SPEED_MPS := 1.5
+const AI_MIN_APPROACH_DRAG := 0.5
 const AI_GOAL_RADIUS_M := 1.6
 const AI_OBSTACLE_LOOKAHEAD_M := 2.0
 

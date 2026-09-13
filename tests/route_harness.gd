@@ -58,9 +58,11 @@ static func trace_line(tick: int, driver: AIPathDriver, actor: VehicleActor, goa
 		if collision == null: continue
 		var collider := collision.get_collider()
 		contacts.append(str(collider.name) if collider != null else "?")
-	var pose := " pitch=%.2f roll=%.2f normal_y=%.2f contacts=%d[%s]" % [
+	var pose := " pitch=%.2f roll=%.2f normal_y=%.2f contacts=%d[%s] drag=%.2f traction=%.2f gear=%d shift=%.2f" % [
 		rad_to_deg(actor.tank.global_basis.get_euler().x),rad_to_deg(actor.tank.global_basis.get_euler().z),
-		float(actor.tank.ground_state.normal.y),contacts.size(),",".join(contacts)]
+		float(actor.tank.ground_state.normal.y),contacts.size(),",".join(contacts),
+		float(actor.tank.ground_state.surface_drag),float(actor.tank.ground_state.traction_support),
+		int(actor.tank.powertrain.gear),float(actor.tank.powertrain.shift_left)]
 	return "tick=%d phase=%s reason=%s wp=%d dist_wp=%.2f bearing_deg=%.2f speed=%.3f pos=(%.3f,%.3f,%.3f)%s%s" % [
 		tick,str(driver.phase),str(driver.reason),driver.waypoint,to_target.length(),bearing,
 		actor.tank.forward_speed,position.x,position.y,position.z,command,pose]
