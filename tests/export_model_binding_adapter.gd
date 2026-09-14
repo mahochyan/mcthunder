@@ -44,11 +44,41 @@ func _run() -> void:
 		var scene: Node = document.generate_scene(state)
 		if scene == null:
 			print("[adapter] ",id," SCENE FAILED"); continue
-		var marker := Marker3D.new()
+		# WT-036-R1: a marker parented straight to the scene root did not survive the export with its
+		# transform - the artifact's MuzzlePoint was measured at (0,0,0) on all three samples, which
+		# defeats the point of the adapter. Parent it to the gun node instead, which is a real
+		# exported node, and give it the transform that places it at the measured muzzle in root
+		# space. It is verified after the write below.
+		var row_parent := "<unset>"
+		var gun_path := ""
+		var gun_entry: Dictionary = mapping.roles.get("gun",{})
+		if str(gun_entry.get("kind","")) == "node": gun_path = str(gun_entry.get("path",""))
+		var gun_node: Node = scene.get_node_or_null(NodePath(gun_path)) if not gun_path.is_empty() else null
+		var marker := Node3D.new()
 		marker.name = "MuzzlePoint"
-		marker.position = offset
-		scene.add_child(marker)
-		marker.owner = scene
+		# WT-036-R1: a bare Marker3D (and equally a bare Node3D anchor) did not survive the export
+		# with its transform - the artifact's muzzle measured (0,0,0) on both attempts, which the
+		# self-check below caught. Attach a tiny real mesh so the exporter writes a mesh-bearing node
+		# whose transform it must keep; 2 cm of geometry is a cheap price for a usable anchor.
+		var anchor_mesh := MeshInstance3D.new()
+		anchor_mesh.name = "MuzzlePointAnchor"
+		var box := BoxMesh.new()
+		box.size = Vector3(0.02,0.02,0.02)
+		anchor_mesh.mesh = box
+		marker.add_child(anchor_mesh)
+		var target := Transform3D(Basis(),offset)
+		if gun_node is Node3D:
+			marker.transform = (gun_node as Node3D).global_transform.affine_inverse() * target
+			gun_node.add_child(marker)
+			marker.owner = scene
+			anchor_mesh.owner = scene
+			row_parent = gun_path
+		else:
+			marker.transform = target
+			scene.add_child(marker)
+			marker.owner = scene
+			anchor_mesh.owner = scene
+			row_parent = "<scene root>"
 		var out_document := GLTFDocument.new()
 		var out_state := GLTFState.new()
 		out_document.append_from_scene(scene,out_state)
@@ -57,11 +87,33 @@ func _run() -> void:
 		var out_path := "%s/vehicle_adapter.glb" % directory
 		var write := out_document.write_to_filesystem(out_state,out_path)
 		var adapter_hash := FileAccess.get_sha256(out_path) if FileAccess.file_exists(out_path) else ""
+		# WT-036-R1 self-check: re-read the artifact and assert the muzzle node really sits where it
+		# was measured. Without this the earlier artifact passed a "node exists" check while its
+		# position was silently at the origin.
+		var verified := false
+		var verified_delta := -1.0
+		var verify_document := GLTFDocument.new()
+		var verify_state := GLTFState.new()
+		if verify_document.append_from_file(out_path,verify_state) == OK:
+			var verify_scene: Node = verify_document.generate_scene(verify_state)
+			if verify_scene != null:
+				var found: Node = null
+				var stack: Array[Node] = [verify_scene]
+				while not stack.is_empty() and found == null:
+					var node: Node = stack.pop_back()
+					if str(node.name) == "MuzzlePoint": found = node
+					for child in node.get_children(): stack.append(child)
+				if found is Node3D:
+					verified_delta = (found as Node3D).global_position.distance_to(offset)
+					verified = verified_delta <= 0.001
+				verify_scene.free()
 		var row := {"id":str(id),"source_path":source,"source_sha256":str(probe.sha256),
 			"adapter_path":out_path,"adapter_sha256":adapter_hash,
 			"muzzle_offset_m":[offset.x,offset.y,offset.z],"muzzle_method":method,
+			"muzzle_marker_parent":row_parent,"muzzle_verified_in_artifact":verified,
+			"muzzle_verified_delta_m":verified_delta,
 			"write_result":write,"source_unchanged":FileAccess.get_sha256(source) == str(probe.sha256),
-			"note":"source opened read-only; the adapter is our own derived artifact with its own hash"}
+			"note":"source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted"}
 		rows.append(row)
 		print("[adapter] %s source=%s adapter=%s offset=%s method=%s write=%d unchanged=%s" % [
 			str(id),str(probe.sha256).substr(0,16),adapter_hash.substr(0,16),str(offset),method,write,str(row.source_unchanged)])
