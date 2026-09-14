@@ -71,7 +71,13 @@ static func create() -> MapDefinition:
 				var p := a.lerp(b,float(i)/steps)
 				p.y = height(p.x,p.z)
 				nodes[key] = p
-			split_edges.append({"a":previous,"b":key,"width":edge.width,"road_visual":not edge.a.begins_with("spawn") and not edge.b.begins_with("cap")})
+			# WT-039-R1 (option C, user-chosen): paint the near->cap approach legs like the rest of
+			# the network. They were unpainted, so their ground classified as grass (drag 0.55) and
+			# the weakest hull could not make headway: the measured M26 was commanded 0.36 throttle,
+			# crept at 0.02 m/s and failed the route after four recoveries while the three stronger
+			# vehicles finished. Only these legs change; the dense cap<->cap mesh stays open ground
+			# as the author intended, and the effect is mobility and appearance only.
+			split_edges.append({"a":previous,"b":key,"width":edge.width,"road_visual":not edge.a.begins_with("spawn") and not edge.b.begins_with("spawn") and not (edge.a.begins_with("cap") and edge.b.begins_with("cap"))})
 			previous = key
 	edges = split_edges
 	var serialized: Array = []
