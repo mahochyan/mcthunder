@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real local ENet ERA authority starts on dedicated port
+[PASS] initial real network baseline includes unused ERA charge
+[PASS] ERA state is carried by explicit protocol v6
+[PASS] actual server projectile manager accepts bounded chemical test shot
+[PASS] server advances real HEAT to terminal armor contact
+[PASS] server atomically consumes tile exactly once
+[PASS] test drops application snapshots and preserves the client's previous view
+[PASS] next real snapshot recovers current spent state without replaying a hit
+[PASS] late joining real second client receives spent ERA baseline
+[PASS] actual server projectile manager accepts bounded chemical test shot
+[PASS] server resolves repeated real hit after consumption
+[PASS] second network-world hit receives passive protection only
+[PASS] server observes transport disconnect
+[PASS] reconnected client receives existing spent state rather than fresh charges
+[PASS] real generation reset restores tile state to both clients
+[PASS] delayed pre-reset snapshot cannot undo new-generation armor state
+[PASS] malformed charge snapshot is rejected atomically
+[PASS] malformed charge snapshot is rejected atomically
+[PASS] malformed charge snapshot is rejected atomically
+[PASS] malformed charge snapshot is rejected atomically
+[PASS] both real clients finish with frozen state
+[PASS] final identical authoritative payload includes charge state
+=== 结果: 22 项检查, 0 失败 ===
+ERA_NETWORK_CHECKS_PASS

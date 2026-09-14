@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] production loopback server starts
+[PASS] normal client handshake assigns vehicle
+[PASS] authority settles on 1m ledge
+[PASS] normal forward input crosses network and drives off ledge
+[PASS] actual server landing excites spring once
+[PASS] rendered replica receives dynamic compression and extension
+[PASS] authority and delayed display return to rest
+[PASS] client never simulates its own suspension or driving
+[PASS] rendered suspended armor remains aligned
+[NETWORK_SPRING] server_min=-0.1345983594656 client_min=-0.1345983594656 impacts=1
+=== 结果: 9 项检查, 0 失败 ===
+SUSPENSION_NETWORK_CHECKS_PASS

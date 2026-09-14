@@ -7,6 +7,11 @@ var graph: Dictionary = {}
 var spawns: Dictionary = {}
 var obstacles: Array[Dictionary] = []
 var supply_reservations: Array[Vector3] = []
+## WT-036-R1 (user decision D2): this envelope is a DECLARED DESIGN GOAL, not a hard requirement.
+## No in-repo vehicle reaches 8.5 m, and the rigid box carries no suspension and no track contact -
+## that is what wedges it on crests, while production vehicles pass there. The value is unchanged
+## because it still gates graph width in validate() and is consumed by the bake and structure
+## checks; only the declaration and the check's status change (see WT-036-R1_ENVELOPE_DECLARATION.md).
 var max_vehicle_size := Vector3(4.2,2.4,8.5)
 
 func validate() -> Dictionary:

@@ -1,0 +1,160 @@
+﻿[
+    {
+        "suite":  "run_balance_match_checks",
+        "cls":  "TIMEOUT",
+        "pass":  0,
+        "fail":  0,
+        "marker":  [
+
+                   ],
+        "seconds":  241.2
+    },
+    {
+        "suite":  "run_balance_matrix_checks",
+        "cls":  "PASS",
+        "pass":  18,
+        "fail":  0,
+        "marker":  "BALANCE_MATRIX_CHECKS_PASS",
+        "seconds":  111.9
+    },
+    {
+        "suite":  "run_build_identity_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "marker":  "BUILD_IDENTITY_CHECKS_PASS",
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_era_network_checks",
+        "cls":  "PASS",
+        "pass":  22,
+        "fail":  0,
+        "marker":  "ERA_NETWORK_CHECKS_PASS",
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_flank_crest_traversal_checks",
+        "cls":  "FAIL",
+        "pass":  18,
+        "fail":  8,
+        "marker":  "FLANK_CREST_TRAVERSAL_CHECKS_FAIL",
+        "seconds":  159.4
+    },
+    {
+        "suite":  "run_garage_frontend_checks",
+        "cls":  "PASS",
+        "pass":  19,
+        "fail":  0,
+        "marker":  "GARAGE_FRONTEND_CHECKS_PASS",
+        "seconds":  1.9
+    },
+    {
+        "suite":  "run_input_binding_checks",
+        "cls":  "PASS",
+        "pass":  16,
+        "fail":  0,
+        "marker":  "INPUT_BINDING_CHECKS_PASS",
+        "seconds":  5.8
+    },
+    {
+        "suite":  "run_long_rod_checks",
+        "cls":  "PASS",
+        "pass":  56,
+        "fail":  0,
+        "marker":  "LONG_ROD_CHECKS_PASS",
+        "seconds":  1.6
+    },
+    {
+        "suite":  "run_map_pack_checks",
+        "cls":  "PASS",
+        "pass":  7,
+        "fail":  0,
+        "marker":  "MAP_PACK_CHECKS_PASS",
+        "seconds":  3.1
+    },
+    {
+        "suite":  "run_material_replay_checks",
+        "cls":  "PASS",
+        "pass":  43,
+        "fail":  0,
+        "marker":  "MATERIAL_REPLAY_CHECKS_PASS",
+        "seconds":  2
+    },
+    {
+        "suite":  "run_menu_fire_handoff_checks",
+        "cls":  "PASS",
+        "pass":  3,
+        "fail":  0,
+        "marker":  "MENU_FIRE_HANDOFF_CHECKS_PASS",
+        "seconds":  5
+    },
+    {
+        "suite":  "run_model_showroom_checks",
+        "cls":  "PASS",
+        "pass":  15,
+        "fail":  0,
+        "marker":  "MODEL_SHOWROOM_CHECKS_PASS",
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_modern_model_mount_checks",
+        "cls":  "PASS",
+        "pass":  41,
+        "fail":  0,
+        "marker":  "MODERN_MODEL_MOUNT_CHECKS_PASS",
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_query_metrics_checks",
+        "cls":  "PASS",
+        "pass":  5,
+        "fail":  0,
+        "marker":  "QUERY_METRICS_CHECKS_PASS",
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_research_tree_checks",
+        "cls":  "PASS",
+        "pass":  26,
+        "fail":  0,
+        "marker":  "RESEARCH_TREE_CHECKS_PASS",
+        "seconds":  6.8
+    },
+    {
+        "suite":  "run_save_lock_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "marker":  "SAVE_LOCK_CHECKS_PASS",
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_telemetry_measures",
+        "cls":  "PASS",
+        "pass":  7,
+        "fail":  0,
+        "marker":  "TELEMETRY_MEASURES_PASS",
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_traffic_attribution",
+        "cls":  "TIMEOUT",
+        "pass":  0,
+        "fail":  0,
+        "marker":  [
+
+                   ],
+        "seconds":  241.1
+    },
+    {
+        "suite":  "run_traffic_telemetry_checks",
+        "cls":  "TIMEOUT",
+        "pass":  3,
+        "fail":  0,
+        "marker":  [
+
+                   ],
+        "seconds":  241.1
+    }
+]

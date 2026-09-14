@@ -1,0 +1,100 @@
+﻿[
+    {
+        "suite":  "run_multi_objective_checks",
+        "exit":  0,
+        "pass":  0,
+        "fail":  0,
+        "marker":  [
+
+                   ],
+        "seconds":  13.4
+    },
+    {
+        "suite":  "run_team_traffic_checks",
+        "exit":  0,
+        "pass":  34,
+        "fail":  0,
+        "marker":  "TEAM_TRAFFIC_CHECKS_PASS",
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_authority_state_checks",
+        "exit":  0,
+        "pass":  19,
+        "fail":  0,
+        "marker":  "AUTHORITY_STATE_CHECKS_PASS",
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_diagnostic_budget_checks",
+        "exit":  0,
+        "pass":  4,
+        "fail":  0,
+        "marker":  "DIAGNOSTIC_BUDGET_CHECKS_PASS",
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_tech_segment_checks",
+        "exit":  0,
+        "pass":  50,
+        "fail":  0,
+        "marker":  "TECH_SEGMENT_CHECKS_PASS",
+        "seconds":  1.1
+    },
+    {
+        "suite":  "run_asset_registry_checks",
+        "exit":  0,
+        "pass":  44,
+        "fail":  0,
+        "marker":  "ASSET_REGISTRY_CHECKS_PASS",
+        "seconds":  1.3
+    },
+    {
+        "suite":  "run_match_event_checks",
+        "exit":  0,
+        "pass":  11,
+        "fail":  0,
+        "marker":  "MATCH_EVENT_CHECKS_PASS",
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_modern_equipment_checks",
+        "exit":  0,
+        "pass":  55,
+        "fail":  0,
+        "marker":  "MODERN_EQUIPMENT_CHECKS_PASS",
+        "seconds":  1.1
+    },
+    {
+        "suite":  "run_modern_candidate_checks",
+        "exit":  0,
+        "pass":  56,
+        "fail":  0,
+        "marker":  "MODERN_CANDIDATE_CHECKS_PASS",
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_equipment_package_checks",
+        "exit":  0,
+        "pass":  74,
+        "fail":  0,
+        "marker":  "EQUIPMENT_PACKAGE_CHECKS_PASS",
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_composite_content_checks",
+        "exit":  0,
+        "pass":  50,
+        "fail":  0,
+        "marker":  "CHEMICAL_CONTENT_CHECKS_PASS",
+        "seconds":  1.9
+    },
+    {
+        "suite":  "run_composite_binding_checks",
+        "exit":  0,
+        "pass":  77,
+        "fail":  0,
+        "marker":  "BOUND_MODEL_PACKAGE_CHECKS_PASS",
+        "seconds":  2.1
+    }
+]

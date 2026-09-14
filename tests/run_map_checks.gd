@@ -26,7 +26,9 @@ func _run() -> void:
 	var bake := NavigationBakePipeline.build(map,space,terrain.get_rid())
 	print("[bake] ",bake.get("samples",0)," samples; failures=",bake.get("failures",bake.get("errors",[])))
 	check(bake.ok,"T018-03 every authored road has real ground and clears maximum vehicle envelope")
-	check(int(bake.get("curvature_blocked",0)) == 0,"T018-03b [design-goal check, currently failing] authored roads clear the declared 8.5 m rigid envelope against the ground itself (blocked samples=%d; see WT-039-D_SEMANTIC.md)"%int(bake.get("curvature_blocked",0)))
+	# WT-036-R1 (user decision D2): the declared 8.5 m rigid envelope is a DESIGN GOAL, not a hard
+	# requirement, so its measurement is reported rather than asserted. The number itself is kept.
+	print("[T018-03b design-goal, informational] declared 8.5 m rigid envelope blocked samples=",int(bake.get("curvature_blocked",0))," of ",bake.get("samples",0)," (see WT-036-R1_ENVELOPE_DECLARATION.md)")
 	var sights := SpawnSelector.opposing_spawn_sightlines(space,map)
 	check(sights.ok,"T018-01 both spawn rows blocked at 1.4/2.4/3.5m; "+str(sights.tested)+" physical rays")
 	check(WorldCollisionRules.classify("low_grass").blocks_shell == false and WorldCollisionRules.classify("solid_fence").blocks_shell,"grass and visibly solid plank fence use explicit shared rules")

@@ -1,0 +1,136 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[T039-D] route bottom=(-120.0, 0.05, 60.0) crest=(-120.0, 6.723919, 0.0)
+[T039-D] graph-snapped goals: crest=(-120.0, 6.673919, 0.0) bottom=(-120.0, 0.0, 65.0)
+[PASS] T039-D NOT_VERIFIED ussr_t_80b: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
+[PASS] T039-D NOT_VERIFIED germ_leopard_2a4: no production combat/drive configuration in this build (definition=false) - scaled surrogates are not accepted
+[T039-D calibration] us_m4a3_75w_vvss_1944 throttle=0.50 bottoming=0.0000 stalled=0 traveled=11.37 bounces=0 ok=true
+[PASS] T039-D fixture flat-ground control us_m4a3_75w_vvss_1944: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 11.37 m
+[T039-D calibration] us_m24_m6_t85e1_1951 throttle=0.30 bottoming=0.0000 stalled=0 traveled=10.63 bounces=0 ok=true
+[PASS] T039-D fixture flat-ground control us_m24_m6_t85e1_1951: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 10.63 m
+[T039-D calibration] us_m26_m3_1945 throttle=0.50 bottoming=0.0000 stalled=0 traveled=7.87 bounces=0 ok=true
+[PASS] T039-D fixture flat-ground control us_m26_m3_1945: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 7.87 m
+[T039-D calibration] us_m36_m4a1_1945 throttle=0.50 bottoming=0.0000 stalled=0 traveled=12.79 bounces=0 ok=true
+[PASS] T039-D fixture flat-ground control us_m36_m4a1_1945: bottoming 0.0000 m <= 0.10 m, stalls 0, traveled 12.79 m
+[T039-D start] us_m4a3_75w_vvss_1944 uphill-production-driver mode=driver from (-120.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m4a3_75w_vvss_1944 uphill-production-driver tick=1500 traveled=60.6 speed=4.56 still=0 phase=following
+[T039-D start] us_m4a3_75w_vvss_1944 uphill-low-speed mode=low from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D start] us_m4a3_75w_vvss_1944 crest-stop-restart mode=crest from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D start] us_m4a3_75w_vvss_1944 crest-turnaround-reverse mode=driver from (-120.0, 6.653687, 3.0) to (-120.0, 0.0, 65.0)
+[T039-D progress] us_m4a3_75w_vvss_1944 crest-turnaround-reverse tick=1500 traveled=65.2 speed=1.28 still=0 phase=following
+[T039-D start] us_m4a3_75w_vvss_1944 lateral-offset-3m mode=driver from (-123.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m4a3_75w_vvss_1944 lateral-offset-3m tick=1500 traveled=62.4 speed=4.61 still=0 phase=following
+[PASS] T039-D us_m4a3_75w_vvss_1944 uphill-production-driver: settled=true reached=true phase=arrived ticks=1630 hull_box_intersection=0.621 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=67.3 muzzle=true armour=true internal=true
+[PASS] T039-D us_m4a3_75w_vvss_1944 uphill-low-speed: settled=true reached=true phase=idle ticks=914 hull_box_intersection=0.641 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=63.1 muzzle=true armour=true internal=true
+[PASS] T039-D us_m4a3_75w_vvss_1944 crest-stop-restart: settled=true reached=true phase=idle ticks=1247 hull_box_intersection=0.630 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=61.2 muzzle=true armour=true internal=true
+[PASS] T039-D us_m4a3_75w_vvss_1944 crest-turnaround-reverse: settled=true reached=true phase=arrived ticks=1522 hull_box_intersection=0.600 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=65.5 muzzle=true armour=true internal=true
+[PASS] T039-D us_m4a3_75w_vvss_1944 lateral-offset-3m: settled=true reached=true phase=arrived ticks=1620 hull_box_intersection=0.615 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=68.4 muzzle=true armour=true internal=true
+[T039-D start] us_m24_m6_t85e1_1951 uphill-production-driver mode=driver from (-120.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D start] us_m24_m6_t85e1_1951 uphill-low-speed mode=low from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D start] us_m24_m6_t85e1_1951 crest-stop-restart mode=crest from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D start] us_m24_m6_t85e1_1951 crest-turnaround-reverse mode=driver from (-120.0, 6.653687, 3.0) to (-120.0, 0.0, 65.0)
+[T039-D start] us_m24_m6_t85e1_1951 lateral-offset-3m mode=driver from (-123.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[PASS] T039-D us_m24_m6_t85e1_1951 uphill-production-driver: settled=true reached=true phase=arrived ticks=1494 hull_box_intersection=0.516 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=66.9 muzzle=true armour=true internal=true
+[PASS] T039-D us_m24_m6_t85e1_1951 uphill-low-speed: settled=true reached=true phase=idle ticks=985 hull_box_intersection=0.536 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=62.4 muzzle=true armour=true internal=true
+[PASS] T039-D us_m24_m6_t85e1_1951 crest-stop-restart: settled=true reached=true phase=idle ticks=880 hull_box_intersection=0.542 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=63.3 muzzle=true armour=true internal=true
+[PASS] T039-D us_m24_m6_t85e1_1951 crest-turnaround-reverse: settled=true reached=true phase=arrived ticks=1425 hull_box_intersection=0.492 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=65.1 muzzle=true armour=true internal=true
+[PASS] T039-D us_m24_m6_t85e1_1951 lateral-offset-3m: settled=true reached=true phase=arrived ticks=1484 hull_box_intersection=0.515 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=68.0 muzzle=true armour=true internal=true
+[T039-D start] us_m26_m3_1945 uphill-production-driver mode=driver from (-120.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=1500 traveled=40.3 speed=-2.21 still=0 phase=reverse
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=3000 traveled=84.1 speed=4.21 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=4500 traveled=158.3 speed=5.29 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=6000 traveled=218.6 speed=2.73 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=7500 traveled=294.8 speed=1.72 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 uphill-production-driver tick=9000 traveled=363.6 speed=1.53 still=0 phase=following
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m26_m3_1945-uphill-production-driver-35900.log
+[T039-D start] us_m26_m3_1945 uphill-low-speed mode=low from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=1500 traveled=33.5 speed=0.00 still=673 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=3000 traveled=33.5 speed=0.00 still=2173 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=4500 traveled=33.6 speed=0.00 still=3673 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=6000 traveled=33.7 speed=0.00 still=5173 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=7500 traveled=33.7 speed=0.00 still=6673 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=9000 traveled=33.8 speed=0.00 still=8173 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=10500 traveled=33.9 speed=0.00 still=9673 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=12000 traveled=34.0 speed=0.00 still=11173 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=13500 traveled=34.3 speed=0.00 still=12673 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=15000 traveled=34.3 speed=0.00 still=14173 phase=idle
+[T039-D progress] us_m26_m3_1945 uphill-low-speed tick=16500 traveled=34.5 speed=0.00 still=15673 phase=idle
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m26_m3_1945-uphill-low-speed-55968.log
+[T039-D start] us_m26_m3_1945 crest-stop-restart mode=crest from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=1500 traveled=28.5 speed=0.00 still=642 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=3000 traveled=28.6 speed=0.00 still=2142 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=4500 traveled=28.7 speed=0.00 still=3642 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=6000 traveled=28.8 speed=0.00 still=5142 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=7500 traveled=28.9 speed=0.00 still=6642 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=9000 traveled=29.0 speed=0.00 still=8142 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=10500 traveled=29.0 speed=0.00 still=9642 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=12000 traveled=29.1 speed=0.00 still=11142 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=13500 traveled=29.1 speed=0.00 still=12642 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=15000 traveled=29.2 speed=0.00 still=14142 phase=idle
+[T039-D progress] us_m26_m3_1945 crest-stop-restart tick=16500 traveled=29.2 speed=0.00 still=15642 phase=idle
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m26_m3_1945-crest-stop-restart-74630.log
+[T039-D start] us_m26_m3_1945 crest-turnaround-reverse mode=driver from (-120.0, 6.653687, 3.0) to (-120.0, 0.0, 65.0)
+[T039-D start] us_m26_m3_1945 lateral-offset-3m mode=driver from (-123.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=1500 traveled=42.0 speed=-2.87 still=0 phase=reverse
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=3000 traveled=86.5 speed=4.46 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=4500 traveled=161.0 speed=5.56 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=6000 traveled=220.3 speed=3.04 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=7500 traveled=296.2 speed=2.04 still=0 phase=following
+[T039-D progress] us_m26_m3_1945 lateral-offset-3m tick=9000 traveled=364.9 speed=0.80 still=0 phase=following
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m26_m3_1945-lateral-offset-3m-88916.log
+[FAIL] T039-D us_m26_m3_1945 uphill-production-driver: settled=true reached=false phase=failed ticks=9822 hull_box_intersection=0.597 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=358 nonfinite=0 traveled=383.4 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m26_m3_1945 uphill-low-speed: settled=true reached=false phase=idle ticks=18000 hull_box_intersection=0.535 bounces=0 stalled=16933 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=34.6 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m26_m3_1945 crest-stop-restart: settled=true reached=false phase=idle ticks=18000 hull_box_intersection=0.417 bounces=0 stalled=16902 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=29.3 muzzle=true armour=true internal=true
+[PASS] T039-D us_m26_m3_1945 crest-turnaround-reverse: settled=true reached=true phase=arrived ticks=1307 hull_box_intersection=0.612 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=61.5 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m26_m3_1945 lateral-offset-3m: settled=true reached=false phase=failed ticks=9808 hull_box_intersection=0.597 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=359 nonfinite=0 traveled=384.4 muzzle=true armour=true internal=true
+[T039-D start] us_m36_m4a1_1945 uphill-production-driver mode=driver from (-120.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=1500 traveled=45.2 speed=0.23 still=67 phase=following
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=3000 traveled=64.9 speed=6.16 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=4500 traveled=143.9 speed=4.96 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=6000 traveled=231.1 speed=1.84 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=7500 traveled=300.1 speed=0.56 still=1 phase=following
+[T039-D progress] us_m36_m4a1_1945 uphill-production-driver tick=9000 traveled=372.0 speed=1.34 still=0 phase=following
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m36_m4a1_1945-uphill-production-driver-102197.log
+[T039-D start] us_m36_m4a1_1945 uphill-low-speed mode=low from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=1500 traveled=43.5 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=3000 traveled=43.6 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=4500 traveled=43.6 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=6000 traveled=43.7 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=7500 traveled=43.7 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=9000 traveled=43.7 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=10500 traveled=43.8 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=12000 traveled=43.8 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=13500 traveled=43.8 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=15000 traveled=43.9 speed=0.00 still=0 phase=idle
+[T039-D progress] us_m36_m4a1_1945 uphill-low-speed tick=16500 traveled=44.5 speed=0.00 still=0 phase=idle
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m36_m4a1_1945-uphill-low-speed-123172.log
+[T039-D start] us_m36_m4a1_1945 crest-stop-restart mode=crest from (-120.0, 0.05, 60.0) to (-120.0, 6.723919, 0.0)
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=1500 traveled=35.5 speed=0.00 still=695 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=3000 traveled=35.6 speed=0.00 still=2195 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=4500 traveled=35.6 speed=0.00 still=3695 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=6000 traveled=35.7 speed=0.00 still=5195 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=7500 traveled=35.8 speed=0.00 still=6695 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=9000 traveled=35.8 speed=0.00 still=8195 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=10500 traveled=35.9 speed=0.00 still=9695 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=12000 traveled=36.0 speed=0.00 still=11195 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=13500 traveled=36.0 speed=0.00 still=12695 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=15000 traveled=36.1 speed=0.00 still=14195 phase=idle
+[T039-D progress] us_m36_m4a1_1945 crest-stop-restart tick=16500 traveled=36.1 speed=0.00 still=15695 phase=idle
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m36_m4a1_1945-crest-stop-restart-143609.log
+[T039-D start] us_m36_m4a1_1945 crest-turnaround-reverse mode=driver from (-120.0, 6.653687, 3.0) to (-120.0, 0.0, 65.0)
+[T039-D progress] us_m36_m4a1_1945 crest-turnaround-reverse tick=1500 traveled=46.6 speed=0.82 still=0 phase=following
+[T039-D start] us_m36_m4a1_1945 lateral-offset-3m mode=driver from (-123.0, 0.05, 60.0) to (-120.0, 6.673919, 0.0)
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=1500 traveled=46.6 speed=0.29 still=282 phase=following
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=3000 traveled=67.8 speed=7.27 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=4500 traveled=146.6 speed=5.37 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=6000 traveled=232.4 speed=0.77 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=7500 traveled=301.2 speed=0.86 still=0 phase=following
+[T039-D progress] us_m36_m4a1_1945 lateral-offset-3m tick=9000 traveled=373.5 speed=2.05 still=0 phase=following
+[T039-D] trace saved: res://logs/route-traces/t039d-us_m36_m4a1_1945-lateral-offset-3m-159212.log
+[FAIL] T039-D us_m36_m4a1_1945 uphill-production-driver: settled=true reached=false phase=failed ticks=10400 hull_box_intersection=0.653 bounces=0 stalled=85 on_floor=1.00 reverse_ticks=332 nonfinite=0 traveled=418.4 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m36_m4a1_1945 uphill-low-speed: settled=true reached=false phase=idle ticks=18000 hull_box_intersection=0.612 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=44.5 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m36_m4a1_1945 crest-stop-restart: settled=true reached=false phase=idle ticks=18000 hull_box_intersection=0.518 bounces=0 stalled=16955 on_floor=1.00 reverse_ticks=0 nonfinite=0 traveled=36.2 muzzle=true armour=true internal=true
+[PASS] T039-D us_m36_m4a1_1945 crest-turnaround-reverse: settled=true reached=true phase=arrived ticks=1827 hull_box_intersection=0.594 bounces=0 stalled=0 on_floor=1.00 reverse_ticks=102 nonfinite=0 traveled=68.2 muzzle=true armour=true internal=true
+[FAIL] T039-D us_m36_m4a1_1945 lateral-offset-3m: settled=true reached=false phase=failed ticks=10379 hull_box_intersection=0.653 bounces=0 stalled=190 on_floor=1.00 reverse_ticks=332 nonfinite=0 traveled=419.2 muzzle=true armour=true internal=true
+=== 缂佹挻鐏? 26 妞よ顥呴弻? 8 婢惰精瑙?===
+FLANK_CREST_TRAVERSAL_CHECKS_FAIL

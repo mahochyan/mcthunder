@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] first isolated store acquires lock
+[PASS] second same-PID store cannot steal lock
+[PASS] reentrant acquisition is rejected
+[PASS] non-owner release preserves owner
+[PASS] owner releases its own lock
+[PASS] new acquisition succeeds
+[PASS] each acquisition has a unique nonce
+[PASS] replaced disk owner survives stale in-memory ownership
+=== 结果: 8 项检查, 0 失败 ===
+SAVE_LOCK_CHECKS_PASS

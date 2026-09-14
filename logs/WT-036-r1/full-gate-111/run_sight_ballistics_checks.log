@@ -1,0 +1,77 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] reachable stationary trajectory 0
+[PASS] finite unit launch direction and allowed time 0
+[PASS] production analytic integrator reaches target within 3mm 0, error=0.0000019m
+[PASS] reachable stationary trajectory 1
+[PASS] finite unit launch direction and allowed time 1
+[PASS] production analytic integrator reaches target within 3mm 1, error=0.0000000m
+[PASS] production 60Hz substeps reach target within 5cm 1, error=0.0003653m
+[PASS] reachable stationary trajectory 2
+[PASS] finite unit launch direction and allowed time 2
+[PASS] production analytic integrator reaches target within 3mm 2, error=0.0001365m
+[PASS] reachable stationary trajectory 3
+[PASS] finite unit launch direction and allowed time 3
+[PASS] production analytic integrator reaches target within 3mm 3, error=0.0000000m
+[PASS] production 60Hz substeps reach target within 5cm 3, error=0.0040495m
+[PASS] reachable stationary trajectory 4
+[PASS] finite unit launch direction and allowed time 4
+[PASS] production analytic integrator reaches target within 3mm 4, error=0.0000610m
+[PASS] production 60Hz substeps reach target within 5cm 4, error=0.0378491m
+[PASS] reachable stationary trajectory 5
+[PASS] finite unit launch direction and allowed time 5
+[PASS] production analytic integrator reaches target within 3mm 5, error=0.0000305m
+[PASS] reachable stationary trajectory 6
+[PASS] finite unit launch direction and allowed time 6
+[PASS] production analytic integrator reaches target within 3mm 6, error=0.0000000m
+[PASS] reachable stationary trajectory 7
+[PASS] finite unit launch direction and allowed time 7
+[PASS] production analytic integrator reaches target within 3mm 7, error=0.0000000m
+[PASS] reachable stationary trajectory 8
+[PASS] finite unit launch direction and allowed time 8
+[PASS] production analytic integrator reaches target within 3mm 8, error=0.0000000m
+[PASS] vertical target selects earliest upward/downward path 8
+[PASS] reachable stationary trajectory 9
+[PASS] finite unit launch direction and allowed time 9
+[PASS] production analytic integrator reaches target within 3mm 9, error=0.0000000m
+[PASS] vertical target selects earliest upward/downward path 9
+[PASS] reachable stationary trajectory 10
+[PASS] finite unit launch direction and allowed time 10
+[PASS] production analytic integrator reaches target within 3mm 10, error=0.0000000m
+[PASS] reachable stationary trajectory 11
+[PASS] finite unit launch direction and allowed time 11
+[PASS] production analytic integrator reaches target within 3mm 11, error=0.0000000m
+[PASS] same-height solution selects analytic low arc instead of high arc
+[PASS] maximum-range tangent remains a reachable 45-degree solution
+[PASS] beyond maximum range is rejected
+[PASS] vertical target above maximum apex is rejected
+[PASS] vertical maximum apex accepts the single tangent solution
+[PASS] zero gravity is direct and accepts the exact lifetime endpoint
+[PASS] zero-gravity path just beyond lifetime is rejected
+[PASS] gravitational path at exact lifetime endpoint is accepted
+[PASS] gravitational path just beyond lifetime is rejected
+[PASS] translation and horizontal bearing preserve the same trajectory
+[PASS] coincident target does not manufacture an aiming direction
+[PASS] missing shell is rejected
+[PASS] nonfinite muzzle is rejected
+[PASS] nonfinite target is rejected
+[PASS] nonfinite muzzle is rejected
+[PASS] nonfinite target is rejected
+[PASS] invalid flight parameter rejected: muzzle_velocity_mps=nan
+[PASS] invalid flight parameter rejected: muzzle_velocity_mps=inf
+[PASS] invalid flight parameter rejected: muzzle_velocity_mps=-1.0
+[PASS] invalid flight parameter rejected: gravity_scale=nan
+[PASS] invalid flight parameter rejected: gravity_scale=inf
+[PASS] invalid flight parameter rejected: gravity_scale=-1.0
+[PASS] invalid flight parameter rejected: max_flight_time_s=nan
+[PASS] invalid flight parameter rejected: max_flight_time_s=inf
+[PASS] invalid flight parameter rejected: max_flight_time_s=-1.0
+[PASS] zero positive-only parameter rejected: muzzle_velocity_mps
+[PASS] zero positive-only parameter rejected: max_flight_time_s
+[PASS] overflowing finite speed is rejected
+[PASS] launch velocity outside engine Vector3 precision is rejected
+[PASS] underflowing speed squared cannot divide by zero
+[PASS] overflowing finite gravity is rejected
+[PASS] acceleration outside engine Vector3 precision is rejected
+=== 结果: 73 项检查, 0 失败 ===
+SIGHT_BALLISTICS_CHECKS_PASS

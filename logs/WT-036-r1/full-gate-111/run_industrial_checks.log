@@ -1,0 +1,199 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] four actual historical definitions load for map matrix
+[PASS] historical catalog admitted into the common definitions
+[PASS] registry accepts exactly the two playable maps
+[PASS] 022 village profile remains valid without schema migration
+[PASS] same profile validator admits registered industrial map
+[PASS] unregistered map cannot be saved or launched
+[PASS] hill_village: schema and alternate paths { "ok": true, "errors": [] }
+[bake hill_village] 1786 samples; failures=[]
+[PASS] hill_village: every road clears maximum real vehicle envelope including final scenery
+[PASS] hill_village: all 192 opposing spawn rays blocked
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/capture { "phase": "arrived", "seconds": 64.2833333333333, "bounded": true, "position": (-8.847027, 0.032465, 6.390221), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/0/supply { "phase": "arrived", "seconds": 51.35, "bounded": true, "position": (-0.615833, 0.0334, 142.1674), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/0/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/capture { "phase": "arrived", "seconds": 70.2, "bounded": true, "position": (-3.865758, 0.032465, 9.284378), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/1/supply { "phase": "arrived", "seconds": 57.1, "bounded": true, "position": (-0.616385, 0.0334, 142.1668), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/1/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/capture { "phase": "arrived", "seconds": 70.2166666666667, "bounded": true, "position": (3.866058, 0.032465, 9.284508), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/2/supply { "phase": "arrived", "seconds": 57.15, "bounded": true, "position": (0.615873, 0.0334, 142.1674), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/2/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/capture { "phase": "arrived", "seconds": 64.2666666666667, "bounded": true, "position": (8.851944, 0.032465, 6.391891), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/3/supply { "phase": "arrived", "seconds": 51.4333333333333, "bounded": true, "position": (0.616306, 0.0334, 142.1668), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/3/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/capture { "phase": "arrived", "seconds": 63.9666666666667, "bounded": true, "position": (-8.847845, 0.032465, 6.390167), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/4/supply { "phase": "arrived", "seconds": 51.9666666666667, "bounded": true, "position": (-0.616367, 0.0334, 142.1667), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/4/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/capture { "phase": "arrived", "seconds": 70.0, "bounded": true, "position": (-3.865715, 0.032465, 9.284393), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/5/supply { "phase": "arrived", "seconds": 8.65, "bounded": true, "position": (-0.564066, 0.033394, 142.1038), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/5/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/capture { "phase": "arrived", "seconds": 69.9333333333333, "bounded": true, "position": (3.865909, 0.032465, 9.284409), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/6/supply { "phase": "arrived", "seconds": 8.65, "bounded": true, "position": (0.564075, 0.033394, 142.1037), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/6/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/capture { "phase": "arrived", "seconds": 63.9666666666667, "bounded": true, "position": (8.852028, 0.032465, 6.391937), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/1/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/1/7/supply { "phase": "arrived", "seconds": 51.9833333333333, "bounded": true, "position": (0.615967, 0.0334, 142.1673), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/1/7/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/capture { "phase": "arrived", "seconds": 64.25, "bounded": true, "position": (-8.850235, 0.032464, -6.394569), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/0/supply { "phase": "arrived", "seconds": 51.35, "bounded": true, "position": (-0.615974, 0.0334, -142.167), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/0/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/capture { "phase": "arrived", "seconds": 70.2166666666667, "bounded": true, "position": (-3.866035, 0.032465, -9.284538), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/1/supply { "phase": "arrived", "seconds": 57.0833333333333, "bounded": true, "position": (-0.616737, 0.0334, -142.1662), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/1/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/capture { "phase": "arrived", "seconds": 70.2, "bounded": true, "position": (3.866439, 0.032465, -9.284416), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/2/supply { "phase": "arrived", "seconds": 57.1333333333333, "bounded": true, "position": (0.615536, 0.0334, -142.1678), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/2/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/capture { "phase": "arrived", "seconds": 64.2833333333333, "bounded": true, "position": (8.847553, 0.032465, -6.389572), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/3/supply { "phase": "arrived", "seconds": 51.4333333333333, "bounded": true, "position": (0.616247, 0.0334, -142.1671), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/3/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/capture { "phase": "arrived", "seconds": 63.9666666666667, "bounded": true, "position": (-8.907272, 0.032474, -6.349808), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/4/supply { "phase": "arrived", "seconds": 51.9666666666667, "bounded": true, "position": (-0.616302, 0.0334, -142.1668), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/4/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/capture { "phase": "arrived", "seconds": 69.9166666666667, "bounded": true, "position": (-3.865883, 0.032465, -9.284492), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/5/supply { "phase": "arrived", "seconds": 8.65, "bounded": true, "position": (-0.564095, 0.033394, -142.1037), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/5/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/capture { "phase": "arrived", "seconds": 69.9333333333333, "bounded": true, "position": (3.866036, 0.032465, -9.284386), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/6/supply { "phase": "arrived", "seconds": 8.65, "bounded": true, "position": (0.564081, 0.033394, -142.1037), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/6/supply
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/capture { "phase": "arrived", "seconds": 63.9833333333333, "bounded": true, "position": (8.847233, 0.032465, -6.392494), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/capture
+[PASS] industrial spawn us_m4a3_75w_vvss_1944/2/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m4a3_75w_vvss_1944/2/7/supply { "phase": "arrived", "seconds": 51.9833333333333, "bounded": true, "position": (0.615765, 0.0334, -142.1674), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m4a3_75w_vvss_1944/2/7/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/capture { "phase": "arrived", "seconds": 59.45, "bounded": true, "position": (-9.156734, 0.019053, 6.56723), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/0/supply { "phase": "arrived", "seconds": 47.6833333333333, "bounded": true, "position": (-0.76453, 0.02204, 141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/0/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/capture { "phase": "arrived", "seconds": 64.85, "bounded": true, "position": (-4.228206, 0.022047, 9.387726), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/1/supply { "phase": "arrived", "seconds": 53.0166666666667, "bounded": true, "position": (-0.764513, 0.02204, 141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/1/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/capture { "phase": "arrived", "seconds": 64.85, "bounded": true, "position": (4.228191, 0.022047, 9.387749), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/2/supply { "phase": "arrived", "seconds": 53.0333333333333, "bounded": true, "position": (0.764542, 0.022039, 141.9621), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/2/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/capture { "phase": "arrived", "seconds": 59.3, "bounded": true, "position": (9.172672, 0.022069, 6.530685), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/3/supply { "phase": "arrived", "seconds": 47.7, "bounded": true, "position": (0.763323, 0.022067, 141.9637), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/3/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/capture { "phase": "arrived", "seconds": 58.8333333333333, "bounded": true, "position": (-9.171959, 0.022075, 6.531334), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/4/supply { "phase": "arrived", "seconds": 48.1333333333333, "bounded": true, "position": (-0.764505, 0.02204, 141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/4/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/capture { "phase": "arrived", "seconds": 64.5, "bounded": true, "position": (-4.228224, 0.022046, 9.387711), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/5/supply { "phase": "arrived", "seconds": 8.18333333333333, "bounded": true, "position": (-0.687006, 0.022087, 141.9126), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/5/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/capture { "phase": "arrived", "seconds": 64.5, "bounded": true, "position": (4.228188, 0.022047, 9.387764), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/6/supply { "phase": "arrived", "seconds": 8.18333333333333, "bounded": true, "position": (0.68701, 0.022085, 141.9126), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/6/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/capture { "phase": "arrived", "seconds": 58.9, "bounded": true, "position": (9.172699, 0.022067, 6.53067), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/7 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/1/7/supply { "phase": "arrived", "seconds": 48.15, "bounded": true, "position": (0.764452, 0.022042, 141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/1/7/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/capture { "phase": "arrived", "seconds": 59.2833333333333, "bounded": true, "position": (-9.196592, 0.022067, -6.472878), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/0 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/0/supply { "phase": "arrived", "seconds": 47.6833333333333, "bounded": true, "position": (-0.764368, 0.022045, -141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/0/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/capture { "phase": "arrived", "seconds": 64.85, "bounded": true, "position": (-4.228379, 0.022049, -9.386635), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/1 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/1/supply { "phase": "arrived", "seconds": 53.0833333333333, "bounded": true, "position": (-0.764585, 0.022039, -141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/1/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/capture { "phase": "arrived", "seconds": 64.85, "bounded": true, "position": (4.228097, 0.022045, -9.388596), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/2 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/2/supply { "phase": "arrived", "seconds": 53.0333333333333, "bounded": true, "position": (0.764479, 0.02204, -141.9622), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/2/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/capture { "phase": "arrived", "seconds": 59.3166666666667, "bounded": true, "position": (9.172398, 0.022069, -6.530563), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/3 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/3/supply { "phase": "arrived", "seconds": 47.7833333333333, "bounded": true, "position": (0.764633, 0.022037, -141.9623), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/3/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/capture { "phase": "arrived", "seconds": 58.8833333333333, "bounded": true, "position": (-9.174751, 0.022037, -6.531593), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/4 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/4/supply { "phase": "arrived", "seconds": 48.1333333333333, "bounded": true, "position": (-0.764641, 0.022036, -141.9623), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/4/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/capture { "phase": "arrived", "seconds": 64.5, "bounded": true, "position": (-4.228477, 0.022048, -9.386627), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/5 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/5/supply { "phase": "arrived", "seconds": 8.18333333333333, "bounded": true, "position": (-0.687021, 0.022086, -141.9126), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/5/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/capture { "phase": "arrived", "seconds": 64.5, "bounded": true, "position": (4.228, 0.022046, -9.388557), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/capture
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/6 starts clear (0 bodies within margin)
+[route] hill_village/us_m24_m6_t85e1_1951/2/6/supply { "phase": "arrived", "seconds": 8.18333333333333, "bounded": true, "position": (0.68699, 0.022087, -141.9126), "recovery_attempts": 0, "settle_ticks": 14 }
+[PASS] T023-02 actual driving hill_village/us_m24_m6_t85e1_1951/2/6/supply
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/7 starts clear (0 bodies within margin)

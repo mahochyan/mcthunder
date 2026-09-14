@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] us_m1a1_abrams GLB parses through GLTFDocument (ok)
+[PASS] us_m1a1_abrams exposes real nodes (7)
+[PASS] us_m1a1_abrams exposes real meshes (3)
+[PASS] us_m1a1_abrams reports the measured hash
+[PASS] us_m1a1_abrams proposes a units scale (m)
+[PASS] us_m1a1_abrams hull envelope is a plausible vehicle size (9.79 m)
+[PASS] us_m1a1_abrams reports a three-axis envelope
+[PASS] us_m1a1_abrams reports every binding role (6)
+[PASS] us_m1a1_abrams gives every role one of resolved/ambiguous/missing
+[PASS] us_m1a1_abrams lists exactly the unresolved roles by name
+[PASS] us_m1a1_abrams draft binding is explicitly not applied
+[PASS] us_m1a1_abrams completeness matches the unresolved list
+[PASS] us_m1a1_abrams draft carries the measured hash
+[info] us_m1a1_abrams: bytes=3869232 nodes=7 meshes=3 longest=9.786 unit=m resolved=1/6 missing=["turret", "gun", "muzzle", "running_left", "running_right"]
+[PASS] cn_ztz_99a GLB parses through GLTFDocument (ok)
+[PASS] cn_ztz_99a exposes real nodes (16)
+[PASS] cn_ztz_99a exposes real meshes (10)
+[PASS] cn_ztz_99a reports the measured hash
+[PASS] cn_ztz_99a proposes a units scale (m)
+[PASS] cn_ztz_99a hull envelope is a plausible vehicle size (10.88 m)
+[PASS] cn_ztz_99a reports a three-axis envelope
+[PASS] cn_ztz_99a reports every binding role (6)
+[PASS] cn_ztz_99a gives every role one of resolved/ambiguous/missing
+[PASS] cn_ztz_99a lists exactly the unresolved roles by name
+[PASS] cn_ztz_99a draft binding is explicitly not applied
+[PASS] cn_ztz_99a completeness matches the unresolved list
+[PASS] cn_ztz_99a draft carries the measured hash
+[info] cn_ztz_99a: bytes=2913008 nodes=16 meshes=10 longest=10.882 unit=m resolved=3/6 missing=["hull", "turret", "gun"]
+[PASS] ussr_t_80b GLB parses through GLTFDocument (ok)
+[PASS] ussr_t_80b exposes real nodes (46)
+[PASS] ussr_t_80b exposes real meshes (42)
+[PASS] ussr_t_80b reports the measured hash
+[PASS] ussr_t_80b proposes a units scale (m)
+[PASS] ussr_t_80b hull envelope is a plausible vehicle size (9.42 m)
+[PASS] ussr_t_80b reports a three-axis envelope
+[PASS] ussr_t_80b reports every binding role (6)
+[PASS] ussr_t_80b gives every role one of resolved/ambiguous/missing
+[PASS] ussr_t_80b lists exactly the unresolved roles by name
+[PASS] ussr_t_80b draft binding is explicitly not applied
+[PASS] ussr_t_80b completeness matches the unresolved list
+[PASS] ussr_t_80b draft carries the measured hash
+[info] ussr_t_80b: bytes=892092 nodes=46 meshes=42 longest=9.424 unit=m resolved=2/6 missing=["turret", "muzzle", "running_left", "running_right"]
+[PASS] germ_leopard_2a4 GLB parses through GLTFDocument (ok)
+[PASS] germ_leopard_2a4 exposes real nodes (49)
+[PASS] germ_leopard_2a4 exposes real meshes (45)
+[PASS] germ_leopard_2a4 reports the measured hash
+[PASS] germ_leopard_2a4 proposes a units scale (m)
+[PASS] germ_leopard_2a4 hull envelope is a plausible vehicle size (9.64 m)
+[PASS] germ_leopard_2a4 reports a three-axis envelope
+[PASS] germ_leopard_2a4 reports every binding role (6)
+[PASS] germ_leopard_2a4 gives every role one of resolved/ambiguous/missing
+[PASS] germ_leopard_2a4 lists exactly the unresolved roles by name
+[PASS] germ_leopard_2a4 draft binding is explicitly not applied
+[PASS] germ_leopard_2a4 completeness matches the unresolved list
+[PASS] germ_leopard_2a4 draft carries the measured hash
+[info] germ_leopard_2a4: bytes=889668 nodes=49 meshes=45 longest=9.642 unit=m resolved=2/6 missing=["turret", "muzzle", "running_left", "running_right"]
+[PASS] a missing asset reports asset_missing
+[PASS] no draft is produced without a parsed asset
+[PASS] no role report is produced without a parsed asset
+[PASS] the probe contains no write path
+[PASS] the registry is still the untouched empty registry
+[PASS] the aggregate probes all four assets
+[PASS] at least some roles resolve against real node names (8 of 24)
+[PASS] completeness is reported rather than assumed
+[info] aggregate: 8/24 role slots resolved across four assets, complete_bindings=false
+=== 结果: 60 项检查, 0 失败 ===
+MODEL_BINDING_PROBE_CHECKS_PASS

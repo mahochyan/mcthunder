@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[match seed=32001 t=0.0] tickets={ 1: 300, 2: 300 } active=8 wreck=0 shots=0
+[match seed=32001 t=60.0] tickets={ 1: 300, 2: 270 } active=8 wreck=1 shots=10
+[match seed=32001 t=120.0] tickets={ 1: 270, 2: 253 } active=8 wreck=2 shots=39

@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] explicit game-rule AP and APFSDS enter one typed catalog
+[PASS] admitted definition retains separate long-rod policy
+[PASS] reject incomplete or mislabeled APFSDS: missing_profile
+[PASS] reject incomplete or mislabeled APFSDS: missing_evidence
+[PASS] reject incomplete or mislabeled APFSDS: changed_curve
+[PASS] reject incomplete or mislabeled APFSDS: fake_source
+[PASS] reject incomplete or mislabeled APFSDS: ap_relabel
+[PASS] reject incomplete or mislabeled APFSDS: old_profile
+[PASS] reject incomplete or mislabeled APFSDS: fuze
+[PASS] reject incomplete or mislabeled APFSDS: missing_curve
+[PASS] reject incomplete or mislabeled APFSDS: null_evidence
+[PASS] complete test-only packet enters isolated catalog
+[PASS] real actor installs mixed shell catalog
+[PASS] select APFSDS while retaining chambered AP
+[PASS] normal command submits first AP shot
+[PASS] normal command fires chambered AP and debits it once
+[PASS] ordinary reload physically chambers selected APFSDS
+[PASS] normal command submits APFSDS shot
+[PASS] actual launch freezes separate APFSDS response
+[PASS] APFSDS launch uses actual muzzle and its own authored speed
+[PASS] mixed normal firing conserves physical ammunition
+[PASS] normally fired APFSDS penetrates actual first plate and stops at second
+[PASS] normal selection reload and muzzle shot produce valid complete modern replay
+[PASS] reset restores initial mixed loadout and original chamber
+=== 结果: 24 项检查, 0 失败 ===
+LONG_ROD_CONTENT_CHECKS_PASS

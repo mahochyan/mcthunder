@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] Soviet first, two nations, 116 producer-selected Soviet bases
+[PASS] actual T34 base GLB opens in dossier
+[PASS] static model cannot bypass combat packet admission
+[PASS] light T80 and main battle T80 remain distinct producer families
+[PASS] reference variants do not become duplicate tree nodes
+[PASS] medium, heavy and light tanks use distinct parallel columns
+[PASS] route shortcut reveals right-hand anti-air branch at 720p
+[PASS] both actions remain visible at (1280, 720)
+[PASS] both actions remain visible at (1920, 1080)
+[PASS] variant search resolves to exact modeled T80B without creating a T80U model
+[PASS] dossier model identity follows selected base
+[PASS] test drive loads the selected Soviet base snapshot
+[PASS] normal forward input moves the selected model in isolated trial
+[PASS] paused trial freezes movement
+[PASS] trial reset restores actual body and speed
+[PASS] trial return preserves selected family and frees trial scene
+[PASS] unmodeled base clears previous preview and disables trial
+[PASS] empty search cannot reuse a previously selected model
+[PASS] German tree uses exactly 96 producer-selected bases
+[PASS] Leopard2 variants fold into producer-designated A4 base
+[PASS] German base has its own actual snapshot preview and trial
+[PASS] German trial does not substitute Soviet or US model
+[PASS] ready filter follows frozen published-model inventory
+[PASS] all 113 frozen base GLBs load with finite geometry: []
+[PASS] browsing and trial never substitute battle selection or mutate player profile
+[PASS] closing tree restores normal garage
+=== 结果: 26 项检查, 0 失败 ===
+RESEARCH_TREE_CHECKS_PASS
