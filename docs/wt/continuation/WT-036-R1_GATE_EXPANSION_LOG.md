@@ -63,3 +63,14 @@
 ## 工具修复：运行器默认超时 900 → **1500 s**
 实测：`run_industrial_checks` 需 **962 s**（595/0 ✓）、`run_industrial_battle_checks` 需 **~1001 s**（与基线一致 15/1 ✓）⇒ **默认 900 s 会把这两个"已证通过/与基线一致"的套件误判为 TIMEOUT** ✗ ⇒ 默认超时提高至 **1500 s** ✓
 （另有慢档：`balance_match` · `traffic_attribution` · `traffic_telemetry`（521 s 下通过 ✓）· `match_batch`（>40 分钟，判挂起 ✗））
+
+## 网络类 11 套件**实测分类**（本轮，推翻我先前的笼统假设）
+| 判定 | 数量 | 明细 |
+|---|---|---|
+| **headless PASS → 入默认门禁** | **9** | authority 62 · controller 11 · event_journal 64 · event_recovery 58 · fault 42 · fire_control 35 · frame 21 · identity 60 · pose 26 ⇒ **合计 379 项检查全绿** ✓ |
+| **需三进程角色参数** | 1 | `run_network_slice`（`<role> <port> <output>`；**项目已有** `tests/run_network_slice.ps1` ✓）⇒ "网络档" ✓ |
+| **需服务端 + 真实窗口** | 1 | `run_network_view_checks`（`get_cmdline_user_args()[0]` 为截图路径；**项目已有** `tests/run_network_view.ps1` ✓）⇒ 窗口/网络档 ✓ |
+
+**更正我先前的结论**：覆盖报告里写"网络/房间类 ⇒ 需多进程专用入口" ✗ 过于笼统 —— 实测 **9/11 可 headless 独立运行并与门禁兼容** ✓，仅 2 个需要专用入口 ✓（且**入口已存在** ✓）。
+
+**默认门禁规模**：32 → 40 → 50 → 61 → 73 → 84 → 94 → 96 → 111 → **120**
