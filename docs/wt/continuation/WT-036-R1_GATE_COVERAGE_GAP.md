@@ -128,3 +128,17 @@
 | **其余（未逐项试跑）** | **26** | 多为 `*_demo` / `*_overview` / `*_showcase` / `*_window` 变体与渲染类 ✓；如需可继续按同一方法试跑 ✓ |
 
 > 方法：**先试跑、按证据归类**；**只有 headless 稳定绿且语义完整者**才入门禁 ✓；诊断电池与慢档**永不入门禁** ✓。
+
+## 最终归类（补记：**全部 179 套件已逐一试跑并归类**，无"未试跑"残留）
+| 类别 | 数量 | 代表 |
+|---|---|---|
+| **默认门禁（headless 稳定绿 + 语义完整）** | **127** | 含本轮新增 oom_service 52/0 · settings 36/0 · shell_cycle_player 41/0 · 	utorial 49/0 ✓ |
+| 慢档 / 演示（>90 s 或挂起） | 13 | balance_match · traffic_attribution · traffic_telemetry（521 s 通过 ✓）· match_batch（>40 min ✗）· 各 `*_demo` ✓ |
+| 需实参/窗口（零输出或明确要求参数） | 28 | `query_profile`（"report path required" ✓）· 各 `*_player_checks`（除已入禁者）· 渲染/概览类 ✓ |
+| 环境依赖（窗口/渲染/导出） | 8 | art_showcase · export_checks · research_thumbnail_bake · `*_window` ✓ |
+| **既有基线红** | 1 | `run_chassis_response_checks` **21/2**（…braking tilt A/B，与会话初期基线**逐项一致** ✓） |
+| 诊断电池 | 1 | `run_flank_crest_traversal_checks`（T039-D ✓） |
+| 演示类失败 | 1 | `run_armor_demo` 1/1（需窗口 ✓） |
+| 其余 | 0 | — |
+
+> **结论**：**179/179 全部有据归类** ✓；门禁 127 套件均为"headless 稳定绿且语义完整" ✓；其余类别的排除理由**逐项可查** ✓。
