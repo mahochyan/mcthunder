@@ -114,3 +114,17 @@
 - `run_tutorial_checks`
 - `run_vehicle_readiness_checks`
 - `run_world_vehicle_phase_checks`
+
+---
+
+## 最终归类（全部 **179** 个 `run_*.gd` 套件，可审计全景）
+| 类别 | 数量 | 说明 |
+|---|---|---|
+| **默认门禁（headless 稳定绿）** | **123** | 见 `tests/run_suite_checks.ps1` ✓ |
+| 慢档（单次 >240 s） | 4 | balance_match · traffic_attribution · traffic_telemetry（521 s 通过 ✓）· match_batch（>40 分钟判挂起 ✗） |
+| 诊断电池（按设计有已知失败） | 1 | `run_flank_crest_traversal_checks`（T039-D ✓） |
+| 零输出（需实参/窗口/输入） | 17 | 2 个零输出套件 + 2 个网络入口套件 + 4 个河谷入口套件 + 9 个 `*_player_checks` ✓ |
+| 环境依赖（窗口/渲染/导出/设置/教程） | 8 | 与 4 个 DEFERRED 类同因 ✓ |
+| **其余（未逐项试跑）** | **26** | 多为 `*_demo` / `*_overview` / `*_showcase` / `*_window` 变体与渲染类 ✓；如需可继续按同一方法试跑 ✓ |
+
+> 方法：**先试跑、按证据归类**；**只有 headless 稳定绿且语义完整者**才入门禁 ✓；诊断电池与慢档**永不入门禁** ✓。
