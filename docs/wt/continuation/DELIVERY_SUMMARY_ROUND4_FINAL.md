@@ -51,7 +51,7 @@ PASS = 109 · FAIL = 2 · ZERO = 0 · TIMEOUT = 0
 ## 7. 变更清单
 - 提交数：`git -C <cont> rev-list --count a1bac406..HEAD`（**159** 提交 ✓，本更正为第 160）；
 - **产品代码净变更（相对基线）**：61 files changed, 3780 insertions(+), 21 deletions(-)
-- 交付文档：`docs/wt/continuation/`（**118** 份 ✓，索引见 `DOC_INDEX.md`）。
+- 交付文档：`docs/wt/continuation/`（**120** 份 ✓，索引见 `DOC_INDEX.md`）。
 
 ---
 
