@@ -1,0 +1,162 @@
+{
+  "note": "source_record and geometry are measured from the adapter; runtime limits and the remaining binding fields are author data and are listed as needs_author",
+  "rows": [
+    {
+      "adapter_path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+      "binding_draft": {
+        "model": {
+          "path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+          "sha256": "fa1b4d80a3f2582df1bcc7c0729caf5657af14766d36c959936194bb828282cf",
+          "source_vehicle_id": "35t"
+        },
+        "nodes": {
+          "gun": "VehicleRoot/TurretPivot/GunPivot",
+          "hull": "VehicleRoot/HullArmour",
+          "muzzle": "MuzzlePoint",
+          "turret": "VehicleRoot/TurretPivot"
+        },
+        "note": "draft: shape contract only; units/axes/tolerance/attachments must come from the author",
+        "schema_version": 1,
+        "vehicle_id": "35t"
+      },
+      "geometry": {
+        "barrel_length": 0.0,
+        "gun_origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "turret_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "have_gun": true,
+      "have_muzzle": true,
+      "have_turret": true,
+      "id": "35t",
+      "needs_author": [
+        "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
+        "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
+        "binding.nodes for roles with no node in the model: []"
+      ],
+      "nodes": {
+        "gun": "VehicleRoot/TurretPivot/GunPivot",
+        "hull": "VehicleRoot/HullArmour",
+        "muzzle": "MuzzlePoint",
+        "turret": "VehicleRoot/TurretPivot"
+      },
+      "source_record": {
+        "id": "35t",
+        "path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+        "sha256": "fa1b4d80a3f2582df1bcc7c0729caf5657af14766d36c959936194bb828282cf"
+      }
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+      "binding_draft": {
+        "model": {
+          "path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+          "sha256": "566e543214c03f4bc9875053eb00e4a813d63a7f5dd4193952e3960160f21309",
+          "source_vehicle_id": "KPz70"
+        },
+        "nodes": {
+          "gun": "VehicleRoot/TurretPivot/GunPivot",
+          "hull": "VehicleRoot/HullArmour",
+          "muzzle": "MuzzlePoint",
+          "turret": "VehicleRoot/TurretPivot"
+        },
+        "note": "draft: shape contract only; units/axes/tolerance/attachments must come from the author",
+        "schema_version": 1,
+        "vehicle_id": "KPz70"
+      },
+      "geometry": {
+        "barrel_length": 0.0,
+        "gun_origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "turret_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "have_gun": true,
+      "have_muzzle": true,
+      "have_turret": true,
+      "id": "KPz70",
+      "needs_author": [
+        "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
+        "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
+        "binding.nodes for roles with no node in the model: []"
+      ],
+      "nodes": {
+        "gun": "VehicleRoot/TurretPivot/GunPivot",
+        "hull": "VehicleRoot/HullArmour",
+        "muzzle": "MuzzlePoint",
+        "turret": "VehicleRoot/TurretPivot"
+      },
+      "source_record": {
+        "id": "KPz70",
+        "path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+        "sha256": "566e543214c03f4bc9875053eb00e4a813d63a7f5dd4193952e3960160f21309"
+      }
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+      "binding_draft": {
+        "model": {
+          "path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+          "sha256": "8998e9a33dcb63556eeb2725393b5217ef1ab30a27a07f2ee89cdc8a12363e8f",
+          "source_vehicle_id": "M48"
+        },
+        "nodes": {
+          "gun": "VehicleRoot/TurretPivot/GunPivot",
+          "hull": "VehicleRoot/HullArmour",
+          "muzzle": "MuzzlePoint",
+          "turret": "VehicleRoot/TurretPivot"
+        },
+        "note": "draft: shape contract only; units/axes/tolerance/attachments must come from the author",
+        "schema_version": 1,
+        "vehicle_id": "M48"
+      },
+      "geometry": {
+        "barrel_length": 0.0,
+        "gun_origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "turret_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "have_gun": true,
+      "have_muzzle": true,
+      "have_turret": true,
+      "id": "M48",
+      "needs_author": [
+        "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
+        "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
+        "binding.nodes for roles with no node in the model: []"
+      ],
+      "nodes": {
+        "gun": "VehicleRoot/TurretPivot/GunPivot",
+        "hull": "VehicleRoot/HullArmour",
+        "muzzle": "MuzzlePoint",
+        "turret": "VehicleRoot/TurretPivot"
+      },
+      "source_record": {
+        "id": "M48",
+        "path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+        "sha256": "8998e9a33dcb63556eeb2725393b5217ef1ab30a27a07f2ee89cdc8a12363e8f"
+      }
+    }
+  ],
+  "schema": 1
+}
