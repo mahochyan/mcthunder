@@ -16,3 +16,9 @@
 ## 默认门禁规模
 **32 → 40 → 50 → 61** 条（每批均先试跑、全绿或修好后才入列表 ✓）
 （`run_turret_tick_checks` 等零输出类保持 NOT_RUN，不入列表 ✓）
+
+| 4 | engagement_distance · ballistic_intercept · material_response · long_rod_damage · spall · chemical · era · composite · fuze · content_record · reference_admission · match_rules | **12/12 绿** ✓（1,007 项检查，0.3–2.6 s）→ 已入默认门禁 |
+
+**小发现（不影响判定）**：`run_composite_checks` 打印的标记是 `CHEMICAL_CHECKS_PASS`（疑似复制粘贴 ✗）——按日志正则 `^[A-Z_]*CHECKS_PASS$` 仍可识别 ✓，但人工读日志易混淆 ⇒ 建议作者统一标记名（**仅命名，语义与断言无关** ✓）。
+
+**默认门禁规模**：32 → 40 → 50 → 61 → **73**
