@@ -1,4 +1,4 @@
-extends SceneTree
+﻿extends SceneTree
 ## WT-036-R1: fast, targeted probe for the pre-existing red
 ## "restart frees old world and preserves selected map industrial_edge".
 ## It mirrors the industrial suite's setup, then reports exactly which clause fails and why, so the
@@ -13,7 +13,7 @@ func _run() -> void:
 	app = APP_SCENE.instantiate()
 	root.add_child(app); current_scene = app
 	await frames(20)
-	app.garage.preparation.map_choice.selected = id
+	app.garage.preparation.map_choice.select(MapRegistry.IDS.find(id))
 	var selected: Dictionary = app.garage.preparation.build_match()
 	print("[restart-probe] build_match ok=%s map=%s" % [str(selected.ok),str(selected.config.map_id()) if selected.ok else "-"])
 	app.enter_laboratory("team")
@@ -41,3 +41,5 @@ func _run() -> void:
 	print("[restart-probe] VERDICT old_released=%s" % str(released))
 	app.free(); await frames(2)
 	quit(0 if released else 1)
+
+
