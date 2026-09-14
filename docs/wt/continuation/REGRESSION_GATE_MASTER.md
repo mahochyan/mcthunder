@@ -55,3 +55,19 @@
 - **公网联网**：房间发现/中继/专管托管/账号——未授权且未实现；
 - **10v10/16v16 容量对局**、**空海扩展（EXT-01—04）**；
 - **需授权**：`export_presets.cfg` 的 server/client 预设；96 车适配产物全量（约 70 MB）。
+
+---
+
+## ⚠️ 最新状态指针（后续增补已改变下列结论，请以增补为准）
+本文件成文于第 2 轮门禁；其后各增补与裁定改变了部分结论：
+| 本文件中的旧结论 | 最新状态（以增补/裁定为准） |
+|---|---|
+| `T018-03b` 为"**设计目标检查，当前失败**" ✗ | **用户裁定 D2**：8.5 m 刚体包络改为**声明的设计目标（非硬性）** ⇒ 该检查已改为**信息报告**，`run_map_checks` **48/0 全绿** ✓（见 `WT-036-R1_ENVELOPE_DECLARATION.md`、`_ADDENDUM_R9.md`） |
+| `run_historical_road_checks` 29/4 ✗ | **33/0** ✓（M26 道路红已清除 ✓） |
+| `run_industrial_checks` 未测/56 失败 ✗ | **595/0** ✓（`_ADDENDUM_R9.md`） |
+| `run_map_checks` 45–47 抖动 ✗ | **48/0（D2 后确定）** ✓ |
+| 11 个 `DEFERRED` 套件 ✗ | **全部定性（DEFERRED = 0）** ✓（`WT-036-R1_DEFERRED_RERUN_FINAL.md`） |
+| 默认门禁 32 套件 | **111 套件** ✓（覆盖缺口 147 → 68；`WT-036-R1_GATE_EXPANSION_LOG.md`） |
+| `run_ai_drive_checks` 通过 | 我曾引入回归后**已修复**（40/0 ✓）——见 `_ADDENDUM_R7.md` 的五策略对账表 ✓ |
+| `partial_support`（本文件未列） | 我曾引入回归后**已修复**（7/0 ✓，且已入默认门禁 ✓） |
+**唯一仍红的项**：`run_challenge_checks` 138/2 ＝ **已登记**的防守夹具能力边界 ✓（`WT-036-R1_CHALLENGE_FIXTURE_BOUNDARY.md`）
