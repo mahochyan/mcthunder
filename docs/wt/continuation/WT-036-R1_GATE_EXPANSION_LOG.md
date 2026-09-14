@@ -22,3 +22,11 @@
 **小发现（不影响判定）**：`run_composite_checks` 打印的标记是 `CHEMICAL_CHECKS_PASS`（疑似复制粘贴 ✗）——按日志正则 `^[A-Z_]*CHECKS_PASS$` 仍可识别 ✓，但人工读日志易混淆 ⇒ 建议作者统一标记名（**仅命名，语义与断言无关** ✓）。
 
 **默认门禁规模**：32 → 40 → 50 → 61 → **73**
+
+| 5 | team_traffic · authority_state · diagnostic_budget · tech_segment · asset_registry · match_event · modern_equipment · modern_candidate · equipment_package · composite_content · composite_binding | **11/11 绿** ✓（~18 s）→ 已入默认门禁 |
+| 5（未入） | **`run_multi_objective_checks`** | exit=0 但 **零检查输出**（13.4 s、无结果行）⇒ 与窗口/演示类同因 ⇒ **NOT_RUN** ✓ |
+
+**标记名不一致（累计 3 处，纯命名问题 ✓）**：`run_composite_checks`→`CHEMICAL_CHECKS_PASS` · `run_composite_content_checks`→`CHEMICAL_CONTENT_CHECKS_PASS` · `run_composite_binding_checks`→`BOUND_MODEL_PACKAGE_CHECKS_PASS`
+⇒ 日志正则 `^[A-Z_]*CHECKS_PASS$` 均可识别 ✓，**不影响判定** ✓，但建议作者统一命名 ✓
+
+**默认门禁规模**：32 → 40 → 50 → 61 → 73 → **84**
