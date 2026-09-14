@@ -209,6 +209,7 @@ func update_command(delta: float) -> VehicleCommand:
 	if phase == "yielding":
 		var blocker: Object = obstacle.get("collider") if obstacle is Dictionary else null
 		var mode := ""
+		var limit := GameConfig.AI_YIELD_TIMEOUT_S
 		if blocker is Node:
 			var blocker_owner: Node = (blocker as Node).get_parent()
 			if blocker_owner is VehicleActor:
@@ -216,14 +217,16 @@ func update_command(delta: float) -> VehicleCommand:
 					# A parked hull is a dead end: recovery (reverse) is what the parked-vehicle
 					# acceptance check requires, and a wreck cannot move aside by itself.
 					mode = "recover"
-				elif str(vehicle.entity_id) > str(blocker_owner.get("entity_id")):
-					# Two AI actors in a stand-off must not both react, or their paths stay
-					# symmetric and they meet again - only the higher entity id gives way, and it
-					# does so by replanning around the blocker (no reversing, which is what
-					# disturbed the village; no giving up, which cost arrivals in the battle suite).
+				else:
+					# A stand-off between two AI actors: BOTH eventually replan (no reversing, which
+					# disturbed the village, and no giving up, which cost arrivals in the battle
+					# suite), but the higher entity id goes first so their paths stop being
+					# symmetric - that is what lets the pair resolve instead of meeting again.
 					mode = "replan"
+					if str(vehicle.entity_id) < str(blocker_owner.get("entity_id")):
+						limit += GameConfig.AI_YIELD_PRIORITY_GRACE_S
 		yield_elapsed = (yield_elapsed + delta) if mode != "" else 0.0
-		if yield_elapsed >= GameConfig.AI_YIELD_TIMEOUT_S:
+		if yield_elapsed >= limit:
 			yield_elapsed = 0.0
 			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
 			if mode == "recover":

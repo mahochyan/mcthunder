@@ -49,9 +49,15 @@ const DRIVE_COLLISION_CENTER := Vector3(0,0.75,0)
 const AI_NAV_MARGIN_M := 0.6
 const AI_REPLAN_INTERVAL_S := 1.0
 const AI_STUCK_WINDOW_S := 2.0
-## WT-036-R1: a yield that has not cleared after this long counts as blocked ground - the blocking
-## edge is marked and the path is replanned around it instead of waiting forever.
+## WT-036-R1: a yield against another VEHICLE that has not cleared after this long is treated as a
+## dead end - the blocking edge is marked and the path is replanned (or, for a parked hull, the
+## ordinary recovery is used). Static geometry never accumulates this timer.
 const AI_YIELD_TIMEOUT_S := 2.5
+## WT-036-R1: extra grace for the lower-priority side of a two-vehicle stand-off. Both sides do
+## eventually replan around the blocker, but the higher entity id goes first so their routes diverge
+## instead of staying symmetric and meeting again; a side that waited forever counted as a healthy
+## actor staying stationary while trying to drive.
+const AI_YIELD_PRIORITY_GRACE_S := 1.5
 const AI_STUCK_PROGRESS_M := 0.35
 const AI_RECOVERY_ATTEMPTS := 3
 const AI_REVERSE_SECONDS := 1.2
