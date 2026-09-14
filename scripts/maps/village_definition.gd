@@ -71,13 +71,15 @@ static func create() -> MapDefinition:
 				var p := a.lerp(b,float(i)/steps)
 				p.y = height(p.x,p.z)
 				nodes[key] = p
-			# WT-039-R1 (option C, user-chosen): paint the near->cap approach legs like the rest of
-			# the network. They were unpainted, so their ground classified as grass (drag 0.55) and
-			# the weakest hull could not make headway: the measured M26 was commanded 0.36 throttle,
-			# crept at 0.02 m/s and failed the route after four recoveries while the three stronger
-			# vehicles finished. Only these legs change; the dense cap<->cap mesh stays open ground
-			# as the author intended, and the effect is mobility and appearance only.
-			split_edges.append({"a":previous,"b":key,"width":edge.width,"road_visual":not edge.a.begins_with("spawn") and not edge.b.begins_with("spawn") and not (edge.a.begins_with("cap") and edge.b.begins_with("cap"))})
+			# WT-039-R1 / WT-036-R1 (option C, user-chosen: limited-scope map fix). The near->cap
+			# approach legs and the supply legs are painted like the rest of the network. They were
+			# unpainted, so their ground classified as grass (drag 0.55) and a hull that has to
+			# start from rest there cannot: the measured M26 crept at 0.02 m/s with 0.36 throttle on
+			# the approach, and the measured M4A3 stalled at (-50.8, 117.0) with 0.24 throttle after
+			# its turn, which is the shape of all 36 supply failures. Only the dense spawn<->spawn
+			# and cap<->cap clusters stay open ground, so the effect is mobility and appearance
+			# only: no geometry, cover, obstacle or sightline changes.
+			split_edges.append({"a":previous,"b":key,"width":edge.width,"road_visual":not (edge.a.begins_with("spawn") and edge.b.begins_with("spawn")) and not (edge.a.begins_with("cap") and edge.b.begins_with("cap"))})
 			previous = key
 	edges = split_edges
 	var serialized: Array = []
