@@ -86,3 +86,11 @@
 （120 套件全量脚本中使用同类逻辑 ⇒ 待该跑完后**复核**是否存在同类误判 ✓）
 
 **默认门禁规模**：32 → … → 120 → **121**
+
+## 河谷类试跑（本轮）
+| 判定 | 数量 | 明细 |
+|---|---|---|
+| **headless PASS → 入门禁** | **2** | `run_river_reachability_checks` **34/0** ✓ · `run_river_engagement_checks` **36/0** ✓（均有正规标记 ✓） |
+| **零输出 ⇒ NOT_RUN** | **4** | `run_river_junction_checks` · `run_river_route_ui_checks` · `run_river_navigation_checks` · `run_river_driving_checks` ⇒ 需实参/窗口 ✓（与此前记录一致 ✓） |
+
+**默认门禁规模**：32 → … → 120 → 121 → **123**
