@@ -223,7 +223,22 @@
                                                    "stable_across_branch_runs":  29,
                                                    "only_run2":  10,
                                                    "only_run1":  1
-                                               }
+                                               },
+                                  "branch_only_triage":  {
+                                                             "us_m24_m6_t85e1_1951/2/5/capture":  {
+                                                                                                      "baseline_occurrences":  2,
+                                                                                                      "run2":  "fail",
+                                                                                                      "also_fails_at_baseline":  true,
+                                                                                                      "run1":  "pass"
+                                                                                                  },
+                                                             "same vehicle mean spawn arrival imbalance below 15% us_m24_m6_t85e1_1951":  {
+                                                                                                                                              "runs_failing":  "1_of_3",
+                                                                                                                                              "also_fails_at_baseline":  false,
+                                                                                                                                              "kind":  "noise_marginal_statistic"
+                                                                                                                                          },
+                                                             "attributable_regressions":  0,
+                                                             "stable_failures_across_three_runs":  29
+                                                         }
                               },
     "new_items":  [
                       {
