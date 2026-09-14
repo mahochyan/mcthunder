@@ -34,6 +34,8 @@ func _run() -> void:
 		var state := GLTFState.new()
 		var scene: Node = null
 		if document.append_from_file(adapter,state) == OK: scene = document.generate_scene(state)
+		# WT-036-R1: same off-tree trap as the layout drafts - measure inside the SceneTree.
+		if scene != null: root.add_child(scene)
 		if scene == null:
 			row.error = "scene failed"; rows.append(row); print("[bind-draft] ",id," SCENE FAILED"); continue
 		var turret_origin := Vector3.ZERO

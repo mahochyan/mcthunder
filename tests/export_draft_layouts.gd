@@ -34,6 +34,9 @@ func _run() -> void:
 		var state := GLTFState.new()
 		var scene: Node = null
 		if document.append_from_file(adapter,state) == OK: scene = document.generate_scene(state)
+		# WT-036-R1: global_position read off a scene that is NOT in the SceneTree returns (0,0,0) for
+		# every node, which silently produced an all-zero draft. Put it in the tree while measuring.
+		if scene != null: root.add_child(scene)
 		if scene == null:
 			row.error = "scene failed"; rows.append(row); print("[draft] ",id," SCENE FAILED"); continue
 		var layout := VehicleLayoutDefinition.new()

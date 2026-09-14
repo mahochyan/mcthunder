@@ -15,6 +15,7 @@ evidence_keys = PackedStringArray()
 script = ExtResource("4_rxakt")
 id = "turret"
 parent_id = "hull"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51843, -0.83)
 joint_kind = "yaw"
 evidence_keys = PackedStringArray()
 
@@ -22,6 +23,7 @@ evidence_keys = PackedStringArray()
 script = ExtResource("4_rxakt")
 id = "gun"
 parent_id = "turret"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00124, 0.37531996, -1.6042202)
 joint_kind = "pitch"
 evidence_keys = PackedStringArray()
 
@@ -29,6 +31,7 @@ evidence_keys = PackedStringArray()
 script = ExtResource("4_rxakt")
 id = "muzzle"
 parent_id = "gun"
+bind_local = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00124, -1.89375, -3.18478)
 evidence_keys = PackedStringArray()
 
 [resource]
@@ -38,18 +41,18 @@ display_name = "KPz70"
 parts = Array[ExtResource("4_rxakt")]([SubResource("Resource_36e8o"), SubResource("Resource_4yg7x"), SubResource("Resource_6glt2"), SubResource("Resource_wsac6")])
 declared_openings = Array[Dictionary]([{
 "kind": "structural",
-"origin_m": Vector3(0, 0, 0),
+"origin_m": Vector3(0, -0.0206, 0),
 "part_id": "hull"
 }, {
 "kind": "turret_ring",
-"origin_m": Vector3(0, 0, 0),
+"origin_m": Vector3(0, 1.49783, -0.83),
 "part_id": "turret"
 }, {
 "kind": "structural",
-"origin_m": Vector3(0, 0, 0),
+"origin_m": Vector3(0.00124, 1.87315, -2.43422),
 "part_id": "gun"
 }, {
 "kind": "muzzle",
-"origin_m": Vector3(0, 0, 0),
+"origin_m": Vector3(0, -0.020599961, -5.619),
 "part_id": "muzzle"
 }])

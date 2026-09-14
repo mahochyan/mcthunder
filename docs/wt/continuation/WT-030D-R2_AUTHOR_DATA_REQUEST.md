@@ -56,3 +56,19 @@ static func check_file(binding, expected_vehicle_id, source_record: Dictionary,
 - **draft 标记**：`content_tier = "test"` ✓ + `field_evidence_id = ""` ✓ + 目录名 `draft_layouts/` ✓ + 报告 JSON ✓（不冒充作者数据 ✓）
 - 报告：`logs/WT-030D-r2/draft_layouts_report.json`（逐车 `derived_parts` 与 `needs_author` ✓）
 - **下一步**：作者按报告补齐上述 6 类字段并签收 ⇒ 即可跑 `check_scene`（仍需 `source_record` 与 `geometry`/`runtime` ✓）
+
+---
+
+## 附录二：draft 几何**已修正为实测值**（含一处**不确定性**，须作者确认）
+修复同一根因（**离线读 `global_position` 一律返回 0** ✗ ⇒ 两个 draft 工具也中招 ✓）后重生成：
+
+| 车 | `turret_origin` (m) | `gun_origin` (m) | `barrel_length` (m) |
+|---|---|---|---|
+| `35t` | (0, **1.4346**, −0.3248) | (0.00004, **1.7277**, −0.8460) | **2.048** |
+| `KPz70` | (0, **1.4978**, −0.8300) | (0.00124, **1.8731**, −2.4342) | **3.705** |
+| `M48` | (0.00001, **1.6396**, −0.6835) | (−0.0118, **1.9819**, −1.6889) | **4.111** |
+
+**不确定性（须作者确认）**：作者模型用**空枢轴**（`TurretPivot`/`GunPivot` 位置由作者给定 ✓），而**炮口位置**是我从**炮管网格端点**经父链实测的 ✓。二者**不在同一基准**上（例：`35t` 的 `GunPivot` 在 y≈1.73 m，而实测炮口在 y≈0.0026 m）⇒ 由此算出的 `barrel_length` **可能不是真实炮管长度** ✗，而是"枢轴到炮口端点的距离" ✓。
+⇒ 因此该值在草案中标为 **draft**，并列入 `needs_author` ✓（作者应给出 `gun_origin` 与炮管轴线的**权威定义** ✓）。
+
+**其余 draft 内容不受影响**：`parts` 结构与 `bind_local`（父子相对变换 ✓）、`declared_openings`（实测开口位置 ✓）均基于**树内实测** ✓。
