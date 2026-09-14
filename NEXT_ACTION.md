@@ -9,6 +9,14 @@
 > 4 个既有红（`chassis_response`、`historical_road`、`team_checks`、`map_checks`）**基线即红**，需独立修复单；核心 `run_checks` 存在单帧余量抖动（建议收紧测量窗口，**不放宽阈值**）。
 > 原 `main` 工作区未被本分支改动（porcelain 恒为 379）。
 > **编号更正（自我更正）**：第 2 轮的「WT-035-R1 回归门」应计为 **WT-036-R1（回归部分）**；材料 03 的 **WT-035 是「主界面、战斗HUD与新手教学」且尚未开工**——不得以回归门冒充其交付。历史提交信息不改写。
+> **第 3 轮已完成**（本会话，隔离分支 `work/continuation-20260913`，全链 118 提交）：引擎缺陷攻坚 + 回归收尾 + 资产侧入库。
+> **落地的产品修复**：① **坡面自转缺陷**（`tank.gd`：坡上自转 176°→20°；T039-E 3/3）② **卡死窗口失效**（`ai_path_driver.gd`：重规划每 ≤1 s 清零 2 s 窗口 ⇒ 恢复从未触发）③ **转向支撑下限**（单侧失支撑清零 steer）④ **两处 C 类铺装**（`village_definition.gd`：`near→cap`、`supply→spawn`；**用户已授权**）⑤ **让行死锁修复**（`ai_path_driver.gd`：`yielding` 时油门置 0 ⇒ 窗口不累计；**六变体实测**后取"**仅无主车辆**触发恢复"）⑥ 测试侧加固（出生净空断言 ×256 · 落地稳定 · 失败逐 tick 轨迹）⑦ 转场时序修复（等 `_transitioning` 清零，替换固定 8 帧）。
+> **门禁结果**：`run_historical_road_checks` **33/0**（原 29/4，**M26 四条基线红清除**）· `run_industrial_checks` **595/0，退出码 0**（原 **283/56**；＝256 路线检查 + 256 净空断言 + 83 其他）· `run_map_checks` **47/2**（原 25/2；失败＝**我新增的设计目标项** + ≤1 个**既有间歇**槽位；**按失败集合判定**）· 村庄 **21/0** · T039-E **3/3** · 结构 **54/54**。
+> **DEFERRED 11 → 0**：4 项环境依赖 NOT_RUN（窗口/渲染/引擎流程）· 2 项慢但已测 · 5 项已测（其中唯一真实 FAIL = `challenge` 防守夹具能力边界）。
+> **资产侧**：96 车只读审计（**≤15,000 三角面断言成立**）· 角色映射 **58/96 六角色齐全**（炮口改为**逐车实测**、撤销伪造来源）· **3 车独立适配产物 + 双哈希**（源只读、写后重测源哈希未变）· **⑤ 可执行部分通过**（产物内含 `MuzzlePoint`、炮口解析为**作者节点**、六角色可解析）；完整 `check_scene`/`check_file` **受阻于作者 layout/packet（未声称）**；⑥ 路径授权/许可分记与全量 96 车（≈70 MB）**待授权**。
+> **需裁定（打包见 `docs/wt/continuation/DECISION_REQUEST_BUNDLE.md`）**：`T018-H01` 预算 A1/A2 · `challenge` 防守 B1–B4 · M26 坡上起步 C1–C3 · **8.5 m 刚体包络 D1/D2（影响 WT-018/019 验收口径）** · 授权 E1–E4（导出预设/全量适配/资产接入与许可/真人与性能）。
+> **权威口径与索引**：`docs/wt/continuation/REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4.md` + `_ADDENDUM_R5.md`；回归关闭六变体记录 `WT-036-R1_YIELD_VARIANTS_TABLE.md`；工业全绿 `WT-036-R1_INDUSTRIAL_GREEN.md` 与计数更正 `WT-036-R1_ROUTE_COUNT_CORRECTION.md`；第 3 轮交付汇总 `DELIVERY_SUMMARY_ROUND3.md` + `DELIVERY_CHANGELOG_ROUND3.txt`。
+> 原 `main` 工作区仍未被本分支改动（porcelain 恒为 379）；所有失败尝试均已回退并留证（`WT-075-R1_*`、`WT-036-R1_*`）。
 
 2026-09-13 WT-032接续：河谷实地驾驶新增暂停菜单A/B/C路线规划与地图路径，修复弯道路面穿插、货运站横路建筑占道和部署出口树木；两布局实际道路图408/857节点、全部156组泊位至占点可达，单桥封闭可绕行，三条代表性生产M4 AI路线到达。详见docs/wt/WT032_ROAD_NAVIGATION.md与logs/WT032-navigation/RESULTS.json。仍为单车/受控导航验证，下一步正式多车场景、会车堵塞与比赛；42项保留、性能HOLD、真人NOT_RUN。
 
