@@ -199,19 +199,31 @@ func update_command(delta: float) -> VehicleCommand:
 		cmd.throttle = 0
 		_transition("yielding","physical_obstacle")
 	elif phase == "yielding": _transition("following","obstacle_cleared")
-	# WT-036-R1: a yield that never clears is a deadlock - the measured case stood in front of a
-	# parked vehicle for the whole 250 s budget while the untouched baseline detoured and arrived
-	# in 84.9 s. Waiting is not progress, so after AI_YIELD_TIMEOUT_S the blocking edge is marked
-	# and the path is replanned around it. This deliberately does NOT reverse: reversing here is
-	# what disturbed the village check, and the stuck window already covers the wedged case.
+	# WT-036-R1: a yield that never clears is a deadlock. The measured case stood in front of a
+	# parked vehicle for the whole 250 s budget where the untouched baseline recovered and arrived
+	# in 84.9 s, and the acceptance check requires BOTH the arrival and a reverse event. Thresholds
+	# cannot separate it from traffic, and "unowned" alone is wrong too because map geometry (walls,
+	# buildings) is unowned as well and yielding to those is normal - treating them as dead ends
+	# broke the village. The structural test is therefore a real VEHICLE with no controller: that is
+	# exactly a parked hull.
 	if phase == "yielding":
-		yield_elapsed += delta
+		var blocker: Object = obstacle.get("collider") if obstacle is Dictionary else null
+		var parked := false
+		if blocker is Node:
+			var blocker_owner: Node = (blocker as Node).get_parent()
+			parked = blocker_owner is VehicleActor and blocker_owner.get("controller") == null
+		yield_elapsed = (yield_elapsed + delta) if parked else 0.0
 		if yield_elapsed >= GameConfig.AI_YIELD_TIMEOUT_S:
 			yield_elapsed = 0.0
-			if waypoint > 0 and waypoint < path_ids.size():
-				_blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
-			_last_plan = -INF
-			_plan()
+			attempts += 1
+			if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:
+				has_goal = false
+				_transition("failed","recovery_limit")
+				return VehicleCommand.new()
+			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
+			_phase_left = GameConfig.AI_REVERSE_SECONDS
+			_transition("reverse","insufficient_actual_progress")
+			return cmd
 	else:
 		yield_elapsed = 0.0
 	# WT-039-R1: a no-progress window is only meaningful while the driver is actually asking the
