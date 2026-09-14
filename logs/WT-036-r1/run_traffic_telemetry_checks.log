@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] eight-AI scenario starts for telemetry verification
+[PASS] every AI slot carries a per-life telemetry record
+[PASS] legitimate holds only use the sanctioned state set (no congestion mislabel)
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] match reaches one natural result with telemetry attached
+[PASS] telemetry clock tracks actual match seconds
+[PASS] every congestion episode carries duration, outcome, blocker class, driver phase, ai phase and waypoint stage
+[PASS] stalls still open at the end are recorded as open_at_end, never as recovered success
+[PASS] match-end evidence JSON is written with the full schema
+[traffic] per_life=15 episodes=40 longest=[0.0, 25.0166666666654, 0.0, 0.0, 0.0, 2.01666666666667, 28.2666666666652, 5.08333333333579, 44.7333333333334, 30.8666666666807, 67.3166666667186, 58.6166666667117, 28.4833333333544, 49.2500000000376, 32.5333333333576] planning={ "failed": 0, "unreachable": 0, "replanned": 50 }
+=== 结果: 8 项检查, 0 失败 ===
+TRAFFIC_TELEMETRY_CHECKS_PASS
