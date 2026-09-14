@@ -1,0 +1,66 @@
+{
+  "note": "drafts derived only from the model's own structure; armour, modules, crew, joint limits and evidence are left empty and listed as needs_author",
+  "rows": [
+    {
+      "adapter_path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+      "derived_parts": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle"
+      ],
+      "draft_path": "res://assets/draft_layouts/35t_draft.tres",
+      "id": "35t",
+      "needs_author": [
+        "running_gear: no node in the model",
+        "armor_patches: thickness, material and plate grouping are documentary data (left empty)",
+        "modules: volume boundaries and integrity are design data (left empty)",
+        "crew_stations: roles and positions are design data (left empty)",
+        "parts.min/max_angle_deg: joint limits are mechanism data (left at zero)",
+        "historical_identity_id / source_catalog_id / field_evidence_id: no in-repo evidence (left empty)"
+      ],
+      "save_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+      "derived_parts": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle"
+      ],
+      "draft_path": "res://assets/draft_layouts/KPz70_draft.tres",
+      "id": "KPz70",
+      "needs_author": [
+        "running_gear: no node in the model",
+        "armor_patches: thickness, material and plate grouping are documentary data (left empty)",
+        "modules: volume boundaries and integrity are design data (left empty)",
+        "crew_stations: roles and positions are design data (left empty)",
+        "parts.min/max_angle_deg: joint limits are mechanism data (left at zero)",
+        "historical_identity_id / source_catalog_id / field_evidence_id: no in-repo evidence (left empty)"
+      ],
+      "save_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+      "derived_parts": [
+        "hull",
+        "turret",
+        "gun",
+        "muzzle"
+      ],
+      "draft_path": "res://assets/draft_layouts/M48_draft.tres",
+      "id": "M48",
+      "needs_author": [
+        "running_gear: no node in the model",
+        "armor_patches: thickness, material and plate grouping are documentary data (left empty)",
+        "modules: volume boundaries and integrity are design data (left empty)",
+        "crew_stations: roles and positions are design data (left empty)",
+        "parts.min/max_angle_deg: joint limits are mechanism data (left at zero)",
+        "historical_identity_id / source_catalog_id / field_evidence_id: no in-repo evidence (left empty)"
+      ],
+      "save_result": 0
+    }
+  ],
+  "schema": 1
+}

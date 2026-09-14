@@ -46,3 +46,13 @@ static func check_file(binding, expected_vehicle_id, source_record: Dictionary,
 | 适配产物（3 车）+ 双哈希 | `logs/WT-030D-r2/adapter_artifacts.json`（2,192 B）✓ |
 | 产物自校验（含 `MuzzlePoint`、炮口为**作者节点**、六角色可解析） | `logs/WT-030D-r2/adapter_verification.json`（4,388 B）✓ |
 | 96 车只读审计 | `logs/WT-030D-r2/german_intake_audit.json`（41,370 B）✓ |
+
+---
+
+## 附录：draft layout 已按裁定 **B** 生成（本轮）
+- 工具：`tests/export_draft_layouts.gd` ✓；产物：`assets/draft_layouts/{35t,KPz70,M48}_draft.tres`（各 ~1.8 KB ✓）
+- **仅由模型自身派生**：`parts`（id / parent_id / **bind_local**（父子相对变换，取自真实场景 ✓）/ `joint_kind`（由角色决定：hull=root、turret=yaw、gun=pitch ✓））· `declared_openings`（炮塔环 / 炮口 / 结构开口的**实测位置** ✓）
+- **一律留空并列入 `needs_author`（每车 6 项 ✓）**：`armor_patches`（厚度/材料/分组）· `modules`（体积/完整度）· `crew_stations`（乘员角色/位置）· `parts.min/max_angle_deg`（机构限位）· `historical_identity_id`/`source_catalog_id`/`field_evidence_id`（无史料依据 ✓）· 以及**未能解析为节点的角色**（如 running_gear ✓）
+- **draft 标记**：`content_tier = "test"` ✓ + `field_evidence_id = ""` ✓ + 目录名 `draft_layouts/` ✓ + 报告 JSON ✓（不冒充作者数据 ✓）
+- 报告：`logs/WT-030D-r2/draft_layouts_report.json`（逐车 `derived_parts` 与 `needs_author` ✓）
+- **下一步**：作者按报告补齐上述 6 类字段并签收 ⇒ 即可跑 `check_scene`（仍需 `source_record` 与 `geometry`/`runtime` ✓）

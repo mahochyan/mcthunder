@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="VehicleLayoutDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/layout/armor_patch_definition.gd" id="1_hjk03"]
+[ext_resource type="Script" path="res://scripts/layout/crew_station_definition.gd" id="2_o0q05"]
+[ext_resource type="Script" path="res://scripts/layout/module_volume_definition.gd" id="3_jhadu"]
+[ext_resource type="Script" path="res://scripts/layout/layout_part_definition.gd" id="4_rxakt"]
+[ext_resource type="Script" path="res://scripts/layout/vehicle_layout_definition.gd" id="5_lvris"]
+
+[sub_resource type="Resource" id="Resource_36e8o"]
+script = ExtResource("4_rxakt")
+id = "hull"
+evidence_keys = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_4yg7x"]
+script = ExtResource("4_rxakt")
+id = "turret"
+parent_id = "hull"
+joint_kind = "yaw"
+evidence_keys = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_6glt2"]
+script = ExtResource("4_rxakt")
+id = "gun"
+parent_id = "turret"
+joint_kind = "pitch"
+evidence_keys = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_wsac6"]
+script = ExtResource("4_rxakt")
+id = "muzzle"
+parent_id = "gun"
+evidence_keys = PackedStringArray()
+
+[resource]
+script = ExtResource("5_lvris")
+id = "KPz70"
+display_name = "KPz70"
+parts = Array[ExtResource("4_rxakt")]([SubResource("Resource_36e8o"), SubResource("Resource_4yg7x"), SubResource("Resource_6glt2"), SubResource("Resource_wsac6")])
+declared_openings = Array[Dictionary]([{
+"kind": "structural",
+"origin_m": Vector3(0, 0, 0),
+"part_id": "hull"
+}, {
+"kind": "turret_ring",
+"origin_m": Vector3(0, 0, 0),
+"part_id": "turret"
+}, {
+"kind": "structural",
+"origin_m": Vector3(0, 0, 0),
+"part_id": "gun"
+}, {
+"kind": "muzzle",
+"origin_m": Vector3(0, 0, 0),
+"part_id": "muzzle"
+}])
