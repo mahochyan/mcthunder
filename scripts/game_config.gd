@@ -49,6 +49,9 @@ const DRIVE_COLLISION_CENTER := Vector3(0,0.75,0)
 const AI_NAV_MARGIN_M := 0.6
 const AI_REPLAN_INTERVAL_S := 1.0
 const AI_STUCK_WINDOW_S := 2.0
+## WT-036-R1: a yield that has not cleared after this long counts as blocked ground - the blocking
+## edge is marked and the path is replanned around it instead of waiting forever.
+const AI_YIELD_TIMEOUT_S := 2.5
 const AI_STUCK_PROGRESS_M := 0.35
 const AI_RECOVERY_ATTEMPTS := 3
 const AI_REVERSE_SECONDS := 1.2

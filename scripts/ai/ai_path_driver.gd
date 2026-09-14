@@ -20,6 +20,8 @@ var _phase_left := 0.0
 var _generation := -1
 var _blocked_edges := {}
 var stuck := StuckDetector.new()
+## WT-036-R1: seconds spent yielding to a physical obstacle without clearing it.
+var yield_elapsed := 0.0
 var events: Array[Dictionary] = []
 var planning_counts := {"failed":0,"unreachable":0,"replanned":0}
 var last_command := VehicleCommand.new()
@@ -197,6 +199,21 @@ func update_command(delta: float) -> VehicleCommand:
 		cmd.throttle = 0
 		_transition("yielding","physical_obstacle")
 	elif phase == "yielding": _transition("following","obstacle_cleared")
+	# WT-036-R1: a yield that never clears is a deadlock - the measured case stood in front of a
+	# parked vehicle for the whole 250 s budget while the untouched baseline detoured and arrived
+	# in 84.9 s. Waiting is not progress, so after AI_YIELD_TIMEOUT_S the blocking edge is marked
+	# and the path is replanned around it. This deliberately does NOT reverse: reversing here is
+	# what disturbed the village check, and the stuck window already covers the wedged case.
+	if phase == "yielding":
+		yield_elapsed += delta
+		if yield_elapsed >= GameConfig.AI_YIELD_TIMEOUT_S:
+			yield_elapsed = 0.0
+			if waypoint > 0 and waypoint < path_ids.size():
+				_blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
+			_last_plan = -INF
+			_plan()
+	else:
+		yield_elapsed = 0.0
 	# WT-039-R1: a no-progress window is only meaningful while the driver is actually asking the
 	# hull to move. Counting idle or planning ticks made vehicles that legitimately wait enter
 	# recovery, so the window now requires a real throttle command as well as an expectation of
