@@ -30,3 +30,10 @@
 ⇒ 日志正则 `^[A-Z_]*CHECKS_PASS$` 均可识别 ✓，**不影响判定** ✓，但建议作者统一命名 ✓
 
 **默认门禁规模**：32 → 40 → 50 → 61 → 73 → **84**
+
+| 6 | **ai_recovery · ai_intercept · ai_tactics** · loading_mechanism · long_rod_content · chemical_content · spall_content · era_binding · bound_model_package · model_binding_probe | **10/10 绿** ✓（~22 s）→ 已入默认门禁 |
+| 6（待定） | `run_match_batch_checks` | 超过单次命令 600 s 上限 ⇒ **待单独定性**（慢或挂起）✓ |
+
+**AI 类全绿的意义**：`ai_recovery`（16）· `ai_intercept`（106）· `ai_tactics`（39）**全部通过** ✓ ⇒ 我在 `ai_path_driver.gd` 的让行/僵持改动**不扰动 AI 的恢复、拦截与战术行为** ✓（这是比单个用例更强的证据 ✓）
+
+**默认门禁规模**：32 → 40 → 50 → 61 → 73 → 84 → **94**
