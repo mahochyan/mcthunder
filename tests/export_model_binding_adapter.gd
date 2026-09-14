@@ -54,31 +54,18 @@ func _run() -> void:
 		var gun_entry: Dictionary = mapping.roles.get("gun",{})
 		if str(gun_entry.get("kind","")) == "node": gun_path = str(gun_entry.get("path",""))
 		var gun_node: Node = scene.get_node_or_null(NodePath(gun_path)) if not gun_path.is_empty() else null
-		var marker := Node3D.new()
+		var marker := Marker3D.new()
 		marker.name = "MuzzlePoint"
-		# WT-036-R1: a bare Marker3D (and equally a bare Node3D anchor) did not survive the export
-		# with its transform - the artifact's muzzle measured (0,0,0) on both attempts, which the
-		# self-check below caught. Attach a tiny real mesh so the exporter writes a mesh-bearing node
-		# whose transform it must keep; 2 cm of geometry is a cheap price for a usable anchor.
-		var anchor_mesh := MeshInstance3D.new()
-		anchor_mesh.name = "MuzzlePointAnchor"
-		var box := BoxMesh.new()
-		box.size = Vector3(0.02,0.02,0.02)
-		anchor_mesh.mesh = box
-		marker.add_child(anchor_mesh)
-		var target := Transform3D(Basis(),offset)
-		if gun_node is Node3D:
-			marker.transform = (gun_node as Node3D).global_transform.affine_inverse() * target
-			gun_node.add_child(marker)
-			marker.owner = scene
-			anchor_mesh.owner = scene
-			row_parent = gun_path
-		else:
-			marker.transform = target
-			scene.add_child(marker)
-			marker.owner = scene
-			anchor_mesh.owner = scene
-			row_parent = "<scene root>"
+		# WT-036-R1 corrected: the measured muzzle offset is expressed relative to the VEHICLE ROOT
+		# (it is the barrel mesh extremity composed through the parent chain), so the anchor belongs
+		# as a direct child of the root with exactly that position. Parenting it under GunPivot put
+		# it a turret-and-gun pivot away from where it was measured, which the in-tree verification
+		# below now shows as a delta of about 1.9 m. The earlier "marker is at the origin" reading was
+		# my own measurement bug: global_position off-tree returned (0,0,0) for every node.
+		marker.position = offset
+		scene.add_child(marker)
+		marker.owner = scene
+		row_parent = "<scene root>"
 		var out_document := GLTFDocument.new()
 		var out_state := GLTFState.new()
 		out_document.append_from_scene(scene,out_state)
@@ -97,6 +84,10 @@ func _run() -> void:
 		if verify_document.append_from_file(out_path,verify_state) == OK:
 			var verify_scene: Node = verify_document.generate_scene(verify_state)
 			if verify_scene != null:
+				# WT-036-R1: a freshly generated scene is NOT in the SceneTree, and reading
+				# global_position off-tree returned (0,0,0) for every node - which made me report a
+				# defect that does not exist. Add it to the tree first, then read.
+				root.add_child(verify_scene)
 				var found: Node = null
 				var stack: Array[Node] = [verify_scene]
 				while not stack.is_empty() and found == null:
@@ -106,6 +97,7 @@ func _run() -> void:
 				if found is Node3D:
 					verified_delta = (found as Node3D).global_position.distance_to(offset)
 					verified = verified_delta <= 0.001
+				root.remove_child(verify_scene)
 				verify_scene.free()
 		var row := {"id":str(id),"source_path":source,"source_sha256":str(probe.sha256),
 			"adapter_path":out_path,"adapter_sha256":adapter_hash,
