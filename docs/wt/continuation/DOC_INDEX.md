@@ -1,6 +1,6 @@
 ﻿# 交付文档索引（`docs/wt/continuation/`）
 
-> 共 **114** 份（脚本生成，取每份首个标题）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R9.md` · `DECISION_REQUEST_BUNDLE.md` · `DELIVERY_SUMMARY_ROUND4.md` · 同级的 `NEXT_ACTION.md`。
+> 共 **116** 份（脚本生成）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R9.md` · `DECISION_REQUEST_BUNDLE.md` · `DELIVERY_SUMMARY_ROUND4.md` · `WT-030D-R2_AUTHOR_DATA_REQUEST.md` · 同级 `NEXT_ACTION.md`。
 
 | 文件 | 标题 | 大小 |
 |---|---|---|
@@ -17,7 +17,7 @@
 | DELIVERY_SUMMARY_ROUND2.md | 绗?2 杞氦浠樻眹鎬伙紙WT-038-R1 闃舵鍥涳級 | 7411 B |
 | DELIVERY_SUMMARY_ROUND3.md | 绗?3 杞氦浠樻眹鎬伙紙寮曟搸缂洪櫡鏀诲潥 + WT-036 鏀跺熬 + 璧勪骇渚у叆搴擄級 | 5373 B |
 | DELIVERY_SUMMARY_ROUND3_FINAL.md | 第 3 轮最终账目（补编：供应链消除后的收束） | 2827 B |
-| DELIVERY_SUMMARY_ROUND4.md | 第 4 轮交付汇总（回归收尾 · 工具修复 · 门禁扩容 · 资产请求） | 3041 B |
+| DELIVERY_SUMMARY_ROUND4.md | 第 4 轮交付汇总（回归收尾 · 工具修复 · 门禁扩容 · 资产请求） | 4195 B |
 | DELIVERY_WT023_R1.md | WT-023-R1 浜や粯鎶ュ憡锛氭渤璋风幇浠ｉ檰鎴樼嫭绔嬪彲鐜╁€欓€? | 5843 B |
 | DELIVERY_WT038_R1.md | WT-038-R1 姝ｅ紡浜や粯闂ㄦ姤鍛婏紙绗?2 杞€欓€夛級 | 5073 B |
 | dirty_file_ownership.json |  | 4828 B |
@@ -77,7 +77,8 @@
 | WT-028-R1_DESIGN.md | WT-028-R1 璁捐椤碉紙鐜颁唬鍏夌數銆佷緵鐢点€佸憡璀﹀強涓撶敤瑁呭锛? | 3958 B |
 | WT-029-R1_DESIGN.md | WT-029-R1 璁捐椤碉紙鐜颁唬瀵规姉鏍风墖涓庨鍙戞妧鏈鍐荤粨锛? | 3811 B |
 | WT-030D-R1_DESIGN.md | WT-030D-R1 璁捐椤碉紙杞︽睜娉ㄥ唽涓庤祫浜т簨瀹炲璁?+ 鏃╁墠缁撹鏇存锛? | 4992 B |
-| WT-030D-R2_AUTHOR_DATA_REQUEST.md | WT-030D-R2 ⑤：完整绑定校验所需的**作者数据清单**（可直接执行的请求） | 3500 B |
+| WT-030D-R2_ADAPTER_MUZZLE_AT_ORIGIN.md | WT-030D-R2：**适配产物的 `MuzzlePoint` 位于原点**（缺陷登记 + 更正上一条提交的说法） | 6158 B |
+| WT-030D-R2_AUTHOR_DATA_REQUEST.md | WT-030D-R2 ⑤：完整绑定校验所需的**作者数据清单**（可直接执行的请求） | 6163 B |
 | WT-030-R1_DESIGN.md | WT-030-R1 璁捐椤碉紙鐜颁唬鏁版嵁銆佹ā鍨嬪叆鍙ｄ笌鍙鐢ㄨ浇鍏疯祫浜у绾︼級 | 4009 B |
 | WT-031B-D-R1_DESIGN.md | WT-031B-D-R1 璁捐椤碉紙浠庣湡瀹?GLB 鎺ㄥ妯″瀷缁戝畾锛? | 3154 B |
 | WT-031C-D-R1_DESIGN.md | WT-031C-D-R1 璁捐椤碉紙瑙掕壊鏄犲皠浣滆€呭寲涓庡畬鏁寸粦瀹氭牎楠岋級 | 2930 B |
@@ -89,6 +90,7 @@
 | WT-036-R1_CHALLENGE_FIXTURE_BOUNDARY.md | WT-036-R1 登记：`challenge_defence_waves` 属**夹具战斗能力边界**（需作者/用户裁定） | 2995 B |
 | WT-036-R1_DEFERRED_RERUN.md | WT-036-R1 鏀跺熬锛?1 涓?DEFERRED 濂椾欢鐨勯暱棰勭畻閲嶈窇锛堥樁娈佃褰曪級 | 2509 B |
 | WT-036-R1_DEFERRED_RERUN_FINAL.md | WT-036-R1 鏀跺熬锛堢粓鐗堬級锛?1 涓?DEFERRED 鍏ㄩ儴瀹氭€?+ 宸ヤ笟濂椾欢鍚岄绠楀鐓у畾妗? | 3606 B |
+| WT-036-R1_ENVELOPE_DECLARATION.md | WT-036-R1：8.5 m 刚体包络的**声明变更**（用户裁定 D2） | 2125 B |
 | WT-036-R1_GATE_COVERAGE_GAP.md | WT-036-R1：门禁**覆盖缺口**报告（179 套件 vs 默认 32） | 4514 B |
 | WT-036-R1_GATE_EXPANSION_LOG.md | 门禁扩容日志（D 类试跑记录） | 6464 B |
 | WT-036-R1_INDUSTRIAL_BATTLE_TRIAGE.md | WT-036-R1：`run_industrial_battle_checks` 两项失败的分类（含**可检验预测**） | 2340 B |
