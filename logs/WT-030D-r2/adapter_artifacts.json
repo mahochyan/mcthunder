@@ -1,0 +1,54 @@
+{
+  "rows": [
+    {
+      "adapter_path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+      "adapter_sha256": "fa1b4d80a3f2582df1bcc7c0729caf5657af14766d36c959936194bb828282cf",
+      "id": "35t",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.00259995460510254,
+        -1.95000004768372
+      ],
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash",
+      "source_path": "E:/AIprogram/aimodel/德国/35t/vehicle.glb",
+      "source_sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+      "adapter_sha256": "566e543214c03f4bc9875053eb00e4a813d63a7f5dd4193952e3960160f21309",
+      "id": "KPz70",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0205999612808228,
+        -5.61899995803833
+      ],
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash",
+      "source_path": "E:/AIprogram/aimodel/德国/KPz70/vehicle.glb",
+      "source_sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+      "adapter_sha256": "8998e9a33dcb63556eeb2725393b5217ef1ab30a27a07f2ee89cdc8a12363e8f",
+      "id": "M48",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00970005989074707,
+        -5.28499984741211
+      ],
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash",
+      "source_path": "E:/AIprogram/aimodel/德国/M48/vehicle.glb",
+      "source_sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
+      "source_unchanged": true,
+      "write_result": 0
+    }
+  ],
+  "schema": 1,
+  "source_root": "E:/AIprogram/aimodel/德国"
+}
