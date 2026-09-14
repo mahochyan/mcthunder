@@ -152,12 +152,20 @@ func transitions() -> void:
 		var selected := app.garage.preparation.build_match()
 		check(selected.ok and selected.config.map_id()==id,"garage freezes chosen map "+id)
 		app.enter_laboratory("team"); await frames(8)
+		# WT-036-R1 test-side timing: transitions are asynchronous and restart_match() returns
+		# silently while one is in flight, so wait for the flag instead of betting on 8 frames.
+		for i in 240:
+			await frames(1)
+			if not app._transitioning: break
 		var scene := app.training as VillageRange
 		check(scene != null and scene.team_ready and scene.definition.id == MapRegistry.definition(id).id and scene.combat_actors().size()==8,"T023-01 actual scene selection "+id)
 		check(scene.nav.valid and scene.battle_ui.overlay.minimap.world_rect==scene.definition.bounds,"selected graph and minimap match "+id)
 		if previous != null: check(previous.get_ref()==null,"previous map and its actors freed")
 		var old_id := scene.get_round_id(); previous = weakref(scene)
 		app.restart_match(); await frames(8)
+		for i in 240:
+			await frames(1)
+			if not app._transitioning: break
 		check(previous.get_ref()==null and app.training.get_round_id()!=old_id and app.training.definition.id==MapRegistry.definition(id).id,"restart frees old world and preserves selected map "+id)
 		previous = weakref(app.training); app.return_to_garage(); await frames(8)
 		check(previous.get_ref()==null and app.garage != null and app.training==null,"return frees point, actors and paths "+id)
