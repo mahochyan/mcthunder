@@ -53,6 +53,19 @@ func _run() -> void:
 			if n is Node3D: muzzle_origin = (n as Node3D).global_position; have_muzzle = true
 		var barrel_length := 0.0
 		if have_gun and have_muzzle: barrel_length = gun_origin.distance_to(muzzle_origin)
+		# WT-036-R1: these models keep EMPTY pivots at the origin - TurretPivot, GunPivot and the
+		# MuzzlePoint marker all sit at (0,0,0) and the visible geometry hangs off them - so node
+		# positions alone give a zero barrel. The role audit already measures the muzzle from the
+		# barrel mesh extremity through the parent chain, so fall back to that measured offset.
+		var measured_muzzle := Vector3.ZERO
+		var muzzle_entry: Dictionary = mapping.roles.get("muzzle",{})
+		if str(muzzle_entry.get("kind","")) == "measured_frame":
+			var parts: Array = muzzle_entry.get("offset_in_root_m",[0.0,0.0,0.0])
+			measured_muzzle = Vector3(float(parts[0]),float(parts[1]),float(parts[2]))
+			if barrel_length <= 0.0001: barrel_length = measured_muzzle.length()
+			row.muzzle_measured_from = "barrel_mesh_extremity"
+		else:
+			row.muzzle_measured_from = "node_position"
 		row.geometry = {"turret_origin":[turret_origin.x,turret_origin.y,turret_origin.z],
 			"gun_origin":[gun_origin.x,gun_origin.y,gun_origin.z],"barrel_length":barrel_length}
 		row.have_turret = have_turret; row.have_gun = have_gun; row.have_muzzle = have_muzzle

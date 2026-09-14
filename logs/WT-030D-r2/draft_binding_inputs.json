@@ -36,6 +36,7 @@
       "have_muzzle": true,
       "have_turret": true,
       "id": "35t",
+      "muzzle_measured_from": "node_position",
       "needs_author": [
         "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
         "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
@@ -88,6 +89,7 @@
       "have_muzzle": true,
       "have_turret": true,
       "id": "KPz70",
+      "muzzle_measured_from": "node_position",
       "needs_author": [
         "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
         "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
@@ -140,6 +142,7 @@
       "have_muzzle": true,
       "have_turret": true,
       "id": "M48",
+      "muzzle_measured_from": "node_position",
       "needs_author": [
         "runtime.yaw_min/max and pitch_min/max: mechanism limits (left out on purpose)",
         "binding.units / axes / tolerance_fraction / attachment_tolerance_m / internal_attachments: author data",
