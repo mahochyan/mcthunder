@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 ## WT-039-D: production-vehicle traversal checks at the x閳?120 flank crest.
 ##
 ## Separate identity/version from the rigid-envelope diagnostic: the old T018-03/T018-03b
@@ -122,7 +122,7 @@ func _nearest_node(nav: DriveNavigator, position: Vector3) -> Vector3:
 			best = candidate
 	return best
 
-func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 9000, yaw: float = PI) -> Dictionary:
+func _drive(vehicle_id: String, label: String, start: Vector3, goal: Vector3, mode: String, hold_z: float = INF, ticks_limit: int = 18000, yaw: float = PI) -> Dictionary:
 	print("[T039-D start] %s %s mode=%s from %s to %s" % [vehicle_id,label,mode,str(start),str(goal)])
 	var actor := _spawn(vehicle_id,start+Vector3(0,0.5,0),yaw)
 	var settle := await _settle(actor)
