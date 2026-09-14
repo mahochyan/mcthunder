@@ -45,3 +45,8 @@
 **剩余未覆盖**：85 项；其中疑似逻辑类 **28**（本轮筛选中误含 `render/export` 类 ⇒ 下轮细化过滤 ✓）
 
 **默认门禁规模**：32 → 40 → 50 → 61 → 73 → 84 → 94 → **96**
+
+| 扫查（19 项批量，240 s/项） | balance_matrix · build_identity · era_network · garage_frontend · input_binding · long_rod · map_pack · material_replay · menu_fire_handoff · model_showroom · modern_model_mount · query_metrics · research_tree · save_lock · telemetry_measures | **15/15 绿** ✓ → 已入默认门禁 |
+| 扫查（非 PASS） | **`run_balance_match_checks`** TIMEOUT（241 s 上限）⇒ **慢档** ✓ · **`run_flank_crest_traversal_checks` 18/8 FAIL** | 后者＝**我自己的 T039-D 诊断电池** ✓，其失败正是**已登记**的"M26 坡上起步（调校冲突）"与夹具限制 ⇒ **本就不应入门禁**（诊断电池 ≠ 门禁套件）✓ 已在文档中显式说明 ✓ |
+
+**默认门禁规模**：32 → … → 96 → **111**
