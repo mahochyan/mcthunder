@@ -59,3 +59,7 @@
 | **FAIL（诊断电池，不入）** | **1** | `run_flank_crest_traversal_checks`（**我的 T039-D**）8 项失败＝已登记的 **M26 坡上起步**与夹具限制 ✓ |
 
 **门禁口径补充**：慢档套件（单次 >240 s）**不入门禁**，但应在"长时档"或按需运行 ✓；诊断电池**永不入门禁** ✓
+
+## 工具修复：运行器默认超时 900 → **1500 s**
+实测：`run_industrial_checks` 需 **962 s**（595/0 ✓）、`run_industrial_battle_checks` 需 **~1001 s**（与基线一致 15/1 ✓）⇒ **默认 900 s 会把这两个"已证通过/与基线一致"的套件误判为 TIMEOUT** ✗ ⇒ 默认超时提高至 **1500 s** ✓
+（另有慢档：`balance_match` · `traffic_attribution` · `traffic_telemetry`（521 s 下通过 ✓）· `match_batch`（>40 分钟，判挂起 ✗））
