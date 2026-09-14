@@ -155,3 +155,4 @@ WT-002 已实施炮塔机构固定步长第一批，见 `docs/wt/WT002_FIXED_TUR
 99A资源：E:/AIprogram/mcthunder/authoring/ztz99a/delivery/ZTZ99A_HIGH_AND_BAKED_LODS.zip；高模和3996/1988/989三档烘焙LOD。炮塔主参考99A多视图.png；外形真人验收待定，未作为本包第五辆玩法车集成。
 
 Git仅显式暂存本次文档、分析脚本和指定证据。其它未跟踪截图、诊断日志、Godot生成UID和四张GLB依赖PNG保持原样。原始日志保留字节，不因diff --check的CRLF提示归一化。
+> **第 3 轮补充（回归收尾 + 工具修复 + 资产请求）**：全量门禁（项目默认 32 套件）**28 PASS / 4 FAIL**，四项全部定性；`run_ai_drive_checks` 的回归经**四轮让行策略迭代**修复（最终采用：**优先级 + 双时限重规划** —— 停放车倒车、AI 车只重规划不倒车、低优先晚 1.5 s 也动、静态几何永不计时）✓；`run_industrial_checks` **595/0** ✓；**测试工具修复**：`tests/run_suite_checks.ps1` 改为**以日志证据判定**（本环境 `Start-Process` 的 `ExitCode` 常为 `$null`、捕获日志中文乱码会漏判），退出码仅记录 ✓；**资产 ⑤** 受阻原因精确到函数签名与字段，并给出三条路径（`WT-030D-R2_AUTHOR_DATA_REQUEST.md`）✓；让行策略**五方案对账表**与三条教训见 `REGRESSION_GATE_MASTER_ADDENDUM_R7.md` ✓

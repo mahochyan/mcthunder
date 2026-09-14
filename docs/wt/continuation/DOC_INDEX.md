@@ -1,6 +1,6 @@
 ﻿# 交付文档索引（`docs/wt/continuation/`）
 
-> 共 **103** 份；本索引由脚本生成（取每份首个标题）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4/R5.md` · `DECISION_REQUEST_BUNDLE.md` · `DELIVERY_SUMMARY_ROUND3.md` · 本目录同级的 `NEXT_ACTION.md`。
+> 共 **108** 份（脚本生成，取每份首个标题）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4/R5/R6/R7.md` · `DECISION_REQUEST_BUNDLE.md` · `DELIVERY_SUMMARY_ROUND3_FINAL.md` · 同级的 `NEXT_ACTION.md`。
 
 | 文件 | 标题 | 大小 |
 |---|---|---|
@@ -16,6 +16,7 @@
 | DELIVERY_SUMMARY_ROUND1.md | 棣栬疆 10 寮犳墽琛屽崟 路 缁熶竴浜や粯姹囨€伙紙WT-023-R1 闃舵鍥涳級 | 13577 B |
 | DELIVERY_SUMMARY_ROUND2.md | 绗?2 杞氦浠樻眹鎬伙紙WT-038-R1 闃舵鍥涳級 | 7411 B |
 | DELIVERY_SUMMARY_ROUND3.md | 绗?3 杞氦浠樻眹鎬伙紙寮曟搸缂洪櫡鏀诲潥 + WT-036 鏀跺熬 + 璧勪骇渚у叆搴擄級 | 5373 B |
+| DELIVERY_SUMMARY_ROUND3_FINAL.md | 第 3 轮最终账目（补编：供应链消除后的收束） | 2827 B |
 | DELIVERY_WT023_R1.md | WT-023-R1 浜や粯鎶ュ憡锛氭渤璋风幇浠ｉ檰鎴樼嫭绔嬪彲鐜╁€欓€? | 5843 B |
 | DELIVERY_WT038_R1.md | WT-038-R1 姝ｅ紡浜や粯闂ㄦ姤鍛婏紙绗?2 杞€欓€夛級 | 5073 B |
 | dirty_file_ownership.json |  | 4828 B |
@@ -39,6 +40,8 @@
 | REGRESSION_GATE_MASTER.md | 鍥炲綊闂ㄦ€昏〃锛堢 2 杞?+ WT-036 鏀跺熬鍚庣殑鏉冨▉鍙ｅ緞锛? | 4971 B |
 | REGRESSION_GATE_MASTER_ADDENDUM_R4.md | 鍥炲綊闂ㄦ€昏〃 路 绗?4 杞琛ワ紙WT-036-R1 鍚庣画锛? | 3967 B |
 | REGRESSION_GATE_MASTER_ADDENDUM_R5.md | 回归门总表 · 第 5 次回填（供应链消除 + 既有红定性 + 资产侧进展） | 3970 B |
+| REGRESSION_GATE_MASTER_ADDENDUM_R6.md | 回归门总表 · 第 6 次回填：**全量门禁（32 套件）= 28 PASS / 4 FAIL** | 2961 B |
+| REGRESSION_GATE_MASTER_ADDENDUM_R7.md | 回归门总表 · 第 7 次回填：全量 28/4 的四项定性 + **让行策略五方案对账表** | 3476 B |
 | REGRESSION_GATE_ROUND2.md | 鍥炲綊闂ㄦ姤鍛?路 绗?2 杞?路 鎵规 A锛?*鍥炲綊闂?RG-2**锛? | 5403 B |
 | REGRESSION_GATE_ROUND2_FULL.md | 鍥炲綊闂ㄦ姤鍛?路 绗?2 杞紙**鍥炲綊闂?RG-2**锛壜?**瀹屾暣鐗?* | 4834 B |
 | ROLE_MAPPING.md | 瑙掕壊鏄犲皠琛紙WT-031C-D-R1锛? | 4260 B |
@@ -71,6 +74,7 @@
 | WT-028-R1_DESIGN.md | WT-028-R1 璁捐椤碉紙鐜颁唬鍏夌數銆佷緵鐢点€佸憡璀﹀強涓撶敤瑁呭锛? | 3958 B |
 | WT-029-R1_DESIGN.md | WT-029-R1 璁捐椤碉紙鐜颁唬瀵规姉鏍风墖涓庨鍙戞妧鏈鍐荤粨锛? | 3811 B |
 | WT-030D-R1_DESIGN.md | WT-030D-R1 璁捐椤碉紙杞︽睜娉ㄥ唽涓庤祫浜т簨瀹炲璁?+ 鏃╁墠缁撹鏇存锛? | 4992 B |
+| WT-030D-R2_AUTHOR_DATA_REQUEST.md | WT-030D-R2 ⑤：完整绑定校验所需的**作者数据清单**（可直接执行的请求） | 3500 B |
 | WT-030-R1_DESIGN.md | WT-030-R1 璁捐椤碉紙鐜颁唬鏁版嵁銆佹ā鍨嬪叆鍙ｄ笌鍙鐢ㄨ浇鍏疯祫浜у绾︼級 | 4009 B |
 | WT-031B-D-R1_DESIGN.md | WT-031B-D-R1 璁捐椤碉紙浠庣湡瀹?GLB 鎺ㄥ妯″瀷缁戝畾锛? | 3154 B |
 | WT-031C-D-R1_DESIGN.md | WT-031C-D-R1 璁捐椤碉紙瑙掕壊鏄犲皠浣滆€呭寲涓庡畬鏁寸粦瀹氭牎楠岋級 | 2930 B |
@@ -81,6 +85,7 @@
 | WT-036-R1_CHALLENGE_FIXTURE_BOUNDARY.md | WT-036-R1 登记：`challenge_defence_waves` 属**夹具战斗能力边界**（需作者/用户裁定） | 2995 B |
 | WT-036-R1_DEFERRED_RERUN.md | WT-036-R1 鏀跺熬锛?1 涓?DEFERRED 濂椾欢鐨勯暱棰勭畻閲嶈窇锛堥樁娈佃褰曪級 | 2509 B |
 | WT-036-R1_DEFERRED_RERUN_FINAL.md | WT-036-R1 鏀跺熬锛堢粓鐗堬級锛?1 涓?DEFERRED 鍏ㄩ儴瀹氭€?+ 宸ヤ笟濂椾欢鍚岄绠楀鐓у畾妗? | 3606 B |
+| WT-036-R1_INDUSTRIAL_BATTLE_TRIAGE.md | WT-036-R1：`run_industrial_battle_checks` 两项失败的分类（含**可检验预测**） | 2340 B |
 | WT-036-R1_INDUSTRIAL_COMPARISON.md | WT-036-R1：`run_industrial_checks` 基线/分支失败集合对照（601 s 预算） | 1395 B |
 | WT-036-R1_INDUSTRIAL_COMPARISON_2.md | WT-036-R1 闄勫綍浜岋細`run_industrial_checks` 鎸夌洰鏍囩被鍨嬬簿鍒嗭紙capture vs supply锛? | 2031 B |
 | WT-036-R1_INDUSTRIAL_COMPARISON_3.md | WT-036-R1 闄勫綍鍥涳紙**鏇存涓婁竴杞彛寰?*锛夛細宸ヤ笟濂椾欢"瀹屾暣杩愯瀵瑰畬鏁磋繍琛?瀹氭 | 2242 B |
