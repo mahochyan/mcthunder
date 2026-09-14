@@ -37,3 +37,14 @@
 
 ## 6. 需裁定（打包，`DECISION_REQUEST_BUNDLE.md`）
 `T018-H01` A1/A2 · `challenge` B1–B4 · M26 C1–C3 · **8.5 m 包络 D1/D2** · 授权 E1–E4 · **资产路径 A/B/C**（`WT-030D-R2_AUTHOR_DATA_REQUEST.md`）
+
+## 7. 门禁终版补记（收尾轮）
+| 项 | 终值 |
+|---|---|
+| 默认门禁套件数 | **32 → 111**（覆盖缺口 **147 → 68**） |
+| 111 套件全量结果 | **104 PASS · 1 FAIL · 4 标记类 · 2 慢档** ⇒ 按正确口径＝**除 1 项已登记的 `challenge` 防守夹具边界外全部通过** ✓ |
+| 慢档实测量 | `industrial_checks` **962 s / 595-0** ✓ · `industrial_battle` **~1001 s / 15-1（=基线）** ✓ · `traffic_telemetry` 521 s 通过 ✓ · `balance_match`/`traffic_attribution` >241 s · `match_batch` **>40 分钟判挂起** ✗ |
+| **两次抓到我引入的回归** | `ai_drive`（让行类 → `6937e684`）· `partial_support`（支撑/转向类 → `c26ac2c1`）⇒ **均被门禁看住** ✓ |
+| 工具修复 | 运行器**按日志证据判定**（本环境 ExitCode=$null、中文乱码）✓ · 默认超时 **900 → 1500 s** ✓ |
+| 分类规则 | 慢档不入禁 · **诊断电池永不入禁** · 零输出 NOT_RUN · 环境依赖 NOT_RUN · 网络类专用入口 ✓ |
+| 证据 | `logs/WT-036-R1/full-gate-111/` · `REGRESSION_GATE_MASTER_ADDENDUM_R9.md` · `WT-036-R1_GATE_EXPANSION_LOG.md` |
