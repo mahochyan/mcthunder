@@ -50,8 +50,17 @@ foreach ($step in $steps) {
     $scriptError = ($errors + $output) -match 'SCRIPT ERROR:|Parse Error:'
     $checkMatch = [regex]::Match($output, '=== 结果: (\d+) 项检查, (\d+) 失败 ===')
     $assertionsPass = $step.Name -eq 'import' -or ($checkMatch.Success -and [int]$checkMatch.Groups[2].Value -eq 0 -and $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$')
-    $passed = -not $timedOut -and $process.ExitCode -eq 0 -and -not $scriptError -and $unexpected.Count -eq 0 -and $assertionsPass -and $logReadErrors.Count -eq 0
-    $row = [pscustomobject]@{suite=$step.Name; source_sha=$sourceSha; engine=$engineVersion; command=$command; exit_code=$process.ExitCode; timed_out=$timedOut; checks=if($checkMatch.Success){[int]$checkMatch.Groups[1].Value}else{0}; passed=$passed; script_error=$scriptError; unexpected_errors=$unexpected; expected_error_count=$allowedErrors.Count}
+    # WT-036-R1: two environment artefacts made verdicts wrong - Start-Process sometimes leaves
+    # ExitCode null, and the captured log can arrive with the Chinese result line mojibaked so the
+    # regex above misses a suite that actually printed "N checks, 0 failures". The verdict therefore
+    # rests on the log evidence: either the parsed result line with zero failures, or the ASCII
+    # CHECKS_PASS marker that every suite prints only when its failure count is zero - plus no script
+    # error and no unexpected errors. The process exit code is recorded for information only.
+    $markerPass = $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$'
+    $evidencePass = ($assertionsPass -or ($step.Name -ne 'import' -and $markerPass))
+    $exitCode = $process.ExitCode
+    $passed = -not $timedOut -and -not $scriptError -and $unexpected.Count -eq 0 -and $evidencePass -and $logReadErrors.Count -eq 0
+    $row = [pscustomobject]@{suite=$step.Name; source_sha=$sourceSha; engine=$engineVersion; command=$command; exit_code=$exitCode; timed_out=$timedOut; checks=if($checkMatch.Success){[int]$checkMatch.Groups[1].Value}else{0}; passed=$passed; script_error=$scriptError; unexpected_errors=$unexpected; expected_error_count=$allowedErrors.Count; marker_pass=$markerPass}
     $summary.Add($row)
     $row | Add-Member -NotePropertyName log_read_errors -NotePropertyValue $logReadErrors
     $summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $runPath 'RESULTS.json') -Encoding utf8
