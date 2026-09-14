@@ -1,0 +1,106 @@
+﻿[
+    {
+        "suite":  "run_art_showcase",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  0,
+        "fail":  0,
+        "seconds":  601.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_challenge_checks",
+        "status":  "FAIL",
+        "pass":  138,
+        "fail":  2,
+        "seconds":  558.8,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_export_checks",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  0,
+        "fail":  0,
+        "seconds":  601.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_industrial_battle_checks",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  1,
+        "fail":  0,
+        "seconds":  601.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_industrial_checks",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  85,
+        "fail":  30,
+        "seconds":  601.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_research_thumbnail_bake",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  0,
+        "fail":  0,
+        "seconds":  601.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_river_driving_checks",
+        "status":  "FAIL",
+        "pass":  0,
+        "fail":  0,
+        "seconds":  142.1,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_river_engagement_checks",
+        "status":  "FAIL",
+        "pass":  36,
+        "fail":  0,
+        "seconds":  124.8,
+        "marker":  "RIVER_ENGAGEMENT_CHECKS_PASS"
+    },
+    {
+        "suite":  "run_traffic_attribution",
+        "status":  "TIMEOUT_STILL_RUNNING",
+        "pass":  0,
+        "fail":  0,
+        "seconds":  601,
+        "marker":  [
+
+                   ]
+    },
+    {
+        "suite":  "run_traffic_telemetry_checks",
+        "status":  "FAIL",
+        "pass":  8,
+        "fail":  0,
+        "seconds":  521.2,
+        "marker":  "TRAFFIC_TELEMETRY_CHECKS_PASS"
+    },
+    {
+        "suite":  "run_village_battle_checks",
+        "status":  "FAIL",
+        "pass":  21,
+        "fail":  0,
+        "seconds":  220.9,
+        "marker":  "VILLAGE_BATTLE_CHECKS_PASS"
+    }
+]
