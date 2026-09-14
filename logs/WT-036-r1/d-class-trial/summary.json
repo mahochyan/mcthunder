@@ -1,0 +1,66 @@
+﻿[
+    {
+        "suite":  "run_model_binding_checks",
+        "exit":  0,
+        "pass":  63,
+        "fail":  0,
+        "marker":  "MODEL_BINDING_CHECKS_PASS",
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_suspension_checks",
+        "exit":  0,
+        "pass":  28,
+        "fail":  0,
+        "marker":  "SUSPENSION_CHECKS_PASS",
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_track_drive_checks",
+        "exit":  0,
+        "pass":  15,
+        "fail":  0,
+        "marker":  "TRACK_DRIVE_CHECKS_PASS",
+        "seconds":  1.6
+    },
+    {
+        "suite":  "run_powertrain_checks",
+        "exit":  0,
+        "pass":  19,
+        "fail":  0,
+        "marker":  "POWERTRAIN_CHECKS_PASS",
+        "seconds":  1.9
+    },
+    {
+        "suite":  "run_query_cache_checks",
+        "exit":  0,
+        "pass":  13,
+        "fail":  0,
+        "marker":  "QUERY_CACHE_CHECKS_PASS",
+        "seconds":  2.7
+    },
+    {
+        "suite":  "run_simulation_phase_checks",
+        "exit":  0,
+        "pass":  13,
+        "fail":  0,
+        "marker":  "SIMULATION_PHASE_CHECKS_PASS",
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_turret_mechanism_checks",
+        "exit":  0,
+        "pass":  34,
+        "fail":  0,
+        "marker":  "TURRET_MECHANISM_CHECKS_PASS",
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_loading_checks",
+        "exit":  0,
+        "pass":  62,
+        "fail":  0,
+        "marker":  "LOADING_CHECKS_PASS",
+        "seconds":  2.1
+    }
+]
