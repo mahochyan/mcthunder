@@ -1,6 +1,6 @@
 ﻿# 交付文档索引（`docs/wt/continuation/`）
 
-> 共 **116** 份（脚本生成）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R9.md` · `DECISION_REQUEST_BUNDLE.md` · `DELIVERY_SUMMARY_ROUND4.md` · `WT-030D-R2_AUTHOR_DATA_REQUEST.md` · 同级 `NEXT_ACTION.md`。
+> 共 **118** 份（脚本生成）。**先读**：`REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R10.md` · `DECISION_REQUEST_BUNDLE.md` · **`DELIVERY_SUMMARY_ROUND4_FINAL.md`** · `WT-030D-R2_AUTHOR_DATA_REQUEST.md` · 同级 `NEXT_ACTION.md`。
 
 | 文件 | 标题 | 大小 |
 |---|---|---|
@@ -18,6 +18,7 @@
 | DELIVERY_SUMMARY_ROUND3.md | 绗?3 杞氦浠樻眹鎬伙紙寮曟搸缂洪櫡鏀诲潥 + WT-036 鏀跺熬 + 璧勪骇渚у叆搴擄級 | 5373 B |
 | DELIVERY_SUMMARY_ROUND3_FINAL.md | 第 3 轮最终账目（补编：供应链消除后的收束） | 2827 B |
 | DELIVERY_SUMMARY_ROUND4.md | 第 4 轮交付汇总（回归收尾 · 工具修复 · 门禁扩容 · 资产请求） | 4195 B |
+| DELIVERY_SUMMARY_ROUND4_FINAL.md |  | 86 B |
 | DELIVERY_WT023_R1.md | WT-023-R1 浜や粯鎶ュ憡锛氭渤璋风幇浠ｉ檰鎴樼嫭绔嬪彲鐜╁€欓€? | 5843 B |
 | DELIVERY_WT038_R1.md | WT-038-R1 姝ｅ紡浜や粯闂ㄦ姤鍛婏紙绗?2 杞€欓€夛級 | 5073 B |
 | dirty_file_ownership.json |  | 4828 B |
@@ -38,7 +39,8 @@
 | PILOT_COMBAT_CHAIN.md | 鏍疯溅鍛戒腑鈥旇兘鍔涒€旀仮澶嶉摼鎶ュ憡锛圵T-012-R1锛? | 5583 B |
 | PILOT_SELECTION.md | WT-031-R1 涓よ締鏍疯溅閫夊瀷锛圥ILOT_SELECTION锛? | 5230 B |
 | REACHABILITY_MATRIX.md | 娌宠胺鏋㈢航鍏抽敭璧风粓鐐瑰彲杈剧煩闃碉紙WT-032-R1锛? | 3543 B |
-| REGRESSION_GATE_MASTER.md | 鍥炲綊闂ㄦ€昏〃锛堢 2 杞?+ WT-036 鏀跺熬鍚庣殑鏉冨▉鍙ｅ緞锛? | 4971 B |
+| REGRESSION_GATE_MASTER.md | 鍥炲綊闂ㄦ€昏〃锛堢 2 杞?+ WT-036 鏀跺熬鍚庣殑鏉冨▉鍙ｅ緞锛? | 6414 B |
+| REGRESSION_GATE_MASTER_ADDENDUM_R10.md | 回归门终版（第 10 次回填）：**最终 HEAD 上 111 套件 = 109 PASS / 2 FAIL** | 3275 B |
 | REGRESSION_GATE_MASTER_ADDENDUM_R4.md | 鍥炲綊闂ㄦ€昏〃 路 绗?4 杞琛ワ紙WT-036-R1 鍚庣画锛? | 3967 B |
 | REGRESSION_GATE_MASTER_ADDENDUM_R5.md | 回归门总表 · 第 5 次回填（供应链消除 + 既有红定性 + 资产侧进展） | 3970 B |
 | REGRESSION_GATE_MASTER_ADDENDUM_R6.md | 回归门总表 · 第 6 次回填：**全量门禁（32 套件）= 28 PASS / 4 FAIL** | 2961 B |
