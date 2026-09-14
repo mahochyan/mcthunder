@@ -123,11 +123,11 @@
                                                  "run_industrial_checks"
                                              ],
                            "measured":  [
-                                            "run_challenge_checks",
-                                            "run_village_battle_checks",
-                                            "run_traffic_telemetry_checks",
-                                            "run_river_engagement_checks",
-                                            "run_river_driving_checks"
+                                            "run_challenge_checks (138 pass / 2 fail, complete)",
+                                            "run_village_battle_checks (21 pass / 0 fail)",
+                                            "run_traffic_telemetry_checks (8 pass / 0 fail)",
+                                            "run_river_engagement_checks (36 pass / 0 fail)",
+                                            "run_river_driving_checks (34 pass / 0 fail)"
                                         ],
                            "deferred_remaining":  [
 
@@ -256,5 +256,11 @@
                           "kind":  "harness_or_env",
                           "evidence":  "village battle 21/0, traffic telemetry 8/0, river engagement 36/0 all exit non-zero"
                       }
-                  ]
+                  ],
+    "exit_code_artifact":  {
+                               "finding":  "the batch marked four suites FAIL because Start-Process left ExitCode null and null -ne 0 evaluates true",
+                               "rerun_evidence":  "the same suites print their PASS markers and baseline reproduces traffic telemetry as 8 pass / 0 fail with the same empty ExitCode",
+                               "corrected":  "village battle, traffic telemetry, river engagement and river driving are PASS",
+                               "non_fatal_warning":  "LayoutCatalog test layout barrel_box AABB warning is present at baseline too and is not an error"
+                           }
 }
