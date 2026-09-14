@@ -101,3 +101,56 @@ Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 [PASS] td_route: fabricated repair cannot score
 [PASS] td_route: timeout fails without inventing goal completion
 [PASS] td_route: finish clamps time and freezes actual combat
+[PASS] duplicate actual projectile event is rejected during live challenge
+[PASS] mutated stale-life record cannot enter objective ledger
+[PASS] last round in flight cannot prematurely fail finite-ammo challenge
+[PASS] actual fired ammunition exhaustion fails once after projectiles finish
+[PASS] flank_hunter: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] hold_ground: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] td_route: actual enemy projectile destruction fails challenge without awarding stars
+[PASS] entering final point before route cannot advance objectives
+[PASS] second checkpoint cannot be taken out of order
+[PASS] ordered checkpoints enable actual unopposed capture
+[PASS] leaving timed point resets continuous capture
+[PASS] living enemy entering point resets continuous capture
+[PASS] manual large clock delta cannot advance paused capture
+[PASS] oversized final delta cannot award capture time beyond deadline
+[PASS] defense retains previous hold time while outside zone
+[PASS] contested defense stops accumulating without clearing prior time
+[PASS] defense resumes accumulation but cannot finish without kills
+[PASS] healthy repair commands never earn repair stars
+[PASS] real enemy round damages player track without scripted damage
+[PASS] pause freezes actual in-progress repair and challenge score
+[PASS] actual damaged module repair emits one authenticated event
+[PASS] duplicate committed repair event cannot score twice
+[PASS] finite defense wave 1 actually spawns
+[PASS] real historical projectile destroys defense wave 1
+[PASS] all occupied wave candidates wait without overlap or invented defeat
+[PASS] second wave safely enters when a real candidate clears
+[PASS] finite defense wave 2 actually spawns
+[PASS] real historical projectile destroys defense wave 2
+[PASS] defense uses exactly two unique attributed enemy lives
+[PASS] repeated wave request cannot spawn extra actors
+[PASS] actual occupancy time and real finite-wave kills complete defense
+[PASS] actual M36 drives to authored checkpoint (-72.0, 0.0, 50.0)
+[PASS] actual M36 drives to authored checkpoint (-42.0, 0.0, 20.0)
+[PASS] ordered checkpoints advance from real actor positions
+[PASS] actual M36 reaches central capture zone against active AI
+[route actual] { "stars": 3, "score": 31973, "elapsed_ms": 42667, "shots": 0, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际0发）\n★ 100秒内完成（实际 42.7秒）", "attempt_id": 24020, "best_key": "td_route:v1:normal", "title": "猎歼突进", "status": "passed", "reason": "objectives_complete" } held=15.0 checkpoints=2 shots=0 player_dead=false
+[PASS] real route and uninterrupted capture complete limited-ammo M36 task
+[PASS] actual M36 drives to authored checkpoint (-72.0, 0.0, 50.0)
+[PASS] actual M36 drives to authored checkpoint (-42.0, 0.0, 20.0)
+[PASS] ordered checkpoints advance from real actor positions
+[PASS] actual M36 reaches central capture zone against active AI
+[route actual] { "stars": 3, "score": 30923, "elapsed_ms": 67683, "shots": 1, "repairs": 1, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际1发）\n★ 100秒内完成（实际 67.7秒）", "attempt_id": 24021, "best_key": "td_route:v1:hard", "title": "猎歼突进", "status": "passed", "reason": "objectives_complete" } held=15.0 checkpoints=2 shots=1 player_dead=false
+[PASS] real route and uninterrupted capture complete limited-ammo M36 task
+[drive incomplete] goal=(-62.0, 0.0, 100.0) position=(-61.52931, 0.000656, 99.93678) speed=0.0 caps={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": ["engine"], "crew_alive": 5, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false } phase=playing
+[drive incomplete] goal=(-65.0, 0.0, 90.0) position=(-64.7766, 0.001126, 90.30727) speed=0.0 caps={ "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 0.625, "reasons": [], "crew_alive": 4, "can_load": true, "loading_mode": "crew", "loading_reasons": ["loading_crew:loader"], "replenishment_allowed": false } phase=playing
+[active defense] {  } held=35.0 kills={  } player_shots=0 remaining=8 enemies=[{ "id": "B1", "position": (-77.96288, 0.000334, 25.91376), "dead": false, "shots": 8, "caps": { "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": [], "crew_alive": 5, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }, "ai": "retreat", "drive": "arrived" }]
+[FAIL] real defense script pilot completes finite waves with opponent AI untouched
+[drive incomplete] goal=(-62.0, 0.0, 100.0) position=(-69.94991, 0.000997, 99.74087) speed=0.0 caps={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 0.625, "reasons": ["engine", "transmission"], "crew_alive": 4, "can_load": true, "loading_mode": "crew", "loading_reasons": ["loading_crew:loader"], "replenishment_allowed": false } phase=playing
+[drive incomplete] goal=(-65.0, 0.0, 90.0) position=(-69.94991, 0.000997, 99.74087) speed=0.0 caps={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": false, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 0.625, "reasons": ["engine", "transmission", "breech"], "crew_alive": 4, "can_load": true, "loading_mode": "crew", "loading_reasons": ["loading_crew:loader"], "replenishment_allowed": false } phase=playing
+[drive incomplete] goal=(-65.0, 0.0, 100.0) position=(-69.94991, 0.000997, 99.74087) speed=0.0 caps={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": false, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 0.625, "reasons": ["engine", "transmission", "breech"], "crew_alive": 4, "can_load": true, "loading_mode": "crew", "loading_reasons": ["loading_crew:loader"], "replenishment_allowed": false } phase=playing
+[active defense] {  } held=45.0 kills={  } player_shots=0 remaining=6 enemies=[{ "id": "B1", "position": (-77.9629, 0.000256, 25.91185), "dead": false, "shots": 12, "caps": { "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": [], "crew_alive": 5, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }, "ai": "retreat", "drive": "arrived" }]
+[FAIL] real defense script pilot completes finite waves with opponent AI untouched
+=== 结果: 140 项检查, 2 失败 ===
