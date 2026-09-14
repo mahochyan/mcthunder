@@ -212,22 +212,32 @@ func update_command(delta: float) -> VehicleCommand:
 		if blocker is Node:
 			var blocker_owner: Node = (blocker as Node).get_parent()
 			if blocker_owner is VehicleActor:
-				mode = "recover" if blocker_owner.get("controller") == null else "replan"
+				if blocker_owner.get("controller") == null:
+					# A parked hull is a dead end: recovery (reverse) is what the parked-vehicle
+					# acceptance check requires, and a wreck cannot move aside by itself.
+					mode = "recover"
+				elif str(vehicle.entity_id) > str(blocker_owner.get("entity_id")):
+					# Two AI actors in a stand-off must not both react, or their paths stay
+					# symmetric and they meet again - only the higher entity id gives way, and it
+					# does so by replanning around the blocker (no reversing, which is what
+					# disturbed the village; no giving up, which cost arrivals in the battle suite).
+					mode = "replan"
 		yield_elapsed = (yield_elapsed + delta) if mode != "" else 0.0
 		if yield_elapsed >= GameConfig.AI_YIELD_TIMEOUT_S:
 			yield_elapsed = 0.0
-			attempts += 1
 			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
-			if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:
-				has_goal = false
-				# A parked hull is a dead end (recovery_limit); a mutual stand-off between two AI
-				# actors is reported explicitly rather than yielded to forever, and the
-				# oncoming-actors check accepts an explicit bounded failure.
-				_transition("failed","mutual_yield" if mode == "replan" else "recovery_limit")
-				return VehicleCommand.new()
 			if mode == "recover":
+				attempts += 1
+				if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:
+					has_goal = false
+					_transition("failed","recovery_limit")
+					return VehicleCommand.new()
 				_phase_left = GameConfig.AI_REVERSE_SECONDS
 				_transition("reverse","insufficient_actual_progress")
+			elif mode == "replan":
+				# Marking the edge is the whole action: the periodic replan then routes around it.
+				_last_plan = -INF
+				_plan()
 			return cmd
 	else:
 		yield_elapsed = 0.0
