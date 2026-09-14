@@ -1,0 +1,40 @@
+﻿[
+    {
+        "suite":  "import",
+        "source_sha":  "runner-neg",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --editor --import",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "tmp_fail_suite",
+        "source_sha":  "runner-neg",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/tmp_fail_suite.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  false,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    }
+]

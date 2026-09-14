@@ -1,0 +1,42 @@
+﻿[
+    {
+        "suite":  "import",
+        "source_sha":  "runner-fix2",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --editor --import",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_slope_pivot_checks,run_structure_checks",
+        "source_sha":  "runner-fix2",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_slope_pivot_checks,run_structure_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  false,
+        "script_error":  false,
+        "unexpected_errors":  [
+                                  "ERROR: Attempt to open script \u0027res://tests/run_slope_pivot_checks,run_structure_checks.gd\u0027 resulted in error \u0027File not found\u0027.",
+                                  "ERROR: Failed loading resource: res://tests/run_slope_pivot_checks,run_structure_checks.gd.",
+                                  "ERROR: Can\u0027t load script: res://tests/run_slope_pivot_checks,run_structure_checks.gd"
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    }
+]

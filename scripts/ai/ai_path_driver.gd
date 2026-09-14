@@ -208,21 +208,26 @@ func update_command(delta: float) -> VehicleCommand:
 	# exactly a parked hull.
 	if phase == "yielding":
 		var blocker: Object = obstacle.get("collider") if obstacle is Dictionary else null
-		var parked := false
+		var mode := ""
 		if blocker is Node:
 			var blocker_owner: Node = (blocker as Node).get_parent()
-			parked = blocker_owner is VehicleActor and blocker_owner.get("controller") == null
-		yield_elapsed = (yield_elapsed + delta) if parked else 0.0
+			if blocker_owner is VehicleActor:
+				mode = "recover" if blocker_owner.get("controller") == null else "replan"
+		yield_elapsed = (yield_elapsed + delta) if mode != "" else 0.0
 		if yield_elapsed >= GameConfig.AI_YIELD_TIMEOUT_S:
 			yield_elapsed = 0.0
 			attempts += 1
+			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
 			if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:
 				has_goal = false
-				_transition("failed","recovery_limit")
+				# A parked hull is a dead end (recovery_limit); a mutual stand-off between two AI
+				# actors is reported explicitly rather than yielded to forever, and the
+				# oncoming-actors check accepts an explicit bounded failure.
+				_transition("failed","mutual_yield" if mode == "replan" else "recovery_limit")
 				return VehicleCommand.new()
-			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
-			_phase_left = GameConfig.AI_REVERSE_SECONDS
-			_transition("reverse","insufficient_actual_progress")
+			if mode == "recover":
+				_phase_left = GameConfig.AI_REVERSE_SECONDS
+				_transition("reverse","insufficient_actual_progress")
 			return cmd
 	else:
 		yield_elapsed = 0.0
