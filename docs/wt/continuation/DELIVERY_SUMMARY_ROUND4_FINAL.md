@@ -52,3 +52,10 @@ PASS = 109 · FAIL = 2 · ZERO = 0 · TIMEOUT = 0
 - 提交数：`git -C <cont> rev-list --count a1bac406..HEAD`（**159** 提交 ✓，本更正为第 160）；
 - **产品代码净变更（相对基线）**：61 files changed, 3780 insertions(+), 21 deletions(-)
 - 交付文档：`docs/wt/continuation/`（**118** 份 ✓，索引见 `DOC_INDEX.md`）。
+
+---
+
+## 8. 最新口径指针（本文件成文后门禁继续扩容）
+- 本文件 §1–§2 记的是**当时**的 **111 套件**运行（109 PASS / 2 FAIL ✓）；
+- **当前口径**：默认门禁 **127 套件** ✓，**179** 个 `run_*.gd` **全部有据归类、无未试跑残留** ✓ ⇒ 见 `REGRESSION_GATE_MASTER_ADDENDUM_R11.md`（定稿补记）· `WT-036-R1_GATE_COVERAGE_GAP.md`（归类）· `WT-036-R1_GATE_EXPANSION_LOG.md`（扩容过程）· 定稿运行证据 `logs/WT-036-R1/full-gate-127/` ✓
+- 三次全量运行（32 / 111 / 120 / 127 套件）的**失败项始终是同一对已定性的非回归** ✓ ⇒ **扩容未引入任何新红** ✓
