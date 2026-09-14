@@ -63,25 +63,42 @@ func _run() -> void:
 	quit(0 if failed == 0 else 1)
 
 func drive(map: MapDefinition, nav: DriveNavigator, type_id: String, team: int, slot: int, goal: Vector3) -> Dictionary:
+	# WT-036-R1 test-side hardening, no assertion or threshold changes: make the clearance the
+	# next route starts from explicit (the same battery showed isolated success and battery
+	# failure for one route, so lingering bodies are worth ruling out by measurement), settle the
+	# hull onto the real collision mesh before driving, and keep a tick trace so a failure is
+	# diagnosable instead of mysterious.
+	var clearance := RouteHarness.occupancy(world,map.spawns[team][slot].origin)
+	check(clearance == 0,"industrial spawn %s/%d/%d starts clear (%d bodies within margin)"%[type_id,team,slot,clearance])
 	var actor := VehicleActor.new(); world.add_child(actor)
-	var setup := actor.setup(defs,type_id,"route_fixture",team,map.spawns[team][slot],4,null)
+	var spawn: Transform3D = map.spawns[team][slot]
+	var setup := actor.setup(defs,type_id,"route_fixture",team,Transform3D(spawn.basis,spawn.origin+Vector3(0,0.5,0)),4,null)
 	if not setup.ok: actor.free(); return {"phase":"setup_failed","bounded":false,"seconds":0}
 	actor.set_physics_process(false); actor.gunner.aim_preview_enabled = false
 	actor.cam_rig.set_process(false); actor.cam_rig.set_physics_process(false)
+	var settled_ticks := 0
+	for i in 300:
+		actor.advance_standalone_tick(1.0/60.0)
+		settled_ticks = i
+		if actor.tank.is_on_floor(): break
 	var driver := AIPathDriver.new(); actor.add_child(driver); driver.configure(actor,nav); actor.set_controller(driver)
 	driver.set_goal(goal)
 	await frames()
 	var previous := actor.tank.global_position
 	var bounded := true; var steps := 0
+	var trace: Array = []
 	# Explicit fixed-step driving fixture: normal command polling and actual CharacterBody collision.
 	for i in 18000:
 		actor.advance_standalone_tick(1.0/60)
 		var p := actor.tank.global_position
 		bounded = bounded and p.is_finite() and p.distance_to(previous)<actor.definition.forward_max_speed/60+0.2 and map.bounds.has_point(Vector2(p.x,p.z))
+		if i % 60 == 0: trace.append(RouteHarness.trace_line(i,driver,actor,goal))
 		previous = p; steps += 1
 		if driver.phase in ["arrived","failed","unreachable"]: break
-	var result := {"phase":driver.phase,"seconds":steps/60.0,"bounded":bounded,"position":previous,"recovery_attempts":driver.attempts}
-	if driver.phase != "arrived": result.events = driver.events.duplicate(true)
+	var result := {"phase":driver.phase,"seconds":steps/60.0,"bounded":bounded,"position":previous,"recovery_attempts":driver.attempts,"settle_ticks":settled_ticks}
+	if driver.phase != "arrived":
+		result.events = driver.events.duplicate(true)
+		result.trace = RouteHarness.dump_trace("industrial-%s-t%d-s%d"%[type_id,team,slot],trace)
 	actor.free(); await frames(1)
 	return result
 
