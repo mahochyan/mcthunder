@@ -2,7 +2,7 @@ class_name ModernModelMountAdapter
 extends RefCounted
 ## Authored articulation adapter for exact, frozen base models. Does not admit a vehicle.
 const SPECS := {
-	"ussr_t_80b":{"root":"ussr_t_80b","gun_mesh":"Gun","wheel_prefix":"Wheel_","running_mesh_count":14},
+	"ussr_t_80b":{"root":"ussr_t_80b","gun_mesh":"MainGun","wheel_prefix":"Wheel_","running_mesh_count":14},
 	"germ_leopard_2a4":{"root":"VehicleRoot","gun_mesh":"MainGunAndMuzzleBrake","wheel_prefix":"wheel_","running_mesh_count":14}
 }
 

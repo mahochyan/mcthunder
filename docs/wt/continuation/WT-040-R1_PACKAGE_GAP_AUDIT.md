@@ -444,3 +444,24 @@ run_modern_model_mount_checks: checks=25 exit= passed=False unexpected_errors=0
 ```
 该套件正是覆盖我早前修改过的 `scripts/content/modern_model_mount_adapter.gd` ✓（`SPECS.ussr_t_80b.gun_mesh`: `"MainGun"` → `"Gun"` ✓）。
 ⇒ **这是我改产品代码导致的回归** ✓ —— 门禁价值的又一实证 ✓；将**定位失败项并修正或回退** ✓（**绝不掩盖** ✗）。
+
+---
+
+## 23. ✅ **回归关闭**：`MODERN_MODEL_MOUNT_CHECKS_PASS`（41/0 ✓）
+### 根因 ✓（两个模型、两个名字 ✗）
+| 对象 | 炮管网格名 | 谁在用 |
+|---|---|---|
+| **苏联源模型**（`制作中/vehicle.glb` ✓） | **`Gun`** ✓ | 我的**测量**工具 ✓（走 `RoleMappingAudit` ✓，**不读 SPECS** ✓） |
+| **authoring/published 模型** ✓ | **`MainGun`** ✓ | `modern_model_mount_adapter.gd` 的 `SPECS` ✓（套件覆盖之 ✓） |
+
+我此前把 `SPECS` 改成 `Gun` ✗ ⇒ **只对了一个模型、弄坏了另一个** ✗✗ ⇒ 套件报 `adapter: exact gun mesh missing` ✗ 且**配方哈希失效** ✗（哈希覆盖**整个文件** ✓）。
+### 正解 ✓
+**回退 `SPECS`** ✓（**逐字节**还原 ⇒ 哈希恢复 ✓）+ **保留** `GUN_MESH_HINTS` 修正 ✓（**另一个文件** ✓，正是测量成功的原因 ✓）。
+### 证据 ✓
+| 项 | 结果 |
+|---|---|
+| `run_modern_model_mount_checks` | **41 / 0** ✓✓（含 `persisted binding records current recipe hash` ✓） |
+| 测量修正保留 ✓ | `role_mapping_audit.gd` 仍有 diff ✓；T-80B offset **−6.1341** ✓ 未受影响 ✓ |
+| 同批回归 | `run_role_mapping_checks 72/0` ✓ · `run_model_binding_checks 63/0` ✓ · `run_model_binding_probe_checks 60/0` ✓ |
+### 教训 ✓
+**同名不等于同物** ✗ —— 修正必须施加于**它服务的对象** ✓；跨模型的"顺手改"极易造成回归 ✓（本次由**门禁**抓出 ✓）。
