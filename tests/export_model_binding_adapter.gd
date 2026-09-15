@@ -80,10 +80,31 @@ func _run() -> void:
 		# it a turret-and-gun pivot away from where it was measured, which the in-tree verification
 		# below now shows as a delta of about 1.9 m. The earlier "marker is at the origin" reading was
 		# my own measurement bug: global_position off-tree returned (0,0,0) for every node.
+		# WT-040-R1 HARDENING (the blind spot the review of this tool exposed): the self-check used to
+		# assert only that the artifact's marker matches the RECORDED offset, so a model whose muzzle
+		# could not be measured at all - method "none", offset (0,0,0) - still reported verified. An
+		# ARMED vehicle (the audit classifies single_turret / multi_launcher) with no measured muzzle is
+		# now a FAILURE, and an unarmed one (support_unarmed: trucks, carriers, launchers with no gun)
+		# gets no MuzzlePoint at all instead of a meaningless marker at the origin.
+		var vehicle_class := str(mapping.get("vehicle_class","unknown"))
+		var armed := vehicle_class in ["single_turret","multi_launcher"]
+		var muzzle_missing := method == "none" or offset.length() <= 0.0001
+		var row_failure := ""
+		if muzzle_missing and armed:
+			row_failure = "armed_vehicle_without_measured_muzzle"
+			print("[adapter] ",id," FAILURE: armed (",vehicle_class,") but the muzzle was not measured")
+		elif muzzle_missing:
+			print("[adapter] ",id," no muzzle (unarmed ",vehicle_class,"): no marker is emitted")
 		marker.position = offset
-		scene.add_child(marker)
-		marker.owner = scene
-		row_parent = "<scene root>"
+		# Only an adapter that actually carries a measured muzzle gets the marker; adding one at the
+		# origin for a gun-less vehicle would be a false claim about the artifact.
+		if not muzzle_missing:
+			scene.add_child(marker)
+			marker.owner = scene
+			row_parent = "<scene root>"
+		else:
+			marker.free()
+			row_parent = "<no marker: muzzle not measured>"
 		var out_document := GLTFDocument.new()
 		var out_state := GLTFState.new()
 		out_document.append_from_scene(scene,out_state)
@@ -117,11 +138,19 @@ func _run() -> void:
 					verified = verified_delta <= 0.001
 				root.remove_child(verify_scene)
 				verify_scene.free()
+		# WT-040-R1: the verdict for a vehicle with no measured muzzle depends on whether it is armed.
+		# An unarmed vehicle whose artifact carries NO marker is correct (there is no muzzle to place),
+		# while an armed one without a measured muzzle is a failure - the case that used to slip through.
+		if muzzle_missing:
+			verified = not armed
+			verified_delta = 0.0 if not armed else -1.0
 		var row := {"id":str(id),"source_path":source,"source_sha256":str(probe.sha256),
 			"adapter_path":out_path,"adapter_sha256":adapter_hash,
 			"muzzle_offset_m":[offset.x,offset.y,offset.z],"muzzle_method":method,
 			"muzzle_marker_parent":row_parent,"muzzle_verified_in_artifact":verified,
 			"muzzle_verified_delta_m":verified_delta,
+			"vehicle_class":vehicle_class,"armed":armed,"muzzle_missing":muzzle_missing,
+			"failure":row_failure,
 			"write_result":write,"source_unchanged":FileAccess.get_sha256(source) == str(probe.sha256),
 			"note":"source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted"}
 		rows.append(row)
