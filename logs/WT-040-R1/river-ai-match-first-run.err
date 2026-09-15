@@ -1,0 +1,4 @@
+SCRIPT ERROR: Parse Error: Expected closing "]" after array elements.
+   at: GDScript::reload (res://tests/record_river_ai_match.gd:120)
+ERROR: Failed to load script "res://tests/record_river_ai_match.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

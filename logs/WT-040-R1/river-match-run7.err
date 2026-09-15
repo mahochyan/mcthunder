@@ -1,0 +1,5 @@
+SCRIPT ERROR: Invalid access to property or key 'linear_velocity' on a base object of type 'CharacterBody3D (TankVehicle)'.
+   at: _run (res://tests/record_river_ai_match.gd:111)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/record_river_ai_match.gd:111)
+       [1] frames (res://tests/record_river_ai_match.gd:33)

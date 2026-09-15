@@ -1,0 +1,7 @@
+﻿[PASS] river team match initialised with 8 AI actors on the authored river graph
+[river-match] t=5 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=35 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=65 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=95 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=125 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=155 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing

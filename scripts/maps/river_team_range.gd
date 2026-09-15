@@ -38,6 +38,26 @@ func supply_positions(team: int) -> Array[Vector3]:
 			out.append(RiverJunctionDefinition.point(row.xz))
 	return out
 
+## WT-040-R1: TeamRange.objective_goal() returns TeamArena.goal(), i.e. the LEGACY arena's eight
+## small-map approach points (GOALS around x +-8, z +-6..9). Inheriting that made the first full
+## river run spend 155 seconds with both teams alive and no engagement, because the AI was driving
+## to arena coordinates instead of the river's objectives. Override with the map's OWN contested
+## points: the three authored capture centres A/B/C for the first three slots of each team, and the
+## central crossing from the map's authored driving stops for the fourth. Both teams therefore aim
+## at the same contested ground, which is what a capture match needs.
+func objective_goal(team: int, index: int) -> Vector3:
+	var captures: Array[Dictionary] = RiverJunctionDefinition.capture_definitions()
+	if index >= 0 and index < captures.size():
+		return captures[index].center
+	# Fourth slot: the map's CENTRAL crossing. Identify it by position, not by title text - a
+	# substring match on the title ("0 m") also matched the "-520 m" lane and sent the slot to the
+	# wrong bank.
+	for stop in RiverJunctionDefinition.driving_stops(trial_team_size):
+		var xz: Vector2 = stop.xz
+		if absf(xz.x) < 1.0:
+			return RiverJunctionDefinition.point(xz)
+	return Vector3.ZERO
+
 ## Team size is chosen by the caller (the recorder uses 4 per team for the first closure the user
 ## asked for); 10v10/16v16 berths are NOT a capacity claim until they are measured on their own.
 func set_trial_team_size(value: int) -> void:

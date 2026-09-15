@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] river team match initialised with 8 AI actors on the authored river graph
+[river-match] t=5 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=35 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=65 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] t=95 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
+[river-match] wrote res://logs/WT-040-R1/river_ai_match_44001.json
+[river-match totals] result=? elapsed=120s tickets={ 1: 300, 2: 300 } reached=[] fired=0 respawns={ 1: 3, 2: 4 } destroyed={ 1: 0, 2: 0 } max_stationary=10s
+[PASS] river match stays inside finite authored river bounds
+[PASS] only destroyed actors have detached AI
+[FAIL] river match clock/tickets terminate the match
+[FAIL] at least six AI slots acquire targets and fire on the river
+[FAIL] at least six AI slots physically reach the central approaches
+[PASS] no healthy river actor trying to drive stays stationary for 90 seconds
+=== 缁撴灉: 7 椤规鏌? 3 澶辫触 ===
+RIVER_AI_MATCH_FAIL

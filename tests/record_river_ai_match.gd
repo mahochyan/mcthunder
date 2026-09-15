@@ -18,7 +18,7 @@ const MAP_ID := "river_junction_team"
 const SEED := 44001
 const SAMPLE_FRAMES := 300          # 5 s at 60 fps, same cadence as the industrial suite
 const PRINT_EVERY := 6              # print every 30 s
-const MAX_SAMPLES := 180            # hard cap: 900 s of match time
+const MAX_SAMPLES := 24           # diagnostic cap: 120 s
 const ARRIVE_RADIUS := 45.0         # "central approaches", same rule as the industrial suite
 const OBJECTIVE_RADIUS := 26.0      # within a capture point's ring
 var count := 0
@@ -101,6 +101,22 @@ func _run() -> void:
 				"living": living, "phase": scene.director.state.phase}
 			timeline.append(row)
 			print("[river-match] t=%.0f tickets=%s living=%s phase=%s" % [scene.director.state.elapsed, str(scene.director.state.tickets), str(living), scene.director.state.phase])
+			# WT-040-R1 diagnostic: the first runs showed no engagement, so print WHERE each actor is
+			# and what it is doing - position, distance to its patrol goal, AI phase, driver phase and
+			# speed - to tell "driving but far" apart from "not driving at all".
+			var d := {}
+			for actor in scene.combat_actors():
+				var ai2: AITankController = actor.controller as AITankController
+				var p2: Vector3 = actor.tank.global_position
+				d[actor.entity_id] = {
+					"p": [roundi(p2.x), roundi(p2.z)],
+					"goal": [roundi(ai2.patrol_goal.x), roundi(ai2.patrol_goal.z)] if ai2 != null else [],
+					"to_goal": roundi(p2.distance_to(ai2.patrol_goal)) if ai2 != null else -1,
+					"ai": ai2.phase if ai2 != null else "detached",
+					"drive": ai2.driver.phase if ai2 != null else "wreck",
+					"spd": snappedf(actor.tank.velocity.length(), 0.1),
+				}
+			print("[river-actors] t=%.0f %s" % [scene.director.state.elapsed, str(d)])
 		if scene.director.state.phase == "finished": break
 	for actor in scene.combat_actors():
 		if actor.state.destroyed: deaths[int(actor.state.team_id)] = int(deaths[int(actor.state.team_id)]) + 1
@@ -150,6 +166,8 @@ func _run() -> void:
 	check(shots.size() >= 6, "at least six AI slots acquire targets and fire on the river")
 	check(reached.size() >= 6, "at least six AI slots physically reach the central approaches")
 	check(max_still < 90, "no healthy river actor trying to drive stays stationary for 90 seconds")
-	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
+	print("=== 缁撴灉: %d 椤规鏌? %d 澶辫触 ==="%[count,failed])
 	print("RIVER_AI_MATCH_PASS" if failed == 0 else "RIVER_AI_MATCH_FAIL")
 	quit(0 if failed == 0 else 1)
+
+

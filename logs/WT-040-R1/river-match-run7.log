@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] river team match initialised with 8 AI actors on the authored river graph
+[river-match] t=5 tickets={ 1: 300, 2: 300 } living={ 1: 4, 2: 4 } phase=playing
