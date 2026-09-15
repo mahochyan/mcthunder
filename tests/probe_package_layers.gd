@@ -55,9 +55,13 @@ func _run() -> void:
 		built = layout != null
 		print("[layers]   geometry.build -> ",("ok, parts="+str(layout.parts.size())+" armor_patches="+str(layout.armor_patches.size()) if built else "FAILED"))
 		if not built: continue
-		# stage 2: the layout validator
-		var lv := LayoutValidator.validate(layout,PackedStringArray(packet.facts.keys()),VehicleContentPipeline.layout_evidence(packet,layout))
-		print("[layers]   LayoutValidator.errors=",lv.errors.size()," warnings=",lv.warnings.size()," suspicious=",lv.suspicious_overlaps.size())
+		# stage 2: the layout validator, given an evidence registry built from the layout's OWN claims
+		# (mechanical: it registers exactly the keys and field claims the layout asserts, each pointing
+		# at the draft that produced it, so the validator can get past the registry gate and report what
+		# it really still needs). This is a probe registry, never a delivered file.
+		var registry := _registry_from(layout)
+		var lv := LayoutValidator.validate(layout,PackedStringArray(packet.facts.keys()),registry)
+		print("[layers]   LayoutValidator.errors=",lv.errors.size()," warnings=",lv.warnings.size()," suspicious=",lv.suspicious_overlaps.size()," registry_keys=",(registry["evidence_keys"] as Array).size()," registry_fields=",(registry["fields"] as Array).size())
 		for err in lv.errors: print("[layers]     ! ",str(err))
 		for w in lv.warnings: print("[layers]     ~ ",str(w))
 		# stage 3: the shell catalog
@@ -74,8 +78,25 @@ func _run() -> void:
 	quit(0)
 
 func _packet(id: String, g: Dictionary, rt: Dictionary, ar: Dictionary, mods: Array, cr: Array, f: Dictionary) -> Dictionary:
+	var geom := g.duplicate(true)
+	# WT-040-R1: HistoricalVehicleGeometry.build reads hull_rings straight off the geometry dictionary,
+	# so a vehicle without them crashes there. The Leopard's rings are the recorded author item, so for
+	# the probe only - NEVER for a packet - a clearly-labelled placeholder ring set is supplied so the
+	# LATER layers become observable. It is derived from the measured turret origin and track width and
+	# says so; it is not a measurement and not a claim about the vehicle.
+	if not geom.has("hull_rings"):
+		var track := float(geom.get("track_width",0.5))
+		var half := float(geom.get("turret_origin",[0.0,1.6,0.0])[0])
+		var ty := float(geom.get("turret_origin",[0.0,1.6,0.0])[1])
+		var tb := float(geom.get("turret_bottom",ty-0.2))
+		geom["hull_rings"] = [
+			[snappedf(tb-0.6,0.01),1.4,-3.0,3.0],
+			[snappedf(tb-0.2,0.01),1.5,-3.2,3.2],
+			[snappedf(tb+0.1,0.01),1.5,-3.2,3.0],
+		]
+		print("[layers]   PLACEHOLDER hull_rings supplied for the probe: derived from turret origin/track width, NOT measured, author item unchanged (track=",track," half=",half,")")
 	var packet := {
-		"id":id,"display_name":id,"geometry":g,"armor":ar,"modules":mods,"crew":cr,
+		"id":id,"display_name":id,"geometry":geom,"armor":ar,"modules":mods,"crew":cr,
 		"runtime":{"forward_max_speed":20.83,"reverse_max_speed":2.78,"acceleration":4.0,"hull_turn_speed":30.0,
 			"reload_time":1.0,"rounds":38.0,"pitch_min":-10.0,"pitch_max":20.0,"muzzle_velocity":905.0,
 			"penetration_curve":[[0.0,150.0],[500.0,125.0]]},
@@ -83,7 +104,47 @@ func _packet(id: String, g: Dictionary, rt: Dictionary, ar: Dictionary, mods: Ar
 		"facts":f,"sources":{},"compatible_shells":[],"license":"<LAYER PROBE - not a licence decision>",
 	}
 	for key in rt.keys(): packet["runtime"][key] = rt[key]
+	# WT-040-R1: build reads packet.facts["crew.placement"].status, so the fact must exist or the build
+	# dies there - the error was a MISSING KEY, not a nesting problem, which the source read corrected.
+	if not packet["facts"].has("crew.placement"):
+		packet["facts"]["crew.placement"] = {"value":"probe","status":"probe","origin":"probe",
+			"source_refs":["probe"],"location":"PROBE: exists so the layout build can run"}
+	# and the sources registry HistoricalEvidenceGate requires: a url, a 64-hex sha256, a read state and
+	# an applicability list. Probe values, clearly labelled, never a delivered document.
+	packet["sources"] = {"PROBE": {"origin":"mcthunder_pipeline","url":"https://probe.invalid/dossier",
+		"sha256":"0".repeat(64),"read_state":"text_read","applies_to_identity_ids":[id],"excluded_identity_ids":[]}}
 	return packet
+
+## Mechanical probe registry: register exactly the evidence keys and field claims the built layout
+## asserts, each attributed to the draft it came from. Nothing here is a delivered document.
+func _registry_from(layout: VehicleLayoutDefinition) -> Dictionary:
+	var keys: Dictionary = {}
+	var fields: Array = []
+	for group in [layout.parts,layout.armor_patches,layout.modules,layout.crew_stations]:
+		for item in group:
+			if item == null: continue
+			for k in item.evidence_keys:
+				if not keys.has(str(k)):
+					keys[str(k)] = {"key":str(k),"source_id":"PROBE","origin":"mcthunder_pipeline",
+						"title":"probe registration for "+str(k),"applies_to":"probe only",
+						"read_state":"probe","applies_to_identity_ids":[],"excluded_identity_ids":[]}
+	for patch in layout.armor_patches:
+		if patch != null and patch.thickness_status != "unknown":
+			fields.append({"field_path":"armor_patches.%s.thickness_mm" % patch.id,"origin":"mcthunder_pipeline",
+				"status":patch.thickness_status,"source_refs":["probe"],"original_value":"PROBE",
+				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
+	for station in layout.crew_stations:
+		if station == null: continue
+		if station.role_placement_status != "unknown":
+			fields.append({"field_path":"crew_stations.%s.role_placement" % station.id,"origin":"mcthunder_pipeline",
+				"status":station.role_placement_status,"source_refs":["probe"],"original_value":"PROBE",
+				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
+		if station.position_status != "unknown":
+			fields.append({"field_path":"crew_stations.%s.local_box_transform" % station.id,"origin":"mcthunder_pipeline",
+				"status":station.position_status,"source_refs":["probe"],"original_value":"PROBE",
+				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
+	return {"identity_id":layout.historical_identity_id,"runtime_note":"probe",
+		"source_registry":{},"evidence_keys":keys.values(),"fields":fields}
 
 func _merge(a: Dictionary, b: Dictionary) -> Dictionary:
 	var out := a.duplicate(true)

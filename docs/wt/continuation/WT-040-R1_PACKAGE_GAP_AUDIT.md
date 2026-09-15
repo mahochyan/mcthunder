@@ -314,3 +314,31 @@ fields[]（16）:        {field_path, origin, status, source_refs[], original_va
 | **`configs/evidence/<id>.json`** | **尚缺** ✗ ⇒ 其 `fields[]` 需 `overall.width_m`/`overall.length_m`（**文献** ✓）等 |
 | **`model_binding`** | **尚缺** ✗（校验器：新车辆**必须**有显式交付的模型绑定 ✓） |
 | `layout`（由 `HistoricalVehicleGeometry.build` 生成 ✓） | **已探测：会因 `hull_rings` 缺失而崩** ✗（豹2 ✓） |
+
+---
+
+## 16. 层级探针**贯通到最后一层** ⇒ 完整层级图（实测 ✓）
+`tests/probe_package_layers.gd` ✓（占位环与探针登记表**均明确标注** ✓，绝不写入任何包 ✓）：
+| 层 | T-80B 实测 |
+|---|---|
+| `HistoricalVehicleGeometry.build` | **ok ✓**（`parts=6` ✓ · **`armor_patches=56`** ✓ ⇒ 布局**确实能建** ✓） |
+| `LayoutValidator.validate` | **388 errors** ✗ · 2 warnings · 1 suspicious（探针 registry：keys 21 ✓ fields 62 ✓） |
+| `VehicleShellCatalog.build` | `ok=false` ✗ · 1 error · 0 options |
+| `definitions_for` | `vehicle_content_pipeline.gd:230` **构造器报错** ✗ ⇒ 提前返回 ✓ |
+
+### 388 项里绝大多数是**探针登记表自身的机制缺陷**（非车辆数据缺口 ✓）
+```
+evidence key 'armor.<zone>' does not apply to identity 'ussr_t_80b'   ← 探针键的 applies_to_identity_ids 为空 ✗
+field record ... references unregistered source 'probe'               ← source_refs 必须指向已登记来源 id ✓（大小写须一致 ✗）
+```
+⇒ **登记表的形状已被证明可用** ✓；其**必需内容**同时确定 ✓：
+逐键 **`applies_to_identity_ids`** ✓（否则"不适用身份" ✗）· **`source_refs` 必须命中已登记来源** ✓ · **来源表须含 `url`(https) + `sha256`(64hex) + `read_state`** ✓。
+
+### 顺带纠正了我自己的一次误判 ✓
+`historical_vehicle_geometry.gd:113` 读 `packet.facts["crew.placement"].status` ✓ ⇒ 我先前以为存在"扁平/嵌套两套键约定" ✗ —— 实为**该键缺失** ✓（源码一读即明 ✓）。
+
+### 下一步（继续 ✓，不需外部输入）
+修探针登记表的**两项机制缺陷**（`applies_to_identity_ids` ✓ + `source_refs` 指向已登记来源 ✓）⇒ 388 项应**大幅坍缩** ✓，**剩下的才是真正的车辆数据要求** ✓✓ —— 这就是"把未知变成清单"的最后一步 ✓。
+
+### 附注 ✓
+探针命令在 600s 被工具超时**杀掉** ✗（日志 412 行已完整 ✓）⇒ 属**进程存活**问题 ✓，**非逻辑挂起** ✓；门禁 `pwsh-38` 仍在跑 ✓，**全程未触碰其进程** ✓。
