@@ -51,3 +51,27 @@ godot --headless --path <cont> -s res://tests/check_modern_geometry.gd -- ussr_t
 godot --headless --path <cont> -s res://tests/probe_package_layers.gd                                    # 期望 T-80B 4→0 · 豹2 7→2
 ```
 **验收** ✓：`check_modern_geometry` 仍 **29/29** ✓ 且探针的几何类错误**消失** ✓；否则回退 ✓。
+
+---
+
+## 4. **自我审计发现的缺口** ✓✗：修复必须**同时带来断言**（否则无验收依据 ✗）
+审计 ✓：生成器发出 **17** 个字段 ✓，而 `check_modern_geometry.gd` **只断言 7 个** ✗：
+| 已断言（7 ✓） | ✗ 未断言（10） |
+|---|---|
+| `gun_origin` `hull_rings` `turret_bottom` `turret_origin` `turret_taper` `turret_top` `wheel_count` | `barrel_length` `hull_half_width` `mantlet_half_width` `mantlet_half_height` `muzzle_brake` `open_top` **`ring_half`** `track_width` **`turret_outline`** `wheel_radius` |
+
+**根因** ✓：确定性比对依赖 `_measure()` 的键 ✓，而它只回 7 个 ✗ ⇒ 其余被 `continue` **静默跳过** ✗。
+
+### 因此本次修复**必须同批**加入断言 ✓（否则等于"改了但没验" ✗）
+| 字段 | 新增断言 |
+|---|---|
+| **`ring_half`** | `0 < ring_half ≤ 0.85 × 车顶半宽` ✓（**新规则的直接验收** ✓） |
+| **`turret_outline`** | **≥8 点** ✓ 且**相邻点间距均 ≥5 mm** ✓（**去重规则的直接验收** ✓） |
+| `mantlet_half_width/height` | **≥ 1.3×bore**（或 ≥ bore ✓）⇒ **包住炮孔** ✓ |
+| `barrel_length` · `track_width` · `wheel_radius` · `hull_half_width` | **> 0** ✓（有限正值 ✓） |
+| `muzzle_brake` · `open_top` | **布尔** ✓ |
+
+### 修正后的验收 ✓（同批 ✓）
+1. `check_modern_geometry` **≥ 29/29** ✓（**新增断言全部通过** ✓）；
+2. 探针几何类错误：**T-80B 4 → 0** ✓ · **豹2 7 → 2** ✓；
+3. 任一不绿 ⇒ **逐字节回退** ✗（含校验器改动 ✓）。
