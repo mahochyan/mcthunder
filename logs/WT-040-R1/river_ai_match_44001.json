@@ -6,8 +6,10 @@
         "A": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 5,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -33,8 +35,10 @@
         "A2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -60,8 +64,10 @@
         "A3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -87,8 +93,10 @@
         "A4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -114,8 +122,10 @@
         "B": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -141,8 +151,10 @@
         "B2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -168,8 +180,10 @@
         "B3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -195,8 +209,10 @@
         "B4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -227,8 +243,10 @@
         "A": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -254,8 +272,10 @@
         "A2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 9,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -281,8 +301,10 @@
         "A3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -308,8 +330,10 @@
         "A4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -335,8 +359,10 @@
         "B": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 11,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -362,8 +388,10 @@
         "B2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 9,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -389,8 +417,10 @@
         "B3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -416,8 +446,10 @@
         "B4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -448,8 +480,10 @@
         "A": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "yielding",
+          "driver_events": 8,
           "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
@@ -475,8 +509,10 @@
         "A2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "yielding",
+          "driver_events": 10,
           "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
@@ -502,8 +538,10 @@
         "A3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -529,8 +567,10 @@
         "A4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -556,8 +596,10 @@
         "B": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 11,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -583,8 +625,10 @@
         "B2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 9,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -610,8 +654,10 @@
         "B3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -637,8 +683,10 @@
         "B4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -669,15 +717,17 @@
         "A": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 11,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 82,
+          "path_len": 78,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -690,21 +740,23 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 1071,
+          "to_goal": 1065,
           "wp_index": 6
         },
         "A2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 11,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
             -504,
             120
           ],
-          "path_len": 59,
+          "path_len": 57,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -717,14 +769,16 @@
           "task": "A",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 700,
-          "wp_index": 9
+          "to_goal": 688,
+          "wp_index": 8
         },
         "A3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -750,8 +804,10 @@
         "A4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -777,8 +833,10 @@
         "B": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 11,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -804,8 +862,10 @@
         "B2": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 1,
           "dead": false,
           "driver": "following",
+          "driver_events": 9,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -831,8 +891,10 @@
         "B3": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -858,8 +920,10 @@
         "B4": {
           "aim": "",
           "attempts": 0,
+          "blocked_edges": 0,
           "dead": false,
           "driver": "following",
+          "driver_events": 7,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [

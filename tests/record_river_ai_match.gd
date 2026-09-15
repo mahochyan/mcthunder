@@ -163,6 +163,12 @@ func _run() -> void:
 					# Who is churning the route? Count the AI's own task_assigned events (my task layer
 					# re-applying) so an assignment flip can be told apart from the driver's own replan.
 					"task_events": _count_task_events(ai3),
+					# WT-040-R1 measure-before-change: the planned path differs on every replan
+					# (length 69, 70, 70, 82), so the suspect is the blocked-edge set that accumulates
+					# and is only cleared on a new goal. Record its size and the driver's own transition
+					# count so the next change is driven by evidence rather than another guess.
+					"blocked_edges": ai3.driver._blocked_edges.size(),
+					"driver_events": ai3.driver.events.size(),
 				}
 			print("[river-chain] t=%.0f %s" % [scene.director.state.elapsed, str(chain)])
 			chain_samples.append({"t": scene.director.state.elapsed, "chain": chain})
