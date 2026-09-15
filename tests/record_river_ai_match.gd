@@ -31,6 +31,13 @@ func check(ok: bool, message: String) -> void:
 func frames(n: int) -> void:
 	for i in n: await physics_frame
 	await process_frame
+## WT-040-R1: how many times has this AI been handed a task? Each one re-sets the patrol and
+## therefore re-plans the route, so this separates my task layer's churn from the driver's own.
+func _count_task_events(ai: AITankController) -> int:
+	var n := 0
+	for ev in ai.events:
+		if str(ev.get("reason","")) == "task_assigned": n += 1
+	return n
 func _run() -> void:
 	root.size = Vector2i(1280,720)
 	var scene: Node = load(MapRegistry.scene_path(MAP_ID)).instantiate()
@@ -143,6 +150,19 @@ func _run() -> void:
 					"aim": str(ai3.last_aim_solution.get("reason", ai3.last_aim_solution.get("status",""))),
 					"shots": actor.gunner.shots_fired, "dead": actor.state.destroyed,
 					"to_goal": roundi(actor.tank.global_position.distance_to(ai3.patrol_goal)),
+					# WT-040-R1 movement diagnosis: the match showed the AI driving but never closing
+					# (to_goal oscillating 994/1067/976/1071), so record the driver's own route state:
+					# the waypoint INDEX, the planned path length, its goal, and the planning counters
+					# (failed / unreachable / replanned). Together these separate a cycling hop sequence
+					# from a long detour that simply has not arrived yet.
+					"wp_index": ai3.driver.waypoint,
+					"path_len": ai3.driver.path.size(),
+					"goal": [roundi(ai3.driver.goal.x), roundi(ai3.driver.goal.z)],
+					"planning": ai3.driver.planning_counts.duplicate(true),
+					"attempts": ai3.driver.attempts,
+					# Who is churning the route? Count the AI's own task_assigned events (my task layer
+					# re-applying) so an assignment flip can be told apart from the driver's own replan.
+					"task_events": _count_task_events(ai3),
 				}
 			print("[river-chain] t=%.0f %s" % [scene.director.state.elapsed, str(chain)])
 			chain_samples.append({"t": scene.director.state.elapsed, "chain": chain})
