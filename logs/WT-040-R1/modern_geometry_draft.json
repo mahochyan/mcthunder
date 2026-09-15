@@ -1,0 +1,279 @@
+{
+  "note": "draft geometry measured from adapter artefacts; every field carries its method; hull_rings are floor/mid/roof",
+  "rows": [
+    {
+      "adapter_path": "res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb",
+      "fields": {
+        "barrel_length": 6.134,
+        "gun_origin": [
+          0.0,
+          1.638,
+          -1.042
+        ],
+        "hull_half_width": 1.907,
+        "hull_rings": [
+          [
+            -0.258,
+            0.864,
+            -6.48,
+            -6.293
+          ],
+          [
+            0.8,
+            1.907,
+            -6.489,
+            3.267
+          ],
+          [
+            1.857,
+            0.865,
+            -6.482,
+            -6.294
+          ]
+        ],
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.474,
+        "track_width": 0.602,
+        "turret_bottom": 1.421,
+        "turret_origin": [
+          0.0,
+          1.447,
+          0.001
+        ],
+        "turret_outline": [
+          [
+            -1.486,
+            -0.262
+          ],
+          [
+            -1.481,
+            -0.428
+          ],
+          [
+            -1.476,
+            -0.456
+          ],
+          [
+            -1.432,
+            -0.636
+          ],
+          [
+            -1.407,
+            -0.713
+          ],
+          [
+            -0.749,
+            -1.147
+          ],
+          [
+            -0.494,
+            -1.223
+          ],
+          [
+            -0.249,
+            -1.29
+          ],
+          [
+            0.48,
+            -1.42
+          ],
+          [
+            0.735,
+            -1.42
+          ],
+          [
+            0.762,
+            -1.411
+          ],
+          [
+            1.382,
+            -0.656
+          ],
+          [
+            1.559,
+            0.096
+          ],
+          [
+            1.563,
+            0.118
+          ],
+          [
+            1.563,
+            0.488
+          ],
+          [
+            1.445,
+            0.942
+          ],
+          [
+            1.104,
+            1.444
+          ],
+          [
+            0.757,
+            1.528
+          ],
+          [
+            0.598,
+            1.528
+          ],
+          [
+            -1.194,
+            1.444
+          ],
+          [
+            -1.464,
+            0.006
+          ],
+          [
+            -1.486,
+            -0.159
+          ]
+        ],
+        "turret_taper": 0.677,
+        "turret_top": 2.527,
+        "wheel_count": 13,
+        "wheel_radius": 0.338
+      },
+      "id": "ussr_t_80b",
+      "methods": {
+        "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
+        "gun_origin": "global position of the GunPivot node in the adapter",
+        "hull_half_width": "half of the hull mesh x-extent at mid height",
+        "hull_rings": "y-band vertex scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof",
+        "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
+        "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
+        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node exists in this model); author may replace",
+        "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
+        "turret_bottom": "minimum y of the turret mesh vertices",
+        "turret_origin": "global position of the TurretPivot node in the adapter",
+        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
+        "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
+        "turret_top": "maximum y of the turret mesh vertices",
+        "wheel_count": "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention",
+        "wheel_radius": "half of the largest wheel mesh y-extent"
+      },
+      "notes": [
+        "open_top is inferred, not visually verified",
+        "no separate mantlet mesh: mantlet fields left to the author",
+        "muzzle_brake is a geometric guess, not a documentary fact"
+      ],
+      "ok": true
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/germ_leopard_2a4/vehicle_adapter.glb",
+      "fields": {
+        "barrel_length": 5.697,
+        "gun_origin": [
+          -0.032,
+          2.0,
+          -1.556
+        ],
+        "mantlet_half_height": 0.305,
+        "mantlet_half_width": 0.476,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.24,
+        "track_width": 0.578,
+        "turret_bottom": 1.644,
+        "turret_origin": [
+          0.02,
+          1.661,
+          -0.38
+        ],
+        "turret_outline": [
+          [
+            -1.229,
+            0.585
+          ],
+          [
+            -1.205,
+            -1.34
+          ],
+          [
+            -1.203,
+            -1.46
+          ],
+          [
+            -0.491,
+            -1.935
+          ],
+          [
+            0.467,
+            -1.944
+          ],
+          [
+            0.467,
+            -1.944
+          ],
+          [
+            1.251,
+            -1.385
+          ],
+          [
+            1.251,
+            -0.636
+          ],
+          [
+            1.251,
+            -0.242
+          ],
+          [
+            1.251,
+            0.671
+          ],
+          [
+            1.246,
+            0.783
+          ],
+          [
+            1.134,
+            1.93
+          ],
+          [
+            -1.145,
+            1.93
+          ],
+          [
+            -1.208,
+            0.934
+          ],
+          [
+            -1.229,
+            0.585
+          ]
+        ],
+        "turret_taper": 1.0,
+        "turret_top": 2.476,
+        "wheel_count": 13,
+        "wheel_radius": 0.353
+      },
+      "id": "germ_leopard_2a4",
+      "methods": {
+        "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
+        "gun_origin": "global position of the GunPivot node in the adapter",
+        "mantlet_half_height": "half of the mantlet mesh y-extent",
+        "mantlet_half_width": "maximum |x| of the mantlet/shield mesh vertices",
+        "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
+        "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
+        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node exists in this model); author may replace",
+        "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
+        "turret_bottom": "minimum y of the turret mesh vertices",
+        "turret_origin": "global position of the TurretPivot node in the adapter",
+        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
+        "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
+        "turret_top": "maximum y of the turret mesh vertices",
+        "wheel_count": "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention",
+        "wheel_radius": "half of the largest wheel mesh y-extent"
+      },
+      "notes": [
+        "hull ring 1 band caught no vertices: hull_rings not emitted (loud, not zero)",
+        "open_top is inferred, not visually verified",
+        "muzzle_brake is a geometric guess, not a documentary fact"
+      ],
+      "ok": true
+    }
+  ],
+  "schema": 1
+}

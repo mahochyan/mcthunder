@@ -1,0 +1,288 @@
+extends SceneTree
+## WT-040-R1 step 3, class A: measure the `geometry` block of a modern vehicle FROM ITS ARTEFACT.
+##
+## The field meanings are not guessed here - they were pinned down from the module that consumes them
+## (HistoricalVehicleGeometry.build), and every field this tool writes carries a `method` string so
+## the number can be audited or reproduced. Requirements honoured, one by one:
+##   * only measurable fields are written, each with its method;
+##   * hull_rings has EXACTLY THREE rings (floor, hull mid line, roof), as that module expects;
+##   * turret_outline is the BOTTOM outline, not the top one;
+##   * barrel_length is taken from the adapter's recorded muzzle offset and states that basis;
+##   * a vehicle with no gun gets NO muzzle fields at all.
+## Measurement discipline learned the hard way earlier in this session: the scene is added to the tree
+## BEFORE any global transform is read, because global_position off-tree silently returns (0,0,0).
+##
+## Usage: -s res://tests/generate_modern_geometry.gd -- <id>=<absolute adapter glb> [...]
+const OUT_PATH := "res://logs/WT-040-R1/modern_geometry_draft.json"
+const BANDS := 24
+func _initialize() -> void: call_deferred("_run")
+func _run() -> void:
+	var args := OS.get_cmdline_user_args()
+	if args.is_empty(): print("[geom] no target given"); quit(1); return
+	var rows: Array[Dictionary] = []
+	for arg in args:
+		var entry := str(arg)
+		var parts := entry.split("=",true,1)
+		if parts.size() != 2: print("[geom] bad arg ",entry); continue
+		var id := parts[0]
+		var path := parts[1]
+		var row := _measure(id,path)
+		rows.append(row)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://logs/WT-040-R1"))
+	var file := FileAccess.open(OUT_PATH,FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify({"schema":1,
+			"note":"draft geometry measured from adapter artefacts; every field carries its method; hull_rings are floor/mid/roof",
+			"rows":rows}, "  ")+"\n")
+		file.close()
+		print("[geom] wrote ",OUT_PATH)
+	print("MODERN_GEOMETRY_DONE")
+	quit(0)
+
+func _measure(id: String, path: String) -> Dictionary:
+	var row := {"id":id,"adapter_path":path,"fields":{},"methods":{},"notes":[],"ok":false}
+	if not FileAccess.file_exists(path):
+		row.notes.append("adapter missing"); return row
+	var document := GLTFDocument.new()
+	var state := GLTFState.new()
+	if document.append_from_file(path,state) != OK:
+		row.notes.append("append failed"); return row
+	var scene: Node = document.generate_scene(state)
+	if scene == null:
+		row.notes.append("scene failed"); return row
+	root.add_child(scene)   # measure INSIDE the tree (see header)
+	var meshes: Array[MeshInstance3D] = []
+	_collect_meshes(scene,meshes)
+	var turret_pivot := _find_node(scene,"TurretPivot")
+	var gun_pivot := _find_node(scene,"GunPivot")
+	var gun_mesh := _find_mesh(meshes,["main","gun","barrel","cannon","kanone","rohr"])
+	var hull_mesh := _find_hull_mesh(meshes)
+	var turret_mesh := _find_mesh(meshes,["turret"])
+	var mantlet_mesh := _find_mesh(meshes,["mantlet","shield","blende"])
+	var wheels: Array[MeshInstance3D] = []
+	for m in meshes:
+		if str(m.name).to_lower().contains("wheel"): wheels.append(m)
+	var f: Dictionary = row.fields
+	var method: Dictionary = row.methods
+	# --- hull rings: three rings from a y-band scan of the hull mesh's vertices ---------------
+	if hull_mesh != null:
+		var pts := _world_vertices(hull_mesh)
+		var lo := INF; var hi := -INF
+		for p in pts: lo = minf(lo,p.y); hi = maxf(hi,p.y)
+		var ys := [lo,(lo+hi)*0.5,hi]
+		var rings: Array = []
+		var band_failed := false
+		for band in 3:
+			var ring := _band_extent(pts,ys[band],maxf((hi-lo)/float(BANDS),0.05))
+			if ring.size() != 3:
+				band_failed = true
+				row.notes.append("hull ring %d band caught no vertices: hull_rings not emitted (loud, not zero)" % band)
+				break
+			rings.append([snappedf(ys[band],0.001),snappedf(ring[0],0.001),snappedf(ring[1],0.001),snappedf(ring[2],0.001)])
+		if not band_failed:
+			f["hull_rings"] = rings
+			method["hull_rings"] = "y-band vertex scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof"
+			var mid := _band_extent(pts,(lo+hi)*0.5,maxf((hi-lo)/float(BANDS),0.05))
+			if mid.size() == 3:
+				f["hull_half_width"] = snappedf(mid[0],0.001)
+				method["hull_half_width"] = "half of the hull mesh x-extent at mid height"
+	else:
+		row.notes.append("hull mesh not identified")
+	# --- turret origins ------------------------------------------------------------------------
+	if turret_pivot != null:
+		var p := (turret_pivot as Node3D).global_position
+		f["turret_origin"] = [snappedf(p.x,0.001),snappedf(p.y,0.001),snappedf(p.z,0.001)]
+		method["turret_origin"] = "global position of the TurretPivot node in the adapter"
+	if gun_pivot != null:
+		var p2 := (gun_pivot as Node3D).global_position
+		f["gun_origin"] = [snappedf(p2.x,0.001),snappedf(p2.y,0.001),snappedf(p2.z,0.001)]
+		method["gun_origin"] = "global position of the GunPivot node in the adapter"
+	if gun_mesh == null:
+		row.notes.append("no gun mesh: no muzzle fields are emitted (consistent with the adapter verdict)")
+	# --- turret shape: bottom outline, top/bottom, taper, ring half ----------------------------
+	if turret_mesh != null:
+		var tpts := _world_vertices(turret_mesh)
+		var tlo := INF; var thi := -INF
+		for p in tpts: tlo = minf(tlo,p.y); thi = maxf(thi,p.y)
+		f["turret_bottom"] = snappedf(tlo,0.001)
+		f["turret_top"] = snappedf(thi,0.001)
+		method["turret_bottom"] = "minimum y of the turret mesh vertices"
+		method["turret_top"] = "maximum y of the turret mesh vertices"
+		var span := maxf(thi-tlo,0.05)
+		var bot := _band_footprint(tpts,tlo,span*0.25)
+		var top := _band_footprint(tpts,thi,span*0.25)
+		f["turret_outline"] = _convex_outline(bot)
+		method["turret_outline"] = "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)"
+		var bot_half := _footprint_half(bot)
+		var top_half := _footprint_half(top)
+		f["turret_taper"] = snappedf((top_half/bot_half) if bot_half > 0.01 else 0.0,0.001)
+		method["turret_taper"] = "top-quarter half extent divided by bottom-quarter half extent"
+		f["ring_half"] = snappedf(bot_half,0.001)
+		method["ring_half"] = "DERIVED: half of the smaller bottom-outline extent (no turret-ring node exists in this model); author may replace"
+		f["open_top"] = false
+		method["open_top"] = "INFERRED: enclosed main battle tank, top band is closed; not a visual review"
+		row.notes.append("open_top is inferred, not visually verified")
+	else:
+		row.notes.append("turret mesh not identified")
+	# --- mantlet -------------------------------------------------------------------------------
+	if mantlet_mesh != null:
+		var mpts := _world_vertices(mantlet_mesh)
+		var mlo := INF; var mhi := -INF; var mx := 0.0
+		for p in mpts:
+			mlo = minf(mlo,p.y); mhi = maxf(mhi,p.y); mx = maxf(mx,absf(p.x))
+		f["mantlet_half_width"] = snappedf(mx,0.001)
+		f["mantlet_half_height"] = snappedf((mhi-mlo)*0.5,0.001)
+		method["mantlet_half_width"] = "maximum |x| of the mantlet/shield mesh vertices"
+		method["mantlet_half_height"] = "half of the mantlet mesh y-extent"
+	else:
+		row.notes.append("no separate mantlet mesh: mantlet fields left to the author")
+	# --- running gear --------------------------------------------------------------------------
+	if not wheels.is_empty():
+		var radius := 0.0; var width := 0.0
+		var left := 0
+		for w in wheels:
+			var wpts := _world_vertices(w)
+			var wlo := INF; var whi := -INF; var wx0 := INF; var wx1 := -INF
+			for p in wpts:
+				wlo = minf(wlo,p.y); whi = maxf(whi,p.y); wx0 = minf(wx0,p.x); wx1 = maxf(wx1,p.x)
+			radius = maxf(radius,(whi-wlo)*0.5)
+			width = maxf(width,wx1-wx0)
+			# wheel_count in the production packets is PER SIDE (the M26 packet records 6), so count one
+			# side here rather than every wheel-named node - the first version reported 26.
+			if (w as Node3D).global_position.x < 0.0: left += 1
+		f["wheel_count"] = left
+		f["wheel_radius"] = snappedf(radius,0.001)
+		f["track_width"] = snappedf(width,0.001)
+		method["wheel_count"] = "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention"
+		method["wheel_radius"] = "half of the largest wheel mesh y-extent"
+		method["track_width"] = "largest wheel mesh x-extent (the belt width across the wheel)"
+	else:
+		row.notes.append("no wheel meshes: running-gear fields left to the author")
+	# --- barrel length from the adapter's own recorded muzzle offset ---------------------------
+	var report := _adapter_report()
+	var entry2: Dictionary = report.get(id,{})
+	if not entry2.is_empty():
+		var off: Array = entry2.get("muzzle_offset_m",[])
+		if off.size() == 3 and (absf(float(off[0]))+absf(float(off[1]))+absf(float(off[2]))) > 0.0001:
+			f["barrel_length"] = snappedf(sqrt(float(off[0])*float(off[0])+float(off[1])*float(off[1])+float(off[2])*float(off[2])),0.001)
+			method["barrel_length"] = "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)"
+			f["muzzle_brake"] = entry2.get("muzzle_brake_guess",false)
+			method["muzzle_brake"] = "from the adapter artefact report (geometric tip check), see the note"
+			row.notes.append("muzzle_brake is a geometric guess, not a documentary fact")
+	row.ok = not f.is_empty()
+	root.remove_child(scene)
+	scene.free()
+	return row
+
+func _collect_meshes(node: Node, out: Array[MeshInstance3D]) -> void:
+	if node is MeshInstance3D: out.append(node)
+	for child in node.get_children(): _collect_meshes(child,out)
+
+func _find_node(node: Node, name: String) -> Node:
+	if str(node.name) == name: return node
+	for child in node.get_children():
+		var hit := _find_node(child,name)
+		if hit != null: return hit
+	return null
+
+func _find_mesh(meshes: Array[MeshInstance3D], hints: Array) -> MeshInstance3D:
+	for hint in hints:
+		for m in meshes:
+			if str(m.name).to_lower().contains(str(hint)): return m
+	return null
+
+## Every vertex of a mesh in WORLD space. The scene must already be in the tree (see the header).
+func _world_vertices(mesh: MeshInstance3D) -> Array[Vector3]:
+	var out: Array[Vector3] = []
+	var m: Mesh = mesh.mesh
+	if m == null: return out
+	for surface in m.get_surface_count():
+		var arrays: Array = m.surface_get_arrays(surface)
+		if arrays.size() <= Mesh.ARRAY_VERTEX: continue
+		var verts: Variant = arrays[Mesh.ARRAY_VERTEX]
+		if not verts is PackedVector3Array: continue
+		var xform := mesh.global_transform
+		for v in verts: out.append(xform * v)
+	return out
+
+## [half-width, front z (min), rear z (max)] of the vertices within `tol` of height y, or an EMPTY
+## array when the band caught nothing. WT-040-R1: it used to return zeros, which is exactly the kind
+## of silently plausible number this project keeps getting bitten by - an empty band means the mesh or
+## the band is wrong and the caller must say so instead of recording 0.0.
+func _band_extent(pts: Array[Vector3], y: float, tol: float) -> Array:
+	var hw := 0.0; var zmin := INF; var zmax := -INF; var any := false
+	for p in pts:
+		if absf(p.y-y) > tol: continue
+		any = true
+		hw = maxf(hw,absf(p.x)); zmin = minf(zmin,p.z); zmax = maxf(zmax,p.z)
+	if not any: return []
+	return [hw,zmin,zmax]
+
+## WT-040-R1: hint matching must not accept a TURRET armour mesh as the hull - "armour" matched
+## TurretArmour on the Leopard and produced a meaningless mid ring. A candidate is rejected when its
+## name says turret, track, skirt, wheel or gun.
+func _find_hull_mesh(meshes: Array[MeshInstance3D]) -> MeshInstance3D:
+	var reject := ["turret","track","skirt","wheel","gun","muzzle","mantlet","shield"]
+	for hint in ["body","hull","armour","armor","chassis"]:
+		for m in meshes:
+			var lower := str(m.name).to_lower()
+			var bad := false
+			for r in reject:
+				if lower.contains(str(r)): bad = true
+			if bad: continue
+			if lower.contains(str(hint)): return m
+	return null
+
+func _band_footprint(pts: Array[Vector3], y: float, tol: float) -> Array[Vector2]:
+	var out: Array[Vector2] = []
+	for p in pts:
+		if absf(p.y-y) <= tol: out.append(Vector2(p.x,p.z))
+	return out
+
+## Monotone-chain convex hull, returned in perimeter order - the face builder needs an ordered loop.
+func _convex_outline(points: Array[Vector2]) -> Array:
+	if points.size() < 3: return []
+	var pts := points.duplicate()
+	pts.sort_custom(func(a: Vector2, b: Vector2) -> bool:
+		return a.x < b.x or (is_equal_approx(a.x,b.x) and a.y < b.y))
+	var lower: Array[Vector2] = []
+	for p in pts:
+		while lower.size() >= 2 and _cross(lower[lower.size()-2],lower[lower.size()-1],p) <= 0.0:
+			lower.remove_at(lower.size()-1)
+		lower.append(p)
+	var upper: Array[Vector2] = []
+	for i in range(pts.size()-1,-1,-1):
+		var p2: Vector2 = pts[i]
+		while upper.size() >= 2 and _cross(upper[upper.size()-2],upper[upper.size()-1],p2) <= 0.0:
+			upper.remove_at(upper.size()-1)
+		upper.append(p2)
+	lower.remove_at(lower.size()-1)
+	upper.remove_at(upper.size()-1)
+	var hull: Array = []
+	for p3 in lower: hull.append([snappedf(p3.x,0.001),snappedf(p3.y,0.001)])
+	for p4 in upper: hull.append([snappedf(p4.x,0.001),snappedf(p4.y,0.001)])
+	return hull
+
+func _cross(o: Vector2, a: Vector2, b: Vector2) -> float:
+	return (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x)
+
+## Half of the smaller extent of a footprint: the ring aperture proxy.
+func _footprint_half(pts: Array[Vector2]) -> float:
+	if pts.is_empty(): return 0.0
+	var x0 := INF; var x1 := -INF; var z0 := INF; var z1 := -INF
+	for p in pts:
+		x0 = minf(x0,p.x); x1 = maxf(x1,p.x); z0 = minf(z0,p.y); z1 = maxf(z1,p.y)
+	return minf((x1-x0),(z1-z0))*0.5
+
+## The adapter verdict for this id (offset, class), so barrel_length states its basis honestly.
+func _adapter_report() -> Dictionary:
+	var out := {}
+	var path := "res://logs/WT-030D-r2/adapter_artifacts.json"
+	if not FileAccess.file_exists(path): return out
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not parsed is Dictionary: return out
+	var rows: Variant = parsed.get("rows",[])
+	if not rows is Array: return out
+	for r in rows:
+		if r is Dictionary and r.get("id","") != null: out[str(r.id)] = r
+	return out

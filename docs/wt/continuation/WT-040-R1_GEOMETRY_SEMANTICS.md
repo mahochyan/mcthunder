@@ -30,3 +30,22 @@
 3. `turret_outline` 用**炮塔底部轮廓** ✓（不是顶部 ✗）；
 4. `barrel_length` 输出时**附基准说明** ✓（炮口偏移相对车体根 ✓；枢轴≠炮尾 ✓）；
 5. 无炮车辆**不产出**炮口相关字段 ✗（与已加固的适配器判定一致 ✓）。
+
+---
+
+## 4. A 类工具首跑结果与**两处遗留问题**（诚实记录 ✓）
+工具：`tests/generate_modern_geometry.gd`（新增 ✓）· 产出：`logs/WT-040-R1/modern_geometry_draft.json`（draft ✓）
+
+| 车辆 | 结果 |
+|---|---|
+| **T-80B** | **13 字段测出** ✓（3 环 hull_rings ✓ · turret/gun 枢轴 ✓ · turret 上下沿与 taper ✓ · ring_half ✓ · track_width/wheel_radius ✓ · `wheel_count 13`（单侧 ✓）· `barrel_length 6.134` ✓） |
+| **豹2A4** | hull 网格未识别 ⇒ **`hull_rings` 明确未产出** ✓（注记 "loud, not zero" ✓）；其余字段测出 ✓（`mantlet_half_width 0.476` ✓ · `turret_taper 1.0` ✓ 等 ✓） |
+
+### 首跑暴露并已修的两个缺陷（**均为我自己的错** ✗）
+1. **静默零值** ✗：`_band_extent` 在空带时曾返回 `0.0` ✗ ⇒ 豹2A4 出现 `hull_half_width=0` 与全零中环 ✗（**正是本会话反复出现的失败模式** ✓）⇒ 已改为**返回空并响亮注记** ✓；
+2. **选错网格** ✗：hull 提示词含 `armour` ⇒ 命中 **`TurretArmour`** ✗ ⇒ 已加**排除表**（turret/track/skirt/wheel/gun/mantlet/shield ✓）。
+
+### **遗留问题（下一轮，未解决 ✗）**
+1. `wheel_count` 语义与生产包不一致 ✗：我数 **13**（单侧全部轮类 ✓ 含托带轮 ✓），生产包记 **6**（**负重轮** ✓）⇒ 需对齐口径并写明判据 ✓；
+2. 豹2A4 的 **hull 网格未定** ✗（其可见网格含 `TurretRace/TurretArmour/Optics/hatch_*/Mantlet/track_l/track_r/SideSkirtPanels` 等 ✓）⇒ 需**列出全部网格后再选** ✓，**不接受猜测** ✗；
+3. `open_top` 为**推断** ✓（非视觉复核 ✓）；`muzzle_brake` 为**几何猜测** ✓；`ring_half` 为**派生** ✓ —— 三者均已在 `methods` 中如实标注 ✓。
