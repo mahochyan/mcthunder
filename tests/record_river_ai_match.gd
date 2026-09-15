@@ -49,7 +49,9 @@ func _run() -> void:
 	var reached_objectives := {1:{}, 2:{}}
 	var shots := {}
 	var peak_stagnant := {}
-	var respawns := {1:0, 2:0}
+	var respawns := {1:0, 2:0}          # WITHDRAWN METRIC (falsified by measurement, see below)
+	var destroyed_seen := {}            # verified: destruction actually observed per actor
+	var chain_samples: Array = []       # task -> path -> movement -> observation -> aim -> fire
 	var deaths := {1:0, 2:0}
 	var seen_life := {}
 	var timeline: Array = []
@@ -66,10 +68,12 @@ func _run() -> void:
 			var life: int = actor.life_id
 			var team: int = int(actor.state.team_id)
 			finite = finite and p.is_finite() and scene.definition.bounds.has_point(Vector2(p.x,p.z))
-			if not seen_life.has(actor.entity_id): seen_life[actor.entity_id] = {}
-			if not seen_life[actor.entity_id].has(life):
-				seen_life[actor.entity_id][life] = true
-				if life > 1: respawns[team] = int(respawns[team]) + 1
+			# WT-040-R1: the previous respawn counter was FALSIFIED by measurement - life_id is per
+			# actor, not per life (A=1, A2=2 ... B=8, constant across samples), so counting "life > 1"
+			# reported seven re-entries while no slot had fired a single shot. It is withdrawn and
+			# replaced by destruction transitions actually observed for that actor.
+			if actor.state.destroyed:
+				destroyed_seen[actor.entity_id] = true
 			if p.length() < ARRIVE_RADIUS:
 				reached[actor.entity_id] = true
 			for objective in objectives:
@@ -117,6 +121,31 @@ func _run() -> void:
 					"spd": snappedf(actor.tank.velocity.length(), 0.1),
 				}
 			print("[river-actors] t=%.0f %s" % [scene.director.state.elapsed, str(d)])
+			# WT-040-R1 (user request): record the chain 任务->路径->移动->观察->瞄准->发射 with the
+			# FIELDS that actually exist, so a stall can be attributed to the first failing link:
+			# task (objective/role/reason), path+movement (driver phase and its reason), first sighting
+			# and the current phase reason, the aim solution, and the shot counter. Nothing is
+			# inferred: every value is read from the AI's own public state.
+			var chain := {}
+			for actor in scene.combat_actors():
+				var ai3: AITankController = actor.controller as AITankController
+				if ai3 == null: continue
+				var last_event: Dictionary = ai3.events[ai3.events.size()-1] if ai3.events.size() > 0 else {}
+				var first_seen := -1.0
+				for ev in ai3.events:
+					if str(ev.get("phase","")) == "observe":
+						first_seen = float(ev.get("time", -1.0)); break
+				chain[actor.entity_id] = {
+					"task": ai3.task_objective, "task_reason": ai3.task_reason, "role": ai3.role,
+					"driver": ai3.driver.phase, "driver_reason": ai3.driver.reason,
+					"phase": ai3.phase, "phase_reason": str(last_event.get("reason","")),
+					"first_seen_s": first_seen,
+					"aim": str(ai3.last_aim_solution.get("reason", ai3.last_aim_solution.get("status",""))),
+					"shots": actor.gunner.shots_fired, "dead": actor.state.destroyed,
+					"to_goal": roundi(actor.tank.global_position.distance_to(ai3.patrol_goal)),
+				}
+			print("[river-chain] t=%.0f %s" % [scene.director.state.elapsed, str(chain)])
+			chain_samples.append({"t": scene.director.state.elapsed, "chain": chain})
 		if scene.director.state.phase == "finished": break
 	for actor in scene.combat_actors():
 		if actor.state.destroyed: deaths[int(actor.state.team_id)] = int(deaths[int(actor.state.team_id)]) + 1
@@ -140,7 +169,9 @@ func _run() -> void:
 		"reached_per_team": {1: reached_objectives[1].keys(), 2: reached_objectives[2].keys()},
 		"objectives_seen": objective_ids,
 		"fired_slots": shots.keys(),
-		"respawns": respawns,
+		"respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified",
+		"destroyed_observed": destroyed_seen.keys(),
+		"chain_samples": chain_samples,
 		"destroyed_at_end": deaths,
 		"max_trying_to_drive_stationary_s": max_still,
 		"timeline": timeline,

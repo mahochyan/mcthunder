@@ -96,6 +96,21 @@ func _snap_to_graph(wanted: Vector3) -> Vector3:
 			best = candidate
 	return best
 
+## WT-040-R1 (user check 2026-09-15): re-entry must not fall back to TeamArena goals, and it must
+## actually be given a task. TeamRange.spawn_slot() creates the replacement vehicle but never calls
+## set_patrol, so a re-entered river slot would have had NO task at all (patrol_goal stays ZERO,
+## which AITankController treats as "no goal") while the initial spawn had the right one. This
+## override keeps the base behaviour and re-applies the RIVER task to each replacement, using the
+## same objective_goal() the initial spawn uses, so the two paths cannot diverge.
+func spawn_slot(id: String) -> VehicleActor:
+	var vehicle: VehicleActor = super.spawn_slot(id)
+	if vehicle == null: return null
+	var ai: AITankController = vehicle.controller as AITankController
+	if ai != null:
+		var index := 0 if id.length() == 1 else int(id.substr(1)) - 1
+		ai.set_patrol(objective_goal(vehicle.state.team_id, index), vehicle.tank.global_position)
+	return vehicle
+
 ## Team size is chosen by the caller (the recorder uses 4 per team for the first closure the user
 ## asked for); 10v10/16v16 berths are NOT a capacity claim until they are measured on their own.
 func set_trial_team_size(value: int) -> void:
