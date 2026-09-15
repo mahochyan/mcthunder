@@ -46,7 +46,13 @@ const EXPECTED_BY_CLASS := {
 	"unarmed":["hull","running_left","running_right"],
 }
 const LAUNCHER_HINTS := ["launcher","missile","container","radar","reflector"]
-const GUN_MESH_HINTS := ["maingunandmuzzl","maingun","barrel","kanone","rohr","cannon"]
+## WT-040-R1: "gun" is appended LAST as an evidence-driven fix. The Soviet T-80B model names its barrel
+## mesh simply "Gun", which matched none of the specific hints above, so its muzzle came back
+## unmeasured (method "none") while the tool still reported verified - a real failure hidden by a
+## self-check that only compared the marker against the recorded zero offset. Specific names are tried
+## first, so vehicles that already measured correctly cannot change, and only models with no specific
+## match can newly resolve here.
+const GUN_MESH_HINTS := ["maingunandmuzzl","maingun","barrel","kanone","rohr","cannon","gun"]
 const AXIS_EPS := 0.02
 
 static func _vec3(value: Variant) -> Vector3:

@@ -88,3 +88,21 @@
 1. 仅当该车**存在炮角色**时，要求 `method != "none"` **且** `offset.length() > 0` ✓，否则**判失败** ✓（不再空洞通过 ✗）；
 2. 无炮车辆**不产出 `MuzzlePoint`** ✗，改标 `no_muzzle` ✓；
 3. **追查 `ussr_t_80b` 映射失败** ✓（`SPECS` 期望 `root`/`gun_mesh` 与真实节点核对 ✓）。
+
+---
+
+## 7. T-80B 炮口测量失败：**根因一行常量 + SPECS 与模型不符**（已修并验证 ✓）
+**根因（探针实测）** ✓：T-80B 的炮管网格名为 **`Gun`** ✓（结构 `TurretPivot → Turret → GunPivot → Gun` ✓），而
+`role_mapping_audit.gd:49` 的 `GUN_MESH_HINTS` **不含 `"gun"`** ✗（只有 `maingunandmuzzl/maingun/barrel/kanone/rohr/cannon` ✓）
+⇒ 无 barrel ⇒ `method=none` ✓；同时 `modern_model_mount_adapter.gd` 的 `SPECS.ussr_t_80b.gun_mesh` 写作 **`"MainGun"`** ✗ 与真实节点不符 ✓。
+
+**修复（两处，均为数据/常量对齐模型 ✓）**：
+1. `GUN_MESH_HINTS` **末位追加 `"gun"`** ✓（具体名优先 ⇒ 已成功者不受影响 ✓）；
+2. `SPECS.ussr_t_80b.gun_mesh`：`"MainGun"` → **`"Gun"`** ✓。
+
+**验证（同批 ✓）**：
+| 项 | 结果 |
+|---|---|
+| `run_role_mapping_checks` / `run_model_binding_checks` / `run_model_binding_probe_checks` | **72/0** ✓ · **63/0** ✓ · **60/0** ✓ |
+| 98 车偏移**变化数** | **恰好 1**（仅 `ussr_t_80b` ✓；其余 97 未变 ✓✓） |
+| T-80B 修复后 | offset **`(0,0,−6.1341)`** ✓ · method `barrel_mesh_extremity_composed_through_parent_chain` ✓ · `verified=True` ✓ · 新哈希 `a6c69564…` ✓ |

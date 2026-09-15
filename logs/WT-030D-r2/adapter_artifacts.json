@@ -1826,14 +1826,14 @@
     },
     {
       "adapter_path": "res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb",
-      "adapter_sha256": "40707c9fc9216c88a3a10b80270efa50aaf1d763ea85d38d272f14c850fbc721",
+      "adapter_sha256": "a6c69564b28834f0703f72d2d967da97318d7f05502206b9d2238a560eeb103c",
       "id": "ussr_t_80b",
       "muzzle_marker_parent": "<scene root>",
-      "muzzle_method": "none",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
       "muzzle_offset_m": [
         0.0,
         0.0,
-        0.0
+        -6.1341118812561
       ],
       "muzzle_verified_delta_m": 0.0,
       "muzzle_verified_in_artifact": true,
