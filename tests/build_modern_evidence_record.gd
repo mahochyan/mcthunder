@@ -57,7 +57,9 @@ func _evidence(what: String, value: Variant) -> Dictionary:
 		"value": value,
 		"status": "derived_from_draft",
 		"origin": "mcthunder_pipeline",
-		"source_refs": ["the component %s draft in logs/WT-040-R1" % what],
+		# a registered SOURCE ID (the pipeline itself), not a prose description - the layout validator
+		# rejects a ref that does not name a registered source
+		"source_refs": ["mcthunder_pipeline"],
 		"location": "copied from the %s draft so the packet and its evidence agree" % what,
 	}
 

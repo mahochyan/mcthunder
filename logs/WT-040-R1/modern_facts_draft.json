@@ -47,7 +47,7 @@
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 50000.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L16"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 50000.0
@@ -56,7 +56,7 @@
           "location": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"klimov gtd_1000tf\", \"power_hp\": 1100.0 }",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L27"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": {
@@ -68,7 +68,7 @@
           "location": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L20"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 20.8333333333333
@@ -86,7 +86,7 @@
           "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L20"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 20.8333333333333
@@ -95,7 +95,7 @@
           "location": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L22"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 30.0
@@ -104,7 +104,7 @@
           "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L21"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 2.77777777777778
@@ -113,7 +113,7 @@
           "location": "warthunder_reference line 439: primary.capacity (main gun rounds carried) = 38.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L439"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 38.0
@@ -189,7 +189,7 @@
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L16"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 47000.0
@@ -198,7 +198,7 @@
           "location": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"mtu mb_873_ka_501\", \"power_hp\": 1500.0 }",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L27"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": {
@@ -210,7 +210,7 @@
           "location": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L20"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 20.8333333333333
@@ -228,7 +228,7 @@
           "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L20"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 20.8333333333333
@@ -237,7 +237,7 @@
           "location": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L22"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 30.0
@@ -246,7 +246,7 @@
           "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L21"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 2.77777777777778
@@ -255,7 +255,7 @@
           "location": "warthunder_reference line 453: primary.capacity (main gun rounds carried) = 42.0",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L453"
+            "wt-2.57.1.137"
           ],
           "status": "reference",
           "value": 42.0

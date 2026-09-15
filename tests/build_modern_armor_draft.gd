@@ -93,7 +93,8 @@ func _build(id: String, table: Dictionary) -> Dictionary:
 			"value": mm,
 			"status": "reference_pending_review",
 			"origin": SOURCE_LABEL,
-			"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,line]],
+			# a registered SOURCE ID, with the line kept in `location` - see the facts builder note
+			"source_refs": ["wt-%s" % SOURCE_VERSION],
 			"location": "%s line %d: %s armorThickness=%s%s" % [SOURCE_LABEL,line,node,str(mm),("" if klass.is_empty() else " armorClass="+klass)],
 		}
 		if not note.is_empty(): out.armor[zone]["mapping_note"] = note

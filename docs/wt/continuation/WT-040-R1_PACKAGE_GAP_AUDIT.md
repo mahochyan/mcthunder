@@ -389,3 +389,18 @@ SCRIPT ERROR: Invalid call. Nonexistent 'Vector3' constructor.
 ### 结论（**范围已收缩到极小且具体** ✓）
 新车辆距"可校验通过"只剩：**① 3 条非流形边**（我方可修 ✓）· **② 弹种集**（设计/资料 ✓）· **③ 探针登记表机制**（非车辆数据 ✓）。
 而 **runtime/assembly/crew/modules/armor 的数据在项目自己的定义校验下已自洽** ✓✓。
+
+---
+
+## 19. 三条根因精确落定（含**我生成器的一个真实缺陷** ✓✓）
+| # | 完整原文 | 真实原因 | 修法 |
+|---|---|---|---|
+| 1 | `field record 'armor_patches.hull_0_0.thickness_mm' references unregistered source '**PROBE**'` ✗ ×56 | 校验器查的是**登记表自身的 `source_registry`** ✗ —— 而我的 `_registry_from` 返回 `"source_registry": {}` **空表** ✗✗ | 把来源 id 填进 `source_registry` ✓ |
+| 2 | `armor_patches[n].geometry_status: unknown status` ✗ ×56 · `crew_stations[].role_placement_status: unknown status 'reference'` ✗ ×3 · `crew_stations[].volume_status: no field evidence record covers` ✗ ×3 | 登记表**缺少对应 claim 的字段记录** ✗（`geometry_status` ✗ · `volume_status` ✗ 从未出记录 ✓） | 为**每一个 claim 字段**出具记录 ✓ |
+| 3 | `armor_patches(part hull): duplicate, miswound or **non-manifold edge** … **y=1.857**` ✗ ×8（+ barrel ×4） | **我生成器的真实缺陷** ✓✓：`ring_half = 1.474` ✗ **大于实测车顶半宽 0.869** ✗ ⇒ **座圈开口比车顶还大** ✓ ⇒ 生成面必然非流形 ✓✓ | **规则** ✓：`ring_half ≤ 车顶半宽`（我此前的"取炮塔底部轮廓一半"派生法**错** ✗） |
+
+### 附带 ✓
+`source_refs` 已按契约改为**裸来源 id** ✓（`wt-2.57.1.137` ✓ / `mcthunder_pipeline` ✓），**行号保留在 `location`** ✓（更符合"id 与定位分离" ✓）；两车 **definitions 仍全 0 错误** ✓✓。
+
+### 结论 ✓
+第 3 条是**探针价值的实证** ✓：把"**看似合理的派生**"变成"**可复现的几何错误**" ✓✓ —— 而它**完全在我方**（无需任何外部输入 ✓）。

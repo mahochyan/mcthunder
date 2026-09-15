@@ -7,7 +7,7 @@
           "location": "copied from the crew draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component crew draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": [
@@ -65,7 +65,7 @@
           "location": "copied from the geometry draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component geometry draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": {
@@ -208,7 +208,7 @@
           "location": "copied from the modules draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component modules draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": [
@@ -391,7 +391,7 @@
           "location": "copied from the runtime draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component runtime draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": {
@@ -412,7 +412,7 @@
           "location": "copied from the crew draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component crew draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": [
@@ -486,7 +486,7 @@
           "location": "copied from the geometry draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component geometry draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": {
@@ -580,7 +580,7 @@
           "location": "copied from the modules draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component modules draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": [
@@ -763,7 +763,7 @@
           "location": "copied from the runtime draft so the packet and its evidence agree",
           "origin": "mcthunder_pipeline",
           "source_refs": [
-            "the component runtime draft in logs/WT-040-R1"
+            "mcthunder_pipeline"
           ],
           "status": "derived_from_draft",
           "value": {

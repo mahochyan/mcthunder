@@ -48,7 +48,10 @@ func _fact(value: Variant, line: int, what: String) -> Dictionary:
 		"value": value,
 		"status": "reference",
 		"origin": SOURCE_LABEL,
-		"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,line]],
+		# WT-040-R1: source_refs must name a REGISTERED SOURCE ID, not a locator string - the layout
+		# validator checks each ref against the sources registry and rejects "wt-2.57.1.137#L20" as
+		# unregistered. The line stays in `location`, where it belongs.
+		"source_refs": ["wt-%s" % SOURCE_VERSION],
 		"location": "%s line %d: %s = %s" % [SOURCE_LABEL,line,what,str(value)],
 	}
 
@@ -81,7 +84,7 @@ func _build(id: String, path: String) -> Dictionary:
 			"value": value,
 			"status": "reference",
 			"origin": SOURCE_LABEL,
-			"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,line]],
+			"source_refs": ["wt-%s" % SOURCE_VERSION],
 			"location": "%s: %s = %s" % [where,key,str(value)],
 		}
 		row.emitted.append(fact_key+" ← "+key+" (line %d)" % line)
