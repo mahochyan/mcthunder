@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] river match initialises eight AI actors
+[task-mapping] A goal=(-492,200) routable=true nodes=37
+[task-mapping] A2 goal=(-14,-315) routable=true nodes=64
+[task-mapping] A3 goal=(520,180) routable=true nodes=61
+[task-mapping] A4 goal=(7,100) routable=true nodes=42
+[task-mapping] B goal=(-492,200) routable=true nodes=54
+[task-mapping] B2 goal=(-14,-315) routable=true nodes=37
+[task-mapping] B3 goal=(520,180) routable=true nodes=79
+[task-mapping] B4 goal=(7,100) routable=true nodes=51
+[PASS] no river slot targets a legacy TeamArena goal (found 0)
+[PASS] every river slot's task point is routable on the map graph (8/8)
+[PASS] river tasks sit on the map's authored driving stops (8 of 8)
+=== 结果: 4 项检查, 0 失败 ===
+RIVER_TASK_MAPPING_PASS

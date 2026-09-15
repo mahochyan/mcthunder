@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[probe] team_ready=true actors=8 nav_valid=true graph_nodes=857 graph_edges=880
+--- question 1: can each actor route to its patrol goal? ---
+[probe] A from=(-287,681) goal=(-520,120) ok=false nodes=0 straight_m=608
+[probe] A2 from=(-269,681) goal=(0,-130) ok=false nodes=0 straight_m=855
+[probe] A3 from=(-251,680) goal=(520,100) ok=true nodes=65 straight_m=965
+        path first=-251.000_680.000 last=520.000_100.000
+[probe] A4 from=(-233,680) goal=(0,90) ok=false nodes=0 straight_m=635
+[probe] B from=(-287,-681) goal=(-520,120) ok=false nodes=0 straight_m=834
+[probe] B2 from=(-269,-681) goal=(0,-130) ok=false nodes=0 straight_m=614
+[probe] B3 from=(-251,-680) goal=(520,100) ok=true nodes=75 straight_m=1097
+        path first=-251.000_-680.000 last=520.000_100.000
+[probe] B4 from=(-233,-680) goal=(0,90) ok=false nodes=0 straight_m=805
+--- question 2: life_id semantics over 3 samples ---
+[probe-lives] t=10 { "A": { "life": 1, "dead": false, "shots": 0, "p": [-287, 703] }, "A2": { "life": 2, "dead": false, "shots": 0, "p": [-269, 708] }, "A3": { "life": 3, "dead": false, "shots": 0, "p": [-251, 697] }, "A4": { "life": 4, "dead": false, "shots": 0, "p": [-233, 701] }, "B": { "life": 5, "dead": false, "shots": 0, "p": [-287, -703] }, "B2": { "life": 6, "dead": false, "shots": 0, "p": [-269, -708] }, "B3": { "life": 7, "dead": false, "shots": 0, "p": [-251, -697] }, "B4": { "life": 8, "dead": false, "shots": 0, "p": [-233, -701] } }
+[probe-lives] t=15 { "A": { "life": 1, "dead": false, "shots": 0, "p": [-293, 711] }, "A2": { "life": 2, "dead": false, "shots": 0, "p": [-280, 712] }, "A3": { "life": 3, "dead": false, "shots": 0, "p": [-249, 711] }, "A4": { "life": 4, "dead": false, "shots": 0, "p": [-229, 712] }, "B": { "life": 5, "dead": false, "shots": 0, "p": [-292, -711] }, "B2": { "life": 6, "dead": false, "shots": 0, "p": [-279, -712] }, "B3": { "life": 7, "dead": false, "shots": 0, "p": [-249, -711] }, "B4": { "life": 8, "dead": false, "shots": 0, "p": [-229, -712] } }
+[probe-lives] t=20 { "A": { "life": 1, "dead": false, "shots": 0, "p": [-315, 712] }, "A2": { "life": 2, "dead": false, "shots": 0, "p": [-304, 712] }, "A3": { "life": 3, "dead": false, "shots": 0, "p": [-235, 712] }, "A4": { "life": 4, "dead": false, "shots": 0, "p": [-206, 712] }, "B": { "life": 5, "dead": false, "shots": 0, "p": [-315, -712] }, "B2": { "life": 6, "dead": false, "shots": 0, "p": [-305, -712] }, "B3": { "life": 7, "dead": false, "shots": 0, "p": [-235, -712] }, "B4": { "life": 8, "dead": false, "shots": 0, "p": [-206, -712] } }
+RIVER_ROUTE_PROBE_DONE
