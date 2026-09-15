@@ -7,7 +7,7 @@
 |---|---|---|---|
 | **0 锁定输入** | 核对 HEAD/工作区 · 读全审计与方案 · 产出映射 | **完成** ✓ | 主工作区 `a1bac406` 全程未动（porcelain 恒 **379** ✓）；映射与开放问题见 `DELIVERY_SUMMARY_ROUND1/2.md` + 本会话各登记文档 ✓ |
 | **1 设计** | 改动点/接口/兼容/验证/回滚 + 逐项拆分（落到文件与函数） | **完成** ✓ | 每项修复与登记文档均含"文件+函数+验收标准+验证命令+回滚"（如 `WT-036-R1_YIELD_VARIANTS_TABLE.md` · `WT-036-R1_ENVELOPE_DECLARATION.md` · `DECISION_EVIDENCE_SHEETS.md` ✓） |
-| **2 实现** | 一次一项、改完立即验证、给出清单/ diff /输出 | **完成** ✓ | 本会话共 **183** 提交，逐项均可查（`git log`）；产品代码净变更见 §4 ✓ |
+| **2 实现** | 一次一项、改完立即验证、给出清单/ diff /输出 | **完成** ✓ | 本会话提交逐项可查：`git -C <cont> log --oneline a1bac406..HEAD`；产品代码净变更见 §4 ✓ |
 | **3 真实运行** | 真实命令/完整输出/关键日志/UI 步骤 | **完成** ✓ | 门禁 **127 套件**（`logs/WT-036-R1/full-gate-127/` ✓）· 导出实跑（`logs/WT-036-r1/export-*.log` ✓）· 96 车批量导出（`logs/WT-030D-r2/adapter-batch-96.log` ✓）· D 电池轨迹（`logs/route-traces/` ✓） |
 | **4 交付** | 完成/未完成+原因/证据/风险/回滚 + 交接与变更清单 | **完成** ✓ | `DELIVERY_SUMMARY_ROUND3/4/5_FINAL.md` · `REGRESSION_GATE_MASTER` + **R4–R11** · 本文件 ✓ |
 
@@ -34,7 +34,7 @@
 | 资产侧 | ④ 适配产物 ✓ · ⑤ 可执行部分 ✓ · draft layout/binding ✓ | `WT-030D-R2_AUTHOR_DATA_REQUEST.md` · 两个 draft 报告 JSON ✓ |
 
 ## 4. 变更清单（相对基线 `a1bac406`）
-- 提交数：**176** ✓
+- 提交数：`git -C <cont> rev-list --count a1bac406..HEAD`（**184**，本行随分支增长 ✓）
 - **产品代码净变更**：61 files changed, 3780 insertions(+), 21 deletions(-)
 - **测试代码**：69 files changed, 3769 insertions(+), 11 deletions(-)；**导出预设（E1 授权）**：1 file changed, 55 insertions(+)
 - 交付文档：**121** 份（`DOC_INDEX.md` ✓）；本会话新增测试/工具 **36** 个（含 T039-E / T039-D / 路由探针 / 适配产物工具 ✓）
