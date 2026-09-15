@@ -1,0 +1,5 @@
+SCRIPT ERROR: Invalid access to property or key 'A' on a base object of type 'Dictionary'.
+   at: RiverTeamRange._ready (res://scripts/battle/team_range.gd:62)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/battle/team_range.gd:62)
+       [1] _run (res://tests/record_river_ai_match.gd:40)

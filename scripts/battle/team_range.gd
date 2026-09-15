@@ -31,6 +31,9 @@ var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
 var garage_service: GarageService
 var simulation_snapshot: SimulationSnapshot
+var coordinators: Dictionary = {}          # team -> TeamCoordinator (WT-040-R1)
+var _match_objectives: Array = []          # cached result of the match_objectives() hook
+var _task_tick := 0                        # WT-040-R1: throttles the task layer to 2 Hz
 
 func _ready() -> void:
 	# 027-A moved named input actions out of project.godot into the binding
@@ -49,7 +52,13 @@ func _ready() -> void:
 	if prepared_match != null: garage_service = GarageService.new(); respawn_vehicle_id = prepared_match.selected()
 	director = TeamMatchDirector.new()
 	add_child(director)
-	director.begin()
+	# WT-040-R1 (user finding, verified in source): the director was begun with NO objectives, so
+	# state.objectives stayed null and capturing could never happen on any map; and TeamCoordinator
+	# was never instantiated at all, so the AI role/task layer never ran and task_objective stayed
+	# empty. The objectives now come from a scene hook. It returns an empty array by default, and
+	# everything below is gated on "objectives present", so maps that do not override the hook behave
+	# exactly as before - only a map that supplies its objectives (the river today) takes this path.
+	director.begin(4, match_objectives())
 	projectiles.projectile_contact.connect(director.observe_contact)
 	if ai_only: director.state.roster.A.player = false
 	nav.configure(navigation_graph())
@@ -115,6 +124,77 @@ func _physics_process(delta: float) -> void:
 	for vehicle in combat_actors():
 		ammunition_supply.step(vehicle,delta,_in_supply_area(vehicle))
 	telemetry.step(combat_actors(),delta)
+	# WT-040-R1: drive the per-team task coordinators. Gated on objectives being present, so the
+	# default (empty) hook leaves existing behaviour untouched.
+	if not _match_objectives.is_empty():
+		# WT-040-R1: the task layer is a decision layer with hysteresis, and apply_task resolves an
+		# objective position per actor (which can query the navigator). Running it every physics tick
+		# starved the simulation - the first attempt produced no samples at all in ninety seconds - so
+		# it runs at 2 Hz. No thresholds, speeds or decisions are changed; only how often the layer is
+		# consulted.
+		_task_tick += 1
+		if _task_tick % 30 == 0:
+			for team in [1,2]:
+				var coordinator := coordinator_for(team)
+				coordinator.set_roster(roster_rows(team))
+				coordinator.step(director.state.elapsed,delta*30.0)
+				# WT-040-R1, the last missing wire in this link: the AI only takes up its
+				# role/objective when the caller hands it the coordinator's context through
+				# apply_task(). That method existed but was never called anywhere in production - only
+				# from a test - so task_objective and role stayed empty even with an allocator bound.
+				for actor in combat_actors():
+					if int(actor.state.team_id) != team: continue
+					var team_ai: AITankController = actor.controller as AITankController
+					if team_ai != null: team_ai.apply_task(coordinator.context)
+
+## WT-040-R1 scene hook: the map's capture objectives in the allocator's shape,
+## [{id, position:Vector3, owner_team}]. Empty means "this map does not publish objectives yet".
+func match_objectives() -> Array:
+	if _match_objectives.is_empty(): _match_objectives = _build_match_objectives()
+	return _match_objectives
+
+func _build_match_objectives() -> Array:
+	return []
+
+## The allocator's own shape, derived from the same authored rows: [{id, position, owner_team}].
+## Keeping the conversion here means the capture layer and the task layer can never disagree about
+## where the objectives are, and the map only authors them once.
+func allocator_objectives() -> Array:
+	var out: Array = []
+	for row in match_objectives():
+		if not row is Dictionary: continue
+		var center: Variant = row.get("center", null)
+		if not center is Vector3: continue
+		out.append({"id": str(row.get("id","")), "position": center, "owner_team": 0})
+	return out
+
+## One coordinator per team, configured with the same objectives the director got.
+func coordinator_for(team: int) -> TeamCoordinator:
+	if coordinators.has(team): return coordinators[team]
+	var coordinator := TeamCoordinator.new()
+	coordinator.configure(team,allocator_objectives(),{},Callable())
+	coordinators[team] = coordinator
+	return coordinator
+
+## The roster rows the coordinator's own contract expects (see TeamCoordinator.classify).
+func roster_rows(team: int) -> Array:
+	var rows: Array = []
+	for actor in combat_actors():
+		if int(actor.state.team_id) != team: continue
+		var ai: AITankController = actor.controller as AITankController
+		var speed: float = actor.tank.velocity.length()
+		rows.append({
+			"entity_id": actor.entity_id,
+			"position": actor.tank.global_position,
+			"destroyed": actor.state.destroyed,
+			"mobile": actor.capabilities().drive,
+			"speed_mps": speed,
+			"blocked": ai != null and ai.driver.phase == "blocked",
+			"at_objective": ai != null and actor.tank.global_position.distance_to(ai.patrol_goal) < 15.0,
+			"engaging": ai != null and ai.phase == "engage",
+			"repairing": ai != null and ai.phase == "repair",
+		})
+	return rows
 func navigation_graph() -> Dictionary: return TeamArena.graph()
 func spawn_candidates(team: int) -> Array[Transform3D]: return TeamArena.candidates(team)
 func objective_goal(team: int, index: int) -> Vector3: return TeamArena.goal(team,index)
@@ -237,6 +317,10 @@ func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 		ai.configure(vehicle,nav,Callable(self,"combat_actors"),prepared_match.difficulty() if prepared_match != null else "normal",match_seed+vehicle.state.team_id*100+index*17+int(director.state.roster[id].spawns)*101)
 		ai.advance_while_engaged = true
 		ai.set_patrol(objective_goal(vehicle.state.team_id,index),spawn_candidates(vehicle.state.team_id)[index].origin*Vector3(1,0,1))
+		# WT-040-R1: bind the team's task allocator so the AI actually receives a role/objective.
+		# Gated on objectives being present, so maps without the hook keep their current behaviour.
+		if not match_objectives().is_empty():
+			ai.bind_allocator(coordinator_for(int(vehicle.state.team_id)).allocator)
 		vehicle.set_controller(ai)
 		vehicle.cam_rig.set_process(false)
 		vehicle.cam_rig.set_physics_process(false)

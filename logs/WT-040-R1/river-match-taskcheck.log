@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[FAIL] river team match initialised with 1 AI actors on the authored river graph
+[river-match] t=0 tickets={ 1: 300, 2: 300 } living={ 1: 1, 2: 0 } phase=loading
+[river-actors] t=0 { "A": { "p": [0, 0], "goal": [], "to_goal": -1, "ai": "detached", "drive": "wreck", "spd": 0.0 } }
+[river-chain] t=0 {  }
+[river-match] t=0 tickets={ 1: 300, 2: 300 } living={ 1: 1, 2: 0 } phase=loading
+[river-actors] t=0 { "A": { "p": [0, 0], "goal": [], "to_goal": -1, "ai": "detached", "drive": "wreck", "spd": 0.0 } }
+[river-chain] t=0 {  }
+[river-match] t=0 tickets={ 1: 300, 2: 300 } living={ 1: 1, 2: 0 } phase=loading
+[river-actors] t=0 { "A": { "p": [0, 0], "goal": [], "to_goal": -1, "ai": "detached", "drive": "wreck", "spd": 0.0 } }
+[river-chain] t=0 {  }
+[river-match] t=0 tickets={ 1: 300, 2: 300 } living={ 1: 1, 2: 0 } phase=loading
+[river-actors] t=0 { "A": { "p": [0, 0], "goal": [], "to_goal": -1, "ai": "detached", "drive": "wreck", "spd": 0.0 } }
+[river-chain] t=0 {  }
+[river-match] wrote res://logs/WT-040-R1/river_ai_match_44001.json
+[river-match totals] result=? elapsed=0s tickets={ 1: 300, 2: 300 } reached=["A"] fired=0 respawns={ 1: 0, 2: 0 } destroyed={ 1: 0, 2: 0 } max_stationary=0s
+[PASS] river match stays inside finite authored river bounds
+[FAIL] only destroyed actors have detached AI
+[FAIL] river match clock/tickets terminate the match
+[FAIL] at least six AI slots acquire targets and fire on the river
+[FAIL] at least six AI slots physically reach the central approaches
+[PASS] no healthy river actor trying to drive stays stationary for 90 seconds
+=== 缁撴灉: 7 椤规鏌? 5 澶辫触 ===
+RIVER_AI_MATCH_FAIL

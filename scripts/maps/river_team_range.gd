@@ -111,6 +111,16 @@ func spawn_slot(id: String) -> VehicleActor:
 		ai.set_patrol(objective_goal(vehicle.state.team_id, index), vehicle.tank.global_position)
 	return vehicle
 
+## WT-040-R1: publish the river's objectives in the shape the CAPTURE layer wants, which is the same
+## authored data and the same shape the single-car river range already hands its capture director:
+## [{id:String, center:Vector3, radius:float}]. BattleObjectives.configure validates exactly these
+## keys, so passing an allocator-shaped row here made begin() fail and left the roster empty - which
+## is what broke the first attempt at this wiring. The allocator's own shape ({id, position,
+## owner_team}) is derived from this in TeamRange.allocator_objectives(), so there is only ONE
+## authored source and no chance of the two layers disagreeing.
+func _build_match_objectives() -> Array:
+	return RiverJunctionDefinition.capture_definitions()
+
 ## Team size is chosen by the caller (the recorder uses 4 per team for the first closure the user
 ## asked for); 10v10/16v16 berths are NOT a capacity claim until they are measured on their own.
 func set_trial_team_size(value: int) -> void:
