@@ -1,6 +1,6 @@
 ﻿# 交付文档索引（`docs/wt/continuation/`）
 
-> 共 **124** 份（脚本生成）。**先读**：`FINAL_COVERAGE_MATRIX.md`（总览）· `REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R11.md` · `DECISION_REQUEST_BUNDLE.md` · `DECISION_EVIDENCE_SHEETS.md` · `DELIVERY_SUMMARY_ROUND5_FINAL.md` · 同级 `NEXT_ACTION.md`。
+> 共 **125** 份（脚本生成）。**先读**：`FINAL_COVERAGE_MATRIX.md`（总览）· `REGRESSION_GATE_MASTER.md` + `_ADDENDUM_R4–R11.md` · `DECISION_REQUEST_BUNDLE.md` · `DECISION_EVIDENCE_SHEETS.md` · `DELIVERY_SUMMARY_ROUND5_FINAL.md` · `WT-036-R1_RUNNER_CROSSCHECK.md` · 同级 `NEXT_ACTION.md`。
 
 | 文件 | 标题 | 大小 |
 |---|---|---|
@@ -27,7 +27,7 @@
 | ENGAGEMENT_CONFIG.md | 娌宠胺浜ゆ垬閰嶇疆銆佹寜閿笌鍘熷洜鎻愮ず锛圵T-007-R1锛? | 5081 B |
 | EXECUTION_PLAN_ADDENDUM.json |  | 10146 B |
 | EXECUTION_PLAN_ADDENDUM_ROUND1.json |  | 7736 B |
-| FINAL_COVERAGE_MATRIX.md | 最终覆盖矩阵（目标要求 ↔ 交付 ↔ 证据 ↔ 遗留项归属） | 4985 B |
+| FINAL_COVERAGE_MATRIX.md | 鏈€缁堣鐩栫煩闃碉紙鐩爣瑕佹眰 鈫?浜や粯 鈫?璇佹嵁 鈫?閬楃暀椤瑰綊灞烇級 | 5052 B |
 | LEDGER_DELTA.md | WT-001-R2 鍙拌处澧為噺宸紓璇存槑锛?f24ae6 鈫?a1bac406锛? | 7773 B |
 | MAP_ROADGRAPH_VERSION.md | 娌宠胺鏋㈢航 RoadGraph / MapManifest 鐗堟湰涓庡吋瀹硅〃锛圵T-032-R1锛? | 3884 B |
 | MATCH_RULES.md | 姣旇禌鐘舵€佷笌瑙勫垯鍙傛暟锛圵T-022-R1锛? | 4932 B |
@@ -110,7 +110,8 @@
 | WT-036-R1_RESTART_RED_IS_FIXTURE_TIMING.md | WT-036-R1：`restart frees old world` 既有红 = **夹具时序**，非产品缺陷 | 1708 B |
 | WT-036-R1_RESTART_RED_REFINED.md | WT-036-R1：`restart frees old world` 既有红的细化（假设已否证一半） | 1923 B |
 | WT-036-R1_ROUTE_COUNT_CORRECTION.md | WT-036-R1 更正：工业套件的**检查计数**（我此前的表述有重复计数） | 1103 B |
-| WT-036-R1_RUN_CHECKS_FLAKE.md | WT-036-R1 观察：核心套件 `run_checks` 的**罕见单帧余量抖动**（既有、非本分支引入） | 3851 B |
+| WT-036-R1_RUN_CHECKS_FLAKE.md | WT-036-R1 观察：核心套件 `run_checks` 的**罕见单帧余量抖动**（既有、非本分支引入） | 4747 B |
+| WT-036-R1_RUNNER_CROSSCHECK.md | WT-036-R1 交叉验证终账：官方运行器 vs 独立脚本（127 套件） | 2157 B |
 | WT-036-R1_SUPPLY_INVESTIGATION.md | WT-036-R1 闄勫綍涓夛細`supply` 澶辫触鏄?鐢垫睜鍐呬笉绋冲畾"鑰岄潪璺嚎鍑犱綍锛堝绔嬪鐜版垚鍔燂級 | 2211 B |
 | WT-036-R1_T018_02_STATIC_BLOCKER_PLAN.md | WT-036-R1：`T018-02` 的三种让行修法对照（含**我上一轮的错误更正**） | 2791 B |
 | WT-036-R1_T018_H01_MARGINAL_BUDGET.md | WT-036-R1 登记：`T018-H01` 属**既有 + 间歇 + 预算边际**（非本分支引入） | 1852 B |
