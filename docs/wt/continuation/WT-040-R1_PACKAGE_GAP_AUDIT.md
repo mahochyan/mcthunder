@@ -261,3 +261,21 @@ Godot 会把**无害警告**写到 stderr（如 `backups/` 下的 `project.godot
 ### 同时确认（探针已通过更早的三道 profile 关口 ✓）
 `VehicleEquipmentProfiles` ✓ · `AmmoCompartmentProfile` ✓ · `VehicleArmorLayers` ✓ **均未报错** ✓；
 `wheel_count ≤ 12` ✓ · `rounds` 整数 ✓ · `hull_rings` 高度递增 ✓ · `armor.<zone>.fact == "armor."+zone` ✓ · `forward_max_speed == mobility.forward_speed_mps` ✓ · `rounds == weapon.capacity` ✓ · 弹架之和 == rounds ✓ —— **全部满足** ✓✓。
+
+---
+
+## 14. **层级探针**：内容门之后的各层已开始暴露真实问题 ✓（全程无需裁定 ✓）
+`tests/probe_package_layers.gd` ✓ 直接调用公开 API（绕过被 9 项 shape 缺口挡住的入口 ✓）：
+`HistoricalVehicleGeometry.build` ✓ → `LayoutValidator.validate` ✓ → `VehicleShellCatalog.build` ✓ → `definitions_for` + 各定义 `validate()` ✓。
+探针值明确标注 ✓，**绝不写入任何包** ✓。
+
+**首跑即报出两处真实（可复现）问题** ✓：
+| # | 报错 | 含义 |
+|---|---|---|
+| 1 | **`Invalid access to property or key 'hull_rings' on a base object of type 'Dictionary'`** ✗ | `HistoricalVehicleGeometry.build` 直接读 `g.hull_rings` ✓ ⇒ **豹2A4 必然崩溃** ✓（其 `hull_rings` 正是**作者项** ✓）—— **此前只是推断，现已实测证实** ✓✓ |
+| 2 | **`Invalid access to property or key 'crew.placement'`** ✗ | `LayoutValidator.validate` 需要**特定结构的证据字典** ✓ ⇒ 该层有**自己的**接口要求 ✓ |
+
+⇒ **结论** ✓：内容门之后仍有若干**独立层**（layout ✓ · 弹种目录 ✓ · 定义校验 ✓），**各有自己的要求** ✓；
+层级探针把它们从"未知"变成**可复现的具体错误** ✓ —— 这是**不需要任何外部输入**就能推进的工作 ✓。
+
+**下一步（继续 ✓）**：让探针**逐层收敛**：① 为 `geometry.build` 提供**形状安全的**几何（豹2缺环时给出**明确标注的占位环** ✓ 以观察后续层 ✓）；② 按 `LayoutValidator` 的真实接口**构造**证据字典 ✓（读其源码 ✓，不猜 ✗）；③ 直至跑通 `definitions.validate()` ✓。
