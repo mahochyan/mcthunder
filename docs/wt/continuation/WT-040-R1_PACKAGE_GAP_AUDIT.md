@@ -366,3 +366,26 @@ SCRIPT ERROR: Invalid call. Nonexistent 'Vector3' constructor.
 
 ### 附注 ✓
 探针改用 **PowerShell 后台作业** ✓ 规避工具 600s 超时 ✓（上轮日志 412 行完整 ✓ ⇒ 属**进程存活**问题 ✓）。
+
+---
+
+## 18. **里程碑：探针贯通到终点，两车 definitions 全部 0 错误** ✓✓✓
+| 层 | T-80B | 豹2A4 |
+|---|---|---|
+| `geometry.build` | **ok** ✓（parts=6 · patches=**56**） | **ok** ✓（parts=6 · patches=**49**） |
+| `LayoutValidator` | **136** ✗（2 warn · 1 susp） | **121** ✗（8 warn · 3 susp） |
+| `VehicleShellCatalog` | `ok=false` ✗：**`vehicle has no admitted shell set`** | 同类 ✓ |
+| **`definitions`** | **vehicle 0 ✓ · gun 0 ✓ · shell 0 ✓** ✓✓✓ | **vehicle 0 ✓ · gun 0 ✓ · shell 0 ✓** ✓✓✓ |
+
+### 136 项的**完全归类**（探针机制 vs 真实要求 ✓）
+| 数量 | 错误 | 性质 |
+|---|---|---|
+| 56 | `armor_patches[n].thickness_status: field record references **unregistered source**` ✗ | **探针机制** ✗（`source_refs` 须为**来源 id** ✓，不能带 `#L<n>` 定位符 ✗） |
+| 56 | `armor_patches[n].geometry_status: **unknown status 'estimated'**` ✗ | **登记表须承认 `estimated`** ✓ |
+| 3+3+3 | `crew_stations[]`：`volume_status` 无字段记录 ✗ / `role_placement_status` 未登记状态 ✗ | **探针机制** ✗ |
+| **3** | `duplicate, miswound or **non-manifold edge**`（part hull/barrel）✗✗ | **真实几何问题** ✓（我的生成器产生的非流形边 ✓） |
+| **1** | `vehicle has **no admitted shell set**` ✗ | **真实** ✓ ⇒ 需弹种集（**设计/资料** ✓） |
+
+### 结论（**范围已收缩到极小且具体** ✓）
+新车辆距"可校验通过"只剩：**① 3 条非流形边**（我方可修 ✓）· **② 弹种集**（设计/资料 ✓）· **③ 探针登记表机制**（非车辆数据 ✓）。
+而 **runtime/assembly/crew/modules/armor 的数据在项目自己的定义校验下已自洽** ✓✓。

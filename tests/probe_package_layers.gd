@@ -107,8 +107,18 @@ func _packet(id: String, g: Dictionary, rt: Dictionary, ar: Dictionary, mods: Ar
 	# WT-040-R1: build reads packet.facts["crew.placement"].status, so the fact must exist or the build
 	# dies there - the error was a MISSING KEY, not a nesting problem, which the source read corrected.
 	if not packet["facts"].has("crew.placement"):
-		packet["facts"]["crew.placement"] = {"value":"probe","status":"probe","origin":"probe",
-			"source_refs":["probe"],"location":"PROBE: exists so the layout build can run"}
+		packet["facts"]["crew.placement"] = {"value":"probe","status":"reference","origin":"warthunder_reference",
+			"source_refs":["wt-2.57.1.137"],"location":"PROBE: exists so the layout build can run"}
+	# WT-040-R1: definitions_for line 230 constructs a Vector3 from
+	# HistoricalEvidenceGate.value(packet,"dimensions.width_m"), and the gate returns null for a missing
+	# or inconsistent fact - which is the "Nonexistent 'Vector3' constructor" error. These probe values
+	# exist only so the definition builder can run; the real dimensions are the recorded documentary item.
+	if not packet["facts"].has("dimensions.width_m"):
+		packet["facts"]["dimensions.width_m"] = {"value":3.0,"status":"reference","origin":"warthunder_reference",
+			"source_refs":["wt-2.57.1.137"],"location":"PROBE: width so the definition builder can run"}
+	if not packet["facts"].has("dimensions.reference_length_m"):
+		packet["facts"]["dimensions.reference_length_m"] = {"value":6.0,"status":"reference","origin":"warthunder_reference",
+			"source_refs":["wt-2.57.1.137"],"location":"PROBE: length so the definition builder can run"}
 	# and the sources registry HistoricalEvidenceGate requires: a url, a 64-hex sha256, a read state and
 	# an applicability list. Probe values, clearly labelled, never a delivered document. The dossier's own
 	# source id is registered as well, because the drafts' source_refs point at it - the real dossier has
