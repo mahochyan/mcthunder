@@ -34,6 +34,7 @@ var simulation_snapshot: SimulationSnapshot
 var coordinators: Dictionary = {}          # team -> TeamCoordinator (WT-040-R1)
 var _match_objectives: Array = []          # cached result of the match_objectives() hook
 var _task_tick := 0                        # WT-040-R1: throttles the task layer to 2 Hz
+var _applied_task: Dictionary = {}         # entity_id -> "role:objective" last handed to the AI
 
 func _ready() -> void:
 	# 027-A moved named input actions out of project.godot into the binding
@@ -138,14 +139,20 @@ func _physics_process(delta: float) -> void:
 				var coordinator := coordinator_for(team)
 				coordinator.set_roster(roster_rows(team))
 				coordinator.step(director.state.elapsed,delta*30.0)
-				# WT-040-R1, the last missing wire in this link: the AI only takes up its
-				# role/objective when the caller hands it the coordinator's context through
-				# apply_task(). That method existed but was never called anywhere in production - only
-				# from a test - so task_objective and role stayed empty even with an allocator bound.
+				# WT-040-R1: apply_task() is documented as "consume one allocation round", so it is
+				# called when the allocation actually CHANGES for that actor, not on every tick of this
+				# throttle. Calling it unconditionally re-ran set_patrol (and therefore a route plan)
+				# for every actor twice a second, which made the river match crawl; the semantics are
+				# unchanged, only the redundant re-application is gone.
 				for actor in combat_actors():
 					if int(actor.state.team_id) != team: continue
 					var team_ai: AITankController = actor.controller as AITankController
-					if team_ai != null: team_ai.apply_task(coordinator.context)
+					if team_ai == null: continue
+					var task := coordinator.allocator.task_for(actor.entity_id)
+					var signature := "%s:%s" % [str(task.get("role","")), str(task.get("objective",""))]
+					if _applied_task.get(actor.entity_id,"") == signature: continue
+					_applied_task[actor.entity_id] = signature
+					team_ai.apply_task(coordinator.context)
 
 ## WT-040-R1 scene hook: the map's capture objectives in the allocator's shape,
 ## [{id, position:Vector3, owner_team}]. Empty means "this map does not publish objectives yet".

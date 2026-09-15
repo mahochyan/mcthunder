@@ -10,12 +10,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 523
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 994
         },
         "A2": {
           "aim": "",
@@ -24,12 +24,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 1028
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 609
         },
         "A3": {
           "aim": "",
@@ -38,12 +38,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 919
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 842
         },
         "A4": {
           "aim": "",
@@ -52,12 +52,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 628
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 951
         },
         "B": {
           "aim": "",
@@ -66,12 +66,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 905
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1123
         },
         "B2": {
           "aim": "",
@@ -80,12 +80,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 447
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 835
         },
         "B3": {
           "aim": "",
@@ -94,12 +94,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 1155
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 596
         },
         "B4": {
           "aim": "",
@@ -108,12 +108,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 816
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 1084
         }
       },
       "t": 5.23333333333332
@@ -127,26 +127,26 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 509
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1067
         },
         "A2": {
           "aim": "",
           "dead": false,
-          "driver": "yielding",
-          "driver_reason": "physical_obstacle",
+          "driver": "following",
+          "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 1035
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 671
         },
         "A3": {
           "aim": "",
@@ -155,12 +155,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 853
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 849
         },
         "A4": {
           "aim": "",
@@ -169,40 +169,40 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 606
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 890
         },
         "B": {
+          "aim": "",
+          "dead": false,
+          "driver": "following",
+          "driver_reason": "obstacle_cleared",
+          "first_seen_s": -1.0,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1097
+        },
+        "B2": {
           "aim": "",
           "dead": false,
           "driver": "following",
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 899
-        },
-        "B2": {
-          "aim": "",
-          "dead": false,
-          "driver": "yielding",
-          "driver_reason": "physical_obstacle",
-          "first_seen_s": -1.0,
-          "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
-          "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 422
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 890
         },
         "B3": {
           "aim": "",
@@ -211,12 +211,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 1113
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 594
         },
         "B4": {
           "aim": "",
@@ -225,12 +225,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 805
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 1035
         }
       },
       "t": 35.2333333333326
@@ -240,30 +240,30 @@
         "A": {
           "aim": "",
           "dead": false,
-          "driver": "following",
-          "driver_reason": "path_ready",
+          "driver": "yielding",
+          "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 472
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 976
         },
         "A2": {
           "aim": "",
           "dead": false,
-          "driver": "following",
-          "driver_reason": "obstacle_cleared",
+          "driver": "yielding",
+          "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 995
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 611
         },
         "A3": {
           "aim": "",
@@ -272,12 +272,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 729
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 808
         },
         "A4": {
           "aim": "",
@@ -286,40 +286,40 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 555
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 774
         },
         "B": {
-          "aim": "",
-          "dead": false,
-          "driver": "following",
-          "driver_reason": "path_ready",
-          "first_seen_s": -1.0,
-          "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
-          "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 861
-        },
-        "B2": {
           "aim": "",
           "dead": false,
           "driver": "following",
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 366
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 988
+        },
+        "B2": {
+          "aim": "",
+          "dead": false,
+          "driver": "following",
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 836
         },
         "B3": {
           "aim": "",
@@ -328,12 +328,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 1011
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 550
         },
         "B4": {
           "aim": "",
@@ -342,12 +342,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 767
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 917
         }
       },
       "t": 65.2333333333309
@@ -358,29 +358,29 @@
           "aim": "",
           "dead": false,
           "driver": "following",
-          "driver_reason": "path_ready",
+          "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 241
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1071
         },
         "A2": {
           "aim": "",
           "dead": false,
           "driver": "following",
-          "driver_reason": "obstacle_cleared",
+          "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 810
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 700
         },
         "A3": {
           "aim": "",
@@ -389,12 +389,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 617
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 607
         },
         "A4": {
           "aim": "",
@@ -403,40 +403,40 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 317
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 616
         },
         "B": {
-          "aim": "",
-          "dead": false,
-          "driver": "following",
-          "driver_reason": "path_ready",
-          "first_seen_s": -1.0,
-          "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
-          "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 625
-        },
-        "B2": {
           "aim": "",
           "dead": false,
           "driver": "following",
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "flank",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 206
+          "task": "C",
+          "task_reason": "outer_lane_flank",
+          "to_goal": 823
+        },
+        "B2": {
+          "aim": "",
+          "dead": false,
+          "driver": "following",
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_reason": "public_objective_push",
+          "to_goal": 800
         },
         "B3": {
           "aim": "",
@@ -445,12 +445,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 841
+          "task": "B",
+          "task_reason": "public_objective_push",
+          "to_goal": 371
         },
         "B4": {
           "aim": "",
@@ -459,12 +459,12 @@
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "phase": "patrol",
-          "phase_reason": "",
-          "role": "",
+          "phase_reason": "task_assigned",
+          "role": "attack",
           "shots": 0,
-          "task": "",
-          "task_reason": "",
-          "to_goal": 532
+          "task": "C",
+          "task_reason": "public_objective_push",
+          "to_goal": 735
         }
       },
       "t": 95.2333333333292
@@ -482,7 +482,7 @@
   "finite_in_bounds": true,
   "fired_slots": [],
   "map_id": "river_junction_team",
-  "max_trying_to_drive_stationary_s": 0,
+  "max_trying_to_drive_stationary_s": 5,
   "note": "engineering AI match on the authored river layout; river is design_preview / combat_admitted=false, so this is a measurement, not an admission claim",
   "objectives_seen": [
     "A",
