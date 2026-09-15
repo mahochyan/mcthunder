@@ -155,7 +155,28 @@ func _measure(id: String, path: String) -> Dictionary:
 		method["mantlet_half_width"] = "maximum |x| of the mantlet/shield mesh vertices"
 		method["mantlet_half_height"] = "half of the mantlet mesh y-extent"
 	else:
-		row.notes.append("no separate mantlet mesh: mantlet fields left to the author")
+		# WT-040-R1: the validator REQUIRES mantlet_half_width/height, but the T-80B has no separate
+		# mantlet mesh (its meshes are Turret/Gun/Body plus running gear). Instead of leaving the
+		# packet invalid or inventing a number, the mantlet is DERIVED from the gun mesh's own rear
+		# quarter - the region where a mantlet sits - and the derivation is stated in the method.
+		if gun_mesh != null:
+			var gpts := _world_vertices(gun_mesh)
+			var glo := INF; var ghi := -INF
+			for p in gpts:
+				glo = minf(glo,p.y); ghi = maxf(ghi,p.y)
+			var rear: Array[Vector3] = []
+			var cut := glo + (ghi-glo)*0.25
+			for p2 in gpts:
+				if p2.y <= cut: rear.append(p2)
+			if rear.is_empty(): rear = gpts
+			var hw := 0.0; var lo2 := INF; var hi2 := -INF
+			for p3 in rear:
+				hw = maxf(hw,absf(p3.x)); lo2 = minf(lo2,p3.y); hi2 = maxf(hi2,p3.y)
+			f["mantlet_half_width"] = snappedf(hw,0.001)
+			f["mantlet_half_height"] = snappedf((hi2-lo2)*0.5,0.001)
+			method["mantlet_half_width"] = "DERIVED (no separate mantlet mesh on this model): maximum |x| of the gun mesh's rear quarter, which is where a mantlet sits; author may replace"
+			method["mantlet_half_height"] = "DERIVED (no separate mantlet mesh on this model): half of the gun mesh's rear-quarter y-extent; author may replace"
+			row.notes.append("mantlet fields are DERIVED from the gun mesh rear quarter because this model has no mantlet mesh")
 	# --- running gear --------------------------------------------------------------------------
 	if not wheels.is_empty():
 		var radius := 0.0; var width := 0.0
