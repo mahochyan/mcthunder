@@ -26,9 +26,13 @@ static func create(team_size: int = DEFAULT_TEAM_SIZE) -> MapDefinition:
 	map.bounds = layout.bounds
 	map.max_vehicle_size = Vector3(4.2, 2.4, 8.5)
 
-	# Route graph: the authored driving graph for this map size, unblocked.
-	var graph: Dictionary = RiverJunctionDefinition.route_graph(team_size)
-	map.graph = graph
+	# Route graph: the MAP'S OWN navigation builder. RiverJunctionDefinition.route_graph() is the
+	# strategic design graph (Vector2 nodes, [a,b] edges, scope "strategic_design_only") and is NOT
+	# the shape the shared machinery consumes - using it made the first run fail inside
+	# MapDefinition.minimap. RiverJunctionNavigation.build() already emits the expected shape,
+	# {"schema_version", "nodes":[{"id","position":[x,y,z]}], "edges":...}, with the real terrain
+	# height applied to every node, so the AI drives the authored roads and bridges.
+	map.graph = RiverJunctionNavigation.new().build(team_size)
 
 	# Spawn rows: the same authored poses the single-car range deploys from.
 	var spawns: Dictionary = {}
@@ -42,10 +46,22 @@ static func create(team_size: int = DEFAULT_TEAM_SIZE) -> MapDefinition:
 	for row in RiverJunctionDefinition.supply_points(team_size):
 		map.supply_reservations.append(RiverJunctionDefinition.point(row.xz))
 
-	# Capture objectives, straight from the map's own three-point definitions.
+	# Hard cover, converted from the map's own rows ({"id","xz","footprint","height"}) into the
+	# shape the validator and minimap expect ({"kind","position","size"}). The KIND is a mapping
+	# decision, not authored data: the river publishes hard cover without a collision kind, so it is
+	# mapped to the known solid/shell-blocking/LOS-blocking kind "stone_wall" and is listed as
+	# needs-author in the report rather than passed off as the map's own classification.
 	var obstacles: Array[Dictionary] = []
 	for entry in RiverJunctionDefinition.hard_cover():
-		obstacles.append(entry)
+		var xz: Vector2 = entry.xz
+		var footprint: Vector2 = entry.footprint
+		var height: float = float(entry.get("height", 4.0))
+		obstacles.append({
+			"id": str(entry.id),
+			"kind": "stone_wall",
+			"position": RiverJunctionDefinition.point(xz, height * 0.5),
+			"size": Vector3(footprint.x, height, footprint.y),
+		})
 	map.obstacles = obstacles
 	return map
 

@@ -73,8 +73,11 @@ func _run() -> void:
 			if p.length() < ARRIVE_RADIUS:
 				reached[actor.entity_id] = true
 			for objective in objectives:
-				var centre: Vector3 = RiverJunctionDefinition.point(Vector2(objective.position.x, objective.position.z))
-				if p.distance_to(centre) < OBJECTIVE_RADIUS:
+				# RiverJunctionDefinition.capture_definitions() rows are {"id","center":Vector3,
+				# "radius":float}; use the map's own centre and ring radius rather than a guess.
+				var centre: Vector3 = objective.center
+				var ring: float = float(objective.get("radius", OBJECTIVE_RADIUS))
+				if p.distance_to(centre) < ring:
 					reached_objectives[team][str(objective.id)] = true
 			if actor.gunner.shots_fired > 0: shots[actor.entity_id] = true
 			var ai: AITankController = actor.controller as AITankController
