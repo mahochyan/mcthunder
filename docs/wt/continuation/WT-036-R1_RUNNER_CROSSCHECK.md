@@ -26,3 +26,24 @@ run_checks:                   passed=False      ← **罕见抖动**（见 §3�
 
 ## 4. 修复后的复跑
 已启动**修复后**的官方运行器全量复跑（应得**干净判定集** ✓：期望 **125 PASS / 2 FAIL**，与我的脚本一致 ✓）证据目录 `logs/WT-036-R1/runner-127-clean/` ✓。
+
+---
+
+## 5. 修复后**干净复跑终账**（已完成 ✓，两条路径完全一致）
+```
+CLEAN_EXIT=1
+run_industrial_battle_checks: checks=16   passed=False   ← 既有抵达红 ✓
+run_challenge_checks:         checks=140  passed=False   ← 已登记夹具边界 ✓
+其余 125 个套件:              passed=True   ✓（含工业 595 ✓ 历史 192 ✓ shell 193 ✓ garage 151 ✓ …）
+```
+| 验证项 | 结果 |
+|---|---|
+| **`checks=N` 字段** | **全面恢复** ✓（此前每套件皆 0 ✗） |
+| **`run_telemetry_measures` 假 FAIL** | **不再出现** ✓（`checks=7 passed=True` ✓） |
+| `run_checks` | **`checks=217 passed=True`** ✓（本次无抖动 ✓） |
+| **与我的脚本判定** | **逐套件一致** ✓（都只把那一对判红 ✓） |
+| 判红项 | 与基线对照：`industrial_battle` 系**既有** ✓；`challenge` 系**已裁定登记** ✓ |
+
+⇒ **本会话最后一项待完成验证（官方运行器可用性）已闭环** ✓：官方运行器现可**独立**用于全量判定 ✓，
+且与独立脚本**互为印证** ✓ —— 四条判定缺陷（`ExitCode=$null` · 中文结果行 · 仅认 CHECKS 标记 · 需逐项证据）
+**全部修复且双向验证、未放宽任何断言** ✓。
