@@ -13,6 +13,7 @@ const FACTS := "res://logs/WT-040-R1/modern_facts_draft.json"
 const CREW := "res://logs/WT-040-R1/modern_crew_draft.json"
 const MODULES := "res://logs/WT-040-R1/modern_modules_draft.json"
 const ARMOR := "res://logs/WT-040-R1/modern_armor_draft.json"
+const EVIDENCE := "res://logs/WT-040-R1/modern_evidence_record.json"
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	var draft := _read_json(DRAFT)
@@ -27,6 +28,9 @@ func _run() -> void:
 	var modules_by_id := {}
 	var armor_by_id := {}
 	var armor_facts := {}
+	var evidence_facts := {}
+	for ev in _read_json(EVIDENCE).get("rows",[]):
+		if ev is Dictionary: evidence_facts[str(ev.get("id",""))] = ev.get("facts",{})
 	for a in _read_json(ARMOR).get("rows",[]):
 		if not a is Dictionary: continue
 		armor_by_id[str(a.get("id",""))] = a.get("armor",{})
@@ -103,6 +107,9 @@ func _run() -> void:
 		packet_probe["assembly"]["year"] = 1900
 		packet_probe["facts"]["dimensions.width_m"] = {"value":3.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
 		packet_probe["facts"]["dimensions.reference_length_m"] = {"value":6.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
+		# and the REAL evidence record, which carries a copy of each component as line 174 requires
+		for key in evidence_facts.get(id,{}).keys():
+			packet_probe["facts"][key] = evidence_facts[id][key]
 		var result3 := VehicleContentPipeline.validate_package(packet_probe,{})
 		var errors3: Array = result3.get("errors",[])
 		print("[gaps] error count BEYOND the shape gate (probe values, so the content checks run) = ", errors3.size())

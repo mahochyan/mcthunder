@@ -244,3 +244,20 @@ Godot 会把**无害警告**写到 stderr（如 `backups/` 下的 `project.godot
 
 ### 教训（已第四次同类 ✓）
 **"通过/失败"必须看它是在哪一道门测的** ✗ —— 短路会让人把"第一道门"误当"全部" ✓。
+
+---
+
+## 13. 内容层再降（4 → 1）与**一条次序要求** ✓
+`tests/build_modern_evidence_record.gd` ✓ 按第 174 行的要求生成**四个自证式证据事实** ✓（`geometry.exterior` ✓ · `runtime.simulation` ✓ · `geometry.modules` ✓ · `geometry.crew` ✓，值＝组件本身 ✓，状态 `derived_from_draft` ✓）：
+| 层 | T-80B | 豹2A4 |
+|---|---|---|
+| shape 门 | 9 ✓ | 10 ✓ |
+| shape 门之后 | **4 → 1** ✓ | 1 ✓ |
+
+**剩下的 1 项是探针假象** ✓：探针往 packet 塞了 4 个**设计值**（`reload_time`/`pitch_min`/`pitch_max`/`penetration_curve` ✓），而证据记录是从**真实 runtime 草案**（5 字段 ✓）复制的 ✓ ⇒ 二者**必然不等** ✗ —— 不是真实缺口 ✓。
+
+⇒ **次序要求（重要 ✓）**：**设计值落地时，必须先写入 runtime 草案 ✓，再重新生成证据记录 ✓**，否则 `runtime.simulation` 与 packet 会再次不符 ✗。
+
+### 同时确认（探针已通过更早的三道 profile 关口 ✓）
+`VehicleEquipmentProfiles` ✓ · `AmmoCompartmentProfile` ✓ · `VehicleArmorLayers` ✓ **均未报错** ✓；
+`wheel_count ≤ 12` ✓ · `rounds` 整数 ✓ · `hull_rings` 高度递增 ✓ · `armor.<zone>.fact == "armor."+zone` ✓ · `forward_max_speed == mobility.forward_speed_mps` ✓ · `rounds == weapon.capacity` ✓ · 弹架之和 == rounds ✓ —— **全部满足** ✓✓。
