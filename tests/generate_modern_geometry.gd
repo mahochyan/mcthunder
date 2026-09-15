@@ -66,6 +66,7 @@ func _measure(id: String, path: String) -> Dictionary:
 	var method: Dictionary = row.methods
 	# --- hull rings: three rings from a y-band scan of the hull mesh's vertices ---------------
 	if hull_mesh != null:
+		row.notes.append("hull mesh chosen for measurement: " + str(hull_mesh.name))
 		var pts := _world_vertices(hull_mesh)
 		var lo := INF; var hi := -INF
 		for p in pts: lo = minf(lo,p.y); hi = maxf(hi,p.y)
@@ -147,13 +148,20 @@ func _measure(id: String, path: String) -> Dictionary:
 				wlo = minf(wlo,p.y); whi = maxf(whi,p.y); wx0 = minf(wx0,p.x); wx1 = maxf(wx1,p.x)
 			radius = maxf(radius,(whi-wlo)*0.5)
 			width = maxf(width,wx1-wx0)
-			# wheel_count in the production packets is PER SIDE (the M26 packet records 6), so count one
-			# side here rather than every wheel-named node - the first version reported 26.
-			if (w as Node3D).global_position.x < 0.0: left += 1
+			# wheel_count in the production packets follows build_historical_packets.py: ROAD wheels per
+			# side, i.e. the numerically suffixed wheel meshes, excluding return rollers (top_*), the
+			# front idler and the drive sprocket. Counting every wheel-named node gave 13 for both
+			# vehicles, which is the wrong quantity - the Leopard's road wheels are 01..07 and the
+			# T-80B's are 01..06.
+			var lower := str(w.name).to_lower()
+			if lower.contains("wheel") and not lower.contains("top") and not lower.contains("front") and not lower.contains("drive"):
+				var tail := lower.split("_")
+				var last := str(tail[tail.size()-1])
+				if last.is_valid_int() and (w as Node3D).global_position.x < 0.0: left += 1
 		f["wheel_count"] = left
 		f["wheel_radius"] = snappedf(radius,0.001)
 		f["track_width"] = snappedf(width,0.001)
-		method["wheel_count"] = "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention"
+		method["wheel_count"] = "ROAD wheels on one side: wheel-named meshes with a numeric suffix, on x < 0, excluding return rollers (top_*), the front idler and the drive sprocket - the convention build_historical_packets.py uses"
 		method["wheel_radius"] = "half of the largest wheel mesh y-extent"
 		method["track_width"] = "largest wheel mesh x-extent (the belt width across the wheel)"
 	else:

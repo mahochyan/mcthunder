@@ -133,7 +133,7 @@
         ],
         "turret_taper": 0.677,
         "turret_top": 2.527,
-        "wheel_count": 13,
+        "wheel_count": 6,
         "wheel_radius": 0.338
       },
       "id": "ussr_t_80b",
@@ -151,10 +151,11 @@
         "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",
-        "wheel_count": "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention",
+        "wheel_count": "ROAD wheels on one side: wheel-named meshes with a numeric suffix, on x < 0, excluding return rollers (top_*), the front idler and the drive sprocket - the convention build_historical_packets.py uses",
         "wheel_radius": "half of the largest wheel mesh y-extent"
       },
       "notes": [
+        "hull mesh chosen for measurement: Body",
         "open_top is inferred, not visually verified",
         "no separate mantlet mesh: mantlet fields left to the author",
         "muzzle_brake is a geometric guess, not a documentary fact"
@@ -246,7 +247,7 @@
         ],
         "turret_taper": 1.0,
         "turret_top": 2.476,
-        "wheel_count": 13,
+        "wheel_count": 7,
         "wheel_radius": 0.353
       },
       "id": "germ_leopard_2a4",
@@ -264,10 +265,11 @@
         "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",
-        "wheel_count": "count of wheel-named meshes with x < 0 (ONE side), matching the production packets' per-side convention",
+        "wheel_count": "ROAD wheels on one side: wheel-named meshes with a numeric suffix, on x < 0, excluding return rollers (top_*), the front idler and the drive sprocket - the convention build_historical_packets.py uses",
         "wheel_radius": "half of the largest wheel mesh y-extent"
       },
       "notes": [
+        "hull mesh chosen for measurement: HullArmour",
         "hull ring 1 band caught no vertices: hull_rings not emitted (loud, not zero)",
         "open_top is inferred, not visually verified",
         "muzzle_brake is a geometric guess, not a documentary fact"
