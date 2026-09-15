@@ -23,12 +23,44 @@ func _check(ok: bool, message: String) -> void:
 	print(("[PASS] " if ok else "[FAIL] ")+message)
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
-	if args.is_empty(): print("[chk] no targets"); quit(1); return
+	var targets: Array = []
+	# WT-040-R1: ONLY ASCII vehicle ids travel on the command line. The source model lives in a
+	# Chinese-named folder outside the project: a script literal cannot carry it safely (Windows
+	# PowerShell reads a BOM-less .ps1 as ANSI and mangles it) and argv proved unreliable from a child
+	# process, so the path is read from the dossier that GDScript opens as UTF-8 and the adapter path is
+	# derived from the same id.
+	for arg in args:
+		var text := str(arg)
+		if text.is_empty() or text.contains("="):
+			continue
+		var dossier := "res://assets/reference_data/candidates/%s.json" % text
+		var raw := FileAccess.get_file_as_string(dossier)
+		var parsed_d: Variant = JSON.parse_string(raw)
+		var source := ""
+		if parsed_d is Dictionary:
+			# WT-040-R1: model_candidates is an ARRAY in these dossiers, not a dictionary. PowerShell
+			# displayed "$j.model_candidates.glb_path" as if it were an object because it silently
+			# unwraps a single-element array - the third time this session that a PowerShell convenience
+			# hid the real shape. Both shapes are handled here, preferring the entry whose id matches.
+			var mc: Variant = parsed_d.get("model_candidates",null)
+			if mc is Array:
+				for entry in mc:
+					if not entry is Dictionary: continue
+					var candidate := str(entry.get("glb_path",""))
+					if candidate.is_empty(): continue
+					if str(entry.get("id","")) == text or source.is_empty(): source = candidate
+			elif mc is Dictionary:
+				source = str(mc.get("glb_path",""))
+		if source.is_empty():
+			print("[chk] ",text,": dossier has no model_candidates.glb_path"); continue
+		targets.append("%s=res://assets/vehicles/adapters/%s/vehicle_adapter.glb=%s" % [text,text,source])
+		print("[chk]   target: ",text," -> source path taken from the dossier (",source.length()," chars)")
+	if targets.is_empty(): print("[chk] no targets"); quit(1); return
 	var draft := _read_json(DRAFT)
 	var rows: Dictionary = {}
 	for r in draft.get("rows",[]):
 		if r is Dictionary and r.get("id","") != null: rows[str(r.id)] = r
-	for arg in args:
+	for arg in targets:
 		var parts := str(arg).split("=",true,2)
 		if parts.size() != 3:
 			_check(false,"target must be <id>=<adapter>=<source>: "+str(arg)); continue

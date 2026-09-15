@@ -196,3 +196,31 @@ T-80B : 24 → 23 → 20 → 17 → 14 → 13 → 11 → 10 → 9 ✓
 
 ### 剩余 9 项（**穷尽核实后确认全部需外部输入** ✓）
 `assembly.suspension`（档案 0 字段 ✓）· `assembly.mount`（仅有 `source_weapon_id` ✓）· `assembly.year`（需史料 ✓；WT 上线日期已拒绝 ✓）· `dimensions.width_m` / `reference_length_m`（**独立资料** ✓）· `runtime.reload_time` · `pitch_min` · `pitch_max` · `penetration_curve`（**设计** ✓，生产包为多点列表 ✓）
+
+---
+
+## 11. 一条命令的管线 ✓ + 追查出**三层环境陷阱**（并纠正我一次"忽略证据"）
+### 管线 ✓ `tests/run_modern_vehicle_pipeline.ps1`
+```
+pwsh -File tests/run_modern_vehicle_pipeline.ps1
+```
+步骤：`import → geometry → facts → geometry_check → crew → modules → gap_audit` ✓
+判据：**退出码 + 日志扫描**（不靠 stderr ✓）；输出**缺口数**作为验收信号 ✓。
+**结果** ✓：`7 ok, 0 failed` · `MODERN_PIPELINE_OK` ✓ · `geometry_check` **29/29** ✓ · 缺口 **9 / 10** ✓。
+
+### 管线**立刻抓出我早前的一次错误** ✗→✓
+我曾把 `geometry_check` 的 `[exit code: 1]` 当作**管道假象**忽略 ✗ —— 管线证明它是**真实失败** ✗✓。
+
+### 三层陷阱（每一层都由"让失败自解释"的诊断暴露 ✓）
+| # | 陷阱 | 机制 | 修法 |
+|---|---|---|---|
+| 1 | **`.ps1` 被按 ANSI 解析** ✗ | Windows PowerShell 读**无 BOM** 的 `.ps1` 会把中文#破坏 ✓ | 脚本内**不写中文** ✗ |
+| 2 | **argv 中文路径不可靠** ✗ | 子进程传参丢失/损坏 ✓ | 只传 **ASCII 车辆 id** ✓ |
+| 3 | **PowerShell 自动展开单元素数组** ✗✗ | `$j.model_candidates.glb_path` 看似对象访问 ✓，实为**数组** ✓ | GDScript 侧**兼容数组与字典** ✓ |
+
+### 反复出现的元教训（已第三次）
+**PowerShell 的 JSON 显示会隐瞒真实形状** ✗（单元素数组被悄悄展开 ✓）⇒ 判断形状必须用 `GetType().Name` ✓ 或直接在**目标语言**里验证 ✓。
+另外 ✓：`Dictionary.get()` 返回 Variant ⇒ 必须**显式类型** ✓（本会话已第二次踩 ✓）。
+
+### 良性警告不再中断管线 ✓
+Godot 会把**无害警告**写到 stderr（如 `backups/` 下的 `project.godot` 被忽略 ✓），而 PowerShell 会把**原生 stderr** 当错误记录 ✓ ⇒ 已改为**不以 `ErrorActionPreference=Stop`** 中止 ✓，判据只看退出码与日志 ✓。

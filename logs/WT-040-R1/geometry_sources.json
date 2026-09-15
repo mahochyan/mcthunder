@@ -1,0 +1,10 @@
+{
+    "ussr_t_80b":  {
+                       "adapter":  "res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb",
+                       "source":  "E:/AIprogram/aimodel/鑻忚仈/涓瀷鍧﹀厠/ussr_t_80b/鍒朵綔涓?vehicle.glb"
+                   },
+    "germ_leopard_2a4":  {
+                             "adapter":  "res://assets/vehicles/adapters/germ_leopard_2a4/vehicle_adapter.glb",
+                             "source":  "E:/AIprogram/aimodel/_鍒朵綔璁板綍/寰峰浗/candidates/germ_leopard_2a4/vehicle.glb"
+                         }
+}
