@@ -73,20 +73,39 @@ func _measure(id: String, path: String) -> Dictionary:
 		var ys := [lo,(lo+hi)*0.5,hi]
 		var rings: Array = []
 		var band_failed := false
+		var want: int = maxi(pts.size()/40,6)
 		for band in 3:
-			var ring := _band_extent(pts,ys[band],maxf((hi-lo)/float(BANDS),0.05))
-			if ring.size() != 3:
+			var ring := _band_extent_adaptive(pts,ys[band],want)
+			if ring.size() != 4:
 				band_failed = true
 				row.notes.append("hull ring %d band caught no vertices: hull_rings not emitted (loud, not zero)" % band)
 				break
 			rings.append([snappedf(ys[band],0.001),snappedf(ring[0],0.001),snappedf(ring[1],0.001),snappedf(ring[2],0.001)])
+			row.notes.append("hull ring %d used %d nearest vertices, effective y tolerance %.3f m" % [band,want,float(ring[3])])
 		if not band_failed:
-			f["hull_rings"] = rings
-			method["hull_rings"] = "y-band vertex scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof"
-			var mid := _band_extent(pts,(lo+hi)*0.5,maxf((hi-lo)/float(BANDS),0.05))
-			if mid.size() == 3:
-				f["hull_half_width"] = snappedf(mid[0],0.001)
-				method["hull_half_width"] = "half of the hull mesh x-extent at mid height"
+			# WT-040-R1 validity guard: a ring whose z-span is a sliver of the hull's own z-span is not
+			# a cross-section at all. The Leopard's HullArmour is a sparse armour PLATE - its "nearest
+			# vertices" at mid and top height clustered into 4 cm and 5 cm slivers at the front and rear
+			# - so the mesh exists but is not a hull volume, and emitting those rings would be a
+			# plausible-looking lie. Rings are therefore rejected loudly with the measured spans.
+			var overall := 0.0
+			var zmin_all := INF; var zmax_all := -INF
+			for p in pts:
+				zmin_all = minf(zmin_all,p.z); zmax_all = maxf(zmax_all,p.z)
+			overall = zmax_all - zmin_all
+			var sliver := false
+			for ring in rings:
+				if (float(ring[3])-float(ring[2])) < overall*0.5:
+					sliver = true
+			if sliver or overall <= 0.5:
+				row.notes.append("hull rings REJECTED: the mesh is a plate/detail shell, not a hull volume (ring z-spans are slivers of the %.3f m overall span); hull_rings left to the author" % overall)
+			else:
+				f["hull_rings"] = rings
+				method["hull_rings"] = "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes"
+				var mid := _band_extent_adaptive(pts,(lo+hi)*0.5,want)
+				if mid.size() == 4:
+					f["hull_half_width"] = snappedf(mid[0],0.001)
+					method["hull_half_width"] = "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)"
 	else:
 		row.notes.append("hull mesh not identified")
 	# --- turret origins ------------------------------------------------------------------------
@@ -214,9 +233,7 @@ func _world_vertices(mesh: MeshInstance3D) -> Array[Vector3]:
 	return out
 
 ## [half-width, front z (min), rear z (max)] of the vertices within `tol` of height y, or an EMPTY
-## array when the band caught nothing. WT-040-R1: it used to return zeros, which is exactly the kind
-## of silently plausible number this project keeps getting bitten by - an empty band means the mesh or
-## the band is wrong and the caller must say so instead of recording 0.0.
+## array when the band caught nothing.
 func _band_extent(pts: Array[Vector3], y: float, tol: float) -> Array:
 	var hw := 0.0; var zmin := INF; var zmax := -INF; var any := false
 	for p in pts:
@@ -225,6 +242,23 @@ func _band_extent(pts: Array[Vector3], y: float, tol: float) -> Array:
 		hw = maxf(hw,absf(p.x)); zmin = minf(zmin,p.z); zmax = maxf(zmax,p.z)
 	if not any: return []
 	return [hw,zmin,zmax]
+
+## WT-040-R1: ADAPTIVE band. A fixed tolerance fails on an armour SHELL whose vertices cluster at a
+## few heights - the Leopard's HullArmour left the mid band empty, which the tool correctly reported
+## instead of writing zeros, but an empty ring is still no measurement. This widens the tolerance
+## until it has taken at least `want` vertices (or every vertex), so a real cross-section is always
+## measured, and it reports the tolerance it actually used so the number stays auditable.
+func _band_extent_adaptive(pts: Array[Vector3], y: float, want: int) -> Array:
+	if pts.is_empty(): return []
+	var sorted := pts.duplicate()
+	sorted.sort_custom(func(a: Vector3, b: Vector3) -> bool: return absf(a.y-y) < absf(b.y-y))
+	var take: int = mini(maxi(want,3),sorted.size())
+	var used := absf(sorted[take-1].y-y)
+	var hw := 0.0; var zmin := INF; var zmax := -INF
+	for i in take:
+		var p: Vector3 = sorted[i]
+		hw = maxf(hw,absf(p.x)); zmin = minf(zmin,p.z); zmax = maxf(zmax,p.z)
+	return [hw,zmin,zmax,used]
 
 ## WT-040-R1: hint matching must not accept a TURRET armour mesh as the hull - "armour" matched
 ## TurretArmour on the Leopard and produced a meaningless mid ring. A candidate is rejected when its

@@ -10,25 +10,25 @@
           1.638,
           -1.042
         ],
-        "hull_half_width": 1.907,
+        "hull_half_width": 1.903,
         "hull_rings": [
           [
             -0.258,
-            0.864,
-            -6.48,
-            -6.293
+            1.694,
+            -6.481,
+            1.795
           ],
           [
             0.8,
-            1.907,
+            1.903,
             -6.489,
-            3.267
+            3.214
           ],
           [
             1.857,
-            0.865,
+            0.869,
             -6.482,
-            -6.294
+            2.621
           ]
         ],
         "muzzle_brake": false,
@@ -140,8 +140,8 @@
       "methods": {
         "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
         "gun_origin": "global position of the GunPivot node in the adapter",
-        "hull_half_width": "half of the hull mesh x-extent at mid height",
-        "hull_rings": "y-band vertex scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof",
+        "hull_half_width": "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)",
+        "hull_rings": "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes",
         "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
         "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
         "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node exists in this model); author may replace",
@@ -156,6 +156,9 @@
       },
       "notes": [
         "hull mesh chosen for measurement: Body",
+        "hull ring 0 used 274 nearest vertices, effective y tolerance 0.259 m",
+        "hull ring 1 used 274 nearest vertices, effective y tolerance 0.019 m",
+        "hull ring 2 used 274 nearest vertices, effective y tolerance 0.263 m",
         "open_top is inferred, not visually verified",
         "no separate mantlet mesh: mantlet fields left to the author",
         "muzzle_brake is a geometric guess, not a documentary fact"
@@ -270,7 +273,10 @@
       },
       "notes": [
         "hull mesh chosen for measurement: HullArmour",
-        "hull ring 1 band caught no vertices: hull_rings not emitted (loud, not zero)",
+        "hull ring 0 used 51 nearest vertices, effective y tolerance 0.040 m",
+        "hull ring 1 used 51 nearest vertices, effective y tolerance 0.120 m",
+        "hull ring 2 used 51 nearest vertices, effective y tolerance 0.004 m",
+        "hull rings REJECTED: the mesh is a plate/detail shell, not a hull volume (ring z-spans are slivers of the 7.461 m overall span); hull_rings left to the author",
         "open_top is inferred, not visually verified",
         "muzzle_brake is a geometric guess, not a documentary fact"
       ],
