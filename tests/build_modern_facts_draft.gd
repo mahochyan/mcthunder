@@ -195,6 +195,39 @@ func _build(id: String, path: String) -> Dictionary:
 		row.emitted.append("crew.roles ← crew_roster[].roles flattened (lines %s)" % str(role_lines))
 	else:
 		row.skipped.append("crew_roster carried no roles")
+	# WT-040-R1 second pass: two more items ARE closable, but only from the dossier's RAW fields, and
+	# one tempting value must be REFUSED. The variant comes from the header's model name, and the
+	# acceleration from the raw "加减速度 = 4.0 / 8.0" row with the parsing rule stated. The header's
+	# "首发日期" is deliberately NOT used for assembly.year: it is War Thunder's release date, not the
+	# vehicle's historical year, so using it would be a false claim.
+	var raws: Variant = parsed.get("raw_fields",[])
+	if raws is Array:
+		for rf in raws:
+			if not rf is Dictionary: continue
+			var rname := str(rf.get("name",""))
+			var rline := int(rf.get("line",-1))
+			var rraw := str(rf.get("raw",""))
+			if rname == "模型名" and not rraw.is_empty():
+				if not row.has("assembly"): row.assembly = {}
+				row.assembly["variant"] = rraw
+				row.emitted.append("assembly component: variant ← raw header 模型名 (line %d)" % rline)
+			elif rname == "加减速度" and not rraw.is_empty():
+				# "4.0 / 8.0" is acceleration / deceleration; take the FIRST figure and say so.
+				var tokens := rraw.split("/")
+				var first := str(tokens[0]).strip_edges()
+				if first.is_valid_float():
+					row.runtime["acceleration"] = float(first)
+					row.emitted.append("runtime component: acceleration ← raw 加减速度 first figure (line %d): %s" % [rline,rraw])
+					row.facts["runtime.acceleration"] = {
+						"value": float(first), "status": "reference", "origin": SOURCE_LABEL,
+						"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,rline]],
+						"location": "%s line %d: %s = %s (the first figure of acceleration/deceleration)" % [SOURCE_LABEL,rline,rname,rraw],
+					}
+					row.notes.append("acceleration was parsed from the raw '加减速度 = %s' row: the first figure is taken as acceleration and the rule is stated" % rraw)
+				else:
+					row.skipped.append("加减速度 present but not parseable: %s" % rraw)
+			elif rname == "首发日期":
+				row.skipped.append("assembly.year NOT taken from 首发日期 (%s): that is the reference game's release date, not the vehicle's historical year - using it would be a false claim" % rraw)
 	row.notes.append("modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy")
 	row.notes.append("assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source")
 	row.notes.append("armour facts are NOT emitted: the zone mapping is awaiting review")

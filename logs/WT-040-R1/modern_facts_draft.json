@@ -5,7 +5,8 @@
       "assembly": {
         "caliber_mm": 125.0,
         "gun": "125mm_2A46_2_user_cannon",
-        "shell": "125mm_3bk_18m"
+        "shell": "125mm_3bk_18m",
+        "variant": "t_80b"
       },
       "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
       "emitted": [
@@ -24,7 +25,9 @@
         "assembly component: gun ← weapon_references[primary].source_weapon_id",
         "assembly component: caliber_mm ← shell.caliber_mm",
         "assembly component: shell ← shell.reference.bulletName",
-        "crew.roles ← crew_roster[].roles flattened (lines [420, 421, 422])"
+        "crew.roles ← crew_roster[].roles flattened (lines [420, 421, 422])",
+        "assembly component: variant ← raw header 模型名 (line 9)",
+        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0"
       ],
       "facts": {
         "crew.roles": {
@@ -70,6 +73,15 @@
           "status": "reference",
           "value": 20.8333333333333
         },
+        "runtime.acceleration": {
+          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 (the first figure of acceleration/deceleration)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L23"
+          ],
+          "status": "reference",
+          "value": 4.0
+        },
         "runtime.forward_max_speed": {
           "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
           "origin": "warthunder_reference",
@@ -110,6 +122,7 @@
       "id": "ussr_t_80b",
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
+        "acceleration was parsed from the raw '加减速度 = 4.0 / 8.0' row: the first figure is taken as acceleration and the rule is stated",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
@@ -117,6 +130,7 @@
         "the dossier's own arcade power multiplier note is a warning, not a value to import"
       ],
       "runtime": {
+        "acceleration": 4.0,
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
         "muzzle_velocity": 905.0,
@@ -124,14 +138,16 @@
         "rounds": 38.0
       },
       "skipped": [
-        "drive.acceleration_candidate absent: acceleration left to design"
+        "drive.acceleration_candidate absent: acceleration left to design",
+        "assembly.year NOT taken from 首发日期 (2018-09-11 00:00:00): that is the reference game's release date, not the vehicle's historical year - using it would be a false claim"
       ]
     },
     {
       "assembly": {
         "caliber_mm": 120.0,
         "gun": "120mm_Rheinmetall_L44_user_cannon",
-        "shell": "120mm_dm12"
+        "shell": "120mm_dm12",
+        "variant": "leopard_2a4"
       },
       "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
       "emitted": [
@@ -150,7 +166,9 @@
         "assembly component: gun ← weapon_references[primary].source_weapon_id",
         "assembly component: caliber_mm ← shell.caliber_mm",
         "assembly component: shell ← shell.reference.bulletName",
-        "crew.roles ← crew_roster[].roles flattened (lines [433, 434, 435, 436])"
+        "crew.roles ← crew_roster[].roles flattened (lines [433, 434, 435, 436])",
+        "assembly component: variant ← raw header 模型名 (line 9)",
+        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0"
       ],
       "facts": {
         "crew.roles": {
@@ -197,6 +215,15 @@
           "status": "reference",
           "value": 20.8333333333333
         },
+        "runtime.acceleration": {
+          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 (the first figure of acceleration/deceleration)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L23"
+          ],
+          "status": "reference",
+          "value": 4.0
+        },
         "runtime.forward_max_speed": {
           "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
           "origin": "warthunder_reference",
@@ -237,6 +264,7 @@
       "id": "germ_leopard_2a4",
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
+        "acceleration was parsed from the raw '加减速度 = 4.0 / 8.0' row: the first figure is taken as acceleration and the rule is stated",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
@@ -244,6 +272,7 @@
         "the dossier's own arcade power multiplier note is a warning, not a value to import"
       ],
       "runtime": {
+        "acceleration": 4.0,
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
         "muzzle_velocity": 1140.0,
@@ -251,7 +280,8 @@
         "rounds": 42.0
       },
       "skipped": [
-        "drive.acceleration_candidate absent: acceleration left to design"
+        "drive.acceleration_candidate absent: acceleration left to design",
+        "assembly.year NOT taken from 首发日期 (2018-06-06 00:00:00): that is the reference game's release date, not the vehicle's historical year - using it would be a false claim"
       ]
     }
   ],
