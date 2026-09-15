@@ -2,6 +2,11 @@
   "note": "facts draft built from the dossiers' normalized candidate layer; each fact carries its locator; armour and dimensions deliberately absent (see header)",
   "rows": [
     {
+      "assembly": {
+        "caliber_mm": 125.0,
+        "gun": "125mm_2A46_2_user_cannon",
+        "shell": "125mm_3bk_18m"
+      },
       "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
       "emitted": [
         "mobility.forward_speed_mps ← drive.forward_speed_candidate (line 20)",
@@ -12,7 +17,13 @@
         "runtime.forward_max_speed ← mobility.forward_speed_mps",
         "runtime component: forward_max_speed ← mobility.forward_speed_mps",
         "runtime component: reverse_max_speed ← drive.reverse_speed_candidate",
-        "runtime component: hull_turn_speed ← drive.hull_turn_candidate"
+        "runtime component: hull_turn_speed ← drive.hull_turn_candidate",
+        "weapon.capacity ← primary.capacity (line 439)",
+        "runtime component: rounds ← primary.capacity",
+        "runtime component: muzzle_velocity ← shell.muzzle_velocity_mps (the referenced round's velocity)",
+        "assembly component: gun ← weapon_references[primary].source_weapon_id",
+        "assembly component: caliber_mm ← shell.caliber_mm",
+        "assembly component: shell ← shell.reference.bulletName"
       ],
       "facts": {
         "mobility.design_mass_kg": {
@@ -71,10 +82,20 @@
           ],
           "status": "reference",
           "value": 2.77777777777778
+        },
+        "weapon.capacity": {
+          "location": "warthunder_reference line 439: primary.capacity (main gun rounds carried) = 38.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L439"
+          ],
+          "status": "reference",
+          "value": 38.0
         }
       },
       "id": "ussr_t_80b",
       "notes": [
+        "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
         "dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it",
         "the dossier's own arcade power multiplier note is a warning, not a value to import"
@@ -82,13 +103,20 @@
       "runtime": {
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
-        "reverse_max_speed": 2.77777777777778
+        "muzzle_velocity": 905.0,
+        "reverse_max_speed": 2.77777777777778,
+        "rounds": 38.0
       },
       "skipped": [
         "drive.acceleration_candidate absent: acceleration left to design"
       ]
     },
     {
+      "assembly": {
+        "caliber_mm": 120.0,
+        "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "shell": "120mm_dm12"
+      },
       "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
       "emitted": [
         "mobility.forward_speed_mps ← drive.forward_speed_candidate (line 20)",
@@ -99,7 +127,13 @@
         "runtime.forward_max_speed ← mobility.forward_speed_mps",
         "runtime component: forward_max_speed ← mobility.forward_speed_mps",
         "runtime component: reverse_max_speed ← drive.reverse_speed_candidate",
-        "runtime component: hull_turn_speed ← drive.hull_turn_candidate"
+        "runtime component: hull_turn_speed ← drive.hull_turn_candidate",
+        "weapon.capacity ← primary.capacity (line 453)",
+        "runtime component: rounds ← primary.capacity",
+        "runtime component: muzzle_velocity ← shell.muzzle_velocity_mps (the referenced round's velocity)",
+        "assembly component: gun ← weapon_references[primary].source_weapon_id",
+        "assembly component: caliber_mm ← shell.caliber_mm",
+        "assembly component: shell ← shell.reference.bulletName"
       ],
       "facts": {
         "mobility.design_mass_kg": {
@@ -158,10 +192,20 @@
           ],
           "status": "reference",
           "value": 2.77777777777778
+        },
+        "weapon.capacity": {
+          "location": "warthunder_reference line 453: primary.capacity (main gun rounds carried) = 42.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L453"
+          ],
+          "status": "reference",
+          "value": 42.0
         }
       },
       "id": "germ_leopard_2a4",
       "notes": [
+        "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
         "dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it",
         "the dossier's own arcade power multiplier note is a warning, not a value to import"
@@ -169,7 +213,9 @@
       "runtime": {
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
-        "reverse_max_speed": 2.77777777777778
+        "muzzle_velocity": 1140.0,
+        "reverse_max_speed": 2.77777777777778,
+        "rounds": 42.0
       },
       "skipped": [
         "drive.acceleration_candidate absent: acceleration left to design"

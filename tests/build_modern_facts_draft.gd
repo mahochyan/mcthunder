@@ -43,6 +43,15 @@ func _run() -> void:
 	print("MODERN_FACTS_DRAFT_DONE")
 	quit(0)
 
+func _fact(value: Variant, line: int, what: String) -> Dictionary:
+	return {
+		"value": value,
+		"status": "reference",
+		"origin": SOURCE_LABEL,
+		"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,line]],
+		"location": "%s line %d: %s = %s" % [SOURCE_LABEL,line,what,str(value)],
+	}
+
 func _build(id: String, path: String) -> Dictionary:
 	var row := {"id":id,"dossier":path,"facts":{},"emitted":[],"skipped":[],"notes":[]}
 	if not FileAccess.file_exists(path):
@@ -112,6 +121,54 @@ func _build(id: String, path: String) -> Dictionary:
 	else:
 		row.runtime["acceleration"] = accel
 		row.emitted.append("runtime component: acceleration ← drive.acceleration_candidate")
+	# WT-040-R1: the same candidate layer also carries the primary weapon's capacity and the shell it
+	# references, so weapon.capacity becomes a FACT, rounds/muzzle velocity become RUNTIME values, and
+	# the assembly component picks up its gun, shell and calibre. Everything is labelled with the round
+	# it belongs to: the velocity is that projectile's, not a generic barrel property.
+	var capacity: Variant = null
+	var caliber: Variant = null
+	var velocity: Variant = null
+	var bullet := ""
+	var gun_id := ""
+	for entry3 in fields:
+		if not entry3 is Dictionary: continue
+		var k := str(entry3.get("key",""))
+		var line3 := -1
+		var loc3: Array = entry3.get("locator",[])
+		if not loc3.is_empty() and loc3[0] is Dictionary: line3 = int(loc3[0].get("line",-1))
+		if k == "primary.capacity":
+			capacity = entry3.get("candidate_value",null)
+			row.facts["weapon.capacity"] = _fact(capacity,line3,"primary.capacity (main gun rounds carried)")
+			row.emitted.append("weapon.capacity ← primary.capacity (line %d)" % line3)
+		elif k == "shell.caliber_mm":
+			caliber = entry3.get("candidate_value",null)
+		elif k == "shell.muzzle_velocity_mps":
+			velocity = entry3.get("candidate_value",null)
+		elif k == "shell.reference.bulletName":
+			bullet = str(entry3.get("candidate_value",""))
+	if capacity != null:
+		row.runtime["rounds"] = capacity
+		row.emitted.append("runtime component: rounds ← primary.capacity")
+	if velocity != null:
+		row.runtime["muzzle_velocity"] = velocity
+		row.emitted.append("runtime component: muzzle_velocity ← shell.muzzle_velocity_mps (the referenced round's velocity)")
+	var weapons: Variant = parsed.get("weapon_references",[])
+	if weapons is Array:
+		for w in weapons:
+			if w is Dictionary and str(w.get("slot","")) == "primary":
+				gun_id = str(w.get("source_weapon_id",""))
+	if not gun_id.is_empty() or caliber != null or not bullet.is_empty():
+		row.assembly = {}
+		if not gun_id.is_empty():
+			row.assembly["gun"] = gun_id
+			row.emitted.append("assembly component: gun ← weapon_references[primary].source_weapon_id")
+		if caliber != null:
+			row.assembly["caliber_mm"] = caliber
+			row.emitted.append("assembly component: caliber_mm ← shell.caliber_mm")
+		if not bullet.is_empty():
+			row.assembly["shell"] = bullet
+			row.emitted.append("assembly component: shell ← shell.reference.bulletName")
+		row.notes.append("assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source")
 	row.notes.append("armour facts are NOT emitted: the zone mapping is awaiting review")
 	row.notes.append("dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it")
 	row.notes.append("the dossier's own arcade power multiplier note is a warning, not a value to import")

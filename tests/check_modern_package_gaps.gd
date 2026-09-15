@@ -19,10 +19,15 @@ func _run() -> void:
 	# fields arrive instead of the audit always reporting the same wall of missing keys.
 	var facts_by_id := {}
 	var runtime_by_id := {}
+	var assembly_by_id := {}
 	for f in _read_json(FACTS).get("rows",[]):
 		if not f is Dictionary: continue
 		facts_by_id[str(f.get("id",""))] = f.get("facts",{})
 		runtime_by_id[str(f.get("id",""))] = f.get("runtime",{})
+		# WT-040-R1: the assembly component draft has to reach the packet too - the runtime values
+		# closed as soon as they were wired in, and leaving assembly out repeated the same wiring
+		# mistake the audit had just taught me about.
+		assembly_by_id[str(f.get("id",""))] = f.get("assembly",{})
 	for row in rows:
 		var id := str(row.get("id",""))
 		var packet := {
@@ -39,7 +44,7 @@ func _run() -> void:
 			# missing runtime fields and armour zones instead of me describing them.
 			"facts": facts_by_id.get(id,{}),
 			"sources": {},
-			"assembly": {},
+			"assembly": assembly_by_id.get(id,{}),
 			"compatible_shells": [],
 			"license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
 		}

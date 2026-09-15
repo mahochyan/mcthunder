@@ -60,3 +60,33 @@
 ### 仍缺（**依赖裁定/设计** ✓，逐项归属明确 ✓）
 `assembly.*` ×7 ✓ · `crew.roles` ✓ · **`dimensions.width_m` / `reference_length_m`**（资料 ✓）· `weapon.capacity` ✓ · `runtime`：`acceleration`（**无候选值** ⇒ 设计 ✓）`reload_time` ✓ `rounds` ✓ `muzzle_velocity` ✓ `pitch_min/max` ✓ `penetration_curve` ✓ · `modules`/`crew` 数量 ✓
 **并新增一处必需件** ✓：`model_binding: new vehicle requires explicit delivered model bindings` ✓（新车辆必须提供**显式交付的模型绑定** ✓）。
+
+---
+
+## 6. 缺口数**五连下降**（✓ 可量化验收持续有效 ✓）
+| 阶段 | T-80B | 豹2A4 | 关闭的字段 |
+|---|---|---|---|
+| 初始 | **24** | **25** | — |
+| 加事实键 | 23 | 24 | `mobility.forward_speed_mps` ✓ |
+| 修类别错误 | 20 | 21 | `runtime.forward_max_speed` / `reverse_max_speed` / `hull_turn_speed` ✓ |
+| 加武器/弹药（事实+组件） | 17 | 18 | `weapon.capacity` ✓ · `runtime.rounds` ✓ · `runtime.muzzle_velocity` ✓ |
+| **修 assembly 接线** | **14** ✓ | **15** ✓ | `assembly.gun` ✓ · `assembly.shell` ✓ · `assembly.caliber_mm` ✓ |
+
+### 新引入的数据（**逐车不同 + 带引用** ✓）
+| 字段 | T-80B | 豹2A4 | 引用 |
+|---|---|---|---|
+| `assembly.gun` | `125mm_2A46_2_user_cannon` ✓ | `120mm_Rheinmetall_L44_user_cannon` ✓ | `weapon_references[primary]` ✓ |
+| `assembly.shell` | `125mm_3bk_18m` ✓ | `120mm_dm12` ✓ | `shell.reference.bulletName` ✓ |
+| `assembly.caliber_mm` | **125.0** ✓ | **120.0** ✓ | `wt-…#L443 / #L457` ✓ |
+| `runtime.rounds` / `weapon.capacity` | **38** ✓ | **42** ✓ | `#L439 / #L453` ✓ |
+| `runtime.muzzle_velocity` | **905** ✓ | **1140** ✓ | `#L445 / #L459` ✓（**注明为该弹种初速** ✓ 非笼统炮口属性 ✓） |
+
+### **两次接线失误（均由审计抓出 ✓，均已修 ✓）**
+1. `runtime` 的值曾只写进 `facts` ✗（校验器读 **组件** ✓）；
+2. `assembly` 组件生成了却**没传进审计的 packet** ✗。
+⇒ **教训** ✓：**生成 ≠ 接线** ✓；每次都必须以**缺口数下降**验证"数据真的到达了校验器" ✓。
+
+### 剩余 14 项（归属明确 ✓）
+**可继续闭合（无需裁定 ✓）**：`crew.roles` ✓ · `modules`/`crew` 数量 ✓（档案 182 refs / 3–4 名 ✓）· 待查 `assembly.suspension` ✓
+**设计**：`acceleration` ✓ · `reload_time` ✓ · `pitch_min/max` ✓ · `penetration_curve` ✓ · `assembly.variant/mount/year` ✓
+**独立资料**：`dimensions.width_m` / `reference_length_m` ✓（必须以**外部来源**提供 ✓，不得用我自己的测量以免循环 ✓）
