@@ -1,0 +1,64 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] a player binds to one entity for its session
+[PASS] an observer binds with its own role
+[PASS] an empty session id is refused
+[PASS] an unknown role is refused
+[PASS] the owner may command its own entity
+[PASS] another player's entity is refused
+[PASS] an observer role cannot command at all
+[PASS] an unbound peer must handshake first
+[PASS] a well-formed command inside every range is accepted
+[PASS] a forged entity id is refused
+[PASS] a refused command does not advance the sequence
+[PASS] replaying an old sequence is refused
+[PASS] an implausible sequence jump is refused
+[PASS] input older than the age window is refused
+[PASS] input from the future is refused
+[PASS] NaN never reaches the simulation
+[PASS] Inf never reaches the simulation
+[PASS] an out-of-range throttle is refused
+[PASS] an out-of-range gun pitch is refused
+[PASS] a non-boolean flag is refused
+[PASS] a NaN aim point is refused
+[PASS] an aim point outside the world is refused
+[PASS] an envelope without a sequence is refused
+[PASS] after every refusal the sequence is still the last accepted one
+[PASS] a per-tick message flood is refused
+[PASS] a normal message rate is allowed
+[PASS] the per-second command rate is bounded (first refusal at 20)
+[PASS] an unknown message kind is refused
+[PASS] a logical vehicle id is allowed
+[PASS] a logical shell id is allowed
+[PASS] a client cannot name res://scripts/network/server_main.gd
+[PASS] a client cannot name user://profiles/commander
+[PASS] a client cannot name ../../secret
+[PASS] a client cannot name GDScript
+[PASS] a client cannot name https://example.invalid/x
+[PASS] an arbitrary path request is refused by name
+[PASS] sensitive session fields are stripped from log payloads
+[PASS] credentials never appear in a log payload
+[PASS] a reconnect token has its own outcome
+[PASS] an unknown peer's token is refused
+[PASS] an empty token is its own refusal
+[PASS] expiry reports authorization feedback, not an error
+[PASS] an expired session must handshake again
+[PASS] only a finished match can issue a receipt
+[PASS] a receipt must match the frozen result digest
+[PASS] an unknown outcome cannot be rewarded
+[PASS] a valid finished result issues a 60-point receipt
+[PASS] re-issuing the identical receipt is harmless
+[PASS] a conflicting re-issue of the same token is refused
+[PASS] a claim with a mismatched digest is refused
+[PASS] the first claim pays once
+[PASS] a repeated claim adds no earnings
+[PASS] a claim without an issued receipt is refused
+[PASS] editing the local save cannot create a receipt
+[PASS] the trusted online points are unchanged by the local edit
+[PASS] a failed online claim never deletes the offline save
+[PASS] the offline domain is declared unable to mint receipts
+[PASS] a self-hosted host's receipt is labelled with its trust level
+[PASS] a self-hosted receipt is not counted as an authority result
+[PASS] host trust is labelled explicitly
+=== 结果: 60 项检查, 0 失败 ===
+NETWORK_IDENTITY_CHECKS_PASS

@@ -115,7 +115,13 @@ func drive_route(team: int, index: int, alternate: bool, wide: bool, flank: bool
 	var peak_y := 0.0
 	var steps := 0
 	# Fixed-step integration fixture uses actual poll/submit/consume/drive/collision methods.
-	for i in 15000:
+	# WT-036-R1 user ruling A1: the route budget is raised from 15000 to 24000 ticks (250 s to
+	# 400 s). This IS a test-semantics change and is recorded as such: the T018-H01 spawn-slot route
+	# does not finish inside 15000 ticks on some runs while the driver is still following and making
+	# progress (measured: still following at speed 1.2 m/s with 2.3 m to go when the 6400-tick trace
+	# cap cut the dump, and the run then failed at the 15000-tick budget), so the old limit, not the
+	# route, was the binding constraint. Raising it does not relax any assertion.
+	for i in 24000:
 		actor.advance_standalone_tick(1.0/60)
 		var p := actor.tank.global_position
 		bounded = bounded and p.is_finite() and p.distance_to(previous)<actor.definition.forward_max_speed/60+0.2

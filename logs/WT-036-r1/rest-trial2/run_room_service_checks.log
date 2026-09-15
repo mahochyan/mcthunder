@@ -1,0 +1,56 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] a room is created with a host
+[PASS] 4v4 means eight seats (8)
+[PASS] the room carries the frozen rule preset id
+[PASS] an unknown mode is refused
+[PASS] a fresh room has no seats
+[PASS] the host takes the first seat
+[PASS] the seat is recorded once
+[PASS] a duplicate join resumes the same seat instead of adding another
+[PASS] a protocol mismatch is reported clearly
+[PASS] a content hash mismatch is reported clearly
+[PASS] an expired authorization has its own feedback
+[PASS] the room fills to capacity
+[PASS] a ninth player is refused with room_full
+[PASS] eight seats balance four against four
+[PASS] nobody may control a vehicle before the round starts
+[PASS] one loaded seat moves the room to loading, not playing
+[PASS] a single loaded seat still cannot drive
+[PASS] the room plays only once every seat is loaded
+[PASS] loaded seats may now control their vehicles
+[PASS] a peer without a seat never controls anything
+[PASS] an unknown peer cannot mark loading
+[PASS] when the host leaves in a client room the lowest remaining peer inherits it
+[PASS] the departed seat is gone
+[PASS] a dedicated server keeps the room when a client leaves
+[PASS] a client room closes when its last seat leaves
+[PASS] leaving without a seat is refused
+[PASS] settling a playing round freezes it
+[PASS] the round issues exactly one receipt
+[PASS] a client-hosted room's receipt is labelled host_self_hosted
+[PASS] a settled round cannot be settled twice
+[PASS] a current-round event is accepted
+[PASS] opening the next round clears every round-local event
+[PASS] the previous round id is recorded for traceability
+[PASS] a late event from the old round is refused
+[PASS] an event from the current round is accepted
+[PASS] the next round starts unready for every continuing seat
+[PASS] nobody drives in the new round before loading it
+[PASS] a round that is not playing cannot be settled
+[PASS] eight compatible players form one room without a global service
+[PASS] the room holds all eight players
+[PASS] different content hashes are grouped separately
+[PASS] a tier spread beyond the design value is left unmatched
+[PASS] the tier spread is a small design value, not a copied ranking system
+[PASS] discovery, relay, dedicated hosting and accounts are proposed separately
+[PASS] every external service is explicitly unauthorised and has a local stand-in
+[PASS] a loopback run is registered
+[PASS] a loopback run is not reported as a public test
+[PASS] the public scope is labelled when explicitly registered
+[PASS] an unknown scope is refused
+[PASS] the room UI contract lists what must be shown
+[PASS] the UI contract forbids driving before loading completes
+[PASS] the window room UI is honestly marked NOT_RUN
+=== 结果: 52 项检查, 0 失败 ===
+ROOM_SERVICE_CHECKS_PASS

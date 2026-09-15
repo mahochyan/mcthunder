@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real historical actors ready
+[PASS] acceleration raises actual hull nose A
+[RESPONSE] A before=3.86010517112421 after=2.16010517112421 pitch_deg=-0.36234810708957
+[PASS] forward braking lowers actual hull nose A
+[PASS] braking response remains bounded A
+[FAIL] muzzle and damage query follow authoritative braking tilt A
+[PASS] network snapshot contains actual hull pitch A
+[PASS] stopped hull settles back to ground attitude A
+[PASS] reverse acceleration lowers nose A
+[PASS] braking from reverse raises nose A
+[PASS] flight preserves takeoff pitch without ground recovery torque A
+[PASS] reset clears suspension response A
+[PASS] acceleration raises actual hull nose B
+[RESPONSE] B before=6.1248831453379 after=3.9248831453379 pitch_deg=-0.68601689497541
+[PASS] forward braking lowers actual hull nose B
+[PASS] braking response remains bounded B
+[FAIL] muzzle and damage query follow authoritative braking tilt B
+[PASS] network snapshot contains actual hull pitch B
+[PASS] stopped hull settles back to ground attitude B
+[PASS] reverse acceleration lowers nose B
+[PASS] braking from reverse raises nose B
+[PASS] flight preserves takeoff pitch without ground recovery torque B
+[PASS] reset clears suspension response B
+[PASS] response integration agrees at 60 and 120 Hz for same acceleration
+[PASS] invalid suspension profile rejected
+=== 结果: 23 项检查, 2 失败 ===
+CHASSIS_RESPONSE_CHECKS_FAIL

@@ -1,0 +1,72 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] complete authored crew loading package enters real pipeline
+[PASS] serialized loading policy reaches admitted estimated definition
+[PASS] complete authored automatic loading package enters real pipeline
+[PASS] serialized loading policy reaches admitted estimated definition
+[PASS] loading package rejects mode
+[PASS] loading package rejects fake_crew
+[PASS] loading package rejects empty_modules
+[PASS] loading package rejects wrong_module
+[PASS] loading package rejects wrong_kind
+[PASS] loading package rejects wrong_rack
+[PASS] loading package rejects empty_feed
+[PASS] loading package rejects overlap
+[PASS] loading package rejects nan
+[PASS] loading package rejects negative
+[PASS] loading package rejects wrong_type
+[PASS] loading package rejects unknown_field
+[PASS] loading package rejects equipment_missing
+[PASS] loading package rejects profile_mismatch
+[PASS] loading package rejects fake_verified
+[PASS] loading package rejects unknown_equipment
+[PASS] us_m4a3_75w_vvss_1944: omitted profile preserves legacy authored crew policy
+[PASS] us_m24_m6_t85e1_1951: omitted profile preserves legacy authored crew policy
+[PASS] us_m26_m3_1945: omitted profile preserves legacy authored crew policy
+[PASS] us_m36_m4a1_1945: omitted profile preserves legacy authored crew policy
+[PASS] finite six-round fixture includes chamber within declared rack capacities
+[PASS] full ready rack including chamber rejects reservation
+[PASS] rack reservation retains canonical source ownership and total stock
+[PASS] destination reservation prevents duplicate move and external overflow
+[PASS] internal move commits once without increasing external supplied ledger
+[PASS] explicit feed-rack transaction takes exactly one round
+[PASS] cancelling reserved move never adds a round
+[PASS] death cancels reserved move and loses ammunition once
+[PASS] reconfiguration cannot revive a stale reservation token
+[PASS] runtime false package registers with actual layout/model gate
+[PASS] actual Actor installs serialized loading policy and rack loadout
+[PASS] Actor setup does not mutate any authored loading policy array
+[PASS] reconfiguring actual typed inventory preserves the authored rack policy and ledger
+[LOADING_STATE] initial false {"binding_errors":[],"caps":{"can_load":true,"crew_alive":4,"drive":true,"fire":true,"left_track":true,"loading_mode":"crew","loading_reasons":[],"pitch_scale":1.0,"reasons":[],"reload_rate":1.0,"replenishment_allowed":true,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.0,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"},"loader":{"alive":true,"original_role":"loader"}},"inventory":{"available":6,"capacity":6,"chamber":1,"chamber_from":"ammo_floor_left","chamber_shell":"us_m24_m6_t85e1_1951_shell","fired":0,"in_transfer":0,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":1},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":4}},"racks":{"ammo_floor_left":1,"ammo_floor_right":4},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":6},"supplied":6,"transfer_from":"","transfer_shell":""},"mechanism":{},"position":"(0.0, 0.000149, 0.0)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner","loader":"loader"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] accurate test roster has no fictitious loader or initial penalty
+[LOADING_STATE] manual casualty {"binding_errors":[],"caps":{"can_load":true,"crew_alive":3,"drive":true,"fire":true,"left_track":true,"loading_mode":"crew","loading_reasons":["loading_crew:loader"],"pitch_scale":1.0,"reasons":[],"reload_rate":0.625,"replenishment_allowed":true,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.0,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"},"loader":{"alive":false,"original_role":"loader"}},"inventory":{"available":6,"capacity":6,"chamber":1,"chamber_from":"ammo_floor_left","chamber_shell":"us_m24_m6_t85e1_1951_shell","fired":0,"in_transfer":0,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":1},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":4}},"racks":{"ammo_floor_left":1,"ammo_floor_right":4},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":6},"supplied":6,"transfer_from":"","transfer_shell":""},"mechanism":{},"position":"(0.0, 0.000149, 0.0)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner","loader":"loader"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] manual loader casualty retains legacy 1/1.6 loading rate
+[PASS] manual fixture fires actual chambered round
+[PASS] manual casualty cannot complete the healthy 0.5-second cycle
+[PASS] manual slowed cycle naturally finishes without changing ledger
+[PASS] runtime true package registers with actual layout/model gate
+[PASS] actual Actor installs serialized loading policy and rack loadout
+[PASS] Actor setup does not mutate any authored loading policy array
+[PASS] reconfiguring actual typed inventory preserves the authored rack policy and ledger
+[LOADING_STATE] initial true {"binding_errors":[],"caps":{"can_load":true,"crew_alive":3,"drive":true,"fire":true,"left_track":true,"loading_mode":"automatic","loading_reasons":[],"pitch_scale":1.0,"reasons":[],"reload_rate":1.0,"replenishment_allowed":true,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.0,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"}},"inventory":{"available":6,"capacity":6,"chamber":1,"chamber_from":"ammo_floor_left","chamber_shell":"us_m24_m6_t85e1_1951_shell","fired":0,"in_transfer":0,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":1},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":4}},"racks":{"ammo_floor_left":1,"ammo_floor_right":4},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":6},"supplied":6,"transfer_from":"","transfer_shell":""},"mechanism":{"external":false,"fire_crew_targets":[],"fire_module_targets":[],"integrity":100.0,"kind":"autoloader","max_integrity":100.0,"resistance_mm":10.0},"position":"(0.0, 0.000149, 0.0)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] accurate test roster has no fictitious loader or initial penalty
+[PASS] automatic three-person HUD does not claim a missing loader
+[PASS] automatic fixture fires through real projectile manager
+[PASS] actual module transaction disables automatic mechanism
+[PASS] broken mechanism holds partial progress and transferred round without a completion bypass
+[PASS] broken in-progress mechanism cannot fire an empty chamber
+[LOADING_STATE] disabled after supply {"binding_errors":[],"caps":{"can_load":false,"crew_alive":3,"drive":true,"fire":true,"left_track":true,"loading_mode":"automatic","loading_reasons":["loading_module:loader_mechanism"],"pitch_scale":1.0,"reasons":[],"reload_rate":0.0,"replenishment_allowed":false,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.366666666666667,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"}},"inventory":{"available":5,"capacity":6,"chamber":0,"chamber_from":"","chamber_shell":"","fired":1,"in_transfer":1,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":0},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":4}},"racks":{"ammo_floor_left":0,"ammo_floor_right":4},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":5},"supplied":6,"transfer_from":"ammo_floor_left","transfer_shell":"us_m24_m6_t85e1_1951_shell"},"mechanism":{"external":false,"fire_crew_targets":[],"fire_module_targets":[],"integrity":0.0,"kind":"autoloader","max_integrity":100.0,"resistance_mm":10.0},"position":"(0.0, 0.000942, 0.127984)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] external supply cannot bypass mechanical pause
+[LOADING_STATE] repair elapsed {"binding_errors":[],"caps":{"can_load":true,"crew_alive":3,"drive":true,"fire":true,"left_track":true,"loading_mode":"automatic","loading_reasons":[],"pitch_scale":1.0,"reasons":[],"reload_rate":1.0,"replenishment_allowed":true,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.283333333333333,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"}},"inventory":{"available":5,"capacity":6,"chamber":0,"chamber_from":"","chamber_shell":"","fired":1,"in_transfer":1,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":0},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":4}},"racks":{"ammo_floor_left":0,"ammo_floor_right":4},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":5},"supplied":6,"transfer_from":"ammo_floor_left","transfer_shell":"us_m24_m6_t85e1_1951_shell"},"mechanism":{"external":false,"fire_crew_targets":[],"fire_module_targets":[],"integrity":50.0,"kind":"autoloader","max_integrity":100.0,"resistance_mm":10.0},"position":"(0.0, 0.000942, 0.127984)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"module_repaired","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] actual repair sequence restores bound mechanism at existing repair threshold
+[PASS] repaired mechanism naturally completes held cycle without replenishing rounds
+[PASS] mechanical failure permits existing chambered round once but cannot start next cycle
+[PASS] reset restores original typed loadout and three-person configuration
+[PASS] actual reset preserves every authored loading policy array
+[PASS] exhausted feed rack cannot directly draw remaining reserve or start a fictitious reload
+[LOADING_STATE] replenish elapsed {"binding_errors":[],"caps":{"can_load":true,"crew_alive":3,"drive":true,"fire":true,"left_track":true,"loading_mode":"automatic","loading_reasons":[],"pitch_scale":1.0,"reasons":[],"reload_rate":1.0,"replenishment_allowed":true,"right_track":true,"stabilizer_available":true,"steer":true,"track_pivot":false,"turret_speed":1.0,"yaw_scale":1.0},"cooldown":0.0,"crew":{"commander":{"alive":true,"original_role":"commander"},"driver":{"alive":true,"original_role":"driver"},"gunner":{"alive":true,"original_role":"gunner"}},"inventory":{"available":4,"capacity":6,"chamber":1,"chamber_from":"ammo_floor_left","chamber_shell":"us_m24_m6_t85e1_1951_shell","fired":2,"in_transfer":0,"lost":0,"rack_move":{},"rack_shells":{"ammo_floor_left":{"us_m24_m6_t85e1_1951_shell":1},"ammo_floor_right":{"us_m24_m6_t85e1_1951_shell":2}},"racks":{"ammo_floor_left":1,"ammo_floor_right":2},"selected_shell":"us_m24_m6_t85e1_1951_shell","shell_counts":{"us_m24_m6_t85e1_1951_shell":4},"supplied":6,"transfer_from":"","transfer_shell":""},"mechanism":{"external":false,"fire_crew_targets":[],"fire_module_targets":[],"integrity":100.0,"kind":"autoloader","max_integrity":100.0,"resistance_mm":10.0},"position":"(0.0, 0.000942, 0.258027)","reason":"","recovery_action":"","recovery_enabled":true,"recovery_reason":"","repair_progress":0.0,"repair_target":"","roles":{"commander":"commander","driver":"driver","gunner":"gunner"},"velocity":"(0.0, 0.0, 0.0)"}
+[PASS] independent reserve-to-feed move then full shot cycle restores a chamber without adding ammo
+[PASS] paused public loading/supply calls cannot advance transactions
+[PASS] same-tick recovery fire commits before loading completion and prevents a stale-capability chamber
+=== 结果: 62 项检查, 0 失败 ===
+LOADING_CHECKS_PASS

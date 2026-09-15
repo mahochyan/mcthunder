@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] vehicle holding at its objective is a legitimate hold, never congestion
+[PASS] stalled movement task is recorded with duration, blocker class, driver phase and ai phase
+[PASS] stall unrecovered at end is recorded as open_at_end, never as success
+[PASS] open wait contributes to total and longest without closing it
+[PASS] repeated snapshots do not double-count open waits
+[PASS] one hundred actual planning requests survive 64-event ring rollover
+[PASS] retreat outside a real supply area is not resupply
+=== done: 7 checks, 0 failed ===
+TELEMETRY_MEASURES_PASS

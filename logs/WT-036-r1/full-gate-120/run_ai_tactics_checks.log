@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] every living slot receives a task (8 of 8)
+[PASS] attack and flank tasks cover all three public objectives (["C", "A", "B"])
+[PASS] exactly one slot is assigned to the flank role
+[PASS] the remaining mobile slots push public objectives (7 attack)
+[PASS] task allocation is deterministic for identical roster and context
+[PASS] a re-assignment inside the cooldown keeps the same role and objective
+[PASS] task age is tracked for the hysteresis window
+[PASS] an immobile damaged slot switches to repair immediately, bypassing the cooldown
+[PASS] a dry slot switches to resupply immediately
+[PASS] the resupply task resolves to the team's own supply point
+[PASS] decision reason carries task
+[PASS] decision reason carries objective
+[PASS] decision reason carries reason
+[PASS] decision reason carries assigned_age_s
+[PASS] decision reason carries urgent
+[PASS] decision reason carries last_seen_age_s
+[PASS] decision reason carries ammo_state
+[PASS] decision reason carries damage_state
+[PASS] decision reason reports the state it actually saw
+[PASS] holding an owned objective is recorded as a legitimate hold
+[PASS] inside a chokepoint the higher entity id yields to the lower one
+[PASS] the lower entity id does not yield to the higher one
+[PASS] nobody yields outside a chokepoint
+[PASS] nobody yields when headings are not opposing
+[PASS] give-way applies to the same team only
+[PASS] give-way waiting is bounded in time
+[PASS] combat laboratory ready for the perception check
+[info] hidden observation={  }
+[PASS] with the target behind cover the AI reports it as not visible
+[PASS] perception exposes no modules from the target's internals
+[PASS] perception exposes no crew from the target's internals
+[PASS] perception exposes no module_states from the target's internals
+[PASS] perception exposes no crew_states from the target's internals
+[PASS] the hidden target is never tracked through the wall over 500 ticks
+[PASS] a bound allocator assigns a role to the real AI (attack)
+[PASS] the assigned task carries the public objective id
+[PASS] task assignment is recorded as an auditable event
+[PASS] a head-on friendly inside a chokepoint produces a throttle-zero hold
+[PASS] the hold is bounded to the give-way window
+[PASS] after the hold expires the AI is no longer forced to yield
+[info] wired role=attack objective=A reason=public_objective_push hold_expired_throttle=0.00
+=== 结果: 39 项检查, 0 失败 ===
+AI_TACTICS_CHECKS_PASS

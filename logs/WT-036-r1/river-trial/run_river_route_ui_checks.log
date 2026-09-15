@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS garage driving entry builds admitted local navigation graph
+PASS real pause button plans route to B without resuming
+PASS last pause action fits default window
+PASS route guide preserves local driver and terminates at real objective approach
+PASS changing objective replans through normal selector
+PASS layout switch uses inner road graph and clears outer route
+PASS off-network location clears stale route and gives recovery instruction
+PASS quarry road and shoulders remain above physical terrain across 156 samples
+PASS normal W input continues driving on corrected quarry road
+PASS route planning returns normally without changing profile or creating match rewards
+RESULT river_route_ui passed=10 failed=0

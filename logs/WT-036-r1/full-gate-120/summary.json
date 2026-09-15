@@ -1,0 +1,962 @@
+﻿[
+    {
+        "suite":  "run_checks",
+        "cls":  "PASS",
+        "pass":  217,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  8.9
+    },
+    {
+        "suite":  "run_layout_checks",
+        "cls":  "PASS",
+        "pass":  0,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_query_checks",
+        "cls":  "PASS",
+        "pass":  0,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.6
+    },
+    {
+        "suite":  "run_slope_pivot_checks",
+        "cls":  "PASS",
+        "pass":  3,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_model_binding_checks",
+        "cls":  "PASS",
+        "pass":  63,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.6
+    },
+    {
+        "suite":  "run_suspension_checks",
+        "cls":  "PASS",
+        "pass":  28,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_track_drive_checks",
+        "cls":  "PASS",
+        "pass":  15,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.9
+    },
+    {
+        "suite":  "run_powertrain_checks",
+        "cls":  "PASS",
+        "pass":  19,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2
+    },
+    {
+        "suite":  "run_query_cache_checks",
+        "cls":  "PASS",
+        "pass":  13,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.7
+    },
+    {
+        "suite":  "run_simulation_phase_checks",
+        "cls":  "PASS",
+        "pass":  13,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.6
+    },
+    {
+        "suite":  "run_turret_mechanism_checks",
+        "cls":  "PASS",
+        "pass":  34,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_loading_checks",
+        "cls":  "PASS",
+        "pass":  62,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_partial_support_checks",
+        "cls":  "PASS",
+        "pass":  7,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_landing_contact_checks",
+        "cls":  "PASS",
+        "pass":  13,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_landing_response_checks",
+        "cls":  "PASS",
+        "pass":  23,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.6
+    },
+    {
+        "suite":  "run_moving_contact_checks",
+        "cls":  "PASS",
+        "pass":  67,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.3
+    },
+    {
+        "suite":  "run_surface_drive_checks",
+        "cls":  "PASS",
+        "pass":  15,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_hull_frame_checks",
+        "cls":  "PASS",
+        "pass":  25,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_chassis_recoil_checks",
+        "cls":  "PASS",
+        "pass":  23,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  6.1
+    },
+    {
+        "suite":  "run_track_damage_checks",
+        "cls":  "PASS",
+        "pass":  21,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_ammo_compartment_checks",
+        "cls":  "PASS",
+        "pass":  63,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_fire_control_checks",
+        "cls":  "PASS",
+        "pass":  57,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  4.5
+    },
+    {
+        "suite":  "run_suspension_network_checks",
+        "cls":  "PASS",
+        "pass":  9,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  3.7
+    },
+    {
+        "suite":  "run_optics_checks",
+        "cls":  "PASS",
+        "pass":  24,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.7
+    },
+    {
+        "suite":  "run_moving_target_tick_checks",
+        "cls":  "PASS",
+        "pass":  0,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_world_vehicle_phase_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_vehicle_readiness_checks",
+        "cls":  "PASS",
+        "pass":  76,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_command_contract_checks",
+        "cls":  "PASS",
+        "pass":  35,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_track_assembly_checks",
+        "cls":  "PASS",
+        "pass":  89,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.7
+    },
+    {
+        "suite":  "run_sight_ballistics_checks",
+        "cls":  "PASS",
+        "pass":  73,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.5
+    },
+    {
+        "suite":  "run_observation_policy_checks",
+        "cls":  "PASS",
+        "pass":  32,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_role_mapping_checks",
+        "cls":  "PASS",
+        "pass":  72,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.6
+    },
+    {
+        "suite":  "run_support_actions_checks",
+        "cls":  "PASS",
+        "pass":  51,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_engagement_distance_checks",
+        "cls":  "PASS",
+        "pass":  15,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_ballistic_intercept_checks",
+        "cls":  "PASS",
+        "pass":  149,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.6
+    },
+    {
+        "suite":  "run_material_response_checks",
+        "cls":  "PASS",
+        "pass":  76,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_long_rod_damage_checks",
+        "cls":  "PASS",
+        "pass":  57,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.3
+    },
+    {
+        "suite":  "run_spall_checks",
+        "cls":  "PASS",
+        "pass":  78,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_chemical_checks",
+        "cls":  "PASS",
+        "pass":  92,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_era_checks",
+        "cls":  "PASS",
+        "pass":  73,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_composite_checks",
+        "cls":  "PASS",
+        "pass":  117,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_fuze_checks",
+        "cls":  "PASS",
+        "pass":  137,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_content_record_checks",
+        "cls":  "PASS",
+        "pass":  65,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.6
+    },
+    {
+        "suite":  "run_reference_admission_checks",
+        "cls":  "PASS",
+        "pass":  105,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  3.1
+    },
+    {
+        "suite":  "run_match_rules_checks",
+        "cls":  "PASS",
+        "pass":  43,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_team_traffic_checks",
+        "cls":  "PASS",
+        "pass":  34,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_authority_state_checks",
+        "cls":  "PASS",
+        "pass":  19,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_diagnostic_budget_checks",
+        "cls":  "PASS",
+        "pass":  4,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_tech_segment_checks",
+        "cls":  "PASS",
+        "pass":  50,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_asset_registry_checks",
+        "cls":  "PASS",
+        "pass":  44,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_match_event_checks",
+        "cls":  "PASS",
+        "pass":  11,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_modern_equipment_checks",
+        "cls":  "PASS",
+        "pass":  55,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_modern_candidate_checks",
+        "cls":  "PASS",
+        "pass":  56,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.7
+    },
+    {
+        "suite":  "run_equipment_package_checks",
+        "cls":  "PASS",
+        "pass":  74,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.2
+    },
+    {
+        "suite":  "run_composite_content_checks",
+        "cls":  "PASS",
+        "pass":  50,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_composite_binding_checks",
+        "cls":  "PASS",
+        "pass":  77,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_ai_recovery_checks",
+        "cls":  "PASS",
+        "pass":  16,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  4.1
+    },
+    {
+        "suite":  "run_ai_intercept_checks",
+        "cls":  "PASS",
+        "pass":  106,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.5
+    },
+    {
+        "suite":  "run_ai_tactics_checks",
+        "cls":  "PASS",
+        "pass":  39,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.9
+    },
+    {
+        "suite":  "run_loading_mechanism_checks",
+        "cls":  "PASS",
+        "pass":  65,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_long_rod_content_checks",
+        "cls":  "PASS",
+        "pass":  24,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2
+    },
+    {
+        "suite":  "run_chemical_content_checks",
+        "cls":  "PASS",
+        "pass":  31,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2
+    },
+    {
+        "suite":  "run_spall_content_checks",
+        "cls":  "PASS",
+        "pass":  33,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2
+    },
+    {
+        "suite":  "run_era_binding_checks",
+        "cls":  "PASS",
+        "pass":  119,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_bound_model_package_checks",
+        "cls":  "PASS",
+        "pass":  59,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.2
+    },
+    {
+        "suite":  "run_model_binding_probe_checks",
+        "cls":  "PASS",
+        "pass":  60,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.7
+    },
+    {
+        "suite":  "run_airborne_drive_checks",
+        "cls":  "PASS",
+        "pass":  13,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.2
+    },
+    {
+        "suite":  "run_app_flow_checks",
+        "cls":  "PASS",
+        "pass":  127,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  38.4
+    },
+    {
+        "suite":  "run_balance_matrix_checks",
+        "cls":  "PASS",
+        "pass":  18,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  110.6
+    },
+    {
+        "suite":  "run_build_identity_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_era_network_checks",
+        "cls":  "PASS",
+        "pass":  22,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_garage_frontend_checks",
+        "cls":  "PASS",
+        "pass":  19,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.8
+    },
+    {
+        "suite":  "run_input_binding_checks",
+        "cls":  "PASS",
+        "pass":  16,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  5.6
+    },
+    {
+        "suite":  "run_long_rod_checks",
+        "cls":  "PASS",
+        "pass":  56,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_map_pack_checks",
+        "cls":  "PASS",
+        "pass":  7,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.7
+    },
+    {
+        "suite":  "run_material_replay_checks",
+        "cls":  "PASS",
+        "pass":  43,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2
+    },
+    {
+        "suite":  "run_menu_fire_handoff_checks",
+        "cls":  "PASS",
+        "pass":  3,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  4.9
+    },
+    {
+        "suite":  "run_model_showroom_checks",
+        "cls":  "PASS",
+        "pass":  15,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_modern_model_mount_checks",
+        "cls":  "PASS",
+        "pass":  41,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_query_metrics_checks",
+        "cls":  "PASS",
+        "pass":  5,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.3
+    },
+    {
+        "suite":  "run_research_tree_checks",
+        "cls":  "PASS",
+        "pass":  26,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  6.6
+    },
+    {
+        "suite":  "run_save_lock_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.3
+    },
+    {
+        "suite":  "run_telemetry_measures",
+        "cls":  "PASS",
+        "pass":  7,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_network_authority_checks",
+        "cls":  "PASS",
+        "pass":  62,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_network_controller_checks",
+        "cls":  "PASS",
+        "pass":  11,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_network_event_journal_checks",
+        "cls":  "PASS",
+        "pass":  64,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.5
+    },
+    {
+        "suite":  "run_network_event_recovery_checks",
+        "cls":  "PASS",
+        "pass":  58,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.1
+    },
+    {
+        "suite":  "run_network_fault_checks",
+        "cls":  "PASS",
+        "pass":  42,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_network_fire_control_checks",
+        "cls":  "PASS",
+        "pass":  35,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  3.3
+    },
+    {
+        "suite":  "run_network_frame_checks",
+        "cls":  "PASS",
+        "pass":  21,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.7
+    },
+    {
+        "suite":  "run_network_identity_checks",
+        "cls":  "PASS",
+        "pass":  60,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  0.4
+    },
+    {
+        "suite":  "run_network_pose_checks",
+        "cls":  "PASS",
+        "pass":  26,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.2
+    },
+    {
+        "suite":  "run_projectile_checks",
+        "cls":  "PASS",
+        "pass":  0,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  3.7
+    },
+    {
+        "suite":  "run_armor_checks",
+        "cls":  "PASS",
+        "pass":  81,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.8
+    },
+    {
+        "suite":  "run_damage_checks",
+        "cls":  "PASS",
+        "pass":  57,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.3
+    },
+    {
+        "suite":  "run_recovery_checks",
+        "cls":  "PASS",
+        "pass":  64,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_replay_checks",
+        "cls":  "PASS",
+        "pass":  73,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.4
+    },
+    {
+        "suite":  "run_core_checks",
+        "cls":  "PASS",
+        "pass":  55,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  4.4
+    },
+    {
+        "suite":  "run_drive_checks",
+        "cls":  "PASS",
+        "pass":  26,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.8
+    },
+    {
+        "suite":  "run_ai_drive_checks",
+        "cls":  "PASS",
+        "pass":  40,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  14.3
+    },
+    {
+        "suite":  "run_ai_combat_checks",
+        "cls":  "PASS",
+        "pass":  34,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.4
+    },
+    {
+        "suite":  "run_duel_checks",
+        "cls":  "PASS",
+        "pass":  27,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  14.9
+    },
+    {
+        "suite":  "run_team_checks",
+        "cls":  "PASS",
+        "pass":  67,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  31.9
+    },
+    {
+        "suite":  "run_hud_checks",
+        "cls":  "PASS",
+        "pass":  56,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  7.3
+    },
+    {
+        "suite":  "run_map_checks",
+        "cls":  "PASS",
+        "pass":  48,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  74.4
+    },
+    {
+        "suite":  "run_village_battle_checks",
+        "cls":  "PASS",
+        "pass":  21,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  229.2
+    },
+    {
+        "suite":  "run_telemetry_checks",
+        "cls":  "PASS",
+        "pass":  8,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  3.7
+    },
+    {
+        "suite":  "run_historical_checks",
+        "cls":  "PASS",
+        "pass":  192,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  56.8
+    },
+    {
+        "suite":  "run_historical_road_checks",
+        "cls":  "PASS",
+        "pass":  33,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  197.7
+    },
+    {
+        "suite":  "run_blender_asset_checks",
+        "cls":  "PASS",
+        "pass":  16,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  1.5
+    },
+    {
+        "suite":  "run_shell_checks",
+        "cls":  "PASS",
+        "pass":  193,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  26
+    },
+    {
+        "suite":  "run_garage_checks",
+        "cls":  "PASS",
+        "pass":  151,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  27.5
+    },
+    {
+        "suite":  "run_industrial_checks",
+        "cls":  "PASS",
+        "pass":  595,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  971.1
+    },
+    {
+        "suite":  "run_industrial_obstruction_checks",
+        "cls":  "PASS",
+        "pass":  9,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  33
+    },
+    {
+        "suite":  "run_industrial_battle_checks",
+        "cls":  "FAIL",
+        "pass":  15,
+        "fail":  1,
+        "unexpected":  1,
+        "seconds":  995.4
+    },
+    {
+        "suite":  "run_challenge_checks",
+        "cls":  "FAIL",
+        "pass":  138,
+        "fail":  2,
+        "unexpected":  2,
+        "seconds":  194.5
+    },
+    {
+        "suite":  "run_art_checks",
+        "cls":  "PASS",
+        "pass":  63,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  2.3
+    },
+    {
+        "suite":  "run_structure_checks",
+        "cls":  "PASS",
+        "pass":  54,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  7.4
+    },
+    {
+        "suite":  "run_wreck_visual_checks",
+        "cls":  "PASS",
+        "pass":  71,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  9.1
+    },
+    {
+        "suite":  "run_feedback_checks",
+        "cls":  "PASS",
+        "pass":  40,
+        "fail":  0,
+        "unexpected":  0,
+        "seconds":  11
+    }
+]

@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] independent authored angle resistance at 0
+[PASS] long rod never borrows full-bore normalization
+[PASS] independent authored angle resistance at 30
+[PASS] long rod never borrows full-bore normalization
+[PASS] independent authored angle resistance at 45
+[PASS] long rod never borrows full-bore normalization
+[PASS] independent authored angle resistance at 60
+[PASS] long rod never borrows full-bore normalization
+[PASS] 64 game resistance stays separate from80 geometric LOS
+[PASS] three outcomes at same actual sloped plate: 63
+[PASS] three outcomes at same actual sloped plate: 64
+[PASS] three outcomes at same actual sloped plate: 65
+[PASS] explicit material coefficient applies to long rod
+[PASS] weapon bore cannot create overmatch: 20
+[PASS] weapon bore cannot create overmatch: 120
+[PASS] weapon bore cannot create overmatch: 125
+[PASS] weapon bore cannot create overmatch: 300
+[PASS] grazing does not extrapolate a finite plate hit
+[PASS] unknown material is still unavailable
+[PASS] unknown thickness is still unavailable
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] reject incomplete/mixed modern response
+[PASS] APFSDS cannot silently become AP
+[PASS] APFSDS cannot silently become APHE
+[PASS] long rod accepted by actual projectile manager
+[PASS] real moving long rod penetrates sloped geometry
+[PASS] actual complete long-rod replay validates
+[PASS] record retains exact new effect and version
+[PASS] reject modern record labeled as old full-caliber rules
+[PASS] replay independently catches changed angular resistance
+[PASS] kinetic long rod cannot create APHE sphere burst
+[PASS] long rod accepted by actual projectile manager
+[PASS] two real separated plates retain cumulative residual budget
+[PASS] actual complete long-rod replay validates
+[PASS] record retains exact new effect and version
+[PASS] reject modern record labeled as old full-caliber rules
+[PASS] replay independently catches changed angular resistance
+[PASS] kinetic long rod cannot create APHE sphere burst
+[PASS] long rod accepted by actual projectile manager
+[PASS] actual high-angle long rod follows reflected trajectory
+[PASS] actual complete long-rod replay validates
+[PASS] record retains exact new effect and version
+[PASS] reject modern record labeled as old full-caliber rules
+[PASS] replay independently catches changed angular resistance
+[PASS] kinetic long rod cannot create APHE sphere burst
+[PASS] long rod accepted by actual projectile manager
+[PASS] launch freezes nested modern angle curve
+[PASS] long rod accepted by actual projectile manager
+[PASS] long-rod distance loss and already consumed armor budget remain cumulative
+=== 结果: 56 项检查, 0 失败 ===
+LONG_ROD_CHECKS_PASS

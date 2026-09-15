@@ -1,0 +1,85 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] curve valid
+[PASS] curve independent expected at 0.0
+[PASS] curve independent expected at 50.0
+[PASS] curve independent expected at 100.0
+[PASS] curve independent expected at 150.0
+[PASS] curve independent expected at 200.0
+[PASS] curve independent expected at 1000.0
+[PASS] invalid curve rejected []
+[PASS] invalid curve rejected [(0.0, 70.0), (0.0, 50.0)]
+[PASS] invalid curve rejected [(0.0, 70.0), (1.0, 80.0)]
+[PASS] invalid curve rejected [(-1.0, 70.0)]
+[PASS] invalid curve rejected [(0.0, -1.0)]
+[PASS] invalid curve rejected [(inf, 70.0)]
+[PASS] negative distance rejected
+[PASS] nonfinite distance rejected
+[PASS] P60 / 40 -> penetrate with 20
+[PASS] P60 / 80 -> stop
+[PASS] 40 @60deg -> 80 LOS
+[PASS] P70 already consumed40 does not recover at next40
+[PASS] exact budget perforates then stops
+[PASS] ricochet threshold 74.9
+[PASS] ricochet threshold 75.0
+[PASS] ricochet threshold 75.1
+[PASS] 90deg is bounded unresolved
+[PASS] unknown checked before ricochet; not zero
+[PASS] backface pays same thickness
+[PASS] bounce scales k AND consumed; residual60 becomes30
+[PASS] reflection normalized and speed scale0.6
+[PASS] ricochet detail retains geometric LOS thickness
+[PASS] reflection leaves surface
+[PASS] second ricochet stops
+[PASS] zero direction rejected
+[PASS] nonfinite budget rejected
+[PASS] nonunit normal rejected
+[PASS] resolver does not mutate input budget
+[PASS] real manager accepts armor shot
+[PASS] two triangles on one plate cost once
+[PASS] penetration consumes remaining time, ends at10m
+[PASS] thin plate continues as same projectile
+[PASS] real manager accepts armor shot
+[PASS] same-step 40+40 stops second
+[PASS] cumulative budget70 ->30 ->0
+[PASS] second plate exact travel and time
+[PASS] two contacts, one terminal
+[PASS] one first-contact score per target life
+[PASS] record preserves actual contact pose
+[PASS] real manager accepts armor shot
+[PASS] distance loss plus consumed budget remain cumulative
+[PASS] real manager accepts armor shot
+[PASS] unknown plate conservatively stops actual flight
+[PASS] real manager accepts armor shot
+[PASS] next tick does not recharge same endpoint plate
+[PASS] real manager accepts armor shot
+[PASS] co-located distinct plates each cost once without loop
+[PASS] real manager accepts armor shot
+[PASS] 0.1mm-separated layers not skipped by position nudge
+[PASS] real manager accepts armor shot
+[PASS] actual ricochet resolves once
+[PASS] remaining15ms at360 after first1m -> total6.4m
+[PASS] reflected remaining trajectory uses new direction
+[PASS] real manager accepts armor shot
+[PASS] 8 per-step contact limit terminates explicitly
+[PASS] real manager accepts armor shot
+[PASS] 32 per-shot limit across ticks
+[PASS] budget termination exactly once
+[PASS] real manager accepts armor shot
+[PASS] contact callback reset stops continuation and duplicate terminal
+[PASS] real manager accepts armor shot
+[PASS] real world wall blocks armor behind
+[PASS] real manager accepts armor shot
+[PASS] penetrated armor then real backwall stops same shot
+[PASS] real manager accepts armor shot
+[PASS] paused scene freezes armor projectile
+[PASS] real physics resumes armor flight after pause
+[PASS] armor entry available in pause menu
+[PASS] normal menu entry reaches real ArmorRange
+[PASS] player input fires once and consumes one round
+[PASS] player shot reaches actual thin-plate resolver
+[PASS] player shot contact displayed
+[PASS] training does not mutate shared legacy shell
+[PASS] armor training returns to main through menu
+=== 结果: 81 项检查, 0 失败 ===
+ARMOR_CHECKS_PASS

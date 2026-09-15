@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the interpolation delay matches the production pose buffer (6)
+[PASS] the snapshot history matches the production buffer (32)
+[PASS] extrapolation is declared unsupported: a missing packet freezes instead of inventing motion
+[PASS] exactly one owner settles a projectile (the server)
+[PASS] the finite-speed compensation window is bounded and never rewinds the whole match
+[PASS] the four clocks start separate and at zero
+[PASS] the display catches up gradually and never runs ahead of the interpolation target (60.0 <= 94.0)
+[PASS] after enough frames the display settles exactly on the interpolation target (94.0)
+[PASS] the display never moves backwards while the authority advances
+[PASS] an older snapshot cannot pull the display backwards
+[PASS] each input gets a new sequence
+[PASS] unacknowledged inputs are replayed
+[PASS] acknowledging a sequence clears every input up to it
+[PASS] only the still-unacknowledged input is replayed
+[PASS] a duplicate or stale acknowledgement changes nothing
+[PASS] a stale authority tick cannot lower the server clock
+[PASS] replay never reaches outside the bounded window (7 inputs)
+[PASS] the replay window is a tick distance, not a fixed count (7 inputs inside 6 ticks)
+[PASS] the client plays its prediction immediately
+[PASS] the authority's refusal corrects the played prediction
+[PASS] a corrected prediction credits no kill
+[PASS] the correction event records zero credited kills
+[PASS] refusing an unpredicted event is recorded honestly, not silently accepted
+[PASS] every correction is recorded for the regression log
+[PASS] the same seed and conditions produce the same fault schedule
+[PASS] loss actually removes packets from the stream (19 of 24)
+[PASS] every dropped packet is recorded as a loss correction
+[PASS] total loss delivers nothing and records every drop
+[PASS] delay is applied to every delivered packet
+[PASS] reordering genuinely changes the delivery order
+[PASS] the injected conditions are labelled for the evidence log
+[PASS] the injector summary records the seed and the fault count
+[PASS] the production snapshot gate rejects an empty payload
+[PASS] it rejects a snapshot missing its session and clocks
+[PASS] the time model exposes input_tick for the network time document
+[PASS] the time model exposes server_tick for the network time document
+[PASS] the time model exposes snapshot_tick for the network time document
+[PASS] the time model exposes display_tick for the network time document
+[PASS] the time model exposes interpolation_delay for the network time document
+[PASS] the time model exposes max_extrapolation for the network time document
+[PASS] the time model exposes compensation_window for the network time document
+[PASS] the time model exposes settlement_owner for the network time document
+=== 结果: 42 项检查, 0 失败 ===
+NETWORK_FAULT_CHECKS_PASS

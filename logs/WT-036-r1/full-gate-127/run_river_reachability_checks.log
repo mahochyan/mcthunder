@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] layout 10 graph declares schema version 1
+[PASS] layout 10 graph carries the map id
+[PASS] layout 10 has 408 graph nodes
+[PASS] layout 10 has 417 graph edges
+[PASS] layout 10 graph keeps through-waypoint semantics
+[PASS] layout 10 graph heights follow terrain and bridge decks
+[PASS] layout 10 graph loads into the production navigator
+[PASS] layout 10: all 60 spawn->objective routes are reachable
+[PASS] layout 10 exposes a resupply goal per team
+[PASS] layout 10: all 20 spawn->resupply routes are reachable
+[PASS] layout 10 central crossing edges exist to close
+[PASS] layout 10 keeps an outer flank route when the central crossing is closed (10 routes)
+[PASS] layout 16 graph declares schema version 1
+[PASS] layout 16 graph carries the map id
+[PASS] layout 16 has 857 graph nodes
+[PASS] layout 16 has 880 graph edges
+[PASS] layout 16 graph keeps through-waypoint semantics
+[PASS] layout 16 graph heights follow terrain and bridge decks
+[PASS] layout 16 graph loads into the production navigator
+[PASS] layout 16: all 96 spawn->objective routes are reachable
+[PASS] layout 16 exposes a resupply goal per team
+[PASS] layout 16: all 32 spawn->resupply routes are reachable
+[PASS] layout 16 central crossing edges exist to close
+[PASS] layout 16 keeps an outer flank route when the central crossing is closed (16 routes)
+[PASS] the road graph is deterministic across builders
+[PASS] survey and formal entries share RiverJunctionDefinition (river_junction_range.gd)
+[PASS] survey and formal entries share RiverJunctionDefinition (river_junction_survey.gd)
+[PASS] both entries derive layout and resupply from the same definition
+[PASS] a destroyed actor registers as a wreck
+[PASS] wreck positions expose the actual ground position
+[PASS] spawn selection accepts an unobstructed slot
+[PASS] an occupied slot yields another slot or a bounded spawn_blocked (moved)
+[PASS] every slot occupied reports spawn_blocked instead of stacking vehicles
+[PASS] clearing the registry removes every wreck position
+=== 结果: 34 项检查, 0 失败 ===
+RIVER_REACHABILITY_CHECKS_PASS

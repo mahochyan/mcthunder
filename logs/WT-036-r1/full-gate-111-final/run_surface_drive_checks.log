@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] surface resistance reduces powered acceleration
+[PASS] airborne vehicle receives no surface resistance
+[PASS] reverse coasting loses speed without changing direction
+[PASS] resistance does not push stationary vehicle backwards
+[PASS] actual two historical actors load
+[PASS] actual ground probes read road 0
+[PASS] actual ground probes read road 1
+[MEASURE] road four_second_distances=[14.7036743164063, 23.2985229492188]
+[PASS] actual ground probes read soft_soil 0
+[PASS] actual ground probes read soft_soil 1
+[MEASURE] soft_soil four_second_distances=[8.78833293914795, 17.1084098815918]
+[PASS] same real commands travel further on road 0
+[PASS] same real commands travel further on road 1
+[PASS] painted village road center maps to road resistance
+[PASS] village off-road ground retains grass identity
+[PASS] road boundary combines real support samples
+[PASS] missing ground contact contributes no drag
+=== 结果: 15 项检查, 0 失败 ===
+SURFACE_DRIVE_CHECKS_PASS

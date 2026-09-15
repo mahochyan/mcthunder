@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the 16v16 layout publishes one bridge per lane (5)
+[PASS] the 10v10 layout publishes its three crossings
+[PASS] a bridge centre is a choke point
+[PASS] a bridge approach is a choke point
+[PASS] mid-lane far from the river is not a choke point
+[PASS] off-lane ground is not a choke point
+[PASS] choke points carry labels for the map read
+[PASS] every deployment stop gets a named purpose
+[PASS] the 16v16 layout labels an outer-lane flank or observation route
+[PASS] the central hook and secondary pushes are labelled
+[PASS] the 10v10 layout also gets a bypass route on its outermost lane ({ "secondary_push": 2, "flank_or_observation": 4, "central_hook": 2 })
+[PASS] the eight slots cover all three objectives (["C", "A", "B"])
+[PASS] exactly one slot takes the flank role, so the team does not all pile onto the nearest point
+[PASS] the coordinator is bound to the map's choke points
+[PASS] identical rosters produce identical task assignments
+[PASS] a moving vehicle is attributed as moving
+[PASS] holding an owned objective is a legitimate hold, not congestion
+[PASS] a slow vehicle in a fire fight is attributed as engaging
+[PASS] a repairing vehicle is attributed as repairing
+[PASS] an immobile vehicle is attributed as immobile
+[PASS] only a genuinely blocked mover counts as congestion
+[PASS] the summary counts justified stillness and congestion separately
+[PASS] most idle time in this fixture is justified
+[PASS] the higher entity id yields inside the bridge choke point
+[PASS] the lower entity id keeps going
+[PASS] outside a choke point nobody is forced to yield
+[PASS] both spawn sides receive the same role distribution
+[PASS] the mirrored slots take the same objective
+[PASS] objective positions are shared map landmarks
+[PASS] a wreck is not given a task
+[PASS] the wreck is published as a dynamic obstacle
+[PASS] a wreck receives no behaviour attribution
+[PASS] a recovered vehicle is attributed as moving again
+[PASS] the original objective survives the traffic block
+=== 结果: 34 项检查, 0 失败 ===
+TEAM_TRAFFIC_CHECKS_PASS

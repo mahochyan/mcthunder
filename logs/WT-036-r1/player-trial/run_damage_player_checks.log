@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DAMAGE_PLAYER_CHECKS requires a window: captured mouse motion is unavailable headless; use run_damage_checks.gd for headless checks.
