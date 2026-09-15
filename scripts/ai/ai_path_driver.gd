@@ -234,9 +234,13 @@ func update_command(delta: float) -> VehicleCommand:
 		var blocker: Object = obstacle.get("collider") if obstacle is Dictionary else null
 		var mode := ""
 		var limit := GameConfig.AI_YIELD_TIMEOUT_S
+		# WT-040-R1 telemetry only (no behaviour change): remember WHO we are yielding to, so a
+		# repeated block can be attributed to a specific opponent in the recorded match data.
+		var blocker_id := ""
 		if blocker is Node:
 			var blocker_owner: Node = (blocker as Node).get_parent()
 			if blocker_owner is VehicleActor:
+				blocker_id = str(blocker_owner.get("entity_id"))
 				if blocker_owner.get("controller") == null:
 					# A parked hull is a dead end: recovery (reverse) is what the parked-vehicle
 					# acceptance check requires, and a wreck cannot move aside by itself.
@@ -252,7 +256,14 @@ func update_command(delta: float) -> VehicleCommand:
 		yield_elapsed = (yield_elapsed + delta) if mode != "" else 0.0
 		if yield_elapsed >= limit:
 			yield_elapsed = 0.0
-			if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
+			if waypoint > 0:
+				var blocked_key := DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])
+				_blocked_edges[blocked_key] = true
+				# WT-040-R1 telemetry only: record every block creation, with its cause, so the
+				# frequency and the counterparty can be measured before any further change is made.
+				events.append({"time":clock,"phase":phase,"reason":"edge_blocked","edge":blocked_key,
+					"mode":mode,"limit":limit,"blocker":blocker_id,"waypoint":waypoint,
+					"blocked_total":_blocked_edges.size()})
 			if mode == "recover":
 				attempts += 1
 				if attempts > GameConfig.AI_RECOVERY_ATTEMPTS:

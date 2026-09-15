@@ -31,6 +31,17 @@ func check(ok: bool, message: String) -> void:
 func frames(n: int) -> void:
 	for i in n: await physics_frame
 	await process_frame
+## WT-040-R1 measure-first: every block creation the driver recorded since the last sample, with its
+## cause and counterparty, so the yield frequency can be measured instead of guessed.
+func _new_block_events(ai: AITankController, since: int) -> Array:
+	var out: Array = []
+	for i in range(since, ai.driver.events.size()):
+		var ev: Dictionary = ai.driver.events[i]
+		if str(ev.get("reason","")) == "edge_blocked":
+			out.append({"t": snappedf(float(ev.get("time",0.0)),0.1), "edge": str(ev.get("edge","")),
+				"mode": str(ev.get("mode","")), "blocker": str(ev.get("blocker","")),
+				"blocked_total": int(ev.get("blocked_total",0))})
+	return out
 ## WT-040-R1: how many times has this AI been handed a task? Each one re-sets the patrol and
 ## therefore re-plans the route, so this separates my task layer's churn from the driver's own.
 func _count_task_events(ai: AITankController) -> int:
@@ -59,6 +70,7 @@ func _run() -> void:
 	var respawns := {1:0, 2:0}          # WITHDRAWN METRIC (falsified by measurement, see below)
 	var destroyed_seen := {}            # verified: destruction actually observed per actor
 	var chain_samples: Array = []       # task -> path -> movement -> observation -> aim -> fire
+	var _block_cursor: Dictionary = {}  # entity_id -> driver.events index already reported
 	var deaths := {1:0, 2:0}
 	var seen_life := {}
 	var timeline: Array = []
@@ -171,6 +183,18 @@ func _run() -> void:
 					"driver_events": ai3.driver.events.size(),
 				}
 			print("[river-chain] t=%.0f %s" % [scene.director.state.elapsed, str(chain)])
+			# WT-040-R1 measure-first: surface every block creation the driver recorded since the last
+			# sample, with its counterparty, so congestion can be attributed to specific actors.
+			var blocks := {}
+			for actor in scene.combat_actors():
+				var ai_b: AITankController = actor.controller as AITankController
+				if ai_b == null: continue
+				var since: int = int(_block_cursor.get(actor.entity_id, 0))
+				var fresh := _new_block_events(ai_b, since)
+				_block_cursor[actor.entity_id] = ai_b.driver.events.size()
+				if not fresh.is_empty(): blocks[actor.entity_id] = fresh
+			if not blocks.is_empty():
+				print("[river-blocks] t=%.0f %s" % [scene.director.state.elapsed, str(blocks)])
 			chain_samples.append({"t": scene.director.state.elapsed, "chain": chain})
 		if scene.director.state.phase == "finished": break
 	for actor in scene.combat_actors():

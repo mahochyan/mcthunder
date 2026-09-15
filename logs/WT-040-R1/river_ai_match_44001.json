@@ -246,7 +246,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 7,
+          "driver_events": 8,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -275,7 +275,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 9,
+          "driver_events": 10,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -362,7 +362,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 11,
+          "driver_events": 12,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -391,7 +391,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 9,
+          "driver_events": 10,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -483,7 +483,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "yielding",
-          "driver_events": 8,
+          "driver_events": 9,
           "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
@@ -512,7 +512,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "yielding",
-          "driver_events": 10,
+          "driver_events": 11,
           "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
@@ -599,7 +599,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 11,
+          "driver_events": 12,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -628,7 +628,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 9,
+          "driver_events": 10,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
@@ -717,17 +717,17 @@
         "A": {
           "aim": "",
           "attempts": 0,
-          "blocked_edges": 1,
+          "blocked_edges": 2,
           "dead": false,
           "driver": "following",
-          "driver_events": 11,
+          "driver_events": 13,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 78,
+          "path_len": 82,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -740,23 +740,23 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 1065,
+          "to_goal": 1071,
           "wp_index": 6
         },
         "A2": {
           "aim": "",
           "attempts": 0,
-          "blocked_edges": 1,
+          "blocked_edges": 2,
           "dead": false,
           "driver": "following",
-          "driver_events": 11,
+          "driver_events": 13,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
             -504,
             120
           ],
-          "path_len": 57,
+          "path_len": 59,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -769,8 +769,8 @@
           "task": "A",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 688,
-          "wp_index": 8
+          "to_goal": 700,
+          "wp_index": 9
         },
         "A3": {
           "aim": "",
@@ -836,7 +836,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 11,
+          "driver_events": 12,
           "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
@@ -865,7 +865,7 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 9,
+          "driver_events": 10,
           "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
