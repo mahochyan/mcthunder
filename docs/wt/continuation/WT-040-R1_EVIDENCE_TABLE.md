@@ -59,3 +59,20 @@
 
 ⇒ 我**手写**的两份 17-zone 映射表**无转录错误** ✓✓：来源节点 ✓ · 行号 ✓ · 厚度值 ✓ **均与档案原文吻合** ✓。
 （该检查正是为捕捉"**看似合理但实则错**"的数字而设 ✓ —— 本次结果为零错误 ✓。）
+
+---
+
+## 6. **第二项完整性验证**：facts **逐条回查档案候选层** ✓ —— 并**抓到一个真实问题** ✓✓
+方法 ✓：读 `modern_facts_draft.json` 每条事实的 `location` 行号 ✓ → 回到档案 `fields[]` 取该行的 `candidate_value` ✓ → 比对 ✓。
+
+| 标记 | 判定 |
+|---|---|
+| `mobility.engine` `power_hp:1100.0` vs `1100` ✓ | **仅 int/float 表示差异** ✗ ⇒ 非数据错误 ✓ |
+| `forward_speed_mps` `20.8333333333333` vs `20.833333333333336` ✓ | **浮点精度损失（~1e-14）** ✓ ⇒ 可忽略但**如实记录** ✓ |
+| **`runtime.acceleration` `4.0` vs 档案 L23 = 空** ✗✗ | **真实问题** ✓✓：档案自己的键名是 **`drive.acceleration_unspecified_units`** ✗ ⇒ **档案未标明单位** ✗ ⇒ 我取 **m/s²** 属**假设** ✗ ⇒ **已写入事实 `location` 与 `notes`** ✓ |
+| `crew.roles` · `forward_max_speed` 跳过 ✓ | 属**派生**事实 ✓（非转录 ✓） |
+| 其余（`hull_turn_speed` 等 ✓） | **每车 3 条精确一致** ✓ |
+
+### 处理 ✓
+在生成器中把该**假设显式化** ✓：`... the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption` ✓
+（**不隐藏假设** ✗ —— 这正是本检查存在的意义 ✓。）

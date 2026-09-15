@@ -225,11 +225,15 @@ func _build(id: String, path: String) -> Dictionary:
 					row.runtime["acceleration"] = float(first)
 					row.emitted.append("runtime component: acceleration ← raw 加减速度 first figure (line %d): %s" % [rline,rraw])
 					row.facts["runtime.acceleration"] = {
-						"value": float(first), "status": "reference", "origin": SOURCE_LABEL,
-						"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,rline]],
-						"location": "%s line %d: %s = %s (the first figure of acceleration/deceleration)" % [SOURCE_LABEL,rline,rname,rraw],
+						"value": float(first), "status": "estimated", "origin": SOURCE_LABEL,
+						"source_refs": ["wt-%s" % SOURCE_VERSION],
+						# WT-040-R1 CAVEAT found by the source-back-check: the dossier's own candidate key for
+						# acceleration is drive.acceleration_unspecified_units with an EMPTY value, so the
+						# dossier itself does not state the unit. This 4.0 therefore comes from the raw row
+						# and is read as m/s^2 BY ASSUMPTION, which is recorded here rather than hidden.
+						"location": "%s line %d: %s = %s - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption" % [SOURCE_LABEL,rline,rname,rraw],
 					}
-					row.notes.append("acceleration was parsed from the raw '加减速度 = %s' row: the first figure is taken as acceleration and the rule is stated" % rraw)
+					row.notes.append("acceleration unit is an ASSUMPTION: the dossier's acceleration key is explicitly 'unspecified_units' and empty; the raw row gives 4.0 / 8.0 with no unit")
 				else:
 					row.skipped.append("加减速度 present but not parseable: %s" % rraw)
 			elif rname == "首发日期":
