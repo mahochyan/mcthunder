@@ -10,6 +10,7 @@ extends SceneTree
 ## Usage: -s res://tests/check_modern_package_gaps.gd
 const DRAFT := "res://logs/WT-040-R1/modern_geometry_draft.json"
 const FACTS := "res://logs/WT-040-R1/modern_facts_draft.json"
+const CREW := "res://logs/WT-040-R1/modern_crew_draft.json"
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	var draft := _read_json(DRAFT)
@@ -20,6 +21,9 @@ func _run() -> void:
 	var facts_by_id := {}
 	var runtime_by_id := {}
 	var assembly_by_id := {}
+	var crew_by_id := {}
+	for c in _read_json(CREW).get("rows",[]):
+		if c is Dictionary: crew_by_id[str(c.get("id",""))] = c.get("crew",[])
 	for f in _read_json(FACTS).get("rows",[]):
 		if not f is Dictionary: continue
 		facts_by_id[str(f.get("id",""))] = f.get("facts",{})
@@ -37,7 +41,7 @@ func _run() -> void:
 			"runtime": runtime_by_id.get(id,{}),
 			"armor": {},
 			"modules": [],
-			"crew": [],
+			"crew": crew_by_id.get(id,[]),
 			# WT-040-R1: the validator checks SHAPE before content, so empty-but-shape-valid
 			# placeholders are supplied for the fields that are not measured yet. They are deliberately
 			# empty: the point is to reach the content checks and let the validator itself enumerate the

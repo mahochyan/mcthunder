@@ -149,3 +149,31 @@
 **独立资料**：`dimensions.width_m` / `reference_length_m`（**不得**以我自己的测量充当 ✓）
 **待评审筛选**：`modules`（182 → ≤48 ✓ 且弹架之和＝rounds ✓）· `crew`（≤48 ✓）
 **待裁定**：**armor 17 zone 映射** ⇒ 裁定后**一次降 17** ✓
+
+---
+
+## 9. 第八轮：`crew` 组件闭合 ⇒ 缺口 **11 → 10**（豹2 12 → 11）
+### 项目自己的词汇（照它做 ✓，不自创 ✗）
+| 组件 | 生产包实况（4 辆历史车） | 关键约束 |
+|---|---|---|
+| `modules` | **9–10 行** ✓；字段 `{id, kind, part, position, size, external, ammo_capacity?}` ✓；**7 种 kind**：`ammo` `engine` `transmission` `fuel` `breech` `turret_drive` `track` ✓ | **弹药容量之和必须精确等于 `rounds`** ✓✓（M26：10+30+30 = **70** ✓） |
+| `crew` | **5 行** ✓；字段 `{id, role, part, position, size}` ✓；role ∈ `driver` `assistant_driver_bow_gunner` `gunner` `commander` `loader` ✓ | — |
+
+### 诚实判断 ✓
+档案 **182** 条 module refs 是 **WT 内部粒度** ✗，且**不含位置** ✗ ⇒ 与项目模型**结构不同** ✗ ⇒ **不可机械搬运** ✓；
+但**可做有据派生** ✓（role **引用** ✓ + 位置由**实测盒**派生并**标注** ✓）。
+
+### 结果 ✓
+```
+ussr_t_80b       → gunner@turret, driver@hull, commander@turret             （3 ✓ 自动装弹机 ⇒ 无装填手 ✓）
+germ_leopard_2a4 → gunner@turret, driver@hull, loader@turret, commander@turret（4 ✓ 人工装填 ⇒ 有装填手 ✓）
+```
+（`crew` 缺口**已从审计中消失** ✓；位置/尺寸标注 `derived` ✓ 且说明作者可替换 ✓。）
+
+### 又修掉一个**反复踩的坑** ✗✓
+`Dictionary.get()` 返回 **Variant** ✗ ⇒ `var role := ROLE_MAP.get(...)` 触发 "类型由 Variant 推断" 的**编译错误** ✗ ⇒ 改**显式类型** ✓。
+
+### 剩余 10 项
+**下一步可派生闭合**：`modules` ✓（项目 7 kind ✓ + 派生位置 ✓ + 弹架之和＝rounds ✓）
+**设计**：`reload_time` · `pitch_min` · `pitch_max` · `penetration_curve` · `assembly.mount` · `assembly.year`（需史料）· `assembly.suspension`
+**独立资料**：`dimensions.width_m` / `reference_length_m`

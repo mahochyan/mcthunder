@@ -1,0 +1,138 @@
+{
+  "note": "crew component draft: role list cited from the dossier, placement DERIVED from the measured hull/turret boxes and labelled as such",
+  "rows": [
+    {
+      "crew": [
+        {
+          "derived": true,
+          "id": "gunner",
+          "part": "turret",
+          "position": [
+            0.0,
+            1.45,
+            0.0
+          ],
+          "role": "gunner",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "id": "driver",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.8,
+            -2.92
+          ],
+          "role": "driver",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "id": "commander",
+          "part": "turret",
+          "position": [
+            0.0,
+            1.45,
+            0.0
+          ],
+          "role": "commander",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        }
+      ],
+      "id": "ussr_t_80b",
+      "notes": [
+        "roles cited from the dossier's crew_roster (via the crew.roles fact); the project's own vocabulary is used (tank_gunner -> gunner)",
+        "positions and sizes are DERIVED from the measured hull mid height, hull front z and turret origin - the dossiers carry no internal layout, so these are labelled derived and an author may replace them",
+        "the production packets use five crew with a bow gunner; these two vehicles have three and four, which is what the dossier states"
+      ]
+    },
+    {
+      "crew": [
+        {
+          "derived": true,
+          "id": "gunner",
+          "part": "turret",
+          "position": [
+            0.0,
+            1.66,
+            0.0
+          ],
+          "role": "gunner",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "id": "driver",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.9,
+            0.0
+          ],
+          "role": "driver",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "id": "loader",
+          "part": "turret",
+          "position": [
+            0.0,
+            1.66,
+            0.0
+          ],
+          "role": "loader",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "id": "commander",
+          "part": "turret",
+          "position": [
+            0.0,
+            1.66,
+            0.0
+          ],
+          "role": "commander",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        }
+      ],
+      "id": "germ_leopard_2a4",
+      "notes": [
+        "roles cited from the dossier's crew_roster (via the crew.roles fact); the project's own vocabulary is used (tank_gunner -> gunner)",
+        "positions and sizes are DERIVED from the measured hull mid height, hull front z and turret origin - the dossiers carry no internal layout, so these are labelled derived and an author may replace them",
+        "the production packets use five crew with a bow gunner; these two vehicles have three and four, which is what the dossier states"
+      ]
+    }
+  ],
+  "schema": 1
+}
