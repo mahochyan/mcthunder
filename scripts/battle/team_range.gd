@@ -159,14 +159,24 @@ func _build_match_objectives() -> Array:
 ## The allocator's own shape, derived from the same authored rows: [{id, position, owner_team}].
 ## Keeping the conversion here means the capture layer and the task layer can never disagree about
 ## where the objectives are, and the map only authors them once.
+##
+## WT-040-R1: each centre is passed through _snap_to_graph() first. The capture centre of an
+## objective is a place to stand, not necessarily a point on the driving graph - feeding the raw
+## centre to the allocator made a slot report driver="unreachable" the moment it took its task, which
+## is the same class of failure as the earlier task-point bug. Maps that know their graph override
+## _snap_to_graph (the river does); the default returns the point unchanged.
 func allocator_objectives() -> Array:
 	var out: Array = []
 	for row in match_objectives():
 		if not row is Dictionary: continue
 		var center: Variant = row.get("center", null)
 		if not center is Vector3: continue
-		out.append({"id": str(row.get("id","")), "position": center, "owner_team": 0})
+		out.append({"id": str(row.get("id","")), "position": _snap_to_graph(center), "owner_team": 0})
 	return out
+
+## Default: no graph knowledge in the base class, so the point is returned unchanged.
+func _snap_to_graph(wanted: Vector3) -> Vector3:
+	return wanted
 
 ## One coordinator per team, configured with the same objectives the director got.
 func coordinator_for(team: int) -> TeamCoordinator:
