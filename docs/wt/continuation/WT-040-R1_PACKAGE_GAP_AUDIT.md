@@ -342,3 +342,27 @@ field record ... references unregistered source 'probe'               ← source
 
 ### 附注 ✓
 探针命令在 600s 被工具超时**杀掉** ✗（日志 412 行已完整 ✓）⇒ 属**进程存活**问题 ✓，**非逻辑挂起** ✓；门禁 `pwsh-38` 仍在跑 ✓，**全程未触碰其进程** ✓。
+
+---
+
+## 17. 探针机制修正生效 ⇒ **388 → 136**（降 65% ✓）
+### 修正的两处（均为"**一致性**"类 ✓）
+1. **`applies_to_identity_ids` 补上身份** ✓（此前为空 ⇒ 校验器判"该键不适用于本身份" ✗）；
+2. **`source_refs` 指向已登记来源 id** ✓（`PROBE` ✓，大小写一致 ✓）。
+
+**结果** ✓：`LayoutValidator.errors` **388 → 136** ✓（warnings 2 ✓ · suspicious 1 ✓）；`geometry.build` 仍 **ok**（`parts=6` ✓ · `armor_patches=56` ✓）。
+
+### 第 230 行错误现已**精确显示** ✓
+```
+SCRIPT ERROR: Invalid call. Nonexistent 'Vector3' constructor.
+```
+⇒ `v.drive_collision_size = Vector3(HistoricalEvidenceGate.value(packet,"dimensions.width_m"), …)` ✓
+⇒ 该 gate **对不合格事实返回 null** ✗ ⇒ 构造 `Vector3(null,…)` 失败 ✗。
+**根因仍是同一类** ✓：我的探针 `dimensions.*` 事实 `status:"probe"` ✗、`origin:"probe"` ✗ **未在来源表登记** ✗。
+
+### 下一步（继续 ✓）
+把 `dimensions.*` 探针事实的 **origin/source_refs/status 与来源表对齐** ✓ ⇒ 越过第 230 行 ✓ ⇒ 观察 `definitions_for` 之后的**最后一层**要求 ✓；
+并对 **136 项**做**去重归类** ✓，区分"**探针机制残留**"与"**真正的车辆数据要求**" ✓✓。
+
+### 附注 ✓
+探针改用 **PowerShell 后台作业** ✓ 规避工具 600s 超时 ✓（上轮日志 412 行完整 ✓ ⇒ 属**进程存活**问题 ✓）。

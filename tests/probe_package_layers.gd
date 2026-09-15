@@ -110,9 +110,23 @@ func _packet(id: String, g: Dictionary, rt: Dictionary, ar: Dictionary, mods: Ar
 		packet["facts"]["crew.placement"] = {"value":"probe","status":"probe","origin":"probe",
 			"source_refs":["probe"],"location":"PROBE: exists so the layout build can run"}
 	# and the sources registry HistoricalEvidenceGate requires: a url, a 64-hex sha256, a read state and
-	# an applicability list. Probe values, clearly labelled, never a delivered document.
-	packet["sources"] = {"PROBE": {"origin":"mcthunder_pipeline","url":"https://probe.invalid/dossier",
-		"sha256":"0".repeat(64),"read_state":"text_read","applies_to_identity_ids":[id],"excluded_identity_ids":[]}}
+	# an applicability list. Probe values, clearly labelled, never a delivered document. The dossier's own
+	# source id is registered as well, because the drafts' source_refs point at it - the real dossier has
+	# no url, which is one of the recorded input requirements.
+	packet["sources"] = {
+		"PROBE": {"origin":"mcthunder_pipeline","url":"https://probe.invalid/pipeline",
+			"sha256":"0".repeat(64),"read_state":"text_read","applies_to_identity_ids":[id],"excluded_identity_ids":[]},
+		"wt-2.57.1.137": {"origin":"warthunder_reference","url":"https://probe.invalid/dossier",
+			"sha256":"97947ab4a1cfa8924e1ad63bf874507968732f72fb699c9c139e9ec2ba1813a9",
+			"read_state":"text_read","applies_to_identity_ids":[id],"excluded_identity_ids":[]},
+	}
+	# the fact origins must MATCH the registered source origins, otherwise HistoricalEvidenceGate returns
+	# null and the definition builder dies constructing a Vector3 from it - that was the line 230 error.
+	for key in packet["facts"].keys():
+		var row: Variant = packet["facts"][key]
+		if not row is Dictionary: continue
+		if str(row.get("origin","")) == "warthunder_reference":
+			row["source_refs"] = ["wt-2.57.1.137"] if str(row.get("source_refs",[""])[0]).begins_with("wt-") else row.get("source_refs",[])
 	return packet
 
 ## Mechanical probe registry: register exactly the evidence keys and field claims the built layout
@@ -125,23 +139,26 @@ func _registry_from(layout: VehicleLayoutDefinition) -> Dictionary:
 			if item == null: continue
 			for k in item.evidence_keys:
 				if not keys.has(str(k)):
+					# WT-040-R1: the applicability list must name the identity, or the validator says the
+					# key does not apply to it - which is what produced hundreds of the errors.
 					keys[str(k)] = {"key":str(k),"source_id":"PROBE","origin":"mcthunder_pipeline",
 						"title":"probe registration for "+str(k),"applies_to":"probe only",
-						"read_state":"probe","applies_to_identity_ids":[],"excluded_identity_ids":[]}
+						"read_state":"probe","applies_to_identity_ids":[layout.historical_identity_id],
+						"excluded_identity_ids":[]}
 	for patch in layout.armor_patches:
 		if patch != null and patch.thickness_status != "unknown":
 			fields.append({"field_path":"armor_patches.%s.thickness_mm" % patch.id,"origin":"mcthunder_pipeline",
-				"status":patch.thickness_status,"source_refs":["probe"],"original_value":"PROBE",
+				"status":patch.thickness_status,"source_refs":["PROBE"],"original_value":"PROBE",
 				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
 	for station in layout.crew_stations:
 		if station == null: continue
 		if station.role_placement_status != "unknown":
 			fields.append({"field_path":"crew_stations.%s.role_placement" % station.id,"origin":"mcthunder_pipeline",
-				"status":station.role_placement_status,"source_refs":["probe"],"original_value":"PROBE",
+				"status":station.role_placement_status,"source_refs":["PROBE"],"original_value":"PROBE",
 				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
 		if station.position_status != "unknown":
 			fields.append({"field_path":"crew_stations.%s.local_box_transform" % station.id,"origin":"mcthunder_pipeline",
-				"status":station.position_status,"source_refs":["probe"],"original_value":"PROBE",
+				"status":station.position_status,"source_refs":["PROBE"],"original_value":"PROBE",
 				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
 	return {"identity_id":layout.historical_identity_id,"runtime_note":"probe",
 		"source_registry":{},"evidence_keys":keys.values(),"fields":fields}
