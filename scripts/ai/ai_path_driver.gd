@@ -258,6 +258,11 @@ func update_command(delta: float) -> VehicleCommand:
 			yield_elapsed = 0.0
 			if waypoint > 0:
 				var blocked_key := DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])
+				# WT-040-R1: reverted to the original permanent marker. Releasing blocked edges on
+				# distance was tried and, although it fixed the oncoming-pair contract check, it broke
+				# the permanent-obstacle one - the same single check that the time-based expiry broke -
+				# so the block memory is entangled with same_retry()'s contract and no release may be
+				# added here. Only the telemetry below is kept.
 				_blocked_edges[blocked_key] = true
 				# WT-040-R1 telemetry only: record every block creation, with its cause, so the
 				# frequency and the counterparty can be measured before any further change is made.
