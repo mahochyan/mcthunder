@@ -1,0 +1,374 @@
+{
+  "note": "modules component draft: project vocabulary, positions DERIVED from the measured boxes, ammunition split so the capacities sum EXACTLY to runtime.rounds",
+  "rows": [
+    {
+      "ammo_total": 38,
+      "id": "ussr_t_80b",
+      "modules": [
+        {
+          "ammo_capacity": 10,
+          "derived": true,
+          "external": false,
+          "id": "ammo_ready",
+          "kind": "ammo",
+          "part": "turret",
+          "position": [
+            0.0,
+            0.8,
+            0.0
+          ],
+          "size": [
+            0.5,
+            0.12,
+            0.35
+          ]
+        },
+        {
+          "ammo_capacity": 14,
+          "derived": true,
+          "external": false,
+          "id": "ammo_hull_left",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.95,
+            -0.06,
+            0.0
+          ],
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "ammo_capacity": 14,
+          "derived": true,
+          "external": false,
+          "id": "ammo_hull_right",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            0.95,
+            -0.06,
+            0.0
+          ],
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "engine",
+          "kind": "engine",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.8,
+            1.45
+          ],
+          "size": [
+            1.52,
+            0.6,
+            0.9
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "transmission",
+          "kind": "transmission",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.8,
+            2.73
+          ],
+          "size": [
+            1.52,
+            0.4,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "fuel",
+          "kind": "fuel",
+          "part": "hull",
+          "position": [
+            -0.95,
+            0.8,
+            1.45
+          ],
+          "size": [
+            0.25,
+            0.45,
+            0.7
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "breech",
+          "kind": "breech",
+          "part": "turret",
+          "position": [
+            0.0,
+            0.8,
+            -2.27
+          ],
+          "size": [
+            0.4,
+            0.4,
+            0.6
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "turret_drive",
+          "kind": "turret_drive",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.66,
+            0.0
+          ],
+          "size": [
+            0.6,
+            0.2,
+            0.6
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "track_left",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            -1.71,
+            -0.06,
+            0.0
+          ],
+          "size": [
+            0.3,
+            0.3,
+            7.76
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "track_right",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            1.71,
+            -0.06,
+            0.0
+          ],
+          "size": [
+            0.3,
+            0.3,
+            7.76
+          ]
+        }
+      ],
+      "notes": [
+        "kinds follow the production packets (ammo, engine, transmission, fuel, breech, turret_drive, track)",
+        "positions and sizes are DERIVED from the measured hull rings and turret origin - the dossiers carry no internal layout - and an author may replace them",
+        "ammunition capacities sum to 38, the dossier's cited main-gun capacity, because the validator compares that total with runtime.rounds"
+      ]
+    },
+    {
+      "ammo_total": 42,
+      "id": "germ_leopard_2a4",
+      "modules": [
+        {
+          "ammo_capacity": 10,
+          "derived": true,
+          "external": false,
+          "id": "ammo_ready",
+          "kind": "ammo",
+          "part": "turret",
+          "position": [
+            0.0,
+            0.9,
+            0.0
+          ],
+          "size": [
+            0.5,
+            0.12,
+            0.35
+          ]
+        },
+        {
+          "ammo_capacity": 16,
+          "derived": true,
+          "external": false,
+          "id": "ammo_hull_left",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.75,
+            0.6,
+            0.0
+          ],
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "ammo_capacity": 16,
+          "derived": true,
+          "external": false,
+          "id": "ammo_hull_right",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            0.75,
+            0.6,
+            0.0
+          ],
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "engine",
+          "kind": "engine",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.9,
+            1.35
+          ],
+          "size": [
+            1.2,
+            0.6,
+            0.9
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "transmission",
+          "kind": "transmission",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.9,
+            2.55
+          ],
+          "size": [
+            1.2,
+            0.4,
+            0.5
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "fuel",
+          "kind": "fuel",
+          "part": "hull",
+          "position": [
+            -0.75,
+            0.9,
+            1.35
+          ],
+          "size": [
+            0.25,
+            0.45,
+            0.7
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "breech",
+          "kind": "breech",
+          "part": "turret",
+          "position": [
+            0.0,
+            0.9,
+            -1.05
+          ],
+          "size": [
+            0.4,
+            0.4,
+            0.6
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "turret_drive",
+          "kind": "turret_drive",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.4,
+            0.0
+          ],
+          "size": [
+            0.6,
+            0.2,
+            0.6
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "track_left",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            -1.35,
+            0.6,
+            0.0
+          ],
+          "size": [
+            0.3,
+            0.3,
+            4.8
+          ]
+        },
+        {
+          "derived": true,
+          "external": false,
+          "id": "track_right",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            1.35,
+            0.6,
+            0.0
+          ],
+          "size": [
+            0.3,
+            0.3,
+            4.8
+          ]
+        }
+      ],
+      "notes": [
+        "kinds follow the production packets (ammo, engine, transmission, fuel, breech, turret_drive, track)",
+        "positions and sizes are DERIVED from the measured hull rings and turret origin - the dossiers carry no internal layout - and an author may replace them",
+        "ammunition capacities sum to 42, the dossier's cited main-gun capacity, because the validator compares that total with runtime.rounds"
+      ]
+    }
+  ],
+  "schema": 1
+}

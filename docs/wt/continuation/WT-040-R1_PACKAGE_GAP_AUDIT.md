@@ -177,3 +177,22 @@ germ_leopard_2a4 → gunner@turret, driver@hull, loader@turret, commander@turret
 **下一步可派生闭合**：`modules` ✓（项目 7 kind ✓ + 派生位置 ✓ + 弹架之和＝rounds ✓）
 **设计**：`reload_time` · `pitch_min` · `pitch_max` · `penetration_curve` · `assembly.mount` · `assembly.year`（需史料）· `assembly.suspension`
 **独立资料**：`dimensions.width_m` / `reference_length_m`
+
+---
+
+## 10. 第九轮：`modules` 闭合 ⇒ 缺口 **10 → 9**，**可派生工作已穷尽核实** ✓
+`modules` 草案 ✓（`tests/build_modern_modules_draft.gd` ✓）：**10 行** ✓（与生产包同规模 ✓），kind 依生产包 7 种 ✓，位置**由实测盒派生并标注** ✓，且**弹药精确配平** ✓：
+| 车 | 弹架 | 合计 | 引用容量 |
+|---|---|---|---|
+| T-80B | `ammo_ready 10` + `hull_left 14` + `hull_right 14` | **38** ✓ | `primary.capacity` ✓ |
+| 豹2A4 | `10` + `16` + `16` | **42** ✓ | 同上 ✓ |
+⇒ 满足校验器"**弹架容量之和 == `runtime.rounds`**" ✓（M26 的 10+30+30=70 ✓ 同构 ✓）。
+
+### 缺口轨迹（**九连** ✓）
+```
+T-80B : 24 → 23 → 20 → 17 → 14 → 13 → 11 → 10 → 9 ✓
+豹2A4 : 25 → 24 → 21 → 18 → 15 → 14 → 12 → 11 → 10 ✓
+```
+
+### 剩余 9 项（**穷尽核实后确认全部需外部输入** ✓）
+`assembly.suspension`（档案 0 字段 ✓）· `assembly.mount`（仅有 `source_weapon_id` ✓）· `assembly.year`（需史料 ✓；WT 上线日期已拒绝 ✓）· `dimensions.width_m` / `reference_length_m`（**独立资料** ✓）· `runtime.reload_time` · `pitch_min` · `pitch_max` · `penetration_curve`（**设计** ✓，生产包为多点列表 ✓）
