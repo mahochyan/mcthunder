@@ -1,6 +1,1830 @@
 {
   "rows": [
     {
+      "adapter_path": "res://assets/vehicles/adapters/35t/vehicle_adapter.glb",
+      "adapter_sha256": "fa1b4d80a3f2582df1bcc7c0729caf5657af14766d36c959936194bb828282cf",
+      "id": "35t",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.00259995460510254,
+        -1.95000004768372
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/35t/vehicle.glb",
+      "source_sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/38t/vehicle_adapter.glb",
+      "adapter_sha256": "9853eb70b0b28c47fccb780bb6304fdb1fba46f6ac97ed92ae84428da28ac3c1",
+      "id": "38t",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.021399974822998,
+        -2.08999991416931
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/38t/vehicle.glb",
+      "source_sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/9a33bm3/vehicle_adapter.glb",
+      "adapter_sha256": "3007a9c2070b61afb0c71d00144ace503a84b6e08e562381e1088cc736eae5cd",
+      "id": "9a33bm3",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "none",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/9a33bm3/vehicle.glb",
+      "source_sha256": "1cb69e6eb24000463296ad385b4326e58e1f59c73c52e2c486cd7e10245b5ac2",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/9a35_m/vehicle_adapter.glb",
+      "adapter_sha256": "d37d71b433d01865e4bc4206bc8f1fd98a4466a989bc4dfb32ae02d507e10d02",
+      "id": "9a35_m",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0130000114440918,
+        1.98249399662018
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/9a35_m/vehicle.glb",
+      "source_sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/AMD35/vehicle_adapter.glb",
+      "adapter_sha256": "1804be11d3e3e03ff427053cb109f923331376e2a178e8e6d18baed1b232c2de",
+      "id": "AMD35",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0102057456970215,
+        -2.54099988937378
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/AMD35/vehicle.glb",
+      "source_sha256": "55a2ee8d015c4d885e1b3d0dc180d3fe8d836f2428dd7e327d4dc3bea69183e4",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/begleitpanzer_57/vehicle_adapter.glb",
+      "adapter_sha256": "544f28b0ebd32e5b737e76e9764ff040836d3a44c1bade26d648e86ffc5a6a5e",
+      "id": "begleitpanzer_57",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00750017166137695,
+        -3.84999990463257
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/begleitpanzer_57/vehicle.glb",
+      "source_sha256": "ca92933bbcb919c1c51017c6036efc5507fd9da14f453ad920a491faf502fc8e",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/bmp_1_ddr/vehicle_adapter.glb",
+      "adapter_sha256": "3cd41ca9428ca6b180a57deda5871ea1c2b353ece6c67f1f2b1753d04633e6af",
+      "id": "bmp_1_ddr",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0000000000109139364212751,
+        0.0,
+        -1.71700000762939
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/bmp_1_ddr/vehicle.glb",
+      "source_sha256": "9242b424cb5ddf6f95a86241550d8f608776357cbe7674549c25c98f7a90070f",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/boxer_3105/vehicle_adapter.glb",
+      "adapter_sha256": "b435bdb08ad5555c764cff69ce650e29ed1c84495977ef6ade8e4db524a6084b",
+      "id": "boxer_3105",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0253121852874756,
+        -4.72599983215332
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/boxer_3105/vehicle.glb",
+      "source_sha256": "454332c69c67950d32fbf101c00b890eee04fa1d89c78570b5e99e8476cff6ee",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/boxer_swatrinf/vehicle_adapter.glb",
+      "adapter_sha256": "37b8ea69b2e9d2a968fb83831bbed0261c0f3aac30c921cd544487bf8c88cdc0",
+      "id": "boxer_swatrinf",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0479800701141357,
+        -3.27300000190735
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/boxer_swatrinf/vehicle.glb",
+      "source_sha256": "61953c5820d9d26ad217767c2cc2cc16458234b3f52530e268315b69235a0450",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/E100超重型坦克/vehicle_adapter.glb",
+      "adapter_sha256": "a9422f9ca1219cc46804a62ccf6b7bcb1649e736b68171fe1941e71662573681",
+      "id": "E100超重型坦克",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0425999164581299,
+        -6.78200006484985
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/E100超重型坦克/vehicle.glb",
+      "source_sha256": "32a1945bd6be27220e2e64388432355f299855de22cda701826c7d9651c97a6c",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/erprobungstrager_3_achs_turm/vehicle_adapter.glb",
+      "adapter_sha256": "d8fc6e4954d9ab9ebaa0caabd8711e6ad1fcac9dac48dc64453cd8e1c2ec0b7d",
+      "id": "erprobungstrager_3_achs_turm",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00990009307861328,
+        -5.63350009918213
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/erprobungstrager_3_achs_turm/vehicle.glb",
+      "source_sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_38t_Gepard/vehicle_adapter.glb",
+      "adapter_sha256": "9a3c82babc9aff7a4fb694b1163127b23e19289c72c44cf886776e3ec58c1e22",
+      "id": "flakpanzer_38t_Gepard",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.010200023651123,
+        2.14959669113159
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_38t_Gepard/vehicle.glb",
+      "source_sha256": "90ab0c42345d34ed8d039271e704be9d14f4a79ccf3a6e89167a50fefc8c0bfa",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_I_ausf_A/vehicle_adapter.glb",
+      "adapter_sha256": "98fd761b82f2650059df0e08916d0054eb10e5960c68a72c87a91e43939222a0",
+      "id": "flakpanzer_I_ausf_A",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.00349998474121094,
+        -1.87320005893707
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_I_ausf_A/vehicle.glb",
+      "source_sha256": "5b73cefb3178aa27d2202a1062c8c4de1f883cdd82d7b7ab1caf551a9e05fbe0",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_IV_Kugelblitz/vehicle_adapter.glb",
+      "adapter_sha256": "52fd501bc1d7614153a2da36f834cbb2ec9c6c760550d9549ffcc168fb761c48",
+      "id": "flakpanzer_IV_Kugelblitz",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.00000100024044513702,
+        -0.024399995803833,
+        -2.48775792121887
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_IV_Kugelblitz/vehicle.glb",
+      "source_sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_IV_Wirbelwind/vehicle_adapter.glb",
+      "adapter_sha256": "c452c5d9efc593c8f41256a69d779e3a0486145e3d9ff756a19c8e152273ebc1",
+      "id": "flakpanzer_IV_Wirbelwind",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.024399995803833,
+        -1.82480001449585
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_IV_Wirbelwind/vehicle.glb",
+      "source_sha256": "7672d91fdbbb42e4ed0f04ab372d5cbb02846ad55e9ac35e6e28cfc904ff9b44",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_V_Coelian/vehicle_adapter.glb",
+      "adapter_sha256": "3c90e766480bc048a6ba4d03fa1871a6fefb8010eddf99dcfb14291784e9bc78",
+      "id": "flakpanzer_V_Coelian",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0232000350952148,
+        -3.24379992485046
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_V_Coelian/vehicle.glb",
+      "source_sha256": "1249ebd8cb1bcc597c4012933de6c0cb3a58cca628e31caf9866d426b47120d8",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flakpanzer_zerstorer_45/vehicle_adapter.glb",
+      "adapter_sha256": "df40e36dd86246d32dab68da9385b94a5202047ba2b551984bc241f37feae007",
+      "id": "flakpanzer_zerstorer_45",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0199999809265137,
+        -2.12531995773315
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_zerstorer_45/vehicle.glb",
+      "source_sha256": "0d122a77d5e1e7a38f427123c07239b4459779e579946cfe751cea2f10da168b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flarakpz_1/vehicle_adapter.glb",
+      "adapter_sha256": "98a4bea68760c1e37496ed371e779f5e11f9c8506d503eb2361df43c940aa0d2",
+      "id": "flarakpz_1",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0199999809265137,
+        1.88059198856354
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flarakpz_1/vehicle.glb",
+      "source_sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/flarakrad/vehicle_adapter.glb",
+      "adapter_sha256": "d3c7f8c7ae1ce713da305fb1ca37ade567b0fd02e47454ad1c87837eba2e9efa",
+      "id": "flarakrad",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        2.08378767967224
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/flarakrad/vehicle.glb",
+      "source_sha256": "f117a684eb82953a124632360f40b354b4e436c8bbdd48389b70f0d3877b404d",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/hummel/vehicle_adapter.glb",
+      "adapter_sha256": "0f58c52043a6efdb87a5de09811caa42c9cf68498700a0052c7644ce3bffe861",
+      "id": "hummel",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        -3.34699988365173
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/hummel/vehicle.glb",
+      "source_sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/infanterie_kampfpanzer_churchill/vehicle_adapter.glb",
+      "adapter_sha256": "e9f6879545e61d517784e98e1d63fd10ca8f3a14c8f8560cbf49ee40c45f3dba",
+      "id": "infanterie_kampfpanzer_churchill",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        -0.000000998377799987793,
+        -0.0332000255584717,
+        -2.52335000038147
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/infanterie_kampfpanzer_churchill/vehicle.glb",
+      "source_sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/iris_slm_fcs/vehicle_adapter.glb",
+      "adapter_sha256": "4dd39fd1c9ffc2e3e232471d139e103f187590ef198e0a35da9250792f8f4adf",
+      "id": "iris_slm_fcs",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "none",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/iris_slm_fcs/vehicle.glb",
+      "source_sha256": "643f8b1892f8a3a1424522a5368c8f30ea230e993607279651e9e0411923cf48",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/iris_slm_launcher/vehicle_adapter.glb",
+      "adapter_sha256": "398e84c0e8812f4add9eed61c8b12db2778bd2af0fdbb119526ad601ac31d527",
+      "id": "iris_slm_launcher",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "none",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/iris_slm_launcher/vehicle.glb",
+      "source_sha256": "035595788f16900f288b6f87868645849bede67cf764c0835260cdb8c9bada5d",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/jaguar_2/vehicle_adapter.glb",
+      "adapter_sha256": "aafc4d4bad6d47036f313b09b37d082ea738c54911f597b7b88959e793fb51e5",
+      "id": "jaguar_2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0206999778747559,
+        -1.4099999666214
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/jaguar_2/vehicle.glb",
+      "source_sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/kpz_t72m1/vehicle_adapter.glb",
+      "adapter_sha256": "f90d4310e1bddef807e482c933af70c15c8360aff601fae33b2dda9f722ceb15",
+      "id": "kpz_t72m1",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0247999429702759,
+        -6.2350001335144
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/kpz_t72m1/vehicle.glb",
+      "source_sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/KPz70/vehicle_adapter.glb",
+      "adapter_sha256": "566e543214c03f4bc9875053eb00e4a813d63a7f5dd4193952e3960160f21309",
+      "id": "KPz70",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0205999612808228,
+        -5.61899995803833
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/KPz70/vehicle.glb",
+      "source_sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/kv_1_kwk_40/vehicle_adapter.glb",
+      "adapter_sha256": "09ff1541cf26127d78bbf66acade95e9488d736fcf8ba6ccd714b1d023adf937",
+      "id": "kv_1_kwk_40",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0160000324249268,
+        -4.62799978256226
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/kv_1_kwk_40/vehicle.glb",
+      "source_sha256": "fa18c59d2e4b2be0662638cd43fbaa77ba9a899a2e8c910e9d0c11c77ed6fc88",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/kv_2_754r/vehicle_adapter.glb",
+      "adapter_sha256": "0b808f52555bff87a37b2f294219bf42b56fe7c6b40c5ec8b88cbbe2ce8c7c50",
+      "id": "kv_2_754r",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0160999298095703,
+        -3.72099995613098
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/kv_2_754r/vehicle.glb",
+      "source_sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/leichter_ladungstrager_303a/vehicle_adapter.glb",
+      "adapter_sha256": "bc5c06368d57ef402b0c6a09f5f35a64169412cc07f9d2366cb60d33d19c669c",
+      "id": "leichter_ladungstrager_303a",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "none",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/leichter_ladungstrager_303a/vehicle.glb",
+      "source_sha256": "e1f3430757732126d777478ae4424713815fc24f3044329e40973a874b25ea05",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/m109g/vehicle_adapter.glb",
+      "adapter_sha256": "ffd489e26b99168d9cd3065b3a1476beeb90e39cbe06a008bf5793a18d985cb4",
+      "id": "m109g",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0424001216888428,
+        -3.38000011444092
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/m109g/vehicle.glb",
+      "source_sha256": "991981e2e4e5b86230166ce66dec927169a73f5c2ef14f23c303c51abcaea9c0",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/m44/vehicle_adapter.glb",
+      "adapter_sha256": "2f311f2f428e607935b0e72800746dedfc7edcfe9bd0756f53d661fcf319e0b4",
+      "id": "m44",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.023900032043457,
+        -2.57599997520447
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/m44/vehicle.glb",
+      "source_sha256": "edb409f29882719ca0ee613f1ff3d66b4703e2fee98306ea9aa7c49458a53b21",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/M48/vehicle_adapter.glb",
+      "adapter_sha256": "8998e9a33dcb63556eeb2725393b5217ef1ab30a27a07f2ee89cdc8a12363e8f",
+      "id": "M48",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00970005989074707,
+        -5.28499984741211
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/M48/vehicle.glb",
+      "source_sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/m55/vehicle_adapter.glb",
+      "adapter_sha256": "c0e779a5cb381a1632c0d9c93f0f3ba61e78c285dbbbc5ba2bc8a0610cd3e1e5",
+      "id": "m55",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0286998748779297,
+        -3.50300002098084
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/m55/vehicle.glb",
+      "source_sha256": "fe5e9ec431855abebd69967bd4db2c5c72151175bd0cc27cc72e72e743be6969",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/marder_df_105/vehicle_adapter.glb",
+      "adapter_sha256": "11564f97311cd7c299eb509cef7b246011aa8ae3841d9667091d369a5b14b217",
+      "id": "marder_df_105",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0224001407623291,
+        -4.06500005722046
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/marder_df_105/vehicle.glb",
+      "source_sha256": "9baa1df319d682ceab6dedb9ea99cd9bbd072c7c585dfe632fd0cb1b73a3bde0",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/mkpz_m47/vehicle_adapter.glb",
+      "adapter_sha256": "83a8af1dfc5e288f199b1a9810f47d33db5fc7fca5aa2c1693f873da87bcb018",
+      "id": "mkpz_m47",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0273000001907349,
+        -5.55600023269653
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/mkpz_m47/vehicle.glb",
+      "source_sha256": "17eb2006aab6c0f4ada7b4d5eae1575b0d183498c38723d4d6c969a078e8ab44",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/nbfz_VI/vehicle_adapter.glb",
+      "adapter_sha256": "bb7e73cee135cd452e22d159f608ac304ccbe43aba57669069962ac95af4d442",
+      "id": "nbfz_VI",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        -2.75500011444092
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/nbfz_VI/vehicle.glb",
+      "source_sha256": "72677a96a5641bd3f49b9e30249d5e092c4a41904c7e0a8cce32bc5f3b0d0640",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/panzerjager_1/vehicle_adapter.glb",
+      "adapter_sha256": "4fd7760945fe767e1b5017d7128c7740c6ac271d56de697df2c8b6d486dc5773",
+      "id": "panzerjager_1",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.000000426211045123637,
+        0.00360000133514404,
+        -2.08550000190735
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/panzerjager_1/vehicle.glb",
+      "source_sha256": "9dbc2a95cabb90c15c260c4d591a895899700c7db6df3453d33b2891093ca421",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/panzerjager_nashorn/vehicle_adapter.glb",
+      "adapter_sha256": "71fa6d245a4f08cd45d8f46b91ffe8240c4ceb9e611ee33c266d5239b3a929a1",
+      "id": "panzerjager_nashorn",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0243000984191895,
+        -5.21799993515015
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/panzerjager_nashorn/vehicle.glb",
+      "source_sha256": "a9e368cf65c27e53aede60dc6f2ee2b70bef538f08847a6cd7791bae35c3cdb8",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/panzerwerfer_42/vehicle_adapter.glb",
+      "adapter_sha256": "91de5c4541bb040d8a4b153f5f7cdca4b6bf7cd98dd97b68a31878338b024ea4",
+      "id": "panzerwerfer_42",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.0225999355316162,
+        2.05567002296448
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/panzerwerfer_42/vehicle.glb",
+      "source_sha256": "35ce1912d335019dd746a02fae55afadc95ee6dbdeb5b3dbc123b833ac47ce76",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/pzh_2000/vehicle_adapter.glb",
+      "adapter_sha256": "1c1f3d724741aaab1b343db025950f5a51f763b499156800b29b40b12630c7c7",
+      "id": "pzh_2000",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0203001499176025,
+        -7.03200006484985
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/pzh_2000/vehicle.glb",
+      "source_sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/pzkpfw_38t_Aufklarungspanzer/vehicle_adapter.glb",
+      "adapter_sha256": "dc784172fdd2a85b72e75daab015e890b72a4bca4e02660bb3350b1f89d44256",
+      "id": "pzkpfw_38t_Aufklarungspanzer",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0113999843597412,
+        -2.25559997558594
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/pzkpfw_38t_Aufklarungspanzer/vehicle.glb",
+      "source_sha256": "3f095ae6d7634a4dbd34731549f95cda67720524636727d1c2460c4825856c0b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/pzsfl_IVa_dickermax/vehicle_adapter.glb",
+      "adapter_sha256": "b9a251645eb0642372dea0e5975cf4b8b5e292ef0569590ab3e432b18ae3958d",
+      "id": "pzsfl_IVa_dickermax",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0101000070571899,
+        -4.72940015792847
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/pzsfl_IVa_dickermax/vehicle.glb",
+      "source_sha256": "db7927e8f8c4094e38ba34477627e481df22338a344294f03572ff5e07ab514a",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/pzsflk40_sturer_emil/vehicle_adapter.glb",
+      "adapter_sha256": "7bdba43662a8db859b6d17a45f0ec312f1a0555f43b9ad89be63eb3026c53641",
+      "id": "pzsflk40_sturer_emil",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00519990921020508,
+        -5.77400016784668
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/pzsflk40_sturer_emil/vehicle.glb",
+      "source_sha256": "068577f469c1a831c10b065b321ba26e5d7142171c44e861a0dc6255d6ae2503",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/radpanzer_90/vehicle_adapter.glb",
+      "adapter_sha256": "b98d4ea4b76e03e1477fefd4f8ae1f0a2a36c1ca2bf06ccbb9b514a2b1a44c9c",
+      "id": "radpanzer_90",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00547266006469727,
+        -5.86899995803833
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/radpanzer_90/vehicle.glb",
+      "source_sha256": "12375c4668438db03a61b61beb46366a3910570ddf44b6241c3b1c81bde88418",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/Ru251轻型坦克/vehicle_adapter.glb",
+      "adapter_sha256": "67f345a679f62b6eb5b5c955b4e55f006882de8fb7de143d535268fbacffb715",
+      "id": "Ru251轻型坦克",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00329995155334473,
+        -4.91499996185303
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/Ru251轻型坦克/vehicle.glb",
+      "source_sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sdkfz_221_s_pz_b_41/vehicle_adapter.glb",
+      "adapter_sha256": "0a262ed5b0524367c8e82d65a9a68f8cb12ea6406db1738b721b304d55e95bbc",
+      "id": "sdkfz_221_s_pz_b_41",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0125800371170044,
+        -1.99099922180176
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sdkfz_221_s_pz_b_41/vehicle.glb",
+      "source_sha256": "65bb5fe3f8c6384f7eb6f38ce0168447c26e3eedbfd7320a7ca2d75a2a91875d",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sdkfz_222/vehicle_adapter.glb",
+      "adapter_sha256": "3c990a52a14ad4bca83ade909f67f7dbfc62abeb440dc25d4251044dd3d03f76",
+      "id": "sdkfz_222",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00879001617431641,
+        -1.77199995517731
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sdkfz_222/vehicle.glb",
+      "source_sha256": "7088750bba5752d49c4aea0e58068d2d9e1d71a840d07cfc632eec3e6a65f761",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sdkfz_6_2_flak36/vehicle_adapter.glb",
+      "adapter_sha256": "7c695e021c931de5573049736ade3793fec3bc3793974e6b8f8876c75085005f",
+      "id": "sdkfz_6_2_flak36",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0647712051868439,
+        1.47701776027679
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sdkfz_6_2_flak36/vehicle.glb",
+      "source_sha256": "abe09a4760a1f6a21d0396dae3242086b411db27d2084edcdbf7f6e6a500fd51",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sdkfz_9_flak37/vehicle_adapter.glb",
+      "adapter_sha256": "76f537639a9797e994be7356dedc23eda01a7e31c553d8070ae5e816fe85749c",
+      "id": "sdkfz_9_flak37",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00999999046325684,
+        3.07975006103516
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sdkfz_9_flak37/vehicle.glb",
+      "source_sha256": "f042ed2ae1bf83bc913243bd69c1474bc13e8c5eebdf031aeb8910422a6d8fcd",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/SdKfz234/vehicle_adapter.glb",
+      "adapter_sha256": "096fd45fd2bac1a7f2eca96922c117dd1a03c71843a38f2dd7ddd4b8de6fda65",
+      "id": "SdKfz234",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.000000186075340025127,
+        -0.00773096084594727,
+        -3.82999992370605
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/SdKfz234/vehicle.glb",
+      "source_sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/SdKfz251/vehicle_adapter.glb",
+      "adapter_sha256": "54bd3a7e78461344b0c60dd3c631f702c30da68580758bfea4d38065b950d452",
+      "id": "SdKfz251",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0188999176025391,
+        -1.55710005760193
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/SdKfz251/vehicle.glb",
+      "source_sha256": "24a7c301cb03a4ea79fab2359f26888eb243d55656875301c687850a0887dce6",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sk105_a2/vehicle_adapter.glb",
+      "adapter_sha256": "8a3fddcf3c5ea21ecc82f3b246c273b096d7f0b84ece9660b7c99b965709f70e",
+      "id": "sk105_a2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0116000175476074,
+        -4.84999990463257
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sk105_a2/vehicle.glb",
+      "source_sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sppz2_luchs_a2/vehicle_adapter.glb",
+      "adapter_sha256": "4c0929a32227dd5e2b901ed609316f1d552293905217701440c8cdf935ae8da6",
+      "id": "sppz2_luchs_a2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0221741199493408,
+        -3.50500011444092
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sppz2_luchs_a2/vehicle.glb",
+      "source_sha256": "83f856d031294490fd8274de2433648d93dc3d897a630b8b35ef6a717cf293b4",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/spz_12_3/vehicle_adapter.glb",
+      "adapter_sha256": "22b7df5cdb18b44f95fa5ba9b0569907f8aeb009bad0728cb698be9d1988e548",
+      "id": "spz_12_3",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00580000877380371,
+        -3.17709994316101
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/spz_12_3/vehicle.glb",
+      "source_sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/spz_oerlikon_raketenautomat/vehicle_adapter.glb",
+      "adapter_sha256": "ee12e3e24b14faa148f1053adde20cd3e31f771acd353cc5f831691d501f9135",
+      "id": "spz_oerlikon_raketenautomat",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00590002536773682,
+        -3.7923800945282
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/spz_oerlikon_raketenautomat/vehicle.glb",
+      "source_sha256": "9e925267680dd37a5c1299315bb82811106567623e00a772762d639a8f48875d",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/sturmpanzer_II/vehicle_adapter.glb",
+      "adapter_sha256": "30ce0d2cf1d4698b42cefc91bac79a02daab1a7c38f3c42ad6ddec23c84a6f7f",
+      "id": "sturmpanzer_II",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        -0.0000000676081981509924,
+        -0.0151000022888184,
+        -2.24799990653992
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/sturmpanzer_II/vehicle.glb",
+      "source_sha256": "31feb179335b9e60cc231dc93b068b46af745211ce012a29643c18237ae62236",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/t_34_747/vehicle_adapter.glb",
+      "adapter_sha256": "daa2b131f98d0d984cd9a1bb8e0b7a2110db2f458432a2ecad6e0942d7daad6f",
+      "id": "t_34_747",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00450003147125244,
+        -3.58185005187988
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/t_34_747/vehicle.glb",
+      "source_sha256": "bab8bb396f3c454462bc4301c9859075990ef10c44f28068155aed4e7ba61423",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/TAM/vehicle_adapter.glb",
+      "adapter_sha256": "6e20aa2bcf7ca004dc11b94188aa0269d8ed4a3ccf756200f25963ba60acbe8a",
+      "id": "TAM",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0075000524520874,
+        -4.65999984741211
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/TAM/vehicle.glb",
+      "source_sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/th_400/vehicle_adapter.glb",
+      "adapter_sha256": "9b3339162eb750379c87227487e08fe4444d374736318f1feded2f8dec42fca6",
+      "id": "th_400",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00888609886169434,
+        -5.55000019073486
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/th_400/vehicle.glb",
+      "source_sha256": "82c71dc1acf1719b8de52d6dc1b18f4e75d58837fbfc66425fea75aa0e167eed",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/truck_sdkfz_6_2_tent/vehicle_adapter.glb",
+      "adapter_sha256": "51a6e373b6c3ecf51d7925d37c38443a64d9f945c990920ac108f1c0770079c7",
+      "id": "truck_sdkfz_6_2_tent",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "none",
+      "muzzle_offset_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/truck_sdkfz_6_2_tent/vehicle.glb",
+      "source_sha256": "aa5db018454561f8b5ec468fef8df6db2b641d68daf40645221ecc55a3b3bbc4",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/us_m4a2_1944_germ/vehicle_adapter.glb",
+      "adapter_sha256": "4e3d74506bc00e3c1b5a07df8d3fd24dab81b46949a5c8df91eee12761fa03bb",
+      "id": "us_m4a2_1944_germ",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0327999591827393,
+        -2.69000005722046
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/us_m4a2_1944_germ/vehicle.glb",
+      "source_sha256": "eed359ea4ccb0b78c81b0b25141b3f841770cd5a74cbb4f1312dac00a5f84e62",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/vilkas/vehicle_adapter.glb",
+      "adapter_sha256": "702fa8de0939704e78a42f91ac71de46debac39636bbaaf3697ae9e39d05aeeb",
+      "id": "vilkas",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0253121852874756,
+        -2.21300005912781
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/vilkas/vehicle.glb",
+      "source_sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/VK30.02M/vehicle_adapter.glb",
+      "adapter_sha256": "ebced3dc528f62e72cf590a7b6ca14ab54313b9631de84eaab80f28b41a64e24",
+      "id": "VK30.02M",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0260000228881836,
+        -5.2020001411438
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/VK30.02M/vehicle.glb",
+      "source_sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/vsw_flak_41/vehicle_adapter.glb",
+      "adapter_sha256": "944ed9c7b2e4ae7bfe858e44608a611f50435a130e31c526bcb2cfcc20cca22a",
+      "id": "vsw_flak_41",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00500011444091797,
+        -6.08610010147095
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/vsw_flak_41/vehicle.glb",
+      "source_sha256": "c176f135887d940755224c8c7f1a4eee93b887bc40acc9ad6f5b0be1b27c3fad",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/vt_1_2/vehicle_adapter.glb",
+      "adapter_sha256": "2250c4c9e68433a2f236f0c55ae8c55c3fd515543be09c74ac6379ac8c5886ec",
+      "id": "vt_1_2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00999999046325684,
+        -4.68200016021729
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/vt_1_2/vehicle.glb",
+      "source_sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/waffentrager_krupp_steyr/vehicle_adapter.glb",
+      "adapter_sha256": "79054040d1c71cf879b7e04b98fd7cffffaa4dafdd356449ae36538cd2ef2e93",
+      "id": "waffentrager_krupp_steyr",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.010699987411499,
+        -5.43100023269653
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/waffentrager_krupp_steyr/vehicle.glb",
+      "source_sha256": "03ce37358395983e40b8fe68df277fc6ac4a65890e92c3c9ea20dfd29883857b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/wiesel_1_mk20/vehicle_adapter.glb",
+      "adapter_sha256": "32f3e4136988ccc7beb339b66be65fc91cc940cb53a7ce215fa38aa5a3e4ca0f",
+      "id": "wiesel_1_mk20",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0075000524520874,
+        -1.79700005054474
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/wiesel_1_mk20/vehicle.glb",
+      "source_sha256": "e6f9c74f13b03ada730c0a62d82d9debba7fb223bbf490497a811eaffadc93ea",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/wiesel_1_tow/vehicle_adapter.glb",
+      "adapter_sha256": "14a169e9906f0115e1c2a9f11af2db8cfab4ebbe1632a55f94d587991194464e",
+      "id": "wiesel_1_tow",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0075000524520874,
+        0.779999971389771
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/wiesel_1_tow/vehicle.glb",
+      "source_sha256": "74dae98ef6f1292b4dea141c6034584312fd224668f528040ec14646d7d740a6",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/wiesel_2_adwc/vehicle_adapter.glb",
+      "adapter_sha256": "78f5e6f1af54fae4ba9553f9cb2ba6a87ac595c1e5483c0c20210af742176530",
+      "id": "wiesel_2_adwc",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0074000358581543,
+        2.24399995803833
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/wiesel_2_adwc/vehicle.glb",
+      "source_sha256": "d272933c2656edfc6f90ae49b466822feb65ac373988bd2cc54e37b1df34dd60",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/三号坦克/vehicle_adapter.glb",
+      "adapter_sha256": "7f8ae101e0aed47ad375bf91c22f740e9855a8913e5452e58108f4e5215d43e7",
+      "id": "三号坦克",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00699996948242188,
+        -2.23200011253357
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/三号坦克/vehicle.glb",
+      "source_sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/三号突击炮/vehicle_adapter.glb",
+      "adapter_sha256": "4f3d91cab225fa9b2da73c4946884f309becb09fe34a3999171f264bf2750005",
+      "id": "三号突击炮",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.00569999217987061,
+        -2.33800005912781
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/三号突击炮/vehicle.glb",
+      "source_sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/东风/vehicle_adapter.glb",
+      "adapter_sha256": "17ee424494bb3bb349c03347923f56efcd26730411b8fc4476468a9c513a5174",
+      "id": "东风",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.024399995803833,
+        -2.63899993896484
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/东风/vehicle.glb",
+      "source_sha256": "972473435de7f165ea4e25a1f520312ded951f70e2df3c287d249d7c14812b1b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/二号坦克/vehicle_adapter.glb",
+      "adapter_sha256": "6637db315df46b9bf02c8cc912470844750b0103fec656cd5bb927ae370b040e",
+      "id": "二号坦克",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0104000568389893,
+        -1.98800003528595
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/二号坦克/vehicle.glb",
+      "source_sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/保时捷虎/vehicle_adapter.glb",
+      "adapter_sha256": "03f0cd62324f8ea9d0fca6a7b9fe723aad87ef401554acc49c530c15306798a3",
+      "id": "保时捷虎",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.0255999565124512,
+        -6.16499996185303
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/保时捷虎/vehicle.glb",
+      "source_sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/卡诺内坦克歼击车/vehicle_adapter.glb",
+      "adapter_sha256": "fe3ad9293914b13e31c3ffe6258c65743c3aa7832a451ecaf2a45bb749bb574d",
+      "id": "卡诺内坦克歼击车",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00339996814727783,
+        -5.31500005722046
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/卡诺内坦克歼击车/vehicle.glb",
+      "source_sha256": "a4832317782dc2c3fd17bd1ceb106b1afcc22848103df006302f66ac2057b4aa",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/四号坦克/vehicle_adapter.glb",
+      "adapter_sha256": "a64f3301ac731108c6ea6a7cd79843f8e52ea00577d5d9303c93bdb0d98dd386",
+      "id": "四号坦克",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0121999979019165,
+        -2.0550000667572
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/四号坦克/vehicle.glb",
+      "source_sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/四号坦克歼击车/vehicle_adapter.glb",
+      "adapter_sha256": "ab60432890a1dfb97452b3792c1ccfdc2d33dd2355fc1eb55a2cf83f1f6fab86",
+      "id": "四号坦克歼击车",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0121999979019165,
+        -4.30299997329712
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/四号坦克歼击车/vehicle.glb",
+      "source_sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/德军M41/vehicle_adapter.glb",
+      "adapter_sha256": "184788358c9796a17a623a65fb33b276ec8749b1cdcf257f34675161bcab7cda",
+      "id": "德军M41",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00849997997283936,
+        -5.23999977111816
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/德军M41/vehicle.glb",
+      "source_sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/斐迪南/vehicle_adapter.glb",
+      "adapter_sha256": "48f3e36ec15258554efc4e7da70f23023b09d1f9d9a97c873c7d36a7595ea12a",
+      "id": "斐迪南",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.011199951171875,
+        -4.57499980926514
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/斐迪南/vehicle.glb",
+      "source_sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/火箭坦克歼击车2/vehicle_adapter.glb",
+      "adapter_sha256": "9345fcf05e4c3e957625dfd106bbb13346b0ba225799a7da11b3fb1c88ecde61",
+      "id": "火箭坦克歼击车2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00329995155334473,
+        -1.87151396274567
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/火箭坦克歼击车2/vehicle.glb",
+      "source_sha256": "b6c14763bfba83bc916f63ee1dbe0e5ab4b7995a5ee10dc372fc73a8736694ed",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/灰熊/vehicle_adapter.glb",
+      "adapter_sha256": "2faaa24a3fe5679d7079a1d8d642dda7d0f33dcf88aed8be48d4d31d963e37ac",
+      "id": "灰熊",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.014799952507019,
+        -2.49000000953674
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/灰熊/vehicle.glb",
+      "source_sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/猎虎/vehicle_adapter.glb",
+      "adapter_sha256": "18e7f1b721d385c8736ede015dd5ebf78580fb3cc7c8fb53b639c76f5f1cce2c",
+      "id": "猎虎",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        0.000400066375732422,
+        -6.27699995040894
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/猎虎/vehicle.glb",
+      "source_sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/猎豹/vehicle_adapter.glb",
+      "adapter_sha256": "3b36d8c44ed556c0cc8a8400c4b3372a0872a80f28b2c9ee6a0f85dbca57fc7e",
+      "id": "猎豹",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0163999795913696,
+        -6.11899995803833
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/猎豹/vehicle.glb",
+      "source_sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/猎豹防空车/vehicle_adapter.glb",
+      "adapter_sha256": "5094cc899ad5089328af16fbdeca8002da4a01cd197080972e622b23ae27db03",
+      "id": "猎豹防空车",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0175001621246338,
+        -3.80999994277954
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/猎豹防空车/vehicle.glb",
+      "source_sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/突击虎/vehicle_adapter.glb",
+      "adapter_sha256": "d0279334d6fc3d73b1c6f4931db223547024923154e62ba8ef3be906c1698ed6",
+      "id": "突击虎",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.00999999046325684,
+        -2.92000007629395
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/突击虎/vehicle.glb",
+      "source_sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/美洲狮步战车/vehicle_adapter.glb",
+      "adapter_sha256": "89edec0195c1c1f2a388f70f67449008cbd4761c987b7d97ddca06531913965d",
+      "id": "美洲狮步战车",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0209000110626221,
+        -2.60500001907349
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/美洲狮步战车/vehicle.glb",
+      "source_sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/虎I/vehicle_adapter.glb",
+      "adapter_sha256": "adc6a2642cc36df7e4564b8e803fcab2ddd86c34ea7818f13edd148b5f118aa7",
+      "id": "虎I",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0309000015258789,
+        -5.17999982833862
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/虎I/vehicle.glb",
+      "source_sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/虎II/vehicle_adapter.glb",
+      "adapter_sha256": "696ffab1ed9ba87bb293b1ee60ee49074c96287b8612b8f7647200712548c518",
+      "id": "虎II",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0106000900268555,
+        -6.59000015258789
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/虎II/vehicle.glb",
+      "source_sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/豹1/vehicle_adapter.glb",
+      "adapter_sha256": "fac53c06f6fca3d332c2091768eec8a23c3594ba6fc09aaf9ce34875f7513a44",
+      "id": "豹1",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0192999839782715,
+        -6.00099992752075
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/豹1/vehicle.glb",
+      "source_sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/豹2/vehicle_adapter.glb",
+      "adapter_sha256": "d83daabe4a7a5dfcaadb672249bcc077113aee497bfd547d2cee383ae468cb25",
+      "id": "豹2",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0116000175476074,
+        -5.69700002670288
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/豹2/vehicle.glb",
+      "source_sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/追猎者/vehicle_adapter.glb",
+      "adapter_sha256": "e2890e0c64ef67d864e2174a58fe0c203bac8032b2069f84ddb9de1b87fc6647",
+      "id": "追猎者",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0226999521255493,
+        -3.81900000572205
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/追猎者/vehicle.glb",
+      "source_sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/黄鼠狼III/vehicle_adapter.glb",
+      "adapter_sha256": "f68cdd23f30a0234b255895a1fb58ffe22a9953e4208dda1758115c0e2bdd67e",
+      "id": "黄鼠狼III",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        -0.000000449246726930141,
+        -0.00810003280639648,
+        -3.71399998664856
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/黄鼠狼III/vehicle.glb",
+      "source_sha256": "4e5665fcd92b76d16d1984fcf525b75cd823d47e161751103cacab3513ee33a5",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/黄鼠狼步战车/vehicle_adapter.glb",
+      "adapter_sha256": "e0dc1b84833fa3131781f9273e17bf741ee570f9d3b7f5e7e24cee52d8997166",
+      "id": "黄鼠狼步战车",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0249998569488525,
+        -1.56900000572205
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/黄鼠狼步战车/vehicle.glb",
+      "source_sha256": "079310065f0bec17f9550c267c61dcf2c7dbf118fcb50250c3d009d2f183a418",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/黑豹/vehicle_adapter.glb",
+      "adapter_sha256": "cd29c651ca226e15068985d63f232c0c26a9a5c97d679d4a608b6b56a94a06e8",
+      "id": "黑豹",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0232000350952148,
+        -5.40999984741211
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/黑豹/vehicle.glb",
+      "source_sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/黑豹II/vehicle_adapter.glb",
+      "adapter_sha256": "a305b5c52f2f4661dc241d73a3f33ea5d2e9b41fe46ee15fa4a748b7a9d6cc2c",
+      "id": "黑豹II",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.000300168991088867,
+        -5.58099985122681
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/黑豹II/vehicle.glb",
+      "source_sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
+      "adapter_path": "res://assets/vehicles/adapters/鼠式/vehicle_adapter.glb",
+      "adapter_sha256": "6d8ceb6557791733fe021d18d17a12aa58ca35e6687f67ba5cc69a26b5e9ea7f",
+      "id": "鼠式",
+      "muzzle_marker_parent": "<scene root>",
+      "muzzle_method": "barrel_mesh_extremity_composed_through_parent_chain",
+      "muzzle_offset_m": [
+        0.0,
+        -0.0155999660491943,
+        -5.35900020599365
+      ],
+      "muzzle_verified_delta_m": 0.0,
+      "muzzle_verified_in_artifact": true,
+      "note": "source opened read-only; the adapter is our own derived artifact with its own hash, and the muzzle position is re-read from the artifact and asserted",
+      "source_path": "E:/AIprogram/aimodel/德国/鼠式/vehicle.glb",
+      "source_sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2",
+      "source_unchanged": true,
+      "write_result": 0
+    },
+    {
       "adapter_path": "res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb",
       "adapter_sha256": "40707c9fc9216c88a3a10b80270efa50aaf1d763ea85d38d272f14c850fbc721",
       "id": "ussr_t_80b",

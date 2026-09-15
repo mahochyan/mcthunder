@@ -71,3 +71,20 @@
 4. 工具已支持 `<id>=<绝对路径>` 与 `root=<目录>` ✓（含中文路径 ✓ 实测可用 ✓）。
 
 **说明** ✗：`ussr_t_80b` 的产物**不足以**用于几何生成 ✓（炮口无效 ✓）⇒ 在加固与修好映射前，**不得**用它的 `MuzzlePoint` 生成 `geometry` ✗。
+
+---
+
+## 6. 记录修复 + 确定性验证 + 盲区量化（本轮实测）
+| 项 | 结果 |
+|---|---|
+| `adapter_artifacts.json` | 被 2 车运行**覆盖**为 2 行 ✗ ⇒ **已一次性重跑 96+2 修复为 98 行** ✓ |
+| 自校验汇总 | `verified=True` **98/98** ✓ · `source_unchanged=True` **98/98** ✓ |
+| **确定性** | 重导出 98 个 GLB 与修复前 **逐字节相同（0 差异）** ✓✓ ⇒ 适配生成**可复现** ✓ |
+| **盲区实例** | **6 辆** `method=none` 却 `verified=True` ✗：`9a33bm3` · `iris_slm_fcs` · `iris_slm_launcher` · `leichter_ladungstrager_303a` · `truck_sdkfz_6_2_tent` · **`ussr_t_80b`** |
+
+**精确定性** ✓：前 5 辆为**卡车/发射车/载具**（**无炮口** ✓）⇒ 对它们"`none`"正确 ✓，但**不应**产出原点 `MuzzlePoint` ✗；**`ussr_t_80b` 是坦克** ✗ ⇒ 其 `none` 为**真实失败** ✗。
+
+**加固项（精确化）**：
+1. 仅当该车**存在炮角色**时，要求 `method != "none"` **且** `offset.length() > 0` ✓，否则**判失败** ✓（不再空洞通过 ✗）；
+2. 无炮车辆**不产出 `MuzzlePoint`** ✗，改标 `no_muzzle` ✓；
+3. **追查 `ussr_t_80b` 映射失败** ✓（`SPECS` 期望 `root`/`gun_mesh` 与真实节点核对 ✓）。
