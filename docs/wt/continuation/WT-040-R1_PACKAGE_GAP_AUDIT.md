@@ -279,3 +279,38 @@ Godot 会把**无害警告**写到 stderr（如 `backups/` 下的 `project.godot
 层级探针把它们从"未知"变成**可复现的具体错误** ✓ —— 这是**不需要任何外部输入**就能推进的工作 ✓。
 
 **下一步（继续 ✓）**：让探针**逐层收敛**：① 为 `geometry.build` 提供**形状安全的**几何（豹2缺环时给出**明确标注的占位环** ✓ 以观察后续层 ✓）；② 按 `LayoutValidator` 的真实接口**构造**证据字典 ✓（读其源码 ✓，不猜 ✗）；③ 直至跑通 `definitions.validate()` ✓。
+
+---
+
+## 15. 深层接口查明 ⇒ **新车辆需要的完整工件清单**（实测 ✓，非推断 ✓）
+### `LayoutValidator.validate(layout, evidence_keys, field_evidence_doc)` ✓
+`check_evidence_consistency`（`scripts/layout/layout_validator.gd:206` ✓）**空字典直接报错** ✓：
+> `field evidence registry missing for <tier> layout (**configs/evidence/<identity>.json**)` ✗
+且对 `content_tier == "test"` **提前返回** ✓ ⇒ **这解释了为何 `configs/evidence/` 里只有 1 份** ✓（M4A3 ✓；其余 3 辆历史车为 test 级 ✓）。
+
+### 证据登记表的**真实形状** ✓（`configs/evidence/us_m4a3_75w_vvss_1944.json` ✓）
+```
+顶层: identity_id · runtime_note · source_registry · evidence_keys · fields
+evidence_keys[]（11）: {key, source_id, origin, title, applies_to, read_state,
+                        applies_to_identity_ids[], excluded_identity_ids[]}
+fields[]（16）:        {field_path, origin, status, source_refs[], original_value,
+                        original_unit, derivation, uncertainty_note}
+  例: overall.length_m = "20 ft 7 in" → derivation "20.583 ft * 0.3048 = 6.274 m" ✓
+      overall.width_m  = "8 ft 9 in"  ✓
+```
+⇒ **校验器要的 `dimensions.width_m` / `reference_length_m` 在项目机制里就是 `overall.width_m` / `overall.length_m`** ✓，
+且**必须带文献原值与推导**（`original_value` + `derivation` ✓）⇒ 我此前把尺寸判为"**独立资料**"**完全正确** ✓，现已确定**字段名与格式** ✓。
+
+### 因此，一辆**新生产车**的**完整工件清单**（实测所得 ✓）
+| 工件 | 状态 |
+|---|---|
+| `geometry`（15 必需字段 ✓） | **已测得并校验** ✓（29/29 ✓；豹2 缺 `hull_rings` ⇒ 作者项 ✓） |
+| `runtime`（10 必需字段 ✓） | 6 项**已带引用** ✓；4 项**设计值**待输入 ✓ |
+| `armor`（17 zone ✓） | **草案已备好** ✓（待裁定 ✓），内容层**已通过** ✓ |
+| `modules`（7 kind ✓，≤48 ✓，弹架==rounds ✓） | **已派生** ✓ |
+| `crew`（角色引用 ✓ + 位置派生 ✓） | **已派生** ✓ |
+| `assembly`（7 字段 ✓） | 4 项已带引用 ✓（`gun`/`shell`/`caliber_mm`/`variant` ✓）；3 项待史料 ✓ |
+| `facts` | **逐条带引用** ✓ + **四个自证式证据事实** ✓ |
+| **`configs/evidence/<id>.json`** | **尚缺** ✗ ⇒ 其 `fields[]` 需 `overall.width_m`/`overall.length_m`（**文献** ✓）等 |
+| **`model_binding`** | **尚缺** ✗（校验器：新车辆**必须**有显式交付的模型绑定 ✓） |
+| `layout`（由 `HistoricalVehicleGeometry.build` 生成 ✓） | **已探测：会因 `hull_rings` 缺失而崩** ✗（豹2 ✓） |
