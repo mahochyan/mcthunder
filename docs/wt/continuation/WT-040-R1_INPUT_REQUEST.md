@@ -33,3 +33,14 @@
 ## E. 已完成（**无需任何输入** ✓，均已由管线验证 ✓）
 `geometry`（由模型实测 ✓，29/29 校验通过 ✓）· `facts`（逐条带引用 ✓：速度/倒车/转速/质量/发动机/弹药容量/乘员角色 ✓）· `assembly.gun`/`shell`/`caliber_mm`/`variant` ✓ · `runtime.rounds`/`muzzle_velocity`/`acceleration`/`forward_max_speed`/`reverse_max_speed`/`hull_turn_speed` ✓ · `crew`（角色引用 + 位置派生 ✓）· `modules`（7 kind ✓ + 弹架精确配平 ✓）
 **缺口从 24 → 9**（豹2 25 → 10）✓，每一步下降都对应实际提供并接线的字段 ✓。
+
+---
+
+## F. 裁定后**立即落盘**的准备已完成 ✓
+`tests/build_modern_armor_draft.gd` ✓ 已按两份映射表生成 **draft** ✓（**待评审** ✓，不注册、不写配置 ✓）：
+| 车 | zones | 材料分布 | 代表值（带引用 ✓） |
+|---|---|---|---|
+| T-80B | **17** ✓ | `cast×5` · **`unknown×12`** ✓（其档案**车体行不带 armourClass** ✗ ⇒ **如实取 unknown，不硬套** ✓） | `turret_front 250` ✓ `#L91` · `turret_sides 157` ✓ |
+| 豹2A4 | **17** ✓ | `rolled×14` · `composite×1` · `cast×2` ✓ | `turret_front 250` ✓ `#L113` · `turret_sides 160` ✓ |
+每 zone 均含：来源节点 ✓ · **行号** ✓ · `mapping_note`（粒度共用/多段取值的说明 ✓）；状态 `reference_pending_review` ✓。
+⇒ **裁定一句话，17 项即可落盘** ✓。

@@ -1,0 +1,495 @@
+{
+  "note": "armour draft AWAITING REVIEW: the seventeen-zone mapping is a judgement from War Thunder node names onto the project's zones; status is reference_pending_review and nothing is registered or admitted",
+  "rows": [
+    {
+      "armor": {
+        "gun_shield": {
+          "fact": "armor.gun_shield",
+          "mapping_note": "gun_mask_02_dm (90 mm, line 95) also exists",
+          "material": "cast"
+        },
+        "hull_floor_front": {
+          "fact": "armor.hull_floor_front",
+          "material": "unknown"
+        },
+        "hull_floor_rear": {
+          "fact": "armor.hull_floor_rear",
+          "mapping_note": "the dossier does not split front from rear floor",
+          "material": "unknown"
+        },
+        "hull_front_lower": {
+          "fact": "armor.hull_front_lower",
+          "mapping_note": "same node as the upper front (no split in the dossier)",
+          "material": "unknown"
+        },
+        "hull_front_upper": {
+          "fact": "armor.hull_front_upper",
+          "mapping_note": "the dossier does not split upper from lower front, so both take this value",
+          "material": "unknown"
+        },
+        "hull_rear_lower": {
+          "fact": "armor.hull_rear_lower",
+          "mapping_note": "same node as the upper rear",
+          "material": "unknown"
+        },
+        "hull_rear_upper": {
+          "fact": "armor.hull_rear_upper",
+          "mapping_note": "superstructure_back_dm (50 mm, line 59) also exists",
+          "material": "unknown"
+        },
+        "hull_roof_front": {
+          "fact": "armor.hull_roof_front",
+          "material": "unknown"
+        },
+        "hull_roof_rear": {
+          "fact": "armor.hull_roof_rear",
+          "mapping_note": "the dossier does not split front from rear roof",
+          "material": "unknown"
+        },
+        "hull_sides_front": {
+          "fact": "armor.hull_sides_front",
+          "material": "unknown"
+        },
+        "hull_sides_lower": {
+          "fact": "armor.hull_sides_lower",
+          "mapping_note": "the dossier does not split upper from lower side",
+          "material": "unknown"
+        },
+        "hull_sides_lower_rear": {
+          "fact": "armor.hull_sides_lower_rear",
+          "mapping_note": "same as the other side zones",
+          "material": "unknown"
+        },
+        "hull_sides_rear": {
+          "fact": "armor.hull_sides_rear",
+          "mapping_note": "the dossier does not split front from rear side",
+          "material": "unknown"
+        },
+        "turret_front": {
+          "fact": "armor.turret_front",
+          "mapping_note": "turret_01_front_dm (250 mm, line 89) carries the same figure",
+          "material": "cast"
+        },
+        "turret_rear": {
+          "fact": "armor.turret_rear",
+          "mapping_note": "turret_01_back_dm (65 mm, line 82) also exists",
+          "material": "cast"
+        },
+        "turret_roof": {
+          "fact": "armor.turret_roof",
+          "mapping_note": "multi-segment (45/60/140/30); representative value chosen",
+          "material": "cast"
+        },
+        "turret_sides": {
+          "fact": "armor.turret_sides",
+          "mapping_note": "multi-segment in the dossier (125/160/90); a representative value had to be chosen - this is the reviewable part",
+          "material": "cast"
+        }
+      },
+      "facts": {
+        "armor.gun_shield": {
+          "location": "warthunder_reference line 94: gun_mask_01_dm armorThickness=50.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L94"
+          ],
+          "status": "reference_pending_review",
+          "value": 50.0
+        },
+        "armor.hull_floor_front": {
+          "location": "warthunder_reference line 56: body_bottom_dm armorThickness=20.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L56"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_floor_rear": {
+          "location": "warthunder_reference line 56: body_bottom_dm armorThickness=20.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L56"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_front_lower": {
+          "location": "warthunder_reference line 51: body_front_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L51"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.hull_front_upper": {
+          "location": "warthunder_reference line 51: body_front_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L51"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.hull_rear_lower": {
+          "location": "warthunder_reference line 58: body_back_dm armorThickness=60.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L58"
+          ],
+          "status": "reference_pending_review",
+          "value": 60.0
+        },
+        "armor.hull_rear_upper": {
+          "location": "warthunder_reference line 58: body_back_dm armorThickness=60.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L58"
+          ],
+          "status": "reference_pending_review",
+          "value": 60.0
+        },
+        "armor.hull_roof_front": {
+          "location": "warthunder_reference line 54: body_top_dm armorThickness=30.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L54"
+          ],
+          "status": "reference_pending_review",
+          "value": 30.0
+        },
+        "armor.hull_roof_rear": {
+          "location": "warthunder_reference line 54: body_top_dm armorThickness=30.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L54"
+          ],
+          "status": "reference_pending_review",
+          "value": 30.0
+        },
+        "armor.hull_sides_front": {
+          "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L53"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.hull_sides_lower": {
+          "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L53"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.hull_sides_lower_rear": {
+          "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L53"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.hull_sides_rear": {
+          "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L53"
+          ],
+          "status": "reference_pending_review",
+          "value": 80.0
+        },
+        "armor.turret_front": {
+          "location": "warthunder_reference line 91: turret_front_dm armorThickness=250.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L91"
+          ],
+          "status": "reference_pending_review",
+          "value": 250.0
+        },
+        "armor.turret_rear": {
+          "location": "warthunder_reference line 88: turret_back_dm armorThickness=90.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L88"
+          ],
+          "status": "reference_pending_review",
+          "value": 90.0
+        },
+        "armor.turret_roof": {
+          "location": "warthunder_reference line 80: turret_03_top_dm armorThickness=90.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L80"
+          ],
+          "status": "reference_pending_review",
+          "value": 90.0
+        },
+        "armor.turret_sides": {
+          "location": "warthunder_reference line 90: turret_side_dm armorThickness=157.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L90"
+          ],
+          "status": "reference_pending_review",
+          "value": 157.0
+        }
+      },
+      "id": "ussr_t_80b",
+      "notes": [
+        "17 zones mapped, each with the dossier node and line it came from",
+        "12 zone(s) got material 'unknown' because their armour class has no honest project equivalent; nothing was forced",
+        "the mapping is AWAITING REVIEW: the dossier is coarser than the project in places and multi-segment for the turret sides and roof, so representative values were chosen and named",
+        "dimensions are deliberately absent: the dossiers have none and my own measurement must not be the reference for the envelope cross-check"
+      ],
+      "zones": 17
+    },
+    {
+      "armor": {
+        "gun_shield": {
+          "fact": "armor.gun_shield",
+          "mapping_note": "the mask group holds seven rows",
+          "material": "rolled"
+        },
+        "hull_floor_front": {
+          "fact": "armor.hull_floor_front",
+          "material": "rolled"
+        },
+        "hull_floor_rear": {
+          "fact": "armor.hull_floor_rear",
+          "material": "rolled"
+        },
+        "hull_front_lower": {
+          "fact": "armor.hull_front_lower",
+          "material": "rolled"
+        },
+        "hull_front_upper": {
+          "fact": "armor.hull_front_upper",
+          "mapping_note": "node name says body but the class says turret NERA - flagged for review rather than smoothed over",
+          "material": "composite"
+        },
+        "hull_rear_lower": {
+          "fact": "armor.hull_rear_lower",
+          "material": "rolled"
+        },
+        "hull_rear_upper": {
+          "fact": "armor.hull_rear_upper",
+          "material": "rolled"
+        },
+        "hull_roof_front": {
+          "fact": "armor.hull_roof_front",
+          "material": "rolled"
+        },
+        "hull_roof_rear": {
+          "fact": "armor.hull_roof_rear",
+          "material": "rolled"
+        },
+        "hull_sides_front": {
+          "fact": "armor.hull_sides_front",
+          "material": "rolled"
+        },
+        "hull_sides_lower": {
+          "fact": "armor.hull_sides_lower",
+          "material": "rolled"
+        },
+        "hull_sides_lower_rear": {
+          "fact": "armor.hull_sides_lower_rear",
+          "material": "rolled"
+        },
+        "hull_sides_rear": {
+          "fact": "armor.hull_sides_rear",
+          "material": "rolled"
+        },
+        "turret_front": {
+          "fact": "armor.turret_front",
+          "mapping_note": "effective maximum 250",
+          "material": "cast"
+        },
+        "turret_rear": {
+          "fact": "armor.turret_rear",
+          "mapping_note": "turret_01_back_dm (25 mm, line 74) also exists",
+          "material": "rolled"
+        },
+        "turret_roof": {
+          "fact": "armor.turret_roof",
+          "material": "rolled"
+        },
+        "turret_sides": {
+          "fact": "armor.turret_sides",
+          "mapping_note": "effective maximum 160; multi-segment, representative value chosen",
+          "material": "cast"
+        }
+      },
+      "facts": {
+        "armor.gun_shield": {
+          "location": "warthunder_reference line 139: gun_mask_05_dm armorThickness=50.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L139"
+          ],
+          "status": "reference_pending_review",
+          "value": 50.0
+        },
+        "armor.hull_floor_front": {
+          "location": "warthunder_reference line 56: superstructure_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L56"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_floor_rear": {
+          "location": "warthunder_reference line 58: body_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L58"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_front_lower": {
+          "location": "warthunder_reference line 48: superstructure_front_dm armorThickness=35.0 armorClass=RHAHH_tank",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L48"
+          ],
+          "status": "reference_pending_review",
+          "value": 35.0
+        },
+        "armor.hull_front_upper": {
+          "location": "warthunder_reference line 44: body_front_dm armorThickness=400.0 armorClass=leopard_2a5_turret_nera",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L44"
+          ],
+          "status": "reference_pending_review",
+          "value": 400.0
+        },
+        "armor.hull_rear_lower": {
+          "location": "warthunder_reference line 61: body_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L61"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_rear_upper": {
+          "location": "warthunder_reference line 60: superstructure_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L60"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_roof_front": {
+          "location": "warthunder_reference line 50: superstructure_top_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L50"
+          ],
+          "status": "reference_pending_review",
+          "value": 35.0
+        },
+        "armor.hull_roof_rear": {
+          "location": "warthunder_reference line 62: body_top_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L62"
+          ],
+          "status": "reference_pending_review",
+          "value": 20.0
+        },
+        "armor.hull_sides_front": {
+          "location": "warthunder_reference line 49: superstructure_side_dm armorThickness=40.0 armorClass=RHAHH_tank",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L49"
+          ],
+          "status": "reference_pending_review",
+          "value": 40.0
+        },
+        "armor.hull_sides_lower": {
+          "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L55"
+          ],
+          "status": "reference_pending_review",
+          "value": 35.0
+        },
+        "armor.hull_sides_lower_rear": {
+          "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L55"
+          ],
+          "status": "reference_pending_review",
+          "value": 35.0
+        },
+        "armor.hull_sides_rear": {
+          "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L55"
+          ],
+          "status": "reference_pending_review",
+          "value": 35.0
+        },
+        "armor.turret_front": {
+          "location": "warthunder_reference line 113: turret_09_front_dm armorThickness=250.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L113"
+          ],
+          "status": "reference_pending_review",
+          "value": 250.0
+        },
+        "armor.turret_rear": {
+          "location": "warthunder_reference line 76: turret_07_back_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L76"
+          ],
+          "status": "reference_pending_review",
+          "value": 40.0
+        },
+        "armor.turret_roof": {
+          "location": "warthunder_reference line 75: turret_07_top_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L75"
+          ],
+          "status": "reference_pending_review",
+          "value": 40.0
+        },
+        "armor.turret_sides": {
+          "location": "warthunder_reference line 99: turret_07_side_dm armorThickness=160.0 armorClass=CHA_tank_modern",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L99"
+          ],
+          "status": "reference_pending_review",
+          "value": 160.0
+        }
+      },
+      "id": "germ_leopard_2a4",
+      "notes": [
+        "17 zones mapped, each with the dossier node and line it came from",
+        "0 zone(s) got material 'unknown' because their armour class has no honest project equivalent; nothing was forced",
+        "the mapping is AWAITING REVIEW: the dossier is coarser than the project in places and multi-segment for the turret sides and roof, so representative values were chosen and named",
+        "dimensions are deliberately absent: the dossiers have none and my own measurement must not be the reference for the envelope cross-check"
+      ],
+      "zones": 17
+    }
+  ],
+  "schema": 1
+}
