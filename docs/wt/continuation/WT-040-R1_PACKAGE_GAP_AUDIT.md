@@ -465,3 +465,26 @@ run_modern_model_mount_checks: checks=25 exit= passed=False unexpected_errors=0
 | 同批回归 | `run_role_mapping_checks 72/0` ✓ · `run_model_binding_checks 63/0` ✓ · `run_model_binding_probe_checks 60/0` ✓ |
 ### 教训 ✓
 **同名不等于同物** ✗ —— 修正必须施加于**它服务的对象** ✓；跨模型的"顺手改"极易造成回归 ✓（本次由**门禁**抓出 ✓）。
+
+---
+
+## 24. T-80B 的 4 条 barrel 非流形边：**纯解析证明成因** ✓✓（无需运行引擎 ✓）
+源码 ✓（`historical_vehicle_geometry.gd:75-96` ✓）：
+```gdscript
+var hw = g.mantlet_half_width ; var hh = g.mantlet_half_height
+outer = [±hw, ±hh, z=-0.10]
+bore  = packet.assembly.caliber_mm / 2000.0      # 125mm => 0.0625
+inner = [±bore, ±bore, z=-0.10]
+annulus(out,"mantlet","barrel",outer,inner,…)
+```
+**与报错坐标逐一对上** ✓：
+```
+(0.364, -0.054, -0.1) → (0.0625, -0.0625, -0.1)
+  ↑ hw=0.364 ✓   ↑ hh=0.054 ✗   ↑ bore=0.0625 ✓
+```
+⇒ **`mantlet_half_height (0.054) < bore (0.0625)`** ✗✗ ⇒ **炮盾比炮孔还窄** ✓ ⇒ 环形面含**负宽区域** ✓ ⇒ **必然非流形** ✓✓✓
+⇒ 成因 = 我**派生**的 mantlet 尺寸（取自火炮网格**后 1/4 段** ✓ —— 属**薄区** ✗）小于炮孔半径 ✓。
+
+**修法（我方 ✓ · 无外部输入 ✓）**：**炮盾必须包住炮孔** ⇒ 给派生值设**下限**（相对**可引**的 `caliber_mm` ✓，例 `hw ≥ 1.6×bore` ✓ · `hh ≥ 1.3×bore` ✓），并把规则写入 `methods` ✓。
+
+**方法学收益** ✓：用**报错坐标 + 源码常量**就能**证明**成因 ✓，不必反复试跑 ✓ —— 这也解释了为何 4 条边**恰好**位于 `z=-0.1` 且四角对称 ✓。
