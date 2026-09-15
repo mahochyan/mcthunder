@@ -107,7 +107,7 @@ func _packet(id: String, g: Dictionary, rt: Dictionary, ar: Dictionary, mods: Ar
 	# WT-040-R1: build reads packet.facts["crew.placement"].status, so the fact must exist or the build
 	# dies there - the error was a MISSING KEY, not a nesting problem, which the source read corrected.
 	if not packet["facts"].has("crew.placement"):
-		packet["facts"]["crew.placement"] = {"value":"probe","status":"reference","origin":"warthunder_reference",
+		packet["facts"]["crew.placement"] = {"value":"probe","status":"estimated","origin":"warthunder_reference",
 			"source_refs":["wt-2.57.1.137"],"location":"PROBE: exists so the layout build can run"}
 	# WT-040-R1: definitions_for line 230 constructs a Vector3 from
 	# HistoricalEvidenceGate.value(packet,"dimensions.width_m"), and the gate returns null for a missing
@@ -173,7 +173,7 @@ func _registry_from(layout: VehicleLayoutDefinition) -> Dictionary:
 		var refs_s: Array = []
 		for k3 in station.evidence_keys: refs_s.append(str(k3))
 		if refs_s.is_empty(): refs_s = ["geometry.crew"]
-		for claim2 in [["role_placement",station.role_placement_status],["local_box_transform",station.position_status],["volume",station.volume_status]]:
+		for claim2 in [["role_placement",station.role_placement_status],["local_box_transform",station.position_status],["size_m",station.volume_status]]:
 			if str(claim2[1]) == "unknown": continue
 			fields.append({"field_path":"crew_stations.%s.%s" % [station.id,str(claim2[0])],"origin":"mcthunder_pipeline",
 				"status":str(claim2[1]),"source_refs":refs_s,"original_value":"PROBE",

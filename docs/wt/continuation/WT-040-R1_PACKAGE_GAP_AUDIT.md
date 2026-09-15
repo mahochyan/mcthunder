@@ -425,3 +425,22 @@ SCRIPT ERROR: Invalid call. Nonexistent 'Vector3' constructor.
 | 豹2A4 | 121 ✗ | **15** ✓ |
 
 两车 **definitions 仍全 0 错误** ✓✓。
+
+---
+
+## 21. crew 两处一行级修正 ⇒ **T-80B 10 → 4 · 豹2A4 15 → 7** ✓
+| 修正 | 内容 |
+|---|---|
+| `crew.placement` 状态 | `"reference"` ✗ → **`"estimated"`** ✓（`STATUS_VALUES` 只认 verified/estimated/unknown ✓） |
+| 登记表字段名 | 我写 `volume` ✗ → 校验器要 **`size_m`** ✓（**名称不匹配**正是 3–4 项的根因 ✓） |
+
+**T-80B 剩余 4 项** ✓（全真实 ✓）：**×4 `armor_patches(part barrel)` 非流形边** ✗（我方 ✓）；另 `VehicleShellCatalog` 报 **`no admitted shell set`** ✗（**设计/资料** ✓，在 `LayoutValidator` 之外 ✓）。
+**豹2A4 剩余 7 项** ✓：`response_profile: explicit versioned game rule required` ✗ ×2（**设计** ✓）· `normal must be unit length` ✗ ×2（其环为**探针占位** ✓）· `degenerate triangle` ✗ ×2 · `turret_wall_4` ✗ ×1。
+两车 **definitions 仍全 0 错误** ✓✓。
+
+## 22. 🔴 **门禁抓到我自己造成的一个真实回归** ✗（务必记录 ✓）
+```
+run_modern_model_mount_checks: checks=25 exit= passed=False unexpected_errors=0
+```
+该套件正是覆盖我早前修改过的 `scripts/content/modern_model_mount_adapter.gd` ✓（`SPECS.ussr_t_80b.gun_mesh`: `"MainGun"` → `"Gun"` ✓）。
+⇒ **这是我改产品代码导致的回归** ✓ —— 门禁价值的又一实证 ✓；将**定位失败项并修正或回退** ✓（**绝不掩盖** ✗）。
