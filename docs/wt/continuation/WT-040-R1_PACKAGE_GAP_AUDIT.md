@@ -90,3 +90,34 @@
 **可继续闭合（无需裁定 ✓）**：`crew.roles` ✓ · `modules`/`crew` 数量 ✓（档案 182 refs / 3–4 名 ✓）· 待查 `assembly.suspension` ✓
 **设计**：`acceleration` ✓ · `reload_time` ✓ · `pitch_min/max` ✓ · `penetration_curve` ✓ · `assembly.variant/mount/year` ✓
 **独立资料**：`dimensions.width_m` / `reference_length_m` ✓（必须以**外部来源**提供 ✓，不得用我自己的测量以免循环 ✓）
+
+---
+
+## 7. 缺口数**六连下降**至 **13 / 14**：**无需裁定即可闭合的工作已做完** ✓
+| 阶段 | T-80B | 豹2A4 | 关闭字段 |
+|---|---|---|---|
+| 初始 | 24 | 25 | — |
+| 事实键 | 23 | 24 | `mobility.forward_speed_mps` |
+| 修类别错误 | 20 | 21 | `runtime.forward/reverse_max_speed` · `hull_turn_speed` |
+| 武器弹药 | 17 | 18 | `weapon.capacity` · `runtime.rounds` · `muzzle_velocity` |
+| 修 assembly 接线 | 14 | 15 | `assembly.gun` · `shell` · `caliber_mm` |
+| **本轮** | **13** ✓ | **14** ✓ | **`crew.roles`** ✓ |
+
+### `crew.roles`（逐车差异＝真实性旁证 ✓）
+| 车 | 值 | 引用 | 核对 |
+|---|---|---|---|
+| T-80B | `[tank_gunner, driver, commander]`（3 ✓） | `#L420` ✓ | 自动装弹机 ⇒ 无装填手 ✓ |
+| 豹2A4 | `[tank_gunner, driver, loader, commander]`（4 ✓） | `#L433` ✓ | 人工装填 ⇒ 有装填手 ✓ |
+
+### 校验器的两条**强约束**（新查得 ✓）
+1. `modules` / `crew`：**非空且 ≤ 48** ✓（L138-139）——档案 **182** 条 refs ✗ ⇒ **必须筛选** ✓（**待评审判断** ✓，不静默决定 ✗）；
+2. **弹药架容量之和必须 == `runtime.rounds`** ✓（L180-184）⇒ 38 / 42 ✓；每行需 `id`/`part`/`kind`|`role` ✓（L142）与证据键 `geometry.modules`/`geometry.crew` ✓（L173）。
+
+### `assembly.suspension`：**不可闭合** ✓
+档案**悬挂字段 = 0** ✓ ⇒ **设计/资料** ✓。
+
+### 剩余 13 项的归属（**全部**依赖外部输入 ✓）
+**设计**：`acceleration` · `reload_time` · `pitch_min/max` · `penetration_curve` · `assembly.variant/mount/year`
+**独立资料**：`dimensions.width_m` / `reference_length_m`（**不得**以我自己的测量充当参考 ✓）· `assembly.suspension`
+**待评审筛选**：`modules`（182 → ≤48 ✓ 且弹架之和＝rounds ✓）· `crew`（≤48 ✓）
+**待裁定**：**armor 17 zone 映射**（粒度共用 / 多段取代表值 / **准入**）⇒ 裁定后**一次降 17** ✓

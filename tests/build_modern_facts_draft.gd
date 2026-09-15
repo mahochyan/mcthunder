@@ -169,6 +169,34 @@ func _build(id: String, path: String) -> Dictionary:
 			row.assembly["shell"] = bullet
 			row.emitted.append("assembly component: shell ← shell.reference.bulletName")
 		row.notes.append("assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source")
+	# WT-040-R1: crew.roles is a FACT that must be an array of role STRINGS (validator line 108-114).
+	# The dossier's crew_roster entries already carry a `roles` array, so this is a flattening of cited
+	# data, not a judgement.
+	var roles: Array = []
+	var role_lines: Array = []
+	var roster: Variant = parsed.get("crew_roster",[])
+	if roster is Array:
+		for member in roster:
+			if not member is Dictionary: continue
+			var member_roles: Variant = member.get("roles",[])
+			if member_roles is Array:
+				for r in member_roles:
+					if r is String and not roles.has(r):
+						roles.append(r)
+						role_lines.append(int(member.get("line",-1)))
+	if not roles.is_empty():
+		row.facts["crew.roles"] = {
+			"value": roles,
+			"status": "reference",
+			"origin": SOURCE_LABEL,
+			"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,int(role_lines[0])]],
+			"location": "%s crew_roster (lines %s): roles %s" % [SOURCE_LABEL,str(role_lines),str(roles)],
+		}
+		row.emitted.append("crew.roles ← crew_roster[].roles flattened (lines %s)" % str(role_lines))
+	else:
+		row.skipped.append("crew_roster carried no roles")
+	row.notes.append("modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy")
+	row.notes.append("assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source")
 	row.notes.append("armour facts are NOT emitted: the zone mapping is awaiting review")
 	row.notes.append("dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it")
 	row.notes.append("the dossier's own arcade power multiplier note is a warning, not a value to import")
