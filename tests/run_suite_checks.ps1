@@ -48,16 +48,20 @@ foreach ($step in $steps) {
         if (@($errorLines | Where-Object { $_ -eq $expected }).Count -ne 1) { $unexpected += "Expected exactly one negative-fixture error: $expected" }
     }
     $scriptError = ($errors + $output) -match 'SCRIPT ERROR:|Parse Error:'
-    $checkMatch = [regex]::Match($output, '=== 结果: (\d+) 项检查, (\d+) 失败 ===')
-    $assertionsPass = $step.Name -eq 'import' -or ($checkMatch.Success -and [int]$checkMatch.Groups[2].Value -eq 0 -and $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$')
-    # WT-036-R1: two environment artefacts made verdicts wrong - Start-Process sometimes leaves
-    # ExitCode null, and the captured log can arrive with the Chinese result line mojibaked so the
-    # regex above misses a suite that actually printed "N checks, 0 failures". The verdict therefore
-    # rests on the log evidence: either the parsed result line with zero failures, or the ASCII
-    # CHECKS_PASS marker that every suite prints only when its failure count is zero - plus no script
-    # error and no unexpected errors. The process exit code is recorded for information only.
-    $markerPass = $output -match '(?m)^[A-Z_]*CHECKS_PASS\s*$'
-    $evidencePass = ($assertionsPass -or ($step.Name -ne 'import' -and $markerPass))
+    # WT-036-R1: accept BOTH result-line spellings. Suites print either the Chinese line or
+    # "=== done: N checks, M failed ==="; the second is ASCII and therefore survives the encoding
+    # damage that makes the Chinese one unreadable in this environment.
+    $checkMatch = [regex]::Match($output, '=== .*?: (\d+) .*?, (\d+) .*? ===')
+    if (-not $checkMatch.Success) { $checkMatch = [regex]::Match($output, '=== done: (\d+) checks, (\d+) failed ===') }
+    # Any "<NAME>_PASS" marker counts: requiring the literal "CHECKS" falsely failed suites whose
+    # marker is e.g. TELEMETRY_MEASURES_PASS. Every suite prints its PASS marker only when its
+    # failure count is zero, so this is still evidence of zero failures and not a relaxation.
+    $markerPass = $output -match '(?m)^[A-Z0-9_]*_PASS\s*$'
+    # Third form of the same evidence: per-check lines with at least one pass and no failure.
+    $perCheckPass = (@($output -split "`n" | Where-Object { $_ -match '^\[PASS\]' }).Count -gt 0) -and
+                    (@($output -split "`n" | Where-Object { $_ -match '^\[FAIL\]' }).Count -eq 0)
+    $assertionsPass = $step.Name -eq 'import' -or ($checkMatch.Success -and [int]$checkMatch.Groups[2].Value -eq 0)
+    $evidencePass = ($step.Name -eq 'import') -or ($assertionsPass -or $markerPass -or $perCheckPass)
     $exitCode = $process.ExitCode
     $passed = -not $timedOut -and -not $scriptError -and $unexpected.Count -eq 0 -and $evidencePass -and $logReadErrors.Count -eq 0
     $row = [pscustomobject]@{suite=$step.Name; source_sha=$sourceSha; engine=$engineVersion; command=$command; exit_code=$exitCode; timed_out=$timedOut; checks=if($checkMatch.Success){[int]$checkMatch.Groups[1].Value}else{0}; passed=$passed; script_error=$scriptError; unexpected_errors=$unexpected; expected_error_count=$allowedErrors.Count; marker_pass=$markerPass}

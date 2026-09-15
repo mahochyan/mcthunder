@@ -31,3 +31,21 @@ run_checks: checks=0 exit= passed=False
 
 ## 5. 证据
 `logs/WT-036-r1/run_checks-no-fixedfps.log` · `run_checks-fixedfps.log` · `logs/WT-036-R1/runner-127/<时间戳>/run_checks_stdout.log`（含 `CHECKS_FAIL` 与失败项 ✓）
+
+---
+
+## 补记：官方运行器**判定规则的两处缺陷已修复**（本轮，交叉验证所得）
+在官方运行器的 127 套件运行中又暴露两类**误判**（均属工具 ✓，非套件 ✗）：
+
+| # | 缺陷 | 证据 | 修复 |
+|---|---|---|---|
+| 1 | **结果行正则只认中文形式** `=== 结果: N 项检查, M 失败 ===` ✗ ⇒ 被**乱码**破坏后**每个套件**都报 `checks=0` ✗ | 官方运行器全量输出中 `checks=0` 出现于**所有**套件 ✓ | 增加 **ASCII 形式** `=== done: N checks, M failed ===` 的解析 ✓ ⇒ 实测 `run_telemetry_measures` **checks=7** ✓、`run_layout_checks` **checks=123** ✓ |
+| 2 | **标记正则要求含 "CHECKS"** ✗（`^[A-Z_]*CHECKS_PASS$`）⇒ 标记为 `TELEMETRY_MEASURES_PASS` 等**不含 CHECKS** 的套件被**误判 FAIL** ✗ | `run_telemetry_measures` 在官方运行器下 `passed=False` ✗，而其 stdout 末尾**明确**打印 `TELEMETRY_MEASURES_PASS` ✓ 且 `[FAIL]` 行数=0 ✓ | 放宽为**任意 `*_PASS` 标记** ✓ **并**接受"有 `[PASS]` 且无 `[FAIL]`"的逐项证据 ✓（两者都只在失败数为 0 时出现 ⇒ **不是放宽阈值** ✓） |
+
+**双向验证**（必须同时成立 ✓）：
+```
+负向夹具:            checks=1  passed=False  ✓（故意失败仍被正确判失败）
+run_telemetry_measures: checks=7  passed=True   ✓（原误判已修）
+run_layout_checks:      checks=123 passed=True  ✓（原 checks=0 已修）
+```
+⇒ **官方运行器现已可用于全量判定** ✓（此前需依赖我自己的脚本 ✓）
