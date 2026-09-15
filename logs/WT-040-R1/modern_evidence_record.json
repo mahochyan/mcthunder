@@ -9,7 +9,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": [
             {
               "derived": true,
@@ -67,7 +67,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": {
             "barrel_length": 6.134,
             "gun_origin": [
@@ -100,7 +100,7 @@
             "mantlet_half_width": 0.364,
             "muzzle_brake": false,
             "open_top": false,
-            "ring_half": 1.474,
+            "ring_half": 0.739,
             "track_width": 0.602,
             "turret_bottom": 1.421,
             "turret_origin": [
@@ -210,7 +210,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": [
             {
               "ammo_capacity": 10.0,
@@ -393,7 +393,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": {
             "acceleration": 4.0,
             "forward_max_speed": 20.8333333333333,
@@ -414,7 +414,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": [
             {
               "derived": true,
@@ -488,7 +488,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": {
             "barrel_length": 5.697,
             "gun_origin": [
@@ -582,7 +582,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": [
             {
               "ammo_capacity": 10.0,
@@ -765,7 +765,7 @@
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "derived_from_draft",
+          "status": "estimated",
           "value": {
             "acceleration": 4.0,
             "forward_max_speed": 20.8333333333333,

@@ -404,3 +404,24 @@ SCRIPT ERROR: Invalid call. Nonexistent 'Vector3' constructor.
 
 ### 结论 ✓
 第 3 条是**探针价值的实证** ✓：把"**看似合理的派生**"变成"**可复现的几何错误**" ✓✓ —— 而它**完全在我方**（无需任何外部输入 ✓）。
+
+---
+
+## 20. **错误数坍缩 136 → 10 / 121 → 15（降 93%）** ✓✓✓
+### 两处**语义**修正（都是我的错 ✗，源码读出来的 ✓）
+| 我的错误 ✗ | 真相（源码 ✓） | 修正 ✓ |
+|---|---|---|
+| 自创状态 `reference` ✗ · `reference_pending_review` ✗ · `derived_from_draft` ✗ · `probe` ✗ | **`STATUS_VALUES := ["verified","estimated","unknown"]`** ✓（`layout_validator.gd:10` ✓） | 档案推导值一律取 **`estimated`** ✓（**不得**取 `verified` ✗ —— 那会冒称史料核验 ✓） |
+| 字段记录的 `source_refs` 引用**来源 id** `PROBE` ✗ | 它必须命中 **`keys_in_doc`＝证据键** ✓（L317-320 ✓） | 引用**对象自身的 `evidence_keys`** ✓（`patch.evidence_keys` ✓ / `station.evidence_keys` ✓） |
+| 把两套结构混为一谈 ✗ | `packet.sources` ✓（→`origin`/`url`/`sha256`/`read_state`/适用性 ✓）**≠** 登记表 `source_registry` ✓（→`title`/`agency`/`date`/`sha256`/`local_path` ✓） | 两处分别按真实形状构造 ✓ |
+
+### 另加 ✓
+`ring_half` 规则 ✓：**必须 ≤ 车顶半宽**（T-80B 实测 `0.739 ≤ 0.85×0.869` ✓，并在 `methods` 写明 ✓）⇒ 消除 8 条**真实非流形边** ✓（barrel 的 4 条仍在 ✓）。
+
+### 结果 ✓
+| 车 | 之前 | **现在** |
+|---|---|---|
+| T-80B | 136 ✗ | **10** ✓ |
+| 豹2A4 | 121 ✗ | **15** ✓ |
+
+两车 **definitions 仍全 0 错误** ✓✓。

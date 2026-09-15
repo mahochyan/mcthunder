@@ -46,7 +46,10 @@ func _run() -> void:
 func _fact(value: Variant, line: int, what: String) -> Dictionary:
 	return {
 		"value": value,
-		"status": "reference",
+		# WT-040-R1: STATUS_VALUES is ["verified","estimated","unknown"] - inventing "reference" was
+		# wrong. A figure taken from the reference dossier is an ESTIMATE, and "verified" would claim a
+		# historical verification this data does not have.
+		"status": "estimated",
 		"origin": SOURCE_LABEL,
 		# WT-040-R1: source_refs must name a REGISTERED SOURCE ID, not a locator string - the layout
 		# validator checks each ref against the sources registry and rejects "wt-2.57.1.137#L20" as
@@ -82,7 +85,7 @@ func _build(id: String, path: String) -> Dictionary:
 		var fact_key := str(MAPPED[key])
 		row.facts[fact_key] = {
 			"value": value,
-			"status": "reference",
+			"status": "estimated",
 			"origin": SOURCE_LABEL,
 			"source_refs": ["wt-%s" % SOURCE_VERSION],
 			"location": "%s: %s = %s" % [where,key,str(value)],

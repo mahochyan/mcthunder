@@ -91,7 +91,10 @@ func _build(id: String, table: Dictionary) -> Dictionary:
 		out.armor[zone] = {"fact":"armor."+zone, "material":material}
 		out.facts["armor."+zone] = {
 			"value": mm,
-			"status": "reference_pending_review",
+			# STATUS_VALUES admits only verified/estimated/unknown; "reference_pending_review" was my
+			# invention. A dossier figure is an estimate, and the AWAITING REVIEW nature is carried by
+			# the location text and the draft note rather than by an invented status.
+			"status": "estimated",
 			"origin": SOURCE_LABEL,
 			# a registered SOURCE ID, with the line kept in `location` - see the facts builder note
 			"source_refs": ["wt-%s" % SOURCE_VERSION],

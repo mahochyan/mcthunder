@@ -93,7 +93,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 50.0
         },
         "armor.hull_floor_front": {
@@ -102,7 +102,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_floor_rear": {
@@ -111,7 +111,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_front_lower": {
@@ -120,7 +120,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.hull_front_upper": {
@@ -129,7 +129,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.hull_rear_lower": {
@@ -138,7 +138,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 60.0
         },
         "armor.hull_rear_upper": {
@@ -147,7 +147,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 60.0
         },
         "armor.hull_roof_front": {
@@ -156,7 +156,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 30.0
         },
         "armor.hull_roof_rear": {
@@ -165,7 +165,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 30.0
         },
         "armor.hull_sides_front": {
@@ -174,7 +174,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.hull_sides_lower": {
@@ -183,7 +183,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.hull_sides_lower_rear": {
@@ -192,7 +192,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.hull_sides_rear": {
@@ -201,7 +201,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 80.0
         },
         "armor.turret_front": {
@@ -210,7 +210,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 250.0
         },
         "armor.turret_rear": {
@@ -219,7 +219,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 90.0
         },
         "armor.turret_roof": {
@@ -228,7 +228,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 90.0
         },
         "armor.turret_sides": {
@@ -237,7 +237,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 157.0
         }
       },
@@ -333,7 +333,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 50.0
         },
         "armor.hull_floor_front": {
@@ -342,7 +342,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_floor_rear": {
@@ -351,7 +351,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_front_lower": {
@@ -360,7 +360,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 35.0
         },
         "armor.hull_front_upper": {
@@ -369,7 +369,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 400.0
         },
         "armor.hull_rear_lower": {
@@ -378,7 +378,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_rear_upper": {
@@ -387,7 +387,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_roof_front": {
@@ -396,7 +396,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 35.0
         },
         "armor.hull_roof_rear": {
@@ -405,7 +405,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 20.0
         },
         "armor.hull_sides_front": {
@@ -414,7 +414,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 40.0
         },
         "armor.hull_sides_lower": {
@@ -423,7 +423,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 35.0
         },
         "armor.hull_sides_lower_rear": {
@@ -432,7 +432,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 35.0
         },
         "armor.hull_sides_rear": {
@@ -441,7 +441,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 35.0
         },
         "armor.turret_front": {
@@ -450,7 +450,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 250.0
         },
         "armor.turret_rear": {
@@ -459,7 +459,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 40.0
         },
         "armor.turret_roof": {
@@ -468,7 +468,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 40.0
         },
         "armor.turret_sides": {
@@ -477,7 +477,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference_pending_review",
+          "status": "estimated",
           "value": 160.0
         }
       },

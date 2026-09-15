@@ -55,7 +55,8 @@ func _run() -> void:
 func _evidence(what: String, value: Variant) -> Dictionary:
 	return {
 		"value": value,
-		"status": "derived_from_draft",
+		# STATUS_VALUES admits only verified/estimated/unknown
+		"status": "estimated",
 		"origin": "mcthunder_pipeline",
 		# a registered SOURCE ID (the pipeline itself), not a prose description - the layout validator
 		# rejects a ref that does not name a registered source

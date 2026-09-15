@@ -137,8 +137,20 @@ func _measure(id: String, path: String) -> Dictionary:
 		var top_half := _footprint_half(top)
 		f["turret_taper"] = snappedf((top_half/bot_half) if bot_half > 0.01 else 0.0,0.001)
 		method["turret_taper"] = "top-quarter half extent divided by bottom-quarter half extent"
-		f["ring_half"] = snappedf(bot_half,0.001)
-		method["ring_half"] = "DERIVED: half of the smaller bottom-outline extent (no turret-ring node exists in this model); author may replace"
+		# WT-040-R1: the turret-ring aperture MUST fit inside the hull roof. Derived from the turret's
+		# bottom outline alone it came out at 1.474 m while the measured roof half-width is 0.869 m, so
+		# the opening was cut wider than the roof it sits in and HistoricalVehicleGeometry's roof faces
+		# could not be manifold - a real, reproducible geometric defect the layer probe found. The value
+		# is therefore clamped to 85% of the roof half-width, and the rule is stated in the method.
+		var roof_half := 0.0
+		var ring_rows: Variant = f.get("hull_rings",[])
+		if ring_rows is Array and (ring_rows as Array).size() == 3:
+			roof_half = float(((ring_rows as Array)[2] as Array)[1])
+		var clamped := bot_half
+		if roof_half > 0.01 and bot_half > roof_half*0.85:
+			clamped = roof_half*0.85
+		f["ring_half"] = snappedf(clamped,0.001)
+		method["ring_half"] = "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85%% of the measured hull roof half-width (%.3f m) because a ring wider than the roof cannot produce manifold roof faces; author may replace" % roof_half
 		f["open_top"] = false
 		method["open_top"] = "INFERRED: enclosed main battle tank, top band is closed; not a visual review"
 		row.notes.append("open_top is inferred, not visually verified")

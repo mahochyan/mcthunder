@@ -156,22 +156,36 @@ func _registry_from(layout: VehicleLayoutDefinition) -> Dictionary:
 						"read_state":"probe","applies_to_identity_ids":[layout.historical_identity_id],
 						"excluded_identity_ids":[]}
 	for patch in layout.armor_patches:
-		if patch != null and patch.thickness_status != "unknown":
-			fields.append({"field_path":"armor_patches.%s.thickness_mm" % patch.id,"origin":"mcthunder_pipeline",
-				"status":patch.thickness_status,"source_refs":["PROBE"],"original_value":"PROBE",
+		if patch == null: continue
+		# WT-040-R1: a field record's source_refs must name an EVIDENCE KEY (keys_in_doc), not a source
+		# id - referencing "PROBE" produced every "references unregistered source" error. The patch's own
+		# evidence_keys are exactly the right evidence for its own claims.
+		var refs_p: Array = []
+		for k2 in patch.evidence_keys: refs_p.append(str(k2))
+		if refs_p.is_empty(): refs_p = ["geometry.exterior"]
+		for claim in [["thickness_mm",patch.thickness_status],["geometry_status",patch.geometry_status],["has_thickness",patch.thickness_status]]:
+			if str(claim[1]) == "unknown": continue
+			fields.append({"field_path":"armor_patches.%s.%s" % [patch.id,str(claim[0])],"origin":"mcthunder_pipeline",
+				"status":str(claim[1]),"source_refs":refs_p,"original_value":"PROBE",
 				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
 	for station in layout.crew_stations:
 		if station == null: continue
-		if station.role_placement_status != "unknown":
-			fields.append({"field_path":"crew_stations.%s.role_placement" % station.id,"origin":"mcthunder_pipeline",
-				"status":station.role_placement_status,"source_refs":["PROBE"],"original_value":"PROBE",
+		var refs_s: Array = []
+		for k3 in station.evidence_keys: refs_s.append(str(k3))
+		if refs_s.is_empty(): refs_s = ["geometry.crew"]
+		for claim2 in [["role_placement",station.role_placement_status],["local_box_transform",station.position_status],["volume",station.volume_status]]:
+			if str(claim2[1]) == "unknown": continue
+			fields.append({"field_path":"crew_stations.%s.%s" % [station.id,str(claim2[0])],"origin":"mcthunder_pipeline",
+				"status":str(claim2[1]),"source_refs":refs_s,"original_value":"PROBE",
 				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
-		if station.position_status != "unknown":
-			fields.append({"field_path":"crew_stations.%s.local_box_transform" % station.id,"origin":"mcthunder_pipeline",
-				"status":station.position_status,"source_refs":["PROBE"],"original_value":"PROBE",
-				"original_unit":"","derivation":"probe","uncertainty_note":"probe"})
+	# the registry's source_registry has its OWN shape (id -> title/agency/date/sha256/local_path), which
+	# is different from packet.sources (id -> origin/url/sha256/read_state/applicability).
+	var src := {}
+	for sid in ["PROBE","mcthunder_pipeline","wt-2.57.1.137"]:
+		src[sid] = {"title":"probe source "+sid,"agency":"mcthunder_pipeline","date":"2026-09-15",
+			"sha256":"0".repeat(64),"local_path":"logs/WT-040-R1"}
 	return {"identity_id":layout.historical_identity_id,"runtime_note":"probe",
-		"source_registry":{},"evidence_keys":keys.values(),"fields":fields}
+		"source_registry":src,"evidence_keys":keys.values(),"fields":fields}
 
 func _merge(a: Dictionary, b: Dictionary) -> Dictionary:
 	var out := a.duplicate(true)
