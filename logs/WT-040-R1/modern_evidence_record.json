@@ -96,7 +96,7 @@
                 2.621
               ]
             ],
-            "mantlet_half_height": 0.054,
+            "mantlet_half_height": 0.081,
             "mantlet_half_width": 0.364,
             "muzzle_brake": false,
             "open_top": false,
@@ -530,10 +530,6 @@
                 -1.944
               ],
               [
-                0.467,
-                -1.944
-              ],
-              [
                 1.251,
                 -1.385
               ],
@@ -564,10 +560,6 @@
               [
                 -1.208,
                 0.934
-              ],
-              [
-                -1.229,
-                0.585
               ]
             ],
             "turret_taper": 1.0,

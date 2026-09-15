@@ -31,7 +31,7 @@
             2.621
           ]
         ],
-        "mantlet_half_height": 0.054,
+        "mantlet_half_height": 0.081,
         "mantlet_half_width": 0.364,
         "muzzle_brake": false,
         "open_top": false,
@@ -144,15 +144,15 @@
         "gun_origin": "global position of the GunPivot node in the adapter",
         "hull_half_width": "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)",
         "hull_rings": "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes",
-        "mantlet_half_height": "DERIVED (no separate mantlet mesh on this model): half of the gun mesh's rear-quarter y-extent; author may replace",
-        "mantlet_half_width": "DERIVED (no separate mantlet mesh on this model): maximum |x| of the gun mesh's rear quarter, which is where a mantlet sits; author may replace",
+        "mantlet_half_height": "DERIVED (no separate mantlet mesh on this model): half of the gun mesh's rear-quarter y-extent; author may replace | FLOOR: raised to >= 1.3x the cited bore radius (0.0625 m) so the shield encloses the hole",
+        "mantlet_half_width": "DERIVED (no separate mantlet mesh on this model): maximum |x| of the gun mesh's rear quarter, which is where a mantlet sits; author may replace | FLOOR: raised to >= 1.6x the cited bore radius (0.0625 m) so the shield encloses the hole",
         "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
         "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
         "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (0.869 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
         "turret_origin": "global position of the TurretPivot node in the adapter",
-        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
+        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",
         "wheel_count": "ROAD wheels on one side: wheel-named meshes with a numeric suffix, on x < 0, excluding return rollers (top_*), the front idler and the drive sprocket - the convention build_historical_packets.py uses",
@@ -165,6 +165,7 @@
         "hull ring 2 used 274 nearest vertices, effective y tolerance 0.263 m",
         "open_top is inferred, not visually verified",
         "mantlet fields are DERIVED from the gun mesh rear quarter because this model has no mantlet mesh",
+        "mantlet enlarged to enclose the bore: half-width 0.364 -> 0.364, half-height 0.054 -> 0.081 (bore 0.0625)",
         "muzzle_brake is a geometric guess, not a documentary fact"
       ],
       "ok": true
@@ -212,10 +213,6 @@
             -1.944
           ],
           [
-            0.467,
-            -1.944
-          ],
-          [
             1.251,
             -1.385
           ],
@@ -246,10 +243,6 @@
           [
             -1.208,
             0.934
-          ],
-          [
-            -1.229,
-            0.585
           ]
         ],
         "turret_taper": 1.0,
@@ -261,15 +254,15 @@
       "methods": {
         "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
         "gun_origin": "global position of the GunPivot node in the adapter",
-        "mantlet_half_height": "half of the mantlet mesh y-extent",
-        "mantlet_half_width": "maximum |x| of the mantlet/shield mesh vertices",
+        "mantlet_half_height": "half of the mantlet mesh y-extent | FLOOR: raised to >= 1.3x the cited bore radius (0.0600 m) so the shield encloses the hole",
+        "mantlet_half_width": "maximum |x| of the mantlet/shield mesh vertices | FLOOR: raised to >= 1.6x the cited bore radius (0.0600 m) so the shield encloses the hole",
         "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
         "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
         "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (0.000 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
         "turret_origin": "global position of the TurretPivot node in the adapter",
-        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)",
+        "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",
         "wheel_count": "ROAD wheels on one side: wheel-named meshes with a numeric suffix, on x < 0, excluding return rollers (top_*), the front idler and the drive sprocket - the convention build_historical_packets.py uses",
@@ -281,6 +274,7 @@
         "hull ring 1 used 51 nearest vertices, effective y tolerance 0.120 m",
         "hull ring 2 used 51 nearest vertices, effective y tolerance 0.004 m",
         "hull rings REJECTED: the mesh is a plate/detail shell, not a hull volume (ring z-spans are slivers of the 7.461 m overall span); hull_rings left to the author",
+        "turret_outline de-duplicated: 15 -> 13 points (coincident points removed)",
         "open_top is inferred, not visually verified",
         "muzzle_brake is a geometric guess, not a documentary fact"
       ],

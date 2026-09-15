@@ -74,12 +74,12 @@
           "value": 20.8333333333333
         },
         "runtime.acceleration": {
-          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 (the first figure of acceleration/deceleration)",
+          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L23"
+            "wt-2.57.1.137"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": 4.0
         },
         "runtime.forward_max_speed": {
@@ -122,7 +122,7 @@
       "id": "ussr_t_80b",
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
-        "acceleration was parsed from the raw '加减速度 = 4.0 / 8.0' row: the first figure is taken as acceleration and the rule is stated",
+        "acceleration unit is an ASSUMPTION: the dossier's acceleration key is explicitly 'unspecified_units' and empty; the raw row gives 4.0 / 8.0 with no unit",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
@@ -216,12 +216,12 @@
           "value": 20.8333333333333
         },
         "runtime.acceleration": {
-          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 (the first figure of acceleration/deceleration)",
+          "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L23"
+            "wt-2.57.1.137"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": 4.0
         },
         "runtime.forward_max_speed": {
@@ -264,7 +264,7 @@
       "id": "germ_leopard_2a4",
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
-        "acceleration was parsed from the raw '加减速度 = 4.0 / 8.0' row: the first figure is taken as acceleration and the rule is stated",
+        "acceleration unit is an ASSUMPTION: the dossier's acceleration key is explicitly 'unspecified_units' and empty; the raw row gives 4.0 / 8.0 with no unit",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",

@@ -117,6 +117,45 @@ func _run() -> void:
 				if stored == null or fresh == null: continue
 				if stored is float and fresh is float:
 					_check(absf(float(stored)-float(fresh)) <= TOL, "%s: %s is reproducible (%.4f vs %.4f)" % [id,key3,float(stored),float(fresh)])
+			# --- WT-040-R1 extension: the fields the audit found UNASSERTED -----------------
+			# Only 7 of the 17 emitted fields were checked, because determinism needs a fresh
+			# measurement and that helper returns seven keys; the two rules being fixed had no
+			# assertion at all. These are added so the fix has something to pass against - and run
+			# BEFORE the fix they should be RED, which is the evidence they test something.
+			if fields.has("ring_half") and fields.has("hull_rings"):
+				var rr: Array = fields.hull_rings
+				var roof_half := 0.0
+				if rr.size() == 3: roof_half = float((rr[2] as Array)[1])
+				_check(float(fields.ring_half) > 0.0, "%s: ring_half is positive" % id)
+				_check(roof_half <= 0.01 or float(fields.ring_half) <= roof_half*0.85 + TOL,
+					"%s: ring_half (%.3f) fits inside the roof half-width (%.3f)" % [id,float(fields.ring_half),roof_half])
+			if fields.has("turret_outline"):
+				var ol: Array = fields.turret_outline
+				_check(ol.size() >= 8 and ol.size() <= 32, "%s: turret_outline has 8-32 points (%d)" % [id,ol.size()])
+				var closest := INF
+				for i2 in ol.size():
+					var pp: Array = ol[i2]
+					var qq: Array = ol[(i2+1) % ol.size()]
+					closest = minf(closest, sqrt(pow(float(pp[0])-float(qq[0]),2.0)+pow(float(pp[1])-float(qq[1]),2.0)))
+				_check(closest >= 0.005 - TOL, "%s: adjacent outline points are at least 5 mm apart (closest %.5f)" % [id,closest])
+			var bore2 := 0.0
+			var fpath2 := "res://logs/WT-040-R1/modern_facts_draft.json"
+			if FileAccess.file_exists(fpath2):
+				var fd2: Variant = JSON.parse_string(FileAccess.get_file_as_string(fpath2))
+				if fd2 is Dictionary:
+					for fr2 in fd2.get("rows",[]):
+						if str(fr2.get("id","")) != id: continue
+						var asm2: Variant = fr2.get("assembly",{})
+						if asm2 is Dictionary: bore2 = float(asm2.get("caliber_mm",0.0)) / 2000.0
+			if bore2 > 0.0 and fields.has("mantlet_half_width") and fields.has("mantlet_half_height"):
+				_check(float(fields.mantlet_half_width) >= bore2, "%s: mantlet half-width %.4f encloses the bore %.4f" % [id,float(fields.mantlet_half_width),bore2])
+				_check(float(fields.mantlet_half_height) >= bore2, "%s: mantlet half-height %.4f encloses the bore %.4f" % [id,float(fields.mantlet_half_height),bore2])
+			for key4 in ["barrel_length","hull_half_width","track_width","wheel_radius"]:
+				if fields.has(key4):
+					_check(float(fields[key4]) > 0.0 and is_finite(float(fields[key4])), "%s: %s is finite and positive (%.4f)" % [id,key4,float(fields[key4])])
+			for key5 in ["muzzle_brake","open_top"]:
+				if fields.has(key5):
+					_check(fields[key5] is bool, "%s: %s is a boolean" % [id,key5])
 	print("=== 结果: %d 项检查, %d 失败 ==="%[count,failed])
 	print("MODERN_GEOMETRY_CHECKS_PASS" if failed == 0 else "MODERN_GEOMETRY_CHECKS_FAIL")
 	quit(0 if failed == 0 else 1)

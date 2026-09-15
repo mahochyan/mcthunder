@@ -131,8 +131,27 @@ func _measure(id: String, path: String) -> Dictionary:
 		var span := maxf(thi-tlo,0.05)
 		var bot := _band_footprint(tpts,tlo,span*0.25)
 		var top := _band_footprint(tpts,thi,span*0.25)
-		f["turret_outline"] = _convex_outline(bot)
-		method["turret_outline"] = "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z)"
+		# WT-040-R1 FIX: de-duplicate the outline AFTER snapping. Two distinct hull points can snap to
+		# the same millimetre coordinate, and the Leopard's outline came out with coincident points
+		# (closest pair 0.00000 m), which is what produced the degenerate triangles and the "normal must
+		# be unit length" errors. Points closer than 5 mm are dropped; if fewer than 8 remain the outline
+		# is REJECTED loudly, because the validator requires 8-32 points and a bad outline must not ship.
+		var raw_outline: Array = _convex_outline(bot)
+		var dedup: Array = []
+		for op in raw_outline:
+			var far_enough := true
+			for qp in dedup:
+				if sqrt(pow(float(op[0])-float(qp[0]),2.0)+pow(float(op[1])-float(qp[1]),2.0)) < 0.005:
+					far_enough = false
+					break
+			if far_enough: dedup.append(op)
+		if dedup.size() < 8:
+			row.notes.append("turret_outline REJECTED: only %d distinct points after 5 mm de-duplication (validator needs 8-32)" % dedup.size())
+		else:
+			f["turret_outline"] = dedup
+			method["turret_outline"] = "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide"
+			if dedup.size() != raw_outline.size():
+				row.notes.append("turret_outline de-duplicated: %d -> %d points (coincident points removed)" % [raw_outline.size(),dedup.size()])
 		var bot_half := _footprint_half(bot)
 		var top_half := _footprint_half(top)
 		f["turret_taper"] = snappedf((top_half/bot_half) if bot_half > 0.01 else 0.0,0.001)
@@ -189,6 +208,33 @@ func _measure(id: String, path: String) -> Dictionary:
 			method["mantlet_half_width"] = "DERIVED (no separate mantlet mesh on this model): maximum |x| of the gun mesh's rear quarter, which is where a mantlet sits; author may replace"
 			method["mantlet_half_height"] = "DERIVED (no separate mantlet mesh on this model): half of the gun mesh's rear-quarter y-extent; author may replace"
 			row.notes.append("mantlet fields are DERIVED from the gun mesh rear quarter because this model has no mantlet mesh")
+	# WT-040-R1 FIX (after the branch, so it covers BOTH paths with the smallest footprint): the shield
+	# MUST enclose the bore. HistoricalVehicleGeometry builds the mantlet as an annulus whose inner hole
+	# is caliber_mm/2000, so a shield narrower than that hole is a negative-width ring whose faces cannot
+	# be manifold - which is exactly the four barrel edges the layer probe reported. The calibre comes
+	# from the facts draft (read-only); if it is unavailable the floor is skipped LOUDLY, not silently.
+	var bore_m := 0.0
+	var facts_path := "res://logs/WT-040-R1/modern_facts_draft.json"
+	if FileAccess.file_exists(facts_path):
+		var facts_doc: Variant = JSON.parse_string(FileAccess.get_file_as_string(facts_path))
+		if facts_doc is Dictionary:
+			for frow in facts_doc.get("rows",[]):
+				if str(frow.get("id","")) != id: continue
+				var asm: Variant = frow.get("assembly",{})
+				if asm is Dictionary: bore_m = float(asm.get("caliber_mm",0.0)) / 2000.0
+	if bore_m > 0.0 and f.has("mantlet_half_width") and f.has("mantlet_half_height"):
+		var want_w: float = bore_m*1.6
+		var want_h: float = bore_m*1.3
+		var had_w: float = float(f["mantlet_half_width"])
+		var had_h: float = float(f["mantlet_half_height"])
+		f["mantlet_half_width"] = snappedf(maxf(had_w,want_w),0.001)
+		f["mantlet_half_height"] = snappedf(maxf(had_h,want_h),0.001)
+		method["mantlet_half_width"] = str(method.get("mantlet_half_width","")) + " | FLOOR: raised to >= 1.6x the cited bore radius (%.4f m) so the shield encloses the hole" % bore_m
+		method["mantlet_half_height"] = str(method.get("mantlet_half_height","")) + " | FLOOR: raised to >= 1.3x the cited bore radius (%.4f m) so the shield encloses the hole" % bore_m
+		if absf(had_w-float(f["mantlet_half_width"])) > 0.0005 or absf(had_h-float(f["mantlet_half_height"])) > 0.0005:
+			row.notes.append("mantlet enlarged to enclose the bore: half-width %.3f -> %.3f, half-height %.3f -> %.3f (bore %.4f)" % [had_w,float(f["mantlet_half_width"]),had_h,float(f["mantlet_half_height"]),bore_m])
+	else:
+		row.notes.append("calibre unavailable: mantlet floor NOT applied (loud, not silent)")
 	# --- running gear --------------------------------------------------------------------------
 	if not wheels.is_empty():
 		var radius := 0.0; var width := 0.0
