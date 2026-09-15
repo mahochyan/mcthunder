@@ -17,10 +17,28 @@ func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	root.size = Vector2i(1280,720)
 	var args := OS.get_cmdline_user_args()
-	var ids: Array = args if not args.is_empty() else ["35t","KPz70"]
+	var source_root := SOURCE_ROOT
+	var targets: Array = args if not args.is_empty() else ["35t","KPz70"]
 	var rows: Array[Dictionary] = []
-	for id in ids:
-		var source := "%s/%s/vehicle.glb" % [SOURCE_ROOT,str(id)]
+	for target in targets:
+		var token := str(target)
+		if token.begins_with("root="):
+			source_root = token.substr(5)
+			print("[adapter] source root overridden to ",source_root)
+			continue
+		var id := token
+		var source := ""
+		if token.contains("=") and token.split("=",true,1)[1].contains("/"):
+			# "<id>=<absolute source path>": the id cannot be the parent directory name when the
+			# source tree names it something else (the T-80B lives in a folder called 制作中).
+			var parts := token.split("=",true,1)
+			id = parts[0]
+			source = parts[1]
+		elif token.contains("/"):
+			source = token
+			id = source.get_base_dir().get_file()
+		else:
+			source = "%s/%s/vehicle.glb" % [source_root,token]
 		if not FileAccess.file_exists(source):
 			print("[adapter] ",id," SOURCE MISSING"); continue
 		var probe := ModelBindingProbe.probe(source)

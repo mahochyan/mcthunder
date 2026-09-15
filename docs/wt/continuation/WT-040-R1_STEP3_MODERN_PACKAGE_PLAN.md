@@ -54,3 +54,20 @@
 4. 两车加入 `VehicleContentRecord` 后 `VehicleReadiness` 返回 **ok** ✓（**只有此时**才把 `preview_only` 硬拒改成"按配置完整性判定" ✓）；
 5. 回归：`run_vehicle_readiness_checks` ✓ · `run_content_record_checks` ✓ · `run_reference_admission_checks` ✓ · `run_model_binding_checks` ✓ 全绿 ✓；
 6. **明确不声称**：C 类未定前不得声称"两车已可正式出战" ✗。
+
+---
+
+## 5. 执行进展：两车适配产物已生成 ✓，并发现**自校验盲区** ✗
+| id | 源哈希 | 适配哈希 | 炮口偏移 | 方法 | 自校验 |
+|---|---|---|---|---|---|
+| `germ_leopard_2a4` | `4e7a3515…` | `d83daabe…` | (0, −0.0116, −5.697) | `barrel_mesh_extremity_composed_through_parent_chain` | `verified=True` ✓ |
+| `ussr_t_80b` | `8f47a0a2…` | `40707c9f…` | **(0,0,0)** | **`none`** | `verified=True` ✗ **空洞通过** |
+
+**盲区（必须修 ✓）**：自校验只断言"产物里的标记位置 == 记录的偏移" ✓，而**未要求该偏移非零、方法非 `none`** ✗ ⇒ 测量失败时**照样通过** ✗。
+⇒ 加固项（下一轮）：
+1. `assert offset.length() > 0` ✓ 且 `method != "none"` ✓，否则**判失败** ✓；
+2. 对 `ussr_t_80b` 追查**角色映射为何失败** ✓（其 `SPECS` 期望 `root/gun_mesh` ✓ 与真实节点可能不符 ✓）；
+3. 两车源路径（供复现 ✓）：T-80B `E:/AIprogram/aimodel/苏联/中型坦克/ussr_t_80b/制作中/vehicle.glb` ✓；豹2A4 `E:/AIprogram/aimodel/_制作记录/德国/candidates/germ_leopard_2a4/vehicle.glb` ✓；
+4. 工具已支持 `<id>=<绝对路径>` 与 `root=<目录>` ✓（含中文路径 ✓ 实测可用 ✓）。
+
+**说明** ✗：`ussr_t_80b` 的产物**不足以**用于几何生成 ✓（炮口无效 ✓）⇒ 在加固与修好映射前，**不得**用它的 `MuzzlePoint` 生成 `geometry` ✗。
