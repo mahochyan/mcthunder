@@ -1,0 +1,180 @@
+{
+  "note": "facts draft built from the dossiers' normalized candidate layer; each fact carries its locator; armour and dimensions deliberately absent (see header)",
+  "rows": [
+    {
+      "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
+      "emitted": [
+        "mobility.forward_speed_mps ← drive.forward_speed_candidate (line 20)",
+        "runtime.reverse_max_speed ← drive.reverse_speed_candidate (line 21)",
+        "runtime.hull_turn_speed ← drive.hull_turn_candidate (line 22)",
+        "mobility.design_mass_kg ← drive.design_mass (line 16)",
+        "mobility.engine ← drive.engine (line 27)",
+        "runtime.forward_max_speed ← mobility.forward_speed_mps",
+        "runtime component: forward_max_speed ← mobility.forward_speed_mps",
+        "runtime component: reverse_max_speed ← drive.reverse_speed_candidate",
+        "runtime component: hull_turn_speed ← drive.hull_turn_candidate"
+      ],
+      "facts": {
+        "mobility.design_mass_kg": {
+          "location": "warthunder_reference line 16 (总体): drive.design_mass = 50000.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L16"
+          ],
+          "status": "reference",
+          "value": 50000.0
+        },
+        "mobility.engine": {
+          "location": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"klimov gtd_1000tf\", \"power_hp\": 1100.0 }",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L27"
+          ],
+          "status": "reference",
+          "value": {
+            "engine_id": "klimov gtd_1000tf",
+            "power_hp": 1100.0
+          }
+        },
+        "mobility.forward_speed_mps": {
+          "location": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L20"
+          ],
+          "status": "reference",
+          "value": 20.8333333333333
+        },
+        "runtime.forward_max_speed": {
+          "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L20"
+          ],
+          "status": "reference",
+          "value": 20.8333333333333
+        },
+        "runtime.hull_turn_speed": {
+          "location": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L22"
+          ],
+          "status": "reference",
+          "value": 30.0
+        },
+        "runtime.reverse_max_speed": {
+          "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L21"
+          ],
+          "status": "reference",
+          "value": 2.77777777777778
+        }
+      },
+      "id": "ussr_t_80b",
+      "notes": [
+        "armour facts are NOT emitted: the zone mapping is awaiting review",
+        "dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it",
+        "the dossier's own arcade power multiplier note is a warning, not a value to import"
+      ],
+      "runtime": {
+        "forward_max_speed": 20.8333333333333,
+        "hull_turn_speed": 30.0,
+        "reverse_max_speed": 2.77777777777778
+      },
+      "skipped": [
+        "drive.acceleration_candidate absent: acceleration left to design"
+      ]
+    },
+    {
+      "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
+      "emitted": [
+        "mobility.forward_speed_mps ← drive.forward_speed_candidate (line 20)",
+        "runtime.reverse_max_speed ← drive.reverse_speed_candidate (line 21)",
+        "runtime.hull_turn_speed ← drive.hull_turn_candidate (line 22)",
+        "mobility.design_mass_kg ← drive.design_mass (line 16)",
+        "mobility.engine ← drive.engine (line 27)",
+        "runtime.forward_max_speed ← mobility.forward_speed_mps",
+        "runtime component: forward_max_speed ← mobility.forward_speed_mps",
+        "runtime component: reverse_max_speed ← drive.reverse_speed_candidate",
+        "runtime component: hull_turn_speed ← drive.hull_turn_candidate"
+      ],
+      "facts": {
+        "mobility.design_mass_kg": {
+          "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L16"
+          ],
+          "status": "reference",
+          "value": 47000.0
+        },
+        "mobility.engine": {
+          "location": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"mtu mb_873_ka_501\", \"power_hp\": 1500.0 }",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L27"
+          ],
+          "status": "reference",
+          "value": {
+            "engine_id": "mtu mb_873_ka_501",
+            "power_hp": 1500.0
+          }
+        },
+        "mobility.forward_speed_mps": {
+          "location": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L20"
+          ],
+          "status": "reference",
+          "value": 20.8333333333333
+        },
+        "runtime.forward_max_speed": {
+          "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L20"
+          ],
+          "status": "reference",
+          "value": 20.8333333333333
+        },
+        "runtime.hull_turn_speed": {
+          "location": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L22"
+          ],
+          "status": "reference",
+          "value": 30.0
+        },
+        "runtime.reverse_max_speed": {
+          "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137#L21"
+          ],
+          "status": "reference",
+          "value": 2.77777777777778
+        }
+      },
+      "id": "germ_leopard_2a4",
+      "notes": [
+        "armour facts are NOT emitted: the zone mapping is awaiting review",
+        "dimensions facts are NOT emitted: the dossier has none, and my own measurement must not serve as the reference for a check that compares against it",
+        "the dossier's own arcade power multiplier note is a warning, not a value to import"
+      ],
+      "runtime": {
+        "forward_max_speed": 20.8333333333333,
+        "hull_turn_speed": 30.0,
+        "reverse_max_speed": 2.77777777777778
+      },
+      "skipped": [
+        "drive.acceleration_candidate absent: acceleration left to design"
+      ]
+    }
+  ],
+  "schema": 1
+}

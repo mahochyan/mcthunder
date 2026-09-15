@@ -33,3 +33,30 @@
 
 ## 4. 一项待查（不臆断 ✓）
 `armor: {}` 时**未出现 17 个 zone 报错** ✗（按行序应在 `runtime` 之后 ✓）⇒ 下一轮以定向探针确认校验器的**判定顺序/短路点** ✓，再据此安排填字段次序 ✓。
+
+---
+
+## 5. 事实层落地与**缺口数三连下降**（✓ 可量化验收 ✓）
+| 阶段 | T-80B | 豹2A4 | 关闭原因 |
+|---|---|---|---|
+| 初始 | **24** | **25** | — |
+| 加入事实键 | **23** | **24** | `mobility.forward_speed_mps` ✓（校验器**确实**把该键当事实消费 ✓，0 报错 ✓） |
+| **修正类别错误** | **20** ✓ | **21** ✓ | `forward_max_speed` / `reverse_max_speed` / `hull_turn_speed` 写入 **`runtime` 组件** ✓ |
+
+### 我的类别错误（由审计抓到 ✓）
+第一版我把 **`runtime` 的值**也写进了 **`facts`** ✗ ⇒ 校验器仍报缺 ✗ —— 因为它读的是 **`packet.runtime` 组件** ✓。
+**正解** ✓：**值进 `runtime` 组件** ✓，**`facts` 负责出处**（及被其它检查查询的事实键，如 `mobility.forward_speed_mps` ✓）——两者**都需要** ✓。
+（**这正是"缺口审计"存在的价值** ✓：让校验器纠正我，而不是我自己叙述 ✓。）
+
+### 事实来源（**正确的那一层** ✓）
+档案的 `fields` 数组是一层**规范化候选数据** ✓：`key` ✓ · **SI 单位 `candidate_value`** ✓ · `historical_verified:false` ✓ · **`locator:{group,line,section}`** ✓✓（＝**引用**）+ `note` ✓。
+→ 事实**从此层生成** ✓（而非原始中文文本 ✗），每条带 `source_refs: ["wt-2.57.1.137#L20"]` ✓ 与 `location` ✓。
+→ **档案自身**就带 `drive.arcade_power_multiplier` 的**警示 note** ✓✓ ⇒ 我"只作可引起点"的立场**由来源本身证实** ✓。
+
+### 本轮**故意不发**的两类（并有理由 ✓）
+1. **装甲 facts** ✗：17 zone 映射**待评审** ✓；
+2. **尺寸 facts** ✗：档案**没有** ✓，而拿**我自己的测量**当"参考值"会让校验器的 **≤16% 包络互校循环自证** ✗✗ ⇒ 属**真实资料项** ✓。
+
+### 仍缺（**依赖裁定/设计** ✓，逐项归属明确 ✓）
+`assembly.*` ×7 ✓ · `crew.roles` ✓ · **`dimensions.width_m` / `reference_length_m`**（资料 ✓）· `weapon.capacity` ✓ · `runtime`：`acceleration`（**无候选值** ⇒ 设计 ✓）`reload_time` ✓ `rounds` ✓ `muzzle_velocity` ✓ `pitch_min/max` ✓ `penetration_curve` ✓ · `modules`/`crew` 数量 ✓
+**并新增一处必需件** ✓：`model_binding: new vehicle requires explicit delivered model bindings` ✓（新车辆必须提供**显式交付的模型绑定** ✓）。

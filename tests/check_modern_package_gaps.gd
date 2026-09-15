@@ -9,18 +9,27 @@ extends SceneTree
 ##
 ## Usage: -s res://tests/check_modern_package_gaps.gd
 const DRAFT := "res://logs/WT-040-R1/modern_geometry_draft.json"
+const FACTS := "res://logs/WT-040-R1/modern_facts_draft.json"
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	var draft := _read_json(DRAFT)
 	var rows: Array = draft.get("rows",[])
 	if rows.is_empty(): print("[gaps] no draft geometry found"); quit(1); return
+	# WT-040-R1: the cited facts draft is merged in, so the gap count can be watched FALLING as real
+	# fields arrive instead of the audit always reporting the same wall of missing keys.
+	var facts_by_id := {}
+	var runtime_by_id := {}
+	for f in _read_json(FACTS).get("rows",[]):
+		if not f is Dictionary: continue
+		facts_by_id[str(f.get("id",""))] = f.get("facts",{})
+		runtime_by_id[str(f.get("id",""))] = f.get("runtime",{})
 	for row in rows:
 		var id := str(row.get("id",""))
 		var packet := {
 			"id": id,
 			"display_name": id,
 			"geometry": row.get("fields",{}),
-			"runtime": {},
+			"runtime": runtime_by_id.get(id,{}),
 			"armor": {},
 			"modules": [],
 			"crew": [],
@@ -28,7 +37,7 @@ func _run() -> void:
 			# placeholders are supplied for the fields that are not measured yet. They are deliberately
 			# empty: the point is to reach the content checks and let the validator itself enumerate the
 			# missing runtime fields and armour zones instead of me describing them.
-			"facts": {},
+			"facts": facts_by_id.get(id,{}),
 			"sources": {},
 			"assembly": {},
 			"compatible_shells": [],
