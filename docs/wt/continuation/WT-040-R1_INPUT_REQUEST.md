@@ -1,8 +1,12 @@
-﻿# 第 ③ 步：**待输入清单**（剩余 9 项 · 逐项：字段 × 校验器要求 × 已有依据 × 谁能给 ✓）
+# 第 ③ 步：**待输入清单**（剩余 9 项 · 逐项：字段 × 校验器要求 × 已有依据 × 谁能给 ✓）
 
+> **⚠️ 分层更正（重要 ✓）**：`validate_package` **先跑 `check_shape`** ✓，**一旦报错立即返回** ✗ ⇒
+> **下表这 9 项属「shape 门」** ✓；**内容门**（17 armor zone ✓ · geometry 15 字段 ✓ · runtime 10 字段 ✓ · **包络 ≤16% 互校** ✓ · layout ✓ · 弹种目录 ✓）**要等这 9 项补齐后才会执行** ✓。
+> 用**明确标注的探针**预跑内容门的结论 ✓：**armor 草案有效** ✓（内容门未报任何 `armor.*` ✓）· `VehicleEquipmentProfiles`/`AmmoCompartmentProfile`/`VehicleArmorLayers` **三关全过** ✓ · 只剩 **1 项**且属**探针假象** ✓
+> ⇒ **次序要求** ✓：**设计值须先入 runtime 草案，再重生成证据记录** ✓（否则 `runtime.simulation` 与 packet 会不符 ✗）。
 > 生成方式 ✓：**由校验器自己报出**（`tests/check_modern_package_gaps.gd` ✓），非我的叙述 ✓。
-> 当前缺口：**T-80B 9 项** ✓ · **豹2A4 10 项** ✓（差异：豹2 多 `geometry.hull_rings` ✓）。
-> 一条命令复现 ✓：`powershell.exe -File tests/run_modern_vehicle_pipeline.ps1` ✓
+> 当前 shape 门缺口：**T-80B 9 项** ✓ · **豹2A4 10 项** ✓（差异：豹2 多 `geometry.hull_rings` ✓）。
+> 一条命令复现 ✓：`powershell.exe -File tests/run_modern_vehicle_pipeline.ps1` ✓（**9 步全绿** ✓）
 > **我不擅自填** ✗：每一项都标出归属 ✓；档案 `runtime_admitted:false` ✓，其数据**只作可引起点** ✓。
 
 ## A. 设计值（4 项）—— 需**设计**给定；我可按同代历史车同档给**明确标注的初值** ✓，但须您许可 ✓

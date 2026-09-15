@@ -50,6 +50,10 @@ Step 'facts'           @('--headless','--path',$root,'-s','res://tests/build_mod
 Step 'geometry_check'  @('--headless','--path',$root,'-s','res://tests/check_modern_geometry.gd','--','ussr_t_80b','germ_leopard_2a4')
 Step 'crew'            @('--headless','--path',$root,'-s','res://tests/build_modern_crew_draft.gd')
 Step 'modules'         @('--headless','--path',$root,'-s','res://tests/build_modern_modules_draft.gd')
+Step 'armor'           @('--headless','--path',$root,'-s','res://tests/build_modern_armor_draft.gd')
+# ORDER MATTERS: the evidence record copies each component, so it must be rebuilt after the component
+# drafts change - vehicle_content_pipeline compares the packet against that record.
+Step 'evidence'        @('--headless','--path',$root,'-s','res://tests/build_modern_evidence_record.gd')
 Step 'gap_audit'       @('--headless','--path',$root,'-s','res://tests/check_modern_package_gaps.gd')
 Write-Host "== gap count (the acceptance signal) =="
 $audit = Join-Path $logs 'pipeline-gap_audit.log'
