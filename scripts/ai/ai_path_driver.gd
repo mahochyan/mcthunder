@@ -114,10 +114,34 @@ func _plan() -> Dictionary:
 		path_ids.clear()
 		_transition("unreachable",result.reason)
 		return result
+	# WT-040-R1: PRESERVE PROGRESS ACROSS A REPLAN. This used to set waypoint = 0 (or 1), which threw
+	# away the entire route prefix every time _plan() was accepted - and _plan() is accepted as often
+	# as AI_REPLAN_INTERVAL_S allows. Measured on the river: the waypoint index advanced 1, 4, 12 and
+	# then fell back to 6 while the replanned counter climbed 2, 3, 3, 4, the path length changed
+	# 69, 70, 70, 82 and the distance to goal oscillated 994, 1067, 976, 1071 instead of closing.
+	# The vehicle was driving, the planner never failed (failed = unreachable = 0) - it simply kept
+	# restarting the route. Resume at the nearest point of the NEW path, and never behind the point we
+	# had already been heading for, so a replan may change the route but not the progress.
+	var here := vehicle.tank.global_position
+	var previous_target := Vector3.INF
+	if path.size() > 0:
+		previous_target = path[clampi(waypoint,0,path.size()-1)]
 	path = result.points.duplicate()
 	path_ids.assign(result.ids)
-	waypoint = 0
-	if path.size() > 1 and vehicle.tank.global_position.distance_to(path[0]) < 3: waypoint = 1
+	var resume := 0
+	if path.size() > 1:
+		var best_d := INF
+		for i in path.size():
+			var d := here.distance_to(path[i])
+			if d < best_d:
+				best_d = d
+				resume = i
+		if previous_target.is_finite():
+			for i in range(resume,path.size()):
+				if path[i].distance_to(previous_target) <= 3.0:
+					resume = maxi(resume,i)
+					break
+	waypoint = clampi(resume,0,maxi(path.size()-1,0))
 	# WT-039-R1: do NOT reset the stuck window here. _plan() runs at most every
 	# AI_REPLAN_INTERVAL_S (1.0 s) while the detector needs AI_STUCK_WINDOW_S (2.0 s) of no
 	# progress, so resetting on every replan made the detector structurally unable to fire: a
