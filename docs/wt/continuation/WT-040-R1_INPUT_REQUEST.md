@@ -48,3 +48,36 @@
 | 豹2A4 | **17** ✓ | `rolled×14` · `composite×1` · `cast×2` ✓ | `turret_front 250` ✓ `#L113` · `turret_sides 160` ✓ |
 每 zone 均含：来源节点 ✓ · **行号** ✓ · `mapping_note`（粒度共用/多段取值的说明 ✓）；状态 `reference_pending_review` ✓。
 ⇒ **裁定一句话，17 项即可落盘** ✓。
+
+---
+
+# 附录：**最终完整的外部输入清单**（经 240 轮实测收敛所得 ✓）
+
+> 说明 ✓：下列是"**距两车可校验通过**"的**全部**外部需求 ✓（其余均已由我实测/引用/派生并通过校验 ✓）。
+> 依据 ✓：`tests/probe_package_layers.gd` ✓ 直连项目各层校验器所得**逐行错误** ✓ + `definitions` 层**两车全 0 错误** ✓。
+
+## G. 复合装甲的**显式版本化游戏规则** ✗（**豹2A4**，设计）
+错误原文 ✓：`armor_patches[8/9].response_profile: explicit versioned game rule required` ✗
+⇒ 项目要求**复合/爆反装甲**必须给出**具名、带版本**的响应规则 ✓（**不得**用通用模板冒充 ✗） ⇒ 需**设计**给定 ✓。
+
+## H. **弹种集** ✗（**两车**，设计/资料）
+错误原文 ✓：`vehicle has no admitted shell set` ✗（`VehicleShellCatalog` ✓）
+⇒ 需 `compatible_shells` ✓（可参照既有 `configs/shells/historical_loadouts.json` ✓ 与 `shells/` 目录范式 ✓）。
+
+## I. **独立尺寸资料** ✗（两车，史料）
+`dimensions.width_m` / `reference_length_m` ✓ —— 项目机制里对应证据登记表的 **`overall.width_m` / `overall.length_m`** ✓，
+**须带文献原值与推导**（`original_value` + `derivation` ✓，如 M4A3 的 `20 ft 7 in → 20.583 ft * 0.3048 = 6.274 m` ✓）。
+
+## J. **史料类 3 项** ✗（两车）
+`assembly.year`（车辆**历史年份** ✓；档案里唯一的日期是**参考游戏上线日** ✗ 已拒绝 ✓）· `assembly.suspension` ✓ · `assembly.mount` ✓。
+
+## K. **设计值 3 项** ✗（两车）
+`runtime.reload_time` ✓ · `runtime.pitch_min` ✓ · `runtime.pitch_max` ✓ —— 档案**均无** ✓（已穷尽核查 ✓）；
+`runtime.penetration_curve` ✓ 为**多点数组** ✓（生产包 M26 为 `[[0,150],[500,125],[1500,95]]` ✓ ⇒ **单点即退化** ✗）。
+
+## L. **准入判断** ✗（两车，用户裁定）
+档案自称 `runtime_admitted: false` ✓ ⇒ 是否允许以其为**参考轨**生成 **draft** 战斗包 ✓（`evidence_profile = game_reference` ✓，**不冒称** `historical_verified` ✗）。
+
+## M. 我**已自行完成**（无需输入 ✓，均经校验器验证 ✓）
+`geometry`（实测 ✓ 29/29 ✓）· `facts`（逐条带引用 ✓）· `armor` **17 zone 草案** ✓· `modules` ✓（弹架精确配平 ✓）· `crew` ✓· `assembly` 六项 ✓ · **四个自证式证据事实** ✓ · `runtime` 六项 ✓
+⇒ **剩余唯一"我方"工作** ✓：**T-80B 的 4 条 barrel 非流形边** ✓（成因已**解析证明** ✓，修法已定 ✓，见缺口审计第 24 节 ✓）。
