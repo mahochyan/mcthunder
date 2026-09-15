@@ -76,3 +76,18 @@
 ### 处理 ✓
 在生成器中把该**假设显式化** ✓：`... the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption` ✓
 （**不隐藏假设** ✗ —— 这正是本检查存在的意义 ✓。）
+
+---
+
+## 7. **第三项完整性验证**：crew / assembly / modules 回查档案 ✓ —— **全部一致** ✓✓
+| 检查 | 结果 |
+|---|---|
+| **`crew.roles`** vs 档案 `crew_roster[].roles`（**手写扁平化** ⇒ 必须回查 ✓） | T-80B `tank_gunner,driver,commander` ✓ **一致**；豹2 `tank_gunner,driver,loader,commander` ✓ **一致** |
+| **`assembly`** vs 档案 `weapon_references[primary].source_weapon_id` ✓ · `shell.reference.bulletName` ✓ · `shell.caliber_mm` ✓ · `primary.capacity` ✓ | T-80B `125mm_2A46_2_user_cannon` ✓ `125mm_3bk_18m` ✓ **125.0** ✓ **38.0** ✓；豹2 `120mm_Rheinmetall_L44_user_cannon` ✓ `120mm_dm12` ✓ **120.0** ✓ **42.0** ✓ |
+| **`modules` 弹架之和** vs 草案声明（**独立复核**校验器已验的规则 ✓） | **38 = 38** ✓ · **42 = 42** ✓ |
+
+### 数据层的验证总览（**三重** ✓）
+1. **armor 17 zone** ⇒ 逐条回查档案原文 ✓（**17/17 ×2 零不一致** ✓）；
+2. **facts** ⇒ 逐条回查候选层 ✓（每车 3 条精确 ✓；2 条表示差异无碍 ✓；**抓到并显式化 1 个隐藏假设** ✓：加速单位 ✓）；
+3. **crew / assembly / modules** ⇒ 本次全部一致 ✓✓。
+⇒ **草案数据层不含未声明的假设或转录错误** ✓（**除已显式标注的那一处单位假设** ✓）。
