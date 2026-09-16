@@ -18,11 +18,29 @@ extends RefCounted
 ## ADMITTED combat map still needs the author's/user's decision - see the report that cites this.
 const DEFAULT_TEAM_SIZE := 16
 
-static func create(team_size: int = DEFAULT_TEAM_SIZE) -> MapDefinition:
-	var layout := RiverJunctionDefinition.layout(team_size)
+## WT-040-R1 ② (user ruling 2026-09-16): the engineering team entry is REGISTERED explicitly instead
+## of being inferred. Match size decides how many vehicles deploy; layout version decides which
+## authored geometry they deploy onto. The first engineering target is 4v4 ON THE 16v16 LAYOUT: that
+## is a legal development configuration, and it is stated here rather than reached by passing 4 and
+## letting the definition substitute a layout. The 10v10/16v16 goals remain, but no capacity claim
+## is made for them yet.
+const ENGINEERING_MATCH := {
+	"match_size": 4,
+	"layout_version": 16,
+	"objective_ids": ["A","B","C"],
+	"supply_ids": ["supply1","supply2"],
+	"status": "engineering_candidate",
+	"combat_admitted": false,
+	"note": "4v4 vehicles on the authored 16v16 layout; engineering entry only, admission unchanged",
+}
+
+static func create(match_size: int = -1, layout_version: int = -1) -> MapDefinition:
+	var ms := match_size if match_size > 0 else int(ENGINEERING_MATCH.match_size)
+	var lv := layout_version if layout_version in RiverJunctionDefinition.LAYOUT_VERSIONS else int(ENGINEERING_MATCH.layout_version)
+	var layout := RiverJunctionDefinition.layout(lv)
 	var map := MapDefinition.new()
-	map.id = "river_junction_team_%d" % team_size
-	map.title = "River Junction (engineering AI match, %dv%d)" % [team_size, team_size]
+	map.id = "river_junction_team_%dv%d_on_layout%d" % [ms, ms, lv]
+	map.title = "River Junction (engineering AI match, %dv%d on the %dv%d layout)" % [ms, ms, lv, lv]
 	map.bounds = layout.bounds
 	map.max_vehicle_size = Vector3(4.2, 2.4, 8.5)
 
@@ -32,18 +50,20 @@ static func create(team_size: int = DEFAULT_TEAM_SIZE) -> MapDefinition:
 	# MapDefinition.minimap. RiverJunctionNavigation.build() already emits the expected shape,
 	# {"schema_version", "nodes":[{"id","position":[x,y,z]}], "edges":...}, with the real terrain
 	# height applied to every node, so the AI drives the authored roads and bridges.
-	map.graph = RiverJunctionNavigation.new().build(team_size)
+	# WT-040-R1 ②: the builder now takes BOTH, because the spawn-derived columns depend on the match
+	# size while the roads, rows and deployment depth come from the layout version.
+	map.graph = RiverJunctionNavigation.new().build(lv, ms)
 
-	# Spawn rows: the same authored poses the single-car range deploys from.
+	# Spawn rows: the authored poses for this match size on this layout version.
 	var spawns: Dictionary = {}
 	for team in [1, 2]:
 		var poses: Array[Transform3D] = []
-		poses.assign(RiverJunctionDefinition.spawns(team_size, team))
+		poses.assign(RiverJunctionDefinition.spawns(ms, team, lv))
 		spawns[team] = poses
 	map.spawns = spawns
 
 	# Resupply sits behind each deployment area, as on the other maps.
-	for row in RiverJunctionDefinition.supply_points(team_size):
+	for row in RiverJunctionDefinition.supply_points(ms, lv):
 		map.supply_reservations.append(RiverJunctionDefinition.point(row.xz))
 
 	# Hard cover, converted from the map's own rows ({"id","xz","footprint","height"}) into the

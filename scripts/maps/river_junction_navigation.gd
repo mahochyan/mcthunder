@@ -23,9 +23,14 @@ func line(a: Vector2,b: Vector2,road: bool=true,width: float=12.0) -> void:
 		var current := node(a.lerp(b,float(i)/segments),road)
 		add_edge(previous,current,width); previous=current
 
-func build(team_size: int) -> Dictionary:
+## WT-040-R1 ②: layout_version picks the authored geometry; match_size picks how many vehicles deploy.
+func build(layout_version: int, match_size: int = -1) -> Dictionary:
 	nodes.clear(); edges.clear(); goals.clear(); supply_goals.clear()
-	var config := RiverJunctionDefinition.layout(team_size)
+	var config := RiverJunctionDefinition.layout(layout_version)
+	if config.is_empty():
+		push_error("river navigation refused: layout version %d is not an authored layout" % layout_version)
+		return {}
+	var ms: int = match_size if match_size > 0 else layout_version
 	var depth: float=config.deployment_z
 	var lane_rows: Array[float]=[-depth,depth,-220,220,-130,100,120]
 	for z in RiverJunctionDefinition.LINKS:
@@ -53,7 +58,7 @@ func build(team_size: int) -> Dictionary:
 		for sector in [-260.0,260.0]:
 			var aisle_z := sign_z*(depth+32)
 			var columns: Array[float]=[sector-110,sector+110]
-			for pose in RiverJunctionDefinition.spawns(team_size,team):
+			for pose in RiverJunctionDefinition.spawns(ms,team,layout_version):
 				if signf(pose.origin.x)!=signf(sector): continue
 				var p := Vector2(pose.origin.x,pose.origin.z)
 				columns.append(p.x)
@@ -63,7 +68,7 @@ func build(team_size: int) -> Dictionary:
 			for x in [sector-110,sector+110]: line(Vector2(x,aisle_z),Vector2(x,sign_z*depth),false,8)
 	# Resupply sits on the rear deployment channel; the node already exists there, so the
 	# goal is exposed without adding a second graph or changing the serialized contract.
-	for row in RiverJunctionDefinition.supply_points(config.team_size):
+	for row in RiverJunctionDefinition.supply_points(ms,layout_version):
 		var p: Vector2 = row.xz
 		var key := "%.3f_%.3f"%[p.x,p.y]
 		if nodes.has(key): supply_goals[str(row.id)] = nodes[key]

@@ -15,14 +15,23 @@ const LANDMARKS := {
 	"F":{"title":"西南木材场","xz":Vector2(-820,350),"role":"16v16 外侧推进"},
 	"G":{"title":"东北中继站","xz":Vector2(820,-350),"role":"16v16 外侧推进"}}
 
-static func layout(team_size: int) -> Dictionary:
-	assert(team_size in [10,16])
-	return {"id":"river_junction_%dv%d"%[team_size,team_size],"team_size":team_size,
-		"bounds":Rect2(-740,-600,1480,1200) if team_size==10 else Rect2(-1040,-800,2080,1600),
+const LAYOUT_VERSIONS := [10, 16]
+## WT-040-R1 ② (user ruling 2026-09-16): MATCH SIZE and LAYOUT VERSION are two different things.
+## The authored layouts are 10v10 and 16v16 geometry. A 4v4 match may legally run on the 16v16
+## layout, but the layout version must then be stated EXPLICITLY by the caller: passing 4 and being
+## silently given the 16 layout is exactly what the ruling forbids. An unsupported version is now a
+## loud refusal that yields an empty config, never a substituted layout.
+static func layout(layout_version: int) -> Dictionary:
+	if not (layout_version in LAYOUT_VERSIONS):
+		push_error("river layout version must be one of %s, got %d: refusing to substitute a layout silently" % [str(LAYOUT_VERSIONS), layout_version])
+		return {}
+	return {"id":"river_junction_%dv%d"%[layout_version,layout_version],"team_size":layout_version,
+		"layout_version":layout_version,
+		"bounds":Rect2(-740,-600,1480,1200) if layout_version==10 else Rect2(-1040,-800,2080,1600),
 		"objectives":["A","B","C"],
 		"capture_limit":3,
-		"crossings":[-520.0,0.0,520.0] if team_size==10 else LANES.duplicate(),
-		"deployment_z":480.0 if team_size==10 else 680.0,
+		"crossings":[-520.0,0.0,520.0] if layout_version==10 else LANES.duplicate(),
+		"deployment_z":480.0 if layout_version==10 else 680.0,
 		"status":"design_preview","combat_admitted":false}
 
 static func river_z(x: float) -> float: return 32.0*sin(x/210.0)
@@ -94,32 +103,45 @@ static func hard_cover() -> Array[Dictionary]:
 		for z in [-250.0,250.0]: rows.append({"id":"TransferCover_%d_%d"%[x,z],"xz":Vector2(x,z),"footprint":Vector2(32,12),"height":4.0})
 	return rows
 
-static func spawns(team_size: int, team: int) -> Array[Transform3D]:
+## WT-040-R1 ②: match_size decides HOW MANY vehicles deploy; layout_version decides WHICH authored
+## geometry they deploy onto. They were previously the same argument, so a 4v4 request silently got
+## the 16v16 layout. The default is the registered project default and the engineering 4v4 entry
+## passes its layout version explicitly.
+static func spawns(match_size: int, team: int, layout_version: int = 16) -> Array[Transform3D]:
 	var out: Array[Transform3D]=[]
+	var cfg: Dictionary = layout(layout_version)
+	if cfg.is_empty():
+		push_error("river spawns refused: layout version %d is not an authored layout" % layout_version)
+		return out
 	var sign_z := 1.0 if team==1 else -1.0
-	var base_z: float=layout(team_size).deployment_z
+	var base_z: float=cfg.deployment_z
 	# Two dispersed parking aprons, each with an east and west exit.
-	for i in team_size:
-		var sector := -1.0 if i<ceili(team_size/2.0) else 1.0
-		var slot := i%ceili(team_size/2.0)
+	for i in match_size:
+		var sector := -1.0 if i<ceili(match_size/2.0) else 1.0
+		var slot := i%ceili(match_size/2.0)
 		var row := int(slot/4)
 		var p := Vector2(sector*260.0+(float(slot%4)-1.5)*18.0+row*9.0,sign_z*(base_z-row*20.0))
 		out.append(Transform3D(Basis.IDENTITY if team==1 else Basis(Vector3.UP,PI),point(p,0.15)))
 	return out
 
-static func supply_points(team_size: int) -> Array[Dictionary]:
+static func supply_points(match_size: int, layout_version: int = 16) -> Array[Dictionary]:
 	# WT-032-R1: the two older maps place a resupply reservation behind each deployment
 	# and wire a supply node into their graph; the river map had none, so spawn->supply
 	# reachability could not be verified. These two points sit on the rear deployment
 	# channel ends that the navigation graph already builds and the geometry check
 	# already verifies as supported.
-	var depth: float=layout(team_size).deployment_z
+	# WT-040-R1 ②: the depth comes from the LAYOUT VERSION, not from the match size.
+	var cfg: Dictionary=layout(layout_version)
+	if cfg.is_empty():
+		push_error("river supply_points refused: layout version %d is not an authored layout" % layout_version)
+		return []
+	var depth: float=cfg.deployment_z
 	var out: Array[Dictionary]=[]
 	for team in [1,2]:
 		var sign_z := 1.0 if team==1 else -1.0
 		out.append({"team":team,"id":"supply%d"%team,
 			"title":("南部部署场后侧补给圈" if team==1 else "北部部署场后侧补给圈"),
-			"xz":Vector2(370.0,sign_z*(depth+32.0))})
+			"xz":Vector2(370.0,sign_z*(depth+32.0)),"layout_version":layout_version})
 	return out
 
 static func road_lines() -> Array[PackedVector2Array]:
