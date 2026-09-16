@@ -238,6 +238,111 @@ func _build(id: String, path: String) -> Dictionary:
 					row.skipped.append("加减速度 present but not parseable: %s" % rraw)
 			elif rname == "首发日期":
 				row.skipped.append("assembly.year NOT taken from 首发日期 (%s): that is the reference game's release date, not the vehicle's historical year - using it would be a false claim" % rraw)
+	# ---------------------------------------------------------------------------------------------
+	# WT-040-R1 ③ (user ruling): the remaining shape-gate fields are filled here as a FROZEN,
+	# VERSIONED PROJECT ENGINEERING RULE SET, not as history. The previous pass established that the
+	# dossier genuinely lacks them, so every value below carries status `design` or `geometry_estimate`
+	# with its reason and the rule version. Nothing here claims historical verification, and the
+	# reference archive's own admission flags are left exactly as they are.
+	const ENG_RULES := "wt040-eng-v1"
+	const ENG := {
+		"ussr_t_80b": {
+			"assembly_year": 2026,
+			"suspension": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)",
+			"mount": "breech-ring mount (project engineering rule)",
+			"reload_time": 7.1, "pitch_min": -5.0, "pitch_max": 14.0,
+			"penetration_curve": [[0,470],[500,440],[1500,380],[2500,300]],
+			"width_m": 3.6, "reference_length_m": 9.9,
+		},
+		"germ_leopard_2a4": {
+			"assembly_year": 2026,
+			"suspension": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)",
+			"mount": "breech-ring mount (project engineering rule)",
+			"reload_time": 6.0, "pitch_min": -9.0, "pitch_max": 20.0,
+			"penetration_curve": [[0,470],[500,450],[1500,400],[2500,320]],
+			"width_m": 3.7, "reference_length_m": 9.7,
+		},
+	}
+	var eng: Dictionary = ENG.get(id,{})
+	if not eng.is_empty():
+		if not row.has("assembly"): row.assembly = {}
+		var rule_note := "project engineering design value, frozen rule set %s - NOT a historical claim" % ENG_RULES
+		row.assembly["year"] = int(eng["assembly_year"])
+		row.facts["assembly.year"] = {
+			"value": int(eng["assembly_year"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
+		}
+		row.emitted.append("assembly component: year ← %s" % rule_note)
+		row.assembly["suspension"] = str(eng["suspension"])
+		row.facts["assembly.suspension"] = {
+			"value": str(eng["suspension"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
+		}
+		row.emitted.append("assembly component: suspension ← %s" % rule_note)
+		row.assembly["mount"] = str(eng["mount"])
+		row.facts["assembly.mount"] = {
+			"value": str(eng["mount"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
+		}
+		row.emitted.append("assembly component: mount ← %s" % rule_note)
+		row.runtime["reload_time"] = float(eng["reload_time"])
+		row.facts["runtime.reload_time"] = {
+			"value": float(eng["reload_time"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
+		}
+		row.emitted.append("runtime component: reload_time ← %s" % rule_note)
+		row.runtime["pitch_min"] = float(eng["pitch_min"])
+		row.facts["runtime.pitch_min"] = {
+			"value": float(eng["pitch_min"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "gun depression limit used by the engineering candidate, as a project rule",
+		}
+		row.runtime["pitch_max"] = float(eng["pitch_max"])
+		row.facts["runtime.pitch_max"] = {
+			"value": float(eng["pitch_max"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "gun elevation limit used by the engineering candidate, as a project rule",
+		}
+		row.emitted.append("runtime component: pitch_min/pitch_max ← %s" % rule_note)
+		row.runtime["penetration_curve"] = eng["penetration_curve"]
+		row.facts["runtime.penetration_curve"] = {
+			"value": eng["penetration_curve"], "status": "design", "origin": rule_note, "source_refs": [],
+			"location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
+		}
+		row.emitted.append("runtime component: penetration_curve ← %s" % rule_note)
+		row.notes.append("ENGINEERING RULE SET %s applied to assembly.year/suspension/mount and runtime.reload_time/pitch_min/pitch_max/penetration_curve: all marked design, none claiming history" % ENG_RULES)
+	# dimensions: prefer a MEASUREMENT from this run's geometry draft (marked geometry_estimate); fall
+	# back to the project rule only when the model could not be measured.
+	var dims: Dictionary = {}
+	var gpath := "res://logs/WT-040-R1/modern_geometry_draft.json"
+	if FileAccess.file_exists(gpath):
+		var gdoc: Variant = JSON.parse_string(FileAccess.get_file_as_string(gpath))
+		if gdoc is Dictionary:
+			for grow in gdoc.get("rows",[]):
+				if not grow is Dictionary or str(grow.get("id","")) != id: continue
+				var gf: Variant = grow.get("fields",{})
+				if gf is Dictionary and gf.has("hull_rings"):
+					var rr: Array = gf["hull_rings"]
+					var maxhalf := 0.0
+					var zmin := INF
+					var zmax := -INF
+					for ring in rr:
+						if not ring is Array or ring.size() < 4: continue
+						maxhalf = maxf(maxhalf,float(ring[1]))
+						zmin = minf(zmin,float(ring[2]))
+						zmax = maxf(zmax,float(ring[3]))
+					if maxhalf > 0.0 and zmax > zmin:
+						dims = {"width_m": snappedf(maxhalf*2.0,0.001), "reference_length_m": snappedf(zmax-zmin,0.001), "status": "geometry_estimate",
+							"why": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)"}
+	if dims.is_empty() and not eng.is_empty():
+		dims = {"width_m": float(eng["width_m"]), "reference_length_m": float(eng["reference_length_m"]), "status": "design",
+			"why": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope"}
+	if not dims.is_empty():
+		row.dimensions = {"width_m": dims["width_m"], "reference_length_m": dims["reference_length_m"]}
+		for key in ["width_m","reference_length_m"]:
+			row.facts["dimensions.%s" % key] = {
+				"value": dims[key], "status": dims["status"], "origin": "project engineering measurement/rule %s" % ENG_RULES,
+				"source_refs": [], "location": str(dims["why"]),
+			}
+		row.emitted.append("dimensions component: width_m/reference_length_m ← %s (%s)" % [dims["why"],dims["status"]])
 	row.notes.append("modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy")
 	row.notes.append("assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source")
 	row.notes.append("armour facts are NOT emitted: the zone mapping is awaiting review")
