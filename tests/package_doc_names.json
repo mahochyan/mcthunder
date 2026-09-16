@@ -1,0 +1,7 @@
+{
+  "note": "WT-040-R1: Chinese package names live HERE, in a UTF-8 data file, because a Chinese literal inside a BOM-less .ps1 is read as ANSI by Windows PowerShell and mangled - which turned into 'Illegal characters in path' during packaging. The build script reads this file as UTF-8 and keeps zero non-ASCII characters of its own.",
+  "temp_dir_suffix": "独立测试",
+  "doc_data_recovery": "数据与恢复说明.md",
+  "doc_start_here": "开始游戏.txt",
+  "doc_licenses": "素材与许可.md"
+}

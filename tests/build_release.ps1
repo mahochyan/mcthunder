@@ -4,7 +4,7 @@ param(
     [switch]$Candidate
 )
 $ErrorActionPreference = 'Stop'
-# WT-040-R1 ④ (user ruling): an INTERNAL development candidate may be produced while the known,
+# WT-040-R1 [4] (user ruling): an INTERNAL development candidate may be produced while the known,
 # individually registered failures below are present; a FORMAL release candidate keeps every strict
 # gate and is the only artefact allowed to claim release_ready. The register matches a SPECIFIC
 # failing check - suite name, how many checks failed, and text that must appear among those failures -
@@ -14,6 +14,10 @@ $deviationRegister = @(
     [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' }
 )
 . (Join-Path $PSScriptRoot 'candidate_register_match.ps1')   # WT-040-R1: the shared, tested matcher
+# WT-040-R1: the package's Chinese names are read from a UTF-8 data file. A Chinese literal inside this .ps1 is
+# read as ANSI by Windows PowerShell and mangled, which already broke packaging once with "Illegal characters
+# in path". This keeps the script itself pure ASCII while the shipped document names stay Chinese.
+$pkgNames = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'package_doc_names.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $sourceSha = (& git -C $projectRoot rev-parse HEAD).Trim()
 if ($sourceSha -notmatch '^[0-9a-f]{40}$') { throw 'Cannot resolve committed source identity' }
@@ -24,7 +28,7 @@ $engine = Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.
 if (-not (Test-Path -LiteralPath $engine)) { throw 'Fixed Godot engine is missing' }
 $engineVersion = (& $engine --version).Trim()
 if ($engineVersion -ne '4.7.2.stable.official.ed1daf0bf') { throw 'Unexpected Godot build; release requires the fixed engine' }
-# WT-040-R1 ④: resolve the official export template defensively instead of trusting one default.
+# WT-040-R1 [4]: resolve the official export template defensively instead of trusting one default.
 # A build launched from a background job reported the template missing even though it exists under
 # %APPDATA%, which means the child did not inherit the same environment; the candidates are now
 # searched in order and the failure message lists every location that was tried.
@@ -50,12 +54,12 @@ $runDir = Join-Path $projectRoot "backups/builds/031/$sourceSha/$stamp"
 $logs = Join-Path $projectRoot "logs/031/$sourceSha/build-$stamp"
 $source = Join-Path $runDir 'clean-source'
 $package = Join-Path $runDir 'package'
-$outside = Join-Path ([IO.Path]::GetTempPath()) "PixelArmor 独立测试 $stamp"
+$outside = Join-Path ([IO.Path]::GetTempPath()) ("PixelArmor " + $pkgNames.temp_dir_suffix + " " + $stamp)
 New-Item -ItemType Directory -Path $source,$package,$logs,$outside -Force | Out-Null
 $runs = [System.Collections.Generic.List[object]]::new()
 function Run-Checked([string]$Name,[string]$Executable,[string]$Arguments,[string]$WorkingDirectory,[int]$Timeout=300,[string]$Required='',[string]$RequiredArtifact='',[switch]$TolerateNonZeroExit) {
     $stdout=Join-Path $logs "$Name.stdout.log"; $stderr=Join-Path $logs "$Name.stderr.log"
-    # WT-040-R1 ④: Start-Process -PassThru handed back an object whose ExitCode was $null even though
+    # WT-040-R1 [4]: Start-Process -PassThru handed back an object whose ExitCode was $null even though
     # the child had finished successfully (measured 2026-09-16: the import's own stdout showed two
     # DONE markers and zero errors while RESULTS.json recorded exit_code=null). A real Process handle
     # with redirected streams gives a genuine exit status; a null status is treated as FAILURE, never
@@ -173,9 +177,9 @@ $exe=Join-Path $package 'PixelArmor.exe'
 Run-Checked 'export_release' $engine ('--headless --path "'+$source+'" --export-release "Windows Release" "'+$exe+'"') $source 300 '' $exe
 Run-Checked 'engine_notices' $engine ('--headless --path "'+$source+'" -s res://tests/write_engine_notices.gd -- "'+(Join-Path $package 'GODOT_LICENSES.txt')+'"') $source
 Copy-Item -LiteralPath (Join-Path $source 'assets/fonts/OFL.txt') -Destination (Join-Path $package 'FONT_OFL.txt')
-Copy-Item -LiteralPath (Join-Path $source 'docs/DATA_RECOVERY_029.md') -Destination (Join-Path $package '数据与恢复说明.md')
-Copy-Item -LiteralPath (Join-Path $source 'docs/RELEASE_README_031.txt') -Destination (Join-Path $package '开始游戏.txt')
-Copy-Item -LiteralPath (Join-Path $source 'docs/RELEASE_LICENSES_031.md') -Destination (Join-Path $package '素材与许可.md')
+Copy-Item -LiteralPath (Join-Path $source 'docs/DATA_RECOVERY_029.md') -Destination (Join-Path $package $pkgNames.doc_data_recovery)
+Copy-Item -LiteralPath (Join-Path $source 'docs/RELEASE_README_031.txt') -Destination (Join-Path $package $pkgNames.doc_start_here)
+Copy-Item -LiteralPath (Join-Path $source 'docs/RELEASE_LICENSES_031.md') -Destination (Join-Path $package $pkgNames.doc_licenses)
 $trialZip=Join-Path $runDir 'unverified-candidate.zip'
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath $trialZip
 Expand-Archive -LiteralPath $trialZip -DestinationPath $outside
