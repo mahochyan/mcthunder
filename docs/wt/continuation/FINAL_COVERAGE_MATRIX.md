@@ -50,3 +50,66 @@
 | M26 坡上起步 | **已裁定 C3**（受限 ✓） | — |
 | `T018-H01` | **已裁定 A1**（预算已提高 ✓） | — |
 | 公网/10v10/16v16/空海 | **未授权未实现** | **NOT_RUN** ✓ |
+
+---
+
+## 6. **2026-09-15/16 追加**：第 ③ 步（两辆现代样车战斗包）+ 门禁复核 + 河谷裁定包
+
+### 6.1 门禁复核（**干净独占运行** ✓）
+| 项 | 值 |
+|---|---|
+| 套件数 | **128** ✓（= 基础 127 + runner 在含 `run_art_checks` 时**追加**的 `run_menu_fire_handoff_checks` ✓） |
+| 结果 | **126 PASS / 2 FAIL** ✓✓ |
+| 两红 | **与本文档 §3 完全一致** ✓（`run_industrial_battle_checks` 既存到点红 ✓ · `run_challenge_checks` **140 项**登记夹具边界 B4 ✓） |
+| 结论 | **零回归** ✓；我的唯一产品代码改动（1 处 8 行 ✓）**由其专属套件单独验证 41/0** ✓ |
+| 证据 | `logs/WT-040-R1/{gate-final,gate-verdict,gate-solo}-*/gate.log` ✓（三次运行全跑完 ✓；`gate-solo` 为最干净 ✓） |
+
+### 6.2 第 ③ 步完成项 ✓（**均由项目自身校验器验证** ✓）
+| 项 | 结果 | 证据 |
+|---|---|---|
+| 两车适配产物 | T-80B **新建** ✓ · 豹2 首次生成 ✓；98 行全 verified ✓；重跑**逐字节确定** ✓ | `WT-040-R1_EVIDENCE_TABLE.md` §1 |
+| `geometry` 实测 15 字段 | **自校验 29/29** ✓ · adapter↔source 逐项一致 ✓ | 同上 §2 |
+| `facts` / `assembly` / `armor` / `modules` / `crew` | 逐项带引用 ✓；**T-80B `armor` 12 项如实 unknown** ✓；弹架**精确配平** 38/42 ✓ | 同上 §5–§7 |
+| **两车 `definitions`（车/炮/弹）** | **全 0 错误** ✓✓ | 同上 §2 |
+| 一条命令流水线 | `tests/run_modern_vehicle_pipeline.ps1` ✓ **9 步全绿** ✓ | 同上 §3 |
+| **两项几何修正** | 经**证伪循环**落地 ✓✓（先红后绿 ✓）⇒ 层级探针 **T-80B 4 → 0** ✓ · **豹2 7 → 2** ✓ | 同上 §12 |
+| 数据完整性 | **三项回查** ✓ + **环↔AABB 交叉** ✓ | 同上 §5–§8 |
+
+### 6.3 第 ③/⑤ 步**运行证据**（第 3 阶段要求 ✓）
+| 证据 | 结果 |
+|---|---|
+| 应用流程 `run_app_flow_checks` | **127 / 0** ✓ |
+| 辅助能力 `run_support_actions_checks`（烟幕/侦察/维修/牵引 ✓） | **51 / 0** ✓ |
+| 科技树 `run_tech_segment_checks` | **50 / 0** ✓ |
+| **无注入真实对局 `run_app_match_cycle`** | **14 / 14 PASS** ✓✓（两图各自走完：正常车库 → 对局 → `tickets` 结算 → 票据冻结 → 幂等 → 新世界 → 回车库 ✓） |
+
+### 6.4 未完成项（**逐项归属** ✓）
+| 项 | 归属 | 说明 |
+|---|---|---|
+| 弹种集（`compatible_shells` ✓ 两车 ✓） | **设计** | `VehicleShellCatalog`：`vehicle has no admitted shell set` ✓ |
+| 复合装甲 `response_profile`（豹2 ×2 ✓） | **设计** | 项目要求**显式版本化游戏规则** ✓ |
+| `dimensions.*` · `assembly.year/suspension/mount` | **史料** | 须**文献原值 + 推导** ✓（已拒绝用档案的"参考游戏上线日" ✓） |
+| `reload_time` · `pitch_min/max` · `penetration_curve` | **设计** | 档案均无 ✓；曲线须**多点** ✓ |
+| **armor 17 zone 准入判断** | **用户** | 档案自称 `runtime_admitted:false` ✓ |
+| **独立可运行包校验** | **用户** | `build_release.ps1` 的 `fresh_import` 判失败于 **`exit_code=null`** ✗（其 stdout 显示导入**实际成功** ✓）⇒ **未改构建流程** ✗（红线 ✓） |
+| **河谷团队闭环** | **用户** | 见 §6.5 |
+| 工业战斗抵达率（既有红） | **用户裁定** | 三选项见 `WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md` ✓ |
+| `challenge` 夹具边界 | **已裁定 B4** ✓ | — |
+| 资产接入与许可（E3）· 真人验收/性能（E4） | **用户** | E3 未授权 ⇒ **NOT_RUN** ✓；E4 **HOLD_BY_USER** ✓ |
+
+### 6.5 **河谷**：7 次尝试 + 一条**条目冲突**（**停下询问** ✓）
+- **地图自身定义** ✗：`assert(team_size in [10,16])` ✓ · **`status:"design_preview"`** ✓ · **`combat_admitted:false`** ✓ ⇒ **与阶段指令"河谷接入正式团队场景（4v4）"冲突** ✓；
+- **项目自身约定**（三处原文 ✓）：`map_registry.gd:11` ✓ · `river_team_definition.gd:16` ✓ · `river_team_range.gd:12` ✓ ⇒ **"仅供工程使用"是刻意设计** ✓；
+- **既有正式地图已实测 4v4 团队战** ✓：`run_team_checks` **67/0** ✓ · `run_village_battle_checks` **21/0** ✓ · `run_industrial_battle_checks` 总计为**真实 4v4 占点对局**（`reason=tickets` ✓）；
+- **7 次尝试**（改记忆 3 次 ✗ / 替换式错开 0-8 ✗ / 叠加私有通路零效果 ✗ / 前方车道堵点搬家 ✗ / 直连内侧 0-8 ✗）⇒ **均逐字节回退** ✓（当前文件**等于基线** ✓）；
+- **`0/8` 的确切原因：未定** ✗（两处归因已**作废** ❌：地形 ✗ · 容量 ✗）；
+- **裁定包** ✓：**A** 提升为可战斗（须同时解决 4v4 静默走 16v16 ✗ + 准入翻转 ✗ + 拥堵 ✗ + **图余量仅 167 节点** ✗）· **B** 维持预览 + 用既有地图（**已可满足** ✓）· **C** 仅归档 ✓。
+- **证据** ✓：`WT-040-R1_RIVER_REDESIGN_DESIGN.md`（**§1–§14** ✓）
+
+### 6.6 本阶段**新增测试/工具** ✓
+`run_modern_vehicle_pipeline.ps1` ✓ · `generate_modern_geometry.gd` ✓ · `check_modern_geometry.gd` ✓ · `build_modern_{facts,armor,crew,modules,evidence}_draft.gd` ✓ · `check_modern_package_gaps.gd` ✓ · `probe_package_layers.gd` ✓ · `probe_source_nodes.gd` ✓ · `probe_river_graph_size.gd` ✓ · `export_model_binding_adapter.gd`（参数化 ✓）
+
+### 6.7 更新后的**变更清单**（相对基线 `a1bac406` ✓）
+- 提交数 ✓：`git -C <cont> rev-list --count a1bac406..HEAD`（**287** ✓，随分支增长 ✓）
+- **产品代码** ✓：本次会话**仅 1 处 8 行**有意修正（`scripts/content/role_mapping_audit.gd` 的 `GUN_MESH_HINTS` ✓）；`modern_model_mount_adapter.gd` ✓ 与 `river_junction_navigation.gd` ✓ **逐字节等于基线** ✓
+- **红线** ✓：全部遵守 ✓（**未改构建发布流程** ✓ · 未 force push ✓ · 未改基线提交 ✓ · 主工作区全程未动 ✓ porcelain **379** ✓）
