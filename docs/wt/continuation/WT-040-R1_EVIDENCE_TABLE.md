@@ -475,3 +475,22 @@ MODERN_GEOMETRY_FAIL ; quit(1) ; return
 `run_composite_content_checks` 末行标记为 **`CHEMICAL_CONTENT_CHECKS_PASS`** ✗、
 `run_spall_content_checks` 末行标记为 **`LONG_ROD_CONTENT_CHECKS_PASS`** ✗ ⇒ 疑似**复制粘贴** ✓；
 **仅外观** ✓（退出码与项数均正确 ✓）⇒ **非我文件、非本阶段范围** ✗ ⇒ **不修改** ✓。
+---
+
+## 24. ✅ **加固后刷新验收集**（使验收与现行代码一致 ✓）
+新工件 ✓：`logs/WT-040-R1/
+final-acceptance2-20260916-115149
+/`（HEAD=`
+bfa8a449
+` ✓）
+
+| 项 | 结果 |
+|---|---|
+| 流水线 | **exit=0** ✓ · `== steps: 9 ok, 0 failed ==` ✓ · **`MODERN_PIPELINE_OK`** ✓ |
+| 几何自校验（裸 id ✓） | **exit=0** ✓ · **`=== 结果: 50 项检查, 0 失败 ===`** ✓ · `MODERN_GEOMETRY_CHECKS_PASS` ✓ |
+| 层级探针 | **exit=0** ✓ · T-80B `LayoutValidator.errors=0` ✓ · 豹2 `=2` ✓ · **六个 `definitions` 全 0** ✓ |
+
+**取代关系** ✓：旧工件 `
+final-acceptance-20260916-113742
+` 产生于**加固之前** ⇒ 已在其目录内写入 `SUPERSEDED.md` ✓
+（其数字**仍然真实** ✓，只是**不对应现行代码** ⇒ 一律以新工件为准 ✓）。

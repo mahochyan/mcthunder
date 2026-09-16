@@ -1,0 +1,28 @@
+﻿  import                     exit=0 errors=0 OK
+  geometry                   exit=0 errors=0 OK
+  facts                      exit=0 errors=0 OK
+  geometry_check             exit=0 errors=0 OK
+  crew                       exit=0 errors=0 OK
+  modules                    exit=0 errors=0 OK
+  armor                      exit=0 errors=0 OK
+  evidence                   exit=0 errors=0 OK
+  gap_audit                  exit=0 errors=0 OK
+  [gaps] error count=9
+  [gaps] error count BEYOND the shape gate (probe values, so the content checks run) = 1
+  [gaps] error count=10
+  [gaps] error count BEYOND the shape gate (probe values, so the content checks run) = 1
+  == steps: 9 ok, 0 failed ==
+  MODERN_PIPELINE_OK
+  pipeline exit=0
+  geometry_check exit=0
+  === 结果: 50 项检查, 0 失败 ===
+  MODERN_GEOMETRY_CHECKS_PASS
+  layer_probe exit=0
+  [layers]   LayoutValidator.errors=0 warnings=2 suspicious=1 registry_keys=21 registry_fields=177
+  [layers]   definition ussr_t_80b errors=0
+  [layers]   definition ussr_t_80b_gun errors=0
+  [layers]   definition ussr_t_80b_shell errors=0
+  [layers]   LayoutValidator.errors=2 warnings=8 suspicious=3 registry_keys=21 registry_fields=153
+  [layers]   definition germ_leopard_2a4 errors=0
+  [layers]   definition germ_leopard_2a4_gun errors=0
+  [layers]   definition germ_leopard_2a4_shell errors=0
