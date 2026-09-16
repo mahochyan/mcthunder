@@ -31,9 +31,21 @@ func _run() -> void:
 	# derived from the same id.
 	for arg in args:
 		var text := str(arg)
-		if text.is_empty() or text.contains("="):
+		# WT-040-R1 HARDENING: previously ANY argument containing "=" was silently skipped. That turned a
+		# calling mistake into a FALSE GREEN - passing "id=path" for two vehicles made this check run ZERO
+		# targets (it failed then, but one valid plus one skipped id would have quietly checked less than
+		# the caller asked for). The correct form is bare ASCII ids, as the pipeline uses. An "=" argument
+		# is now a LOUD failure, and so is an id whose dossier is missing, so no caller can under-test by
+		# accident and still see the pass marker.
+		if text.is_empty():
+			continue
+		if text.contains("="):
+			_check(false, "argument '%s' contains '='; this check takes BARE ascii ids (see the usage line), so it would have been skipped silently" % text)
 			continue
 		var dossier := "res://assets/reference_data/candidates/%s.json" % text
+		if not FileAccess.file_exists(dossier):
+			_check(false, "no dossier for id '%s' (looked for %s); refusing to check fewer vehicles than asked" % [text,dossier])
+			continue
 		var raw := FileAccess.get_file_as_string(dossier)
 		var parsed_d: Variant = JSON.parse_string(raw)
 		var source := ""

@@ -363,3 +363,26 @@ func observe_contact(record) -> void:                     # L16
 - **其余数字经核对一致** ✓：流水线 **9/9** ✓ · `LayoutValidator` **0 / 2** ✓ · 六个 `definitions` **全 0** ✓ ·
   门禁 **128 套件 / 126 PASS / 2 FAIL** ✓ · 应用流程 **127/0** ✓ · 辅助能力 **51/0** ✓ · 科技树 **50/0** ✓ · 真实对局 **14/14** ✓ ·
   gap **9 / 10**（其中 shape 门后仅 **1**）✓。
+---
+
+## 20. ✅ **加固：封死"假绿"通道**（`check_modern_geometry.gd` 参数校验 ✓）
+### 动机 ✓
+该检查原先**静默跳过**任何含 `=` 的参数 ✗ ⇒ 调用者若写错格式 ✓，会**少跑车辆却仍看到通过标记** ✗✗
+（**本会话文档里的"29/29"正是此坑的产物** ✗ —— 见下用例 ③ 复现 ✓）。
+### 改动 ✓（**测试工具**，非产品代码 ✓）
+```gdscript
+if text.contains("="):
+    _check(false, "argument '%s' contains '='; this check takes BARE ascii ids … would have been skipped silently" % text)
+    continue
+if not FileAccess.file_exists(dossier):
+    _check(false, "no dossier for id '%s' … refusing to check fewer vehicles than asked" % [text,dossier])
+    continue
+```
+### 四路验证 ✓
+| 用例 | 结果 |
+|---|---|
+| ① 正确调用（裸 id ✓） | **`50 项检查, 0 失败`** ✓✓ · `MODERN_GEOMETRY_CHECKS_PASS` ✓（**未变** ✓） |
+| ② 旧式 `id=path` ✗ | **exit=1** ✓ · `[FAIL] … contains '=' … would have been skipped silently` ✓ · **FAIL** ✓ |
+| ③ 不存在的 id ✗ | **exit=1** ✓ · `[FAIL] no dossier for id …` ✓ · **FAIL** ✓ · **恰好 29 项** ✓✓（＝"漏一辆车"的签名 ✓） |
+| ④ 流水线（用裸 id ✓） | **exit=0** ✓ · `geometry_check exit=0 errors=0 OK` ✓ · **`MODERN_PIPELINE_OK`** ✓✓（**零回归** ✓） |
+⇒ **任何调用失误现在都会响亮失败** ✓✓，**不会再产生假绿** ✓。
