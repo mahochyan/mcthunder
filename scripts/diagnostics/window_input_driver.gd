@@ -34,8 +34,15 @@ func click(button: Control) -> void:
 	var control_label := "<null: the caller could not find the control>"
 	if is_instance_valid(button):
 		control_label = str(button.get_path()) + " visible=" + str(button.is_visible_in_tree()) + " disabled=" + str(button.disabled if "disabled" in button else false)
-	check(is_instance_valid(button) and button.is_visible_in_tree(),"normal UI control is visible before click: "+control_label)
-	if not is_instance_valid(button): return
+	# WT-040-R1 (2026-09-17 ruling): a hidden, disabled or unreachable control must STOP the click. The previous
+	# version kept going whenever the node merely existed, computed a centre point and sent a mouse event anyway,
+	# which could land on whatever is actually there and cascade into unrelated failures.
+	var control_ok := is_instance_valid(button) and button.is_visible_in_tree()
+	check(control_ok,"normal UI control is visible before click: "+control_label)
+	if not control_ok: return
+	if "disabled" in button and button.disabled:
+		check(false,"normal UI control is enabled before click: "+control_label)
+		return
 	# Follow the public scroll interaction when the expanded garage puts a control below the fold.
 	var ancestor := button.get_parent()
 	while ancestor != null and not ancestor is ScrollContainer: ancestor = ancestor.get_parent()

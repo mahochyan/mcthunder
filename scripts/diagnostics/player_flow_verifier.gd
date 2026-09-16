@@ -195,24 +195,47 @@ func ready_challenge(battle: ChallengeRange) -> void:
 		await get_tree().physics_frame
 	check(false,"challenge countdown and focus pause resolve through ordinary input")
 
+func wait_state(predicate: Callable, label: String, maximum_frames := 900) -> bool:
+	# WT-040-R1 (2026-09-17 ruling): waits must follow page, dialog, layout and scene state with a bound, instead
+	# of piling on fixed frame counts. This returns false and says what it waited for, so a timeout is visible
+	# rather than silently absorbed.
+	for i in maximum_frames:
+		if predicate.call(): return true
+		await frames(1)
+	print("[wait] timed out after ",maximum_frames," frames waiting for: ",label)
+	return false
 func natural_matches() -> void:
 	# The challenge already proves normal keyboard driving, mouse aiming and
 	# firing. These matches verify the full ordinary garage/result/save lifecycle.
 	for map_index in 2:
 		if is_instance_valid(app.garage.challenge_selection): await click(app.garage.challenge_selection.close_button)
 		await frames(8)
-		await choose(app.garage.vehicle_choice,1)
+		# WT-040-R1 (2026-09-17 ruling): follow the interface the player actually sees. GarageFrontend hides the
+		# old GarageControlSource, moves the vehicle selector to its "vehicle systems" page and keeps mode, map and
+		# difficulty on the "deployment" page, and exposes the real deploy button. Page changes are made by
+		# clicking the frontend's own tabs - never by calling show_page, never by emitting a deploy signal and
+		# never by forcing a hidden control visible. Every wait is state driven and bounded.
+		var frontend: GarageFrontend = app.garage.frontend
+		check(frontend != null and frontend.tabs.size() >= 2,"garage frontend exposes its navigation tabs")
+		if frontend == null: return
+		var vehicle_index := 1
+		check(vehicle_index < frontend.cards.size(),"garage frontend exposes a vehicle card per vehicle")
+		await click(frontend.tabs[1])
+		check(await wait_state(func() -> bool: return frontend.page_index == 1 and frontend.pages[1].visible,"vehicle systems page becomes active"),"clicking the vehicle tab activates the vehicle systems page")
+		var wanted := str(app.garage.vehicle_choice.get_item_metadata(vehicle_index))
+		await click(frontend.cards[vehicle_index])
+		check(await wait_state(func() -> bool: return app.garage.selected_vehicle_id() == wanted,"clicking a vehicle card selects that vehicle"),"clicking the vehicle card selects it")
+		await click(frontend.tabs[0])
+		check(await wait_state(func() -> bool: return frontend.page_index == 0 and frontend.pages[0].visible,"deployment page becomes active"),"clicking the deployment tab activates it")
 		await choose(app.garage.preparation.mode_choice,1)
-		if not app.garage.preparation.details.visible: await click(app.garage.preparation.settings_button)
 		await choose(app.garage.preparation.map_choice,map_index)
-		# WT-040-R1: report the lookup itself, so a null or hidden start button is named instead of only failing
-		# the generic visibility assertion.
-		var start_button := find_button(app.garage,LocalizationService.text("ui_56b6b54bb00a"))
-		print("[garage] map_index=",map_index," start_button_valid=",is_instance_valid(start_button),
-			" visible=",is_instance_valid(start_button) and start_button.is_visible_in_tree(),
-			" settings_visible=",app.garage.preparation.details.visible,
-			" map_choice_index=",app.garage.preparation.map_choice.selected)
-		await click(start_button); await idle()
+		check(await wait_state(func() -> bool: return app.garage.preparation.map_choice.selected == map_index,"map choice commits"),"chosen map is committed by the real control")
+		print("[garage] map_index=",map_index," page=",frontend.page_index," tabs=",frontend.tabs.size(),
+			" cards=",frontend.cards.size()," selected=",app.garage.selected_vehicle_id(),
+			" deploy_visible=",is_instance_valid(frontend.deploy) and frontend.deploy.is_visible_in_tree(),
+			" map_choice=",app.garage.preparation.map_choice.selected)
+		await click(frontend.deploy)
+		check(await wait_state(func() -> bool: return app.training != null,"deploy enters the selected match"),"the real deploy button enters the selected match")
 		var battle:=app.training as TeamRange
 		check(battle!=null and battle.team_ready,"normal garage button enters complete map "+str(map_index))
 		if battle==null: return
@@ -223,7 +246,12 @@ func natural_matches() -> void:
 			await get_tree().physics_frame
 			if battle._paused: await tap(KEY_ESCAPE)
 			if battle.director.state.phase=="finished": break
-			if battle.actor.state.destroyed: battle.request_respawn()
+			if battle.actor.state.destroyed:
+				# WT-040-R1 (2026-09-17 ruling): the player's manual respawn must go through the real control.
+				# Calling request_respawn directly is method-level integration only and cannot stand as evidence
+				# that normal-UI respawn works, so the actual button is clicked when it is visible.
+				if is_instance_valid(battle.respawn_button) and battle.respawn_button.is_visible_in_tree():
+					await click(battle.respawn_button)
 			if battle.director.state.elapsed>=last_print:
 				print("[RC natural match] map=",map_index," seconds=",battle.director.state.elapsed," tickets=",battle.director.state.tickets)
 				last_print+=60
