@@ -399,6 +399,27 @@
             "forward_max_speed": 20.8333333333333,
             "hull_turn_speed": 30.0,
             "muzzle_velocity": 905.0,
+            "penetration_curve": [
+              [
+                0.0,
+                470.0
+              ],
+              [
+                500.0,
+                440.0
+              ],
+              [
+                1500.0,
+                380.0
+              ],
+              [
+                2500.0,
+                300.0
+              ]
+            ],
+            "pitch_max": 14.0,
+            "pitch_min": -5.0,
+            "reload_time": 7.1,
             "reverse_max_speed": 2.77777777777778,
             "rounds": 38.0
           }
@@ -763,6 +784,27 @@
             "forward_max_speed": 20.8333333333333,
             "hull_turn_speed": 30.0,
             "muzzle_velocity": 1140.0,
+            "penetration_curve": [
+              [
+                0.0,
+                470.0
+              ],
+              [
+                500.0,
+                450.0
+              ],
+              [
+                1500.0,
+                400.0
+              ],
+              [
+                2500.0,
+                320.0
+              ]
+            ],
+            "pitch_max": 20.0,
+            "pitch_min": -9.0,
+            "reload_time": 6.0,
             "reverse_max_speed": 2.77777777777778,
             "rounds": 42.0
           }

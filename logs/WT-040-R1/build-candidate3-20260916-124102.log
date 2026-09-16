@@ -1,0 +1,3 @@
+TEMPLATE=C:\Users\lapyin\AppData\Roaming\Godot\export_templates\4.7.2.stable\windows_release_x86_64.exe
+fresh_import passed=True exit=0 timeout=False artifact=True
+regression passed=False exit=1 timeout=False artifact=True

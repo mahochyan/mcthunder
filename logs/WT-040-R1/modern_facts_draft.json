@@ -5,8 +5,15 @@
       "assembly": {
         "caliber_mm": 125.0,
         "gun": "125mm_2A46_2_user_cannon",
+        "mount": "breech-ring mount (project engineering rule)",
         "shell": "125mm_3bk_18m",
-        "variant": "t_80b"
+        "suspension": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)",
+        "variant": "t_80b",
+        "year": 2026
+      },
+      "dimensions": {
+        "reference_length_m": 9.703,
+        "width_m": 3.806
       },
       "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
       "emitted": [
@@ -27,9 +34,37 @@
         "assembly component: shell ← shell.reference.bulletName",
         "crew.roles ← crew_roster[].roles flattened (lines [420, 421, 422])",
         "assembly component: variant ← raw header 模型名 (line 9)",
-        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0"
+        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0",
+        "assembly component: year ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "assembly component: suspension ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "assembly component: mount ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: reload_time ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: pitch_min/pitch_max ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: penetration_curve ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings) (geometry_estimate)"
       ],
       "facts": {
+        "assembly.mount": {
+          "location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": "breech-ring mount (project engineering rule)"
+        },
+        "assembly.suspension": {
+          "location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+        },
+        "assembly.year": {
+          "location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 2026
+        },
         "crew.roles": {
           "location": "warthunder_reference crew_roster (lines [420, 421, 422]): roles [\"tank_gunner\", \"driver\", \"commander\"]",
           "origin": "warthunder_reference",
@@ -42,6 +77,20 @@
             "driver",
             "commander"
           ]
+        },
+        "dimensions.reference_length_m": {
+          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "origin": "project engineering measurement/rule wt040-eng-v1",
+          "source_refs": [],
+          "status": "geometry_estimate",
+          "value": 9.703
+        },
+        "dimensions.width_m": {
+          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "origin": "project engineering measurement/rule wt040-eng-v1",
+          "source_refs": [],
+          "status": "geometry_estimate",
+          "value": 3.806
         },
         "mobility.design_mass_kg": {
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 50000.0",
@@ -100,6 +149,51 @@
           "status": "estimated",
           "value": 30.0
         },
+        "runtime.penetration_curve": {
+          "location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": [
+            [
+              0,
+              470
+            ],
+            [
+              500,
+              440
+            ],
+            [
+              1500,
+              380
+            ],
+            [
+              2500,
+              300
+            ]
+          ]
+        },
+        "runtime.pitch_max": {
+          "location": "gun elevation limit used by the engineering candidate, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 14.0
+        },
+        "runtime.pitch_min": {
+          "location": "gun depression limit used by the engineering candidate, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": -5.0
+        },
+        "runtime.reload_time": {
+          "location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 7.1
+        },
         "runtime.reverse_max_speed": {
           "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
           "origin": "warthunder_reference",
@@ -123,6 +217,7 @@
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
         "acceleration unit is an ASSUMPTION: the dossier's acceleration key is explicitly 'unspecified_units' and empty; the raw row gives 4.0 / 8.0 with no unit",
+        "ENGINEERING RULE SET wt040-eng-v1 applied to assembly.year/suspension/mount and runtime.reload_time/pitch_min/pitch_max/penetration_curve: all marked design, none claiming history",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
@@ -134,6 +229,27 @@
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
         "muzzle_velocity": 905.0,
+        "penetration_curve": [
+          [
+            0,
+            470
+          ],
+          [
+            500,
+            440
+          ],
+          [
+            1500,
+            380
+          ],
+          [
+            2500,
+            300
+          ]
+        ],
+        "pitch_max": 14.0,
+        "pitch_min": -5.0,
+        "reload_time": 7.1,
         "reverse_max_speed": 2.77777777777778,
         "rounds": 38.0
       },
@@ -146,8 +262,15 @@
       "assembly": {
         "caliber_mm": 120.0,
         "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "mount": "breech-ring mount (project engineering rule)",
         "shell": "120mm_dm12",
-        "variant": "leopard_2a4"
+        "suspension": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)",
+        "variant": "leopard_2a4",
+        "year": 2026
+      },
+      "dimensions": {
+        "reference_length_m": 9.7,
+        "width_m": 3.7
       },
       "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
       "emitted": [
@@ -168,9 +291,37 @@
         "assembly component: shell ← shell.reference.bulletName",
         "crew.roles ← crew_roster[].roles flattened (lines [433, 434, 435, 436])",
         "assembly component: variant ← raw header 模型名 (line 9)",
-        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0"
+        "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0",
+        "assembly component: year ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "assembly component: suspension ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "assembly component: mount ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: reload_time ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: pitch_min/pitch_max ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "runtime component: penetration_curve ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "dimensions component: width_m/reference_length_m ← the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope (design)"
       ],
       "facts": {
+        "assembly.mount": {
+          "location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": "breech-ring mount (project engineering rule)"
+        },
+        "assembly.suspension": {
+          "location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+        },
+        "assembly.year": {
+          "location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 2026
+        },
         "crew.roles": {
           "location": "warthunder_reference crew_roster (lines [433, 434, 435, 436]): roles [\"tank_gunner\", \"driver\", \"loader\", \"commander\"]",
           "origin": "warthunder_reference",
@@ -184,6 +335,20 @@
             "loader",
             "commander"
           ]
+        },
+        "dimensions.reference_length_m": {
+          "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
+          "origin": "project engineering measurement/rule wt040-eng-v1",
+          "source_refs": [],
+          "status": "design",
+          "value": 9.7
+        },
+        "dimensions.width_m": {
+          "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
+          "origin": "project engineering measurement/rule wt040-eng-v1",
+          "source_refs": [],
+          "status": "design",
+          "value": 3.7
         },
         "mobility.design_mass_kg": {
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
@@ -242,6 +407,51 @@
           "status": "estimated",
           "value": 30.0
         },
+        "runtime.penetration_curve": {
+          "location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": [
+            [
+              0,
+              470
+            ],
+            [
+              500,
+              450
+            ],
+            [
+              1500,
+              400
+            ],
+            [
+              2500,
+              320
+            ]
+          ]
+        },
+        "runtime.pitch_max": {
+          "location": "gun elevation limit used by the engineering candidate, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 20.0
+        },
+        "runtime.pitch_min": {
+          "location": "gun depression limit used by the engineering candidate, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": -9.0
+        },
+        "runtime.reload_time": {
+          "location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
+          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+          "source_refs": [],
+          "status": "design",
+          "value": 6.0
+        },
         "runtime.reverse_max_speed": {
           "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
           "origin": "warthunder_reference",
@@ -265,6 +475,7 @@
       "notes": [
         "assembly.variant / suspension / mount / year are NOT in the candidate layer: left to design or a documentary source",
         "acceleration unit is an ASSUMPTION: the dossier's acceleration key is explicitly 'unspecified_units' and empty; the raw row gives 4.0 / 8.0 with no unit",
+        "ENGINEERING RULE SET wt040-eng-v1 applied to assembly.year/suspension/mount and runtime.reload_time/pitch_min/pitch_max/penetration_curve: all marked design, none claiming history",
         "modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy",
         "assembly.suspension is NOT emitted: the dossiers carry no suspension field at all (0 raw fields), so it belongs to design or a documentary source",
         "armour facts are NOT emitted: the zone mapping is awaiting review",
@@ -276,6 +487,27 @@
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
         "muzzle_velocity": 1140.0,
+        "penetration_curve": [
+          [
+            0,
+            470
+          ],
+          [
+            500,
+            450
+          ],
+          [
+            1500,
+            400
+          ],
+          [
+            2500,
+            320
+          ]
+        ],
+        "pitch_max": 20.0,
+        "pitch_min": -9.0,
+        "reload_time": 6.0,
         "reverse_max_speed": 2.77777777777778,
         "rounds": 42.0
       },

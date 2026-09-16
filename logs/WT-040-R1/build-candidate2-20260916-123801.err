@@ -1,0 +1,7 @@
+Invalid suite identifier
+At E:\AIprogram\mcthunder-cont\tests\build_release.ps1:114 char:84
++ ... tmatch '^run_[a-z0-9_]+$') { throw 'Invalid suite identifier' }; "'$_ ...
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Invalid suite identifier:String) [], RuntimeException
+    + FullyQualifiedErrorId : Invalid suite identifier
+ 

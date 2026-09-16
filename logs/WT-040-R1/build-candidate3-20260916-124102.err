@@ -1,0 +1,8 @@
+Build stopped at regression (exit=1); see recorded output. No verified release ZIP created.
+At E:\AIprogram\mcthunder-cont\tests\build_release.ps1:102 char:9
++         throw "Build stopped at $Name ($($why -join '; ')); see recor ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Build stopped a...se ZIP created.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Build stopped at regression (exit=1); see recorded output. No verified release ZIP creat 
+   ed.
+ 
