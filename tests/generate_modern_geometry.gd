@@ -330,6 +330,21 @@ func _measure(id: String, path: String) -> Dictionary:
 			f["muzzle_brake"] = entry2.get("muzzle_brake_guess",false)
 			method["muzzle_brake"] = "from the adapter artefact report (geometric tip check), see the note"
 			row.notes.append("muzzle_brake is a geometric guess, not a documentary fact")
+	# WT-040-R1: RE-ASSERT the model-derived barrel length AFTER the adapter report block, because that block
+	# overwrote it - which is why the draft carried 6.134 m / 5.697 m instead of the model's own 5.092 m /
+	# 4.141 m. The measurement settled it: the model's muzzle sits exactly on the gun axis (x=y=0, basis
+	# identity) and the gun's own visible meshes reach exactly that far, so the report's longer figure was
+	# the sole cause of the muzzle rest-pose error. It is deliberately not used for the length.
+	if offsets.get("ok",false):
+		f["barrel_length"] = snappedf(float(offsets["barrel_length"]),0.001)
+		method["barrel_length"] = "RELATIVE: distance from %s to %s along the gun's own -Z in the measured model; relative basis identity: %s. The adapter report's longer figure is deliberately NOT used: the model's muzzle is on the gun axis and agrees with the gun mesh's own extent" % [str(offsets.get("gun_node","")),str(offsets.get("muzzle_node","")),str(offsets.get("all_bases_identity",false))]
+		var report_length := 0.0
+		var report_entry: Dictionary = _adapter_report().get(id,{})
+		var report_off: Array = report_entry.get("muzzle_offset_m",[])
+		if report_off.size() == 3:
+			report_length = sqrt(float(report_off[0])*float(report_off[0])+float(report_off[1])*float(report_off[1])+float(report_off[2])*float(report_off[2]))
+		if report_length > 0.0:
+			row.notes.append("adapter report barrel length %.3f m was NOT used; the model's own muzzle distance %.3f m is used instead" % [report_length,float(f["barrel_length"])])
 	row.ok = not f.is_empty()
 	root.remove_child(scene)
 	scene.free()

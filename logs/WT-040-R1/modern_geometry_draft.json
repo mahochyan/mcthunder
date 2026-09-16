@@ -4,7 +4,7 @@
     {
       "adapter_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
       "fields": {
-        "barrel_length": 6.134,
+        "barrel_length": 5.092,
         "gun_origin": [
           0.0,
           0.191,
@@ -180,7 +180,7 @@
       },
       "id": "ussr_t_80b",
       "methods": {
-        "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
+        "barrel_length": "RELATIVE: distance from GunPivot to Muzzle along the gun's own -Z in the measured model; relative basis identity: true. The adapter report's longer figure is deliberately NOT used: the model's muzzle is on the gun axis and agrees with the gun mesh's own extent",
         "gun_origin": "RELATIVE: GunPivot relative to TurretPivot in the measured model",
         "hull_half_width": "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)",
         "hull_rings": "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes",
@@ -204,14 +204,15 @@
         "hull ring 1 used 6 nearest vertices, effective y tolerance 0.030 m",
         "hull ring 2 used 6 nearest vertices, effective y tolerance 0.000 m",
         "open_top is inferred, not visually verified",
-        "muzzle_brake is a geometric guess, not a documentary fact"
+        "muzzle_brake is a geometric guess, not a documentary fact",
+        "adapter report barrel length 6.134 m was NOT used; the model's own muzzle distance 5.092 m is used instead"
       ],
       "ok": true
     },
     {
       "adapter_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
       "fields": {
-        "barrel_length": 5.697,
+        "barrel_length": 4.141,
         "gun_origin": [
           -0.053,
           0.339,
@@ -311,7 +312,7 @@
       },
       "id": "germ_leopard_2a4",
       "methods": {
-        "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
+        "barrel_length": "RELATIVE: distance from GunPivot to Muzzle along the gun's own -Z in the measured model; relative basis identity: true. The adapter report's longer figure is deliberately NOT used: the model's muzzle is on the gun axis and agrees with the gun mesh's own extent",
         "gun_origin": "RELATIVE: GunPivot relative to TurretPivot in the measured model",
         "hull_half_width": "half of the hull mesh x-extent (AABB envelope fallback, same basis as the rings)",
         "hull_rings": "AABB ENVELOPE FALLBACK, NOT a scanned cross-section: the band scan produced slivers (ring spans under half of the 7.461 m overall span), so the three rings are the hull mesh's own bounding box at floor/mid/roof - half-width from the x-extent, front/rear z from the z-extent",
@@ -337,7 +338,8 @@
         "hull_rings via AABB ENVELOPE FALLBACK (labelled as an envelope, not a cross-section): band scan slivers, overall span 7.461 m, box 3.411 x 1.258 x 7.461 m",
         "turret_outline de-duplicated: 15 -> 13 points (coincident points removed)",
         "open_top is inferred, not visually verified",
-        "muzzle_brake is a geometric guess, not a documentary fact"
+        "muzzle_brake is a geometric guess, not a documentary fact",
+        "adapter report barrel length 5.697 m was NOT used; the model's own muzzle distance 4.141 m is used instead"
       ],
       "ok": true
     }
