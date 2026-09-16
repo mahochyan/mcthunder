@@ -110,3 +110,26 @@
 ### 产品代码改动（**仅 1 处 8 行** ✓）
 `scripts/content/role_mapping_audit.gd` ✓（`GUN_MESH_HINTS` 末位追加 `"gun"` ✓ —— 修 T-80B 炮口测量 ✓，已回归 `run_modern_model_mount_checks 41/0` ✓）。
 其余产品文件：`modern_model_mount_adapter.gd` ✓ 与 `river_junction_navigation.gd` ✓ **逐字节等于基线** ✓。
+
+---
+
+## 【2026-09-15 · 补充：**门禁裁决**与**构建受阻**】**本阶段最新**
+
+### ✅ 官方门禁：干净运行 = 基线（**126 PASS / 2 FAIL**）✓✓
+三次运行全部跑完 ✓；**最干净的一次**（`gate-solo`，HEAD `99afbe5c` ✓）**精确复现基线** ✓，两红**正是已登记的非回归** ✓：
+`run_industrial_battle_checks` ✓（既存到点红 ✓）· `run_challenge_checks` ✓（**140 项**登记夹具边界 ✓，您裁定 **B4** ✓）。
+⇒ **我的改动零回归** ✓；且 `run_modern_model_mount_checks` ✗ **仅在回退前那次**出现 ✓、后两次均无 ✓ ⇒ **回退由门禁自身确认** ✓。
+（有效总数 **128** ✓：runner 在含 `run_art_checks` 时追加 `run_menu_fire_handoff_checks` ✓。）
+
+### ✅ 两项几何修正**经证伪循环落地** ✓✓
+先装断言 ⇒ **红在预测的两处** ✓（T-80B 炮盾高度 ✗ · 豹2 轮廓重合点 ✗）⇒ 落修正 ⇒ **全绿** ✓ ⇒ 层级探针：**T-80B `LayoutValidator` 4 → 0** ✓、**豹2 7 → 2** ✓（仅剩 2 项**设计** ✓）；9 步流水线 `MODERN_PIPELINE_OK` ✓。
+
+### ⚠️ **真实构建受阻**（既存工具链缺陷 ✗，**按红线未改** ✗）
+`build_release.ps1` 在 **`fresh_import`** 步停下 ✓（响亮失败 ✓ `No verified release ZIP created` ✓），但逐份证据显示：**导入实际成功** ✓（`[DONE] reimport` ×2 ✓、`[DONE] loading_editor_layout` ✓、**0 条错误关键词** ✓），`stderr` 仅 1 条 WARNING ✓，而 **`exit_code=null`** ✗ ⇒ 即 **PowerShell `Start-Process` 退出码 `$null` 陷阱** ✓ ⇒ **脚本把成功的步骤判失败** ✗。
+**两条路（待您选）** ✓：
+1. **授权我修一处退出码判定** ✓（一行级 ✓ —— 但**属改构建流程** ⇒ **需您明确授权** ✗）；
+2. **接受"包校验暂缓"** ✓，以 **应用流程 127/0** ✓ · **辅助能力 51/0** ✓ · **科技树 50/0** ✓ · **无注入真实对局**（进行中 ✓）作为本阶段运行证据 ✓。
+**另记** ✓：`backups/builds/PixelArmorClient.exe`（104.1 MB · preset.4「Windows Client」✓）**本已存在** ✓ ⇒ 导出路径可用 ✓；缺的只是 **`BUILD_MANIFEST.json`** ✗（仅由该脚本写出 ✓）。**我未手工复现它** ✗（避免绕过构建流程 ✗）。
+
+### 待您裁定汇总 ✓
+**①** armor 三项（含**准入** ✓）· **②** 河谷 **a/b/c**（b 机制已细化 ✓，**未实施** ✗）· **③** G–L 外部输入（两车仅剩 **弹种集** ✓ 与**复合装甲规则** ✓）· **④** 构建：**选项 1 或 2** ✓。
