@@ -28,7 +28,13 @@ func mouse(button: MouseButton, pressed: bool, point: Vector2 = Vector2(640,360)
 	Input.parse_input_event(event)
 
 func click(button: Control) -> void:
-	check(is_instance_valid(button) and button.is_visible_in_tree(),"normal UI control is visible before click")
+	# WT-040-R1: name the offending control, because the packaged run reports four failures of this assertion in
+	# the final garage-to-map section and which control it is decides whether the fault is a test timing issue or
+	# a real UI defect. The assertion itself is unchanged.
+	var control_label := "<null: the caller could not find the control>"
+	if is_instance_valid(button):
+		control_label = str(button.get_path()) + " visible=" + str(button.is_visible_in_tree()) + " disabled=" + str(button.disabled if "disabled" in button else false)
+	check(is_instance_valid(button) and button.is_visible_in_tree(),"normal UI control is visible before click: "+control_label)
 	if not is_instance_valid(button): return
 	# Follow the public scroll interaction when the expanded garage puts a control below the fold.
 	var ancestor := button.get_parent()

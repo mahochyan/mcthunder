@@ -201,7 +201,14 @@ func natural_matches() -> void:
 		await choose(app.garage.preparation.mode_choice,1)
 		if not app.garage.preparation.details.visible: await click(app.garage.preparation.settings_button)
 		await choose(app.garage.preparation.map_choice,map_index)
-		await click(find_button(app.garage,LocalizationService.text("ui_56b6b54bb00a"))); await idle()
+		# WT-040-R1: report the lookup itself, so a null or hidden start button is named instead of only failing
+		# the generic visibility assertion.
+		var start_button := find_button(app.garage,LocalizationService.text("ui_56b6b54bb00a"))
+		print("[garage] map_index=",map_index," start_button_valid=",is_instance_valid(start_button),
+			" visible=",is_instance_valid(start_button) and start_button.is_visible_in_tree(),
+			" settings_visible=",app.garage.preparation.details.visible,
+			" map_choice_index=",app.garage.preparation.map_choice.selected)
+		await click(start_button); await idle()
 		var battle:=app.training as TeamRange
 		check(battle!=null and battle.team_ready,"normal garage button enters complete map "+str(map_index))
 		if battle==null: return
