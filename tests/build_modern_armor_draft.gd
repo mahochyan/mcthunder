@@ -89,6 +89,14 @@ func _build(id: String, table: Dictionary) -> Dictionary:
 		var material := str(MATERIAL.get(klass,"unknown"))
 		if material == "unknown": unknown_material += 1
 		out.armor[zone] = {"fact":"armor."+zone, "material":material}
+		if material == "composite":
+			out.armor[zone]["response_profile"] = {
+				"version": "wt012-passive-composite-v1",
+				"provenance": "game_rule",
+				"reason": "project engineering rule wt040-eng-v1: a passive composite array resists the kinetic, chemical and fragment channels by a bounded multiplier on its own layer thickness; angle handling stays the engine's per-channel rule, so no equivalent-thickness claim is made and no effect is counted twice",
+				"coefficients": {"kinetic": 1.3, "chemical": 1.8, "fragment": 1.2},
+			}
+			out.notes.append("zone %s carries an explicit versioned composite response rule (wt012-passive-composite-v1; kinetic 1.3 / chemical 1.8 / fragment 1.2) - a project game rule, not a historical material claim" % zone)
 		out.facts["armor."+zone] = {
 			"value": mm,
 			# STATUS_VALUES admits only verified/estimated/unknown; "reference_pending_review" was my

@@ -272,7 +272,17 @@
         "hull_front_upper": {
           "fact": "armor.hull_front_upper",
           "mapping_note": "node name says body but the class says turret NERA - flagged for review rather than smoothed over",
-          "material": "composite"
+          "material": "composite",
+          "response_profile": {
+            "coefficients": {
+              "chemical": 1.8,
+              "fragment": 1.2,
+              "kinetic": 1.3
+            },
+            "provenance": "game_rule",
+            "reason": "project engineering rule wt040-eng-v1: a passive composite array resists the kinetic, chemical and fragment channels by a bounded multiplier on its own layer thickness; angle handling stays the engine's per-channel rule, so no equivalent-thickness claim is made and no effect is counted twice",
+            "version": "wt012-passive-composite-v1"
+          }
         },
         "hull_rear_lower": {
           "fact": "armor.hull_rear_lower",
@@ -483,6 +493,7 @@
       },
       "id": "germ_leopard_2a4",
       "notes": [
+        "zone hull_front_upper carries an explicit versioned composite response rule (wt012-passive-composite-v1; kinetic 1.3 / chemical 1.8 / fragment 1.2) - a project game rule, not a historical material claim",
         "17 zones mapped, each with the dossier node and line it came from",
         "0 zone(s) got material 'unknown' because their armour class has no honest project equivalent; nothing was forced",
         "the mapping is AWAITING REVIEW: the dossier is coarser than the project in places and multi-segment for the turret sides and roof, so representative values were chosen and named",
