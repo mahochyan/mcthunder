@@ -494,3 +494,19 @@ bfa8a449
 final-acceptance-20260916-113742
 ` 产生于**加固之前** ⇒ 已在其目录内写入 `SUPERSEDED.md` ✓
 （其数字**仍然真实** ✓，只是**不对应现行代码** ⇒ 一律以新工件为准 ✓）。
+
+---
+
+## 25. ✗→✓ **自我更正**：玩家流程校验**并不要求** manifest（`run_player_flow_checks.ps1:11` ✓）
+```powershell
+$manifestPath=Join-Path (Split-Path -Parent $Executable) 'BUILD_MANIFEST.json'
+if (Test-Path -LiteralPath $manifestPath) {          # 仅在存在时才校验 ✓
+    if ($manifest.source_sha -ne $SourceSha) { throw '…' }
+}
+```
+⇒ 我先前的说法"**缺 manifest 会响亮失败**" ✗ **不成立** ✓ ⇒ **无 manifest 也能跑** ✓。
+
+**但**：现存 `backups/builds/PixelArmorClient.exe`（104.1 MB · 09-15 09:28 ✓）**无 manifest** ✗ ⇒ 其 `source_sha` **无处可读** ✗；
+历史 `logs/031/*/PACKAGE.json` 仅两份（`b9051149…` ✓ / `9998f448…` ✓，均 **09-10** ✗）且其 zip **已不存在** ✗。
+脚本 `-SourceSha` **必填且须 40 位十六进制** ✓ ⇒ 若填**当前 HEAD** 即等于**宣称**该 exe 出自当前提交 ✗ ⇒ **不实** ⇒ **未执行** ✗。
+⇒ ⇒ 选项 ④ 的目标（**与已知源码绑定**的独立包校验 ✓）**仍需一次新构建** ✓。
