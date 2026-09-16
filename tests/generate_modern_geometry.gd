@@ -117,7 +117,30 @@ func _measure(id: String, path: String) -> Dictionary:
 				if (float(ring[3])-float(ring[2])) < overall*0.5:
 					sliver = true
 			if sliver or overall <= 0.5:
-				row.notes.append("hull rings REJECTED: the mesh is a plate/detail shell, not a hull volume (ring z-spans are slivers of the %.3f m overall span); hull_rings left to the author" % overall)
+				# WT-040-R1 (3): the plate/detail-shell case. A sparse armour plate cannot yield
+				# cross-sections from a band scan, so the envelope is taken from the mesh's own bounding
+				# box and LABELLED as an envelope rather than a cross-section - it is still a measurement,
+				# but of a different kind, and the method string says so. Previously this branch left a
+				# required field empty, which blocked the whole content layer for this vehicle.
+				var xmin2 := INF; var xmax2 := -INF
+				var ymin2 := INF; var ymax2 := -INF
+				var zmin3 := INF; var zmax3 := -INF
+				for p3 in pts:
+					xmin2 = minf(xmin2,p3.x); xmax2 = maxf(xmax2,p3.x)
+					ymin2 = minf(ymin2,p3.y); ymax2 = maxf(ymax2,p3.y)
+					zmin3 = minf(zmin3,p3.z); zmax3 = maxf(zmax3,p3.z)
+				var half2 := snappedf(maxf(absf(xmin2),absf(xmax2)),0.001)
+				if (ymax2-ymin2) < 0.001 or half2 <= 0.0 or (zmax3-zmin3) < 0.001:
+					row.notes.append("hull rings REJECTED and NO fallback possible: the bounding box is degenerate (dx %.3f dy %.3f dz %.3f)" % [xmax2-xmin2,ymax2-ymin2,zmax3-zmin3])
+				else:
+					var rows3: Array = []
+					for lvl in [ymin2,(ymin2+ymax2)*0.5,ymax2]:
+						rows3.append([snappedf(lvl,0.001),half2,snappedf(zmin3,0.001),snappedf(zmax3,0.001)])
+					f["hull_rings"] = rows3
+					f["hull_half_width"] = half2
+					method["hull_rings"] = "AABB ENVELOPE FALLBACK, NOT a scanned cross-section: the band scan produced slivers (ring spans under half of the %.3f m overall span), so the three rings are the hull mesh's own bounding box at floor/mid/roof - half-width from the x-extent, front/rear z from the z-extent" % overall
+					method["hull_half_width"] = "half of the hull mesh x-extent (AABB envelope fallback, same basis as the rings)"
+					row.notes.append("hull_rings via AABB ENVELOPE FALLBACK (labelled as an envelope, not a cross-section): band scan slivers, overall span %.3f m, box %.3f x %.3f x %.3f m" % [overall,xmax2-xmin2,ymax2-ymin2,zmax3-zmin3])
 			else:
 				f["hull_rings"] = rings
 				method["hull_rings"] = "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes"

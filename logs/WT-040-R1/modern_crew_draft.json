@@ -83,8 +83,8 @@
           "part": "hull",
           "position": [
             0.0,
-            0.9,
-            0.0
+            1.17,
+            -1.58
           ],
           "role": "driver",
           "size": [

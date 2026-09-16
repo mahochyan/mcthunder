@@ -357,8 +357,8 @@
         "year": 2026
       },
       "dimensions": {
-        "reference_length_m": 9.7,
-        "width_m": 3.7
+        "reference_length_m": 7.461,
+        "width_m": 3.41
       },
       "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
       "emitted": [
@@ -393,7 +393,7 @@
         "weapon.caliber_mm <- assembly.caliber_mm (archive candidate)",
         "weapon.ammunition <- assembly.shell (archive candidate)",
         "identity.year <- assembly.year (project rule)",
-        "dimensions component: width_m/reference_length_m ← the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope (design)"
+        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings) (geometry_estimate)"
       ],
       "facts": {
         "assembly.mount": {
@@ -438,22 +438,22 @@
           ]
         },
         "dimensions.reference_length_m": {
-          "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
+          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "design",
-          "value": 9.7
+          "status": "estimated",
+          "value": 7.461
         },
         "dimensions.width_m": {
-          "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
+          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
           ],
-          "status": "design",
-          "value": 3.7
+          "status": "estimated",
+          "value": 3.41
         },
         "identity.suspension": {
           "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",

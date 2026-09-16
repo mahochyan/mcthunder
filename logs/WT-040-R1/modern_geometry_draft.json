@@ -179,6 +179,27 @@
           2.0,
           -1.556
         ],
+        "hull_half_width": 1.705,
+        "hull_rings": [
+          [
+            0.538,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.167,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.796,
+            1.705,
+            -3.516,
+            3.945
+          ]
+        ],
         "mantlet_half_height": 0.305,
         "mantlet_half_width": 0.476,
         "muzzle_brake": false,
@@ -254,11 +275,13 @@
       "methods": {
         "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
         "gun_origin": "global position of the GunPivot node in the adapter",
+        "hull_half_width": "half of the hull mesh x-extent (AABB envelope fallback, same basis as the rings)",
+        "hull_rings": "AABB ENVELOPE FALLBACK, NOT a scanned cross-section: the band scan produced slivers (ring spans under half of the 7.461 m overall span), so the three rings are the hull mesh's own bounding box at floor/mid/roof - half-width from the x-extent, front/rear z from the z-extent",
         "mantlet_half_height": "half of the mantlet mesh y-extent | FLOOR: raised to >= 1.3x the cited bore radius (0.0600 m) so the shield encloses the hole",
         "mantlet_half_width": "maximum |x| of the mantlet/shield mesh vertices | FLOOR: raised to >= 1.6x the cited bore radius (0.0600 m) so the shield encloses the hole",
         "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
         "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
-        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (0.000 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
+        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (1.705 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
         "turret_origin": "global position of the TurretPivot node in the adapter",
@@ -273,7 +296,7 @@
         "hull ring 0 used 51 nearest vertices, effective y tolerance 0.040 m",
         "hull ring 1 used 51 nearest vertices, effective y tolerance 0.120 m",
         "hull ring 2 used 51 nearest vertices, effective y tolerance 0.004 m",
-        "hull rings REJECTED: the mesh is a plate/detail shell, not a hull volume (ring z-spans are slivers of the 7.461 m overall span); hull_rings left to the author",
+        "hull_rings via AABB ENVELOPE FALLBACK (labelled as an envelope, not a cross-section): band scan slivers, overall span 7.461 m, box 3.411 x 1.258 x 7.461 m",
         "turret_outline de-duplicated: 15 -> 13 points (coincident points removed)",
         "open_top is inferred, not visually verified",
         "muzzle_brake is a geometric guess, not a documentary fact"
