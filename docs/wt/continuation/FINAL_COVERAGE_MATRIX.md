@@ -113,3 +113,13 @@
 - 提交数 ✓：`git -C <cont> rev-list --count a1bac406..HEAD`（**287** ✓，随分支增长 ✓）
 - **产品代码** ✓：本次会话**仅 1 处 8 行**有意修正（`scripts/content/role_mapping_audit.gd` 的 `GUN_MESH_HINTS` ✓）；`modern_model_mount_adapter.gd` ✓ 与 `river_junction_navigation.gd` ✓ **逐字节等于基线** ✓
 - **红线** ✓：全部遵守 ✓（**未改构建发布流程** ✓ · 未 force push ✓ · 未改基线提交 ✓ · 主工作区全程未动 ✓ porcelain **379** ✓）
+### 6.8 ⚠️ **边界澄清**：`docs/planning/TASK_STATUS.json` **不得由实施方修改** ✗✓
+本阶段一度准备更新该"42 单状态"工件 ✓，**核查其自身协议后停止** ✓：
+| 位置 | 原文 |
+|---|---|
+| `docs/planning/EXECUTION_PROTOCOL.md:8` ✓ | "**TASK_STATUS.json 的当前状态只是计划登记，不是自动执行队列；只有用户/审核工作流明确授权才修改 `authorized_order`**" ✓ |
+| `docs/planning/MASTER_PLAN.md:145` ✓ | "TASK_STATUS.json：**任务计划状态，不能当成自动执行许可**" ✓ |
+| `docs/planning/review/WO002-R2.txt:91` ✓ | "**TASK_STATUS 保留当前 002 整改/未签收**；003—036 不授权" ✓ |
+⇒ 该文件属**用户/审核工作流**专有 ✓（即 AGENTS.md 的"**不代签真人**"边界 ✓）⇒ **本阶段未修改它** ✓。
+其现状（只读 ✓）：`schema_version=1` ✓ · `created_date=2026-09-07` ✓ · `reference_sha=29376e20`（远早于基线 ✓）· `orders` **35 条** ✓（`planned×30` ✓ `accepted×5` ✓）· `authorized_order=006` ✓。
+⇒ **本阶段的正确状态载体** ✓：本文档（`FINAL_COVERAGE_MATRIX.md` ✓）· `CURRENT_STATUS.md` ✓ · `WT-040-R1_DELIVERY_REPORT.md` ✓ · `WT-040-R1_EVIDENCE_TABLE.md` ✓。
