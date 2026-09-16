@@ -448,3 +448,30 @@ MODERN_GEOMETRY_FAIL ; quit(1) ; return
 | 2 | `generate_modern_geometry.gd` | 坏参数 `continue` ⇒ **少测车辆仍 `quit(0)`** ✗ | **已封** ✓ |
 | 3 | `generate_modern_geometry.gd` | 打开失败仍报 `DONE` + exit 0 ⇒ **无草案却成功** ✗ | **已封** ✓ |
 ⇒ 三者同源 ✓：**"错误路径不致命"** ✗ ⇒ 今**全部改为响亮失败** ✓。
+---
+
+## 23. ✅ **加固后回归确认**（同域 9 套件 ✓）+ **我自己验收判据的同类缺陷** ✗✓
+### 23.1 同域回归（加固后 ✓）
+| 套件 | 结果 |
+|---|---|
+| `run_modern_model_mount_checks` | **41 / 0** ✓ · `MODERN_MODEL_MOUNT_CHECKS_PASS` ✓（**第 213 轮修正完好** ✓） |
+| `run_model_binding_checks` | **63 / 0** ✓ · `MODEL_BINDING_CHECKS_PASS` ✓ |
+| `run_model_binding_probe_checks` | **60 / 0** ✓ · `MODEL_BINDING_PROBE_CHECKS_PASS` ✓ |
+| `run_role_mapping_checks` | **72 / 0** ✓ · `ROLE_MAPPING_CHECKS_PASS` ✓ |
+| `run_chemical_content_checks` | exit **0** ✓ · **31 / 0** ✓ |
+| `run_composite_content_checks` | exit **0** ✓ · **50 / 0** ✓ |
+| `run_content_record_checks` | exit **0** ✓ · **65 / 0** ✓ |
+| `run_long_rod_content_checks` | exit **0** ✓ · **24 / 0** ✓ |
+| `run_spall_content_checks` | exit **0** ✓ · **33 / 0** ✓ |
+⇒ **加固零回归** ✓；产品代码足迹复核 ✓：**仅 1 个文件** ✓（`scripts/content/role_mapping_audit.gd` ✓，**7 增 1 删** = 那 8 行 ✓）；两个加固测试文件为 **682 行纯新增** ✓。
+
+### 23.2 ⚠️ **我自己的临时验收循环犯了同一类错** ✗✓（第 4 次同类 ✓）
+- **症状** ✗：我的一次临时循环**只数 `[FAIL]` 行** ✓，**不看退出码** ✗ ⇒ 当套件名写错时（`run_content_pipeline_checks` **不存在** ✗，Godot 报 `Attempt to open script … File not found` ✓），循环仍报"**全绿**" ✗✗；
+- **改正** ✓：判据改为 **`exit==0 且 FAIL==0 且 PASS>0`** ✓；
+- **判据有效性对照** ✓：同一个假名 ⇒ **exit=1** ✓ ⇒ **能被抓住** ✓；
+- ⇒ 与前三条**同源** ✓：**"看起来绿"不等于绿** ✗ —— 这次是在**我自己的验证脚手架**里 ✓。
+
+### 23.3 附带观测（**记录，不修改** ✓）
+`run_composite_content_checks` 末行标记为 **`CHEMICAL_CONTENT_CHECKS_PASS`** ✗、
+`run_spall_content_checks` 末行标记为 **`LONG_ROD_CONTENT_CHECKS_PASS`** ✗ ⇒ 疑似**复制粘贴** ✓；
+**仅外观** ✓（退出码与项数均正确 ✓）⇒ **非我文件、非本阶段范围** ✗ ⇒ **不修改** ✓。
