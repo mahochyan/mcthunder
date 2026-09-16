@@ -4,15 +4,14 @@
     {
       "crew": [
         {
-          "derived": false,
+          "derived": true,
           "id": "gunner",
           "part": "turret",
           "position": [
-            -0.65,
-            0.43,
-            -0.1
+            0.0,
+            1.45,
+            0.0
           ],
-          "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b/TurretPivot",
           "role": "gunner",
           "size": [
             0.5,
@@ -21,15 +20,14 @@
           ]
         },
         {
-          "derived": false,
+          "derived": true,
           "id": "driver",
           "part": "hull",
           "position": [
             0.0,
-            0.97,
-            -2.0
+            0.99,
+            -1.43
           ],
-          "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
           "role": "driver",
           "size": [
             0.5,
@@ -38,15 +36,14 @@
           ]
         },
         {
-          "derived": false,
+          "derived": true,
           "id": "commander",
           "part": "turret",
           "position": [
-            0.65,
-            0.43,
-            0.2
+            0.0,
+            1.45,
+            0.0
           ],
-          "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b/TurretPivot",
           "role": "commander",
           "size": [
             0.5,
@@ -65,15 +62,14 @@
     {
       "crew": [
         {
-          "derived": false,
+          "derived": true,
           "id": "gunner",
           "part": "turret",
           "position": [
-            0.65,
-            0.45,
-            -0.25
+            0.0,
+            1.66,
+            0.0
           ],
-          "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
           "role": "gunner",
           "size": [
             0.5,
@@ -82,15 +78,14 @@
           ]
         },
         {
-          "derived": false,
+          "derived": true,
           "id": "driver",
           "part": "hull",
           "position": [
-            0.62,
-            1.08,
-            -2.2
+            0.0,
+            1.17,
+            -1.58
           ],
-          "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
           "role": "driver",
           "size": [
             0.5,
@@ -99,15 +94,14 @@
           ]
         },
         {
-          "derived": false,
+          "derived": true,
           "id": "loader",
           "part": "turret",
           "position": [
-            -0.65,
-            0.45,
-            0.2
+            0.0,
+            1.66,
+            0.0
           ],
-          "position_source": "authored Attachment_loader anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
           "role": "loader",
           "size": [
             0.5,
@@ -116,15 +110,14 @@
           ]
         },
         {
-          "derived": false,
+          "derived": true,
           "id": "commander",
           "part": "turret",
           "position": [
-            0.65,
-            0.45,
-            0.55
+            0.0,
+            1.66,
+            0.0
           ],
-          "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
           "role": "commander",
           "size": [
             0.5,
