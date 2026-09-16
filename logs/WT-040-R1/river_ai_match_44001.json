@@ -16,7 +16,7 @@
             520,
             100
           ],
-          "path_len": 69,
+          "path_len": 64,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -45,7 +45,7 @@
             -504,
             120
           ],
-          "path_len": 43,
+          "path_len": 42,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -74,7 +74,7 @@
             -21,
             -130
           ],
-          "path_len": 54,
+          "path_len": 52,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -87,7 +87,7 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 842,
+          "to_goal": 849,
           "wp_index": 1
         },
         "A4": {
@@ -103,7 +103,7 @@
             520,
             100
           ],
-          "path_len": 63,
+          "path_len": 42,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -116,7 +116,7 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 951,
+          "to_goal": 640,
           "wp_index": 1
         },
         "B": {
@@ -132,7 +132,7 @@
             520,
             100
           ],
-          "path_len": 79,
+          "path_len": 74,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -161,7 +161,7 @@
             -504,
             120
           ],
-          "path_len": 52,
+          "path_len": 51,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -190,7 +190,7 @@
             -21,
             -130
           ],
-          "path_len": 43,
+          "path_len": 39,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -203,7 +203,7 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 596,
+          "to_goal": 606,
           "wp_index": 1
         },
         "B4": {
@@ -219,7 +219,7 @@
             520,
             100
           ],
-          "path_len": 73,
+          "path_len": 51,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -232,7 +232,7 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 1084,
+          "to_goal": 825,
           "wp_index": 1
         }
       },
@@ -266,7 +266,7 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 1067,
+          "to_goal": 1065,
           "wp_index": 4
         },
         "A2": {
@@ -282,7 +282,7 @@
             -504,
             120
           ],
-          "path_len": 55,
+          "path_len": 50,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -296,7 +296,7 @@
           "task_events": 1,
           "task_reason": "public_objective_push",
           "to_goal": 671,
-          "wp_index": 9
+          "wp_index": 4
         },
         "A3": {
           "aim": "",
@@ -311,7 +311,7 @@
             -21,
             -130
           ],
-          "path_len": 54,
+          "path_len": 52,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -324,8 +324,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 849,
-          "wp_index": 10
+          "to_goal": 852,
+          "wp_index": 7
         },
         "A4": {
           "aim": "",
@@ -340,7 +340,7 @@
             520,
             100
           ],
-          "path_len": 63,
+          "path_len": 42,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -353,8 +353,8 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 890,
-          "wp_index": 10
+          "to_goal": 626,
+          "wp_index": 8
         },
         "B": {
           "aim": "",
@@ -362,14 +362,14 @@
           "blocked_edges": 1,
           "dead": false,
           "driver": "following",
-          "driver_events": 12,
-          "driver_reason": "obstacle_cleared",
+          "driver_events": 10,
+          "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 76,
+          "path_len": 80,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -382,8 +382,8 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 1097,
-          "wp_index": 7
+          "to_goal": 1191,
+          "wp_index": 4
         },
         "B2": {
           "aim": "",
@@ -398,7 +398,7 @@
             -504,
             120
           ],
-          "path_len": 64,
+          "path_len": 59,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -412,7 +412,7 @@
           "task_events": 1,
           "task_reason": "public_objective_push",
           "to_goal": 890,
-          "wp_index": 9
+          "wp_index": 4
         },
         "B3": {
           "aim": "",
@@ -427,7 +427,7 @@
             -21,
             -130
           ],
-          "path_len": 43,
+          "path_len": 39,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -440,8 +440,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 594,
-          "wp_index": 10
+          "to_goal": 599,
+          "wp_index": 7
         },
         "B4": {
           "aim": "",
@@ -456,7 +456,7 @@
             520,
             100
           ],
-          "path_len": 73,
+          "path_len": 51,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -469,8 +469,8 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 1035,
-          "wp_index": 9
+          "to_goal": 821,
+          "wp_index": 8
         }
       },
       "t": 35.2333333333326
@@ -519,7 +519,7 @@
             -504,
             120
           ],
-          "path_len": 55,
+          "path_len": 50,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -533,7 +533,7 @@
           "task_events": 1,
           "task_reason": "public_objective_push",
           "to_goal": 611,
-          "wp_index": 18
+          "wp_index": 13
         },
         "A3": {
           "aim": "",
@@ -548,7 +548,7 @@
             -21,
             -130
           ],
-          "path_len": 54,
+          "path_len": 52,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -561,8 +561,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 808,
-          "wp_index": 18
+          "to_goal": 810,
+          "wp_index": 16
         },
         "A4": {
           "aim": "",
@@ -577,7 +577,7 @@
             520,
             100
           ],
-          "path_len": 63,
+          "path_len": 42,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -590,23 +590,23 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 774,
-          "wp_index": 17
+          "to_goal": 577,
+          "wp_index": 16
         },
         "B": {
           "aim": "",
           "attempts": 0,
           "blocked_edges": 1,
           "dead": false,
-          "driver": "following",
-          "driver_events": 12,
-          "driver_reason": "obstacle_cleared",
+          "driver": "yielding",
+          "driver_events": 11,
+          "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 76,
+          "path_len": 80,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -619,23 +619,23 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 988,
-          "wp_index": 16
+          "to_goal": 1104,
+          "wp_index": 12
         },
         "B2": {
           "aim": "",
           "attempts": 0,
           "blocked_edges": 1,
           "dead": false,
-          "driver": "following",
-          "driver_events": 10,
-          "driver_reason": "path_ready",
+          "driver": "yielding",
+          "driver_events": 11,
+          "driver_reason": "physical_obstacle",
           "first_seen_s": -1.0,
           "goal": [
             -504,
             120
           ],
-          "path_len": 64,
+          "path_len": 59,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -648,8 +648,8 @@
           "task": "A",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 836,
-          "wp_index": 18
+          "to_goal": 838,
+          "wp_index": 13
         },
         "B3": {
           "aim": "",
@@ -664,7 +664,7 @@
             -21,
             -130
           ],
-          "path_len": 43,
+          "path_len": 39,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -677,8 +677,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 550,
-          "wp_index": 18
+          "to_goal": 548,
+          "wp_index": 15
         },
         "B4": {
           "aim": "",
@@ -693,7 +693,7 @@
             520,
             100
           ],
-          "path_len": 73,
+          "path_len": 51,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -706,7 +706,7 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 917,
+          "to_goal": 779,
           "wp_index": 17
         }
       },
@@ -720,14 +720,14 @@
           "blocked_edges": 2,
           "dead": false,
           "driver": "following",
-          "driver_events": 13,
-          "driver_reason": "obstacle_cleared",
+          "driver_events": 11,
+          "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 82,
+          "path_len": 63,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -740,8 +740,8 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 1071,
-          "wp_index": 6
+          "to_goal": 957,
+          "wp_index": 5
         },
         "A2": {
           "aim": "",
@@ -769,7 +769,7 @@
           "task": "A",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 700,
+          "to_goal": 699,
           "wp_index": 9
         },
         "A3": {
@@ -785,7 +785,7 @@
             -21,
             -130
           ],
-          "path_len": 54,
+          "path_len": 52,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -798,8 +798,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 607,
-          "wp_index": 27
+          "to_goal": 608,
+          "wp_index": 25
         },
         "A4": {
           "aim": "",
@@ -814,7 +814,7 @@
             520,
             100
           ],
-          "path_len": 63,
+          "path_len": 42,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -827,28 +827,28 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 616,
-          "wp_index": 27
+          "to_goal": 358,
+          "wp_index": 26
         },
         "B": {
           "aim": "",
           "attempts": 0,
-          "blocked_edges": 1,
+          "blocked_edges": 2,
           "dead": false,
           "driver": "following",
-          "driver_events": 12,
-          "driver_reason": "obstacle_cleared",
+          "driver_events": 13,
+          "driver_reason": "path_ready",
           "first_seen_s": -1.0,
           "goal": [
             520,
             100
           ],
-          "path_len": 76,
+          "path_len": 90,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
             "failed": 0,
-            "replanned": 4,
+            "replanned": 5,
             "unreachable": 0
           },
           "role": "flank",
@@ -856,28 +856,28 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "outer_lane_flank",
-          "to_goal": 823,
-          "wp_index": 25
+          "to_goal": 1221,
+          "wp_index": 8
         },
         "B2": {
           "aim": "",
           "attempts": 0,
-          "blocked_edges": 1,
+          "blocked_edges": 2,
           "dead": false,
           "driver": "following",
-          "driver_events": 10,
-          "driver_reason": "path_ready",
+          "driver_events": 19,
+          "driver_reason": "obstacle_cleared",
           "first_seen_s": -1.0,
           "goal": [
             -504,
             120
           ],
-          "path_len": 64,
+          "path_len": 70,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
             "failed": 0,
-            "replanned": 4,
+            "replanned": 7,
             "unreachable": 0
           },
           "role": "attack",
@@ -885,8 +885,8 @@
           "task": "A",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 800,
-          "wp_index": 29
+          "to_goal": 877,
+          "wp_index": 6
         },
         "B3": {
           "aim": "",
@@ -901,7 +901,7 @@
             -21,
             -130
           ],
-          "path_len": 43,
+          "path_len": 39,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -914,8 +914,8 @@
           "task": "B",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 371,
-          "wp_index": 27
+          "to_goal": 335,
+          "wp_index": 24
         },
         "B4": {
           "aim": "",
@@ -930,7 +930,7 @@
             520,
             100
           ],
-          "path_len": 73,
+          "path_len": 51,
           "phase": "patrol",
           "phase_reason": "task_assigned",
           "planning": {
@@ -943,24 +943,2166 @@
           "task": "C",
           "task_events": 1,
           "task_reason": "public_objective_push",
-          "to_goal": 735,
-          "wp_index": 28
+          "to_goal": 562,
+          "wp_index": 26
         }
       },
       "t": 95.2333333333292
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 2,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 11,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 63,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 836,
+          "wp_index": 13
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 2,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 13,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 59,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 638,
+          "wp_index": 18
+        },
+        "A3": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 52,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 376,
+          "wp_index": 35
+        },
+        "A4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 42,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 128,
+          "wp_index": 35
+        },
+        "B": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 2,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 13,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 90,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1212,
+          "wp_index": 17
+        },
+        "B2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 2,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 19,
+          "driver_reason": "obstacle_cleared",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 70,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 905,
+          "wp_index": 16
+        },
+        "B3": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 39,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 98,
+          "wp_index": 34
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 51,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 328,
+          "wp_index": 36
+        }
+      },
+      "t": 125.233333333328
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 13,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 43,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 641,
+          "wp_index": 2
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 15,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 22,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "B",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 440,
+          "wp_index": 2
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "idle",
+          "driver_events": 8,
+          "driver_reason": "enemy_visible",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 0,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "repair",
+          "shots": 1,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "immobile_or_damaged_first",
+          "to_goal": 167,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 8,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 42,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "repair",
+          "shots": 1,
+          "task": "C",
+          "task_events": 0,
+          "task_reason": "immobile_or_damaged_first",
+          "to_goal": 1,
+          "wp_index": 41
+        },
+        "B": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 2,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 13,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 90,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 1072,
+          "wp_index": 26
+        },
+        "B2": {
+          "aim": "",
+          "attempts": 1,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 22,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 54,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 775,
+          "wp_index": 7
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 8,
+          "driver_reason": "goal_reached",
+          "first_seen_s": 150.416666666679,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 39,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 1,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 38
+        },
+        "B4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": 144.416666666674,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 51,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 2,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 91,
+          "wp_index": 47
+        }
+      },
+      "t": 155.233333333349
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 15,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 39,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 549,
+          "wp_index": 8
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 17,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 419,
+          "wp_index": 7
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 12,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 8,
+          "phase": "repair",
+          "phase_reason": "own_capability_or_fire",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 49,
+          "wp_index": 5
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 1,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 19,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 1,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 0
+        },
+        "B": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 17,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 57,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 925,
+          "wp_index": 0
+        },
+        "B2": {
+          "aim": "",
+          "attempts": 1,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 25,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 58,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 9,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 676,
+          "wp_index": 1
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 11,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 5,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            7,
+            100
+          ],
+          "path_len": 52,
+          "phase": "patrol",
+          "phase_reason": "",
+          "planning": {
+            "failed": 0,
+            "replanned": 2,
+            "unreachable": 0
+          },
+          "role": "",
+          "shots": 0,
+          "task": "",
+          "task_events": 0,
+          "task_reason": "",
+          "to_goal": 833,
+          "wp_index": 1
+        }
+      },
+      "t": 185.233333333373
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 15,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 39,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 394,
+          "wp_index": 17
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 17,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 195,
+          "wp_index": 17
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "idle",
+          "driver_events": 13,
+          "driver_reason": "enemy_visible",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 0,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "repair",
+          "shots": 7,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "immobile_or_damaged_first",
+          "to_goal": 34,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 22,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 41,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "B",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 563,
+          "wp_index": 4
+        },
+        "B": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 18,
+          "driver_reason": "obstacle_cleared",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 57,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 771,
+          "wp_index": 9
+        },
+        "B2": {
+          "aim": "",
+          "attempts": 1,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 25,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 58,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 9,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 795,
+          "wp_index": 10
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 14,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "repair",
+          "shots": 6,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "immobile_or_damaged_first",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 7,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 40,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 3,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 626,
+          "wp_index": 2
+        }
+      },
+      "t": 215.233333333397
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 15,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 39,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 181,
+          "wp_index": 27
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 17,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 43,
+          "wp_index": 27
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "idle",
+          "driver_events": 30,
+          "driver_reason": "enemy_visible",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 0,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "repair",
+          "shots": 8,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "immobile_or_damaged_first",
+          "to_goal": 4,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 30,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 41,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 10,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "B",
+          "task_events": 4,
+          "task_reason": "public_objective_push",
+          "to_goal": 587,
+          "wp_index": 1
+        },
+        "B": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 18,
+          "driver_reason": "obstacle_cleared",
+          "first_seen_s": 242.916666666752,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 57,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 1,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 664,
+          "wp_index": 18
+        },
+        "B2": {
+          "aim": "solved",
+          "attempts": 1,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 25,
+          "driver_reason": "path_ready",
+          "first_seen_s": 239.416666666749,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 58,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 9,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 1,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 613,
+          "wp_index": 19
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 36,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 15,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 7,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 9,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 67,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "C",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 1008,
+          "wp_index": 5
+        }
+      },
+      "t": 245.233333333421
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 15,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 39,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 6,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 72,
+          "wp_index": 35
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 18,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 28
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 38,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 15,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 8,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 4,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 37,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 4,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 5,
+          "task_reason": "public_objective_push",
+          "to_goal": 46,
+          "wp_index": 2
+        },
+        "B": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 22,
+          "driver_reason": "path_ready",
+          "first_seen_s": 242.916666666752,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 31,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 3,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 519,
+          "wp_index": 1
+        },
+        "B2": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 31,
+          "driver_reason": "path_ready",
+          "first_seen_s": 239.416666666749,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 33,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 452,
+          "wp_index": 3
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 60,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 27,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 7,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 9,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 67,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "C",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 853,
+          "wp_index": 15
+        }
+      },
+      "t": 275.233333333412
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 27,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 1,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 11,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 5,
+          "wp_index": 0
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 18,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 28
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 54,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 23,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 8,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 4,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 38,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 4,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 5,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 3
+        },
+        "B": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 22,
+          "driver_reason": "path_ready",
+          "first_seen_s": 242.916666666752,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 31,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 3,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 362,
+          "wp_index": 11
+        },
+        "B2": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 31,
+          "driver_reason": "path_ready",
+          "first_seen_s": 239.416666666749,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 33,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 345,
+          "wp_index": 13
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 64,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 39,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 7,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 9,
+          "driver_reason": "path_ready",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 67,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "C",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 697,
+          "wp_index": 25
+        }
+      },
+      "t": 305.233333333384
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 41,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 1,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 18,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 5,
+          "wp_index": 0
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 18,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 28
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 64,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 28,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 8,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "public_objective_push",
+          "to_goal": 4,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 38,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 4,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 5,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 3
+        },
+        "B": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 22,
+          "driver_reason": "path_ready",
+          "first_seen_s": 242.916666666752,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 31,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 3,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 255,
+          "wp_index": 20
+        },
+        "B2": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 31,
+          "driver_reason": "path_ready",
+          "first_seen_s": 239.416666666749,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 33,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 228,
+          "wp_index": 23
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 64,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 51,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 7,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 9,
+          "driver_reason": "path_ready",
+          "first_seen_s": 130.916666666663,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 67,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 4,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "C",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 580,
+          "wp_index": 33
+        }
+      },
+      "t": 335.233333333357
+    },
+    {
+      "chain": {
+        "A": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 43,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 1,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 19,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 0,
+          "task": "C",
+          "task_events": 3,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 5,
+          "wp_index": 0
+        },
+        "A2": {
+          "aim": "",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 18,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 29,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 7,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 0,
+          "task": "A",
+          "task_events": 3,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 28
+        },
+        "A3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 1,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 64,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "visible_enemy_reaction_complete",
+          "planning": {
+            "failed": 0,
+            "replanned": 29,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 8,
+          "task": "B",
+          "task_events": 0,
+          "task_reason": "public_objective_push",
+          "to_goal": 4,
+          "wp_index": 0
+        },
+        "A4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "arrived",
+          "driver_events": 38,
+          "driver_reason": "goal_reached",
+          "first_seen_s": -1.0,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 4,
+          "phase": "patrol",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 5,
+          "task_reason": "public_objective_push",
+          "to_goal": 1,
+          "wp_index": 3
+        },
+        "B": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 3,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 22,
+          "driver_reason": "path_ready",
+          "first_seen_s": 242.916666666752,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 31,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 8,
+            "unreachable": 0
+          },
+          "role": "flank",
+          "shots": 3,
+          "task": "C",
+          "task_events": 1,
+          "task_reason": "outer_lane_flank",
+          "to_goal": 234,
+          "wp_index": 21
+        },
+        "B2": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 4,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 31,
+          "driver_reason": "path_ready",
+          "first_seen_s": 239.416666666749,
+          "goal": [
+            -504,
+            120
+          ],
+          "path_len": 33,
+          "phase": "patrol",
+          "phase_reason": "no_enemy_memory",
+          "planning": {
+            "failed": 0,
+            "replanned": 12,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 3,
+          "task": "A",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 207,
+          "wp_index": 24
+        },
+        "B3": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "yielding",
+          "driver_events": 64,
+          "driver_reason": "physical_obstacle",
+          "first_seen_s": -1.0,
+          "goal": [
+            -21,
+            -130
+          ],
+          "path_len": 1,
+          "phase": "engage",
+          "phase_reason": "task_assigned",
+          "planning": {
+            "failed": 0,
+            "replanned": 52,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 7,
+          "task": "B",
+          "task_events": 1,
+          "task_reason": "public_objective_push",
+          "to_goal": 2,
+          "wp_index": 0
+        },
+        "B4": {
+          "aim": "solved",
+          "attempts": 0,
+          "blocked_edges": 0,
+          "dead": false,
+          "driver": "following",
+          "driver_events": 11,
+          "driver_reason": "path_ready",
+          "first_seen_s": 130.916666666663,
+          "goal": [
+            520,
+            100
+          ],
+          "path_len": 33,
+          "phase": "search",
+          "phase_reason": "lost_sight_last_seen_only",
+          "planning": {
+            "failed": 0,
+            "replanned": 5,
+            "unreachable": 0
+          },
+          "role": "attack",
+          "shots": 4,
+          "task": "C",
+          "task_events": 2,
+          "task_reason": "public_objective_push",
+          "to_goal": 561,
+          "wp_index": 0
+        }
+      },
+      "t": 337.983333333355
     }
   ],
   "destroyed_at_end": {
     "1": 0,
     "2": 0
   },
-  "destroyed_observed": [],
+  "destroyed_observed": [
+    "B4"
+  ],
   "detached_only_when_destroyed": true,
-  "elapsed_s": 120.233333333328,
-  "finish_signals": 0,
-  "finished": false,
+  "elapsed_s": 337.983333333355,
+  "finish_signals": 1,
+  "finished": true,
   "finite_in_bounds": true,
-  "fired_slots": [],
+  "fired_slots": [
+    "A4",
+    "B4",
+    "A3",
+    "B3",
+    "B",
+    "B2"
+  ],
   "map_id": "river_junction_team",
   "max_trying_to_drive_stationary_s": 5,
   "note": "engineering AI match on the authored river layout; river is design_preview / combat_admitted=false, so this is a measurement, not an admission claim",
@@ -969,13 +3111,258 @@
     "B",
     "C"
   ],
-  "reached_central": [],
+  "reached_central": [
+    "A3"
+  ],
   "reached_per_team": {
-    "1": [],
-    "2": []
+    "1": [
+      "C",
+      "B",
+      "A"
+    ],
+    "2": [
+      "B",
+      "C"
+    ]
   },
   "respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified",
-  "result": {},
+  "result": {
+    "combat_summary": {
+      "capture_seconds": 59.3666666666646,
+      "deaths": 0,
+      "hits": 0,
+      "kills": 0,
+      "last_death": "",
+      "penetrations": 0
+    },
+    "event_sequence": 18,
+    "events": [
+      {
+        "entity_id": "A",
+        "kind": "spawn",
+        "life_id": 1,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 1,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A2",
+        "kind": "spawn",
+        "life_id": 2,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 2,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A3",
+        "kind": "spawn",
+        "life_id": 3,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 3,
+        "time": 0.0
+      },
+      {
+        "entity_id": "A4",
+        "kind": "spawn",
+        "life_id": 4,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 4,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B",
+        "kind": "spawn",
+        "life_id": 5,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 5,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B2",
+        "kind": "spawn",
+        "life_id": 6,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 6,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B3",
+        "kind": "spawn",
+        "life_id": 7,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 7,
+        "time": 0.0
+      },
+      {
+        "entity_id": "B4",
+        "kind": "spawn",
+        "life_id": 8,
+        "match_id": 101,
+        "physics_tick": 1,
+        "schema_version": 1,
+        "sequence": 8,
+        "time": 0.0
+      },
+      {
+        "kind": "match_started",
+        "match_id": 101,
+        "physics_tick": 182,
+        "schema_version": 1,
+        "sequence": 9,
+        "time": 0.0
+      },
+      {
+        "kind": "objective_owner",
+        "match_id": 101,
+        "objective_id": "B",
+        "owner": 2,
+        "physics_tick": 8879,
+        "previous_owner": 0,
+        "schema_version": 1,
+        "sequence": 10,
+        "time": 144.950000000007
+      },
+      {
+        "kind": "objective_owner",
+        "match_id": 101,
+        "objective_id": "C",
+        "owner": 1,
+        "physics_tick": 9066,
+        "previous_owner": 0,
+        "schema_version": 1,
+        "sequence": 11,
+        "time": 148.066666666677
+      },
+      {
+        "contested": true,
+        "kind": "objective_contested",
+        "match_id": 101,
+        "objective_id": "C",
+        "physics_tick": 9853,
+        "schema_version": 1,
+        "sequence": 12,
+        "time": 161.183333333354
+      },
+      {
+        "contested": false,
+        "kind": "objective_contested",
+        "match_id": 101,
+        "objective_id": "C",
+        "physics_tick": 10224,
+        "schema_version": 1,
+        "sequence": 13,
+        "time": 167.366666666692
+      },
+      {
+        "cause": "ammo_detonation",
+        "entity_id": "B4",
+        "kind": "death",
+        "life_id": 8,
+        "match_id": 101,
+        "physics_tick": 10581,
+        "schema_version": 1,
+        "sequence": 14,
+        "team": 2,
+        "time": 173.316666666697
+      },
+      {
+        "entity_id": "B4",
+        "kind": "spawn",
+        "life_id": 9,
+        "match_id": 101,
+        "physics_tick": 11061,
+        "schema_version": 1,
+        "sequence": 15,
+        "time": 181.316666666703
+      },
+      {
+        "contested": true,
+        "kind": "objective_contested",
+        "match_id": 101,
+        "objective_id": "B",
+        "physics_tick": 11205,
+        "schema_version": 1,
+        "sequence": 16,
+        "time": 183.716666666705
+      },
+      {
+        "kind": "objective_owner",
+        "match_id": 101,
+        "objective_id": "A",
+        "owner": 1,
+        "physics_tick": 15656,
+        "previous_owner": 0,
+        "schema_version": 1,
+        "sequence": 17,
+        "time": 257.900000000094
+      },
+      {
+        "kind": "match_finished",
+        "match_id": 101,
+        "outcome": "victory",
+        "physics_tick": 20461,
+        "reason": "tickets",
+        "schema_version": 1,
+        "sequence": 18,
+        "tickets": {
+          "1": 107,
+          "2": 0
+        },
+        "time": 337.983333333355
+      }
+    ],
+    "match_id": 101,
+    "objectives": [
+      {
+        "center": "(-520.0, 8.0, 120.0)",
+        "contested": false,
+        "id": "A",
+        "owner": 1,
+        "progress": 1.0,
+        "radius": 45.0
+      },
+      {
+        "center": "(0.0, 8.0, -130.0)",
+        "contested": true,
+        "id": "B",
+        "owner": 2,
+        "progress": -1.0,
+        "radius": 45.0
+      },
+      {
+        "center": "(520.0, 8.0, 100.0)",
+        "contested": false,
+        "id": "C",
+        "owner": 1,
+        "progress": 1.0,
+        "radius": 45.0
+      }
+    ],
+    "outcome": "victory",
+    "reason": "tickets",
+    "seconds": 337.983333333355,
+    "shots": 0,
+    "status": "passed",
+    "tickets": {
+      "1": 107,
+      "2": 0
+    },
+    "title": "4对4占点"
+  },
   "schema": 1,
   "seed": 44001,
   "teams": {
@@ -989,8 +3376,8 @@
     "B4": 2
   },
   "tickets": {
-    "1": 300,
-    "2": 300
+    "1": 107,
+    "2": 0
   },
   "timeline": [
     {
@@ -1039,6 +3426,114 @@
       "tickets": {
         "1": 300,
         "2": 300
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 125.233333333328,
+      "tickets": {
+        "1": 300,
+        "2": 300
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 155.233333333349,
+      "tickets": {
+        "1": 290,
+        "2": 293
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 185.233333333373,
+      "tickets": {
+        "1": 260,
+        "2": 233
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 215.233333333397,
+      "tickets": {
+        "1": 230,
+        "2": 203
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 245.233333333421,
+      "tickets": {
+        "1": 200,
+        "2": 173
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 275.233333333412,
+      "tickets": {
+        "1": 170,
+        "2": 126
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 305.233333333384,
+      "tickets": {
+        "1": 140,
+        "2": 66
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "playing",
+      "t": 335.233333333357,
+      "tickets": {
+        "1": 110,
+        "2": 6
+      }
+    },
+    {
+      "living": {
+        "1": 4,
+        "2": 4
+      },
+      "phase": "finished",
+      "t": 337.983333333355,
+      "tickets": {
+        "1": 107,
+        "2": 0
       }
     }
   ]
