@@ -28,6 +28,17 @@ func _run() -> void:
 		var path := parts[1]
 		var row := _measure(id,path)
 		rows.append(row)
+	# WT-040-R1 HARDENING: refuse to write a SHORT draft. A malformed argument used to be printed and
+	# then skipped, so the generator could exit zero having measured FEWER vehicles than the caller
+	# asked for - and this draft feeds the pipeline's geometry_check and the layer probe, so a missing
+	# vehicle could slip downstream unnoticed. The same class of silent skip was found and closed in
+	# check_modern_geometry.gd. Checking row count against argument count catches ANY cause of row loss,
+	# present or future, rather than only the malformed-argument path.
+	if rows.size() != args.size():
+		print("[geom] REFUSING to write: asked for %d target(s) but measured %d - see the 'bad arg' lines above" % [args.size(),rows.size()])
+		print("MODERN_GEOMETRY_FAIL")
+		quit(1)
+		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://logs/WT-040-R1"))
 	var file := FileAccess.open(OUT_PATH,FileAccess.WRITE)
 	if file != null:

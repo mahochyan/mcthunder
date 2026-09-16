@@ -386,3 +386,31 @@ if not FileAccess.file_exists(dossier):
 | ③ 不存在的 id ✗ | **exit=1** ✓ · `[FAIL] no dossier for id …` ✓ · **FAIL** ✓ · **恰好 29 项** ✓✓（＝"漏一辆车"的签名 ✓） |
 | ④ 流水线（用裸 id ✓） | **exit=0** ✓ · `geometry_check exit=0 errors=0 OK` ✓ · **`MODERN_PIPELINE_OK`** ✓✓（**零回归** ✓） |
 ⇒ **任何调用失误现在都会响亮失败** ✓✓，**不会再产生假绿** ✓。
+---
+
+## 21. ✅ **同类缺陷扫查**：又封死一条"假绿"通道（`generate_modern_geometry.gd` ✓）
+### 扫查范围 ✓（本阶段 12 个测试/工具 ✓，只读 ✓）
+| 结果 | 工具 |
+|---|---|
+| **发现同类缺陷** ✗ | **`generate_modern_geometry.gd`** —— `if parts.size() != 2: print("[geom] bad arg ",entry); **continue**` ✗ |
+| 同类但风险低 ✓ | `probe_source_nodes.gd`（仅探测 ✓，文件缺失/解析失败时 `continue` ✗ —— 属**信息性** ✓） |
+| 无取参 ✓ | 其余 9 个（不接受外部输入 ✓ 无此风险 ✓） |
+### 缺陷实质 ✗
+**格式错误的参数被忽略** ✗ ⇒ 生成器**少测车辆却仍 `quit(0)`** ✗ ⇒ 而其产物 `modern_geometry_draft.json`
+**被流水线的 `geometry_check` 与层级探针消费** ✗ ⇒ **缺车草案可悄然流入下游** ✓（且其自身两条错误路径
+**不一致** ✗：空参数 `quit(1)` ✓ vs 坏参数 `continue` ✗）。
+### 修法 ✓（**比症状更强** ✓）
+写入**之前**比对 **行数 vs 参数数** ✓，不符则**拒绝写出** ✗：
+```gdscript
+if rows.size() != args.size():
+    print("[geom] REFUSING to write: asked for %d target(s) but measured %d …" % [args.size(),rows.size()])
+    print("MODERN_GEOMETRY_FAIL") ; quit(1) ; return
+```
+⇒ 可捕获**任何原因**的行丢失 ✓（含未来新增路径 ✓），**不止**坏参数这一种 ✓。
+### 四路验证 ✓
+| 用例 | 结果 |
+|---|---|
+| ① 正确调用（两车 ✓） | **exit=0** ✓ · `MODERN_GEOMETRY_DONE` ✓ |
+| ② 一个坏参数 ✗ | **exit=1** ✓ · `bad arg …` ✓ + **`REFUSING to write …`** ✓ + **`MODERN_GEOMETRY_FAIL`** ✓ |
+| ③ 草案完整性 ✓ | **仍两车** ✓（**短草案被拒 ⇒ 好草案存活** ✓✓） |
+| ④ 流水线 ✓ | **exit=0** ✓ · `MODERN_PIPELINE_OK` ✓ · gap 仍 **9/10** ✓（**未变** ✓） |
