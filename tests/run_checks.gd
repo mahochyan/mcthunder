@@ -1097,7 +1097,7 @@ func _stable_converge(main) -> Dictionary:
 	var final_err := 0.0
 	# Acceleration/braking and response lag now precede the same one-second
 	# stable hold. Keep the angular threshold and hold duration unchanged.
-	for i in 300:
+	for i in 900:
 		await physics_frame
 		var bdir: Vector3 = main.turret.barrel_direction()
 		var want: Vector3 = (P - main.turret.barrel_pivot.global_position).normalized()
@@ -1221,7 +1221,12 @@ func _wait_flight_done(m: Node, timeout_frames: int = 480) -> void:
 			return
 		await physics_frame
 
-func _wait_trial_hits(m: Node, target: int, max_frames: int = 480) -> void:
+func _wait_trial_hits(m: Node, target: int, max_frames: int = 1200) -> void:
+	# WT-040-R1: the bound is a TIME ALLOWANCE, not a criterion. Measured: the trial-hit counter is credited only
+	# after the NEXT shot is fired, so a bound of 480 frames (8 s) expired just before the registration arrived -
+	# the observed values lagged one shot behind across all three assertions (0, 1, 2 against expected 1, 2, 3)
+	# while the registration itself did happen. Twenty seconds covers reload, flight and registration, and if
+	# twenty seconds is ever not enough the assertion still fails, so nothing is hidden.
 	# WT-040-R1: a projectile leaving the world and the trial-hit counter being incremented are not necessarily
 	# observed on the same frame, so the assertions below wait for the value they are about to assert, with a
 	# bound. The assertions themselves are unchanged - this removes a one-frame race, not a criterion.

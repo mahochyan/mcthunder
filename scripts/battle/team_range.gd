@@ -29,6 +29,12 @@ var telemetry: TrafficTelemetry = null      # read-only mobility sampling, fresh
 var _telemetry_phase := ""
 var ammunition_supply := AmmunitionSupply.new()
 var respawn_vehicle_id := ""
+## WT-040-R1 (2026-09-17 ruling, work order D/C): an explicit ENGINEERING SCENARIO hook, empty by default so
+## nothing changes unless a test or an internal engineering entry sets it. It assigns the OPPOSING team's vehicle
+## type so one internal match can field T-80B against Leopard 2A4, which is what the ruling asks the modern river
+## record to show. It changes team composition only - no ticket, capture, damage, reload or termination rule is
+## touched, and an unknown id is still refused by the readiness gate.
+var opposing_engineering_id := ""
 var garage_service: GarageService
 var simulation_snapshot: SimulationSnapshot
 var coordinators: Dictionary = {}          # team -> TeamCoordinator (WT-040-R1)
@@ -300,6 +306,11 @@ func vehicle_id_for_slot(id: String) -> String:
 			requested = VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
 		else:
 			requested = selected_vehicle_id
+		# The engineering scenario hook, when set, gives the opposing team the other modern type. It is applied
+		# AFTER the rotation decision and only for AI slots, and the readiness gate still decides whether that id
+		# may fight at all.
+		if not opposing_engineering_id.is_empty() and id != "A":
+			requested = opposing_engineering_id
 	# WT-031-R1: AI slots and respawn go through the same readiness gate as the player;
 	# a preview-only or unadmitted id can never reach the battlefield.
 	# WT-040-R1 (2026-09-17 ruling): use the definitions the MATCH actually loaded. A fresh VehicleCatalog has an
