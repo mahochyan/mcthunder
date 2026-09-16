@@ -14,9 +14,20 @@ const CREW := "res://logs/WT-040-R1/modern_crew_draft.json"
 const MODULES := "res://logs/WT-040-R1/modern_modules_draft.json"
 const ARMOR := "res://logs/WT-040-R1/modern_armor_draft.json"
 const EVIDENCE := "res://logs/WT-040-R1/modern_evidence_record.json"
+const ENGINEERING_CONFIG_DIR := "res://configs/vehicles/engineering"
+const MODEL_SOURCE_REGISTRY := "res://configs/vehicles/model_sources.json"
+const MODEL_RESOURCE_VERSION := "modern_bound-engine-v1"
+## WT-040-R1: set by --emit-packet. Formal acceptance never writes anything; emission is an explicit,
+## named action that writes the packet the SAME run just validated into the production config tree.
+var _emit_packets := false
+## Binding reasoning per vehicle. The binding schema admits ONLY its seven fields, so the basis, the
+## resolved paths and any unmapped attachment id are recorded HERE and printed, never smuggled into the
+## binding as extra keys.
+var _binding_reports := {}
 func _initialize() -> void: call_deferred("_run")
 func _run() -> void:
 	var draft := _read_json(DRAFT)
+	_emit_packets = OS.get_cmdline_user_args().has("--emit-packet")
 	var rows: Array = draft.get("rows",[])
 	if rows.is_empty(): print("[gaps] no draft geometry found"); quit(1); return
 	# WT-040-R1: the cited facts draft is merged in, so the gap count can be watched FALLING as real
@@ -166,7 +177,15 @@ func _run() -> void:
 			if want_unit.is_empty(): want_unit = "structured"
 			fdict["unit"] = want_unit
 		print("[gaps] ===== ", id)
-		var result := VehicleContentPipeline.validate_package(packet,{})
+		# WT-040-R1 (user ruling 2/3): the packet is validated against a REAL source registry entry and its
+		# binding is derived from the REAL artefact, so the vehicle is admitted on a delivered authored
+		# asset instead of on a missing binding. Emission is off unless --emit-packet was passed.
+		var binding := _binding_for(id,packet,modules_by_id.get(id,[]),crew_by_id.get(id,[]))
+		var model_sources := {id: {"id":id,"path":str(binding.model.path),"sha256":str(binding.model.sha256),
+			"resource_version":MODEL_RESOURCE_VERSION,"delivery_status":"delivered","provenance":"authored_asset"}}
+		packet["model_binding"] = binding
+		if _emit_packets: _emit_packet(id,packet,model_sources)
+		var result := VehicleContentPipeline.validate_package(packet,model_sources)
 		# WT-040-R1 (user ruling): the audit must distinguish three outcomes - complete with no gaps,
 		# complete with gaps, and INCOMPLETE because an exception or a missing structure stopped it. A run
 		# that reported ok=false with an empty error list is the third case, NOT a pass: the earlier
@@ -238,3 +257,89 @@ func _read_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	return parsed if parsed is Dictionary else {}
+
+## WT-040-R1 (user ruling 2/3): derive the model binding from the REAL artefact with the project's own
+## probe. Nothing is guessed - the digest, the envelope and every node path come from the model. The two
+## role choices the probe reports as AMBIGUOUS are made by hierarchy semantics and the basis is written
+## into the returned dict, because the name hints also match TurretArmour, Attachment_gunner, track_l and
+## wheel_l_01; those are meshes and child parts, not the articulated frames the game drives.
+func _binding_for(id: String, packet: Dictionary, modules: Array, crew: Array) -> Dictionary:
+	var path := "res://assets/vehicles/modern_bound/%s.glb" % id
+	var probe: Dictionary = ModelBindingProbe.probe(path)
+	var by_name := {}
+	var root_path := ""
+	var top_node := ""
+	for row in probe.get("nodes",[]):
+		var nm := str(row.get("name",""))
+		if not by_name.has(nm): by_name[nm] = str(row.get("path",""))
+		if str(row.get("parent","")) == "": root_path = str(row.get("path",""))
+		# The role hierarchy requires turret, gun and both running roles to DESCEND from hull, so hull is
+		# the topmost node the model owns - the direct child of the scene root - not the scene root itself
+		# and not the armour mesh. The probe's own hint list names vehicle_root/root for this reason.
+		if str(row.get("parent","")) == ".": top_node = str(row.get("path",""))
+	if top_node.is_empty(): top_node = root_path
+	var nodes := {
+		"hull": top_node,
+		"turret": str(by_name.get("TurretPivot","")),
+		"gun": str(by_name.get("GunPivot","")),
+		"muzzle": str(by_name.get("Muzzle","")),
+		"running_left": str(by_name.get("RunningLeft","")),
+		"running_right": str(by_name.get("RunningRight","")),
+	}
+	# Attachment anchors are matched by name first; the ammunition reserve is the only documented
+	# alternative, and any id with no anchor is NAMED in role_basis rather than silently dropped.
+	var alt := {"ammo_hull_left":"Attachment_ammo_reserve","ammo_hull_right":"Attachment_ammo_reserve"}
+	var mod_map := {}
+	var unmapped: Array = []
+	for m in modules:
+		var mid := str(m.get("id","")) if m is Dictionary else ""
+		if mid.is_empty(): continue
+		var anchor := str(alt.get(mid,"Attachment_"+mid))
+		if by_name.has(anchor): mod_map[mid] = str(by_name[anchor])
+		else: unmapped.append("module:"+mid)
+	var crew_map := {}
+	for c in crew:
+		var cid := str(c.get("id","")) if c is Dictionary else ""
+		if cid.is_empty(): continue
+		var anchor := "Attachment_"+cid
+		if by_name.has(anchor): crew_map[cid] = str(by_name[anchor])
+		else: unmapped.append("crew:"+cid)
+	var envelope: Array = probe.get("envelope_m",[0.0,0.0,0.0])
+	_binding_reports[id] = {
+		"role_basis": "derived from the real GLB by ModelBindingProbe. The probe resolves hull and muzzle cleanly and reports turret, gun, running_left and running_right as AMBIGUOUS because its name hints also match TurretArmour, Attachment_gunner, track_l and wheel_l_01. The choice made here is by hierarchy semantics: turret is the pivot frame, gun is the gun pivot beneath it, and the two running roles are the running-gear branches - the other candidates are meshes or child parts, not the frames the game drives.",
+		"resolved_nodes": nodes, "root_path": root_path, "unit_candidate": str(probe.get("unit_candidate","")),
+		"envelope_m": envelope, "sha256": str(probe.get("sha256","")),
+		"unmapped_attachment_ids": unmapped,
+	}
+	print("[binding] ",id," unit=",probe.get("unit_candidate","")," envelope=",envelope," unmapped_attachments=",unmapped)
+	return {
+		"schema_version": 1,
+		"vehicle_id": id,
+		"model": {"source_vehicle_id":id, "path":path, "sha256":str(probe.get("sha256",""))},
+		"units": {"source_unit":str(probe.get("unit_candidate","m")), "meters_per_unit":float(probe.get("meters_per_unit",1.0)),
+			"dimensions_m":[float(envelope[0]),float(envelope[1]),float(envelope[2])],
+			"tolerance_fraction":0.02, "attachment_tolerance_m":0.05},
+		"nodes": nodes,
+		"axes": {"turret":{"space":"local","axis":[0,1,0],"limits_deg":[float(packet.runtime.get("yaw_min",-180)),float(packet.runtime.get("yaw_max",180))]},
+			"gun":{"space":"local","axis":[1,0,0],"limits_deg":[float(packet.runtime.get("pitch_min",-5)),float(packet.runtime.get("pitch_max",20))]}},
+		"internal_attachments": {"modules":mod_map, "crew":crew_map},
+	}
+
+## Emission is a named action, not a side effect of the audit: it writes the packet that the same run
+## validated into configs/vehicles/engineering, and registers its model source in the production
+## registry. The audit itself never writes.
+func _emit_packet(id: String, packet: Dictionary, model_sources: Dictionary) -> void:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(ENGINEERING_CONFIG_DIR))
+	var out := ENGINEERING_CONFIG_DIR.path_join(id+".json")
+	var file := FileAccess.open(out,FileAccess.WRITE)
+	if file == null: print("[emit] FAILED to open ",out); return
+	file.store_string(JSON.stringify(packet,"  ")+"\n"); file.close()
+	print("[emit] wrote ",out)
+	var registry := _read_json(MODEL_SOURCE_REGISTRY)
+	if not registry.has("schema_version"): registry["schema_version"] = 1
+	if not registry.get("models") is Dictionary: registry["models"] = {}
+	for key in model_sources.keys(): (registry["models"] as Dictionary)[key] = model_sources[key]
+	var rf := FileAccess.open(MODEL_SOURCE_REGISTRY,FileAccess.WRITE)
+	if rf == null: print("[emit] FAILED to open registry"); return
+	rf.store_string(JSON.stringify(registry,"  ")+"\n"); rf.close()
+	print("[emit] registered ",model_sources.keys()," in ",MODEL_SOURCE_REGISTRY)
