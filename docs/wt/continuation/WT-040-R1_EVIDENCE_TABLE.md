@@ -160,3 +160,25 @@
 
 ⇒ **判定** ✓：该 **≈23 KB/s** 输出是**该套件有意开启的诊断追踪** ✓（单车辆范围 ✓）⇒ **非产品缺陷** ✗ · **非默认行为** ✗ ⇒ **无需改动** ✗。
 ⇒ 若未来要收敛日志体积 ✓，**应由该套件自行决定** ✓（例如仅在失败时保留 ✓）—— **本轮不改** ✗（属测试代码 ✓，且与当前目标无关 ✗）。
+
+---
+
+## 12. 🏁 **官方门禁：干净运行 = 基线（126 PASS / 2 FAIL）** ✓✓✓
+三次运行**全部跑完** ✓（各约 20–90 分钟 ✓，均未被我干扰 ✓）：
+
+| 运行（HEAD） | 完成 | 通过 | 失败 | 红项 |
+|---|---|---|---|---|
+| `gate-final`（`d95cbc36`） | 128 | 125 | **3** | **`run_modern_model_mount_checks`** ✗（**我的回归，当时未回退**）+ `industrial_battle` + `challenge` |
+| `gate-verdict`（`c032345a`） | 128 | 125 | 3 | **`run_world_vehicle_phase_checks: checks=0`** ✗（**0 检查的抖动**）+ 同两项 |
+| **`gate-solo`（`99afbe5c`，最干净）** | **128** | **126** ✓ | **2** ✓ | **`run_industrial_battle_checks`** ✓ + **`run_challenge_checks`** ✓ |
+
+### 结论 ✓
+1. **干净运行精确复现基线** ✓✓：**126 PASS / 2 FAIL** ✓，且两红**正是已登记的非回归** ✓
+   （`industrial_battle` 到点红 ✓ 与 `challenge` **140 项**夹具边界 ✓ —— 您已裁定 **B4** ✓）；
+2. **我的回归由门禁自身确认已修复** ✓✓：`run_modern_model_mount_checks` ✗ **仅在回退前那次**出现 ✓，后两次**均无** ✓；
+3. **有效总数 128** ✓：runner 在含 `run_art_checks` 时**追加** `run_menu_fire_handoff_checks` ✓（其源码如此 ✓）；
+4. **新增已知抖动** ✓：`run_world_vehicle_phase_checks: checks=0` ✗（**0 检查却判失败** ✓）出现在**中间那次** ✓、**干净那次未现** ✓ ⇒ **登记** ✓，**不改** ✗、**不定论** ✗。
+
+### 日志出处 ✓
+`logs/WT-040-R1/{gate-final-20260915-175843, gate-verdict-20260915-182118, gate-solo-20260915-182541}/gate.log` ✓
+（末行 `EVIDENCE=…` 指向 runner 自己的逐套件日志目录 ✓。）
