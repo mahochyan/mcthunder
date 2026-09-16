@@ -63,6 +63,20 @@ Check (-not $v.ok) "a single occurrence is refused where the register expects tw
 $v = Test-CandidateFailureSet -Entry ([pscustomobject]@{ suite='x'; signatures=@() }) -FailLines @($old) -ResultRow $healthy
 Check (-not $v.ok) "a register entry without signatures cannot accept anything (reason: $($v.reason))"
 
+# --- the SUITE LOG clause, using real temporary files -------------------------------------------
+$cleanLog = Join-Path ([IO.Path]::GetTempPath()) 'candidate_register_clean.log'
+$dirtyLog = Join-Path ([IO.Path]::GetTempPath()) 'candidate_register_dirty.log'
+$missingLog = Join-Path ([IO.Path]::GetTempPath()) 'candidate_register_absent.log'
+Set-Content -LiteralPath $cleanLog -Value @('=== result: 16 checks, 1 failed ===','[FAIL] at least three actual slots from each team physically reach central approaches') -Encoding utf8
+Set-Content -LiteralPath $dirtyLog -Value @('=== result: 16 checks, 1 failed ===','SCRIPT ERROR: Invalid access to property or key x on a base object') -Encoding utf8
+if (Test-Path -LiteralPath $missingLog) { Remove-Item -LiteralPath $missingLog -Force }
+$v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $healthy -SuiteLogPath $cleanLog
+Check $v.ok "a CLEAN suite log still accepts the registered failure (reason: $($v.reason))"
+$v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $healthy -SuiteLogPath $dirtyLog
+Check (-not $v.ok) "COUNTER-EXAMPLE 2d refused: a registered failure whose SUITE LOG carries a script error (reason: $($v.reason))"
+$v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $healthy -SuiteLogPath $missingLog
+Check (-not $v.ok) "a MISSING suite log refuses the registered failure instead of assuming health (reason: $($v.reason))"
+
 Write-Output ("=== result: " + $checks + " checks, " + $failed + " failed ===")
 if ($failed -eq 0) { Write-Output 'CANDIDATE_REGISTER_MATCH_PASS' } else { Write-Output 'CANDIDATE_REGISTER_MATCH_FAIL' }
 if ($failed -ne 0) { exit 1 }

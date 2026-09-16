@@ -11,7 +11,8 @@ function Test-CandidateFailureSet {
     param(
         [Parameter(Mandatory=$true)] $Entry,
         [Parameter(Mandatory=$true)] [AllowEmptyCollection()] [string[]] $FailLines,
-        $ResultRow = $null
+        $ResultRow = $null,
+        [string] $SuiteLogPath = ''
     )
 
     if ($null -eq $Entry) { return @{ ok = $false; reason = 'no register entry was supplied' } }
@@ -69,6 +70,21 @@ function Test-CandidateFailureSet {
         }
         if ($names -contains 'exit_known' -and -not [bool]$ResultRow.exit_known) {
             return @{ ok = $false; reason = 'is a registered failure but its exit code was never observed' }
+        }
+    }
+
+    # 5) the suite's OWN log must be healthy. The regression summary does not carry the diagnostic list in
+    #    every shape - the field is simply absent in the file this build writes - so the health of a run is
+    #    read from the suite's stdout log, which is the same evidence the player-flow check uses and is
+    #    always present. A registered failure may not travel with script errors.
+    if (-not [string]::IsNullOrWhiteSpace($SuiteLogPath)) {
+        if (-not (Test-Path -LiteralPath $SuiteLogPath)) {
+            return @{ ok = $false; reason = "is a registered failure but its suite log is missing ($SuiteLogPath)" }
+        }
+        $bad = @(Select-String -LiteralPath $SuiteLogPath -Pattern 'SCRIPT ERROR|^ERROR:|Parse Error' -ErrorAction SilentlyContinue)
+        if ($bad.Count -gt 0) {
+            $sample = ($bad | Select-Object -First 1).Line.Trim()
+            return @{ ok = $false; reason = "is a registered failure but its suite log carries $($bad.Count) script error line(s), e.g. $sample" }
         }
     }
 

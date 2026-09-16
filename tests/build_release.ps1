@@ -152,7 +152,11 @@ if ($failing.Count -gt 0) {
         if ($entry[0].must_match -and -not (@($failLines | Where-Object { $_ -match $entry[0].must_match }).Count -gt 0)) { throw "Candidate build: $($f.suite) failures do not carry the registered signature '$($entry[0].must_match)'" }
         # The match itself lives in tests/candidate_register_match.ps1 so the build runs the very same logic
         # that its negative test asserts against. A copy would prove nothing.
-        $verdict = Test-CandidateFailureSet -Entry $entry[0] -FailLines $failLines -ResultRow $f
+        # The suite log is the evidence the build actually has for run health, so it is passed in; the log
+        # lookup above already located it.
+        $logPath = ''
+        if ($suiteLog) { $logPath = $suiteLog.FullName }
+        $verdict = Test-CandidateFailureSet -Entry $entry[0] -FailLines $failLines -ResultRow $f -SuiteLogPath $logPath
         if (-not $verdict.ok) { throw ("Candidate build: " + $f.suite + " " + $verdict.reason) }        $knownFailures += [pscustomobject]@{ suite=$f.suite; checks=$f.checks; failures=$failLines.Count; detail=$failLines; reason=$entry[0].reason }
         Write-Output "KNOWN FAILURE ACCEPTED (candidate only): $($f.suite) - $($failLines.Count) check(s) - $($entry[0].reason)"
     }
