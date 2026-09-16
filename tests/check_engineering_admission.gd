@@ -48,7 +48,7 @@ func _run() -> void:
 			# Only property accesses that certainly exist, and get() for the rest: an unguarded access threw,
 			# which skipped quit() and left the process alive until it was killed - the real reason two earlier
 			# runs timed out with an apparently empty log.
-			print("        admitted definition: id=",v.id," display=",str(v.get("display_name")),
+			print("        admitted definition: id=",v.id," display_name_key=",str(v.get("display_name_key"))," tier=",str(v.get("content_tier"))," admission=",str(v.get("admission_status")),
 				" ; defs now hold weapons=",defs.weapons.size()," shells=",defs.shells.size()," layouts=",defs.layouts.size())
 		else:
 			failed += 1

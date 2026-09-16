@@ -19,6 +19,11 @@ const MODEL_SOURCE_REGISTRY := "res://configs/vehicles/model_sources.json"
 const MODEL_RESOURCE_VERSION := "modern_bound-engine-v1"
 ## WT-040-R1: set by --emit-packet. Formal acceptance never writes anything; emission is an explicit,
 ## named action that writes the packet the SAME run just validated into the production config tree.
+## WT-040-R1: production display labels for the engineering vehicles, marked as candidates.
+const DISPLAY_NAMES := {
+	"ussr_t_80b": "T-80B (engineering candidate) / 125mm 2A46 / wt040-eng-v1",
+	"germ_leopard_2a4": "Leopard 2A4 (engineering candidate) / 120mm Rheinmetall L/44 / wt040-eng-v1",
+}
 var _emit_packets := false
 ## Binding reasoning per vehicle. The binding schema admits ONLY its seven fields, so the basis, the
 ## resolved paths and any unmapped attachment id are recorded HERE and printed, never smuggled into the
@@ -63,7 +68,11 @@ func _run() -> void:
 		var id := str(row.get("id",""))
 		var packet := {
 			"id": id,
-			"display_name": id,
+			# WT-040-R1: this assembly is emitted as PRODUCTION content, so the display name must be a real
+			# label instead of the id. It states the engineering-candidate status, the gun and the frozen rule
+			# version, mirroring how the historical packets name variant / gun / year, and it is what the garage
+			# shows as the display name key.
+			"display_name": str(DISPLAY_NAMES.get(id,id)),
 			"geometry": row.get("fields",{}),
 			"runtime": runtime_by_id.get(id,{}),
 			# WT-040-R1: the armour draft is prepared but awaiting review, so it is included here as a
