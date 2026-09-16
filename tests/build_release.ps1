@@ -52,7 +52,7 @@ $package = Join-Path $runDir 'package'
 $outside = Join-Path ([IO.Path]::GetTempPath()) "PixelArmor 独立测试 $stamp"
 New-Item -ItemType Directory -Path $source,$package,$logs,$outside -Force | Out-Null
 $runs = [System.Collections.Generic.List[object]]::new()
-function Run-Checked([string]$Name,[string]$Executable,[string]$Arguments,[string]$WorkingDirectory,[int]$Timeout=300,[string]$Required='',[string]$RequiredArtifact='') {
+function Run-Checked([string]$Name,[string]$Executable,[string]$Arguments,[string]$WorkingDirectory,[int]$Timeout=300,[string]$Required='',[string]$RequiredArtifact='',[switch]$TolerateNonZeroExit) {
     $stdout=Join-Path $logs "$Name.stdout.log"; $stderr=Join-Path $logs "$Name.stderr.log"
     # WT-040-R1 ④: Start-Process -PassThru handed back an object whose ExitCode was $null even though
     # the child had finished successfully (measured 2026-09-16: the import's own stdout showed two
@@ -99,7 +99,21 @@ function Run-Checked([string]$Name,[string]$Executable,[string]$Arguments,[strin
         if (-not $artifactOk) { $why += "required artefact missing: $RequiredArtifact" }
         if ($output -match 'SCRIPT ERROR:|(?m)^ERROR:|\[FAIL\]') { $why += 'disallowed output marker present' }
         if ($Required -and -not ($output -match $Required)) { $why += "required marker missing: $Required" }
-        throw "Build stopped at $Name ($($why -join '; ')); see recorded output. No verified release ZIP created."
+        # WT-040-R1 (user ruling): in a candidate build the regression RUNNER legitimately exits non-zero
+        # when a registered suite fails, and the register further down is what judges those failures.
+        # ONLY a non-zero exit is tolerated here, and only when the caller asks: a timeout, an unreadable
+        # exit status, a missing artefact, a disallowed output marker or a missing required marker still
+        # stop the build immediately.
+        $tolerable=@()
+        if ($TolerateNonZeroExit -and (-not $timedOut) -and $exitKnown -and $artifactOk) {
+            $tolerable=@($why | Where-Object { $_ -match '^exit=' })
+        }
+        $hard=@($why | Where-Object { $tolerable -notcontains $_ })
+        if ($hard.Count -eq 0 -and $tolerable.Count -gt 0) {
+            Write-Output "$Name kept for register review: $($tolerable -join '; ') (candidate mode; only a registered failure may be accepted)"
+        } else {
+            throw "Build stopped at $Name ($($why -join '; ')); see recorded output. No verified release ZIP created."
+        }
     }
 }
 $archive=Join-Path $runDir 'committed-source.zip'
@@ -118,7 +132,7 @@ $suiteLaunch=Join-Path $runDir 'run-regression.ps1'
 & '$($source.Replace("'","''"))/tests/run_suite_checks.ps1' -SourceSha '$sourceSha' -EnginePath '$($engine.Replace("'","''"))' -Order '031-clean' -Suites @($suiteLiteral)
 exit `$LASTEXITCODE
 "@ | Set-Content -LiteralPath $suiteLaunch -Encoding utf8
-Run-Checked 'regression' $shell ('-NoProfile -File "'+$suiteLaunch+'"') $source 7200 'EVIDENCE='
+Run-Checked 'regression' $shell ('-NoProfile -File "'+$suiteLaunch+'"') $source 7200 'EVIDENCE=' '' -TolerateNonZeroExit:$Candidate
 $suiteResults=Get-ChildItem -LiteralPath (Join-Path $source 'logs/031-clean') -Recurse -Filter RESULTS.json | Select-Object -Last 1
 $regression=Get-Content -LiteralPath $suiteResults.FullName -Raw | ConvertFrom-Json
 $failing=@($regression | Where-Object { -not $_.passed })
