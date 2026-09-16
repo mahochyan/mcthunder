@@ -11,7 +11,7 @@
 | **几何自校验独立** ✓（适配产物 vs 源模型逐项一致 ✓；容差 1 mm ✓） | 同上 ✓（`adapter vs source` 全一致 ✓） |
 | **facts 带引用** ✓（速度/倒车/转速/质量/发动机/弹药容量/乘员角色 ✓） | `modern_facts_draft.json` ✓（`source_refs: wt-2.57.1.137` ✓ + `location` 含行号 ✓） |
 | **`assembly` 六项** ✓（枪/弹/口径/变体/加速 ✓） | 逐车不同 ✓（`125mm_2A46_2` vs `120mm_Rheinmetall_L44` ✓） |
-| **`armor` 17 zone 草案** ✓（逐 zone 带节点+行号+材料 ✓；T-80B 12 项**如实 `unknown`** ✓ 不硬套 ✗） | `build_build_modern_armor_draft.gd` ✓ + 映射表文档 ✓ |
+| **`armor` 17 zone 草案** ✓（逐 zone 带节点+行号+材料 ✓；T-80B 12 项**如实 `unknown`** ✓ 不硬套 ✗） | `build_modern_armor_draft.gd` ✓ + 映射表文档 ✓ |
 | **`modules`** ✓（7 kind ✓ 10 行 ✓；弹架**精确配平** 10+14+14=38 ✓ / 10+16+16=42 ✓） | `modern_modules_draft.json` ✓ |
 | **`crew`** ✓（角色**引用** ✓ + 位置**派生并标注** ✓；T-80B 3 人无装填手 ✓ 豹2 4 人有 ✓） | `modern_crew_draft.json` ✓ |
 | **四个自证式证据事实** ✓（`geometry.exterior` 等 ✓） | `modern_evidence_record.json` ✓ |
