@@ -210,3 +210,30 @@ Build stopped at fresh_import; see recorded output. No verified release ZIP crea
 - ⇒ **独立可运行包**（第 ⑤ 步最后一块）**因此受阻** ✗ ⇒ **如实上报** ✓，并给出**可选路径**供您裁定 ✓：
   1. 授权我**修正该脚本的退出码判定**（一处小改 ✓，属**改构建流程** ⇒ 需您明确授权 ✗）；
   2. 或接受"**包校验暂缓**" ✓，以其余证据（应用流程 127/0 ✓ · 辅助能力 51/0 ✓ · 科技树 50/0 ✓ · 真实对局 ✓）作为第 ③/⑤ 阶段的运行证据 ✓。
+
+---
+
+## 14. 🏁 **第 3 阶段核心运行证据：无注入真实对局的完整流程通过** ✓✓
+命令 ✓：`<engine> --headless --path <cont> --fixed-fps 60 -s res://tests/run_app_match_cycle.gd` ✓
+日志 ✓：`logs/WT-040-R1/phase3-match-cycle2.log` ✓（**仍在逐图循环** ✓）
+
+### 进程族（**判据更正** ✓：须测**引擎本体**，不是 console 包装器 ✗）
+| pid | 进程 | CPU |
+|---|---|---|
+| **27728** | `Godot_v4.7.2-stable_win64`（**引擎本体** ✓） | **871.2 s** ✓ |
+| 16164 | `…_console`（包装器 ✗） | 0 s ✗（我此前误测它 ✗） |
+
+### map 0：**完整流程全通过** ✓✓（`[PASS]` 原文 ✓）
+```
+[PASS] natural result shows frozen combat summary 0                 结算摘要冻结 ✓
+[PASS] natural finish commits one receipt without pending reward 0  结算票据、无待发奖励 ✓
+[PASS] retry cannot duplicate natural match reward 0                重试不重复发奖 ✓
+[PASS] natural result restarts a fresh world 0                      下一局重开新世界 ✓
+[PASS] restart returns to usable garage 0                           回到可用车库 ✓
+[PASS] normal garage starts map 1                                   下一图从正常车库开局 ✓
+```
+### map 1：交火进行中 ✓
+`NATURAL_MATCH map=1 … 177.0 tickets={ 1: 240, 2: 300 }` ✓
+
+⇒ **这正是用户第 ⑤ 步要求的链路** ✓：**正常车库 → 对局 → 结算 → 下一局 → 回车库 → 再开局** ✓，
+且**全程无注入**（该套件自述：no injected outcome/damage/tickets/accelerated timers ✓）⇒ 属**真实运行** ✓✓。
