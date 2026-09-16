@@ -414,3 +414,37 @@ if rows.size() != args.size():
 | ② 一个坏参数 ✗ | **exit=1** ✓ · `bad arg …` ✓ + **`REFUSING to write …`** ✓ + **`MODERN_GEOMETRY_FAIL`** ✓ |
 | ③ 草案完整性 ✓ | **仍两车** ✓（**短草案被拒 ⇒ 好草案存活** ✓✓） |
 | ④ 流水线 ✓ | **exit=0** ✓ · `MODERN_PIPELINE_OK` ✓ · gap 仍 **9/10** ✓（**未变** ✓） |
+---
+
+## 22. ✅ **第三条假绿通道**（同一工具的"打开失败仍报成功"）✗ → 封死 ✓
+### 缺陷 ✗（改前 ✓）
+```gdscript
+var file := FileAccess.open(OUT_PATH,FileAccess.WRITE)
+if file != null:
+    …store_string…close…print("[geom] wrote ",OUT_PATH)
+print("MODERN_GEOMETRY_DONE")     # 无论是否写出都会打印 ✗
+quit(0)                            # 无论是否写出都以成功退出 ✗
+```
+⇒ **输出路径不可写 ⇒ 无草案 ⇒ 却报 `DONE` + exit 0** ✗ ⇒ 而**下游全部消费该草案** ✓（`geometry_check` ✓ · 层级探针 ✓ · 流水线 ✓）。
+### 修法 ✓
+`file == null` ⇒ 响亮失败 ✓：
+```
+[geom] FAILED to open <path> for writing (error <n>); no draft was produced
+MODERN_GEOMETRY_FAIL ; quit(1) ; return
+```
+且 `MODERN_GEOMETRY_DONE` **仅在写出之后**打印 ✓。
+### 验证 ✓
+| 用例 | 结果 |
+|---|---|
+| ① 成功路径 | **exit=0** ✓ · `wrote …` ✓ · `DONE` ✓（**未变** ✓） |
+| ② 短草案拒绝（上轮加固 ✓） | **exit=1** ✓ · `REFUSING to write …` ✓ · **FAIL** ✓（**回归通过** ✓） |
+| ③ 失败分支 | **源码直读**逐行确证 ✓（`FAILED to open …` ✓ · `FAIL` ✓ · `quit(1)` ✓ · `return` ✓） |
+| ④ 流水线 | **exit=0** ✓ · **`MODERN_PIPELINE_OK`** ✓ · gap **9/10 未变** ✓ |
+
+### 三处假绿通道汇总 ✓（本工具两条 ✓ + 检查器一条 ✓）
+| # | 位置 | 症状 | 状态 |
+|---|---|---|---|
+| 1 | `check_modern_geometry.gd` | 含 `=` 的参数被**静默跳过** ⇒ **少测车辆仍通过** ✗ | **已封** ✓ |
+| 2 | `generate_modern_geometry.gd` | 坏参数 `continue` ⇒ **少测车辆仍 `quit(0)`** ✗ | **已封** ✓ |
+| 3 | `generate_modern_geometry.gd` | 打开失败仍报 `DONE` + exit 0 ⇒ **无草案却成功** ✗ | **已封** ✓ |
+⇒ 三者同源 ✓：**"错误路径不致命"** ✗ ⇒ 今**全部改为响亮失败** ✓。

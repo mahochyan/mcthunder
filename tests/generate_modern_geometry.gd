@@ -41,12 +41,20 @@ func _run() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://logs/WT-040-R1"))
 	var file := FileAccess.open(OUT_PATH,FileAccess.WRITE)
-	if file != null:
-		file.store_string(JSON.stringify({"schema":1,
-			"note":"draft geometry measured from adapter artefacts; every field carries its method; hull_rings are floor/mid/roof",
-			"rows":rows}, "  ")+"\n")
-		file.close()
-		print("[geom] wrote ",OUT_PATH)
+	# WT-040-R1 HARDENING (third false-green path in this tool): the old code printed
+	# MODERN_GEOMETRY_DONE and quit(0) whether or not the file opened, so an unwritable output path
+	# produced NO draft while still reporting success - and every downstream consumer reads that draft.
+	# Success is now reported only after the write actually happened.
+	if file == null:
+		print("[geom] FAILED to open %s for writing (error %d); no draft was produced" % [OUT_PATH,FileAccess.get_open_error()])
+		print("MODERN_GEOMETRY_FAIL")
+		quit(1)
+		return
+	file.store_string(JSON.stringify({"schema":1,
+		"note":"draft geometry measured from adapter artefacts; every field carries its method; hull_rings are floor/mid/roof",
+		"rows":rows}, "  ")+"\n")
+	file.close()
+	print("[geom] wrote ",OUT_PATH)
 	print("MODERN_GEOMETRY_DONE")
 	quit(0)
 
