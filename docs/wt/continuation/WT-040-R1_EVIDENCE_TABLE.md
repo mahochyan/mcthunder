@@ -237,3 +237,23 @@ Build stopped at fresh_import; see recorded output. No verified release ZIP crea
 
 ⇒ **这正是用户第 ⑤ 步要求的链路** ✓：**正常车库 → 对局 → 结算 → 下一局 → 回车库 → 再开局** ✓，
 且**全程无注入**（该套件自述：no injected outcome/damage/tickets/accelerated timers ✓）⇒ 属**真实运行** ✓✓。
+
+---
+
+## 15. 真实对局套件的**上界、界面性质与断言**（只读源码 ✓）
+```gdscript
+create_timer(1500,true,false,true).timeout.connect(... print("NATURAL_MATCH_TIMEOUT"); quit(2))
+for map_index in 2:                       # 只有两张图
+    app.garage.vehicle_choice.select(1)   # 真实车库控件
+    app.garage.preparation.mode_choice.select(1)
+    app.garage.preparation.map_choice.select(map_index)
+    app.enter_laboratory("team")          # 真实入口
+    for tick in 36500: …                  # 单图上限 608 s
+```
+| 性质 ✓ | 说明 |
+|---|---|
+| **走真实界面** ✓ | 不是绕过界面：直接驱动**车库选车/模式/地图**控件并 `enter_laboratory("team")` ✓ |
+| **上界明确** ✓ | 两张图 ✓ + 单图 608 s ✓ + **1500 s 硬超时** ✓ ⇒ **会自己结束** ✓ |
+| **断言强** ✓ | `reason ∈ {tickets, time_limit}` ✓ · `combat_summary == director.report` ✓ · 票据冻结 ✓ · `apply_result_once` 幂等 ✓ |
+
+⇒ 该套件同时是第 ⑤ 步"**走正常入口**"的**可执行证据** ✓✓。
