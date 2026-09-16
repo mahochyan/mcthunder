@@ -34,7 +34,7 @@
 | 资产侧 | ④ 适配产物 ✓ · ⑤ 可执行部分 ✓ · draft layout/binding ✓ | `WT-030D-R2_AUTHOR_DATA_REQUEST.md` · 两个 draft 报告 JSON ✓ |
 
 ## 4. 变更清单（相对基线 `a1bac406`）
-- 提交数：`git -C <cont> rev-list --count a1bac406..HEAD`（**184**，本行随分支增长 ✓）
+- 提交数：`git -C <cont> rev-list --count a1bac406..HEAD`（**298** —— 为**撰写时快照** ✓，**以命令输出为准** ✓）
 - **产品代码净变更**：61 files changed, 3780 insertions(+), 21 deletions(-)
 - **测试代码**：69 files changed, 3769 insertions(+), 11 deletions(-)；**导出预设（E1 授权）**：1 file changed, 55 insertions(+)
 - 交付文档：**121** 份（`DOC_INDEX.md` ✓）；本会话新增测试/工具 **36** 个（含 T039-E / T039-D / 路由探针 / 适配产物工具 ✓）
@@ -110,7 +110,7 @@
 `run_modern_vehicle_pipeline.ps1` ✓ · `generate_modern_geometry.gd` ✓ · `check_modern_geometry.gd` ✓ · `build_modern_{facts,armor,crew,modules,evidence}_draft.gd` ✓ · `check_modern_package_gaps.gd` ✓ · `probe_package_layers.gd` ✓ · `probe_source_nodes.gd` ✓ · `probe_river_graph_size.gd` ✓ · `export_model_binding_adapter.gd`（参数化 ✓）
 
 ### 6.7 更新后的**变更清单**（相对基线 `a1bac406` ✓）
-- 提交数 ✓：`git -C <cont> rev-list --count a1bac406..HEAD`（**287** ✓，随分支增长 ✓）
+- 提交数 ✓：`git -C <cont> rev-list --count a1bac406..HEAD`（**298** —— 为**撰写时快照** ✓，**以命令输出为准** ✓）
 - **产品代码** ✓：本次会话**仅 1 处 8 行**有意修正（`scripts/content/role_mapping_audit.gd` 的 `GUN_MESH_HINTS` ✓）；`modern_model_mount_adapter.gd` ✓ 与 `river_junction_navigation.gd` ✓ **逐字节等于基线** ✓
 - **红线** ✓：全部遵守 ✓（**未改构建发布流程** ✓ · 未 force push ✓ · 未改基线提交 ✓ · 主工作区全程未动 ✓ porcelain **379** ✓）
 ### 6.8 ⚠️ **边界澄清**：`docs/planning/TASK_STATUS.json` **不得由实施方修改** ✗✓
