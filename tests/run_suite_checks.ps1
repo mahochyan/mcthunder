@@ -8,6 +8,11 @@ param(
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'read_suite_log.ps1')
 if('run_art_checks' -in $Suites -and 'run_menu_fire_handoff_checks' -notin $Suites){$Suites += 'run_menu_fire_handoff_checks'}
+# WT-040-R1: the two engineering vehicles have their own runtime suite - admitted through the production
+# catalog, spawned as real actors, fired through the real projectile manager and reset. It is appended
+# the same way, so the standing regression covers them without changing how any existing suite runs.
+if('run_checks' -in $Suites -and 'run_engineering_runtime_checks' -notin $Suites){$Suites += 'run_engineering_runtime_checks'}
+if('run_checks' -in $Suites -and 'check_engineering_admission' -notin $Suites){$Suites += 'check_engineering_admission'}
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $engine = if ($EnginePath) { $EnginePath } else { Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.exe' }
 if (-not (Test-Path -LiteralPath $engine)) { throw "Fixed Godot missing: $engine" }
