@@ -57,5 +57,15 @@ func _run() -> void:
 			failed += 1
 	print("[admit] all loaded ids: ",defs.vehicles.keys())
 	print("[admit] rejected: ",catalog.rejected.keys())
-	print("ENGINEERING_ADMISSION_PASS" if failed == 0 else "ENGINEERING_ADMISSION_FAIL")
-	quit(0 if failed == 0 else 1)
+	# WT-040-R1: per-vehicle result lines, so the runner reports a real check count for this suite instead of
+	# zero. The marker and the exit code already made it a valid gate; this removes the reporting gap.
+	var named := 0
+	var named_failed := 0
+	for id in VehicleCatalog.ENGINEERING_IDS:
+		named += 1
+		var ok: bool = defs.vehicles.has(id) and not catalog.rejected.has(id)
+		if not ok: named_failed += 1
+		print(("[PASS] " if ok else "[FAIL] ")+id+" admitted through the production catalog with its binding and model source")
+	print("=== result: %d checks, %d failed ===" % [named,named_failed])
+	print("ENGINEERING_ADMISSION_PASS" if (failed == 0 and named_failed == 0) else "ENGINEERING_ADMISSION_FAIL")
+	quit(0 if (failed == 0 and named_failed == 0) else 1)

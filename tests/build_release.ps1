@@ -10,9 +10,10 @@ $ErrorActionPreference = 'Stop'
 # failing check - suite name, how many checks failed, and text that must appear among those failures -
 # never a whole suite. A new or different failure inside a registered suite still stops the build.
 $deviationRegister = @(
-    [pscustomobject]@{ suite='run_industrial_battle_checks'; failures=1; must_match='physically reach central approaches'; reason='registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)' },
-    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' }
+    [pscustomobject]@{ suite='run_industrial_battle_checks'; failures=1; signatures=@([pscustomobject]@{match='at least three actual slots from each team physically reach central approaches';count=1}); must_match='physically reach central approaches'; reason='registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)' },
+    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' }
 )
+. (Join-Path $PSScriptRoot 'candidate_register_match.ps1')   # WT-040-R1: the shared, tested matcher
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $sourceSha = (& git -C $projectRoot rev-parse HEAD).Trim()
 if ($sourceSha -notmatch '^[0-9a-f]{40}$') { throw 'Cannot resolve committed source identity' }
@@ -149,7 +150,10 @@ if ($failing.Count -gt 0) {
         if ($suiteLog) { $failLines=@(Select-String -LiteralPath $suiteLog.FullName -Pattern '^\[FAIL\]' | ForEach-Object { $_.Line.Trim() }) }
         if ($failLines.Count -ne [int]$entry[0].failures) { throw "Candidate build: $($f.suite) failed $($failLines.Count) check(s) but the register allows $([int]$entry[0].failures) - a DIFFERENT failure is present" }
         if ($entry[0].must_match -and -not (@($failLines | Where-Object { $_ -match $entry[0].must_match }).Count -gt 0)) { throw "Candidate build: $($f.suite) failures do not carry the registered signature '$($entry[0].must_match)'" }
-        $knownFailures += [pscustomobject]@{ suite=$f.suite; checks=$f.checks; failures=$failLines.Count; detail=$failLines; reason=$entry[0].reason }
+        # The match itself lives in tests/candidate_register_match.ps1 so the build runs the very same logic
+        # that its negative test asserts against. A copy would prove nothing.
+        $verdict = Test-CandidateFailureSet -Entry $entry[0] -FailLines $failLines -ResultRow $f
+        if (-not $verdict.ok) { throw ("Candidate build: " + $f.suite + " " + $verdict.reason) }        $knownFailures += [pscustomobject]@{ suite=$f.suite; checks=$f.checks; failures=$failLines.Count; detail=$failLines; reason=$entry[0].reason }
         Write-Output "KNOWN FAILURE ACCEPTED (candidate only): $($f.suite) - $($failLines.Count) check(s) - $($entry[0].reason)"
     }
 }
