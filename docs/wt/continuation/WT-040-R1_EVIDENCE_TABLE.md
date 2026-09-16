@@ -570,3 +570,36 @@ B4 = `run_challenge_checks` 的**测试夹具边界** ✓（已登记 ✓，您�
 - **无法**由任何已跟踪源码差异解释 ✓；
 - ⇒ ⇒ **唯有一次新构建**可判定其是否仍存在 ✓ ⇒ **④b 与 ④ 一并决定** ✓（决策表 §④b 已如此写 ✓）。
 - 全过程**未改动** `export_presets.cfg` ✓ / `build_release.ps1` ✓ / 任何产品代码 ✓。
+
+---
+
+## 28. 🔬 导出包内部扫描：**一次无效测量 + 一次有效但非决定性的测量** ✓✗
+
+### 28.1 ❌ 无效测量（我自己的错 ✓）
+用 `[System.Text.Encoding]::Latin1` ✗ —— **该成员在 Windows PowerShell 5.1 不存在** ⇒ `$text` 为 **null** ⇒
+`$text.IndexOf(...) -ge 0` 在 null 上恒 **False** ⇒ ⇒ **我打印出了一整张假阴性表** ✗✗
+⇒ **同一族信号陷阱的第 6 次** ✓（判据本身失效而不自知 ✓）。**该结果全部作废** ❌。
+
+### 28.2 ✓ 修法与守卫（**这才使两次测量都可信** ✓）
+```powershell
+$enc = [System.Text.Encoding]::GetEncoding(28591)   # Latin-1，PS 5.1 可用
+$text = $enc.GetString($bytes)
+if ($text.Length -ne $bytes.Length) { return }        # 长度守卫
+# 并加对照组：'Godot' / 'GDScript' / 'res://' 必须命中，否则搜索无效
+```
+实测 ✓：字节数 **109,137,920 == 解码长度** ✓ ⇒ 有效 ✓；对照 `Godot` ✓ `GDScript` ✓ `res://` ✓ **均命中** ✓。
+
+### 28.3 有效测量的结果 ✓ 与**其局限** ✗
+| 搜索项 | 结果 |
+|---|---|
+| `configs/player_tank_vehicle` · `_weapon` · `ap_75_shell` | 纯字符串**未命中** ✗ |
+| `scripts/defs/vehicle_defs` · `vehicle_definition` | **未命中** ✗ |
+| `player_tank` · `loading_profile` · `fire_control_profile` · `optics_profile` | **未命中** ✗ |
+| **但** `.res` ×38 ✓ · `.tres` ×9 ✓ · `.scn` ×2 ✓ · **`GDPC`/`.pck` ×5** ✓ | ⇒ **包内确实内嵌资源** ✓ |
+
+⇒ ⇒ **诚实结论** ✗：Godot 导出把 `.tres` **转二进制并压缩 pck** ⇒ **纯字符串搜索看不到 pck 内部** ⇒
+**"未命中" ≠ "文件缺失"** ✗ ⇒ ⇒ **本条不能定论** ⇒ **④b 病因仍为 OPEN** ✗ ⇒ **仍只有新构建（或 pck 读取器）能判定** ✓。
+
+### 28.4 方法论收获 ✓
+**对照组 + 长度守卫**同时暴露了两件事 ✓：**判据失效**（§28.1 ✗）与**结论不成立**（§28.3 ✗）⇒
+两处若缺其一，都会被我误报为"**导出包缺文件**" ✗。
