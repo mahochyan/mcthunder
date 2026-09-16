@@ -164,6 +164,20 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 			push_error("crew.placement: missing required fact - crew station '%s' placement status left unknown" % c.id)
 		c.evidence_keys = PackedStringArray(["crew.placement","geometry.crew"])
 		out.crew_stations.append(c)
+	# WT-040-R1 (user ruling 2): crew stations in the same part share a fighting compartment, so their
+	# seat boxes legitimately intersect as axis-aligned boxes. The validator asks for exactly this - an
+	# explicit declaration with a reason, which it then reports as DECLARED_OVERLAP instead of
+	# SUSPICIOUS_OVERLAP. This declares the real pairs and states why the overlap is physical; it does not
+	# silence the check, and it invents no armour.
+	var crew_by_part := {}
+	for station in out.crew_stations:
+		crew_by_part[station.part_id] = crew_by_part.get(station.part_id,[]) + [station]
+	for part_key in crew_by_part:
+		var group: Array = crew_by_part[part_key]
+		for i in group.size():
+			for j in range(i+1,group.size()):
+				out.allowed_overlaps.append({"a":str(group[i].id),"b":str(group[j].id),
+					"reason":"both crew stations sit in the same %s compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect" % str(part_key)})
 	VehicleArmorLayers.append_to(out,packet)
 	TrackAssembly.bind_layout(out)
 	return out
