@@ -110,7 +110,15 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		c.id = row.id; c.role = row.role; c.part_id = row.part
 		c.local_box_transform.origin = vec(row.position); c.size_m = vec(row.size)
 		c.position_status = "estimated"; c.volume_status = "estimated"
-		c.role_placement_status = packet.facts["crew.placement"].status
+		# WT-040-R1 audit integrity: a missing fact must be a NAMED, loud failure, never a silent
+		# default and never an unhandled property access on a missing key. The value stays the honest
+		# "unknown" rather than being promoted to estimated or verified, and the evidence gate reports
+		# the missing fact separately, so this guard does not swallow it.
+		if packet.facts.has("crew.placement") and packet.facts["crew.placement"] is Dictionary:
+			c.role_placement_status = packet.facts["crew.placement"].status
+		else:
+			c.role_placement_status = "unknown"
+			push_error("crew.placement: missing required fact - crew station '%s' placement status left unknown" % c.id)
 		c.evidence_keys = PackedStringArray(["crew.placement","geometry.crew"])
 		out.crew_stations.append(c)
 	VehicleArmorLayers.append_to(out,packet)
@@ -147,8 +155,17 @@ static func face(out: VehicleLayoutDefinition, packet: Dictionary, id: String, p
 	p.vertices_local_m.append(centroid)
 	for i in vertices.size(): p.triangles.append_array(PackedInt32Array([vertices.size(),i,(i+1)%vertices.size()]))
 	p.outward_normal_local = n
-	var armor: Dictionary = packet.armor[zone]
-	var evidence: Dictionary = packet.facts[armor.fact]
+	# WT-040-R1 audit integrity: a missing armour zone or fact used to crash here with an unhandled
+	# property access, which aborted the whole reconstruction and let the audit report zero gaps on a
+	# run that had not completed. Both reads are guarded and both failures are named with their path.
+	var armor: Dictionary = packet.armor.get(zone,{})
+	if armor.is_empty() or not armor.has("fact"):
+		push_error("armor.%s: missing armour zone record while reconstructing patch '%s'" % [zone,id])
+		return
+	var evidence: Dictionary = packet.facts.get(str(armor.get("fact","")),{})
+	if evidence.is_empty():
+		push_error("%s: missing armour fact while reconstructing patch '%s'" % [str(armor.get("fact","")),id])
+		return
 	p.has_thickness = evidence.status != "unknown"
 	p.thickness_mm = float(armor.get("local_mm",evidence.value)) if p.has_thickness else 0.0
 	p.thickness_status = "estimated" if armor.has("local_mm") else evidence.status
