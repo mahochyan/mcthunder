@@ -546,3 +546,27 @@ B4 = `run_challenge_checks` 的**测试夹具边界** ✓（已登记 ✓，您�
 ### 26.5 处置 ✓（**严守红线** ✓）
 修复属**导出过滤 / 构建发布流程** ✗ ⇒ **未改** ✓ ⇒ **报告** ✓（并**强化授权 ④ 的必要性** ✓）。
 另记 ✗：`RESULTS.json` 的 `"checks": 0` ✗ 与 `"human": "PENDING"` ✓ ⇒ 校验器**判定记账不完整** ✓（仅记录 ✓，不改 ✓）。
+
+---
+
+## 27. 🔬 **导出包缺陷的取证链**（只读 ✓，结论：**当前树不可复现** ⇒ 并入 ④ ✓）
+
+### 27.1 链条 ✓
+| 步 | 做法 | 结果 |
+|---|---|---|
+| 1 | 读导出预设 `export_presets.cfg` ✓ | `export_filter=all_resources` ✓ · `include=configs/**/*.json,…` ✓ · `exclude=docs/*,logs/*,backups/*,tools/*,order/*,assets/reference_data/*` ✓ |
+| 2 | 定位加载点 ✓ | `scripts/defs/vehicle_defs.gd:6-8,20-22` ✓ ⇒ **`load("res://configs/…tres")`** ✓ ⇒ **导出安全** ✓ ⇒ 加载方式**不是**病因 ✓ |
+| 3 | 读默认定义资源 ✓ | `configs/player_tank_vehicle.tres` **全文 25 行** ✓ ⇒ **完全不含** `loading_profile` / `fire_control_profile` / `optics_profile` 键 ✓ ⇒ 档案靠**脚本 `@export` 默认值**构建 ✓ |
+| 4 | 写探针验当前树 ✓ | `tests/probe_default_defs.gd` ✓ ⇒ **`load_defaults ok=true`** ✓ · **`error count=0`** ✓ · **`player_tank loading=true fire_control=true optics=true`** ✓ |
+| 5 | 比对包所用提交 ✓ | `vehicle_definition.gd` 自 `34c45591` **0 改动** ✓；三个默认 `.tres` **0 差异** ✓（均 25 行 ✓） |
+| 6 | ⇒ 推论 ✓ | **差异不在已跟踪源码** ✗ ⇒ 只能来自**导出过程**或**构建时未跟踪状态**（`.godot` 导入缓存 ✓ / 导出资源转换 ✓） |
+
+### 27.2 ❌ **作废的数据点**（我自己的错误 ✓）
+我用 `configs/test_player_vehicle_layout.tres` 判断"旧提交中不存在" ✗ ⇒ **路径本身不对**（实际在 `configs/layouts/` ✓）⇒ **该结论作废** ❌。
+（旁证 ✓：`configs` 下 `.tres` 数量 **旧 12 = 今 12** ✓。）
+
+### 27.3 结论 ✓
+- 该缺陷**在当前树不可复现** ✓（探针通过 ✓）；
+- **无法**由任何已跟踪源码差异解释 ✓；
+- ⇒ ⇒ **唯有一次新构建**可判定其是否仍存在 ✓ ⇒ **④b 与 ④ 一并决定** ✓（决策表 §④b 已如此写 ✓）。
+- 全过程**未改动** `export_presets.cfg` ✓ / `build_release.ps1` ✓ / 任何产品代码 ✓。
