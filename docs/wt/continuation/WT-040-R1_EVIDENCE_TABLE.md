@@ -510,3 +510,39 @@ if (Test-Path -LiteralPath $manifestPath) {          # 仅在存在时才校验 
 历史 `logs/031/*/PACKAGE.json` 仅两份（`b9051149…` ✓ / `9998f448…` ✓，均 **09-10** ✗）且其 zip **已不存在** ✗。
 脚本 `-SourceSha` **必填且须 40 位十六进制** ✓ ⇒ 若填**当前 HEAD** 即等于**宣称**该 exe 出自当前提交 ✗ ⇒ **不实** ⇒ **未执行** ✗。
 ⇒ ⇒ 选项 ④ 的目标（**与已知源码绑定**的独立包校验 ✓）**仍需一次新构建** ✓。
+
+---
+
+## 26. 🎯🎯 **首例真实导出包的独立验证** ✓✓ —— 并抓到一处**真实打包缺陷** ✗
+
+### 26.1 运行事实 ✓
+| 项 | 值 |
+|---|---|
+| 命令 | `run_player_flow_checks.ps1 -Executable backups/builds/PixelArmorClient.exe -SourceSha 34c45591…` ✓ |
+| 包 | `PixelArmorClient.exe` **104.1 MB** ✓（构建时间 2026-09-15 09:28:51 ✓） |
+| **`-SourceSha` 来源** ✓ | **由构建时刻反推**（`git log --before=2026-09-15T09:28:51 -1` ✓ ⇒ `34c45591a587eb75f78d158c5696030549bf459a` ✓，距基线 **173** 提交 ✓）⇒ **非**来自 manifest ✗ ⇒ 已写入 `logs/WT-040-R1/playerflow-PROVENANCE.txt` ✓（**明确标注为推断** ✓） |
+| 结果 | **`=== 结果: 8 项检查, 2 失败 ===`** ✗（**6 通过 / 2 失败** ✓） |
+| 证据 | `logs/034/34c45591…/20260916-120427/` ✓（`RESULTS.json` ✓ · `stdout.log` ✓ · `stderr.log` ✓ · **2 张真截图** ✓） |
+
+### 26.2 通过项 ✓（**真实渲染** ✓）
+`[PASS] actual rendered Release player-flow verification` ✓ · `00_garage_main_menu.png`（**152.8 KB** ✓）·
+`normal UI control is visible before click` ✓ · `normal garage challenge button opens task selection` ✓ ·
+`01_challenge_rules.png`（**118.6 KB** ✓）· 再次 `UI control is visible before click` ✓
+⇒ **包能启动、能渲染、能导航** ✓。
+
+### 26.3 失败项 ✗ 与**根因**（包自身 stderr ✓）
+[FAIL] normal challenge launch and countdown starts actual scene ✗ · [FAIL] normal challenge player flow reached its final step ✗
+```
+ERROR: ballistics: defs load failed: vehicle player_tank:
+       loading_profile: missing, fire_control_profile: missing, optics_profile: missing, …
+```
+⇒ **导出包缺少模块档案**（装填/火控/光学 ✓）✗ ⇒ 挑战**一启动即失败** ✓；
+旁证 ✓：`RESULTS.json` 的 **5 张缺失截图**（`05_real_shot_replay` ✓ · `09_battle_0/1` ✓ · `10_settled_0/1` ✓）✓。
+
+### 26.4 与 **B4** 的区别 ✓✓（**不同类** ✓）
+B4 = `run_challenge_checks` 的**测试夹具边界** ✓（已登记 ✓，您已裁定 ✓）；
+本次 = **导出包本身缺数据** ✗ ⇒ **打包/导出缺陷** ✓ ⇒ **不是** B4 ✓ ⇒ **如实区分** ✓。
+
+### 26.5 处置 ✓（**严守红线** ✓）
+修复属**导出过滤 / 构建发布流程** ✗ ⇒ **未改** ✓ ⇒ **报告** ✓（并**强化授权 ④ 的必要性** ✓）。
+另记 ✗：`RESULTS.json` 的 `"checks": 0` ✗ 与 `"human": "PENDING"` ✓ ⇒ 校验器**判定记账不完整** ✓（仅记录 ✓，不改 ✓）。

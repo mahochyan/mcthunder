@@ -1,0 +1,7 @@
+﻿玩家流程校验所用的 -SourceSha 来源说明
+包: E:\AIprogram\mcthunder-cont\backups\builds\PixelArmorClient.exe（104.1 MB，构建时间 2026-09-15 09:28:51）
+该包无 BUILD_MANIFEST.json，故 source_sha 无处可读。
+本 sha 由构建时刻反推：git log --before=2026-09-15T09:28:51 -1
+sha = 34c45591a587eb75f78d158c5696030549bf459a
+性质：推断（强，但非清单记录）。run_player_flow_checks.ps1 在无 manifest 时跳过比对，故该值仅用于日志标注。
+未据此宣称任何清单级保证。
