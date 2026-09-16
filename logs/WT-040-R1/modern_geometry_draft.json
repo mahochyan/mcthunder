@@ -2,7 +2,7 @@
   "note": "draft geometry measured from adapter artefacts; every field carries its method; hull_rings are floor/mid/roof",
   "rows": [
     {
-      "adapter_path": "res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb",
+      "adapter_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
       "fields": {
         "barrel_length": 6.134,
         "gun_origin": [
@@ -10,34 +10,34 @@
           1.638,
           -1.042
         ],
-        "hull_half_width": 1.903,
+        "hull_half_width": 1.314,
         "hull_rings": [
           [
-            -0.258,
-            1.694,
-            -6.481,
-            1.795
+            0.435,
+            1.117,
+            -2.699,
+            2.681
           ],
           [
-            0.8,
-            1.903,
-            -6.489,
-            3.214
+            0.992,
+            1.314,
+            -3.175,
+            3.155
           ],
           [
-            1.857,
-            0.869,
-            -6.482,
-            2.621
+            1.549,
+            1.314,
+            -1.36,
+            3.155
           ]
         ],
-        "mantlet_half_height": 0.081,
-        "mantlet_half_width": 0.364,
+        "mantlet_half_height": 0.236,
+        "mantlet_half_width": 0.169,
         "muzzle_brake": false,
         "open_top": false,
-        "ring_half": 0.739,
-        "track_width": 0.602,
-        "turret_bottom": 1.421,
+        "ring_half": 1.117,
+        "track_width": 0.601,
+        "turret_bottom": 1.416,
         "turret_origin": [
           0.0,
           1.447,
@@ -45,96 +45,136 @@
         ],
         "turret_outline": [
           [
-            -1.486,
-            -0.262
+            -1.282,
+            -0.309
           ],
           [
-            -1.481,
-            -0.428
+            -1.225,
+            -0.562
           ],
           [
-            -1.476,
-            -0.456
+            -1.093,
+            -0.785
           ],
           [
-            -1.432,
-            -0.636
+            -0.922,
+            -0.977
           ],
           [
-            -1.407,
-            -0.713
+            -0.719,
+            -1.132
           ],
           [
-            -0.749,
-            -1.147
+            -0.484,
+            -1.225
           ],
           [
-            -0.494,
-            -1.223
+            -0.241,
+            -1.273
           ],
           [
-            -0.249,
-            -1.29
+            0.001,
+            -1.277
           ],
           [
-            0.48,
-            -1.42
+            0.244,
+            -1.272
           ],
           [
-            0.735,
-            -1.42
+            0.484,
+            -1.218
           ],
           [
-            0.762,
-            -1.411
+            0.721,
+            -1.131
           ],
           [
-            1.382,
-            -0.656
+            0.923,
+            -0.976
           ],
           [
-            1.559,
-            0.096
+            1.094,
+            -0.784
           ],
           [
-            1.563,
-            0.118
+            1.225,
+            -0.561
           ],
           [
-            1.563,
-            0.488
+            1.285,
+            -0.309
           ],
           [
-            1.445,
-            0.942
+            1.266,
+            -0.054
           ],
           [
-            1.104,
-            1.444
+            1.199,
+            0.184
           ],
           [
-            0.757,
-            1.528
+            1.117,
+            0.408
           ],
           [
-            0.598,
-            1.528
+            1.001,
+            0.614
           ],
           [
-            -1.194,
-            1.444
+            0.854,
+            0.799
           ],
           [
-            -1.464,
-            0.006
+            0.675,
+            0.955
           ],
           [
-            -1.486,
-            -0.159
+            0.467,
+            1.072
+          ],
+          [
+            0.24,
+            1.144
+          ],
+          [
+            0.001,
+            1.17
+          ],
+          [
+            -0.237,
+            1.145
+          ],
+          [
+            -0.465,
+            1.073
+          ],
+          [
+            -0.674,
+            0.956
+          ],
+          [
+            -0.853,
+            0.801
+          ],
+          [
+            -1.0,
+            0.615
+          ],
+          [
+            -1.116,
+            0.409
+          ],
+          [
+            -1.198,
+            0.185
+          ],
+          [
+            -1.266,
+            -0.054
           ]
         ],
-        "turret_taper": 0.677,
-        "turret_top": 2.527,
+        "turret_taper": 0.866,
+        "turret_top": 2.032,
         "wheel_count": 6,
         "wheel_radius": 0.338
       },
@@ -144,11 +184,11 @@
         "gun_origin": "global position of the GunPivot node in the adapter",
         "hull_half_width": "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)",
         "hull_rings": "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes",
-        "mantlet_half_height": "DERIVED (no separate mantlet mesh on this model): half of the gun mesh's rear-quarter y-extent; author may replace | FLOOR: raised to >= 1.3x the cited bore radius (0.0625 m) so the shield encloses the hole",
-        "mantlet_half_width": "DERIVED (no separate mantlet mesh on this model): maximum |x| of the gun mesh's rear quarter, which is where a mantlet sits; author may replace | FLOOR: raised to >= 1.6x the cited bore radius (0.0625 m) so the shield encloses the hole",
+        "mantlet_half_height": "half of the mantlet mesh y-extent | FLOOR: raised to >= 1.3x the cited bore radius (0.0625 m) so the shield encloses the hole",
+        "mantlet_half_width": "maximum |x| of the mantlet/shield mesh vertices | FLOOR: raised to >= 1.6x the cited bore radius (0.0625 m) so the shield encloses the hole",
         "muzzle_brake": "from the adapter artefact report (geometric tip check), see the note",
         "open_top": "INFERRED: enclosed main battle tank, top band is closed; not a visual review",
-        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (0.869 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
+        "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (1.314 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
         "turret_origin": "global position of the TurretPivot node in the adapter",
@@ -159,19 +199,17 @@
         "wheel_radius": "half of the largest wheel mesh y-extent"
       },
       "notes": [
-        "hull mesh chosen for measurement: Body",
-        "hull ring 0 used 274 nearest vertices, effective y tolerance 0.259 m",
-        "hull ring 1 used 274 nearest vertices, effective y tolerance 0.019 m",
-        "hull ring 2 used 274 nearest vertices, effective y tolerance 0.263 m",
+        "hull mesh chosen for measurement: HullArmour",
+        "hull ring 0 used 6 nearest vertices, effective y tolerance 0.000 m",
+        "hull ring 1 used 6 nearest vertices, effective y tolerance 0.030 m",
+        "hull ring 2 used 6 nearest vertices, effective y tolerance 0.000 m",
         "open_top is inferred, not visually verified",
-        "mantlet fields are DERIVED from the gun mesh rear quarter because this model has no mantlet mesh",
-        "mantlet enlarged to enclose the bore: half-width 0.364 -> 0.364, half-height 0.054 -> 0.081 (bore 0.0625)",
         "muzzle_brake is a geometric guess, not a documentary fact"
       ],
       "ok": true
     },
     {
-      "adapter_path": "res://assets/vehicles/adapters/germ_leopard_2a4/vehicle_adapter.glb",
+      "adapter_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
       "fields": {
         "barrel_length": 5.697,
         "gun_origin": [

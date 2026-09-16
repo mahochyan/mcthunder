@@ -12,8 +12,8 @@
         "year": 2026
       },
       "dimensions": {
-        "reference_length_m": 9.703,
-        "width_m": 5.01
+        "reference_length_m": 6.33,
+        "width_m": 3.83
       },
       "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
       "emitted": [
@@ -112,7 +112,7 @@
             "mcthunder_pipeline"
           ],
           "status": "estimated",
-          "value": 9.703
+          "value": 6.33
         },
         "dimensions.width_m": {
           "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
@@ -121,7 +121,7 @@
             "mcthunder_pipeline"
           ],
           "status": "estimated",
-          "value": 5.01
+          "value": 3.83
         },
         "identity.suspension": {
           "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",

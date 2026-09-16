@@ -22,8 +22,13 @@ if (-not (Test-Path $godot)) {
 }
 $logs = Join-Path $root 'logs\WT-040-R1'
 New-Item -ItemType Directory -Force -Path $logs | Out-Null
-$adapterT = 'res://assets/vehicles/adapters/ussr_t_80b/vehicle_adapter.glb'
-$adapterL = 'res://assets/vehicles/adapters/germ_leopard_2a4/vehicle_adapter.glb'
+# WT-040-R1: measure the artefact we INTEND TO BIND. The comparison probe showed modern_bound carries all
+# six role frames and every Attachment_* anchor while the adapter carries neither, and the two disagree on
+# the T-80B envelope (3.785x2.785x10.008 versus 3.638x2.427x9.424), which is exactly what produced the
+# "model rest pose differs from combat geometry" errors. Measuring the shipped model is the fix; loosening
+# the binding tolerances would only have hidden the disagreement.
+$adapterT = 'res://assets/vehicles/modern_bound/ussr_t_80b.glb'
+$adapterL = 'res://assets/vehicles/modern_bound/germ_leopard_2a4.glb'
 # source models are NOT named here on purpose - see the encoding note below; they come from the dossiers
 $dossierT = 'res://assets/reference_data/candidates/ussr_t_80b.json'
 $dossierL = 'res://assets/reference_data/candidates/germ_leopard_2a4.json'
