@@ -42,6 +42,7 @@ func aim_at(battle: ChallengeRange, point: Vector3) -> void:
 	# requested point (the barrel follows it), and the barrel is given a bounded number of passes to settle.
 	# Nothing about armour, damage, cooldown or inventory is written, and no game criterion is relaxed.
 	var aim_tolerance := 0.03
+	var aim_target: Vector3 = point
 	var aim_settled := false
 	for pass_index in 60:
 		var muzzle_at: Vector3 = battle.actor.turret.muzzle.global_position
@@ -52,7 +53,13 @@ func aim_at(battle: ChallengeRange, point: Vector3) -> void:
 			aim_settled = true
 			print("[aim] barrel converged miss=%.4f m on pass %d" % [miss, pass_index])
 			break
-		var aim_delta := point - battle.actor.cam_rig.cam.global_position
+		# WT-040-R1: the camera's intent_point is the FIRST surface its ray hits, so aiming it at a point behind
+		# armour pins the barrel about 0.13 m high - measured residuals were 0.1396 m from one firing position
+		# and 0.1316 m from another, which is why the position was ruled out as the cause. The camera target is
+		# therefore shifted each pass by the vector from where the barrel line passes closest to the requested
+		# point, so the correction acts on the barrel's own error. No game value is written or relaxed.
+		aim_target = aim_target + (point - (muzzle_at + barrel_dir*to_point.dot(barrel_dir)))
+		var aim_delta := aim_target - battle.actor.cam_rig.cam.global_position
 		var aim_yaw := atan2(-aim_delta.x,-aim_delta.z)
 		var aim_pitch := atan2(aim_delta.y,Vector2(aim_delta.x,aim_delta.z).length())
 		var aim_motion := InputEventMouseMotion.new()
