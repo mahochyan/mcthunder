@@ -56,11 +56,20 @@ func _ready() -> void:
 	if not lr.ok:
 		push_error("ballistics: defs load failed: %s" % ", ".join(lr.errors))
 		return
-	if selected_vehicle_id in VehicleCatalog.IDS:
+	# WT-040-R1 (2026-09-17 ruling): the catalog load used to be gated on the selected vehicle being HISTORICAL,
+	# so selecting an admitted engineering vehicle skipped the whole block and actor setup then failed with
+	# "unknown vehicle" - the direct wiring check caught exactly that. The definitions are now loaded the same way
+	# for every selection, which is what "one controlled path" means: load_defaults for the fixture, load_all for
+	# the curated historical roster (still historical-only) and load_engineering for the admitted engineering set.
+	if true:
 		historical_catalog = VehicleCatalog.new()
 		var loaded := historical_catalog.load_all(defs)
 		if not loaded.ok:
 			push_error("historical content admission: "+", ".join(loaded.errors))
+			return
+		var engineering := historical_catalog.load_engineering(defs)
+		if not engineering.ok:
+			push_error("engineering content admission: "+", ".join(engineering.errors))
 			return
 	controller = PlayerController.new()
 	controller.name = "PlayerController"

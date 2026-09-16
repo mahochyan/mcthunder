@@ -302,7 +302,12 @@ func vehicle_id_for_slot(id: String) -> String:
 			requested = selected_vehicle_id
 	# WT-031-R1: AI slots and respawn go through the same readiness gate as the player;
 	# a preview-only or unadmitted id can never reach the battlefield.
-	var catalog := VehicleCatalog.new()
+	# WT-040-R1 (2026-09-17 ruling): use the definitions the MATCH actually loaded. A fresh VehicleCatalog has an
+	# empty packages dictionary, so the readiness gate fell back to VehicleCatalog.IDS and every engineering
+	# vehicle was ineligible - the AI slots then took the first historical type instead of the chosen engineering
+	# one, which the direct wiring check showed as definition id us_m4a3_75w_vvss_1944 on every AI slot. No gate
+	# is widened; the gate now simply sees the same admitted set the spawn path uses.
+	var catalog: VehicleCatalog = historical_catalog if historical_catalog != null else VehicleCatalog.new()
 	var checked := VehicleReadiness.eligible(requested,"training",{},catalog)
 	if checked.ok: return requested
 	var gate_mode := "engineering" if VehicleCatalog.is_engineering(selected_vehicle_id) else "training"
