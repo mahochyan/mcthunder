@@ -15,7 +15,7 @@ $run = Get-ChildItem -LiteralPath $runRoot -Directory | Sort-Object LastWriteTim
 Write-Output ("run dir    = " + $run.FullName)
 
 # The package may be a directory tree or an extracted zip; look for the executable and its manifest.
-$exe = Get-ChildItem -LiteralPath $run.FullName -Recurse -File -Filter 'PixelArmorClient.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
+$exe = Get-ChildItem -LiteralPath $run.FullName -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -in @('PixelArmor.exe','PixelArmorClient.exe') } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 if (-not $exe) {
     Write-Output "no PixelArmorClient.exe yet; listing what exists:"
     Get-ChildItem -LiteralPath $run.FullName -Recurse -File -Include '*.exe','*.zip','BUILD_MANIFEST.json' -ErrorAction SilentlyContinue |

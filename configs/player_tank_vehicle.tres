@@ -1,25 +1,32 @@
-[gd_resource type="Resource" script_class="VehicleDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="VehicleDefinition" format=3]
 
+[ext_resource type="Script" path="res://scripts/drive/drive_profile.gd" id="1_7tbgx"]
 [ext_resource type="Script" path="res://scripts/defs/vehicle_definition.gd" id="1_abcde"]
+[ext_resource type="Script" path="res://scripts/defs/fire_control_profile.gd" id="2_c84nm"]
+[ext_resource type="Script" path="res://scripts/defs/loading_profile.gd" id="3_ihjui"]
+[ext_resource type="Script" path="res://scripts/defs/optics_profile.gd" id="4_dq8ny"]
+
+[sub_resource type="Resource" id="Resource_dxjfd"]
+script = ExtResource("1_7tbgx")
+
+[sub_resource type="Resource" id="Resource_vg74f"]
+script = ExtResource("2_c84nm")
+
+[sub_resource type="Resource" id="Resource_1srpx"]
+script = ExtResource("3_ihjui")
+
+[sub_resource type="Resource" id="Resource_pvnwu"]
+script = ExtResource("4_dq8ny")
+sight_fovs = PackedFloat32Array(30)
 
 [resource]
 script = ExtResource("1_abcde")
 id = "player_tank"
-schema_version = 1
 display_name_key = "PLAYER_TANK"
-content_tier = "test"
 source_refs = Array[String](["TEST ONLY: development fixture, no historical basis"])
-verification = "unknown"
-forward_max_speed = 8.0
-reverse_max_speed = 3.0
-forward_accel = 6.0
-reverse_accel = 4.0
-brake_decel = 10.0
-coast_decel = 3.0
-hull_turn_speed = 75.0
-turret_yaw_speed = 35.0
-turret_pitch_speed = 30.0
-barrel_pitch_min = -8.0
-barrel_pitch_max = 20.0
-weapon_id = "player_tank_gun"
 layout_id = "test_player_vehicle_layout"
+drive_profile = SubResource("Resource_dxjfd")
+optics_profile = SubResource("Resource_pvnwu")
+fire_control_profile = SubResource("Resource_vg74f")
+loading_profile = SubResource("Resource_1srpx")
+weapon_id = "player_tank_gun"
