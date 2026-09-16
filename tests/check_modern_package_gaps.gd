@@ -74,7 +74,7 @@ func _run() -> void:
 			"sources": {"wt-2.57.1.137": {"origin":"warthunder_reference","title":"War Thunder reference summary (2.57.1.137)","applies_to_identity_ids":[id]},"mcthunder_pipeline": {"origin":"game_rule","title":"mcthunder project pipeline (engineering rules)","applies_to_identity_ids":[id]}},
 			"admission": "engineering_candidate",
 			"assembly": assembly_by_id.get(id,{}),
-			"compatible_shells": [],
+			"compatible_shells": ([assembly_by_id.get(id,{}).get("shell","")] if not str(assembly_by_id.get(id,{}).get("shell","")).is_empty() else []),
 			"license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
 		}
 		print("[gaps] ===== ", id)

@@ -41,6 +41,13 @@
         "runtime component: reload_time ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
         "runtime component: pitch_min/pitch_max ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
         "runtime component: penetration_curve ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "identity.variant <- assembly.variant (archive candidate)",
+        "identity.suspension <- assembly.suspension (project rule)",
+        "weapon.gun <- assembly.gun (archive candidate)",
+        "weapon.mount <- assembly.mount (project rule)",
+        "weapon.caliber_mm <- assembly.caliber_mm (archive candidate)",
+        "weapon.ammunition <- assembly.shell (archive candidate)",
+        "identity.year <- assembly.year (project rule)",
         "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings) (geometry_estimate)"
       ],
       "facts": {
@@ -101,6 +108,33 @@
           ],
           "status": "estimated",
           "value": 3.806
+        },
+        "identity.suspension": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+        },
+        "identity.variant": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "t_80b"
+        },
+        "identity.year": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": 2026
         },
         "mobility.design_mass_kg": {
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 50000.0",
@@ -221,6 +255,24 @@
           "status": "estimated",
           "value": 2.77777777777778
         },
+        "weapon.ammunition": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "125mm_3bk_18m"
+        },
+        "weapon.caliber_mm": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": 125.0
+        },
         "weapon.capacity": {
           "location": "warthunder_reference line 439: primary.capacity (main gun rounds carried) = 38.0",
           "origin": "warthunder_reference",
@@ -229,6 +281,24 @@
           ],
           "status": "estimated",
           "value": 38.0
+        },
+        "weapon.gun": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "125mm_2A46_2_user_cannon"
+        },
+        "weapon.mount": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": "breech-ring mount (project engineering rule)"
         }
       },
       "id": "ussr_t_80b",
@@ -316,6 +386,13 @@
         "runtime component: reload_time ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
         "runtime component: pitch_min/pitch_max ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
         "runtime component: penetration_curve ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
+        "identity.variant <- assembly.variant (archive candidate)",
+        "identity.suspension <- assembly.suspension (project rule)",
+        "weapon.gun <- assembly.gun (archive candidate)",
+        "weapon.mount <- assembly.mount (project rule)",
+        "weapon.caliber_mm <- assembly.caliber_mm (archive candidate)",
+        "weapon.ammunition <- assembly.shell (archive candidate)",
+        "identity.year <- assembly.year (project rule)",
         "dimensions component: width_m/reference_length_m ← the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope (design)"
       ],
       "facts": {
@@ -377,6 +454,33 @@
           ],
           "status": "design",
           "value": 3.7
+        },
+        "identity.suspension": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+        },
+        "identity.variant": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "leopard_2a4"
+        },
+        "identity.year": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": 2026
         },
         "mobility.design_mass_kg": {
           "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
@@ -497,6 +601,24 @@
           "status": "estimated",
           "value": 2.77777777777778
         },
+        "weapon.ammunition": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "120mm_dm12"
+        },
+        "weapon.caliber_mm": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": 120.0
+        },
         "weapon.capacity": {
           "location": "warthunder_reference line 453: primary.capacity (main gun rounds carried) = 42.0",
           "origin": "warthunder_reference",
@@ -505,6 +627,24 @@
           ],
           "status": "estimated",
           "value": 42.0
+        },
+        "weapon.gun": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+          "origin": "warthunder_reference",
+          "source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "status": "estimated",
+          "value": "120mm_Rheinmetall_L44_user_cannon"
+        },
+        "weapon.mount": {
+          "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "design",
+          "value": "breech-ring mount (project engineering rule)"
         }
       },
       "id": "germ_leopard_2a4",

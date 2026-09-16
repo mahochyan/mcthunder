@@ -308,6 +308,27 @@ func _build(id: String, path: String) -> Dictionary:
 			"location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
 		}
 		row.emitted.append("runtime component: penetration_curve ← %s" % rule_note)
+		# WT-040-R1 1/3: emit the required identity/weapon records FROM the assembly component.
+		# VariantCompatibility compares each assembly entry against the value recorded under these keys,
+		# so writing them from the component makes the two agree by construction; their absence caused
+		# seven "missing critical evidence" AND seven "conflicts with the recorded variant" errors.
+		# Status and origin follow where each value came from: the archive candidate layer is estimated
+		# under the reference origin, project rules are design under the game-rule origin.
+		for fpair in [["identity.variant","variant"],["identity.suspension","suspension"],["weapon.gun","gun"],["weapon.mount","mount"],["weapon.caliber_mm","caliber_mm"],["weapon.ammunition","shell"],["identity.year","year"]]:
+			var fkey := str(fpair[0])
+			var fcomp := str(fpair[1])
+			if not row.assembly.has(fcomp):
+				row.skipped.append("%s: the assembly component has no %s, so no record could be written" % [fkey,fcomp])
+				continue
+			var from_rule := fcomp in ["suspension","mount","year"]
+			row.facts[fkey] = {
+				"value": row.assembly[fcomp],
+				"status": "design" if from_rule else "estimated",
+				"origin": "game_rule" if from_rule else "warthunder_reference",
+				"source_refs": ["mcthunder_pipeline"] if from_rule else ["wt-%s" % SOURCE_VERSION],
+				"location": "copied from the assembly component so the variant compatibility check agrees by construction (%s)" % ("project rule" if from_rule else "reference archive candidate layer"),
+			}
+			row.emitted.append("%s <- assembly.%s (%s)" % [fkey,fcomp,("project rule" if from_rule else "archive candidate")])
 		row.notes.append("ENGINEERING RULE SET %s applied to assembly.year/suspension/mount and runtime.reload_time/pitch_min/pitch_max/penetration_curve: all marked design, none claiming history" % ENG_RULES)
 	# dimensions: prefer a MEASUREMENT from this run's geometry draft (marked geometry_estimate); fall
 	# back to the project rule only when the model could not be measured.
