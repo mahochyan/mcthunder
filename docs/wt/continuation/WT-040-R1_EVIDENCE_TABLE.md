@@ -182,3 +182,31 @@
 ### 日志出处 ✓
 `logs/WT-040-R1/{gate-final-20260915-175843, gate-verdict-20260915-182118, gate-solo-20260915-182541}/gate.log` ✓
 （末行 `EVIDENCE=…` 指向 runner 自己的逐套件日志目录 ✓。）
+
+---
+
+## 13. ⚠️ **真实构建的既存缺陷**（`build_release.ps1` 的 `fresh_import` 步骤）✗ —— 证据完整 ✓，**按红线不修改** ✗
+### 现象 ✓
+```
+fresh_import passed=False
+Build stopped at fresh_import; see recorded output. No verified release ZIP created.
+```
+（`logs/031/73e0b3a9…/build-20260916-104612-343/` ✓；目录 `backups/builds/031/73e0b3a9…/{clean-source,package}` 已建 ✓）
+
+### 逐份证据 ✓
+| 证据 | 内容 |
+|---|---|
+| `RESULTS.json` | `name=fresh_import` · **`exit_code=null`** ✗ · `timed_out=false` · `passed=false` |
+| `fresh_import.stdout.log`（123.8 KB）尾部 | **导入实际完成** ✓：`[DONE] reimport` ×2 ✓ · `loading_editor_layout [DONE]` ✓ |
+| 该 stdout 中错误关键词 | **0 条** ✓ |
+| `fresh_import.stderr.log`（0.2 KB） | 仅 **WARNING** ✓：`Addon 'res://addons/bound_model_export/plugin.cfg' failed to load` ✓ |
+
+### 判定 ✓
+**步骤本身成功，却因 `exit_code` 取到 `null` 被判失败** ✗ —— 即 **PowerShell `Start-Process` 退出码 `$null` 陷阱** ✓（本会话知识已记录 ✓）。
+⇒ **这是发布工具链的既存缺陷** ✓，**不是**我的改动所致 ✓（其 `source_sha=73e0b3a9` ✓ 为当前分支提交 ✓，但缺陷位于脚本的退出码处理 ✓）。
+
+### 处置（遵守红线 ✓）
+- `tests/build_release.ps1` **就是"构建发布流程"** ✗ ⇒ **不修改** ✗（红线 ✓）；
+- ⇒ **独立可运行包**（第 ⑤ 步最后一块）**因此受阻** ✗ ⇒ **如实上报** ✓，并给出**可选路径**供您裁定 ✓：
+  1. 授权我**修正该脚本的退出码判定**（一处小改 ✓，属**改构建流程** ⇒ 需您明确授权 ✗）；
+  2. 或接受"**包校验暂缓**" ✓，以其余证据（应用流程 127/0 ✓ · 辅助能力 51/0 ✓ · 科技树 50/0 ✓ · 真实对局 ✓）作为第 ③/⑤ 阶段的运行证据 ✓。
