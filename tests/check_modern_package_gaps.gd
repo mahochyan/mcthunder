@@ -79,7 +79,16 @@ func _run() -> void:
 		}
 		print("[gaps] ===== ", id)
 		var result := VehicleContentPipeline.validate_package(packet,{})
-		print("[gaps] ok=", result.get("ok",false))
+		# WT-040-R1 (user ruling): the audit must distinguish three outcomes - complete with no gaps,
+		# complete with gaps, and INCOMPLETE because an exception or a missing structure stopped it. A run
+		# that reported ok=false with an empty error list is the third case, NOT a pass: the earlier
+		# "zero gaps" reading of exactly that shape was wrong and is corrected here.
+		var audit_state := str(result.get("audit","unclassified"))
+		var skipped_list: Array = result.get("skipped_checks",[])
+		var err_list: Array = result.get("errors",[])
+		if err_list.is_empty() and not bool(result.get("ok",false)):
+			audit_state = "incomplete"
+		print("[gaps] ok=", result.get("ok",false), " audit=", audit_state, " skipped_checks=", skipped_list.size())
 		var errors: Array = result.get("errors",[])
 		print("[gaps] error count=", errors.size())
 		var groups := {}
@@ -103,24 +112,32 @@ func _run() -> void:
 		# fields, the envelope cross-check, the layout and the shell catalog) are NOT reached yet. The
 		# second pass fills the nine shape gaps with clearly-labelled probe values so the content gate
 		# runs and shows what actually remains beyond it. The probes are never written to a packet.
-		var packet_probe := packet.duplicate(true)
-		packet_probe["runtime"]["reload_time"] = 1.0
-		packet_probe["runtime"]["pitch_min"] = -10.0
-		packet_probe["runtime"]["pitch_max"] = 20.0
-		packet_probe["runtime"]["penetration_curve"] = [[0.0,150.0],[500.0,125.0]]
-		packet_probe["assembly"]["suspension"] = "PROBE"
-		packet_probe["assembly"]["mount"] = "PROBE"
-		packet_probe["assembly"]["year"] = 1900
-		packet_probe["facts"]["dimensions.width_m"] = {"value":3.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
-		packet_probe["facts"]["dimensions.reference_length_m"] = {"value":6.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
-		# and the REAL evidence record, which carries a copy of each component as line 174 requires
-		for key in evidence_facts.get(id,{}).keys():
-			packet_probe["facts"][key] = evidence_facts[id][key]
-		var result3 := VehicleContentPipeline.validate_package(packet_probe,{})
-		var errors3: Array = result3.get("errors",[])
-		print("[gaps] error count BEYOND the shape gate (probe values, so the content checks run) = ", errors3.size())
-		for e3 in errors3:
-			print("[gaps]     > ", str(e3))
+		# WT-040-R1 (user ruling): the probe pass is a DIAGNOSTIC and is no longer part of formal
+		# acceptance. It used to run unconditionally for every audit, overwriting reload time, gun limits,
+		# penetration curve and dimensions with probe values and then feeding the result back, so the
+		# packet under test was no longer the packet to be delivered and its verdict could not be used for
+		# gap clearing or admission. It now runs only when the caller asks for it by name, and every line
+		# it prints is labelled [diag] so it can never be mistaken for the formal count.
+		var diag_probe := OS.get_cmdline_user_args().has("--diag-probe")
+		if diag_probe:
+			var packet_probe := packet.duplicate(true)
+			packet_probe["runtime"]["reload_time"] = 1.0
+			packet_probe["runtime"]["pitch_min"] = -10.0
+			packet_probe["runtime"]["pitch_max"] = 20.0
+			packet_probe["runtime"]["penetration_curve"] = [[0.0,150.0],[500.0,125.0]]
+			packet_probe["assembly"]["suspension"] = "PROBE"
+			packet_probe["assembly"]["mount"] = "PROBE"
+			packet_probe["assembly"]["year"] = 1900
+			packet_probe["facts"]["dimensions.width_m"] = {"value":3.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
+			packet_probe["facts"]["dimensions.reference_length_m"] = {"value":6.0,"status":"probe","origin":"probe","source_refs":["probe"],"location":"PROBE"}
+			# and the REAL evidence record, which carries a copy of each component as line 174 requires
+			for key in evidence_facts.get(id,{}).keys():
+				packet_probe["facts"][key] = evidence_facts[id][key]
+			var result3 := VehicleContentPipeline.validate_package(packet_probe,{})
+			var errors3: Array = result3.get("errors",[])
+			print("[diag] PROBE VALUES IN USE - diagnostic only, never an acceptance result; beyond-shape-gate count = ", errors3.size())
+			for e3 in errors3:
+				print("[diag]     > ", str(e3))
 	print("MODERN_PACKAGE_GAP_AUDIT_DONE")
 	quit(0)
 

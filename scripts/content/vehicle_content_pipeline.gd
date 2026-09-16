@@ -40,6 +40,18 @@ static func validate_package(packet: Dictionary, model_sources: Dictionary = {})
 	if absf(mesh_width-width)/width > 0.16: errors.append("geometry.width: reconstructed envelope differs >16% from reference")
 	if absf(mesh_length-length)/length > 0.16: errors.append("geometry.length: hull envelope differs >16% from reference hull/travel length")
 	var layout := HistoricalVehicleGeometry.build(packet)
+	# WT-040-R1 audit integrity (user ruling): when reconstruction is unusable the dependent checks must
+	# NOT run, and the result must name the ones that did not. Running them produced cascading errors from
+	# an invalid layout and let the audit print an empty error list for a run that had not completed.
+	var layout_usable := layout != null and not layout.armor_patches.is_empty()
+	if not layout_usable:
+		errors.append("layout: reconstruction produced no usable armour patches, so the dependent checks were NOT run")
+		var skipped := ["model_binding","loading_bindings","layout_validation","definitions","shell_catalog"]
+		var notes_copy: Array = evidence.notes.duplicate()
+		notes_copy.append("AUDIT INCOMPLETE: %d dependent check(s) were not executed: %s" % [skipped.size(),str(skipped)])
+		var incomplete := {"ok":false,"audit":"incomplete","errors":errors,"notes":notes_copy,"skipped_checks":skipped,
+			"layout":layout,"definitions":{},"packet":packet,"model_check":{"ok":false,"status":"not_run_because_layout_unusable"}}
+		return incomplete
 	var model_check := {"ok":true,"status":"legacy_model_path"}
 	if packet.has("model_binding"):
 		var source: Variant=model_sources.get(str(packet.id),{})
@@ -68,7 +80,7 @@ static func validate_package(packet: Dictionary, model_sources: Dictionary = {})
 	for definition in [definitions.vehicle,definitions.weapon,definitions.shell]:
 		for error in definition.validate().errors: errors.append(str(definition.id)+": "+error)
 	if not errors.is_empty(): definitions.vehicle.admission_status="candidate"
-	return {"ok":errors.is_empty(),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet,"model_check":model_check}
+	return {"ok":errors.is_empty(),"audit":("complete_no_gaps" if errors.is_empty() else "complete_with_gaps"),"errors":errors,"notes":evidence.notes,"layout":layout,"definitions":definitions,"packet":packet,"model_check":model_check}
 
 static func number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
