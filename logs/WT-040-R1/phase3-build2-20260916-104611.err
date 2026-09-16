@@ -1,0 +1,7 @@
+Build stopped at fresh_import; see recorded output. No verified release ZIP created.
+At E:\AIprogram\mcthunder-cont\tests\build_release.ps1:38 char:25
++ ...  $passed) { throw "Build stopped at $Name; see recorded output. No ve ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Build stopped a...se ZIP created.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Build stopped at fresh_import; see recorded output. No verified release ZIP created.
+ 

@@ -1,0 +1,7 @@
+Fixed Godot engine is missing
+At E:\AIprogram\mcthunder-cont\tests\build_release.ps1:13 char:46
++ ... Path -LiteralPath $engine)) { throw 'Fixed Godot engine is missing' }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Fixed Godot engine is missing:String) [], RuntimeException
+    + FullyQualifiedErrorId : Fixed Godot engine is missing
+ 
