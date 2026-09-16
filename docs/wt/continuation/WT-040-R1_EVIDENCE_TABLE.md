@@ -257,3 +257,22 @@ for map_index in 2:                       # 只有两张图
 | **断言强** ✓ | `reason ∈ {tickets, time_limit}` ✓ · `combat_summary == director.report` ✓ · 票据冻结 ✓ · `apply_result_once` 幂等 ✓ |
 
 ⇒ 该套件同时是第 ⑤ 步"**走正常入口**"的**可执行证据** ✓✓。
+
+---
+
+## 16. `NATURAL_RESULT map=0` 已出 ✓ —— 并附一处**不下结论的观测** ✗
+```
+NATURAL_RESULT map=0 {"combat_summary":{"capture_seconds":0.0,"deaths":0,"hits":0,"kills":0,
+                                       "last_death":"","penetrations":0}, …}
+```
+| 事实 ✓ | 说明 |
+|---|---|
+| **对局循环通过** ✓ | map 0 走到自然结算 ✓（套件断言 `reason ∈ {tickets,time_limit}` ✓、票据冻结 ✓、幂等 ✓） |
+| **票数确实下降** ✓ | `tickets 300 → 8` ✓（297 s ✓） |
+| **观测** ✗ | `combat_summary` 的 **hits/kills/penetrations 全为 0** ✗ ⇒ 其票数消耗**并非来自交战命中** ✗ |
+
+### 处理 ✓（**严格就事论事** ✓）
+- 本套件的**主题是"对局循环"** ✓ ⇒ 上述观测**不影响**其结论 ✓；
+- **我不下结论** ✗：票数因何下降 ✓（投降/出界/计时规则/其它 ✓）**待查** ✓，需**另立检查** ✓；
+- **不改任何东西** ✗：既不调参 ✓ 也不改规则 ✓；
+- 记为**待查项** ✓，与"河谷队内拥堵"同属**战场行为层**的独立课题 ✓。
