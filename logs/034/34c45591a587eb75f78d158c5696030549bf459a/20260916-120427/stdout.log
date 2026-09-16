@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PLAYER_FLOW_EVIDENCE=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/player_flow034_6413516
+[PASS] actual rendered Release player-flow verification
+[PASS] actual window capture 00_garage_main_menu (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal garage challenge button opens task selection
+[PASS] actual window capture 01_challenge_rules (review pending)
+[PASS] normal UI control is visible before click
+[FAIL] normal challenge launch and countdown starts actual scene
+[FAIL] normal challenge player flow reached its final step
+=== 结果: 8 项检查, 2 失败 ===

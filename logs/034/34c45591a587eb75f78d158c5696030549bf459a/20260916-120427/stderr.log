@@ -1,0 +1,2 @@
+ERROR: ballistics: defs load failed: vehicle player_tank: loading_profile: missing, fire_control_profile: missing, optics_profile: missing, drive_profile: missing
+   at: push_error (core/variant/variant_utility.cpp:1023)

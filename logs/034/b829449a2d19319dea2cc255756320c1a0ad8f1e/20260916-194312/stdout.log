@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PLAYER_FLOW_EVIDENCE=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/player_flow034_2114767
+[PASS] actual rendered Release player-flow verification
+[PASS] actual window capture 00_garage_main_menu (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal garage challenge button opens task selection
+[PASS] actual window capture 01_challenge_rules (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal challenge launch and countdown starts actual scene
+[PASS] launch click leaks no shot and loads exactly six rounds
+[PASS] actual window capture 02_flank_start (review pending)
+[PASS] normal Esc pause freezes actual challenge clock
+[PASS] normal UI control is visible before click
+[drive] goal=(-16.0, 0.0, 20.0) actual=(-16.29446, 0.026887, 19.67384) elapsed=8.09999999999998
+[PASS] WASD drives from start toward visible western approach
+[drive] goal=(-16.0, 0.0, -20.0) actual=(-16.00552, 0.028062, -20.80044) elapsed=17.7333333333336
+[PASS] WASD reaches side of the static armoured target
+[aim] camera=(-26.81983, 6.41, -21.08284) intent=(-0.86694, 2.133224, -20.40514) muzzle=(-13.40787, 2.262957, -21.08022) dir=(0.998501, -0.010329, 0.053749)
+[PASS] actual window capture 03_flank_aim (review pending)
+[normal shot] shots=1 outcome={  } last=fired
+[normal record] { "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "projectile_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2392720991 } contacts=[["B1", "turret_wall_4", "penetrated", (-0.867551, 2.131175, -20.40518)], ["B1", "turret_wall_10", "stopped", (0.895075, 2.112331, -20.3103)]] damage=[] terminal={ "projectile_id": 1, "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "reason": "internal_burst", "flight_time_s": 0.0232978087092, "travelled_m": 14.3244487047195, "impact_point": (0.895075, 2.112331, -20.3103), "impact_velocity": (0.0, 0.0, 0.0), "target_id": "B1", "target_life_id": 2, "surface_id": "", "query_id": "proj_1", "physics_tick": 1775, "detail": "", "armor_policy": "resolve", "rules_version": "armor-test-v1" }
+[normal shot] shots=2 outcome={  } last=fired
+[normal record] { "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 2, "projectile_id": 2, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2392721024 } contacts=[["B1", "turret_wall_4", "penetrated", (-0.872849, 2.110949, -20.40884)], ["B1", "turret_wall_10", "stopped", (0.901175, 2.089632, -20.31373)]] damage=[] terminal={ "projectile_id": 2, "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 2, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "reason": "internal_burst", "flight_time_s": 0.02349611851133, "travelled_m": 14.4585758447647, "impact_point": (0.901175, 2.089632, -20.31373), "impact_velocity": (0.0, 0.0, 0.0), "target_id": "B1", "target_life_id": 2, "surface_id": "", "query_id": "proj_2", "physics_tick": 2168, "detail": "", "armor_policy": "resolve", "rules_version": "armor-test-v1" }
+[normal shot] shots=3 outcome={  } last=fired
+[normal record] { "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 3, "projectile_id": 3, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2392721057 } contacts=[["B1", "turret_wall_4", "penetrated", (-0.87815, 2.090726, -20.41248)], ["B1", "turret_wall_10", "stopped", (0.907273, 2.066947, -20.31716)]] damage=[] terminal={ "projectile_id": 3, "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 3, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "reason": "internal_burst", "flight_time_s": 0.02369445998567, "travelled_m": 14.5927268266678, "impact_point": (0.907273, 2.066947, -20.31716), "impact_velocity": (0.0, 0.0, 0.0), "target_id": "B1", "target_life_id": 2, "surface_id": "", "query_id": "proj_3", "physics_tick": 2561, "detail": "", "armor_policy": "resolve", "rules_version": "armor-test-v1" }
+[FAIL] normal keyboard and mouse session completes flank challenge
+[FAIL] result backed by actual side penetration and attributed death
+[FAIL] actual personal best is saved after verified success
+[FAIL] new store reloads exact best from disk
+[saved profile] user://tests/installation031_1962976/commander best={  }
+[PASS] actual window capture 04_stars_saved (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal live-match confirmation returns to garage
+[PASS] normal return restores garage
+[PASS] normal UI control is visible before click
+[FAIL] task selection displays saved personal best after returning
+[PASS] actual window capture 06_personal_best (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal selector enters industrial finite-wave defense
+[PASS] actual window capture 07_defense_start (review pending)
+[PASS] normal R retry creates one fresh defense attempt and opponent
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal live-match confirmation returns to garage
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal selector enters hard M36 route with its actual four-round loadout
+[PASS] actual window capture 08_m36_route_start (review pending)
+[PASS] normal UI control is visible before click
+[PASS] normal UI control is visible before click
+[PASS] normal live-match confirmation returns to garage
+[FAIL] quitting other challenges cannot overwrite or invent personal bests
+[FAIL] normal challenge player flow reached its final step
+=== 结果: 45 项检查, 7 失败 ===

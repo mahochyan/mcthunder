@@ -1,0 +1,28 @@
+﻿{
+    "source_sha":  "34c45591a587eb75f78d158c5696030549bf459a",
+    "exe_sha256":  "A2F583F2F03C2DC5CE244ACF200281A5005BCC8ED2D2CA01FDDF0661E13F2F3B",
+    "pck_sha256":  "BE2DA0716F2F49ACDDBE563A48CB2DE47DAEEBFAB081CF24537DC144CE3FD971",
+    "command":  "\"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\PixelArmorClient.exe\" --resolution 1280x720 -- --verify-player-flow",
+    "exit_code":  null,
+    "timed_out":  false,
+    "passed":  false,
+    "checks":  0,
+    "missing_screenshots":  [
+                                "05_real_shot_replay.png",
+                                "09_battle_0.png",
+                                "09_battle_1.png",
+                                "10_settled_0.png",
+                                "10_settled_1.png"
+                            ],
+    "images":  [
+                   {
+                       "sha256":  "EBCFE7D8DF64E6F4D6EF5E8524C057A1170C1F2990F5FA956CA3492393BC5EAB",
+                       "name":  "00_garage_main_menu.png"
+                   },
+                   {
+                       "sha256":  "ABDD902915439248D5281F6D56D2F82EDCA08D8B71355F4A744A0E29DBA8B5FB",
+                       "name":  "01_challenge_rules.png"
+                   }
+               ],
+    "human":  "PENDING"
+}
