@@ -1,4 +1,4 @@
-﻿# 第 ③ 步计划：两辆现代样车的**战斗包**（用户指令第 1 条）
+# 第 ③ 步计划：两辆现代样车的**战斗包**（用户指令第 1 条）
 
 > 用户要求：「**先补齐两辆样车的战斗包。可从模型测量的轴心、炮口和几何由工具生成并核对；需要设计或资料的字段列清楚，不能全部笼统归为"等待作者"，也不能用通用模板冒充具体车型。**」
 > 本文件把每个字段**归类**并写明来源与验收 ✓（不笼统 ✓、不用通用模板 ✓）。
@@ -40,6 +40,17 @@
 | 平衡（分房/票数影响） | **设计** | 不擅自改 ✗ |
 
 ## 3. 工具设计（落到文件与函数 ✓）
+
+> ### ✅ **实现结果（取代下面的单体设计 ✓）**
+> 下方是**设计稿** ✓；实际实现**改成了九个专项工具** ✓ —— 原因 ✓：**每个专项工具都能被单独验证、单独回退** ✓，
+> 且逐一成为**一条命令流水线**的步骤 ✓（单体工具做不到这种"一步一证" ✓）。
+>
+> | 设计中的单体工具 ✗ | 实际的专项工具 ✓ |
+> |---|---|
+> | `generate_modern_combat_package.gd` ✗（**未创建** ✓，库内无此名 ✓） | `generate_modern_geometry.gd` ✓ · `build_modern_facts_draft.gd` ✓ · `build_modern_armor_draft.gd` ✓ · `build_modern_crew_draft.gd` ✓ · `build_modern_modules_draft.gd` ✓ · `build_modern_evidence_record.gd` ✓ · `check_modern_geometry.gd` ✓ · `check_modern_package_gaps.gd` ✓ · **`run_modern_vehicle_pipeline.ps1`** ✓（串起九步 ✓） |
+>
+> **证据** ✓：九项均在库内（已逐个核对 ✓）；`run_modern_vehicle_pipeline.ps1` 九步全绿 ✓ · `MODERN_PIPELINE_OK` ✓（见证据表 §3 ✓）。
+
 `tests/generate_modern_combat_package.gd`（新增 ✓）：
 1. 读适配产物 ✓ → 复用 `export_draft_binding_inputs.gd` 的**树内实测**方法 ✓（**教训**：绝不在未入树的场景上读 `global_position` ✗）；
 2. 产出 `geometry` 全 16 字段 ✓，每字段附 `{"method": ..., "measured": true}` ✓；
