@@ -31,10 +31,28 @@ foreach ($step in $steps) {
     $stdout = Join-Path $runPath ($step.Name + '_stdout.log')
     $stderr = Join-Path $runPath ($step.Name + '_stderr.log')
     $command = '"' + $engine + '" ' + $step.Args
-    $process = Start-Process -FilePath $engine -ArgumentList $step.Args -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+    # WT-040-R1: a real Process handle with redirected streams, read asynchronously before waiting, so every
+    # suite's exit_code is the child's own status instead of the $null that Start-Process -PassThru can hand
+    # back - the same defect this project already documented and fixed in build_release.ps1. The verdict itself
+    # is unchanged: $passed below never consulted $exitCode, so this only makes the recorded exit code real.
+    $psi=[System.Diagnostics.ProcessStartInfo]::new()
+    $psi.FileName=$engine
+    $psi.Arguments=$step.Args
+    $psi.WorkingDirectory=$projectRoot
+    $psi.UseShellExecute=$false
+    $psi.RedirectStandardOutput=$true
+    $psi.RedirectStandardError=$true
+    $psi.CreateNoWindow=$true
+    $process=[System.Diagnostics.Process]::new()
+    $process.StartInfo=$psi
+    [void]$process.Start()
+    $outTask=$process.StandardOutput.ReadToEndAsync()
+    $errTask=$process.StandardError.ReadToEndAsync()
     $timedOut = -not $process.WaitForExit($TimeoutSeconds * 1000)
     if ($timedOut) { Stop-Process -Id $process.Id -Force }
     $process.WaitForExit()
+    [IO.File]::WriteAllText($stdout,$outTask.GetAwaiter().GetResult())
+    [IO.File]::WriteAllText($stderr,$errTask.GetAwaiter().GetResult())
     $outputRead = Read-SuiteLog -Path $stdout
     $errorRead = Read-SuiteLog -Path $stderr
     $output = $outputRead.Text
@@ -68,7 +86,9 @@ foreach ($step in $steps) {
                     (@($output -split "`n" | Where-Object { $_ -match '^\[FAIL\]' }).Count -eq 0)
     $assertionsPass = $step.Name -eq 'import' -or ($checkMatch.Success -and [int]$checkMatch.Groups[2].Value -eq 0)
     $evidencePass = ($step.Name -eq 'import') -or ($assertionsPass -or $markerPass -or $perCheckPass)
-    $exitCode = $process.ExitCode
+    # WT-040-R1: a null status is named instead of being written silently as an empty field.
+    try { $exitCode = $process.ExitCode } catch { $exitCode = $null }
+    if ($null -eq $exitCode) { Write-Output ("{0}: exit_code=UNKNOWN (the child did not report one)" -f $step.Name) }
     $passed = -not $timedOut -and -not $scriptError -and $unexpected.Count -eq 0 -and $evidencePass -and $logReadErrors.Count -eq 0
     $row = [pscustomobject]@{suite=$step.Name; source_sha=$sourceSha; engine=$engineVersion; command=$command; exit_code=$exitCode; timed_out=$timedOut; checks=if($checkMatch.Success){[int]$checkMatch.Groups[1].Value}else{0}; passed=$passed; script_error=$scriptError; unexpected_errors=$unexpected; expected_error_count=$allowedErrors.Count; marker_pass=$markerPass}
     $summary.Add($row)
