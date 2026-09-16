@@ -3083,6 +3083,9 @@
       "t": 337.983333333355
     }
   ],
+  "contacts_total": 25,
+  "damage_events": 6,
+  "deaths_total": 0,
   "destroyed_at_end": {
     "1": 0,
     "2": 0
@@ -3103,6 +3106,7 @@
     "B",
     "B2"
   ],
+  "fired_slots_note": "count of SLOTS that fired at least once, not a round count",
   "map_id": "river_junction_team",
   "max_trying_to_drive_stationary_s": 5,
   "note": "engineering AI match on the authored river layout; river is design_preview / combat_admitted=false, so this is a measurement, not an admission claim",
@@ -3125,7 +3129,7 @@
       "C"
     ]
   },
-  "respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified",
+  "respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified and must not be read as a zero",
   "result": {
     "combat_summary": {
       "capture_seconds": 59.3666666666646,
@@ -3365,6 +3369,7 @@
   },
   "schema": 1,
   "seed": 44001,
+  "shots_total": 16,
   "teams": {
     "A": 1,
     "A2": 1,

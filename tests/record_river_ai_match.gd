@@ -208,6 +208,20 @@ func _run() -> void:
 	for value in peak_stagnant.values(): max_still = maxi(max_still, int(value))
 	var objective_ids: Array = []
 	for objective in objectives: objective_ids.append(str(objective.id))
+	# WT-040-R1 (2026-09-17 ruling): report the five quantities separately instead of collapsing them into one
+	# number. fired_slots is how many SLOTS fired at least once - it is NOT a round count; shots_total,
+	# contacts_total and damage_events are summed from the real shot records; deaths_total counts the destroyed
+	# actors. The old respawn counter stays WITHDRAWN and is never printed as a zero measurement.
+	var shots_total := 0
+	var contacts_total := 0
+	var damage_events := 0
+	for shot_index in scene.projectiles.shot_records.count():
+		var shot_record: Variant = scene.projectiles.shot_records.get_record(shot_index)
+		shots_total += 1
+		contacts_total += shot_record.contacts.size()
+		damage_events += shot_record.damage.size()
+	var deaths_total := 0
+	for team_key in deaths.keys(): deaths_total += int(deaths[team_key])
 	var record := {
 		"schema": 1,
 		"map_id": MAP_ID,
@@ -224,7 +238,12 @@ func _run() -> void:
 		"reached_per_team": {1: reached_objectives[1].keys(), 2: reached_objectives[2].keys()},
 		"objectives_seen": objective_ids,
 		"fired_slots": shots.keys(),
-		"respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified",
+		"fired_slots_note": "count of SLOTS that fired at least once, not a round count",
+		"shots_total": shots_total,
+		"contacts_total": contacts_total,
+		"damage_events": damage_events,
+		"deaths_total": deaths_total,
+		"respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified and must not be read as a zero",
 		"destroyed_observed": destroyed_seen.keys(),
 		"chain_samples": chain_samples,
 		"destroyed_at_end": deaths,
@@ -243,9 +262,12 @@ func _run() -> void:
 		print("[river-match] wrote ", path)
 	else:
 		print("[river-match] FAILED to write ", path)
-	print("[river-match totals] result=%s elapsed=%.0fs tickets=%s reached=%s fired=%d respawns=%s destroyed=%s max_stationary=%ds" % [
+	# WT-040-R1 (2026-09-17 ruling): fired_slots is a slot count, the round/contact/damage/death totals are
+	# reported separately, and the withdrawn respawn counter is printed as WITHDRAWN rather than as its stale
+	# dictionary of zeros, which could otherwise be mistaken for a valid measurement.
+	print("[river-match totals] result=%s elapsed=%.0fs tickets=%s reached=%s fired_slots=%d shots_total=%d contacts=%d damage=%d deaths=%d respawns=WITHDRAWN max_stationary=%ds" % [
 		str(scene.director.state.result.get("outcome","?")), scene.director.state.elapsed,
-		str(scene.director.state.tickets), str(reached.keys()), shots.size(), str(respawns), str(deaths), max_still])
+		str(scene.director.state.tickets), str(reached.keys()), shots.size(), shots_total, contacts_total, damage_events, deaths_total, max_still])
 	check(finite, "river match stays inside finite authored river bounds")
 	check(detached_valid, "only destroyed actors have detached AI")
 	check(scene.director.state.phase == "finished", "river match clock/tickets terminate the match")
