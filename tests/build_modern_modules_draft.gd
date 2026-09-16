@@ -85,8 +85,18 @@ func _build(id: String, g: Dictionary, f: Dictionary) -> Dictionary:
 		var v: Vector3 = hit["position"]
 		m["position"] = [snappedf(v.x,0.01),snappedf(v.y,0.01),snappedf(v.z,0.01)]
 		m["derived"] = false
-		m["position_source"] = "authored %s anchor in %s, relative to the %s part (%s); the anchor's own parent is %s" % [
-			"Attachment_"+str(m.get("id","")),model_path,str(m.get("part","hull")),str(hit.get("part_node","")),str(hit.get("anchor_parent",""))]
+		# WT-040-R1: the PART follows the anchor's real parent, because the binding validator requires the
+		# anchor to be a descendant of the part's role node and reports "wrong moving parent" or "follows a
+		# different articulated part" otherwise. The T-80B's ammunition-ready anchor is parented to the hull
+		# root rather than the turret pivot, and the breech anchor sits under the gun pivot, so the parts are
+		# taken from the model instead of being assumed from the module's name.
+		var parent_path := str(hit.get("anchor_parent",""))
+		var role_part := "hull"
+		if parent_path == "GunPivot" or parent_path.ends_with("/GunPivot"): role_part = "barrel"
+		elif parent_path == "TurretPivot" or parent_path.ends_with("/TurretPivot"): role_part = "turret"
+		m["part"] = role_part
+		m["position_source"] = "authored %s anchor in %s, relative to the %s part (%s); the anchor's own parent is %s, so the part follows the model" % [
+			"Attachment_"+str(m.get("id","")),model_path,role_part,str(hit.get("part_node","")),parent_path]
 		anchored.append(str(m.get("id","")))
 	if anchored.is_empty():
 		out.notes.append("NO module id had an authored anchor in %s, so every position keeps the labelled measured derivation" % model_path)
