@@ -12,6 +12,15 @@ static func check(packet: Dictionary) -> Dictionary:
 	var identity := str(packet.get("id",""))
 	var facts: Dictionary = packet.get("facts",{})
 	var sources: Dictionary = packet.get("sources",{})
+	# WT-040-R1 ①/③ (user ruling 2026-09-16): an ENGINEERING CANDIDATE is admitted on configuration
+	# completeness, runtime safety and its own checks - NOT on historical verification, which the
+	# reference archive structurally cannot provide (its origin is a gameplay reference and its own
+	# historical_verified flag is false). In that mode the critical fields may be estimated or design
+	# under a project origin, and that admission is RECORDED here rather than passed off as history.
+	# The strict path is untouched: a packet that does not declare itself an engineering candidate is
+	# still held to historical evidence for every critical field.
+	var engineering := str(packet.get("admission","")) == "engineering_candidate"
+	if engineering: notes.append("ENGINEERING CANDIDATE: critical fields admitted on project rules, NOT historical verification")
 	for field in REQUIRED:
 		if not facts.has(field): errors.append(field+": missing critical evidence")
 	for field in facts:
@@ -19,17 +28,17 @@ static func check(packet: Dictionary) -> Dictionary:
 		if not row is Dictionary: errors.append(str(field)+": malformed evidence"); continue
 		var status := str(row.get("status",""))
 		var origin := str(row.get("origin",""))
-		if status not in ["verified","estimated","unknown"] or origin not in ORIGINS:
+		if status not in ["verified","estimated","unknown","design"] or origin not in ORIGINS:
 			errors.append(str(field)+": invalid status/origin"); continue
 		if status == "unknown":
 			if row.get("value") != null: errors.append(str(field)+": unknown must not contain a numeric substitute")
 			notes.append(str(field)+": UNKNOWN")
-			if field in REQUIRED: errors.append(str(field)+": critical field is unknown")
+			if field in REQUIRED and not engineering: errors.append(str(field)+": critical field is unknown")
 			continue
 		if not row.has("value") or row.value == null: errors.append(str(field)+": missing value")
 		if status == "verified" and origin not in ["historical_primary","historical_secondary"]:
 			errors.append(str(field)+": historical verification cannot come from gameplay or fixture data")
-		if field in REQUIRED and (status != "verified" or origin not in ["historical_primary","historical_secondary"]):
+		if field in REQUIRED and not engineering and (status != "verified" or origin not in ["historical_primary","historical_secondary"]):
 			errors.append(str(field)+": critical identity/data requires historical evidence")
 		if not row.get("source_refs",[]) is Array: errors.append(str(field)+": source_refs must be an array"); continue
 		var refs: Array = row.get("source_refs",[])

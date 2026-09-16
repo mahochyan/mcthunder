@@ -95,7 +95,7 @@ func _build(id: String, path: String) -> Dictionary:
 	var speed: Variant = row.facts.get("mobility.forward_speed_mps",{}).get("value",null)
 	if speed != null:
 		row.facts["runtime.forward_max_speed"] = {
-			"value": speed, "status": "reference", "origin": SOURCE_LABEL,
+			"value": speed, "status": "estimated", "origin": SOURCE_LABEL,
 			"source_refs": row.facts["mobility.forward_speed_mps"].source_refs,
 			"location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
 		}
@@ -193,7 +193,7 @@ func _build(id: String, path: String) -> Dictionary:
 	if not roles.is_empty():
 		row.facts["crew.roles"] = {
 			"value": roles,
-			"status": "reference",
+			"status": "estimated",
 			"origin": SOURCE_LABEL,
 			"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,int(role_lines[0])]],
 			"location": "%s crew_roster (lines %s): roles %s" % [SOURCE_LABEL,str(role_lines),str(roles)],
@@ -269,42 +269,42 @@ func _build(id: String, path: String) -> Dictionary:
 		var rule_note := "project engineering design value, frozen rule set %s - NOT a historical claim" % ENG_RULES
 		row.assembly["year"] = int(eng["assembly_year"])
 		row.facts["assembly.year"] = {
-			"value": int(eng["assembly_year"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": int(eng["assembly_year"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
 		}
 		row.emitted.append("assembly component: year ← %s" % rule_note)
 		row.assembly["suspension"] = str(eng["suspension"])
 		row.facts["assembly.suspension"] = {
-			"value": str(eng["suspension"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": str(eng["suspension"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
 		}
 		row.emitted.append("assembly component: suspension ← %s" % rule_note)
 		row.assembly["mount"] = str(eng["mount"])
 		row.facts["assembly.mount"] = {
-			"value": str(eng["mount"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": str(eng["mount"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
 		}
 		row.emitted.append("assembly component: mount ← %s" % rule_note)
 		row.runtime["reload_time"] = float(eng["reload_time"])
 		row.facts["runtime.reload_time"] = {
-			"value": float(eng["reload_time"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": float(eng["reload_time"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
 		}
 		row.emitted.append("runtime component: reload_time ← %s" % rule_note)
 		row.runtime["pitch_min"] = float(eng["pitch_min"])
 		row.facts["runtime.pitch_min"] = {
-			"value": float(eng["pitch_min"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": float(eng["pitch_min"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "gun depression limit used by the engineering candidate, as a project rule",
 		}
 		row.runtime["pitch_max"] = float(eng["pitch_max"])
 		row.facts["runtime.pitch_max"] = {
-			"value": float(eng["pitch_max"]), "status": "design", "origin": rule_note, "source_refs": [],
+			"value": float(eng["pitch_max"]), "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "gun elevation limit used by the engineering candidate, as a project rule",
 		}
 		row.emitted.append("runtime component: pitch_min/pitch_max ← %s" % rule_note)
 		row.runtime["penetration_curve"] = eng["penetration_curve"]
 		row.facts["runtime.penetration_curve"] = {
-			"value": eng["penetration_curve"], "status": "design", "origin": rule_note, "source_refs": [],
+			"value": eng["penetration_curve"], "status": "design", "origin": "game_rule", "source_refs": ["mcthunder_pipeline"],
 			"location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
 		}
 		row.emitted.append("runtime component: penetration_curve ← %s" % rule_note)
@@ -339,8 +339,8 @@ func _build(id: String, path: String) -> Dictionary:
 		row.dimensions = {"width_m": dims["width_m"], "reference_length_m": dims["reference_length_m"]}
 		for key in ["width_m","reference_length_m"]:
 			row.facts["dimensions.%s" % key] = {
-				"value": dims[key], "status": dims["status"], "origin": "project engineering measurement/rule %s" % ENG_RULES,
-				"source_refs": [], "location": str(dims["why"]),
+				"value": dims[key], "status": "design" if str(dims["status"]) == "design" else "estimated", "origin": "game_rule",
+				"source_refs": ["mcthunder_pipeline"], "location": str(dims["why"]),
 			}
 		row.emitted.append("dimensions component: width_m/reference_length_m ← %s (%s)" % [dims["why"],dims["status"]])
 	row.notes.append("modules/crew components are NOT emitted: the validator caps each at 48 rows while the dossier has 182 module references, and the ammo racks must sum to runtime.rounds, so the selection is a reviewable judgement rather than a mechanical copy")

@@ -46,22 +46,28 @@
       "facts": {
         "assembly.mount": {
           "location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": "breech-ring mount (project engineering rule)"
         },
         "assembly.suspension": {
           "location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
         },
         "assembly.year": {
           "location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 2026
         },
@@ -71,7 +77,7 @@
           "source_refs": [
             "wt-2.57.1.137#L420"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": [
             "tank_gunner",
             "driver",
@@ -80,16 +86,20 @@
         },
         "dimensions.reference_length_m": {
           "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
-          "origin": "project engineering measurement/rule wt040-eng-v1",
-          "source_refs": [],
-          "status": "geometry_estimate",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "estimated",
           "value": 9.703
         },
         "dimensions.width_m": {
           "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
-          "origin": "project engineering measurement/rule wt040-eng-v1",
-          "source_refs": [],
-          "status": "geometry_estimate",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "estimated",
           "value": 3.806
         },
         "mobility.design_mass_kg": {
@@ -137,7 +147,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": 20.8333333333333
         },
         "runtime.hull_turn_speed": {
@@ -151,8 +161,10 @@
         },
         "runtime.penetration_curve": {
           "location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": [
             [
@@ -175,22 +187,28 @@
         },
         "runtime.pitch_max": {
           "location": "gun elevation limit used by the engineering candidate, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 14.0
         },
         "runtime.pitch_min": {
           "location": "gun depression limit used by the engineering candidate, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": -5.0
         },
         "runtime.reload_time": {
           "location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 7.1
         },
@@ -303,22 +321,28 @@
       "facts": {
         "assembly.mount": {
           "location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": "breech-ring mount (project engineering rule)"
         },
         "assembly.suspension": {
           "location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
         },
         "assembly.year": {
           "location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 2026
         },
@@ -328,7 +352,7 @@
           "source_refs": [
             "wt-2.57.1.137#L433"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": [
             "tank_gunner",
             "driver",
@@ -338,15 +362,19 @@
         },
         "dimensions.reference_length_m": {
           "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
-          "origin": "project engineering measurement/rule wt040-eng-v1",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 9.7
         },
         "dimensions.width_m": {
           "location": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope",
-          "origin": "project engineering measurement/rule wt040-eng-v1",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 3.7
         },
@@ -395,7 +423,7 @@
           "source_refs": [
             "wt-2.57.1.137"
           ],
-          "status": "reference",
+          "status": "estimated",
           "value": 20.8333333333333
         },
         "runtime.hull_turn_speed": {
@@ -409,8 +437,10 @@
         },
         "runtime.penetration_curve": {
           "location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": [
             [
@@ -433,22 +463,28 @@
         },
         "runtime.pitch_max": {
           "location": "gun elevation limit used by the engineering candidate, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 20.0
         },
         "runtime.pitch_min": {
           "location": "gun depression limit used by the engineering candidate, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": -9.0
         },
         "runtime.reload_time": {
           "location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
-          "origin": "project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
-          "source_refs": [],
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
           "status": "design",
           "value": 6.0
         },
