@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real loopback authority starts
+[PASS] production client handshake accepts current protocol
+[PASS] wire snapshot explicitly identifies current protocol
+[PASS] real transport and rendered replica preserve relative hull
+[PASS] real transport and rendered replica preserve relative running_left
+[PASS] real transport and rendered replica preserve relative running_right
+[PASS] displayed world geometry matches stationary authority hull
+[PASS] displayed world geometry matches stationary authority running_left
+[PASS] displayed world geometry matches stationary authority running_right
+[PASS] displayed world geometry matches stationary authority turret
+[PASS] displayed world geometry matches stationary authority barrel
+[PASS] displayed muzzle follows server hull rather than drive collision
+[PASS] relative pose survives JSON round trip
+[PASS] malformed right frame cannot partially overwrite hull
+[PASS] client presentation changes cannot alter authority
+[PASS] reset generation reaches actual client
+[PASS] reset replaces old relative pose hull
+[PASS] reset replaces old relative pose running_left
+[PASS] reset replaces old relative pose running_right
+[PASS] captured packet remains immutable across reset
+[PASS] replica still has no local driving or firing authority
+=== 结果: 21 项检查, 0 失败 ===
+NETWORK_FRAME_CHECKS_PASS

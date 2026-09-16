@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T039-E flat control (slope 0.0 deg): pivot turns -176.0 deg in 240 ticks (need >= 150), second half -87.3 deg (need >= 40)
+[PASS] T039-E flank crest (slope 11.9 deg): pivot turns -175.9 deg in 240 ticks (need >= 150), second half -86.8 deg (need >= 40)
+[PASS] T039-E upper slope (slope 12.7 deg): pivot turns -175.9 deg in 240 ticks (need >= 150), second half -86.6 deg (need >= 40)
+=== 结果: 3 项检查, 0 失败 ===
+SLOPE_PIVOT_CHECKS_PASS

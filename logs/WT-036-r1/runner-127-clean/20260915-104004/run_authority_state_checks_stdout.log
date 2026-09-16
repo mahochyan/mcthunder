@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical definitions load for the authority suite
+[PASS] query snapshot has no missing parts at rest
+[PASS] snapshot hull equals the authoritative hull frame in the same tick
+[PASS] snapshot turret equals the live turret rig in the same tick
+[PASS] snapshot barrel equals the live barrel pivot in the same tick
+[PASS] snapshot transform for hull is finite
+[PASS] snapshot transform for drive is finite
+[PASS] snapshot transform for running_left is finite
+[PASS] snapshot transform for running_right is finite
+[PASS] mutating the snapshot does not write back to the live hull
+[PASS] muzzle stays put after snapshot mutation
+[PASS] a later snapshot reflects the new pose instead of a cached one
+[progress] detach cycle 1 parent_ok=true residue=0
+[progress] detach cycle 2 parent_ok=true residue=0
+[progress] detach cycle 3 parent_ok=true residue=0
+[progress] detach cycle 4 parent_ok=true residue=0
+[progress] detach cycle 5 parent_ok=true residue=0
+[progress] detach cycle 6 parent_ok=true residue=0
+[progress] detach cycle 7 parent_ok=true residue=0
+[progress] detach cycle 8 parent_ok=true residue=0
+[progress] detach cycle 9 parent_ok=true residue=0
+[progress] detach cycle 10 parent_ok=true residue=0
+[PASS] turret detach and restore keep the authoritative parent across 10 cycles
+[PASS] turret local transform is restored exactly across 10 cycles
+[PASS] no wreck node, missing part or geometry residue after 10 detach cycles
+[PASS] a current-identity command is accepted before reset
+[PASS] a forged life id is refused as stale_identity
+[PASS] a pre-reset command is only accepted when the identity actually survived the reset (changed=true)
+[PASS] a post-reset command with the live identity is accepted
+=== 结果: 19 项检查, 0 失败 ===
+AUTHORITY_STATE_CHECKS_PASS

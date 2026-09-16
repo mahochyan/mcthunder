@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[moving target] contacts=[{ "tick": 96, "projectile": 1, "result": "penetrated", "point": [9.45879364013672, 1.23039770126343, -24.8261070251465], "target_speed": 1.60000002384186 }, { "tick": 97, "projectile": 1, "result": "penetrated", "point": [8.80139064788818, 1.15229225158691, -27.1756553649902], "target_speed": 1.54999995231628 }, { "tick": 246, "projectile": 2, "result": "penetrated", "point": [10.2162752151489, 1.21964883804321, -24.8259563446045], "target_speed": 0.0 }, { "tick": 247, "projectile": 2, "result": "penetrated", "point": [9.61684894561768, 1.14098596572876, -27.1758518218994], "target_speed": 0.0 }] terminals=[{ "tick": 103, "reason": "impact_world", "target": "" }, { "tick": 253, "reason": "impact_world", "target": "" }] shots=2
+MOVING_TARGET_TICK_CHECKS_PASS

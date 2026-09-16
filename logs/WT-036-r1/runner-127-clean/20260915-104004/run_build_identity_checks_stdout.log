@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] BuildIdentity.VERSION matches project.godot config/version (1.0.0-rc.3-dev)
+[PASS] build id is the fixed continuation build id
+[PASS] source base commit is a full 40-character SHA
+[PASS] candidate never claims release_ready
+[PASS] describe() carries version, build id, base SHA and the non-release state
+[PASS] describe() is informative enough for the menu line
+[PASS] menu identity wired into res://scripts/core/garage_shell.gd
+[PASS] menu identity wired into res://scripts/ui/garage_frontend.gd
+=== 结果: 8 项检查, 0 失败 ===
+BUILD_IDENTITY_CHECKS_PASS

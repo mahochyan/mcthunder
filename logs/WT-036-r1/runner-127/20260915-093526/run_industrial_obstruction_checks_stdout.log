@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] historical content admitted for wreck-route fixtures
+[PASS] industrial spawn us_m24_m6_t85e1_1951/1/0 starts clear (0 bodies within margin)
+[actual wreck route] team=1 type=us_m24_m6_t85e1_1951 { "phase": "arrived", "seconds": 128.583333333333, "bounded": true, "position": (-9.139376, 0.022045, 6.600998), "recovery_attempts": 1, "settle_ticks": 14 }
+[PASS] T023-H01 actual us_m24_m6_t85e1_1951 recovers and routes around a physical M26 wreck for team 1
+[PASS] industrial spawn us_m26_m3_1945/1/0 starts clear (0 bodies within margin)
+[actual wreck route] team=1 type=us_m26_m3_1945 { "phase": "arrived", "seconds": 151.9, "bounded": true, "position": (-9.137508, 0.031382, 6.598953), "recovery_attempts": 2, "settle_ticks": 14 }
+[PASS] T023-H01 actual us_m26_m3_1945 recovers and routes around a physical M26 wreck for team 1
+[PASS] industrial spawn us_m24_m6_t85e1_1951/2/0 starts clear (0 bodies within margin)
+[actual wreck route] team=2 type=us_m24_m6_t85e1_1951 { "phase": "arrived", "seconds": 128.583333333333, "bounded": true, "position": (-9.140255, 0.022047, -6.59935), "recovery_attempts": 1, "settle_ticks": 14 }
+[PASS] T023-H01 actual us_m24_m6_t85e1_1951 recovers and routes around a physical M26 wreck for team 2
+[PASS] industrial spawn us_m26_m3_1945/2/0 starts clear (0 bodies within margin)
+[actual wreck route] team=2 type=us_m26_m3_1945 { "phase": "arrived", "seconds": 151.75, "bounded": true, "position": (-9.138081, 0.03138, -6.597961), "recovery_attempts": 2, "settle_ticks": 14 }
+[PASS] T023-H01 actual us_m26_m3_1945 recovers and routes around a physical M26 wreck for team 2
+=== 结果: 9 项检查, 0 失败 ===
+INDUSTRIAL_OBSTRUCTION_CHECKS_PASS

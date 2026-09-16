@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real historical actors ready
+[LANDING] A height=0.02 impact=0.0 pending=0.0 up_velocity=0.0 rise=0.0 impacts=0
+[PASS] minor settling does not trigger rebound A
+[PASS] vehicle settles without recurring bounce or ground penetration A0.02
+[LANDING] A height=0.5 impact=4.29999971389771 pending=0.42999997735023 up_velocity=0.42999997735023 rise=0.0100417137146 impacts=1
+[PASS] one actual landing produces bounded physical rebound A0.5
+[PASS] configured rebound cap respected A0.5
+[PASS] vehicle settles without recurring bounce or ground penetration A0.5
+[LANDING] A height=2.0 impact=8.50000190734863 pending=0.85000020265579 up_velocity=0.85000020265579 rise=0.02811833098531 impacts=1
+[PASS] one actual landing produces bounded physical rebound A2.0
+[PASS] configured rebound cap respected A2.0
+[PASS] vehicle settles without recurring bounce or ground penetration A2.0
+[PASS] larger drop produces stronger response A
+[PASS] reset clears pending landing impulse A
+[LANDING] B height=0.02 impact=0.0 pending=0.0 up_velocity=0.0 rise=0.0 impacts=0
+[PASS] minor settling does not trigger rebound B
+[PASS] vehicle settles without recurring bounce or ground penetration B0.02
+[LANDING] B height=0.5 impact=4.29999971389771 pending=0.60199993848801 up_velocity=0.60199993848801 rise=0.01580837741494 impacts=1
+[PASS] one actual landing produces bounded physical rebound B0.5
+[PASS] configured rebound cap respected B0.5
+[PASS] vehicle settles without recurring bounce or ground penetration B0.5
+[LANDING] B height=2.0 impact=8.50000190734863 pending=1.0 up_velocity=1.0 rise=0.03728498518467 impacts=1
+[PASS] one actual landing produces bounded physical rebound B2.0
+[PASS] configured rebound cap respected B2.0
+[PASS] vehicle settles without recurring bounce or ground penetration B2.0
+[PASS] larger drop produces stronger response B
+[PASS] reset clears pending landing impulse B
+[PASS] impulse consumed once and preserves tangent motion
+[PASS] out-of-range landing restitution rejected
+=== 结果: 23 项检查, 0 失败 ===
+LANDING_RESPONSE_CHECKS_PASS

@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] four information classes are declared
+[PASS] an observed contact is more precise than reported intel
+[PASS] reported intel is more precise than a remembered contact
+[PASS] memory expires while world truth has no memory window
+[PASS] world truth cannot be recorded by a client view
+[PASS] the authority may hold world truth
+[PASS] smoke blocks the optical channel
+[PASS] smoke does not attenuate every channel identically
+[PASS] the thermal channel has its own smoke rule
+[PASS] visual attenuation and physical blocking are separate facts
+[PASS] foliage degrades sight without blocking shells
+[PASS] an observation through a blocking medium cannot be recorded as visible
+[PASS] smoke occlusion is identical at every quality level
+[PASS] the observation policy contains no display-quality reference at all
+[PASS] a fresh observation is present in memory
+[PASS] respawning the enemy drops the old marker
+[PASS] a record against the old life id is refused
+[PASS] a remembered contact expires after its window
+[PASS] audio gives a bearing, a distance band and a direction hint
+[PASS] audio never carries internals or an exact position
+[PASS] replay hides another entity's internals
+[PASS] replay may show the subject's own internals
+[PASS] spectator hides another entity's internals
+[PASS] spectator may show the subject's own internals
+[PASS] killcam hides another entity's internals
+[PASS] killcam may show the subject's own internals
+[PASS] the minimap projection is position plus age only
+[PASS] the player view never receives another entity's internals
+[PASS] combat laboratory ready for the sight-loss check
+[PASS] the AI behind cover never sees the target during 300 ticks
+[PASS] the AI is not handed live enemy state while blind
+[PASS] no live last-seen timestamp is fabricated while the target is unobserved
+=== 结果: 32 项检查, 0 失败 ===
+OBSERVATION_POLICY_CHECKS_PASS

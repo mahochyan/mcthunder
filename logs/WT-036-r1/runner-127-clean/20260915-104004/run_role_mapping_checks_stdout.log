@@ -1,0 +1,80 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] cn_ztz_99a mapping validates against its node inventory
+[PASS] cn_ztz_99a covers every binding role
+[PASS] cn_ztz_99a states a kind for every role
+[info] cn_ztz_99a: node=6 derived=0 missing=0 resolved=6/6
+[PASS] ussr_t_80b mapping validates against its node inventory
+[PASS] ussr_t_80b covers every binding role
+[PASS] ussr_t_80b states a kind for every role
+[info] ussr_t_80b: node=5 derived=1 missing=0 resolved=6/6
+[PASS] germ_leopard_2a4 mapping validates against its node inventory
+[PASS] germ_leopard_2a4 covers every binding role
+[PASS] germ_leopard_2a4 states a kind for every role
+[info] germ_leopard_2a4: node=5 derived=1 missing=0 resolved=6/6
+[PASS] us_m1a1_abrams mapping validates against its node inventory
+[PASS] us_m1a1_abrams covers every binding role
+[PASS] us_m1a1_abrams states a kind for every role
+[info] us_m1a1_abrams: node=3 derived=1 missing=2 resolved=4/6
+[PASS] cn_ztz_99a re-probes successfully
+[PASS] cn_ztz_99a role hull points at a node the live asset really contains (hull)
+[PASS] cn_ztz_99a role turret points at a node the live asset really contains (turret)
+[PASS] cn_ztz_99a role gun points at a node the live asset really contains (barrel)
+[PASS] cn_ztz_99a role muzzle points at a node the live asset really contains (muzzle)
+[PASS] cn_ztz_99a role running_left points at a node the live asset really contains (LOD1000_track_L)
+[PASS] cn_ztz_99a role running_right points at a node the live asset really contains (LOD1000_track_R)
+[PASS] ussr_t_80b re-probes successfully
+[PASS] ussr_t_80b role hull points at a node the live asset really contains (HullArmour)
+[PASS] ussr_t_80b role turret points at a node the live asset really contains (TurretArmour)
+[PASS] ussr_t_80b role gun points at a node the live asset really contains (MainGun)
+[PASS] ussr_t_80b role running_left points at a node the live asset really contains (track_l)
+[PASS] ussr_t_80b role running_right points at a node the live asset really contains (track_r)
+[PASS] ussr_t_80b derived role muzzle hangs off a real parent (MainGun)
+[PASS] germ_leopard_2a4 re-probes successfully
+[PASS] germ_leopard_2a4 role hull points at a node the live asset really contains (HullArmour)
+[PASS] germ_leopard_2a4 role turret points at a node the live asset really contains (TurretArmour)
+[PASS] germ_leopard_2a4 role gun points at a node the live asset really contains (MainGunAndMuzzleBrake)
+[PASS] germ_leopard_2a4 role running_left points at a node the live asset really contains (track_l)
+[PASS] germ_leopard_2a4 role running_right points at a node the live asset really contains (track_r)
+[PASS] germ_leopard_2a4 derived role muzzle hangs off a real parent (MainGunAndMuzzleBrake)
+[PASS] us_m1a1_abrams re-probes successfully
+[PASS] us_m1a1_abrams role hull points at a node the live asset really contains (Body)
+[PASS] us_m1a1_abrams role turret points at a node the live asset really contains (Turret)
+[PASS] us_m1a1_abrams role gun points at a node the live asset really contains (Gun)
+[PASS] us_m1a1_abrams derived role muzzle hangs off a real parent (Gun)
+[PASS] ZTZ-99A maps completely from its own node names
+[PASS] all six ZTZ roles are real nodes
+[PASS] the T-80B maps completely once its muzzle frame is derived
+[PASS] the T-80B needs exactly one authored frame
+[PASS] the Leopard 2A4 maps completely once its muzzle frame is derived
+[PASS] the M1A1 does not map completely: its merged LOD has no track nodes
+[PASS] the M1A1 reports both missing track roles
+[PASS] the M1A1 blocker names a re-export rather than hiding the gap
+[PASS] registration readiness is per asset
+[PASS] cn_ztz_99a draft is explicitly not applied
+[PASS] cn_ztz_99a draft carries the measured hash
+[PASS] cn_ztz_99a draft accounts for every role
+[PASS] ussr_t_80b draft is explicitly not applied
+[PASS] ussr_t_80b draft carries the measured hash
+[PASS] ussr_t_80b draft accounts for every role
+[PASS] germ_leopard_2a4 draft is explicitly not applied
+[PASS] germ_leopard_2a4 draft carries the measured hash
+[PASS] germ_leopard_2a4 draft accounts for every role
+[PASS] us_m1a1_abrams draft is explicitly not applied
+[PASS] us_m1a1_abrams draft carries the measured hash
+[PASS] us_m1a1_abrams draft accounts for every role
+[PASS] the M1A1 draft names the two roles it cannot place
+[PASS] an incomplete draft never claims completeness
+[PASS] ussr_t_80b marks its muzzle as an authored frame rather than a measured node
+[PASS] the derived frame records author provenance, not a measurement
+[PASS] germ_leopard_2a4 marks its muzzle as an authored frame rather than a measured node
+[PASS] the derived frame records author provenance, not a measurement
+[PASS] us_m1a1_abrams marks its muzzle as an authored frame rather than a measured node
+[PASS] the derived frame records author provenance, not a measurement
+[PASS] the mapping module contains no write path
+[PASS] the registry is still the untouched empty registry
+[PASS] the snapshot states nothing is installed and the registry is untouched
+[PASS] the snapshot covers all four assets
+[PASS] an unknown asset is refused
+=== 结果: 72 项检查, 0 失败 ===
+ROLE_MAPPING_CHECKS_PASS

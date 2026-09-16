@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] the first-release must-have list is frozen at four items (["rangefinding", "sight", "power", "fire_control_dependency"])
+[PASS] the must-have list contains rangefinding
+[PASS] the must-have list contains sight
+[PASS] the must-have list contains power
+[PASS] the must-have list contains fire_control_dependency
+[PASS] the equipment table is labelled as a calibratable game rule
+[PASS] rangefinding is registered as experimental, not supported
+[PASS] optical_sight is registered as experimental, not supported
+[PASS] thermal_sight is registered as experimental, not supported
+[PASS] night_vision is registered as experimental, not supported
+[PASS] fire_control_computer is registered as experimental, not supported
+[PASS] gun_stabilizer is registered as experimental, not supported
+[PASS] radar is registered as unimplemented
+[PASS] an unknown equipment id is reported as unknown
+[PASS] the T-80B explicitly lists night vision
+[PASS] the Leopard 2A4 does not list night vision
+[PASS] a capability the vehicle does not carry is not available to it
+[PASS] an unknown vehicle carries nothing automatically
+[PASS] an unknown equipment id is refused
+[PASS] an available sensor names its channel and its module
+[PASS] radar is declared unimplemented and needs a separate order
+[PASS] warning, radar, active protection and both guided/programmable ammunition are listed as unimplemented
+[PASS] each unimplemented system is flagged as requiring its own order
+[PASS] each unimplemented system carries an abstract calibratable rule
+[PASS] smoke blocks the optical channel while the thermal channel keeps its own rule
+[PASS] the thermal channel is attenuated by smoke, not untouched
+[PASS] a wall blocks the thermal channel as well: no seeing through cover
+[PASS] open air does not attenuate the optical channel
+[PASS] the sensor rule comes from the one observation policy
+[PASS] losing power disables the powered equipment
+[PASS] unpowered optics and the rangefinder keep working
+[PASS] the thermal sight and the fire-control computer stop with power
+[PASS] a powered sensor reports power_lost, matching the prompt
+[PASS] an unpowered sight still reports available
+[PASS] with power the gunner's required capabilities are present
+[PASS] without power the gunner's required capabilities are no longer all present
+[PASS] the missing capability is named, so the prompt can agree with reality
+[PASS] no modern role is reported fully ready while every capability is still experimental
+[PASS] the capabilities lacking supported equipment are listed
+[PASS] the same holds for a second vehicle and role
+[PASS] the equipment module declares the sensor limits display independent
+[PASS] no display-quality reference exists in the equipment policy
+[PASS] turning effects off never changes the gameplay sensor limit
+[PASS] the matrix lists every equipment id plus the unimplemented systems
+[PASS] every matrix row carries its id, tier, channel and opt-in state
+[PASS] the vehicle's equipment maps onto real modules for damage tracing (["rangefinder", "optics", "fire_control", "turret_drive"])
+[PASS] the second vehicle maps onto modules as well
+[PASS] the equipment snapshot exposes must_have
+[PASS] the equipment snapshot exposes equipment
+[PASS] the equipment snapshot exposes modules
+[PASS] the equipment snapshot exposes gunner
+[PASS] the equipment snapshot exposes power
+[PASS] the equipment snapshot exposes unimplemented
+[PASS] the equipment snapshot exposes historical_values_claimed
+[PASS] the snapshot states that no historical values are claimed
+=== 结果: 55 项检查, 0 失败 ===
+MODERN_EQUIPMENT_CHECKS_PASS

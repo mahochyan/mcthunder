@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] preset start tickets match the implementation (300)
+[PASS] preset death cost matches the implementation (30)
+[PASS] preset time limit matches the implementation
+[PASS] preset respawn delay matches the implementation
+[PASS] preset spawn protection matches the implementation
+[PASS] preset capture radius matches the implementation
+[PASS] preset capture seconds match the implementation
+[PASS] preset event schema matches the implementation
+[PASS] preset event history limit matches the implementation
+[PASS] preset zone cap matches the objectives implementation
+[PASS] preset rewards match the live progression table
+[PASS] the preset carries a stable id and version
+[PASS] the frozen rule fingerprint is stable
+[PASS] the outcome order is explicit
+[PASS] respawn rules require a frozen loadout and a new life id
+[PASS] capture rules exclude destroyed and protected vehicles
+[PASS] a lone team captures the zone after the capture window (1)
+[PASS] two teams in the zone mark it contested
+[PASS] a contested zone makes no capture progress
+[PASS] a contested owned zone keeps draining for its current owner
+[PASS] the other team can neutralise and recapture the zone
+[PASS] an empty zone drains nothing
+[PASS] three-point definitions configure
+[PASS] an entity inside the zone accumulates owned time once the zone is captured (1.00 s)
+[PASS] an entity outside the zone neither captures nor contests it
+[PASS] an entity far above the zone contributes nothing
+[PASS] a death costs tickets exactly once (270)
+[PASS] the roster counts one death, not two
+[PASS] the pending death queue is drained
+[PASS] both tickets empty in the same tick is a draw
+[PASS] a player-side exhaustion is a defeat
+[PASS] an enemy exhaustion is a victory
+[PASS] the time limit with equal tickets is a draw
+[PASS] the time limit compares tickets (player ahead)
+[PASS] the time limit compares tickets (player behind)
+[PASS] a running match yields no result
+[PASS] the first evaluated outcome is final for that tick
+[PASS] an empty token earns nothing
+[PASS] a result without a live registered match is refused
+[PASS] the isolated profile store reports no problem
+[PASS] a new match starts with full tickets
+[PASS] a new match starts with no roster, deaths or drain bank
+[PASS] a match carries the frozen rule label and fingerprint
+=== 结果: 43 项检查, 0 失败 ===
+MATCH_RULES_CHECKS_PASS

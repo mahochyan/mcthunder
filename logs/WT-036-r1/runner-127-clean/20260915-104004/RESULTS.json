@@ -1,0 +1,2434 @@
+﻿[
+    {
+        "suite":  "import",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --editor --import",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  217,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_layout_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_layout_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  123,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  3,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_query_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_query_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  140,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_slope_pivot_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_slope_pivot_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  3,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_model_binding_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_model_binding_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  63,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_suspension_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_suspension_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  28,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_track_drive_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_track_drive_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  15,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_powertrain_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_powertrain_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  19,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_query_cache_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_query_cache_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  13,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_simulation_phase_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_simulation_phase_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  13,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_turret_mechanism_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_turret_mechanism_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  34,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_loading_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_loading_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  62,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_partial_support_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_partial_support_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  7,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_landing_contact_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_landing_contact_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  13,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_landing_response_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_landing_response_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  23,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_moving_contact_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_moving_contact_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  67,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_surface_drive_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_surface_drive_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  15,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_hull_frame_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_hull_frame_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  25,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_chassis_recoil_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_chassis_recoil_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  23,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_track_damage_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_track_damage_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  21,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ammo_compartment_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_ammo_compartment_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  63,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_fire_control_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_fire_control_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  57,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_suspension_network_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_suspension_network_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  9,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_optics_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_optics_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  24,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_moving_target_tick_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_moving_target_tick_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_world_vehicle_phase_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_world_vehicle_phase_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  8,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_vehicle_readiness_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_vehicle_readiness_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  76,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_command_contract_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_command_contract_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  35,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_track_assembly_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_track_assembly_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  89,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_sight_ballistics_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_sight_ballistics_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  73,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_observation_policy_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_observation_policy_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  32,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_role_mapping_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_role_mapping_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  72,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_support_actions_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_support_actions_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  51,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_engagement_distance_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_engagement_distance_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  15,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ballistic_intercept_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_ballistic_intercept_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  149,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_material_response_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_material_response_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  76,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_long_rod_damage_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_long_rod_damage_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  57,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_spall_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_spall_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  78,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_chemical_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_chemical_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  92,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_era_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_era_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  73,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_composite_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_composite_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  117,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_fuze_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_fuze_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  137,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_content_record_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_content_record_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  65,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_reference_admission_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_reference_admission_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  105,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_match_rules_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_match_rules_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  43,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_team_traffic_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_team_traffic_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  34,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_authority_state_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_authority_state_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  19,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_diagnostic_budget_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_diagnostic_budget_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  4,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_tech_segment_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_tech_segment_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  50,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_asset_registry_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_asset_registry_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  44,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_match_event_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_match_event_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  11,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_modern_equipment_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_modern_equipment_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  55,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_modern_candidate_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_modern_candidate_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  56,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_equipment_package_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_equipment_package_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  74,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_composite_content_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_composite_content_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  50,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_composite_binding_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_composite_binding_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  77,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ai_recovery_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_ai_recovery_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  16,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ai_intercept_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_ai_intercept_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  106,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ai_tactics_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_ai_tactics_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  39,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_loading_mechanism_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_loading_mechanism_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  65,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_long_rod_content_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_long_rod_content_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  24,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_chemical_content_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_chemical_content_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  31,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_spall_content_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_spall_content_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  33,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_era_binding_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_era_binding_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  119,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_bound_model_package_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_bound_model_package_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  59,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_model_binding_probe_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_model_binding_probe_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  60,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_airborne_drive_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_airborne_drive_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  13,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_app_flow_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_app_flow_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  127,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_balance_matrix_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_balance_matrix_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  18,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_build_identity_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_build_identity_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  8,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_era_network_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_era_network_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  22,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_garage_frontend_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_garage_frontend_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  19,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_input_binding_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_input_binding_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  16,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_long_rod_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_long_rod_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  56,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_map_pack_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_map_pack_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  0,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_material_replay_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_material_replay_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  43,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_menu_fire_handoff_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_menu_fire_handoff_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  3,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_model_showroom_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_model_showroom_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  15,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_modern_model_mount_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_modern_model_mount_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  41,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_query_metrics_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_query_metrics_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  5,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_research_tree_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_research_tree_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  26,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_save_lock_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_save_lock_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  8,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_telemetry_measures",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_telemetry_measures.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  7,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_authority_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_authority_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  62,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_controller_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_controller_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  11,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_event_journal_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_event_journal_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  64,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_event_recovery_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_event_recovery_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  58,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_fault_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_fault_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  42,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_fire_control_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_fire_control_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  35,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_frame_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_frame_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  21,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_identity_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_identity_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  60,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_network_pose_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_network_pose_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  26,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_turret_mechanism_player_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_turret_mechanism_player_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  41,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_river_reachability_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_river_reachability_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  34,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_river_engagement_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_river_engagement_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  36,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_room_service_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_room_service_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  52,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_settings_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_settings_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  36,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_shell_cycle_player_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_shell_cycle_player_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  41,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_tutorial_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_tutorial_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  49,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_projectile_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_projectile_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  144,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_armor_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_armor_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  81,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_damage_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_damage_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  57,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_recovery_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_recovery_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  64,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_replay_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_replay_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  73,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_core_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_core_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  55,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_drive_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" -s \"res://tests/run_drive_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  26,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ai_drive_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_ai_drive_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  40,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_ai_combat_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_ai_combat_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  34,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_duel_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_duel_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  27,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_team_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_team_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  67,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_hud_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_hud_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  56,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_map_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_map_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  48,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_village_battle_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_village_battle_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  21,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_telemetry_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_telemetry_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  8,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_historical_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_historical_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  192,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_historical_road_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_historical_road_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  33,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_blender_asset_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_blender_asset_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  16,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_shell_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_shell_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  193,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_garage_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_garage_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  151,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_industrial_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_industrial_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  595,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_industrial_obstruction_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_industrial_obstruction_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  9,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_industrial_battle_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_industrial_battle_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  16,
+        "passed":  false,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_challenge_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_challenge_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  140,
+        "passed":  false,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  false,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_art_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_art_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  63,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_structure_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_structure_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  54,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_wreck_visual_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_wreck_visual_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  71,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    },
+    {
+        "suite":  "run_feedback_checks",
+        "source_sha":  "runner-127-clean",
+        "engine":  "4.7.2.stable.official.ed1daf0bf",
+        "command":  "\"E:\\AIprogram\\mcthunder\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\" --fixed-fps 60 -s \"res://tests/run_feedback_checks.gd\"",
+        "exit_code":  null,
+        "timed_out":  false,
+        "checks":  40,
+        "passed":  true,
+        "script_error":  false,
+        "unexpected_errors":  [
+
+                              ],
+        "expected_error_count":  0,
+        "marker_pass":  true,
+        "log_read_errors":  [
+
+                            ]
+    }
+]

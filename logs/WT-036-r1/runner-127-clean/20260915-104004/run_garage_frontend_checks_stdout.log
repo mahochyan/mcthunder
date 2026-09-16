@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] real roster drives frontend cards
+[PASS] card activation switches actual vehicle and inspection geometry
+[PASS] equipment navigation exposes real ammunition and lineup controls
+[PASS] training tab retains actual range entry
+[PASS] primary deploy emits actual existing team match request
+[PASS] navigation and preview do not write profile or award progress
+[PASS] primary action has keyboard focus
+[PASS] deployment action stays in viewport: (1280, 720)
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] deployment action stays in viewport: (1920, 1080)
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+[PASS] vehicle card stays in viewport
+=== 结果: 19 项检查, 0 失败 ===
+GARAGE_FRONTEND_CHECKS_PASS

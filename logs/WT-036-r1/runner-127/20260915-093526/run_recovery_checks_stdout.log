@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] load production definitions
+[PASS] create actual recovery vehicle
+[PASS] loadout partitions chamber and two racks
+[PASS] initial inventory conserved
+[PASS] shot consumes chamber then moves one round to transfer
+[PASS] loading removes from rack before chamber completion
+[PASS] overlapping transfer and empty chamber cannot duplicate ammunition
+[PASS] repeated transfer cancellation returns exactly one round
+[PASS] double completion cannot add a round
+[PASS] 30 shots consume exactly 30 rounds
+[PASS] one-round loadout has an empty physical rack
+[PASS] repeated destruction loss is idempotent
+[PASS] empty rack direct hit does not detonate
+[PASS] chamber-only loadout does not make empty rack explosive
+[PASS] same full rack direct hit causes actual actor terminal state
+[PASS] one attributed death notification
+[PASS] later impacts and repeated notify cannot repeat death or ammo loss
+[PASS] wreck keeps actual vehicle collision
+[PASS] terminal vehicle cannot drive or fire
+[PASS] explicit new life/reset restores inventory and state
+[PASS] repair follows track priority and one module at a time
+[PASS] movement intent interrupts repair without advancing saved progress
+[PASS] resuming saved repair reaches configured usable threshold
+[PASS] repair does not fix another module or revive crew
+[PASS] repair does not replenish ammo or extinguishers
+[PASS] actual ignition interrupts ongoing repair
+[PASS] fire prevents repair progress
+[PASS] healthy vehicle rejects unnecessary repair
+[PASS] effective engine hit ignites and freezes original source
+[PASS] repeated extinguisher request spends one charge at start
+[PASS] cancelled extinguisher is not refunded
+[PASS] second complete extinguisher consumes final charge and stops fire
+[PASS] new effective hit can reignite but empty consumables reject use
+[PASS] declared sustained crew exposure causes fire terminal state
+[PASS] fire death retains original launch attribution
+[PASS] terminal fire cannot produce a second death
+[PASS] environmental fire never borrows an unrelated shooter
+[PASS] replacement moves one actual person out of prior role
+[PASS] replacement restores function without reviving original gunner
+[PASS] one person cannot occupy two roles after replacement
+[PASS] donor incapacitation cancels replacement
+[PASS] reset cancels replacement without delayed role changes
+[PASS] terminal state cancels replacement
+[PASS] real manager accepts recovery comparison shot
+[PASS] actual penetrated path reaches physical ammo rack
+[PASS] same real path distinguishes loaded and empty rack
+[PASS] real manager accepts recovery comparison shot
+[PASS] actual penetrated path reaches physical ammo rack
+[PASS] same real path distinguishes loaded and empty rack
+[PASS] real projectile death retains committed source identity
+[PASS] recovery commands are copied and merged at the same mailbox boundary
+[PASS] recovery request is consumed once
+[PASS] pause boundary discards staged recovery request
+[PASS] pre-reset query cannot damage new state of same vehicle
+[PASS] register actual wreck under bounded budget
+[PASS] duplicate wreck registration rejected
+[PASS] register actual wreck under bounded budget
+[PASS] duplicate wreck registration rejected
+[PASS] register actual wreck under bounded budget
+[PASS] duplicate wreck registration rejected
+[PASS] third wreck evicts oldest under configured count limit
+[PASS] expired unprotected wrecks are removed without another death
+[PASS] precise camera intent detects turret above driving collision box
+[PASS] reset clears previous-life aiming cache
+=== 结果: 64 项检查, 0 失败 ===
+RECOVERY_CHECKS_PASS

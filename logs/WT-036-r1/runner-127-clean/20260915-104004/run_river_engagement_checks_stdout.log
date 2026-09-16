@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] river map with production tank and optics is ready
+[PASS] the engagement runs on an admitted historical vehicle (us_m4a3_75w_vvss_1944)
+[PASS] production optics profile provides a rangefinder
+[PASS] the admitted historical weapon keeps its projectile budget (2500 m)
+[info] player=(0.0, 8.00013, 90.0) vehicle=us_m4a3_75w_vvss_1944 gun_range=2500.0 rf_max=2000.0
+[PASS] near 250 m: design target assembles on the river map
+[PASS] near 250 m: production aim point drives the turret onto the design target (residual 0.346 deg)
+[PASS] near 250 m: a range request never fabricates a measurement
+[PASS] near 250 m: no distance is produced without a completed measurement
+[PASS] near 250 m: production fire gate accepts the shot
+[PASS] near 250 m: exactly one chambered round is consumed
+[PASS] near 250 m: the round leaves the real muzzle and produces a terminal record
+[PASS] near 250 m: the round terminates with a documented reason (impact_world)
+[info] near 250 m: terminal=impact_world direct_contact=false (direct fire crosses the river gorge / bridge structures, so long-range hits need the measured range; that chain is proven by run_fire_control_checks)
+[PASS] mid 550 m: design target assembles on the river map
+[PASS] mid 550 m: production aim point drives the turret onto the design target (residual 0.310 deg)
+[PASS] mid 550 m: a range request never fabricates a measurement
+[PASS] mid 550 m: no distance is produced without a completed measurement
+[PASS] mid 550 m: production fire gate accepts the shot
+[PASS] mid 550 m: exactly one chambered round is consumed
+[PASS] mid 550 m: the round leaves the real muzzle and produces a terminal record
+[PASS] mid 550 m: the round terminates with a documented reason (impact_world)
+[info] mid 550 m: terminal=impact_world direct_contact=false (direct fire crosses the river gorge / bridge structures, so long-range hits need the measured range; that chain is proven by run_fire_control_checks)
+[PASS] far 850 m: design target assembles on the river map
+[PASS] far 850 m: production aim point drives the turret onto the design target (residual 0.299 deg)
+[PASS] far 850 m: a range request never fabricates a measurement
+[PASS] far 850 m: no distance is produced without a completed measurement
+[PASS] far 850 m: production fire gate accepts the shot
+[PASS] far 850 m: exactly one chambered round is consumed
+[PASS] far 850 m: the round leaves the real muzzle and produces a terminal record
+[PASS] far 850 m: the round terminates with a documented reason (impact_world)
+[info] far 850 m: terminal=impact_world direct_contact=false (direct fire crosses the river gorge / bridge structures, so long-range hits need the measured range; that chain is proven by run_fire_control_checks)
+[PASS] direct contacts are reported individually (0 of 3 ranges), never claimed as a group
+[PASS] a barrel inside cover cannot fire and reports barrel_occluded
+[PASS] the blocked shot consumes nothing
+[PASS] switching observation modes never restarts the reload clock
+[PASS] switching observation modes does not change the chambered inventory
+[PASS] the production tank exposes a turret_drive module
+[PASS] a destroyed turret drive cannot establish a new aim (new 6.072 deg vs held 0.299 deg)
+[PASS] the HUD reason set documents the turret_drive cause
+=== 结果: 36 项检查, 0 失败 ===
+RIVER_ENGAGEMENT_CHECKS_PASS

@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] eight actual spawns and countdown commit versioned ordered match events
+[PASS] post-director snapshot identifies last committed event
+[death snapshot] event={ "entity_id": "B", "life_id": 5, "team": 2, "cause": "event_fixture", "schema_version": 1, "match_id": 101, "sequence": 10, "physics_tick": 198, "kind": "death", "time": 0.26666666666667 } first_snapshot_tick=198
+[PASS] real destruction reaches ledger and same-step event snapshot
+[PASS] duplicate destruction produces neither another event nor another ticket debit
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] terminal event is included in actual settlement with final ticket totals
+[PASS] final snapshot and result share the same event boundary
+[PASS] repeated finish cannot append or change terminal event
+[PASS] settlement consumer copies cannot alter committed events
+[PASS] new match has a distinct identity and fresh sequence
+[PASS] caller payload is copied and cannot override authoritative event identity
+[PASS] bounded history eviction never reuses a sequence number
+=== 结果: 11 项检查, 0 失败 ===
+MATCH_EVENT_CHECKS_PASS

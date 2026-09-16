@@ -1,0 +1,61 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] load real definitions
+[PASS] create real actor A
+[PASS] create real actor B
+[PASS] actual manager accepts damage shot
+[PASS] penetrated path destroys actual engine state
+[PASS] engine disables propulsion but not weapon
+[PASS] same definition other vehicle stays healthy
+[PASS] one armor contact plus one actual module event
+[PASS] module resistance consumes remaining penetration
+[PASS] same projectile does not damage one module twice
+[PASS] record preserves before/after truth
+[PASS] destroyed engine blocks active real driving
+[PASS] engine damage does not disable breech
+[PASS] actual manager accepts damage shot
+[PASS] destroyed breech rejects real fire without spending ammunition
+[PASS] breech destruction leaves drive available
+[PASS] breech-damaged real vehicle can accelerate
+[PASS] actual manager accepts damage shot
+[PASS] unpenetrated/unknown exterior protects internal engine
+[PASS] actual manager accepts damage shot
+[PASS] unpenetrated/unknown exterior protects internal engine
+[PASS] actual manager accepts damage shot
+[PASS] actual path 5cm outside module misses it
+[PASS] actual manager accepts damage shot
+[PASS] grazing exact box boundary does not damage
+[PASS] actual manager accepts damage shot
+[PASS] external track can be damaged without armor penetration
+[PASS] actual manager accepts damage shot
+[PASS] projectile born in open internal path without exterior authorization cannot damage
+[PASS] actual manager accepts damage shot
+[PASS] per-target exterior permission cannot leak from A to B
+[PASS] actual manager accepts damage shot
+[PASS] only 5mm residual yields proportional internal damage
+[PASS] internal resistance can stop the same projectile
+[PASS] reset recreates independent healthy module state
+[PASS] training roster comes from five actual stations
+[PASS] five crew start healthy
+[PASS] two crew do not trigger count-based defeat
+[PASS] incapacitated loader makes reload duration 1.6 times normal
+[PASS] one remaining crew triggers defeat
+[PASS] low-crew defeat committed exactly once
+[PASS] incapacitated crew cannot be assigned
+[PASS] living person can occupy another role
+[PASS] one person never occupies two roles
+[PASS] mutable instance damage does not rewrite shared layout
+[PASS] actual manager accepts damage shot
+[PASS] 90-degree turret uses actual rotated module box
+[PASS] 90-degree turret uses actual rotated crew station
+[PASS] rotated module and crew each receive exactly one path event
+[PASS] damage record freezes actual part pose
+[PASS] actual manager accepts damage shot
+[PASS] destroyed turret drive blocks actual tracking
+[PASS] missing loader changes real cooldown clock
+[PASS] same damage event ID is rejected
+[PASS] actual manager accepts damage shot
+[PASS] damage callback reset terminates once
+[PASS] reset callback cannot leave late damage or duplicate finish
+=== 结果: 57 项检查, 0 失败 ===
+DAMAGE_CHECKS_PASS

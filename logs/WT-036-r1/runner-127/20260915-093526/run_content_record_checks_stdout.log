@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] ussr_t_80b builds a content record
+[PASS] ussr_t_80b records the real model size (892092 bytes)
+[PASS] ussr_t_80b records the real model hash
+[PASS] ussr_t_80b records the real reference entry
+[PASS] ussr_t_80b has no import companion, so the model is bytes rather than a loadable resource
+[PASS] ussr_t_80b carries its authored mount specification
+[PASS] ussr_t_80b keeps model as its own field
+[PASS] ussr_t_80b keeps movement_collision as its own field
+[PASS] ussr_t_80b keeps armor as its own field
+[PASS] ussr_t_80b keeps modules as its own field
+[PASS] ussr_t_80b keeps muzzle_and_pivot as its own field
+[PASS] germ_leopard_2a4 builds a content record
+[PASS] germ_leopard_2a4 records the real model size (889668 bytes)
+[PASS] germ_leopard_2a4 records the real model hash
+[PASS] germ_leopard_2a4 records the real reference entry
+[PASS] germ_leopard_2a4 has no import companion, so the model is bytes rather than a loadable resource
+[PASS] germ_leopard_2a4 carries its authored mount specification
+[PASS] germ_leopard_2a4 keeps model as its own field
+[PASS] germ_leopard_2a4 keeps movement_collision as its own field
+[PASS] germ_leopard_2a4 keeps armor as its own field
+[PASS] germ_leopard_2a4 keeps modules as its own field
+[PASS] germ_leopard_2a4 keeps muzzle_and_pivot as its own field
+[PASS] an unknown vehicle has no record
+[PASS] every field names a declared provenance
+[PASS] measured artifacts are marked as facts
+[PASS] an unattached layout is honestly marked unknown rather than assumed
+[PASS] an unestablished licence is marked unknown
+[PASS] an incomplete pilot record does not validate
+[PASS] the missing layout is reported by name
+[PASS] a complete record validates, so the checks are not vacuous
+[PASS] a missing_model failure is reported by name
+[PASS] a unhashed_model failure is reported by name
+[PASS] a missing_muzzle failure is reported by name
+[PASS] a missing_pivot failure is reported by name
+[PASS] an untouched scale validates
+[PASS] a negative_scale failure is reported by name
+[PASS] a scale_out_of_range failure is reported by name
+[PASS] a non_finite_scale failure is reported by name
+[PASS] a malformed_scale failure is reported by name
+[PASS] a coordinate_convention_mismatch failure is reported by name
+[PASS] a transform_inconsistent failure is reported by name
+[PASS] a unknown_evidence_grade failure is reported by name
+[PASS] a unknown_licence_state failure is reported by name
+[PASS] switching the model leaves armour, modules, collision and muzzle untouched
+[PASS] even switching to a missing LOD leaves the combat configuration alone
+[PASS] an unknown source blocks distribution pending provenance
+[PASS] an unknown source blocks the public candidate without blocking game use
+[PASS] a redistributable record passes the gate
+[PASS] declared non-redistributable material is blocked by name
+[PASS] ussr_t_80b references only res:// paths
+[PASS] germ_leopard_2a4 references only res:// paths
+[PASS] an absolute local path is detected and reported
+[PASS] the registry report enumerates the in-repo research models (113)
+[PASS] none of them has an import companion
+[PASS] none of them is registered in model_sources.json yet
+[PASS] every research model is bytes-only for the resource loader
+[PASS] the pilot checklist has source, model, mount and integration steps
+[PASS] every artifact step carries its real size or hash
+[PASS] the integration step names the registry that is still empty
+[PASS] the snapshot exposes record
+[PASS] the snapshot exposes provenance
+[PASS] the snapshot exposes validation
+[PASS] the snapshot exposes distribution
+[PASS] the snapshot exposes portability
+[PASS] the snapshot exposes checklist
+=== 结果: 65 项检查, 0 失败 ===
+CONTENT_RECORD_CHECKS_PASS
