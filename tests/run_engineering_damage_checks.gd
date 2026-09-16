@@ -117,12 +117,43 @@ func _damage_case(defs: VehicleDefs, id: String) -> void:
 			check(state.alive_crew_count()<people.size(),id+": a crew casualty reduces the living crew count")
 		else:
 			print("      [damage] ",id," crew resolver returned ",crew_delta)
-	# --- restore: the same applier, and then the next-life rebuild -------------------------------
-	var healed: Dictionary = delta.duplicate(true)
-	healed["after"] = (delta.get("before",{}) as Dictionary).duplicate(true)
-	var restored: Dictionary = state.apply_damage_delta(id+"_repair_1",healed)
-	check(restored.get("ok",false),id+": the same applier restores the module (the repair path's state change)")
-	check(bool(VehicleCapabilities.compute(state).get("fire",false)),id+": the fire capability returns once the module integrity is back")
+	# --- restore through the REAL repair path ----------------------------------------------------
+	# The applier correctly refused a hand-built delta, because its before-state had gone stale by then; the
+	# restore therefore goes through the SHIPPED recovery: a repair command drives VehicleRecovery.step on
+	# real simulated time until the module is back, which is how run_ai_combat_checks.gd exercises it. No
+	# integrity is written by this test.
+	var cmd := VehicleCommand.new()
+	var repaired := false
+	var elapsed := 0.0
+	var tick := 1.0/60.0
+	var bound := 90.0
+	var target_integrity := float((delta.get("before",{}) as Dictionary).get("max_integrity",100.0))*RecoveryRules.REPAIR_TARGET
+	while elapsed < bound:
+		cmd.repair_requested = true
+		VehicleRecovery.step(state,tick,0.0,cmd)
+		elapsed += tick
+		# The shipped rule stops at the documented repair target, so that is the completion criterion here;
+		# waiting for full integrity would never finish and was my mistake, not the game's.
+		if float((state.module_states[breech_id] as Dictionary).get("integrity",0)) >= target_integrity - 0.001:
+			repaired = true
+			break
+	print("      [damage] ",id," real repair after ",snappedf(elapsed,0.01)," s simulated: breech=",state.module_states[breech_id],
+		" action=",state.recovery_action," reason=",state.recovery_reason)
+	# The shipped rule repairs to the documented target fraction, not to full integrity, so that is what is
+	# asserted here: the module must come back positive and reach at least the repair target.
+	var max_integrity := float((delta.get("before",{}) as Dictionary).get("max_integrity",100.0))
+	var integrity_now := float((state.module_states[breech_id] as Dictionary).get("integrity",0))
+	check(repaired and integrity_now > 0.0 and integrity_now >= max_integrity*RecoveryRules.REPAIR_TARGET - 0.001,
+		id+": the real repair path restores the breech to its documented repair target (%.1f of %.1f)" % [integrity_now,max_integrity])
+	# Fire needs the module AND a live gunner: the capability is correctly still denied while the gunner is
+	# dead, and the next-life rebuild below is what restores it.
+	var gunner_person := str(state.crew_assignments.get("gunner",""))
+	var gunner_dead := gunner_person != "" and not bool((state.crew_states[gunner_person] as Dictionary).get("alive",true))
+	if gunner_dead:
+		check(not bool(VehicleCapabilities.compute(state).get("fire",true)),
+			id+": fire stays denied while the gunner is dead even though the breech itself was repaired")
+	else:
+		check(bool(VehicleCapabilities.compute(state).get("fire",false)),id+": fire returns once the breech is repaired")
 	actor.reset_vehicle()
 	await _frames(3)
 	var rebuilt: Dictionary = VehicleCapabilities.compute(actor.state)

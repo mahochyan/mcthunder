@@ -13,6 +13,7 @@ if('run_art_checks' -in $Suites -and 'run_menu_fire_handoff_checks' -notin $Suit
 # the same way, so the standing regression covers them without changing how any existing suite runs.
 if('run_checks' -in $Suites -and 'run_engineering_runtime_checks' -notin $Suites){$Suites += 'run_engineering_runtime_checks'}
 if('run_checks' -in $Suites -and 'check_engineering_admission' -notin $Suites){$Suites += 'check_engineering_admission'}
+if('run_checks' -in $Suites -and 'run_engineering_damage_checks' -notin $Suites){$Suites += 'run_engineering_damage_checks'}
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $engine = if ($EnginePath) { $EnginePath } else { Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.exe' }
 if (-not (Test-Path -LiteralPath $engine)) { throw "Fixed Godot missing: $engine" }
