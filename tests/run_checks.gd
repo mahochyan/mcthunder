@@ -710,6 +710,7 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	await physics_frame
+	await _wait_trial_hits(main, 1)
 	_ok(main.trial_hits == 0, "T003-06 重置后试射计数归零")
 	# 空射不推进
 	main.cam_rig.aim_yaw = 0.0
@@ -721,10 +722,12 @@ func _run() -> void:
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
+	await _wait_trial_hits(main, 2)
 	_ok(main.trial_hits == 0, "T003-06 空射不推进试射计数")
 	# 冷却拒绝不推进
 	gunner.cooldown_left = 5.0
 	gunner.try_fire()
+	await _wait_trial_hits(main, 3)
 	_ok(main.trial_hits == 0, "T003-06 冷却拒绝不推进试射计数")
 	gunner.cooldown_left = 0.0
 	# 真实命中推进（B 移到 A 正前方）
@@ -747,6 +750,7 @@ func _run() -> void:
 	gunner.resume_grace = 0.0
 	gunner.try_fire()
 	await _wait_flight_done(main)   # 006-d：真实飞行
+	await _wait_trial_hits(main, 3)
 	_ok(main.trial_hits == 1, "T003-06 真实命中推进试射计数 (hits=%d)" % main.trial_hits)
 	gunner.cooldown_left = 0.0
 	gunner.resume_grace = 0.0
@@ -1098,11 +1102,20 @@ func _stable_converge(main) -> Dictionary:
 		var bdir: Vector3 = main.turret.barrel_direction()
 		var want: Vector3 = (P - main.turret.barrel_pivot.global_position).normalized()
 		var err: float = rad_to_deg(bdir.angle_to(want))
+		# WT-040-R1: bounded trajectory sampling (at most five lines) so a failing run shows WHEN the turret
+		# starts moving instead of only its final residual. Diagnostic only; no criterion is touched.
+		if i % 60 == 0:
+			print("[stab] frame=%d err=%.3fdeg first_cross=%d" % [i, err, first_cross])
+		# WT-040-R1: record the error on EVERY frame, including before the first crossing. The old code skipped
+		# this while first_cross was still -1, so a never-converged run reported max_err=0.00 and final_err=0.00,
+		# which says nothing about how close it came. Reporting only: the 0.5 degree threshold and the one second
+		# hold are unchanged.
+		max_err = maxf(max_err, err)
+		final_err = err
 		if first_cross < 0:
 			if err <= 0.5:
 				first_cross = i
 				hold_time = 0.0
-				max_err = err
 			continue
 		hold_time += 1.0 / Engine.physics_ticks_per_second   # 模拟时间（物理固定步长）
 		max_err = maxf(max_err, err)
@@ -1111,6 +1124,9 @@ func _stable_converge(main) -> Dictionary:
 			return {"converged": false, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": err}
 		if hold_time >= 1.0:
 			return {"converged": true, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": err}
+	# WT-040-R1: name the residual on the timeout path, bounded and one line, so a never-converged run can be
+	# told apart from a short observation window by data rather than by guesswork.
+	print("[stab] NOT converged first_cross=%d hold=%.2fs max_err=%.3fdeg final_err=%.3fdeg" % [first_cross, hold_time, max_err, final_err])
 	return {"converged": false, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": final_err}
 
 func _check_fonts() -> void:
@@ -1203,6 +1219,14 @@ func _wait_flight_done(m: Node, timeout_frames: int = 480) -> void:
 	for i in timeout_frames:
 		if m.projectiles.active_count() == 0:
 			return
+		await physics_frame
+
+func _wait_trial_hits(m: Node, target: int, max_frames: int = 480) -> void:
+	# WT-040-R1: a projectile leaving the world and the trial-hit counter being incremented are not necessarily
+	# observed on the same frame, so the assertions below wait for the value they are about to assert, with a
+	# bound. The assertions themselves are unchanged - this removes a one-frame race, not a criterion.
+	for i in max_frames:
+		if m.trial_hits >= target: return
 		await physics_frame
 
 func _ok(cond: bool, label: String) -> void:
