@@ -4,14 +4,15 @@
     {
       "crew": [
         {
-          "derived": true,
+          "derived": false,
           "id": "gunner",
           "part": "turret",
           "position": [
-            0.0,
-            1.45,
-            0.0
+            -0.65,
+            0.43,
+            -0.1
           ],
+          "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
           "role": "gunner",
           "size": [
             0.5,
@@ -20,14 +21,15 @@
           ]
         },
         {
-          "derived": true,
+          "derived": false,
           "id": "driver",
           "part": "hull",
           "position": [
             0.0,
-            0.99,
-            -1.43
+            0.97,
+            -2.0
           ],
+          "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
           "role": "driver",
           "size": [
             0.5,
@@ -36,14 +38,15 @@
           ]
         },
         {
-          "derived": true,
+          "derived": false,
           "id": "commander",
           "part": "turret",
           "position": [
-            0.0,
-            1.45,
-            0.0
+            0.65,
+            0.43,
+            0.2
           ],
+          "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
           "role": "commander",
           "size": [
             0.5,
@@ -62,14 +65,15 @@
     {
       "crew": [
         {
-          "derived": true,
+          "derived": false,
           "id": "gunner",
           "part": "turret",
           "position": [
-            0.0,
-            1.66,
-            0.0
+            0.65,
+            0.45,
+            -0.25
           ],
+          "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
           "role": "gunner",
           "size": [
             0.5,
@@ -78,14 +82,15 @@
           ]
         },
         {
-          "derived": true,
+          "derived": false,
           "id": "driver",
           "part": "hull",
           "position": [
-            0.0,
-            1.17,
-            -1.58
+            0.62,
+            1.08,
+            -2.2
           ],
+          "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
           "role": "driver",
           "size": [
             0.5,
@@ -94,14 +99,15 @@
           ]
         },
         {
-          "derived": true,
+          "derived": false,
           "id": "loader",
           "part": "turret",
           "position": [
-            0.0,
-            1.66,
-            0.0
+            -0.65,
+            0.45,
+            0.2
           ],
+          "position_source": "authored Attachment_loader anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
           "role": "loader",
           "size": [
             0.5,
@@ -110,14 +116,15 @@
           ]
         },
         {
-          "derived": true,
+          "derived": false,
           "id": "commander",
           "part": "turret",
           "position": [
-            0.0,
-            1.66,
-            0.0
+            0.65,
+            0.45,
+            0.55
           ],
+          "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
           "role": "commander",
           "size": [
             0.5,

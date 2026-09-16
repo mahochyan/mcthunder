@@ -43,13 +43,31 @@ static func read(path: String) -> Dictionary:
 				roles["hull"] = child
 				break
 	var anchors := {}
+	var hull_node: Variant = roles["hull"]
+	var turret_node: Variant = roles["turret"]
+	var barrel_node: Variant = roles["barrel"]
 	for node in world.keys():
 		var nm := str((node as Node).name)
-		if nm.begins_with("Attachment_"):
-			anchors[nm] = {"node":node, "parent":str(node.get_parent().name) if node.get_parent() != null else "",
-				"transform":world[node]}
+		if not nm.begins_with("Attachment_"):
+			continue
+		# The relative transform is computed HERE, before the scene is freed: a Node-keyed dictionary
+		# outlives its nodes otherwise, and reading it afterwards silently returned garbage. Only plain
+		# values leave this function.
+		var rel := {}
+		for pair in [["hull",hull_node],["turret",turret_node],["barrel",barrel_node]]:
+			var part_node: Variant = pair[1]
+			if part_node == null or not world.has(part_node): continue
+			var local: Transform3D = (world[part_node] as Transform3D).affine_inverse() * (world[node] as Transform3D)
+			rel[str(pair[0])] = {"position":local.origin, "basis":local.basis,
+				"basis_is_identity":local.basis.is_equal_approx(Basis.IDENTITY),
+				"part_node":str((part_node as Node).name)}
+		anchors[nm] = {"parent":str(node.get_parent().name) if node.get_parent() != null else "", "relative":rel}
 	scene.free()
-	return {"ok":true,"path":path,"anchors":anchors,"roles":roles,"by_name":by_name,"world":world}
+	var role_names := {"hull":"", "turret":"", "barrel":""}
+	for key in role_names.keys():
+		var rn: Variant = roles.get(key,null)
+		role_names[key] = str((rn as Node).name) if rn != null else ""
+	return {"ok":true,"path":path,"anchors":anchors,"role_names":role_names,"roles":{},"by_name":{}}
 
 ## Every node's transform accumulated from the root, exactly as the validator walks it.
 static func _accumulate(node: Node, acc: Transform3D, out: Dictionary) -> void:
@@ -68,19 +86,15 @@ static func part_relative(path: String, anchor_name: String, part: String) -> Di
 	var anchors: Dictionary = info["anchors"]
 	if not anchors.has(anchor_name):
 		return {"ok":false,"reason":"anchor_absent","position":Vector3.ZERO,"basis":Basis.IDENTITY,"part_node":"","anchor":anchor_name}
-	var roles: Dictionary = info["roles"]
 	var role_key := "hull"
 	if part == "turret": role_key = "turret"
 	elif part == "barrel": role_key = "barrel"
-	var part_node: Variant = roles.get(role_key,null)
-	if part == "drive" or part == "running_left" or part == "running_right": part_node = roles.get("hull",null)
-	if part_node == null: part_node = roles.get("hull",null)
-	if part_node == null:
-		return {"ok":false,"reason":"no_part_node","position":Vector3.ZERO,"basis":Basis.IDENTITY,"part_node":"","anchor":anchor_name}
-	var world: Dictionary = info["world"]
-	if not world.has(part_node):
-		return {"ok":false,"reason":"part_not_in_scene","position":Vector3.ZERO,"basis":Basis.IDENTITY,"part_node":"","anchor":anchor_name}
-	var local: Transform3D = (world[part_node] as Transform3D).affine_inverse() * (anchors[anchor_name]["transform"] as Transform3D)
-	return {"ok":true,"position":local.origin,"basis":local.basis,"anchor":anchor_name,"part":part,
-		"part_node":str((part_node as Node).name),"anchor_parent":str(anchors[anchor_name]["parent"]),
-		"basis_is_identity":local.basis.is_equal_approx(Basis.IDENTITY)}
+	# drive and the running branches share the hull origin at rest, which is what the validator uses.
+	if part == "drive": role_key = "hull"
+	var rel: Dictionary = anchors[anchor_name]["relative"]
+	if not rel.has(role_key):
+		return {"ok":false,"reason":"part_kind_unavailable","position":Vector3.ZERO,"basis":Basis.IDENTITY,"part_node":"","anchor":anchor_name}
+	var row: Dictionary = rel[role_key]
+	return {"ok":true,"position":row["position"],"basis":row["basis"],"basis_is_identity":row["basis_is_identity"],
+		"anchor":anchor_name,"part":part,"part_node":str(row["part_node"]),
+		"anchor_parent":str(anchors[anchor_name]["parent"])}
