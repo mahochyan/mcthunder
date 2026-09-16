@@ -23,8 +23,27 @@ $engine = Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.
 if (-not (Test-Path -LiteralPath $engine)) { throw 'Fixed Godot engine is missing' }
 $engineVersion = (& $engine --version).Trim()
 if ($engineVersion -ne '4.7.2.stable.official.ed1daf0bf') { throw 'Unexpected Godot build; release requires the fixed engine' }
-$template = Join-Path $TemplateDirectory 'windows_release_x86_64.exe'
-if (-not (Test-Path -LiteralPath $template)) { throw 'Matching official Windows release x64 template is missing; no candidate created' }
+# WT-040-R1 ④: resolve the official export template defensively instead of trusting one default.
+# A build launched from a background job reported the template missing even though it exists under
+# %APPDATA%, which means the child did not inherit the same environment; the candidates are now
+# searched in order and the failure message lists every location that was tried.
+$templateCandidates=@()
+if ($TemplateDirectory) { $templateCandidates += (Join-Path $TemplateDirectory 'windows_release_x86_64.exe') }
+foreach ($root in @($env:APPDATA, (Join-Path $env:USERPROFILE 'AppData\Roaming'), $env:LOCALAPPDATA)) {
+    if ($root) { $templateCandidates += (Join-Path $root 'Godot\export_templates\4.7.2.stable\windows_release_x86_64.exe') }
+}
+try {
+    $searchRoot=Join-Path $env:USERPROFILE 'AppData\Roaming\Godot\export_templates'
+    if (Test-Path -LiteralPath $searchRoot) {
+        $templateCandidates += @(Get-ChildItem -LiteralPath $searchRoot -Recurse -Filter 'windows_release_x86_64.exe' -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
+    }
+} catch { }
+$template=$templateCandidates | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
+if (-not $template) {
+    throw ('Matching official Windows release x64 template is missing; looked in: ' + (($templateCandidates | Where-Object { $_ }) -join ' | ') + '; no candidate created')
+}
+$TemplateDirectory=Split-Path -Parent $template
+Write-Output "TEMPLATE=$template"
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 $runDir = Join-Path $projectRoot "backups/builds/031/$sourceSha/$stamp"
 $logs = Join-Path $projectRoot "logs/031/$sourceSha/build-$stamp"
