@@ -1,18 +1,31 @@
 class_name VehicleContentPipeline
 extends RefCounted
 
+## WT-040-R1 (user ruling): ONE place decides what an audit result means, because reading it by eye is
+## how "ok=false with an empty error list" was mistaken for a pass. An explicit incomplete marker wins;
+## a short-circuited or crashed run is incomplete; named errors are complete-with-gaps; only ok=true
+## with no errors and nothing skipped is a complete pass.
+static func audit_state(result: Dictionary) -> String:
+	if str(result.get("audit","")) == "incomplete": return "incomplete"
+	var errs: Variant = result.get("errors",null)
+	if not errs is Array: return "incomplete"
+	var skipped: Variant = result.get("skipped_checks",[])
+	if skipped is Array and not (skipped as Array).is_empty(): return "incomplete"
+	if (errs as Array).is_empty(): return "complete_no_gaps" if bool(result.get("ok",false)) else "incomplete"
+	return "complete_with_gaps"
+
 static func validate_package(packet: Dictionary, model_sources: Dictionary = {}) -> Dictionary:
 	var shape_errors := check_shape(packet)
-	if not shape_errors.is_empty(): return {"ok":false,"errors":shape_errors,"notes":[]}
+	if not shape_errors.is_empty(): return {"ok":false,"audit":"complete_with_gaps","errors":shape_errors,"notes":[],"skipped_checks":[]}
 	var profile: Variant = packet.get("evidence_profile","historical_verified")
-	if profile not in ["historical_verified","game_reference"]: return {"ok":false,"errors":["evidence_profile: unsupported"],"notes":[]}
+	if profile not in ["historical_verified","game_reference"]: return {"ok":false,"audit":"complete_with_gaps","errors":["evidence_profile: unsupported"],"notes":[],"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	var evidence: Dictionary = ReferenceEvidenceGate.check(packet) if profile=="game_reference" else HistoricalEvidenceGate.check(packet)
 	var compatibility := VariantCompatibility.check(packet)
 	var errors: Array[String] = []
 	errors.append_array(evidence.errors); errors.append_array(compatibility.errors)
 	for field in ["id","display_name","geometry","runtime","armor","modules","crew","license"]:
 		if not packet.has(field): errors.append(field+": missing content component")
-	if not errors.is_empty(): return {"ok":false,"errors":errors,"notes":evidence.notes}
+	if not errors.is_empty(): return {"ok":false,"audit":"complete_with_gaps","errors":errors,"notes":evidence.notes,"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	var g: Dictionary = packet.geometry
 	for field in ["hull_rings","turret_origin","gun_origin","turret_outline","turret_bottom","turret_top","turret_taper","ring_half","open_top","mantlet_half_width","mantlet_half_height","barrel_length","wheel_count","track_width","wheel_radius"]:
 		if not g.has(field): errors.append("geometry."+field+": missing")
@@ -27,10 +40,10 @@ static func validate_package(packet: Dictionary, model_sources: Dictionary = {})
 		if not packet.facts.has(armor.get("fact","")): errors.append("armor."+zone+": missing evidence")
 		if armor.has("local_mm") and (not armor.local_mm is float and not armor.local_mm is int or float(armor.local_mm) <= 0 or str(armor.get("estimate_reason","")).is_empty()):
 			errors.append("armor."+zone+": local estimate requires a positive value and explanation")
-	if not errors.is_empty(): return {"ok":false,"errors":errors,"notes":evidence.notes}
+	if not errors.is_empty(): return {"ok":false,"audit":"complete_with_gaps","errors":errors,"notes":evidence.notes,"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	if g.hull_rings.size() != 3 or g.turret_outline.size() < 8 or g.turret_outline.size() > 32:
 		errors.append("geometry: requires three hull levels and an 8–32 vertex turret outline")
-	if not errors.is_empty(): return {"ok":false,"errors":errors,"notes":evidence.notes}
+	if not errors.is_empty(): return {"ok":false,"audit":"complete_with_gaps","errors":errors,"notes":evidence.notes,"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	var width: float = HistoricalEvidenceGate.value(packet,"dimensions.width_m")
 	var length: float = HistoricalEvidenceGate.value(packet,"dimensions.reference_length_m")
 	var mesh_width := 0.0; var mesh_length := 0.0
@@ -70,6 +83,13 @@ static func validate_package(packet: Dictionary, model_sources: Dictionary = {})
 		if str(overlap).begins_with("SUSPICIOUS"): errors.append(overlap)
 		else: evidence.notes.append(overlap)
 	var definitions := definitions_for(packet,layout)
+	# WT-040-R1 audit integrity: definitions_for can return an empty dictionary, and indexing .vehicle on
+	# it produced the unhandled 'key vehicle on a base object of type Dictionary' error seen in the audit.
+	# A definition that cannot be built is a named rejection, and every check that depends on it is skipped.
+	if definitions.is_empty() or not definitions.has("vehicle") or not definitions.has("weapon") or not definitions.has("shell"):
+		errors.append("definitions: vehicle/weapon/shell could not be built, so definition validation and admission promotion were NOT run")
+		return {"ok":false,"audit":"incomplete","errors":errors,"notes":evidence.notes,
+			"skipped_checks":["definition_validation","admission_promotion","shell_catalog"],"layout":layout,"definitions":{},"packet":packet}
 	var shell_set := VehicleShellCatalog.build(packet)
 	for error in shell_set.errors: errors.append(error)
 	if shell_set.ok and layout.armor_patches.any(func(patch: ArmorPatchDefinition) -> bool: return not patch.reactive_profile.is_empty()):
