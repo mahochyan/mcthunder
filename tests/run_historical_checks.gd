@@ -151,7 +151,18 @@ func battle_case(id: String) -> void:
 func garage_case() -> void:
 	var garage := GarageShell.new(); root.add_child(garage)
 	await frames(3)
-	check(garage.vehicle_choice.item_count == 5,"normal garage exposes fixture plus four historical choices")
+	# WT-040-R1 (2026-09-17 ruling): the garage now exposes the curated historical roster PLUS the explicitly
+	# admitted engineering vehicles, so "five" is no longer the intended roster. The check states the EXACT
+	# roster by id instead of a count, which is stricter than before: the training fixture, the four historical
+	# types and the two engineering types, in that order. The historical-only contract itself is untouched and is
+	# still enforced by the separate check that a fresh load_all registers exactly four configurations.
+	var expected_roster: Array = ["player_tank"]
+	expected_roster.append_array(VehicleCatalog.IDS)
+	expected_roster.append_array(VehicleCatalog.ENGINEERING_IDS)
+	var exposed_roster: Array = []
+	for roster_index in garage.vehicle_choice.item_count:
+		exposed_roster.append(str(garage.vehicle_choice.get_item_metadata(roster_index)))
+	check(exposed_roster == expected_roster,"normal garage exposes the fixture, the four historical types and the two admitted engineering types, by id")
 	for i in range(1,5):
 		garage.vehicle_choice.select(i); garage.vehicle_choice.item_selected.emit(i)
 		await frames(2)
