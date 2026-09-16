@@ -195,7 +195,7 @@ func _build(id: String, path: String) -> Dictionary:
 			"value": roles,
 			"status": "estimated",
 			"origin": SOURCE_LABEL,
-			"source_refs": ["wt-%s#L%d" % [SOURCE_VERSION,int(role_lines[0])]],
+			"source_refs": ["wt-%s" % SOURCE_VERSION],
 			"location": "%s crew_roster (lines %s): roles %s" % [SOURCE_LABEL,str(role_lines),str(roles)],
 		}
 		row.emitted.append("crew.roles ← crew_roster[].roles flattened (lines %s)" % str(role_lines))

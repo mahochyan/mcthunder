@@ -75,7 +75,7 @@
           "location": "warthunder_reference crew_roster (lines [420, 421, 422]): roles [\"tank_gunner\", \"driver\", \"commander\"]",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L420"
+            "wt-2.57.1.137"
           ],
           "status": "estimated",
           "value": [
@@ -350,7 +350,7 @@
           "location": "warthunder_reference crew_roster (lines [433, 434, 435, 436]): roles [\"tank_gunner\", \"driver\", \"loader\", \"commander\"]",
           "origin": "warthunder_reference",
           "source_refs": [
-            "wt-2.57.1.137#L433"
+            "wt-2.57.1.137"
           ],
           "status": "estimated",
           "value": [
