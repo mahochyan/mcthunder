@@ -13,7 +13,7 @@
       },
       "dimensions": {
         "reference_length_m": 9.703,
-        "width_m": 3.806
+        "width_m": 5.01
       },
       "dossier": "res://assets/reference_data/candidates/ussr_t_80b.json",
       "emitted": [
@@ -49,7 +49,7 @@
         "weapon.caliber_mm <- assembly.caliber_mm (archive candidate)",
         "weapon.ammunition <- assembly.shell (archive candidate)",
         "identity.year <- assembly.year (project rule)",
-        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings) (geometry_estimate)"
+        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings (geometry_estimate)"
       ],
       "facts": {
         "assembly.mount": {
@@ -106,7 +106,7 @@
           ]
         },
         "dimensions.reference_length_m": {
-          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
@@ -115,13 +115,13 @@
           "value": 9.703
         },
         "dimensions.width_m": {
-          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
           ],
           "status": "estimated",
-          "value": 3.806
+          "value": 5.01
         },
         "identity.suspension": {
           "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
@@ -372,7 +372,7 @@
       },
       "dimensions": {
         "reference_length_m": 7.461,
-        "width_m": 3.41
+        "width_m": 4.566
       },
       "dossier": "res://assets/reference_data/candidates/germ_leopard_2a4.json",
       "emitted": [
@@ -408,7 +408,7 @@
         "weapon.caliber_mm <- assembly.caliber_mm (archive candidate)",
         "weapon.ammunition <- assembly.shell (archive candidate)",
         "identity.year <- assembly.year (project rule)",
-        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings) (geometry_estimate)"
+        "dimensions component: width_m/reference_length_m ← measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings (geometry_estimate)"
       ],
       "facts": {
         "assembly.mount": {
@@ -466,7 +466,7 @@
           ]
         },
         "dimensions.reference_length_m": {
-          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
@@ -475,13 +475,13 @@
           "value": 7.461
         },
         "dimensions.width_m": {
-          "location": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)",
+          "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
           "origin": "game_rule",
           "source_refs": [
             "mcthunder_pipeline"
           ],
           "status": "estimated",
-          "value": 3.41
+          "value": 4.566
         },
         "identity.suspension": {
           "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",

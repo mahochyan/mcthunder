@@ -364,9 +364,15 @@ func _build(id: String, path: String) -> Dictionary:
 						maxhalf = maxf(maxhalf,float(ring[1]))
 						zmin = minf(zmin,float(ring[2]))
 						zmax = maxf(zmax,float(ring[3]))
+					var track_ref := float(gf.get("track_width",0.0))
 					if maxhalf > 0.0 and zmax > zmin:
-						dims = {"width_m": snappedf(maxhalf*2.0,0.001), "reference_length_m": snappedf(zmax-zmin,0.001), "status": "geometry_estimate",
-							"why": "measured from this run's own geometry draft hull rings (half-width x2, and the z-span across the three rings)"}
+						# WT-040-R1: width_m must use the SAME convention the pipeline checks against, which is
+						# the overall width - 2 x widest ring half-width PLUS 2 x track width. My first rule
+						# omitted the tracks and was 31.6%/33.9% short of the envelope, which is precisely the
+						# "geometry.width differs >16%" error. The value is a MEASUREMENT of this run's own
+						# model under the registered scale, so it is labelled a geometry estimate.
+						dims = {"width_m": snappedf(maxhalf*2.0 + track_ref*2.0,0.001), "reference_length_m": snappedf(zmax-zmin,0.001), "status": "geometry_estimate",
+							"why": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings"}
 	if dims.is_empty() and not eng.is_empty():
 		dims = {"width_m": float(eng["width_m"]), "reference_length_m": float(eng["reference_length_m"]), "status": "design",
 			"why": "the model could not be measured into hull rings (plate/detail shell), so the project rule supplies the envelope"}
