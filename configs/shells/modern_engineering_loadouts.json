@@ -199,9 +199,11 @@
                                                                                                                                                    "family":  "fragment",
                                                                                                                                                    "provenance":  "game_rule",
                                                                                                                                                    "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
-                                                                                                                                                   "normalization_deg":  0,
-                                                                                                                                                   "overmatch_ratio":  1,
-                                                                                                                                                   "ricochet_deg":  85
+                                                                                                                                                   "ricochet_deg":  85,
+                                                                                                                                                   "material_coefficients":  {
+                                                                                                                                                                                 "rolled":  1,
+                                                                                                                                                                                 "cast":  0.95
+                                                                                                                                                                             }
                                                                                                                                                }
                                                                                                                },
                                                                                                      "status":  "design",
@@ -579,9 +581,11 @@
                                                                                                                                                          "family":  "fragment",
                                                                                                                                                          "provenance":  "game_rule",
                                                                                                                                                          "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
-                                                                                                                                                         "normalization_deg":  0,
-                                                                                                                                                         "overmatch_ratio":  1,
-                                                                                                                                                         "ricochet_deg":  85
+                                                                                                                                                         "ricochet_deg":  85,
+                                                                                                                                                         "material_coefficients":  {
+                                                                                                                                                                                       "rolled":  1,
+                                                                                                                                                                                       "cast":  0.95
+                                                                                                                                                                                   }
                                                                                                                                                      }
                                                                                                                      },
                                                                                                            "status":  "design",
