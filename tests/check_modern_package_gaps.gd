@@ -87,6 +87,29 @@ func _run() -> void:
 		# and the required value is exactly {material, response_profile} as it appears in packet.armor -
 		# writing it from the zone itself means the declaration cannot drift from the configuration. Only
 		# real armor_layers entries need protection.layer.<id>, and no layer is invented here.
+		# WT-040-R1 (user ruling 3): the engineering shell set comes from the PRODUCTION config file
+		# configs/shells/modern_engineering_loadouts.json, not from a draft in the log directory. One
+		# APFSDS main and one HEAT secondary per vehicle, all marked design/game_rule, because the ruling
+		# allows project-authored engineering rounds where the archive cannot supply real ones - and
+		# forbids passing them off as historical ammunition.
+		var eng_shells: Dictionary = _read_json("res://configs/shells/modern_engineering_loadouts.json")
+		var veh_block: Variant = {}
+		if eng_shells.get("vehicles") is Dictionary:
+			veh_block = (eng_shells.get("vehicles",{}) as Dictionary).get(id,{})
+		var shell_ids: Array = []
+		if veh_block is Dictionary:
+			for srow in (veh_block as Dictionary).get("shells",[]):
+				if srow is Dictionary and srow.has("id"): shell_ids.append(str(srow.get("id","")))
+			packet["shell_catalog"] = {"schema_version":1,
+				"shells":(veh_block as Dictionary).get("shells",[]),
+				"default":str((veh_block as Dictionary).get("default",""))}
+		# The archive round the assembly names AND the two engineering rounds. VariantCompatibility requires
+		# assembly.shell to appear in compatible_shells; dropping the reference round would say the vehicle
+		# cannot fire the round its own assembly names, which is not what the engineering set means.
+		var ref_shell := str(assembly_by_id.get(id,{}).get("shell",""))
+		if not ref_shell.is_empty() and not shell_ids.has(ref_shell):
+			shell_ids.insert(0, ref_shell)
+		packet["compatible_shells"] = shell_ids
 		for zone_key in packet["armor"].keys():
 			var zone_row: Variant = packet["armor"][zone_key]
 			if not zone_row is Dictionary: continue

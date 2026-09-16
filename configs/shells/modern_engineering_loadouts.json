@@ -1,0 +1,382 @@
+﻿{
+    "schema_version":  1,
+    "note":  "WT-040-R1 engineering shell loadouts for the two modern vehicles: one APFSDS main and one HEAT secondary each, all marked design/game_rule. These are PROJECT rules for the engineering candidate; they are not historical ammunition and do not claim real performance.",
+    "vehicles":  {
+                     "ussr_t_80b":  {
+                                        "gun":  "125mm_2A46_2_user_cannon",
+                                        "default":  "eng_125_apfsds_v1",
+                                        "shells":  [
+                                                       {
+                                                           "id":  "eng_125_apfsds_v1",
+                                                           "label":  "125mm 工程 APFSDS（项目设计初值）",
+                                                           "gun":  "125mm_2A46_2_user_cannon",
+                                                           "family":  "APFSDS",
+                                                           "source_bullet_type":  "game_rule_apfsds",
+                                                           "effect_policy":  "long_rod",
+                                                           "caliber_mm":  125.0,
+                                                           "muzzle_velocity_mps":  1700,
+                                                           "gravity_scale":  1,
+                                                           "max_flight_time_s":  6,
+                                                           "penetration_curve":  [
+                                                                                     [
+                                                                                         0,
+                                                                                         470
+                                                                                     ],
+                                                                                     [
+                                                                                         500,
+                                                                                         440
+                                                                                     ],
+                                                                                     [
+                                                                                         1500,
+                                                                                         380
+                                                                                     ],
+                                                                                     [
+                                                                                         2500,
+                                                                                         300
+                                                                                     ]
+                                                                                 ],
+                                                           "verification":  "estimated",
+                                                           "historical_verified":  false,
+                                                           "evidence":  {
+                                                                            "identity":  {
+                                                                                             "value":  {
+                                                                                                           "id":  "eng_125_apfsds_v1",
+                                                                                                           "gun":  "125mm_2A46_2_user_cannon",
+                                                                                                           "family":  "APFSDS",
+                                                                                                           "source_bullet_type":  "game_rule_apfsds",
+                                                                                                           "caliber_mm":  125.0
+                                                                                                       },
+                                                                                             "status":  "design",
+                                                                                             "origin":  "game_rule",
+                                                                                             "unit":  "structured",
+                                                                                             "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                             "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                             "source_refs":  [
+                                                                                                                 "mcthunder_pipeline"
+                                                                                                             ]
+                                                                                         },
+                                                                            "ballistics":  {
+                                                                                               "value":  {
+                                                                                                             "muzzle_velocity_mps":  1700,
+                                                                                                             "penetration_curve":  [
+                                                                                                                                       [
+                                                                                                                                           0,
+                                                                                                                                           470
+                                                                                                                                       ],
+                                                                                                                                       [
+                                                                                                                                           500,
+                                                                                                                                           440
+                                                                                                                                       ],
+                                                                                                                                       [
+                                                                                                                                           1500,
+                                                                                                                                           380
+                                                                                                                                       ],
+                                                                                                                                       [
+                                                                                                                                           2500,
+                                                                                                                                           300
+                                                                                                                                       ]
+                                                                                                                                   ],
+                                                                                                             "gravity_scale":  1,
+                                                                                                             "max_flight_time_s":  6
+                                                                                                         },
+                                                                                               "status":  "design",
+                                                                                               "origin":  "game_rule",
+                                                                                               "unit":  "structured",
+                                                                                               "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                               "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                               "source_refs":  [
+                                                                                                                   "mcthunder_pipeline"
+                                                                                                               ]
+                                                                                           },
+                                                                            "effect":  {
+                                                                                           "value":  "long_rod",
+                                                                                           "status":  "design",
+                                                                                           "origin":  "game_rule",
+                                                                                           "unit":  "text",
+                                                                                           "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                           "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                           "source_refs":  [
+                                                                                                               "mcthunder_pipeline"
+                                                                                                           ]
+                                                                                       }
+                                                                        }
+                                                       },
+                                                       {
+                                                           "id":  "eng_125_heat_v1",
+                                                           "label":  "125mm 工程 HEAT（项目设计初值）",
+                                                           "gun":  "125mm_2A46_2_user_cannon",
+                                                           "family":  "HEAT",
+                                                           "source_bullet_type":  "heat_fs_tank",
+                                                           "effect_policy":  "chemical",
+                                                           "caliber_mm":  125.0,
+                                                           "muzzle_velocity_mps":  905,
+                                                           "gravity_scale":  1,
+                                                           "max_flight_time_s":  6,
+                                                           "penetration_curve":  [
+                                                                                     [
+                                                                                         0,
+                                                                                         260
+                                                                                     ],
+                                                                                     [
+                                                                                         500,
+                                                                                         260
+                                                                                     ],
+                                                                                     [
+                                                                                         1500,
+                                                                                         260
+                                                                                     ]
+                                                                                 ],
+                                                           "verification":  "estimated",
+                                                           "historical_verified":  false,
+                                                           "evidence":  {
+                                                                            "identity":  {
+                                                                                             "value":  {
+                                                                                                           "id":  "eng_125_heat_v1",
+                                                                                                           "gun":  "125mm_2A46_2_user_cannon",
+                                                                                                           "family":  "HEAT",
+                                                                                                           "source_bullet_type":  "heat_fs_tank",
+                                                                                                           "caliber_mm":  125.0
+                                                                                                       },
+                                                                                             "status":  "design",
+                                                                                             "origin":  "game_rule",
+                                                                                             "unit":  "structured",
+                                                                                             "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                             "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                             "source_refs":  [
+                                                                                                                 "mcthunder_pipeline"
+                                                                                                             ]
+                                                                                         },
+                                                                            "ballistics":  {
+                                                                                               "value":  {
+                                                                                                             "muzzle_velocity_mps":  905,
+                                                                                                             "penetration_curve":  [
+                                                                                                                                       [
+                                                                                                                                           0,
+                                                                                                                                           260
+                                                                                                                                       ],
+                                                                                                                                       [
+                                                                                                                                           500,
+                                                                                                                                           260
+                                                                                                                                       ],
+                                                                                                                                       [
+                                                                                                                                           1500,
+                                                                                                                                           260
+                                                                                                                                       ]
+                                                                                                                                   ],
+                                                                                                             "gravity_scale":  1,
+                                                                                                             "max_flight_time_s":  6
+                                                                                                         },
+                                                                                               "status":  "design",
+                                                                                               "origin":  "game_rule",
+                                                                                               "unit":  "structured",
+                                                                                               "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                               "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                               "source_refs":  [
+                                                                                                                   "mcthunder_pipeline"
+                                                                                                               ]
+                                                                                           },
+                                                                            "effect":  {
+                                                                                           "value":  "chemical",
+                                                                                           "status":  "design",
+                                                                                           "origin":  "game_rule",
+                                                                                           "unit":  "text",
+                                                                                           "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                           "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                           "source_refs":  [
+                                                                                                               "mcthunder_pipeline"
+                                                                                                           ]
+                                                                                       }
+                                                                        }
+                                                       }
+                                                   ]
+                                    },
+                     "germ_leopard_2a4":  {
+                                              "gun":  "120mm_Rheinmetall_L44_user_cannon",
+                                              "default":  "eng_120_apfsds_v1",
+                                              "shells":  [
+                                                             {
+                                                                 "id":  "eng_120_apfsds_v1",
+                                                                 "label":  "120mm 工程 APFSDS（项目设计初值）",
+                                                                 "gun":  "120mm_Rheinmetall_L44_user_cannon",
+                                                                 "family":  "APFSDS",
+                                                                 "source_bullet_type":  "game_rule_apfsds",
+                                                                 "effect_policy":  "long_rod",
+                                                                 "caliber_mm":  120.0,
+                                                                 "muzzle_velocity_mps":  1650,
+                                                                 "gravity_scale":  1,
+                                                                 "max_flight_time_s":  6,
+                                                                 "penetration_curve":  [
+                                                                                           [
+                                                                                               0,
+                                                                                               470
+                                                                                           ],
+                                                                                           [
+                                                                                               500,
+                                                                                               450
+                                                                                           ],
+                                                                                           [
+                                                                                               1500,
+                                                                                               400
+                                                                                           ],
+                                                                                           [
+                                                                                               2500,
+                                                                                               320
+                                                                                           ]
+                                                                                       ],
+                                                                 "verification":  "estimated",
+                                                                 "historical_verified":  false,
+                                                                 "evidence":  {
+                                                                                  "identity":  {
+                                                                                                   "value":  {
+                                                                                                                 "id":  "eng_120_apfsds_v1",
+                                                                                                                 "gun":  "120mm_Rheinmetall_L44_user_cannon",
+                                                                                                                 "family":  "APFSDS",
+                                                                                                                 "source_bullet_type":  "game_rule_apfsds",
+                                                                                                                 "caliber_mm":  120.0
+                                                                                                             },
+                                                                                                   "status":  "design",
+                                                                                                   "origin":  "game_rule",
+                                                                                                   "unit":  "structured",
+                                                                                                   "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                   "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                   "source_refs":  [
+                                                                                                                       "mcthunder_pipeline"
+                                                                                                                   ]
+                                                                                               },
+                                                                                  "ballistics":  {
+                                                                                                     "value":  {
+                                                                                                                   "muzzle_velocity_mps":  1650,
+                                                                                                                   "penetration_curve":  [
+                                                                                                                                             [
+                                                                                                                                                 0,
+                                                                                                                                                 470
+                                                                                                                                             ],
+                                                                                                                                             [
+                                                                                                                                                 500,
+                                                                                                                                                 450
+                                                                                                                                             ],
+                                                                                                                                             [
+                                                                                                                                                 1500,
+                                                                                                                                                 400
+                                                                                                                                             ],
+                                                                                                                                             [
+                                                                                                                                                 2500,
+                                                                                                                                                 320
+                                                                                                                                             ]
+                                                                                                                                         ],
+                                                                                                                   "gravity_scale":  1,
+                                                                                                                   "max_flight_time_s":  6
+                                                                                                               },
+                                                                                                     "status":  "design",
+                                                                                                     "origin":  "game_rule",
+                                                                                                     "unit":  "structured",
+                                                                                                     "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                     "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                     "source_refs":  [
+                                                                                                                         "mcthunder_pipeline"
+                                                                                                                     ]
+                                                                                                 },
+                                                                                  "effect":  {
+                                                                                                 "value":  "long_rod",
+                                                                                                 "status":  "design",
+                                                                                                 "origin":  "game_rule",
+                                                                                                 "unit":  "text",
+                                                                                                 "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                 "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                 "source_refs":  [
+                                                                                                                     "mcthunder_pipeline"
+                                                                                                                 ]
+                                                                                             }
+                                                                              }
+                                                             },
+                                                             {
+                                                                 "id":  "eng_120_heat_v1",
+                                                                 "label":  "120mm 工程 HEAT（项目设计初值）",
+                                                                 "gun":  "120mm_Rheinmetall_L44_user_cannon",
+                                                                 "family":  "HEAT",
+                                                                 "source_bullet_type":  "heat_fs_tank",
+                                                                 "effect_policy":  "chemical",
+                                                                 "caliber_mm":  120.0,
+                                                                 "muzzle_velocity_mps":  1140,
+                                                                 "gravity_scale":  1,
+                                                                 "max_flight_time_s":  6,
+                                                                 "penetration_curve":  [
+                                                                                           [
+                                                                                               0,
+                                                                                               260
+                                                                                           ],
+                                                                                           [
+                                                                                               500,
+                                                                                               260
+                                                                                           ],
+                                                                                           [
+                                                                                               1500,
+                                                                                               260
+                                                                                           ]
+                                                                                       ],
+                                                                 "verification":  "estimated",
+                                                                 "historical_verified":  false,
+                                                                 "evidence":  {
+                                                                                  "identity":  {
+                                                                                                   "value":  {
+                                                                                                                 "id":  "eng_120_heat_v1",
+                                                                                                                 "gun":  "120mm_Rheinmetall_L44_user_cannon",
+                                                                                                                 "family":  "HEAT",
+                                                                                                                 "source_bullet_type":  "heat_fs_tank",
+                                                                                                                 "caliber_mm":  120.0
+                                                                                                             },
+                                                                                                   "status":  "design",
+                                                                                                   "origin":  "game_rule",
+                                                                                                   "unit":  "structured",
+                                                                                                   "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                   "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                   "source_refs":  [
+                                                                                                                       "mcthunder_pipeline"
+                                                                                                                   ]
+                                                                                               },
+                                                                                  "ballistics":  {
+                                                                                                     "value":  {
+                                                                                                                   "muzzle_velocity_mps":  1140,
+                                                                                                                   "penetration_curve":  [
+                                                                                                                                             [
+                                                                                                                                                 0,
+                                                                                                                                                 260
+                                                                                                                                             ],
+                                                                                                                                             [
+                                                                                                                                                 500,
+                                                                                                                                                 260
+                                                                                                                                             ],
+                                                                                                                                             [
+                                                                                                                                                 1500,
+                                                                                                                                                 260
+                                                                                                                                             ]
+                                                                                                                                         ],
+                                                                                                                   "gravity_scale":  1,
+                                                                                                                   "max_flight_time_s":  6
+                                                                                                               },
+                                                                                                     "status":  "design",
+                                                                                                     "origin":  "game_rule",
+                                                                                                     "unit":  "structured",
+                                                                                                     "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                     "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                     "source_refs":  [
+                                                                                                                         "mcthunder_pipeline"
+                                                                                                                     ]
+                                                                                                 },
+                                                                                  "effect":  {
+                                                                                                 "value":  "chemical",
+                                                                                                 "status":  "design",
+                                                                                                 "origin":  "game_rule",
+                                                                                                 "unit":  "text",
+                                                                                                 "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                 "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                 "source_refs":  [
+                                                                                                                     "mcthunder_pipeline"
+                                                                                                                 ]
+                                                                                             }
+                                                                              }
+                                                             }
+                                                         ]
+                                          }
+                 }
+}
