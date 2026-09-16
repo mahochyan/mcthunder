@@ -7,6 +7,28 @@ static func vec(a: Array) -> Vector3:
 
 static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 	var out := VehicleLayoutDefinition.new()
+	# WT-040-R1 audit integrity (user ruling): validate EVERY required reconstruction input once, up front,
+	# and refuse by name. Each of these was read directly further down, and a missing one crashed with an
+	# unhandled property access or an out-of-bounds index - which aborted the reconstruction and is how the
+	# audit came to print an empty error list on a run that had not completed. NOTHING is defaulted here and no
+	# ring or point is invented: a failed precondition returns an EMPTY layout, so the caller reports the
+	# dependent checks as skipped and the audit as incomplete instead of a false zero.
+	var missing_inputs: Array[String] = []
+	if not packet.has("id") or str(packet.get("id","")).is_empty() or not packet.has("display_name"): missing_inputs.append("id / display_name")
+	var g_in: Variant = packet.get("geometry",{})
+	if not g_in is Dictionary or (g_in as Dictionary).is_empty(): missing_inputs.append("geometry")
+	var rings_in: Variant = (g_in as Dictionary).get("hull_rings",[]) if g_in is Dictionary else []
+	if not rings_in is Array or (rings_in as Array).size() != 3: missing_inputs.append("geometry.hull_rings (exactly three rings)")
+	for key_in in ["turret_origin","gun_origin"]:
+		var v_in: Variant = (g_in as Dictionary).get(key_in,[]) if g_in is Dictionary else []
+		if not v_in is Array or (v_in as Array).size() < 3: missing_inputs.append("geometry."+key_in+" (three numbers)")
+	var asm_in: Variant = packet.get("assembly",{})
+	if not asm_in is Dictionary or not (asm_in as Dictionary).has("caliber_mm"): missing_inputs.append("assembly.caliber_mm")
+	var rt_in: Variant = packet.get("runtime",{})
+	if not rt_in is Dictionary or not (rt_in as Dictionary).has("pitch_min") or not (rt_in as Dictionary).has("pitch_max"): missing_inputs.append("runtime.pitch_min / runtime.pitch_max")
+	if not missing_inputs.is_empty():
+		push_error("layout reconstruction REFUSED, empty layout returned; missing or invalid required inputs: " + ", ".join(missing_inputs))
+		return out
 	out.id = str(packet.id)+"_layout"
 	out.historical_identity_id = packet.id
 	out.display_name = packet.display_name
@@ -20,6 +42,14 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		if part.id == "turret": part.min_angle_deg = packet.runtime.get("yaw_min",-180); part.max_angle_deg = packet.runtime.get("yaw_max",180)
 		if part.id == "barrel": part.min_angle_deg = packet.runtime.pitch_min; part.max_angle_deg = packet.runtime.pitch_max
 		out.parts.append(part)
+	# WT-040-R1 audit integrity: everything below indexes rings[0], rings[2] and each ring row, so a
+	# packet that does not carry exactly three rings cannot be reconstructed faithfully. Crashing here is what
+	# aborted the audit and produced a false "zero gaps"; inventing rings is forbidden by the ruling. So
+	# reconstruction stops with a NAMED error and an empty layout, and the caller reports the dependent checks
+	# as skipped and the audit as incomplete.
+	if g.hull_rings.size() != 3:
+		push_error("geometry.hull_rings: exactly three rings (floor/mid/roof) are required, got %d - hull envelope NOT reconstructed and no rings invented, so this layout is empty and the dependent checks will be reported as skipped" % g.hull_rings.size())
+		return out
 	var rings: Array = []
 	for row in g.hull_rings:
 		# Eight vertices preserve edges where forward/aft side armor differs.
@@ -28,8 +58,21 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 		# Replace the redundant final corner with the front midpoint, keeping perimeter order.
 		rings[-1].remove_at(7)
 		rings[-1].insert(1,Vector3(0,y,f))
-	var center := Vector3(0,float(g.hull_rings[1][0]),0)
-	for level in 2:
+	# WT-040-R1 audit integrity: the three-ring contract (floor / hull mid line / roof) is REQUIRED and
+	# this code indexed [1] and [2] directly, so a packet with fewer rings crashed with an unhandled Array
+	# index error that aborted the whole reconstruction - the same class of bug as the missing fact, and the
+	# reason an audit could print an empty error list on a run that had not completed. A wrong ring count is
+	# now a named refusal: the missing rings are NOT invented, and the loop bounds below fall back to what
+	# actually exists so the rest of the layout can still be reconstructed and reported.
+	var ring_mid_y := 0.0
+	var ring_roof_y := 0.0
+	if g.hull_rings.size() == 3:
+		ring_mid_y = float(g.hull_rings[1][0])
+		ring_roof_y = float(g.hull_rings[2][0])
+	else:
+		push_error("geometry.hull_rings: exactly three rings (floor/mid/roof) are required, got %d - the hull envelope cannot be reconstructed faithfully" % g.hull_rings.size())
+	var center := Vector3(0,ring_mid_y,0)
+	for level in mini(2,maxi(0,rings.size()-1)):
 		for i in 8:
 			var j := (i+1)%8
 			var zone := "hull_front_"+("lower" if level == 0 else "upper") if i < 2 else "hull_sides_front"
@@ -42,7 +85,7 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 	var opening: Array = []
 	var ring_half: float = g.ring_half
 	var z: float = g.turret_origin[2]
-	var roof_y: float = g.hull_rings[2][0]
+	var roof_y: float = ring_roof_y
 	for p in [[-1,-1],[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0]]:
 		opening.append(Vector3(p[0]*ring_half,roof_y,z+p[1]*ring_half))
 	for i in 8:
@@ -134,6 +177,13 @@ static func annulus(out: VehicleLayoutDefinition, packet: Dictionary, id: String
 		face(out,packet,id+"_%d"%i,part,[outer[i],outer[j],inner[j],inner[i]],center,zone)
 
 static func face(out: VehicleLayoutDefinition, packet: Dictionary, id: String, part: String, points: Array, center: Vector3, zone: String) -> void:
+	# WT-040-R1 audit integrity: a face needs at least three points. A caller that supplies fewer (an empty
+	# turret outline, for example) used to reach vertices[1] and vertices[2] and crash with an out-of-bounds
+	# index. That is now a named refusal for this patch only, so the rest of the layout is still built and the
+	# audit reports honestly rather than aborting.
+	if points.size() < 3:
+		push_error("face %s: at least three points are required, got %d - patch not created" % [id,points.size()])
+		return
 	var vertices := points.duplicate()
 	var n: Vector3 = (vertices[1]-vertices[0]).cross(vertices[2]-vertices[0]).normalized()
 	# Collinear perimeter subdivisions are triangulated from the face centroid.

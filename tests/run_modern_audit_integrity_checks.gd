@@ -90,13 +90,16 @@ func _case_unsupported_profile() -> void:
 func _case_missing_required_fact() -> void:
 	var packet := {
 		"id":"fixture_missing_fact","display_name":"Fixture","evidence_profile":"game_reference",
-		"geometry":{"hull_rings":[[0.0,1.0,-3.0,3.0]],"turret_origin":[0,1,0],"gun_origin":[0,1,0],
+		"geometry":{"hull_rings":[[0.0,1.0,-3.0,3.0],[0.5,1.0,-3.0,3.0],[1.0,1.0,-3.0,3.0]],"turret_origin":[0,1,0],"gun_origin":[0,1,0],
 			"turret_outline":[],"turret_bottom":0.0,"turret_top":1.0,"turret_taper":0.5,"ring_half":0.5,"open_top":false,
 			"wheel_count":6,"wheel_radius":0.3,"track_width":0.5,"barrel_length":3.0,"hull_half_width":1.0,
 			"mantlet_half_width":0.3,"mantlet_half_height":0.3,"muzzle_brake":false},
 		"runtime":{"forward_max_speed":10.0,"reverse_max_speed":3.0,"acceleration":2.0,"hull_turn_speed":30.0,
 			"reload_time":7.0,"rounds":30,"pitch_min":-5.0,"pitch_max":14.0,"muzzle_velocity":900.0,
 			"penetration_curve":[[0.0,400.0]],"turret_yaw_speed":20.0,"turret_pitch_speed":8.0},
+		# assembly is needed to pass the reconstruction preconditions; caliber_mm is what the mantlet/annulus
+		# uses, and it was one of the fields whose absence used to crash the builder.
+		"assembly":{"variant":"fixture","year":2026,"suspension":"fixture","gun":"fixture_gun","mount":"fixture","caliber_mm":125.0,"shell":"fixture_shell"},
 		"armor":{},"modules":[],"license":"fixture",
 		"crew":[{"id":"gunner","role":"gunner","part":"turret","position":[0.0,1.0,0.0],"size":[0.5,0.5,0.5]}],
 		# NOTE: crew.placement is deliberately ABSENT - that is the case under test
