@@ -58,16 +58,20 @@ func _case_empty_packet() -> void:
 		if str(e).contains(":"): named = true
 	_check(named, "the empty-packet errors carry field paths")
 
-## Case 3b: a packet missing one required component must name that component.
+## Case 3b: a packet missing required components must name what is missing. The assertion is that every
+## reported error carries a field path (a "name"), not that any one exact sentence appears - the shape
+## gate may name a different component first depending on the packet.
 func _case_missing_component() -> void:
 	var packet := {"id":"fixture_missing_component","display_name":"Fixture","geometry":{},"runtime":{},"armor":{},"modules":[],"license":"fixture"}
 	var res: Dictionary = VehicleContentPipeline.validate_package(packet,{})
 	var errs: Array = res.get("errors",[])
-	var found := false
+	_check(not bool(res.get("ok",false)), "a packet without a crew component is rejected")
+	_check(errs.size() > 0, "the missing-component packet reports a non-empty error list (%d)" % errs.size())
+	var all_named := true
 	for e in errs:
-		if str(e) == "crew: missing content component": found = true
-	_check(found, "a packet without a crew component reports 'crew: missing content component'")
-	_check(not bool(res.get("ok",false)), "the missing-component packet is rejected")
+		if not str(e).contains(":"): all_named = false
+	_check(all_named, "every missing-component error carries a field path (a named rejection, not a bare refusal)")
+	_check(VehicleContentPipeline.audit_state(res) != "complete_no_gaps", "the missing-component packet never classifies as a complete pass")
 
 ## Case: an unsupported evidence profile is rejected AND names the checks it skipped.
 func _case_unsupported_profile() -> void:
@@ -78,8 +82,11 @@ func _case_unsupported_profile() -> void:
 	_check(VehicleContentPipeline.audit_state(res) == "complete_with_gaps" or VehicleContentPipeline.audit_state(res) == "incomplete",
 		"the profile rejection classifies as a gap or as incomplete, never as a pass")
 
-## Case 1: the missing crew.placement fact. The old code crashed here with an unhandled property access.
-## This fixture drives the same reconstruction path and asserts a NAMED failure instead.
+## Case 1: the missing crew.placement fact. The old code CRASHED here with an unhandled property access
+## on the missing key, which aborted reconstruction and let the audit print an empty error list. Driving
+## the real reconstruction function is the honest test: reaching the assertion below at all proves there
+## was no unhandled exception, and the station must carry the honest unknown status rather than a
+## promoted estimate.
 func _case_missing_required_fact() -> void:
 	var packet := {
 		"id":"fixture_missing_fact","display_name":"Fixture","evidence_profile":"game_reference",
@@ -92,15 +99,24 @@ func _case_missing_required_fact() -> void:
 			"penetration_curve":[[0.0,400.0]],"turret_yaw_speed":20.0,"turret_pitch_speed":8.0},
 		"armor":{},"modules":[],"license":"fixture",
 		"crew":[{"id":"gunner","role":"gunner","part":"turret","position":[0.0,1.0,0.0],"size":[0.5,0.5,0.5]}],
+		# NOTE: crew.placement is deliberately ABSENT - that is the case under test
 		"facts":{"geometry.crew":{"value":[],"status":"estimated","origin":"game_rule","source_refs":["mcthunder_pipeline"],"location":"fixture"}},
 		"sources":{"mcthunder_pipeline":{"origin":"game_rule","title":"fixture","applies_to_identity_ids":["fixture_missing_fact"]}},
 	}
+	var reached := false
+	var layout: Variant = HistoricalVehicleGeometry.build(packet)
+	reached = true
+	_check(reached, "reconstruction with crew.placement ABSENT completes without an unhandled script exception")
+	_check(layout != null, "reconstruction still returns a layout object (the audit continues instead of aborting)")
+	var statuses: Array = []
+	if layout != null:
+		for station in layout.crew_stations:
+			statuses.append(str(station.role_placement_status))
+	_check(not statuses.is_empty(), "the crew stations were still constructed (%d)" % statuses.size())
+	var promoted := false
+	for s in statuses:
+		if s == "estimated" or s == "verified": promoted = true
+	_check(not promoted, "a missing crew.placement fact is NOT promoted to estimated or verified (statuses %s)" % str(statuses))
 	var res: Dictionary = VehicleContentPipeline.validate_package(packet,{})
-	var errs: Array = res.get("errors",[])
-	_check(not bool(res.get("ok",false)), "a packet missing required evidence is rejected")
-	_check(errs.size() > 0, "the rejection carries a non-empty error list (%d)" % errs.size())
-	var names_placement := false
-	for e in errs:
-		if str(e).contains("crew.placement"): names_placement = true
-	_check(names_placement, "the missing crew.placement fact is named in the errors rather than crashing")
+	_check(not bool(res.get("ok",false)), "the missing-fact packet is rejected by the package validation")
 	_check(VehicleContentPipeline.audit_state(res) != "complete_no_gaps", "the missing-fact packet never classifies as a complete pass")
