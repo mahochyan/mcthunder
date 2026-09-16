@@ -32,6 +32,37 @@ func aim_at(battle: ChallengeRange, point: Vector3) -> void:
 		var motion := InputEventMouseMotion.new()
 		motion.relative = Vector2(-wrapf(yaw-battle.actor.cam_rig.aim_yaw,-PI,PI)/GameConfig.MOUSE_SENS,-(pitch-battle.actor.cam_rig.aim_pitch)/GameConfig.MOUSE_SENS)
 		Input.parse_input_event(motion); await frames(30)
+	# WT-040-R1 measured evidence and the correction it forces. The camera's intent_point() is the FIRST surface
+	# its ray hits, so for a point behind armour it can never equal that point: a run with forty correction
+	# passes ended with the intent still 0.90 m away, which is why waiting for the intent to converge cannot
+	# work. What actually decides the shot is the BARREL's own line, so convergence is measured there - as the
+	# perpendicular distance from that line to the requested point - and the tolerance is geometric rather than a
+	# dot product, because dot > 0.9995 still allows about 1.8 degrees, roughly 0.4 m at thirteen metres, which
+	# is more than the target's 0.06 m half-height ammunition rack. The camera keeps being corrected toward the
+	# requested point (the barrel follows it), and the barrel is given a bounded number of passes to settle.
+	# Nothing about armour, damage, cooldown or inventory is written, and no game criterion is relaxed.
+	var aim_tolerance := 0.03
+	var aim_settled := false
+	for pass_index in 60:
+		var muzzle_at: Vector3 = battle.actor.turret.muzzle.global_position
+		var barrel_dir: Vector3 = battle.actor.turret.barrel_direction()
+		var to_point: Vector3 = point - muzzle_at
+		var miss: float = (to_point - barrel_dir*to_point.dot(barrel_dir)).length()
+		if miss <= aim_tolerance:
+			aim_settled = true
+			print("[aim] barrel converged miss=%.4f m on pass %d" % [miss, pass_index])
+			break
+		var aim_delta := point - battle.actor.cam_rig.cam.global_position
+		var aim_yaw := atan2(-aim_delta.x,-aim_delta.z)
+		var aim_pitch := atan2(aim_delta.y,Vector2(aim_delta.x,aim_delta.z).length())
+		var aim_motion := InputEventMouseMotion.new()
+		aim_motion.relative = Vector2(-wrapf(aim_yaw-battle.actor.cam_rig.aim_yaw,-PI,PI)/GameConfig.MOUSE_SENS,-(aim_pitch-battle.actor.cam_rig.aim_pitch)/GameConfig.MOUSE_SENS)
+		Input.parse_input_event(aim_motion); await frames(20)
+	if not aim_settled:
+		var muzzle_now: Vector3 = battle.actor.turret.muzzle.global_position
+		var dir_now: Vector3 = battle.actor.turret.barrel_direction()
+		var to_now: Vector3 = point - muzzle_now
+		print("[aim] barrel NOT converged miss=%.4f m" % [(to_now - dir_now*to_now.dot(dir_now)).length()])
 	await frames(240)
 	print("[aim] camera=",battle.actor.cam_rig.cam.global_position," intent=",battle.actor.cam_rig.intent_point()," muzzle=",battle.actor.turret.muzzle.global_position," dir=",battle.actor.turret.barrel_direction())
 func run(flow: AppFlow) -> void:
