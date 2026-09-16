@@ -7,6 +7,16 @@ const IDS := ["us_m4a3_75w_vvss_1944","us_m24_m6_t85e1_1951","us_m26_m3_1945","u
 ## bypass of the binding gate.
 const ENGINEERING_IDS := ["ussr_t_80b","germ_leopard_2a4"]
 const ENGINEERING_DIR := "res://configs/vehicles/engineering/"
+## WT-040-R1 (2026-09-17 ruling): the explicit vehicle scope. The curated historical roster keeps its contract,
+## the engineering vehicles are a separate admitted set, and the training vehicle is a KNOWN third category that
+## keeps its own training configuration and its own readiness path. is_combat_vehicle is deliberately
+## history-or-engineering only: the garage roster and the historical rotation must not treat the training hull as
+## a combat type.
+static func is_historical(id: String) -> bool: return id in IDS
+static func is_engineering(id: String) -> bool: return id in ENGINEERING_IDS
+static func is_combat_vehicle(id: String) -> bool: return is_historical(id) or is_engineering(id)
+static func is_training(id: String) -> bool: return id == "player_tank"
+static func is_known_vehicle(id: String) -> bool: return is_combat_vehicle(id) or is_training(id)
 var packages: Dictionary = {}
 var rejected: Dictionary = {}
 var model_sources: Dictionary = {}

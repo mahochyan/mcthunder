@@ -32,6 +32,10 @@ static func reason_text(code: String) -> String:
 	return str(CODES.get(code,code))
 
 static func _packet_path(id: String) -> String:
+	# WT-040-R1 (2026-09-17 ruling): the ledger could only see historical packets, so an admitted engineering
+	# vehicle read as unknown_vehicle and was silently replaced. The engineering directory is now explicit; no
+	# gate is widened - the packet still has to pass every downstream check.
+	if id in VehicleCatalog.ENGINEERING_IDS: return VehicleCatalog.ENGINEERING_DIR+id+".json"
 	return "res://configs/vehicles/historical/"+id+".json"
 
 static func read_packet(id: String) -> Dictionary:
@@ -144,8 +148,13 @@ static func entry(id: String, packet: Dictionary, evidence: Dictionary, admitted
 static func eligible(id: String, mode: String, profile: Dictionary, catalog: VehicleCatalog) -> Dictionary:
 	var admitted: Array = catalog.packages.keys() if not catalog.packages.is_empty() else VehicleCatalog.IDS
 	if not id is String or id.is_empty(): return {"ok":false,"code":"unknown_vehicle","reason":reason_text("unknown_vehicle")}
-	if mode not in ["training","normal"]: return {"ok":false,"code":"mode_restricted","reason":reason_text("mode_restricted")}
-	if ModernModelMountAdapter.SPECS.has(id): return {"ok":false,"code":"preview_only","reason":reason_text("preview_only")}
+	if mode not in ["training","normal","engineering"]: return {"ok":false,"code":"mode_restricted","reason":reason_text("mode_restricted")}
+	# WT-040-R1 (2026-09-17 ruling): preview_only is about PUBLIC release, not about what the internal engineering
+	# battle entry may use. The code is still reported, but it only blocks the public modes; the explicit
+	# engineering mode is the controlled internal entry the ruling allows. Nothing is removed and the release
+	# gating is unchanged, because every other gate below still applies.
+	if ModernModelMountAdapter.SPECS.has(id) and mode != "engineering":
+		return {"ok":false,"code":"preview_only","reason":reason_text("preview_only")}
 	if not admitted.has(id): return {"ok":false,"code":"unknown_vehicle","reason":reason_text("unknown_vehicle")}
 	if catalog.rejected.has(id):
 		return {"ok":false,"code":"not_admitted","reason":reason_text("not_admitted"),"errors":catalog.rejected[id].get("errors",[])}
@@ -161,7 +170,11 @@ static func first_eligible(preferences: Array, mode: String, profile: Dictionary
 		var checked := eligible(str(id),mode,profile,catalog)
 		if checked.ok: return {"ok":true,"id":str(id),"checked":checked}
 	var fallback := "training" if mode != "normal" else mode
-	for id in VehicleCatalog.IDS:
+	# WT-040-R1: the fallback search covers the curated roster, plus the engineering set in the engineering mode,
+	# so an internal engineering match can still field a vehicle - and if nothing qualifies the caller refuses.
+	var pool: Array = VehicleCatalog.IDS.duplicate()
+	if mode == "engineering": pool.append_array(VehicleCatalog.ENGINEERING_IDS)
+	for id in pool:
 		var checked := eligible(str(id),fallback,profile,catalog)
 		if checked.ok: return {"ok":true,"id":str(id),"checked":checked,"fallback":true}
 	return {"ok":false,"code":"unknown_vehicle","reason":reason_text("unknown_vehicle")}

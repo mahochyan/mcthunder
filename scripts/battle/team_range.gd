@@ -248,7 +248,15 @@ func spawn_slot(id: String) -> VehicleActor:
 	if wrecks != null: occupied.append_array(wrecks.wreck_positions())
 	var candidates := spawn_candidates(row.team)
 	var type_id := vehicle_id_for_slot(id)
-	var size: Vector3 = defs.get_vehicle(type_id).drive_collision_size if type_id in VehicleCatalog.IDS else Vector3(2.85,1.68,5.45)
+	# WT-040-R1 (2026-09-17 ruling): an admitted combat vehicle uses its own drive collision size. When the
+	# definition is not loaded in this context the documented training box is used and the gap is REPORTED as a
+	# warning - not silently swallowed and not turned into a refusal, because a synthetic test context may
+	# legitimately not load the catalog. Genuinely unknown ids never reach here: vehicle_id_for_slot refuses them.
+	var size := Vector3(2.85,1.68,5.45)
+	if defs.vehicles.has(type_id):
+		size = defs.get_vehicle(type_id).drive_collision_size
+	else:
+		push_warning("spawn size fallback: no definition loaded for known vehicle id: "+type_id)
 	var checked := SpawnSelector.evaluate(get_world_3d().direct_space_state,candidates,size,occupied)
 	if not checked.ok: return null
 	var vehicle := VehicleActor.new()
@@ -271,7 +279,14 @@ func spawn_slot(id: String) -> VehicleActor:
 	return vehicle
 
 func vehicle_id_for_slot(id: String) -> String:
-	if selected_vehicle_id not in VehicleCatalog.IDS: return "player_tank"
+	# WT-040-R1 (2026-09-17 ruling): the known training hull keeps its own path and never enters the combat
+	# readiness gate (the gate's admitted list is built from content packets and does not contain it). Everything
+	# else must be curated history or an explicitly admitted engineering vehicle; a genuinely unknown id is
+	# REFUSED instead of being silently replaced by player_tank.
+	if VehicleCatalog.is_training(selected_vehicle_id): return "player_tank"
+	if not VehicleCatalog.is_known_vehicle(selected_vehicle_id):
+		push_error("team match refused: selected vehicle is not a known vehicle: "+selected_vehicle_id)
+		return ""
 	var requested := selected_vehicle_id
 	if id == "A":
 		requested = respawn_vehicle_id if prepared_match != null else selected_vehicle_id
@@ -279,27 +294,46 @@ func vehicle_id_for_slot(id: String) -> String:
 		var ids: Array = director.state.roster.keys()
 		ids.sort()
 		# Same four-vehicle rotation on both teams, anchored on the player's selected type.
-		requested = VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
+		# WT-040-R1: the four-vehicle rotation is a HISTORICAL roster affair. When the player has chosen an
+		# engineering vehicle the whole team fields that type instead of being rotated into history.
+		if VehicleCatalog.is_historical(selected_vehicle_id):
+			requested = VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
+		else:
+			requested = selected_vehicle_id
 	# WT-031-R1: AI slots and respawn go through the same readiness gate as the player;
 	# a preview-only or unadmitted id can never reach the battlefield.
 	var catalog := VehicleCatalog.new()
 	var checked := VehicleReadiness.eligible(requested,"training",{},catalog)
 	if checked.ok: return requested
-	var fallback := VehicleReadiness.first_eligible([requested,selected_vehicle_id],"training",{},catalog)
-	push_warning("vehicle readiness fallback slot=%s requested=%s code=%s" % [id,requested,checked.code])
-	return str(fallback.get("id","player_tank")) if fallback.ok else "player_tank"
+	var gate_mode := "engineering" if VehicleCatalog.is_engineering(selected_vehicle_id) else "training"
+	var fallback := VehicleReadiness.first_eligible([requested,selected_vehicle_id],gate_mode,{},catalog)
+	if fallback.ok:
+		push_warning("vehicle readiness fallback slot=%s requested=%s code=%s" % [id,requested,checked.code])
+		return str(fallback.get("id",""))
+	push_error("team match refused: no admitted combat vehicle for slot %s (requested %s, code %s)" % [id,requested,checked.code])
+	return ""
 
 func _configure_vehicle(vehicle: VehicleActor, id: String) -> void:
 	vehicle.simulation_driver=weakref(vehicle_simulation)
 	if id == "A" and prepared_match != null:
 		if not garage_service.install(vehicle,prepared_match.loadout(vehicle.definition.id)): push_error("respawn loadout rejected")
-	if vehicle.definition.id not in VehicleCatalog.IDS: M4EngineeringProfile.apply(vehicle)
+	# WT-040-R1 (2026-09-17 ruling): the training profile belongs to the training vehicle only. An engineering
+	# vehicle keeps its own admitted configuration, and anything that is not a known vehicle is refused rather
+	# than quietly given training armour.
+	var combat_id := vehicle.definition.id
+	if combat_id == "player_tank":
+		M4EngineeringProfile.apply(vehicle)
+	elif not VehicleCatalog.is_known_vehicle(combat_id):
+		push_error("vehicle configuration refused: not a known vehicle: "+combat_id)
+		return
 	vehicle.state.recovery_enabled = true
 	vehicle.gunner.projectile_manager = projectiles
 	vehicle.gunner.snapshot_provider = Callable(self,"query_snapshots")
 	vehicle.gunner.round_provider = Callable(self,"get_round_id")
 	vehicle.gunner.shell = vehicle.gunner.shell.duplicate(true)
-	if vehicle.definition.id not in VehicleCatalog.IDS:
+	# WT-040-R1 (2026-09-17 ruling): the training round, its policy and its flat curve belong to the training
+	# vehicle only; an engineering vehicle keeps the round its own admitted loadout installed.
+	if combat_id == "player_tank":
 		vehicle.gunner.shell.id = "team_ap120"
 		vehicle.gunner.shell.armor_policy = "resolve"
 		vehicle.gunner.shell.penetration_curve = PackedVector2Array([Vector2(0,120),Vector2(200,120)])

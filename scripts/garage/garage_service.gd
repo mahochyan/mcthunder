@@ -5,16 +5,21 @@ var definitions := VehicleDefs.new()
 var ready := false
 
 func _init() -> void:
-	ready = catalog.load_all(definitions).ok
+	# WT-040-R1 (2026-09-17 ruling): load_all STAYS historical-only - that contract is asserted elsewhere - and
+	# the engineering vehicles are admitted through their own explicit entry point. Both must succeed for the
+	# garage to be ready, so the engineering vehicles reach the garage, its loadouts and the match path.
+	ready = catalog.load_all(definitions).ok and catalog.load_engineering(definitions).ok
 
 func has_vehicle(id: String) -> bool:
 	# The curated roster is a publication boundary. Import candidates and temporary
 	# registrations never become purchasable just because a dictionary contains them.
-	return ready and id in VehicleCatalog.IDS and catalog.packages.get(id,{}).get("ok",false) and definitions.vehicles.has(id)
+	# WT-040-R1: the roster is the curated historical set PLUS the explicitly admitted engineering vehicles.
+	return ready and VehicleCatalog.is_combat_vehicle(id) and catalog.packages.get(id,{}).get("ok",false) and definitions.vehicles.has(id)
 
 func vehicle_ids() -> Array[String]:
 	var ids: Array[String]=[]
-	for id in VehicleCatalog.IDS:
+	# WT-040-R1: curated history first, then the explicitly admitted engineering vehicles, in a stable order.
+	for id in VehicleCatalog.IDS + VehicleCatalog.ENGINEERING_IDS:
 		if has_vehicle(id): ids.append(id)
 	return ids
 
