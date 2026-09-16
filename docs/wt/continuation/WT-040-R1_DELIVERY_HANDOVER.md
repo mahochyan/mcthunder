@@ -213,7 +213,7 @@
   - **树内证据**（**不得**表述为包内结果 ✗）：`ENGINEERING_WIRING_PASS` **141/0** ✓ · 现代两车河谷记录 ✓ · **`LIVE_FIRE_RESPAWN_PASS` 16/0** ✓ · `PLAYER_FLOW_CHECKS_PASS` ✓ · `run_team_checks` **67/0** ✓ · 逐车接线六项 ✓
   - **包内证据**（包自身 `--verify-installation` ✓）：`independent_content`（**25 项** ✓，含**四台历史包准入** ✓ · 无源码回退 ✓ · PCK 清单 ✓）· `independent_window`（+ 实拍 ✓）· 导出 ✓ · 引擎通告 ✓ · 独立默认启动 ✓
   - **包内工程车不可用 = 设计如此** ✓（候选资产不发布 ✓）⇒ 正是"**不冒充正式发布准入**"的体现 ✓
-- **包内核验的独立内容步骤**：`ad6620f0` 版曾 **34/0** ✓；本轮因**我引入的工程准入致命化**一度在 `independent_content` 失败 ✗（**包内核验正确地拦下了它** ✓，包内 5 项 FAIL：地图 0 · 三个挑战 · 教学 ✓）⇒ 已修为**非致命 + 响亮告警** ✓ ⇒ **重建中，结论待本轮构建输出** ✓。
+- **包内核验** ✓ **已通过**：`independent_content` **passed=True exit=0** ✓（此前**我引入的工程准入致命化**使其失败并被**正确拦下** ✓ ⇒ 已修为**非致命 + 响亮告警** ✓）· `independent_window` **passed=True exit=0** ✓ · `export_release` ✓ · `engine_notices` ✓ · `independent_default_start` ✓ · 回归经登记表接受 **2** 条**既有**登记失败 ✓（我的 `run_checks` 窄签名**未被使用** ✓ = 该套件本轮全绿 ✓）。
 - **通行/推进限制** ✗（12.3/12.4 同一现象）：**未修**，**已登记**（**不**改规则、**不**改数值以掩盖 ✓）。
 - **真人验收**：`human=PENDING` ✓（**不代签** ✓）· **公开发布**：`public_release=false` ✓ · **性能**：`HOLD_BY_USER` ✓。
 - **旧包保留**：`3e6c3523` 等**全部不覆盖** ✓。
@@ -233,7 +233,7 @@
 | **B** 工程车接线 | **`ENGINEERING_WIRING_PASS` 141/0** ✓ · `preview_only=0` ✓ · 逐车六项 ✓ · 未知拒绝 ✓ · 训练车分离 ✓ · 包内**非致命化** ✓ | `cc6ce6ec` `f9ed846b` |
 | **C** 五项分列 + 现代两车 | `fired_slots=6`（**槽位**）✓ · `shots_total=16` ✓ · `contacts=25` ✓ · `damage=6` ✓ · `deaths=0` ✓ · `respawns=WITHDRAWN` ✓ · 现代局 **19 接触 / 18 损伤** ✓ | `a9435f95` `dfb25385` |
 | **D** 实弹死亡 + 正常 UI 再出击 | **`LIVE_FIRE_RESPAWN_PASS` 16/0** ✓（段 1 **`enemy wrecks=2`** ✓；段 2 **真实鼠标点击 ⇒ `life 11→19`** ✓） | `f9ed846b` |
-| 候选包 | `VERIFIED_CANDIDATE=…`（**待本轮构建输出** ✓） | 待 |
+| 候选包 | **`VERIFIED_CANDIDATE=…-Windows-x64-`69a83a9e`-devcandidate.zip`** ✓ · `PACKAGE_KIND=devcandidate` ✓ · **`RELEASE_READY=False`** ✓ · known_failures=**2**（两条**既有**登记 ✓）· **`independent_content` passed=True exit=0** ✓✓（**此前被它拦下的回归已修复** ✓）· **`independent_window` passed=True exit=0** ✓ · `export_release` / `engine_notices` / `independent_default_start` 全 ✓ | `9f202040` |
 
 ### 13.2 未完成项及原因（**不掩盖**）
 - **通行/推进限制** ✗：玩家与 AI 同样受影响（A 起步 38 m 后 **284 s 仅 19 m** ✗；A2 全程 `path_ready` 却 `spd=0.0` ✗）⇒ **未修**；原因：属**产品侧移动/通行**范畴，且**不得为凑通过改规则或数值** ✓ ⇒ **已登记**（记录内 `advance_limitation` ✓ + 判定项**保持 FAILING** ✗）
@@ -244,6 +244,7 @@
 - `run_checks` 的 `R3-A` 慢收敛**约四次一遇**，数值**逐字节复现** ✓（300/900 帧相同 ✓）⇒ 已按**窄签名**（仅候选 ✓，**0.5°/1 s 未改** ✓）登记；**任何额外或不同的失败仍会拦住构建** ✓
 - 通行限制会使大图上"玩家推进"类验收**不稳定** ✗ ⇒ 建议后续**单独**处理（本单**不动**规则 ✓）
 - 工程车**在包内不可用**（设计如此 ✓）⇒ 相关验收**只能**在树内进行 ✓（**不得**表述为包内结果 ✗）
+- **`run_industrial_battle_checks` 耗时异常** ✗（**已观测、未定因、不掩盖**）：历次 **3.4 / 3.5 / 3.5 分** ⇒ 本轮约 **15–20 分**（仍在运行器 **1500 s** 界内 ✓，**未超时** ✓，构建**未被挡住** ✓）⇒ 原因**未定** ✓（本单改动均在判据/准入路径，属**非逐帧**开销 ✗）⇒ 建议后续以**同一提交重跑**判定"**环境性** / **可复现**" ✓；**不**为此改动任何构建或发布参数 ✓
 
 ### 13.4 回滚方式
 - 全部改动在分支 `work/continuation-20260913` ✓ ⇒ 逐个 `git revert <sha>`（**不使用** reset/checkout 丢弃 ✓）
