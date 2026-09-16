@@ -71,7 +71,8 @@ func _run() -> void:
 			# content differs from field record" for four components - including crew, whose data was in
 			# fact identical. That false mismatch is what kept the count at four.
 			"facts": _merged(_merged(facts_by_id.get(id,{}),armor_facts.get(id,{})),evidence_facts.get(id,{})),
-			"sources": {},
+			"sources": {"wt-2.57.1.137": {"origin":"warthunder_reference","title":"War Thunder reference summary (2.57.1.137)","applies_to_identity_ids":[id]},"mcthunder_pipeline": {"origin":"game_rule","title":"mcthunder project pipeline (engineering rules)","applies_to_identity_ids":[id]}},
+			"admission": "engineering_candidate",
 			"assembly": assembly_by_id.get(id,{}),
 			"compatible_shells": [],
 			"license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
