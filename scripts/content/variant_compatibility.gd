@@ -1,6 +1,13 @@
 class_name VariantCompatibility
 extends RefCounted
 ## Variant identity, weapon, mount and ammunition are checked together at assembly boundaries.
+## WT-040-R1: the dossier states crew roles in the reference game's vocabulary ('tank_gunner') while
+## the production crew rows use the project's own ('gunner'), and the crew builder records that mapping
+## in its own notes. The roster comparison therefore normalises the documented side instead of demanding
+## identical spellings from two different vocabularies.
+static func _project_role(value: String) -> String:
+	return "gunner" if value == "tank_gunner" else value
+
 static func check(packet: Dictionary) -> Dictionary:
 	var errors: Array[String] = []
 	if not packet.get("assembly") is Dictionary or not packet.get("facts") is Dictionary or not packet.get("crew") is Array:
@@ -11,7 +18,8 @@ static func check(packet: Dictionary) -> Dictionary:
 			errors.append("assembly."+pair[0]+": conflicts with the recorded variant")
 	var declared_roles: Variant = HistoricalEvidenceGate.value(packet,"crew.roles",[])
 	if not declared_roles is Array: return {"ok":false,"errors":["crew.roles: expected array"]}
-	var roles: Array = declared_roles
+	var roles: Array = []
+	for declared in declared_roles: roles.append(_project_role(str(declared)))
 	var actual: Array = []
 	for station in packet.get("crew",[]):
 		if not station is Dictionary: errors.append("crew: malformed station"); continue
