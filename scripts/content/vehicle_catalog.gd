@@ -1,6 +1,12 @@
 class_name VehicleCatalog
 extends RefCounted
 const IDS := ["us_m4a3_75w_vvss_1944","us_m24_m6_t85e1_1951","us_m26_m3_1945","us_m36_m4a1_1945"]
+## WT-040-R1 (user ruling 2/3): the two engineering vehicles. They are read from configs/vehicles/engineering
+## and go through EXACTLY the same register() path as the historical ones - the full pipeline validation
+## plus the model binding check against the delivered artefact - so loading them here is admission, not a
+## bypass of the binding gate.
+const ENGINEERING_IDS := ["ussr_t_80b","germ_leopard_2a4"]
+const ENGINEERING_DIR := "res://configs/vehicles/engineering/"
 var packages: Dictionary = {}
 var rejected: Dictionary = {}
 var model_sources: Dictionary = {}
@@ -27,6 +33,15 @@ func load_all(defs: VehicleDefs) -> Dictionary:
 		var result := register(parsed,defs)
 		if not result.ok:
 			for error in result.errors: errors.append(id+": "+error)
+	# The engineering vehicles load through the same register() call, so a rejected one is named, not hidden.
+	for eid in ENGINEERING_IDS:
+		var efile := FileAccess.open(ENGINEERING_DIR+eid+".json",FileAccess.READ)
+		if efile == null: errors.append(eid+": missing engineering packet"); continue
+		var eparsed: Variant = JSON.parse_string(efile.get_as_text())
+		if not eparsed is Dictionary: errors.append(eid+": malformed JSON"); continue
+		var eresult := register(eparsed,defs)
+		if not eresult.ok:
+			for error in eresult.errors: errors.append(eid+": "+error)
 	return {"ok":errors.is_empty(),"errors":errors}
 
 func register(packet: Dictionary, defs: VehicleDefs) -> Dictionary:
