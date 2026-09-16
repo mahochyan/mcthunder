@@ -75,7 +75,7 @@
             "barrel_length": 6.134,
             "gun_origin": [
               0.0,
-              1.638,
+              0.191,
               -1.042
             ],
             "hull_half_width": 1.314,
@@ -570,9 +570,9 @@
           "value": {
             "barrel_length": 5.697,
             "gun_origin": [
-              -0.032,
-              2.0,
-              -1.556
+              -0.053,
+              0.339,
+              -1.176
             ],
             "hull_half_width": 1.705,
             "hull_rings": [

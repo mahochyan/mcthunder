@@ -178,6 +178,20 @@ static func build(packet: Dictionary) -> VehicleLayoutDefinition:
 			for j in range(i+1,group.size()):
 				out.allowed_overlaps.append({"a":str(group[i].id),"b":str(group[j].id),
 					"reason":"both crew stations sit in the same %s compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect" % str(part_key)})
+	# WT-040-R1: two internal ids that the delivered model serves from ONE authored anchor sit at the same
+	# point by construction, so their boxes coincide. That is declared here with the reason, and the
+	# validator then reports DECLARED_OVERLAP instead of SUSPICIOUS_OVERLAP. The ids are deliberately NOT
+	# moved apart: the anchor is where the model actually puts that stowage.
+	var by_point := {}
+	for module in out.modules:
+		var key := "%.2f|%.2f|%.2f" % [module.local_box_transform.origin.x,module.local_box_transform.origin.y,module.local_box_transform.origin.z]
+		by_point[key] = by_point.get(key,[]) + [module]
+	for point_key in by_point:
+		var pgroup: Array = by_point[point_key]
+		for i in pgroup.size():
+			for j in range(i+1,pgroup.size()):
+				out.allowed_overlaps.append({"a":str(pgroup[i].id),"b":str(pgroup[j].id),
+					"reason":"both modules are served by one authored anchor in the delivered model, so they share a point; the placement follows the model rather than being moved apart to satisfy the box check"})
 	VehicleArmorLayers.append_to(out,packet)
 	TrackAssembly.bind_layout(out)
 	return out

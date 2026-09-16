@@ -7,7 +7,7 @@
         "barrel_length": 6.134,
         "gun_origin": [
           0.0,
-          1.638,
+          0.191,
           -1.042
         ],
         "hull_half_width": 1.314,
@@ -181,7 +181,7 @@
       "id": "ussr_t_80b",
       "methods": {
         "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
-        "gun_origin": "global position of the GunPivot node in the adapter",
+        "gun_origin": "RELATIVE: GunPivot relative to TurretPivot in the measured model",
         "hull_half_width": "half of the hull mesh x-extent at mid height (same adaptive band as the mid ring)",
         "hull_rings": "adaptive nearest-vertex band scan of the hull mesh: [y, half-width, front z, rear z]; ring 0 = floor, 1 = mid, 2 = roof; the effective y tolerance per ring is recorded in the notes",
         "mantlet_half_height": "half of the mantlet mesh y-extent | FLOOR: raised to >= 1.3x the cited bore radius (0.0625 m) so the shield encloses the hole",
@@ -191,7 +191,7 @@
         "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (1.314 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
-        "turret_origin": "global position of the TurretPivot node in the adapter",
+        "turret_origin": "RELATIVE: TurretPivot relative to the hull node in the measured model; relative basis identity: true",
         "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",
@@ -213,9 +213,9 @@
       "fields": {
         "barrel_length": 5.697,
         "gun_origin": [
-          -0.032,
-          2.0,
-          -1.556
+          -0.053,
+          0.339,
+          -1.176
         ],
         "hull_half_width": 1.705,
         "hull_rings": [
@@ -312,7 +312,7 @@
       "id": "germ_leopard_2a4",
       "methods": {
         "barrel_length": "BASIS STATED: length of the adapter's recorded muzzle offset measured from the barrel mesh extremity through the parent chain, relative to the vehicle root (not a breech-to-muzzle measurement)",
-        "gun_origin": "global position of the GunPivot node in the adapter",
+        "gun_origin": "RELATIVE: GunPivot relative to TurretPivot in the measured model",
         "hull_half_width": "half of the hull mesh x-extent (AABB envelope fallback, same basis as the rings)",
         "hull_rings": "AABB ENVELOPE FALLBACK, NOT a scanned cross-section: the band scan produced slivers (ring spans under half of the 7.461 m overall span), so the three rings are the hull mesh's own bounding box at floor/mid/roof - half-width from the x-extent, front/rear z from the z-extent",
         "mantlet_half_height": "half of the mantlet mesh y-extent | FLOOR: raised to >= 1.3x the cited bore radius (0.0600 m) so the shield encloses the hole",
@@ -322,7 +322,7 @@
         "ring_half": "DERIVED: half of the smaller bottom-outline extent (no turret-ring node in this model), CLAMPED to 85% of the measured hull roof half-width (1.705 m) because a ring wider than the roof cannot produce manifold roof faces; author may replace",
         "track_width": "largest wheel mesh x-extent (the belt width across the wheel)",
         "turret_bottom": "minimum y of the turret mesh vertices",
-        "turret_origin": "global position of the TurretPivot node in the adapter",
+        "turret_origin": "RELATIVE: TurretPivot relative to the hull node in the measured model; relative basis identity: true",
         "turret_outline": "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide",
         "turret_taper": "top-quarter half extent divided by bottom-quarter half extent",
         "turret_top": "maximum y of the turret mesh vertices",

@@ -69,6 +69,48 @@ static func read(path: String) -> Dictionary:
 		role_names[key] = str((rn as Node).name) if rn != null else ""
 	return {"ok":true,"path":path,"anchors":anchors,"role_names":role_names,"roles":{},"by_name":{}}
 
+## WT-040-R1: the three mount offsets the binding validator compares against the packet's geometry, taken
+## from the model as RELATIVE transforms - the turret from the hull, the gun from the turret, and the
+## muzzle from the gun along the gun's own -Z. Global positions are a different quantity, and using them is
+## why the rest-pose and muzzle-reach checks failed. Every value is computed before the scene is freed.
+static func role_offsets(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path): return {"ok":false,"reason":"asset_missing"}
+	var doc := GLTFDocument.new()
+	var st := GLTFState.new()
+	if doc.append_from_file(path,st) != OK: return {"ok":false,"reason":"glb_parse_failed"}
+	var scene := doc.generate_scene(st)
+	if scene == null: return {"ok":false,"reason":"scene_generation_failed"}
+	var world := {}
+	_accumulate(scene,Transform3D.IDENTITY,world)
+	var hull: Variant = null
+	var turret: Variant = null
+	var gun: Variant = null
+	var muzzle: Variant = null
+	for node in world.keys():
+		match str((node as Node).name):
+			"TurretPivot": turret = node
+			"GunPivot": gun = node
+			"Muzzle": muzzle = node
+	for child in scene.get_children():
+		if child is Node3D:
+			hull = child
+			break
+	var out := {"ok":false,"reason":"required node absent"}
+	if hull != null and turret != null and gun != null and muzzle != null and world.has(hull) and world.has(turret) and world.has(gun) and world.has(muzzle):
+		var t_from_h: Transform3D = (world[hull] as Transform3D).affine_inverse() * (world[turret] as Transform3D)
+		var g_from_t: Transform3D = (world[turret] as Transform3D).affine_inverse() * (world[gun] as Transform3D)
+		var m_from_g: Transform3D = (world[gun] as Transform3D).affine_inverse() * (world[muzzle] as Transform3D)
+		out = {"ok":true,
+			"turret_origin":t_from_h.origin, "gun_origin":g_from_t.origin,
+			"muzzle_offset":m_from_g.origin, "barrel_length":absf(m_from_g.origin.z),
+			"all_bases_identity":t_from_h.basis.is_equal_approx(Basis.IDENTITY)
+				and g_from_t.basis.is_equal_approx(Basis.IDENTITY)
+				and m_from_g.basis.is_equal_approx(Basis.IDENTITY),
+			"turret_node":str((turret as Node).name), "gun_node":str((gun as Node).name),
+			"muzzle_node":str((muzzle as Node).name), "hull_node":str((hull as Node).name)}
+	scene.free()
+	return out
+
 ## Every node's transform accumulated from the root, exactly as the validator walks it.
 static func _accumulate(node: Node, acc: Transform3D, out: Dictionary) -> void:
 	var here := acc

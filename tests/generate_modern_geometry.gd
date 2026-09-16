@@ -151,14 +151,20 @@ func _measure(id: String, path: String) -> Dictionary:
 	else:
 		row.notes.append("hull mesh not identified")
 	# --- turret origins ------------------------------------------------------------------------
-	if turret_pivot != null:
-		var p := (turret_pivot as Node3D).global_position
-		f["turret_origin"] = [snappedf(p.x,0.001),snappedf(p.y,0.001),snappedf(p.z,0.001)]
-		method["turret_origin"] = "global position of the TurretPivot node in the adapter"
-	if gun_pivot != null:
-		var p2 := (gun_pivot as Node3D).global_position
-		f["gun_origin"] = [snappedf(p2.x,0.001),snappedf(p2.y,0.001),snappedf(p2.z,0.001)]
-		method["gun_origin"] = "global position of the GunPivot node in the adapter"
+	# WT-040-R1 (user ruling 2/3): the mount offsets the binding validator compares against are RELATIVE -
+	# the turret from the hull, the gun from the turret - so they are measured that way from the model. Their
+	# global positions are a different quantity, which is why the rest-pose checks reported that the model
+	# pose differed from the combat geometry.
+	var offsets := ModelAnchorReader.role_offsets(path)
+	if offsets.get("ok",false):
+		var to: Vector3 = offsets["turret_origin"]
+		var go: Vector3 = offsets["gun_origin"]
+		f["turret_origin"] = [snappedf(to.x,0.001),snappedf(to.y,0.001),snappedf(to.z,0.001)]
+		method["turret_origin"] = "RELATIVE: %s relative to the hull node in the measured model; relative basis identity: %s" % [str(offsets.get("turret_node","")),str(offsets.get("all_bases_identity",false))]
+		f["gun_origin"] = [snappedf(go.x,0.001),snappedf(go.y,0.001),snappedf(go.z,0.001)]
+		method["gun_origin"] = "RELATIVE: %s relative to %s in the measured model" % [str(offsets.get("gun_node","")),str(offsets.get("turret_node",""))]
+	else:
+		row.notes.append("role offsets unavailable from the model (%s), so turret_origin/gun_origin were NOT emitted rather than taken from global positions" % str(offsets.get("reason","?")))
 	if gun_mesh == null:
 		row.notes.append("no gun mesh: no muzzle fields are emitted (consistent with the adapter verdict)")
 	# --- turret shape: bottom outline, top/bottom, taper, ring half ----------------------------
@@ -306,7 +312,14 @@ func _measure(id: String, path: String) -> Dictionary:
 		method["track_width"] = "largest wheel mesh x-extent (the belt width across the wheel)"
 	else:
 		row.notes.append("no wheel meshes: running-gear fields left to the author")
-	# --- barrel length from the adapter's own recorded muzzle offset ---------------------------
+	# WT-040-R1: the barrel length is the distance from the GunPivot node to the Muzzle node along the gun's
+	# own -Z, measured in the model that will be BOUND - not an external adapter report. The report below may
+	# still contribute the muzzle-brake guess, but it no longer decides the length.
+	if offsets.get("ok",false):
+		f["barrel_length"] = snappedf(float(offsets["barrel_length"]),0.001)
+		method["barrel_length"] = "RELATIVE: distance from %s to %s along the gun's own -Z in the measured model; relative basis identity: %s" % [str(offsets.get("gun_node","")),str(offsets.get("muzzle_node","")),str(offsets.get("all_bases_identity",false))]
+		if not f.has("muzzle_brake"): f["muzzle_brake"] = false
+	# --- muzzle brake guess from the adapter's own recorded report -----------------------------
 	var report := _adapter_report()
 	var entry2: Dictionary = report.get(id,{})
 	if not entry2.is_empty():
