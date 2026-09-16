@@ -318,10 +318,16 @@ func vehicle_id_for_slot(id: String) -> String:
 	# vehicle was ineligible - the AI slots then took the first historical type instead of the chosen engineering
 	# one, which the direct wiring check showed as definition id us_m4a3_75w_vvss_1944 on every AI slot. No gate
 	# is widened; the gate now simply sees the same admitted set the spawn path uses.
+	# WT-040-R1 (2026-09-17 ruling): the MODE must match the vehicle being checked. The primary check below used
+	# to pass "training" while only the fallback used the engineering mode, so every engineering request was
+	# judged preview_only by the primary check and then rescued by the fallback - functionally right but with a
+	# spurious warning on every AI slot, and with the wrong mode standing in for a decision. Both now use the same
+	# mode, derived from either the selected or the requested vehicle. No gate is widened: the mode only decides
+	# whether the PUBLIC preview_only mark blocks, exactly as before.
 	var catalog: VehicleCatalog = historical_catalog if historical_catalog != null else VehicleCatalog.new()
-	var checked := VehicleReadiness.eligible(requested,"training",{},catalog)
+	var gate_mode := "engineering" if (VehicleCatalog.is_engineering(selected_vehicle_id) or VehicleCatalog.is_engineering(requested)) else "training"
+	var checked := VehicleReadiness.eligible(requested,gate_mode,{},catalog)
 	if checked.ok: return requested
-	var gate_mode := "engineering" if VehicleCatalog.is_engineering(selected_vehicle_id) else "training"
 	var fallback := VehicleReadiness.first_eligible([requested,selected_vehicle_id],gate_mode,{},catalog)
 	if fallback.ok:
 		push_warning("vehicle readiness fallback slot=%s requested=%s code=%s" % [id,requested,checked.code])

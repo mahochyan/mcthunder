@@ -6,9 +6,17 @@ var ready := false
 
 func _init() -> void:
 	# WT-040-R1 (2026-09-17 ruling): load_all STAYS historical-only - that contract is asserted elsewhere - and
-	# the engineering vehicles are admitted through their own explicit entry point. Both must succeed for the
-	# garage to be ready, so the engineering vehicles reach the garage, its loadouts and the match path.
-	ready = catalog.load_all(definitions).ok and catalog.load_engineering(definitions).ok
+	# the engineering vehicles are admitted through their own explicit entry point. The historical admission MUST
+	# succeed; the engineering admission is reported loudly but is NOT fatal, because the engineering hulls are
+	# candidates whose model artefacts are deliberately not shipped in a package - the independent package check
+	# caught exactly that, with "model.path: artifact missing", and the whole match then refused to start. In the
+	# package the engineering vehicles are simply unavailable, which is correct for a candidate; in the working
+	# tree they load and the roster, the loadouts and the match path all see them.
+	var historical := catalog.load_all(definitions)
+	ready = historical.ok
+	var engineering := catalog.load_engineering(definitions)
+	if not engineering.ok:
+		push_warning("engineering content admission (non-fatal, candidate assets may be absent from a package): "+", ".join(engineering.errors))
 
 func has_vehicle(id: String) -> bool:
 	# The curated roster is a publication boundary. Import candidates and temporary

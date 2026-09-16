@@ -69,8 +69,12 @@ func _ready() -> void:
 			return
 		var engineering := historical_catalog.load_engineering(defs)
 		if not engineering.ok:
-			push_error("engineering content admission: "+", ".join(engineering.errors))
-			return
+			# WT-040-R1: reported loudly but NOT fatal. The engineering hulls are candidates whose model artefacts
+			# are deliberately not shipped in a package, and the independent package check caught the fatal
+			# version failing with "model.path: artifact missing" and taking the whole match down with it. In a
+			# package they are simply unavailable, which is what a candidate should be; in the working tree they
+			# load and the spawn path, the AI slots and the respawn all see them.
+			push_warning("engineering content admission (non-fatal, candidate assets may be absent from a package): "+", ".join(engineering.errors))
 	controller = PlayerController.new()
 	controller.name = "PlayerController"
 	add_child(controller)
