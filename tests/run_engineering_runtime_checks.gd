@@ -25,7 +25,10 @@ func _frames(count: int) -> void:
 func _run() -> void:
 	var defs := VehicleDefs.new()
 	var catalog := VehicleCatalog.new()
-	var loaded: Dictionary = catalog.load_all(defs)
+	var historical: Dictionary = catalog.load_all(defs)
+	var engineering: Dictionary = catalog.load_engineering(defs)
+	var loaded := {"ok": bool(historical.get("ok",false)) and bool(engineering.get("ok",false)),
+		"errors": (historical.get("errors",[]) as Array) + (engineering.get("errors",[]) as Array)}
 	check(loaded.get("ok",false),"production catalog loads every packet, including the two engineering vehicles")
 	for error in loaded.get("errors",[]): print("[DETAIL] ",str(error))
 	check(catalog.rejected.is_empty(),"no packet was rejected by the catalog")

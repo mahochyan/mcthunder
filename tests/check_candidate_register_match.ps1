@@ -35,9 +35,17 @@ $v = Test-CandidateFailureSet -Entry $entryChallenge -FailLines @($wave,'  [FAIL
 Check (-not $v.ok) "COUNTER-EXAMPLE 1 refused: an old failure plus a new one with the same total (reason: $($v.reason))"
 
 # --- counter-example 2: a registered failure with an unhealthy run ----------------------------
-$sickRow = [pscustomobject]@{ suite='run_industrial_battle_checks'; checks=16; unexpected_errors=3; timed_out=$false; exit_known=$true; passed=$false }
+# The real field is an ARRAY of lines; both shapes are asserted so the test cannot pass on a shape that never
+# occurs. The numeric form is kept because an empty result may legitimately serialise as 0.
+$sickRow = [pscustomobject]@{ suite='run_industrial_battle_checks'; checks=16; unexpected_errors=@('SCRIPT ERROR: sample diagnostic'); timed_out=$false; exit_known=$true; passed=$false }
+$sickRowNumeric = [pscustomobject]@{ suite='run_industrial_battle_checks'; checks=16; unexpected_errors=3; timed_out=$false; exit_known=$true; passed=$false }
+$cleanArray = [pscustomobject]@{ suite='run_industrial_battle_checks'; checks=16; unexpected_errors=@(); timed_out=$false; exit_known=$true; passed=$false }
 $v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $sickRow
-Check (-not $v.ok) "COUNTER-EXAMPLE 2a refused: a registered failure whose run also reported script errors (reason: $($v.reason))"
+Check (-not $v.ok) "COUNTER-EXAMPLE 2a refused: a registered failure whose run also reported script errors, ARRAY shape (reason: $($v.reason))"
+$v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $sickRowNumeric
+Check (-not $v.ok) "COUNTER-EXAMPLE 2a' refused: the same, numeric shape (reason: $($v.reason))"
+$v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $cleanArray
+Check $v.ok "an EMPTY array of diagnostics still accepts a registered failure (reason: $($v.reason))"
 $timeoutRow = [pscustomobject]@{ suite='run_industrial_battle_checks'; checks=16; unexpected_errors=0; timed_out=$true; exit_known=$true; passed=$false }
 $v = Test-CandidateFailureSet -Entry $entryBattle -FailLines @($old) -ResultRow $timeoutRow
 Check (-not $v.ok) "COUNTER-EXAMPLE 2b refused: a registered failure whose run timed out (reason: $($v.reason))"

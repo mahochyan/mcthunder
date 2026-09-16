@@ -30,7 +30,10 @@ func _frames(count: int) -> void:
 func _run() -> void:
 	var defs := VehicleDefs.new()
 	var catalog := VehicleCatalog.new()
-	var loaded: Dictionary = catalog.load_all(defs)
+	var historical: Dictionary = catalog.load_all(defs)
+	var engineering: Dictionary = catalog.load_engineering(defs)
+	var loaded := {"ok": bool(historical.get("ok",false)) and bool(engineering.get("ok",false)),
+		"errors": (historical.get("errors",[]) as Array) + (engineering.get("errors",[]) as Array)}
 	check(loaded.get("ok",false),"production catalog loads every packet for the damage suite")
 	for error in loaded.get("errors",[]): print("[DETAIL] ",str(error))
 	for id in VehicleCatalog.ENGINEERING_IDS:

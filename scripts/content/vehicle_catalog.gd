@@ -33,7 +33,16 @@ func load_all(defs: VehicleDefs) -> Dictionary:
 		var result := register(parsed,defs)
 		if not result.ok:
 			for error in result.errors: errors.append(id+": "+error)
-	# The engineering vehicles load through the same register() call, so a rejected one is named, not hidden.
+	# WT-040-R1: load_all stays HISTORICAL-ONLY on purpose. Loading the engineering vehicles here changed a
+	# historical contract - run_historical_checks asserts exactly four historical configurations - so the
+	# engineering vehicles are an explicit, separate admission step, see load_engineering below.
+	return {"ok":errors.is_empty(),"errors":errors}
+
+## WT-040-R1: admit the two engineering vehicles from configs/vehicles/engineering. A SEPARATE entry point so
+## the historical set stays exactly what it was, while the engineering admission still goes through the same
+## register() call: full pipeline validation plus the model binding check against the delivered artefact.
+func load_engineering(defs: VehicleDefs) -> Dictionary:
+	var errors: Array[String] = []
 	for eid in ENGINEERING_IDS:
 		var efile := FileAccess.open(ENGINEERING_DIR+eid+".json",FileAccess.READ)
 		if efile == null: errors.append(eid+": missing engineering packet"); continue

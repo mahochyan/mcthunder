@@ -49,7 +49,19 @@ function Test-CandidateFailureSet {
     if ($null -ne $ResultRow) {
         $names = @($ResultRow.PSObject.Properties.Name)
         if ($names -contains 'unexpected_errors') {
-            $unexpected = [int]$ResultRow.unexpected_errors
+            # The real field is an ARRAY of diagnostic lines, not a number. My first version cast it to int,
+            # which passed a negative test that used numbers and would have thrown on real evidence - the
+            # test and the data had different shapes, which is the lesson, not a detail.
+            # Split by TYPE: the runner writes an ARRAY of diagnostic lines, while an empty result may
+            # serialise as the number 0. Treating every non-null value as one diagnostic rejected healthy
+            # runs, which the negative test caught - and the test now covers both shapes for that reason.
+            $raw = $ResultRow.unexpected_errors
+            $unexpected = 0
+            if ($null -ne $raw) {
+                if ($raw -is [string]) { if ($raw -ne '') { $unexpected = 1 } }
+                elseif ($raw -is [System.Collections.IEnumerable]) { $unexpected = @($raw | Where-Object { $null -ne $_ -and "$_" -ne '' }).Count }
+                else { $unexpected = [int]$raw }
+            }
             if ($unexpected -ne 0) { return @{ ok = $false; reason = "is a registered failure but its run also reported $unexpected unexpected script error(s)" } }
         }
         if ($names -contains 'timed_out' -and [bool]$ResultRow.timed_out) {
