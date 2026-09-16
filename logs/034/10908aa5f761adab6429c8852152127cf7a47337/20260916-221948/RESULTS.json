@@ -1,0 +1,52 @@
+﻿{
+    "source_sha":  "10908aa5f761adab6429c8852152127cf7a47337",
+    "exe_sha256":  "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+    "pck_sha256":  "569CA1A19FCD70223A3B1E4E5758DF7A58FA2BA3B51E8DF6828A433C3DCD1DC5",
+    "command":  "\"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\10908aa5f761adab6429c8852152127cf7a47337\\20260916-212113-234\\package\\PixelArmor.exe\" --resolution 1280x720 -- --verify-player-flow",
+    "exit_code":  null,
+    "timed_out":  false,
+    "passed":  false,
+    "checks":  0,
+    "missing_screenshots":  [
+                                "05_real_shot_replay.png",
+                                "09_battle_0.png",
+                                "09_battle_1.png",
+                                "10_settled_0.png",
+                                "10_settled_1.png"
+                            ],
+    "images":  [
+                   {
+                       "sha256":  "EBCFE7D8DF64E6F4D6EF5E8524C057A1170C1F2990F5FA956CA3492393BC5EAB",
+                       "name":  "00_garage_main_menu.png"
+                   },
+                   {
+                       "sha256":  "ABDD902915439248D5281F6D56D2F82EDCA08D8B71355F4A744A0E29DBA8B5FB",
+                       "name":  "01_challenge_rules.png"
+                   },
+                   {
+                       "sha256":  "0631764D0041884F7C0AF161C7C3D6764E1BB2A175CC5D080C5743A0CFAB13A7",
+                       "name":  "02_flank_start.png"
+                   },
+                   {
+                       "sha256":  "89DFA3D93BCEE65465236040C20F4F2B4C3363670D1FE7B1F4886D9433B9C67A",
+                       "name":  "03_flank_aim.png"
+                   },
+                   {
+                       "sha256":  "BADC5809640DA67389F5A6D8F9254B8D95E07398DD633D78B03F9B124FE99B22",
+                       "name":  "04_stars_saved.png"
+                   },
+                   {
+                       "sha256":  "3812DF91746A0CE0CB8D22B1A91A26DC232B6BB14F6BB049D145EA7EAAC3B94F",
+                       "name":  "06_personal_best.png"
+                   },
+                   {
+                       "sha256":  "CFB2F8D2CE032A371A989DF0DD8F8CE5567E580895B46606FC289EEC0C61B921",
+                       "name":  "07_defense_start.png"
+                   },
+                   {
+                       "sha256":  "72FAFEE818A5C9D0BA7306CC438873ECE3B7C2BD0CC0ABD7E648922DD96242BA",
+                       "name":  "08_m36_route_start.png"
+                   }
+               ],
+    "human":  "PENDING"
+}

@@ -1,0 +1,68 @@
+﻿{
+    "source_sha":  "9984a0cabbd8e441e327c7a67e0ffc54d1c79420",
+    "exe_sha256":  "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+    "pck_sha256":  "6C654DE3100B618B3AC0F382E176CEAEAF0AA55F4C5AD1A489404FC688DFC052",
+    "command":  "\"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\9984a0cabbd8e441e327c7a67e0ffc54d1c79420\\20260916-234210-845\\package\\PixelArmor.exe\" --resolution 1280x720 -- --verify-player-flow",
+    "exit_code":  0,
+    "timed_out":  false,
+    "passed":  true,
+    "checks":  96,
+    "missing_screenshots":  [
+
+                            ],
+    "images":  [
+                   {
+                       "sha256":  "EBCFE7D8DF64E6F4D6EF5E8524C057A1170C1F2990F5FA956CA3492393BC5EAB",
+                       "name":  "00_garage_main_menu.png"
+                   },
+                   {
+                       "sha256":  "ABDD902915439248D5281F6D56D2F82EDCA08D8B71355F4A744A0E29DBA8B5FB",
+                       "name":  "01_challenge_rules.png"
+                   },
+                   {
+                       "sha256":  "EDFA3AD10459F2145809D577612EE019467C796060FABB1F4C815D23D6CE45FD",
+                       "name":  "02_flank_start.png"
+                   },
+                   {
+                       "sha256":  "838AC7EA3095A6E16D19A6D80FA5A7AB5E71F579F4BE761F7C1EA18488F14292",
+                       "name":  "03_flank_aim.png"
+                   },
+                   {
+                       "sha256":  "1ADFB3FEBC3BD73A2269FE996E7054BCE7BE287526B94C58AF23811DCBAEBCDC",
+                       "name":  "04_stars_saved.png"
+                   },
+                   {
+                       "sha256":  "6F3FC9163116A3D85570E80903D10542FE8C3475BF1EC151305040EF0AEF3311",
+                       "name":  "05_real_shot_replay.png"
+                   },
+                   {
+                       "sha256":  "7906C44FD76C3DFAE6990995CCE4814DB6362F1A62FD837AFBE86FAF896EABA8",
+                       "name":  "06_personal_best.png"
+                   },
+                   {
+                       "sha256":  "FD2E5E646BD99A692CCE52E0831F33C09282D407AB637B13F0078680EF65CF89",
+                       "name":  "07_defense_start.png"
+                   },
+                   {
+                       "sha256":  "72FFAB46778D7B48EA2E613224C3F53C09BD665F80A2EE8C797930FAF3B42094",
+                       "name":  "08_m36_route_start.png"
+                   },
+                   {
+                       "sha256":  "8CB4A0D5FB4BCC650FADE2038417696449E5AEC3025851A62C192E458944AEBB",
+                       "name":  "09_battle_0.png"
+                   },
+                   {
+                       "sha256":  "2779AC8112E896ABD33919278975F59092E50A1D9F7BD9D2E1AA97BDCF1CFBF2",
+                       "name":  "09_battle_1.png"
+                   },
+                   {
+                       "sha256":  "1758F96C08755C4F3E2FEF10427617D6C9086C41C00B5354067F3AD8D43EE3E4",
+                       "name":  "10_settled_0.png"
+                   },
+                   {
+                       "sha256":  "F9088F1A6399785462DE77D82F882EF21C577854B49D4E2E98A4F95C385914CE",
+                       "name":  "10_settled_1.png"
+                   }
+               ],
+    "human":  "PENDING"
+}

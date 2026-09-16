@@ -1,0 +1,65 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+PLAYER_FLOW_EVIDENCE=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/player_flow034_2056833
+[PASS] actual rendered Release player-flow verification
+[PASS] actual window capture 00_garage_main_menu (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@209/@HBoxContainer@222/@PanelContainer@223/@VBoxContainer@224/@ScrollContainer@227/@VBoxContainer@228/@VBoxContainer@229/@Button@239 visible=true disabled=false
+[PASS] normal garage challenge button opens task selection
+[PASS] actual window capture 01_challenge_rules (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/@Control@293/@PanelContainer@295/@VBoxContainer@296/@Button@325 visible=true disabled=false
+[PASS] normal challenge launch and countdown starts actual scene
+[PASS] launch click leaks no shot and loads exactly six rounds
+[PASS] actual window capture 02_flank_start (review pending)
+[PASS] normal Esc pause freezes actual challenge clock
+[PASS] normal UI control is visible before click: /root/AppFlow/@Node3D@337/HUD/@Control@547/@CenterContainer@549/@VBoxContainer@550/@Button@552 visible=true disabled=false
+[drive] goal=(-16.0, 0.0, 20.0) actual=(-16.57056, 0.005926, 19.82797) elapsed=13.7833333333336
+[PASS] WASD drives from start toward visible western approach
+[drive] goal=(-16.0, 0.0, -20.0) actual=(-16.21742, 0.017231, -20.48752) elapsed=30.2666666666662
+[PASS] WASD reaches side of the static armoured target
+[aim] barrel converged miss=0.0257 m on pass 33
+[aim] camera=(-27.03519, 6.41, -20.41671) intent=(81.88528, 0.310137, -21.12965) muzzle=(-13.51878, 2.246519, -20.12181) dir=(0.999738, -0.020291, -0.01056)
+[PASS] actual window capture 03_flank_aim (review pending)
+[normal shot] shots=1 outcome={ "stars": 3, "score": 31816, "elapsed_ms": 48350, "shots": 1, "repairs": 0, "explanation": "★ 目标完成\n★ 用弹 ≤ 2发（实际1发）\n★ 80秒内完成（实际 48.4秒）", "attempt_id": 24001, "best_key": "flank_hunter:v1:normal", "title": "侧翼猎手", "status": "passed", "reason": "objectives_complete" } last=fired
+[normal record] { "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "projectile_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "seed": 2392720991 } contacts=[["B1", "turret_wall_4", "penetrated", (-0.945225, 1.989258, -20.25463)]] damage=[["ammo_ready", true]] terminal={ "projectile_id": 1, "round_id": 24001, "shooter_id": "A", "shooter_life_id": 1, "shooter_team_id": 1, "shot_id": 1, "shell_id": "us_m4a3_75w_vvss_1944_m61_m3", "reason": "internal_burst", "flight_time_s": 0.02332641758318, "travelled_m": 14.4331374168396, "impact_point": (0.910522, 1.950939, -20.27423), "impact_velocity": (618.5822, -12.78398, -6.534144), "target_id": "B1", "target_life_id": 2, "surface_id": "", "query_id": "proj_1", "physics_tick": 3189, "detail": "", "armor_policy": "resolve", "rules_version": "armor-test-v1" }
+[PASS] normal keyboard and mouse session completes flank challenge
+[PASS] result backed by actual side penetration and attributed death
+[PASS] actual personal best is saved after verified success
+[PASS] new store reloads exact best from disk
+[saved profile] user://tests/installation031_1893723/commander best={ "flank_hunter:v1:normal": { "elapsed_ms": 48350, "repairs": 0, "score": 31816, "shots": 1, "stars": 3 } }
+[PASS] actual window capture 04_stars_saved (review pending)
+[PASS] normal V opens post-result real shot replay
+[PASS] visible replay close button is fully inside actual game window
+[PASS] actual window capture 05_real_shot_replay (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@Node3D@337/HUD/@PanelContainer@616/@VBoxContainer@617/@Button@622 visible=true disabled=false
+[PASS] normal return restores garage
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@874/Frontend/@VBoxContainer@1079/@HBoxContainer@1092/@PanelContainer@1093/@VBoxContainer@1094/@ScrollContainer@1097/@VBoxContainer@1098/@VBoxContainer@1099/@Button@1109 visible=true disabled=false
+[PASS] task selection displays saved personal best after returning
+[PASS] actual window capture 06_personal_best (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@874/@Control@1163/@PanelContainer@1165/@VBoxContainer@1166/@OptionButton@1178 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@874/@Control@1163/@PanelContainer@1165/@VBoxContainer@1166/@Button@1195 visible=true disabled=false
+[PASS] normal selector enters industrial finite-wave defense
+[PASS] actual window capture 07_defense_start (review pending)
+[PASS] normal R retry creates one fresh defense attempt and opponent
+[PASS] normal UI control is visible before click: /root/AppFlow/@Node3D@1565/HUD/@Control@1714/@CenterContainer@1716/@VBoxContainer@1717/@Button@1721 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/ApplicationDialog/@MarginContainer@1914/@VBoxContainer@1915/@HBoxContainer@1919/@Button@1921 visible=true disabled=false
+[PASS] normal live-match confirmation returns to garage
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@1924/Frontend/@VBoxContainer@2129/@HBoxContainer@2142/@PanelContainer@2143/@VBoxContainer@2144/@ScrollContainer@2147/@VBoxContainer@2148/@VBoxContainer@2149/@Button@2159 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@1924/@Control@2213/@PanelContainer@2215/@VBoxContainer@2216/@OptionButton@2228 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@1924/@Control@2213/@PanelContainer@2215/@VBoxContainer@2216/@OptionButton@2239 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@1924/@Control@2213/@PanelContainer@2215/@VBoxContainer@2216/@Button@2245 visible=true disabled=false
+[PASS] normal selector enters hard M36 route with its actual four-round loadout
+[PASS] actual window capture 08_m36_route_start (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@Node3D@2257/HUD/@Control@2467/@CenterContainer@2469/@VBoxContainer@2470/@Button@2474 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/ApplicationDialog/@MarginContainer@2672/@VBoxContainer@2673/@HBoxContainer@2677/@Button@2679 visible=true disabled=false
+[PASS] normal live-match confirmation returns to garage
+[PASS] quitting other challenges cannot overwrite or invent personal bests
+[FAIL] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@2681/Frontend/@VBoxContainer@2886/@HBoxContainer@2899/@PanelContainer@2900/@VBoxContainer@2901/@ScrollContainer@2904/@VBoxContainer@2905/@VBoxContainer@2907/@OptionButton@2723 visible=false disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@2681/Frontend/@VBoxContainer@2886/@HBoxContainer@2899/@PanelContainer@2900/@VBoxContainer@2901/@ScrollContainer@2904/@VBoxContainer@2905/@VBoxContainer@2906/@OptionButton@2736 visible=true disabled=false
+[FAIL] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@2681/Frontend/@VBoxContainer@2886/@HBoxContainer@2899/@PanelContainer@2900/@VBoxContainer@2901/@ScrollContainer@2904/@VBoxContainer@2905/@VBoxContainer@2907/@VBoxContainer@2725/@Button@2739 visible=false disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@2681/Frontend/@VBoxContainer@2886/@HBoxContainer@2899/@PanelContainer@2900/@VBoxContainer@2901/@ScrollContainer@2904/@VBoxContainer@2905/@VBoxContainer@2906/@OptionButton@2759 visible=true disabled=false
+[garage] map_index=0 start_button_valid=true visible=false settings_visible=false map_choice_index=0
+[FAIL] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@2681/GarageControlSource/@VBoxContainer@2683/@HBoxContainer@2705/@PanelContainer@2706/@VBoxContainer@2707/@Button@2807 visible=false disabled=false
+[FAIL] normal garage button enters complete map 0
+[PASS] normal challenge player flow reached its final step
+=== 结果: 52 项检查, 4 失败 ===
