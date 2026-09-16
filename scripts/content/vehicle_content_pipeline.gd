@@ -171,7 +171,12 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 		if not (g.hull_rings[0][0] < g.hull_rings[1][0] and g.hull_rings[1][0] < g.hull_rings[2][0]): errors.append("geometry.hull_rings: levels must ascend")
 	if g.turret_top <= g.turret_bottom or g.wheel_count > 12: errors.append("geometry: invalid height/count")
 	for pair in [["geometry","geometry.exterior"],["runtime","runtime.simulation"],["modules","geometry.modules"],["crew","geometry.crew"]]:
-		if packet[pair[0]] != HistoricalEvidenceGate.value(packet,pair[1]): errors.append(pair[0]+": actual content differs from field record")
+		# WT-040-R1: the evidence record travels through JSON, and this project's JSON path reads every
+		# number back as a float, so an integer field in the packet (6) met its float copy in the record
+		# (6.0) and the strict dictionary comparison reported "actual content differs" for four components
+		# that in fact agreed field by field. The comparison now normalises numbers; structure, keys,
+		# strings, flags and array order must still match exactly, so a genuine difference is still caught.
+		if not _content_matches(packet[pair[0]], HistoricalEvidenceGate.value(packet,pair[1])): errors.append(pair[0]+": actual content differs from field record")
 	for pair in [["forward_max_speed","mobility.forward_speed_mps"],["rounds","weapon.capacity"]]:
 		if packet.runtime[pair[0]] != HistoricalEvidenceGate.value(packet,pair[1]): errors.append("runtime."+pair[0]+": conflicts with historical record")
 	for zone in ["hull_front_upper","hull_sides_front","gun_shield"]:
@@ -183,6 +188,25 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 			else: rack_capacity += int(module.ammo_capacity)
 	if rack_capacity != int(packet.runtime.rounds): errors.append("modules.ammo_capacity: initial historical load must match total stowage")
 	return errors
+
+## WT-040-R1: deep comparison that treats 6 and 6.0 as the same number, because a component that has
+## been through JSON comes back with every number as a float. Keys, structure, strings, booleans and
+## array order must still match exactly - only the numeric representation is normalised.
+static func _content_matches(a: Variant, b: Variant) -> bool:
+	if a is Dictionary and b is Dictionary:
+		if (a as Dictionary).size() != (b as Dictionary).size(): return false
+		for k in (a as Dictionary).keys():
+			if not (b as Dictionary).has(k): return false
+			if not _content_matches((a as Dictionary)[k], (b as Dictionary)[k]): return false
+		return true
+	if a is Array and b is Array:
+		if (a as Array).size() != (b as Array).size(): return false
+		for i in (a as Array).size():
+			if not _content_matches((a as Array)[i], (b as Array)[i]): return false
+		return true
+	if (a is int or a is float) and (b is int or b is float):
+		return float(a) == float(b)
+	return a == b
 
 static func layout_evidence(packet: Dictionary, layout: VehicleLayoutDefinition) -> Dictionary:
 	var doc := {"evidence_keys":[],"fields":[]}

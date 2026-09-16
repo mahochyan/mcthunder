@@ -65,7 +65,12 @@ func _run() -> void:
 			# placeholders are supplied for the fields that are not measured yet. They are deliberately
 			# empty: the point is to reach the content checks and let the validator itself enumerate the
 			# missing runtime fields and armour zones instead of me describing them.
-			"facts": _merged(facts_by_id.get(id,{}),armor_facts.get(id,{})),
+			# WT-040-R1 (fix): the EVIDENCE facts must be merged too. They were read above and then never
+			# put into the packet, so HistoricalEvidenceGate.value() could not find geometry.exterior,
+			# runtime.simulation, geometry.modules or geometry.crew and the pipeline reported "actual
+			# content differs from field record" for four components - including crew, whose data was in
+			# fact identical. That false mismatch is what kept the count at four.
+			"facts": _merged(_merged(facts_by_id.get(id,{}),armor_facts.get(id,{})),evidence_facts.get(id,{})),
 			"sources": {},
 			"assembly": assembly_by_id.get(id,{}),
 			"compatible_shells": [],
@@ -90,7 +95,7 @@ func _run() -> void:
 		# the armour draft; the other shows what a ruling would immediately produce.
 		var packet_no_armor := packet.duplicate(true)
 		packet_no_armor["armor"] = {}
-		packet_no_armor["facts"] = facts_by_id.get(id,{})
+		packet_no_armor["facts"] = _merged(facts_by_id.get(id,{}),evidence_facts.get(id,{}))
 		# WT-040-R1 HONESTY CORRECTION: validate_package runs check_shape FIRST and returns immediately
 		# if it reports anything, so the number above is the SHAPE-GATE count only - the content checks on
 		# lines 12-41 of the pipeline (the armour zones, the fifteen geometry fields, the ten runtime
