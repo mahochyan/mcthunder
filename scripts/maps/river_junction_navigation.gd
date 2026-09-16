@@ -23,7 +23,8 @@ func line(a: Vector2,b: Vector2,road: bool=true,width: float=12.0) -> void:
 		var current := node(a.lerp(b,float(i)/segments),road)
 		add_edge(previous,current,width); previous=current
 
-## WT-040-R1 ②: layout_version picks the authored geometry; match_size picks how many vehicles deploy.
+## WT-040-R1 (b): layout_version picks the authored geometry; match_size picks how many
+## vehicles deploy. They are separate arguments on purpose - see RiverJunctionDefinition.layout.
 func build(layout_version: int, match_size: int = -1) -> Dictionary:
 	nodes.clear(); edges.clear(); goals.clear(); supply_goals.clear()
 	var config := RiverJunctionDefinition.layout(layout_version)

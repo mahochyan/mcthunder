@@ -12,10 +12,13 @@ extends VillageRange
 ## design_preview / combat_admitted=false, and this class neither hides nor flips that. It lets a
 ## real AI match be run on the authored geometry and measured; admitting the river as a combat map
 ## remains a design decision for the user.
-var trial_team_size := RiverTeamDefinition.DEFAULT_TEAM_SIZE
+## WT-040-R1 (b): the engineering entry now takes the REGISTERED configuration: 4 vehicles per team
+## on the authored 16v16 layout. Match size and layout version are passed separately and explicitly.
+var trial_match_size := int(RiverTeamDefinition.ENGINEERING_MATCH.match_size)
+var trial_layout_version := int(RiverTeamDefinition.ENGINEERING_MATCH.layout_version)
 
 func _init() -> void:
-	definition = RiverTeamDefinition.create(trial_team_size)
+	definition = RiverTeamDefinition.create(trial_match_size, trial_layout_version)
 
 func _build_world() -> void:
 	var builder := RiverJunctionWorld.new()
@@ -33,7 +36,7 @@ func spawn_candidates(team: int) -> Array[Transform3D]:
 ## Resupply behind each deployment area, as the single-car river range already does.
 func supply_positions(team: int) -> Array[Vector3]:
 	var out: Array[Vector3] = []
-	for row in RiverJunctionDefinition.supply_points(trial_team_size):
+	for row in RiverJunctionDefinition.supply_points(trial_match_size, trial_layout_version):
 		if int(row.team) == team:
 			out.append(RiverJunctionDefinition.point(row.xz))
 	return out
@@ -57,7 +60,7 @@ func objective_goal(team: int, index: int) -> Vector3:
 
 ## The map's authored task points, in the order the slots take them.
 func _wanted_task_point(index: int) -> Vector3:
-	var stops: Array[Dictionary] = RiverJunctionDefinition.driving_stops(trial_team_size)
+	var stops: Array[Dictionary] = RiverJunctionDefinition.driving_stops(trial_layout_version)
 	if index >= 0 and index < 3:
 		# The first three slots take the map's own A / B / C entrances, which sit on the roads.
 		var entrance := 0
@@ -124,5 +127,7 @@ func _build_match_objectives() -> Array:
 ## Team size is chosen by the caller (the recorder uses 4 per team for the first closure the user
 ## asked for); 10v10/16v16 berths are NOT a capacity claim until they are measured on their own.
 func set_trial_team_size(value: int) -> void:
-	trial_team_size = value
-	definition = RiverTeamDefinition.create(trial_team_size)
+	## WT-040-R1 (b): kept for existing callers, but it now sets the MATCH SIZE only; the
+	## layout version stays the registered one, because match size must not select a layout.
+	trial_match_size = value
+	definition = RiverTeamDefinition.create(trial_match_size, trial_layout_version)
