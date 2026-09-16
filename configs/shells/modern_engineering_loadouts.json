@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  1,
-    "note":  "WT-040-R1 engineering shell loadouts for the two modern vehicles: one APFSDS main and one HEAT secondary each, all marked design/game_rule. These are PROJECT rules for the engineering candidate; they are not historical ammunition and do not claim real performance.",
+    "note":  "WT-040-R1 engineering shell loadouts for the two modern vehicles: one APFSDS main and one HEAT secondary each, all design/game_rule. PROJECT rules for the engineering candidate; not historical ammunition and no claim of real performance.",
     "vehicles":  {
                      "ussr_t_80b":  {
                                         "gun":  "125mm_2A46_2_user_cannon",
@@ -37,6 +37,43 @@
                                                                                  ],
                                                            "verification":  "estimated",
                                                            "historical_verified":  false,
+                                                           "impact_profile":  {
+                                                                                  "version":  "wt012-long-rod-v1",
+                                                                                  "family":  "APFSDS",
+                                                                                  "provenance":  "game_rule",
+                                                                                  "reason":  "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+                                                                                  "ricochet_deg":  78,
+                                                                                  "angle_resistance_curve":  [
+                                                                                                                 [
+                                                                                                                     0,
+                                                                                                                     1
+                                                                                                                 ],
+                                                                                                                 [
+                                                                                                                     30,
+                                                                                                                     1.15
+                                                                                                                 ],
+                                                                                                                 [
+                                                                                                                     45,
+                                                                                                                     1.35
+                                                                                                                 ],
+                                                                                                                 [
+                                                                                                                     60,
+                                                                                                                     1.75
+                                                                                                                 ],
+                                                                                                                 [
+                                                                                                                     75,
+                                                                                                                     2.6
+                                                                                                                 ],
+                                                                                                                 [
+                                                                                                                     90,
+                                                                                                                     4.2
+                                                                                                                 ]
+                                                                                                             ],
+                                                                                  "material_coefficients":  {
+                                                                                                                "rolled":  1,
+                                                                                                                "cast":  0.95
+                                                                                                            }
+                                                                              },
                                                            "evidence":  {
                                                                             "identity":  {
                                                                                              "value":  {
@@ -98,8 +135,107 @@
                                                                                            "source_refs":  [
                                                                                                                "mcthunder_pipeline"
                                                                                                            ]
-                                                                                       }
-                                                                        }
+                                                                                       },
+                                                                            "impact":  {
+                                                                                           "value":  {
+                                                                                                         "version":  "wt012-long-rod-v1",
+                                                                                                         "family":  "APFSDS",
+                                                                                                         "provenance":  "game_rule",
+                                                                                                         "reason":  "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+                                                                                                         "ricochet_deg":  78,
+                                                                                                         "angle_resistance_curve":  [
+                                                                                                                                        [
+                                                                                                                                            0,
+                                                                                                                                            1
+                                                                                                                                        ],
+                                                                                                                                        [
+                                                                                                                                            30,
+                                                                                                                                            1.15
+                                                                                                                                        ],
+                                                                                                                                        [
+                                                                                                                                            45,
+                                                                                                                                            1.35
+                                                                                                                                        ],
+                                                                                                                                        [
+                                                                                                                                            60,
+                                                                                                                                            1.75
+                                                                                                                                        ],
+                                                                                                                                        [
+                                                                                                                                            75,
+                                                                                                                                            2.6
+                                                                                                                                        ],
+                                                                                                                                        [
+                                                                                                                                            90,
+                                                                                                                                            4.2
+                                                                                                                                        ]
+                                                                                                                                    ],
+                                                                                                         "material_coefficients":  {
+                                                                                                                                       "rolled":  1,
+                                                                                                                                       "cast":  0.95
+                                                                                                                                   }
+                                                                                                     },
+                                                                                           "status":  "design",
+                                                                                           "origin":  "game_rule",
+                                                                                           "unit":  "structured",
+                                                                                           "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                           "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                           "source_refs":  [
+                                                                                                               "mcthunder_pipeline"
+                                                                                                           ]
+                                                                                       },
+                                                                            "post_penetration":  {
+                                                                                                     "value":  {
+                                                                                                                   "version":  "wt013-directional-spall-v1",
+                                                                                                                   "provenance":  "game_rule",
+                                                                                                                   "reason":  "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+                                                                                                                   "count":  4,
+                                                                                                                   "cone_deg":  35,
+                                                                                                                   "range_m":  3,
+                                                                                                                   "budget_fraction":  0.25,
+                                                                                                                   "max_total_mm":  60,
+                                                                                                                   "min_residual_mm":  5,
+                                                                                                                   "fragment_impact_profile":  {
+                                                                                                                                                   "version":  "wt012-full-caliber-v1",
+                                                                                                                                                   "family":  "fragment",
+                                                                                                                                                   "provenance":  "game_rule",
+                                                                                                                                                   "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
+                                                                                                                                                   "normalization_deg":  0,
+                                                                                                                                                   "overmatch_ratio":  1,
+                                                                                                                                                   "ricochet_deg":  85
+                                                                                                                                               }
+                                                                                                               },
+                                                                                                     "status":  "design",
+                                                                                                     "origin":  "game_rule",
+                                                                                                     "unit":  "structured",
+                                                                                                     "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                     "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                     "source_refs":  [
+                                                                                                                         "mcthunder_pipeline"
+                                                                                                                     ]
+                                                                                                 }
+                                                                        },
+                                                           "post_penetration_profile":  {
+                                                                                            "version":  "wt013-directional-spall-v1",
+                                                                                            "provenance":  "game_rule",
+                                                                                            "reason":  "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+                                                                                            "count":  4,
+                                                                                            "cone_deg":  35,
+                                                                                            "range_m":  3,
+                                                                                            "budget_fraction":  0.25,
+                                                                                            "max_total_mm":  60,
+                                                                                            "min_residual_mm":  5,
+                                                                                            "fragment_impact_profile":  {
+                                                                                                                            "version":  "wt012-full-caliber-v1",
+                                                                                                                            "family":  "fragment",
+                                                                                                                            "provenance":  "game_rule",
+                                                                                                                            "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
+                                                                                                                            "ricochet_deg":  85,
+                                                                                                                            "material_coefficients":  {
+                                                                                                                                                          "rolled":  1,
+                                                                                                                                                          "cast":  0.95
+                                                                                                                                                      }
+                                                                                                                        }
+                                                                                        }
                                                        },
                                                        {
                                                            "id":  "eng_125_heat_v1",
@@ -128,6 +264,16 @@
                                                                                  ],
                                                            "verification":  "estimated",
                                                            "historical_verified":  false,
+                                                           "impact_profile":  {
+                                                                                  "version":  "wt012-chemical-v1",
+                                                                                  "family":  "HEAT",
+                                                                                  "provenance":  "game_rule",
+                                                                                  "reason":  "project engineering rule: a chemical jet\u0027s material response, with no kinetic normalization, overmatch or ricochet inherited",
+                                                                                  "material_coefficients":  {
+                                                                                                                "rolled":  1,
+                                                                                                                "cast":  0.95
+                                                                                                            }
+                                                                              },
                                                            "evidence":  {
                                                                             "identity":  {
                                                                                              "value":  {
@@ -185,8 +331,54 @@
                                                                                            "source_refs":  [
                                                                                                                "mcthunder_pipeline"
                                                                                                            ]
-                                                                                       }
-                                                                        }
+                                                                                       },
+                                                                            "impact":  {
+                                                                                           "value":  {
+                                                                                                         "version":  "wt012-chemical-v1",
+                                                                                                         "family":  "HEAT",
+                                                                                                         "provenance":  "game_rule",
+                                                                                                         "reason":  "project engineering rule: a chemical jet\u0027s material response, with no kinetic normalization, overmatch or ricochet inherited",
+                                                                                                         "material_coefficients":  {
+                                                                                                                                       "rolled":  1,
+                                                                                                                                       "cast":  0.95
+                                                                                                                                   }
+                                                                                                     },
+                                                                                           "status":  "design",
+                                                                                           "origin":  "game_rule",
+                                                                                           "unit":  "structured",
+                                                                                           "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                           "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                           "source_refs":  [
+                                                                                                               "mcthunder_pipeline"
+                                                                                                           ]
+                                                                                       },
+                                                                            "chemical":  {
+                                                                                             "value":  {
+                                                                                                           "version":  "wt013-chemical-jet-v1",
+                                                                                                           "provenance":  "game_rule",
+                                                                                                           "reason":  "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+                                                                                                           "penetration_mm":  260.0,
+                                                                                                           "range_m":  4.0,
+                                                                                                           "path_loss_mm_per_m":  0.5
+                                                                                                       },
+                                                                                             "status":  "design",
+                                                                                             "origin":  "game_rule",
+                                                                                             "unit":  "structured",
+                                                                                             "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                             "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                             "source_refs":  [
+                                                                                                                 "mcthunder_pipeline"
+                                                                                                             ]
+                                                                                         }
+                                                                        },
+                                                           "chemical_profile":  {
+                                                                                    "version":  "wt013-chemical-jet-v1",
+                                                                                    "provenance":  "game_rule",
+                                                                                    "reason":  "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+                                                                                    "penetration_mm":  260.0,
+                                                                                    "range_m":  4.0,
+                                                                                    "path_loss_mm_per_m":  0.5
+                                                                                }
                                                        }
                                                    ]
                                     },
@@ -225,6 +417,43 @@
                                                                                        ],
                                                                  "verification":  "estimated",
                                                                  "historical_verified":  false,
+                                                                 "impact_profile":  {
+                                                                                        "version":  "wt012-long-rod-v1",
+                                                                                        "family":  "APFSDS",
+                                                                                        "provenance":  "game_rule",
+                                                                                        "reason":  "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+                                                                                        "ricochet_deg":  78,
+                                                                                        "angle_resistance_curve":  [
+                                                                                                                       [
+                                                                                                                           0,
+                                                                                                                           1
+                                                                                                                       ],
+                                                                                                                       [
+                                                                                                                           30,
+                                                                                                                           1.15
+                                                                                                                       ],
+                                                                                                                       [
+                                                                                                                           45,
+                                                                                                                           1.35
+                                                                                                                       ],
+                                                                                                                       [
+                                                                                                                           60,
+                                                                                                                           1.75
+                                                                                                                       ],
+                                                                                                                       [
+                                                                                                                           75,
+                                                                                                                           2.6
+                                                                                                                       ],
+                                                                                                                       [
+                                                                                                                           90,
+                                                                                                                           4.2
+                                                                                                                       ]
+                                                                                                                   ],
+                                                                                        "material_coefficients":  {
+                                                                                                                      "rolled":  1,
+                                                                                                                      "cast":  0.95
+                                                                                                                  }
+                                                                                    },
                                                                  "evidence":  {
                                                                                   "identity":  {
                                                                                                    "value":  {
@@ -286,8 +515,107 @@
                                                                                                  "source_refs":  [
                                                                                                                      "mcthunder_pipeline"
                                                                                                                  ]
-                                                                                             }
-                                                                              }
+                                                                                             },
+                                                                                  "impact":  {
+                                                                                                 "value":  {
+                                                                                                               "version":  "wt012-long-rod-v1",
+                                                                                                               "family":  "APFSDS",
+                                                                                                               "provenance":  "game_rule",
+                                                                                                               "reason":  "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+                                                                                                               "ricochet_deg":  78,
+                                                                                                               "angle_resistance_curve":  [
+                                                                                                                                              [
+                                                                                                                                                  0,
+                                                                                                                                                  1
+                                                                                                                                              ],
+                                                                                                                                              [
+                                                                                                                                                  30,
+                                                                                                                                                  1.15
+                                                                                                                                              ],
+                                                                                                                                              [
+                                                                                                                                                  45,
+                                                                                                                                                  1.35
+                                                                                                                                              ],
+                                                                                                                                              [
+                                                                                                                                                  60,
+                                                                                                                                                  1.75
+                                                                                                                                              ],
+                                                                                                                                              [
+                                                                                                                                                  75,
+                                                                                                                                                  2.6
+                                                                                                                                              ],
+                                                                                                                                              [
+                                                                                                                                                  90,
+                                                                                                                                                  4.2
+                                                                                                                                              ]
+                                                                                                                                          ],
+                                                                                                               "material_coefficients":  {
+                                                                                                                                             "rolled":  1,
+                                                                                                                                             "cast":  0.95
+                                                                                                                                         }
+                                                                                                           },
+                                                                                                 "status":  "design",
+                                                                                                 "origin":  "game_rule",
+                                                                                                 "unit":  "structured",
+                                                                                                 "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                 "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                 "source_refs":  [
+                                                                                                                     "mcthunder_pipeline"
+                                                                                                                 ]
+                                                                                             },
+                                                                                  "post_penetration":  {
+                                                                                                           "value":  {
+                                                                                                                         "version":  "wt013-directional-spall-v1",
+                                                                                                                         "provenance":  "game_rule",
+                                                                                                                         "reason":  "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+                                                                                                                         "count":  4,
+                                                                                                                         "cone_deg":  35,
+                                                                                                                         "range_m":  3,
+                                                                                                                         "budget_fraction":  0.25,
+                                                                                                                         "max_total_mm":  60,
+                                                                                                                         "min_residual_mm":  5,
+                                                                                                                         "fragment_impact_profile":  {
+                                                                                                                                                         "version":  "wt012-full-caliber-v1",
+                                                                                                                                                         "family":  "fragment",
+                                                                                                                                                         "provenance":  "game_rule",
+                                                                                                                                                         "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
+                                                                                                                                                         "normalization_deg":  0,
+                                                                                                                                                         "overmatch_ratio":  1,
+                                                                                                                                                         "ricochet_deg":  85
+                                                                                                                                                     }
+                                                                                                                     },
+                                                                                                           "status":  "design",
+                                                                                                           "origin":  "game_rule",
+                                                                                                           "unit":  "structured",
+                                                                                                           "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                           "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                           "source_refs":  [
+                                                                                                                               "mcthunder_pipeline"
+                                                                                                                           ]
+                                                                                                       }
+                                                                              },
+                                                                 "post_penetration_profile":  {
+                                                                                                  "version":  "wt013-directional-spall-v1",
+                                                                                                  "provenance":  "game_rule",
+                                                                                                  "reason":  "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+                                                                                                  "count":  4,
+                                                                                                  "cone_deg":  35,
+                                                                                                  "range_m":  3,
+                                                                                                  "budget_fraction":  0.25,
+                                                                                                  "max_total_mm":  60,
+                                                                                                  "min_residual_mm":  5,
+                                                                                                  "fragment_impact_profile":  {
+                                                                                                                                  "version":  "wt012-full-caliber-v1",
+                                                                                                                                  "family":  "fragment",
+                                                                                                                                  "provenance":  "game_rule",
+                                                                                                                                  "reason":  "project engineering rule: the fragment channel\u0027s own material response, separate from the long-rod curve",
+                                                                                                                                  "ricochet_deg":  85,
+                                                                                                                                  "material_coefficients":  {
+                                                                                                                                                                "rolled":  1,
+                                                                                                                                                                "cast":  0.95
+                                                                                                                                                            }
+                                                                                                                              }
+                                                                                              }
                                                              },
                                                              {
                                                                  "id":  "eng_120_heat_v1",
@@ -316,6 +644,16 @@
                                                                                        ],
                                                                  "verification":  "estimated",
                                                                  "historical_verified":  false,
+                                                                 "impact_profile":  {
+                                                                                        "version":  "wt012-chemical-v1",
+                                                                                        "family":  "HEAT",
+                                                                                        "provenance":  "game_rule",
+                                                                                        "reason":  "project engineering rule: a chemical jet\u0027s material response, with no kinetic normalization, overmatch or ricochet inherited",
+                                                                                        "material_coefficients":  {
+                                                                                                                      "rolled":  1,
+                                                                                                                      "cast":  0.95
+                                                                                                                  }
+                                                                                    },
                                                                  "evidence":  {
                                                                                   "identity":  {
                                                                                                    "value":  {
@@ -373,8 +711,54 @@
                                                                                                  "source_refs":  [
                                                                                                                      "mcthunder_pipeline"
                                                                                                                  ]
-                                                                                             }
-                                                                              }
+                                                                                             },
+                                                                                  "impact":  {
+                                                                                                 "value":  {
+                                                                                                               "version":  "wt012-chemical-v1",
+                                                                                                               "family":  "HEAT",
+                                                                                                               "provenance":  "game_rule",
+                                                                                                               "reason":  "project engineering rule: a chemical jet\u0027s material response, with no kinetic normalization, overmatch or ricochet inherited",
+                                                                                                               "material_coefficients":  {
+                                                                                                                                             "rolled":  1,
+                                                                                                                                             "cast":  0.95
+                                                                                                                                         }
+                                                                                                           },
+                                                                                                 "status":  "design",
+                                                                                                 "origin":  "game_rule",
+                                                                                                 "unit":  "structured",
+                                                                                                 "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                 "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                 "source_refs":  [
+                                                                                                                     "mcthunder_pipeline"
+                                                                                                                 ]
+                                                                                             },
+                                                                                  "chemical":  {
+                                                                                                   "value":  {
+                                                                                                                 "version":  "wt013-chemical-jet-v1",
+                                                                                                                 "provenance":  "game_rule",
+                                                                                                                 "reason":  "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+                                                                                                                 "penetration_mm":  260.0,
+                                                                                                                 "range_m":  4.0,
+                                                                                                                 "path_loss_mm_per_m":  0.5
+                                                                                                             },
+                                                                                                   "status":  "design",
+                                                                                                   "origin":  "game_rule",
+                                                                                                   "unit":  "structured",
+                                                                                                   "note":  "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+                                                                                                   "location":  "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+                                                                                                   "source_refs":  [
+                                                                                                                       "mcthunder_pipeline"
+                                                                                                                   ]
+                                                                                               }
+                                                                              },
+                                                                 "chemical_profile":  {
+                                                                                          "version":  "wt013-chemical-jet-v1",
+                                                                                          "provenance":  "game_rule",
+                                                                                          "reason":  "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+                                                                                          "penetration_mm":  260.0,
+                                                                                          "range_m":  4.0,
+                                                                                          "path_loss_mm_per_m":  0.5
+                                                                                      }
                                                              }
                                                          ]
                                           }

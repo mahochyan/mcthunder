@@ -103,12 +103,16 @@ func _run() -> void:
 			packet["shell_catalog"] = {"schema_version":1,
 				"shells":(veh_block as Dictionary).get("shells",[]),
 				"default":str((veh_block as Dictionary).get("default",""))}
-		# The archive round the assembly names AND the two engineering rounds. VariantCompatibility requires
-		# assembly.shell to appear in compatible_shells; dropping the reference round would say the vehicle
-		# cannot fire the round its own assembly names, which is not what the engineering set means.
-		var ref_shell := str(assembly_by_id.get(id,{}).get("shell",""))
-		if not ref_shell.is_empty() and not shell_ids.has(ref_shell):
-			shell_ids.insert(0, ref_shell)
+		# WT-040-R1 (user ruling 3): vehicle_shell_catalog requires assembly.shell to EQUAL the catalog's
+		# default id, and requires compatible_shells to match the admitted catalog ids EXACTLY. So the
+		# engineering main round becomes the assembly's shell, and the recorded ammunition value is moved
+		# with it - the compatibility check stays satisfied for the same reason it was before, that the two
+		# agree. Adding the archive round to compatible_shells was wrong and is not done.
+		var eng_default := str((veh_block as Dictionary).get("default","")) if veh_block is Dictionary else ""
+		if not eng_default.is_empty():
+			packet["assembly"]["shell"] = eng_default
+			var ammo_row: Variant = packet["facts"].get("weapon.ammunition",{})
+			if ammo_row is Dictionary: (ammo_row as Dictionary)["value"] = eng_default
 		packet["compatible_shells"] = shell_ids
 		for zone_key in packet["armor"].keys():
 			var zone_row: Variant = packet["armor"][zone_key]
