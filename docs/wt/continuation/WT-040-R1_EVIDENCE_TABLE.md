@@ -326,3 +326,29 @@ line 26: drain_bank（占点渗透 ✓）           ← 本次**未生效** ✓�
 - **只读分析** ✓，**未改代码/参数/规则** ✗；
 - 该缺陷属**战斗规则层** ✓ ⇒ **非本阶段交付** ✓ ⇒ 已登记为**独立课题** ✓，与"河谷队内拥堵"并列 ✓；
 - **建议立项** ✓（因其**系统性**：每局都会因此提前结束 ✓，且**零命中即可起爆** ✗）。
+
+---
+
+## 19. ❌ **撤回**第 18 节的"系统性缺陷"结论 ✗✓ —— 根因是**摘要为玩家口径**
+### 决定性证据 ✓（`scripts/battle/team_match_director.gd`）
+```gdscript
+func observe_contact(record) -> void:                     # L16
+    if state.phase != "playing" or record.get("round_id",-1) != state.match_id \
+       or record.get("shooter_id","") != "A": return       # L17 ⚠️ 只统计玩家 A 的接触
+```
+且 `scripts/battle/team_range.gd:63` ✓ **已正确接线**：`projectiles.projectile_contact.connect(director.observe_contact)` ✓
+
+### 四个计数**全部是玩家口径** ✓
+| 字段 | 递增处 | 口径 |
+|---|---|---|
+| `hits` / `penetrations` | L25 / L28 | **仅 `shooter_id == "A"`** ✓ |
+| `deaths` | L102 | **仅 `id == "A"`** ✓ |
+| `kills` | L106 | **仅 `shooter_id == "A"`** ✓ |
+而该套件把玩家车也设为 AI ✓（`director.state.roster.A.player = false` ✓ 见 `team_range.gd:64` ✓）
+⇒ ⇒ **AI 对 AI 的对局里，摘要全 0 属设计如此** ✓✓。
+
+### 撤回与更正的结论 ✓
+1. **弹道命中确实发生** ✓：`DamageResolver.resolve` 产出 `kind=="module"` ✓ ⇒ 击穿弹药架 ✓ ⇒ `ammo_detonation` ✓ ⇒ **`cause` 一致合理** ✓；
+2. ⇒ **不存在"零命中下的自发起爆"** ✗ ⇒ **第 18 节的缺陷登记作废** ❌；
+3. **票数下降机制正常** ✓：**AI 阵亡 × `DEATH_COST`** ✓（真实交战所致 ✓）；占点渗透（`drain_bank` ✓）本次未触发 ✓（`capture_seconds=0` ✓）；
+4. **教训** ✓：**"摘要为 0"不等于"什么都没发生"** ✗ —— **统计口径必须先读清** ✓（本会话第 N 次同类 ✓：**先核实口径，再下结论** ✓）。
