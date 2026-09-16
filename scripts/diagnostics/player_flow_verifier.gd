@@ -14,16 +14,20 @@ func drive_to(battle: ChallengeRange, goal: Vector3, maximum_frames := 3600) -> 
 		var distance := offset.length()
 		var difference := wrapf(atan2(-offset.x,-offset.z)-battle.actor.tank.global_rotation.y,-PI,PI)
 		var speed := battle.actor.tank.forward_speed
-		var desired := {KEY_W:distance>2 and absf(difference)<0.18 and speed<7.0,KEY_S:distance<=2 and speed>0.2,KEY_A:distance>2 and difference>0.06,KEY_D:distance>2 and difference< -0.06}
+		# WT-040-R1: keep closing until the goal is genuinely reached. The measured stop error was 0.66 m in the
+		# package and 0.80 m in the source tree, and that drift alone moved the burst point 0.45 m - enough to
+		# credit the loader instead of the ammunition rack - so the tolerance is tightened here. The value stays
+		# bounded and the loop can still time out.
+		var desired := {KEY_W:distance>0.6 and absf(difference)<0.18 and speed<7.0,KEY_S:distance<=1.2 and speed>0.2,KEY_A:distance>0.6 and difference>0.06,KEY_D:distance>0.6 and difference< -0.06}
 		for code in held:
 			if held[code] != desired[code]: key(code,desired[code]); held[code] = desired[code]
-		if distance<=2 and absf(speed)<0.2: break
+		if distance<=0.6 and absf(speed)<0.15: break
 		await frames(1)
 	for code in held:
 		if held[code]: key(code,false)
 	await frames(20)
 	print("[drive] goal=",goal," actual=",battle.actor.tank.global_position," elapsed=",battle.director.elapsed)
-	return ((battle.actor.tank.global_position-goal)*Vector3(1,0,1)).length()<4
+	return ((battle.actor.tank.global_position-goal)*Vector3(1,0,1)).length()<1.0
 func aim_at(battle: ChallengeRange, point: Vector3) -> void:
 	for pass_index in 6:
 		var delta := point-battle.actor.cam_rig.cam.global_position
