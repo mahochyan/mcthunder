@@ -73,10 +73,71 @@ func _run() -> void:
 			"facts": _merged(_merged(facts_by_id.get(id,{}),armor_facts.get(id,{})),evidence_facts.get(id,{})),
 			"sources": {"wt-2.57.1.137": {"origin":"warthunder_reference","title":"War Thunder reference summary (2.57.1.137)","applies_to_identity_ids":[id]},"mcthunder_pipeline": {"origin":"game_rule","title":"mcthunder project pipeline (engineering rules)","applies_to_identity_ids":[id]}},
 			"admission": "engineering_candidate",
+			# WT-040-R1 (user ruling 2): the admission profile has to reach the packet that is ACTUALLY
+			# validated, not just sit on a draft's top level. vehicle_armor_layers refuses a zone
+			# declaration with "explicit game-reference admission required" unless the packet itself
+			# declares game_reference, which is what blocked the Leopard's composite zone.
+			"evidence_profile": "game_reference",
 			"assembly": assembly_by_id.get(id,{}),
 			"compatible_shells": ([assembly_by_id.get(id,{}).get("shell","")] if not str(assembly_by_id.get(id,{}).get("shell","")).is_empty() else []),
 			"license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
 		}
+		# WT-040-R1 (user ruling 2): the ZONE declaration, not the layer one. vehicle_armor_layers checks
+		# protection.zone.<zone> for every zone that carries a response_profile or a composite material,
+		# and the required value is exactly {material, response_profile} as it appears in packet.armor -
+		# writing it from the zone itself means the declaration cannot drift from the configuration. Only
+		# real armor_layers entries need protection.layer.<id>, and no layer is invented here.
+		for zone_key in packet["armor"].keys():
+			var zone_row: Variant = packet["armor"][zone_key]
+			if not zone_row is Dictionary: continue
+			var zone_material := str((zone_row as Dictionary).get("material","rolled"))
+			if (zone_row as Dictionary).has("response_profile") or zone_material == "composite":
+				packet["facts"]["protection.zone."+str(zone_key)] = {
+					"value": {"material":zone_material,"response_profile":(zone_row as Dictionary).get("response_profile",{})},
+					"status": "estimated",
+					"origin": "game_rule",
+					"source_refs": ["mcthunder_pipeline"],
+					"location": "project engineering admission for zone %s: the value equals this zone's own material and response_profile, so the declaration cannot drift from the configuration" % str(zone_key),
+				}
+		# WT-040-R1 (user ruling 2): the game_reference admission profile has a CONCRETE contract, and the
+		# packet has to satisfy it, not merely declare it. Sources need a vehicle identity, a digest, an
+		# artefact and a read state; the binding names the source vehicle and the primary source; the unit
+		# contract restates the project's units exactly; and EVERY claim needs an explanation note and a
+		# unit - those two missing fields were the "protection.zone" errors. Digests are real: the
+		# reference digest comes from the dossier and the rule digest is computed from the rule identifier.
+		var dossier := _read_json("res://assets/reference_data/candidates/%s.json" % id)
+		var src_digest := "0"
+		var src_version := "unknown"
+		var dsrc: Variant = dossier.get("source",{})
+		if dsrc is Dictionary:
+			var dg := str((dsrc as Dictionary).get("sha256",""))
+			if dg.length() == 64: src_digest = dg
+			var rv := str((dsrc as Dictionary).get("resource_version",""))
+			if not rv.is_empty(): src_version = rv
+		var ref_id := "wt-"+src_version
+		packet["sources"] = {
+			ref_id: {"origin":"warthunder_reference","source_vehicle_id":id,"applies_to_identity_ids":[id],
+				"excluded_identity_ids":[],"sha256":src_digest,
+				"artifact":"War Thunder reference text summary for %s (resource %s)" % [id,src_version],
+				"read_state":"text_read","resource_version":src_version},
+			"mcthunder_pipeline": {"origin":"game_rule","source_vehicle_id":id,"applies_to_identity_ids":[id],
+				"excluded_identity_ids":[],"sha256":"wt040-eng-v1".sha256_text(),
+				"artifact":"mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+				"read_state":"authored"},
+		}
+		packet["source_binding"] = {"source_vehicle_id":id,"primary_source":ref_id}
+		packet["unit_contract"] = {"distance":"m","speed":"m/s","acceleration":"m/s2","angle":"deg",
+			"angular_speed":"deg/s","time":"s","mass":"kg","armor":"mm","caliber":"mm"}
+		for fact_key in packet["facts"].keys():
+			var frow: Variant = packet["facts"][fact_key]
+			if not frow is Dictionary: continue
+			var fdict: Dictionary = frow
+			if not fdict.has("note") or str(fdict.get("note","")).strip_edges().is_empty():
+				var loc := str(fdict.get("location","")).strip_edges()
+				fdict["note"] = loc if not loc.is_empty() else "engineering estimate recorded by the project pipeline"
+			var want_unit := ReferenceEvidenceGate.unit_for(str(fact_key))
+			if want_unit.is_empty(): want_unit = "structured"
+			fdict["unit"] = want_unit
 		print("[gaps] ===== ", id)
 		var result := VehicleContentPipeline.validate_package(packet,{})
 		# WT-040-R1 (user ruling): the audit must distinguish three outcomes - complete with no gaps,

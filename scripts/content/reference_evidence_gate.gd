@@ -32,7 +32,12 @@ static func check_claim(field: String, value: Variant, packet: Dictionary, expec
 	var errors: Array[String] = []
 	if not value is Dictionary: return [field+": malformed reference claim"]
 	var row: Dictionary = value
-	if row.get("status") not in ["estimated","unknown"]: errors.append(field+": reference claims cannot be historical verified")
+	# WT-040-R1 (user ruling): the project's status vocabulary admits `design` for values that are project
+	# rules rather than estimates of a real figure, and the historical evidence gate already accepts it.
+	# This gate accepted only estimated/unknown, so every project-rule claim was rejected as if it were a
+	# failed historical verification - which is the opposite of what it is. The status set now matches the
+	# ruling; what this line still forbids is a claim that pretends to be historically verified.
+	if row.get("status") not in ["estimated","unknown","design"]: errors.append(field+": reference claims cannot be historical verified")
 	if row.get("origin") not in ["warthunder_reference","game_rule"]: errors.append(field+": invalid reference/game-rule origin")
 	if not row.has("value") or not finite_tree(row.get("value")): errors.append(field+": missing or non-finite claim value")
 	if row.get("status") == "unknown":
