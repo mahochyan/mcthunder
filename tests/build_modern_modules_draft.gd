@@ -73,10 +73,32 @@ func _build(id: String, g: Dictionary, f: Dictionary) -> Dictionary:
 	out.modules.append(_mod("turret_drive","turret_drive","hull",[0.0,roof_y-0.2,0.0],[0.6,0.2,0.6]))
 	out.modules.append(_mod("track_left","track","hull",[-half_w*0.9,floor_y+0.2,0.0],[0.3,0.3,(rear_z-front_z)*0.8]))
 	out.modules.append(_mod("track_right","track","hull",[half_w*0.9,floor_y+0.2,0.0],[0.3,0.3,(rear_z-front_z)*0.8]))
+	# WT-040-R1 (user ruling 2/3): a module whose id has an AUTHORED Attachment anchor in the model that
+	# will be bound takes its position FROM that anchor, expressed in the same part-local space the layout
+	# uses, and says so. The measured derivation above stays for ids the model does not anchor
+	# (ammo_hull_left/right have no anchor), so the fallback is labelled rather than silent.
+	var anchored: Array = []
+	var model_path := MODEL_PATH % id
+	for m in out.modules:
+		var hit := ModelAnchorReader.part_relative(model_path,"Attachment_"+str(m.get("id","")),str(m.get("part","hull")))
+		if not hit.get("ok",false): continue
+		var v: Vector3 = hit["position"]
+		m["position"] = [snappedf(v.x,0.01),snappedf(v.y,0.01),snappedf(v.z,0.01)]
+		m["derived"] = false
+		m["position_source"] = "authored %s anchor in %s, relative to the %s part (%s); the anchor's own parent is %s" % [
+			"Attachment_"+str(m.get("id","")),model_path,str(m.get("part","hull")),str(hit.get("part_node","")),str(hit.get("anchor_parent",""))]
+		anchored.append(str(m.get("id","")))
+	if anchored.is_empty():
+		out.notes.append("NO module id had an authored anchor in %s, so every position keeps the labelled measured derivation" % model_path)
+	else:
+		out.notes.append("positions for %s came from the MODEL's own authored anchors in %s (the model that ships is the truth about where its parts are); any id not listed keeps the labelled measured derivation" % [str(anchored),model_path])
 	out.notes.append("kinds follow the production packets (ammo, engine, transmission, fuel, breech, turret_drive, track)")
 	out.notes.append("positions and sizes are DERIVED from the measured hull rings and turret origin - the dossiers carry no internal layout - and an author may replace them")
 	out.notes.append("ammunition capacities sum to %d, the dossier's cited main-gun capacity, because the validator compares that total with runtime.rounds" % out.ammo_total)
 	return out
+
+## WT-040-R1: the model that ships, whose authored anchors are the truth about where its parts are.
+const MODEL_PATH := "res://assets/vehicles/modern_bound/%s.glb"
 
 func _mod(mid: String, kind: String, part: String, pos: Array, size: Array, cap: int = -1) -> Dictionary:
 	var row := {"id":mid,"kind":kind,"part":part,

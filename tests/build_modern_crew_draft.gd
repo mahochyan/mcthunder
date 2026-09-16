@@ -34,6 +34,9 @@ func _run() -> void:
 	print("MODERN_CREW_DRAFT_DONE")
 	quit(0)
 
+## WT-040-R1: the model that ships, whose authored anchors are the truth about where its stations are.
+const MODEL_PATH := "res://assets/vehicles/modern_bound/%s.glb"
+
 func _build(id: String, g: Dictionary, f: Dictionary) -> Dictionary:
 	var out := {"id":id,"crew":[],"notes":[]}
 	var roles_v: Variant = f.get("facts",{}).get("crew.roles",{}).get("value",[])
@@ -51,14 +54,27 @@ func _build(id: String, g: Dictionary, f: Dictionary) -> Dictionary:
 	for r in roles:
 		var role: String = str(ROLE_MAP.get(str(r),str(r)))
 		var part: String = "turret" if role in ["gunner","commander","loader"] else "hull"
+		# WT-040-R1 (user ruling 2/3): the station's position comes from the MODEL's own authored anchor
+		# when it has one, in the part-local space the layout uses; the measured derivation is the labelled
+		# fallback. This is what makes the binding's placement checks agree by construction.
+		var position := [0.0,snappedf(hull_mid if part == "hull" else turret_y,0.01),snappedf(hull_front*0.45 if part == "hull" else 0.0,0.01)]
+		var derived := true
+		var source_note := ""
+		var hit := ModelAnchorReader.part_relative(MODEL_PATH % id,"Attachment_"+role,part)
+		if hit.get("ok",false):
+			var v: Vector3 = hit["position"]
+			position = [snappedf(v.x,0.01),snappedf(v.y,0.01),snappedf(v.z,0.01)]
+			derived = false
+			source_note = "authored Attachment_%s anchor in %s, relative to the %s part (%s); the anchor's own parent is %s" % [role,MODEL_PATH % id,part,str(hit.get("part_node","")),str(hit.get("anchor_parent",""))]
 		var row := {
 			"id": role,
 			"role": role,
 			"part": part,
-			"position": [0.0,snappedf(hull_mid if part == "hull" else turret_y,0.01),snappedf(hull_front*0.45 if part == "hull" else 0.0,0.01)],
+			"position": position,
 			"size": [0.5,0.45,0.5],
-			"derived": true,
+			"derived": derived,
 		}
+		if not derived: row["position_source"] = source_note
 		out.crew.append(row)
 	out.notes.append("roles cited from the dossier's crew_roster (via the crew.roles fact); the project's own vocabulary is used (tank_gunner -> gunner)")
 	out.notes.append("positions and sizes are DERIVED from the measured hull mid height, hull front z and turret origin - the dossiers carry no internal layout, so these are labelled derived and an author may replace them")

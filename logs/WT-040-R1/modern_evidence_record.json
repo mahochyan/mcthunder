@@ -12,14 +12,15 @@
           "status": "estimated",
           "value": [
             {
-              "derived": true,
+              "derived": false,
               "id": "gunner",
               "part": "turret",
               "position": [
-                0.0,
-                1.45,
-                0.0
+                -0.65,
+                0.43,
+                -0.1
               ],
+              "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b/TurretPivot",
               "role": "gunner",
               "size": [
                 0.5,
@@ -28,14 +29,15 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "id": "driver",
               "part": "hull",
               "position": [
                 0.0,
-                0.99,
-                -1.43
+                0.97,
+                -2.0
               ],
+              "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
               "role": "driver",
               "size": [
                 0.5,
@@ -44,14 +46,15 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "id": "commander",
               "part": "turret",
               "position": [
-                0.0,
-                1.45,
-                0.0
+                0.65,
+                0.43,
+                0.2
               ],
+              "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b/TurretPivot",
               "role": "commander",
               "size": [
                 0.5,
@@ -254,16 +257,17 @@
           "value": [
             {
               "ammo_capacity": 10.0,
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "ammo_ready",
               "kind": "ammo",
               "part": "turret",
               "position": [
                 0.0,
-                0.99,
-                0.0
+                -0.85,
+                0.1
               ],
+              "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b",
               "size": [
                 0.5,
                 0.12,
@@ -307,16 +311,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "engine",
               "kind": "engine",
               "part": "hull",
               "position": [
                 0.0,
-                0.99,
-                1.42
+                1.0,
+                2.65
               ],
+              "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
               "size": [
                 1.05,
                 0.6,
@@ -324,16 +329,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "transmission",
               "kind": "transmission",
               "part": "hull",
               "position": [
                 0.0,
-                0.99,
-                2.68
+                0.8,
+                3.4
               ],
+              "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
               "size": [
                 1.05,
                 0.4,
@@ -341,16 +347,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "fuel",
               "kind": "fuel",
               "part": "hull",
               "position": [
-                -0.66,
-                0.99,
-                1.42
+                -0.99,
+                0.95,
+                2.65
               ],
+              "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
               "size": [
                 0.25,
                 0.45,
@@ -358,16 +365,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "breech",
               "kind": "breech",
               "part": "turret",
               "position": [
                 0.0,
-                0.99,
-                -1.11
+                0.19,
+                -0.69
               ],
+              "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the turret part (ussr_t_80b/TurretPivot); the anchor's own parent is ussr_t_80b/TurretPivot/GunPivot",
               "size": [
                 0.4,
                 0.4,
@@ -375,16 +383,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "turret_drive",
               "kind": "turret_drive",
               "part": "hull",
               "position": [
                 0.0,
-                1.35,
-                0.0
+                1.2,
+                -0.25
               ],
+              "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b",
               "size": [
                 0.6,
                 0.2,
@@ -392,16 +401,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "track_left",
               "kind": "track",
               "part": "hull",
               "position": [
-                -1.18,
-                0.64,
-                0.0
+                -1.48,
+                0.55,
+                0.1
               ],
+              "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b/RunningLeft",
               "size": [
                 0.3,
                 0.3,
@@ -409,16 +419,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "track_right",
               "kind": "track",
               "part": "hull",
               "position": [
-                1.18,
-                0.64,
-                0.0
+                1.48,
+                0.55,
+                0.1
               ],
+              "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b/RunningRight",
               "size": [
                 0.3,
                 0.3,
@@ -478,14 +489,15 @@
           "status": "estimated",
           "value": [
             {
-              "derived": true,
+              "derived": false,
               "id": "gunner",
               "part": "turret",
               "position": [
-                0.0,
-                1.66,
-                0.0
+                0.65,
+                0.45,
+                -0.25
               ],
+              "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
               "role": "gunner",
               "size": [
                 0.5,
@@ -494,14 +506,15 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "id": "driver",
               "part": "hull",
               "position": [
-                0.0,
-                1.17,
-                -1.58
+                0.62,
+                1.08,
+                -2.2
               ],
+              "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
               "role": "driver",
               "size": [
                 0.5,
@@ -510,14 +523,15 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "id": "loader",
               "part": "turret",
               "position": [
-                0.0,
-                1.66,
-                0.0
+                -0.65,
+                0.45,
+                0.2
               ],
+              "position_source": "authored Attachment_loader anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
               "role": "loader",
               "size": [
                 0.5,
@@ -526,14 +540,15 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "id": "commander",
               "part": "turret",
               "position": [
-                0.0,
-                1.66,
-                0.0
+                0.65,
+                0.45,
+                0.55
               ],
+              "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
               "role": "commander",
               "size": [
                 0.5,
@@ -660,16 +675,17 @@
           "value": [
             {
               "ammo_capacity": 10.0,
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "ammo_ready",
               "kind": "ammo",
               "part": "turret",
               "position": [
-                0.0,
-                1.17,
-                0.0
+                -0.55,
+                0.4,
+                2.0
               ],
+              "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot",
               "size": [
                 0.5,
                 0.12,
@@ -713,16 +729,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "engine",
               "kind": "engine",
               "part": "hull",
               "position": [
                 0.0,
-                1.17,
-                1.78
+                1.0,
+                2.65
               ],
+              "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
               "size": [
                 1.36,
                 0.6,
@@ -730,16 +747,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "transmission",
               "kind": "transmission",
               "part": "hull",
               "position": [
                 0.0,
-                1.17,
-                3.35
+                0.8,
+                3.45
               ],
+              "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
               "size": [
                 1.36,
                 0.4,
@@ -747,16 +765,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "fuel",
               "kind": "fuel",
               "part": "hull",
               "position": [
-                -0.85,
-                1.17,
-                1.78
+                -0.99,
+                0.95,
+                2.65
               ],
+              "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
               "size": [
                 0.25,
                 0.45,
@@ -764,16 +783,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "breech",
               "kind": "breech",
               "part": "turret",
               "position": [
-                0.0,
-                1.17,
-                -1.23
+                -0.05,
+                0.34,
+                -0.83
               ],
+              "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (VehicleRoot/TurretPivot); the anchor's own parent is VehicleRoot/TurretPivot/GunPivot",
               "size": [
                 0.4,
                 0.4,
@@ -781,16 +801,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "turret_drive",
               "kind": "turret_drive",
               "part": "hull",
               "position": [
                 0.0,
-                1.6,
-                0.0
+                1.4,
+                -0.25
               ],
+              "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
               "size": [
                 0.6,
                 0.2,
@@ -798,16 +819,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "track_left",
               "kind": "track",
               "part": "hull",
               "position": [
-                -1.53,
-                0.74,
-                0.0
+                -1.49,
+                0.55,
+                0.1
               ],
+              "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot/RunningLeft",
               "size": [
                 0.3,
                 0.3,
@@ -815,16 +837,17 @@
               ]
             },
             {
-              "derived": true,
+              "derived": false,
               "external": false,
               "id": "track_right",
               "kind": "track",
               "part": "hull",
               "position": [
-                1.53,
-                0.74,
-                0.0
+                1.49,
+                0.55,
+                0.1
               ],
+              "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot/RunningRight",
               "size": [
                 0.3,
                 0.3,
