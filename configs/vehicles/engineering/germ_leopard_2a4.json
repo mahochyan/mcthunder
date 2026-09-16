@@ -1,0 +1,1938 @@
+{
+  "admission": "engineering_candidate",
+  "armor": {
+    "gun_shield": {
+      "fact": "armor.gun_shield",
+      "mapping_note": "the mask group holds seven rows",
+      "material": "rolled"
+    },
+    "hull_floor_front": {
+      "fact": "armor.hull_floor_front",
+      "material": "rolled"
+    },
+    "hull_floor_rear": {
+      "fact": "armor.hull_floor_rear",
+      "material": "rolled"
+    },
+    "hull_front_lower": {
+      "fact": "armor.hull_front_lower",
+      "material": "rolled"
+    },
+    "hull_front_upper": {
+      "fact": "armor.hull_front_upper",
+      "mapping_note": "node name says body but the class says turret NERA - flagged for review rather than smoothed over",
+      "material": "composite",
+      "response_profile": {
+        "coefficients": {
+          "chemical": 1.8,
+          "fragment": 1.2,
+          "kinetic": 1.3
+        },
+        "provenance": "game_rule",
+        "reason": "project engineering rule wt040-eng-v1: a passive composite array resists the kinetic, chemical and fragment channels by a bounded multiplier on its own layer thickness; angle handling stays the engine's per-channel rule, so no equivalent-thickness claim is made and no effect is counted twice",
+        "version": "wt012-passive-composite-v1"
+      }
+    },
+    "hull_rear_lower": {
+      "fact": "armor.hull_rear_lower",
+      "material": "rolled"
+    },
+    "hull_rear_upper": {
+      "fact": "armor.hull_rear_upper",
+      "material": "rolled"
+    },
+    "hull_roof_front": {
+      "fact": "armor.hull_roof_front",
+      "material": "rolled"
+    },
+    "hull_roof_rear": {
+      "fact": "armor.hull_roof_rear",
+      "material": "rolled"
+    },
+    "hull_sides_front": {
+      "fact": "armor.hull_sides_front",
+      "material": "rolled"
+    },
+    "hull_sides_lower": {
+      "fact": "armor.hull_sides_lower",
+      "material": "rolled"
+    },
+    "hull_sides_lower_rear": {
+      "fact": "armor.hull_sides_lower_rear",
+      "material": "rolled"
+    },
+    "hull_sides_rear": {
+      "fact": "armor.hull_sides_rear",
+      "material": "rolled"
+    },
+    "turret_front": {
+      "fact": "armor.turret_front",
+      "mapping_note": "effective maximum 250",
+      "material": "cast"
+    },
+    "turret_rear": {
+      "fact": "armor.turret_rear",
+      "mapping_note": "turret_01_back_dm (25 mm, line 74) also exists",
+      "material": "rolled"
+    },
+    "turret_roof": {
+      "fact": "armor.turret_roof",
+      "material": "rolled"
+    },
+    "turret_sides": {
+      "fact": "armor.turret_sides",
+      "mapping_note": "effective maximum 160; multi-segment, representative value chosen",
+      "material": "cast"
+    }
+  },
+  "assembly": {
+    "caliber_mm": 120.0,
+    "gun": "120mm_Rheinmetall_L44_user_cannon",
+    "mount": "breech-ring mount (project engineering rule)",
+    "shell": "eng_120_apfsds_v1",
+    "suspension": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)",
+    "variant": "leopard_2a4",
+    "year": 2026.0
+  },
+  "compatible_shells": [
+    "eng_120_apfsds_v1",
+    "eng_120_heat_v1"
+  ],
+  "crew": [
+    {
+      "derived": false,
+      "id": "gunner",
+      "part": "turret",
+      "position": [
+        0.65,
+        0.45,
+        -0.25
+      ],
+      "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+      "role": "gunner",
+      "size": [
+        0.5,
+        0.45,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "id": "driver",
+      "part": "hull",
+      "position": [
+        0.62,
+        1.08,
+        -2.2
+      ],
+      "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
+      "role": "driver",
+      "size": [
+        0.5,
+        0.45,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "id": "loader",
+      "part": "turret",
+      "position": [
+        -0.65,
+        0.45,
+        0.2
+      ],
+      "position_source": "authored Attachment_loader anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+      "role": "loader",
+      "size": [
+        0.5,
+        0.45,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "id": "commander",
+      "part": "turret",
+      "position": [
+        0.65,
+        0.45,
+        0.55
+      ],
+      "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+      "role": "commander",
+      "size": [
+        0.5,
+        0.45,
+        0.5
+      ]
+    }
+  ],
+  "display_name": "germ_leopard_2a4",
+  "evidence_profile": "game_reference",
+  "facts": {
+    "armor.gun_shield": {
+      "location": "warthunder_reference line 139: gun_mask_05_dm armorThickness=50.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 139: gun_mask_05_dm armorThickness=50.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 50.0
+    },
+    "armor.hull_floor_front": {
+      "location": "warthunder_reference line 56: superstructure_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 56: superstructure_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_floor_rear": {
+      "location": "warthunder_reference line 58: body_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 58: body_bottom_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_front_lower": {
+      "location": "warthunder_reference line 48: superstructure_front_dm armorThickness=35.0 armorClass=RHAHH_tank",
+      "note": "warthunder_reference line 48: superstructure_front_dm armorThickness=35.0 armorClass=RHAHH_tank",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.hull_front_upper": {
+      "location": "warthunder_reference line 44: body_front_dm armorThickness=400.0 armorClass=leopard_2a5_turret_nera",
+      "note": "warthunder_reference line 44: body_front_dm armorThickness=400.0 armorClass=leopard_2a5_turret_nera",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 400.0
+    },
+    "armor.hull_rear_lower": {
+      "location": "warthunder_reference line 61: body_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 61: body_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_rear_upper": {
+      "location": "warthunder_reference line 60: superstructure_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 60: superstructure_back_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_roof_front": {
+      "location": "warthunder_reference line 50: superstructure_top_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 50: superstructure_top_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.hull_roof_rear": {
+      "location": "warthunder_reference line 62: body_top_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 62: body_top_dm armorThickness=20.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 20.0
+    },
+    "armor.hull_sides_front": {
+      "location": "warthunder_reference line 49: superstructure_side_dm armorThickness=40.0 armorClass=RHAHH_tank",
+      "note": "warthunder_reference line 49: superstructure_side_dm armorThickness=40.0 armorClass=RHAHH_tank",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 40.0
+    },
+    "armor.hull_sides_lower": {
+      "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.hull_sides_lower_rear": {
+      "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.hull_sides_rear": {
+      "location": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 55: body_side_dm armorThickness=35.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 35.0
+    },
+    "armor.turret_front": {
+      "location": "warthunder_reference line 113: turret_09_front_dm armorThickness=250.0 armorClass=CHA_tank_modern",
+      "note": "warthunder_reference line 113: turret_09_front_dm armorThickness=250.0 armorClass=CHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 250.0
+    },
+    "armor.turret_rear": {
+      "location": "warthunder_reference line 76: turret_07_back_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 76: turret_07_back_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 40.0
+    },
+    "armor.turret_roof": {
+      "location": "warthunder_reference line 75: turret_07_top_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+      "note": "warthunder_reference line 75: turret_07_top_dm armorThickness=40.0 armorClass=RHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 40.0
+    },
+    "armor.turret_sides": {
+      "location": "warthunder_reference line 99: turret_07_side_dm armorThickness=160.0 armorClass=CHA_tank_modern",
+      "note": "warthunder_reference line 99: turret_07_side_dm armorThickness=160.0 armorClass=CHA_tank_modern",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 160.0
+    },
+    "assembly.mount": {
+      "location": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
+      "note": "no mount designation exists in the archive; this describes the mounting scheme only, as a project rule",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": "breech-ring mount (project engineering rule)"
+    },
+    "assembly.suspension": {
+      "location": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
+      "note": "the dossier carries no suspension field (0 raw fields); this names the type only, as a project rule",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+    },
+    "assembly.year": {
+      "location": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
+      "note": "engineering configuration year of THIS project assembly variant; the archive's 首发日期 was deliberately refused for assembly.year because it is the reference game's release date, and no historical service year is claimed here",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": 2026.0
+    },
+    "crew.placement": {
+      "location": "project engineering rule wt040-eng-v1: crew placement is derived from the measured hull and turret boxes (driver forward in the hull, gunner and commander in the turret, loader when the vehicle has one); the archive carries no crew positions, so this is a project rule and not a historical claim",
+      "note": "project engineering rule wt040-eng-v1: crew placement is derived from the measured hull and turret boxes (driver forward in the hull, gunner and commander in the turret, loader when the vehicle has one); the archive carries no crew positions, so this is a project rule and not a historical claim",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "basis": "hull and turret geometry measured from the adapter artefact",
+        "rule": "derived_from_measured_hull_and_turret_boxes",
+        "rule_version": "wt040-eng-v1"
+      }
+    },
+    "crew.roles": {
+      "location": "warthunder_reference crew_roster (lines [433, 434, 435, 436]): roles [\"tank_gunner\", \"driver\", \"loader\", \"commander\"]",
+      "note": "warthunder_reference crew_roster (lines [433, 434, 435, 436]): roles [\"tank_gunner\", \"driver\", \"loader\", \"commander\"]",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "roles",
+      "value": [
+        "tank_gunner",
+        "driver",
+        "loader",
+        "commander"
+      ]
+    },
+    "dimensions.reference_length_m": {
+      "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
+      "note": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "m",
+      "value": 7.461
+    },
+    "dimensions.width_m": {
+      "location": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
+      "note": "measured from this run's own geometry draft: overall width = 2 x widest ring half-width + 2 x track width (the same convention the pipeline envelope check uses); length = the z-span across the three rings",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "m",
+      "value": 4.566
+    },
+    "geometry.crew": {
+      "location": "copied from the crew draft so the packet and its evidence agree",
+      "note": "copied from the crew draft so the packet and its evidence agree",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": [
+        {
+          "derived": false,
+          "id": "gunner",
+          "part": "turret",
+          "position": [
+            0.65,
+            0.45,
+            -0.25
+          ],
+          "position_source": "authored Attachment_gunner anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+          "role": "gunner",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": false,
+          "id": "driver",
+          "part": "hull",
+          "position": [
+            0.62,
+            1.08,
+            -2.2
+          ],
+          "position_source": "authored Attachment_driver anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot",
+          "role": "driver",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": false,
+          "id": "loader",
+          "part": "turret",
+          "position": [
+            -0.65,
+            0.45,
+            0.2
+          ],
+          "position_source": "authored Attachment_loader anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+          "role": "loader",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        },
+        {
+          "derived": false,
+          "id": "commander",
+          "part": "turret",
+          "position": [
+            0.65,
+            0.45,
+            0.55
+          ],
+          "position_source": "authored Attachment_commander anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot",
+          "role": "commander",
+          "size": [
+            0.5,
+            0.45,
+            0.5
+          ]
+        }
+      ]
+    },
+    "geometry.exterior": {
+      "location": "copied from the geometry draft so the packet and its evidence agree",
+      "note": "copied from the geometry draft so the packet and its evidence agree",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "barrel_length": 4.141,
+        "gun_origin": [
+          -0.053,
+          0.339,
+          -1.176
+        ],
+        "hull_half_width": 1.705,
+        "hull_rings": [
+          [
+            0.538,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.167,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.796,
+            1.705,
+            -3.516,
+            3.945
+          ]
+        ],
+        "mantlet_half_height": 0.305,
+        "mantlet_half_width": 0.476,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.24,
+        "track_width": 0.578,
+        "turret_bottom": 1.644,
+        "turret_origin": [
+          0.02,
+          1.661,
+          -0.38
+        ],
+        "turret_outline": [
+          [
+            -1.229,
+            0.585
+          ],
+          [
+            -1.205,
+            -1.34
+          ],
+          [
+            -1.203,
+            -1.46
+          ],
+          [
+            -0.491,
+            -1.935
+          ],
+          [
+            0.467,
+            -1.944
+          ],
+          [
+            1.251,
+            -1.385
+          ],
+          [
+            1.251,
+            -0.636
+          ],
+          [
+            1.251,
+            -0.242
+          ],
+          [
+            1.251,
+            0.671
+          ],
+          [
+            1.246,
+            0.783
+          ],
+          [
+            1.134,
+            1.93
+          ],
+          [
+            -1.145,
+            1.93
+          ],
+          [
+            -1.208,
+            0.934
+          ]
+        ],
+        "turret_taper": 1.0,
+        "turret_top": 2.476,
+        "wheel_count": 7.0,
+        "wheel_radius": 0.353
+      }
+    },
+    "geometry.modules": {
+      "location": "copied from the modules draft so the packet and its evidence agree",
+      "note": "copied from the modules draft so the packet and its evidence agree",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": [
+        {
+          "ammo_capacity": 10.0,
+          "derived": false,
+          "external": false,
+          "id": "ammo_ready",
+          "kind": "ammo",
+          "part": "turret",
+          "position": [
+            -0.55,
+            0.4,
+            2.0
+          ],
+          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.5,
+            0.12,
+            0.35
+          ]
+        },
+        {
+          "ammo_capacity": 16.0,
+          "derived": false,
+          "external": false,
+          "id": "ammo_hull_left",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.65,
+            1.0,
+            -2.2
+          ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "ammo_capacity": 16.0,
+          "derived": false,
+          "external": false,
+          "id": "ammo_hull_right",
+          "kind": "ammo",
+          "part": "hull",
+          "position": [
+            -0.65,
+            1.0,
+            -2.2
+          ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "size": [
+            0.4,
+            0.25,
+            0.7
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "engine",
+          "kind": "engine",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.0,
+            2.65
+          ],
+          "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            1.36,
+            0.6,
+            0.9
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "transmission",
+          "kind": "transmission",
+          "part": "hull",
+          "position": [
+            0.0,
+            0.8,
+            3.45
+          ],
+          "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            1.36,
+            0.4,
+            0.5
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "fuel",
+          "kind": "fuel",
+          "part": "hull",
+          "position": [
+            -0.99,
+            0.95,
+            2.65
+          ],
+          "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.25,
+            0.45,
+            0.7
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "breech",
+          "kind": "breech",
+          "part": "barrel",
+          "position": [
+            0.0,
+            0.0,
+            0.35
+          ],
+          "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.4,
+            0.4,
+            0.6
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "turret_drive",
+          "kind": "turret_drive",
+          "part": "hull",
+          "position": [
+            0.0,
+            1.4,
+            -0.25
+          ],
+          "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.6,
+            0.2,
+            0.6
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "track_left",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            -1.49,
+            0.55,
+            0.1
+          ],
+          "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.3,
+            0.3,
+            5.97
+          ]
+        },
+        {
+          "derived": false,
+          "external": false,
+          "id": "track_right",
+          "kind": "track",
+          "part": "hull",
+          "position": [
+            1.49,
+            0.55,
+            0.1
+          ],
+          "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
+          "size": [
+            0.3,
+            0.3,
+            5.97
+          ]
+        }
+      ]
+    },
+    "identity.suspension": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": "torsion bar (project engineering rule; the archive's modification list names new_tank_suspension)"
+    },
+    "identity.variant": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": "leopard_2a4"
+    },
+    "identity.year": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "year",
+      "value": 2026.0
+    },
+    "mobility.design_mass_kg": {
+      "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
+      "note": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": 47000.0
+    },
+    "mobility.engine": {
+      "location": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"mtu mb_873_ka_501\", \"power_hp\": 1500.0 }",
+      "note": "warthunder_reference line 27 (总体): drive.engine = { \"engine_id\": \"mtu mb_873_ka_501\", \"power_hp\": 1500.0 }",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "engine_id": "mtu mb_873_ka_501",
+        "power_hp": 1500.0
+      }
+    },
+    "mobility.forward_speed_mps": {
+      "location": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
+      "note": "warthunder_reference line 20 (总体): drive.forward_speed_candidate = 20.8333333333333",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "m/s",
+      "value": 20.8333333333333
+    },
+    "protection.zone.hull_front_upper": {
+      "location": "project engineering admission for zone hull_front_upper: the value equals this zone's own material and response_profile, so the declaration cannot drift from the configuration",
+      "note": "project engineering admission for zone hull_front_upper: the value equals this zone's own material and response_profile, so the declaration cannot drift from the configuration",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "composite",
+        "response_profile": {
+          "coefficients": {
+            "chemical": 1.8,
+            "fragment": 1.2,
+            "kinetic": 1.3
+          },
+          "provenance": "game_rule",
+          "reason": "project engineering rule wt040-eng-v1: a passive composite array resists the kinetic, chemical and fragment channels by a bounded multiplier on its own layer thickness; angle handling stays the engine's per-channel rule, so no equivalent-thickness claim is made and no effect is counted twice",
+          "version": "wt012-passive-composite-v1"
+        }
+      }
+    },
+    "runtime.acceleration": {
+      "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption",
+      "note": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": 4.0
+    },
+    "runtime.forward_max_speed": {
+      "location": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
+      "note": "same figure as mobility.forward_speed_mps: the dossier's forward speed candidate",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": 20.8333333333333
+    },
+    "runtime.hull_turn_speed": {
+      "location": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
+      "note": "warthunder_reference line 22 (总体): drive.hull_turn_candidate = 30.0",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": 30.0
+    },
+    "runtime.penetration_curve": {
+      "location": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
+      "note": "multi-point curve [distance_m, mm] for the engineering candidate; the archive carries no penetration table, and this is a play-balance curve rather than a claim about real protection",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": [
+        [
+          0.0,
+          470.0
+        ],
+        [
+          500.0,
+          450.0
+        ],
+        [
+          1500.0,
+          400.0
+        ],
+        [
+          2500.0,
+          320.0
+        ]
+      ]
+    },
+    "runtime.pitch_max": {
+      "location": "gun elevation limit used by the engineering candidate, as a project rule",
+      "note": "gun elevation limit used by the engineering candidate, as a project rule",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": 20.0
+    },
+    "runtime.pitch_min": {
+      "location": "gun depression limit used by the engineering candidate, as a project rule",
+      "note": "gun depression limit used by the engineering candidate, as a project rule",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": -9.0
+    },
+    "runtime.reload_time": {
+      "location": "reload cadence for play balance, calibrated per vehicle, as a project rule",
+      "note": "reload cadence for play balance, calibrated per vehicle, as a project rule",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": 6.0
+    },
+    "runtime.reverse_max_speed": {
+      "location": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
+      "note": "warthunder_reference line 21 (总体): drive.reverse_speed_candidate = 2.77777777777778",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": 2.77777777777778
+    },
+    "runtime.simulation": {
+      "location": "copied from the runtime draft so the packet and its evidence agree",
+      "note": "copied from the runtime draft so the packet and its evidence agree",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "acceleration": 4.0,
+        "forward_max_speed": 20.8333333333333,
+        "hull_turn_speed": 30.0,
+        "muzzle_velocity": 1140.0,
+        "penetration_curve": [
+          [
+            0.0,
+            470.0
+          ],
+          [
+            500.0,
+            450.0
+          ],
+          [
+            1500.0,
+            400.0
+          ],
+          [
+            2500.0,
+            320.0
+          ]
+        ],
+        "pitch_max": 20.0,
+        "pitch_min": -9.0,
+        "reload_time": 6.0,
+        "reverse_max_speed": 2.77777777777778,
+        "rounds": 42.0
+      }
+    },
+    "weapon.ammunition": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": "eng_120_apfsds_v1"
+    },
+    "weapon.caliber_mm": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "mm",
+      "value": 120.0
+    },
+    "weapon.capacity": {
+      "location": "warthunder_reference line 453: primary.capacity (main gun rounds carried) = 42.0",
+      "note": "warthunder_reference line 453: primary.capacity (main gun rounds carried) = 42.0",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "count",
+      "value": 42.0
+    },
+    "weapon.gun": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (reference archive candidate layer)",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": "120mm_Rheinmetall_L44_user_cannon"
+    },
+    "weapon.mount": {
+      "location": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "note": "copied from the assembly component so the variant compatibility check agrees by construction (project rule)",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": "breech-ring mount (project engineering rule)"
+    }
+  },
+  "geometry": {
+    "barrel_length": 4.141,
+    "gun_origin": [
+      -0.053,
+      0.339,
+      -1.176
+    ],
+    "hull_half_width": 1.705,
+    "hull_rings": [
+      [
+        0.538,
+        1.705,
+        -3.516,
+        3.945
+      ],
+      [
+        1.167,
+        1.705,
+        -3.516,
+        3.945
+      ],
+      [
+        1.796,
+        1.705,
+        -3.516,
+        3.945
+      ]
+    ],
+    "mantlet_half_height": 0.305,
+    "mantlet_half_width": 0.476,
+    "muzzle_brake": false,
+    "open_top": false,
+    "ring_half": 1.24,
+    "track_width": 0.578,
+    "turret_bottom": 1.644,
+    "turret_origin": [
+      0.02,
+      1.661,
+      -0.38
+    ],
+    "turret_outline": [
+      [
+        -1.229,
+        0.585
+      ],
+      [
+        -1.205,
+        -1.34
+      ],
+      [
+        -1.203,
+        -1.46
+      ],
+      [
+        -0.491,
+        -1.935
+      ],
+      [
+        0.467,
+        -1.944
+      ],
+      [
+        1.251,
+        -1.385
+      ],
+      [
+        1.251,
+        -0.636
+      ],
+      [
+        1.251,
+        -0.242
+      ],
+      [
+        1.251,
+        0.671
+      ],
+      [
+        1.246,
+        0.783
+      ],
+      [
+        1.134,
+        1.93
+      ],
+      [
+        -1.145,
+        1.93
+      ],
+      [
+        -1.208,
+        0.934
+      ]
+    ],
+    "turret_taper": 1.0,
+    "turret_top": 2.476,
+    "wheel_count": 7.0,
+    "wheel_radius": 0.353
+  },
+  "id": "germ_leopard_2a4",
+  "license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
+  "model_binding": {
+    "axes": {
+      "gun": {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "limits_deg": [
+          -9.0,
+          20.0
+        ],
+        "space": "local"
+      },
+      "turret": {
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "limits_deg": [
+          -180.0,
+          180.0
+        ],
+        "space": "local"
+      }
+    },
+    "internal_attachments": {
+      "crew": {
+        "commander": "VehicleRoot/TurretPivot/Attachment_commander",
+        "driver": "VehicleRoot/Attachment_driver",
+        "gunner": "VehicleRoot/TurretPivot/Attachment_gunner",
+        "loader": "VehicleRoot/TurretPivot/Attachment_loader"
+      },
+      "modules": {
+        "ammo_hull_left": "VehicleRoot/Attachment_ammo_reserve",
+        "ammo_hull_right": "VehicleRoot/Attachment_ammo_reserve",
+        "ammo_ready": "VehicleRoot/TurretPivot/Attachment_ammo_ready",
+        "breech": "VehicleRoot/TurretPivot/GunPivot/Attachment_breech",
+        "engine": "VehicleRoot/Attachment_engine",
+        "fuel": "VehicleRoot/Attachment_fuel",
+        "track_left": "VehicleRoot/RunningLeft/Attachment_track_left",
+        "track_right": "VehicleRoot/RunningRight/Attachment_track_right",
+        "transmission": "VehicleRoot/Attachment_transmission",
+        "turret_drive": "VehicleRoot/Attachment_turret_drive"
+      }
+    },
+    "model": {
+      "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+      "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "nodes": {
+      "gun": "VehicleRoot/TurretPivot/GunPivot",
+      "hull": "VehicleRoot",
+      "muzzle": "VehicleRoot/TurretPivot/GunPivot/Muzzle",
+      "running_left": "VehicleRoot/RunningLeft",
+      "running_right": "VehicleRoot/RunningRight",
+      "turret": "VehicleRoot/TurretPivot"
+    },
+    "schema_version": 1,
+    "units": {
+      "attachment_tolerance_m": 0.05,
+      "dimensions_m": [
+        3.59055137634277,
+        4.5817608833313,
+        9.64200401306152
+      ],
+      "meters_per_unit": 1.0,
+      "source_unit": "m",
+      "tolerance_fraction": 0.02
+    },
+    "vehicle_id": "germ_leopard_2a4"
+  },
+  "modules": [
+    {
+      "ammo_capacity": 10.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_ready",
+      "kind": "ammo",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.4,
+        2.0
+      ],
+      "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.5,
+        0.12,
+        0.35
+      ]
+    },
+    {
+      "ammo_capacity": 16.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_hull_left",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "size": [
+        0.4,
+        0.25,
+        0.7
+      ]
+    },
+    {
+      "ammo_capacity": 16.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_hull_right",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "size": [
+        0.4,
+        0.25,
+        0.7
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "engine",
+      "kind": "engine",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.0,
+        2.65
+      ],
+      "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.6,
+        0.9
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "transmission",
+      "kind": "transmission",
+      "part": "hull",
+      "position": [
+        0.0,
+        0.8,
+        3.45
+      ],
+      "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "fuel",
+      "kind": "fuel",
+      "part": "hull",
+      "position": [
+        -0.99,
+        0.95,
+        2.65
+      ],
+      "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.25,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "breech",
+      "kind": "breech",
+      "part": "barrel",
+      "position": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.4,
+        0.4,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "turret_drive",
+      "kind": "turret_drive",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.4,
+        -0.25
+      ],
+      "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.6,
+        0.2,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_left",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        -1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_right",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    }
+  ],
+  "runtime": {
+    "acceleration": 4.0,
+    "forward_max_speed": 20.8333333333333,
+    "hull_turn_speed": 30.0,
+    "muzzle_velocity": 1140.0,
+    "penetration_curve": [
+      [
+        0.0,
+        470.0
+      ],
+      [
+        500.0,
+        450.0
+      ],
+      [
+        1500.0,
+        400.0
+      ],
+      [
+        2500.0,
+        320.0
+      ]
+    ],
+    "pitch_max": 20.0,
+    "pitch_min": -9.0,
+    "reload_time": 6.0,
+    "reverse_max_speed": 2.77777777777778,
+    "rounds": 42.0
+  },
+  "shell_catalog": {
+    "default": "eng_120_apfsds_v1",
+    "schema_version": 1,
+    "shells": [
+      {
+        "caliber_mm": 120.0,
+        "effect_policy": "long_rod",
+        "evidence": {
+          "ballistics": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "gravity_scale": 1.0,
+              "max_flight_time_s": 6.0,
+              "muzzle_velocity_mps": 1650.0,
+              "penetration_curve": [
+                [
+                  0.0,
+                  470.0
+                ],
+                [
+                  500.0,
+                  450.0
+                ],
+                [
+                  1500.0,
+                  400.0
+                ],
+                [
+                  2500.0,
+                  320.0
+                ]
+              ]
+            }
+          },
+          "effect": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "text",
+            "value": "long_rod"
+          },
+          "identity": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "caliber_mm": 120.0,
+              "family": "APFSDS",
+              "gun": "120mm_Rheinmetall_L44_user_cannon",
+              "id": "eng_120_apfsds_v1",
+              "source_bullet_type": "game_rule_apfsds"
+            }
+          },
+          "impact": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "angle_resistance_curve": [
+                [
+                  0.0,
+                  1.0
+                ],
+                [
+                  30.0,
+                  1.15
+                ],
+                [
+                  45.0,
+                  1.35
+                ],
+                [
+                  60.0,
+                  1.75
+                ],
+                [
+                  75.0,
+                  2.6
+                ],
+                [
+                  90.0,
+                  4.2
+                ]
+              ],
+              "family": "APFSDS",
+              "material_coefficients": {
+                "cast": 0.95,
+                "rolled": 1.0
+              },
+              "provenance": "game_rule",
+              "reason": "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+              "ricochet_deg": 78.0,
+              "version": "wt012-long-rod-v1"
+            }
+          },
+          "post_penetration": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "budget_fraction": 0.25,
+              "cone_deg": 35.0,
+              "count": 4.0,
+              "fragment_impact_profile": {
+                "family": "fragment",
+                "material_coefficients": {
+                  "cast": 0.95,
+                  "rolled": 1.0
+                },
+                "normalization_deg": 0.0,
+                "overmatch_ratio": 0.0,
+                "provenance": "game_rule",
+                "reason": "project engineering rule: the fragment channel's own material response, separate from the long-rod curve",
+                "ricochet_deg": 85.0,
+                "version": "wt012-full-caliber-v1"
+              },
+              "max_total_mm": 60.0,
+              "min_residual_mm": 5.0,
+              "provenance": "game_rule",
+              "range_m": 3.0,
+              "reason": "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+              "version": "wt013-directional-spall-v1"
+            }
+          }
+        },
+        "family": "APFSDS",
+        "gravity_scale": 1.0,
+        "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "historical_verified": false,
+        "id": "eng_120_apfsds_v1",
+        "impact_profile": {
+          "angle_resistance_curve": [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              30.0,
+              1.15
+            ],
+            [
+              45.0,
+              1.35
+            ],
+            [
+              60.0,
+              1.75
+            ],
+            [
+              75.0,
+              2.6
+            ],
+            [
+              90.0,
+              4.2
+            ]
+          ],
+          "family": "APFSDS",
+          "material_coefficients": {
+            "cast": 0.95,
+            "rolled": 1.0
+          },
+          "provenance": "game_rule",
+          "reason": "project engineering rule: a bounded angle-resistance curve for a long-rod penetrator, with no full-caliber normalization or overmatch because bore diameter is not penetrator diameter",
+          "ricochet_deg": 78.0,
+          "version": "wt012-long-rod-v1"
+        },
+        "label": "120mm 工程 APFSDS（项目设计初值）",
+        "max_flight_time_s": 6.0,
+        "muzzle_velocity_mps": 1650.0,
+        "penetration_curve": [
+          [
+            0.0,
+            470.0
+          ],
+          [
+            500.0,
+            450.0
+          ],
+          [
+            1500.0,
+            400.0
+          ],
+          [
+            2500.0,
+            320.0
+          ]
+        ],
+        "post_penetration_profile": {
+          "budget_fraction": 0.25,
+          "cone_deg": 35.0,
+          "count": 4.0,
+          "fragment_impact_profile": {
+            "family": "fragment",
+            "material_coefficients": {
+              "cast": 0.95,
+              "rolled": 1.0
+            },
+            "normalization_deg": 0.0,
+            "overmatch_ratio": 0.0,
+            "provenance": "game_rule",
+            "reason": "project engineering rule: the fragment channel's own material response, separate from the long-rod curve",
+            "ricochet_deg": 85.0,
+            "version": "wt012-full-caliber-v1"
+          },
+          "max_total_mm": 60.0,
+          "min_residual_mm": 5.0,
+          "provenance": "game_rule",
+          "range_m": 3.0,
+          "reason": "project engineering rule: bounded directional spall behind a perforation, with its own fragment material response rather than a claim of measured fragment physics",
+          "version": "wt013-directional-spall-v1"
+        },
+        "source_bullet_type": "game_rule_apfsds",
+        "verification": "estimated"
+      },
+      {
+        "caliber_mm": 120.0,
+        "chemical_profile": {
+          "path_loss_mm_per_m": 0.5,
+          "penetration_mm": 260.0,
+          "provenance": "game_rule",
+          "range_m": 4.0,
+          "reason": "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+          "version": "wt013-chemical-jet-v1"
+        },
+        "effect_policy": "chemical",
+        "evidence": {
+          "ballistics": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "gravity_scale": 1.0,
+              "max_flight_time_s": 6.0,
+              "muzzle_velocity_mps": 1140.0,
+              "penetration_curve": [
+                [
+                  0.0,
+                  260.0
+                ],
+                [
+                  500.0,
+                  260.0
+                ],
+                [
+                  1500.0,
+                  260.0
+                ]
+              ]
+            }
+          },
+          "chemical": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "path_loss_mm_per_m": 0.5,
+              "penetration_mm": 260.0,
+              "provenance": "game_rule",
+              "range_m": 4.0,
+              "reason": "project engineering rule: a constant chemical budget over a finite instantaneous ray; the curve is flat so the constant penetration and the curve agree point by point",
+              "version": "wt013-chemical-jet-v1"
+            }
+          },
+          "effect": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "text",
+            "value": "chemical"
+          },
+          "identity": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "caliber_mm": 120.0,
+              "family": "HEAT",
+              "gun": "120mm_Rheinmetall_L44_user_cannon",
+              "id": "eng_120_heat_v1",
+              "source_bullet_type": "heat_fs_tank"
+            }
+          },
+          "impact": {
+            "location": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+            "note": "project engineering rule wt040-eng-v1: a play-balance value for the engineering candidate, not a claim about a real round",
+            "origin": "game_rule",
+            "source_refs": [
+              "mcthunder_pipeline"
+            ],
+            "status": "design",
+            "unit": "structured",
+            "value": {
+              "family": "HEAT",
+              "material_coefficients": {
+                "cast": 0.95,
+                "rolled": 1.0
+              },
+              "provenance": "game_rule",
+              "reason": "project engineering rule: a chemical jet's material response, with no kinetic normalization, overmatch or ricochet inherited",
+              "version": "wt012-chemical-v1"
+            }
+          }
+        },
+        "family": "HEAT",
+        "gravity_scale": 1.0,
+        "gun": "120mm_Rheinmetall_L44_user_cannon",
+        "historical_verified": false,
+        "id": "eng_120_heat_v1",
+        "impact_profile": {
+          "family": "HEAT",
+          "material_coefficients": {
+            "cast": 0.95,
+            "rolled": 1.0
+          },
+          "provenance": "game_rule",
+          "reason": "project engineering rule: a chemical jet's material response, with no kinetic normalization, overmatch or ricochet inherited",
+          "version": "wt012-chemical-v1"
+        },
+        "label": "120mm 工程 HEAT（项目设计初值）",
+        "max_flight_time_s": 6.0,
+        "muzzle_velocity_mps": 1140.0,
+        "penetration_curve": [
+          [
+            0.0,
+            260.0
+          ],
+          [
+            500.0,
+            260.0
+          ],
+          [
+            1500.0,
+            260.0
+          ]
+        ],
+        "source_bullet_type": "heat_fs_tank",
+        "verification": "estimated"
+      }
+    ]
+  },
+  "source_binding": {
+    "primary_source": "wt-2.57.1.137",
+    "source_vehicle_id": "germ_leopard_2a4"
+  },
+  "sources": {
+    "mcthunder_pipeline": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "mcthunder project engineering rule set wt040-eng-v1 (authored in this repository)",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "290738fbe74356e27a21899266ea9b57e77c7f2d6133611b3be3c71a0e7c2243",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "wt-2.57.1.137": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "War Thunder reference text summary for germ_leopard_2a4 (resource 2.57.1.137)",
+      "excluded_identity_ids": [],
+      "origin": "warthunder_reference",
+      "read_state": "text_read",
+      "resource_version": "2.57.1.137",
+      "sha256": "fae1dc60e29f4811c31098613e938bae7671f5434db19eaf7a91d3816e806a6b",
+      "source_vehicle_id": "germ_leopard_2a4"
+    }
+  },
+  "unit_contract": {
+    "acceleration": "m/s2",
+    "angle": "deg",
+    "angular_speed": "deg/s",
+    "armor": "mm",
+    "caliber": "mm",
+    "distance": "m",
+    "mass": "kg",
+    "speed": "m/s",
+    "time": "s"
+  }
+}
