@@ -1,4 +1,4 @@
-﻿# 第 4 阶段素材：**验证证据表**（每条数字 → 可复现出处 ✓）
+# 第 4 阶段素材：**验证证据表**（每条数字 → 可复现出处 ✓）
 
 > 用途 ✓：任何结论都能被**独立复核** ✓；本表在**对账中发现并更正**了我先前两处表述失准 ✗（已标注 ✓）。
 
@@ -30,7 +30,7 @@
 ## 3. 其它证据 ✓
 | 结论 | 出处 |
 |---|---|
-| `geometry` 自校验 **29/29** ✓ | `pipeline-geometry_check.log` ✓ |
+| `geometry` 自校验 ****50/0**** ✓ | `pipeline-geometry_check.log` ✓ |
 | `run_modern_model_mount_checks` **41/0** ✓（回归已关闭 ✓） | `mount-recheck2.log` ✓ |
 | `run_track_damage_checks` **单独 3s 通过** ✓ ⇒ 门禁停滞＝**并发** ✗ | `track-alone.log` ✓ |
 | 流水线 **9 步全绿** ✓ | `pipeline-*.log` ✓ |
@@ -352,3 +352,14 @@ func observe_contact(record) -> void:                     # L16
 2. ⇒ **不存在"零命中下的自发起爆"** ✗ ⇒ **第 18 节的缺陷登记作废** ❌；
 3. **票数下降机制正常** ✓：**AI 阵亡 × `DEATH_COST`** ✓（真实交战所致 ✓）；占点渗透（`drain_bank` ✓）本次未触发 ✓（`capture_seconds=0` ✓）；
 4. **教训** ✓：**"摘要为 0"不等于"什么都没发生"** ✗ —— **统计口径必须先读清** ✓（本会话第 N 次同类 ✓：**先核实口径，再下结论** ✓）。
+
+### 订正（2026-09-16 ✓）：几何自校验的**权威数字是 50/0**（原文档写 29/29 ✗）
+- **权威来源** ✓：收官验收 `logs/WT-040-R1/final-acceptance-20260916-113742/` 的
+  `=== 结果: 50 项检查, 0 失败 ===` ✓ · `MODERN_GEOMETRY_CHECKS_PASS` ✓；
+- **正确调用** ✓（裸 ASCII id ✓，与流水线一致 ✓）：
+  `-s res://tests/check_modern_geometry.gd -- ussr_t_80b germ_leopard_2a4` ✓
+  （该检查第 34 行 `if text.contains("="): continue` ✗ ⇒ **含 `=` 的旧式 `id=path` 参数会被静默跳过** ✗，
+  那正是先前得到 29 这一偏小数字与 `no targets` 失败的原因 ✓）；
+- **其余数字经核对一致** ✓：流水线 **9/9** ✓ · `LayoutValidator` **0 / 2** ✓ · 六个 `definitions` **全 0** ✓ ·
+  门禁 **128 套件 / 126 PASS / 2 FAIL** ✓ · 应用流程 **127/0** ✓ · 辅助能力 **51/0** ✓ · 科技树 **50/0** ✓ · 真实对局 **14/14** ✓ ·
+  gap **9 / 10**（其中 shape 门后仅 **1**）✓。

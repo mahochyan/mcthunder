@@ -68,7 +68,7 @@
 | 项 | 结果 | 证据 |
 |---|---|---|
 | 两车适配产物 | T-80B **新建** ✓ · 豹2 首次生成 ✓；98 行全 verified ✓；重跑**逐字节确定** ✓ | `WT-040-R1_EVIDENCE_TABLE.md` §1 |
-| `geometry` 实测 15 字段 | **自校验 29/29** ✓ · adapter↔source 逐项一致 ✓ | 同上 §2 |
+| `geometry` 实测 15 字段 | **自校验 **50/0**** ✓ · adapter↔source 逐项一致 ✓ | 同上 §2 |
 | `facts` / `assembly` / `armor` / `modules` / `crew` | 逐项带引用 ✓；**T-80B `armor` 12 项如实 unknown** ✓；弹架**精确配平** 38/42 ✓ | 同上 §5–§7 |
 | **两车 `definitions`（车/炮/弹）** | **全 0 错误** ✓✓ | 同上 §2 |
 | 一条命令流水线 | `tests/run_modern_vehicle_pipeline.ps1` ✓ **9 步全绿** ✓ | 同上 §3 |
@@ -123,3 +123,13 @@
 ⇒ 该文件属**用户/审核工作流**专有 ✓（即 AGENTS.md 的"**不代签真人**"边界 ✓）⇒ **本阶段未修改它** ✓。
 其现状（只读 ✓）：`schema_version=1` ✓ · `created_date=2026-09-07` ✓ · `reference_sha=29376e20`（远早于基线 ✓）· `orders` **35 条** ✓（`planned×30` ✓ `accepted×5` ✓）· `authorized_order=006` ✓。
 ⇒ **本阶段的正确状态载体** ✓：本文档（`FINAL_COVERAGE_MATRIX.md` ✓）· `CURRENT_STATUS.md` ✓ · `WT-040-R1_DELIVERY_REPORT.md` ✓ · `WT-040-R1_EVIDENCE_TABLE.md` ✓。
+### 订正（2026-09-16 ✓）：几何自校验的**权威数字是 50/0**（原文档写 29/29 ✗）
+- **权威来源** ✓：收官验收 `logs/WT-040-R1/final-acceptance-20260916-113742/` 的
+  `=== 结果: 50 项检查, 0 失败 ===` ✓ · `MODERN_GEOMETRY_CHECKS_PASS` ✓；
+- **正确调用** ✓（裸 ASCII id ✓，与流水线一致 ✓）：
+  `-s res://tests/check_modern_geometry.gd -- ussr_t_80b germ_leopard_2a4` ✓
+  （该检查第 34 行 `if text.contains("="): continue` ✗ ⇒ **含 `=` 的旧式 `id=path` 参数会被静默跳过** ✗，
+  那正是先前得到 29 这一偏小数字与 `no targets` 失败的原因 ✓）；
+- **其余数字经核对一致** ✓：流水线 **9/9** ✓ · `LayoutValidator` **0 / 2** ✓ · 六个 `definitions` **全 0** ✓ ·
+  门禁 **128 套件 / 126 PASS / 2 FAIL** ✓ · 应用流程 **127/0** ✓ · 辅助能力 **51/0** ✓ · 科技树 **50/0** ✓ · 真实对局 **14/14** ✓ ·
+  gap **9 / 10**（其中 shape 门后仅 **1**）✓。
