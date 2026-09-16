@@ -14,10 +14,10 @@
           "part": "hull",
           "position": [
             0.0,
-            -0.85,
+            0.6,
             0.1
           ],
-          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (TurretPivot); the anchor's own parent is ussr_t_80b, so the part follows the model",
+          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.5,
             0.12,
@@ -26,16 +26,17 @@
         },
         {
           "ammo_capacity": 14,
-          "derived": true,
+          "derived": false,
           "external": false,
           "id": "ammo_hull_left",
           "kind": "ammo",
           "part": "hull",
           "position": [
-            -0.66,
-            0.64,
-            0.0
+            0.8,
+            0.94,
+            1.4
           ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
           "size": [
             0.4,
             0.25,
@@ -44,16 +45,17 @@
         },
         {
           "ammo_capacity": 14,
-          "derived": true,
+          "derived": false,
           "external": false,
           "id": "ammo_hull_right",
           "kind": "ammo",
           "part": "hull",
           "position": [
-            0.66,
-            0.64,
-            0.0
+            0.8,
+            0.94,
+            1.4
           ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
           "size": [
             0.4,
             0.25,
@@ -71,7 +73,7 @@
             1.0,
             2.65
           ],
-          "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model",
+          "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
           "size": [
             1.05,
             0.6,
@@ -89,7 +91,7 @@
             0.8,
             3.4
           ],
-          "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model",
+          "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
           "size": [
             1.05,
             0.4,
@@ -107,7 +109,7 @@
             0.95,
             2.65
           ],
-          "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model",
+          "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.25,
             0.45,
@@ -122,10 +124,10 @@
           "part": "barrel",
           "position": [
             0.0,
-            0.19,
-            -0.69
+            0.0,
+            0.35
           ],
-          "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the barrel part (TurretPivot); the anchor's own parent is GunPivot, so the part follows the model",
+          "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.4,
             0.4,
@@ -143,7 +145,7 @@
             1.2,
             -0.25
           ],
-          "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model",
+          "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.6,
             0.2,
@@ -161,7 +163,7 @@
             0.55,
             0.1
           ],
-          "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is RunningLeft, so the part follows the model",
+          "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.3,
             0.3,
@@ -179,7 +181,7 @@
             0.55,
             0.1
           ],
-          "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, relative to the hull part (ussr_t_80b); the anchor's own parent is RunningRight, so the part follows the model",
+          "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.3,
             0.3,
@@ -188,7 +190,7 @@
         }
       ],
       "notes": [
-        "positions for [\"ammo_ready\", \"engine\", \"transmission\", \"fuel\", \"breech\", \"turret_drive\", \"track_left\", \"track_right\"] came from the MODEL's own authored anchors in res://assets/vehicles/modern_bound/ussr_t_80b.glb (the model that ships is the truth about where its parts are); any id not listed keeps the labelled measured derivation",
+        "positions for [\"ammo_ready\", \"ammo_ready\", \"ammo_hull_left\", \"ammo_hull_left\", \"ammo_hull_right\", \"ammo_hull_right\", \"engine\", \"engine\", \"transmission\", \"transmission\", \"fuel\", \"fuel\", \"breech\", \"breech\", \"turret_drive\", \"turret_drive\", \"track_left\", \"track_left\", \"track_right\", \"track_right\"] came from the MODEL's own authored anchors in res://assets/vehicles/modern_bound/ussr_t_80b.glb (the model that ships is the truth about where its parts are); any id not listed keeps the labelled measured derivation",
         "kinds follow the production packets (ammo, engine, transmission, fuel, breech, turret_drive, track)",
         "positions and sizes are DERIVED from the measured hull rings and turret origin - the dossiers carry no internal layout - and an author may replace them",
         "ammunition capacities sum to 38, the dossier's cited main-gun capacity, because the validator compares that total with runtime.rounds"
@@ -210,7 +212,7 @@
             0.4,
             2.0
           ],
-          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model",
+          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.5,
             0.12,
@@ -219,16 +221,17 @@
         },
         {
           "ammo_capacity": 16,
-          "derived": true,
+          "derived": false,
           "external": false,
           "id": "ammo_hull_left",
           "kind": "ammo",
           "part": "hull",
           "position": [
-            -0.85,
-            0.74,
-            0.0
+            -0.65,
+            1.0,
+            -2.2
           ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
           "size": [
             0.4,
             0.25,
@@ -237,16 +240,17 @@
         },
         {
           "ammo_capacity": 16,
-          "derived": true,
+          "derived": false,
           "external": false,
           "id": "ammo_hull_right",
           "kind": "ammo",
           "part": "hull",
           "position": [
-            0.85,
-            0.74,
-            0.0
+            -0.65,
+            1.0,
+            -2.2
           ],
+          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
           "size": [
             0.4,
             0.25,
@@ -264,7 +268,7 @@
             1.0,
             2.65
           ],
-          "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model",
+          "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
           "size": [
             1.36,
             0.6,
@@ -282,7 +286,7 @@
             0.8,
             3.45
           ],
-          "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model",
+          "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
           "size": [
             1.36,
             0.4,
@@ -300,7 +304,7 @@
             0.95,
             2.65
           ],
-          "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model",
+          "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.25,
             0.45,
@@ -314,11 +318,11 @@
           "kind": "breech",
           "part": "barrel",
           "position": [
-            -0.05,
-            0.34,
-            -0.83
+            0.0,
+            0.0,
+            0.35
           ],
-          "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the barrel part (TurretPivot); the anchor's own parent is GunPivot, so the part follows the model",
+          "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.4,
             0.4,
@@ -336,7 +340,7 @@
             1.4,
             -0.25
           ],
-          "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model",
+          "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.6,
             0.2,
@@ -354,7 +358,7 @@
             0.55,
             0.1
           ],
-          "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model",
+          "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.3,
             0.3,
@@ -372,7 +376,7 @@
             0.55,
             0.1
           ],
-          "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model",
+          "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
           "size": [
             0.3,
             0.3,
@@ -381,7 +385,7 @@
         }
       ],
       "notes": [
-        "positions for [\"ammo_ready\", \"engine\", \"transmission\", \"fuel\", \"breech\", \"turret_drive\", \"track_left\", \"track_right\"] came from the MODEL's own authored anchors in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb (the model that ships is the truth about where its parts are); any id not listed keeps the labelled measured derivation",
+        "positions for [\"ammo_ready\", \"ammo_ready\", \"ammo_hull_left\", \"ammo_hull_left\", \"ammo_hull_right\", \"ammo_hull_right\", \"engine\", \"engine\", \"transmission\", \"transmission\", \"fuel\", \"fuel\", \"breech\", \"breech\", \"turret_drive\", \"turret_drive\", \"track_left\", \"track_left\", \"track_right\", \"track_right\"] came from the MODEL's own authored anchors in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb (the model that ships is the truth about where its parts are); any id not listed keeps the labelled measured derivation",
         "kinds follow the production packets (ammo, engine, transmission, fuel, breech, turret_drive, track)",
         "positions and sizes are DERIVED from the measured hull rings and turret origin - the dossiers carry no internal layout - and an author may replace them",
         "ammunition capacities sum to 42, the dossier's cited main-gun capacity, because the validator compares that total with runtime.rounds"

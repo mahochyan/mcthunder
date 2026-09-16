@@ -79,24 +79,35 @@ func _build(id: String, g: Dictionary, f: Dictionary) -> Dictionary:
 	# (ammo_hull_left/right have no anchor), so the fallback is labelled rather than silent.
 	var anchored: Array = []
 	var model_path := MODEL_PATH % id
+	# WT-040-R1: the PART is decided FIRST, from the anchor's real parent, and only then is the position
+	# computed with that part. Doing it the other way round was wrong: the position came out relative to the
+	# draft's assumed part while the recorded part was the model's real one, which is exactly the
+	# "actual anchor differs" error (0.6 minus 1.45 is the -0.85 that appeared in the draft).
+	# ammo_hull_left/right have no anchor of their own, so they use the reserve anchor the binding also
+	# maps them to, which keeps layout and binding on the same authored point.
+	var alt_anchor := {"ammo_hull_left":"Attachment_ammo_reserve", "ammo_hull_right":"Attachment_ammo_reserve"}
+	var info := ModelAnchorReader.read(model_path)
 	for m in out.modules:
-		var hit := ModelAnchorReader.part_relative(model_path,"Attachment_"+str(m.get("id","")),str(m.get("part","hull")))
+		var mid := str(m.get("id",""))
+		var anchor := str(alt_anchor.get(mid,"Attachment_"+mid))
+		if not info.get("ok",false): continue
+		var anchors: Dictionary = info["anchors"]
+		if not anchors.has(anchor): continue
+		var anchor_parent := str((anchors[anchor] as Dictionary).get("parent",""))
+		var role_part := "hull"
+		if anchor_parent == "GunPivot" or anchor_parent.ends_with("/GunPivot"): role_part = "barrel"
+		elif anchor_parent == "TurretPivot" or anchor_parent.ends_with("/TurretPivot"): role_part = "turret"
+		m["part"] = role_part
+		var hit := ModelAnchorReader.part_relative(model_path,anchor,role_part)
 		if not hit.get("ok",false): continue
 		var v: Vector3 = hit["position"]
 		m["position"] = [snappedf(v.x,0.01),snappedf(v.y,0.01),snappedf(v.z,0.01)]
 		m["derived"] = false
-		# WT-040-R1: the PART follows the anchor's real parent, because the binding validator requires the
-		# anchor to be a descendant of the part's role node and reports "wrong moving parent" or "follows a
-		# different articulated part" otherwise. The T-80B's ammunition-ready anchor is parented to the hull
-		# root rather than the turret pivot, and the breech anchor sits under the gun pivot, so the parts are
-		# taken from the model instead of being assumed from the module's name.
-		var parent_path := str(hit.get("anchor_parent",""))
-		var role_part := "hull"
-		if parent_path == "GunPivot" or parent_path.ends_with("/GunPivot"): role_part = "barrel"
-		elif parent_path == "TurretPivot" or parent_path.ends_with("/TurretPivot"): role_part = "turret"
-		m["part"] = role_part
-		m["position_source"] = "authored %s anchor in %s, relative to the %s part (%s); the anchor's own parent is %s, so the part follows the model" % [
-			"Attachment_"+str(m.get("id","")),model_path,role_part,str(hit.get("part_node","")),parent_path]
+		m["position_source"] = "authored %s anchor in %s, expressed relative to the %s part (%s); the anchor's own parent is %s, so the part follows the model; relative basis is the identity: %s" % [
+			anchor,model_path,role_part,str(hit.get("part_node","")),anchor_parent,str(hit.get("basis_is_identity",false))]
+		if mid != str(m.get("id","")) or anchor != "Attachment_"+mid:
+			m["position_source"] = str(m["position_source"])+" (this id has no anchor of its own and uses the shared reserve anchor)"
+		anchored.append(mid)
 		anchored.append(str(m.get("id","")))
 	if anchored.is_empty():
 		out.notes.append("NO module id had an authored anchor in %s, so every position keeps the labelled measured derivation" % model_path)
