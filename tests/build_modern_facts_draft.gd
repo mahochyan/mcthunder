@@ -201,6 +201,20 @@ func _build(id: String, path: String) -> Dictionary:
 		row.emitted.append("crew.roles ← crew_roster[].roles flattened (lines %s)" % str(role_lines))
 	else:
 		row.skipped.append("crew_roster carried no roles")
+	# WT-040-R1 (user ruling 2): the crew stations declare the evidence key crew.placement, so a packet
+	# without that fact produced six errors at once - three 'unknown evidence key' and three 'not present in
+	# field evidence registry'. The placement itself is DERIVED from the measured hull and turret boxes by
+	# the crew builder, so this record states that derivation as a project rule rather than pretending to
+	# cite a source for positions the archive does not contain at all. It sits OUTSIDE the if/else above so
+	# it is emitted whether or not the roster carried roles.
+	row.facts["crew.placement"] = {
+		"value": {"rule":"derived_from_measured_hull_and_turret_boxes","rule_version":"wt040-eng-v1","basis":"hull and turret geometry measured from the adapter artefact"},
+		"status": "estimated",
+		"origin": "game_rule",
+		"source_refs": ["mcthunder_pipeline"],
+		"location": "project engineering rule wt040-eng-v1: crew placement is derived from the measured hull and turret boxes (driver forward in the hull, gunner and commander in the turret, loader when the vehicle has one); the archive carries no crew positions, so this is a project rule and not a historical claim",
+	}
+	row.emitted.append("crew.placement <- project rule wt040-eng-v1 (derived placement; archive has no positions)")
 	# WT-040-R1 second pass: two more items ARE closable, but only from the dossier's RAW fields, and
 	# one tempting value must be REFUSED. The variant comes from the header's model name, and the
 	# acceleration from the raw "加减速度 = 4.0 / 8.0" row with the parsing rule stated. The header's

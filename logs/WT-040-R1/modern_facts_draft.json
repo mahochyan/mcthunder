@@ -33,6 +33,7 @@
         "assembly component: caliber_mm ← shell.caliber_mm",
         "assembly component: shell ← shell.reference.bulletName",
         "crew.roles ← crew_roster[].roles flattened (lines [420, 421, 422])",
+        "crew.placement <- project rule wt040-eng-v1 (derived placement; archive has no positions)",
         "assembly component: variant ← raw header 模型名 (line 9)",
         "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0",
         "assembly component: year ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
@@ -77,6 +78,19 @@
           ],
           "status": "design",
           "value": 2026
+        },
+        "crew.placement": {
+          "location": "project engineering rule wt040-eng-v1: crew placement is derived from the measured hull and turret boxes (driver forward in the hull, gunner and commander in the turret, loader when the vehicle has one); the archive carries no crew positions, so this is a project rule and not a historical claim",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "estimated",
+          "value": {
+            "basis": "hull and turret geometry measured from the adapter artefact",
+            "rule": "derived_from_measured_hull_and_turret_boxes",
+            "rule_version": "wt040-eng-v1"
+          }
         },
         "crew.roles": {
           "location": "warthunder_reference crew_roster (lines [420, 421, 422]): roles [\"tank_gunner\", \"driver\", \"commander\"]",
@@ -378,6 +392,7 @@
         "assembly component: caliber_mm ← shell.caliber_mm",
         "assembly component: shell ← shell.reference.bulletName",
         "crew.roles ← crew_roster[].roles flattened (lines [433, 434, 435, 436])",
+        "crew.placement <- project rule wt040-eng-v1 (derived placement; archive has no positions)",
         "assembly component: variant ← raw header 模型名 (line 9)",
         "runtime component: acceleration ← raw 加减速度 first figure (line 23): 4.0 / 8.0",
         "assembly component: year ← project engineering design value, frozen rule set wt040-eng-v1 - NOT a historical claim",
@@ -422,6 +437,19 @@
           ],
           "status": "design",
           "value": 2026
+        },
+        "crew.placement": {
+          "location": "project engineering rule wt040-eng-v1: crew placement is derived from the measured hull and turret boxes (driver forward in the hull, gunner and commander in the turret, loader when the vehicle has one); the archive carries no crew positions, so this is a project rule and not a historical claim",
+          "origin": "game_rule",
+          "source_refs": [
+            "mcthunder_pipeline"
+          ],
+          "status": "estimated",
+          "value": {
+            "basis": "hull and turret geometry measured from the adapter artefact",
+            "rule": "derived_from_measured_hull_and_turret_boxes",
+            "rule_version": "wt040-eng-v1"
+          }
         },
         "crew.roles": {
           "location": "warthunder_reference crew_roster (lines [433, 434, 435, 436]): roles [\"tank_gunner\", \"driver\", \"loader\", \"commander\"]",
