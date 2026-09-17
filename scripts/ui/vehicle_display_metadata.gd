@@ -51,6 +51,14 @@ static func state_key(vehicle_id: String) -> String:
 static func state_label(vehicle_id: String) -> String:
 	return LocalizationService.text(state_key(vehicle_id))
 
+## Nation label for a raw nation code, for data rows (the research tree) that already carry the code itself.
+## An unlisted code shows the explicit unknown label instead of being relabelled as another country.
+static func nation_label_for_code(code: String) -> String:
+	if code.is_empty(): return LocalizationService.text(UNKNOWN_NATION)
+	var key := "nation_"+code
+	if LocalizationService.all_strings().has(key): return LocalizationService.text(key)
+	return LocalizationService.text(UNKNOWN_NATION)
+
 ## The one-line identity shown next to the vehicle name: "<nation> · <state>".
 static func identity_line(vehicle_id: String) -> String:
 	return "%s · %s" % [nation_label(vehicle_id), state_label(vehicle_id)]

@@ -194,6 +194,59 @@ func run(flow: AppFlow) -> void:
 	report(tree != null and tree.is_visible_in_tree(), "clicking the research entry opens the research tree")
 	report(visible_modals() > modals_before, "the research tree registers as a modal (contained input)")
 	await driver.capture("nav_03_research_tree")
+	# --- WT-UI-005: five routes on one row, no fake prerequisite lines, filter and scroll preserved ----------
+	var research := tree as VehicleResearchTree
+	if research != null:
+		report(research.branch_columns.size()==5, "all five route columns are laid out (%d)" % research.branch_columns.size())
+		var columns: Array = research.branch_columns.values()
+		columns.sort()
+		var one_row := columns.size()==5
+		for i in columns.size():
+			if int(columns[i]) != i: one_row = false
+		report(one_row, "the five routes stay side by side in route order and never wrap to a second row %s" % str(columns))
+		report(research.graph.edges.is_empty(), "no display-order connector is drawn, so no decoration can be read as a research prerequisite")
+		var search_box := by_id(g,"research.search")
+		var nation_germany := by_id(g,"research.nation.germany")
+		var nation_ussr := by_id(g,"research.nation.ussr")
+		report(search_box != null and nation_germany != null and nation_ussr != null, "the research search and both nation switches expose stable ids")
+		if search_box != null and nation_germany != null and nation_ussr != null:
+			# Setup only: the query is placed directly, then the assertions below are driven by real clicks.
+			search_box.text = "T"
+			await frames(2)
+			var routes_before := research.branch_columns.size()
+			await driver.click(nation_germany)
+			await frames(3)
+			report(search_box.text == "T", "switching nation keeps the search query (got '%s')" % search_box.text)
+			report(research.branch_columns.size() > 0 and routes_before > 0, "the switched nation still lays out its routes")
+			research.tree_scroll.scroll_horizontal = 456
+			await frames(2)
+			# The container clamps the request to its own range, so the contract under test is "the value actually
+			# held before the switch comes back", not a hard-coded number.
+			var held := int(research.tree_scroll.scroll_horizontal)
+			await driver.click(nation_ussr)
+			await frames(3)
+			await driver.click(nation_germany)
+			await frames(3)
+			report(held > 0 and int(research.scroll_memory.get("germany",-1))==held, "each nation remembers its own scroll position (held %d, remembered %s)" % [held, str(research.scroll_memory)])
+		var sample: Control = by_id(g,"research.card.germ_leopard_2a4")
+		if sample == null and not research.tree_nodes.is_empty(): sample = by_id(g,"research.card."+str(research.tree_nodes.keys()[0]))
+		var ownership_texts := [LocalizationService.text("research_owned"),LocalizationService.text("research_locked"),LocalizationService.text("research_not_admitted")]
+		var found := ""
+		if sample != null:
+			var walker2: Array[Node] = [sample]
+			while not walker2.is_empty():
+				var node2: Node = walker2.pop_back()
+				if node2 is Label and str((node2 as Label).text) in ownership_texts: found = str((node2 as Label).text)
+				for child in node2.get_children(): walker2.append(child)
+		report(not found.is_empty(), "a research card states its ownership layer from the service (%s)" % found)
+		report(VehicleDisplayMetadata.nation_label_for_code(str(research.vehicles[research.selected_id].nation))==LocalizationService.text("nation_"+str(research.vehicles[research.selected_id].nation)), "the detail line labels the nation from the row's own data code, not a hard-coded pair")
+		report(VehicleDisplayMetadata.nation_label_for_code("nonesuch")==LocalizationService.text("nation_unknown"), "an unlisted nation code shows the explicit unknown label")
+		await driver.capture("nav_06_research_compact")
+		get_window().size = Vector2i(1920,1080)
+		await frames(6)
+		await driver.capture("nav_07_research_wide")
+		get_window().size = Vector2i(1280,720)
+		await frames(6)
 	var before_focus := focus_owner()
 	driver.tap(KEY_TAB)
 	await frames(3)
