@@ -1,4 +1,8 @@
 {
+	"germ_9a33bm3": {
+		"model_sha256": "1cb69e6eb24000463296ad385b4326e58e1f59c73c52e2c486cd7e10245b5ac2",
+		"path": "res://assets/research/thumbnails/germ_9a33bm3.png"
+	},
 	"germ_9a35_m": {
 		"model_sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c",
 		"path": "res://assets/research/thumbnails/germ_9a35_m.png"
@@ -12,7 +16,7 @@
 		"path": "res://assets/research/thumbnails/germ_begleitpanzer_57.png"
 	},
 	"germ_bmp_1_ddr": {
-		"model_sha256": "61a361668bae28bdcbc5e7ccb4ac93240f8a3363463e9e8bd5316cdd59a6f0e0",
+		"model_sha256": "9242b424cb5ddf6f95a86241550d8f608776357cbe7674549c25c98f7a90070f",
 		"path": "res://assets/research/thumbnails/germ_bmp_1_ddr.png"
 	},
 	"germ_boxer_3105": {
@@ -27,9 +31,33 @@
 		"model_sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810",
 		"path": "res://assets/research/thumbnails/germ_erprobungstrager_3_achs_turm.png"
 	},
+	"germ_flakpanzer_38t_Gepard": {
+		"model_sha256": "90ab0c42345d34ed8d039271e704be9d14f4a79ccf3a6e89167a50fefc8c0bfa",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_38t_Gepard.png"
+	},
 	"germ_flakpanzer_IV_Kugelblitz": {
 		"model_sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553",
 		"path": "res://assets/research/thumbnails/germ_flakpanzer_IV_Kugelblitz.png"
+	},
+	"germ_flakpanzer_IV_Ostwind": {
+		"model_sha256": "972473435de7f165ea4e25a1f520312ded951f70e2df3c287d249d7c14812b1b",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_IV_Ostwind.png"
+	},
+	"germ_flakpanzer_IV_Wirbelwind": {
+		"model_sha256": "7672d91fdbbb42e4ed0f04ab372d5cbb02846ad55e9ac35e6e28cfc904ff9b44",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_IV_Wirbelwind.png"
+	},
+	"germ_flakpanzer_I_ausf_A": {
+		"model_sha256": "5b73cefb3178aa27d2202a1062c8c4de1f883cdd82d7b7ab1caf551a9e05fbe0",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_I_ausf_A.png"
+	},
+	"germ_flakpanzer_V_Coelian": {
+		"model_sha256": "1249ebd8cb1bcc597c4012933de6c0cb3a58cca628e31caf9866d426b47120d8",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_V_Coelian.png"
+	},
+	"germ_flakpanzer_zerstorer_45": {
+		"model_sha256": "0d122a77d5e1e7a38f427123c07239b4459779e579946cfe751cea2f10da168b",
+		"path": "res://assets/research/thumbnails/germ_flakpanzer_zerstorer_45.png"
 	},
 	"germ_flakpz_I_Gepard": {
 		"model_sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
@@ -39,6 +67,10 @@
 		"model_sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375",
 		"path": "res://assets/research/thumbnails/germ_flarakpz_1.png"
 	},
+	"germ_flarakrad": {
+		"model_sha256": "f117a684eb82953a124632360f40b354b4e436c8bbdd48389b70f0d3877b404d",
+		"path": "res://assets/research/thumbnails/germ_flarakrad.png"
+	},
 	"germ_hummel": {
 		"model_sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece",
 		"path": "res://assets/research/thumbnails/germ_hummel.png"
@@ -46,6 +78,14 @@
 	"germ_infanterie_kampfpanzer_churchill": {
 		"model_sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42",
 		"path": "res://assets/research/thumbnails/germ_infanterie_kampfpanzer_churchill.png"
+	},
+	"germ_iris_slm_fcs": {
+		"model_sha256": "643f8b1892f8a3a1424522a5368c8f30ea230e993607279651e9e0411923cf48",
+		"path": "res://assets/research/thumbnails/germ_iris_slm_fcs.png"
+	},
+	"germ_iris_slm_launcher": {
+		"model_sha256": "035595788f16900f288b6f87868645849bede67cf764c0835260cdb8c9bada5d",
+		"path": "res://assets/research/thumbnails/germ_iris_slm_launcher.png"
 	},
 	"germ_jaguar_2": {
 		"model_sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256",
@@ -71,6 +111,10 @@
 		"model_sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e",
 		"path": "res://assets/research/thumbnails/germ_kpz_t72m1.png"
 	},
+	"germ_kv_1_kwk_40": {
+		"model_sha256": "fa18c59d2e4b2be0662638cd43fbaa77ba9a899a2e8c910e9d0c11c77ed6fc88",
+		"path": "res://assets/research/thumbnails/germ_kv_1_kwk_40.png"
+	},
 	"germ_kv_2_754r": {
 		"model_sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072",
 		"path": "res://assets/research/thumbnails/germ_kv_2_754r.png"
@@ -79,8 +123,12 @@
 		"model_sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b",
 		"path": "res://assets/research/thumbnails/germ_le_kpz_m41.png"
 	},
+	"germ_leichter_ladungstrager_303a": {
+		"model_sha256": "e1f3430757732126d777478ae4424713815fc24f3044329e40973a874b25ea05",
+		"path": "res://assets/research/thumbnails/germ_leichter_ladungstrager_303a.png"
+	},
 	"germ_leopard_2a4": {
-		"model_sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88",
+		"model_sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
 		"path": "res://assets/research/thumbnails/germ_leopard_2a4.png"
 	},
 	"germ_leopard_I": {
@@ -100,7 +148,7 @@
 		"path": "res://assets/research/thumbnails/germ_m55.png"
 	},
 	"germ_marder_1a1": {
-		"model_sha256": "769d754ac9a4126a8f93df5878839662e20ec92b4e322ab35166ef3fb2dbc199",
+		"model_sha256": "079310065f0bec17f9550c267c61dcf2c7dbf118fcb50250c3d009d2f183a418",
 		"path": "res://assets/research/thumbnails/germ_marder_1a1.png"
 	},
 	"germ_marder_df_105": {
@@ -114,6 +162,10 @@
 	"germ_mkpz_m48a2c": {
 		"model_sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
 		"path": "res://assets/research/thumbnails/germ_mkpz_m48a2c.png"
+	},
+	"germ_nbfz_VI": {
+		"model_sha256": "72677a96a5641bd3f49b9e30249d5e092c4a41904c7e0a8cce32bc5f3b0d0640",
+		"path": "res://assets/research/thumbnails/germ_nbfz_VI.png"
 	},
 	"germ_panther_II": {
 		"model_sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562",
@@ -138,6 +190,10 @@
 	"germ_panzerjager_tiger_P_ferdinand": {
 		"model_sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
 		"path": "res://assets/research/thumbnails/germ_panzerjager_tiger_P_ferdinand.png"
+	},
+	"germ_panzerwerfer_42": {
+		"model_sha256": "35ce1912d335019dd746a02fae55afadc95ee6dbdeb5b3dbc123b833ac47ce76",
+		"path": "res://assets/research/thumbnails/germ_panzerwerfer_42.png"
 	},
 	"germ_pzh_2000": {
 		"model_sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f",
@@ -231,6 +287,18 @@
 		"model_sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c",
 		"path": "res://assets/research/thumbnails/germ_sdkfz_234_2.png"
 	},
+	"germ_sdkfz_251_9": {
+		"model_sha256": "24a7c301cb03a4ea79fab2359f26888eb243d55656875301c687850a0887dce6",
+		"path": "res://assets/research/thumbnails/germ_sdkfz_251_9.png"
+	},
+	"germ_sdkfz_6_2_flak36": {
+		"model_sha256": "abe09a4760a1f6a21d0396dae3242086b411db27d2084edcdbf7f6e6a500fd51",
+		"path": "res://assets/research/thumbnails/germ_sdkfz_6_2_flak36.png"
+	},
+	"germ_sdkfz_9_flak37": {
+		"model_sha256": "f042ed2ae1bf83bc913243bd69c1474bc13e8c5eebdf031aeb8910422a6d8fcd",
+		"path": "res://assets/research/thumbnails/germ_sdkfz_9_flak37.png"
+	},
 	"germ_sk105_a2": {
 		"model_sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee",
 		"path": "res://assets/research/thumbnails/germ_sk105_a2.png"
@@ -242,6 +310,10 @@
 	"germ_spz_12_3": {
 		"model_sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417",
 		"path": "res://assets/research/thumbnails/germ_spz_12_3.png"
+	},
+	"germ_spz_oerlikon_raketenautomat": {
+		"model_sha256": "9e925267680dd37a5c1299315bb82811106567623e00a772762d639a8f48875d",
+		"path": "res://assets/research/thumbnails/germ_spz_oerlikon_raketenautomat.png"
 	},
 	"germ_stug_III_ausf_A": {
 		"model_sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
@@ -271,6 +343,10 @@
 		"model_sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe",
 		"path": "res://assets/research/thumbnails/germ_thyssen_henschel_tam.png"
 	},
+	"germ_truck_sdkfz_6_2_tent": {
+		"model_sha256": "aa5db018454561f8b5ec468fef8df6db2b641d68daf40645221ecc55a3b3bbc4",
+		"path": "res://assets/research/thumbnails/germ_truck_sdkfz_6_2_tent.png"
+	},
 	"germ_vilkas": {
 		"model_sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84",
 		"path": "res://assets/research/thumbnails/germ_vilkas.png"
@@ -278,6 +354,10 @@
 	"germ_vk_3002m": {
 		"model_sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51",
 		"path": "res://assets/research/thumbnails/germ_vk_3002m.png"
+	},
+	"germ_vsw_flak_41": {
+		"model_sha256": "c176f135887d940755224c8c7f1a4eee93b887bc40acc9ad6f5b0be1b27c3fad",
+		"path": "res://assets/research/thumbnails/germ_vsw_flak_41.png"
 	},
 	"germ_vt_1_2": {
 		"model_sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09",
@@ -355,6 +435,34 @@
 		"model_sha256": "2ff828d7e54fb7e54fe01ad8977adb3b01ee2edd68d942a30ec7a83f5311021c",
 		"path": "res://assets/research/thumbnails/ussr_kv_2_1939.png"
 	},
+	"ussr_object_120": {
+		"model_sha256": "b47d66cdf8a01d2a886148352778c9002e7d6b1ae2cfecef8979713eb6aa6a14",
+		"path": "res://assets/research/thumbnails/ussr_object_120.png"
+	},
+	"ussr_object_140": {
+		"model_sha256": "ecd0e3c855f9f352ffa953eaea2ee2ffa2b6038ed674e1679e1c27ea17f1723b",
+		"path": "res://assets/research/thumbnails/ussr_object_140.png"
+	},
+	"ussr_object_268": {
+		"model_sha256": "a338c717ebd7e5b7805b6c6117ffe2dfa070d7e11ac134a2c3679c1c196fe4c1",
+		"path": "res://assets/research/thumbnails/ussr_object_268.png"
+	},
+	"ussr_object_435": {
+		"model_sha256": "4f5615a995940f63f8eafdf9fca83920594bfbfb9100dd8d2d18c5af8814eb67",
+		"path": "res://assets/research/thumbnails/ussr_object_435.png"
+	},
+	"ussr_object_685": {
+		"model_sha256": "d66bc876f4961d4b6115225b2b5f2af8dbf2803288e6a5c0345f05767438fbe5",
+		"path": "res://assets/research/thumbnails/ussr_object_685.png"
+	},
+	"ussr_object_775": {
+		"model_sha256": "ba4b4725f8364a684ed455d468a03812739c353a459a5a1f8ebf490970974240",
+		"path": "res://assets/research/thumbnails/ussr_object_775.png"
+	},
+	"ussr_object_906": {
+		"model_sha256": "f8a71f9c89bff45dc5afb6e7c5476714867b0d3cf02783323daa01c67b792f2e",
+		"path": "res://assets/research/thumbnails/ussr_object_906.png"
+	},
 	"ussr_pt_76b": {
 		"model_sha256": "3045c56e9b4d41bd99ce7bc31fbac302380c98a57d79e0bb16d15ddbd458f1a5",
 		"path": "res://assets/research/thumbnails/ussr_pt_76b.png"
@@ -382,6 +490,10 @@
 	"ussr_su_57b": {
 		"model_sha256": "0a571304a89ddf616bf2c71ead9ac35e8cdeb1023d487fa187b5e3f0cceb915f",
 		"path": "res://assets/research/thumbnails/ussr_su_57b.png"
+	},
+	"ussr_su_76d": {
+		"model_sha256": "3cbc6feafe21a2b7ef8df0d14b4cdd95064a8cd5690ef0b836b9ba8752e31891",
+		"path": "res://assets/research/thumbnails/ussr_su_76d.png"
 	},
 	"ussr_su_76m_1943": {
 		"model_sha256": "946a939fccfa8b5b322ba8829fa913a213d9bc3e10a3dd83de24ccb4740e86fc",
@@ -444,7 +556,7 @@
 		"path": "res://assets/research/thumbnails/ussr_t_80.png"
 	},
 	"ussr_t_80b": {
-		"model_sha256": "05c48f76859d7b072a863262d389bf5d49e44129082db4b21cee4c7c473aca8d",
+		"model_sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5",
 		"path": "res://assets/research/thumbnails/ussr_t_80b.png"
 	},
 	"ussr_t_90a": {

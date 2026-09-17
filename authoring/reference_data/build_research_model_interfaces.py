@@ -92,65 +92,91 @@ def build() -> dict:
                 raise ValueError(f"required unique node {name!r} occurs {len(matches)} times: {vehicle_id}")
             return matches[0]
 
-        turret = unique("TurretPivot")
-        gun = unique("GunPivot")
+        def optional_unique(name: str) -> int | None:
+            matches = names.get(name, [])
+            if len(matches) > 1:
+                raise ValueError(f"optional node {name!r} is ambiguous ({len(matches)}): {vehicle_id}")
+            return matches[0] if matches else None
+
         hull = unique("HullArmour")
+        turret = optional_unique("TurretPivot")
+        gun = optional_unique("GunPivot")
         gun_names = sorted(name for name in names if name.startswith("MainGun"))
-        if len(gun_names) != 1 or len(names[gun_names[0]]) != 1:
-            raise ValueError(f"required main-gun mesh is missing or ambiguous: {vehicle_id}")
-        main_gun = names[gun_names[0]][0]
-        if not _is_descendant(gun, turret, parents):
-            raise ValueError(f"GunPivot is not below TurretPivot: {vehicle_id}")
-        if not _is_descendant(main_gun, gun, parents):
-            raise ValueError(f"main gun is not below GunPivot: {vehicle_id}")
-        if _is_descendant(hull, turret, parents):
+        if any(len(names[name]) != 1 for name in gun_names):
+            raise ValueError(f"main-gun mesh name is ambiguous: {vehicle_id}")
+        main_gun = names[gun_names[0]][0] if len(gun_names) == 1 else None
+        if turret is not None and _is_descendant(hull, turret, parents):
             raise ValueError(f"hull is incorrectly parented below turret: {vehicle_id}")
+        if turret is not None and gun is not None and main_gun is not None:
+            if not _is_descendant(gun, turret, parents):
+                raise ValueError(f"GunPivot is not below TurretPivot: {vehicle_id}")
+            if not _is_descendant(main_gun, gun, parents):
+                raise ValueError(f"main gun is not below GunPivot: {vehicle_id}")
+            weapon_control = "yaw_pitch"
+            weapon_reason = None
+        else:
+            weapon_markers = [name for name in names if any(token in name.lower() for token in ("missile", "launcher", "maingun"))]
+            weapon_control = "unavailable_nonstandard" if weapon_markers else "none"
+            weapon_reason = "nonstandard_weapon_nodes_require_explicit_adapter" if weapon_markers else "model_has_no_controllable_weapon"
         left_track = names.get("track_l", [])
         right_track = names.get("track_r", [])
         left_wheels = sorted(name for name in names if name.lower().startswith("wheel_l_"))
         right_wheels = sorted(name for name in names if name.lower().startswith("wheel_r_"))
+        wheel_assemblies = sorted(name for name in names if "wheels" in name.lower() and ("suspension" in name.lower() or "axles" in name.lower()))
+        wheel_assembly = None
         if len(left_track) == len(right_track) == 1:
             locomotion = "tracked"
         elif not left_track and not right_track and len(left_wheels) >= 2 and len(right_wheels) >= 2:
             locomotion = "wheeled"
+        elif not left_track and not right_track and not left_wheels and not right_wheels and len(wheel_assemblies) == 1:
+            locomotion = "wheeled"
+            wheel_assembly = wheel_assemblies[0]
         else:
             raise ValueError(f"left/right locomotion nodes do not form an exact pair: {vehicle_id}")
         muzzle = names.get("Muzzle", [])
-        combat_interface = source_kind == "combat_runtime_model" and len(muzzle) == 1
+        weapon_rig_ready = weapon_control == "yaw_pitch"
+        combat_interface = source_kind == "combat_runtime_model" and weapon_rig_ready and len(muzzle) == 1
         interfaces.append({
             "id": vehicle_id,
             "model": {"path": selected["path"], "sha256": digest, "source_kind": source_kind},
             "scene": {"node_count": len(nodes), "mesh_count": len(gltf.get("meshes", []))},
             "nodes": {
                 "hull": "HullArmour",
-                "turret_pivot": "TurretPivot",
-                "gun_pivot": "GunPivot",
-                "main_gun": gun_names[0],
+                "turret_pivot": "TurretPivot" if turret is not None else None,
+                "gun_pivot": "GunPivot" if gun is not None else None,
+                "main_gun": gun_names[0] if len(gun_names) == 1 else None,
                 "muzzle": "Muzzle" if len(muzzle) == 1 else None,
                 "left_track": "track_l" if locomotion == "tracked" else None,
                 "right_track": "track_r" if locomotion == "tracked" else None,
                 "left_wheels": left_wheels,
                 "right_wheels": right_wheels,
+                "wheel_assembly": wheel_assembly,
             },
             "locomotion": locomotion,
+            "weapon_control": weapon_control,
+            "weapon_unavailable_reason": weapon_reason,
             "trial_rig_ready": True,
+            "weapon_rig_ready": weapon_rig_ready,
             "combat_interface_ready": combat_interface,
         })
 
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "set_policy": "exact_modeled_tree_id_no_alias_no_missing_no_extra",
         "model_count": len(interfaces),
         "tracked_count": sum(row["locomotion"] == "tracked" for row in interfaces),
         "wheeled_count": sum(row["locomotion"] == "wheeled" for row in interfaces),
         "trial_rig_ready_count": sum(row["trial_rig_ready"] for row in interfaces),
+        "weapon_rig_ready_count": sum(row["weapon_rig_ready"] for row in interfaces),
+        "nonstandard_weapon_count": sum(row["weapon_control"] == "unavailable_nonstandard" for row in interfaces),
+        "unarmed_count": sum(row["weapon_control"] == "none" for row in interfaces),
         "combat_interface_ready_count": sum(row["combat_interface_ready"] for row in interfaces),
         "interfaces": interfaces,
     }
     encoded = (json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False) + "\n").encode("utf-8")
     if not TARGET.exists() or TARGET.read_bytes() != encoded:
         TARGET.write_bytes(encoded)
-    print(json.dumps({key: result[key] for key in ("model_count", "tracked_count", "wheeled_count", "trial_rig_ready_count", "combat_interface_ready_count")}, sort_keys=True))
+    print(json.dumps({key: result[key] for key in ("model_count", "tracked_count", "wheeled_count", "trial_rig_ready_count", "weapon_rig_ready_count", "nonstandard_weapon_count", "unarmed_count", "combat_interface_ready_count")}, sort_keys=True))
     return result
 
 

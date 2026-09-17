@@ -13280,7 +13280,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -13565,7 +13565,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -14098,7 +14098,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -14952,7 +14952,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -15212,7 +15212,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -15487,7 +15487,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -15747,7 +15747,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -20222,7 +20222,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -29443,7 +29443,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -31424,7 +31424,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -31878,7 +31878,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -32135,7 +32135,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -32353,7 +32353,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -32574,7 +32574,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -32831,7 +32831,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -33588,7 +33588,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -34307,7 +34307,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -34555,7 +34555,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -36393,7 +36393,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -37049,7 +37049,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -39655,7 +39655,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -41352,7 +41352,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -47191,7 +47191,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -47423,7 +47423,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -47661,7 +47661,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -48682,7 +48682,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -50625,7 +50625,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -51371,7 +51371,7 @@
       },
       "runtime_use": {
         "combat": false,
-        "research_trial_mobility": false
+        "research_trial_mobility": true
       },
       "source": {
         "historical_verified": false,
@@ -52890,6 +52890,6 @@
   ],
   "schema_version": 1,
   "set_policy": "exact_tree_id_no_alias_no_missing_no_extra",
-  "trial_mobility_count": 113,
+  "trial_mobility_count": 141,
   "vehicle_count": 212
 }

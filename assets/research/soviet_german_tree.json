@@ -1418,14 +1418,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_120.glb",
+        "sha256": "b47d66cdf8a01d2a886148352778c9002e7d6b1ae2cfecef8979713eb6aa6a14",
+        "source_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_120/vehicle.glb",
+        "report_sha256": "875bf7ca1f2e61ff8c40555fa76dc4c8208aa8f04137ba9371f8cfa0a00a544b",
+        "verification_sha256": "cba4f97356565e02fa00388148062b365e3a3b44edb04d24d8796847f198a996",
+        "visual_review_sha256": "0456bbc7b5ea9a88f8f145b436bcdfabbe9d9095b6be9c7f658320f7bb11a623",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 13388,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_120",
       "base_id": "ussr_object_120",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_140",
@@ -1439,14 +1453,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_140.glb",
+        "sha256": "ecd0e3c855f9f352ffa953eaea2ee2ffa2b6038ed674e1679e1c27ea17f1723b",
+        "source_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_140/vehicle.glb",
+        "report_sha256": "edceb90d4c5751e9e431d2a3884e7cc2c785726254211c0298f2119270ec151d",
+        "verification_sha256": "dccf59eabb158bce771e9502f632cc5600cfe2db9478b78a99c4dbea98d2a4c1",
+        "visual_review_sha256": "30f07681f92f98229f396b794a7f087536e235b3b0826a3f6dba3679adabe9de",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14373,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_140",
       "base_id": "ussr_object_140",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_248",
@@ -1481,14 +1509,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_268.glb",
+        "sha256": "a338c717ebd7e5b7805b6c6117ffe2dfa070d7e11ac134a2c3679c1c196fe4c1",
+        "source_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_object_268/vehicle.glb",
+        "report_sha256": "db1ce82f008b71c941940c89fa079502a5d9546ee7ac92ef45fc077adb1a5130",
+        "verification_sha256": "f275a7fec4ba3a55bc057cb79385ea64626123c8445c0a00ab98fc2b5df82ff0",
+        "visual_review_sha256": "5c9f1cff0421415c9e9d3fe5998e60d73871a0f63b2233b862a46d6de1d9fe6c",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14537,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_268",
       "base_id": "ussr_object_268",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_279",
@@ -1544,14 +1586,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_435.glb",
+        "sha256": "4f5615a995940f63f8eafdf9fca83920594bfbfb9100dd8d2d18c5af8814eb67",
+        "source_path": "E:/AIprogram/aimodel/苏联/中型坦克/ussr_object_435/vehicle.glb",
+        "report_sha256": "0c9d73c71e3f92be6b00e125b30130f940e6b96174dd76ce161a450882fb5c44",
+        "verification_sha256": "82ebe807fe5ba5f00f3d416c739394a1a86aa25f7e45ffd6f5b6395d8ca4b2ad",
+        "visual_review_sha256": "38b9f341462dbc7a1fd4ee6a4860ca174a2a7e8c3ec2ea0ecd9dc7e20e44de1f",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 13609,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_435",
       "base_id": "ussr_object_435",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_685",
@@ -1565,14 +1621,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_685.glb",
+        "sha256": "d66bc876f4961d4b6115225b2b5f2af8dbf2803288e6a5c0345f05767438fbe5",
+        "source_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_685/vehicle.glb",
+        "report_sha256": "8e25b628c84c19465af87cdfe5335947c0d7524bb4305e504d7ed900234c8675",
+        "verification_sha256": "44a78515f24b2be17cd328788ad4f23a478af1d81267f952459095f4ee052ee9",
+        "visual_review_sha256": "6b5203564a311273f4286c7db7d1cb1a04bf8205604fa6193c1c973702c53149",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 13767,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_685",
       "base_id": "ussr_object_685",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_775",
@@ -1586,14 +1656,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_775.glb",
+        "sha256": "ba4b4725f8364a684ed455d468a03812739c353a459a5a1f8ebf490970974240",
+        "source_path": "E:/AIprogram/aimodel/苏联/导弹载具/ussr_object_775/vehicle.glb",
+        "report_sha256": "fba685f7e7a00f226308eb45dd7ce7dbb8e2d9565e9e059484bc7d9fdede6633",
+        "verification_sha256": "7d5fd97269f9a38aebdcfdd4b7f4f5abf71bc31f23e2097abdec95b54327dadc",
+        "visual_review_sha256": "c115bb360975274151383cb4f3dc955ad839d6c67a87ff0ba5a55e9955085b0e",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14698,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_775",
       "base_id": "ussr_object_775",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_object_906",
@@ -1607,14 +1691,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_object_906.glb",
+        "sha256": "f8a71f9c89bff45dc5afb6e7c5476714867b0d3cf02783323daa01c67b792f2e",
+        "source_path": "E:/AIprogram/aimodel/苏联/轻型坦克/ussr_object_906/vehicle.glb",
+        "report_sha256": "7e1f02013a6c290a4e59216769992efccaa5862846dfd648401940c77e004692",
+        "verification_sha256": "9f0637d0eee952825a177d68f07b7223c814a8595b1e05d705a085063aa448c7",
+        "visual_review_sha256": "0d0251e8d41acade283a87e9d58734060ab689b00fd7c6aa0c6ecc7101770a97",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14582,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "object_906",
       "base_id": "ussr_object_906",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_pantsyr_s1",
@@ -2089,14 +2187,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/ussr_su_76d.glb",
+        "sha256": "3cbc6feafe21a2b7ef8df0d14b4cdd95064a8cd5690ef0b836b9ba8752e31891",
+        "source_path": "E:/AIprogram/aimodel/苏联/坦克歼击车与自行火炮/ussr_su_76d/vehicle.glb",
+        "report_sha256": "fdf2aecc020a56297de44ea3bbc09302ba02ab907ea9a24ef95688ec0fbe245e",
+        "verification_sha256": "6f97783b26812724fae53bdcaf4d5d1139b4670ce5d3363b33bd2a738828c668",
+        "visual_review_sha256": "4bf8eb976f22161afc237a659725bd361b5039b9e34e53ea54344fb0910eb788",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 10505,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "su_76d",
       "base_id": "ussr_su_76d",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "ussr_su_76m_1943",
@@ -3412,14 +3524,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_9a33bm3.glb",
+        "sha256": "1cb69e6eb24000463296ad385b4326e58e1f59c73c52e2c486cd7e10245b5ac2",
+        "source_path": "E:/AIprogram/aimodel/德国/9a33bm3/vehicle.glb",
+        "report_sha256": "1136787fd67731f9c4b15da528fb5675998a2ec62c0a88718b52c3e73cc6c79d",
+        "verification_sha256": "5fc104177120549608222c43ae2503972d783a163814664f83c01c8b5a85ca63",
+        "visual_review_sha256": "eea13fb01dab4b05b0049bb1983f300f46b01a3d7ac859753d4e44dcd2099702",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14684,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "9a33bm3",
       "base_id": "germ_9a33bm3",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_9a35_m",
@@ -3546,17 +3672,17 @@
       "battle_rating": null,
       "model": {
         "path": "res://assets/research/models/germ_bmp_1_ddr.glb",
-        "sha256": "61a361668bae28bdcbc5e7ccb4ac93240f8a3363463e9e8bd5316cdd59a6f0e0",
+        "sha256": "9242b424cb5ddf6f95a86241550d8f608776357cbe7674549c25c98f7a90070f",
         "source_path": "E:/AIprogram/aimodel/德国/bmp_1_ddr/vehicle.glb",
-        "report_sha256": "2db48a029b4453728b13588707e8aee1c94208b98e40731dc19774e9dd652233",
-        "verification_sha256": "1068065459a2cbd45161e715e4a9bea9b5ae537b1ddeed64d57ad17f7d425615",
-        "visual_review_sha256": "fb83ae75a3783791b59994a7ba41855e4a9fcfe5e879359406e4ba5da5857d02",
+        "report_sha256": "39c8fec689c045781e62549d26b41013c0ae4eb8ba7a39ab93a6435848f83842",
+        "verification_sha256": "a87000f50355a56cbe4432917d99da20bf62821f99194d3ebf80a1ed50c2063f",
+        "visual_review_sha256": "94bac35bf5f4c40204455ab95a8be6eb606f3cb1a81874d3aa84651882afc94f",
         "geometry_status": "PASS",
         "visual_status": "PASS",
         "status": "reviewed_static_model",
         "human_accepted": false,
         "combat_admitted": false,
-        "triangles": 11925,
+        "triangles": 12157,
         "hash_bound_to_review": true
       },
       "order": 1000,
@@ -3684,14 +3810,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_38t_Gepard.glb",
+        "sha256": "90ab0c42345d34ed8d039271e704be9d14f4a79ccf3a6e89167a50fefc8c0bfa",
+        "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_38t_Gepard/vehicle.glb",
+        "report_sha256": "6e3410981c2ca72cb35568390d0a335f99b152293f449829682b147e6218d961",
+        "verification_sha256": "594dfd9d3c3c2730e688f0ac3f723fd9c6e6225c5ee942dae2444da83ea4dd97",
+        "visual_review_sha256": "cd8e749a33b289f0bf7852d07bb618216d339e395ac09bf83a36a841769bb450",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 11919,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flakpanzer_38t_Gepard",
       "base_id": "germ_flakpanzer_38t_Gepard",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpanzer_IV_Kugelblitz",
@@ -3740,7 +3880,21 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_IV_Ostwind.glb",
+        "sha256": "972473435de7f165ea4e25a1f520312ded951f70e2df3c287d249d7c14812b1b",
+        "source_path": "E:/AIprogram/aimodel/德国/东风/vehicle.glb",
+        "report_sha256": "c44fdb92167cf0611b427ace0e7f313759d8fbba2b53ffe217b3cab9a25d01be",
+        "verification_sha256": "c63a9a53d26103f8f00e1d53fcaf0c87b80f2689225fa380bc9bee370d054f1e",
+        "visual_review_sha256": "eff2b5ee2dcbd644acc6bc2c734c9e7e1855920586355b0c223c025b13a3af55",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14866,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
@@ -3758,7 +3912,7 @@
           "source_sha256": "9c30768f2d18615d2e1d4bfb570fc3a9c5d98d66338ee964a248fd21dd63f4f8"
         }
       ],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpanzer_IV_Wirbelwind",
@@ -3772,14 +3926,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_IV_Wirbelwind.glb",
+        "sha256": "7672d91fdbbb42e4ed0f04ab372d5cbb02846ad55e9ac35e6e28cfc904ff9b44",
+        "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_IV_Wirbelwind/vehicle.glb",
+        "report_sha256": "917d46a3e5cf5e75fe7bbb4cb1edffde7ae5b8ef656deab371d4147ac87a8fdb",
+        "verification_sha256": "453b040b1b3f0973a326e196ebace4a9cd9a883d83c018adf793430b5c4eefb8",
+        "visual_review_sha256": "ffc984eb074e41f75b909c8edae7077937dbc23eeb6636be78ba2de5d53681bd",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14990,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flakpanzer_IV_Wirbelwind",
       "base_id": "germ_flakpanzer_IV_Wirbelwind",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpanzer_I_ausf_A",
@@ -3793,14 +3961,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_I_ausf_A.glb",
+        "sha256": "5b73cefb3178aa27d2202a1062c8c4de1f883cdd82d7b7ab1caf551a9e05fbe0",
+        "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_I_ausf_A/vehicle.glb",
+        "report_sha256": "cefa4a45732274bfbf53b8c11377cd927216a73939501d31195e94694d03e1b5",
+        "verification_sha256": "9954fb349b270a9e74c44b90a3c6b458e5ada8589e737ecdb1cff8371f9855d2",
+        "visual_review_sha256": "b4439f329a11a671f70e5b9f695d5ab5ceb7557a0f535b730b6577923c3f83dc",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 9769,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flakpanzer_I_ausf_A",
       "base_id": "germ_flakpanzer_I_ausf_A",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpanzer_V_Coelian",
@@ -3814,14 +3996,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_V_Coelian.glb",
+        "sha256": "1249ebd8cb1bcc597c4012933de6c0cb3a58cca628e31caf9866d426b47120d8",
+        "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_V_Coelian/vehicle.glb",
+        "report_sha256": "5cc1b0fbb5c4f1497b0a5cdb90bdc71a212720a4481ae6b35b0cbff73bccf9cd",
+        "verification_sha256": "c21294913874f39ccdd48f40dc63ed875acfe2e7a03778129aae899a64bae99d",
+        "visual_review_sha256": "9864eddb580ed7b0e7dcfefeade1f5f909a741f25b0cd8a57eebf445f22f4058",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14460,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flakpanzer_V_Coelian",
       "base_id": "germ_flakpanzer_V_Coelian",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpanzer_zerstorer_45",
@@ -3835,14 +4031,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_zerstorer_45.glb",
+        "sha256": "0d122a77d5e1e7a38f427123c07239b4459779e579946cfe751cea2f10da168b",
+        "source_path": "E:/AIprogram/aimodel/德国/flakpanzer_zerstorer_45/vehicle.glb",
+        "report_sha256": "5c720d85423460bbd2d0b59b0c99332eeeb2a5f813f753823571eb51613669bf",
+        "verification_sha256": "1593bf4c7fdc9c11594ec03773ec66019ed213de7a0b5e22c549a857db12e281",
+        "visual_review_sha256": "0c3ca02ce37457b93796961d3af67518c6eab69672d7eeb1e9f10ff77c30174c",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14840,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flakpanzer_zerstorer_45",
       "base_id": "germ_flakpanzer_zerstorer_45",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_flakpz_I_Gepard",
@@ -3932,14 +4142,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_flarakrad.glb",
+        "sha256": "f117a684eb82953a124632360f40b354b4e436c8bbdd48389b70f0d3877b404d",
+        "source_path": "E:/AIprogram/aimodel/德国/flarakrad/vehicle.glb",
+        "report_sha256": "3932787496d68d6b423af7ffe070622100e2f21b3b4b798c483ff9c4bdebc2a9",
+        "verification_sha256": "1d8ccdacef0b6d048331efbf0a2cd131c9f8047153548c88dddc63a59a1ade01",
+        "visual_review_sha256": "88d20ebfe304e5bf8e14ec14100decd75b88e3676509e30d9232a63c7f143778",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14865,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "flarakrad",
       "base_id": "germ_flarakrad",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_hummel",
@@ -4023,14 +4247,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_iris_slm_fcs.glb",
+        "sha256": "643f8b1892f8a3a1424522a5368c8f30ea230e993607279651e9e0411923cf48",
+        "source_path": "E:/AIprogram/aimodel/德国/iris_slm_fcs/vehicle.glb",
+        "report_sha256": "28394002203322fad0867862bd1c66144e0d3de063fae508d53c32b611aefa28",
+        "verification_sha256": "95ef96240ac6924957c26297b35cd309463a86b83d918918dec260c948a368c3",
+        "visual_review_sha256": "ea627a106ed4640c95d759cb148ecbe25a40a10b6890260bec4fdb209fe7ad0c",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 13826,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "iris_slm_fcs",
       "base_id": "germ_iris_slm_fcs",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_iris_slm_launcher",
@@ -4044,14 +4282,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_iris_slm_launcher.glb",
+        "sha256": "035595788f16900f288b6f87868645849bede67cf764c0835260cdb8c9bada5d",
+        "source_path": "E:/AIprogram/aimodel/德国/iris_slm_launcher/vehicle.glb",
+        "report_sha256": "597b2d00f2f419a8007069c264c76f89b4093cbd0cd4889e61bd948bd6683984",
+        "verification_sha256": "a1ed64169eb0c3d0b2900e338019c60527208f3737a4b808a5a1089678945181",
+        "visual_review_sha256": "bf45f9c1b972d33f0322ffdaa52aa3c98e9f57a68948f71b557c1520253fac8d",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14896,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "iris_slm_launcher",
       "base_id": "germ_iris_slm_launcher",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_jaguar_2",
@@ -4286,14 +4538,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_kv_1_kwk_40.glb",
+        "sha256": "fa18c59d2e4b2be0662638cd43fbaa77ba9a899a2e8c910e9d0c11c77ed6fc88",
+        "source_path": "E:/AIprogram/aimodel/德国/kv_1_kwk_40/vehicle.glb",
+        "report_sha256": "df5e2e6d454156384daafd66b53cffa34a9682885ffbc12f2d628dc88772f32c",
+        "verification_sha256": "85e75bb0d4d717dac5dfefc9cdbad918658d077d75b55e433348380fb74625be",
+        "visual_review_sha256": "22de44d2a5338859a401d07b08981ea844a0034a8808f37e6bff42e32f117b5f",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 12247,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "kv_1_kwk_40",
       "base_id": "germ_kv_1_kwk_40",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_kv_2_754r",
@@ -4377,14 +4643,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_leichter_ladungstrager_303a.glb",
+        "sha256": "e1f3430757732126d777478ae4424713815fc24f3044329e40973a874b25ea05",
+        "source_path": "E:/AIprogram/aimodel/德国/leichter_ladungstrager_303a/vehicle.glb",
+        "report_sha256": "a0ea6d2fecf8451476ce67a72cd00c7d2f1a34b62a13f4dd1aa512f1f0a65b5b",
+        "verification_sha256": "7ce87a6d407939c754374d8a82e6eb1e8c85aae95d7f39040ba7b06c833f8b73",
+        "visual_review_sha256": "2ec461ee21d032e620143cb285674cdbf5fe777a7fca92e3edf81e876d4830c2",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 8327,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "leichter_ladungstrager_303a",
       "base_id": "germ_leichter_ladungstrager_303a",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_leopard_2a4",
@@ -4674,17 +4954,17 @@
       "battle_rating": null,
       "model": {
         "path": "res://assets/research/models/germ_marder_1a1.glb",
-        "sha256": "769d754ac9a4126a8f93df5878839662e20ec92b4e322ab35166ef3fb2dbc199",
+        "sha256": "079310065f0bec17f9550c267c61dcf2c7dbf118fcb50250c3d009d2f183a418",
         "source_path": "E:/AIprogram/aimodel/德国/黄鼠狼步战车/vehicle.glb",
-        "report_sha256": "caf86cf947c2a1b58d8d16d57bba4ce55844c635a97758ed78001aab5b80efe4",
-        "verification_sha256": "118ac67703482a754917e9c1d5d1fea0823983ba576a49ce720bc2e25502d6d8",
-        "visual_review_sha256": "32dbc99322870f238f279c507337647fceff70b39da07275a7a09d7634423289",
+        "report_sha256": "d7b91efcead127f8f485db924fb906e4739cab4de33dfced3b41f8dad5f2a03e",
+        "verification_sha256": "56b096ebe10c4f3b9b7097262337865660e5c221d225ac23c4b6718fa46137b1",
+        "visual_review_sha256": "d8e9124e5c1dd9130ed4eb2bf13d8cfe2b7d9ad3edca58e9f1134da710fa2dfc",
         "geometry_status": "PASS",
         "visual_status": "PASS",
         "status": "reviewed_static_model",
         "human_accepted": false,
         "combat_admitted": false,
-        "triangles": 14461,
+        "triangles": 14837,
         "hash_bound_to_review": true
       },
       "order": 1000,
@@ -4834,14 +5114,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_nbfz_VI.glb",
+        "sha256": "72677a96a5641bd3f49b9e30249d5e092c4a41904c7e0a8cce32bc5f3b0d0640",
+        "source_path": "E:/AIprogram/aimodel/德国/nbfz_VI/vehicle.glb",
+        "report_sha256": "24f95e53a8b1b7039c69b8ea6294315d3f40aff3653d1091143cb73241830123",
+        "verification_sha256": "3016be998f2b687faa5cc94bf1de39d8c64462f0095602991f5bfde47386c807",
+        "visual_review_sha256": "337c07759f8c9cb8679a48c3c824e161b3d605ffb06fc29bcc9fb660f9b5e865",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14300,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "nbfz_VI",
       "base_id": "germ_nbfz_VI",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_panther_II",
@@ -5083,14 +5377,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_panzerwerfer_42.glb",
+        "sha256": "35ce1912d335019dd746a02fae55afadc95ee6dbdeb5b3dbc123b833ac47ce76",
+        "source_path": "E:/AIprogram/aimodel/德国/panzerwerfer_42/vehicle.glb",
+        "report_sha256": "bcbfa6342d101bdc52eb0c1934d1b4b63ef2990583f2485caa55a369ef57e501",
+        "verification_sha256": "d800f368a40b3b90af526e978d1cf2ec729704311c5982b0310d2b27d45848dd",
+        "visual_review_sha256": "ff075caa752d4ca146c3fa2d2be04f14633de100b468e20739bba0efadb8c713",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14905,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "panzerwerfer_42",
       "base_id": "germ_panzerwerfer_42",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_pzh_2000",
@@ -6137,7 +6445,21 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_251_9.glb",
+        "sha256": "24a7c301cb03a4ea79fab2359f26888eb243d55656875301c687850a0887dce6",
+        "source_path": "E:/AIprogram/aimodel/德国/SdKfz251/vehicle.glb",
+        "report_sha256": "c740f1f7eea8a07ff2e1ab5375c05197e163b419cd558032d84f7394c8aa9f27",
+        "verification_sha256": "aab95c6e8bbc4983f65fa5265277facbfffb882c778c6196219327b9c86f9cd6",
+        "visual_review_sha256": "821affb390d2245b753a600b640ea86ec173f495f679c7930e0f41708221fc70",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 11012,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
@@ -6160,7 +6482,7 @@
           "source_sha256": "99ccc28586114a48916d761df7a1bff295b61a68c11de77e3237712bdcddbe61"
         }
       ],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_sdkfz_6_2_flak36",
@@ -6174,14 +6496,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_6_2_flak36.glb",
+        "sha256": "abe09a4760a1f6a21d0396dae3242086b411db27d2084edcdbf7f6e6a500fd51",
+        "source_path": "E:/AIprogram/aimodel/德国/sdkfz_6_2_flak36/vehicle.glb",
+        "report_sha256": "1b218353a32432d64bd67421382d2a42e1f7cedfccef8d3dc1705a1695b74b49",
+        "verification_sha256": "8cce2ebb2a20c0ff3485095a2e66403c29973ec0fb5da725e4a2d3d7e684333f",
+        "visual_review_sha256": "aa096a5a2254726516b4380df312dc1930a6abbc2cf4abd0e14608cefdb4a520",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14784,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "sdkfz_6_2_flak36",
       "base_id": "germ_sdkfz_6_2_flak36",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_sdkfz_9_flak37",
@@ -6195,14 +6531,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_9_flak37.glb",
+        "sha256": "f042ed2ae1bf83bc913243bd69c1474bc13e8c5eebdf031aeb8910422a6d8fcd",
+        "source_path": "E:/AIprogram/aimodel/德国/sdkfz_9_flak37/vehicle.glb",
+        "report_sha256": "727d92676707a408e0c8e545bb4cf3153feabc0c0e82d600db4d7c52c021256c",
+        "verification_sha256": "71dc3e4d9ca5e488c61cb8bb893adcb4e8ebc06a228f2c20e8cf65201f5d9c0b",
+        "visual_review_sha256": "11de447df434d08a6261034aafa08d650ed84383136f32336c19c7f146ddc1b3",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14631,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "sdkfz_9_flak37",
       "base_id": "germ_sdkfz_9_flak37",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_sk105_a2",
@@ -6321,14 +6671,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_spz_oerlikon_raketenautomat.glb",
+        "sha256": "9e925267680dd37a5c1299315bb82811106567623e00a772762d639a8f48875d",
+        "source_path": "E:/AIprogram/aimodel/德国/spz_oerlikon_raketenautomat/vehicle.glb",
+        "report_sha256": "cd4e3ba117a0a595169cb841022f78697987bbb3f2232b9beca84deeed3ef515",
+        "verification_sha256": "76fe8ea8ee20e444bd357daa1ba63149d15d76c46839f4aefa60ba98c9290909",
+        "visual_review_sha256": "4a5eb84bddafc10e2481b191bfecebc39eb9690120fe7e527121444bbcc4c34a",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 11629,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "spz_oerlikon_raketenautomat",
       "base_id": "germ_spz_oerlikon_raketenautomat",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_stug_III_ausf_A",
@@ -6620,14 +6984,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_truck_sdkfz_6_2_tent.glb",
+        "sha256": "aa5db018454561f8b5ec468fef8df6db2b641d68daf40645221ecc55a3b3bbc4",
+        "source_path": "E:/AIprogram/aimodel/德国/truck_sdkfz_6_2_tent/vehicle.glb",
+        "report_sha256": "373d577854d1c76c43548f59b723de54d517a7f08bf58014f25403469f4e6325",
+        "verification_sha256": "34773127155d0be3671786a7aa1d0c989aca31fe67733bcd42f2914419a26096",
+        "visual_review_sha256": "a9991f8c27b2502d46d727afc8a18f752a7e2d715e88178a235209e03775eeee",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 12879,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "truck_sdkfz_6_2_tent",
       "base_id": "germ_truck_sdkfz_6_2_tent",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_vilkas",
@@ -6711,14 +7089,28 @@
       "historical_verified": false,
       "rank": null,
       "battle_rating": null,
-      "model": null,
+      "model": {
+        "path": "res://assets/research/models/germ_vsw_flak_41.glb",
+        "sha256": "c176f135887d940755224c8c7f1a4eee93b887bc40acc9ad6f5b0be1b27c3fad",
+        "source_path": "E:/AIprogram/aimodel/德国/vsw_flak_41/vehicle.glb",
+        "report_sha256": "963b7a1fbedf2d11c61f59ca450a375022d45f6cdd06482569a0b7f7f9ea008c",
+        "verification_sha256": "042eedb2bd9b39471e73e05777eab3168f6f5d7ecf1a05395a80890db68bd0f5",
+        "visual_review_sha256": "6c3be46a6437a6a1784994314cfabb3c70297e57ab3604a9c282cc731a2704e5",
+        "geometry_status": "PASS",
+        "visual_status": "PASS",
+        "status": "reviewed_static_model",
+        "human_accepted": false,
+        "combat_admitted": false,
+        "triangles": 14622,
+        "hash_bound_to_review": true
+      },
       "order": 1000,
       "combat_package": null,
       "base_model": true,
       "family": "vsw_flak_41",
       "base_id": "germ_vsw_flak_41",
       "variant_refs": [],
-      "admission_status": "awaiting_model"
+      "admission_status": "static_preview_only"
     },
     {
       "id": "germ_vt_1_2",
@@ -6936,8 +7328,8 @@
     "germany": 96
   },
   "models": {
-    "ussr": 37,
-    "germany": 76
+    "ussr": 45,
+    "germany": 96
   },
   "issues": [],
   "family_policy": "one_representative_per_producer_family",
@@ -12107,7 +12499,7 @@
     "schema_version": 1,
     "binding_manifest": "res://authoring/reference_data/research_combat_bindings.json",
     "data_rows": 212,
-    "reviewed_models": 113,
+    "reviewed_models": 141,
     "combat_bindings": 2,
     "bound_ids": [
       "germ_leopard_2a4",

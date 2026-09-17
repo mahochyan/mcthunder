@@ -14,7 +14,7 @@ static func catalog() -> Dictionary:
 	var parsed: Variant=JSON.parse_string(FileAccess.get_file_as_string(PATH))
 	if not parsed is Dictionary: return {}
 	_catalog=parsed
-	if parsed.get("schema_version")==1 and parsed.get("interfaces") is Array:
+	if parsed.get("schema_version")==2 and parsed.get("interfaces") is Array:
 		for row in parsed.interfaces:
 			if row is Dictionary: _by_id[str(row.get("id",""))]=row
 	return _catalog
@@ -36,6 +36,13 @@ static func interface_for(row: Dictionary) -> Dictionary:
 	if FileAccess.get_sha256(path)!=expected: return {"ok":false,"error":"model_interface_hash_mismatch"}
 	if not bool(interface.get("trial_rig_ready",false)) or not interface.get("nodes") is Dictionary:
 		return {"ok":false,"error":"trial_rig_not_ready"}
+	if interface.get("locomotion") not in ["tracked","wheeled"]:
+		return {"ok":false,"error":"locomotion_interface_invalid"}
+	var weapon_control:=str(interface.get("weapon_control",""))
+	if weapon_control not in ["yaw_pitch","unavailable_nonstandard","none"]:
+		return {"ok":false,"error":"weapon_interface_invalid"}
+	if bool(interface.get("weapon_rig_ready",false))!=(weapon_control=="yaw_pitch"):
+		return {"ok":false,"error":"weapon_interface_readiness_mismatch"}
 	var out: Dictionary=interface.duplicate(true)
 	out["ok"]=true
 	return out

@@ -31,6 +31,9 @@ func _run() -> void:
 	var reference_sources:=0
 	var tracked_interfaces:=0
 	var wheeled_interfaces:=0
+	var weapon_rigs:=0
+	var nonstandard_weapons:=0
+	var unarmed_models:=0
 	var speed_values: Dictionary={}
 	for id in rows:
 		var row: Dictionary=rows[id]
@@ -43,8 +46,15 @@ func _run() -> void:
 		if interface.get("ok",false):
 			if interface.get("locomotion")=="tracked": tracked_interfaces+=1
 			elif interface.get("locomotion")=="wheeled": wheeled_interfaces+=1
-		var motion:=ResearchReferenceProfiles.weapon_motion_for(row)
-		_check(bool(motion.get("ok",false)),id+": weapon motion resolves from the same vehicle data")
+		var motion: Dictionary={}
+		if interface.get("ok",false) and interface.get("weapon_control")=="yaw_pitch":
+			weapon_rigs+=1; motion=ResearchReferenceProfiles.weapon_motion_for(row)
+			_check(bool(motion.get("ok",false)),id+": standard weapon motion resolves from the same vehicle data")
+		elif interface.get("ok",false):
+			if interface.get("weapon_control")=="unavailable_nonstandard": nonstandard_weapons+=1
+			elif interface.get("weapon_control")=="none": unarmed_models+=1
+			motion=ResearchReferenceProfiles.weapon_motion_for(row)
+			_check(not motion.get("ok",false) and not bool(interface.get("weapon_rig_ready",true)),id+": missing or ambiguous weapon data cannot animate a fake tank-gun rig")
 		if not trial.data_ready: continue
 		if trial.mobility_source=="combat_packet": packet_sources+=1
 		elif trial.mobility_source=="warthunder_reference": reference_sources+=1
@@ -57,29 +67,31 @@ func _run() -> void:
 		_check(is_equal_approx(reverse,-trial.reverse_max_speed),id+": authored reverse speed caps the actual trial movement")
 		var yaw:=ResearchTrialDrive.yaw_delta(1.0,0.5,trial.hull_turn_speed)
 		_check(is_equal_approx(yaw,deg_to_rad(trial.hull_turn_speed)*0.5),id+": authored hull turn rate changes the actual trial rotation")
-		if motion.get("ok",false):
+		var model: Node=null
+		if interface.get("ok",false):
+			var document:=GLTFDocument.new(); var state:=GLTFState.new()
+			var bytes:=FileAccess.get_file_as_bytes(str(interface.model.path))
+			model=document.generate_scene(state) if not bytes.is_empty() and document.append_from_buffer(bytes,"",state)==OK else null
+			_check(model!=null,id+": selected model instantiates for the data-driven rig")
+		if motion.get("ok",false) and model!=null:
 			var yaw_step:=ResearchTrialDrive.advance_axis(0.0,1.0,float(motion.yaw_speed),0.25,float(motion.yaw_min),float(motion.yaw_max))
 			var pitch_step:=ResearchTrialDrive.advance_axis(0.0,1.0,float(motion.pitch_speed),0.25,float(motion.pitch_min),float(motion.pitch_max))
 			_check(is_equal_approx(yaw_step,minf(float(motion.yaw_speed)*0.25,float(motion.yaw_max))),id+": authored turret rate changes the actual trial yaw step")
 			_check(is_equal_approx(pitch_step,minf(float(motion.pitch_speed)*0.25,float(motion.pitch_max))),id+": authored elevation rate changes the actual trial pitch step")
-			if interface.get("ok",false):
-				var document:=GLTFDocument.new(); var state:=GLTFState.new()
-				var bytes:=FileAccess.get_file_as_bytes(str(interface.model.path))
-				var model:=document.generate_scene(state) if not bytes.is_empty() and document.append_from_buffer(bytes,"",state)==OK else null
-				_check(model!=null,id+": selected model instantiates for the data-driven rig")
-				if model!=null:
-					trial.turret_pivot=model.find_child(str(interface.nodes.turret_pivot),true,false) as Node3D
-					trial.gun_pivot=model.find_child(str(interface.nodes.gun_pivot),true,false) as Node3D
-					trial.turret_yaw_deg=yaw_step; trial.gun_pitch_deg=pitch_step; trial._apply_weapon_pose()
-					_check(is_instance_valid(trial.turret_pivot) and is_equal_approx(trial.turret_pivot.rotation.y,deg_to_rad(yaw_step)),id+": reference yaw reaches the real TurretPivot")
-					_check(is_instance_valid(trial.gun_pivot) and is_equal_approx(trial.gun_pivot.rotation.x,deg_to_rad(pitch_step)),id+": reference elevation reaches the real GunPivot")
-					model.free()
+			trial.weapon_controls_available=true
+			trial.turret_pivot=model.find_child(str(interface.nodes.turret_pivot),true,false) as Node3D
+			trial.gun_pivot=model.find_child(str(interface.nodes.gun_pivot),true,false) as Node3D
+			trial.turret_yaw_deg=yaw_step; trial.gun_pitch_deg=pitch_step; trial._apply_weapon_pose()
+			_check(is_instance_valid(trial.turret_pivot) and is_equal_approx(trial.turret_pivot.rotation.y,deg_to_rad(yaw_step)),id+": reference yaw reaches the real TurretPivot")
+			_check(is_instance_valid(trial.gun_pivot) and is_equal_approx(trial.gun_pivot.rotation.x,deg_to_rad(pitch_step)),id+": reference elevation reaches the real GunPivot")
+		if model!=null: model.free()
 		trial.free()
-	_check(modeled==113,"all 113 available models reached runtime mobility configuration")
-	_check(tracked_interfaces==103 and wheeled_interfaces==10,"all model locomotion interfaces are exact: 103 tracked and 10 wheeled")
-	_check(packet_sources==2 and reference_sources==111,"two combat packets override their trial values; 111 static models use exact cache profiles")
+	_check(modeled==141,"all 141 available models reached runtime mobility configuration")
+	_check(tracked_interfaces==127 and wheeled_interfaces==14,"all model locomotion interfaces are exact: 127 tracked and 14 wheeled")
+	_check(weapon_rigs==136 and nonstandard_weapons==2 and unarmed_models==3,"weapon interfaces are exact: 136 standard, 2 nonstandard unresolved, 3 unarmed")
+	_check(packet_sources==2 and reference_sources==139,"two combat packets override their trial values; 139 static models use exact cache profiles")
 	# The lossy cache currently contains three distinct forward-speed values across
-	# the modeled set (109 rows share 75 km/h). Preserve that source truth; never
+	# the modeled set. Preserve that source truth; never
 	# invent extra variation merely to make the fleet look more diverse.
 	_check(speed_values.size()==3,"research trial preserves all three speed values actually present in the cache")
 	var static_tamper: Dictionary=rows.ussr_t_34_1941.duplicate(true)

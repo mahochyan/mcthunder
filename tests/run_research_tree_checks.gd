@@ -58,6 +58,15 @@ func run() -> void:
 	await click(tree.test_button); trial=tree.trial
 	check(trial.view.model_id=="germ_leopard_2a4","German trial does not substitute Soviet or US model")
 	await click(trial.close_button)
+	await query(tree,"IRIS SLM FCS")
+	check(tree.selected_id=="germ_iris_slm_fcs" and not tree.test_button.disabled,"unarmed support vehicle remains available for model driving")
+	await click(tree.test_button); trial=tree.trial
+	check(trial.weapon_control_status=="none" and not trial.weapon_controls_available,"unarmed support model does not receive invented tank-gun controls")
+	await click(trial.close_button)
+	await query(tree,"9A33BM3")
+	await click(tree.test_button); trial=tree.trial
+	check(trial.weapon_control_status=="unavailable_nonstandard" and not trial.weapon_controls_available,"ambiguous missile rig stays drivable without applying conflicting traverse data")
+	await click(trial.close_button)
 	await query(tree,""); tree.ready_filter.button_pressed=true; await frames()
 	check(tree.tree_nodes.size()==int(tree.catalog.models.germany),"ready filter follows frozen published-model inventory")
 	var loaded := 0; var rejected: Array=[]
@@ -65,7 +74,7 @@ func run() -> void:
 		if row.model is Dictionary:
 			if tree.preview_control.show_vehicle(row): loaded+=1
 			else: rejected.append(row.id)
-	check(rejected.is_empty() and loaded==113,"all 113 frozen base GLBs load with finite geometry: "+str(rejected))
+	check(rejected.is_empty() and loaded==141,"all 141 frozen base GLBs load with finite geometry: "+str(rejected))
 	tree.close(); await frames()
 	check(g.selected_vehicle_id()==original and g.profile.snapshot()==before,"browsing and trial never substitute battle selection or mutate player profile")
 	check(g.get_node("Frontend").is_visible_in_tree(),"closing tree restores normal garage")

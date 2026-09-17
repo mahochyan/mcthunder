@@ -50,7 +50,7 @@ class ResearchCatalogChecks(unittest.TestCase):
         thumbnails = json.loads((ROOT/'assets/research/thumbnails/manifest.json').read_text(encoding='utf-8'))
         modeled = {r['id'] for r in ROWS.values() if r['model']}
         self.assertEqual(set(thumbnails), modeled)
-        self.assertEqual(len(modeled), 113)
+        self.assertEqual(len(modeled), 141)
         for identity in modeled:
             model = ROWS[identity]['model']
             raw = (ROOT/model['path'].removeprefix('res://')).read_bytes()
@@ -62,8 +62,9 @@ class ResearchCatalogChecks(unittest.TestCase):
             gltf = json.loads(raw[20:20+json_length])
             for resource in gltf.get('buffers', [])+gltf.get('images', []):
                 self.assertTrue(not resource.get('uri') or resource['uri'].startswith('data:'))
+            selected = ROWS[identity]['combat_package']['runtime_model'] if ROWS[identity]['combat_package'] else model
             thumb = thumbnails[identity]
-            self.assertEqual(thumb['model_sha256'], model['sha256'])
+            self.assertEqual(thumb['model_sha256'], selected['sha256'])
             self.assertTrue((ROOT/thumb['path'].removeprefix('res://')).read_bytes().startswith(b'\x89PNG\r\n\x1a\n'))
 
     def test_exact_combat_bindings(self):
@@ -90,7 +91,7 @@ class ResearchCatalogChecks(unittest.TestCase):
         self.assertEqual(P['set_policy'], 'exact_tree_id_no_alias_no_missing_no_extra')
         self.assertEqual(set(PROFILES), set(ROWS))
         self.assertEqual(P['vehicle_count'], 212)
-        self.assertEqual(P['trial_mobility_count'], 113)
+        self.assertEqual(P['trial_mobility_count'], 141)
         self.assertEqual(P['combat_count'], 2)
         for vehicle_id, profile in PROFILES.items():
             row = ROWS[vehicle_id]
@@ -111,11 +112,12 @@ class ResearchCatalogChecks(unittest.TestCase):
 
     def test_model_interfaces_match_every_selected_model(self):
         modeled = {vehicle_id for vehicle_id, row in ROWS.items() if row['model']}
-        self.assertEqual(I['schema_version'], 1)
+        self.assertEqual(I['schema_version'], 2)
         self.assertEqual(I['set_policy'], 'exact_modeled_tree_id_no_alias_no_missing_no_extra')
         self.assertEqual(set(INTERFACES), modeled)
-        self.assertEqual((I['model_count'], I['trial_rig_ready_count'], I['combat_interface_ready_count']), (113, 113, 2))
-        self.assertEqual((I['tracked_count'], I['wheeled_count']), (103, 10))
+        self.assertEqual((I['model_count'], I['trial_rig_ready_count'], I['combat_interface_ready_count']), (141, 141, 2))
+        self.assertEqual((I['tracked_count'], I['wheeled_count']), (127, 14))
+        self.assertEqual((I['weapon_rig_ready_count'], I['nonstandard_weapon_count'], I['unarmed_count']), (136, 2, 3))
         for vehicle_id, interface in INTERFACES.items():
             row = ROWS[vehicle_id]
             selected = row['combat_package']['runtime_model'] if row['combat_package'] else row['model']
@@ -126,13 +128,21 @@ class ResearchCatalogChecks(unittest.TestCase):
             self.assertTrue(interface['trial_rig_ready'])
             self.assertEqual(interface['combat_interface_ready'], row['combat_package'] is not None)
             nodes = interface['nodes']
-            self.assertEqual((nodes['turret_pivot'], nodes['gun_pivot'], nodes['hull']), ('TurretPivot', 'GunPivot', 'HullArmour'))
-            self.assertTrue(nodes['main_gun'].startswith('MainGun'))
+            self.assertEqual(nodes['hull'], 'HullArmour')
+            if interface['weapon_control'] == 'yaw_pitch':
+                self.assertTrue(interface['weapon_rig_ready'])
+                self.assertEqual((nodes['turret_pivot'], nodes['gun_pivot']), ('TurretPivot', 'GunPivot'))
+                self.assertTrue(nodes['main_gun'].startswith('MainGun'))
+            else:
+                self.assertFalse(interface['weapon_rig_ready'])
+                self.assertIn(interface['weapon_control'], ('unavailable_nonstandard', 'none'))
+                self.assertTrue(interface['weapon_unavailable_reason'])
             if interface['locomotion'] == 'tracked':
                 self.assertEqual((nodes['left_track'], nodes['right_track']), ('track_l', 'track_r'))
             else:
-                self.assertEqual(len(nodes['left_wheels']), len(nodes['right_wheels']))
-                self.assertGreater(len(nodes['left_wheels']), 0)
+                paired = len(nodes['left_wheels']) == len(nodes['right_wheels']) and len(nodes['left_wheels']) > 0
+                aggregate = isinstance(nodes['wheel_assembly'], str) and bool(nodes['wheel_assembly'])
+                self.assertNotEqual(paired, aggregate)
 
 if __name__ == '__main__':
     unittest.main()
