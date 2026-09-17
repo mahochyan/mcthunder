@@ -333,6 +333,22 @@ func run(flow: AppFlow) -> void:
 	await frames(3)
 	var restored_loadout := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
 	report(restored_loadout.ok, "the loadout is valid again after the zero-rack check, with the service's own capacity and stock")
+	# WT-UI-010/006-A02: the page edits in memory and only "apply loadout" commits, so leaving the page without
+	# applying must leave the saved profile untouched - there must not be two competing commit behaviours.
+	var saved_before: Dictionary = g.profile.snapshot().garage.loadouts.duplicate(true)
+	var probe_shell := str(shells[0])
+	var original_value := int(prep.shell_spins[probe_shell].value)
+	prep.shell_spins[probe_shell].value = maxi(0,original_value-1)
+	prep._ammo_changed()
+	await frames(4)
+	await driver.click(tab_battle)
+	await frames(5)
+	report(g.profile.snapshot().garage.loadouts == saved_before, "an unapplied loadout edit never reaches the saved profile")
+	await driver.click(tab_loadout)
+	await frames(5)
+	prep.shell_spins[probe_shell].value = original_value
+	prep._ammo_changed()
+	await frames(4)
 	await driver.click(tab_battle)
 	await frames(3)
 
@@ -458,6 +474,11 @@ func run(flow: AppFlow) -> void:
 		await driver.click(deploy)
 		await idle()
 		report(app.training != null, "clicking the main deploy button issues a real deploy request and enters a match")
+		# --- WT-UI-004-A04: one deploy request cannot create a second match --------------------------------
+		var match_instances := 0
+		for child in app.get_children():
+			if child is TeamRange: match_instances += 1
+		report(match_instances == 1, "the app holds exactly one match instance after the request (%d), so a second request cannot have created another" % match_instances)
 		await driver.capture("nav_05_after_deploy")
 		# Harness convenience only: this is how the existing verifiers get back, and it is not offered as player
 		# evidence for the respawn or result flows, which belong to their own work orders.
@@ -479,5 +500,18 @@ func run(flow: AppFlow) -> void:
 
 	print("=== ui navigation: %d checks, %d failed ===" % [checks,failed])
 	print("UI_NAVIGATION_CHECKS_PASS" if failed == 0 else "UI_NAVIGATION_CHECKS_FAIL")
+	# --- WT-UI-012-A01: probe the wider matrix entries honestly instead of assuming they fit ------------------
+	for probe in [Vector2i(2560,1440),Vector2i(3440,1440)]:
+		get_window().size = probe
+		await frames(10)
+		var achieved := get_window().size
+		if achieved == probe:
+			report(true, "the UI renders at the probed size %dx%d" % [probe.x,probe.y])
+			await driver.capture("nav_14_%dx%d" % [probe.x,probe.y])
+		else:
+			print("[NOT_RUN] %dx%d was clamped by the device to %dx%d, so that matrix entry stays NOT_RUN" % [probe.x,probe.y,achieved.x,achieved.y])
+	get_window().size = Vector2i(1280,720)
+	await frames(10)
+
 	print("driver checks=%d driver failed=%d" % [int(driver.checks),int(driver.failed)])
 	get_tree().quit(0 if failed == 0 else 1)

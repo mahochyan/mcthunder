@@ -161,6 +161,21 @@ func run(flow: AppFlow) -> void:
 	check(summary.is_empty() or summary.has("hit_result"),"the hit summary comes from the real projectile records (%s)" % str(summary.keys()))
 	await capture("hud_13_notice_queue")
 
+	# --- WT-UI-008/011-A04: a visual preference must not change any combat state ---------------------------
+	var combat_before := {"rounds":int(battle_ui.player().gunner.rounds_remaining),"chamber":int(battle_ui.player().gunner.inventory.chamber),"destroyed":bool(battle_ui.player().state.destroyed),"ready":bool(hud.view_model.get("ready",false))}
+	AccessibilitySettings.reduce_flashes = true
+	AccessibilitySettings.fx_level = 0
+	AccessibilitySettings.apply_vehicle(battle_ui.player())
+	await frames(5)
+	var combat_after := {"rounds":int(battle_ui.player().gunner.rounds_remaining),"chamber":int(battle_ui.player().gunner.inventory.chamber),"destroyed":bool(battle_ui.player().state.destroyed),"ready":bool(hud.view_model.get("ready",false))}
+	check(combat_before == combat_after, "turning flashes off changes no combat state (rounds %d, chamber %d, destroyed %s, ready %s)" % [combat_after.rounds,combat_after.chamber,str(combat_after.destroyed),str(combat_after.ready)])
+	check(not battle_ui.player().turret.flash_enabled, "the visual flash really is disabled by the preference")
+	AccessibilitySettings.reduce_flashes = false
+	AccessibilitySettings.fx_level = 2
+	AccessibilitySettings.apply_vehicle(battle_ui.player())
+	await frames(5)
+	check(battle_ui.player().turret.flash_enabled, "and it is restored when the preference is turned back on")
+
 	# --- wide layout row ----------------------------------------------------------------------------------
 	get_window().size = Vector2i(1920,1080)
 	await frames(10)
