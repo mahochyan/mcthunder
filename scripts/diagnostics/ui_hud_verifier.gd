@@ -161,6 +161,23 @@ func run(flow: AppFlow) -> void:
 	check(summary.is_empty() or summary.has("hit_result"),"the hit summary comes from the real projectile records (%s)" % str(summary.keys()))
 	await capture("hud_13_notice_queue")
 
+	# --- WT-UI-008/S05: the key hints must come from the live binding, never a hard-coded letter ------------
+	var repair_hint := InputBindingService.hint("repair")
+	check(hud.action_label.text.contains(repair_hint), "the recovery hint shows the current binding for repair (%s)" % repair_hint)
+	var rebound := InputEventKey.new()
+	rebound.keycode = KEY_K
+	var rebind_error := InputBindingService.apply_binding("repair",InputBindingService.code_for(rebound))
+	check(rebind_error.is_empty(), "the binding can be changed through the real service (%s)" % rebind_error)
+	await frames(8)
+	var new_hint := InputBindingService.hint("repair")
+	check(new_hint != repair_hint, "the service reports a different key after the change (%s -> %s)" % [repair_hint,new_hint])
+	check(hud.action_label.text.contains(new_hint), "the HUD hint follows the live binding without a restart")
+	var restore_event := InputEventKey.new()
+	restore_event.keycode = KEY_T
+	InputBindingService.apply_binding("repair",InputBindingService.code_for(restore_event))
+	await frames(6)
+	check(InputBindingService.hint("repair")==repair_hint, "the original binding is restored after the check")
+
 	# --- WT-UI-008/011-A04: a visual preference must not change any combat state ---------------------------
 	var combat_before := {"rounds":int(battle_ui.player().gunner.rounds_remaining),"chamber":int(battle_ui.player().gunner.inventory.chamber),"destroyed":bool(battle_ui.player().state.destroyed),"ready":bool(hud.view_model.get("ready",false))}
 	AccessibilitySettings.reduce_flashes = true
