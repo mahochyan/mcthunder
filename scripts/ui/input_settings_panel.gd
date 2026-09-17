@@ -37,6 +37,8 @@ func _ready() -> void:
 	var contents := VBoxContainer.new()
 	contents.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(contents)
+	# WT-UI-011 (S08): the four setting groups the design asks for, each one labelled.
+	CoreUI.label(contents,LocalizationService.text("settings_group_input"),20)
 	CoreUI.label(contents,LocalizationService.text("ui_fb1a6280294d"),17)
 	var slider := HSlider.new()
 	slider.name = "MouseSensitivity"
@@ -50,6 +52,7 @@ func _ready() -> void:
 	contents.add_child(invert)
 	invert.toggled.connect(func(value: bool) -> void: AccessibilitySettings.invert_y = value; _save_options())
 	_build_accessibility(contents)
+	CoreUI.label(contents,LocalizationService.text("settings_group_display"),20)
 	_build_display(contents)
 	CoreUI.label(contents,LocalizationService.text("settings_language"),17)
 	CoreUI.button(contents,LocalizationService.text("settings_reset"),func() -> void:
@@ -107,6 +110,8 @@ func _process(_delta: float) -> void:
 
 func _build_accessibility(contents: VBoxContainer) -> void:
 	# The garage exposes the same persisted options as the battle pause menu.
+	# WT-UI-011 (S08): the sound controls and the accessibility controls are separate S08 groups.
+	CoreUI.label(contents,LocalizationService.text("settings_group_sound"),20)
 	for entry in [["CombatVolume","ui_ff685a1768df","audio_volume"],["MechanicalVolume","ui_59bcbe1288a1","mechanical_volume"],["EffectsVolume","ui_384cca984750","effects_volume"]]:
 		CoreUI.label(contents,LocalizationService.text(entry[1]),17)
 		var volume := HSlider.new()
@@ -116,6 +121,7 @@ func _build_accessibility(contents: VBoxContainer) -> void:
 		contents.add_child(volume)
 		volume.value_changed.connect(func(value: float) -> void:
 			AccessibilitySettings.restore({entry[2]:value}); _save_options())
+	CoreUI.label(contents,LocalizationService.text("settings_group_accessibility"),20)
 	for entry in [["ui_6f063b0a223b","subtitles_enabled"],["ui_a89776152642","reduce_flashes"],["ui_b3106127e18b","stable_camera"],["ui_94589333b07b","high_contrast"]]:
 		var toggle := CheckButton.new()
 		toggle.text = LocalizationService.text(entry[0])

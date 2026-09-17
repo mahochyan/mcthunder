@@ -227,6 +227,46 @@ func run(flow: AppFlow) -> void:
 		await driver.click(tab_battle)
 		report(f.page_index == 0, "and returns to the battle page")
 
+	# --- WT-UI-011 (S08): the four settings groups and the challenge card, through real clicks --------------
+	var settings_button := by_id(g,"garage.nav.settings")
+	if settings_button != null:
+		await driver.click(settings_button)
+		await frames(5)
+		var panel: Control = null
+		for child in g.find_children("*","InputSettingsPanel",true,false): panel = child
+		report(panel != null, "the settings entry opens the real settings panel")
+		if panel != null:
+			var seen: Array[String] = []
+			var stack3: Array[Node] = [panel]
+			while not stack3.is_empty():
+				var node3: Node = stack3.pop_back()
+				if node3 is Label:
+					var text3 := str((node3 as Label).text)
+					for key in ["settings_group_display","settings_group_input","settings_group_sound","settings_group_accessibility"]:
+						if text3 == LocalizationService.text(key) and key not in seen: seen.append(key)
+				for child in node3.get_children(): stack3.append(child)
+			report(seen.size() == 4, "the settings panel shows all four S08 groups %s" % str(seen))
+			report(panel.find_children("*","HSlider",true,false).size() >= 4, "the input and sound groups carry real sliders")
+			panel.queue_free()
+			await frames(4)
+	await driver.click(tab_battle)
+	await frames(3)
+	var challenge_button := by_id(g,"garage.challenge.open")
+	if challenge_button != null:
+		await driver.click(challenge_button)
+		await frames(5)
+		var selection: Node = null
+		for child in g.find_children("*","ChallengeSelection",true,false): selection = child
+		report(selection != null, "the challenge entry opens the real challenge selection")
+		if selection != null:
+			report(selection.rules_label != null and selection.rules_label.text.length() > 0, "the challenge card states the rules from the catalogue")
+			report(selection.rounds_label != null and selection.rounds_label.text.length() > 0, "the challenge card states the ammunition the challenge pins")
+			report(selection.best_label != null and selection.best_label.text.length() > 0, "the challenge card states the recorded best score")
+			report(selection.current_label != null and selection.current_label.text.length() > 0, "the challenge card states the current-attempt situation without inventing a leaderboard")
+			await driver.capture("nav_11_challenge_card")
+			selection.queue_free()
+			await frames(4)
+
 	# --- WT-UI-006: the three S03 groups, real shell metadata, the field-level error and the zero rack ----------
 	await driver.click(tab_loadout)
 	report(f.page_index == 1, "the loadout page is active for the S03 checks")

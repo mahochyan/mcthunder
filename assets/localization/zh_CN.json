@@ -1,4 +1,11 @@
 {
+  "settings_group_display": "显示与可读性",
+  "settings_group_input": "输入",
+  "settings_group_sound": "声音",
+  "settings_group_accessibility": "辅助",
+  "challenge_rules": "规则",
+  "challenge_rounds": "本挑战限定弹药：%d 发（由挑战配置固定，不可自选）",
+  "challenge_current_note": "当前结果：本机档案只记录最佳成绩；本次尝试的结算收据在对局结束后显示。",
   "result_receipt": "结算：%s",
   "result_saved": "已保存",
   "result_save_failed": "写入失败 · 可重试保存",

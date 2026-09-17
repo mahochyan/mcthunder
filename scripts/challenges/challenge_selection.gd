@@ -5,6 +5,10 @@ var profile: ProfileStore
 var task_choice: OptionButton
 var level_choice: OptionButton
 var description: Label
+## WT-UI-011 (S08): rules, the recorded best and the limited-ammunition note are separate statements.
+var rules_label: Label
+var current_label: Label
+var rounds_label: Label
 var best_label: Label
 var start_button: Button
 var close_button: Button
@@ -32,6 +36,12 @@ func _ready() -> void:
 	scroll.focus_mode = Control.FOCUS_ALL
 	description = CoreUI.label(scroll,"",18); description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# WT-UI-011 (S08): the rules, the recorded best and the current-attempt note are three separate lines, and the
+	# ammunition the challenge pins is stated with the config's own round count.
+	rules_label = CoreUI.label(scroll,"",18); rules_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	rules_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rounds_label = CoreUI.label(scroll,"",17); rounds_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	current_label = CoreUI.label(content,"",17); current_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	best_label = CoreUI.label(content,"",18)
 	best_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	start_button = CoreUI.button(content,LocalizationService.text("ui_b55e53cfa123"),func() -> void: chosen.emit(ChallengeCatalog.IDS[task_choice.selected],ChallengeCatalog.LEVELS[level_choice.selected]))
@@ -42,7 +52,13 @@ func _ready() -> void:
 	ModalNavigation.attach(self,queue_free)
 func refresh() -> void:
 	var c := ChallengeCatalog.create(ChallengeCatalog.IDS[task_choice.selected],ChallengeCatalog.LEVELS[level_choice.selected])
-	description.text = (LocalizationService.text("ui_d1badea77d0f") if c.vehicle == ChallengeCatalog.M36 else LocalizationService.text("ui_353a0b778237"))+MapRegistry.ENTRIES[c.map].title+"\n"+ChallengeCatalog.rules_text(c)
+	description.text = (LocalizationService.text("ui_d1badea77d0f") if c.vehicle == ChallengeCatalog.M36 else LocalizationService.text("ui_353a0b778237"))+MapRegistry.ENTRIES[c.map].title
+	# WT-UI-011 (S08): the rules come from the catalogue's own rules text, the pinned ammunition from the config's own
+	# round count, and the current attempt is stated honestly as not stored - the profile records best scores only,
+	# while the attempt's own receipt is shown when it settles.
+	rules_label.text = LocalizationService.text("challenge_rules")+"\n"+ChallengeCatalog.rules_text(c)
+	rounds_label.text = LocalizationService.text("challenge_rounds") % int(c.rounds)
+	current_label.text = LocalizationService.text("challenge_current_note")
 	best_label.text = ChallengeScore.describe_best(profile.snapshot().challenge_bests.get(ChallengeCatalog.key(c),{}))
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
