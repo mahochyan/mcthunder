@@ -8,6 +8,8 @@ var cards: Array[Button]=[]
 var title: Label
 var subtitle: Label
 var role_label: Label
+## WT-UI-004/S01: the vehicle's condition, in the design's own seven-term vocabulary.
+var state_label: Label
 var stats: Label
 var deploy: Button
 var page_index := 0
@@ -121,6 +123,9 @@ func compose(g: GarageShell) -> void:
 	# WT-UI-004: the vehicle type is a required identity field. No service exposes a role yet, so the line is
 	# rendered with the explicit unknown entry rather than being dropped or filled with a guess.
 	role_label=GarageTheme.text(name_stack,"",12,GarageTheme.MUTED)
+	# WT-UI-004/S01: the condition is spelled out with the design's terms instead of collapsing every state into one
+	# grey card; each term is chosen from a source the garage already has.
+	state_label=GarageTheme.text(name_stack,"",13,GarageTheme.ACCENT)
 	stats=GarageTheme.text(hero_header,"",14,GarageTheme.MUTED); stats.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; stats.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	move(viewport_container,hero); viewport_container.custom_minimum_size=Vector2(200,120); viewport_container.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	move(view_controls,hero); move(g.inspection_row,hero)
@@ -173,6 +178,7 @@ func compose(g: GarageShell) -> void:
 	for i in cards.size(): tag(cards[i],"garage.card."+str(garage.vehicle_choice.get_item_metadata(i)))
 	tag(title,"garage.vehicle.title"); tag(subtitle,"garage.vehicle.nation_role"); tag(stats,"garage.vehicle.stats")
 	tag(role_label,"garage.vehicle.role")
+	tag(state_label,"garage.vehicle.state")
 	tag(garage.vehicle_choice,"garage.vehicle.picker"); tag(garage.dossier_button,"garage.vehicle.dossier")
 	tag(garage.preparation.mode_choice,"garage.preparation.mode")
 	tag(garage.preparation.map_choice,"garage.preparation.map")
@@ -239,6 +245,13 @@ func refresh() -> void:
 	var id := garage.selected_vehicle_id()
 	title.text=short_names.get(id,garage.vehicle_choice.get_item_text(garage.vehicle_choice.selected))
 	subtitle.text=VehicleDisplayMetadata.identity_line(id)
+	if state_label != null:
+		var admitted: bool = garage.profile.service.has_vehicle(id)
+		var unlocked: bool = id in garage.profile.snapshot().unlocked
+		var packet: Dictionary = garage.catalog.packages[id].packet if garage.catalog.packages.has(id) else {}
+		var has_model: bool = packet.has("model_binding") or packet.get("model") is Dictionary
+		var config_ok: bool = garage.preparation.build_match().ok
+		state_label.text=VehicleDisplayMetadata.state_term(id,admitted,unlocked,has_model,config_ok)
 	if role_label != null: role_label.text=LocalizationService.text("vehicle_role_unknown")
 	deploy.text="现代河谷 · 内部测试   →" if VehicleCatalog.is_engineering(id) else "进入战斗   →"
 	stats.text="部位毁伤\n装甲 · 乘员 · 模块"

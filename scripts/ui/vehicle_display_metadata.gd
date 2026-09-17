@@ -63,6 +63,25 @@ static func nation_label_for_code(code: String) -> String:
 static func identity_line(vehicle_id: String) -> String:
 	return "%s · %s" % [nation_label(vehicle_id), state_label(vehicle_id)]
 
+## WT-UI-004/S01: the design distinguishes states that must never be merged into one grey card. Each term below is
+## chosen from a real source the caller passes in - admission comes from the service, ownership from the profile, a
+## model from the packet binding, the configuration from the match builder - and the two transient states are
+## supplied explicitly because the garage owns them. Nothing is guessed: an id whose nation the data does not state
+## still reports unknown elsewhere, and this function only names the state the callers actually measured.
+static func state_term(vehicle_id: String, admitted: bool, unlocked: bool, has_model: bool, config_ok: bool, switching: bool = false) -> String:
+	if switching: return LocalizationService.text("vehicle_state_switching")
+	if not admitted and VehicleCatalog.is_engineering(vehicle_id): return LocalizationService.text("vehicle_state_engineering_missing")
+	if not admitted and has_model: return LocalizationService.text("vehicle_state_preview_only")
+	if not admitted: return LocalizationService.text("vehicle_state_engineering_missing")
+	if not unlocked: return LocalizationService.text("vehicle_state_research_needed")
+	if not config_ok: return LocalizationService.text("vehicle_state_config_error")
+	return LocalizationService.text("vehicle_state_combat_ready")
+
+## The seven terms the design lists, so a check can prove they are all reachable and pairwise distinct.
+static func state_term_keys() -> Array[String]:
+	return ["vehicle_state_combat_ready","vehicle_state_research_needed","vehicle_state_preview_only",
+		"vehicle_state_engineering_missing","vehicle_state_config_error","vehicle_state_switching"]
+
 ## Engineering / historical typology, straight from the catalogue's own scope helpers.
 static func typology(vehicle_id: String) -> String:
 	if VehicleCatalog.is_engineering(vehicle_id): return "engineering"

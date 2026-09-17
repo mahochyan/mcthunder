@@ -206,6 +206,32 @@ func run(flow: AppFlow) -> void:
 			g.vehicle_choice.select(historical_index); g._select_vehicle(historical_index)
 			await frames(3)
 
+	# --- WT-UI-004/S01: the condition uses the design's own vocabulary and is not one merged grey label ---------
+	var state_badge := by_id(g,"garage.vehicle.state") as Label
+	report(state_badge != null and state_badge.text.length() > 0, "the garage states the vehicle's condition in words (%s)" % (state_badge.text if state_badge != null else "missing"))
+	var state_terms: Array[String] = []
+	for term_key in VehicleDisplayMetadata.state_term_keys(): state_terms.append(LocalizationService.text(term_key))
+	report(state_terms.size() == 6, "the design's seven conditions are carried as six distinct terms (%d)" % state_terms.size())
+	var unique_terms: Array[String] = []
+	for term in state_terms:
+		if term not in unique_terms: unique_terms.append(term)
+	report(unique_terms.size() == state_terms.size(), "no two conditions share one label %s" % str(state_terms))
+	report(state_badge != null and state_badge.text in state_terms, "the shown condition is one of those terms (%s)" % (state_badge.text if state_badge != null else "missing"))
+	var historical_state := state_badge.text if state_badge != null else ""
+	var engineering_index := -1
+	var restore_index := -1
+	for i in g.vehicle_choice.item_count:
+		var item_id := str(g.vehicle_choice.get_item_metadata(i))
+		if item_id == str(VehicleCatalog.ENGINEERING_IDS[0]): engineering_index = i
+		if item_id == str(VehicleCatalog.IDS[0]): restore_index = i
+	if engineering_index >= 0 and state_badge != null:
+		g.vehicle_choice.select(engineering_index); g._select_vehicle(engineering_index)
+		await frames(5)
+		report(state_badge.text != historical_state, "a different condition is stated for a different vehicle (%s -> %s)" % [historical_state,state_badge.text])
+		if restore_index >= 0:
+			g.vehicle_choice.select(restore_index); g._select_vehicle(restore_index)
+			await frames(5)
+
 	# --- real-input page switching, twice (repeat enter/exit record) -------------------------------------
 	var tab_loadout := by_id(g,"garage.tab.loadout")
 	var tab_training := by_id(g,"garage.tab.training")
