@@ -118,6 +118,7 @@
 | `…/nav_13_research_empty.png` | S09 搜索无匹配的**显式空态** |
 | `logs/WT-UI-FIELDWORK-01/wt-ui-012-hud/hud_10_normal_compact.png` · `hud_11_optics.png` · `hud_12_wide.png` · `hud_13_notice_queue.png` | S04/S05：正常/炮镜/宽屏 HUD + 提示队列 |
 | `logs/WT-UI-FIELDWORK-01/wt-ui-009-match/` · `wt-ui-007/` | 真实比赛（部署/驾驶/等待/结果） |
+| `logs/WT-UI-FIELDWORK-01/wt-ui-002-playground/playground_{1280x720,1920x1080}_{100,125}.png` | **WT-UI-002 组件实验场**（七态并排：normal/hover/pressed/focused/disabled/busy/error ✓ 取自主题**真实 StyleBox**；真实组件：页签·强调色主按钮·输入·步进器·令牌色进度条·三张状态徽标卡·内联提醒·Toast ✓）；页面顶部有**"模拟数据"横幅**且每张抓帧都断言其存在 ✓ ⇒ 不会与正式界面混淆 ✓ |
 | `logs/WT-UI-FIELDWORK-01/compare/DESIGN_vs_ACTUAL.png` | **设计单 vs 实际** 对比图（8 面板 + 16 令牌 + 非需求清单） |
 
 ## 5. 已知问题（不隐藏）
