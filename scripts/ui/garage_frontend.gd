@@ -7,6 +7,7 @@ var tabs: Array[Button]=[]
 var cards: Array[Button]=[]
 var title: Label
 var subtitle: Label
+var role_label: Label
 var stats: Label
 var deploy: Button
 var page_index := 0
@@ -99,6 +100,9 @@ func compose(g: GarageShell) -> void:
 	var name_stack := VBoxContainer.new(); name_stack.size_flags_horizontal=Control.SIZE_EXPAND_FILL; hero_header.add_child(name_stack)
 	subtitle=GarageTheme.text(name_stack,"",12,GarageTheme.ACCENT)
 	title=GarageTheme.text(name_stack,"",36)
+	# WT-UI-004: the vehicle type is a required identity field. No service exposes a role yet, so the line is
+	# rendered with the explicit unknown entry rather than being dropped or filled with a guess.
+	role_label=GarageTheme.text(name_stack,"",12,GarageTheme.MUTED)
 	stats=GarageTheme.text(hero_header,"",14,GarageTheme.MUTED); stats.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; stats.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	move(viewport_container,hero); viewport_container.custom_minimum_size=Vector2(200,120); viewport_container.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	move(view_controls,hero); move(g.inspection_row,hero)
@@ -133,6 +137,7 @@ func compose(g: GarageShell) -> void:
 	for i in tabs.size(): tag(tabs[i],["garage.tab.battle","garage.tab.loadout","garage.tab.training"][i])
 	for i in cards.size(): tag(cards[i],"garage.card."+str(garage.vehicle_choice.get_item_metadata(i)))
 	tag(title,"garage.vehicle.title"); tag(subtitle,"garage.vehicle.nation_role"); tag(stats,"garage.vehicle.stats")
+	tag(role_label,"garage.vehicle.role")
 	tag(garage.vehicle_choice,"garage.vehicle.picker"); tag(garage.dossier_button,"garage.vehicle.dossier")
 	tag(garage.preparation.mode_choice,"garage.preparation.mode")
 	tag(garage.preparation.map_choice,"garage.preparation.map")
@@ -196,7 +201,8 @@ func refresh() -> void:
 	if title==null: return
 	var id := garage.selected_vehicle_id()
 	title.text=short_names.get(id,garage.vehicle_choice.get_item_text(garage.vehicle_choice.selected))
-	subtitle.text=_country(id)
+	subtitle.text=VehicleDisplayMetadata.identity_line(id)
+	if role_label != null: role_label.text=LocalizationService.text("vehicle_role_unknown")
 	deploy.text="现代河谷 · 内部测试   →" if VehicleCatalog.is_engineering(id) else "进入战斗   →"
 	stats.text="部位毁伤\n装甲 · 乘员 · 模块"
 	if garage.catalog.packages.has(id):
@@ -211,7 +217,6 @@ func open_research_tree() -> void:
 	research_tree=VehicleResearchTree.new(); research_tree.garage=garage; garage.add_child(research_tree)
 
 func _country(id: String) -> String:
-	if id == "player_tank": return "训练车辆 / PROVING GROUND"
-	if id.begins_with("ussr_"): return "苏联 · 现代工程车"
-	if id.begins_with("germ_"): return "德国 · 现代工程车"
-	return "美国 · 陆战载具"
+	# WT-UI-004: one presenter, no default country. An id whose nation the data does not state shows the unknown
+	# entry instead of the old unconditional "美国 · 陆战载具" fallback.
+	return VehicleDisplayMetadata.identity_line(id)
