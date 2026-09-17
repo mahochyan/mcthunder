@@ -23,4 +23,4 @@ AI 表面重选的生产修复和原河谷 8/0 结果见 [AI 接续](WT040_AI_SU
 
 最终 `fire-control-gap-final.log` **59/0、exit 0**，600 米测距正常、neutral_gaps=0，无 SCRIPT ERROR/ERROR。构建默认时序 `fire-control-default-final.log` 同样 **59/0、exit 0**、无 SCRIPT ERROR/ERROR，但退出时有 2 ObjectDB 实例的 WARNING；为核查来源，同默认时序加 verbose 的 `fire-control-default-verbose.log` **59/0、exit 0**，该警告未复现。保留原警告，不根据一次复跑宣称已找到它的根因。
 
-后继包仍需重新构建及实际独立包检查，不能使用被拦住的 99c96674 构建冒充交付。生产游戏代码保持 99c96674 的 AI/HUD 版本；本次后继只修测试夹具与记录。
+后继 ce697ab0 包已重新构建成功：893 项回归包含本火控套件 59/0，独立启动/内容/窗口及现代入口、实弹生命周期通过，见 [后继包记录](WT040_CE697_PACKAGE_20260917.md)。新包完整现代/历史玩家流程仍待补验。不能使用被拦住的 99c96674 构建冒充交付。生产游戏代码保持 99c96674 的 AI/HUD 版本；本次后继只修测试夹具与记录。
