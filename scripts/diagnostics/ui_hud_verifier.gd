@@ -200,6 +200,27 @@ func run(flow: AppFlow) -> void:
 	await frames(6)
 	check(hud.layout_token_source=="hud_wide","at 1920 wide the wide token row applies (%s)" % hud.layout_token_source)
 	await capture("hud_12_wide")
+	# WT-UI-007/S04: at 125% the HUD must grow rather than cut the disable reasons. The text scale is applied through
+	# the same mechanism the settings panel uses and the panel is measured before and after, so "grown, not cut" is
+	# a measurement rather than a claim; the reason line must also stay visible.
 	get_window().size = Vector2i(1280,720)
+	await frames(10)
+	hud.apply_layout_tokens()
+	await frames(6)
+	var panel_at_100: float = rect_of(hud.weapon_panel).size.y
+	var reason_visible_at_100: bool = hud.reason_label.visible
+	AccessibilitySettings.ui_scale = 1.25
+	hud.theme = CoreUI.theme()
+	AccessibilitySettings.apply(hud)
+	await frames(12)
+	var panel_at_125: float = rect_of(hud.weapon_panel).size.y
+	# The literal "125%" inside a format string is read as a format specifier, so it is escaped as 125%% here - which
+	# is why the first version printed the specifiers instead of the measured heights.
+	check(panel_at_125 >= panel_at_100,"at 125%% the ammunition panel grows instead of squeezing the text away (%.0f -> %.0f)" % [panel_at_100,panel_at_125])
+	check(hud.reason_label.visible or not reason_visible_at_100,"the disable reason line stays visible at 125%")
+	await capture("hud_14_scale_125")
+	AccessibilitySettings.ui_scale = 1.0
+	hud.theme = CoreUI.theme()
+	AccessibilitySettings.apply(hud)
 	await frames(10)
 	finish_result()
