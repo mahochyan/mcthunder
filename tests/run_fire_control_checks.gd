@@ -10,8 +10,23 @@ var actor: VehicleActor
 var wall: StaticBody3D
 var records: Array[Dictionary] = []
 var chamber_probe: ChamberAimProbe
+var driving_fixture := false
+var neutral_during_measurement := 0
+var command_pump: PhysicsCommandPump
+var live_sequence_complete := false
+
+class PhysicsCommandPump extends Node:
+	var actor: VehicleActor
+	var command: VehicleCommand
+	var remaining := 0
+	var rejected := false
+	func _physics_process(_delta: float) -> void:
+		if remaining <= 0: return
+		rejected = not actor.submit_command(command) or rejected
+		remaining -= 1
 
 class ChamberAimProbe extends Node:
+	signal step_done
 	var actor: VehicleActor
 	var previous_shell := ""
 	var transitions := 0
@@ -27,6 +42,7 @@ class ChamberAimProbe extends Node:
 			var demanded := (actor.turret._aim_point() - actor.turret.barrel_pivot.global_position).normalized()
 			maximum_error = maxf(maximum_error, demanded.angle_to(expected.direction) if expected.get("ok", false) else INF)
 		previous_shell = current_shell
+		step_done.emit()
 
 func _initialize() -> void:
 	create_timer(180.0).timeout.connect(func() -> void:
@@ -55,12 +71,18 @@ func command(mode: String = "sight", pitch: float = 0.0) -> VehicleCommand:
 	return cmd
 
 func drive(cmd: VehicleCommand, count: int = 1) -> void:
+	# Rendering may contain multiple physical steps. Submit before VEHICLES and
+	# resume after SNAPSHOT, never leave neutral-command holes while waiting for
+	# a render frame (which correctly cancels the production range measurement).
+	driving_fixture = true
+	command_pump.command = cmd
+	command_pump.remaining = count
+	command_pump.rejected = false
 	for _i in count:
-		if not actor.submit_command(cmd):
-			check(false, "fixture command accepted by real actor")
-			return
-		await physics_frame
-		await process_frame
+		await chamber_probe.step_done
+	if command_pump.rejected or command_pump.remaining != 0:
+		check(false, "fixture command accepted once per real physical step")
+	driving_fixture = false
 
 func measure(cmd: VehicleCommand) -> void:
 	cmd.range_requested = true
@@ -102,6 +124,10 @@ func run() -> void:
 	await ticks(35)
 	actor = scene.actor
 	actor.set_controller(null)
+	actor.command_observer = func(_vehicle: VehicleActor, consumed: VehicleCommand) -> void:
+		if driving_fixture and actor.fire_control.status == "measuring" and not consumed.aim_intent.active:
+			neutral_during_measurement += 1
+			if neutral_during_measurement <= 3: print("FIRE_CONTROL_NEUTRAL_GAP tick=",Engine.get_physics_frames()," remaining=",actor.fire_control.measurement_left_s)
 	# Preserve the production scene, query service and firing pipeline; disable
 	# the stock short lanes so they cannot intercept this 600m experiment.
 	for node in scene._boards.values() + scene._walls.values():
@@ -134,11 +160,20 @@ func run() -> void:
 	chamber_probe.actor = actor
 	chamber_probe.process_physics_priority = SimulationPhases.SNAPSHOT
 	scene.add_child(chamber_probe)
+	command_pump = PhysicsCommandPump.new()
+	command_pump.actor = actor
+	command_pump.process_physics_priority = SimulationPhases.VEHICLES - 1
+	scene.add_child(command_pump)
 	await ticks(50)
 	check(actor.tank.velocity.length() < 0.01, "raised firing platform provides a stationary real launcher")
 	await check_live_shots(slow, fast)
+	check(live_sequence_complete,"all actual fire-control shot scenarios reached their final step")
 	await check_lifecycle()
+	check(neutral_during_measurement == 0,"physical-step fixture never inserts neutral input into held optical commands")
 	check_command_contract()
+	# drive() resumes inside the probe's signal; leave that callback before
+	# destroying the probe and its parent scene.
+	await process_frame
 	scene.free()
 	await process_frame
 	print("=== 结果: %d 项检查, %d 失败 ===" % [checks, failures])
@@ -158,6 +193,7 @@ func check_live_shots(slow: ShellDefinition, fast: ShellDefinition) -> void:
 	await drive(cmd, 90)
 	check(actor.fire_control.status == "measuring" and actor.fire_control.measured_range_m == 0, "measurement cannot publish a contact before its timer completes")
 	await drive(cmd, 40)
+	print("FIRE_CONTROL_RANGE_RESULT status=",actor.fire_control.status," reason=",actor.fire_control.reason," range=",actor.fire_control.measured_range_m," neutral_gaps=",neutral_during_measurement)
 	check(actor.fire_control.status == "measured" and actor.fire_control.measured_range_m == 600.0, "real contact becomes the expected 25m-resolution range estimate")
 	check(actor.fire_control.zeroing_m == 0.0 and actor.turret.barrel_direction().angle_to(direct) < 0.001, "measuring alone leaves zero setting and mechanical aim unchanged")
 	var baseline := await shoot(cmd, "unadjusted 300m/s shot")
@@ -176,7 +212,9 @@ func check_live_shots(slow: ShellDefinition, fast: ShellDefinition) -> void:
 	cmd.select_shell = 1
 	await drive(cmd)
 	cmd.select_shell = -1
-	check(actor.gunner.shell.id == slow.id and actor.fire_control.aim_solution(actor).direction.is_equal_approx(slow_solution.direction), "selecting next ammo does not change the loaded round's ballistic demand")
+	var selected_solution := actor.fire_control.aim_solution(actor)
+	check(actor.gunner.shell.id == slow.id and selected_solution.get("ok",false) and slow_solution.get("ok",false) and selected_solution.direction.is_equal_approx(slow_solution.direction), "selecting next ammo does not change the loaded round's ballistic demand")
+	if not selected_solution.get("ok",false) or not slow_solution.get("ok",false): return
 	var corrected := await shoot(cmd, "adjusted 300m/s shot")
 	if not corrected.is_empty():
 		var error := (corrected.impact_point as Vector3).distance_to(contact)
@@ -216,6 +254,7 @@ func check_live_shots(slow: ShellDefinition, fast: ShellDefinition) -> void:
 	await drive(cmd, 45)
 	check(not actor.fire_control.solution_ok and actor.fire_control.solution_reason == "flight_time_exceeded" and actor.turret._aim_point().is_equal_approx(actor.cam_rig.intent_point()), "unreachable lifetime reports failure and removes the previous successful ballistic override")
 	actor.gunner.shell.max_flight_time_s = saved_lifetime
+	live_sequence_complete = true
 
 func check_lifecycle() -> void:
 	var cmd := command()
