@@ -11,9 +11,12 @@ $ErrorActionPreference = 'Stop'
 # never a whole suite. A new or different failure inside a registered suite still stops the build.
 $deviationRegister = @(
     [pscustomobject]@{ suite='run_industrial_battle_checks'; failures=1; signatures=@([pscustomobject]@{match='at least three actual slots from each team physically reach central approaches';count=1}); must_match='physically reach central approaches'; reason='registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)' },
-    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' },
-    [pscustomobject]@{ suite='run_checks'; failures=1; signatures=@([pscustomobject]@{match='R3-A.*58\.55';count=1}); must_match='R3-A.*58\.55'; reason='WT-040-R1 registered reproducible stabiliser slow-convergence episode: about one run in four reaches the same check with BYTE-IDENTICAL values (max_err=58.553deg, final_err=10.987deg, first_cross=-1) at BOTH a 300-frame and a 900-frame observation window, so it is a product-side behaviour and neither frame noise nor a short window; no threshold is changed (0.5deg and the one second hold are untouched) and this entry only ever applies to a candidate build' }
+    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' }
 )
+# WT040-CONT-20260917-01 section 4 (build constraint): the implementer-added R3-A exemption is NOT in force. A
+# narrow signature is not by itself an approved exception, so the entry was removed and the register keeps only
+# the two previously ruled exceptions above. The R3-A diagnostics stay in run_checks.gd. If R3-A appears again it
+# is reported, fixed, or proposed as a separately bounded exception - never silently tolerated.
 . (Join-Path $PSScriptRoot 'candidate_register_match.ps1')   # WT-040-R1: the shared, tested matcher
 # WT-040-R1: the package's Chinese names are read from a UTF-8 data file. A Chinese literal inside this .ps1 is
 # read as ANSI by Windows PowerShell and mangled, which already broke packaging once with "Illegal characters
