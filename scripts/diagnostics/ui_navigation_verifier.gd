@@ -379,6 +379,18 @@ func run(flow: AppFlow) -> void:
 		app.return_to_garage(); await idle()
 		report(is_instance_valid(app.garage) and is_instance_valid(app.garage.frontend), "the garage is usable again after the match")
 		report(app.garage.selected_vehicle_id() == selected_before, "the selected vehicle survives the round trip (got %s)" % app.garage.selected_vehicle_id())
+		# --- WT-UI-010 (S07): the result card and settlement idempotency -------------------------------------
+		var captured: Dictionary = app.last_result.duplicate(true)
+		report(captured.has("progression") or captured.has("title"), "the returned result carries the real recorded fields (%s)" % str(captured.keys()))
+		report(app.garage.result_label.text.length() > 0, "the garage shows the result card")
+		var points_once: int = app.profile.snapshot().research_points
+		if not captured.is_empty():
+			app.return_to_garage(captured); await idle()
+			var points_twice: int = app.profile.snapshot().research_points
+			report(points_twice == points_once, "revisiting the same result awards nothing a second time (%d -> %d)" % [points_once,points_twice])
+			var card := str(app.garage.result_label.text)
+			report(card.contains(LocalizationService.text("result_saved")) or card.contains(LocalizationService.text("result_no_reward")) or card.contains(LocalizationService.text("result_save_failed")), "the result card states the save or no-reward state")
+		await driver.capture("nav_10_result_card")
 
 	print("=== ui navigation: %d checks, %d failed ===" % [checks,failed])
 	print("UI_NAVIGATION_CHECKS_PASS" if failed == 0 else "UI_NAVIGATION_CHECKS_FAIL")

@@ -271,8 +271,22 @@ func _show_garage(result: Dictionary) -> void:
 	if pending_challenge >= 0:
 		CoreUI.button(garage.preparation,LocalizationService.text("ui_4a07649a8888"),func() -> void: _settle_challenge(pending_challenge))
 	if not last_result.is_empty():
-		garage.result_label.text = LocalizationService.text("ui_c3f7b2c28ffe") % [last_result.title,{"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_acf148dcff50")}.get(last_result.status,LocalizationService.text("ui_d79b1d0e5c61")),last_result.shots]
-		if last_result.has("progression"): garage.result_label.text += "\n"+str(last_result.progression.reason)
+		# WT-UI-010 (S07): the result card separates the outcome, the real contribution fields, the settlement
+		# receipt and the save state. Every value is read from the recorded result; nothing is recomputed here, and a
+		# field the mode does not produce is simply not shown instead of being filled with a demonstration value.
+		var result_lines: Array[String] = []
+		result_lines.append(LocalizationService.text("ui_c3f7b2c28ffe") % [last_result.title,{"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_acf148dcff50")}.get(last_result.status,LocalizationService.text("ui_d79b1d0e5c61")),last_result.shots])
+		var combat: Dictionary = last_result.get("combat_summary",{})
+		if not combat.is_empty():
+			result_lines.append(LocalizationService.text("flow_combat_summary") % [combat.get("hits",0),combat.get("penetrations",0),combat.get("kills",0),combat.get("deaths",0),combat.get("capture_seconds",0.0)])
+			if not str(combat.get("last_death","")).is_empty(): result_lines.append(LocalizationService.text("flow_last_death")+LocalizationService.status(str(combat.last_death)))
+		if last_result.has("progression"):
+			var receipt: Dictionary = last_result.progression
+			result_lines.append(LocalizationService.text("result_receipt") % str(receipt.get("reason","")))
+			result_lines.append(LocalizationService.text("result_saved") if bool(receipt.get("ok",false)) else LocalizationService.text("result_save_failed"))
+		else:
+			result_lines.append(LocalizationService.text("result_no_reward"))
+		garage.result_label.text = "\n".join(result_lines)
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_transitioning = false
 
