@@ -55,6 +55,8 @@ func run(flow: AppFlow) -> void:
 	var defs:=VehicleDefs.new(); defs.load_defaults()
 	check(VehicleCatalog.new().load_all(defs).ok,"T031-01 four historical content packages admitted")
 	for id in VehicleCatalog.IDS: check(AssetManifestValidator.vehicle(id).ok and load("res://assets/vehicles/"+id+".glb") is PackedScene,"T031-01 relative GLB and palette: "+id)
+	if OS.get_cmdline_user_args().has("--require-modern-river"):
+		await verify_modern_river(defs)
 	var audio: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/manifest.json"))
 	var audio_ok: bool = audio.clips.size()==13
 	for clip in audio.clips.values(): audio_ok = audio_ok and load(clip.path) is AudioStreamWAV
@@ -105,3 +107,38 @@ func run(flow: AppFlow) -> void:
 	print("=== 结果: %d 项检查, %d 失败 ===" % [checks,failed])
 	if failed==0: print("RELEASE_CHECKS_PASS")
 	get_tree().quit(0 if failed==0 else 1)
+
+func verify_modern_river(defs: VehicleDefs) -> void:
+	# Explicit mandatory content for the internal modern candidate. Historical-only
+	# installations may still degrade; this check may never count that as success.
+	var catalog := VehicleCatalog.new()
+	var admitted := catalog.load_engineering(defs)
+	check(admitted.ok,"modern candidate admits both complete engineering packets: "+str(admitted.get("errors",[])))
+	if not admitted.ok: return
+	for id in VehicleCatalog.ENGINEERING_IDS:
+		var packet: Dictionary=defs.content_packets[id]
+		var binding: Dictionary=packet.model_binding
+		check(FileAccess.file_exists(binding.model.path) and FileAccess.get_sha256(binding.model.path).to_lower()==str(binding.model.sha256).to_lower(),"modern candidate preserves exact source GLB bytes: "+id)
+	var packed := load(MapRegistry.scene_path("river_junction_team")) as PackedScene
+	check(packed!=null,"modern candidate includes the river team scene")
+	if packed==null: return
+	var battle := packed.instantiate() as RiverTeamRange
+	check(battle!=null,"modern candidate resolves actual RiverTeamRange")
+	if battle==null: return
+	battle.selected_vehicle_id="ussr_t_80b"
+	battle.opposing_engineering_id="germ_leopard_2a4"
+	battle.ai_only=true
+	get_tree().root.add_child(battle)
+	await frames(12)
+	check(battle.team_ready and battle.combat_actors().size()==8,"modern candidate instantiates its registered 4v4 engineering roster")
+	check(battle.director!=null and battle.director.state.objectives!=null and battle.director.state.objectives.points.size()==3,"river director has exactly three capture objectives")
+	var seen := {}
+	for actor in battle.combat_actors():
+		var expected := "ussr_t_80b" if actor.entity_id=="A" else "germ_leopard_2a4"
+		var complete: bool=actor.definition!=null and actor.definition.id==expected and actor.definition.layout_id==defs.vehicles[expected].layout_id and actor.gunner.shell.id.begins_with(expected)
+		check(complete,"modern candidate uses requested vehicle, layout and round for slot "+actor.entity_id)
+		var hull: Node = actor.tank.hull_frame.get_node_or_null("Bound_hull")
+		check(hull!=null and hull.get_meta("model_sha256","")==defs.content_packets[expected].model_binding.model.sha256,"modern candidate installs the exact bound model for slot "+actor.entity_id)
+		if complete: seen[expected]=true
+	check(seen.size()==2,"modern candidate contains both actual modern vehicle types")
+	battle.free(); await frames(3)

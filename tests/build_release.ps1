@@ -1,9 +1,14 @@
 param(
     [string]$TemplateDirectory = (Join-Path $env:APPDATA 'Godot/export_templates/4.7.2.stable'),
     [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks','run_challenge_checks','run_art_checks','run_structure_checks','run_wreck_visual_checks','run_feedback_checks','run_input_binding_checks','run_app_flow_checks','run_tutorial_checks','run_settings_checks','run_query_cache_checks','run_balance_matrix_checks','run_diagnostic_budget_checks'),
-    [switch]$Candidate
+    [switch]$Candidate,
+    [switch]$ModernRiver
 )
 $ErrorActionPreference = 'Stop'
+if ($ModernRiver -and -not $Candidate) { throw 'Modern River is an internal development candidate only; specify -Candidate' }
+if ($ModernRiver) {
+    $Suites = @($Suites + @('run_modern_support_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks') | Select-Object -Unique)
+}
 # WT-040-R1 [4] (user ruling): an INTERNAL development candidate may be produced while the known,
 # individually registered failures below are present; a FORMAL release candidate keeps every strict
 # gate and is the only artefact allowed to claim release_ready. The register matches a SPECIFIC
@@ -126,9 +131,14 @@ function Run-Checked([string]$Name,[string]$Executable,[string]$Arguments,[strin
     }
 }
 $archive=Join-Path $runDir 'committed-source.zip'
-& git -C $projectRoot archive --format=zip "--output=$archive" $sourceSha assets configs scripts scenes tests authoring docs project.godot export_presets.cfg icon.svg START_GAME.bat .gitignore
+& git -C $projectRoot archive --format=zip "--output=$archive" $sourceSha addons assets configs scripts scenes tests authoring docs project.godot export_presets.cfg icon.svg START_GAME.bat .gitignore
 if ($LASTEXITCODE -ne 0) { throw 'Committed source extraction failed' }
 Expand-Archive -LiteralPath $archive -DestinationPath $source
+foreach ($requiredPluginFile in @('plugin.cfg','plugin.gd','source_export.gd')) {
+    if (-not (Test-Path -LiteralPath (Join-Path $source "addons/bound_model_export/$requiredPluginFile"))) {
+        throw "Clean build is missing the registered bound-model export plugin: $requiredPluginFile"
+    }
+}
 if (Test-Path -LiteralPath (Join-Path $source '.godot')) { throw 'Clean source unexpectedly contains an import cache' }
 # This fresh checkout proves imports are reproducible without deleting the user cache.
 Run-Checked 'fresh_import' $engine ('--headless --path "'+$source+'" --editor --import') $source 300
@@ -189,14 +199,26 @@ Compress-Archive -Path (Join-Path $package '*') -DestinationPath $trialZip
 Expand-Archive -LiteralPath $trialZip -DestinationPath $outside
 $independentExe=Join-Path $outside 'PixelArmor.exe'
 Run-Checked 'independent_default_start' $independentExe '--headless --quit-after 30' $outside
-Run-Checked 'independent_content' $independentExe '--headless --fixed-fps 60 -- --verify-installation' $outside 240 'RELEASE_CHECKS_PASS'
-Run-Checked 'independent_window' $independentExe '--resolution 1280x720 -- --verify-installation' $outside 240 'RELEASE_CHECKS_PASS'
+$modernFlag = if ($ModernRiver) { ' --require-modern-river' } else { '' }
+Run-Checked 'independent_content' $independentExe ('--headless --fixed-fps 60 -- --verify-installation'+$modernFlag) $outside 240 'RELEASE_CHECKS_PASS'
+Run-Checked 'independent_window' $independentExe ('--resolution 1280x720 -- --verify-installation'+$modernFlag) $outside 240 'RELEASE_CHECKS_PASS'
 $captureLine=Select-String -LiteralPath (Join-Path $logs 'independent_window.stdout.log') -Pattern '^RELEASE_CAPTURE=(.+)$' | Select-Object -Last 1
 if (-not $captureLine) { throw 'Release window did not capture an actual frame' }
 Copy-Item -LiteralPath $captureLine.Matches[0].Groups[1].Value -Destination (Join-Path $logs 'release_battle.png')
 $versionMatch=[regex]::Match([IO.File]::ReadAllText((Join-Path $source 'project.godot')),'config/version="([^"]+)"')
 $fileHashes=@(Get-ChildItem -LiteralPath $package -File | ForEach-Object { [ordered]@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash} })
 $manifest=[ordered]@{source_sha=$sourceSha;version=$versionMatch.Groups[1].Value;engine=$engineVersion;template_sha256=(Get-FileHash -LiteralPath $template).Hash;platform='Windows x64';configuration='release';renderer='gl_compatibility';clean_import=$true;challenge_rules=1;settings_schema=2;profile_schema=3;regression_checks=($regression | Measure-Object -Property checks -Sum).Sum;regression_failed_checks=(@($knownFailures | Measure-Object -Property failures -Sum).Sum);suites=@($regression | Select-Object suite,checks,passed);known_failures=$knownFailures;release_ready=$releaseReady;candidate=[bool]$Candidate;files=$fileHashes;verification=@($runs | Select-Object name,exit_code,exit_known,timed_out,artifact_ok,passed);human='PENDING';public_release=$false}
+$manifest.modern_river_required = [bool]$ModernRiver
+$manifest.required_modern_content = @()
+if ($ModernRiver) {
+    $registry = Get-Content -LiteralPath (Join-Path $source 'configs/vehicles/model_sources.json') -Raw | ConvertFrom-Json
+    $manifest.required_modern_content = @('ussr_t_80b','germ_leopard_2a4') | ForEach-Object {
+        $model = $registry.models.$_
+        [ordered]@{vehicle_id=$_;packet="res://configs/vehicles/engineering/$_.json";packet_sha256=(Get-FileHash -LiteralPath (Join-Path $source "configs/vehicles/engineering/$_.json")).Hash;model_path=$model.path;model_sha256=$model.sha256;model_version=$model.resource_version}
+    }
+    $manifest.required_map = 'res://scenes/maps/map_river_team.tscn'
+    $manifest.full_player_flow = 'PENDING_SEPARATE_VERIFICATION'
+}
 $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $package 'BUILD_MANIFEST.json') -Encoding utf8
 foreach ($file in $fileHashes) {
     if ((Get-FileHash -LiteralPath (Join-Path $outside $file.name)).Hash -ne $file.sha256) { throw 'Verified extracted package differs from final package' }

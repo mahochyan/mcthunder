@@ -156,6 +156,16 @@ func poll() -> VehicleCommand:
 	last_command = update_command(get_physics_process_delta_time())
 	return last_command
 
+func _through_waypoint() -> bool:
+	if not navigator.through_waypoints or waypoint >= path.size()-1: return false
+	if waypoint == 0: return true
+	var incoming := path[waypoint]-path[waypoint-1]
+	var outgoing := path[waypoint+1]-path[waypoint]
+	incoming.y=0; outgoing.y=0
+	# A sharp bend needs the ordinary stop-and-turn approach. Advancing six metres
+	# early at cruise speed lets the hull coast past the road before it can pivot.
+	return incoming.normalized().dot(outgoing.normalized()) >= cos(deg_to_rad(18))
+
 func update_command(delta: float) -> VehicleCommand:
 	var cmd := VehicleCommand.new()
 	var vehicle := actor()
@@ -193,7 +203,7 @@ func update_command(delta: float) -> VehicleCommand:
 	offset.y = 0
 	var distance := offset.length()
 	var speed := absf(vehicle.tank.forward_speed)
-	var through := navigator.through_waypoints and waypoint < path.size()-1
+	var through := _through_waypoint()
 	var arrival_radius := maxf(GameConfig.AI_GOAL_RADIUS_M,minf(6.0,speed*.6+2)) if through else GameConfig.AI_GOAL_RADIUS_M
 	if distance <= arrival_radius and (through or speed < 0.35):
 		if waypoint == path.size()-1:
@@ -211,8 +221,10 @@ func update_command(delta: float) -> VehicleCommand:
 	cmd.steer = clampf(angle/deg_to_rad(25),-1,1)
 	if absf(angle) < deg_to_rad(0.8): cmd.steer = 0
 	var desired_speed := minf(vehicle.definition.forward_max_speed,sqrt(2*vehicle.definition.coast_decel*maxf(distance-GameConfig.AI_GOAL_RADIUS_M*0.8,0)))
-	if navigator.through_waypoints and waypoint<path.size()-1:
+	if _through_waypoint():
 		desired_speed=minf(vehicle.definition.forward_max_speed,8.0)
+	elif navigator.through_waypoints and waypoint<path.size()-1:
+		desired_speed=minf(desired_speed,8.0)
 	if absf(angle) > deg_to_rad(18): desired_speed = 0
 	cmd.throttle = desired_speed/vehicle.definition.forward_max_speed
 	cmd.has_aim_point = true

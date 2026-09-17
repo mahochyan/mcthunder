@@ -63,9 +63,12 @@ func validate(value: Dictionary) -> Dictionary:
 	for token in value.pending:
 		if value.receipts.has(token): return _bad(LocalizationService.text("ui_044d5c97f3be"))
 	if not value.garage is Dictionary or not value.garage.get("loadouts") is Dictionary: return _bad(LocalizationService.text("ui_704e5ef6fa4b"))
-	if value.garage.loadouts.size() != VehicleCatalog.IDS.size(): return _bad(LocalizationService.text("ui_fc74cdab294b"))
+	for id in value.garage.loadouts:
+		if id not in VehicleCatalog.IDS and id not in VehicleCatalog.ENGINEERING_IDS: return _bad(LocalizationService.text("ui_fc74cdab294b"))
 	for id in VehicleCatalog.IDS:
 		if not value.garage.loadouts.get(id) is Dictionary: return _bad(LocalizationService.text("ui_8c333e24339e"))
+	for id in value.garage.loadouts:
+		if not value.garage.loadouts[id] is Dictionary: return _bad(LocalizationService.text("ui_8c333e24339e"))
 		var prepared := service.build_loadout(value.garage.loadouts[id])
 		if not prepared.ok or prepared.loadout.vehicle_id != id: return _bad(LocalizationService.text("ui_027590f44079"))
 	var battle := MatchConfig.build(value.garage,service,value.unlocked)

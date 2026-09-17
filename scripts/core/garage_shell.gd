@@ -263,6 +263,7 @@ func _apply_preview_mode() -> void:
 	preview.set_mode(["appearance","armor","interior"][_view_mode])
 	for id in preview._patch_nodes:
 		var mesh: MeshInstance3D = preview._patch_nodes[id]
+		if _view_mode == 0 and VehicleCatalog.is_engineering(selected_vehicle_id()): mesh.visible = false
 		if _view_mode == 0: mesh.material_override.albedo_color = ArtPalette.color("olive")
 		else: preview._restore_patch_color(mesh,id)
 	if preparation != null: preparation.apply_rack_preview()
@@ -318,6 +319,9 @@ func _patch_label(patch: ArmorPatchDefinition) -> String:
 func _collect_preview_extras(node: Node) -> void:
 	for child in node.get_children():
 		if child.is_queued_for_deletion(): continue
+		if child is Node3D and child.name.begins_with("Bound_"):
+			preview._extra_nodes.append(child)
+			continue
 		if child is GeometryInstance3D and child.name.begins_with("Cosmetic"): preview._extra_nodes.append(child)
 		_collect_preview_extras(child)
 
@@ -345,7 +349,11 @@ func _select_vehicle(_index: int) -> void:
 		shell_choice.set_item_text(2,str(packet.assembly.shell)+" · "+str(packet.assembly.caliber_mm)+" mm")
 		shell_choice.select(2)
 		rounds.max_value = 150; rounds.value = packet.runtime.rounds
-		HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
+		if packet.has("model_binding"):
+			var bound := BoundVehicleModel.build_preview(preview._part_nodes,packet,layout,catalog.model_sources[id])
+			if not bound.ok: push_error("garage model binding rejected: "+str(bound.errors))
+		else:
+			HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
 		preview_note.text = LocalizationService.text("ui_299e3fe8604d")%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
 		if reference: preview_note.text="%s\n%s · %d 发 · %.1f km/h 参考／设计速度\n游戏参考与工程估计，未做历史核验。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
 		var ammo := VehicleShellCatalog.build(packet)

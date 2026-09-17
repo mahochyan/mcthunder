@@ -361,10 +361,18 @@ func enter_laboratory(id: String) -> void:
 	allowed["historical"] = "res://scenes/training/ballistics_range.tscn"
 	allowed["shells"] = "res://scenes/training/shell_range.tscn"
 	allowed["river_drive"] = "res://scenes/maps/river_junction_range.tscn"
+	allowed["river_team"] = MapRegistry.scene_path("river_junction_team")
 	if not allowed.has(id): return
 	selected_vehicle_id = garage.selected_vehicle_id()
+	if id == "river_team" or (id == "team" and VehicleCatalog.is_engineering(selected_vehicle_id)):
+		if not VehicleCatalog.is_engineering(selected_vehicle_id):
+			garage.error_label.text = "请先选择 T-80B 或豹 2A4，再进入现代河谷。"; return
+		for required_id in VehicleCatalog.ENGINEERING_IDS:
+			if not profile.service.has_vehicle(required_id):
+				garage.error_label.text = "现代河谷缺少必需车辆包："+required_id; return
+		id = "river_team"
 	match_config = null; match_token = ""
-	if id in ["team","historical"] and selected_vehicle_id in VehicleCatalog.IDS:
+	if id == "river_team" or (id in ["team","historical"] and selected_vehicle_id in VehicleCatalog.IDS):
 		var configured := garage.preparation.build_match()
 		if not configured.ok: garage.error_label.text = configured.reason; return
 		var saved := garage.preparation.save_settings()
@@ -408,6 +416,8 @@ func _enter_lab(path: String) -> void:
 	if training is TeamRange or training is RiverJunctionRange or path == "res://scenes/training/ballistics_range.tscn":
 		training.selected_vehicle_id = selected_vehicle_id
 	if training is BallisticsRange: training.prepared_match = match_config
+	if training is RiverTeamRange and VehicleCatalog.is_engineering(selected_vehicle_id):
+		training.opposing_engineering_id = "germ_leopard_2a4" if selected_vehicle_id == "ussr_t_80b" else "ussr_t_80b"
 	add_child(training)
 	var lab := training as BallisticsRange
 	if not lab._initialized or lab.hud == null or (lab is TeamRange and not lab.team_ready):

@@ -5,13 +5,9 @@ var definitions := VehicleDefs.new()
 var ready := false
 
 func _init() -> void:
-	# WT-040-R1 (2026-09-17 ruling): load_all STAYS historical-only - that contract is asserted elsewhere - and
-	# the engineering vehicles are admitted through their own explicit entry point. The historical admission MUST
-	# succeed; the engineering admission is reported loudly but is NOT fatal, because the engineering hulls are
-	# candidates whose model artefacts are deliberately not shipped in a package - the independent package check
-	# caught exactly that, with "model.path: artifact missing", and the whole match then refused to start. In the
-	# package the engineering vehicles are simply unavailable, which is correct for a candidate; in the working
-	# tree they load and the roster, the loadouts and the match path all see them.
+	# Historical-only installations can omit optional engineering resources. The
+	# modern river entry and its candidate build require both complete packets;
+	# they reject missing content instead of treating historical fallback as success.
 	var historical := catalog.load_all(definitions)
 	ready = historical.ok
 	var engineering := catalog.load_engineering(definitions)

@@ -50,7 +50,7 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	CoreUI.label(details,LocalizationService.text("ui_61b938d8df0b"),15)
 	map_choice = OptionButton.new(); details.add_child(map_choice)
 	for id in MapRegistry.IDS: map_choice.add_item(MapRegistry.ENTRIES[id].title)
-	map_choice.select(MapRegistry.IDS.find(saved.map))
+	map_choice.select(maxi(0,MapRegistry.IDS.find(saved.map)))
 	map_note = CoreUI.label(details,MapRegistry.ENTRIES[saved.map].description,13)
 	map_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	map_choice.item_selected.connect(func(index: int) -> void: map_note.text = MapRegistry.ENTRIES[MapRegistry.IDS[index]].description)
@@ -61,16 +61,30 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	CoreUI.button(details,LocalizationService.text("ui_bb57985a9b4d"),save_settings)
 	CoreUI.label(details,LocalizationService.text("ui_9fc6354946e0"),13)
 
-func mode() -> String: return "normal" if mode_choice.selected == 1 else "training"
+func mode() -> String:
+	if VehicleCatalog.is_engineering(current_id): return "engineering"
+	return "normal" if mode_choice.selected == 1 else "training"
 
 func select_vehicle(id: String) -> void:
 	current_id = id
+	var engineering := VehicleCatalog.is_engineering(id)
+	mode_choice.disabled = engineering
+	map_choice.disabled = engineering
+	mode_choice.set_item_text(0,LocalizationService.text("ui_c02718ef8959"))
+	mode_choice.set_item_text(1,LocalizationService.text("ui_823559734937"))
+	for index in MapRegistry.IDS.size(): map_choice.set_item_text(index,MapRegistry.ENTRIES[MapRegistry.IDS[index]].title)
+	if engineering:
+		mode_choice.set_item_text(mode_choice.selected,"现代测试（无研发奖励）")
+		map_choice.set_item_text(map_choice.selected,"河谷枢纽 · 三点争夺")
+	map_note.text = "河谷枢纽 · 苏德现代测试\n4v4 · A / B / C 三点争夺\n不发放研发奖励；10v10 / 16v16 尚待验证。" if engineering else MapRegistry.ENTRIES[MapRegistry.IDS[map_choice.selected]].description
+	lineup_ids = [id] if engineering else lineup_ids.filter(func(vehicle_id: String) -> bool: return not VehicleCatalog.is_engineering(vehicle_id))
 	_refreshing = true
 	for child in ammo_box.get_children(): child.free()
 	shell_spins.clear()
 	first_choice = null
 	settings_button.disabled = not store.service.has_vehicle(id)
 	if store.service.has_vehicle(id):
+		if not loadouts.has(id): loadouts[id] = store.service.default_loadout(id)
 		# Editing may leave a temporarily invalid total; UI metadata still comes from the admitted catalog.
 		var prepared := store.service.build_loadout(store.service.default_loadout(id))
 		CoreUI.label(ammo_box,LocalizationService.text("ui_ddaff5a533fe"),14)
@@ -107,6 +121,10 @@ func _mode_changed(_index: int) -> void:
 
 func _refresh_research() -> void:
 	var profile := store.snapshot()
+	if VehicleCatalog.is_engineering(current_id):
+		research_label.text = "现代工程车 · 内部测试开放\n配弹可保存；对局不发放研发点。"
+		research_button.visible = false
+		return
 	if not store.service.has_vehicle(current_id):
 		research_label.text = LocalizationService.text("ui_741319de5a0c")%profile.research_points
 		research_button.visible = false
@@ -127,7 +145,7 @@ func _research() -> void:
 func _refresh_lineup() -> void:
 	for id in lineup_checks:
 		lineup_checks[id].set_pressed_no_signal(id in lineup_ids)
-		lineup_checks[id].disabled = mode() == "normal" and id not in store.snapshot().unlocked
+		lineup_checks[id].disabled = mode() == "engineering" or VehicleCatalog.is_engineering(id) or (mode() == "normal" and id not in store.snapshot().unlocked)
 
 func _lineup_changed(id: String, on: bool) -> void:
 	if on and id not in lineup_ids:
@@ -173,7 +191,8 @@ func apply_rack_preview() -> void:
 		if garage.preview._module_nodes.has(id): garage.preview._module_nodes[id].visible = garage._view_mode == 2 and checked.inventory.racks[id] > 0
 
 func build_match() -> Dictionary:
-	return MatchConfig.build({"mode":mode(),"selected_vehicle_id":current_id,"map":MapRegistry.IDS[map_choice.selected],"difficulty":["easy","normal","hard"][difficulty_choice.selected],"lineup":lineup_ids,"loadouts":loadouts},store.service,store.snapshot().unlocked)
+	var map_id := "river_junction_team" if mode() == "engineering" else str(MapRegistry.IDS[map_choice.selected])
+	return MatchConfig.build({"mode":mode(),"selected_vehicle_id":current_id,"map":map_id,"difficulty":["easy","normal","hard"][difficulty_choice.selected],"lineup":lineup_ids,"loadouts":loadouts},store.service,store.snapshot().unlocked)
 
 func save_settings() -> Dictionary:
 	var checked := build_match()

@@ -63,9 +63,11 @@ func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var chosen := VehicleCatalog.IDS[0]
 	var opposing := ""
+	var output := "res://logs/WT-040-R1/river_ai_match_%d.json" % SEED
 	for i in args.size():
 		if args[i] == "--vehicle" and i + 1 < args.size(): chosen = str(args[i+1])
 		if args[i] == "--opposing" and i + 1 < args.size(): opposing = str(args[i+1])
+		if args[i] == "--out" and i + 1 < args.size(): output = str(args[i+1])
 	scene.selected_vehicle_id = chosen
 	scene.opposing_engineering_id = opposing
 	print("[river-record] selected vehicle=", chosen, " opposing=", (opposing if not opposing.is_empty() else "(same as selected)"))
@@ -75,7 +77,10 @@ func _run() -> void:
 	await frames(195)
 	var actors: Array = scene.combat_actors()
 	var team_of := {}
-	for actor in actors: team_of[actor.entity_id] = int(actor.state.team_id)
+	var vehicle_ids := {}
+	for actor in actors:
+		team_of[actor.entity_id] = int(actor.state.team_id)
+		vehicle_ids[actor.entity_id] = actor.definition.id
 	check(scene.team_ready and actors.size() == 8 and scene.nav.valid,
 		"river team match initialised with %d AI actors on the authored river graph" % actors.size())
 	var objectives: Array = RiverJunctionDefinition.capture_definitions()
@@ -279,6 +284,9 @@ func _run() -> void:
 		"tickets": scene.director.state.tickets.duplicate(true),
 		"actors": scene.combat_actors().size(),
 		"teams": team_of,
+		"vehicle_ids": vehicle_ids,
+		"requested_vehicle": chosen,
+		"requested_opposing": opposing,
 		"reached_central": reached.keys(),
 		"reached_per_team": {1: reached_objectives[1].keys(), 2: reached_objectives[2].keys()},
 		"objectives_seen": objective_ids,
@@ -297,7 +305,8 @@ func _run() -> void:
 		"max_queued_behind_teammate_s": max_queued,
 		"max_no_path_stationary_s": max_no_path,
 		"traffic_note": "the judged number is max_trying_to_drive_stationary_s, which excludes time queued behind a team-mate; queued, no-path and at-objective waits are each reported separately and none is hidden",
-		"advance_limitation": {
+		"prior_advance_limitation": {
+			"note": "Historical baseline observation, not a finding for this run; current measurements are the counters and chain_samples above.",
 			"observed": "with the modern hulls, some actors stay put although they are healthy, far from their goal and holding a usable path",
 			"measured": "in the modern two-vehicle run, A2 held to_goal=696 with drive=following, driver_reason=path_ready and speed 0.0 across every sample from t=245 to t=365, and A3 held to_goal=847 with speed 0.1 over the same window, while five other actors drove at 8.0; the per-sample chain_samples carry the raw evidence",
 			"classification": "neither a team-mate queue (queued peak 0 s) nor a routing refusal (no-path peak 0 s) nor an arrival, so the judging checks are left FAILING rather than reworded",
@@ -307,10 +316,11 @@ func _run() -> void:
 		"finite_in_bounds": finite,
 		"detached_only_when_destroyed": detached_valid,
 	}
-	var directory := "res://logs/WT-040-R1"
+	var directory := output.get_base_dir()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
-	var path := "%s/river_ai_match_%d.json" % [directory, SEED]
+	var path := output
 	var file := FileAccess.open(path, FileAccess.WRITE)
+	check(file!=null,"river match record can be written to the requested evidence path")
 	if file != null:
 		file.store_string(JSON.stringify(record, "  ") + "\n")
 		file.close()

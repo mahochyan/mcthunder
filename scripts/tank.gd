@@ -186,6 +186,19 @@ func apply_drive(throttle: float, steer: float, delta: float) -> void:
 	var was_on_floor := is_on_floor()
 	var incident_velocity := velocity
 	move_and_slide()
+	# A non-walkable slope can hold the hull above the floor. The solver rejects
+	# its uphill motion, but restoring the pre-impact engine speed every airborne
+	# tick keeps pushing it into that face, even after the player requests reverse.
+	# Keep only motion the collision solver actually allowed; no airborne traction
+	# or extra climb authority is introduced.
+	if not is_on_floor() and forward_speed!=0:
+		for i in get_slide_collision_count():
+			var normal := get_slide_collision(i).get_normal()
+			if normal.y>0.1 and normal.y<cos(deg_to_rad(limit)) and normal.dot(forward)*signf(forward_speed)<-0.01:
+				var actual_speed := get_real_velocity().dot(forward)*signf(forward_speed)
+				forward_speed=signf(forward_speed)*minf(absf(forward_speed),maxf(0,actual_speed))
+				tracks.refresh(forward_speed,definition.drive_profile.track_spacing_m)
+				break
 	if not was_on_floor and is_on_floor():
 		landing.contact(incident_velocity,get_floor_normal(),definition.drive_profile)
 	if definition.drive_profile.suspension_enabled and track_probe_offsets.size()==2:

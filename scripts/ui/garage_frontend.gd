@@ -14,6 +14,7 @@ var research_tree: VehicleResearchTree
 var tree_button: Button
 var map_survey_button: Button
 var map_drive_button: Button
+var river_team_button: Button
 var short_names := {"player_tank":"M4A3", "us_m4a3_75w_vvss_1944":"M4A3 (75) W", "us_m24_m6_t85e1_1951":"M24 CHAFFEE", "us_m26_m3_1945":"M26 PERSHING", "us_m36_m4a1_1945":"M36 JACKSON"}
 
 func button(parent: Node, text: String, action: Callable) -> Button:
@@ -29,6 +30,7 @@ func section(parent: Node, eyebrow: String, heading: String) -> void:
 
 func compose(g: GarageShell) -> void:
 	garage=g
+	short_names.merge({"ussr_t_80b":"T-80B","germ_leopard_2a4":"LEOPARD 2A4"})
 	var old_margin: Control=g.get_node("GarageControlSource")
 	# Capture existing controls before moving their containers.
 	var tutorial_row: Control=g.find_child("TutorialChapters",true,false).get_parent()
@@ -77,6 +79,8 @@ func compose(g: GarageShell) -> void:
 	map_survey_button=button(pages[2],"河谷枢纽 · 大地图勘察",func() -> void:
 		if g.get_node_or_null("RiverJunctionSurvey")==null: g.add_child(RiverJunctionSurvey.new()))
 	map_drive_button=button(pages[2],"河谷枢纽 · 实地驾驶",func() -> void: g.laboratory_requested.emit("river_drive"))
+	river_team_button=button(pages[2],"苏德现代河谷 · 三点争夺",func() -> void: g.laboratory_requested.emit("river_team"))
+	river_team_button.tooltip_text="先选择 T-80B 或豹 2A4。内部 4v4 测试，不发放研发奖励。"
 	for child in tutorial_row.get_children():
 		if child is Control: move(child,pages[2])
 	GarageTheme.text(pages[2],"自由靶场",18)
@@ -102,7 +106,7 @@ func compose(g: GarageShell) -> void:
 	var carousel := HBoxContainer.new(); carousel.add_theme_constant_override("separation",10); vertical.add_child(carousel)
 	for i in g.vehicle_choice.item_count:
 		var id: String=g.vehicle_choice.get_item_metadata(i)
-		var card := button(carousel,"%02d   %s\n%s"%[i+1,short_names.get(id,id),"训练样车" if i==0 else "美国 · 陆战载具"],func() -> void: g.vehicle_choice.select(i); g._select_vehicle(i))
+		var card := button(carousel,"%02d   %s\n%s"%[i+1,short_names.get(id,id),_country(id)],func() -> void: g.vehicle_choice.select(i); g._select_vehicle(i))
 		card.tooltip_text=g.vehicle_choice.get_item_text(i)
 		card.custom_minimum_size=Vector2(0,72); card.size_flags_horizontal=Control.SIZE_EXPAND_FILL; card.clip_text=true; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
 	var footer := HBoxContainer.new(); vertical.add_child(footer)
@@ -148,7 +152,8 @@ func refresh() -> void:
 	if title==null: return
 	var id := garage.selected_vehicle_id()
 	title.text=short_names.get(id,garage.vehicle_choice.get_item_text(garage.vehicle_choice.selected))
-	subtitle.text="训练车辆  /  PROVING GROUND" if id=="player_tank" else "美国  /  GROUND FORCES"
+	subtitle.text=_country(id)
+	deploy.text="现代河谷 · 内部测试   →" if VehicleCatalog.is_engineering(id) else "进入战斗   →"
 	stats.text="部位毁伤\n装甲 · 乘员 · 模块"
 	if garage.catalog.packages.has(id):
 		var packet: Dictionary=garage.catalog.packages[id].packet
@@ -160,3 +165,9 @@ func refresh() -> void:
 func open_research_tree() -> void:
 	if is_instance_valid(research_tree): return
 	research_tree=VehicleResearchTree.new(); research_tree.garage=garage; garage.add_child(research_tree)
+
+func _country(id: String) -> String:
+	if id == "player_tank": return "训练车辆 / PROVING GROUND"
+	if id.begins_with("ussr_"): return "苏联 · 现代工程车"
+	if id.begins_with("germ_"): return "德国 · 现代工程车"
+	return "美国 · 陆战载具"

@@ -47,8 +47,57 @@ static func install(actor: VehicleActor, packet: Dictionary, layout: VehicleLayo
 	source.free()
 	checked.erase("scene")
 	TrackAssembly.install(actor,layout)
+	if not _install_ground_contacts(actor):
+		return {"ok":false,"errors":["model_binding: missing finite running-gear contact geometry"]}
 	VehicleArmorLayers.install_bound_visuals(actor,packet,layout)
 	return checked
+
+static func build_preview(parts: Dictionary, packet: Dictionary, layout: VehicleLayoutDefinition, source_record: Dictionary) -> Dictionary:
+	var checked := check(packet,layout,source_record,true)
+	if not checked.ok: return checked
+	var source: Node3D = checked.scene
+	var binding: Dictionary = packet.model_binding
+	var unit := float(binding.units.meters_per_unit)
+	var roots := {}
+	for role in ModelBindingValidator.ROLES: roots[role] = source.get_node(NodePath(binding.nodes[role]))
+	var hull_pose := _relative_pose(source,roots.hull)
+	for role in ["hull","turret","gun","running_left","running_right"]:
+		var authored: Node3D = roots[role]
+		var clone := authored.duplicate() as Node3D
+		for other in ["turret","gun","running_left","running_right"]:
+			if other==role or not authored.is_ancestor_of(roots[other]): continue
+			var nested := clone.get_node_or_null(authored.get_path_to(roots[other]))
+			if nested!=null: nested.free()
+		clone.transform = Transform3D.IDENTITY
+		var container := Node3D.new(); container.name = "Bound_"+role
+		var parent: Node3D = parts["barrel" if role=="gun" else ("hull" if role.begins_with("running_") else role)]
+		if role.begins_with("running_"):
+			var relative := hull_pose.affine_inverse()*_relative_pose(source,authored)
+			container.transform = Transform3D(relative.basis*unit,relative.origin*unit)
+		else: container.scale = Vector3.ONE*unit
+		parent.add_child(container); container.add_child(clone)
+		container.set_meta("model_sha256",binding.model.sha256)
+		HistoricalVehicleModel._set_layers(container,1)
+	source.free(); checked.erase("scene")
+	return checked
+
+static func _install_ground_contacts(actor: VehicleActor) -> bool:
+	# Damage boxes describe vulnerable components, not the track's contact plane.
+	# The modern track boxes end 0.4 m above the visible tread; using that height
+	# as a ground probe consumed most of the allowed reach even on level ground.
+	# Use the delivered running-gear geometry in the drive frame for contact height,
+	# while retaining the authored longitudinal/lateral sampling locations.
+	for part in [TrackAssembly.LEFT,TrackAssembly.RIGHT]:
+		var frame := actor.tank.track_left_frame if part==TrackAssembly.LEFT else actor.tank.track_right_frame
+		var bound := frame.get_node("Bound_"+part)
+		var bottom := INF
+		for mesh in bound.find_children("*","MeshInstance3D",true,false):
+			var bounds: AABB=_relative_pose(actor.tank,mesh)*mesh.mesh.get_aabb()
+			bottom=minf(bottom,bounds.position.y)
+		if not is_finite(bottom) or not actor.tank.track_probe_offsets.has(part): return false
+		for i in actor.tank.track_probe_offsets[part].size():
+			actor.tank.track_probe_offsets[part][i].y=bottom
+	return true
 
 static func _relative_pose(root: Node3D, node: Node3D) -> Transform3D:
 	var pose := node.transform

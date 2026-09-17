@@ -8,7 +8,9 @@ static func build(value: Dictionary, service: GarageService, unlocked: Array) ->
 		if not value.get(field) is String: return {"ok":false,"reason":LocalizationService.text("ui_804f98aafce7")}
 	if not MapRegistry.contains(value.map) or value.difficulty not in ["easy","normal","hard"]: return {"ok":false,"reason":LocalizationService.text("ui_5e43efd7fbfa")}
 	if not value.get("lineup") is Array or not value.get("loadouts") is Dictionary: return {"ok":false,"reason":LocalizationService.text("ui_feda3fa30d03")}
-	var lineup := Lineup.validate(value.lineup,value.selected_vehicle_id,value.mode,unlocked)
+	if (value.mode == "engineering") != (value.map == "river_junction_team"):
+		return {"ok":false,"reason":"现代河谷仅通过内部测试模式进入。"}
+	var lineup := Lineup.validate(value.lineup,value.selected_vehicle_id,value.mode,unlocked,service.catalog)
 	if not lineup.ok: return lineup
 	var copied := {}
 	for id in lineup.ids:
