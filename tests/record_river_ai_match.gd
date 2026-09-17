@@ -28,14 +28,45 @@ const ARRIVE_RADIUS := 45.0         # "central approaches", same rule as the ind
 const OBJECTIVE_RADIUS := 26.0      # within a capture point's ring
 var count := 0
 var failed := 0
+var fire_probe_scene: Node
+var fire_probe: Array[Dictionary] = []
+var fire_probe_previous := {}
+var fire_probe_truncated := false
 func _initialize() -> void: call_deferred("_run")
 func check(ok: bool, message: String) -> void:
 	count += 1
 	if not ok: failed += 1
 	print(("[PASS] " if ok else "[FAIL] ")+message)
 func frames(n: int) -> void:
-	for i in n: await physics_frame
+	for i in n:
+		await physics_frame
+		_record_fire_probe()
 	await process_frame
+
+func _record_fire_probe() -> void:
+	# Opt-in, read-only sampling at the next physics-frame boundary. A changed
+	# lane_queries counter identifies a fresh prediction, unlike last-result
+	# snapshots that may survive a later weapon casualty. No extra query or RNG.
+	if not is_instance_valid(fire_probe_scene): return
+	for actor in fire_probe_scene.combat_actors():
+		if actor.entity_id not in ["A","A2","A3"]: continue
+		var ai := actor.controller as AITankController
+		if ai == null: continue
+		var caps: Dictionary = actor.capabilities()
+		var signature := [actor.life_id,ai.sensor.lane_queries,ai.phase,caps.fire,actor.gunner.shots_fired,
+			ai.observation.get("entity_id",""),ai.observation.get("visible",false)]
+		if fire_probe_previous.get(actor.entity_id,[]) == signature: continue
+		fire_probe_previous[actor.entity_id] = signature
+		if fire_probe.size() >= 4096:
+			fire_probe_truncated = true
+			continue
+		fire_probe.append({"observed_tick":Engine.get_physics_frames(),"t":fire_probe_scene.director.state.elapsed,
+			"entity":actor.entity_id,"life":actor.life_id,"phase":ai.phase,"can_fire":caps.fire,
+			"shots":actor.gunner.shots_fired,"chamber":actor.gunner.inventory.chamber,"cooldown":actor.gunner.cooldown_left,
+			"lane_queries":ai.sensor.lane_queries,"authorization":ai.last_fire_authorization.duplicate(true),
+			"observation":ai.observation.duplicate(true),"solution":ai.last_aim_solution.duplicate(true),
+			"skill_error_rad":ai._aim_error,"surface_sample":ai.sensor.preferred_sample,"muzzle":actor.turret.muzzle.global_position,
+			"barrel_direction":actor.turret.barrel_direction(),"own_velocity":actor.tank.velocity})
 ## WT-040-R1 measure-first: every block creation the driver recorded since the last sample, with its
 ## cause and counterparty, so the yield frequency can be measured instead of guessed.
 func _new_block_events(ai: AITankController, since: int) -> Array:
@@ -85,6 +116,7 @@ func _run() -> void:
 	scene.ai_only = true
 	scene.match_seed = SEED
 	root.add_child(scene); current_scene = scene
+	if args.has("--trace-fire"): fire_probe_scene = scene
 	await frames(195)
 	var actors: Array = scene.combat_actors()
 	var team_of := {}
@@ -329,6 +361,8 @@ func _run() -> void:
 		"destroyed_observed": destroyed_seen.keys(),
 		"chain_samples": chain_samples,
 		"combat_samples":combat_samples,
+		"fire_probe":fire_probe,
+		"fire_probe_truncated":fire_probe_truncated,
 		"shot_evidence":shot_evidence,
 		"combat_evidence_note":"Read-only five-second snapshots; authorization and aim may be stale. Shot evidence is the bounded production replay store, not an unbounded event stream.",
 		"destroyed_at_end": deaths,

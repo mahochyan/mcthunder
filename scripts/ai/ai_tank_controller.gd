@@ -42,6 +42,7 @@ var _next_fire_lane_check := 0.0
 var _fire_candidate_tick := -1
 var _polled_delta := 0.0
 var last_fire_authorization: Dictionary = {}
+var _aim_stall_since := -1.0
 
 func configure(vehicle: VehicleActor, nav: DriveNavigator, provider: Callable, level: String = "normal", random_seed: int = 14) -> void:
 	_actor_ref = weakref(vehicle)
@@ -73,6 +74,7 @@ func reset_pending() -> void:
 	_fire_candidate_tick=-1
 	_polled_delta=0.0
 	last_fire_authorization.clear()
+	_aim_stall_since = -1.0
 func on_detached() -> void: reset_pending()
 func set_patrol(point: Vector3, fallback: Vector3) -> void:
 	if not has_patrol or point != patrol_goal:
@@ -114,6 +116,21 @@ func apply_task(context: Dictionary) -> void:
 func _new_error() -> void:
 	var amplitude := deg_to_rad(float(difficulty.error_degrees))
 	_aim_error = Vector2(_rng.randf_range(-amplitude,amplitude),_rng.randf_range(-amplitude,amplitude))
+
+func _advance_visible_sample() -> void:
+	sensor.preferred_sample = {0:4,4:5,5:3,3:0}.get(sensor.preferred_sample,0)
+	_aim_stall_since = -1.0
+
+func _reconsider_aim_surface(allowed: bool, reason: String) -> void:
+	# A fixed skill error or obstruction can make one visible surface unusable
+	# forever: without a shot, neither surface nor error changed. Observe another
+	# exterior region after the existing reaction interval. Keep the error/RNG,
+	# finite mechanism, observed-only targeting and full firing veto intact.
+	if allowed or reason not in ["predicted_path_misses","world_blocked","other_vehicle_first"]:
+		_aim_stall_since = -1.0
+		return
+	if _aim_stall_since < 0.0: _aim_stall_since = clock
+	if clock-_aim_stall_since >= float(difficulty.reaction): _advance_visible_sample()
 
 func poll() -> VehicleCommand:
 	last_command = update_command(get_physics_process_delta_time())
@@ -177,8 +194,11 @@ func update_command(delta: float) -> VehicleCommand:
 		if observation.get("visible",false):
 			if not was_visible or previous != observation.entity_id or previous_life != observation.life_id:
 				_seen_since = clock
+				_aim_stall_since = -1.0
 				_new_error()
-		else: _seen_since = -1
+		else:
+			_seen_since = -1
+			_aim_stall_since = -1.0
 	var caps := vehicle.capabilities()
 	var recovering := false
 	# A loaded round remains usable after loading machinery fails. Once the
@@ -251,7 +271,7 @@ func update_command(delta: float) -> VehicleCommand:
 	if vehicle.gunner.shots_fired != _last_shots:
 		_last_shots = vehicle.gunner.shots_fired
 		# Alternate visible exterior regions without consulting enemy modules or crew.
-		sensor.preferred_sample = {0:4,4:5,5:3,3:0}.get(sensor.preferred_sample,0)
+		_advance_visible_sample()
 		_new_error()
 	var observed_age := clock-float(observation.get("last_seen",-INF))
 	last_aim_solution=AimSolver.solve_intercept(vehicle.turret.muzzle.global_position,observation,vehicle.gunner.shell,vehicle.tank.velocity,_aim_error,observed_age)
@@ -330,6 +350,7 @@ func authorize_fire(cmd: VehicleCommand) -> bool:
 	if vehicle.turret.barrel_direction().dot(current.direction)<cos(deg_to_rad(0.3)): return _fire_veto("mechanism_not_aligned")
 	var allowed := sensor.fire_lane_clear(vehicle,observation,current)
 	last_fire_authorization=sensor.last_lane_result.duplicate(true)
+	_reconsider_aim_surface(allowed,str(last_fire_authorization.get("reason","")))
 	return allowed
 
 func _fire_veto(reason: String) -> bool:

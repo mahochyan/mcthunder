@@ -2,12 +2,14 @@ param(
     [string]$TemplateDirectory = (Join-Path $env:APPDATA 'Godot/export_templates/4.7.2.stable'),
     [string[]]$Suites = @('run_checks','run_layout_checks','run_query_checks','run_projectile_checks','run_armor_checks','run_damage_checks','run_recovery_checks','run_replay_checks','run_core_checks','run_drive_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks','run_challenge_checks','run_art_checks','run_structure_checks','run_wreck_visual_checks','run_feedback_checks','run_input_binding_checks','run_app_flow_checks','run_tutorial_checks','run_settings_checks','run_query_cache_checks','run_balance_matrix_checks','run_diagnostic_budget_checks'),
     [switch]$Candidate,
-    [switch]$ModernRiver
+    [switch]$ModernRiver,
+    [switch]$CommittedSnapshot
 )
 $ErrorActionPreference = 'Stop'
+if ($CommittedSnapshot -and -not $Candidate) { throw 'CommittedSnapshot is only available for internal candidates' }
 if ($ModernRiver -and -not $Candidate) { throw 'Modern River is an internal development candidate only; specify -Candidate' }
 if ($ModernRiver) {
-    $Suites = @($Suites + @('run_modern_support_checks','run_modern_armor_frame_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks','run_engineering_loading_checks','run_engineering_material_checks','run_engineering_compartment_checks','run_modern_team_identity_checks','run_river_entry_traffic_checks') | Select-Object -Unique)
+    $Suites = @($Suites + @('run_modern_support_checks','run_modern_armor_frame_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks','run_engineering_loading_checks','run_engineering_material_checks','run_engineering_compartment_checks','run_modern_team_identity_checks','run_river_entry_traffic_checks','run_modern_ai_surface_checks','run_vehicle_damage_hud_checks') | Select-Object -Unique)
 }
 # WT-040-R1 [4] (user ruling): an INTERNAL development candidate may be produced while the known,
 # individually registered failures below are present; a FORMAL release candidate keeps every strict
@@ -30,9 +32,19 @@ $pkgNames = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'package_doc_names
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $sourceSha = (& git -C $projectRoot rev-parse HEAD).Trim()
 if ($sourceSha -notmatch '^[0-9a-f]{40}$') { throw 'Cannot resolve committed source identity' }
-# Build only the committed tree. Ignore untracked local evidence; reject tracked edits.
+# Build only the committed tree. The explicit internal snapshot mode excludes
+# tracked edits (e.g. concurrent model authoring) without stashing or committing
+# them. The archive, fresh import and regression still use this exact Git SHA.
 & git -C $projectRoot diff --quiet HEAD
-if ($LASTEXITCODE -ne 0) { throw 'Commit tracked source changes before building a release candidate' }
+$sourceDiffExit=$LASTEXITCODE
+if ($sourceDiffExit -gt 1) { throw 'Cannot inspect tracked source changes' }
+$excludedTrackedFiles=@()
+if ($sourceDiffExit -eq 1) {
+    if (-not $CommittedSnapshot) { throw 'Commit tracked source changes before building a release candidate' }
+    $excludedTrackedFiles=@(& git -C $projectRoot diff --name-only HEAD)
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot record excluded worktree files' }
+    Write-Output "COMMITTED_SNAPSHOT=$sourceSha; excluded tracked edits=$($excludedTrackedFiles.Count)"
+}
 $engine = Join-Path $projectRoot 'tools/godot/Godot_v4.7.2-stable_win64_console.exe'
 if (-not (Test-Path -LiteralPath $engine)) { throw 'Fixed Godot engine is missing' }
 $engineVersion = (& $engine --version).Trim()
@@ -208,6 +220,8 @@ Copy-Item -LiteralPath $captureLine.Matches[0].Groups[1].Value -Destination (Joi
 $versionMatch=[regex]::Match([IO.File]::ReadAllText((Join-Path $source 'project.godot')),'config/version="([^"]+)"')
 $fileHashes=@(Get-ChildItem -LiteralPath $package -File | ForEach-Object { [ordered]@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash} })
 $manifest=[ordered]@{source_sha=$sourceSha;version=$versionMatch.Groups[1].Value;engine=$engineVersion;template_sha256=(Get-FileHash -LiteralPath $template).Hash;platform='Windows x64';configuration='release';renderer='gl_compatibility';clean_import=$true;challenge_rules=1;settings_schema=2;profile_schema=3;regression_checks=($regression | Measure-Object -Property checks -Sum).Sum;regression_failed_checks=(@($knownFailures | Measure-Object -Property failures -Sum).Sum);suites=@($regression | Select-Object suite,checks,passed);known_failures=$knownFailures;release_ready=$releaseReady;candidate=[bool]$Candidate;files=$fileHashes;verification=@($runs | Select-Object name,exit_code,exit_known,timed_out,artifact_ok,passed);human='PENDING';public_release=$false}
+$manifest.committed_snapshot=[bool]$CommittedSnapshot
+$manifest.excluded_worktree_files=$excludedTrackedFiles
 $manifest.modern_river_required = [bool]$ModernRiver
 $manifest.required_modern_content = @()
 if ($ModernRiver) {
