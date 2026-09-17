@@ -134,7 +134,9 @@ func verify_modern_river(defs: VehicleDefs) -> void:
 	check(battle.director!=null and battle.director.state.objectives!=null and battle.director.state.objectives.points.size()==3,"river director has exactly three capture objectives")
 	var seen := {}
 	for actor in battle.combat_actors():
-		var expected := "ussr_t_80b" if actor.entity_id=="A" else "germ_leopard_2a4"
+		var player_team: int=int(battle.director.state.roster["A"].team)
+		var slot_team: int=int(battle.director.state.roster[actor.entity_id].team)
+		var expected := "ussr_t_80b" if slot_team==player_team else "germ_leopard_2a4"
 		var complete: bool=actor.definition!=null and actor.definition.id==expected and actor.definition.layout_id==defs.vehicles[expected].layout_id and actor.gunner.shell.id.begins_with(expected)
 		check(complete,"modern candidate uses requested vehicle, layout and round for slot "+actor.entity_id)
 		var hull: Node = actor.tank.hull_frame.get_node_or_null("Bound_hull")
