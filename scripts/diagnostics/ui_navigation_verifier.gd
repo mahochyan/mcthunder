@@ -206,6 +206,17 @@ func run(flow: AppFlow) -> void:
 			g.vehicle_choice.select(historical_index); g._select_vehicle(historical_index)
 			await frames(3)
 
+	# --- WT-UI-004/S01: the program build identity is stated quietly in the footer --------------------------
+	var footer_identity := str(BuildIdentity.describe())
+	var footer_label: Label = null
+	for footer_node in g.find_children("*","Label",true,false):
+		if (footer_node as Label).text.contains(footer_identity): footer_label = footer_node as Label
+	report(footer_label != null, "the footer states the program build identity (%s)" % footer_identity)
+	if footer_label != null:
+		var footer_size := footer_label.get_theme_font_size("font_size")
+		report(footer_size > 0 and footer_size <= 12, "and it is de-emphasised by size (%d px)" % footer_size)
+		report(footer_label.get_theme_color("font_color").v < 0.8, "and by a muted colour, so it does not compete with the primary content")
+
 	# --- WT-UI-004/S01: the condition uses the design's own vocabulary and is not one merged grey label ---------
 	var state_badge := by_id(g,"garage.vehicle.state") as Label
 	report(state_badge != null and state_badge.text.length() > 0, "the garage states the vehicle's condition in words (%s)" % (state_badge.text if state_badge != null else "missing"))
