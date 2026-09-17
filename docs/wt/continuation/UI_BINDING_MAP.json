@@ -96,6 +96,92 @@
       "needs": ["percentage only when a real progress value exists; otherwise stage text, never a fake 99% (S09)", "missing model shows its name and explicit missing state; no borrowing another vehicle's thumbnail (S09)", "resource/save/admission errors short first, expandable or copyable detail; no raw stack dump (S09)", "cancel loading only when the layer supports safe cancel (S09)"]
     }
   ],
+  "ui_ids": {
+    "note": "WT-UI-003: stable semantic ids now attached as meta('ui_id') on the existing controls. They add no node, no signal and no behaviour, and the verifier finds them by id only - never by visible text and never by child index. Measured: every required id present, no duplicates, one id per vehicle card (7).",
+    "implemented_in": "scripts/ui/garage_frontend.gd (tag() + compose() tail)",
+    "ids": [
+      "garage.deploy", "garage.nav.research", "garage.nav.settings", "garage.nav.quit",
+      "garage.tab.battle", "garage.tab.loadout", "garage.tab.training",
+      "garage.card.<vehicle_id>", "garage.vehicle.title", "garage.vehicle.nation_role", "garage.vehicle.stats",
+      "garage.vehicle.picker", "garage.vehicle.dossier",
+      "garage.preparation.mode", "garage.preparation.map", "garage.preparation.difficulty",
+      "garage.deploy.result", "garage.error",
+      "garage.preview.viewport", "garage.preview.inspect", "garage.preview.inspect_row",
+      "garage.loadout.open", "garage.challenge.open",
+      "garage.training.river_team", "garage.training.river_survey", "garage.training.river_drive",
+      "garage.training.start", "garage.training.case", "garage.training.shell", "garage.training.rounds"
+    ],
+    "suggested_by_design_and_used": ["garage.deploy", "garage.tab.loadout"],
+    "still_missing_from_the_design_list": ["research.search", "respawn.confirm"]
+  },
+  "navigation": {
+    "note": "WT-UI-003 navigation state, verified through real mouse and key events on visible controls (39 checks, 0 failed).",
+    "regions": {"main": ["garage.tab.battle", "garage.tab.loadout", "garage.tab.training"], "independent_entry": ["garage.nav.research"], "modals": ["VehicleResearchTree", "AppDialog", "InputSettingsPanel", "TeamRange.waiting_panel"]},
+    "edges": [
+      "tab.battle <-> tab.loadout <-> tab.training (visibility toggle only; hidden pages leave the focus chain)",
+      "tab.battle -[garage.loadout.open]-> tab.loadout",
+      "garage.nav.research -> VehicleResearchTree modal (Frontend hidden), Esc -> Frontend shown + refresh, focus restored to garage.nav.research",
+      "garage.nav.quit -> AppDialog modal, Esc -> dismissed without quitting, focus restored to garage.nav.quit",
+      "garage.deploy -> real deploy request -> match scene"
+    ],
+    "modal_rules_reused": {"source": "scripts/ui/modal_navigation.gd", "esc_closes_top_modal": true, "tab_cycles_inside_container": true, "restores_previous_focus": true, "invisible_controls_skipped": true, "changed": "scripts/ui/vehicle_research_tree.gd now attaches the modal BEFORE hiding the frontend, so the source control is recorded and focus can be restored"}
+  },
+  "view_contracts": {
+    "note": "WT-UI-003: 08_VIEW_CONTRACTS.json mapped onto the services that exist today. It is a display-input proposal, not an API guarantee: nothing was renamed and no second model was created. Anything not currently exposed is marked missing and must be shown as unknown/unavailable rather than filled with a sample value.",
+    "garage": {
+      "selected_vehicle_id": "GarageShell.selected_vehicle_id()",
+      "display_name": "GarageFrontend.short_names + GarageShell.vehicle_choice item text",
+      "nation_label": "GarageFrontend._country(id) (data-derived; the flat 'USA' display hard-code is a WT-UI-004 item)",
+      "role_label": "MISSING - no role/service label is exposed today",
+      "content_status": "VehicleCatalog admission + VehicleReadiness result",
+      "ownership_status": "ProfileStore / research ownership state",
+      "eligibility": "GarageService.has_vehicle + VehicleReadiness.eligible",
+      "blocked_reason": "MISSING - only coarse readiness codes exist; a readable reason must be added in WT-UI-004, not invented in the UI",
+      "selected_map": "GaragePreparation.map_choice + MapRegistry",
+      "mode": "GaragePreparation.mode()",
+      "confirmed_loadout": "GaragePreparation.build_match() / loadouts",
+      "lineup": "GaragePreparation lineup state",
+      "transition_pending": "AppFlow._transitioning"
+    },
+    "battle": {
+      "match_id": "TeamMatchDirector.state.match_id",
+      "entity_id": "VehicleActor.entity_id",
+      "life_id": "VehicleActor.life_id",
+      "objective_rows": "TeamMatchDirector.state.objectives.points",
+      "tickets": "TeamMatchDirector.state.tickets",
+      "remaining_time": "TeamMatchDirector.state.elapsed + match clock",
+      "own_capabilities": "VehicleActor.capabilities()",
+      "own_crew": "VehicleActor.state crew rows",
+      "own_modules": "VehicleActor.state module rows",
+      "speed": "TankVehicle.velocity",
+      "chamber_shell": "Gunner chambered round",
+      "carrying_shell": "Gunner carried round (existing observed key)",
+      "next_shell": "Gunner next round (existing observed key)",
+      "inventory_counts": "Gunner rounds remaining / supply_status (existing observed key)",
+      "reload_state": "Gunner cooldown/reload state",
+      "action_state": "Damage/recovery service state",
+      "permitted_intel": "BattleIntel + existing observation policy layer",
+      "aim_projections": "camera rig + turret geometry"
+    },
+    "respawn": {
+      "death_reason": "MISSING - not exposed as text today",
+      "old_life_identity": "VehicleActor.life_id before the loss",
+      "wait_deadline": "TeamMatchDirector.state.roster.A.respawn_at",
+      "eligible_lineup": "GaragePreparation lineup",
+      "request_pending": "roster.A.respawn_requested",
+      "block_reason": "PARTIAL - the waiting panel exists but a per-case reason is not exposed",
+      "new_life_identity": "VehicleActor.life_id after the respawn"
+    },
+    "result": {
+      "immutable_match_result": "TeamMatchDirector.state.result",
+      "result_receipt_id": "MISSING - no receipt id exists today",
+      "available_contribution_fields": "AppFlow.last_result (field set varies with mode)",
+      "reward_receipt": "AppFlow.pending_reward + _settle_match",
+      "save_state": "ProfileStore write result",
+      "next_match_availability": "AppFlow.restart_match / mode configuration"
+    },
+    "unknown_value_policy": "display unavailable or an em dash plus explanation; never synthesise zero"
+  },
   "shared_files": [
     {"path": "scripts/ui/garage_frontend.gd", "screens": ["S01", "S03", "S08"], "coordination": "serial merge by the integration owner; the UI line must not overwrite passage/packaging uncommitted work"},
     {"path": "scripts/ui/battle_ui.gd", "screens": ["S04", "S05"], "coordination": "serial merge by the integration owner"},

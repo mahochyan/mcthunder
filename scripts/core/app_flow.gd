@@ -125,7 +125,9 @@ func _ready() -> void:
 	var verify_performance := args.has("--verify-performance")
 	var verify_player_flow := args.has("--verify-player-flow")
 	var verify_modern := args.has("--verify-modern-garage") or args.has("--verify-modern-life") or args.has("--verify-modern-match")
-	var isolated_settings := DisplayServer.get_name() == "headless" or verify_installation or verify_performance or verify_player_flow or verify_modern
+	# WT-UI-003: host for the normal-input UI navigation verifier, following the same flag pattern as the others.
+	var verify_ui_nav := args.has("--verify-ui-navigation")
+	var isolated_settings := DisplayServer.get_name() == "headless" or verify_installation or verify_performance or verify_player_flow or verify_modern or verify_ui_nav
 	for argument in args:
 		if argument.ends_with("-check") or argument.ends_with("-demo") or argument == "--autoshot" or argument == "--export-smoke": isolated_settings = true
 	InputBindingService.initialize("" if isolated_settings else InputBindingService.PATH)
@@ -136,7 +138,7 @@ func _ready() -> void:
 			if args.has(flag): isolated = true
 		profile = ProfileStore.new("" if isolated else ProfileStore.DEFAULT_PATH)
 		if args.has("--challenge-play-check"): profile = ProfileStore.new("user://tests/challenge_demo024_"+str(Time.get_ticks_usec())+"/commander")
-	if verify_installation or verify_performance or verify_player_flow or verify_modern:
+	if verify_installation or verify_performance or verify_player_flow or verify_modern or verify_ui_nav:
 		var isolated_path := "user://tests/installation031_%d" % Time.get_ticks_usec()
 		InputBindingService.initialized = false; InputBindingService.initialize(isolated_path+"/input.json")
 		profile = ProfileStore.new(isolated_path+"/commander")
@@ -155,12 +157,13 @@ func _ready() -> void:
 	ui_layer.layer = 10
 	add_child(ui_layer)
 	return_to_garage()
-	if verify_installation or verify_performance or verify_player_flow or verify_modern:
+	if verify_installation or verify_performance or verify_player_flow or verify_modern or verify_ui_nav:
 		var verifier_path := "res://scripts/diagnostics/performance_verifier.gd" if verify_performance else "res://scripts/diagnostics/installation_verifier.gd"
 		if verify_player_flow: verifier_path="res://scripts/diagnostics/player_flow_verifier.gd"
 		if verify_modern:
 			verifier_path="res://scripts/diagnostics/modern_life_verifier.gd" if args.has("--verify-modern-life") else "res://scripts/diagnostics/modern_garage_verifier.gd"
 			if args.has("--verify-modern-match"): verifier_path="res://scripts/diagnostics/modern_match_verifier.gd"
+		if verify_ui_nav: verifier_path="res://scripts/diagnostics/ui_navigation_verifier.gd"
 		var verifier_script := load(verifier_path) as GDScript
 		if verifier_script==null or not verifier_script.can_instantiate(): get_tree().quit(2); return
 		var verifier := verifier_script.new() as Node

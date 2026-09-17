@@ -46,8 +46,11 @@ func _ready() -> void:
 	historical_defs = profile.service.definitions
 	theme = CoreUI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# WT-UI-003: the full-rect background is decoration - it must never take the mouse - and its colour comes from
+	# the background token instead of a near-miss literal.
 	var bg := ColorRect.new()
-	bg.color = Color("10191f")
+	bg.color = UiTokens.color("background","#10171B")
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin := MarginContainer.new()

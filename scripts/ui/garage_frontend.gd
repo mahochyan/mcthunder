@@ -28,6 +28,13 @@ func section(parent: Node, eyebrow: String, heading: String) -> void:
 	GarageTheme.text(parent,eyebrow,12,GarageTheme.ACCENT)
 	GarageTheme.text(parent,heading,25)
 
+## WT-UI-003: attach a stable semantic id to an existing control. Metadata only - no node, no signal and no
+## behaviour is added, so tests and later work never have to locate a button by its visible text or by an
+## @Button index, and a renamed label can never break a check.
+func tag(control: Control, id: String) -> Control:
+	if control != null: control.set_meta("ui_id",id)
+	return control
+
 func compose(g: GarageShell) -> void:
 	garage=g
 	short_names.merge({"ussr_t_80b":"T-80B","germ_leopard_2a4":"LEOPARD 2A4"})
@@ -50,10 +57,10 @@ func compose(g: GarageShell) -> void:
 		var nav := button(header,["作战","车辆配装","训练中心"][i],func() -> void: show_page(i))
 		nav.custom_minimum_size.x=96; tabs.append(nav)
 	var spacer := Control.new(); spacer.size_flags_horizontal=Control.SIZE_EXPAND_FILL; header.add_child(spacer)
-	button(header,"设置",func() -> void:
+	var settings_button := button(header,"设置",func() -> void:
 		var panel := InputSettingsPanel.new(); panel.profile=g.profile
 		panel.progress_reset.connect(func() -> void: g.progress_reset.emit()); g.add_child(panel))
-	button(header,"退出",func() -> void: AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit()))
+	var quit_button := button(header,"退出",func() -> void: AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit()))
 	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=Color("344045"); vertical.add_child(line)
 	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",24); vertical.add_child(body)
 	var side := PanelContainer.new(); side.custom_minimum_size.x=310; body.add_child(side)
@@ -67,7 +74,7 @@ func compose(g: GarageShell) -> void:
 	GarageTheme.text(pages[0],"对局规则",13,GarageTheme.MUTED); move(g.preparation.mode_choice,pages[0])
 	GarageTheme.text(pages[0],"行动区域",13,GarageTheme.MUTED); move(g.preparation.map_choice,pages[0]); move(g.preparation.map_note,pages[0])
 	GarageTheme.text(pages[0],"对手难度",13,GarageTheme.MUTED); move(g.preparation.difficulty_choice,pages[0])
-	button(pages[0],"调整携弹与出战阵容   →",func() -> void: show_page(1))
+	var loadout_open := button(pages[0],"调整携弹与出战阵容   →",func() -> void: show_page(1))
 	g.challenge_button=button(pages[0],"战术挑战   ↗",g._open_challenges)
 	move(g.result_label,pages[0]); g.result_label.add_theme_color_override("font_color",GarageTheme.MUTED)
 	move(g.error_label,side_column)
@@ -115,6 +122,43 @@ func compose(g: GarageShell) -> void:
 	viewport_container.gui_input.connect(_preview_input)
 	_stage(viewport_container.get_child(0))
 	show_page(0); refresh(); g._refresh_inspection()
+	# WT-UI-003: stable semantic ids, tagged onto the controls that already exist. Names follow the work order's
+	# suggestions (garage.deploy, garage.tab.loadout); everything else follows the same dotted scheme so the map in
+	# UI_BINDING_MAP.json and this list stay in step. Hidden pages stay hidden and out of the focus chain because
+	# show_page() only toggles visibility, which Godot already excludes from focus.
+	tag(deploy,"garage.deploy")
+	tag(tree_button,"garage.nav.research")
+	tag(settings_button,"garage.nav.settings")
+	tag(quit_button,"garage.nav.quit")
+	for i in tabs.size(): tag(tabs[i],["garage.tab.battle","garage.tab.loadout","garage.tab.training"][i])
+	for i in cards.size(): tag(cards[i],"garage.card."+str(garage.vehicle_choice.get_item_metadata(i)))
+	tag(title,"garage.vehicle.title"); tag(subtitle,"garage.vehicle.nation_role"); tag(stats,"garage.vehicle.stats")
+	tag(garage.vehicle_choice,"garage.vehicle.picker"); tag(garage.dossier_button,"garage.vehicle.dossier")
+	tag(garage.preparation.mode_choice,"garage.preparation.mode")
+	tag(garage.preparation.map_choice,"garage.preparation.map")
+	tag(garage.preparation.difficulty_choice,"garage.preparation.difficulty")
+	tag(garage.result_label,"garage.deploy.result"); tag(garage.error_label,"garage.error")
+	tag(garage.inspect_button,"garage.preview.inspect"); tag(garage.inspection_row,"garage.preview.inspect_row")
+	tag(viewport_container,"garage.preview.viewport"); tag(loadout_open,"garage.loadout.open")
+	tag(garage.challenge_button,"garage.challenge.open")
+	tag(river_team_button,"garage.training.river_team")
+	tag(map_survey_button,"garage.training.river_survey"); tag(map_drive_button,"garage.training.river_drive")
+	tag(g.start_button,"garage.training.start"); tag(g.case_choice,"garage.training.case")
+	tag(g.shell_choice,"garage.training.shell"); tag(g.rounds,"garage.training.rounds")
+	# Decorative separators and placeholder spacers must not intercept the mouse; interactive surfaces keep theirs.
+	# WT-UI-003: the rule is applied to every ColorRect in the composed frontend, not just the two known ones, so a
+	# page that moves its own separator in (GaragePreparation does) cannot silently start eating clicks.
+	line.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	spacer.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	var decorative: Array[ColorRect] = []
+	_decorative_rects(outer,decorative)
+	for rect in decorative: rect.mouse_filter=Control.MOUSE_FILTER_IGNORE
+
+## WT-UI-003: plain rectangles in the composed frontend are separators or placeholder fills, never click targets.
+func _decorative_rects(root: Node, out: Array[ColorRect]) -> void:
+	for child in root.get_children():
+		if child is ColorRect: out.append(child)
+		_decorative_rects(child,out)
 
 func _stage(viewport: SubViewport) -> void:
 	viewport.msaa_3d=Viewport.MSAA_2X

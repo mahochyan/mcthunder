@@ -80,7 +80,10 @@ func _ready() -> void:
 	test_button=CoreUI.button(right,"外观试驾   ↗",_test_drive); GarageTheme.primary(test_button)
 	select_button=CoreUI.button(right,"选择出战   →",_select_for_battle)
 	GarageTheme.text(vertical,"每个车族一个基础型 · 改型收录于车辆档案 · 虚线仅连接分类展示顺序",12,GarageTheme.MUTED)
-	garage.get_node("Frontend").hide(); show_country(country); ModalNavigation.attach(self,close)
+	# WT-UI-003: attach the modal BEFORE hiding the frontend. A hidden control loses focus immediately, so hiding
+	# first left the modal with nothing recorded and Esc could not restore focus to the control that opened it.
+	ModalNavigation.attach(self,close)
+	garage.get_node("Frontend").hide(); show_country(country)
 
 static func normalized(value: String) -> String:
 	return value.to_lower().replace("-","").replace("_","").replace(" ","").replace("(","").replace(")","")
