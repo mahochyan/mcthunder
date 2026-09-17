@@ -20,6 +20,8 @@ var short_names := {"player_tank":"M4A3", "us_m4a3_75w_vvss_1944":"M4A3 (75) W",
 ## WT-UI-004: the bottom strip is the current lineup plus a horizontally scrollable collection row.
 var lineup_row: HBoxContainer
 var collection_scroll: ScrollContainer
+## WT-UI-006: the fixed current-configuration summary, outside the scrolling area and next to the main action.
+var loadout_summary: Label
 
 func button(parent: Node, text: String, action: Callable) -> Button:
 	return CoreUI.button(parent,text,action)
@@ -82,9 +84,19 @@ func compose(g: GarageShell) -> void:
 	g.challenge_button=button(pages[0],"战术挑战   ↗",g._open_challenges)
 	move(g.result_label,pages[0]); g.result_label.add_theme_color_override("font_color",GarageTheme.MUTED)
 	move(g.error_label,side_column)
+	# WT-UI-006 (S03): the current configuration summary is fixed outside the scrolling area, beside the main action.
+	loadout_summary=GarageTheme.text(side_column,"",12,GarageTheme.MUTED)
+	loadout_summary.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	deploy=button(side_column,"进入战斗   →",func() -> void: g.laboratory_requested.emit("team")); GarageTheme.primary(deploy)
 	section(pages[1],"02  /  VEHICLE SYSTEMS","车辆配装")
-	move(g.vehicle_choice,pages[1]); move(g.dossier_button,pages[1]); move(g.preparation,pages[1]); g.preparation.settings_button.hide()
+	# WT-UI-006 (S03): the ammunition and lineup groups come first in the loadout column, so shell cards and counts
+	# are visible without scrolling; the vehicle picker, dossier and research line follow below them.
+	move(g.preparation.details,pages[1])
+	move(g.vehicle_choice,pages[1]); move(g.dossier_button,pages[1]); move(g.preparation,pages[1])
+	# WT-UI-006: the ammunition, lineup and inspection groups are visible by default, so this control collapses them
+	# for compact layouts instead of being the only way to reveal them.
+	g.preparation.settings_button.show()
+	g.preparation.settings_button.text=LocalizationService.text("ui_1f530a0720a5")
 	move(g.preview_note,pages[1]); g.preview_note.add_theme_color_override("font_color",GarageTheme.MUTED)
 	section(pages[2],"03  /  FIELD TRAINING","训练中心")
 	map_survey_button=button(pages[2],"河谷枢纽 · 大地图勘察",func() -> void:
@@ -109,6 +121,8 @@ func compose(g: GarageShell) -> void:
 	stats=GarageTheme.text(hero_header,"",14,GarageTheme.MUTED); stats.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; stats.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	move(viewport_container,hero); viewport_container.custom_minimum_size=Vector2(200,120); viewport_container.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	move(view_controls,hero); move(g.inspection_row,hero)
+	# WT-UI-006 (S03): inspection is its own group and reads this vehicle's own panels, modules and crew.
+	GarageTheme.text(hero,LocalizationService.text("loadout_group_check"),16)
 	var collection_header := HBoxContainer.new(); vertical.add_child(collection_header)
 	var roster := GarageTheme.text(collection_header,"车库   /   VEHICLE COLLECTION",12,GarageTheme.MUTED); roster.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	var showroom := button(collection_header,"模型展厅",func() -> void:
@@ -161,6 +175,7 @@ func compose(g: GarageShell) -> void:
 	tag(garage.result_label,"garage.deploy.result"); tag(garage.error_label,"garage.error")
 	tag(garage.inspect_button,"garage.preview.inspect"); tag(garage.inspection_row,"garage.preview.inspect_row")
 	tag(viewport_container,"garage.preview.viewport"); tag(loadout_open,"garage.loadout.open")
+	tag(loadout_summary,"garage.loadout.summary")
 	tag(lineup_row,"garage.lineup.row"); tag(collection_scroll,"garage.collection.row")
 	tag(garage.challenge_button,"garage.challenge.open")
 	tag(river_team_button,"garage.training.river_team")
@@ -231,8 +246,22 @@ func refresh() -> void:
 	# left off-screen; the row still keeps every card reachable.
 	if collection_scroll != null and cards.size() > garage.vehicle_choice.selected:
 		collection_scroll.ensure_control_visible(cards[garage.vehicle_choice.selected])
-	garage.preparation.details.visible=page_index==1 and garage.profile.service.has_vehicle(id)
+	# WT-UI-006: the three groups stay visible on the loadout page; a vehicle with no admitted packet shows an
+	# explicit empty state inside the ammunition group instead of the whole page disappearing.
+	garage.preparation.details.visible=page_index==1
 	refresh_lineup_row()
+	# WT-UI-006: the fixed summary shows the real MatchConfig this selection would produce, or the service's own
+	# reason when it is not valid yet. It never invents a configuration.
+	if loadout_summary != null:
+		var built: Dictionary = garage.preparation.build_match()
+		if built.ok:
+			var config := built.config as MatchConfig
+			var total := 0
+			for lineup_id in config.vehicle_ids():
+				for amount in config.loadout(str(lineup_id)).get("counts",{}).values(): total += int(amount)
+			loadout_summary.text=LocalizationService.text("loadout_config_summary")%[config.mode(),config.map_id(),total]
+		else:
+			loadout_summary.text=str(built.get("reason",""))
 
 ## WT-UI-004 (S01): the vehicles this match will actually field, read from the existing lineup state. Informational
 ## labels only - the selection itself stays in GaragePreparation, and an empty lineup says so instead of guessing.

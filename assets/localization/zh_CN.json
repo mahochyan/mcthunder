@@ -1,4 +1,12 @@
 {
+  "loadout_group_ammo": "弹药",
+  "loadout_group_lineup": "编成",
+  "loadout_group_check": "检查",
+  "loadout_estimated": "估算",
+  "loadout_no_packet": "该车型未接入战斗 · 无法编辑配弹",
+  "loadout_config_summary": "当前配置：%s · %s · %d 发",
+  "loadout_shell_meta": "%s · %.0f mm · %s",
+  "loadout_summary_line": "合计 %d / %d 发 · 首发 %s",
   "branch_medium": "中型 / 主战",
   "branch_heavy": "重型坦克",
   "branch_light": "轻型 / 侦察",

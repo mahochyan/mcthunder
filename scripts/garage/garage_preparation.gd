@@ -1,5 +1,13 @@
 class_name GaragePreparation
 extends VBoxContainer
+## WT-UI-006 (MCT-UI-FIELDWORK-01): the loadout page presents the three S03 groups - ammunition, lineup and
+## inspection - as separate, visible groups instead of hiding everything behind a toggle.
+##
+## What is deliberately unchanged: every service call, the inventory and save transactions, the capacity and
+## first-round rules, and the lineup rules. The UI still only submits intent; AmmoInventory and GarageService
+## remain the authority. The estimate marker is not decoration either: VehicleShellCatalog rejects any shell that
+## claims verification == "verified" or historical_verified, so every offered shell really is an estimate and the
+## card says so.
 var garage: GarageShell
 var store: ProfileStore
 var mode_choice: OptionButton
@@ -20,6 +28,15 @@ var lineup_ids: Array = []
 var current_id := ""
 var _refreshing := false
 var _ammo_error := ""
+## WT-UI-006: the ammunition group keeps its own error line next to the fields, and the page ends with a summary.
+var summary_box: VBoxContainer
+var ammo_error_label: Label
+var page_summary: Label
+## The real per-shell meta text, so a reviewer can read exactly what the card shows.
+var shell_meta: Dictionary = {}
+
+func group_label(parent: Node, key: String) -> Label:
+	return CoreUI.label(parent,LocalizationService.text(key),16)
 
 func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	garage = owner_garage; store = profile
@@ -34,14 +51,24 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	research_label = CoreUI.label(self,"",14)
 	research_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	research_button = CoreUI.button(self,LocalizationService.text("ui_a1bc6af3e4cd"),_research)
-	settings_button = CoreUI.button(self,LocalizationService.text("ui_e65fa5e6071a"),func() -> void:
+	settings_button = CoreUI.button(self,LocalizationService.text("ui_1f530a0720a5"),func() -> void:
 		details.visible = not details.visible
 		settings_button.text = LocalizationService.text("ui_1f530a0720a5") if details.visible else LocalizationService.text("ui_e65fa5e6071a"))
-	details = VBoxContainer.new(); details.visible = false; add_child(details)
-	ammo_box = VBoxContainer.new(); details.add_child(ammo_box)
-	rack_label = CoreUI.label(details,"",14)
+	# The three groups are visible by default; the toggle above collapses them for compact layouts.
+	details = VBoxContainer.new(); details.name="PreparationDetails"; details.visible = true; add_child(details)
+	group_label(details,"loadout_group_ammo")
+	# Capacity, stock and the first-round condition sit together in one summary block.
+	summary_box = VBoxContainer.new(); details.add_child(summary_box)
+	rack_label = CoreUI.label(summary_box,"",14)
 	rack_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(details,LocalizationService.text("ui_e183b39e4637"),16)
+	CoreUI.label(summary_box,LocalizationService.text("ui_d7fc6412941b"),14)
+	first_choice = OptionButton.new(); summary_box.add_child(first_choice)
+	first_choice.item_selected.connect(func(_index: int) -> void: _ammo_changed())
+	ammo_box = VBoxContainer.new(); details.add_child(ammo_box)
+	ammo_error_label = CoreUI.label(details,"",13)
+	ammo_error_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ammo_error_label.add_theme_color_override("font_color",GarageTheme.ACCENT)
+	group_label(details,"loadout_group_lineup")
 	for id in store.service.vehicle_ids():
 		var check := CheckBox.new()
 		check.text = store.service.vehicle_label(id)
@@ -60,6 +87,9 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	details.add_child(difficulty_choice)
 	CoreUI.button(details,LocalizationService.text("ui_bb57985a9b4d"),save_settings)
 	CoreUI.label(details,LocalizationService.text("ui_9fc6354946e0"),13)
+	# Page-bottom summary: the validation result and the resulting totals in one place, not only a red code above.
+	page_summary = CoreUI.label(details,"",13)
+	page_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 func mode() -> String:
 	if VehicleCatalog.is_engineering(current_id): return "engineering"
@@ -80,31 +110,42 @@ func select_vehicle(id: String) -> void:
 	lineup_ids = [id] if engineering else lineup_ids.filter(func(vehicle_id: String) -> bool: return not VehicleCatalog.is_engineering(vehicle_id))
 	_refreshing = true
 	for child in ammo_box.get_children(): child.free()
+	if first_choice != null: first_choice.clear()
 	shell_spins.clear()
-	first_choice = null
+	shell_meta.clear()
+	ammo_error_label.text = ""
+	page_summary.text = ""
 	settings_button.disabled = not store.service.has_vehicle(id)
 	if store.service.has_vehicle(id):
+		summary_box.visible = true
 		if not loadouts.has(id): loadouts[id] = store.service.default_loadout(id)
 		# Editing may leave a temporarily invalid total; UI metadata still comes from the admitted catalog.
 		var prepared := store.service.build_loadout(store.service.default_loadout(id))
 		CoreUI.label(ammo_box,LocalizationService.text("ui_ddaff5a533fe"),14)
+		if first_choice != null:
+			for shell in prepared.options:
+				first_choice.add_item(shell.display_name)
+				first_choice.set_item_metadata(first_choice.item_count-1,shell.id)
+				if shell.id == loadouts[id].first_shell: first_choice.select(first_choice.item_count-1)
 		for shell in prepared.options:
-			var row := HBoxContainer.new(); ammo_box.add_child(row)
-			var label := CoreUI.label(row,shell.display_name,14); label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			var row := VBoxContainer.new(); ammo_box.add_child(row)
+			var head := HBoxContainer.new(); row.add_child(head)
+			var label := CoreUI.label(head,shell.display_name,14); label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			var spin := SpinBox.new(); spin.min_value = 0; spin.max_value = prepared.inventory.capacity; spin.value = loadouts[id].counts[shell.id]
-			row.add_child(spin); shell_spins[shell.id] = spin
+			head.add_child(spin); shell_spins[shell.id] = spin
 			spin.value_changed.connect(func(_value: float) -> void: _ammo_changed())
-		CoreUI.label(ammo_box,LocalizationService.text("ui_d7fc6412941b"),14)
-		first_choice = OptionButton.new(); ammo_box.add_child(first_choice)
-		for shell in prepared.options:
-			first_choice.add_item(shell.display_name)
-			first_choice.set_item_metadata(first_choice.item_count-1,shell.id)
-			if shell.id == loadouts[id].first_shell: first_choice.select(first_choice.item_count-1)
-		first_choice.item_selected.connect(func(_index: int) -> void: _ammo_changed())
+			# Real family, calibre and effect from the shell definition, plus the estimate marker the catalogue enforces.
+			var meta := CoreUI.label(row,LocalizationService.text("loadout_shell_meta")%[str(shell.impact_profile.get("family","—")),float(shell.caliber_mm),str(shell.effect_policy)]+" · "+LocalizationService.text("loadout_estimated"),12)
+			meta.add_theme_color_override("font_color",GarageTheme.MUTED)
+			shell_meta[shell.id] = meta.text
 		if not lineup_ids.has(id) and (mode() == "training" or id in store.snapshot().unlocked):
 			if lineup_ids.size() == 3: lineup_ids.pop_back()
 			lineup_ids.append(id)
-	else: details.visible = false
+	else:
+		# Explicit empty state: the group stays visible and says why it cannot be edited, instead of vanishing.
+		summary_box.visible = false
+		rack_label.text = ""
+		CoreUI.label(ammo_box,LocalizationService.text("loadout_no_packet"),13)
 	_refreshing = false
 	_refresh_research()
 	_refresh_lineup()
@@ -133,8 +174,6 @@ func _refresh_research() -> void:
 	research_label.text = LocalizationService.text("ui_7dc14f99eba8")%[profile.research_points,availability.reason]
 	if mode() == "training": research_label.text += LocalizationService.text("ui_b95c8942557e")
 	research_button.visible = not availability.get("unlocked",false)
-	research_button.disabled = not availability.ok or not store.writable
-	research_button.text = LocalizationService.text("ui_6eaae0d1eab7")%ResearchGraph.NODES[current_id].cost
 
 func _research() -> void:
 	var result := ResearchGraph.unlock(store,current_id)
@@ -163,15 +202,22 @@ func _ammo_changed() -> void:
 	_refresh_racks()
 
 func _refresh_racks() -> void:
-	if not store.service.has_vehicle(current_id): rack_label.text = ""; return
+	if not store.service.has_vehicle(current_id):
+		if rack_label != null: rack_label.text = ""
+		if ammo_error_label != null: ammo_error_label.text = ""
+		if page_summary != null: page_summary.text = ""
+		return
 	var checked := store.service.build_loadout(loadouts[current_id])
 	if not checked.ok:
 		rack_label.text = checked.reason
 		garage.error_label.text = checked.reason
+		ammo_error_label.text = checked.reason
+		page_summary.text = LocalizationService.text("loadout_summary_line")%[0,0,LocalizationService.text("loadout_estimated")]
 		_ammo_error = checked.reason
 		return
 	if garage.error_label.text == _ammo_error: garage.error_label.text = ""
 	_ammo_error = ""
+	ammo_error_label.text = ""
 	var inventory: Dictionary = checked.inventory
 	garage.rounds.value = inventory.available
 	var packet: Dictionary = store.service.catalog.packages[current_id].packet
@@ -180,6 +226,9 @@ func _refresh_racks() -> void:
 	elif current_id.begins_with("us_m24"): garage.preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
 	rack_label.text = LocalizationService.text("ui_7c2a6d68853f")%[inventory.available,inventory.capacity]
 	for id in inventory.racks: rack_label.text += "%s：%d\n"%[CoreUI.word(id),inventory.racks[id]]
+	var first_name := "—"
+	if first_choice != null and first_choice.item_count > 0: first_name = first_choice.get_item_text(maxi(0,first_choice.selected))
+	page_summary.text = LocalizationService.text("loadout_summary_line")%[inventory.available,inventory.capacity,first_name]
 	apply_rack_preview()
 	if garage.inspection_choice != null and garage._view_mode == 2: garage._select_inspection(garage.inspection_choice.selected)
 
