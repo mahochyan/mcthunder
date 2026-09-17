@@ -362,6 +362,29 @@ func run(flow: AppFlow) -> void:
 	report(tree != null and tree.is_visible_in_tree(), "clicking the research entry opens the research tree")
 	report(visible_modals() > modals_before, "the research tree registers as a modal (contained input)")
 	await driver.capture("nav_03_research_tree")
+	# --- WT-UI-006/S03: the armour inspection shows the thickness WITH its evidence status, never alone -------
+	var view_before: int = g._view_mode
+	g._view_mode = 1
+	g._apply_preview_mode()
+	await frames(6)
+	report(g.inspection_row.visible, "the armour inspection row appears in the inspection view")
+	var patch_text := ""
+	if g.inspection_choice.item_count > 0:
+		g._select_inspection(0)
+		await frames(4)
+		patch_text = str(g.inspection_value.text)
+	report(patch_text.contains("mm") or patch_text.contains("—"), "the first armour entry states its thickness, or says it has none (%s)" % patch_text)
+	var status_words := [LocalizationService.text("ui_b340063020e8"),LocalizationService.text("ui_c58140e6cf83"),LocalizationService.text("ui_4d8c1c5b4283")]
+	var has_status := false
+	for status_word in status_words:
+		if patch_text.contains(str(status_word)): has_status = true
+	report(has_status, "the thickness is shown together with its evidence status, so the estimate marker cannot be hidden by the styling (%s)" % patch_text)
+	g._view_mode = view_before
+	g._apply_preview_mode()
+	g._refresh_inspection()
+	await frames(5)
+	report(view_before != 0 or not g.inspection_row.visible, "leaving the inspection view hides the row again")
+
 	# --- WT-UI-005: five routes on one row, no fake prerequisite lines, filter and scroll preserved ----------
 	var research := tree as VehicleResearchTree
 	if research != null:
