@@ -17,6 +17,8 @@ var ticket_label: Label
 var point_label: Label
 var capture_bar: ProgressBar
 var capture_fill: StyleBoxFlat
+var objective_strip: HBoxContainer
+var objective_cards: Array[Dictionary] = []
 var crew_label: Label
 var module_grid: GridContainer
 var module_labels: Dictionary = {}
@@ -129,6 +131,19 @@ func _build() -> void:
 	clock_label.size_flags_horizontal = Control.SIZE_SHRINK_END
 	clock_label.custom_minimum_size.x = 100
 	clock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	objective_strip = HBoxContainer.new()
+	objective_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	objective_strip.add_theme_constant_override("separation",8)
+	objective_strip.visible = false
+	stack.add_child(objective_strip)
+	for i in BattleObjectives.MAX_POINTS:
+		var panel := _panel(objective_strip)
+		var column := _column(panel,3)
+		var label := _label(column,"",15)
+		var bar := _bar(column)
+		var fill := StyleBoxFlat.new()
+		bar.add_theme_stylebox_override("fill",fill)
+		objective_cards.append({"panel":panel,"label":label,"bar":bar,"fill":fill})
 	var space := Control.new()
 	space.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	space.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -303,7 +318,20 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	point_label.text = info.objective
 	if info.phase == "countdown": point_label.text = LocalizationService.text("ui_d3578b3e7f8c")%ceili(info.countdown)
 	ticket_label.text = info.tickets_text
-	capture_bar.visible = info.get("team_mode",false)
+	var points: Array = info.get("objectives",[])
+	objective_strip.visible = points.size() > 1
+	for i in objective_cards.size():
+		var card := objective_cards[i]
+		card.panel.visible = i < points.size()
+		if i >= points.size(): continue
+		var row: Dictionary = points[i]
+		var owner: int = int(row.owner)
+		var label: String = "争夺中" if row.contested else {0:"中立",1:"友军控制",2:"敌军控制"}[owner]
+		card.label.text = "%s  ·  %s  %d%%"%[row.id,label,roundi(absf(row.progress)*100)]
+		card.label.modulate = Color("ffe135") if row.contested else RiverObjectiveHUD.COLORS[owner]
+		card.bar.value = absf(row.progress)
+		card.fill.bg_color = RiverObjectiveHUD.COLORS[1 if row.progress >= 0 else 2]
+	capture_bar.visible = info.get("team_mode",false) and not objective_strip.visible
 	capture_bar.value = absf(float(info.get("capture_progress",0)))
 	capture_fill.bg_color = Color("72c9ee") if float(info.get("capture_progress",0))>=0 else Color("ffc47e")
 	crew_label.text = LocalizationService.text("ui_b80473d17af7")%[model.crew_alive,model.crew.size()]
@@ -351,7 +379,7 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	action_bar.value = float(model.action_progress)/maxf(0.01,float(model.action_duration))
 	feedback_label.text = "\n".join([model.shot_feedback,model.recovery_feedback]).strip_edges()
 	feedback_label.visible = not feedback_label.text.is_empty()
-	minimap.present_observations(intel,int(info.get("owner",0)))
+	minimap.present_observations(intel,int(info.get("owner",0)),points)
 	footer.text = notice if not notice.is_empty() else InputBindingService.driving_hint()+" · "+InputBindingService.hint("scoreboard")+LocalizationService.text("ui_496113d4c2a8")+InputBindingService.hint("pause")+LocalizationService.text("ui_4414425d80fe")
 	board_close_button.text = LocalizationService.text("ui_9c9ad4457fc6")+InputBindingService.hint("scoreboard")
 	replay_close_button.text = LocalizationService.text("ui_24788e717f91")+InputBindingService.hint("replay_toggle")

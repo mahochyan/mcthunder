@@ -7,6 +7,7 @@ var capture_owner := 0
 var has_point := true
 var point_position := Vector3.ZERO
 var point_radius := 12.0
+var objectives: Array = []
 var high_contrast := false
 var map_rect := Rect2()
 var _road_segments := PackedVector3Array()
@@ -26,9 +27,10 @@ var roads: Dictionary = {}:
 func _ready() -> void:
 	custom_minimum_size = Vector2(206,206)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-func present_observations(intel: Dictionary, point_owner: int) -> void:
+func present_observations(intel: Dictionary, point_owner: int, points: Array = []) -> void:
 	markers = intel.get("markers",[]).duplicate(true)
 	capture_owner = point_owner
+	objectives = points.slice(0, BattleObjectives.MAX_POINTS).duplicate(true)
 	queue_redraw()
 func project(point: Vector3) -> Vector2:
 	return map_rect.position+(Vector2(point.x,point.z)-world_rect.position)/world_rect.size*map_rect.size
@@ -43,10 +45,14 @@ func _draw() -> void:
 		var p := project(Vector3(rectangle.position.x,0,rectangle.position.y))
 		draw_rect(Rect2(p,rectangle.size*scale_factor),Color("8b8368"))
 	if has_point:
-		var center := project(point_position)
-		var color: Color = {0:Color("e4dcb0"),1:Color("65c8ff"),2:Color("ffbb6d")}[capture_owner]
-		draw_arc(center,point_radius*scale_factor,0,TAU,40,color,2,true)
-		draw_string(CoreUI.FONT,center+Vector2(-5,5),"A",HORIZONTAL_ALIGNMENT_LEFT,-1,14,color)
+		var points := objectives
+		if points.is_empty(): points = [{"id":"A","center":point_position,"radius":point_radius,"owner":capture_owner,"contested":false}]
+		for row in points:
+			var center := project(row.center)
+			var color: Color = {0:Color("e4dcb0"),1:Color("65c8ff"),2:Color("ffbb6d")}[int(row.owner)]
+			if row.get("contested",false): color = Color("ffe135")
+			draw_arc(center,maxf(9,float(row.radius)*scale_factor),0,TAU,40,color,2,true)
+			draw_string(CoreUI.FONT,center+Vector2(-5,5),str(row.id),HORIZONTAL_ALIGNMENT_LEFT,-1,14,color)
 	for marker in markers:
 		var point := project(marker.position)
 		if not map_rect.has_point(point): continue

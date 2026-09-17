@@ -16,6 +16,18 @@ extends VillageRange
 ## on the authored 16v16 layout. Match size and layout version are passed separately and explicitly.
 var trial_match_size := int(RiverTeamDefinition.ENGINEERING_MATCH.match_size)
 var trial_layout_version := int(RiverTeamDefinition.ENGINEERING_MATCH.layout_version)
+var objective_materials: Dictionary = {}
+
+func _build_capture_ring() -> void:
+	# The inherited arena ring is at the origin. River zones follow the actual
+	# authored footprint and terrain, shared with the single-vehicle driving map.
+	objective_materials = RiverCaptureMarkers.build(self)
+
+func _refresh_capture_markers(state: TeamMatchState) -> void:
+	if state.objectives == null: return
+	for row in state.objectives.snapshot():
+		if objective_materials.has(row.id):
+			objective_materials[row.id].albedo_color = Color("ffe135") if row.contested else RiverObjectiveHUD.COLORS[int(row.owner)]
 
 func _init() -> void:
 	definition = RiverTeamDefinition.create(trial_match_size, trial_layout_version)
@@ -27,6 +39,11 @@ func _build_world() -> void:
 ## The river's own graph, so routes follow the authored roads and bridges rather than the arena's.
 func navigation_graph() -> Dictionary:
 	return definition.graph.duplicate(true)
+
+func minimap_metadata() -> Dictionary:
+	var metadata := definition.minimap()
+	metadata.title = "河谷枢纽 · %dv%d"%[trial_match_size,trial_match_size]
+	return metadata
 
 func spawn_candidates(team: int) -> Array[Transform3D]:
 	var poses: Array[Transform3D] = []

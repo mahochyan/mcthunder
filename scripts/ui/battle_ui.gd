@@ -96,6 +96,13 @@ func match_info() -> Dictionary:
 		info.objective = {0:LocalizationService.text("ui_bf58a1adae2f"),1:LocalizationService.text("ui_dcccd3d21109"),2:LocalizationService.text("ui_90071e9b4da2")}[state.capture_owner]
 		info.objective += " · %.0f%%"%(absf(state.capture_progress)*100)
 		if state.contested: info.objective += LocalizationService.text("ui_71bc0ab7f129")
+		if state.objectives != null:
+			info.objectives = state.objectives.snapshot()
+			if info.objectives.size() > 1:
+				var ids := PackedStringArray()
+				for row in info.objectives: ids.append(str(row.id))
+				info.title = "据点争夺 · "+" / ".join(ids)
+				info.objective = "控制据点，消耗敌方票数"
 	else:
 		info.countdown = battle.match_director.countdown_left
 	if phase() == "finished": info.objective = LocalizationService.text("ui_3c03903fbcd6")

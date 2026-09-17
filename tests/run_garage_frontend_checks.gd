@@ -17,8 +17,10 @@ func click(button: Control) -> void:
 	if DisplayServer.get_name()=="headless":
 		(button as Button).pressed.emit(); await frames(); return
 	var point := button.get_global_rect().get_center()
+	Input.warp_mouse(point)
 	var motion := InputEventMouseMotion.new(); motion.position=point; Input.parse_input_event(motion)
 	for down in [true,false]:
+		print("[mouse diagnostic] ",button.name," pressed=",down," target=",point," mouse=",root.get_mouse_position()," hovered=",root.gui_get_hovered_control())
 		var event := InputEventMouseButton.new(); event.button_index=MOUSE_BUTTON_LEFT; event.position=point; event.pressed=down
 		Input.parse_input_event(event); await frames()
 func run() -> void:
@@ -28,7 +30,11 @@ func run() -> void:
 	var initial := g.profile.snapshot()
 	check(g.frontend!=null and g.frontend.cards.size()==g.vehicle_choice.item_count,"real roster drives frontend cards")
 	await capture("01_deployment_720")
+	await click(g.frontend.tabs[1])
+	await capture("01b_vehicle_page_before_card")
+	print("[vehicle card] viewport=",root.size," rect=",g.frontend.cards[1].get_global_rect()," before=",g.selected_vehicle_id())
 	await click(g.frontend.cards[1])
+	print("[vehicle card] after=",g.selected_vehicle_id())
 	check(g.selected_vehicle_id()==VehicleCatalog.IDS[0] and g.preview.layout==g.catalog.packages[VehicleCatalog.IDS[0]].layout,"card activation switches actual vehicle and inspection geometry")
 	await click(g.frontend.tabs[1])
 	check(g.preparation.details.is_visible_in_tree() and not g.frontend.pages[0].visible,"equipment navigation exposes real ammunition and lineup controls")

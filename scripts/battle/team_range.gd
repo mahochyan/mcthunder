@@ -527,6 +527,9 @@ func _build_capture_ring() -> void:
 	flag.position = Vector3(0,4.4,0)
 	add_child(flag)
 
+func _refresh_capture_markers(state: TeamMatchState) -> void:
+	capture_material.albedo_color = {0:Color("c8c8a0"),1:Color("57b9e5"),2:Color("e79c68")}[state.capture_owner]
+
 func _panel(size: Vector2) -> PanelContainer:
 	var panel := PanelContainer.new()
 	hud.add_child(panel)
@@ -643,7 +646,7 @@ func _process(delta: float) -> void:
 	elif not actor.capabilities().drive: action_label.text = LocalizationService.text("ui_f84d46746392")
 	elif not actor.capabilities().fire: action_label.text = LocalizationService.text("ui_373d66b7d585")
 	if not actor.state.recovery_action.is_empty(): action_label.text += LocalizationService.text("ui_b11e8dc2e1aa")%[CoreUI.word(actor.state.recovery_action),actor.state.action_progress]
-	capture_material.albedo_color = {0:Color("c8c8a0"),1:Color("57b9e5"),2:Color("e79c68")}[state.capture_owner]
+	_refresh_capture_markers(state)
 	for life in shield_visuals.keys():
 		var entry: Dictionary = shield_visuals[life]
 		var vehicle: VehicleActor = entry.actor.get_ref()

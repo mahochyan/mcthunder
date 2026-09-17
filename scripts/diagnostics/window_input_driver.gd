@@ -54,6 +54,15 @@ func click(button: Control) -> void:
 			var wheel := MOUSE_BUTTON_WHEEL_DOWN if rect.end.y > clip.end.y-2 else MOUSE_BUTTON_WHEEL_UP
 			mouse(wheel,true,clip.get_center()); mouse(wheel,false,clip.get_center()); await frames(3)
 	var point := button.get_global_rect().get_center()
+	var reachable := button.get_viewport_rect().has_point(point)
+	if ancestor is ScrollContainer: reachable = reachable and ancestor.get_global_rect().has_point(point)
+	if not reachable:
+		check(false,"normal UI click target is outside visible area: "+control_label+" rect="+str(button.get_global_rect())+" viewport="+str(button.get_viewport_rect()))
+		if not shot_dir.is_empty(): await capture("unreachable_control_%d"%checks)
+		return
+	# A synthetic motion does not move the native cursor. A subsequent Windows
+	# mouse update can put hover back over the preview before button release.
+	Input.warp_mouse(point)
 	var motion := InputEventMouseMotion.new(); motion.position = point; motion.global_position = point
 	Input.parse_input_event(motion); await frames(3)
 	mouse(MOUSE_BUTTON_LEFT,true,point); await frames(2); mouse(MOUSE_BUTTON_LEFT,false,point)

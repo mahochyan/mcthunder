@@ -14,6 +14,11 @@ $run=Join-Path $projectRoot "logs/WT040-package/$SourceSha/$Case-$(Get-Date -For
 New-Item -ItemType Directory -Path "$run/workdir","$run/userdata","$run/shots" -Force | Out-Null
 $pck=[IO.Path]::ChangeExtension($Executable,'.pck')
 $before=@(Get-FileHash -LiteralPath $Executable,$pck -Algorithm SHA256)
+foreach($actual in $before){
+    $name=Split-Path -Leaf $actual.Path
+    $declared=@($manifest.files | Where-Object {$_.name -eq $name})
+    if($declared.Count -ne 1 -or $declared[0].sha256 -ne $actual.Hash){throw "Package bytes differ from BUILD_MANIFEST: $name"}
+}
 $marker=if($Case -eq 'garage'){'MODERN_GARAGE_CHECKS_PASS'}else{'PLAYER_LIVE_ROUND_PASS'}
 $psi=[Diagnostics.ProcessStartInfo]::new()
 $psi.FileName=$Executable
