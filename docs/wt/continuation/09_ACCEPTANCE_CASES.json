@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "design_id": "MCT-UI-FIELDWORK-01",
+  "claim": "48 planned acceptance scenarios, not executed tests",
+  "cases": [
+    {
+      "id": "WT-UI-001-A01",
+      "work_order": "WT-UI-001",
+      "title": "基线身份",
+      "procedure": "在当前候选与独立工作树中核对代码、配置和未提交文件。",
+      "expected": "记录被测HEAD和本轮预期改动；用户文件未被覆盖。",
+      "evidence_required": "源码身份和状态日志",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-001-A02",
+      "work_order": "WT-UI-001",
+      "title": "入口真实",
+      "procedure": "按正常按钮打开八类页面中当前可用者。",
+      "expected": "实际入口和绑定可定位；不可用页面标NOT_RUN而不是概念图通过。",
+      "evidence_required": "正常操作截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-001-A03",
+      "work_order": "WT-UI-001",
+      "title": "后继成果保留",
+      "procedure": "比较当前实现与本设计要求。",
+      "expected": "已经满足项只补差，不切回设计快照、不重做旧四单。",
+      "evidence_required": "实现映射表",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-001-A04",
+      "work_order": "WT-UI-001",
+      "title": "数据无虚构",
+      "procedure": "检查车型、货币、评级、地图人数与按钮可用性。",
+      "expected": "无法由服务证明的字段不作为真实产品值显示。",
+      "evidence_required": "字段来源表",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-002-A01",
+      "work_order": "WT-UI-002",
+      "title": "组件全状态",
+      "procedure": "在组件实验场切换普通、悬停、按下、焦点、禁用、忙碌、错误。",
+      "expected": "各状态可区分，busy不连续发动作，disabled仍有解释。",
+      "evidence_required": "组件状态截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-002-A02",
+      "work_order": "WT-UI-002",
+      "title": "字号只放大一次",
+      "procedure": "在100%和125%间切换并重复打开面板。",
+      "expected": "尺寸按基准重算，不累积放大；关键文字不裁切。",
+      "evidence_required": "两档截图与字号记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-002-A03",
+      "work_order": "WT-UI-002",
+      "title": "可读性",
+      "procedure": "在主题底色及亮/暗战斗背景检查文字、图标和焦点。",
+      "expected": "达到项目对比目标；颜色外有形状/文本补充。",
+      "evidence_required": "色对检查与真实背景截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-002-A04",
+      "work_order": "WT-UI-002",
+      "title": "主题不串状态",
+      "procedure": "同时显示多个按钮、卡片和弹窗，反复切状态。",
+      "expected": "一个按钮的hover/disabled不改变其他组件。",
+      "evidence_required": "实验场操作记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-003-A01",
+      "work_order": "WT-UI-003",
+      "title": "页面往返",
+      "procedure": "正常点击作战→配装→科技树→返回→训练→车库。",
+      "expected": "页面、选择、焦点及滚动恢复正确，无旧控件误点。",
+      "evidence_required": "键鼠序列和截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-003-A02",
+      "work_order": "WT-UI-003",
+      "title": "模态阻断",
+      "procedure": "打开设置/确认框，按战斗键并点击背景。",
+      "expected": "不发射、不移动车辆、不旋转背景模型，不重复切换场景。",
+      "evidence_required": "命令/事件对照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-003-A03",
+      "work_order": "WT-UI-003",
+      "title": "键盘导航",
+      "procedure": "仅用Tab/方向/Enter/Esc完成页面跳转和取消。",
+      "expected": "焦点可见，不进入隐藏页，不形成无法退出的陷阱。",
+      "evidence_required": "焦点路径记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-003-A04",
+      "work_order": "WT-UI-003",
+      "title": "控件不可用",
+      "procedure": "尝试点击隐藏、禁用、被模态遮挡或滚动裁切控件。",
+      "expected": "验证器停止该次点击并记录具体原因，不在错误坐标继续操作。",
+      "evidence_required": "反例测试日志",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-004-A01",
+      "work_order": "WT-UI-004",
+      "title": "真实车型信息",
+      "procedure": "在历史车、工程车、仅预览模型之间切换。",
+      "expected": "名称、国家、标签、武器摘要与当前对象一致；未知字段明确缺失。",
+      "evidence_required": "截图+vehicle_id记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-004-A02",
+      "work_order": "WT-UI-004",
+      "title": "出战条件",
+      "procedure": "测试正常就绪、未研发、配装错误、缺模型与模式不匹配。",
+      "expected": "按钮与拒绝原因来自同一服务，不发生静默训练车回退。",
+      "evidence_required": "资格结果和UI对照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-004-A03",
+      "work_order": "WT-UI-004",
+      "title": "紧凑可操作",
+      "procedure": "1280×720及125%下打开最长车型名和地图说明。",
+      "expected": "主按钮始终可达，文字不盖模型操作，局部滚动正确。",
+      "evidence_required": "真实窗口截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-004-A04",
+      "work_order": "WT-UI-004",
+      "title": "单次出战",
+      "procedure": "双击按钮、键盘长按确认、切换中再次点击。",
+      "expected": "仅一个真实出战请求和一个场景切换，不重复扣费。",
+      "evidence_required": "业务事件计数",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-005-A01",
+      "work_order": "WT-UI-005",
+      "title": "五路线可达",
+      "procedure": "720p通过路线跳转与横向滚动依次打开五列。",
+      "expected": "每条路线标题与卡片可读可选，右侧路线未被裁掉。",
+      "evidence_required": "五路线操作录屏或截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-005-A02",
+      "work_order": "WT-UI-005",
+      "title": "改型不串",
+      "procedure": "基础型A→改型B→切国家→返回→试驾/选择。",
+      "expected": "实际请求ID、模型说明、武器/状态对应B；不回到A而无提示。",
+      "evidence_required": "ID和页面证据",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-005-A03",
+      "work_order": "WT-UI-005",
+      "title": "筛选与空态",
+      "procedure": "搜索不存在车辆、仅已有模型筛选、清空筛选。",
+      "expected": "有清晰空态和恢复入口，数量按真实结果变化。",
+      "evidence_required": "界面状态截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-005-A04",
+      "work_order": "WT-UI-005",
+      "title": "准入与研发分离",
+      "procedure": "查看仅预览、工程已验证、未研发和资源缺失车型。",
+      "expected": "状态含义不混淆，购买/出战只由相应服务授权。",
+      "evidence_required": "UI与服务对照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-006-A01",
+      "work_order": "WT-UI-006",
+      "title": "配弹边界",
+      "procedure": "设置超容量、0发首发、仅一种弹及多个弹种。",
+      "expected": "明确拦截无效配置，合法组合总数和首发匹配服务。",
+      "evidence_required": "库存与UI断言",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-006-A02",
+      "work_order": "WT-UI-006",
+      "title": "换车与取消",
+      "procedure": "编辑A→切B→取消/应用→返回。",
+      "expected": "不串弹种和数量，确认/取消行为明确，存档与显示一致。",
+      "evidence_required": "配装快照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-006-A03",
+      "work_order": "WT-UI-006",
+      "title": "少带弹",
+      "procedure": "比较少带与满载的检查视图。",
+      "expected": "只有实际空弹架隐藏/标为空；UI没有改动战斗布局。",
+      "evidence_required": "弹架状态截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-006-A04",
+      "work_order": "WT-UI-006",
+      "title": "初生与再出击",
+      "procedure": "应用一份非默认合法配装并通过正常入口出击/再出击。",
+      "expected": "车型、首发、弹种计数与确认配置一致。",
+      "evidence_required": "match_config与出生记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-007-A01",
+      "work_order": "WT-UI-007",
+      "title": "多目标显示",
+      "procedure": "进入单点和三点场景，触发争夺/占领/票数变化。",
+      "expected": "数量、归属、时间来自真实状态，无硬编码假据点。",
+      "evidence_required": "比赛快照+HUD截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-007-A02",
+      "work_order": "WT-UI-007",
+      "title": "装填语义",
+      "procedure": "空膛、装填中切弹、搬运中、装填完成、无弹。",
+      "expected": "大字当前弹与下一弹不混；进度完成不提前允许开火。",
+      "evidence_required": "库存事件+逐状态截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-007-A03",
+      "work_order": "WT-UI-007",
+      "title": "瞄准一致",
+      "procedure": "斜坡、炮口遮挡、炮塔未跟上时切第三人称/炮镜。",
+      "expected": "意图与实际炮口标记对应原投影，不通过UI修正炮管。",
+      "evidence_required": "投影对照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-007-A04",
+      "work_order": "WT-UI-007",
+      "title": "小地图权限",
+      "procedure": "敌车不可见→目击→失去视线→过期；切观战。",
+      "expected": "无权限实时位置不显示，最后目击不持续更新。",
+      "evidence_required": "情报快照与截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-008-A01",
+      "work_order": "WT-UI-008",
+      "title": "不同失能",
+      "procedure": "分别构造标记清楚的履带/炮闩/发动机/乘员/火灾状态并补真实场景对照。",
+      "expected": "文字与受限能力一致，未受损部位不误报。",
+      "evidence_required": "状态快照与截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-008-A02",
+      "work_order": "WT-UI-008",
+      "title": "恢复与取消",
+      "procedure": "正常请求维修/灭火/换位，再取消或被中断。",
+      "expected": "显示当前动作和真实取消原因，不虚报完成。",
+      "evidence_required": "动作事件记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-008-A03",
+      "work_order": "WT-UI-008",
+      "title": "重复与新生命",
+      "procedure": "重放同一显示事件，随后新生命再次受损。",
+      "expected": "旧事件不重复提示，新生命不会继承旧告警或进度。",
+      "evidence_required": "去重测试",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-008-A04",
+      "work_order": "WT-UI-008",
+      "title": "改键与关特效",
+      "procedure": "更改已有动作绑定，关闭闪光/震动/特效。",
+      "expected": "提示键同步，核心状态仍可读，游戏结果不变。",
+      "evidence_required": "设置对照截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-009-A01",
+      "work_order": "WT-UI-009",
+      "title": "等待到就绪",
+      "procedure": "通过真实游戏事件死亡并等待。",
+      "expected": "正确原因和等待显示；时间未到不能请求；时间到仍校验资格。",
+      "evidence_required": "死亡与等待记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-009-A02",
+      "work_order": "WT-UI-009",
+      "title": "正常点击",
+      "procedure": "按钮就绪后用鼠标点击，短时间重复点击。",
+      "expected": "一次出击请求，新生命车型/配装正确，面板成功后收起。",
+      "evidence_required": "输入与新生命记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-009-A03",
+      "work_order": "WT-UI-009",
+      "title": "阻塞反馈",
+      "procedure": "测试出生位堵塞、无可用车辆、对局结束。",
+      "expected": "不吞请求、不无限忙碌、不错误扣费；解释明确。",
+      "evidence_required": "状态反例",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-009-A04",
+      "work_order": "WT-UI-009",
+      "title": "新生命清理",
+      "procedure": "旧车有火灾/装填/告警后死亡再出击。",
+      "expected": "新HUD无旧车进度或残留提示，观战引用不串。",
+      "evidence_required": "前后截图和身份",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-010-A01",
+      "work_order": "WT-UI-010",
+      "title": "结果准确",
+      "procedure": "自然完成胜/负/平或当前模式可复现的结果。",
+      "expected": "结算数据与冻结收据一致；未提供字段不编造。",
+      "evidence_required": "结果收据和截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-010-A02",
+      "work_order": "WT-UI-010",
+      "title": "保存状态",
+      "procedure": "测试正常保存、写入失败、只读与无收益训练。",
+      "expected": "不提前显示已保存，错误说明和可用操作正确。",
+      "evidence_required": "隔离存档测试",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-010-A03",
+      "work_order": "WT-UI-010",
+      "title": "重复打开",
+      "procedure": "重复打开结算、回放、返回同一结果。",
+      "expected": "奖励仅入账一次，动画不触发新账目。",
+      "evidence_required": "收据与revision记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-010-A04",
+      "work_order": "WT-UI-010",
+      "title": "下一局",
+      "procedure": "正常点击下一局→返回车库→关闭重启。",
+      "expected": "新世界无旧结果污染，真实保存可读取，主操作可达。",
+      "evidence_required": "正常流程记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-011-A01",
+      "work_order": "WT-UI-011",
+      "title": "挑战状态",
+      "procedure": "侧翼/坚守/M36路线启动、退出、返回与重开。",
+      "expected": "显示真实条件和已有成绩，退出不覆盖最佳记录。",
+      "evidence_required": "挑战正常流程",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-011-A02",
+      "work_order": "WT-UI-011",
+      "title": "设置持久化",
+      "procedure": "100%/125%、对比、已有键位和声音设置后重启。",
+      "expected": "界面与存档同步，未知设置项不被静默丢弃。",
+      "evidence_required": "设置快照",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-011-A03",
+      "work_order": "WT-UI-011",
+      "title": "危险确认",
+      "procedure": "重置进度或离开比赛时取消，再确认另一次。",
+      "expected": "取消无副作用，确认仅一次；焦点回到正确控件。",
+      "evidence_required": "操作记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-011-A04",
+      "work_order": "WT-UI-011",
+      "title": "缺资源与加载失败",
+      "procedure": "隔离副本移除一个必需UI图标/车型资源并触发加载。",
+      "expected": "出现真实错误与返回入口，不借别的资源伪装、不无限遮罩。",
+      "evidence_required": "错误与恢复截图",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-012-A01",
+      "work_order": "WT-UI-012",
+      "title": "分辨率矩阵",
+      "procedure": "按05列出的窗口/字号组合运行关键页面，实时调整窗口。",
+      "expected": "无关键文字裁切、操作区超屏或不可滚动内容；对比和焦点保持。",
+      "evidence_required": "逐配置截图与布局记录",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-012-A02",
+      "work_order": "WT-UI-012",
+      "title": "业务无回归",
+      "procedure": "使用同一内容/规则执行美化前后关键确定性夹具。",
+      "expected": "配弹/命中/票池/奖励未因UI改变；不可比较项写明，不伪造完全一致。",
+      "evidence_required": "对应事件与配置",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-012-A03",
+      "work_order": "WT-UI-012",
+      "title": "独立包真实流程",
+      "procedure": "从新目录运行包，选车配弹→比赛→再出击→结算→下一局→重启。",
+      "expected": "不访问开发目录补资源，不调用直接业务方法冒充输入；必需现代内容缺失即失败。",
+      "evidence_required": "包manifest和流程证据",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WT-UI-012-A04",
+      "work_order": "WT-UI-012",
+      "title": "交付边界",
+      "procedure": "检查文档、manifest、known_failures和human/performance状态。",
+      "expected": "设计图不当截图，NOT_RUN不当PASS，旧失败豁免不扩张，发布仍false。",
+      "evidence_required": "最终交付清单",
+      "status": "NOT_RUN"
+    }
+  ]
+}

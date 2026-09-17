@@ -1,127 +1,155 @@
 {
-  "schema": 1,
-  "design": "MCTHUNDER UI 美化设计单 · FIELDWORK 01",
-  "work_order": "MCT-UI-FIELDWORK-01",
-  "item": "WT-UI-002",
-  "provenance": {
-    "transcribed_from": "UI设计单_阅读版.html — sections 2 颜色令牌 / 3 字体与排版 / 4 几何、控件和动效 / 5 响应式布局 / 6 图标、模型与缩略图",
-    "why_transcribed": "The design package's own machine-readable 07_UI_TOKENS.json was not part of this transfer (checked: absent from the attachments directory and from both working trees). This file carries the same values as the design document's own token table and is the landed path for that design artefact.",
-    "design_traceability_copy": "docs/wt/continuation/07_UI_TOKENS.json (identical content, kept so the work order's file name is traceable)",
-    "conflict_note": "The mockup image's chip strip (#0F1419 / #1C2A38 / #E63946 / #D4AF37 / #3A7BD5 / #2ECC71) disagrees with the design document's colour-token table. The table governs this file; the image is treated as style reference only.",
-    "not_a_new_dependency": "Colour, type and geometry values only; no font, engine or third-party dependency is added by this file."
-  },
+  "schema_version": 1,
+  "design_id": "MCT-UI-FIELDWORK-01",
+  "version": "1.0",
+  "status": "design_proposal_not_installed",
   "colors": {
-    "background": {"value": "#10171B", "use": "全屏底色、车库底层"},
-    "surface": {"value": "#182329", "use": "常规面板"},
-    "surface_raised": {"value": "#223139", "use": "弹窗、悬浮面板"},
-    "border_decorative": {"value": "#35464E", "use": "非交互分隔线，不单独承担可点击提示"},
-    "control_outline": {"value": "#697F88", "use": "输入框与必要控件边界"},
-    "text_primary": {"value": "#ECEDE6", "use": "标题与正文"},
-    "text_secondary": {"value": "#A8B6BA", "use": "说明、单位与次级标签"},
-    "accent": {"value": "#E0B46A", "use": "主要按钮、当前选中和键盘焦点"},
-    "on_accent": {"value": "#141A1E", "use": "金色按钮上的深色文字"},
-    "ally": {"value": "#7FC9E0", "use": "己方关系"},
-    "enemy": {"value": "#F17C72", "use": "敌方关系、必须配敌方图形标记"},
-    "warning": {"value": "#E8BE70", "use": "需要处理的限制"},
-    "critical": {"value": "#FF8A80", "use": "火灾、关键能力失效"},
-    "positive": {"value": "#A0CBA1", "use": "已应用、已恢复、可执行"},
-    "disabled_text": {"value": "#83969D", "use": "禁用文字；必须在邻近位置给出可读原因"}
+    "background": "#10171B",
+    "surface": "#182329",
+    "surface_raised": "#223139",
+    "border_decorative": "#35464E",
+    "control_outline": "#697F88",
+    "text_primary": "#ECEDE6",
+    "text_secondary": "#A8B6BA",
+    "accent": "#E0B46A",
+    "on_accent": "#141A1E",
+    "ally": "#7FC9E0",
+    "enemy": "#F17C72",
+    "warning": "#E8BE70",
+    "critical": "#FF8A80",
+    "positive": "#A0CBA1",
+    "disabled_text": "#83969D",
+    "focus": "#E0B46A"
   },
-  "color_rules": [
-    "对比目标：正文 4.5:1、必要图标与焦点边界 3:1（借鉴 W3C 对比度方法，不是 WCAAG 合规认证）",
-    "HUD 必须在亮天空、暗建筑、火光背景上检查最终合成后的对比，而不是只测色板",
-    "高对比模式以更实的背景和更清楚的边界实现，不把所有文字统一刷成金色",
-    "己方/敌方/就绪/失能不能只靠颜色：同时用形状、图标、短标签",
-    "危险色不用于普通「进入战斗」按钮"
-  ],
-  "typography": {
-    "unit": "logical px at ui_scale = 1.0",
-    "font": "CoreUI.FONT = res://assets/fonts/NotoSansCJKsc-Regular.otf（复用已入库许可明确的中文字体；不新增网络字体依赖）",
-    "line_height": 1.35,
-    "scale": {
-      "vehicle_title": {"size": 34, "weight": "中粗", "rule": "长型号可以两行，不硬缩为小字"},
-      "page_title": {"size": 28, "weight": "中粗"},
-      "group_title": {"size": 20, "weight": "中粗"},
-      "body_button_input": {"size": 16, "weight": "常规/中粗"},
-      "secondary_note": {"size": 14, "weight": "常规", "rule": "不承载唯一关键操作条件"},
-      "combat_number": {"size": 24, "weight": "中粗", "rule": "稳定数字宽度；时间和数量跳动不推挤布局"},
-      "combat_critical": {"size": 18, "weight": "中粗", "rule": "短句；允许两行但不挡准星"}
+  "font": {
+    "source": "reuse existing licensed project CJK font; no font binary in this design package",
+    "sizes_at_ui_scale_1": {
+      "vehicle_title": 34,
+      "page_title": 28,
+      "section": 20,
+      "body": 16,
+      "button": 16,
+      "secondary": 14,
+      "hud_number": 24,
+      "critical_notice": 18
     },
-    "rules": [
-      "中文不人为拉大字距；车型 ID 可保留技术名称，普通操作不堆英文",
-      "简短英文只作弱化分组眉题，不替代中文",
-      "ui_scale 沿用现有 1.0–1.25；首次交付覆盖 100% 与 125%，不擅自扩存档格式到 150%/200%",
-      "操作系统 DPI 与游戏字号是不同因素，测试时分别记录",
-      "实际字号只缩放一次，不叠乘主题字体、节点 scale 与画布 scale"
-    ]
+    "body_line_height_ratio": 1.35,
+    "ui_scale_first_delivery": [
+      1.0,
+      1.25
+    ],
+    "apply_scale_once": true
   },
-  "spacing": {
-    "steps": [4, 8, 12, 16, 24, 32],
-    "panel_padding": 16,
-    "wide_block_gap": 24,
-    "compact_gap": 12,
-    "corner_radius": [2, 4],
-    "button_border": 1,
-    "focus_border": 2,
-    "rule": "不要用粗边框围住所有内容"
-  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
   "components": {
-    "primary_button": {"height": 48, "height_wide": 52, "note": "文字清晰，配简洁方向图标"},
-    "secondary_button": {"height": 40, "height_at_125": 48, "note": "125% 时由内容增长至至少 48"},
-    "icon_hit": {"min": 40, "icon_sizes": [20, 24]},
-    "vehicle_card": {"width": 216, "height": 96, "compact_width": 188, "compact_height": 80, "note": "必要时横向滚动"},
-    "dialog": {"width_min": 480, "width_max": 640, "note": "最大高度为可用视口减两侧安全边距；正文滚动、按钮区固定"},
-    "toast": {"min_ms": 2500, "max_ms": 4000, "critical_never_auto_dismiss": true, "placement": "不覆盖主按钮的通知区"},
-    "tooltip": {"detail_delay_ms": 350, "note": "先显示简短原因，Hover 或焦点停留约 350ms 后出现详情；屏幕内翻向"}
+    "radius": 4,
+    "border": 1,
+    "focus_border": 2,
+    "primary_button_min_height": 48,
+    "button_min_height": 40,
+    "icon_hitbox_min": [
+      40,
+      40
+    ],
+    "panel_padding": 16,
+    "modal_max_height_rule": "available_viewport_height - 2*safe_margin"
   },
-  "states": {
-    "required": ["normal", "hover", "pressed", "focused", "disabled", "busy", "error"],
-    "rules": {
-      "disabled": "不等于没按钮；必要时保留邻近解释和「查看原因」",
-      "busy": "不重新发请求、不重复扣费、不允许连续触发场景切换"
+  "layouts": {
+    "coordinate_system": "effective UI logical space after existing canvas transform; not raw OS pixels",
+    "wide": {
+      "minimum_width": 1600,
+      "minimum_height": 900,
+      "outer_margin": 32,
+      "sidebar": 344,
+      "gap": 24
+    },
+    "standard": {
+      "minimum_width": 1360,
+      "minimum_height": 760,
+      "outer_margin": 24,
+      "sidebar": 320,
+      "gap": 16
+    },
+    "compact": {
+      "outer_margin": 16,
+      "sidebar": 296,
+      "gap": 12
+    },
+    "menu_max_width": 1920,
+    "hud_clear_region_normalized": {
+      "x_min": 0.25,
+      "x_max": 0.75,
+      "y_min": 0.2,
+      "y_max": 0.7,
+      "exempt": [
+        "reticle",
+        "essential short transient message"
+      ]
+    },
+    "hud_wide": {
+      "objective": [
+        640,
+        64
+      ],
+      "own_vehicle": [
+        280,
+        184
+      ],
+      "ammo": [
+        360,
+        104
+      ],
+      "minimap": [
+        224,
+        224
+      ]
+    },
+    "hud_compact": {
+      "objective": [
+        480,
+        56
+      ],
+      "own_vehicle": [
+        224,
+        144
+      ],
+      "ammo": [
+        288,
+        96
+      ],
+      "minimap": [
+        168,
+        168
+      ]
     }
   },
-  "motion": {
-    "hover_ms": 100,
-    "page_transition_ms": 160,
-    "drawer_ms": 180,
-    "toast_ms": 160,
-    "rules": [
-      "无需新增全局动效设置，先服从现有「减少闪烁」等偏好",
-      "关闭动效后点击、状态反馈和信息完全可用",
-      "不能用长转场阻塞游戏"
-    ]
+  "motion_ms": {
+    "hover": 100,
+    "page": 160,
+    "drawer": 180,
+    "toast": 160,
+    "tooltip_delay": 350
   },
-  "responsive": {
-    "note": "尺寸是布局初值，不是把 1920 设计整体压到 720p。读取当前画布缩放方式，按有效 UI 逻辑空间与内容尺寸选择断点；本单不默认改工程根分辨率、3D 渲染分辨率或物理频率。",
-    "breakpoints": {
-      "wide": {"min_width": 1600, "min_height": 900, "margin": 32, "sidebar": 344, "column_gap": 24, "note": "扩展车辆展示"},
-      "standard": {"min_width": 1360, "min_height": 760, "margin": 24, "sidebar": 320, "column_gap": 16, "note": "详情适当折叠"},
-      "compact": {"margin": 16, "sidebar": 296, "column_gap": 12, "includes": "1280x720", "note": "低价值说明收起，列表局部滚动"}
-    },
-    "rules": [
-      "125% 时按内容需求触发紧凑布局；不能用回缩字体抵消用户的大字选择",
-      "紧凑车库采用「可滚动选项区 + 固定当前车辆摘要 + 固定出战按钮」；长说明进详情，不挤走按钮",
-      "超宽屏主菜单区域居中、最大宽 1920；战斗 HUD 按安全框放置，不把重要信息甩到最远屏幕边缘",
-      "炮镜的投影中心和 3D FOV 规则不因 UI 美化改变"
-    ]
+  "contrast_targets": {
+    "readable_text": 4.5,
+    "essential_non_text": 3.0,
+    "high_contrast_body": 7.0,
+    "claim": "design target; not WCAG conformance certification"
   },
-  "icons": {
-    "viewbox": 24,
-    "stroke_units": [1.75, 2],
-    "monochrome": true,
-    "sizes": [16, 24, 32],
-    "subjects": ["国家筛选", "五类车辆", "配弹", "装甲", "乘员", "维修", "灭火", "警告", "观战", "返回", "设置", "搜索", "锁定"],
-    "rules": ["只给必要状态填充", "同一视框与笔画宽度，16/24/32 三档检查轮廓"]
-  },
-  "asset_rules": {
-    "vehicle_image": "必须来自该车型真实模型的统一镜位渲染或已核对缩略图；缺图显示带名称的空态，不借别的坦克图顶替",
-    "map_image": "来自当前地图或其数据生成示意；生成概念山谷不能当成当前真实地图缩略图",
-    "garage_3d": "复用现有展示环境，只调整展示用镜位、背景与灯光；不改战斗照明或模型面数；不要为美化新增实时模糊、多层视口、持续粒子和每帧资源重建"
-  },
-  "forbidden": [
-    "本文件只承载视觉令牌，不授权新增功能或修改游戏规则",
-    "无真实货币/段位系统就不显示金银币、等级和战力分",
-    "地图人数采用实际模式配置，不把 16 人泊位展示成已支持 16v16"
-  ]
+  "forbidden_static_mock_values": [
+    "money balances",
+    "battle ratings",
+    "power scores",
+    "network player availability",
+    "fake historical performance",
+    "unsupported battle capacity"
+  ],
+  "performance_policy": "HOLD_BY_USER; no benchmarking or claimed FPS improvement"
 }

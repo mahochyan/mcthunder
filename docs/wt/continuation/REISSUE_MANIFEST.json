@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "delivery_id": "MCT-UI-FIELDWORK-01-INPUT-REISSUE-20260917",
+  "date": "2026-09-17",
+  "kind": "original_design_files_reissued_without_modification",
+  "design_id": "MCT-UI-FIELDWORK-01",
+  "design_version": "1.0",
+  "original_package": {
+    "filename": "MCTHUNDER_UI美化_设计与执行单_FIELDWORK01.zip",
+    "bytes": 3466300,
+    "sha256": "a70553e459ed2025a564eb55fa70ae27460f28cb03b446586bb710565aeab393",
+    "original_index_member": "mcthunder_ui_design_orders_v1/PACKAGE_INDEX.json",
+    "design_read_snapshot_only": "fc177eb389f1856cf050714fdf6e038e85b3a9e5",
+    "not_an_instruction_to_reset_repository": true
+  },
+  "files": [
+    {
+      "path": "07_UI_TOKENS.json",
+      "bytes": 3245,
+      "sha256": "9e429a76cb26409253d22768ce032ced409c6da50f6a8627631f7466987f1be7",
+      "original_archive_member": "mcthunder_ui_design_orders_v1/07_UI_TOKENS.json",
+      "byte_identical_to_original": true,
+      "matches_original_package_index": true
+    },
+    {
+      "path": "08_VIEW_CONTRACTS.json",
+      "bytes": 3279,
+      "sha256": "26b0984131b5d6e7828b0b7a5a30522a41c4f36dbb2ee8df52864b8292f8cf60",
+      "original_archive_member": "mcthunder_ui_design_orders_v1/08_VIEW_CONTRACTS.json",
+      "byte_identical_to_original": true,
+      "matches_original_package_index": true
+    },
+    {
+      "path": "09_ACCEPTANCE_CASES.json",
+      "bytes": 17574,
+      "sha256": "c3f18243da2f0df29679c8b8dc80f83d442ec32ce20f592ae69d4b5bbc1b02e2",
+      "original_archive_member": "mcthunder_ui_design_orders_v1/09_ACCEPTANCE_CASES.json",
+      "byte_identical_to_original": true,
+      "matches_original_package_index": true
+    },
+    {
+      "path": "10_WORK_ORDERS.json",
+      "bytes": 35063,
+      "sha256": "d41df0774a442fea3e164898701cfe9c04444cc81eb9635fc10366cc45442c6c",
+      "original_archive_member": "mcthunder_ui_design_orders_v1/10_WORK_ORDERS.json",
+      "byte_identical_to_original": true,
+      "matches_original_package_index": true
+    }
+  ],
+  "supplied_companions_verified": [
+    {
+      "path": "03_ALL_WORK_ORDERS.md",
+      "bytes": 34463,
+      "sha256": "e870814c9ccb0de112ce4fd23633f35c799869c91e1b411d4e098399933ac398",
+      "matches_original_archive": true
+    },
+    {
+      "path": "06_NEXT_IMPLEMENTER_MESSAGE.txt",
+      "bytes": 3649,
+      "sha256": "20b6202d3347ad4c1912ada8587208e90770250eba0e8035bec597727587aedc",
+      "matches_original_archive": true
+    },
+    {
+      "path": "UI设计单_阅读版.html",
+      "bytes": 90351,
+      "sha256": "96bf7b2352d7642a7224a8d6232a33c0612a8b4b45e0ec057a99587d50c2f411",
+      "matches_original_archive": true
+    }
+  ],
+  "validation": {
+    "scope": "design_files_only_not_game_tests",
+    "zip_crc": "PASS",
+    "json_parse": "PASS",
+    "original_hashes": "PASS",
+    "colors_match_visual_spec": "PASS",
+    "color_token_count": 16,
+    "view_contract_groups": [
+      "garage",
+      "battle",
+      "respawn",
+      "result"
+    ],
+    "work_order_count": 12,
+    "acceptance_case_count": 48,
+    "unique_ids": "PASS",
+    "dependencies_resolve_and_acyclic": "PASS",
+    "four_cases_per_work_order": "PASS",
+    "acceptance_fields_match_work_orders": "PASS",
+    "game_execution": "NOT_RUN",
+    "godot_integration": "NOT_RUN",
+    "human_review": "NOT_RUN"
+  },
+  "new_files_in_this_reissue": [
+    "README_补发与裁定.md",
+    "REISSUE_MANIFEST.json"
+  ],
+  "original_design_files_changed": false,
+  "runtime_progress_policy": "Keep execution results in the existing goal/todo/evidence ledger; do not reset progress from planned/NOT_RUN design defaults."
+}

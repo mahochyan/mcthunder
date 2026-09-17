@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "design_id": "MCT-UI-FIELDWORK-01",
+  "status": "proposed_view_contract_not_existing_API",
+  "rule": "reuse current presenters; normalize display only; do not introduce an independent business model",
+  "garage": {
+    "inputs": [
+      "selected_vehicle_id",
+      "display_name",
+      "nation_label",
+      "role_label",
+      "content_status",
+      "ownership_status",
+      "eligibility",
+      "blocked_reason",
+      "selected_map",
+      "mode",
+      "confirmed_loadout",
+      "lineup",
+      "transition_pending"
+    ],
+    "sources": [
+      "GarageService",
+      "VehicleCatalog",
+      "VehicleReadiness",
+      "GaragePreparation",
+      "MatchConfig",
+      "current research catalog"
+    ],
+    "intents": [
+      "select_vehicle",
+      "open_research",
+      "edit_loadout",
+      "apply_loadout",
+      "select_map",
+      "request_deploy"
+    ],
+    "forbidden": [
+      "UI changes admission",
+      "static currency",
+      "all vehicles default to USA",
+      "silent fallback to player_tank"
+    ]
+  },
+  "battle": {
+    "inputs": [
+      "match_id",
+      "entity_id",
+      "life_id",
+      "objective_rows",
+      "tickets",
+      "remaining_time",
+      "own_capabilities",
+      "own_crew",
+      "own_modules",
+      "speed",
+      "chamber_shell",
+      "carrying_shell",
+      "next_shell",
+      "inventory_counts",
+      "reload_state",
+      "action_state",
+      "permitted_intel",
+      "aim_projections"
+    ],
+    "sources": [
+      "HUDPresenter",
+      "BattleUI",
+      "BattleIntel",
+      "TeamMatchDirector/state",
+      "current player snapshot"
+    ],
+    "existing_observed_keys": [
+      "next_shell",
+      "carrying_shell",
+      "supply_status",
+      "shell_option_count"
+    ],
+    "forbidden": [
+      "UI damage resolution",
+      "all-enemy world scan",
+      "animation authorizes fire",
+      "fake measured range"
+    ]
+  },
+  "respawn": {
+    "inputs": [
+      "death_reason",
+      "old_life_identity",
+      "wait_deadline",
+      "eligible_lineup",
+      "request_pending",
+      "block_reason",
+      "new_life_identity"
+    ],
+    "source": "existing TeamRange/director/respawn service",
+    "intent": "normal respawn control through existing business handler",
+    "forbidden": [
+      "UI actor reset",
+      "direct life_id writes",
+      "hidden button click"
+    ]
+  },
+  "result": {
+    "inputs": [
+      "immutable_match_result",
+      "result_receipt_id",
+      "available_contribution_fields",
+      "reward_receipt",
+      "save_state",
+      "next_match_availability"
+    ],
+    "sources": [
+      "AppFlow",
+      "ProfileStore",
+      "match result receipt"
+    ],
+    "forbidden": [
+      "UI recalculates payout",
+      "replay emits award",
+      "placeholder scores in production"
+    ]
+  },
+  "unknown_value_policy": "display unavailable or em dash plus explanation; never synthesize zero",
+  "state_status_policy": {
+    "content": [
+      "preview_only",
+      "engineering_available",
+      "unavailable",
+      "loading"
+    ],
+    "ownership": "independent business state",
+    "runtime_missing": "do not confuse with not_unlocked"
+  },
+  "identity": "display async callbacks/events are scoped to the current match/entity/life/page and discarded when stale"
+}
