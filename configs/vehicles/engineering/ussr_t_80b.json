@@ -425,6 +425,23 @@
       "unit": "m",
       "value": 3.83
     },
+    "equipment.loading": {
+      "location": "loading_restoration_20260917: equipment.loading",
+      "note": "Runtime conversion omitted the explicit loading profile and autoloader. Restore the existing 28 ready / 10 reserve game design at verified model anchors; do not infer hardware from crew count. Shot reload, shell values, external armor and total capacity stay unchanged.",
+      "origin": "game_rule",
+      "source_refs": [
+        "loading_restoration_20260917"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": {
+        "crew_role": "",
+        "mode": "automatic",
+        "required_module_ids": [
+          "autoloader"
+        ]
+      }
+    },
     "geometry.crew": {
       "location": "copied from the crew draft so the packet and its evidence agree",
       "note": "copied from the crew draft so the packet and its evidence agree",
@@ -675,18 +692,18 @@
       }
     },
     "geometry.modules": {
-      "location": "copied from the modules draft so the packet and its evidence agree",
-      "note": "copied from the modules draft so the packet and its evidence agree",
+      "location": "loading_restoration_20260917: geometry.modules",
+      "note": "Runtime conversion omitted the explicit loading profile and autoloader. Restore the existing 28 ready / 10 reserve game design at verified model anchors; do not infer hardware from crew count. Shot reload, shell values, external armor and total capacity stay unchanged.",
       "origin": "game_rule",
       "source_refs": [
-        "mcthunder_pipeline"
+        "mcthunder_pipeline",
+        "loading_restoration_20260917"
       ],
-      "status": "estimated",
+      "status": "design",
       "unit": "structured",
       "value": [
         {
-          "ammo_capacity": 10.0,
-          "derived": false,
+          "ammo_capacity": 28.0,
           "external": false,
           "id": "ammo_ready",
           "kind": "ammo",
@@ -696,18 +713,17 @@
             0.6,
             0.1
           ],
-          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
+          "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_ammo_ready",
           "size": [
-            0.5,
-            0.12,
-            0.35
+            1.65,
+            0.22,
+            1.65
           ]
         },
         {
-          "ammo_capacity": 14.0,
-          "derived": false,
+          "ammo_capacity": 10.0,
           "external": false,
-          "id": "ammo_hull_left",
+          "id": "ammo_reserve",
           "kind": "ammo",
           "part": "hull",
           "position": [
@@ -715,30 +731,28 @@
             0.94,
             1.4
           ],
-          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_ammo_reserve",
           "size": [
-            0.4,
-            0.25,
-            0.7
+            0.48,
+            0.6,
+            0.8
           ]
         },
         {
-          "ammo_capacity": 14.0,
-          "derived": false,
           "external": false,
-          "id": "ammo_hull_right",
-          "kind": "ammo",
+          "id": "autoloader",
+          "kind": "autoloader",
           "part": "hull",
           "position": [
-            0.8,
-            0.94,
-            1.4
+            0.0,
+            0.96,
+            0.75
           ],
-          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_autoloader",
           "size": [
-            0.4,
-            0.25,
-            0.7
+            0.3,
+            0.22,
+            0.3
           ]
         },
         {
@@ -901,6 +915,46 @@
       "status": "design",
       "unit": "year",
       "value": 2026.0
+    },
+    "loading.profile": {
+      "location": "loading_restoration_20260917: loading.profile",
+      "note": "Runtime conversion omitted the explicit loading profile and autoloader. Restore the existing 28 ready / 10 reserve game design at verified model anchors; do not infer hardware from crew count. Shot reload, shell values, external armor and total capacity stay unchanged.",
+      "origin": "game_rule",
+      "source_refs": [
+        "loading_restoration_20260917"
+      ],
+      "status": "design",
+      "unit": "structured",
+      "value": {
+        "crew_role": "",
+        "initial_distribution": "proportional",
+        "missing_crew_rate": 0.45,
+        "mode": "automatic",
+        "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+        "origin": "game_rule",
+        "replenishment_delay_s": 8.0,
+        "replenishment_enabled": true,
+        "replenishment_interval_s": 20.0,
+        "replenishment_module_ids": [
+          "autoloader"
+        ],
+        "replenishment_role": "commander",
+        "replenishment_stationary": true,
+        "required_module_ids": [
+          "autoloader"
+        ],
+        "reserve_rack_ids": [
+          "ammo_reserve"
+        ],
+        "schema_version": 1.0,
+        "shot_feed_rack_ids": [
+          "ammo_ready"
+        ],
+        "supply_rack_ids": [
+          "ammo_ready",
+          "ammo_reserve"
+        ]
+      }
     },
     "mobility.design_mass_kg": {
       "location": "warthunder_reference line 16 (总体): drive.design_mass = 50000.0",
@@ -1315,6 +1369,36 @@
   },
   "id": "ussr_t_80b",
   "license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
+  "loading_profile": {
+    "crew_role": "",
+    "initial_distribution": "proportional",
+    "missing_crew_rate": 0.45,
+    "mode": "automatic",
+    "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+    "origin": "game_rule",
+    "replenishment_delay_s": 8.0,
+    "replenishment_enabled": true,
+    "replenishment_interval_s": 20.0,
+    "replenishment_module_ids": [
+      "autoloader"
+    ],
+    "replenishment_role": "commander",
+    "replenishment_stationary": true,
+    "required_module_ids": [
+      "autoloader"
+    ],
+    "reserve_rack_ids": [
+      "ammo_reserve"
+    ],
+    "schema_version": 1.0,
+    "shot_feed_rack_ids": [
+      "ammo_ready"
+    ],
+    "supply_rack_ids": [
+      "ammo_ready",
+      "ammo_reserve"
+    ]
+  },
   "model_binding": {
     "axes": {
       "gun": {
@@ -1349,9 +1433,9 @@
         "gunner": "ussr_t_80b/TurretPivot/Attachment_gunner"
       },
       "modules": {
-        "ammo_hull_left": "ussr_t_80b/Attachment_ammo_reserve",
-        "ammo_hull_right": "ussr_t_80b/Attachment_ammo_reserve",
         "ammo_ready": "ussr_t_80b/Attachment_ammo_ready",
+        "ammo_reserve": "ussr_t_80b/Attachment_ammo_reserve",
+        "autoloader": "ussr_t_80b/Attachment_autoloader",
         "breech": "ussr_t_80b/TurretPivot/GunPivot/Attachment_breech",
         "engine": "ussr_t_80b/Attachment_engine",
         "fuel": "ussr_t_80b/Attachment_fuel",
@@ -1390,8 +1474,7 @@
   },
   "modules": [
     {
-      "ammo_capacity": 10.0,
-      "derived": false,
+      "ammo_capacity": 28.0,
       "external": false,
       "id": "ammo_ready",
       "kind": "ammo",
@@ -1401,18 +1484,17 @@
         0.6,
         0.1
       ],
-      "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true",
+      "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_ammo_ready",
       "size": [
-        0.5,
-        0.12,
-        0.35
+        1.65,
+        0.22,
+        1.65
       ]
     },
     {
-      "ammo_capacity": 14.0,
-      "derived": false,
+      "ammo_capacity": 10.0,
       "external": false,
-      "id": "ammo_hull_left",
+      "id": "ammo_reserve",
       "kind": "ammo",
       "part": "hull",
       "position": [
@@ -1420,30 +1502,28 @@
         0.94,
         1.4
       ],
-      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_ammo_reserve",
       "size": [
-        0.4,
-        0.25,
-        0.7
+        0.48,
+        0.6,
+        0.8
       ]
     },
     {
-      "ammo_capacity": 14.0,
-      "derived": false,
       "external": false,
-      "id": "ammo_hull_right",
-      "kind": "ammo",
+      "id": "autoloader",
+      "kind": "autoloader",
       "part": "hull",
       "position": [
-        0.8,
-        0.94,
-        1.4
+        0.0,
+        0.96,
+        0.75
       ],
-      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/ussr_t_80b.glb, expressed relative to the hull part (ussr_t_80b); the anchor's own parent is ussr_t_80b, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "position_source": "Exact delivered GLB part-local anchor: ussr_t_80b/Attachment_autoloader",
       "size": [
-        0.4,
-        0.25,
-        0.7
+        0.3,
+        0.22,
+        0.3
       ]
     },
     {
@@ -1993,6 +2073,17 @@
     "source_vehicle_id": "ussr_t_80b"
   },
   "sources": {
+    "loading_restoration_20260917": {
+      "applies_to_identity_ids": [
+        "ussr_t_80b"
+      ],
+      "artifact": "res://configs/vehicles/evidence/t80_loading_restoration_20260917.json",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "bb824d236af00f314aec001409af37d084e048d873033dc13f2f51701096c061",
+      "source_vehicle_id": "ussr_t_80b"
+    },
     "mcthunder_pipeline": {
       "applies_to_identity_ids": [
         "ussr_t_80b"

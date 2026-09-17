@@ -124,7 +124,7 @@ func _ready() -> void:
 	var verify_installation := args.has("--verify-installation")
 	var verify_performance := args.has("--verify-performance")
 	var verify_player_flow := args.has("--verify-player-flow")
-	var verify_modern := args.has("--verify-modern-garage") or args.has("--verify-modern-life")
+	var verify_modern := args.has("--verify-modern-garage") or args.has("--verify-modern-life") or args.has("--verify-modern-match")
 	var isolated_settings := DisplayServer.get_name() == "headless" or verify_installation or verify_performance or verify_player_flow or verify_modern
 	for argument in args:
 		if argument.ends_with("-check") or argument.ends_with("-demo") or argument == "--autoshot" or argument == "--export-smoke": isolated_settings = true
@@ -140,6 +140,8 @@ func _ready() -> void:
 		var isolated_path := "user://tests/installation031_%d" % Time.get_ticks_usec()
 		InputBindingService.initialized = false; InputBindingService.initialize(isolated_path+"/input.json")
 		profile = ProfileStore.new(isolated_path+"/commander")
+		if args.has("--verify-modern-match"):
+			profile = ProfileStore.new("user://tests/modern_match_current/commander")
 	progression = ProgressionService.new(profile)
 	challenges = ChallengeProgression.new(profile)
 	if profile.snapshot().revision > 0: selected_vehicle_id = profile.snapshot().garage.selected_vehicle_id
@@ -158,6 +160,7 @@ func _ready() -> void:
 		if verify_player_flow: verifier_path="res://scripts/diagnostics/player_flow_verifier.gd"
 		if verify_modern:
 			verifier_path="res://scripts/diagnostics/modern_life_verifier.gd" if args.has("--verify-modern-life") else "res://scripts/diagnostics/modern_garage_verifier.gd"
+			if args.has("--verify-modern-match"): verifier_path="res://scripts/diagnostics/modern_match_verifier.gd"
 		var verifier_script := load(verifier_path) as GDScript
 		if verifier_script==null or not verifier_script.can_instantiate(): get_tree().quit(2); return
 		var verifier := verifier_script.new() as Node

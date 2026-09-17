@@ -116,10 +116,11 @@ func _vehicle_case(defs: VehicleDefs, id: String) -> void:
 		id+": the launch speed matches the authored engineering muzzle velocity (%.1f m/s)" % design_velocity)
 	check(gun.rounds_remaining==total-1 and gun.inventory.conserved(),id+": the first launch debits exactly one round")
 	# --- natural reload, then the HEAT round ----------------------------------------------------
-	# Wait for the NATURAL reload within a bound, polling the real cooldown. The T-80B's autoloader cycle is
-	# longer than its nominal reload time - the state print showed 2.58 s of cooldown remaining after
-	# nominal + 8 frames - so a fixed frame count was the wrong instrument. Nothing clears a cooldown by
-	# hand: this only waits on real physics frames, which the ruling requires.
+	# Poll the real cooldown within a bound. The earlier T-80B residual was NOT
+	# evidence of an autoloader cycle: that packet omitted its loading profile and
+	# silently used the missing-loader penalty. run_engineering_loading_checks now
+	# guards the exact equipment/rate and nominal cycle as well as damage/repair.
+	# This shell-switching check still never clears cooldown by hand.
 	var waited := 0
 	var limit := ceili((actor.weapon.reload_time+10.0)*Engine.physics_ticks_per_second)
 	while gun.cooldown_left > 0.0 and waited < limit:
