@@ -8,10 +8,14 @@ New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
 $concept = 'C:\Users\lapyin\.dsh\attachments\v1\objects\7c\7c927c407399304c1ad69495e7bb6fad8d3491cb25a9f169f91b80c4d1b1857a'
 $panels = @(
-  @{ p = "$log\wt-ui-004-first-batch\04_deployment_1280x720_100.png"; t = '实际 · 作战车库 S01（1280x720 @100%）' },
-  @{ p = "$log\wt-ui-006\nav_01_loadout_page.png";                    t = '实际 · 车辆配装 S03（弹药/编成组置顶）' },
-  @{ p = "$log\wt-ui-005\nav_06_research_compact.png";                t = '实际 · 科技树 S02（五路线同排 · 无假前置线）' },
-  @{ p = "$log\wt-ui-006-modern\ussr_t_80b_river.png";                t = '实际 · 战斗 HUD S04（尚未美化 · WT-UI-007/008 待做）' }
+  @{ p = "$log\wt-ui-012-four\04_deployment_1280x720_100.png";  t = '实际 · S01 作战车库（1280x720 @100%）' },
+  @{ p = "$log\wt-ui-012-nav\nav_01_loadout_page.png";          t = '实际 · S03 车辆配装（弹药/编成/检查三类）' },
+  @{ p = "$log\wt-ui-012-nav\nav_06_research_compact.png";      t = '实际 · S02 科技树（五路线同排 · 无假前置线）' },
+  @{ p = "$log\wt-ui-012-hud\hud_10_normal_compact.png";        t = '实际 · S04 战斗 HUD（四区 · 中心留白）' },
+  @{ p = "$log\wt-ui-012-nav\nav_11_challenge_card.png";        t = '实际 · S08 挑战卡（规则/最佳/有限配弹）' },
+  @{ p = "$log\wt-ui-012-nav\nav_12_training_cards.png";        t = '实际 · S08 训练课目卡（7/7 · 诚实完成度）' },
+  @{ p = "$log\wt-ui-012-nav\nav_13_research_empty.png";        t = '实际 · S09 空态（搜索无匹配的显式空态）' },
+  @{ p = "$log\wt-ui-012-nav\nav_09_zero_rack.png";             t = '实际 · S09 错误态（零弹架被服务拒绝）' }
 )
 
 $W = 1800
@@ -22,7 +26,7 @@ $conceptSrc = [System.Drawing.Image]::FromFile($concept)
 $conceptH = [int]($conceptW * $conceptSrc.Height / $conceptSrc.Width)
 $cellW = 860
 $cellH = [int]($cellW * 720 / 1280)
-$gridH = $cellH * 2 + 72
+$gridH = $cellH * 4 + 132
 $footH = 300
 $H = $titleH + $conceptH + 36 + $gridH + $footH
 
@@ -94,8 +98,8 @@ foreach ($prop in $tokens.colors.PSObject.Properties) {
   if ($tx -gt ($W - 330)) { $tx = 30; $ty += 40 }
 }
 $g.DrawString('概念图中以下元素在真实系统中不存在，按设计单禁区一律不显示：金币 1,250,000 · 等级 Lv.28 · 战力分 92/88/82/65 · 16v16 泊位 · 跨国混编。', $fSmall, $bMuted, 30, ($ty + 44))
-$g.DrawString('已实现：S01 车库（身份来自数据 · 固定主操作 · 当前编成 · 可横向滚动收集行）· S02 科技树（五路线同排 · 切国保留搜索与滚动 · 两层状态 · 无假前置线）· S03 配装（弹药/编成/检查三类 · 真实弹族与估算标记 · 总量·库存·首发同处）。', $fSmall, $bMuted, 30, ($ty + 68))
-$g.DrawString('待做：S04-S09（HUD/炮镜/战损/阵亡/结算/训练与设置/加载空态）。性能保持 HOLD_BY_USER；真人体验不代签。', $fSmall, $bMuted, 30, ($ty + 92))
+$g.DrawString('已实现并验证：S01 车库 · S02 科技树 · S03 配装 · S04 HUD/炮镜 · S05 战损与提示 · S06 阵亡/观战/再出击 · S07 结算 · S08 训练/挑战/设置/弹窗 · S09 无假进度与空态（错误态已实拍）。', $fSmall, $bMuted, 30, ($ty + 68))
+$g.DrawString('回归全绿：nav 96 · HUD 43 · 令牌 78 · 身份 44 · 图标 13 · 鼠标焦点 9 · 车库四分辨率 51（1280x720 / 1920x1080 × 100% / 125%）。性能 HOLD_BY_USER；真人不代签；内部包 release_ready=false。', $fSmall, $bMuted, 30, ($ty + 92))
 
 $target = Join-Path $outDir 'DESIGN_vs_ACTUAL.png'
 $bmp.Save($target, [System.Drawing.Imaging.ImageFormat]::Png)

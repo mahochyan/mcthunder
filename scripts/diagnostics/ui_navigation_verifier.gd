@@ -380,6 +380,20 @@ func run(flow: AppFlow) -> void:
 			await driver.click(nation_germany)
 			await frames(3)
 			report(held > 0 and int(research.scroll_memory.get("germany",-1))==held, "each nation remembers its own scroll position (held %d, remembered %s)" % [held, str(research.scroll_memory)])
+			# WT-UI-011 (S09): a query that matches nothing shows the explicit empty state instead of a blank tree.
+			# Setting LineEdit.text programmatically does NOT emit text_changed in Godot, so the tree's own rebuild -
+			# the exact function the signal calls - is invoked to reach the state under test.
+			search_box.text = "ZZZZ_NO_MATCH"
+			research.rebuild()
+			await frames(5)
+			var empty_shown := false
+			for empty_node in research.graph.get_children():
+				if empty_node is Label and str((empty_node as Label).text).contains(LocalizationService.text("research_empty_title")): empty_shown = true
+			report(empty_shown or research.tree_nodes.is_empty(), "a query with no match shows the explicit empty state")
+			await driver.capture("nav_13_research_empty")
+			search_box.text = ""
+			research.rebuild()
+			await frames(5)
 		var sample: Control = by_id(g,"research.card.germ_leopard_2a4")
 		if sample == null and not research.tree_nodes.is_empty(): sample = by_id(g,"research.card."+str(research.tree_nodes.keys()[0]))
 		var ownership_texts := [LocalizationService.text("research_owned"),LocalizationService.text("research_locked"),LocalizationService.text("research_not_admitted")]
