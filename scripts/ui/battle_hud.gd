@@ -26,6 +26,13 @@ var speed_label: Label
 var weapon_label: Label
 var optics_label: Label
 var ammo_label: Label
+## WT-UI-007 (S04): chambered round, carried round, next-round choice and total stock are four separate lines.
+var chamber_label: Label
+var carrying_label: Label
+var next_label: Label
+var stock_label: Label
+## Which token layout row was applied, recorded so a reviewer can read it instead of inferring it.
+var layout_token_source := ""
 var reload_bar: ProgressBar
 var drive_label: Label
 var reason_label: Label
@@ -63,6 +70,8 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	theme = CoreUI.theme()
 	_build()
+	apply_layout_tokens()
+	resized.connect(apply_layout_tokens)
 	AccessibilitySettings.apply(self)
 
 func _label(parent: Node, value: String, font_size: int = 16) -> Label:
@@ -81,14 +90,39 @@ func _column(parent: Node, separation: int = 5) -> VBoxContainer:
 func _panel(parent: Node) -> PanelContainer:
 	var panel := PanelContainer.new()
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.055,0.09,0.11,0.86)
-	style.set_content_margin_all(12)
-	style.set_corner_radius_all(4)
+	# WT-UI-007: HUD panels take the token surface with a decorative edge, the token radius and the token padding.
+	style.bg_color = Color(UiTokens.color("surface","#182329"),0.88)
+	style.border_color = UiTokens.color("border_decorative","#35464E")
+	style.set_border_width_all(int(UiTokens.metric("components.border",1.0)))
+	style.set_content_margin_all(int(UiTokens.metric("components.panel_padding",16.0)))
+	style.set_corner_radius_all(int(UiTokens.metric("components.radius",4.0)))
 	panel.add_theme_stylebox_override("panel",style)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	parent.add_child(panel)
 	return panel
+
+## WT-UI-007 (S04): the panel initial sizes come from the design tokens, choosing the compact or wide row from the
+## effective UI width. Sizes stay initial values - a panel that needs more room still grows.
+func apply_layout_tokens() -> void:
+	var width := get_viewport_rect().size.x
+	var compact := width < float(UiTokens.metric("layouts.standard.minimum_width",1360.0))
+	var prefix := "hud_compact" if compact else "hud_wide"
+	var objective_box := UiTokens.metric_array("layouts."+prefix+".objective",[640.0,64.0])
+	var own_box := UiTokens.metric_array("layouts."+prefix+".own_vehicle",[280.0,184.0])
+	var ammo_box := UiTokens.metric_array("layouts."+prefix+".ammo",[360.0,104.0])
+	var map_box := UiTokens.metric_array("layouts."+prefix+".minimap",[224.0,224.0])
+	if objective_box.size()==2 and header != null:
+		header.custom_minimum_size = Vector2(float(objective_box[0]),float(objective_box[1]))
+	if own_box.size()==2 and own_panel != null:
+		own_panel.custom_minimum_size = Vector2(float(own_box[0]),float(own_box[1]))
+	if ammo_box.size()==2 and weapon_panel != null:
+		weapon_panel.custom_minimum_size = Vector2(float(ammo_box[0]),float(ammo_box[1]))
+	if map_box.size()==2 and map_panel != null:
+		map_panel.custom_minimum_size = Vector2(float(map_box[0]),float(map_box[1]))
+	if map_box.size()==2 and minimap != null:
+		minimap.custom_minimum_size = Vector2(float(map_box[0]),float(map_box[1]))
+	layout_token_source = prefix
 func _bar(parent: Node) -> ProgressBar:
 	var bar := ProgressBar.new()
 	bar.max_value = 1
@@ -109,7 +143,15 @@ func _build() -> void:
 	main_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for side in ["left","right","top","bottom"]: main_margin.add_theme_constant_override("margin_"+side,16)
 	var stack := _column(main_margin,10)
-	header = _panel(stack)
+	# WT-UI-007 (S04): the objective bar is a top-centre panel rather than a full-width strip, so the centre of the
+	# screen stays clear; the side expanders keep it centred.
+	var header_row := HBoxContainer.new()
+	header_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stack.add_child(header_row)
+	var header_left := Control.new(); header_left.mouse_filter = Control.MOUSE_FILTER_IGNORE; header_left.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header_row.add_child(header_left)
+	header = _panel(header_row)
+	header.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var header_right := Control.new(); header_right.mouse_filter = Control.MOUSE_FILTER_IGNORE; header_right.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header_row.add_child(header_right)
 	var top := HBoxContainer.new()
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_theme_constant_override("separation",24)
@@ -118,11 +160,16 @@ func _build() -> void:
 	objective.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	objective.size_flags_stretch_ratio = 1.4
 	title_label = _label(objective,LocalizationService.text("ui_242f2e9387de"),22)
+	# WT-UI-007: the token size is an INITIAL size, so the top-centre panel grows to its content instead of wrapping
+	# the objective or the ticket line; these labels keep single lines and widen the panel.
+	title_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	point_label = _label(objective,LocalizationService.text("ui_bf262136b7c6"),15)
+	point_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	var totals := _column(top,3)
 	totals.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	ticket_label = _label(totals,LocalizationService.text("ui_799ec9f66823"),22)
 	ticket_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ticket_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	capture_bar = _bar(totals)
 	capture_fill = StyleBoxFlat.new()
 	capture_fill.bg_color = Color("72c9ee")
@@ -177,6 +224,11 @@ func _build() -> void:
 	speed_label = _label(gun_row,"0 km/h",17)
 	speed_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	ammo_label = _label(gun,LocalizationService.text("ui_d80df5f8d545"),17)
+	# WT-UI-007 (S04): the four ammunition semantics get their own lines instead of one concatenated sentence.
+	chamber_label = _label(gun,"",17)
+	carrying_label = _label(gun,"",15)
+	next_label = _label(gun,"",15)
+	stock_label = _label(gun,"",15)
 	reload_bar = _bar(gun)
 	reason_label = _label(gun,"",15)
 	optics_label = _label(gun,"",15)
@@ -359,16 +411,22 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 		optics=(optics+" · " if not optics.is_empty() else "")+tracking
 	optics_label.text=optics
 	optics_label.modulate=Color("ffcf8f") if error>0.5 else Color("d7e2dc")
-	ammo_label.text = LocalizationService.text("ui_0abaaeb13f23")%[model.shell,model.ammo,model.chamber]
-	if model.has("next_shell"):
+	# WT-UI-007 (S04): chambered round, carried round, next-round choice and remaining stock are four separate lines,
+	# all fed by real AmmoInventory state (chamber_shell / transfer_shell / selected_shell / shell_counts).
+	var chamber_id := str(model.get("chamber_shell_label",""))
+	chamber_label.text = LocalizationService.text("hud_chamber_line")%(chamber_id if not chamber_id.is_empty() else LocalizationService.text("ui_609f061f5455"))
+	var carrying_id := str(model.get("carrying_shell_label",""))
+	carrying_label.text = LocalizationService.text("hud_carrying_line")%carrying_id if not carrying_id.is_empty() else LocalizationService.text("hud_carrying_none")
+	var next_id := str(model.get("next_shell_label",""))
+	if next_id.is_empty():
+		next_label.text = ""
+	else:
 		var quick_keys := InputBindingService.hint("shell_1")
-		if int(model.get("shell_option_count", 2)) > 1:
-			quick_keys += "/" + InputBindingService.hint("shell_2")
-		ammo_label.text += LocalizationService.text("ui_fa574d6d0cc4")+str(model.next_shell)+" · "+quick_keys+LocalizationService.text("ui_ca364d1c36c4")
-		if int(model.get("shell_option_count", 2)) > 1:
-			ammo_label.text += " · " + LocalizationService.text("shell_cycle_hint") % InputBindingService.hint("cycle_shell")
-		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += LocalizationService.text("ui_b9c816a8cf71")+str(model.carrying_shell)
-	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
+		if int(model.get("shell_option_count",2)) > 1: quick_keys += "/"+InputBindingService.hint("shell_2")
+		next_label.text = LocalizationService.text("hud_next_line")%[next_id,quick_keys]
+	stock_label.text = LocalizationService.text("hud_stock_line")%[model.ammo,model.chamber]
+	ammo_label.text = LocalizationService.text("hud_ammo_overview")%[model.shell,model.ammo]
+	if not str(model.get("supply_status","")).is_empty(): stock_label.text += "  ·  "+str(model.supply_status)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()

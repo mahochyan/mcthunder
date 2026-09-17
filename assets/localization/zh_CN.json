@@ -1,4 +1,10 @@
 {
+  "hud_chamber_line": "膛内：%s",
+  "hud_carrying_line": "搬运中：%s",
+  "hud_carrying_none": "搬运中：无",
+  "hud_next_line": "下一弹：%s · %s 切换",
+  "hud_stock_line": "库存 %d 发 · 膛内 %d",
+  "hud_ammo_overview": "%s · 共 %d 发",
   "loadout_group_ammo": "弹药",
   "loadout_group_lineup": "编成",
   "loadout_group_check": "检查",
