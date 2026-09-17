@@ -84,6 +84,22 @@ func apply_settings() -> void:
 	for vehicle in battle.combat_actors(): AccessibilitySettings.apply_vehicle(vehicle)
 	if not AccessibilitySettings.replay_enabled: battle.replay.close()
 
+## WT-UI-008 (S05): the player's latest shot reduced to a read-only summary for the HUD. Only the recorded contact
+## and damage counts and the recorded terminal result are read; damage is never re-resolved and no rule is touched.
+func latest_hit_summary() -> Dictionary:
+	if battle == null or player() == null: return {}
+	var projectiles: Variant = battle.get("projectiles")
+	if projectiles == null or projectiles.shot_records == null or projectiles.shot_records.count() == 0: return {}
+	var shooter := player().entity_id
+	for i in range(projectiles.shot_records.count()-1,-1,-1):
+		var record: Dictionary = projectiles.shot_records.get_record(i)
+		if str(record.get("identity",{}).get("shooter_id","")) != shooter: continue
+		return {"hit_result":str((record.get("terminal",{}) as Dictionary).get("result","")),
+			"hit_contacts":(record.get("contacts",[]) as Array).size(),
+			"hit_damage":(record.get("damage",[]) as Array).size(),
+			"hit_shot_id":int(record.get("identity",{}).get("round_id",0))}
+	return {}
+
 func match_info() -> Dictionary:
 	var info := {"phase":phase(),"remaining":maxf(0,600-elapsed()),"countdown":0.0,"team_mode":battle is TeamRange,"title":LocalizationService.text("ui_a22a88d8dfc5"),"objective":LocalizationService.text("ui_286a67c287e7"),"tickets_text":LocalizationService.text("ui_5403acaeb2a0")}
 	if battle is TeamRange:
@@ -184,7 +200,7 @@ func _process(_delta: float) -> void:
 	var protection := 0.0
 	if battle is TeamRange: protection = float(battle.director.state.roster.A.protection_left)
 	var camera: Camera3D = get_viewport().get_camera_3d()
-	var model := HUDPresenter.present(player(),match_info(),protection)
+	var model := HUDPresenter.present(player(),match_info(),protection,latest_hit_summary())
 	if player().gunner.inventory.typed:
 		var gun := player().gunner
 		model["next_shell"] = gun.shell_label(gun.inventory.selected_shell)

@@ -1,4 +1,5 @@
 {
+  "hit_no_contact": "未命中",
   "hud_chamber_line": "膛内：%s",
   "hud_carrying_line": "搬运中：%s",
   "hud_carrying_none": "搬运中：无",

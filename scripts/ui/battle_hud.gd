@@ -62,6 +62,12 @@ var intent_visible := false
 var aim_visible := false
 var aim_allowed := false
 var notice := ""
+## WT-UI-008 (S05): at most one key prompt near the centre, secondary notices queued in a corner, repeats merged.
+var notice_center: Label
+var notice_corner: VBoxContainer
+var notices: Array[Dictionary] = []
+var _last_notice := ""
+var _last_hit := ""
 var input_settings: InputSettingsPanel
 var _last_roster := ""
 
@@ -152,6 +158,26 @@ func _build() -> void:
 	header = _panel(header_row)
 	header.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	var header_right := Control.new(); header_right.mouse_filter = Control.MOUSE_FILTER_IGNORE; header_right.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header_row.add_child(header_right)
+	# WT-UI-008 (S05): one transient key prompt near the centre - the design's clear-region rule exempts a short
+	# essential message, and it stays hidden whenever there is nothing to say - plus a corner queue for secondary
+	# notices, placed outside the centre clear region.
+	notice_center = _label(self,"",18)
+	notice_center.set_anchors_preset(Control.PRESET_CENTER)
+	notice_center.offset_left = -320.0
+	notice_center.offset_right = 320.0
+	notice_center.offset_top = 30.0
+	notice_center.offset_bottom = 60.0
+	notice_center.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	notice_center.visible = false
+	notice_corner = VBoxContainer.new()
+	notice_corner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	notice_corner.add_theme_constant_override("separation",4)
+	notice_corner.alignment = BoxContainer.ALIGNMENT_END
+	add_child(notice_corner)
+	notice_corner.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	notice_corner.offset_left = -330.0
+	notice_corner.offset_top = 104.0
+	notice_corner.offset_right = -20.0
 	var top := HBoxContainer.new()
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_theme_constant_override("separation",24)
@@ -348,6 +374,50 @@ func _toggle(parent: Node, label: String, initial: bool, setter: Callable) -> Ch
 	parent.add_child(button)
 	button.toggled.connect(func(on: bool) -> void: setter.call(on); _changed())
 	return button
+## WT-UI-008 (S05): one key prompt at a time near the centre, secondary notices in the corner queue, and a repeated
+## key merges into the existing line with a count instead of stacking. A critical notice never expires.
+func push_notice(text: String, key: String, ttl: float = 4.0, critical: bool = false) -> void:
+	if text.is_empty(): return
+	for item in notices:
+		if str(item.key) != key: continue
+		item.count = int(item.count)+1
+		item.text = text if int(item.count) <= 1 else "%s  ×%d" % [text,int(item.count)]
+		item.remaining = maxf(float(item.remaining),ttl)
+		if critical: item.critical = true
+		_refresh_notices()
+		return
+	notices.append({"key":key,"text":text,"remaining":ttl,"critical":critical,"count":1})
+	_refresh_notices()
+
+func _refresh_notices() -> void:
+	if notice_center == null: return
+	var center_text := ""
+	for item in notices:
+		if not str(item.text).is_empty(): center_text = str(item.text); break
+	notice_center.text = center_text
+	notice_center.visible = not center_text.is_empty()
+	if notice_corner == null: return
+	for child in notice_corner.get_children(): child.free()
+	var shown := 0
+	for index in notices.size():
+		if index == 0: continue
+		if shown >= 4: break
+		var row := GarageTheme.text(notice_corner,str(notices[index].text),13,GarageTheme.MUTED)
+		row.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		shown += 1
+
+func _tick_notices(delta: float) -> void:
+	if notices.is_empty(): return
+	var kept: Array[Dictionary] = []
+	for item in notices:
+		if bool(item.critical): kept.append(item); continue
+		item.remaining = float(item.remaining)-delta
+		if float(item.remaining) > 0.0: kept.append(item)
+	if kept.size() != notices.size():
+		notices = kept
+		_refresh_notices()
+
 func _changed() -> void:
 	InputBindingService.save()
 	AccessibilitySettings.apply(self)
@@ -439,6 +509,16 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	stock_label.text = LocalizationService.text("hud_stock_line")%[model.ammo,model.chamber]
 	ammo_label.text = LocalizationService.text("hud_ammo_overview")%[model.shell,model.ammo]
 	if not str(model.get("supply_status","")).is_empty(): stock_label.text += "  ·  "+str(model.supply_status)
+	# WT-UI-008 (S05): the footer notice becomes one key prompt near the centre, repeats merge, and the immediate hit
+	# feedback is pushed the same way so it can never stack up with older lines.
+	if not notice.is_empty() and notice != _last_notice:
+		push_notice(notice,"notice",4.0,false)
+		_last_notice = notice
+	var hit_text := str(model.get("hit_feedback_text",""))
+	if not hit_text.is_empty() and hit_text != _last_hit:
+		push_notice(hit_text,"hit",2.5,false)
+		_last_hit = hit_text
+	_tick_notices(get_process_delta_time())
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()
@@ -447,7 +527,7 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	action_label.text = model.action if not model.action.is_empty() else InputBindingService.recovery_hint()
 	action_bar.visible = model.action_duration > 0
 	action_bar.value = float(model.action_progress)/maxf(0.01,float(model.action_duration))
-	feedback_label.text = "\n".join([model.shot_feedback,model.recovery_feedback]).strip_edges()
+	feedback_label.text = str(model.get("hit_feedback_text","")) if not str(model.get("hit_feedback_text","")).is_empty() else "\n".join([model.shot_feedback,model.recovery_feedback]).strip_edges()
 	feedback_label.visible = not feedback_label.text.is_empty()
 	minimap.present_observations(intel,int(info.get("owner",0)),points)
 	footer.text = notice if not notice.is_empty() else InputBindingService.driving_hint()+" · "+InputBindingService.hint("scoreboard")+LocalizationService.text("ui_496113d4c2a8")+InputBindingService.hint("pause")+LocalizationService.text("ui_4414425d80fe")

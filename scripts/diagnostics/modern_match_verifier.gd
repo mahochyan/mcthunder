@@ -150,7 +150,11 @@ func run(flow: AppFlow) -> void:
 			hold({})
 			if battle.respawn_button.is_visible_in_tree() and not battle.respawn_button.disabled:
 				await capture("02_waiting")
-				await click(battle.respawn_button)
+				# WT-UI-007: taking the capture costs frames, and the waiting button can move between ready and busy
+				# inside them. A disabled control must never be clicked, so the state is re-checked immediately before
+				# the click and the next iteration simply tries again - which is what a player's own wait does.
+				if battle.respawn_button.is_visible_in_tree() and not battle.respawn_button.disabled:
+					await click(battle.respawn_button)
 			continue
 		if tick%6 == 0: await pilot(battle,tick)
 		if tick%600 == 0:

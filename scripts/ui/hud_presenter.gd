@@ -4,6 +4,21 @@ extends RefCounted
 static var REASONS := {"engine":LocalizationService.text("ui_9df15869823f"),"transmission":LocalizationService.text("ui_896027ecfe58"),"track_left":LocalizationService.text("ui_fc5984f7b699"),"track_right":LocalizationService.text("ui_2bb45236fd65"),"breech":LocalizationService.text("ui_d99b56e78b9d"),"turret_drive":LocalizationService.text("ui_7b5c7359facb"),"driver":LocalizationService.text("ui_73b377788db6"),"gunner":LocalizationService.text("ui_569eb328ff48"),"cooldown":LocalizationService.text("ui_a3e842959775"),"grace":LocalizationService.text("ui_25f29cdadd6e"),"barrel_occluded":LocalizationService.text("ui_fb6fc87ce2d5"),"no_ammo":LocalizationService.text("ui_19122c16e8c1"),"chamber_empty":LocalizationService.text("ui_609f061f5455"),"vehicle_disabled":LocalizationService.text("ui_b636adf12053"),"paused":LocalizationService.text("ui_eb0c326b60ae"),"projectile_capacity":LocalizationService.text("ui_2e8591da52c2"),"manager_shutdown":LocalizationService.text("ui_3c03903fbcd6"),"invalid_shell":LocalizationService.text("ui_248e31a58b2b"),"invalid_spawn":LocalizationService.text("ui_858bdcc34e60")}
 static var RECOVERY := {"ammo_vented":LocalizationService.text("status_ammo_vented"),"not_on_fire":LocalizationService.text("ui_24c0a4f151d7"),"no_extinguishers":LocalizationService.text("ui_e0dd0811114a"),"cannot_repair_on_fire":LocalizationService.text("ui_e037ba61fff4"),"stop_to_repair":LocalizationService.text("ui_85971dca1413"),"nothing_to_repair":LocalizationService.text("ui_8c698299cca5"),"no_valid_replacement":LocalizationService.text("ui_bfc04978a32f"),"repair_interrupted_fire":LocalizationService.text("ui_d8163239b96e"),"repair_interrupted_motion_or_fire":LocalizationService.text("ui_bc2432f4a699"),"module_repaired":LocalizationService.text("ui_c07e7ebd9007"),"fire_extinguished":LocalizationService.text("ui_8108ab671c86"),"crew_replaced":LocalizationService.text("ui_f44b610d039e"),"replacement_cancelled":LocalizationService.text("ui_bdf0e676f94c"),"cancelled":LocalizationService.text("ui_176ead7baf1a"),"vehicle_destroyed":LocalizationService.text("ui_aaeb6d850849")}
 
+## WT-UI-008 (S05): the immediate hit feedback, worded with the repository's own result vocabulary (CoreUI.NAMES
+## already carries penetrated / stopped / module_damaged / crew_incapacitated / module_destroyed). This reads a
+## summary the battle UI reduced from the projectile records; it never re-runs damage and never changes a rule.
+static func hit_feedback_text(model: Dictionary) -> String:
+	var result := str(model.get("hit_result",""))
+	if result.is_empty(): return ""
+	var contacts := int(model.get("hit_contacts",0))
+	var damage := int(model.get("hit_damage",0))
+	if contacts == 0: return LocalizationService.text("hit_no_contact")
+	var word := result
+	if result == "penetrated": word = CoreUI.NAMES.get("penetrated",result)
+	elif result == "armor_stopped": word = CoreUI.NAMES.get("stopped",result)
+	if damage > 0: word += " · " + str(CoreUI.NAMES.get("module_damaged",""))
+	return word
+
 static func reason(value: String) -> String: return REASONS.get(value,LocalizationService.text("ui_e0d07fde57bb"))
 static var MECHANISM_REASONS := {
 	"turret_horizontal_drive":LocalizationService.text("turret_horizontal_drive_disabled"),
@@ -14,7 +29,7 @@ static func recovery_reason(value: String) -> String:
 	if value == "cannot_repair_on_fire": return LocalizationService.text("ui_06e38b03bc8c")+InputBindingService.hint("extinguish")+LocalizationService.text("ui_8dc96c377cc2")
 	if value == "stop_to_repair": return LocalizationService.text("ui_1aee287f279c")+InputBindingService.hint("repair")
 	return RECOVERY.get(value,"")
-static func present(vehicle: VehicleActor, match_info: Dictionary, protection: float = 0) -> Dictionary:
+static func present(vehicle: VehicleActor, match_info: Dictionary, protection: float = 0, extra: Dictionary = {}) -> Dictionary:
 	if not is_instance_valid(vehicle): return {}
 	var state := vehicle.state
 	var gun := vehicle.gunner
@@ -67,4 +82,9 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 		"inventory_counts":gun.inventory.shell_counts(),
 		"in_transfer":bool(gun.inventory.in_transfer),
 		"shell_option_count":gun.shell_options.size(),
-		"supply_status":LocalizationService.text("loading_feed_empty") if gun.loading_reason=="feed_empty" else ""}
+		"supply_status":LocalizationService.text("loading_feed_empty") if gun.loading_reason=="feed_empty" else "",
+		"hit_result":str(extra.get("hit_result","")),
+		"hit_contacts":int(extra.get("hit_contacts",0)),
+		"hit_damage":int(extra.get("hit_damage",0)),
+		"hit_shot_id":int(extra.get("hit_shot_id",0)),
+		"hit_feedback_text":hit_feedback_text(extra)}

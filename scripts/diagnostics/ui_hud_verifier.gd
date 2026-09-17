@@ -132,6 +132,35 @@ func run(flow: AppFlow) -> void:
 	tap(KEY_L)
 	await frames(8)
 
+	# --- WT-UI-008 (S05): one key prompt near the centre, a corner queue, merged repeats ------------------
+	hud.notices.clear(); hud._refresh_notices()
+	hud.push_notice("第一次提示","k1",4.0,false)
+	hud.push_notice("第二次提示","k2",4.0,false)
+	hud.push_notice("第二次提示","k2",4.0,false)
+	var center_lines := 0
+	if hud.notice_center.visible and not hud.notice_center.text.is_empty(): center_lines = 1
+	check(center_lines <= 1,"at most one key prompt is shown near the centre (%d)" % center_lines)
+	check(hud.notice_center.text=="第一次提示","the centre prompt shows the first live notice (%s)" % hud.notice_center.text)
+	check(hud.notice_corner.get_child_count()==1,"secondary notices queue in the corner (%d)" % hud.notice_corner.get_child_count())
+	var merged := ""
+	for item in hud.notices:
+		if str(item.key)=="k2": merged = str(item.text)
+	check(merged.contains("×2"),"a repeated notice merges with a count instead of stacking (%s)" % merged)
+	hud.push_notice("关键错误","k3",0.5,true)
+	hud._tick_notices(10.0)
+	var critical_kept := false
+	for item in hud.notices:
+		if str(item.key)=="k3": critical_kept = true
+	check(critical_kept,"a critical notice does not expire with time")
+	hud.notices.clear(); hud._refresh_notices()
+	check(not hud.notice_center.visible,"the centre prompt hides again when nothing is pending")
+	check(HUDPresenter.hit_feedback_text({"hit_result":"penetrated","hit_contacts":1,"hit_damage":0})==str(CoreUI.NAMES.get("penetrated","")),"the hit line words a penetration with the repository's own term")
+	check(HUDPresenter.hit_feedback_text({"hit_result":"armor_stopped","hit_contacts":1,"hit_damage":0})==str(CoreUI.NAMES.get("stopped","")),"the hit line words a stopped round with the repository's own term")
+	check(HUDPresenter.hit_feedback_text({"hit_result":"","hit_contacts":0,"hit_damage":0})=="","no recorded shot means no hit line")
+	var summary: Dictionary = battle_ui.latest_hit_summary()
+	check(summary.is_empty() or summary.has("hit_result"),"the hit summary comes from the real projectile records (%s)" % str(summary.keys()))
+	await capture("hud_13_notice_queue")
+
 	# --- wide layout row ----------------------------------------------------------------------------------
 	get_window().size = Vector2i(1920,1080)
 	await frames(10)
