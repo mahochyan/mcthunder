@@ -47,6 +47,9 @@ func run() -> void:
 		await activate(g.frontend.cards[index])
 		var preview_hull: Node = g.preview._part_nodes.hull.get_node_or_null("Bound_hull")
 		check(preview_hull!=null and preview_hull.get_meta("model_sha256","")==g.catalog.packages[id].packet.model_binding.model.sha256,"garage shows exact admitted bound model")
+		g._view_mode=1; g._apply_preview_mode()
+		check(not preview_hull.visible,"armor inspection hides opaque authored shell")
+		g._view_mode=0; g._apply_preview_mode()
 		var prep := g.preparation
 		check(prep.mode()=="engineering" and not prep.research_button.visible,"modern selection uses explicit engineering mode without historical research lookup")
 		prep.first_choice.select(1)

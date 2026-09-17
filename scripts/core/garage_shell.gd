@@ -261,6 +261,8 @@ func _inspect() -> void:
 
 func _apply_preview_mode() -> void:
 	preview.set_mode(["appearance","armor","interior"][_view_mode])
+	for extra in preview._extra_nodes:
+		if extra.name.begins_with("Bound_"): extra.visible = _view_mode == 0
 	for id in preview._patch_nodes:
 		var mesh: MeshInstance3D = preview._patch_nodes[id]
 		if _view_mode == 0 and VehicleCatalog.is_engineering(selected_vehicle_id()): mesh.visible = false

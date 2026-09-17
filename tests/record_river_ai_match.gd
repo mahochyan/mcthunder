@@ -54,6 +54,17 @@ func _count_task_events(ai: AITankController) -> int:
 	for ev in ai.events:
 		if str(ev.get("reason","")) == "task_assigned": n += 1
 	return n
+func _current_obstacle(actor: VehicleActor, ai: AITankController) -> Dictionary:
+	if ai.driver.phase!="yielding": return {}
+	var hit := ai.driver._obstacle(actor)
+	var collider: Object=hit.get("collider")
+	if not collider is Node: return {}
+	var row := {"node":str(collider.get_path()),"hit_position":hit.get("position",Vector3.ZERO)}
+	var owner: Node=collider.get_parent()
+	if owner is VehicleActor:
+		row.merge({"entity_id":owner.entity_id,"life_id":owner.life_id,"position":owner.tank.global_position,"destroyed":owner.state.destroyed,"team":owner.state.team_id})
+		if owner.controller is AITankController: row["ai_phase"]=owner.controller.phase; row["driver_phase"]=owner.controller.driver.phase
+	return row
 func _run() -> void:
 	root.size = Vector2i(1280,720)
 	var scene: Node = load(MapRegistry.scene_path(MAP_ID)).instantiate()
@@ -217,6 +228,7 @@ func _run() -> void:
 					# (failed / unreachable / replanned). Together these separate a cycling hop sequence
 					# from a long detour that simply has not arrived yet.
 					"wp_index": ai3.driver.waypoint,
+					"actual_obstacle": _current_obstacle(actor,ai3),
 					"path_len": ai3.driver.path.size(),
 					"goal": [roundi(ai3.driver.goal.x), roundi(ai3.driver.goal.z)],
 					"planning": ai3.driver.planning_counts.duplicate(true),

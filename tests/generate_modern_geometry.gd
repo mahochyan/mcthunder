@@ -168,14 +168,18 @@ func _measure(id: String, path: String) -> Dictionary:
 	if gun_mesh == null:
 		row.notes.append("no gun mesh: no muzzle fields are emitted (consistent with the adapter verdict)")
 	# --- turret shape: bottom outline, top/bottom, taper, ring half ----------------------------
-	if turret_mesh != null:
+	if turret_mesh != null and turret_pivot is Node3D:
 		var tpts := _world_vertices(turret_mesh)
+		# Armor vertices are consumed in the turret part's LOCAL frame. World
+		# heights here used to add the turret mounting height a second time.
+		var turret_inverse: Transform3D = (turret_pivot as Node3D).global_transform.affine_inverse()
+		for i in tpts.size(): tpts[i] = turret_inverse*tpts[i]
 		var tlo := INF; var thi := -INF
 		for p in tpts: tlo = minf(tlo,p.y); thi = maxf(thi,p.y)
 		f["turret_bottom"] = snappedf(tlo,0.001)
 		f["turret_top"] = snappedf(thi,0.001)
-		method["turret_bottom"] = "minimum y of the turret mesh vertices"
-		method["turret_top"] = "maximum y of the turret mesh vertices"
+		method["turret_bottom"] = "minimum y of turret mesh vertices transformed into TurretPivot LOCAL coordinates"
+		method["turret_top"] = "maximum y of turret mesh vertices transformed into TurretPivot LOCAL coordinates"
 		var span := maxf(thi-tlo,0.05)
 		var bot := _band_footprint(tpts,tlo,span*0.25)
 		var top := _band_footprint(tpts,thi,span*0.25)
@@ -197,7 +201,7 @@ func _measure(id: String, path: String) -> Dictionary:
 			row.notes.append("turret_outline REJECTED: only %d distinct points after 5 mm de-duplication (validator needs 8-32)" % dedup.size())
 		else:
 			f["turret_outline"] = dedup
-			method["turret_outline"] = "convex outline of the turret mesh vertices in the BOTTOM quarter (ordered, x/z), de-duplicated at 5 mm so no two adjacent points coincide"
+			method["turret_outline"] = "convex outline in TurretPivot LOCAL coordinates of bottom-quarter mesh vertices (ordered x/z), de-duplicated at 5 mm"
 			if dedup.size() != raw_outline.size():
 				row.notes.append("turret_outline de-duplicated: %d -> %d points (coincident points removed)" % [raw_outline.size(),dedup.size()])
 		var bot_half := _footprint_half(bot)
@@ -222,7 +226,7 @@ func _measure(id: String, path: String) -> Dictionary:
 		method["open_top"] = "INFERRED: enclosed main battle tank, top band is closed; not a visual review"
 		row.notes.append("open_top is inferred, not visually verified")
 	else:
-		row.notes.append("turret mesh not identified")
+		row.notes.append("turret mesh or TurretPivot not identified; no turret shape emitted")
 	# --- mantlet -------------------------------------------------------------------------------
 	if mantlet_mesh != null:
 		var mpts := _world_vertices(mantlet_mesh)

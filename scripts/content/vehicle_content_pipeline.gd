@@ -152,7 +152,11 @@ static func check_shape(packet: Dictionary) -> Array[String]:
 		if not g.get(key) is Array: errors.append("geometry."+key+": expected array"); continue
 		for row in g[key]:
 			if not vector(row,4 if key == "hull_rings" else 2): errors.append("geometry."+key+": invalid row")
-	for key in ["turret_bottom","turret_top","turret_taper","ring_half","mantlet_half_width","mantlet_half_height","barrel_length","wheel_count","track_width","wheel_radius"]:
+	# These are signed coordinates relative to the articulated turret pivot,
+	# not positive lengths. The ordered-height check below still applies.
+	for key in ["turret_bottom","turret_top"]:
+		if not number(g.get(key)): errors.append("geometry."+key+": must be a finite local coordinate")
+	for key in ["turret_taper","ring_half","mantlet_half_width","mantlet_half_height","barrel_length","wheel_count","track_width","wheel_radius"]:
 		if not number(g.get(key)) or float(g[key]) <= 0: errors.append("geometry."+key+": must be finite positive")
 	if not g.get("open_top") is bool: errors.append("geometry.open_top: expected boolean")
 	for field in ["separate_rotor_shield","muzzle_brake"]:

@@ -1,0 +1,582 @@
+{
+  "method": "Subtract the model-verified turret origin from the frozen measured turret Y extents and X/Z outline. Existing proxy shape/taper and all armor thicknesses are retained. Historical accuracy remains unverified.",
+  "origin": "game_rule",
+  "rows": [
+    {
+      "after": {
+        "barrel_length": 5.092,
+        "gun_origin": [
+          0.0,
+          0.191,
+          -1.042
+        ],
+        "hull_half_width": 1.314,
+        "hull_rings": [
+          [
+            0.435,
+            1.117,
+            -2.699,
+            2.681
+          ],
+          [
+            0.992,
+            1.314,
+            -3.175,
+            3.155
+          ],
+          [
+            1.549,
+            1.314,
+            -1.36,
+            3.155
+          ]
+        ],
+        "mantlet_half_height": 0.236,
+        "mantlet_half_width": 0.169,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.117,
+        "track_width": 0.601,
+        "turret_bottom": -0.031,
+        "turret_origin": [
+          0.0,
+          1.447,
+          0.001
+        ],
+        "turret_outline": [
+          [
+            -1.282,
+            -0.31
+          ],
+          [
+            -1.225,
+            -0.563
+          ],
+          [
+            -1.093,
+            -0.786
+          ],
+          [
+            -0.922,
+            -0.978
+          ],
+          [
+            -0.719,
+            -1.133
+          ],
+          [
+            -0.484,
+            -1.226
+          ],
+          [
+            -0.241,
+            -1.274
+          ],
+          [
+            0.001,
+            -1.278
+          ],
+          [
+            0.244,
+            -1.273
+          ],
+          [
+            0.484,
+            -1.219
+          ],
+          [
+            0.721,
+            -1.132
+          ],
+          [
+            0.923,
+            -0.977
+          ],
+          [
+            1.094,
+            -0.785
+          ],
+          [
+            1.225,
+            -0.562
+          ],
+          [
+            1.285,
+            -0.31
+          ],
+          [
+            1.266,
+            -0.055
+          ],
+          [
+            1.199,
+            0.183
+          ],
+          [
+            1.117,
+            0.407
+          ],
+          [
+            1.001,
+            0.613
+          ],
+          [
+            0.854,
+            0.798
+          ],
+          [
+            0.675,
+            0.954
+          ],
+          [
+            0.467,
+            1.071
+          ],
+          [
+            0.24,
+            1.143
+          ],
+          [
+            0.001,
+            1.169
+          ],
+          [
+            -0.237,
+            1.144
+          ],
+          [
+            -0.465,
+            1.072
+          ],
+          [
+            -0.674,
+            0.955
+          ],
+          [
+            -0.853,
+            0.8
+          ],
+          [
+            -1.0,
+            0.614
+          ],
+          [
+            -1.116,
+            0.408
+          ],
+          [
+            -1.198,
+            0.184
+          ],
+          [
+            -1.266,
+            -0.055
+          ]
+        ],
+        "turret_taper": 0.866,
+        "turret_top": 0.585,
+        "wheel_count": 6.0,
+        "wheel_radius": 0.338
+      },
+      "before": {
+        "barrel_length": 5.092,
+        "gun_origin": [
+          0.0,
+          0.191,
+          -1.042
+        ],
+        "hull_half_width": 1.314,
+        "hull_rings": [
+          [
+            0.435,
+            1.117,
+            -2.699,
+            2.681
+          ],
+          [
+            0.992,
+            1.314,
+            -3.175,
+            3.155
+          ],
+          [
+            1.549,
+            1.314,
+            -1.36,
+            3.155
+          ]
+        ],
+        "mantlet_half_height": 0.236,
+        "mantlet_half_width": 0.169,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.117,
+        "track_width": 0.601,
+        "turret_bottom": 1.416,
+        "turret_origin": [
+          0.0,
+          1.447,
+          0.001
+        ],
+        "turret_outline": [
+          [
+            -1.282,
+            -0.309
+          ],
+          [
+            -1.225,
+            -0.562
+          ],
+          [
+            -1.093,
+            -0.785
+          ],
+          [
+            -0.922,
+            -0.977
+          ],
+          [
+            -0.719,
+            -1.132
+          ],
+          [
+            -0.484,
+            -1.225
+          ],
+          [
+            -0.241,
+            -1.273
+          ],
+          [
+            0.001,
+            -1.277
+          ],
+          [
+            0.244,
+            -1.272
+          ],
+          [
+            0.484,
+            -1.218
+          ],
+          [
+            0.721,
+            -1.131
+          ],
+          [
+            0.923,
+            -0.976
+          ],
+          [
+            1.094,
+            -0.784
+          ],
+          [
+            1.225,
+            -0.561
+          ],
+          [
+            1.285,
+            -0.309
+          ],
+          [
+            1.266,
+            -0.054
+          ],
+          [
+            1.199,
+            0.184
+          ],
+          [
+            1.117,
+            0.408
+          ],
+          [
+            1.001,
+            0.614
+          ],
+          [
+            0.854,
+            0.799
+          ],
+          [
+            0.675,
+            0.955
+          ],
+          [
+            0.467,
+            1.072
+          ],
+          [
+            0.24,
+            1.144
+          ],
+          [
+            0.001,
+            1.17
+          ],
+          [
+            -0.237,
+            1.145
+          ],
+          [
+            -0.465,
+            1.073
+          ],
+          [
+            -0.674,
+            0.956
+          ],
+          [
+            -0.853,
+            0.801
+          ],
+          [
+            -1.0,
+            0.615
+          ],
+          [
+            -1.116,
+            0.409
+          ],
+          [
+            -1.198,
+            0.185
+          ],
+          [
+            -1.266,
+            -0.054
+          ]
+        ],
+        "turret_taper": 0.866,
+        "turret_top": 2.032,
+        "wheel_count": 6.0,
+        "wheel_radius": 0.338
+      },
+      "from_frame": "model rest coordinates",
+      "model_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+      "model_sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5",
+      "original_packet_sha256": "b85fb19ac18bbc85b411b1e98d57f9d98b195869fdddc10957a4fc156f44046b",
+      "to_frame": "TurretPivot local",
+      "translation": [
+        0.0,
+        1.447,
+        0.001
+      ],
+      "vehicle_id": "ussr_t_80b"
+    },
+    {
+      "after": {
+        "barrel_length": 4.141,
+        "gun_origin": [
+          -0.053,
+          0.339,
+          -1.176
+        ],
+        "hull_half_width": 1.705,
+        "hull_rings": [
+          [
+            0.538,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.167,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.796,
+            1.705,
+            -3.516,
+            3.945
+          ]
+        ],
+        "mantlet_half_height": 0.305,
+        "mantlet_half_width": 0.476,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.24,
+        "track_width": 0.578,
+        "turret_bottom": -0.017,
+        "turret_origin": [
+          0.02,
+          1.661,
+          -0.38
+        ],
+        "turret_outline": [
+          [
+            -1.249,
+            0.965
+          ],
+          [
+            -1.225,
+            -0.96
+          ],
+          [
+            -1.223,
+            -1.08
+          ],
+          [
+            -0.511,
+            -1.555
+          ],
+          [
+            0.447,
+            -1.564
+          ],
+          [
+            1.231,
+            -1.005
+          ],
+          [
+            1.231,
+            -0.256
+          ],
+          [
+            1.231,
+            0.138
+          ],
+          [
+            1.231,
+            1.051
+          ],
+          [
+            1.226,
+            1.163
+          ],
+          [
+            1.114,
+            2.31
+          ],
+          [
+            -1.165,
+            2.31
+          ],
+          [
+            -1.228,
+            1.314
+          ]
+        ],
+        "turret_taper": 1.0,
+        "turret_top": 0.815,
+        "wheel_count": 7.0,
+        "wheel_radius": 0.353
+      },
+      "before": {
+        "barrel_length": 4.141,
+        "gun_origin": [
+          -0.053,
+          0.339,
+          -1.176
+        ],
+        "hull_half_width": 1.705,
+        "hull_rings": [
+          [
+            0.538,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.167,
+            1.705,
+            -3.516,
+            3.945
+          ],
+          [
+            1.796,
+            1.705,
+            -3.516,
+            3.945
+          ]
+        ],
+        "mantlet_half_height": 0.305,
+        "mantlet_half_width": 0.476,
+        "muzzle_brake": false,
+        "open_top": false,
+        "ring_half": 1.24,
+        "track_width": 0.578,
+        "turret_bottom": 1.644,
+        "turret_origin": [
+          0.02,
+          1.661,
+          -0.38
+        ],
+        "turret_outline": [
+          [
+            -1.229,
+            0.585
+          ],
+          [
+            -1.205,
+            -1.34
+          ],
+          [
+            -1.203,
+            -1.46
+          ],
+          [
+            -0.491,
+            -1.935
+          ],
+          [
+            0.467,
+            -1.944
+          ],
+          [
+            1.251,
+            -1.385
+          ],
+          [
+            1.251,
+            -0.636
+          ],
+          [
+            1.251,
+            -0.242
+          ],
+          [
+            1.251,
+            0.671
+          ],
+          [
+            1.246,
+            0.783
+          ],
+          [
+            1.134,
+            1.93
+          ],
+          [
+            -1.145,
+            1.93
+          ],
+          [
+            -1.208,
+            0.934
+          ]
+        ],
+        "turret_taper": 1.0,
+        "turret_top": 2.476,
+        "wheel_count": 7.0,
+        "wheel_radius": 0.353
+      },
+      "from_frame": "model rest coordinates",
+      "model_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+      "model_sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+      "original_packet_sha256": "37f72ca5ac3cb375157d0b8e30861afa3be1eb2e8c91fcb22c969e3c547a703c",
+      "to_frame": "TurretPivot local",
+      "translation": [
+        0.02,
+        1.661,
+        -0.38
+      ],
+      "vehicle_id": "germ_leopard_2a4"
+    }
+  ],
+  "schema_version": 1,
+  "status": "estimated"
+}

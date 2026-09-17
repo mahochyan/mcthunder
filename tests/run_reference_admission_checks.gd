@@ -148,7 +148,11 @@ func _garage_case(actor: VehicleActor, packet: Dictionary) -> void:
 	check(prepared.ok and original.counts==actor.gunner.initial_shell_counts and prepared.inventory.available==48,"%d-shell garage default matches actual Actor dispatcher allocation"%count)
 	var published := service.vehicle_ids()
 	var raw := _read("res://assets/reference_data/candidates/ussr_t_80b.json")
-	check(not service.catalog.register(raw,service.definitions).ok and service.vehicle_ids()==published and service.default_loadout(raw.id).is_empty(),"%d-shell garage refuses TXT candidate without changing published choices"%count)
+	# An independently admitted engineering package may already use this exact ID.
+	# Rejecting raw reference data must preserve that package, not remove its loadout.
+	var prior_loadout := service.default_loadout(raw.id).duplicate(true)
+	var prior_packet: Dictionary=service.definitions.content_packets.get(raw.id,{}).duplicate(true)
+	check(not service.catalog.register(raw,service.definitions).ok and service.vehicle_ids()==published and service.default_loadout(raw.id)==prior_loadout and service.definitions.content_packets.get(raw.id,{})==prior_packet,"%d-shell garage refuses TXT candidate without changing published choices or an admitted package"%count)
 	var saved := ProfileStore.new("",service)
 	check(saved.validate(saved.snapshot()).ok,"%d-shell reference loadout survives actual profile validation"%count)
 	var garage := GarageShell.new()
