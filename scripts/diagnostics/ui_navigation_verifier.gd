@@ -159,6 +159,9 @@ func run(flow: AppFlow) -> void:
 			break
 	report(card_height==UiTokens.metric("components.vehicle_card.height",96.0), "vehicle cards use the token height (%.0f)" % card_height)
 	report(card_width==UiTokens.metric("components.vehicle_card.width",216.0), "vehicle cards use the token width (%.0f)" % card_width)
+	# WT-UI-004/S01: the design bounds the bottom strip to 80-112 px, and it must not squeeze the 3D preview instead.
+	var strip_height: float = collection.size.y
+	report(strip_height > 0.0 and strip_height <= 112.0, "the bottom strip stays inside the design's 80-112 range (%.0f)" % strip_height)
 
 	# --- WT-UI-004 close-out: mode / map / vehicle state mapping through the real config objects -------------
 	var preparation := g.preparation

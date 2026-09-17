@@ -144,7 +144,9 @@ func compose(g: GarageShell) -> void:
 	collection_scroll=ScrollContainer.new()
 	collection_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO
 	collection_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
-	collection_scroll.custom_minimum_size.y=float(UiTokens.metric("components.vehicle_card.height",96.0))+18.0
+	# The design's own range for the bottom strip is 80-112 px, so the row asks for the token card height plus the
+	# strip's own padding and lands at 112 rather than 114.
+	collection_scroll.custom_minimum_size.y=float(UiTokens.metric("components.vehicle_card.height",96.0))+16.0
 	vertical.add_child(collection_scroll)
 	var carousel := HBoxContainer.new(); carousel.add_theme_constant_override("separation",10); collection_scroll.add_child(carousel)
 	for i in g.vehicle_choice.item_count:
