@@ -19,6 +19,8 @@ var _last_plan := -INF
 var _phase_left := 0.0
 var _generation := -1
 var _blocked_edges := {}
+var _traffic_blockers := {}
+var _next_traffic_check := 0.0
 var stuck := StuckDetector.new()
 ## WT-036-R1: seconds spent yielding to a physical obstacle without clearing it.
 var yield_elapsed := 0.0
@@ -60,6 +62,7 @@ func reset_pending() -> void:
 	cancel("reset")
 	attempts = 0
 	_blocked_edges.clear()
+	_traffic_blockers.clear()
 	_last_plan = -INF
 func on_detached() -> void: cancel("detached")
 
@@ -74,7 +77,9 @@ func set_goal(value: Vector3) -> Dictionary:
 	has_goal = true
 	attempts = 0
 	_generation = vehicle.state.generation
-	if not same_retry: _blocked_edges.clear()
+	if not same_retry:
+		_blocked_edges.clear()
+		_traffic_blockers.clear()
 	_last_plan = -INF
 	return _plan()
 
@@ -106,6 +111,7 @@ func _plan() -> Dictionary:
 	if vehicle == null or not has_goal: return {"ok":false,"reason":"cancelled"}
 	if clock-_last_plan < GameConfig.AI_REPLAN_INTERVAL_S: return {"ok":false,"reason":"rate_limited"}
 	_last_plan = clock
+	_release_vacated_traffic()
 	planning_counts.replanned += 1
 	var result := navigator.request_path(vehicle.tank.global_position,goal,vehicle.definition.drive_collision_size.x,_blocked_edges)
 	if not result.ok:
@@ -152,6 +158,28 @@ func _plan() -> Dictionary:
 	_transition("following","path_ready")
 	return {"ok":true}
 
+func _remember_block(edge: String, blocker: VehicleActor = null) -> void:
+	# Static obstructions retain the existing permanent memory. A live controlled
+	# vehicle is a moving obstacle, and must not close this road after it leaves.
+	var permanent: bool=_blocked_edges.has(edge) and not _traffic_blockers.has(edge)
+	_blocked_edges[edge]=true
+	if blocker==null or blocker.controller==null or blocker.state.destroyed:
+		_traffic_blockers.erase(edge)
+	elif not permanent:
+		_traffic_blockers[edge]={"actor":weakref(blocker),"position":blocker.tank.global_position,
+			"clearance":maxf(blocker.definition.drive_collision_size.z,actor().definition.drive_collision_size.z)+GameConfig.AI_NAV_MARGIN_M}
+
+func _release_vacated_traffic() -> bool:
+	var changed := false
+	for edge in _traffic_blockers.keys():
+		var row: Dictionary=_traffic_blockers[edge]
+		var blocker: VehicleActor=row.actor.get_ref() as VehicleActor
+		if is_instance_valid(blocker) and is_instance_valid(blocker.tank) and blocker.tank.global_position.distance_to(row.position)<=float(row.clearance): continue
+		_traffic_blockers.erase(edge)
+		_blocked_edges.erase(edge)
+		changed=true
+	return changed
+
 func poll() -> VehicleCommand:
 	last_command = update_command(get_physics_process_delta_time())
 	return last_command
@@ -196,6 +224,11 @@ func update_command(delta: float) -> VehicleCommand:
 		cmd.steer = 1.0 if attempts%2 == 1 else -1.0
 		if _phase_left <= 0: _plan()
 		return cmd
+	if clock>=_next_traffic_check:
+		_next_traffic_check=clock+GameConfig.AI_REPLAN_INTERVAL_S
+		if _release_vacated_traffic() and phase in ["following","yielding"]:
+			_plan()
+			if not has_goal: return cmd
 	if waypoint >= path.size():
 		cancel("empty_path")
 		return cmd
@@ -249,20 +282,25 @@ func update_command(delta: float) -> VehicleCommand:
 		# WT-040-R1 telemetry only (no behaviour change): remember WHO we are yielding to, so a
 		# repeated block can be attributed to a specific opponent in the recorded match data.
 		var blocker_id := ""
+		var blocking_vehicle: VehicleActor = null
 		if blocker is Node:
 			var blocker_owner: Node = (blocker as Node).get_parent()
 			if blocker_owner is VehicleActor:
+				blocking_vehicle=blocker_owner as VehicleActor
 				blocker_id = str(blocker_owner.get("entity_id"))
 				if blocker_owner.get("controller") == null:
 					# A parked hull is a dead end: recovery (reverse) is what the parked-vehicle
 					# acceptance check requires, and a wreck cannot move aside by itself.
 					mode = "recover"
 				else:
-					# A stand-off between two AI actors: BOTH eventually replan (no reversing, which
-					# disturbed the village, and no giving up, which cost arrivals in the battle
-					# suite), but the higher entity id goes first so their paths stop being
-					# symmetric - that is what lets the pair resolve instead of meeting again.
+					# On graph edges, try another road first. Stagger the two drivers'
+					# decisions so an oncoming pair does not always replan symmetrically.
 					mode = "replan"
+					# Before the first graph node there is no incoming graph edge to
+					# block. Replanning chooses the same occupied connector forever.
+					# Use the existing bounded physical recovery to leave that connector;
+					# ordinary road-edge rerouting and permanent block memory stay intact.
+					if waypoint == 0: mode = "recover"
 					if str(vehicle.entity_id) < str(blocker_owner.get("entity_id")):
 						limit += GameConfig.AI_YIELD_PRIORITY_GRACE_S
 		yield_elapsed = (yield_elapsed + delta) if mode != "" else 0.0
@@ -270,12 +308,9 @@ func update_command(delta: float) -> VehicleCommand:
 			yield_elapsed = 0.0
 			if waypoint > 0:
 				var blocked_key := DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])
-				# WT-040-R1: reverted to the original permanent marker. Releasing blocked edges on
-				# distance was tried and, although it fixed the oncoming-pair contract check, it broke
-				# the permanent-obstacle one - the same single check that the time-based expiry broke -
-				# so the block memory is entangled with same_retry()'s contract and no release may be
-				# added here. Only the telemetry below is kept.
-				_blocked_edges[blocked_key] = true
+				# Release only a recorded moving-vehicle block after that same vehicle
+				# actually leaves. No expiry applies to world geometry or parked wrecks.
+				_remember_block(blocked_key,blocking_vehicle)
 				# WT-040-R1 telemetry only: record every block creation, with its cause, so the
 				# frequency and the counterparty can be measured before any further change is made.
 				events.append({"time":clock,"phase":phase,"reason":"edge_blocked","edge":blocked_key,
@@ -306,7 +341,7 @@ func update_command(delta: float) -> VehicleCommand:
 			has_goal = false
 			_transition("failed","recovery_limit")
 			return VehicleCommand.new()
-		if waypoint > 0: _blocked_edges[DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint])] = true
+		if waypoint > 0: _remember_block(DriveNavigator.edge_key(path_ids[waypoint-1],path_ids[waypoint]))
 		_phase_left = GameConfig.AI_REVERSE_SECONDS
 		_transition("reverse","insufficient_actual_progress")
 	return cmd
