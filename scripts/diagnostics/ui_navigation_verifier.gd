@@ -160,6 +160,49 @@ func run(flow: AppFlow) -> void:
 	report(card_height==UiTokens.metric("components.vehicle_card.height",96.0), "vehicle cards use the token height (%.0f)" % card_height)
 	report(card_width==UiTokens.metric("components.vehicle_card.width",216.0), "vehicle cards use the token width (%.0f)" % card_width)
 
+	# --- WT-UI-004 close-out: mode / map / vehicle state mapping through the real config objects -------------
+	var preparation := g.preparation
+	if preparation != null:
+		# The control offers two selectable modes; engineering is DERIVED from the chosen vehicle, so the contract
+		# under test is that mapping rather than three selectable options.
+		var mode_labels := {}
+		for i in preparation.mode_choice.item_count:
+			preparation.mode_choice.select(i); preparation._mode_changed(i)
+			await frames(3)
+			mode_labels[i] = preparation.mode()
+		report(preparation.mode_choice.item_count == 2 and mode_labels.get(0)=="training" and mode_labels.get(1)=="normal", "the two selectable modes map to training and normal %s" % str(mode_labels))
+		var historical_id := str(VehicleCatalog.IDS[0])
+		var historical_index := -1
+		for i in g.vehicle_choice.item_count:
+			if g.vehicle_choice.get_item_metadata(i) == historical_id: historical_index = i
+		if historical_index >= 0:
+			g.vehicle_choice.select(historical_index); g._select_vehicle(historical_index)
+			await frames(3)
+			var historical_built: Dictionary = preparation.build_match()
+			var historical_config: MatchConfig = null
+			if historical_built.ok: historical_config = historical_built.config as MatchConfig
+			report(historical_built.ok and historical_config != null and historical_config.map_id()==str(MapRegistry.IDS[preparation.map_choice.selected]) and historical_config.mode()==preparation.mode() and historical_config.selected()==historical_id, "a historical vehicle builds a MatchConfig whose map, mode and selection agree with the UI")
+		var engineering_id := str(VehicleCatalog.ENGINEERING_IDS[0])
+		var engineering_index := -1
+		for i in g.vehicle_choice.item_count:
+			if g.vehicle_choice.get_item_metadata(i) == engineering_id: engineering_index = i
+		if engineering_index >= 0:
+			g.vehicle_choice.select(engineering_index); g._select_vehicle(engineering_index)
+			await frames(3)
+			var engineering_built: Dictionary = preparation.build_match()
+			var engineering_config: MatchConfig = null
+			if engineering_built.ok: engineering_config = engineering_built.config as MatchConfig
+			report(preparation.mode()=="engineering" and preparation.lineup_ids.size()==1, "an engineering vehicle derives the engineering mode and a single-vehicle lineup")
+			report(engineering_built.ok and engineering_config != null and engineering_config.map_id()=="river_junction_team" and engineering_config.mode()=="engineering", "engineering builds its own internal-test MatchConfig")
+		report(preparation.map_choice.item_count == MapRegistry.IDS.size(), "the map control offers exactly the registered maps (%d)" % preparation.map_choice.item_count)
+		var current := g.selected_vehicle_id()
+		report(VehicleDisplayMetadata.typology(current) in ["historical","engineering","training"], "the displayed typology matches the catalogue scope (%s -> %s)" % [current,VehicleDisplayMetadata.typology(current)])
+		report(VehicleDisplayMetadata.state_key(current) != "vehicle_state_unknown", "an offered vehicle never shows an unknown content state (%s)" % VehicleDisplayMetadata.state_key(current))
+		# Restore the historical selection so the later sections start from the same state as before.
+		if historical_index >= 0:
+			g.vehicle_choice.select(historical_index); g._select_vehicle(historical_index)
+			await frames(3)
+
 	# --- real-input page switching, twice (repeat enter/exit record) -------------------------------------
 	var tab_loadout := by_id(g,"garage.tab.loadout")
 	var tab_training := by_id(g,"garage.tab.training")
