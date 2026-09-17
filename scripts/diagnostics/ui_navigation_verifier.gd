@@ -336,6 +336,29 @@ func run(flow: AppFlow) -> void:
 	await frames(3)
 	var restored_loadout := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
 	report(restored_loadout.ok, "the loadout is valid again after the zero-rack check, with the service's own capacity and stock")
+	# WT-UI-006/S03: each loadout error kind must carry its own reason, so two different faults may not collapse
+	# into one message. Over-capacity and a first round with no stock are constructed through the real controls.
+	var capacity := int(prep.shell_spins[shells[0]].max_value)
+	for shell_id in shells:
+		prep.shell_spins[shell_id].value = capacity
+	prep._ammo_changed()
+	await frames(5)
+	var over_checked := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
+	report(not over_checked.ok and prep.ammo_error_label.text==str(over_checked.reason), "an over-capacity total carries the service's own reason (%s)" % str(over_checked.reason))
+	var first_shell_id := str(prep.first_choice.get_item_metadata(prep.first_choice.selected))
+	var share := maxi(1,int(capacity/shells.size()))
+	for shell_id in shells:
+		prep.shell_spins[shell_id].value = 0 if shell_id==first_shell_id else share
+	prep._ammo_changed()
+	await frames(5)
+	var no_first_checked := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
+	report(not no_first_checked.ok and prep.ammo_error_label.text==str(no_first_checked.reason), "a first round with no stock carries its own reason (%s)" % str(no_first_checked.reason))
+	report(str(over_checked.reason)!=str(no_first_checked.reason) or str(over_checked.reason).is_empty(), "the two loadout error kinds do not share one message (%s)" % str(over_checked.reason))
+	for shell_id in shells:
+		prep.shell_spins[shell_id].value = int(defaults.get("counts",{}).get(shell_id,0))
+	prep._ammo_changed()
+	await frames(5)
+
 	# WT-UI-010/006-A02: the page edits in memory and only "apply loadout" commits, so leaving the page without
 	# applying must leave the saved profile untouched - there must not be two competing commit behaviours.
 	var saved_before: Dictionary = g.profile.snapshot().garage.loadouts.duplicate(true)

@@ -69,7 +69,15 @@ func build_loadout(value: Dictionary) -> Dictionary:
 	var inventory := AmmoInventory.new()
 	var loading: LoadingProfile=definitions.vehicles[value.vehicle_id].loading_profile
 	rack_ids=loading.initial_rack_order(rack_ids)
-	if not inventory.configure_loadout(counts,rack_ids,capacities,value.first_shell,loading.initial_distribution): return _reject(LocalizationService.text("ui_3774b78e7ca6"))
+	if not inventory.configure_loadout(counts,rack_ids,capacities,value.first_shell,loading.initial_distribution):
+		# WT-UI-006/S03: the refusal itself is unchanged and still comes from configure_loadout - nothing is
+		# recomputed here. Only the message is made specific, because the design requires a total over capacity and a
+		# first round with no stock to carry independent reasons instead of one shared sentence.
+		var capacity_total := 0
+		for rack_id in capacities: capacity_total += int(capacities[rack_id])
+		if total > capacity_total: return _reject(LocalizationService.text("loadout_reject_capacity"))
+		if int(counts.get(value.first_shell,0)) <= 0: return _reject(LocalizationService.text("loadout_reject_first_stock"))
+		return _reject(LocalizationService.text("ui_3774b78e7ca6"))
 	return {"ok":true,"loadout":{"vehicle_id":value.vehicle_id,"counts":counts,"first_shell":value.first_shell},"inventory":inventory.snapshot(),"options":ammo.options}
 
 func install(vehicle: VehicleActor, loadout: Dictionary) -> bool:
