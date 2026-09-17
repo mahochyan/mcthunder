@@ -15,7 +15,8 @@ $panels = @(
 )
 
 $W = 1800
-$titleH = 108
+# Tall enough that the concept caption below the title block cannot collide with the subtitle line.
+$titleH = 150
 $conceptW = 1740
 $conceptSrc = [System.Drawing.Image]::FromFile($concept)
 $conceptH = [int]($conceptW * $conceptSrc.Height / $conceptSrc.Width)
