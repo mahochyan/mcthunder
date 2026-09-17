@@ -106,6 +106,7 @@ func _run() -> void:
 	var deaths := {1:0, 2:0}
 	var seen_life := {}
 	var timeline: Array = []
+	var combat_samples: Array = []
 	var positions := {}
 	var stagnant := {}
 	# WT-040-R1: a stationary actor is classified by WHAT IT IS WAITING FOR, read from the driver's own event
@@ -122,6 +123,7 @@ func _run() -> void:
 		scene.set_meta("finish_signals", int(scene.get_meta("finish_signals",0))+1))
 	for sample in STAGE5_MAX_SAMPLES:
 		await frames(SAMPLE_FRAMES)
+		var combat := {}
 		for actor in scene.combat_actors():
 			var p: Vector3 = actor.tank.global_position
 			var life: int = actor.life_id
@@ -144,6 +146,17 @@ func _run() -> void:
 					reached_objectives[team][str(objective.id)] = true
 			if actor.gunner.shots_fired > 0: shots[actor.entity_id] = true
 			var ai: AITankController = actor.controller as AITankController
+			var alignment_deg := -1.0
+			if ai != null and ai.last_aim_solution.get("ok",false):
+				alignment_deg=rad_to_deg(actor.turret.barrel_direction().angle_to(ai.last_aim_solution.direction))
+			combat[actor.entity_id]={"life_id":actor.life_id,"dead":actor.state.destroyed,
+				"position":p,"capabilities":actor.capabilities().duplicate(true),
+				"shots":actor.gunner.shots_fired,"chamber":actor.gunner.inventory.chamber,
+				"cooldown":actor.gunner.cooldown_left,"loading_reason":actor.gunner.loading_reason,
+				"blocked_reason":actor.gunner.blocked_reason,"alignment_deg":alignment_deg,
+				"observation":ai.observation.duplicate(true) if ai!=null else {},
+				"authorization":ai.last_fire_authorization.duplicate(true) if ai!=null else {},
+				"phase":ai.phase if ai!=null else "detached"}
 			if ai == null:
 				detached_valid = detached_valid and actor.state.destroyed
 				continue
@@ -176,6 +189,7 @@ func _run() -> void:
 				stagnant[life] = 0
 			peak_stagnant[life] = maxi(int(peak_stagnant.get(life,0)), int(stagnant[life]))
 			positions[life] = p
+		combat_samples.append({"t":scene.director.state.elapsed,"actors":combat})
 		if sample % PRINT_EVERY == 0 or scene.director.state.phase == "finished":
 			var living := {1:0, 2:0}
 			for actor in scene.combat_actors():
@@ -277,11 +291,14 @@ func _run() -> void:
 	var shots_total := 0
 	var contacts_total := 0
 	var damage_events := 0
+	var shot_evidence: Array = []
 	for shot_index in scene.projectiles.shot_records.count():
 		var shot_record: Variant = scene.projectiles.shot_records.get_record(shot_index)
 		shots_total += 1
 		contacts_total += shot_record.contacts.size()
 		damage_events += shot_record.damage.size()
+		shot_evidence.append({"identity":shot_record.identity,"launch":shot_record.launch,
+			"contacts":shot_record.contacts,"damage":shot_record.damage})
 	var deaths_total := 0
 	for team_key in deaths.keys(): deaths_total += int(deaths[team_key])
 	var record := {
@@ -311,6 +328,9 @@ func _run() -> void:
 		"respawns": "WITHDRAWN: life_id is per actor, not per life; the old counter was falsified and must not be read as a zero",
 		"destroyed_observed": destroyed_seen.keys(),
 		"chain_samples": chain_samples,
+		"combat_samples":combat_samples,
+		"shot_evidence":shot_evidence,
+		"combat_evidence_note":"Read-only five-second snapshots; authorization and aim may be stale. Shot evidence is the bounded production replay store, not an unbounded event stream.",
 		"destroyed_at_end": deaths,
 		"max_trying_to_drive_stationary_s": max_still,
 		"max_waiting_at_objective_s": max_waiting,
