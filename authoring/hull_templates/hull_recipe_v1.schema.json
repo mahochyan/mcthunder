@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pixelarmor:hull-recipe:v1",
+  "title": "HullRecipe v1 authoring contract (compiler not implemented)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "vehicle_id", "status", "source_model", "template", "fit_profile", "equipment", "crew", "overrides"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "vehicle_id": {"$ref": "#/$defs/id"},
+    "status": {"const": "authoring_candidate"},
+    "source_model": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_vehicle_id", "path", "sha256"],
+      "properties": {
+        "source_vehicle_id": {"$ref": "#/$defs/id"},
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "template": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": {"enum": ["rear_powerpack", "rear_engine_front_transmission", "front_powerpack", "casemate", "open_fighting_compartment"]},
+        "version": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fit_profile": {"$ref": "#/$defs/artifact"},
+    "equipment": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["slot", "presence", "evidence_refs"],
+        "properties": {
+          "slot": {"$ref": "#/$defs/id"},
+          "presence": {"enum": ["present", "absent", "unknown"]},
+          "component": {"$ref": "#/$defs/artifact"},
+          "evidence_refs": {"$ref": "#/$defs/evidenceRefs"}
+        },
+        "allOf": [{"if": {"properties": {"presence": {"const": "present"}}}, "then": {"required": ["component"]}, "else": {"not": {"required": ["component"]}}}]
+      }
+    },
+    "crew": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "role", "slot", "part", "evidence_refs"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "role": {"type": "string", "minLength": 1},
+          "slot": {"$ref": "#/$defs/id"},
+          "part": {"$ref": "#/$defs/part"},
+          "evidence_refs": {"$ref": "#/$defs/evidenceRefs"}
+        }
+      }
+    },
+    "overrides": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["slot", "operation", "reason", "evidence_refs"],
+        "properties": {
+          "slot": {"$ref": "#/$defs/id"},
+          "operation": {"enum": ["add", "replace", "remove"]},
+          "placement": {"$ref": "#/$defs/placement"},
+          "component": {"$ref": "#/$defs/artifact"},
+          "reason": {"type": "string", "minLength": 1},
+          "evidence_refs": {"$ref": "#/$defs/evidenceRefs"}
+        },
+        "allOf": [
+          {"if": {"properties": {"operation": {"const": "add"}}}, "then": {"required": ["component", "placement"]}},
+          {"if": {"properties": {"operation": {"const": "replace"}}}, "then": {"anyOf": [{"required": ["component"]}, {"required": ["placement"]}]}},
+          {"if": {"properties": {"operation": {"const": "remove"}}}, "then": {"not": {"anyOf": [{"required": ["component"]}, {"required": ["placement"]}]}}}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "path": {"type": "string", "pattern": "^res://[A-Za-z0-9_./-]+$"},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "evidenceRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "part": {"enum": ["hull", "turret", "barrel", "running_left", "running_right"]},
+    "uvw": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+    "positive3": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "exclusiveMinimum": 0}},
+    "placement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["part", "region", "center_uvw", "size_fraction", "rotation_deg", "min_size_m", "max_size_m"],
+      "properties": {
+        "part": {"$ref": "#/$defs/part"},
+        "region": {"$ref": "#/$defs/id"},
+        "center_uvw": {"$ref": "#/$defs/uvw"},
+        "size_fraction": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}},
+        "rotation_deg": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "minimum": -180, "maximum": 180}},
+        "min_size_m": {"$ref": "#/$defs/positive3"},
+        "max_size_m": {"$ref": "#/$defs/positive3"}
+      }
+    }
+  },
+  "$comment": "Schema covers shape only. Resolver must reject path traversal, non-finite numbers, mismatched IDs/hashes, duplicate slots/crew, unsupported kinds/parts, missing evidence, min>max, unknown required equipment, missing component/region references and conflicting operations. Fit and combat admission are separate gates. Paths are project-local authoring inputs, never an external runtime dependency."
+}
