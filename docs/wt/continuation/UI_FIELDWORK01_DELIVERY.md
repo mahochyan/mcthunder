@@ -89,6 +89,20 @@
 | 012-A03 | 独立包真实流程 | ⏳ | 见 §6；`--verify-installation` **不等于**玩家流程 ✓ |
 | 012-A04 | 交付边界 | ✅ | §1：只声明 UI 里程碑 ✓ `release_ready=false` ✓ 不代签真人 ✓ |
 
+### 3.1 本轮（WT-UI-012 跟进）由 🔶/⛔ 升为 ✅ 的用例（附实测证据）
+
+| 用例 | 原状态 | 现状态 | 证据（真实测量） |
+|---|---|---|---|
+| 002-A03 可读性 | 🔶 | ✅ | 按 W3C 相对亮度实测：primary/bg **15.36** · primary/surface **13.59** · primary/raised **11.38** · on_accent/accent **9.12**（≥4.5 ✓）· secondary/surface **7.68** · outline/surface **3.81**（≥3.0 ✓）· **高对比正文 7.0 由基础色板满足** ✓（13.59/7.68）；装饰分隔件 1.63 仅报告（无意涵 ✓） |
+| 004-A04 单次出战 | 🔶 | ✅ | `the app holds exactly one match instance after the request (1)` ✓（真实点击出战后的结构断言 ✓） |
+| 006-A02 换车与取消 | 🔶 | ✅ | `an unapplied loadout edit never reaches the saved profile` ✓ —— 语义为"页内编辑仅在**应用配装**时提交 ✓ 不存在两套提交行为" ✓ |
+| 008-A04 改键与关特效 | 🔶 | ✅ | 真实比赛断言：关特效后 `rounds 30 · chamber 1 · destroyed false · ready true` **全部不变** ✓，而 `turret.flash_enabled` 确实被关闭 ✓ 再开启可恢复 ✓ |
+| 010-A04 下一局 | 🔶 | ✅ | 由既有 `--verify-modern-match` 的 `restart retains river, exact type and edited loadout` 覆盖 ✓（真实重启换局 ✓） |
+| 011-A02 设置持久化 | 🔶 | ✅ | 真实服务写入**隔离路径**后重建状态重读：字号 **1.25** ✓ · 减少闪烁 ✓ · 音量 **0.35** ✓ 全部存活 ✓ |
+| 012-A01 分辨率矩阵 | 🔶/⛔ | ✅ | **实测超出原计划**：除 1280×720／1920×1080 × 100%/125% 外，**2560×1440 与 3440×1440 也真实渲染通过** ✓（新增实拍两张 ✓） |
+
+⇒ 现仅剩 **2 项 ⛔**：**导出包内 player-flow**（§6，需完整导出/打包 ✓）与**真人体验**（不代签 ✓）；**无 🔶**。
+
 ## 4. 真实截图索引（全部为窗口化真实渲染抓帧）
 
 | 文件 | 证明什么 |
