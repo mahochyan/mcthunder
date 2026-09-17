@@ -60,10 +60,12 @@ func run() -> void:
 	await click(trial.close_button)
 	await query(tree,"IRIS SLM FCS")
 	check(tree.selected_id=="germ_iris_slm_fcs" and not tree.test_button.disabled,"unarmed support vehicle remains available for model driving")
+	check(tree.detail_label.text.contains("初速 缺失") and tree.detail_label.text.contains("无可控武器"),"dossier exposes missing weapon data and the unarmed model contract")
 	await click(tree.test_button); trial=tree.trial
 	check(trial.weapon_control_status=="none" and not trial.weapon_controls_available,"unarmed support model does not receive invented tank-gun controls")
 	await click(trial.close_button)
 	await query(tree,"9A33BM3")
+	check(tree.detail_label.text.contains("容量 冲突") and tree.detail_label.text.contains("非标准武器机构待适配"),"dossier exposes conflicting cache data and the nonstandard model contract")
 	await click(tree.test_button); trial=tree.trial
 	check(trial.weapon_control_status=="unavailable_nonstandard" and not trial.weapon_controls_available,"ambiguous missile rig stays drivable without applying conflicting traverse data")
 	await click(trial.close_button)

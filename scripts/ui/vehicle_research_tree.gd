@@ -85,6 +85,15 @@ func _ready() -> void:
 static func normalized(value: String) -> String:
 	return value.to_lower().replace("-","").replace("_","").replace(" ","").replace("(","").replace(")","")
 
+static func reference_value(field: Variant,suffix: String="") -> String:
+	if not field is Dictionary: return "缺失"
+	var state:=str(field.get("resolution_state","missing"))
+	if state.begins_with("conflict"): return "冲突"
+	if state not in ["explicit_reference_candidate","explicit_reference_duplicate_consistent"]: return "缺失"
+	var value: Variant=field.get("value")
+	if value is int or value is float: return "%.1f%s"%[float(value),suffix]
+	return str(value)+suffix if value!=null else "缺失"
+
 func matches(row: Dictionary) -> bool:
 	if row.nation!=country or (ready_filter.button_pressed and not row.model is Dictionary): return false
 	var query := normalized(search.text)
@@ -156,6 +165,19 @@ func select_vehicle(id: String) -> void:
 	if mobility.get("ok",false):
 		detail_label.text+="\n前进 %.1f km/h · 倒车 %.1f km/h · 车体转向 %.1f°/s"%[float(mobility.forward_max_speed)*3.6,float(mobility.reverse_max_speed)*3.6,float(mobility.hull_turn_speed)]
 		if not mobility.get("design_fallbacks",[]).is_empty(): detail_label.text+="\n加速度：独立游戏设计值（缓存单位未确认）"
+	var profile:=ResearchReferenceProfiles.profile(id)
+	if not profile.is_empty():
+		var mass: Variant=profile.get("mobility",{}).get("design_mass_kg")
+		detail_label.text+="\n参考质量："+reference_value(mass," kg")
+		var weapon: Dictionary=profile.get("primary_weapon",{})
+		detail_label.text+="\n武器参考：口径 %s · 容量 %s · 初速 %s"%[reference_value(weapon.get("caliber_mm")," mm"),reference_value(weapon.get("capacity_rounds")," 发"),reference_value(weapon.get("muzzle_velocity_mps")," m/s")]
+	var interface:=ResearchModelInterfaces.interface_for(row) if loaded else {}
+	if interface.get("ok",false):
+		var locomotion:="履带" if interface.get("locomotion")=="tracked" else "轮式"
+		var weapon_kind:="标准炮塔 / 火炮"
+		if interface.get("weapon_control")=="none": weapon_kind="无可控武器"
+		elif interface.get("weapon_control")=="unavailable_nonstandard": weapon_kind="非标准武器机构待适配"
+		detail_label.text+="\n模型接口：%s · %s"%[locomotion,weapon_kind]
 	variants_label.hide(); variants_button.visible=not row.variant_refs.is_empty(); variants_label.text="改型仅作资料参考，当前模型为上述基础型。"
 	if not row.variant_refs.is_empty():
 		variants_button.text="改型参考  ·  %d 项   ▾"%row.variant_refs.size()
