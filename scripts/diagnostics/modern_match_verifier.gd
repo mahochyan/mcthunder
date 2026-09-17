@@ -149,6 +149,12 @@ func run(flow: AppFlow) -> void:
 		if battle.actor.state.destroyed:
 			hold({})
 			if battle.respawn_button.is_visible_in_tree() and not battle.respawn_button.disabled:
+				# WT-UI-009 (S06): the waiting screen must state the real cause and the real lineup, and the request
+				# button must be gated by the service rather than by a bare grey state.
+				check(battle.waiting_panel.visible,"the waiting panel is a real screen while the player is dead")
+				check(battle.death_reason_label != null and battle.death_reason_label.text.length() > 0,"the waiting panel states the death cause (%s)" % (battle.death_reason_label.text if battle.death_reason_label != null else "missing"))
+				check(battle.lineup_label != null and battle.lineup_label.text.contains("发"),"the waiting panel lists the legal lineup with its real round counts")
+				check(battle.vehicle_choice != null and battle.vehicle_choice.item_count > 0,"the waiting panel offers the legal lineup through the real control")
 				await capture("02_waiting")
 				# WT-UI-007: taking the capture costs frames, and the waiting button can move between ready and busy
 				# inside them. A disabled control must never be clicked, so the state is re-checked immediately before

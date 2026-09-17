@@ -11,6 +11,9 @@ var action_label: Label
 var capture_ring: MeshInstance3D
 var capture_material: StandardMaterial3D
 var waiting_panel: PanelContainer
+## WT-UI-009 (S06): the real death cause and the legal lineup with its real loadout counts, shown while waiting.
+var death_reason_label: Label
+var lineup_label: Label
 var waiting_label: Label
 var respawn_button: Button
 var vehicle_choice: OptionButton
@@ -281,6 +284,10 @@ func spawn_slot(id: String) -> VehicleActor:
 			if is_instance_valid(spectator): spectator.current = false
 			vehicle.cam_rig.cam.current = true
 			if is_instance_valid(waiting_panel): waiting_panel.visible = false
+			# WT-UI-009 (S06): a new life must not inherit the previous hull's notices or waiting text.
+			if is_instance_valid(battle_ui) and battle_ui.overlay != null: battle_ui.overlay.clear_notices()
+			if death_reason_label != null: death_reason_label.text = ""
+			if lineup_label != null: lineup_label.text = ""
 			# The shared capture path refuses while the window is in the background.
 			InputFocusRouter.capture_mouse(get_tree())
 	return vehicle
@@ -453,6 +460,18 @@ func _on_lost(id: String) -> void:
 		controller.reset_pending()
 		spectator.current = true
 		waiting_panel.visible = true
+		# WT-UI-009 (S06): the four waiting states come from the respawn service's own waiting_reason, and the death
+		# cause from this vehicle's death record - both are real fields, nothing is inferred here.
+		var cause := "unknown"
+		if vehicle.state.death_record is Dictionary: cause = str(vehicle.state.death_record.get("cause","unknown"))
+		if death_reason_label != null: death_reason_label.text = LocalizationService.text("respawn_death_reason")%LocalizationService.status(cause)
+		if lineup_label != null and prepared_match != null:
+			var lines: Array[String] = []
+			for vid in prepared_match.vehicle_ids():
+				var total := 0
+				for amount in prepared_match.loadout(str(vid)).get("counts",{}).values(): total += int(amount)
+				lines.append("%s · %d 发" % [str(defs.content_packets[vid].display_name),total])
+			lineup_label.text = LocalizationService.text("respawn_lineup")+"\n"+"\n".join(lines)
 		if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func request_respawn() -> void:
@@ -560,6 +579,11 @@ func _build_ui() -> void:
 	waiting.add_theme_constant_override("separation",14)
 	waiting_panel.add_child(waiting)
 	waiting_label = CoreUI.label(waiting,LocalizationService.text("ui_ed28d4bf2bc2"),25)
+	# WT-UI-009 (S06): the death cause comes from the vehicle's own death record, not from a guess.
+	death_reason_label = CoreUI.label(waiting,"",16)
+	# WT-UI-009 (S06): the legal lineup is the prepared match's own vehicle list with its real loadout counts.
+	lineup_label = CoreUI.label(waiting,"",15)
+	lineup_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vehicle_choice = OptionButton.new()
 	if prepared_match != null:
 		for id in prepared_match.vehicle_ids():
@@ -656,8 +680,23 @@ func _process(delta: float) -> void:
 	if actor.state.destroyed and state.phase == "playing":
 		var row: Dictionary = state.roster.A
 		var left := maxf(0,row.respawn_at-state.elapsed)
-		waiting_label.text = LocalizationService.text("ui_c954af1bb479")%left if left>0 else (LocalizationService.text("ui_03b03144e7fd") if row.waiting_reason == "spawn_blocked" else LocalizationService.text("ui_af7467336cea"))
-		respawn_button.disabled = left>0 or state.tickets[1]<=0
+		# WT-UI-009 (S06): four distinct waiting states, each with the reason the respawn service actually wrote, and
+		# a countdown that reaching zero only turns into "ready to request" - the hull is not created until the
+		# service creates it and this panel is only hidden then.
+		var reason := str(row.waiting_reason)
+		if left > 0.0 or reason == "countdown":
+			waiting_label.text = LocalizationService.text("ui_c954af1bb479")%left
+		elif reason == "spawn_blocked":
+			waiting_label.text = LocalizationService.text("ui_03b03144e7fd")
+		elif reason == "no_tickets":
+			waiting_label.text = LocalizationService.text("respawn_no_tickets")
+		elif reason == "choose_vehicle":
+			waiting_label.text = LocalizationService.text("respawn_choose_vehicle")
+		else:
+			waiting_label.text = LocalizationService.text("ui_af7467336cea")
+		respawn_button.disabled = left>0.0 or state.tickets[1]<=0 or reason in ["spawn_blocked","no_tickets"]
+		# The spectating state is its own line, so waiting and spectating are never confused.
+		action_label.text = LocalizationService.text("respawn_spectating")
 		var friends: Array = []
 		for id in state.roster:
 			var friend := state.actor_for(id)

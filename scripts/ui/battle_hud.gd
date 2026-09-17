@@ -385,6 +385,15 @@ func _toggle(parent: Node, label: String, initial: bool, setter: Callable) -> Ch
 	parent.add_child(button)
 	button.toggled.connect(func(on: bool) -> void: setter.call(on); _changed())
 	return button
+## WT-UI-009 (S06): a new life must not inherit the old life's notices, so the queue is cleared whenever the life
+## identity changes. The reload bar and the panel values are recomputed from the new model every frame already, so
+## nothing from the previous hull can keep driving them.
+func clear_notices() -> void:
+	notices.clear()
+	_last_notice = ""
+	_last_hit = ""
+	_refresh_notices()
+
 ## WT-UI-008 (S05): one key prompt at a time near the centre, secondary notices in the corner queue, and a repeated
 ## key merges into the existing line with a count instead of stacking. A critical notice never expires.
 func push_notice(text: String, key: String, ttl: float = 4.0, critical: bool = false) -> void:

@@ -1,4 +1,9 @@
 {
+  "respawn_death_reason": "阵亡原因：%s",
+  "respawn_no_tickets": "票数不足 · 无法再出击",
+  "respawn_choose_vehicle": "请选择合法编成后再请求出击",
+  "respawn_lineup": "当前编成与配装",
+  "respawn_spectating": "观战中 · Esc 打开菜单",
   "hit_no_contact": "未命中",
   "hud_chamber_line": "膛内：%s",
   "hud_carrying_line": "搬运中：%s",
