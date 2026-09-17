@@ -149,11 +149,18 @@
 - 与本单改动相关的**项目自有**套件：**`APP_FLOW_CHECKS_PASS`**（结果卡/危险确认弹窗 ✓）· **`SETTINGS_CHECKS_PASS`**（四分组与持久化 ✓）· `TUTORIAL_CHECKS_PASS` ✓ · **`INPUT_BINDING_CHECKS_PASS`**（实时按键名 ✓）· `MODERN_GARAGE_CHECKS_PASS` ✓ · `MODERN_SUPPORT / MODERN_ARMOR_FRAME / MODERN_TEAM_IDENTITY`（76 项）`PASS` ✓ · `run_engineering_*`（44/29/23/85/11 项 ✓）· `ENTRY_TRAFFIC_CHECKS_PASS` ✓ —— **全部零失败** ✓。
 ⇒ 结论：**本单 UI 改动未在项目自有回归中引入任何失败** ✓；唯一两条失败为**已裁定例外** ✓。
 
-## 6. 独立包（WT-UI-012-A03）状态
+## 6. 独立包（WT-UI-012-A03）状态 —— **已完成** ✓
 
-- 命令：`powershell -File tests/build_release.ps1 -Candidate -ModernRiver`
-- 前置：树**干净**（构建脚本要求已提交树）✓ · 固定引擎 `4.7.2.stable.official.ed1daf0bf` ✓ · 登记表仅含两条已裁定例外 ✓
-- 结果与产物 SHA256：**见本轮日志 `logs/WT-UI-FIELDWORK-01/wt-ui-012-package.log`**；未在会话内完成则记 **`NOT_RUN`**（原因：完整导出+打包耗时）✓，并**不**冒称通过 ✗。
+- 命令：`powershell -File tests/build_release.ps1 -Candidate -ModernRiver` ✓（构建作业 **exit=0** ✓）
+- 前置（脚本自校验 ✓）：树**干净**（已提交树 ✓）· 固定引擎 `4.7.2.stable.official.ed1daf0bf` ✓ · 登记表**仅两条已裁定例外** ✓
+- **产物（版本绑定 ✓）**：
+  `backups/builds/031/15026f1a45329387ffd5b261a32b69ed135b003b/20260917-193728-106/`
+  **`PixelArmor-1.0.0-rc.3-dev-Windows-x64-15026f1a-devcandidate.zip`** · **135,931,942 B（129.6 MB）** · **SHA256 `3516A10E8FBEA813732631E5853726ED8A8F9526DFFB6A79595CE50C228E29D6`** ✓
+- **构建逐步结果（主日志 ✓）**：`fresh_import passed=True` ✓ · `regression passed=False exit=1` → **`regression kept for register review (candidate mode; only a registered failure may be accepted)`** ✓ → **`KNOWN FAILURE ACCEPTED (candidate only)` ×2**（工业战斗 1 项 / 挑战 2 项，与登记表**逐字相符** ✓）· `export_release passed=True` ✓ · `engine_notices passed=True` ✓ · **`independent_default_start / independent_content / independent_window` 三项 passed=True** ✓✓（即**独立包自己的资源、场景、启动与内容**均已验证 ✓）
+- **`RELEASE_READY=False`** ✓ · **`VERIFIED_CANDIDATE=…PixelArmor-1.0.0-rc.3-dev-Windows-x64-15026f1a-devcandidate.zip`** ✓
+- **`BUILD_MANIFEST.json`**（17,314 B ✓）关键字段：`source_sha=15026f1a…` ✓ · `version=1.0.0-rc.3-dev` ✓ · `engine=4.7.2.stable.official.ed1daf0bf` ✓ · `template_sha256=D34D36F3BE1A6C49…` ✓ · `platform=Windows x64` ✓ · `configuration=release` ✓ · `renderer=gl_compatibility` ✓ · `regression_checks=270` ✓ · `regression_failed_checks=3` ✓ · `suites=[51]` ✓ · `known_failures=[2]` ✓ · **`release_ready=False`** ✓ · `candidate=True` ✓ · **`human=PENDING`** ✓ · **`public_release=False`** ✓ · `files=[7]` ✓ · `verification=[7]` ✓ · `modern_river_required=True` ✓ · `required_map=res://scenes/maps/map_river_team.tscn` ✓ · **`full_player_flow=PENDING_SEPARATE_VERIFICATION`** ✓
+- 包内 8 个文件 ✓：`PixelArmor.exe`（109,137,920 B ✓）· `PixelArmor.pck`（101,004,148 B ✓）· `BUILD_MANIFEST.json` ✓ · `FONT_OFL.txt` ✓ · `GODOT_LICENSES.txt` ✓ · `开始游戏.txt` ✓ · `数据与恢复说明.md` ✓ · `素材与许可.md` ✓（中文文档名来自 `package_doc_names.json` 数据文件 ✓）
+- **仍未做的两项**（与清单自述一致 ✓，不冒称 ✗）：**包内完整玩家流程**（`full_player_flow=PENDING_SEPARATE_VERIFICATION` ✓）与**真人体验**（`human=PENDING` ✓）；性能维持 `HOLD_BY_USER` ✓
 
 ## 7. 回退方式
 

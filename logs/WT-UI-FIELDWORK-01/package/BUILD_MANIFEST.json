@@ -1,0 +1,413 @@
+﻿{
+    "source_sha":  "15026f1a45329387ffd5b261a32b69ed135b003b",
+    "version":  "1.0.0-rc.3-dev",
+    "engine":  "4.7.2.stable.official.ed1daf0bf",
+    "template_sha256":  "D34D36F3BE1A6C49C56525AE86469B92E4F417DDF0B43CF00DD80C385C4B0562",
+    "platform":  "Windows x64",
+    "configuration":  "release",
+    "renderer":  "gl_compatibility",
+    "clean_import":  true,
+    "challenge_rules":  1,
+    "settings_schema":  2,
+    "profile_schema":  3,
+    "regression_checks":  270,
+    "regression_failed_checks":  3,
+    "suites":  [
+                   {
+                       "suite":  "import",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_layout_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_query_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_projectile_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_armor_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_damage_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_recovery_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_replay_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_core_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_drive_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_ai_drive_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_ai_combat_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_duel_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_team_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_hud_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_map_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_village_battle_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_telemetry_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_historical_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_historical_road_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_blender_asset_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_shell_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_garage_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_industrial_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_industrial_obstruction_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_industrial_battle_checks",
+                       "checks":  0,
+                       "passed":  false
+                   },
+                   {
+                       "suite":  "run_challenge_checks",
+                       "checks":  0,
+                       "passed":  false
+                   },
+                   {
+                       "suite":  "run_art_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_structure_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_wreck_visual_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_feedback_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_input_binding_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_app_flow_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_tutorial_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_settings_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_query_cache_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_balance_matrix_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_diagnostic_budget_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_modern_support_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_modern_armor_frame_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_modern_garage_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_engineering_runtime_checks",
+                       "checks":  44,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_engineering_damage_checks",
+                       "checks":  29,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_engineering_loading_checks",
+                       "checks":  23,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_engineering_material_checks",
+                       "checks":  85,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_engineering_compartment_checks",
+                       "checks":  11,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_modern_team_identity_checks",
+                       "checks":  76,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_river_entry_traffic_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "run_menu_fire_handoff_checks",
+                       "checks":  0,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "check_engineering_admission",
+                       "checks":  2,
+                       "passed":  true
+                   }
+               ],
+    "known_failures":  [
+                           {
+                               "suite":  "run_industrial_battle_checks",
+                               "checks":  0,
+                               "failures":  1,
+                               "detail":  [
+                                              "[FAIL] at least three actual slots from each team physically reach central approaches"
+                                          ],
+                               "reason":  "registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)"
+                           },
+                           {
+                               "suite":  "run_challenge_checks",
+                               "checks":  0,
+                               "failures":  2,
+                               "detail":  [
+                                              "[FAIL] real defense script pilot completes finite waves with opponent AI untouched",
+                                              "[FAIL] real defense script pilot completes finite waves with opponent AI untouched"
+                                          ],
+                               "reason":  "registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice"
+                           }
+                       ],
+    "release_ready":  false,
+    "candidate":  true,
+    "files":  [
+                  {
+                      "name":  "FONT_OFL.txt",
+                      "bytes":  4393,
+                      "sha256":  "88F117575237307BDD86A17EF15E21790FC9A662FE4DFB103CA1CA077F0D9982"
+                  },
+                  {
+                      "name":  "GODOT_LICENSES.txt",
+                      "bytes":  112825,
+                      "sha256":  "F680E2C9BAB2C0A12D9A47DC32C1C1F234606B9B3D66A057B83EEC7661CF5346"
+                  },
+                  {
+                      "name":  "PixelArmor.exe",
+                      "bytes":  109137920,
+                      "sha256":  "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9"
+                  },
+                  {
+                      "name":  "PixelArmor.pck",
+                      "bytes":  101004148,
+                      "sha256":  "CE234F1E3E98AB57C1D4C04C1A843AF831FA5F223567951697CAB98D24C4DFB9"
+                  },
+                  {
+                      "name":  "开始游戏.txt",
+                      "bytes":  1413,
+                      "sha256":  "95C187E9A78B8821A6D001169CB79C89434606B372BE6C37DDF07CAE392A1F0F"
+                  },
+                  {
+                      "name":  "数据与恢复说明.md",
+                      "bytes":  2340,
+                      "sha256":  "0537B67A5D23D4610C88704BECB62D2CF6573BF64FDACD96E37B4B306AE8A641"
+                  },
+                  {
+                      "name":  "素材与许可.md",
+                      "bytes":  994,
+                      "sha256":  "72EFE3B7E073BE0DB7A032F5839D2E54BE46FA15E3C2A99B0EFB11014474268F"
+                  }
+              ],
+    "verification":  [
+                         {
+                             "name":  "fresh_import",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         },
+                         {
+                             "name":  "regression",
+                             "exit_code":  1,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  false
+                         },
+                         {
+                             "name":  "export_release",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         },
+                         {
+                             "name":  "engine_notices",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         },
+                         {
+                             "name":  "independent_default_start",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         },
+                         {
+                             "name":  "independent_content",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         },
+                         {
+                             "name":  "independent_window",
+                             "exit_code":  0,
+                             "exit_known":  true,
+                             "timed_out":  false,
+                             "artifact_ok":  true,
+                             "passed":  true
+                         }
+                     ],
+    "human":  "PENDING",
+    "public_release":  false,
+    "modern_river_required":  true,
+    "required_modern_content":  [
+                                    {
+                                        "vehicle_id":  "ussr_t_80b",
+                                        "packet":  "res://configs/vehicles/engineering/ussr_t_80b.json",
+                                        "packet_sha256":  "FEAF38C1B382E60FEFC4FF6733132D472471AA46C01F66FB3150FAE3A6613124",
+                                        "model_path":  "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+                                        "model_sha256":  "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5",
+                                        "model_version":  "modern_bound-engine-v1"
+                                    },
+                                    {
+                                        "vehicle_id":  "germ_leopard_2a4",
+                                        "packet":  "res://configs/vehicles/engineering/germ_leopard_2a4.json",
+                                        "packet_sha256":  "7DAD51880202C8870128873B8EBCB5B052617F57756279B25E7D65081BEF9812",
+                                        "model_path":  "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+                                        "model_sha256":  "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+                                        "model_version":  "modern_bound-engine-v1"
+                                    }
+                                ],
+    "required_map":  "res://scenes/maps/map_river_team.tscn",
+    "full_player_flow":  "PENDING_SEPARATE_VERIFICATION"
+}
