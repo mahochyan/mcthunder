@@ -1,0 +1,5439 @@
+{
+  "combat_interface_ready_count": 2,
+  "interfaces": [
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_asu_57",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_asu_57.glb",
+        "sha256": "378b27314ce84e08b9cc5a4a62a56eb14e706c7021e66875a13313d70134adf2",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_drive",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_drive",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 28,
+        "node_count": 31
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_asu_85",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_asu_85.glb",
+        "sha256": "0489228105a94e2c0b911baa9e68b5157ad4baeee3160f9a5a57a9170b2ab679",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_bt_5",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_bt_5.glb",
+        "sha256": "9a490f675932e909d8e3259d2b3e66643695bf4bfbacd34d7473d7353eaa63d5",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_1",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_1.glb",
+        "sha256": "4d874abf2b6c3e6bc8d5ba2b2df6fc50ac2bd88c0b1d5859f4bc213aa054e34d",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 45,
+        "node_count": 48
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_2_1943",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_2_1943.glb",
+        "sha256": "ab3514a901767a33cda939b311941da279aff13e4e178f1ee5d487a08bdbc1bc",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 45,
+        "node_count": 48
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_3",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_3.glb",
+        "sha256": "57915a11126c9e0fe6536f5930e1312ec0b2c56a448f71470900fe05dcfdbf5e",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 43,
+        "node_count": 46
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_4m",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_4m.glb",
+        "sha256": "e44f00cd9e5e4844168177369b43e19b058da33bafcd7681f353ccc96addf520",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 44,
+        "node_count": 47
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_6",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_6.glb",
+        "sha256": "30565efc826fd48fb5cfbb3544657b15e7cd54503c5f76232cfda94604fee727",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_is_7",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_is_7.glb",
+        "sha256": "4e1b8bb37ec83a2fcb9ce25019b006c9209b75d695afd918dcfbf768a0655c4a",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_isu_122",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_isu_122.glb",
+        "sha256": "3d19902301cb0ff5817f5e6f7a58efb8ca96b33d575a32189a399cf46aea4365",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 40,
+        "node_count": 43
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_isu_152",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_isu_152.glb",
+        "sha256": "73e6a26e66ff56ededf61101e7e66c6a442241569d2832c7d56030b366364afa",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 41,
+        "node_count": 44
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_kv_1_L_11",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_kv_1_L_11.glb",
+        "sha256": "671efce10f603c1e96dee93a2d3552cb81e36585740fd0c16578661f8b4c96b1",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 42,
+        "node_count": 45
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_kv_2_1939",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_kv_2_1939.glb",
+        "sha256": "2ff828d7e54fb7e54fe01ad8977adb3b01ee2edd68d942a30ec7a83f5311021c",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 44,
+        "node_count": 47
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_pt_76b",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_pt_76b.glb",
+        "sha256": "3045c56e9b4d41bd99ce7bc31fbac302380c98a57d79e0bb16d15ddbd458f1a5",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_100_1945",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_100_1945.glb",
+        "sha256": "dd3dcc77901b1c8d3aaa33a319c5d6bcf6f1ddbcf616437a2566b7700e0766fe",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_100Y",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_100Y.glb",
+        "sha256": "7eafe586da04ada56b619514850c435ac029c7e54613e8872fa1c1c880d9e8cf",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_08",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04",
+          "Wheel_l_top_05"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_08",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04",
+          "Wheel_r_top_05"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 42,
+        "node_count": 45
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_122",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_122.glb",
+        "sha256": "e3528c4f31d0135e1590b50561210b4bc97099b2ee849effd20292d745a15d73",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_122_54",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_122_54.glb",
+        "sha256": "333d8b1ac1e94214f4137de894490a11edc2aaa9a8556cf6873ba188a7111d0b",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 28,
+        "node_count": 31
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_152",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_152.glb",
+        "sha256": "a0ce96c7371a4119fc3f824b1a4c06ca52fc81cc1a0d2d3f4439270caab23b7a",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 38,
+        "node_count": 41
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_57b",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_57b.glb",
+        "sha256": "0a571304a89ddf616bf2c71ead9ac35e8cdeb1023d487fa187b5e3f0cceb915f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04",
+          "Wheel_l_top_05"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04",
+          "Wheel_r_top_05"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 38,
+        "node_count": 41
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_76m_1943",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_76m_1943.glb",
+        "sha256": "946a939fccfa8b5b322ba8829fa913a213d9bc3e10a3dd83de24ccb4740e86fc",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_back",
+          "Wheel_l_drive",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_back",
+          "Wheel_r_drive",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_su_85_1943",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_su_85_1943.glb",
+        "sha256": "d359acfd04db8d58c641a9e13e546cb839f8aab01166838cc80e427a495ade21",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_10a",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_10a.glb",
+        "sha256": "633afe20ce1f3aa50af8fdd1d6c3929062d007816727b0e601037381c99ecd19",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 41,
+        "node_count": 44
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_26_1940",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_26_1940.glb",
+        "sha256": "fdc3415dfed5165cc8ae6650b33821cdb74801da7ea04131dc1a5cbc2773b0ea",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_08",
+          "Wheel_l_back",
+          "Wheel_l_drive",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_08",
+          "Wheel_r_back",
+          "Wheel_r_drive",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 54,
+        "node_count": 57
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_28",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_28.glb",
+        "sha256": "b67d184a3242482b36e03440edb604a90ea12382ec1557f2834fe73b10b81fc2",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_08",
+          "Wheel_l_09",
+          "Wheel_l_10",
+          "Wheel_l_11",
+          "Wheel_l_12",
+          "Wheel_l_back",
+          "Wheel_l_drive",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_08",
+          "Wheel_r_09",
+          "Wheel_r_10",
+          "Wheel_r_11",
+          "Wheel_r_12",
+          "Wheel_r_back",
+          "Wheel_r_drive",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 77,
+        "node_count": 84
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_34_1941",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_34_1941.glb",
+        "sha256": "026a30cdafe7834a8da4ee5e348222040616bb950df4ebfcae7c0d1ed17e44d1",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 29,
+        "node_count": 32
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_35",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_35.glb",
+        "sha256": "70bb2bc2d2ea830d6b40e488aedc3e0583eadac6df3e1149eb74ccf932dbbb2d",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_07",
+          "Wheel_l_08",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04",
+          "Wheel_l_top_05",
+          "Wheel_l_top_06",
+          "Wheel_l_top_07"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_07",
+          "Wheel_r_08",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04",
+          "Wheel_r_top_05",
+          "Wheel_r_top_06",
+          "Wheel_r_top_07"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 82,
+        "node_count": 93
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_44",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_44.glb",
+        "sha256": "cdfbc9b1d105e805214b71dca0db0c1a84de742e0caeceae14ee91b19c2cfd4f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_50",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_50.glb",
+        "sha256": "28fe9b26f42ae8d3c3f97c9fd2103bf953a2da28c5f7d50953703a6d562b9a3f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 44,
+        "node_count": 47
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_54_1947",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_54_1947.glb",
+        "sha256": "678f9084714e8881b1c4e45794047ae6eae3a1806b478c597e37e0b1d5a16d22",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_55a",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_55a.glb",
+        "sha256": "f2ead162393d9f876c8cba7e56567e8ace4645dd9c7314bc0449a366ebb39f8a",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_62",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_62.glb",
+        "sha256": "cf9996469eb5e37ac7ce2caaf9cec96de803572c5fbf72f3126ff54700ddfe66",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_drive",
+          "Wheel_l_front"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_drive",
+          "Wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_64a_1971",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_64a_1971.glb",
+        "sha256": "c5190dad49c964f82d1f20f3ea621de14c150212ae37aa01072fc308997434fb",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 41,
+        "node_count": 44
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_72a",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_72a.glb",
+        "sha256": "b93430f95643544b08efcb97838b3f400593609bcfcc623105b44688d5118856",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_back",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_back",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 38,
+        "node_count": 41
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_80",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_80.glb",
+        "sha256": "ce00e8ceff7ded29e4d887f019437ca93e52b1cc908f74e9f87b4b57cdc87a9f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_back",
+          "Wheel_l_drive",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_back",
+          "Wheel_r_drive",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": true,
+      "id": "ussr_t_80b",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+        "sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5",
+        "source_kind": "combat_runtime_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03",
+          "Wheel_l_top_04",
+          "Wheel_l_top_05"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": "Muzzle",
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03",
+          "Wheel_r_top_04",
+          "Wheel_r_top_05"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 42,
+        "node_count": 63
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "ussr_t_90a",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/ussr_t_90a.glb",
+        "sha256": "2f71d61d1d4f202b2484a34c3f2806777da5e66fc292b38f2f61dc3e5a51a101",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "Wheel_l_01",
+          "Wheel_l_02",
+          "Wheel_l_03",
+          "Wheel_l_04",
+          "Wheel_l_05",
+          "Wheel_l_06",
+          "Wheel_l_drive",
+          "Wheel_l_front",
+          "Wheel_l_top_01",
+          "Wheel_l_top_02",
+          "Wheel_l_top_03"
+        ],
+        "main_gun": "MainGun",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "Wheel_r_01",
+          "Wheel_r_02",
+          "Wheel_r_03",
+          "Wheel_r_04",
+          "Wheel_r_05",
+          "Wheel_r_06",
+          "Wheel_r_drive",
+          "Wheel_r_front",
+          "Wheel_r_top_01",
+          "Wheel_r_top_02",
+          "Wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 39,
+        "node_count": 42
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_9a35_m",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_9a35_m.glb",
+        "sha256": "27acf2320b4c36a9cb4cefa2ba6590116f5747b028560552ea46619e502b144c",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 27,
+        "node_count": 30
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_amd_35_kwk",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_amd_35_kwk.glb",
+        "sha256": "55a2ee8d015c4d885e1b3d0dc180d3fe8d836f2428dd7e327d4dc3bea69183e4",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 9,
+        "node_count": 12
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_begleitpanzer_57",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_begleitpanzer_57.glb",
+        "sha256": "ca92933bbcb919c1c51017c6036efc5507fd9da14f453ad920a491faf502fc8e",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_bmp_1_ddr",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_bmp_1_ddr.glb",
+        "sha256": "61a361668bae28bdcbc5e7ccb4ac93240f8a3363463e9e8bd5316cdd59a6f0e0",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_boxer_3105",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_boxer_3105.glb",
+        "sha256": "454332c69c67950d32fbf101c00b890eee04fa1d89c78570b5e99e8476cff6ee",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 15,
+        "node_count": 18
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_boxer_swatrinf",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_boxer_swatrinf.glb",
+        "sha256": "61953c5820d9d26ad217767c2cc2cc16458234b3f52530e268315b69235a0450",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 15,
+        "node_count": 18
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_erprobungstrager_3_achs_turm",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_erprobungstrager_3_achs_turm.glb",
+        "sha256": "af2d3f4779c9463126afee6cf12216da9a853813ae098face6ab6a0854880810",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_flakpanzer_IV_Kugelblitz",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_flakpanzer_IV_Kugelblitz.glb",
+        "sha256": "008e7a0acdca650b9bb991fdb88acb76c744cd5c32ad6173c891c69e5921c553",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 39,
+        "node_count": 42
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_flakpz_I_Gepard",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_flakpz_I_Gepard.glb",
+        "sha256": "4e03b349f26972d382419bc32294fe3e2dc0a16debd9a3078c987ea31f8179c8",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 39,
+        "node_count": 42
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_flarakpz_1",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_flarakpz_1.glb",
+        "sha256": "cd8a36931f89265a70f040dd71272798a10f5997a7392e1c940201dddabde375",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 33,
+        "node_count": 36
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_hummel",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_hummel.glb",
+        "sha256": "731b9a6223a555758c1c636023d34512c5406a6dd38ac8fb6d527838f61e3ece",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_infanterie_kampfpanzer_churchill",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_infanterie_kampfpanzer_churchill.glb",
+        "sha256": "4f8c3cb149ce9a5cfd7f1f91d098e51bb69382c55911ee678451898c33d6ef42",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_09",
+          "wheel_l_10",
+          "wheel_l_11",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_09",
+          "wheel_r_10",
+          "wheel_r_11",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 34,
+        "node_count": 37
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_jaguar_2",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_jaguar_2.glb",
+        "sha256": "eb48f97a16050dcb15dce2927d9561e2a6e400ed5ac3253ba9080dbb71cd7256",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_jgdpz_38t",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_jgdpz_38t.glb",
+        "sha256": "71341371f42fe95a33c712fb9ec7802aaaf547d276202729fb565decd5a03400",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 24,
+        "node_count": 27
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_jgdpz_IV_L48",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_jgdpz_IV_L48.glb",
+        "sha256": "5cb3b724e2bbd837ad2132df8da26ba96a59ccb4c2a95266b6d93f4ae98f2eb0",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_kanonenjagdpanzer",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_kanonenjagdpanzer.glb",
+        "sha256": "a4832317782dc2c3fd17bd1ceb106b1afcc22848103df006302f66ac2057b4aa",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_kpz_70",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_kpz_70.glb",
+        "sha256": "d23fd20fd70fae475ef747faed4ab2df74a2110bf01300738e32b2d36efe9c89",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_kpz_t72m1",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_kpz_t72m1.glb",
+        "sha256": "f2a9df12f709e53af46dd5a60fd7b2cde3f8b98f7307d69e5c0113097e23076e",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_kv_2_754r",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_kv_2_754r.glb",
+        "sha256": "f125b176005dacb8b484690823ebd2a8fe2e3023ecf8d4e842fd02011e404072",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_le_kpz_m41",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_le_kpz_m41.glb",
+        "sha256": "c78436e061c20d1e64544e9c120ebac8df6009f37aa621627cfe254860319d2b",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": true,
+      "id": "germ_leopard_2a4",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+        "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+        "source_kind": "combat_runtime_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": "Muzzle",
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 45,
+        "node_count": 68
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_leopard_I",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_leopard_I.glb",
+        "sha256": "7841238ca8bdb7f6f3f556c84bb49a5856fc18d5447042512c7792a9a764de56",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_m109g",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_m109g.glb",
+        "sha256": "991981e2e4e5b86230166ce66dec927169a73f5c2ef14f23c303c51abcaea9c0",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 33,
+        "node_count": 36
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_m44",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_m44.glb",
+        "sha256": "edb409f29882719ca0ee613f1ff3d66b4703e2fee98306ea9aa7c49458a53b21",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_m55",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_m55.glb",
+        "sha256": "fe5e9ec431855abebd69967bd4db2c5c72151175bd0cc27cc72e72e743be6969",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 29,
+        "node_count": 32
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_marder_1a1",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_marder_1a1.glb",
+        "sha256": "769d754ac9a4126a8f93df5878839662e20ec92b4e322ab35166ef3fb2dbc199",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_marder_df_105",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_marder_df_105.glb",
+        "sha256": "9baa1df319d682ceab6dedb9ea99cd9bbd072c7c585dfe632fd0cb1b73a3bde0",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 34,
+        "node_count": 37
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_mkpz_m47",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_mkpz_m47.glb",
+        "sha256": "17eb2006aab6c0f4ada7b4d5eae1575b0d183498c38723d4d6c969a078e8ab44",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 37,
+        "node_count": 40
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_mkpz_m48a2c",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_mkpz_m48a2c.glb",
+        "sha256": "28e2e5228dd12895764b8284f0c13ebb1369d53be6fe740904968d38851bfc4b",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panther_II",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panther_II.glb",
+        "sha256": "b21a62268d509e874939da87d85bc3b5e2bfed8945ca846870d30a97d5c04562",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panzerjager_1",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panzerjager_1.glb",
+        "sha256": "9dbc2a95cabb90c15c260c4d591a895899700c7db6df3453d33b2891093ca421",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panzerjager_nashorn",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panzerjager_nashorn.glb",
+        "sha256": "a9e368cf65c27e53aede60dc6f2ee2b70bef538f08847a6cd7791bae35c3cdb8",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panzerjager_panther",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panzerjager_panther.glb",
+        "sha256": "ca70c4e4037548dc99430ce8f7095392caedaa0d7af4a280623a7d2ef03dfa5d",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 28,
+        "node_count": 31
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panzerjager_tiger",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panzerjager_tiger.glb",
+        "sha256": "f39647578e90d51ac5e387ccb4221ec7af9d6b27e5cd803030115abe1cfa9d83",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_09",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_09",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_panzerjager_tiger_P_ferdinand",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_panzerjager_tiger_P_ferdinand.glb",
+        "sha256": "e55dbcf96f8bf8317edbfdd294fcabdb87b6730065df12d01952310091d812b3",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_drive",
+          "wheel_l_front"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_drive",
+          "wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 24,
+        "node_count": 27
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzh_2000",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzh_2000.glb",
+        "sha256": "85770707b92200b0d0dd0a483803a9a5fd5275067b49925bef844da2821bb51f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 40,
+        "node_count": 43
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_35t",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_35t.glb",
+        "sha256": "024ef465cdcd9917853d9d1a595f3e3916daca4a8178073ab230c7f38d621c7c",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_09",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_09",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 44,
+        "node_count": 47
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_38t_Aufklarungspanzer",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_38t_Aufklarungspanzer.glb",
+        "sha256": "3f095ae6d7634a4dbd34731549f95cda67720524636727d1c2460c4825856c0b",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 24,
+        "node_count": 27
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_38t_Marder_III",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_38t_Marder_III.glb",
+        "sha256": "4e5665fcd92b76d16d1984fcf525b75cd823d47e161751103cacab3513ee33a5",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 24,
+        "node_count": 27
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_38t_ausf_A",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_38t_ausf_A.glb",
+        "sha256": "e3864a614d07de978c10ae9cbe1e22dae5e5875c8d5255ac7b28067394b225a4",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 29,
+        "node_count": 32
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_III_ausf_B",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_III_ausf_B.glb",
+        "sha256": "27aa38a11a885048972a899164c8be6a282778cc4cf95e41071e5bbf3f3529e2",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 38,
+        "node_count": 41
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_II_ausf_C",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_II_ausf_C.glb",
+        "sha256": "f060181832dcb024aa18b1eb1902a458b88795c783675d0943cbde0a35f67d77",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 36,
+        "node_count": 39
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_IV_ausf_C",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_IV_ausf_C.glb",
+        "sha256": "61274aa3c6bad33673f48c86202e060456f6c92795d5786ee97fec86ccc570e7",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 41,
+        "node_count": 44
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_Maus",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_Maus.glb",
+        "sha256": "0fbd9dfbffe89c7337775a210d5632f149d8dbb02b39f71bed126ab4e68782a2",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_09",
+          "wheel_l_10",
+          "wheel_l_11",
+          "wheel_l_12",
+          "wheel_l_13",
+          "wheel_l_14",
+          "wheel_l_15",
+          "wheel_l_16",
+          "wheel_l_17",
+          "wheel_l_18",
+          "wheel_l_19",
+          "wheel_l_20",
+          "wheel_l_21",
+          "wheel_l_22",
+          "wheel_l_23",
+          "wheel_l_24",
+          "wheel_l_drive",
+          "wheel_l_front"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_09",
+          "wheel_r_10",
+          "wheel_r_11",
+          "wheel_r_12",
+          "wheel_r_13",
+          "wheel_r_14",
+          "wheel_r_15",
+          "wheel_r_16",
+          "wheel_r_17",
+          "wheel_r_18",
+          "wheel_r_19",
+          "wheel_r_20",
+          "wheel_r_21",
+          "wheel_r_22",
+          "wheel_r_23",
+          "wheel_r_24",
+          "wheel_r_drive",
+          "wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 63,
+        "node_count": 66
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_VI_ausf_b_tiger_IIh",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_VI_ausf_b_tiger_IIh.glb",
+        "sha256": "867a739396bec6ebb553cf1463085d3aace97847762d41cb95041dc8302a811f",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_09",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_09",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 34,
+        "node_count": 37
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_VI_ausf_h1_tiger",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_VI_ausf_h1_tiger.glb",
+        "sha256": "d673aa05fb8a136d35747be96e295634d5825fd7643aea74b69e64b38e50cecf",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 38,
+        "node_count": 41
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_VI_tiger_P",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_VI_tiger_P.glb",
+        "sha256": "e393cbbb2ec621b0879e16a8b206c94e0fa216981438400d7d774a7b8a40a620",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 28,
+        "node_count": 31
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_V_ausf_d_panther",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_V_ausf_d_panther.glb",
+        "sha256": "3f429ea9a71a5eef74c9697f66963f2fc1b17838cdd2b5891df5b88a560fde67",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 33,
+        "node_count": 36
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzkpfw_e_100",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzkpfw_e_100.glb",
+        "sha256": "32a1945bd6be27220e2e64388432355f299855de22cda701826c7d9651c97a6c",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzsfl_IVa_dickermax",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzsfl_IVa_dickermax.glb",
+        "sha256": "db7927e8f8c4094e38ba34477627e481df22338a344294f03572ff5e07ab514a",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_pzsflk40_sturer_emil",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_pzsflk40_sturer_emil.glb",
+        "sha256": "068577f469c1a831c10b065b321ba26e5d7142171c44e861a0dc6255d6ae2503",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 33,
+        "node_count": 36
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_radpanzer_90",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_radpanzer_90.glb",
+        "sha256": "12375c4668438db03a61b61beb46366a3910570ddf44b6241c3b1c81bde88418",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 16,
+        "node_count": 19
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_raketenjagdpanzer_2",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_raketenjagdpanzer_2.glb",
+        "sha256": "b6c14763bfba83bc916f63ee1dbe0e5ab4b7995a5ee10dc372fc73a8736694ed",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_ru251",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_ru251.glb",
+        "sha256": "86c20d440357551567f8166f45535a55354295d4a71dda8af9cce28a5cc2c395",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 33,
+        "node_count": 36
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_schutzenpanzer_puma",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_schutzenpanzer_puma.glb",
+        "sha256": "0c25973b06322007a0d4b5772e3c2f6070afd37ce28c810339139f7368c3d0d4",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 46,
+        "node_count": 49
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sdkfz_221_s_pz_b_41",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_221_s_pz_b_41.glb",
+        "sha256": "65bb5fe3f8c6384f7eb6f38ce0168447c26e3eedbfd7320a7ca2d75a2a91875d",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 9,
+        "node_count": 12
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sdkfz_222",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_222.glb",
+        "sha256": "7088750bba5752d49c4aea0e58068d2d9e1d71a840d07cfc632eec3e6a65f761",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 10,
+        "node_count": 13
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sdkfz_234_2",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_sdkfz_234_2.glb",
+        "sha256": "4254f1007ac3fa32a3b320cb65aa3f4bdc54ba50b231606e128fd3cfad71e10c",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 15,
+        "node_count": 18
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sk105_a2",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_sk105_a2.glb",
+        "sha256": "1064247d8a670884c0cfa2fc952a5c82bf6df62f919c5e4c8d1ca8fe31c1d8ee",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sppz2_luchs_a2",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_sppz2_luchs_a2.glb",
+        "sha256": "83f856d031294490fd8274de2433648d93dc3d897a630b8b35ef6a717cf293b4",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 14,
+        "node_count": 17
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_spz_12_3",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_spz_12_3.glb",
+        "sha256": "8227526dc5cabb633e283a94b389e2a8c34cc4507f07460f5ffd5e72f257f417",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_stug_III_ausf_A",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_stug_III_ausf_A.glb",
+        "sha256": "19af8c9e112016b2c7876112b6f67408813e60907434e301bb6ae472811bca18",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 31,
+        "node_count": 34
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sturmmorser_sturmtiger",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_sturmmorser_sturmtiger.glb",
+        "sha256": "06d1b97061b0051401d98b10479adcfd88fa52fdc95dff08b6aa055c9616c933",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_drive",
+          "wheel_l_front"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_drive",
+          "wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 27,
+        "node_count": 30
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sturmpanzer_II",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_sturmpanzer_II.glb",
+        "sha256": "31feb179335b9e60cc231dc93b068b46af745211ce012a29643c18237ae62236",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_sturmpanzer_IV_brummbar",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_sturmpanzer_IV_brummbar.glb",
+        "sha256": "1f0ce58f4ad0e2d10929664c83cb86ee4cee7cf9adb5ea3954abea363560ed37",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03",
+          "wheel_l_top_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03",
+          "wheel_r_top_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_t_34_747",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_t_34_747.glb",
+        "sha256": "bab8bb396f3c454462bc4301c9859075990ef10c44f28068155aed4e7ba61423",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 21,
+        "node_count": 24
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_th_400",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_th_400.glb",
+        "sha256": "82c71dc1acf1719b8de52d6dc1b18f4e75d58837fbfc66425fea75aa0e167eed",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 13,
+        "node_count": 16
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_thyssen_henschel_tam",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_thyssen_henschel_tam.glb",
+        "sha256": "c3a04f94a598fe25fdc5328941f97dd095caa37853a2cf6bcaff24fc32465fbe",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 35,
+        "node_count": 38
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_vilkas",
+      "locomotion": "wheeled",
+      "model": {
+        "path": "res://assets/research/models/germ_vilkas.glb",
+        "sha256": "5511196dbb5d04edf7e7f54eb60c21f7ceb60c49b0835fc3f911321d9d40af84",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": null,
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": null,
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 15,
+        "node_count": 18
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_vk_3002m",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_vk_3002m.glb",
+        "sha256": "ad34c72db3ff85c259eed46230e3ce7d862551632cd887839872538e347f2f51",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_07",
+          "wheel_l_08",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_07",
+          "wheel_r_08",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 32,
+        "node_count": 35
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_vt_1_2",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_vt_1_2.glb",
+        "sha256": "78af90d9b7ab4f2eb353da9731fbd2159b4b83499ca1e5076b0452f78e08ef09",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_drive",
+          "wheel_l_front",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_drive",
+          "wheel_r_front",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 28,
+        "node_count": 32
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_waffentrager_krupp_steyr",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_waffentrager_krupp_steyr.glb",
+        "sha256": "03ce37358395983e40b8fe68df277fc6ac4a65890e92c3c9ea20dfd29883857b",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 20,
+        "node_count": 23
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_wiesel_1_mk20",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_wiesel_1_mk20.glb",
+        "sha256": "e6f9c74f13b03ada730c0a62d82d9debba7fb223bbf490497a811eaffadc93ea",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 22,
+        "node_count": 25
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_wiesel_1_tow",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_wiesel_1_tow.glb",
+        "sha256": "74dae98ef6f1292b4dea141c6034584312fd224668f528040ec14646d7d740a6",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 24,
+        "node_count": 27
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "germ_wiesel_2_adwc",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/germ_wiesel_2_adwc.glb",
+        "sha256": "d272933c2656edfc6f90ae49b466822feb65ac373988bd2cc54e37b1df34dd60",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 25,
+        "node_count": 28
+      },
+      "trial_rig_ready": true
+    },
+    {
+      "combat_interface_ready": false,
+      "id": "us_m4a2_1944_germ",
+      "locomotion": "tracked",
+      "model": {
+        "path": "res://assets/research/models/us_m4a2_1944_germ.glb",
+        "sha256": "eed359ea4ccb0b78c81b0b25141b3f841770cd5a74cbb4f1312dac00a5f84e62",
+        "source_kind": "reviewed_preview_model"
+      },
+      "nodes": {
+        "gun_pivot": "GunPivot",
+        "hull": "HullArmour",
+        "left_track": "track_l",
+        "left_wheels": [
+          "wheel_l_01",
+          "wheel_l_02",
+          "wheel_l_03",
+          "wheel_l_04",
+          "wheel_l_05",
+          "wheel_l_06",
+          "wheel_l_back",
+          "wheel_l_drive",
+          "wheel_l_top_01",
+          "wheel_l_top_02",
+          "wheel_l_top_03"
+        ],
+        "main_gun": "MainGunAndMuzzleBrake",
+        "muzzle": null,
+        "right_track": "track_r",
+        "right_wheels": [
+          "wheel_r_01",
+          "wheel_r_02",
+          "wheel_r_03",
+          "wheel_r_04",
+          "wheel_r_05",
+          "wheel_r_06",
+          "wheel_r_back",
+          "wheel_r_drive",
+          "wheel_r_top_01",
+          "wheel_r_top_02",
+          "wheel_r_top_03"
+        ],
+        "turret_pivot": "TurretPivot"
+      },
+      "scene": {
+        "mesh_count": 30,
+        "node_count": 33
+      },
+      "trial_rig_ready": true
+    }
+  ],
+  "model_count": 113,
+  "schema_version": 1,
+  "set_policy": "exact_modeled_tree_id_no_alias_no_missing_no_extra",
+  "tracked_count": 103,
+  "trial_rig_ready_count": 113,
+  "wheeled_count": 10
+}

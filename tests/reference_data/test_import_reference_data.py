@@ -132,6 +132,13 @@ class RealSummaryTests(unittest.TestCase):
         self.assertIsNone(value["candidate_value"])
         self.assertEqual(len(value["locator"]), 2)
 
+    def test_identical_duplicate_numeric_values_remain_explicit(self):
+        data = source("ussr_t_80b").decode().replace("前进极速      : 75.0 km/h", "前进极速 : 75.0 km/h\n前进极速 : 75.0 km/h").encode()
+        value = fields(IMPORT.Summary(data, "ussr_t_80b").detailed())["drive.forward_speed_candidate"]
+        self.assertEqual(value["resolution_state"], "explicit_reference_duplicate_consistent")
+        self.assertAlmostEqual(value["candidate_value"], 75.0 / 3.6)
+        self.assertEqual(len(value["locator"]), 2)
+
     def test_wrong_units_do_not_silently_convert(self):
         data = source("ussr_t_80b").replace(b"75.0 km/h", b"75.0 mph")
         value = fields(IMPORT.Summary(data, "ussr_t_80b").detailed())["drive.forward_speed_candidate"]

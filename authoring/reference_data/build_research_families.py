@@ -5,6 +5,8 @@ import argparse
 from pathlib import Path
 from research_combat_bindings import apply_bindings
 from build_research_runtime_profiles import build as build_runtime_profiles
+from build_research_model_interfaces import build as build_model_interfaces
+from sync_engineering_traverse import sync as sync_engineering_traverse
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT / 'assets/research/soviet_german_tree.json'
@@ -14,6 +16,7 @@ PLANS = {
 }
 
 def build(refresh_plans=False):
+    sync_engineering_traverse()
     catalog = json.loads(TARGET.read_text(encoding='utf-8-sig'))
     sources = catalog.get('cache_entries', catalog['vehicles'])
     by_id = {r['id']: r for r in sources}
@@ -63,6 +66,7 @@ def build(refresh_plans=False):
     catalog = apply_bindings(catalog)
     TARGET.write_text(json.dumps(catalog, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     build_runtime_profiles()
+    build_model_interfaces()
     print('BASES', catalog['counts'], 'MODELS', catalog['models'], 'UNMAPPED_CACHE', len(catalog['unmapped_cache_ids']))
 
 if __name__ == '__main__':

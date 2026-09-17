@@ -70,3 +70,31 @@ static func mobility_for(row: Dictionary) -> Dictionary:
 		"forward_max_speed":float(mobility.forward_max_mps.value),"reverse_max_speed":float(mobility.reverse_max_mps.value),
 		"acceleration":float(acceleration.value),"hull_turn_speed":float(mobility.hull_turn_deg_s.value),
 		"design_mass_kg":mobility.get("design_mass_kg",{}).get("value"),"design_fallbacks":["acceleration"]}
+
+static func weapon_motion_for(row: Dictionary) -> Dictionary:
+	var identity:=mobility_for(row)
+	if not identity.get("ok",false): return identity
+	var vehicle_id:=str(row.get("id",""))
+	if row.get("combat_package") is Dictionary:
+		var packet: Variant=JSON.parse_string(FileAccess.get_file_as_string(str(row.combat_package.path)))
+		if not packet is Dictionary or not packet.get("runtime") is Dictionary: return {"ok":false,"error":"combat_weapon_runtime_missing"}
+		var runtime: Dictionary=packet.runtime
+		for key in ["turret_yaw_speed","turret_pitch_speed"]:
+			if not _positive(runtime.get(key)): return {"ok":false,"error":"combat_weapon_runtime_invalid_"+key}
+		var yaw_min:=float(runtime.get("yaw_min",-180.0)); var yaw_max:=float(runtime.get("yaw_max",180.0))
+		var pitch_min:=float(runtime.get("pitch_min",-8.0)); var pitch_max:=float(runtime.get("pitch_max",20.0))
+		if yaw_min>=yaw_max or pitch_min>=pitch_max: return {"ok":false,"error":"combat_weapon_limits_invalid"}
+		return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"combat_packet",
+			"yaw_speed":float(runtime.turret_yaw_speed),"pitch_speed":float(runtime.turret_pitch_speed),
+			"yaw_min":yaw_min,"yaw_max":yaw_max,"pitch_min":pitch_min,"pitch_max":pitch_max,"design_fallbacks":[]}
+	var data:=profile(vehicle_id)
+	var traverse: Variant=data.get("primary_weapon",{}).get("traverse_deg_s")
+	if not traverse is Dictionary or traverse.get("resolution_state") not in ["explicit_reference_candidate","explicit_reference_duplicate_consistent"]:
+		return {"ok":false,"error":"reference_weapon_traverse_unresolved"}
+	var value: Variant=traverse.get("value")
+	if not value is Dictionary or not _positive(value.get("yaw")) or not _positive(value.get("pitch")):
+		return {"ok":false,"error":"reference_weapon_traverse_invalid"}
+	return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"warthunder_reference",
+		"yaw_speed":float(value.yaw),"pitch_speed":float(value.pitch),
+		"yaw_min":-180.0,"yaw_max":180.0,"pitch_min":-8.0,"pitch_max":20.0,
+		"design_fallbacks":["yaw_limits","pitch_limits"]}

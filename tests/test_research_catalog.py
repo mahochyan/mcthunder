@@ -10,6 +10,8 @@ C = json.loads((ROOT/'assets/research/soviet_german_tree.json').read_text(encodi
 ROWS = {r['id']: r for r in C['vehicles']}
 P = json.loads((ROOT/'assets/research/research_runtime_profiles.json').read_text(encoding='utf-8'))
 PROFILES = {r['id']: r for r in P['profiles']}
+I = json.loads((ROOT/'assets/research/research_model_interfaces.json').read_text(encoding='utf-8'))
+INTERFACES = {r['id']: r for r in I['interfaces']}
 
 class ResearchCatalogChecks(unittest.TestCase):
     def test_base_identity_and_variant_partition(self):
@@ -106,6 +108,31 @@ class ResearchCatalogChecks(unittest.TestCase):
             self.assertEqual(mobility['trial_acceleration_mps2']['resolution_state'], 'project_design_fallback')
             self.assertEqual(profile['runtime_use']['research_trial_mobility'], row['model'] is not None)
             self.assertEqual(profile['runtime_use']['combat'], row['combat_package'] is not None)
+
+    def test_model_interfaces_match_every_selected_model(self):
+        modeled = {vehicle_id for vehicle_id, row in ROWS.items() if row['model']}
+        self.assertEqual(I['schema_version'], 1)
+        self.assertEqual(I['set_policy'], 'exact_modeled_tree_id_no_alias_no_missing_no_extra')
+        self.assertEqual(set(INTERFACES), modeled)
+        self.assertEqual((I['model_count'], I['trial_rig_ready_count'], I['combat_interface_ready_count']), (113, 113, 2))
+        self.assertEqual((I['tracked_count'], I['wheeled_count']), (103, 10))
+        for vehicle_id, interface in INTERFACES.items():
+            row = ROWS[vehicle_id]
+            selected = row['combat_package']['runtime_model'] if row['combat_package'] else row['model']
+            self.assertEqual(interface['model']['path'], selected['path'])
+            self.assertEqual(interface['model']['sha256'], selected['sha256'])
+            model_path = ROOT/interface['model']['path'].removeprefix('res://')
+            self.assertEqual(hashlib.sha256(model_path.read_bytes()).hexdigest(), interface['model']['sha256'])
+            self.assertTrue(interface['trial_rig_ready'])
+            self.assertEqual(interface['combat_interface_ready'], row['combat_package'] is not None)
+            nodes = interface['nodes']
+            self.assertEqual((nodes['turret_pivot'], nodes['gun_pivot'], nodes['hull']), ('TurretPivot', 'GunPivot', 'HullArmour'))
+            self.assertTrue(nodes['main_gun'].startswith('MainGun'))
+            if interface['locomotion'] == 'tracked':
+                self.assertEqual((nodes['left_track'], nodes['right_track']), ('track_l', 'track_r'))
+            else:
+                self.assertEqual(len(nodes['left_wheels']), len(nodes['right_wheels']))
+                self.assertGreater(len(nodes['left_wheels']), 0)
 
 if __name__ == '__main__':
     unittest.main()

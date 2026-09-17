@@ -5,10 +5,13 @@ import json, hashlib
 from pathlib import Path
 from research_combat_bindings import apply_bindings
 from build_research_runtime_profiles import build as build_runtime_profiles
+from build_research_model_interfaces import build as build_model_interfaces
+from sync_engineering_traverse import sync as sync_engineering_traverse
 ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL = Path("E:/AIprogram/aimodel")
 def digest(data): return hashlib.sha256(data).hexdigest()
 def sync():
+    sync_engineering_traverse()
     target = ROOT / "assets/research/soviet_german_tree.json"
     catalog = json.loads(target.read_text(encoding="utf-8-sig"))
     entries = {row["id"]: row for row in catalog["vehicles"]}
@@ -45,5 +48,6 @@ def sync():
     catalog["models"]={nation:sum(row["nation"]==nation and row["model"] is not None for row in entries.values()) for nation in ["ussr","germany"]}
     target.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     build_runtime_profiles()
+    build_model_interfaces()
     print(catalog["counts"],catalog["models"],issues)
 if __name__=="__main__": sync()

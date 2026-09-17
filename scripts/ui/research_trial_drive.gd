@@ -17,6 +17,16 @@ var acceleration := 0.0
 var hull_turn_speed := 0.0
 var mobility_source := ""
 var design_fallbacks: Array=[]
+var turret_pivot: Node3D
+var gun_pivot: Node3D
+var turret_yaw_deg:=0.0
+var gun_pitch_deg:=0.0
+var turret_yaw_speed:=0.0
+var gun_pitch_speed:=0.0
+var turret_yaw_min:=-180.0
+var turret_yaw_max:=180.0
+var gun_pitch_min:=-8.0
+var gun_pitch_max:=20.0
 
 func configure_mobility() -> bool:
 	var result:=ResearchReferenceProfiles.mobility_for(row)
@@ -34,6 +44,29 @@ static func advance_speed(current: float,throttle: float,delta: float,forward_li
 static func yaw_delta(steer: float,delta: float,turn_deg_s: float) -> float:
 	return steer*deg_to_rad(turn_deg_s)*delta
 
+static func advance_axis(current: float,input: float,speed_deg_s: float,delta: float,minimum: float,maximum: float) -> float:
+	return clampf(current+input*speed_deg_s*delta,minimum,maximum)
+
+func configure_model_interface() -> bool:
+	var interface:=ResearchModelInterfaces.interface_for(row)
+	if not interface.get("ok",false): mobility_source=str(interface.get("error","model_interface_unknown")); return false
+	var motion:=ResearchReferenceProfiles.weapon_motion_for(row)
+	if not motion.get("ok",false): mobility_source=str(motion.get("error","weapon_motion_unknown")); return false
+	var nodes: Dictionary=interface.nodes
+	turret_pivot=view.model.find_child(str(nodes.turret_pivot),true,false) as Node3D
+	gun_pivot=view.model.find_child(str(nodes.gun_pivot),true,false) as Node3D
+	if not is_instance_valid(turret_pivot) or not is_instance_valid(gun_pivot): mobility_source="model_interface_nodes_missing"; return false
+	turret_yaw_speed=float(motion.yaw_speed); gun_pitch_speed=float(motion.pitch_speed)
+	turret_yaw_min=float(motion.yaw_min); turret_yaw_max=float(motion.yaw_max)
+	gun_pitch_min=float(motion.pitch_min); gun_pitch_max=float(motion.pitch_max)
+	for fallback in motion.get("design_fallbacks",[]):
+		if fallback not in design_fallbacks: design_fallbacks.append(fallback)
+	return true
+
+func _apply_weapon_pose() -> void:
+	if is_instance_valid(turret_pivot): turret_pivot.rotation.y=deg_to_rad(turret_yaw_deg)
+	if is_instance_valid(gun_pivot): gun_pivot.rotation.x=deg_to_rad(gun_pitch_deg)
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); theme=GarageTheme.theme()
 	add_theme_stylebox_override("panel",GarageTheme.box(GarageTheme.INK,Color("303a3e"),18))
@@ -43,12 +76,14 @@ func _ready() -> void:
 	CoreUI.button(header,"复位",reset_vehicle)
 	CoreUI.button(header,"暂停 / 继续",func() -> void: paused=not paused)
 	close_button=CoreUI.button(header,"返回科技树   ×",queue_free)
-	GarageTheme.text(column,"W / S 驾驶     A / D 转向     拖动车辆视图环绕     滚轮缩放",15,GarageTheme.MUTED)
+	GarageTheme.text(column,"W / S 驾驶     A / D 转向     方向键控制炮塔 / 火炮     拖动车辆视图环绕",15,GarageTheme.MUTED)
 	view=ResearchModelView.new(); view.size_flags_vertical=Control.SIZE_EXPAND_FILL; column.add_child(view)
 	if not view.show_vehicle(row):
 		GarageTheme.text(column,"模型暂不可用，请返回科技树。",18); return
 	if not configure_mobility():
 		GarageTheme.text(column,"车型数据未通过身份与哈希校验，试驾已锁定："+mobility_source,18); return
+	if not configure_model_interface():
+		GarageTheme.text(column,"模型接口未通过节点与哈希校验，试驾已锁定："+mobility_source,18); return
 	vehicle=CharacterBody3D.new(); vehicle.collision_layer=2; vehicle.collision_mask=1; view.viewport.add_child(vehicle)
 	view.model.reparent(vehicle)
 	var shape := CollisionShape3D.new(); var box := BoxShape3D.new()
@@ -61,7 +96,7 @@ func _ready() -> void:
 		for z in range(-80,81,8): CoreVehicleVisual.box(view.stage,Vector3(x,0.01,z),Vector3(0.09,0.015,4),Color("a49d7e"))
 	status=GarageTheme.text(column,"",16,GarageTheme.ACCENT)
 	var note:="速度与转向使用该车型缓存参考值；射击与战损尚未开放。"
-	if not design_fallbacks.is_empty(): note+=" 加速度为独立游戏设计值。"
+	if not design_fallbacks.is_empty(): note+=" 未解析字段使用明确登记的试驾设计值。"
 	GarageTheme.text(column,note,14,GarageTheme.MUTED)
 	ModalNavigation.attach(self,queue_free)
 	reset_vehicle()
@@ -69,6 +104,7 @@ func _ready() -> void:
 func reset_vehicle() -> void:
 	if not is_instance_valid(vehicle): return
 	vehicle.transform=Transform3D.IDENTITY; vehicle.position.y=0.05; vehicle.velocity=Vector3.ZERO; speed=0; paused=false
+	turret_yaw_deg=clampf(0.0,turret_yaw_min,turret_yaw_max); gun_pitch_deg=clampf(0.0,gun_pitch_min,gun_pitch_max); _apply_weapon_pose()
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(vehicle): return
@@ -76,13 +112,16 @@ func _physics_process(delta: float) -> void:
 		var throttle := Input.get_axis("move_back","move_forward")
 		speed=advance_speed(speed,throttle,delta,forward_max_speed,reverse_max_speed,acceleration)
 		vehicle.rotate_y(yaw_delta(Input.get_axis("turn_right","turn_left"),delta,hull_turn_speed))
+		turret_yaw_deg=advance_axis(turret_yaw_deg,Input.get_axis("ui_left","ui_right"),turret_yaw_speed,delta,turret_yaw_min,turret_yaw_max)
+		gun_pitch_deg=advance_axis(gun_pitch_deg,Input.get_axis("ui_down","ui_up"),gun_pitch_speed,delta,gun_pitch_min,gun_pitch_max)
+		_apply_weapon_pose()
 		var forward := -vehicle.basis.z
 		vehicle.velocity.x=forward.x*speed; vehicle.velocity.z=forward.z*speed
 		vehicle.velocity.y=0.0 if vehicle.is_on_floor() else vehicle.velocity.y-12.0*delta
 		vehicle.move_and_slide()
 		if vehicle.position.length()>140: reset_vehicle()
 	view.update_camera(vehicle.position+Vector3(0,view.bounds.size.y*0.5,0),vehicle.rotation.y)
-	status.text="已暂停" if paused else "%.1f km/h   ·   %s   ·   %s"%[absf(speed)*3.6,row.label,"战斗包" if mobility_source=="combat_packet" else "缓存参考"]
+	status.text="已暂停" if paused else "%.1f km/h   ·   炮塔 %.1f° / 火炮 %.1f°   ·   %s"%[absf(speed)*3.6,turret_yaw_deg,gun_pitch_deg,row.label]
 
 func _notification(what: int) -> void:
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT: paused=true

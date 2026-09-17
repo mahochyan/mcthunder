@@ -1153,7 +1153,9 @@
         "pitch_min": -9.0,
         "reload_time": 6.0,
         "reverse_max_speed": 2.77777777777778,
-        "rounds": 42.0
+        "rounds": 42.0,
+        "turret_yaw_speed": 40.0,
+        "turret_pitch_speed": 40.0
       }
     },
     "weapon.ammunition": {
@@ -1210,6 +1212,28 @@
       "status": "design",
       "unit": "structured",
       "value": "breech-ring mount (project engineering rule)"
+    },
+    "runtime.turret_yaw_speed": {
+      "value": 40.0,
+      "status": "estimated",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "location": "germ_leopard_2a4.txt:L454 武器与弹药/primary",
+      "unit": "deg/s",
+      "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "runtime.turret_pitch_speed": {
+      "value": 40.0,
+      "status": "estimated",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "location": "germ_leopard_2a4.txt:L454 武器与弹药/primary",
+      "unit": "deg/s",
+      "note": "Frozen War Thunder summary candidate; not historically verified."
     }
   },
   "geometry": {
@@ -1647,7 +1671,9 @@
     "pitch_min": -9.0,
     "reload_time": 6.0,
     "reverse_max_speed": 2.77777777777778,
-    "rounds": 42.0
+    "rounds": 42.0,
+    "turret_yaw_speed": 40.0,
+    "turret_pitch_speed": 40.0
   },
   "shell_catalog": {
     "default": "eng_120_apfsds_v1",

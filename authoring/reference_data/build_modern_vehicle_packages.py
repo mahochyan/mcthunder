@@ -81,6 +81,9 @@ def build(identity):
     gun = primary[0]["source_weapon_id"]
     caliber = field("shell.caliber_mm")["candidate_value"]
     capacity = field("primary.capacity")["candidate_value"]
+    traverse = field("primary.traverse")["candidate_value"]
+    if not isinstance(traverse, dict) or set(traverse) != {"yaw", "pitch"} or min(traverse.values()) <= 0:
+        raise ValueError("primary traverse rates are missing or invalid")
     if sum(row["count"] for row in candidate["ammo_racks"]) != capacity:
         raise ValueError("reference rack count conflicts with primary capacity")
     roles = [row["station"] for row in candidate["crew_roster"]]
@@ -129,7 +132,8 @@ def build(identity):
         shells.append(shell)
     runtime = design["runtime"]
     runtime.update(rounds=capacity, muzzle_velocity=shells[0]["muzzle_velocity_mps"],
-                   penetration_curve=shells[0]["penetration_curve"])
+                   penetration_curve=shells[0]["penetration_curve"],
+                   turret_yaw_speed=traverse["yaw"], turret_pitch_speed=traverse["pitch"])
     assembly = dict(variant=identity, year=2026, suspension="game_rule_tracked",
                     gun=gun, mount="game_rule_trunnion", caliber_mm=caliber, shell=shells[0]["id"])
     facts = {}
@@ -150,6 +154,8 @@ def build(identity):
                   "weapon.capacity": claim(capacity, "count", "primary.capacity and ammo_racks.count", True)})
     facts["crew.roles"]["location"] = snapshot.name + ":" + ",".join("L" + str(row["line"]) for row in candidate["crew_roster"])
     facts["weapon.capacity"]["location"] = field_location("primary.capacity")
+    facts["runtime.turret_yaw_speed"] = claim(traverse["yaw"], "deg/s", field_location("primary.traverse"), True)
+    facts["runtime.turret_pitch_speed"] = claim(traverse["pitch"], "deg/s", field_location("primary.traverse"), True)
     facts["reference.heat_carrier_velocity"] = claim(field("shell.muzzle_velocity_mps")["candidate_value"], "m/s", field_location("shell.muzzle_velocity_mps"), True)
     for key, fact in [("geometry", "geometry.exterior"), ("modules", "geometry.modules"), ("crew", "geometry.crew"), ("runtime", "runtime.simulation")]:
         facts[fact] = claim(design[key])

@@ -62,7 +62,7 @@
         "germ_leopard_2a4"
       ],
       "excluded_identity_ids": [],
-      "sha256": "46e380ecb6ae1f02adb6e6bc85e22c577fe2a3d1a430a56973d0373ac83ea1eb",
+      "sha256": "40ce061dfdba65bc6ca5d094ce9603f02d48d311eddcb28f81afb41f510733af",
       "artifact": "res://authoring/reference_data/build_modern_vehicle_packages.py",
       "read_state": "authored"
     }
@@ -222,6 +222,28 @@
       ],
       "location": "germ_leopard_2a4.txt:L453 武器与弹药/primary",
       "unit": "count",
+      "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "runtime.turret_yaw_speed": {
+      "value": 40.0,
+      "status": "estimated",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "location": "germ_leopard_2a4.txt:L454 武器与弹药/primary",
+      "unit": "deg/s",
+      "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "runtime.turret_pitch_speed": {
+      "value": 40.0,
+      "status": "estimated",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "reference"
+      ],
+      "location": "germ_leopard_2a4.txt:L454 武器与弹药/primary",
+      "unit": "deg/s",
       "note": "Frozen War Thunder summary candidate; not historically verified."
     },
     "reference.heat_carrier_velocity": {
@@ -618,8 +640,8 @@
         "reverse_max_speed": 8,
         "acceleration": 4.5,
         "hull_turn_speed": 30,
-        "turret_yaw_speed": 40,
-        "turret_pitch_speed": 20,
+        "turret_yaw_speed": 40.0,
+        "turret_pitch_speed": 40.0,
         "reload_time": 7.5,
         "pitch_min": -9,
         "pitch_max": 20,
@@ -1553,8 +1575,8 @@
     "reverse_max_speed": 8,
     "acceleration": 4.5,
     "hull_turn_speed": 30,
-    "turret_yaw_speed": 40,
-    "turret_pitch_speed": 20,
+    "turret_yaw_speed": 40.0,
+    "turret_pitch_speed": 40.0,
     "reload_time": 7.5,
     "pitch_min": -9,
     "pitch_max": 20,

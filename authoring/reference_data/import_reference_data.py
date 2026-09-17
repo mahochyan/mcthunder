@@ -103,7 +103,8 @@ class Summary:
                               for r in rows], "raw_value": [r["raw"] for r in rows],
                   "source_unit": source_unit, "unit": unit, "candidate_value": None,
                   "resolution_state": "missing", "runtime_admitted": False, "note": note}
-        if len(rows) > 1:
+        duplicate_consistent = len(rows) > 1 and len({row["raw"] for row in rows}) == 1
+        if len(rows) > 1 and not duplicate_consistent:
             result["resolution_state"] = "conflict_duplicate_field"
         elif rows and not rows[0]["raw"].strip():
             result["resolution_state"] = "unresolved_empty"
@@ -121,7 +122,7 @@ class Summary:
                 result["candidate_value"] = number
             else:
                 result["candidate_value"] = raw
-            result["resolution_state"] = "explicit_reference_candidate"
+            result["resolution_state"] = "explicit_reference_duplicate_consistent" if duplicate_consistent else "explicit_reference_candidate"
         return result
 
     def armor_nodes(self) -> list[dict]:

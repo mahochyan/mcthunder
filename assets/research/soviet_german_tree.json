@@ -2961,7 +2961,7 @@
       "combat_package": {
         "vehicle_id": "ussr_t_80b",
         "path": "res://configs/vehicles/engineering/ussr_t_80b.json",
-        "sha256": "feaf38c1b382e60fefc4ff6733132d472471aa46c01f66fb3150fae3a6613124",
+        "sha256": "bb99c686055a6d69186359ac25e46400dd669ad65d416c9ff38765a4cb78d697",
         "evidence_profile": "game_reference",
         "source_data": {
           "vehicle_id": "ussr_t_80b",
@@ -4417,7 +4417,7 @@
       "combat_package": {
         "vehicle_id": "germ_leopard_2a4",
         "path": "res://configs/vehicles/engineering/germ_leopard_2a4.json",
-        "sha256": "7dad51880202c8870128873b8ebcb5b052617f57756279b25e7d65081bef9812",
+        "sha256": "402e3518cec9248818add6102072384ab6850f98c7b7d67efe8ddadd6cae6cb4",
         "evidence_profile": "game_reference",
         "source_data": {
           "vehicle_id": "germ_leopard_2a4",

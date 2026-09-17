@@ -77,6 +77,10 @@ func _run() -> void:
 			var authored: Dictionary=packet.get("runtime",{})
 			_check(_near(vehicle.forward_max_speed,float(authored.get("forward_max_speed",0.0))) and _near(vehicle.reverse_max_speed,float(authored.get("reverse_max_speed",0.0))) and _near(vehicle.forward_accel,float(authored.get("acceleration",0.0))),"authored mobility values reach the runtime definition: "+id)
 			_check(_near(vehicle.hull_turn_speed,float(authored.get("hull_turn_speed",0.0))) and _near(vehicle.barrel_pitch_min,float(authored.get("pitch_min",0.0))) and _near(vehicle.barrel_pitch_max,float(authored.get("pitch_max",0.0))),"authored steering and gun limits reach the runtime definition: "+id)
+			var reference_profile:=ResearchReferenceProfiles.profile(id)
+			var source_traverse: Dictionary=reference_profile.get("primary_weapon",{}).get("traverse_deg_s",{})
+			var source_rates: Dictionary=source_traverse.get("value",{})
+			_check(source_traverse.get("resolution_state") in ["explicit_reference_candidate","explicit_reference_duplicate_consistent"] and _near(vehicle.turret_yaw_speed,float(source_rates.get("yaw",0.0))) and _near(vehicle.turret_pitch_speed,float(source_rates.get("pitch",0.0))),"cache traverse rates reach the production vehicle definition without defaults: "+id)
 			_check(_near(weapon.reload_time,float(authored.get("reload_time",0.0))) and weapon.initial_rounds==int(authored.get("rounds",0)),"authored reload and ammunition values reach the runtime weapon: "+id)
 			var default_shell: Dictionary={}
 			var catalog_block: Dictionary=packet.get("shell_catalog",{})
@@ -90,6 +94,13 @@ func _run() -> void:
 			steering.step(0.0,1.0,0.25,vehicle)
 			var expected_yaw:=deg_to_rad(float(authored.get("hull_turn_speed",0.0))) if vehicle.drive_profile.neutral_turn else 0.0
 			_check(_near(steering.yaw_rate,expected_yaw),"runtime track drive consumes the authored hull turn rate: "+id)
+			var mechanism:=TurretMechanismState.new()
+			var pose:=Vector2.ZERO
+			var peak_velocity:=Vector2.ZERO
+			for step_index in 240:
+				pose=mechanism.step(pose,Vector2(PI*0.45,PI*0.45),Basis.IDENTITY,vehicle.fire_control_profile,Vector2(deg_to_rad(vehicle.turret_pitch_speed),deg_to_rad(vehicle.turret_yaw_speed)),0.0,{},1.0/60.0)
+				peak_velocity.x=maxf(peak_velocity.x,absf(mechanism.velocity.x)); peak_velocity.y=maxf(peak_velocity.y,absf(mechanism.velocity.y))
+			_check(pose.x>0.0 and pose.y>0.0 and peak_velocity.x>0.0 and peak_velocity.y>0.0 and peak_velocity.x<=deg_to_rad(vehicle.turret_pitch_speed)+0.00001 and peak_velocity.y<=deg_to_rad(vehicle.turret_yaw_speed)+0.00001,"production turret actuator consumes the cache-backed pitch/yaw limits: "+id)
 	for id in rows:
 		if id in expected: continue
 		var row: Dictionary=rows[id]

@@ -2103,10 +2103,13 @@
             "yaw 25.0 °/s, pitch 25.0 °/s",
             "yaw 25.0 °/s, pitch 25.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 25.0,
+            "yaw": 25.0
+          }
         }
       },
       "runtime_use": {
@@ -5836,10 +5839,10 @@
             "425 发",
             "425 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 425.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -5870,10 +5873,13 @@
             "yaw 45.0 °/s, pitch 10.0 °/s",
             "yaw 45.0 °/s, pitch 10.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 10.0,
+            "yaw": 45.0
+          }
         }
       },
       "runtime_use": {
@@ -6536,10 +6542,10 @@
             "600 发",
             "600 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 600.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -6570,10 +6576,13 @@
             "yaw 46.0 °/s, pitch 37.0 °/s",
             "yaw 46.0 °/s, pitch 37.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 37.0,
+            "yaw": 46.0
+          }
         }
       },
       "runtime_use": {
@@ -7074,10 +7083,10 @@
             "250 发",
             "250 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 250.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -7108,10 +7117,13 @@
             "yaw 60.0 °/s, pitch 40.0 °/s",
             "yaw 60.0 °/s, pitch 40.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 40.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -7577,10 +7589,13 @@
             "yaw 100.0 °/s, pitch 50.0 °/s",
             "yaw 100.0 °/s, pitch 50.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 50.0,
+            "yaw": 100.0
+          }
         }
       },
       "runtime_use": {
@@ -7795,10 +7810,10 @@
             "2000 发",
             "2000 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 2000.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -7841,10 +7856,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -12638,10 +12656,10 @@
             "200 发",
             "200 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 200.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -12672,10 +12690,13 @@
             "yaw 40.0 °/s, pitch 35.0 °/s",
             "yaw 40.0 °/s, pitch 35.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 35.0,
+            "yaw": 40.0
+          }
         }
       },
       "runtime_use": {
@@ -12882,10 +12903,10 @@
             "0.152",
             "0.152"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "m",
           "unit": "mm",
-          "value": null
+          "value": 152.0
         },
         "capacity_rounds": {
           "historical_verified": false,
@@ -12936,10 +12957,10 @@
             "1500.0",
             "1500.0"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "m/s",
           "unit": "m/s",
-          "value": null
+          "value": 1500.0
         },
         "traverse_deg_s": {
           "historical_verified": false,
@@ -15958,10 +15979,10 @@
             "351 发",
             "351 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 351.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -16004,10 +16025,13 @@
             "yaw 67.0 °/s, pitch 70.0 °/s",
             "yaw 67.0 °/s, pitch 70.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 70.0,
+            "yaw": 67.0
+          }
         }
       },
       "runtime_use": {
@@ -17163,10 +17187,10 @@
             "1000 发",
             "1000 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 1000.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -17203,10 +17227,13 @@
             "yaw 60.0 °/s, pitch 60.0 °/s",
             "yaw 60.0 °/s, pitch 60.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 60.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -26442,10 +26469,10 @@
             "195 发",
             "195 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 195.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -26476,10 +26503,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -26906,10 +26936,10 @@
             "280 发",
             "280 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 280.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -26940,10 +26970,13 @@
             "yaw 35.0 °/s, pitch 20.0 °/s",
             "yaw 35.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 35.0
+          }
         }
       },
       "runtime_use": {
@@ -27642,10 +27675,10 @@
             "484 发",
             "484 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 484.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -27688,10 +27721,13 @@
             "yaw 80.0 °/s, pitch 80.0 °/s",
             "yaw 80.0 °/s, pitch 80.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 80.0,
+            "yaw": 80.0
+          }
         }
       },
       "runtime_use": {
@@ -27910,10 +27946,10 @@
             "500 发",
             "500 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 500.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -27956,10 +27992,13 @@
             "yaw 70.0 °/s, pitch 60.0 °/s",
             "yaw 70.0 °/s, pitch 60.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 60.0,
+            "yaw": 70.0
+          }
         }
       },
       "runtime_use": {
@@ -28661,10 +28700,10 @@
             "270 发",
             "270 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 270.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -28695,10 +28734,13 @@
             "yaw 60.0 °/s, pitch 40.0 °/s",
             "yaw 60.0 °/s, pitch 40.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 40.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -28880,10 +28922,10 @@
             "148 发",
             "148 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 148.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -28914,10 +28956,13 @@
             "yaw 36.0 °/s, pitch 20.0 °/s",
             "yaw 36.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 36.0
+          }
         }
       },
       "runtime_use": {
@@ -31567,10 +31612,10 @@
             "600 发",
             "600 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 600.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -31601,10 +31646,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -32030,10 +32078,10 @@
             "800 发",
             "800 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 800.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -32076,10 +32124,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -32478,10 +32529,10 @@
             "750 发",
             "750 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 750.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -32512,10 +32563,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -32720,10 +32774,10 @@
             "210 发",
             "210 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 210.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -32766,10 +32820,13 @@
             "yaw 60.0 °/s, pitch 20.0 °/s",
             "yaw 60.0 °/s, pitch 20.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 20.0,
+            "yaw": 60.0
+          }
         }
       },
       "runtime_use": {
@@ -32972,10 +33029,10 @@
             "340 发",
             "340 发"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "rounds",
           "unit": "rounds",
-          "value": null
+          "value": 340.0
         },
         "muzzle_velocity_mps": {
           "historical_verified": false,
@@ -33006,10 +33063,13 @@
             "yaw 90.0 °/s, pitch 42.0 °/s",
             "yaw 90.0 °/s, pitch 42.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 42.0,
+            "yaw": 90.0
+          }
         }
       },
       "runtime_use": {
@@ -45607,10 +45667,10 @@
             "0.164",
             "0.164"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "m",
           "unit": "mm",
-          "value": null
+          "value": 164.0
         },
         "capacity_rounds": {
           "historical_verified": false,
@@ -45677,10 +45737,13 @@
             "yaw 25.0 °/s, pitch 25.0 °/s",
             "yaw 25.0 °/s, pitch 25.0 °/s"
           ],
-          "resolution_state": "conflict_duplicate_field",
+          "resolution_state": "explicit_reference_duplicate_consistent",
           "source_unit": "deg/s",
           "unit": "deg/s",
-          "value": null
+          "value": {
+            "pitch": 25.0,
+            "yaw": 25.0
+          }
         }
       },
       "runtime_use": {
