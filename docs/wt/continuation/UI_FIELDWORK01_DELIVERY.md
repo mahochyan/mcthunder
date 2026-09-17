@@ -142,6 +142,13 @@
 
 7. **仓库旧结论"游戏内只能用英文"按实测更新**：`AGENTS.md` L91 写着"HUD 中文依赖引擎默认字体 CJK 能力（当前检测=false）→ 游戏内英文 UI"。本单按设计单交付**中文**界面，并在**真实窗口抓帧**中确认中文**正常渲染**（§4 的全部实拍——车库、配给、科技树、HUD、挑战卡、训练卡、实验场——中文均可读 ✓；`assets/localization/zh_CN.json` 现有约 **1130** 条词条 ✓）⇒ 该旧检测在**本引擎构建（Godot 4.7.2-stable）下不再成立** ✓。**未改动引擎、字体或渲染设置** ✓；仅按实测更正结论 ✓。
 
+### 6.0 打包线回归（本轮实测 ✓，独立包的前置）
+
+内层运行器 `RESULTS.json` 共 **51 条记录** ✓：`import` ✓ + **48 个套件** ✓ + `run_menu_fire_handoff_checks` ✓ + `check_engineering_admission`（2 项 ✓）。
+- `passed=false` **仅两条** ✓，与构建登记表**逐字相符**：`run_industrial_battle_checks`（`exit=1` ✓ 登记 1 项 ✓）与 `run_challenge_checks`（`exit=1` ✓ 登记 2 项 ✓）；**其余全部 `passed=true`** ✓。
+- 与本单改动相关的**项目自有**套件：**`APP_FLOW_CHECKS_PASS`**（结果卡/危险确认弹窗 ✓）· **`SETTINGS_CHECKS_PASS`**（四分组与持久化 ✓）· `TUTORIAL_CHECKS_PASS` ✓ · **`INPUT_BINDING_CHECKS_PASS`**（实时按键名 ✓）· `MODERN_GARAGE_CHECKS_PASS` ✓ · `MODERN_SUPPORT / MODERN_ARMOR_FRAME / MODERN_TEAM_IDENTITY`（76 项）`PASS` ✓ · `run_engineering_*`（44/29/23/85/11 项 ✓）· `ENTRY_TRAFFIC_CHECKS_PASS` ✓ —— **全部零失败** ✓。
+⇒ 结论：**本单 UI 改动未在项目自有回归中引入任何失败** ✓；唯一两条失败为**已裁定例外** ✓。
+
 ## 6. 独立包（WT-UI-012-A03）状态
 
 - 命令：`powershell -File tests/build_release.ps1 -Candidate -ModernRiver`
