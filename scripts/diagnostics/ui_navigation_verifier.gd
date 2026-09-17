@@ -267,6 +267,31 @@ func run(flow: AppFlow) -> void:
 			selection.queue_free()
 			await frames(4)
 
+	# --- WT-UI-011 (S08/S09): the training cards and an explicit empty state capture -----------------------
+	await driver.click(tab_training)
+	await frames(4)
+	var frontend_node := g.get_node_or_null("Frontend")
+	var training_cards: Array = frontend_node.find_children("TrainingCards","HFlowContainer",true,false) if frontend_node != null else []
+	report(training_cards.size() == 1, "the training page builds the lesson card container")
+	if training_cards.size() == 1:
+		var cards: Array = training_cards[0].get_children()
+		report(cards.size() == TrainingDirector.TITLES.size(), "one card per real lesson (%d of %d)" % [cards.size(),TrainingDirector.TITLES.size()])
+		var complete_cards := 0
+		for card_index in cards.size():
+			var card: Node = cards[card_index]
+			var labels: Array = card.find_children("*","Label",true,false)
+			var has_goal := false
+			var has_completion := false
+			for label in labels:
+				var label_text := str((label as Label).text)
+				if label_text==str(TrainingDirector.GOALS[card_index]): has_goal = true
+				if label_text.begins_with("完成情况："): has_completion = true
+			if has_goal and has_completion and card.find_children("*","Button",true,false).size() >= 1: complete_cards += 1
+		report(complete_cards == cards.size(), "every lesson card carries its goal, its honest completion line and an enter button (%d of %d)" % [complete_cards,cards.size()])
+	await driver.capture("nav_12_training_cards")
+	await driver.click(tab_battle)
+	await frames(3)
+
 	# --- WT-UI-006: the three S03 groups, real shell metadata, the field-level error and the zero rack ----------
 	await driver.click(tab_loadout)
 	report(f.page_index == 1, "the loadout page is active for the S03 checks")

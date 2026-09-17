@@ -106,6 +106,9 @@ func compose(g: GarageShell) -> void:
 	river_team_button.tooltip_text="先选择 T-80B 或豹 2A4。内部 4v4 测试，不发放研发奖励。"
 	for child in tutorial_row.get_children():
 		if child is Control: move(child,pages[2])
+	# WT-UI-011 (S08): the lesson cards live in the shell's control column, which stays hidden, so they are moved into
+	# the training page explicitly like the other real controls.
+	if g.training_cards != null: move(g.training_cards,pages[2])
 	GarageTheme.text(pages[2],"自由靶场",18)
 	move(g.case_choice,pages[2]); move(g.shell_choice,pages[2]); move(g.rounds,pages[2]); move(g.infinite,pages[2]); move(g.start_button,pages[2])
 	for entry in [["duel","单车对抗"],["armor","装甲试验"],["ballistics","弹道试验"],["recovery","战损与维修"],["terrain","地形驾驶"],["ai_drive","编队驾驶"],["ai_combat","战术交战"],["shells","弹药试验"]]:

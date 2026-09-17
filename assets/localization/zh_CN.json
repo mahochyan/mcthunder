@@ -1,4 +1,7 @@
 {
+  "training_card_restriction": "车型与弹数沿用上方选择：%d 发 · 无限弹：%s",
+  "training_card_completion": "完成情况：本机档案未记录课目完成度（仅在本次会话内显示结果）。",
+  "training_card_enter": "进入课目",
   "settings_group_display": "显示与可读性",
   "settings_group_input": "输入",
   "settings_group_sound": "声音",

@@ -12,6 +12,8 @@ var shell_choice: OptionButton
 var rounds: SpinBox
 var infinite: CheckBox
 var case_choice: OptionButton
+## WT-UI-011 (S08): one card per training lesson, built from the director's own titles and goals.
+var training_cards: HFlowContainer
 var start_button: Button
 var inspect_button: Button
 var error_label: Label
@@ -145,14 +147,32 @@ func _ready() -> void:
 	infinite.button_pressed = initial_loadout.infinite
 	controls.add_child(infinite)
 	CoreUI.label(controls,LocalizationService.text("ui_356c28d4b95e"),16)
+	# WT-UI-011 (S08): the lesson picker keeps its real control, hidden, so the existing start path is unchanged.
 	case_choice = OptionButton.new()
 	for title in TrainingDirector.TITLES: case_choice.add_item(title)
 	case_choice.select(initial_case)
+	case_choice.visible = false
 	controls.add_child(case_choice)
-	var goal := CoreUI.label(controls,TrainingDirector.GOALS[initial_case],15)
-	goal.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	goal.custom_minimum_size = Vector2(300,58)
-	case_choice.item_selected.connect(func(index: int) -> void: goal.text = TrainingDirector.GOALS[index])
+	# WT-UI-011 (S08): one card per lesson with its title, its goal, the restriction it inherits from the real
+	# controls above, its completion state and an enter button. The completion line says the profile does not record
+	# lesson completion instead of showing an invented result.
+	training_cards = HFlowContainer.new()
+	training_cards.name = "TrainingCards"
+	controls.add_child(training_cards)
+	for card_index in TrainingDirector.TITLES.size():
+		var lesson := VBoxContainer.new()
+		lesson.name = "TrainingCard%d" % card_index
+		lesson.custom_minimum_size = Vector2(300,0)
+		training_cards.add_child(lesson)
+		var lesson_title := CoreUI.label(lesson,TrainingDirector.TITLES[card_index],18)
+		lesson_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		var lesson_goal := CoreUI.label(lesson,TrainingDirector.GOALS[card_index],14)
+		lesson_goal.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		lesson_goal.custom_minimum_size = Vector2(300,58)
+		var lesson_rule := CoreUI.label(lesson,LocalizationService.text("training_card_restriction") % [int(rounds.value),LocalizationService.text("ui_f9ae85491761") if infinite.button_pressed else LocalizationService.text("ui_6bea77acefb3")],13)
+		lesson_rule.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		CoreUI.label(lesson,LocalizationService.text("training_card_completion"),13)
+		CoreUI.button(lesson,LocalizationService.text("training_card_enter"),func() -> void: case_choice.select(card_index); _start())
 	start_button = CoreUI.button(left_column,LocalizationService.text("ui_e9229f452d99"),_start)
 	CoreUI.button(controls,LocalizationService.text("ui_99b3769b6ee2"),func() -> void: laboratory_requested.emit("duel"))
 	CoreUI.button(left_column,LocalizationService.text("ui_56b6b54bb00a"),func() -> void: laboratory_requested.emit("team"))
