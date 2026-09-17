@@ -119,9 +119,12 @@ func run(flow: AppFlow) -> void:
 		if g.vehicle_choice.get_item_metadata(i) == ID: index = i
 	check(index >= 0,"modern player vehicle is present in real garage")
 	if index < 0: finish(); return
-	# WT-UI-004: bring the card on screen first - the collection row scrolls horizontally at 1280.
+	# WT-UI-004: bring the card on screen first - the collection row scrolls horizontally at 1280 - and let the
+	# container settle before clicking, because this verifier's own click helper requires the target to be inside the
+	# visible area.
 	if g.frontend.collection_scroll != null:
-		g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index]); await get_tree().process_frame
+		g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index])
+		for settle in 3: await get_tree().process_frame
 	await click(g.frontend.cards[index]); await click(g.frontend.tabs[1])
 	check(g.selected_vehicle_id() == ID,"real card selects T-80B")
 	for shell_id in g.preparation.shell_spins:

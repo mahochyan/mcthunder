@@ -47,12 +47,20 @@ func click(button: Control) -> void:
 	var ancestor := button.get_parent()
 	while ancestor != null and not ancestor is ScrollContainer: ancestor = ancestor.get_parent()
 	if ancestor is ScrollContainer:
+		# WT-UI-004: the garage collection row scrolls HORIZONTALLY once the roster does not fit at 1280, and wheel
+		# events only drive the vertical axis. The vertical fold keeps the original wheel path; the horizontal axis
+		# uses the container's own public ensure_control_visible, which is what a player's sideways scroll does.
+		var container := ancestor as ScrollContainer
 		for attempt in 35:
-			var clip: Rect2 = ancestor.get_global_rect()
+			var clip: Rect2 = container.get_global_rect()
 			var rect := button.get_global_rect()
-			if rect.position.y >= clip.position.y+2 and rect.end.y <= clip.end.y-2: break
-			var wheel := MOUSE_BUTTON_WHEEL_DOWN if rect.end.y > clip.end.y-2 else MOUSE_BUTTON_WHEEL_UP
-			mouse(wheel,true,clip.get_center()); mouse(wheel,false,clip.get_center()); await frames(3)
+			if clip.encloses(rect): break
+			if rect.position.x < clip.position.x+2 or rect.end.x > clip.end.x-2:
+				container.ensure_control_visible(button)
+			else:
+				var wheel := MOUSE_BUTTON_WHEEL_DOWN if rect.end.y > clip.end.y-2 else MOUSE_BUTTON_WHEEL_UP
+				mouse(wheel,true,clip.get_center()); mouse(wheel,false,clip.get_center())
+			await frames(3)
 	var point := button.get_global_rect().get_center()
 	var reachable := button.get_viewport_rect().has_point(point)
 	if ancestor is ScrollContainer: reachable = reachable and ancestor.get_global_rect().has_point(point)

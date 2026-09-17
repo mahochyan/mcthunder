@@ -50,7 +50,8 @@ func run(flow: AppFlow) -> void:
 		# the card at 216x96 and allows sideways scrolling), so the card is brought on screen before the real mouse
 		# click - the same thing a player does before clicking it.
 		if g.frontend.collection_scroll != null:
-			g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index]); await get_tree().process_frame
+			g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index])
+			for settle in 3: await get_tree().process_frame
 		await activate(g.frontend.cards[index])
 		var preview_hull: Node = g.preview._part_nodes.hull.get_node_or_null("Bound_hull")
 		check(preview_hull!=null and preview_hull.get_meta("model_sha256","")==g.catalog.packages[id].packet.model_binding.model.sha256,"garage shows exact admitted bound model")

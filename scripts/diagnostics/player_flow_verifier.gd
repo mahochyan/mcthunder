@@ -226,7 +226,8 @@ func natural_matches() -> void:
 		print("[garage card] wanted=",wanted," before=",app.garage.selected_vehicle_id()," rect=",frontend.cards[vehicle_index].get_global_rect())
 		# WT-UI-004: the collection row scrolls horizontally, so the card is scrolled into view before it is clicked.
 		if frontend.collection_scroll != null:
-			frontend.collection_scroll.ensure_control_visible(frontend.cards[vehicle_index]); await get_tree().process_frame
+			frontend.collection_scroll.ensure_control_visible(frontend.cards[vehicle_index])
+			for settle in 3: await get_tree().process_frame
 		await click(frontend.cards[vehicle_index])
 		var selected := await wait_state(func() -> bool: return app.garage.selected_vehicle_id() == wanted,"clicking a vehicle card selects that vehicle")
 		check(selected,"clicking the vehicle card selects it")
