@@ -357,6 +357,12 @@ func run(flow: AppFlow) -> void:
 		await driver.click(quit_button)
 		await frames(3)
 		report(visible_modals() > modals_before_quit, "the quit entry opens a confirmation modal")
+		# WT-UI-011 (S08): a dangerous action must not start focused on its confirmation.
+		var quit_focus := focus_owner()
+		var quit_focus_text := str((quit_focus as Button).text) if quit_focus is Button else "none"
+		report(quit_focus is Button and quit_focus_text==LocalizationService.text("menu_back"), "a dangerous confirmation focuses its cancel button first (%s)" % quit_focus_text)
+		# WT-UI-011 (S09): loading states carry a stage, never a fabricated percentage.
+		report(not LocalizationService.text("flow_loading_body").contains("%"), "the loading dialog states a stage instead of a fabricated percentage")
 		await driver.capture("nav_04_confirm_dialog")
 		driver.key(KEY_ESCAPE,true); await frames(2); driver.key(KEY_ESCAPE,false)
 		await frames(8)

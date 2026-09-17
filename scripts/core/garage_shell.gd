@@ -73,7 +73,7 @@ func _ready() -> void:
 		if get_node_or_null("ModelShowroom") == null: add_child(ModelShowroom.new()))
 	CoreUI.button(toolbar,LocalizationService.text("menu_credits"),_show_credits)
 	CoreUI.button(toolbar,LocalizationService.text("menu_quit"),func() -> void:
-		AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit()))
+		AppDialog.focus_cancel(AppDialog.show(self,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: quit_requested.emit())))
 	CoreUI.label(vertical,LocalizationService.text("menu_version") % BuildIdentity.describe(),15)
 	var tutorial_row := HBoxContainer.new(); vertical.add_child(tutorial_row)
 	var checkpoint: Dictionary = profile.snapshot().tutorial if profile != null else {"chapter":0,"completed":[]}
@@ -84,11 +84,11 @@ func _ready() -> void:
 	chapters.select(mini(int(checkpoint.chapter),TutorialCatalog.COUNT-1))
 	CoreUI.button(tutorial_row,LocalizationService.text("tutorial_review"),func() -> void: tutorial_requested.emit(chapters.selected))
 	CoreUI.button(tutorial_row,LocalizationService.text("tutorial_reset"),func() -> void:
-		AppDialog.show(self,LocalizationService.text("tutorial_reset"),LocalizationService.text("tutorial_reset_body"),LocalizationService.text("tutorial_reset"),func() -> void:
+		AppDialog.focus_cancel(AppDialog.show(self,LocalizationService.text("tutorial_reset"),LocalizationService.text("tutorial_reset_body"),LocalizationService.text("tutorial_reset"),func() -> void:
 			var next := profile.snapshot(); next.tutorial = {"chapter":0,"completed":[]}
 			var saved := profile.commit(next)
 			if saved.ok: resume.text = LocalizationService.text("tutorial_resume") % [0,TutorialCatalog.COUNT]; chapters.select(0); checkpoint.chapter=0; checkpoint.completed=[]
-			else: error_label.text = saved.reason))
+			else: error_label.text = saved.reason)))
 	var columns := HBoxContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	columns.add_theme_constant_override("separation",24)

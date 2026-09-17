@@ -66,7 +66,7 @@ func compose(g: GarageShell) -> void:
 	var settings_button := button(header,"设置",func() -> void:
 		var panel := InputSettingsPanel.new(); panel.profile=g.profile
 		panel.progress_reset.connect(func() -> void: g.progress_reset.emit()); g.add_child(panel))
-	var quit_button := button(header,"退出",func() -> void: AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit()))
+	var quit_button := button(header,"退出",func() -> void: AppDialog.focus_cancel(AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit())))
 	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=Color("344045"); vertical.add_child(line)
 	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",24); vertical.add_child(body)
 	var side := PanelContainer.new(); side.custom_minimum_size.x=310; body.add_child(side)

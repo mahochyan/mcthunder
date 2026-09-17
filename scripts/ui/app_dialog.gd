@@ -25,7 +25,18 @@ static func show(parent: Node, title: String, body: String, accept_text: String 
 	var dismiss := func() -> void:
 		root.queue_free()
 		if cancel.is_valid(): cancel.call()
-	CoreUI.button(footer,LocalizationService.text("menu_back"),dismiss)
+	var back_button := CoreUI.button(footer,LocalizationService.text("menu_back"),dismiss)
 	if accept.is_valid(): CoreUI.button(footer,accept_text,func() -> void: root.queue_free(); accept.call())
 	ModalNavigation.attach(root,dismiss)
 	return root
+
+## WT-UI-011 (S08): a dangerous confirmation must not start focused on its own confirmation button. The body text is
+## focusable so it can be selected and copied, and it would otherwise take the first focus, so the caller wraps its
+## call in this helper and the cancel button takes focus instead. Esc keeps meaning "go back".
+static func focus_cancel(dialog: Control) -> Control:
+	if dialog == null: return dialog
+	for button in dialog.find_children("*","Button",true,false):
+		if str((button as Button).text)==LocalizationService.text("menu_back"):
+			(button as Button).call_deferred("grab_focus")
+			break
+	return dialog

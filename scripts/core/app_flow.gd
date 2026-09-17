@@ -107,7 +107,7 @@ func request_leave_match(scene: BallisticsRange) -> void:
 		var prior := reference.get_ref() as BallisticsRange
 		navigation_overlay = null
 		if prior != null and prior == training: prior.leave_match()
-	navigation_overlay = AppDialog.show(ui_layer,LocalizationService.text("flow_leave_title"),LocalizationService.text("flow_leave_body"),LocalizationService.text("flow_leave_accept"),accept,resume)
+	navigation_overlay = AppDialog.focus_cancel(AppDialog.show(ui_layer,LocalizationService.text("flow_leave_title"),LocalizationService.text("flow_leave_body"),LocalizationService.text("flow_leave_accept"),accept,resume))
 
 func _wire_leave_buttons(scene: BallisticsRange) -> void:
 	for button in scene.hud.find_children("*","Button",true,false):

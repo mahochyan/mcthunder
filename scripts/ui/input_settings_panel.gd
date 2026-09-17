@@ -53,16 +53,16 @@ func _ready() -> void:
 	_build_display(contents)
 	CoreUI.label(contents,LocalizationService.text("settings_language"),17)
 	CoreUI.button(contents,LocalizationService.text("settings_reset"),func() -> void:
-		dialog = AppDialog.show(self,LocalizationService.text("settings_reset"),LocalizationService.text("settings_reset_body"),LocalizationService.text("settings_reset"),func() -> void:
+		dialog = AppDialog.focus_cancel(AppDialog.show(self,LocalizationService.text("settings_reset"),LocalizationService.text("settings_reset_body"),LocalizationService.text("settings_reset"),func() -> void:
 			var error := InputBindingService.reset_settings()
 			if error.is_empty(): DisplaySettings.apply_preference(InputBindingService.display); finish()
-			else: status.text = error))
+			else: status.text = error)))
 	if profile != null:
 		CoreUI.button(contents,LocalizationService.text("progress_reset"),func() -> void:
-			dialog = AppDialog.show(self,LocalizationService.text("progress_reset"),LocalizationService.text("progress_reset_body"),LocalizationService.text("progress_reset"),func() -> void:
+			dialog = AppDialog.focus_cancel(AppDialog.show(self,LocalizationService.text("progress_reset"),LocalizationService.text("progress_reset_body"),LocalizationService.text("progress_reset"),func() -> void:
 				var saved := profile.reset_progress()
 				if saved.ok: progress_reset.emit(); finish()
-				else: status.text = saved.reason))
+				else: status.text = saved.reason)))
 	CoreUI.button(contents,LocalizationService.text("settings_data_help"),func() -> void:
 		dialog = AppDialog.show(self,LocalizationService.text("settings_data_help"),LocalizationService.text("settings_data_help_body")))
 	for action in InputBindingService.ACTIONS:
