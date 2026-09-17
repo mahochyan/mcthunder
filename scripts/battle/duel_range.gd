@@ -37,7 +37,7 @@ func _ready() -> void:
 	duel_ready = match_director.begin(combat_actors(),get_round_id())
 	controller.commands_enabled = false
 	controller.reset_pending()
-	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	InputFocusRouter.capture_mouse(get_tree())
 	battle_ui = BattleUI.new()
 	add_child(battle_ui)
 	battle_ui.setup(self)

@@ -1,0 +1,101 @@
+{
+    "schema_version":  1,
+    "work_order":  "WT-UI-002",
+    "viewbox":  24,
+    "stroke_units":  1.75,
+    "fill_policy":  "no fill except where a shape needs one; every icon is single colour",
+    "colour_policy":  "authored monochrome white; the UI tints with modulate, ink colour is the text_primary token",
+    "size_checks":  [
+                        16,
+                        24,
+                        32
+                    ],
+    "font_or_plugin":  "none: no font binary and no third-party package is added by this set",
+    "icons":  [
+                  {
+                      "name":  "nation",
+                      "file":  "icon_nation.svg",
+                      "bytes":  251
+                  },
+                  {
+                      "name":  "vehicle_medium",
+                      "file":  "icon_vehicle_medium.svg",
+                      "bytes":  423
+                  },
+                  {
+                      "name":  "vehicle_heavy",
+                      "file":  "icon_vehicle_heavy.svg",
+                      "bytes":  447
+                  },
+                  {
+                      "name":  "vehicle_light",
+                      "file":  "icon_vehicle_light.svg",
+                      "bytes":  423
+                  },
+                  {
+                      "name":  "vehicle_destroyer",
+                      "file":  "icon_vehicle_destroyer.svg",
+                      "bytes":  356
+                  },
+                  {
+                      "name":  "vehicle_spaa",
+                      "file":  "icon_vehicle_spaa.svg",
+                      "bytes":  446
+                  },
+                  {
+                      "name":  "ammo",
+                      "file":  "icon_ammo.svg",
+                      "bytes":  275
+                  },
+                  {
+                      "name":  "armor",
+                      "file":  "icon_armor.svg",
+                      "bytes":  275
+                  },
+                  {
+                      "name":  "crew",
+                      "file":  "icon_crew.svg",
+                      "bytes":  279
+                  },
+                  {
+                      "name":  "repair",
+                      "file":  "icon_repair.svg",
+                      "bytes":  300
+                  },
+                  {
+                      "name":  "extinguish",
+                      "file":  "icon_extinguish.svg",
+                      "bytes":  296
+                  },
+                  {
+                      "name":  "warning",
+                      "file":  "icon_warning.svg",
+                      "bytes":  270
+                  },
+                  {
+                      "name":  "spectate",
+                      "file":  "icon_spectate.svg",
+                      "bytes":  281
+                  },
+                  {
+                      "name":  "back",
+                      "file":  "icon_back.svg",
+                      "bytes":  248
+                  },
+                  {
+                      "name":  "settings",
+                      "file":  "icon_settings.svg",
+                      "bytes":  341
+                  },
+                  {
+                      "name":  "search",
+                      "file":  "icon_search.svg",
+                      "bytes":  255
+                  },
+                  {
+                      "name":  "lock",
+                      "file":  "icon_lock.svg",
+                      "bytes":  314
+                  }
+              ]
+}

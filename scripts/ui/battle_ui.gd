@@ -100,6 +100,12 @@ func latest_hit_summary() -> Dictionary:
 			"hit_shot_id":int(record.get("identity",{}).get("round_id",0))}
 	return {}
 
+func _notification(what: int) -> void:
+	# The pointer must stay usable while the window is in the background. Releasing on focus loss is a UX rule, and
+	# returning focus simply lets the router capture again because the match is still running.
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: focus.window_focus(false)
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN: focus.window_focus(true)
+
 func match_info() -> Dictionary:
 	var info := {"phase":phase(),"remaining":maxf(0,600-elapsed()),"countdown":0.0,"team_mode":battle is TeamRange,"title":LocalizationService.text("ui_a22a88d8dfc5"),"objective":LocalizationService.text("ui_286a67c287e7"),"tickets_text":LocalizationService.text("ui_5403acaeb2a0")}
 	if battle is TeamRange:

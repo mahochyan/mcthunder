@@ -22,6 +22,17 @@ var objective_cards: Array[Dictionary] = []
 var crew_label: Label
 var module_grid: GridContainer
 var module_labels: Dictionary = {}
+## WT-UI-008/002: one monochrome icon per damage row, from the generated 24-unit icon source.
+var module_icons: Dictionary = {}
+const ICONS := {
+	"warning":"res://assets/ui/icons/icon_warning.svg",
+	"track":"res://assets/ui/icons/icon_warning.svg",
+	"engine":"res://assets/ui/icons/icon_repair.svg",
+	"breech":"res://assets/ui/icons/icon_ammo.svg",
+	"crew":"res://assets/ui/icons/icon_crew.svg",
+	"fire":"res://assets/ui/icons/icon_extinguish.svg",
+	"armor":"res://assets/ui/icons/icon_armor.svg"
+}
 var speed_label: Label
 var weapon_label: Label
 var optics_label: Label
@@ -418,6 +429,12 @@ func _tick_notices(delta: float) -> void:
 		notices = kept
 		_refresh_notices()
 
+func icon_key_for(module_id: String) -> String:
+	if module_id.begins_with("track"): return "track"
+	if module_id in ["engine","transmission","fuel"]: return "engine"
+	if module_id in ["breech","turret_drive","autoloader"]: return "breech"
+	return "warning"
+
 func _changed() -> void:
 	InputBindingService.save()
 	AccessibilitySettings.apply(self)
@@ -474,13 +491,30 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 		if not person.available: missing.append(person.name+LocalizationService.text("ui_7c0037eb0d6e"))
 	if not missing.is_empty(): crew_label.text += "\n"+" · ".join(missing)
 	for module in model.modules:
-		if not module_labels.has(module.id): module_labels[module.id] = _label(module_grid,"",14)
+		if not module_labels.has(module.id):
+			# WT-UI-008 (S05): each damage kind gets a monochrome icon plus its short sentence, tinted with the token
+			# colours instead of hard-coded ones.
+			var row := HBoxContainer.new()
+			row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			row.add_theme_constant_override("separation",6)
+			module_grid.add_child(row)
+			var icon := TextureRect.new()
+			icon.custom_minimum_size = Vector2(16,16)
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			row.add_child(icon)
+			module_icons[module.id] = icon
+			module_labels[module.id] = _label(row,"",14)
 		var label: Label = module_labels[module.id]
+		var icon_rect: TextureRect = module_icons[module.id]
 		# Keep the driving view clear; damage appears immediately and the full
 		# component list remains available while the battle overview is open.
 		label.visible = module.fraction < 1.0 or scoreboard.visible
-		label.text = ("× " if module.fraction <= 0 else ("! " if module.fraction < 1 else "· "))+module.name+" "+module.status
-		label.modulate = Color("ffca80") if module.fraction < 1 else Color("d7e2dc")
+		label.text = module.name+" "+module.status
+		label.modulate = UiTokens.color("warning","#E8BE70") if module.fraction < 1 else UiTokens.color("text_secondary","#A8B6BA")
+		icon_rect.visible = label.visible
+		icon_rect.texture = load(str(ICONS.get(icon_key_for(str(module.id)),ICONS.warning)))
+		icon_rect.modulate = UiTokens.color("critical","#FF8A80") if module.fraction <= 0 else UiTokens.color("warning","#E8BE70")
 	drive_label.text = LocalizationService.text("ui_8642a98dce3b") if model.drive_text.is_empty() else LocalizationService.text("ui_2646035954a7")+model.drive_text
 	if model.destroyed: drive_label.text = LocalizationService.text("ui_21777ac7fa81")
 	speed_label.text = "%.0f km/h"%model.speed_kph

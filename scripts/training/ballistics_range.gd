@@ -115,8 +115,7 @@ func _ready() -> void:
 	# These scenes are explicit training contexts. Future battle modes must supply their visibility policy.
 	replay.setup(projectiles,hud,func(_record: Dictionary) -> bool: return true)
 	_initialized = true
-	if DisplayServer.get_name() != "headless":
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	InputFocusRouter.capture_mouse(get_tree())
 	# 006-d：-- --ballistics-demo 弹道演示（同一训练装配 + 生产发射路径）
 	var ua := OS.get_cmdline_user_args()
 	_demo = ua.has("--ballistics-demo")
@@ -424,8 +423,7 @@ func _resume() -> void:
 	get_tree().paused = false
 	actor.pause_block(false)
 	hud.show_pause(false)
-	if DisplayServer.get_name() != "headless":
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	InputFocusRouter.capture_mouse(get_tree())
 	actor.gunner.resume_grace = GameConfig.RESUME_GRACE
 
 func _notification(what: int) -> void:

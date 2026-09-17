@@ -281,7 +281,8 @@ func spawn_slot(id: String) -> VehicleActor:
 			if is_instance_valid(spectator): spectator.current = false
 			vehicle.cam_rig.cam.current = true
 			if is_instance_valid(waiting_panel): waiting_panel.visible = false
-			if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			# The shared capture path refuses while the window is in the background.
+			InputFocusRouter.capture_mouse(get_tree())
 	return vehicle
 
 func vehicle_id_for_slot(id: String) -> String:
