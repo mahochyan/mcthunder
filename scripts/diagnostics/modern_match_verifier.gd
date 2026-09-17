@@ -119,6 +119,9 @@ func run(flow: AppFlow) -> void:
 		if g.vehicle_choice.get_item_metadata(i) == ID: index = i
 	check(index >= 0,"modern player vehicle is present in real garage")
 	if index < 0: finish(); return
+	# WT-UI-004: bring the card on screen first - the collection row scrolls horizontally at 1280.
+	if g.frontend.collection_scroll != null:
+		g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index]); await get_tree().process_frame
 	await click(g.frontend.cards[index]); await click(g.frontend.tabs[1])
 	check(g.selected_vehicle_id() == ID,"real card selects T-80B")
 	for shell_id in g.preparation.shell_spins:

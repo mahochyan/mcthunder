@@ -1,4 +1,6 @@
 {
+  "garage_lineup_title": "当前编成",
+  "garage_lineup_empty": "未选择编成 · 在配装页选择",
   "nation_usa": "美国",
   "nation_ussr": "苏联",
   "nation_germany": "德国",

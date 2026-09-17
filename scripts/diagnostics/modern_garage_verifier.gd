@@ -46,6 +46,11 @@ func run(flow: AppFlow) -> void:
 			if g.vehicle_choice.get_item_metadata(i) == id: index = i
 		check(index >= 0,"modern vehicle has actual garage entry: "+id)
 		if index < 0: continue
+		# WT-UI-004: the collection row scrolls horizontally once the roster does not fit at 1280 (the design fixes
+		# the card at 216x96 and allows sideways scrolling), so the card is brought on screen before the real mouse
+		# click - the same thing a player does before clicking it.
+		if g.frontend.collection_scroll != null:
+			g.frontend.collection_scroll.ensure_control_visible(g.frontend.cards[index]); await get_tree().process_frame
 		await activate(g.frontend.cards[index])
 		var preview_hull: Node = g.preview._part_nodes.hull.get_node_or_null("Bound_hull")
 		check(preview_hull!=null and preview_hull.get_meta("model_sha256","")==g.catalog.packages[id].packet.model_binding.model.sha256,"garage shows exact admitted bound model")

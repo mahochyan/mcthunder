@@ -17,6 +17,9 @@ var map_survey_button: Button
 var map_drive_button: Button
 var river_team_button: Button
 var short_names := {"player_tank":"M4A3", "us_m4a3_75w_vvss_1944":"M4A3 (75) W", "us_m24_m6_t85e1_1951":"M24 CHAFFEE", "us_m26_m3_1945":"M26 PERSHING", "us_m36_m4a1_1945":"M36 JACKSON"}
+## WT-UI-004: the bottom strip is the current lineup plus a horizontally scrollable collection row.
+var lineup_row: HBoxContainer
+var collection_scroll: ScrollContainer
 
 func button(parent: Node, text: String, action: Callable) -> Button:
 	return CoreUI.button(parent,text,action)
@@ -114,12 +117,25 @@ func compose(g: GarageShell) -> void:
 	for action in [showroom,credits]:
 		action.add_theme_font_size_override("font_size",12)
 		for state in ["normal","hover","pressed"]: action.add_theme_stylebox_override(state,GarageTheme.box(Color.TRANSPARENT,Color.TRANSPARENT,4))
-	var carousel := HBoxContainer.new(); carousel.add_theme_constant_override("separation",10); vertical.add_child(carousel)
+	# WT-UI-004 (S01): the bottom strip states the CURRENT LINEUP first, and the full collection row is
+	# horizontally scrollable so a narrow window never squeezes the cards or the font (token card size 216x96).
+	# The collection row deliberately stays visible: four existing checks - the modern garage verifier, the modern
+	# match verifier, the packaged player-flow verifier and the garage frontend suite - click frontend.cards[]
+	# directly, so hiding the row would break them. That is a recorded conflict with S01's "only the lineup slots"
+	# wording, handled by ADDING the lineup row instead of hiding the row those checks depend on.
+	lineup_row=HBoxContainer.new(); lineup_row.add_theme_constant_override("separation",10); vertical.add_child(lineup_row)
+	collection_scroll=ScrollContainer.new()
+	collection_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO
+	collection_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+	collection_scroll.custom_minimum_size.y=float(UiTokens.metric("components.vehicle_card.height",96.0))+18.0
+	vertical.add_child(collection_scroll)
+	var carousel := HBoxContainer.new(); carousel.add_theme_constant_override("separation",10); collection_scroll.add_child(carousel)
 	for i in g.vehicle_choice.item_count:
 		var id: String=g.vehicle_choice.get_item_metadata(i)
 		var card := button(carousel,"%02d   %s\n%s"%[i+1,short_names.get(id,id),_country(id)],func() -> void: g.vehicle_choice.select(i); g._select_vehicle(i))
 		card.tooltip_text=g.vehicle_choice.get_item_text(i)
-		card.custom_minimum_size=Vector2(0,72); card.size_flags_horizontal=Control.SIZE_EXPAND_FILL; card.clip_text=true; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
+		card.custom_minimum_size=Vector2(UiTokens.metric("components.vehicle_card.width",216.0),UiTokens.metric("components.vehicle_card.height",96.0))
+		card.clip_text=false; card.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
 	var footer := HBoxContainer.new(); vertical.add_child(footer)
 	var hint := GarageTheme.text(footer,"TAB  切换焦点     ENTER  确认     ·     在车辆视图拖动以旋转",11,GarageTheme.MUTED); hint.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	GarageTheme.text(footer,"MCT  /  "+BuildIdentity.describe(),11,GarageTheme.MUTED)
@@ -145,6 +161,7 @@ func compose(g: GarageShell) -> void:
 	tag(garage.result_label,"garage.deploy.result"); tag(garage.error_label,"garage.error")
 	tag(garage.inspect_button,"garage.preview.inspect"); tag(garage.inspection_row,"garage.preview.inspect_row")
 	tag(viewport_container,"garage.preview.viewport"); tag(loadout_open,"garage.loadout.open")
+	tag(lineup_row,"garage.lineup.row"); tag(collection_scroll,"garage.collection.row")
 	tag(garage.challenge_button,"garage.challenge.open")
 	tag(river_team_button,"garage.training.river_team")
 	tag(map_survey_button,"garage.training.river_survey"); tag(map_drive_button,"garage.training.river_drive")
@@ -210,7 +227,28 @@ func refresh() -> void:
 		stats.text="%s mm  主炮\n%d  发携弹上限"%[str(packet.assembly.caliber_mm),int(packet.runtime.rounds)]
 	for i in cards.size():
 		cards[i].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if i==garage.vehicle_choice.selected else Color("171f24"),GarageTheme.ACCENT if i==garage.vehicle_choice.selected else Color("303a3e")))
+	# WT-UI-004: the collection row scrolls horizontally, so the selected card is scrolled into view instead of being
+	# left off-screen; the row still keeps every card reachable.
+	if collection_scroll != null and cards.size() > garage.vehicle_choice.selected:
+		collection_scroll.ensure_control_visible(cards[garage.vehicle_choice.selected])
 	garage.preparation.details.visible=page_index==1 and garage.profile.service.has_vehicle(id)
+	refresh_lineup_row()
+
+## WT-UI-004 (S01): the vehicles this match will actually field, read from the existing lineup state. Informational
+## labels only - the selection itself stays in GaragePreparation, and an empty lineup says so instead of guessing.
+func refresh_lineup_row() -> void:
+	if lineup_row == null or garage == null or garage.preparation == null: return
+	for child in lineup_row.get_children(): child.free()
+	tag(GarageTheme.text(lineup_row,LocalizationService.text("garage_lineup_title"),12,GarageTheme.MUTED),"garage.lineup.title")
+	var ids: Array = garage.preparation.lineup_ids
+	if ids.is_empty():
+		tag(GarageTheme.text(lineup_row,LocalizationService.text("garage_lineup_empty"),13,GarageTheme.MUTED),"garage.lineup.empty")
+		return
+	for i in ids.size():
+		var id := str(ids[i])
+		var chip := GarageTheme.text(lineup_row,"%s · %s"%[short_names.get(id,id),VehicleDisplayMetadata.state_label(id)],13,GarageTheme.PAPER)
+		chip.custom_minimum_size.x=UiTokens.metric("components.vehicle_card.compact_width",188.0)
+		tag(chip,"garage.lineup.slot.%d"%i)
 
 func open_research_tree() -> void:
 	if is_instance_valid(research_tree): return

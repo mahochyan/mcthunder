@@ -96,7 +96,8 @@ func run(flow: AppFlow) -> void:
 	collect_ids(g, ids)
 	var required := ["garage.deploy","garage.nav.research","garage.tab.battle","garage.tab.loadout","garage.tab.training",
 		"garage.vehicle.picker","garage.vehicle.dossier","garage.vehicle.title","garage.preview.viewport","garage.loadout.open",
-		"garage.preparation.mode","garage.preparation.map","garage.error"]
+		"garage.preparation.mode","garage.preparation.map","garage.error","garage.vehicle.role",
+		"garage.lineup.row","garage.collection.row"]
 	var missing := []
 	for id in required:
 		if not ids.has(id): missing.append(id)
@@ -132,6 +133,32 @@ func run(flow: AppFlow) -> void:
 	report(rects > 0 and bad_rects.is_empty(), "visible decorative rectangles do not intercept the mouse (%d visible, offenders=%s)" % [rects,str(bad_rects)])
 	var preview := by_id(g,"garage.preview.viewport")
 	report(preview != null and preview.mouse_filter != Control.MOUSE_FILTER_IGNORE, "the vehicle preview keeps its own input for drag rotation")
+
+	# --- WT-UI-004 layout: fixed main action, current lineup strip, scrollable collection ------------------
+	var deploy_probe := by_id(g,"garage.deploy")
+	var in_scroll := false
+	var walker: Node = deploy_probe
+	while walker != null:
+		if walker is ScrollContainer: in_scroll = true
+		walker = walker.get_parent()
+	report(deploy_probe != null and not in_scroll, "the main action sits outside every scroll area (fixed, per S01)")
+	var lineup := by_id(g,"garage.lineup.row")
+	report(lineup != null and lineup.is_visible_in_tree(), "the bottom strip shows the current lineup row")
+	var slot_count := 0
+	for id in ids.keys():
+		if str(id).begins_with("garage.lineup.slot."): slot_count += 1
+	report(by_id(g,"garage.lineup.empty") != null or slot_count > 0, "the lineup row shows real slots (%d) or an explicit empty state" % slot_count)
+	var collection := by_id(g,"garage.collection.row")
+	report(collection is ScrollContainer and (collection as ScrollContainer).horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED, "the collection row scrolls horizontally so a narrow window never squeezes cards or font")
+	var card_height := -1.0
+	var card_width := -1.0
+	for id in ids.keys():
+		if str(id).begins_with("garage.card."):
+			var card := by_id(g,str(id))
+			if card != null: card_height = card.custom_minimum_size.y; card_width = card.custom_minimum_size.x
+			break
+	report(card_height==UiTokens.metric("components.vehicle_card.height",96.0), "vehicle cards use the token height (%.0f)" % card_height)
+	report(card_width==UiTokens.metric("components.vehicle_card.width",216.0), "vehicle cards use the token width (%.0f)" % card_width)
 
 	# --- real-input page switching, twice (repeat enter/exit record) -------------------------------------
 	var tab_loadout := by_id(g,"garage.tab.loadout")

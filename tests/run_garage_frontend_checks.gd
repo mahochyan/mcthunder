@@ -50,11 +50,37 @@ func run() -> void:
 	check(g.profile.snapshot()==initial,"navigation and preview do not write profile or award progress")
 	g.frontend.deploy.grab_focus(); await frames()
 	check(root.gui_get_focus_owner()==g.frontend.deploy,"primary action has keyboard focus")
-	for dimensions in [Vector2i(1280,720),Vector2i(1920,1080)]:
-		root.size=dimensions; await frames()
-		check(Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(g.frontend.deploy.get_global_rect()),"deployment action stays in viewport: "+str(dimensions))
-		for card in g.frontend.cards: check(Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(card.get_global_rect()),"vehicle card stays in viewport")
-		await capture("04_deployment_"+str(dimensions.x))
+	# WT-UI-004 first-batch evidence: 1280x720 and 1920x1080 at both 100% and 125%. The scale is applied through the
+	# same mechanism the settings panel uses - the static value plus AccessibilitySettings.apply(), which rescales
+	# every node carrying hud_font_size - and the theme is rebuilt at the new scale. Fonts are never shrunk to make
+	# content fit; the token card size and the scrollable row carry the layout instead.
+	for scale_value in [1.0,1.25]:
+		AccessibilitySettings.ui_scale = scale_value
+		g.theme = GarageTheme.theme()
+		AccessibilitySettings.apply(g)
+		await frames()
+		for dimensions in [Vector2i(1280,720),Vector2i(1920,1080)]:
+			root.size=dimensions; await frames()
+			var label := "%dx%d@%d%%" % [dimensions.x,dimensions.y,roundi(scale_value*100.0)]
+			check(Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(g.frontend.deploy.get_global_rect()),"deployment action stays in viewport: "+label)
+			# WT-UI-004: the design token fixes the vehicle card at 216x96 and allows horizontal scrolling when the row
+			# does not fit, so a card must be either inside the viewport or inside a row that really scrolls sideways -
+			# a card pushed outside any scroll container still fails here. The selected card must be inside the
+			# viewport, because the frontend scrolls it into view.
+			for card in g.frontend.cards:
+				var card_rect := card.get_global_rect()
+				var on_screen := Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(card_rect)
+				var reachable := false
+				var walker: Node = card
+				while walker != null:
+					if walker is ScrollContainer and (walker as ScrollContainer).horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED: reachable = true
+					walker = walker.get_parent()
+				check(on_screen or reachable,"vehicle card is on screen or reachable by its row's own horizontal scroll: "+label)
+			check(Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(g.frontend.cards[g.vehicle_choice.selected].get_global_rect()),"the selected vehicle card is scrolled into view: "+label)
+			await capture("04_deployment_%dx%d_%d" % [dimensions.x,dimensions.y,roundi(scale_value*100.0)])
+	AccessibilitySettings.ui_scale = 1.0
+	g.theme = GarageTheme.theme()
+	AccessibilitySettings.apply(g)
 	g.free(); await frames()
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failed])
 	print("GARAGE_FRONTEND_CHECKS_PASS" if failed==0 else "GARAGE_FRONTEND_CHECKS_FAIL")
