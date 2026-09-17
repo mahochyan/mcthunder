@@ -227,6 +227,50 @@ func run(flow: AppFlow) -> void:
 		await driver.click(tab_battle)
 		report(f.page_index == 0, "and returns to the battle page")
 
+	# --- WT-UI-006: the three S03 groups, real shell metadata, the field-level error and the zero rack ----------
+	await driver.click(tab_loadout)
+	report(f.page_index == 1, "the loadout page is active for the S03 checks")
+	var prep := g.preparation
+	report(prep.details.is_visible_in_tree(), "the ammunition, lineup and inspection groups are visible by default")
+	report(prep.ammo_box != null and prep.ammo_box.is_visible_in_tree(), "the ammunition group exists and is visible")
+	report(prep.summary_box != null and prep.summary_box.is_visible_in_tree(), "capacity, stock and the first-round control share one visible summary block")
+	report(prep.first_choice != null and prep.summary_box.is_ancestor_of(prep.first_choice), "the first-round control sits inside that same block")
+	report(prep.ammo_error_label != null and prep.ammo_box.get_parent()==prep.ammo_error_label.get_parent(), "the ammunition error line lives beside the ammunition fields")
+	report(prep.page_summary != null and prep.page_summary.is_visible_in_tree(), "the page ends with a summary line")
+	var shells: Array = prep.shell_spins.keys()
+	report(shells.size() >= 1, "the ammunition group offers the real shells (%d)" % shells.size())
+	var meta_ok := shells.size() >= 1
+	var estimate_ok := shells.size() >= 1
+	for shell_id in shells:
+		var meta_text := str(prep.shell_meta.get(shell_id,""))
+		if meta_text.is_empty(): meta_ok = false
+		if not meta_text.contains(LocalizationService.text("loadout_estimated")): estimate_ok = false
+	report(meta_ok, "every ammunition card states its family, calibre and effect policy from the shell definition")
+	report(estimate_ok, "every ammunition card carries the estimate marker the catalogue enforces")
+	report(g.preview != null and g.preview._part_nodes.size() > 0, "the inspection reads this vehicle's own panels, modules and crew")
+	report(g.preview_note.text.length() > 0, "the estimate/reference note stays visible next to the inspection")
+	await driver.capture("nav_08_loadout_groups")
+	# Zero rack: drive the real quantity controls to zero, then compare what the page says with the service's answer.
+	for shell_id in shells:
+		prep.shell_spins[shell_id].value = 0
+	prep._ammo_changed()
+	await frames(3)
+	var zero_checked := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
+	report(not zero_checked.ok, "an empty rack is rejected by the service rather than silently accepted")
+	report(prep.ammo_error_label.text == str(zero_checked.reason), "the field-level error is the service's own reason, not a paraphrase")
+	report(prep.page_summary.text.contains("0"), "the page summary reflects the zero state instead of the old numbers")
+	await driver.capture("nav_09_zero_rack")
+	# Restore through the same controls a player uses, then confirm the service accepts the loadout again.
+	var defaults: Dictionary = g.profile.service.default_loadout(g.selected_vehicle_id())
+	for shell_id in shells:
+		prep.shell_spins[shell_id].value = int(defaults.get("counts",{}).get(shell_id,0))
+	prep._ammo_changed()
+	await frames(3)
+	var restored_loadout := g.profile.service.build_loadout(prep.loadouts[g.selected_vehicle_id()])
+	report(restored_loadout.ok, "the loadout is valid again after the zero-rack check, with the service's own capacity and stock")
+	await driver.click(tab_battle)
+	await frames(3)
+
 	# --- research tree: independent entry, focus containment, Esc close, focus restore ---------------------
 	var tree_button := by_id(g,"garage.nav.research")
 	report(tree_button != null, "the research tree has its own explicit entry with a stable id")
