@@ -9,7 +9,7 @@
 
 ## 同条件短对照
 
-`tests/diagnose_river_entry_traffic.gd` 使用真实河谷几何、两款生产 Actor、共享物理调度、正常团队 AI 的持续目标策略。只配置初始位置，不瞬移或直接写入行驶速度。默认执行 120 s 场景及 4 项断言；`--driver-only --diagnose-only` 可单独观察底层驾驶器。
+`tests/run_river_entry_traffic_checks.gd`（早期诊断名 `diagnose_river_entry_traffic.gd`）使用真实河谷几何、两款生产 Actor、共享物理调度、正常团队 AI 的持续目标策略。只配置初始位置，不瞬移或直接写入行驶速度。默认执行 120 s 场景及 4 项断言；`--driver-only --diagnose-only` 可单独观察底层驾驶器。
 
 - `logs/WT040-progress/entry-baseline-team.json`：通过固定 Godot 的脚本入口，在 `8a09c995` 构建干净源码目录执行同一新夹具，资源根路径和驾驶器字节哈希写入记录；原代码 120 s 仍在原位，重规划计数 30/47。该次尚为 3 项版断言，其中 2 项失败。
 - `entry-check.json`：仅首路点恢复时，两车均离开堵点、豹到达原入口，但 T-80 仍沿旧封路形成长绕行。
@@ -32,3 +32,5 @@
 - `-- --verify-modern-life`：明确标注的平地交战夹具，脚本敌方炮手用正常武器发射；同玩家生命接触/毁伤/致死/扣票/等待/真实点击/保持车型与配弹。所有证据写入隔离 user 路径。源窗口入口 **9 项通过**，日志 `modern-life-entry.log`，事件和截图在 `modern-life-entry-userdata/Godot/app_userdata/PixelArmor/tests/modern_live_round/`。
 
 两入口都采用独立存档，不加载或覆盖正常玩家档。仍不是“正常规则完整现代河谷玩家流程”；自然完整对局、包内完整流程与真人验收分别保留。新代码尚需进入新的干净内部包并直接执行上述入口，旧 `8a09c995` 包不含这些入口或本轮 AI 修复。
+
+首次 `9c4b69e8` 构建在干净导入后被现有套件名称检查拒绝（新增诊断名没有 `run_` 前缀），未生成候选；`20260917-121228-452` 目录保留。将该夹具改为上述标准套件名，保留构建校验规则后重建。包内窗口驱动为 `tests/run_modern_package_checks.ps1`，按实际 BUILD_MANIFEST 校验源码身份、隔离存档和工作目录、检查退出码/标记/截图及包前后哈希；两分项均不宣称完整自然玩家对局通过。

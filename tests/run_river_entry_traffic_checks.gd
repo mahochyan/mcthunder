@@ -1,5 +1,5 @@
 extends SceneTree
-## Reproduction at the actual river road coordinates of the recorded A/A2 jam.
+## Regression at the actual river road coordinates of the recorded A/A2 jam.
 ## Initial fixture positions only; all subsequent movement uses ordinary commands.
 var actors: Array[VehicleActor]=[]
 var drivers: Array[AIPathDriver]=[]
