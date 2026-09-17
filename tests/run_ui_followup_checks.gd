@@ -61,6 +61,28 @@ func _run() -> void:
 	check(secondary_on_surface >= high_contrast, "secondary text also clears the high-contrast body target (%.2f >= %.1f)" % [secondary_on_surface,high_contrast])
 	print("  note: this build has no separate high-contrast palette; the accessibility setting affects the minimap only")
 
+	# Design geometry: the spacing scale, the one-pixel button border, the two-pixel focus frame, the corner range and
+	# the panel padding - and then the same numbers read back out of the theme's own styleboxes, so this proves the
+	# tokens reach the widgets rather than only that the file says so.
+	check(UiTokens.metric("components.border",0.0) == 1.0, "the button border token is one pixel (%s)" % str(UiTokens.metric("components.border",0.0)))
+	check(UiTokens.metric("components.focus_border",0.0) == 2.0, "the focus frame token is two pixels (%s)" % str(UiTokens.metric("components.focus_border",0.0)))
+	var radius := UiTokens.metric("components.radius",0.0)
+	check(radius >= 2.0 and radius <= 4.0, "corners stay inside the design's 2-4 range (%s)" % str(radius))
+	check(UiTokens.metric("components.panel_padding",0.0) == 16.0, "a regular panel's padding is the design's sixteen (%s)" % str(UiTokens.metric("components.panel_padding",0.0)))
+	check(UiTokens.metric("components.primary_button_min_height",0.0) >= 48.0, "the main action never falls below the design's forty-eight (%s)" % str(UiTokens.metric("components.primary_button_min_height",0.0)))
+	# The hit-box token is a pair, so it is read with metric_array rather than metric - which only takes a float.
+	var hitbox := UiTokens.metric_array("components.icon_hitbox_min",[])
+	check(hitbox.size() == 2 and float(hitbox[0]) >= 40.0 and float(hitbox[1]) >= 40.0, "icon hit boxes keep the design's minimum target size (%s)" % str(hitbox))
+	for entry in [["layouts.wide.gap",24.0],["layouts.standard.gap",16.0],["layouts.compact.gap",12.0],["layouts.wide.outer_margin",32.0],["layouts.compact.sidebar",296.0],["layouts.wide.sidebar",344.0]]:
+		var spacing_value := UiTokens.metric(str(entry[0]),-1.0)
+		check(is_equal_approx(spacing_value,float(entry[1])), "the token %s carries the design's own value (%s vs %s)" % [str(entry[0]),str(spacing_value),str(entry[1])])
+	check(UiTokens.color("focus","#E0B46A") == UiTokens.color("accent","#E0B46A"), "focus and accent are the same value, as the colour ruling requires")
+	var theme := GarageTheme.theme()
+	var button_normal := theme.get_stylebox("normal","Button") as StyleBoxFlat
+	check(button_normal != null and button_normal.border_width_left == int(UiTokens.metric("components.border",1.0)), "the theme's button really carries that border width")
+	var focus_box := theme.get_stylebox("focus","Button") as StyleBoxFlat
+	check(focus_box != null and focus_box.border_width_left == int(UiTokens.metric("components.focus_border",2.0)) and focus_box.border_color == UiTokens.color("focus","#E0B46A"), "the theme's focus frame really is two pixels of the focus token")
+
 	# Settings persistence through the real service, on an isolated path.
 	var options_path := "user://tests/ui_followup_%d/options.json" % Time.get_ticks_usec()
 	InputBindingService.initialized = false
