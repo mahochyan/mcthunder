@@ -75,4 +75,16 @@ $env:APPDATA = 'E:/AIprogram/mcthunder-cont/logs/WT040-progress/new-run-userdata
 
 `499dcde4` 包包含上述炮塔坐标缺陷；修正需另建新包。历史流程 96 项不替代现代完整流程。现代河谷通行、正常整局与包内现代完整玩家流程仍是未完成出口条件。
 
-总体状态仍为“现代河谷集成交付进行中”。真人 PENDING，性能 HOLD_BY_USER，release_ready=false，public_release=false。
+## 修正后的内部包：8a09c995
+
+实际源码 `8a09c99501b502dc33fb9b216872fc54419f22fb` 已独立构建，包含炮塔坐标修正及两个现代包。产物：`backups/builds/031/8a09c99501b502dc33fb9b216872fc54419f22fb/20260917-114933-797/PixelArmor-1.0.0-rc.3-dev-Windows-x64-8a09c995-devcandidate.zip`。
+
+- ZIP SHA256：`5E3BA7717D4E3CCAAD2EEFCE82A3C24FE89708A54D759A84A92B0A2D8A432A0C`。
+- BUILD_MANIFEST SHA256：`C2CD8C09B200D1A82014843671D87F4CB91717479EFE85FD7D31B0F141ED9D6A`。
+- 干净源码相关回归 8 套件、494 项、0 失败，实际退出码均为 0，无已知失败豁免触发。历史车辆 192 项在标准构建检查中通过。此为限定回归，不是全套产品门禁。
+- 独立默认启动通过，必需现代内容无窗口 58 项、窗口 59 项通过。证据 `logs/031/8a09c99501b502dc33fb9b216872fc54419f22fb/build-20260917-114933-797/`。
+- 清单保持 `modern_river_required=true`、`full_player_flow=PENDING_SEPARATE_VERIFICATION`、`release_ready=false`。
+
+随后尝试用外置脚本直接检查导出程序的现代前端，未成功，不计入验收：`package-modern-garage-20260917-115302` 被官方模板拒绝 `--main-pack` 路径覆盖；`package-modern-garage-20260917-115314` 去掉该参数后未产生测试标记或截图，由执行端终止自己的 PID 7016，退出 -1。没有改编引擎或覆盖包，EXE/PCK 哈希前后一致。下一步应使用包内明确的诊断入口验证现代流程，不能将外置源码脚本视为包内成功证据。
+
+总体状态仍为“现代河谷集成交付进行中”。真人 PENDING，性能 HOLD_BY_USER，release_ready=false，public_release=false。地图只保留 A/B/C 三点；当前实际运行仍为 4v4，10v10/16v16 是布局目标，容量尚未验收。
