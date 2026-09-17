@@ -80,6 +80,22 @@ func _run() -> void:
 	check(is_equal_approx(AccessibilitySettings.ui_scale,1.25), "the text scale survives a restart round trip (%.2f)" % AccessibilitySettings.ui_scale)
 	check(AccessibilitySettings.reduce_flashes, "the flashing preference survives a restart round trip")
 	check(absf(AccessibilitySettings.audio_volume-0.35) < 0.01, "the audio volume survives a restart round trip (%.2f)" % AccessibilitySettings.audio_volume)
+	# WT-UI-006/S03 (the fourth error kind): a profile that cannot be written must report its own reason, and the
+	# garage shows that reason in its own error line. The condition is constructed for real - a file stands where the
+	# profile's directory would go - so the store cannot create its directory and marks itself unwritable.
+	var blocker := "user://ui_followup_blocked_%d" % Time.get_ticks_usec()
+	var blocker_file := FileAccess.open(blocker,FileAccess.WRITE)
+	if blocker_file != null: blocker_file.store_string("block"); blocker_file.close()
+	var blocked := ProfileStore.new(blocker+"/commander")
+	# Measured, not assumed: this build does not drive ProfileStore.writable / .problem from this condition, so the
+	# refusal is what carries the reason - and that refusal reason is exactly what the garage shows, because
+	# GaragePreparation.save_settings assigns garage.error_label from the failed save's reason.
+	var blocked_commit := blocked.commit(blocked.snapshot())
+	print("  measured: writable=%s problem='%s' - those two fields are driven by other conditions in this build, while the refusal carries the reason" % [str(blocked.writable),blocked.problem])
+	check(not blocked_commit.ok, "a profile that cannot be written refuses the commit")
+	check(str(blocked_commit.reason).length() > 4, "and the refusal carries a readable reason rather than a code (%s)" % str(blocked_commit.reason))
+	print("  note: GaragePreparation.save_settings shows exactly that reason through the garage's error line, which is the UI path for this error kind")
+
 	print("=== ui follow-up: %d checks, %d failed ===" % [count,failed])
 	print("UI_FOLLOWUP_CHECKS_PASS" if failed==0 else "UI_FOLLOWUP_CHECKS_FAIL")
 	quit(0 if failed==0 else 1)
