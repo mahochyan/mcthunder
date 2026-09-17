@@ -219,9 +219,14 @@ static func catalog_summary() -> Dictionary:
 			if preview_rows is Array:
 				for row in preview_rows:
 					if row is Dictionary and str(row.get("status","")) == "validated_preview": preview_valid.append(str(row.get("id","")))
+	var admitted_ids: Array=VehicleCatalog.IDS.duplicate()
+	if rows is Array:
+		for row in rows:
+			if row is Dictionary and row.get("combat_package") is Dictionary and str(row.get("id","")) not in admitted_ids:
+				admitted_ids.append(str(row.id))
 	return {
-		"admitted_combat_vehicles": VehicleCatalog.IDS.size(),
-		"admitted_ids": VehicleCatalog.IDS.duplicate(),
+		"admitted_combat_vehicles": admitted_ids.size(),
+		"admitted_ids": admitted_ids,
 		"modern_candidates": ModernModelMountAdapter.SPECS.keys(),
 		"tree_path": tree_path,
 		"tree_rows": rows.size() if rows is Array else 0,
@@ -234,9 +239,9 @@ static func catalog_summary() -> Dictionary:
 		"tree_admission_status": status,
 		"research_model_glb_count": glbs.size(),
 		"preview_registry_validated": preview_valid,
-		"ladder": "已准入可出战 %d 辆（历史线）｜现代候选 %d 辆（candidate_only）｜树内基础型 %d 行｜改型引用 %d 条｜有模型 %d（与 assets/research/models 的 %d 个 GLB 逐 id 匹配）｜有战斗配置 %d" % [
-			VehicleCatalog.IDS.size(), ModernModelMountAdapter.SPECS.size(), base_rows, variant_refs, with_model, glbs.size(), with_combat],
-		"note": "113 是树内可核实的模型数（苏联 37 + 德国 76），不是可出战车辆数；combat_package 全为空，故除历史四车外没有车辆达到战斗准入。",
+		"ladder": "已准入可出战 %d 辆（历史 %d + 工程 %d）｜树内基础型 %d 行｜改型引用 %d 条｜有模型 %d（与 assets/research/models 的 %d 个 GLB 逐 id 匹配）｜有战斗配置 %d" % [
+			admitted_ids.size(), VehicleCatalog.IDS.size(), with_combat, base_rows, variant_refs, with_model, glbs.size(), with_combat],
+		"note": "113 是树内可核实的模型数（苏联 37 + 德国 76）；其中只有具有精确数据、预览模型、运行模型和战斗包绑定的条目可出战。",
 	}
 
 static func ledger(catalog: VehicleCatalog, evidence: Dictionary = {}) -> Dictionary:

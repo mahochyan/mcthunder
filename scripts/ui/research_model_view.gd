@@ -43,7 +43,16 @@ func show_vehicle(row: Dictionary) -> bool:
 	if is_instance_valid(model): model.free()
 	model=null; model_id=""
 	if not row.get("model") is Dictionary: return false
-	var bytes := FileAccess.get_file_as_bytes(row.model.path)
+	# A combat-linked row previews the exact runtime model used by its packet. Static
+	# rows continue to show the reviewed research snapshot. Both paths remain hash-bound.
+	var model_record: Dictionary=row.model
+	if row.get("combat_package") is Dictionary and row.combat_package.get("runtime_model") is Dictionary:
+		model_record=row.combat_package.runtime_model
+	var path := str(model_record.get("path",""))
+	var expected_sha := str(model_record.get("sha256",""))
+	if path.is_empty() or expected_sha.is_empty() or not FileAccess.file_exists(path): return false
+	if FileAccess.get_sha256(path)!=expected_sha: return false
+	var bytes := FileAccess.get_file_as_bytes(path)
 	if bytes.is_empty(): return false
 	var document := GLTFDocument.new(); var state := GLTFState.new()
 	if document.append_from_buffer(bytes,"",state)!=OK: return false

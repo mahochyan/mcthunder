@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "bindings": [
+    {
+      "vehicle_id": "ussr_t_80b",
+      "package_path": "res://configs/vehicles/engineering/ussr_t_80b.json",
+      "runtime_model_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb"
+    },
+    {
+      "vehicle_id": "germ_leopard_2a4",
+      "package_path": "res://configs/vehicles/engineering/germ_leopard_2a4.json",
+      "runtime_model_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb"
+    }
+  ]
+}

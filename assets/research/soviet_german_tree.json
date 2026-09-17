@@ -2953,12 +2953,29 @@
         "visual_status": "PASS",
         "status": "reviewed_static_model",
         "human_accepted": false,
-        "combat_admitted": false,
+        "combat_admitted": true,
         "triangles": 12790,
         "hash_bound_to_review": true
       },
       "order": 13,
-      "combat_package": null,
+      "combat_package": {
+        "vehicle_id": "ussr_t_80b",
+        "path": "res://configs/vehicles/engineering/ussr_t_80b.json",
+        "sha256": "feaf38c1b382e60fefc4ff6733132d472471aa46c01f66fb3150fae3a6613124",
+        "evidence_profile": "game_reference",
+        "source_data": {
+          "vehicle_id": "ussr_t_80b",
+          "sha256": "97947ab4a1cfa8924e1ad63bf874507968732f72fb699c9c139e9ec2ba1813a9"
+        },
+        "preview_model": {
+          "path": "res://assets/research/models/ussr_t_80b.glb",
+          "sha256": "05c48f76859d7b072a863262d389bf5d49e44129082db4b21cee4c7c473aca8d"
+        },
+        "runtime_model": {
+          "path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+          "sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5"
+        }
+      },
       "base_model": true,
       "family": "t_80_mbt",
       "base_id": "ussr_t_80b",
@@ -3009,7 +3026,7 @@
           "source_sha256": "7efd0f9286cad64aa6604858414882821ce4c618fd90df672c6ed733eda322b0"
         }
       ],
-      "admission_status": "static_preview_only"
+      "admission_status": "combat_engineering"
     },
     {
       "id": "ussr_t_90a",
@@ -4392,12 +4409,29 @@
         "visual_status": "PASS",
         "status": "reviewed_static_model",
         "human_accepted": false,
-        "combat_admitted": false,
+        "combat_admitted": true,
         "triangles": 13540,
         "hash_bound_to_review": false
       },
       "order": 9,
-      "combat_package": null,
+      "combat_package": {
+        "vehicle_id": "germ_leopard_2a4",
+        "path": "res://configs/vehicles/engineering/germ_leopard_2a4.json",
+        "sha256": "7dad51880202c8870128873b8ebcb5b052617f57756279b25e7d65081bef9812",
+        "evidence_profile": "game_reference",
+        "source_data": {
+          "vehicle_id": "germ_leopard_2a4",
+          "sha256": "fae1dc60e29f4811c31098613e938bae7671f5434db19eaf7a91d3816e806a6b"
+        },
+        "preview_model": {
+          "path": "res://assets/research/models/germ_leopard_2a4.glb",
+          "sha256": "4e7a35151a6452a8b5db738f42b729765107fc06980cd1262bce5cbe08e8bd88"
+        },
+        "runtime_model": {
+          "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+          "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2"
+        }
+      },
       "base_model": true,
       "family": "豹2",
       "base_id": "germ_leopard_2a4",
@@ -4463,7 +4497,7 @@
           "source_sha256": "2066b4a547440c2d45bdc7e9b2fcad93fcfe470770990ab3d0a69f1059b051ed"
         }
       ],
-      "admission_status": "static_preview_only"
+      "admission_status": "combat_engineering"
     },
     {
       "id": "germ_leopard_I",
@@ -12068,5 +12102,17 @@
       "id": "germ_at_gun_pak40",
       "reason": "non_vehicle_reference"
     }
-  ]
+  ],
+  "alignment": {
+    "schema_version": 1,
+    "binding_manifest": "res://authoring/reference_data/research_combat_bindings.json",
+    "data_rows": 212,
+    "reviewed_models": 113,
+    "combat_bindings": 2,
+    "bound_ids": [
+      "germ_leopard_2a4",
+      "ussr_t_80b"
+    ],
+    "set_policy": "exact_id_no_alias_no_missing_no_extra"
+  }
 }

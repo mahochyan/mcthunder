@@ -127,7 +127,10 @@ func rebuild() -> void:
 			else:
 				var pending := GarageTheme.text(button,"—",30,Color("425158")); pending.position=Vector2(91,15); pending.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			var title := GarageTheme.text(button,row.label,15); title.position=Vector2(12,91); title.size.x=184; title.clip_text=true; title.mouse_filter=Control.MOUSE_FILTER_IGNORE
-			var state := GarageTheme.text(button,"外观试驾  ↗" if row.model is Dictionary else "等待模型",12,GarageTheme.ACCENT if row.model is Dictionary else GarageTheme.MUTED); state.position=Vector2(12,115); state.mouse_filter=Control.MOUSE_FILTER_IGNORE
+			var state_text := "等待模型"
+			if row.get("combat_package") is Dictionary: state_text="可出战  ✓"
+			elif row.model is Dictionary: state_text="外观试驾  ↗"
+			var state := GarageTheme.text(button,state_text,12,GarageTheme.ACCENT if row.model is Dictionary else GarageTheme.MUTED); state.position=Vector2(12,115); state.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			button.tooltip_text="%s\n基础型：%s\n改型参考：%d 项"%[row.label,id,row.variant_refs.size()]
 			tree_nodes[id]=button
 			if index>0: graph.edges.append([Vector2(x+104,52+(index-1)*168+140),Vector2(x+104,52+index*168)])
@@ -154,10 +157,12 @@ func select_vehicle(id: String) -> void:
 		variants_button.text="改型参考  ·  %d 项   ▾"%row.variant_refs.size()
 		for variant in row.variant_refs: variants_label.text+="\n· "+str(variant.label)
 	status_label.text="模型已就绪 · 战斗配置待完成" if loaded else "模型制作中 · 暂未开放试驾"
+	if loaded and row.get("combat_package") is Dictionary: status_label.text="缓存数据 · 运行模型 · 战斗配置已按车型 ID 对齐"
 	if row.model is Dictionary and not loaded: status_label.text="模型加载失败 · 暂不可用"
 	test_button.disabled=not loaded
 	# Availability remains tied to a real, admitted packet; static models cannot bypass it.
-	select_button.disabled=not garage.profile.service.has_vehicle(id) or id not in garage.profile.snapshot().unlocked
+	var accessible: bool=VehicleCatalog.is_engineering(id) or id in garage.profile.snapshot().unlocked
+	select_button.disabled=not garage.profile.service.has_vehicle(id) or not accessible
 	select_button.tooltip_text="该车型的武器、装甲与战损接入完成后开放。" if select_button.disabled else "进入车辆配装"
 	for key in tree_nodes: tree_nodes[key].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if key==id else Color("182126"),GarageTheme.ACCENT if key==id else Color("39484c"),12))
 

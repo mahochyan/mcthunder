@@ -33,10 +33,11 @@ class ResearchCatalogChecks(unittest.TestCase):
     def test_exact_source_hashes(self):
         index = json.loads((ROOT/'assets/reference_data/index.json').read_text(encoding='utf-8'))
         entries = {r['vehicle_id']:r for r in index['entries']}
+        bound = set(C['alignment']['bound_ids'])
         for row in C['cache_entries']:
             self.assertEqual(row['source_sha256'], entries[row['id']]['sha256'])
         for row in ROWS.values():
-            self.assertIsNone(row['combat_package'])
+            self.assertEqual(row['combat_package'] is not None, row['id'] in bound)
             self.assertFalse(row['historical_verified'])
             self.assertIsNone(row['rank'])
             self.assertIsNone(row['battle_rating'])
@@ -50,7 +51,7 @@ class ResearchCatalogChecks(unittest.TestCase):
             model = ROWS[identity]['model']
             raw = (ROOT/model['path'].removeprefix('res://')).read_bytes()
             self.assertEqual(hashlib.sha256(raw).hexdigest(), model['sha256'])
-            self.assertFalse(model['combat_admitted'])
+            self.assertEqual(model['combat_admitted'], identity in set(C['alignment']['bound_ids']))
             magic, version, length = struct.unpack_from('<III', raw)
             self.assertEqual((magic, version, length), (0x46546c67, 2, len(raw)))
             json_length = struct.unpack_from('<I', raw, 12)[0]
@@ -60,6 +61,25 @@ class ResearchCatalogChecks(unittest.TestCase):
             thumb = thumbnails[identity]
             self.assertEqual(thumb['model_sha256'], model['sha256'])
             self.assertTrue((ROOT/thumb['path'].removeprefix('res://')).read_bytes().startswith(b'\x89PNG\r\n\x1a\n'))
+
+    def test_exact_combat_bindings(self):
+        intent = json.loads((ROOT/'authoring/reference_data/research_combat_bindings.json').read_text(encoding='utf-8'))
+        expected = {row['vehicle_id'] for row in intent['bindings']}
+        actual = {row['id'] for row in ROWS.values() if row['combat_package'] is not None}
+        self.assertEqual(expected, actual)
+        self.assertEqual(actual, {'ussr_t_80b', 'germ_leopard_2a4'})
+        self.assertEqual(C['alignment']['set_policy'], 'exact_id_no_alias_no_missing_no_extra')
+        for vehicle_id in actual:
+            link = ROWS[vehicle_id]['combat_package']
+            packet_path = ROOT/link['path'].removeprefix('res://')
+            runtime_path = ROOT/link['runtime_model']['path'].removeprefix('res://')
+            packet = json.loads(packet_path.read_text(encoding='utf-8'))
+            self.assertEqual(packet['id'], vehicle_id)
+            self.assertEqual(packet['source_binding']['source_vehicle_id'], vehicle_id)
+            self.assertEqual(packet['model_binding']['vehicle_id'], vehicle_id)
+            self.assertEqual(packet['model_binding']['model']['source_vehicle_id'], vehicle_id)
+            self.assertEqual(hashlib.sha256(packet_path.read_bytes()).hexdigest(), link['sha256'])
+            self.assertEqual(hashlib.sha256(runtime_path.read_bytes()).hexdigest(), link['runtime_model']['sha256'])
 
 if __name__ == '__main__':
     unittest.main()

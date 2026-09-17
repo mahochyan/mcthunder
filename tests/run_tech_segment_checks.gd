@@ -39,14 +39,14 @@ func _run() -> void:
 	_check(not overlap,"no field is both a fact and a tuning value")
 	_check(TechSegment.facts_of("ussr_t_80b").ready_rounds == LoadingMechanism.VEHICLES.ussr_t_80b.ready,"the recorded rack facts match the loading mechanism definition")
 	_check(TechSegment.facts_of("germ_leopard_2a4").reserve_rounds == LoadingMechanism.VEHICLES.germ_leopard_2a4.reserve,"the second pilot's facts match its mechanism as well")
-	_check(not bool(TechSegment.facts_of("ussr_t_80b").combat_admitted) and not bool(TechSegment.facts_of("germ_leopard_2a4").combat_admitted),"both pilots are recorded as not combat admitted")
+	_check(bool(TechSegment.facts_of("ussr_t_80b").combat_admitted) and bool(TechSegment.facts_of("germ_leopard_2a4").combat_admitted),"both pilots are recorded as internal engineering combat vehicles")
 	# --- 3. promotion is refused while blockers stand ---
 	var blocked := TechSegment.promote("us_m1a1_abrams","first_release")
 	_check(not blocked.ok and str(blocked.reason) == "blockers_remain","a deferred vehicle cannot be promoted while blockers stand")
 	_check(blocked.blockers.has("no_reference_entry_in_content_tree") and blocked.blockers.has("packet_has_no_model_binding"),"its blockers are named, including the missing packet binding")
 	_check(TechSegment.blockers_of("cn_ztz_99a").has("packet_has_no_model_binding") and not TechSegment.blockers_of("cn_ztz_99a").has("no_model_in_repository"),"the ZTZ blocker was corrected: it has a model and lacks a reference entry and binding")
-	var not_admitted := TechSegment.promote("ussr_t_80b","first_release")
-	_check(not not_admitted.ok and str(not_admitted.reason) == "not_combat_admitted","a pilot is not promoted into the combat pool without admission")
+	var not_public := TechSegment.promote("ussr_t_80b","first_release")
+	_check(not not_public.ok and str(not_public.reason) == "experience_gate_pending","engineering admission does not bypass the pending public experience gate")
 	_check(TechSegment.promote("ussr_t_80b","experimental").ok,"a pilot may stay in the experimental pool")
 	_check(str(TechSegment.promote("ussr_t_80b","ranked").reason) == "unknown_pool","an unknown pool is refused")
 	# --- 4. capability differences and their counters ---

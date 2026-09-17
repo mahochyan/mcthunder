@@ -7,10 +7,10 @@ extends RefCounted
 ##    reference entry anywhere.
 ##  * `assets/vehicles/m1a1/m1a1.glb` exists as an isolated LOD study that was never
 ##    integrated into the game asset library, so M1A1 has assets but no reference entry.
-##  * the two pilots (`ussr_t_80b`, `germ_leopard_2a4`) have reference entries and frozen
-##    models, but neither is combat-admitted.
-## Therefore the first-release combat pool stays the four admitted historical vehicles, the
-## modern pilots sit in an explicitly experimental pool, and M1A1/ZTZ-99A are deferred with
+##  * the two pilots (`ussr_t_80b`, `germ_leopard_2a4`) now have exact data/model/runtime
+##    packet bindings and are admitted to the internal engineering battle.
+## Therefore the public first-release pool stays the four historical vehicles while the
+## modern combat vehicles remain in an explicitly experimental pool, and M1A1/ZTZ-99A are deferred with
 ## named blockers instead of being forced into a competitive segment.
 
 const SEGMENT_ID := "first_release_main"
@@ -31,10 +31,10 @@ const POOLS := {
 const FACTS := {
 	"ussr_t_80b":{"ready_rounds":28,"reserve_rounds":10,"crew":3,"has_loader":false,
 		"night_vision":true,"thermal":true,"reference_entry":"assets/reference_data/candidates/ussr_t_80b.json",
-		"model":"assets/research/models/ussr_t_80b.glb","combat_admitted":false},
+		"model":"assets/vehicles/modern_bound/ussr_t_80b.glb","combat_admitted":true},
 	"germ_leopard_2a4":{"ready_rounds":15,"reserve_rounds":27,"crew":4,"has_loader":true,
 		"night_vision":false,"thermal":true,"reference_entry":"assets/reference_data/candidates/germ_leopard_2a4.json",
-		"model":"assets/research/models/germ_leopard_2a4.glb","combat_admitted":false},
+		"model":"assets/vehicles/modern_bound/germ_leopard_2a4.glb","combat_admitted":true},
 	"us_m1a1_abrams":{"reference_entry":"","model":"assets/vehicles/m1a1/m1a1.glb","combat_admitted":false,
 		"note":"canonical GLB with import companion present; no reference entry and no packet model_binding"},
 	"cn_ztz_99a":{"reference_entry":"","model":"assets/vehicles/ztz99a/ztz99a_1000.glb","combat_admitted":false,
@@ -113,6 +113,8 @@ static func promote(vehicle_id: String, target_pool: String) -> Dictionary:
 		var facts := facts_of(vehicle_id)
 		if not bool(facts.get("combat_admitted",false)):
 			return {"ok":false,"reason":"not_combat_admitted","vehicle_id":vehicle_id}
+		if EXPERIENCE_GATE != "ACCEPTED":
+			return {"ok":false,"reason":"experience_gate_pending","vehicle_id":vehicle_id}
 	return {"ok":true,"vehicle_id":vehicle_id,"pool":target_pool}
 
 ## Must-have equipment present versus the deferred gaps, per experimental pilot.
