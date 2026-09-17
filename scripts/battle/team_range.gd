@@ -306,10 +306,10 @@ func vehicle_id_for_slot(id: String) -> String:
 			requested = VehicleCatalog.IDS[(ids.find(id)%4+VehicleCatalog.IDS.find(selected_vehicle_id))%4]
 		else:
 			requested = selected_vehicle_id
-		# The engineering scenario hook, when set, gives the opposing team the other modern type. It is applied
-		# AFTER the rotation decision and only for AI slots, and the readiness gate still decides whether that id
-		# may fight at all.
-		if not opposing_engineering_id.is_empty() and id != "A":
+		# Only the opposing TEAM receives the other modern type. A2/A3/A4 are
+		# also AI slots, but remain on the player's side. Use roster membership
+		# for both first deployment and rebuild; the readiness gate still applies.
+		if not opposing_engineering_id.is_empty() and director.state.roster.has(id) and director.state.roster[id].team != director.state.roster.A.team:
 			requested = opposing_engineering_id
 	# WT-031-R1: AI slots and respawn go through the same readiness gate as the player;
 	# a preview-only or unadmitted id can never reach the battlefield.
