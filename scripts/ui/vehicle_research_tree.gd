@@ -18,11 +18,15 @@ const DATA := "res://assets/research/soviet_german_tree.json"
 ## Branch display order and the localisation key for each data code.
 const BRANCHES := {"medium":"branch_medium", "heavy":"branch_heavy", "light":"branch_light", "destroyer":"branch_destroyer", "spaa":"branch_spaa", "other":"branch_other"}
 class GraphCanvas extends Control:
-	## Only real research prerequisites belong here. The catalogue data carries none, so this stays empty and the
-	## grid alone is decoration.
+	## Only real research prerequisites belong here. The catalogue data carries none, so this stays empty and nothing
+	## is drawn between cards.
+	##
+	## WT-UI-011 (S02): the faint vertical grid that used to be drawn here is gone. The design's first section
+	## forbids scanline decoration outright while a later section only permits non-interactive separators, and the
+	## grid carried no information, so satisfying the stricter clause removes the ambiguity instead of arguing it. The
+	## honest footnote below the tree still states that no research prerequisite line is drawn.
 	var edges: Array=[]
 	func _draw() -> void:
-		for x in range(0,int(size.x),32): draw_line(Vector2(x,0),Vector2(x,size.y),Color(0.35,0.45,0.48,0.06))
 		for edge in edges: draw_dashed_line(edge[0],edge[1],Color("46534f"),1,5)
 
 var garage: GarageShell
