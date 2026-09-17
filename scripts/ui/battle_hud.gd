@@ -223,20 +223,32 @@ func _build() -> void:
 	weapon_label = _label(gun_row,LocalizationService.text("ui_491169f99fb7"),20)
 	speed_label = _label(gun_row,"0 km/h",17)
 	speed_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	ammo_label = _label(gun,LocalizationService.text("ui_d80df5f8d545"),17)
-	# WT-UI-007 (S04): the four ammunition semantics get their own lines instead of one concatenated sentence.
-	chamber_label = _label(gun,"",17)
-	carrying_label = _label(gun,"",15)
-	next_label = _label(gun,"",15)
-	stock_label = _label(gun,"",15)
+	# WT-UI-007: the overview shares the weapon row instead of taking a line of its own, which keeps this panel
+	# inside the bottom band the token layout reserves (the four separate semantics below carry the detail).
+	ammo_label = _label(gun_row,LocalizationService.text("ui_d80df5f8d545"),15)
+	# WT-UI-007 (S04): the four ammunition semantics stay separate but compact - a two-column grid keeps each one
+	# clearly labelled while holding the panel inside the bottom band the token layout reserves for it.
+	var ammo_grid := GridContainer.new()
+	ammo_grid.columns = 2
+	ammo_grid.add_theme_constant_override("h_separation",12)
+	ammo_grid.add_theme_constant_override("v_separation",2)
+	ammo_grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	gun.add_child(ammo_grid)
+	chamber_label = _label(ammo_grid,"",16)
+	carrying_label = _label(ammo_grid,"",14)
+	next_label = _label(ammo_grid,"",14)
+	stock_label = _label(ammo_grid,"",14)
 	reload_bar = _bar(gun)
 	reason_label = _label(gun,"",15)
 	optics_label = _label(gun,"",15)
 	optics_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	optics_label.custom_minimum_size.x=300
-	fire_label = _label(gun,LocalizationService.text("ui_a9f80686bf4a"),16)
-	action_label = _label(gun,LocalizationService.text("ui_ae2b01ef58c0"),15)
-	action_bar = _bar(gun)
+	# WT-UI-007 (S05): the recovery actions belong to this vehicle, so they sit in the own-vehicle panel; the shot
+	# feedback stays with the weapon because it is a weapon result. This also keeps the centre-bottom panel inside
+	# the bottom band the token layout reserves, instead of growing up into the clear region.
+	fire_label = _label(own,LocalizationService.text("ui_a9f80686bf4a"),16)
+	action_label = _label(own,LocalizationService.text("ui_ae2b01ef58c0"),15)
+	action_bar = _bar(own)
 	feedback_label = _label(gun,"",14)
 	map_panel = _panel(bottom)
 	map_panel.size_flags_horizontal = Control.SIZE_SHRINK_END
