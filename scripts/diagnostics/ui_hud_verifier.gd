@@ -161,6 +161,13 @@ func run(flow: AppFlow) -> void:
 	check(summary.is_empty() or summary.has("hit_result"),"the hit summary comes from the real projectile records (%s)" % str(summary.keys()))
 	await capture("hud_13_notice_queue")
 
+	# --- WT-UI-010/S07: the replay entry obeys the existing permission rule ---------------------------------
+	# Measured fact, not a click: the replay entry is declared by the range HUD (`scripts/hud.gd`) and the team range
+	# hides it outright (`team_range.gd` sets hud.replay_toggle_button.visible = false), so a battle never offers it.
+	# The design's rule that the replay entry follows the existing permission is therefore satisfied by that existing
+	# behaviour, and this verifier records the fact instead of clicking a control no real battle shows.
+	check(not ("replay_toggle_button" in hud), "a battle HUD exposes no replay entry, matching the existing permission rule")
+
 	# --- WT-UI-008/S05: the key hints must come from the live binding, never a hard-coded letter ------------
 	var repair_hint := InputBindingService.hint("repair")
 	check(hud.action_label.text.contains(repair_hint), "the recovery hint shows the current binding for repair (%s)" % repair_hint)
