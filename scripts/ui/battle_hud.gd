@@ -20,6 +20,7 @@ var capture_fill: StyleBoxFlat
 var objective_strip: HBoxContainer
 var objective_cards: Array[Dictionary] = []
 var crew_label: Label
+var damage_diagram: VehicleDamageDiagram
 var module_grid: GridContainer
 var module_labels: Dictionary = {}
 var speed_label: Label
@@ -153,11 +154,14 @@ func _build() -> void:
 	bottom.add_theme_constant_override("separation",12)
 	stack.add_child(bottom)
 	own_panel = _panel(bottom)
+	own_panel.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	own_panel.size_flags_vertical = Control.SIZE_SHRINK_END
 	own_panel.custom_minimum_size.x = 330
 	own_panel.size_flags_stretch_ratio = 1.05
 	var own := _column(own_panel,7)
 	crew_label = _label(own,LocalizationService.text("ui_169d49f4accf"),18)
+	damage_diagram=VehicleDamageDiagram.new()
+	own.add_child(damage_diagram)
 	module_grid = GridContainer.new()
 	module_grid.columns = 2
 	module_grid.add_theme_constant_override("h_separation",12)
@@ -339,14 +343,17 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	for person in model.crew:
 		if not person.available: missing.append(person.name+LocalizationService.text("ui_7c0037eb0d6e"))
 	if not missing.is_empty(): crew_label.text += "\n"+" · ".join(missing)
+	for old_label in module_labels.values(): old_label.visible=false
+	var shown_damage := 0
 	for module in model.modules:
 		if not module_labels.has(module.id): module_labels[module.id] = _label(module_grid,"",14)
 		var label: Label = module_labels[module.id]
 		# Keep the driving view clear; damage appears immediately and the full
 		# component list remains available while the battle overview is open.
-		label.visible = module.fraction < 1.0 or scoreboard.visible
+		label.visible = scoreboard.visible or (module.fraction < 1.0 and shown_damage < 4)
+		if label.visible: shown_damage+=1
 		label.text = ("× " if module.fraction <= 0 else ("! " if module.fraction < 1 else "· "))+module.name+" "+module.status
-		label.modulate = Color("ffca80") if module.fraction < 1 else Color("d7e2dc")
+		label.modulate = Color("ff7365") if module.fraction <= 0 else VehicleDamageView.COLORS[VehicleDamageView.condition(module.fraction)]
 	drive_label.text = LocalizationService.text("ui_8642a98dce3b") if model.drive_text.is_empty() else LocalizationService.text("ui_2646035954a7")+model.drive_text
 	if model.destroyed: drive_label.text = LocalizationService.text("ui_21777ac7fa81")
 	speed_label.text = "%.0f km/h"%model.speed_kph

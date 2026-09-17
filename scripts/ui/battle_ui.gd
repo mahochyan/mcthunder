@@ -185,6 +185,7 @@ func _process(_delta: float) -> void:
 	if battle is TeamRange: protection = float(battle.director.state.roster.A.protection_left)
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var model := HUDPresenter.present(player(),match_info(),protection)
+	overlay.damage_diagram.observe(player(),_delta)
 	if player().gunner.inventory.typed:
 		var gun := player().gunner
 		model["next_shell"] = gun.shell_label(gun.inventory.selected_shell)
