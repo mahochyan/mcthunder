@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "work_order": "MCT-UI-FIELDWORK-01",
+  "item": "WT-UI-001",
+  "title": "UI binding map (existing classes only; no business logic copied)",
+  "source_sha": "a005b681bc157f32cee2dc45959f072f856c2460",
+  "branch": "work/ui-fieldwork-01",
+  "provenance": {
+    "how": "Read the current code at source_sha; every class path below was resolved by grep for its class_name.",
+    "design_inputs_used": ["UI设计单_阅读版.html (sections 01 视觉系统 / 02 逐屏规范 S01-S09 / 03 12 张 UI 工单)", "03_ALL_WORK_ORDERS.md", "06_NEXT_IMPLEMENTER_MESSAGE.txt"],
+    "design_inputs_missing": ["07_UI_TOKENS.json", "08_VIEW_CONTRACTS.json", "09_ACCEPTANCE_CASES.json", "10_WORK_ORDERS.json"],
+    "missing_note": "These four machine-readable files are named in the design document ('机器可读设计：07_UI_TOKENS.json、08_VIEW_CONTRACTS.json、09_ACCEPTANCE_CASES.json、10_WORK_ORDERS.json') but were not part of this transfer. Screen ids and layout expectations below therefore follow the readable design document, not those files.",
+    "ui_id_convention": "NEW. The project has no ui_id convention today: grep for 'ui_id' across scripts/ and tests/ returns nothing. The ui_id values listed here are proposals for WT-UI-003 and are NOT yet present in code, so nothing here should be read as an existing handle."
+  },
+  "screens": [
+    {
+      "ui_id": "screen.garage",
+      "spec_section": "S01",
+      "status": "existing",
+      "entry": "AppFlow.garage (scripts/core/app_flow.gd:3) built by GarageShell._ready (scripts/core/garage_shell.gd:43); presentation composed by GarageFrontend.compose (scripts/ui/garage_frontend.gd:31)",
+      "classes": ["GarageShell:scripts/core/garage_shell.gd", "GarageFrontend:scripts/ui/garage_frontend.gd", "GaragePreparation:scripts/garage/garage_preparation.gd", "GarageTheme:scripts/ui/garage_theme.gd", "CoreUI:scripts/core/core_ui.gd"],
+      "stable_refs_today": ["frontend.pages[0..2]", "frontend.tabs[0..2]", "frontend.cards[] (one per vehicle_choice item)", "frontend.deploy", "frontend.title|subtitle|stats", "frontend.tree_button", "frontend.show_page(i)", "garage.vehicle_choice", "garage.dossier_button", "garage.preparation", "garage.preparation.mode_choice|map_choice|map_note|difficulty_choice|settings_button|details|research_button|first_choice|shell_spins", "garage.preview", "garage.inspect_button", "garage.inspection_row", "garage.result_label", "garage.error_label", "garage.profile", "garage.catalog"],
+      "signals_today": ["GarageShell.training_requested(loadout,case_index)", "GarageShell.laboratory_requested(id)", "GarageShell.challenge_requested(id,difficulty)", "GarageShell.quit_requested", "GarageShell.tutorial_requested(chapter)", "GarageShell.progress_reset"],
+      "needs": ["fixed main-action zone with disable reason (S01)", "vehicle state labels: 可战斗/需研发/仅外观/工程候选未在当前包提供/配置错误/加载中/切换中 kept distinct (S01)", "bottom strip shows only current usable lineup slots + 更多车辆 entry, not all 113 models (S01)"]
+    },
+    {
+      "ui_id": "screen.research_tree",
+      "spec_section": "S02",
+      "status": "existing",
+      "entry": "GarageFrontend.open_research_tree (scripts/ui/garage_frontend.gd:165) via frontend.tree_button",
+      "classes": ["VehicleResearchTree:scripts/ui/vehicle_research_tree.gd"],
+      "stable_refs_today": ["frontend.tree_button", "frontend.research_tree (lazily created, single instance)"],
+      "needs": ["five side-by-side routes (中型/主战·重型·轻型/侦察·歼击/自行火炮·防空) with visible route titles (S02)", "base card 224x96 with folded variant count; details 320-360 wide", "search + nation/route jump preserving filter and scroll", "only real research prerequisites draw connectors (S02)"]
+    },
+    {
+      "ui_id": "screen.loadout",
+      "spec_section": "S03",
+      "status": "existing",
+      "entry": "GaragePreparation.setup (scripts/garage/garage_preparation.gd:24) moved into GarageFrontend.pages[1]",
+      "classes": ["GaragePreparation:scripts/garage/garage_preparation.gd", "GarageShell:scripts/core/garage_shell.gd"],
+      "stable_refs_today": ["preparation.mode()", "preparation.select_vehicle(id)", "preparation.build_match()", "preparation.save_settings()", "preparation.loadouts", "preparation.first_choice", "preparation.shell_spins", "preparation.apply_rack_preview()", "preparation._refresh_racks()", "garage._view_mode / garage._apply_preview_mode()"],
+      "needs": ["ammo cards with real name / engineering nature / family / quantity / first-round mark (S03)", "unknown statistics show 未提供 instead of 0 (S03)", "应用配装 applies through the existing service and only then reports applied (S03)"]
+    },
+    {
+      "ui_id": "screen.battle_hud",
+      "spec_section": "S04",
+      "status": "existing",
+      "entry": "BattleUI.setup (scripts/ui/battle_ui.gd:12); HUD built by BattleHUD._build (scripts/ui/battle_hud.gd:105)",
+      "classes": ["BattleUI:scripts/ui/battle_ui.gd", "BattleHUD:scripts/ui/battle_hud.gd"],
+      "stable_refs_today": ["battle_ui.battle", "battle_ui.phase()", "battle_ui.elapsed()", "battle_ui.player()", "battle_ui.observer()", "battle_ui.match_info()", "battle_ui.roster()", "battle_ui.apply_settings()", "battle_hud.board_closed|settings_closed|settings_changed|replay_close_requested"],
+      "needs": ["top-centre tickets + real remaining time + A/B/C ownership/contested (S04)", "bottom-left own vehicle + surviving crew + drive/weapon disable + speed (S04)", "bottom-centre chambered round / real reload / remaining stock / next round kept semantically separate (S04)", "bottom-right minimap fed only by BattleIntel / existing observation layer (S04)", "centre x25-75% y20-70% free of permanent solid panels (S04)"]
+    },
+    {
+      "ui_id": "screen.damage_feedback",
+      "spec_section": "S05",
+      "status": "existing",
+      "entry": "same HUD instance as S04 (BattleHUD); reasons must match real capability output",
+      "classes": ["BattleHUD:scripts/ui/battle_hud.gd", "BattleUI:scripts/ui/battle_ui.gd"],
+      "stable_refs_today": ["battle_hud signals above", "battle_ui.match_info()"],
+      "needs": ["one key prompt near centre; secondary notices queued to a corner; repeated events merged (S05)", "hit feedback distinguishes 未穿/穿透/部件损伤/击毁 from real results (S05)", "key names read from the live input binding, never hard-coded T/F/C (S05)"]
+    },
+    {
+      "ui_id": "screen.death_respawn",
+      "spec_section": "S06",
+      "status": "existing",
+      "entry": "TeamRange._on_lost shows waiting_panel (scripts/battle/team_range.gd:430-449); TeamRange.request_respawn (scripts/battle/team_range.gd:451) is the business entry; battle.respawn_button is the real UI target",
+      "classes": ["TeamRange:scripts/battle/team_range.gd", "RiverTeamRange:scripts/maps/river_team_range.gd"],
+      "stable_refs_today": ["battle.waiting_panel", "battle.respawn_button", "battle.restart_button", "battle.director.state.roster.A.respawn_at", "battle.spectator", "battle.abandon_vehicle()"],
+      "needs": ["waiting / requestable / blocked / spectator shown as four distinct states (S06)", "protection, insufficient resources, no available vehicle and blocked spawn each get their own reason (S06)", "real mouse click or bound key enters the business entry only; UI must not rebuild actors or touch life_id (S06)", "on success the old wreck keeps no HUD reference and no old reload tween (S06)"]
+    },
+    {
+      "ui_id": "screen.result",
+      "spec_section": "S07",
+      "status": "existing",
+      "entry": "AppFlow.return_to_garage(result) / AppFlow.result_overlay (scripts/core/app_flow.gd:6,224); settlement via AppFlow._settle_match on pending_reward (scripts/core/app_flow.gd:250)",
+      "classes": ["AppFlow:scripts/core/app_flow.gd", "ChallengeProgression:scripts/challenges/challenge_progression.gd"],
+      "stable_refs_today": ["app.result_overlay", "app.pending_reward", "app.last_result", "app.return_to_garage(result)"],
+      "needs": ["victory/defeat/draw title without covering the breakdown; real contribution fields only (S07)", "receipt of rewards/research changes; saving / saved / write-failed shown separately (S07)", "下一局 / 返回车库 fixed at the bottom; repeated panel open or replay must not re-grant rewards (S07)"]
+    },
+    {
+      "ui_id": "screen.training_settings",
+      "spec_section": "S08",
+      "status": "existing",
+      "entry": "GarageFrontend.pages[2] (训练中心) + GarageShell challenge entry (_open_challenges, garage_shell.gd:37) + settings panel + dialogs",
+      "classes": ["GarageFrontend:scripts/ui/garage_frontend.gd", "ChallengeProgression:scripts/challenges/challenge_progression.gd", "InputSettingsPanel:scripts/ui/input_settings_panel.gd", "AppDialog:scripts/ui/app_dialog.gd", "ModelShowroom:scripts/core/model_showroom.gd", "RiverJunctionSurvey:scripts/ui/river_junction_survey.gd"],
+      "stable_refs_today": ["frontend.pages[2]", "frontend.map_survey_button|map_drive_button|river_team_button", "garage.case_choice|shell_choice|rounds|infinite|start_button", "garage.challenge_button", "InputSettingsPanel.progress_reset", "AppDialog.show(...)"],
+      "needs": ["lesson cards with title / goal / vehicle-ammo restriction / completion / enter (S08)", "challenge cards show only real best scores and rules (S08)", "settings grouped as 显示与可读性 / 输入 / 声音 / 辅助, unsupported items disabled with a stated reason (S08)", "one shared confirmation dialog for key conflicts, quitting, unapplied loadout, progress reset; dangerous action not focused by default (S08)"]
+    },
+    {
+      "ui_id": "screen.loading_empty_error",
+      "spec_section": "S09",
+      "status": "partial",
+      "entry": "cross-cutting: loading states appear during AppFlow transitions (scripts/core/app_flow.gd), empty/error states currently surface through garage.error_label and dialog text",
+      "classes": ["AppFlow:scripts/core/app_flow.gd", "GarageShell:scripts/core/garage_shell.gd", "AppDialog:scripts/ui/app_dialog.gd"],
+      "stable_refs_today": ["garage.error_label", "app._transitioning"],
+      "needs": ["percentage only when a real progress value exists; otherwise stage text, never a fake 99% (S09)", "missing model shows its name and explicit missing state; no borrowing another vehicle's thumbnail (S09)", "resource/save/admission errors short first, expandable or copyable detail; no raw stack dump (S09)", "cancel loading only when the layer supports safe cancel (S09)"]
+    }
+  ],
+  "shared_files": [
+    {"path": "scripts/ui/garage_frontend.gd", "screens": ["S01", "S03", "S08"], "coordination": "serial merge by the integration owner; the UI line must not overwrite passage/packaging uncommitted work"},
+    {"path": "scripts/ui/battle_ui.gd", "screens": ["S04", "S05"], "coordination": "serial merge by the integration owner"},
+    {"path": "scripts/ui/battle_hud.gd", "screens": ["S04", "S05"], "coordination": "serial merge by the integration owner"},
+    {"path": "scripts/core/garage_shell.gd", "screens": ["S01", "S03", "S08"], "coordination": "serial merge by the integration owner"},
+    {"path": "scripts/garage/garage_preparation.gd", "screens": ["S03"], "coordination": "serial merge by the integration owner"}
+  ],
+  "reuse_rules": {
+    "font": "CoreUI.FONT = res://assets/fonts/NotoSansCJKsc-Regular.otf (scripts/core/core_ui.gd:3). Reuse it; no new font download or bundled font.",
+    "theme": "Extend scripts/ui/garage_theme.gd (WT-UI-002); do not add a competing theme system.",
+    "text": "All Chinese strings go through LocalizationService; component factories stay in CoreUI/GarageTheme.",
+    "business_entries": ["GarageFrontend.deploy -> GarageShell.laboratory_requested", "GaragePreparation.save_settings / build_match", "TeamRange.request_respawn via battle.respawn_button", "AppFlow.return_to_garage / _settle_match"]
+  },
+  "forbidden_by_design": [
+    "UI reads business state and submits intent only: no changes to drive, armor, ammunition, tickets, rewards, admission or AI",
+    "no second catalog, inventory or save system; existing controls, signals, services and lifecycles stay",
+    "no demo values in production UI; missing state shows explicit unknown or disabled",
+    "no show_page() bypass, no emitted fake signals and no direct request_respawn() as normal-operation evidence",
+    "hidden, disabled or unreachable controls must not be clicked; no modal input passthrough",
+    "no currency, level or battle-rating display while no such system exists",
+    "map player counts come from the real mode configuration; 16 berths must not be presented as supported 16v16"
+  ]
+}
