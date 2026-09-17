@@ -120,7 +120,10 @@
 | `logs/WT-UI-FIELDWORK-01/wt-ui-012-hud/hud_10_normal_compact.png` · `hud_11_optics.png` · `hud_12_wide.png` · `hud_13_notice_queue.png` | S04/S05：正常/炮镜/宽屏 HUD + 提示队列 |
 | `logs/WT-UI-FIELDWORK-01/wt-ui-009-match/` · `wt-ui-007/` | 真实比赛（部署/驾驶/等待/结果） |
 | `logs/WT-UI-FIELDWORK-01/wt-ui-002-playground/playground_{1280x720,1920x1080}_{100,125}.png` | **WT-UI-002 组件实验场**（七态并排：normal/hover/pressed/focused/disabled/busy/error ✓ 取自主题**真实 StyleBox**；真实组件：页签·强调色主按钮·输入·步进器·令牌色进度条·三张状态徽标卡·内联提醒·Toast ✓）；页面顶部有**"模拟数据"横幅**且每张抓帧都断言其存在 ✓ ⇒ 不会与正式界面混淆 ✓ |
+| `logs/WT-UI-FIELDWORK-01/wt-ui-006-modern/{germ_leopard_2a4,ussr_t_80b}_{garage,river}.png` 等 | **现代候选**车型的车库与河流地图实拍 —— WT-UI-004/008 的**多车型·多地图**证据 ✓ |
 | `logs/WT-UI-FIELDWORK-01/compare/DESIGN_vs_ACTUAL.png` | **设计单 vs 实际** 对比图（8 面板 + 16 令牌 + 非需求清单） |
+
+**索引口径**（审计过 ✓）：本单在盘**真实抓帧共 206 张**（`logs/WT-UI-FIELDWORK-01/**/*.png` ✓）。上表列出**每个工单的权威抓帧**（90 张被本文引用 ✓）；其余 116 张为**历次运行的留档**（同名文件在不同运行目录下各留一份 ✓ 便于回溯 ✗ 不逐条罗列）。所有抓帧均为**窗口化真实渲染** ✓，无手绘、无合成 ✓。
 
 ## 5. 已知问题（不隐藏）
 
