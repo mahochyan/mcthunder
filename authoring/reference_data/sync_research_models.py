@@ -4,6 +4,7 @@ This does not create combat definitions or accept a WIP folder as a delivery.
 import json, hashlib
 from pathlib import Path
 from research_combat_bindings import apply_bindings
+from build_research_runtime_profiles import build as build_runtime_profiles
 ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL = Path("E:/AIprogram/aimodel")
 def digest(data): return hashlib.sha256(data).hexdigest()
@@ -43,5 +44,6 @@ def sync():
     catalog=apply_bindings(catalog)
     catalog["models"]={nation:sum(row["nation"]==nation and row["model"] is not None for row in entries.values()) for nation in ["ussr","germany"]}
     target.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    build_runtime_profiles()
     print(catalog["counts"],catalog["models"],issues)
 if __name__=="__main__": sync()

@@ -152,6 +152,10 @@ func select_vehicle(id: String) -> void:
 	name_label.text=row.label
 	var loaded := preview_control.show_vehicle(row); preview_control.visible=loaded
 	detail_label.text="%s · %s\n车族：%s"%["苏联" if row.nation=="ussr" else "德国",BRANCHES[row.branch],str(row.family).replace("_"," ").to_upper()]
+	var mobility:=ResearchReferenceProfiles.mobility_for(row)
+	if mobility.get("ok",false):
+		detail_label.text+="\n前进 %.1f km/h · 倒车 %.1f km/h · 车体转向 %.1f°/s"%[float(mobility.forward_max_speed)*3.6,float(mobility.reverse_max_speed)*3.6,float(mobility.hull_turn_speed)]
+		if not mobility.get("design_fallbacks",[]).is_empty(): detail_label.text+="\n加速度：独立游戏设计值（缓存单位未确认）"
 	variants_label.hide(); variants_button.visible=not row.variant_refs.is_empty(); variants_label.text="改型仅作资料参考，当前模型为上述基础型。"
 	if not row.variant_refs.is_empty():
 		variants_button.text="改型参考  ·  %d 项   ▾"%row.variant_refs.size()

@@ -4,6 +4,7 @@ import hashlib
 import argparse
 from pathlib import Path
 from research_combat_bindings import apply_bindings
+from build_research_runtime_profiles import build as build_runtime_profiles
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT / 'assets/research/soviet_german_tree.json'
@@ -61,6 +62,7 @@ def build(refresh_plans=False):
     catalog['models'] = {n:sum(r['nation']==n and r.get('model') is not None for r in bases) for n in PLANS}
     catalog = apply_bindings(catalog)
     TARGET.write_text(json.dumps(catalog, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    build_runtime_profiles()
     print('BASES', catalog['counts'], 'MODELS', catalog['models'], 'UNMAPPED_CACHE', len(catalog['unmapped_cache_ids']))
 
 if __name__ == '__main__':

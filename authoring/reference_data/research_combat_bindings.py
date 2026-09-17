@@ -149,6 +149,8 @@ def apply_bindings(catalog: dict, root: Path = ROOT) -> dict:
 def main() -> None:
     catalog = apply_bindings(_read(TREE))
     TREE.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    from build_research_runtime_profiles import build as build_runtime_profiles
+    build_runtime_profiles()
     print(json.dumps(catalog["alignment"], ensure_ascii=False, sort_keys=True))
 
 

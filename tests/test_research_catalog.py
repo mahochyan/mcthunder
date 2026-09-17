@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 C = json.loads((ROOT/'assets/research/soviet_german_tree.json').read_text(encoding='utf-8'))
 ROWS = {r['id']: r for r in C['vehicles']}
+P = json.loads((ROOT/'assets/research/research_runtime_profiles.json').read_text(encoding='utf-8'))
+PROFILES = {r['id']: r for r in P['profiles']}
 
 class ResearchCatalogChecks(unittest.TestCase):
     def test_base_identity_and_variant_partition(self):
@@ -80,6 +82,30 @@ class ResearchCatalogChecks(unittest.TestCase):
             self.assertEqual(packet['model_binding']['model']['source_vehicle_id'], vehicle_id)
             self.assertEqual(hashlib.sha256(packet_path.read_bytes()).hexdigest(), link['sha256'])
             self.assertEqual(hashlib.sha256(runtime_path.read_bytes()).hexdigest(), link['runtime_model']['sha256'])
+
+    def test_runtime_reference_profiles_are_exact_and_complete(self):
+        self.assertEqual(P['schema_version'], 1)
+        self.assertEqual(P['set_policy'], 'exact_tree_id_no_alias_no_missing_no_extra')
+        self.assertEqual(set(PROFILES), set(ROWS))
+        self.assertEqual(P['vehicle_count'], 212)
+        self.assertEqual(P['trial_mobility_count'], 113)
+        self.assertEqual(P['combat_count'], 2)
+        for vehicle_id, profile in PROFILES.items():
+            row = ROWS[vehicle_id]
+            source = profile['source']
+            snapshot = ROOT/source['snapshot'].removeprefix('res://')
+            self.assertEqual(hashlib.sha256(snapshot.read_bytes()).hexdigest(), source['sha256'])
+            self.assertEqual(source['sha256'], row['source_sha256'])
+            mobility = profile['mobility']
+            for key in ('forward_max_mps', 'reverse_max_mps', 'hull_turn_deg_s', 'design_mass_kg'):
+                self.assertEqual(mobility[key]['resolution_state'], 'explicit_reference_candidate')
+                if key in ('forward_max_mps', 'reverse_max_mps'):
+                    self.assertGreaterEqual(mobility[key]['value'], 0)
+                else:
+                    self.assertGreater(mobility[key]['value'], 0)
+            self.assertEqual(mobility['trial_acceleration_mps2']['resolution_state'], 'project_design_fallback')
+            self.assertEqual(profile['runtime_use']['research_trial_mobility'], row['model'] is not None)
+            self.assertEqual(profile['runtime_use']['combat'], row['combat_package'] is not None)
 
 if __name__ == '__main__':
     unittest.main()
