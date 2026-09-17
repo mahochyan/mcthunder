@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 if ($ModernRiver -and -not $Candidate) { throw 'Modern River is an internal development candidate only; specify -Candidate' }
 if ($ModernRiver) {
-    $Suites = @($Suites + @('run_modern_support_checks','run_modern_armor_frame_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks','run_engineering_loading_checks','run_modern_team_identity_checks','run_river_entry_traffic_checks') | Select-Object -Unique)
+    $Suites = @($Suites + @('run_modern_support_checks','run_modern_armor_frame_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks','run_engineering_loading_checks','run_engineering_material_checks','run_engineering_compartment_checks','run_modern_team_identity_checks','run_river_entry_traffic_checks') | Select-Object -Unique)
 }
 # WT-040-R1 [4] (user ruling): an INTERNAL development candidate may be produced while the known,
 # individually registered failures below are present; a FORMAL release candidate keeps every strict

@@ -8,60 +8,81 @@
     },
     "hull_floor_front": {
       "fact": "armor.hull_floor_front",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_floor_rear": {
       "fact": "armor.hull_floor_rear",
       "mapping_note": "the dossier does not split front from rear floor",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_front_lower": {
       "fact": "armor.hull_front_lower",
       "mapping_note": "same node as the upper front (no split in the dossier)",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_front_upper": {
       "fact": "armor.hull_front_upper",
       "mapping_note": "the dossier does not split upper from lower front, so both take this value",
-      "material": "unknown"
+      "material": "composite",
+      "response_profile": {
+        "coefficients": {
+          "chemical": 2.4,
+          "fragment": 1.0,
+          "kinetic": 1.2
+        },
+        "provenance": "game_rule",
+        "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+        "version": "wt012-passive-composite-v1"
+      }
     },
     "hull_rear_lower": {
       "fact": "armor.hull_rear_lower",
       "mapping_note": "same node as the upper rear",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_rear_upper": {
       "fact": "armor.hull_rear_upper",
       "mapping_note": "superstructure_back_dm (50 mm, line 59) also exists",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_roof_front": {
       "fact": "armor.hull_roof_front",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_roof_rear": {
       "fact": "armor.hull_roof_rear",
       "mapping_note": "the dossier does not split front from rear roof",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_sides_front": {
       "fact": "armor.hull_sides_front",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_sides_lower": {
       "fact": "armor.hull_sides_lower",
       "mapping_note": "the dossier does not split upper from lower side",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_sides_lower_rear": {
       "fact": "armor.hull_sides_lower_rear",
       "mapping_note": "same as the other side zones",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "hull_sides_rear": {
       "fact": "armor.hull_sides_rear",
       "mapping_note": "the dossier does not split front from rear side",
-      "material": "unknown"
+      "material": "rolled",
+      "response_profile": {}
     },
     "turret_front": {
       "fact": "armor.turret_front",
@@ -991,6 +1012,315 @@
       "status": "estimated",
       "unit": "m/s",
       "value": 20.8333333333333
+    },
+    "protection.zone.hull_floor_front": {
+      "location": "hull_material_policy_20260917: after_armor.hull_floor_front",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_floor_rear": {
+      "location": "hull_material_policy_20260917: after_armor.hull_floor_rear",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_front_lower": {
+      "location": "hull_material_policy_20260917: after_armor.hull_front_lower",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_front_upper": {
+      "location": "hull_material_policy_20260917: after_armor.hull_front_upper",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "composite",
+        "response_profile": {
+          "coefficients": {
+            "chemical": 2.4,
+            "fragment": 1.0,
+            "kinetic": 1.2
+          },
+          "provenance": "game_rule",
+          "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+          "version": "wt012-passive-composite-v1"
+        }
+      }
+    },
+    "protection.zone.hull_rear_lower": {
+      "location": "hull_material_policy_20260917: after_armor.hull_rear_lower",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_rear_upper": {
+      "location": "hull_material_policy_20260917: after_armor.hull_rear_upper",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_roof_front": {
+      "location": "hull_material_policy_20260917: after_armor.hull_roof_front",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_roof_rear": {
+      "location": "hull_material_policy_20260917: after_armor.hull_roof_rear",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_sides_front": {
+      "location": "hull_material_policy_20260917: after_armor.hull_sides_front",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_sides_lower": {
+      "location": "hull_material_policy_20260917: after_armor.hull_sides_lower",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_sides_lower_rear": {
+      "location": "hull_material_policy_20260917: after_armor.hull_sides_lower_rear",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "protection.zone.hull_sides_rear": {
+      "location": "hull_material_policy_20260917: after_armor.hull_sides_rear",
+      "note": "Existing authored game material policy at unchanged geometry/thickness. Raw material remains unknown; not historical verification.",
+      "origin": "game_rule",
+      "source_refs": [
+        "hull_material_policy_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "material": "rolled",
+        "response_profile": {}
+      }
+    },
+    "raw.material.hull_floor_front": {
+      "location": "warthunder_reference line 56: body_bottom_dm armorThickness=20.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_floor_front",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_floor_rear": {
+      "location": "warthunder_reference line 56: body_bottom_dm armorThickness=20.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_floor_rear",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_front_lower": {
+      "location": "warthunder_reference line 51: body_front_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_front_lower",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_front_upper": {
+      "location": "warthunder_reference line 51: body_front_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_front_upper",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_rear_lower": {
+      "location": "warthunder_reference line 58: body_back_dm armorThickness=60.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_rear_lower",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_rear_upper": {
+      "location": "warthunder_reference line 58: body_back_dm armorThickness=60.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_rear_upper",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_roof_front": {
+      "location": "warthunder_reference line 54: body_top_dm armorThickness=30.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_roof_front",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_roof_rear": {
+      "location": "warthunder_reference line 54: body_top_dm armorThickness=30.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_roof_rear",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_sides_front": {
+      "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_sides_front",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_sides_lower": {
+      "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_sides_lower",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_sides_lower_rear": {
+      "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_sides_lower_rear",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
+    },
+    "raw.material.hull_sides_rear": {
+      "location": "warthunder_reference line 53: body_side_dm armorThickness=80.0; no applicable armorClass in hull section",
+      "note": "Original runtime material was unknown. Gameplay policy is separately registered in protection.zone.hull_sides_rear",
+      "origin": "warthunder_reference",
+      "source_refs": [
+        "wt-2.57.1.137"
+      ],
+      "status": "unknown",
+      "unit": "text",
+      "value": null
     },
     "runtime.acceleration": {
       "location": "warthunder_reference line 23: 加减速度 = 4.0 / 8.0 - the dossier's own key is drive.acceleration_unspecified_units (empty), so the unit is NOT stated; read as m/s^2 by assumption",
@@ -2073,6 +2403,17 @@
     "source_vehicle_id": "ussr_t_80b"
   },
   "sources": {
+    "hull_material_policy_20260917": {
+      "applies_to_identity_ids": [
+        "ussr_t_80b"
+      ],
+      "artifact": "res://configs/vehicles/evidence/t80_material_restoration_20260917.json",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "375c143be18aac541e7cdaa007a54b05f6d17f63223404298314dad6d72ac149",
+      "source_vehicle_id": "ussr_t_80b"
+    },
     "loading_restoration_20260917": {
       "applies_to_identity_ids": [
         "ussr_t_80b"

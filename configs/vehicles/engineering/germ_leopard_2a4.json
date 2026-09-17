@@ -444,6 +444,21 @@
       "unit": "m",
       "value": 4.566
     },
+    "equipment.loading": {
+      "location": "stowage_restoration_20260917: equipment.loading",
+      "note": "Restore the existing authored 15 ready / 27 reserve, explicit manual loading and partition/vent policy at verified GLB anchors. Total 42, shot reload, shell rules, armor and drive parameters unchanged. Game rules, not verified historical pressure simulation.",
+      "origin": "game_rule",
+      "source_refs": [
+        "stowage_restoration_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "crew_role": "loader",
+        "mode": "crew",
+        "required_module_ids": []
+      }
+    },
     "geometry.crew": {
       "location": "copied from the crew draft so the packet and its evidence agree",
       "note": "copied from the crew draft so the packet and its evidence agree",
@@ -635,18 +650,26 @@
       }
     },
     "geometry.modules": {
-      "location": "copied from the modules draft so the packet and its evidence agree",
-      "note": "copied from the modules draft so the packet and its evidence agree",
+      "location": "stowage_restoration_20260917: geometry.modules",
+      "note": "Restore the existing authored 15 ready / 27 reserve, explicit manual loading and partition/vent policy at verified GLB anchors. Total 42, shot reload, shell rules, armor and drive parameters unchanged. Game rules, not verified historical pressure simulation.",
       "origin": "game_rule",
       "source_refs": [
-        "mcthunder_pipeline"
+        "mcthunder_pipeline",
+        "stowage_restoration_20260917"
       ],
       "status": "estimated",
       "unit": "structured",
       "value": [
         {
-          "ammo_capacity": 10.0,
-          "derived": false,
+          "ammo_capacity": 15.0,
+          "ammo_protection": {
+            "barrier_module_id": "bustle_partition",
+            "mode": "rear_bustle",
+            "provenance": "game_rule",
+            "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+            "vent_module_id": "bustle_vent",
+            "version": "wt015-rear-bustle-v1"
+          },
           "external": false,
           "id": "ammo_ready",
           "kind": "ammo",
@@ -656,18 +679,17 @@
             0.4,
             2.0
           ],
-          "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
+          "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_ammo_ready",
           "size": [
-            0.5,
-            0.12,
-            0.35
+            0.85,
+            0.6,
+            0.95
           ]
         },
         {
-          "ammo_capacity": 16.0,
-          "derived": false,
+          "ammo_capacity": 27.0,
           "external": false,
-          "id": "ammo_hull_left",
+          "id": "ammo_reserve",
           "kind": "ammo",
           "part": "hull",
           "position": [
@@ -675,30 +697,45 @@
             1.0,
             -2.2
           ],
-          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/Attachment_ammo_reserve",
           "size": [
-            0.4,
-            0.25,
-            0.7
+            0.65,
+            0.65,
+            1.0
           ]
         },
         {
-          "ammo_capacity": 16.0,
-          "derived": false,
           "external": false,
-          "id": "ammo_hull_right",
-          "kind": "ammo",
-          "part": "hull",
+          "id": "bustle_partition",
+          "kind": "ammo_partition",
+          "part": "turret",
           "position": [
-            -0.65,
-            1.0,
-            -2.2
+            0.0,
+            0.43,
+            1.15
           ],
-          "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+          "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_partition",
           "size": [
-            0.4,
-            0.25,
-            0.7
+            2.35,
+            0.74,
+            0.08
+          ]
+        },
+        {
+          "external": false,
+          "id": "bustle_vent",
+          "kind": "blowout_panel",
+          "part": "turret",
+          "position": [
+            -0.55,
+            0.78,
+            2.0
+          ],
+          "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_vent",
+          "size": [
+            0.95,
+            0.06,
+            1.05
           ]
         },
         {
@@ -862,6 +899,42 @@
       "unit": "year",
       "value": 2026.0
     },
+    "loading.profile": {
+      "location": "stowage_restoration_20260917: loading.profile",
+      "note": "Restore the existing authored 15 ready / 27 reserve, explicit manual loading and partition/vent policy at verified GLB anchors. Total 42, shot reload, shell rules, armor and drive parameters unchanged. Game rules, not verified historical pressure simulation.",
+      "origin": "game_rule",
+      "source_refs": [
+        "stowage_restoration_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "crew_role": "loader",
+        "initial_distribution": "proportional",
+        "missing_crew_rate": 0.45,
+        "mode": "crew",
+        "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+        "origin": "game_rule",
+        "replenishment_delay_s": 4.0,
+        "replenishment_enabled": true,
+        "replenishment_interval_s": 13.0,
+        "replenishment_module_ids": [],
+        "replenishment_role": "loader",
+        "replenishment_stationary": true,
+        "required_module_ids": [],
+        "reserve_rack_ids": [
+          "ammo_reserve"
+        ],
+        "schema_version": 1.0,
+        "shot_feed_rack_ids": [
+          "ammo_ready"
+        ],
+        "supply_rack_ids": [
+          "ammo_ready",
+          "ammo_reserve"
+        ]
+      }
+    },
     "mobility.design_mass_kg": {
       "location": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
       "note": "warthunder_reference line 16 (总体): drive.design_mass = 47000.0",
@@ -897,6 +970,24 @@
       "status": "estimated",
       "unit": "m/s",
       "value": 20.8333333333333
+    },
+    "protection.ammo.ammo_ready": {
+      "location": "stowage_restoration_20260917: protection.ammo.ammo_ready",
+      "note": "Restore the existing authored 15 ready / 27 reserve, explicit manual loading and partition/vent policy at verified GLB anchors. Total 42, shot reload, shell rules, armor and drive parameters unchanged. Game rules, not verified historical pressure simulation.",
+      "origin": "game_rule",
+      "source_refs": [
+        "stowage_restoration_20260917"
+      ],
+      "status": "estimated",
+      "unit": "structured",
+      "value": {
+        "barrier_module_id": "bustle_partition",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "vent_module_id": "bustle_vent",
+        "version": "wt015-rear-bustle-v1"
+      }
     },
     "protection.zone.hull_front_upper": {
       "location": "project engineering admission for zone hull_front_upper: the value equals this zone's own material and response_profile, so the declaration cannot drift from the configuration",
@@ -1222,6 +1313,32 @@
   },
   "id": "germ_leopard_2a4",
   "license": "<GAP AUDIT PLACEHOLDER - not a licence decision>",
+  "loading_profile": {
+    "crew_role": "loader",
+    "initial_distribution": "proportional",
+    "missing_crew_rate": 0.45,
+    "mode": "crew",
+    "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+    "origin": "game_rule",
+    "replenishment_delay_s": 4.0,
+    "replenishment_enabled": true,
+    "replenishment_interval_s": 13.0,
+    "replenishment_module_ids": [],
+    "replenishment_role": "loader",
+    "replenishment_stationary": true,
+    "required_module_ids": [],
+    "reserve_rack_ids": [
+      "ammo_reserve"
+    ],
+    "schema_version": 1.0,
+    "shot_feed_rack_ids": [
+      "ammo_ready"
+    ],
+    "supply_rack_ids": [
+      "ammo_ready",
+      "ammo_reserve"
+    ]
+  },
   "model_binding": {
     "axes": {
       "gun": {
@@ -1257,10 +1374,11 @@
         "loader": "VehicleRoot/TurretPivot/Attachment_loader"
       },
       "modules": {
-        "ammo_hull_left": "VehicleRoot/Attachment_ammo_reserve",
-        "ammo_hull_right": "VehicleRoot/Attachment_ammo_reserve",
         "ammo_ready": "VehicleRoot/TurretPivot/Attachment_ammo_ready",
+        "ammo_reserve": "VehicleRoot/Attachment_ammo_reserve",
         "breech": "VehicleRoot/TurretPivot/GunPivot/Attachment_breech",
+        "bustle_partition": "VehicleRoot/TurretPivot/Attachment_bustle_partition",
+        "bustle_vent": "VehicleRoot/TurretPivot/Attachment_bustle_vent",
         "engine": "VehicleRoot/Attachment_engine",
         "fuel": "VehicleRoot/Attachment_fuel",
         "track_left": "VehicleRoot/RunningLeft/Attachment_track_left",
@@ -1298,8 +1416,15 @@
   },
   "modules": [
     {
-      "ammo_capacity": 10.0,
-      "derived": false,
+      "ammo_capacity": 15.0,
+      "ammo_protection": {
+        "barrier_module_id": "bustle_partition",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "vent_module_id": "bustle_vent",
+        "version": "wt015-rear-bustle-v1"
+      },
       "external": false,
       "id": "ammo_ready",
       "kind": "ammo",
@@ -1309,18 +1434,17 @@
         0.4,
         2.0
       ],
-      "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_ammo_ready",
       "size": [
-        0.5,
-        0.12,
-        0.35
+        0.85,
+        0.6,
+        0.95
       ]
     },
     {
-      "ammo_capacity": 16.0,
-      "derived": false,
+      "ammo_capacity": 27.0,
       "external": false,
-      "id": "ammo_hull_left",
+      "id": "ammo_reserve",
       "kind": "ammo",
       "part": "hull",
       "position": [
@@ -1328,30 +1452,45 @@
         1.0,
         -2.2
       ],
-      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/Attachment_ammo_reserve",
       "size": [
-        0.4,
-        0.25,
-        0.7
+        0.65,
+        0.65,
+        1.0
       ]
     },
     {
-      "ammo_capacity": 16.0,
-      "derived": false,
       "external": false,
-      "id": "ammo_hull_right",
-      "kind": "ammo",
-      "part": "hull",
+      "id": "bustle_partition",
+      "kind": "ammo_partition",
+      "part": "turret",
       "position": [
-        -0.65,
-        1.0,
-        -2.2
+        0.0,
+        0.43,
+        1.15
       ],
-      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_partition",
       "size": [
-        0.4,
-        0.25,
-        0.7
+        2.35,
+        0.74,
+        0.08
+      ]
+    },
+    {
+      "external": false,
+      "id": "bustle_vent",
+      "kind": "blowout_panel",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.78,
+        2.0
+      ],
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_vent",
+      "size": [
+        0.95,
+        0.06,
+        1.05
       ]
     },
     {
@@ -1910,6 +2049,17 @@
       "origin": "game_rule",
       "read_state": "authored",
       "sha256": "290738fbe74356e27a21899266ea9b57e77c7f2d6133611b3be3c71a0e7c2243",
+      "source_vehicle_id": "germ_leopard_2a4"
+    },
+    "stowage_restoration_20260917": {
+      "applies_to_identity_ids": [
+        "germ_leopard_2a4"
+      ],
+      "artifact": "res://configs/vehicles/evidence/leopard_stowage_restoration_20260917.json",
+      "excluded_identity_ids": [],
+      "origin": "game_rule",
+      "read_state": "authored",
+      "sha256": "e8f4ca374ca32e39d59c388af148cdb1bb90c7e387359cced51385165676050d",
       "source_vehicle_id": "germ_leopard_2a4"
     },
     "turret_local_frame_20260917": {

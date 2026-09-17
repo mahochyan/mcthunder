@@ -1,0 +1,222 @@
+{
+  "after_armor": {
+    "gun_shield": {
+      "fact": "armor.gun_shield",
+      "mapping_note": "gun_mask_02_dm (90 mm, line 95) also exists",
+      "material": "cast"
+    },
+    "hull_floor_front": {
+      "fact": "armor.hull_floor_front",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_floor_rear": {
+      "fact": "armor.hull_floor_rear",
+      "mapping_note": "the dossier does not split front from rear floor",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_front_lower": {
+      "fact": "armor.hull_front_lower",
+      "mapping_note": "same node as the upper front (no split in the dossier)",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_front_upper": {
+      "fact": "armor.hull_front_upper",
+      "mapping_note": "the dossier does not split upper from lower front, so both take this value",
+      "material": "composite",
+      "response_profile": {
+        "coefficients": {
+          "chemical": 2.4,
+          "fragment": 1.0,
+          "kinetic": 1.2
+        },
+        "provenance": "game_rule",
+        "reason": "Original candidate combat tuning; not a decoded historical or War Thunder penetration/material curve.",
+        "version": "wt012-passive-composite-v1"
+      }
+    },
+    "hull_rear_lower": {
+      "fact": "armor.hull_rear_lower",
+      "mapping_note": "same node as the upper rear",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_rear_upper": {
+      "fact": "armor.hull_rear_upper",
+      "mapping_note": "superstructure_back_dm (50 mm, line 59) also exists",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_roof_front": {
+      "fact": "armor.hull_roof_front",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_roof_rear": {
+      "fact": "armor.hull_roof_rear",
+      "mapping_note": "the dossier does not split front from rear roof",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_sides_front": {
+      "fact": "armor.hull_sides_front",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_sides_lower": {
+      "fact": "armor.hull_sides_lower",
+      "mapping_note": "the dossier does not split upper from lower side",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_sides_lower_rear": {
+      "fact": "armor.hull_sides_lower_rear",
+      "mapping_note": "same as the other side zones",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "hull_sides_rear": {
+      "fact": "armor.hull_sides_rear",
+      "mapping_note": "the dossier does not split front from rear side",
+      "material": "rolled",
+      "response_profile": {}
+    },
+    "turret_front": {
+      "fact": "armor.turret_front",
+      "mapping_note": "turret_01_front_dm (250 mm, line 89) carries the same figure",
+      "material": "cast"
+    },
+    "turret_rear": {
+      "fact": "armor.turret_rear",
+      "mapping_note": "turret_01_back_dm (65 mm, line 82) also exists",
+      "material": "cast"
+    },
+    "turret_roof": {
+      "fact": "armor.turret_roof",
+      "mapping_note": "multi-segment (45/60/140/30); representative value chosen",
+      "material": "cast"
+    },
+    "turret_sides": {
+      "fact": "armor.turret_sides",
+      "mapping_note": "multi-segment in the dossier (125/160/90); a representative value had to be chosen - this is the reviewable part",
+      "material": "cast"
+    }
+  },
+  "authored_path": "res://authoring/reference_data/modern_bound/ussr_t_80b.json",
+  "authored_sha256": "b958ea5770ec994f6329c3aa00038a68485ea206f62a4ea9e333779f9b248e79",
+  "before_armor": {
+    "gun_shield": {
+      "fact": "armor.gun_shield",
+      "mapping_note": "gun_mask_02_dm (90 mm, line 95) also exists",
+      "material": "cast"
+    },
+    "hull_floor_front": {
+      "fact": "armor.hull_floor_front",
+      "material": "unknown"
+    },
+    "hull_floor_rear": {
+      "fact": "armor.hull_floor_rear",
+      "mapping_note": "the dossier does not split front from rear floor",
+      "material": "unknown"
+    },
+    "hull_front_lower": {
+      "fact": "armor.hull_front_lower",
+      "mapping_note": "same node as the upper front (no split in the dossier)",
+      "material": "unknown"
+    },
+    "hull_front_upper": {
+      "fact": "armor.hull_front_upper",
+      "mapping_note": "the dossier does not split upper from lower front, so both take this value",
+      "material": "unknown"
+    },
+    "hull_rear_lower": {
+      "fact": "armor.hull_rear_lower",
+      "mapping_note": "same node as the upper rear",
+      "material": "unknown"
+    },
+    "hull_rear_upper": {
+      "fact": "armor.hull_rear_upper",
+      "mapping_note": "superstructure_back_dm (50 mm, line 59) also exists",
+      "material": "unknown"
+    },
+    "hull_roof_front": {
+      "fact": "armor.hull_roof_front",
+      "material": "unknown"
+    },
+    "hull_roof_rear": {
+      "fact": "armor.hull_roof_rear",
+      "mapping_note": "the dossier does not split front from rear roof",
+      "material": "unknown"
+    },
+    "hull_sides_front": {
+      "fact": "armor.hull_sides_front",
+      "material": "unknown"
+    },
+    "hull_sides_lower": {
+      "fact": "armor.hull_sides_lower",
+      "mapping_note": "the dossier does not split upper from lower side",
+      "material": "unknown"
+    },
+    "hull_sides_lower_rear": {
+      "fact": "armor.hull_sides_lower_rear",
+      "mapping_note": "same as the other side zones",
+      "material": "unknown"
+    },
+    "hull_sides_rear": {
+      "fact": "armor.hull_sides_rear",
+      "mapping_note": "the dossier does not split front from rear side",
+      "material": "unknown"
+    },
+    "turret_front": {
+      "fact": "armor.turret_front",
+      "mapping_note": "turret_01_front_dm (250 mm, line 89) carries the same figure",
+      "material": "cast"
+    },
+    "turret_rear": {
+      "fact": "armor.turret_rear",
+      "mapping_note": "turret_01_back_dm (65 mm, line 82) also exists",
+      "material": "cast"
+    },
+    "turret_roof": {
+      "fact": "armor.turret_roof",
+      "mapping_note": "multi-segment (45/60/140/30); representative value chosen",
+      "material": "cast"
+    },
+    "turret_sides": {
+      "fact": "armor.turret_sides",
+      "mapping_note": "multi-segment in the dossier (125/160/90); a representative value had to be chosen - this is the reviewable part",
+      "material": "cast"
+    }
+  },
+  "before_packet_sha256": "3f5e464ac440324d1cb14c9cf76921decf5c5880e5791b5eb1ac1aafacd6c597",
+  "changed_zones": [
+    "hull_floor_front",
+    "hull_floor_rear",
+    "hull_front_lower",
+    "hull_front_upper",
+    "hull_rear_lower",
+    "hull_rear_upper",
+    "hull_roof_front",
+    "hull_roof_rear",
+    "hull_sides_front",
+    "hull_sides_lower",
+    "hull_sides_lower_rear",
+    "hull_sides_rear"
+  ],
+  "historical_verified": false,
+  "model": {
+    "path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+    "sha256": "0a6cfd65f066bf5a4e8962eba63862757e080804dffb3f44f9a2f8510535f0a5",
+    "source_vehicle_id": "ussr_t_80b"
+  },
+  "origin": "game_rule",
+  "reason": "Restore only the 12 missing hull materials from the existing game design; preserve all known reference materials, thickness, geometry, shell rules, and raw unknown facts.",
+  "schema_version": 1,
+  "source_binding": {
+    "primary_source": "wt-2.57.1.137",
+    "source_vehicle_id": "ussr_t_80b"
+  },
+  "vehicle_id": "ussr_t_80b"
+}

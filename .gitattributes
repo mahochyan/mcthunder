@@ -41,4 +41,6 @@ scripts/content/modern_model_mount_adapter.gd -text
 authoring/reference_data/modern_bound/*.json -text
 configs/vehicles/evidence/modern_turret_frame_20260917.json -text
 configs/vehicles/evidence/t80_loading_restoration_20260917.json -text
+configs/vehicles/evidence/t80_material_restoration_20260917.json -text
+configs/vehicles/evidence/leopard_stowage_restoration_20260917.json -text
 logs/WT030-mounts/** -text

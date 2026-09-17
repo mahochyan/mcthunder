@@ -1,0 +1,432 @@
+{
+  "after_loading": {
+    "crew_role": "loader",
+    "initial_distribution": "proportional",
+    "missing_crew_rate": 0.45,
+    "mode": "crew",
+    "note": "Independent game loading policy. Source rack supply times inform replenishment only; shot reload is separately authored. Automatic loading choice is not inferred from absent loader or generic modules. Ready racks receive a deterministic proportional mix of carried shell types; chamber reserves one slot. This is a game stowage rule.",
+    "origin": "game_rule",
+    "replenishment_delay_s": 4.0,
+    "replenishment_enabled": true,
+    "replenishment_interval_s": 13.0,
+    "replenishment_module_ids": [],
+    "replenishment_role": "loader",
+    "replenishment_stationary": true,
+    "required_module_ids": [],
+    "reserve_rack_ids": [
+      "ammo_reserve"
+    ],
+    "schema_version": 1.0,
+    "shot_feed_rack_ids": [
+      "ammo_ready"
+    ],
+    "supply_rack_ids": [
+      "ammo_ready",
+      "ammo_reserve"
+    ]
+  },
+  "after_modules": [
+    {
+      "ammo_capacity": 15.0,
+      "ammo_protection": {
+        "barrier_module_id": "bustle_partition",
+        "mode": "rear_bustle",
+        "provenance": "game_rule",
+        "reason": "Authored compartment rule: intact partition and closed access isolate stored bustle rounds; geometry and pressure response remain provisional.",
+        "vent_module_id": "bustle_vent",
+        "version": "wt015-rear-bustle-v1"
+      },
+      "external": false,
+      "id": "ammo_ready",
+      "kind": "ammo",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.4,
+        2.0
+      ],
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_ammo_ready",
+      "size": [
+        0.85,
+        0.6,
+        0.95
+      ]
+    },
+    {
+      "ammo_capacity": 27.0,
+      "external": false,
+      "id": "ammo_reserve",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/Attachment_ammo_reserve",
+      "size": [
+        0.65,
+        0.65,
+        1.0
+      ]
+    },
+    {
+      "external": false,
+      "id": "bustle_partition",
+      "kind": "ammo_partition",
+      "part": "turret",
+      "position": [
+        0.0,
+        0.43,
+        1.15
+      ],
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_partition",
+      "size": [
+        2.35,
+        0.74,
+        0.08
+      ]
+    },
+    {
+      "external": false,
+      "id": "bustle_vent",
+      "kind": "blowout_panel",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.78,
+        2.0
+      ],
+      "position_source": "Exact delivered GLB part-local anchor: VehicleRoot/TurretPivot/Attachment_bustle_vent",
+      "size": [
+        0.95,
+        0.06,
+        1.05
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "engine",
+      "kind": "engine",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.0,
+        2.65
+      ],
+      "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.6,
+        0.9
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "transmission",
+      "kind": "transmission",
+      "part": "hull",
+      "position": [
+        0.0,
+        0.8,
+        3.45
+      ],
+      "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "fuel",
+      "kind": "fuel",
+      "part": "hull",
+      "position": [
+        -0.99,
+        0.95,
+        2.65
+      ],
+      "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.25,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "breech",
+      "kind": "breech",
+      "part": "barrel",
+      "position": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.4,
+        0.4,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "turret_drive",
+      "kind": "turret_drive",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.4,
+        -0.25
+      ],
+      "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.6,
+        0.2,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_left",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        -1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_right",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    }
+  ],
+  "authored_path": "res://authoring/reference_data/modern_bound/germ_leopard_2a4.json",
+  "authored_sha256": "1c2fe887ffea08c9f5260b15a55f448489c82f6baf786bd547cd97d992b1c714",
+  "before_modules": [
+    {
+      "ammo_capacity": 10.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_ready",
+      "kind": "ammo",
+      "part": "turret",
+      "position": [
+        -0.55,
+        0.4,
+        2.0
+      ],
+      "position_source": "authored Attachment_ammo_ready anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the turret part (TurretPivot); the anchor's own parent is TurretPivot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.5,
+        0.12,
+        0.35
+      ]
+    },
+    {
+      "ammo_capacity": 16.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_hull_left",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "size": [
+        0.4,
+        0.25,
+        0.7
+      ]
+    },
+    {
+      "ammo_capacity": 16.0,
+      "derived": false,
+      "external": false,
+      "id": "ammo_hull_right",
+      "kind": "ammo",
+      "part": "hull",
+      "position": [
+        -0.65,
+        1.0,
+        -2.2
+      ],
+      "position_source": "authored Attachment_ammo_reserve anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true (this id has no anchor of its own and uses the shared reserve anchor)",
+      "size": [
+        0.4,
+        0.25,
+        0.7
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "engine",
+      "kind": "engine",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.0,
+        2.65
+      ],
+      "position_source": "authored Attachment_engine anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.6,
+        0.9
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "transmission",
+      "kind": "transmission",
+      "part": "hull",
+      "position": [
+        0.0,
+        0.8,
+        3.45
+      ],
+      "position_source": "authored Attachment_transmission anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        1.36,
+        0.4,
+        0.5
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "fuel",
+      "kind": "fuel",
+      "part": "hull",
+      "position": [
+        -0.99,
+        0.95,
+        2.65
+      ],
+      "position_source": "authored Attachment_fuel anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.25,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "breech",
+      "kind": "breech",
+      "part": "barrel",
+      "position": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "position_source": "authored Attachment_breech anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the barrel part (GunPivot); the anchor's own parent is GunPivot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.4,
+        0.4,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "turret_drive",
+      "kind": "turret_drive",
+      "part": "hull",
+      "position": [
+        0.0,
+        1.4,
+        -0.25
+      ],
+      "position_source": "authored Attachment_turret_drive anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is VehicleRoot, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.6,
+        0.2,
+        0.6
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_left",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        -1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_left anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningLeft, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    },
+    {
+      "derived": false,
+      "external": false,
+      "id": "track_right",
+      "kind": "track",
+      "part": "hull",
+      "position": [
+        1.49,
+        0.55,
+        0.1
+      ],
+      "position_source": "authored Attachment_track_right anchor in res://assets/vehicles/modern_bound/germ_leopard_2a4.glb, expressed relative to the hull part (VehicleRoot); the anchor's own parent is RunningRight, so the part follows the model; relative basis is the identity: true",
+      "size": [
+        0.3,
+        0.3,
+        5.97
+      ]
+    }
+  ],
+  "before_packet_sha256": "af5c4066d20ff0fc3b2a592fcf263137546cc384c9fbda15534a893d9306cc0e",
+  "historical_verified": false,
+  "model": {
+    "path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+    "sha256": "52ca0e325583f13aa5faafcf507cde8298c8a25eb187e39bb2c8d43f03f575a2",
+    "source_vehicle_id": "germ_leopard_2a4"
+  },
+  "origin": "game_rule",
+  "reason": "Restore the existing authored 15 ready / 27 reserve, explicit manual loading and partition/vent policy at verified GLB anchors. Total 42, shot reload, shell rules, armor and drive parameters unchanged. Game rules, not verified historical pressure simulation.",
+  "schema_version": 1,
+  "vehicle_id": "germ_leopard_2a4"
+}
