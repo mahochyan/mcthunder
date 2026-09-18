@@ -216,10 +216,10 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 		if not _collect_patches(snapshot, layout, transforms, from_world, to_world, seg_length, events, diagnostics, fractions, section_radius, section_offsets):
 			complete = false
 		if include_modules:
-			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "module", events, intervals, diagnostics, fractions):
+			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "module", events, intervals, diagnostics, fractions, section_radius, section_offsets):
 				complete = false
 		if include_crew:
-			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "crew", events, intervals, diagnostics, fractions):
+			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "crew", events, intervals, diagnostics, fractions, section_radius, section_offsets):
 				complete = false
 
 	# 去重：只合并同一个面片的重复三角形交点（同 entity/life/part/surface + 接近位置）
@@ -482,10 +482,13 @@ static func _collect_patches(
 static func _collect_boxes(
 		snapshot: Dictionary, layout: VehicleLayoutDefinition, transforms: Dictionary,
 		from_world: Vector3, to_world: Vector3, seg_length: float,
-		kind: String, events: Array, intervals: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE
+		kind: String, events: Array, intervals: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE,
+		section_radius: float = 0.0, section_offsets: Array[Vector3] = []
 	) -> bool:
 	# 返回 complete（false = 缺部件变换/非有限——保守未决）
 	var complete := true
+	# CD003: volumes get their own ray budget, declared, so sampling a section here cannot run unbounded either.
+	var ray_casts := 0
 	var entity_id: String = str(snapshot.get("entity_id", ""))
 	var life_id: int = int(snapshot.get("life_id", 0))
 	var items: Array = layout.modules if kind == "module" else layout.crew_stations
@@ -503,11 +506,32 @@ static func _collect_boxes(
 		var end_box: Transform3D = TranslationSweep.part_transform(snapshot, item.part_id, fractions.y) * item.local_box_transform
 		var local_to: Vector3 = end_box.affine_inverse() * to_world
 		var moving: bool = snapshot.get(TranslationSweep.PREVIOUS_KEY, {}).has(item.part_id)
-		var r := TranslationSweep.box_query(local_from, local_to, item.size_m) if moving else QueryGeometry.segment_box_local(local_from, local_to, item.size_m)
+		# CD003 必须设计 #4: the declared section applies to volumes too, in the SAME box-local frame the centre ray uses, so a
+		# module the round is wide enough for is met even when the centre line passes beside it. The centre ray always wins,
+		# so one item is still one interval per episode, and exhausting the declared budget reports incomplete.
+		var local_offsets: Array[Vector3] = [Vector3.ZERO]
+		for world_offset in section_offsets:
+			local_offsets.append(box_world.basis.inverse()*world_offset)
+		var r: Dictionary = {}
+		for ray_index in local_offsets.size():
+			if ray_casts >= RAY_BUDGET:
+				diagnostics.append("ray_budget_exhausted at %s %s (budget %d)" % [kind,item.id,RAY_BUDGET])
+				complete = false
+				break
+			ray_casts += 1
+			var off: Vector3 = local_offsets[ray_index]
+			var q := TranslationSweep.box_query(local_from+off, local_to+off, item.size_m) if moving else QueryGeometry.segment_box_local(local_from+off, local_to+off, item.size_m)
+			if not q.get("ok", false):
+				diagnostics.append("%s %s: box query error: %s" % [kind, item.id, str(q.get("error", "unknown"))])
+				complete = false
+				break
+			if not q.get("hit", false):
+				continue
+			if r.is_empty() or float(q["t_enter"]) < float(r.get("t_enter", INF)):
+				r = q
+			if ray_index == 0:
+				break
 		if not r.get("ok", false):
-			# 005-R1 收尾 A：盒查询错误不得静默忽略——追加诊断并整体未决（complete=false）
-			diagnostics.append("%s %s: box query error: %s" % [kind, item.id, str(r.get("error", "unknown"))])
-			complete = false
 			continue
 		if not r.get("hit", false):
 			continue

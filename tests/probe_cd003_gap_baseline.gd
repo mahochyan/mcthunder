@@ -473,6 +473,28 @@ func _run() -> void:
 		print("[CD03-T06 instr] step=%.3f rad => turn=%.4f rad spans=%d hits=%d first_fraction=%.6f span=%d (analytic 0.537424)" % [
 			step,float(diag.turn_rad),int(diag.spans),int(diag.hits),float(diag.first_fraction),int(diag.span)])
 		check(int(diag.spans)>=1,"CD03-T06 instrumentation subdivides the turn into at least one span (%.3f rad)" % step)
+	# ── CD003 必须设计 #4: the declared section must apply to VOLUMES as well, in the same box-local frame the centre ray
+	# uses. A five centimetre box sits beside the centre line, so only a ring ray of a wide-enough round can meet it.
+	var vol_layout := _single_plate_layout(1)
+	var mod := ModuleVolumeDefinition.new()
+	mod.id = "cd003_side_box"; mod.kind = "engine"; mod.part_id = "hull"
+	mod.local_box_transform = Transform3D(Basis.IDENTITY,Vector3(0,0.06,0))
+	mod.size_m = Vector3(0.05,0.05,0.5)
+	mod.geometry_status = "estimated"
+	vol_layout.modules.append(mod)
+	var vol_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,vol_layout)
+	var centre_only := ShotQueryService.query({"query_id":"cd003_vol_centre","from_world":Vector3(-3,0,0),"to_world":Vector3(3,0,0)},[vol_snapshot])
+	var with_sec := ShotQueryService.query({"query_id":"cd003_vol_section","from_world":Vector3(-3,0,0),"to_world":Vector3(3,0,0),
+		"shape_section":{"section_radius_m":0.06,"rays":13}},[vol_snapshot])
+	var centre_hits := 0
+	for iv in centre_only.get("volume_intervals",[]):
+		if str(iv.get("module_id",""))=="cd003_side_box": centre_hits += 1
+	var section_hits := 0
+	for iv in with_sec.get("volume_intervals",[]):
+		if str(iv.get("module_id",""))=="cd003_side_box": section_hits += 1
+	print("[CD003 vol] side module box 50 mm at y=60 mm: centre-only intervals=%d ; with a 60 mm section intervals=%d" % [centre_hits,section_hits])
+	check(centre_hits==0,"CD003 without a section the centre line misses a module it passes beside")
+	check(section_hits>=1,"CD003 with a declared section the same line meets the module the round is wide enough for")
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
