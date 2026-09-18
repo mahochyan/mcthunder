@@ -35,9 +35,9 @@ const PROFILES := {
 	PROFILE_QUADRATIC: {
 		"version": VERSION,
 		"drag_model": "quadratic_speed",
-		"drag_k_per_m": 2.2e-5,
+		"drag_k_per_m": 1.40e-4,
 		"provenance": "design",
-		"note": "One calibratable approximation, not several air models. k is a game design initial value awaiting calibration.",
+		"note": "One calibratable approximation, not several air models. k is calibrated so the declared retention table is the exponential e^(-k*x) within its tolerance - under zero gravity the drag term has the closed form v(x)=v0*e^(-k*x), and the frozen curve 0.972/0.932/0.871/0.814 at 200/500/1000/1500 m inverts to k between 1.37e-4 and 1.42e-4. Still a game design initial value awaiting human calibration.",
 	},
 }
 

@@ -206,6 +206,8 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	st.launch_position = pos
 	st.launch_velocity = vel
 	st.gravity_world = grav
+	# CD004 design point 1: the drag coefficient travels with the frozen launch state. Absent means 0, the legacy curve.
+	st.drag_k_per_m = float(spec.get("drag_k_per_m",0.0))
 	st.max_age_s = max_age
 	st.max_distance_m = max_dist
 	st.status = "pending"
@@ -281,7 +283,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 		if st.fuze_due_age_s >= 0.0:
 			h = minf(h, maxf(0.0, st.fuze_due_age_s - st.age_s))
 			pending_h.clear() # Replan the unconsumed remainder after an exact timer boundary.
-		var adv := BallisticMath.advance_free(st.position_world, st.velocity_world, acceleration, h)
+		var adv := BallisticMath.advance_profile(st.position_world, st.velocity_world, acceleration, st.drag_k_per_m, h)
 		if not adv.get("ok", false):
 			finish_once(st.projectile_id, "unresolved_query", {"detail": str(adv.get("reason", ""))})
 			return

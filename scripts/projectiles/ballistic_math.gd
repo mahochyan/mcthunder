@@ -30,6 +30,41 @@ static func advance_free(p: Vector3, v: Vector3, a: Vector3, dt: float) -> Dicti
 		"velocity": next_v
 	}
 
+## CD004 design point 1: one calibratable drag approximation, integrated over a bounded number of sub-steps per physics step.
+## The acceleration is a = gravity - k*|v|*v, so speed decays with distance instead of staying at the muzzle value. With
+## k <= 0 this returns EXACTLY the constant-acceleration result, which is what keeps every existing (vacuum) shot
+## byte-identical and lets the T01 zero-drag baseline stand as the old-behaviour control.
+const DRAG_SUBSTEPS := 16
+
+static func drag_acceleration(v: Vector3, gravity: Vector3, drag_k_per_m: float) -> Vector3:
+	if drag_k_per_m <= 0.0 or not v.is_finite():
+		return gravity
+	var speed := v.length()
+	if speed <= 0.0:
+		return gravity
+	return gravity - v * (drag_k_per_m * speed)
+
+static func advance_profile(p: Vector3, v: Vector3, gravity: Vector3, drag_k_per_m: float, dt: float) -> Dictionary:
+	if drag_k_per_m <= 0.0:
+		return advance_free(p, v, gravity, dt)
+	if not p.is_finite() or not v.is_finite() or not gravity.is_finite():
+		return {"ok": false, "reason": "non_finite_state"}
+	if not is_finite(dt) or dt < 0.0:
+		return {"ok": false, "reason": "invalid_dt"}
+	if not is_finite(drag_k_per_m) or drag_k_per_m < 0.0:
+		return {"ok": false, "reason": "invalid_drag_k"}
+	var count := maxi(1, DRAG_SUBSTEPS)
+	var h := dt / float(count)
+	var next_p := p
+	var next_v := v
+	for i in count:
+		var a := drag_acceleration(next_v, gravity, drag_k_per_m)
+		next_p = next_p + next_v * h + a * (0.5 * h * h)
+		next_v = next_v + a * h
+		if not next_p.is_finite() or not next_v.is_finite():
+			return {"ok": false, "reason": "state_overflow"}
+	return {"ok": true, "position": next_p, "velocity": next_v, "drag_substeps": count}
+
 ## 规划本物理步内的子步边界（含最小速度转折点拆分）。
 ## 返回 {ok, times}（times 为子步边界，如 [0, h, 2h] 表示依次推进两个子步）
 ## 或 {ok=false, reason}（substep_budget_exceeded 等）。

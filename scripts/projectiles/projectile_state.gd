@@ -59,6 +59,9 @@ var position_world := Vector3.ZERO
 var previous_position_world := Vector3.ZERO
 var velocity_world := Vector3.ZERO
 var gravity_world := Vector3.ZERO
+## CD004: the calibrated drag coefficient of the profile this shot flies with. Default 0 is the legacy vacuum flight, so a
+## spec that declares nothing behaves exactly as before.
+var drag_k_per_m := 0.0
 
 var age_s := 0.0                # 已飞行模拟时间
 var travelled_m := 0.0          # 已累计路程（分段折线长度近似）
