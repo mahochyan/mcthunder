@@ -287,6 +287,12 @@ func _show_garage(result: Dictionary) -> void:
 		else:
 			result_lines.append(LocalizationService.text("result_no_reward"))
 		garage.result_label.text = "\n".join(result_lines)
+		# UI-BIZ-01 stage 3: the settlement block reads as its own instrument plate rather than a paragraph of loose
+		# text on the page. The plate is applied in the branch that sets the text, so it appears exactly when there is
+		# a result to show and the empty case keeps whatever the page already did.
+		garage.result_label.add_theme_stylebox_override("normal",BizTheme.box(BizTheme.sunken(),BizTheme.hairline(),12,"panel"))
+		garage.result_label.add_theme_color_override("font_color",BizTheme.text_secondary())
+		garage.result_label.add_theme_font_size_override("font_size",roundi(float(UiTokens.biz_type_size("label",13)) * AccessibilitySettings.ui_scale))
 	if DisplayServer.get_name() != "headless": Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_transitioning = false
 

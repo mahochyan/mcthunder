@@ -230,4 +230,10 @@ func run(flow: AppFlow) -> void:
 	hud.theme = CoreUI.theme()
 	AccessibilitySettings.apply(hud)
 	await frames(10)
+	# UI-BIZ-01 stage 4: the same layout audit the garage screens run, applied to the battle HUD, so a collapsed width,
+	# a control drawn outside the viewport or two controls sharing one rectangle is looked for in battle as well.
+	var found := LayoutAudit.collect(hud,Vector2(get_window().size))
+	check(found.narrow.is_empty(), "battle HUD: no text control has a collapsed width (%s)" % LayoutAudit.describe(found,"narrow"))
+	check(found.outside.is_empty(), "battle HUD: no visible control is drawn outside the viewport (%s)" % LayoutAudit.describe(found,"outside"))
+	check(found.stacked.is_empty(), "battle HUD: no two visible controls share one rectangle (%s)" % LayoutAudit.describe(found,"stacked"))
 	finish_result()
