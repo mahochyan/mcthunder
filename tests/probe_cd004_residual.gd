@@ -34,6 +34,12 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 		return {"ok":false,"reason":"fixture_fuze_invalid"}
 	var layout := _single_plate_layout(thickness)
 	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	# The shooter and the target must be DIFFERENT entities. The manager excludes the shooter's own surfaces, so a fixture
+	# that uses one actor as both has its plate correctly removed and reports no contact. A five-variant bisection of the
+	# request fields found this in one run: plain, motion_fraction and frozen-frame requests each returned one event, while
+	# adding the manager's exclusion and include flags returned none.
+	snapshot["entity_id"] = "cd004_t04_target"
+	snapshot["life_id"] = 7
 	var spec := {"round_id":round_id,"shooter_id":"cd004_t04","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id+"_t04fixture",
 		"effect_policy":"internal_burst","armor_policy":"resolve",
 		"impact_profile":{},"post_penetration_profile":{},"fuze_policy":delay_fuze.duplicate(true),
@@ -120,6 +126,37 @@ func _run() -> void:
 	if not fuze.is_empty():
 		fuze["delay_s"] = T04_DELAY
 	print("[CD004 T04] fuze=%s ; zero gravity and a vacuum profile, so the flight after the plate is exactly linear" % JSON.stringify(fuze))
+
+	# One-run separation: the same fixture plate through the query service directly. If the plate is met here then the
+	# geometry and the snapshot are sound and the loss lives in the internal_burst manager path; if it is not met, my
+	# fixture is at fault. Either answer names the next action, which is the point of running it before changing anything.
+	var direct_layout := _single_plate_layout(1)
+	var direct_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,direct_layout)
+	var direct := ShotQueryService.query({"query_id":"cd004_t04_direct","from_world":Vector3(-3,0,0),"to_world":Vector3(3,0,0)},[direct_snapshot])
+	var direct_hits := 0
+	for ev in direct.get("events",[]):
+		if not str(ev.get("surface_id","")).is_empty(): direct_hits += 1
+	print("[CD004 T04 direct] same fixture through the query service: events=%d complete=%s diagnostics=%s" % [
+		direct_hits,str(direct.get("complete",true)),JSON.stringify(direct.get("diagnostics",[]))])
+	# Bisect the difference in ONE run: the manager's request adds motion_fraction and exclusions, and the internal_burst
+	# path replaces the snapshot array with a frozen frame. Each variant is measured separately so the culprit names itself.
+	var base_request := {"query_id":"cd004_t04_var","from_world":Vector3(-3,0,0),"to_world":Vector3(3,0,0)}
+	var motion_request := base_request.duplicate(true)
+	motion_request["motion_fraction"] = Vector2(0.0,1.0)
+	var full_request := motion_request.duplicate(true)
+	full_request["excluded_instances"] = [{"entity_id":"cd004_t04","life_id":1}]
+	full_request["include_modules"] = true
+	full_request["include_crew"] = true
+	full_request["shape_section"] = {}
+	var frozen := TranslationSweep.frame_at([direct_snapshot],1.0)
+	var variant_events := {
+		"plain": len(ShotQueryService.query(base_request,[direct_snapshot]).get("events",[])),
+		"motion_fraction": len(ShotQueryService.query(motion_request,[direct_snapshot]).get("events",[])),
+		"manager_fields": len(ShotQueryService.query(full_request,[direct_snapshot]).get("events",[])),
+		"frozen_frame": len(ShotQueryService.query(base_request,frozen).get("events",[])),
+		"frozen_plus_fields": len(ShotQueryService.query(full_request,frozen).get("events",[])),
+	}
+	print("[CD004 T04 variants] events by request variant: %s" % JSON.stringify(variant_events))
 
 	var thin := _t04_fire(actor,world,1,fuze,T04_SEED+1)
 	var thick := _t04_fire(actor,world,3,fuze,T04_SEED+3)
