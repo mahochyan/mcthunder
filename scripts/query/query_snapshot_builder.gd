@@ -62,6 +62,11 @@ static func build_from_vehicle(vehicle: TankVehicle, layout: VehicleLayoutDefini
 		out["occupancy_revision"] = host.gunner.inventory.occupancy_revision
 	else:
 		out["occupancy_revision"] = -1
+	# The proposed contract CombatQuerySnapshotV2 also names the tick and the motion fraction, so a snapshot states when
+	# its facts were taken. The tick is read from the engine rather than passed in, so a caller cannot supply a stale one,
+	# and the fraction is the current pose (a swept range stays a property of the request, not of the snapshot).
+	out["physics_tick"] = Engine.get_physics_frames()
+	out["motion_fraction"] = Vector2.ONE
 	return out
 
 

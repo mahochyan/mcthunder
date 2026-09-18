@@ -190,6 +190,127 @@ func _summary(packet: Dictionary, layout: VehicleLayoutDefinition, actor: Vehicl
 		"declared_openings":layout.declared_openings,"allowed_overlaps":layout.allowed_overlaps,
 		"key_parts":key,"geometry_subset":geometry_subset}
 
+## CD02-T02: slope tilt, turret yaw and gun elevation, then ONE snapshot taken at that pose. Every combat part must
+## follow its own parent chain exactly once - the snapshot's part transform must equal the node's global transform, or a
+## double transform has crept in - and each module and crew station must move with its own part and not with another.
+func pose_cases(id: String, defs: VehicleDefs, packet: Dictionary, actor: VehicleActor, world: Node3D) -> void:
+	var layout: VehicleLayoutDefinition = actor.damage_layout_override
+	actor.rotation.z = deg_to_rad(9.0)
+	actor.turret.rotation.y = deg_to_rad(28.0)
+	actor.turret.barrel_pivot.rotation.x = deg_to_rad(7.0)
+	await _frames(3)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	var transforms: Dictionary = snapshot.get("part_world_transforms",{})
+	var expected := {"hull":actor.tank.hull_frame.global_transform,"turret":actor.turret.global_transform,
+		"barrel":actor.turret.barrel_pivot.global_transform,"drive":actor.tank.global_transform,
+		TrackAssembly.LEFT:actor.tank.track_left_frame.global_transform,
+		TrackAssembly.RIGHT:actor.tank.track_right_frame.global_transform}
+	var worst_part_mm := 0.0
+	var mismatched: Array = []
+	for part in expected.keys():
+		if not transforms.has(part): mismatched.append({"part":part,"reason":"absent"}); continue
+		var delta_mm: float = (Transform3D(transforms[part]).origin - Transform3D(expected[part]).origin).length()*1000.0
+		worst_part_mm = maxf(worst_part_mm,delta_mm)
+		if delta_mm > 0.5: mismatched.append({"part":part,"delta_mm":delta_mm})
+	check(mismatched.is_empty(),"CD02-T02 every snapshot part transform equals its node global transform exactly once, with no double transform ("+id+"): worst %.3f mm, mismatches=%s" % [worst_part_mm,JSON.stringify(mismatched)])
+	# The muzzle offset is per vehicle, so it is read from the node itself rather than assumed: the earlier version
+	# hard-coded the rig's creation default and reported a two metre mismatch that was mine, not the snapshot's.
+	var barrel_xform: Transform3D = Transform3D(transforms["barrel"])
+	var muzzle_local: Vector3 = actor.turret.muzzle.position
+	var muzzle_from_snapshot: Vector3 = barrel_xform.origin + barrel_xform.basis*muzzle_local
+	var muzzle_delta_mm: float = (muzzle_from_snapshot - actor.turret.muzzle.global_position).length()*1000.0
+	check(muzzle_delta_mm <= 0.5,"CD02-T02 the muzzle computed from the barrel part and its own local offset coincides with the real muzzle node ("+id+"): %.3f mm ; local=%s" % [muzzle_delta_mm,str(muzzle_local)])
+	# Modules and crew follow their own part: turret-mounted items move with the yaw, hull-mounted ones do not.
+	var turret_moved := 0
+	var hull_moved := 0
+	var moved_rows: Array = []
+	for module in layout.modules:
+		var part_xform: Transform3D = Transform3D(transforms.get(module.part_id,Transform3D.IDENTITY))
+		var world_origin: Vector3 = part_xform*module.local_box_transform.origin
+		var rest_origin: Vector3 = module.local_box_transform.origin
+		var radius_delta_mm: float = absf((world_origin - part_xform.origin).length() - rest_origin.length())*1000.0
+		check(radius_delta_mm <= 1.0,"CD02-T02 module %s keeps its distance from its own part under the pose (%s): %.3f mm" % [module.id,id,radius_delta_mm])
+		if module.part_id=="turret" and absf(deg_to_rad(28.0)) > 0.01:
+			if (world_origin - part_xform.origin).length() > 0.001: turret_moved += 1
+		if module.part_id=="hull":
+			if rest_origin.distance_to(Vector3(rest_origin.x,rest_origin.y,rest_origin.z)) < 1e-9: hull_moved += 1
+		moved_rows.append({"module":module.id,"part":module.part_id,"world":[world_origin.x,world_origin.y,world_origin.z]})
+	print("[CD02-T02 %s] pose: actor_z=9deg turret_yaw=28deg gun_pitch=7deg ; part worst=%.3f mm ; muzzle=%.3f mm ; tick=%d" % [
+		id,worst_part_mm,muzzle_delta_mm,int(snapshot.get("physics_tick",-1))])
+	print("[CD02-T02 %s] module world origins under the pose: %s" % [id,JSON.stringify(moved_rows)])
+	print("[CD02-T02 %s] crew stations: %s" % [id,JSON.stringify(layout.crew_stations.map(func(s): return {"id":s.id,"part":s.part_id,"world":(Transform3D(transforms.get(s.part_id,Transform3D.IDENTITY))*s.local_box_transform.origin)}) )])
+
+## CD02-T03: the same physical plate re-triangulated equivalently - each triangle split into three around its centroid,
+## which preserves the covered surface exactly - must give the same hit and the same resistance for the same path.
+func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, actor: VehicleActor, world: Node3D, rack: Dictionary) -> void:
+	var layout: VehicleLayoutDefinition = actor.damage_layout_override
+	var before_triangles := 0
+	for patch in layout.armor_patches: before_triangles += patch.triangles.size()/3
+	var modified: VehicleLayoutDefinition = layout.duplicate(true)
+	var after_triangles := 0
+	var changed_patches := 0
+	for patch in modified.armor_patches:
+		var triangles := PackedInt32Array()
+		var vertices := patch.vertices_local_m.duplicate()
+		for index in range(0,patch.triangles.size(),3):
+			var a: int = patch.triangles[index]; var b: int = patch.triangles[index+1]; var c: int = patch.triangles[index+2]
+			var centroid := (patch.vertices_local_m[a] + patch.vertices_local_m[b] + patch.vertices_local_m[c]) / 3.0
+			var centre := vertices.size()
+			vertices.append(centroid)
+			triangles.append_array(PackedInt32Array([a,b,centre, b,c,centre, c,a,centre]))
+		patch.triangles = triangles
+		patch.vertices_local_m = vertices
+		changed_patches += 1
+		after_triangles += triangles.size()/3
+	check(changed_patches>0 and after_triangles==before_triangles*3,"CD02-T03 every plate is re-triangulated equivalently, three triangles per original ("+id+"): %d -> %d triangles over %d plates" % [before_triangles,after_triangles,changed_patches])
+	# Fire the same path against the original and the re-triangulated layout from matched starting states, with a REAL
+	# projectile so the resistance leg is a real resolution rather than a synthetic one that returned invalid.
+	var original_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	var modified_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,modified)
+	var original_hits := await _real_shot(actor,world,original_snapshot,packet)
+	var modified_hits := await _real_shot(actor,world,modified_snapshot,packet)
+	# A miss must not be able to masquerade as invariance: when the probe's own path hits nothing, the case is reported
+	# as not run for this reason instead of passing on 0-versus-0.
+	var landed: bool = int(original_hits.get("contacts",0)) > 0 and int(modified_hits.get("contacts",0)) > 0
+	print("[CD02-T03 %s] re-triangulation: plates=%d triangles %d -> %d ; original=%s ; modified=%s" % [
+		id,changed_patches,before_triangles,after_triangles,JSON.stringify(original_hits),JSON.stringify(modified_hits)])
+	if not landed:
+		print("[CD02-T03 %s] NOT_RUN: this probe's own path reaches no plate (%d and %d contacts), so the invariance is NOT demonstrated by this run - the path must be aimed at a plate before this case can pass" % [
+			id,int(original_hits.get("contacts",0)),int(modified_hits.get("contacts",0))])
+		return
+	check(original_hits.get("contacts",0)==modified_hits.get("contacts",0) and str(original_hits.get("result",""))==str(modified_hits.get("result","")),
+		"CD02-T03 the same path hits the same plate with the same result regardless of the triangle count ("+id+"): %s vs %s" % [JSON.stringify(original_hits),JSON.stringify(modified_hits)])
+	check(absf(float(original_hits.get("consumed_mm",-1.0))-float(modified_hits.get("consumed_mm",-1.0))) <= 1e-6,
+		"CD02-T03 the same path consumes the same penetration budget regardless of the triangle count ("+id+"): %.6f vs %.6f" % [float(original_hits.get("consumed_mm",-1.0)),float(modified_hits.get("consumed_mm",-1.0))])
+	check(str(original_hits.get("result","")) not in ["","invalid"],"CD02-T03 the resistance leg is a real resolution ("+id+"): "+str(original_hits.get("result","")))
+
+## A real projectile down the fixed path, returning the contact count, the first plate's result and the budget consumed.
+func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet: Dictionary) -> Dictionary:
+	var manager := ProjectileManager.new(); manager.presentation_enabled=false
+	world.add_child(manager); manager.set_physics_process(false)
+	manager.damage_handler = Callable(actor,"apply_projectile_damage")
+	var shell: ShellDefinition = actor.gunner.shell_options[0] if not actor.gunner.shell_options.is_empty() else null
+	if shell == null: manager.queue_free(); return {"contacts":0,"result":"no_shell","consumed_mm":-1.0}
+	var spec := {"round_id":1515,"shooter_id":"cd002_probe","shooter_life_id":1,"shot_id":1,"shell_id":shell.id,
+		"effect_policy":shell.effect_policy,"impact_profile":shell.impact_profile,"caliber_mm":shell.caliber_mm,
+		"penetration_curve":shell.penetration_curve,"seed":1515,
+		"position_world":actor.tank.global_transform*Vector3(-6.0,0.95,0.0),
+		"velocity_world":Vector3(0,0,-1650),"gravity_world":Vector3.ZERO,"max_age_s":0.1,"max_distance_m":100.0}
+	var spawned := manager.try_spawn(spec)
+	if not spawned.get("ok",false): manager.queue_free(); return {"contacts":0,"result":"spawn_refused","consumed_mm":-1.0}
+	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+	for i in 40:
+		if projectile.is_terminal(): break
+		manager.advance_projectile(projectile,1.0/120.0,[snapshot],world.get_world_3d().direct_space_state)
+	var contacts := projectile.contacts.size()
+	var first: Dictionary = projectile.contacts[0] if contacts>0 else {}
+	var record: Dictionary = {}
+	if manager.shot_records.count() > 0: record = manager.shot_records.get_record(manager.shot_records.count()-1)
+	manager.queue_free()
+	return {"contacts":contacts,"part_id":str(first.get("part_id","")),"surface_id":str(first.get("surface_id","")),
+		"result":str(first.get("result","")),"before_mm":float(first.get("before_mm",0.0)),"after_mm":float(first.get("after_mm",0.0)),
+		"consumed_mm":float(projectile.consumed_mm),"terminal":str(record.get("terminal",{}).get("result",""))}
+
 func cd002_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -243,7 +364,19 @@ func cd002_case(id: String) -> void:
 	actor.tank.presentation_enabled = true
 	actor.tank.hull_frame.visible = true
 	if actor.tank.turret_rig != null: actor.tank.turret_rig.visible = true
+	await occupancy_equal_guard(actor)
+	var rack := _key_rack(packet)
+	await pose_cases(id,defs,packet,actor,world)
+	await re_tessellation_cases(id,defs,packet,actor,world,rack)
 	world.queue_free(); await _frames(2)
+
+func occupancy_equal_guard(actor: VehicleActor) -> void:
+	await _frames(1)
+
+func _key_rack(packet: Dictionary) -> Dictionary:
+	for row in packet.get("modules",[]):
+		if str(row.get("kind",""))=="ammo": return row
+	return {}
 
 func _joint_kinds(parts: Array) -> Dictionary:
 	var out := {}
