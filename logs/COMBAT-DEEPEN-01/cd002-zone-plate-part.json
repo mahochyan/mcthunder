@@ -840,6 +840,7 @@
     "layout_id": "test_cd002_ussr_t_80b_layout",
     "layout_schema": 1,
     "mesh_overlay": {
+      "drifted": [],
       "leg": "MEASURED",
       "model_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
       "over_tolerance": [
@@ -892,8 +893,8 @@
         {
           "inset_mm": [
             -117.515205383301,
-            -1376.30004882813,
-            1832.64990234375
+            70.4269790649414,
+            1833.32690429688
           ],
           "key_part": true,
           "limits_mm": [
@@ -903,20 +904,20 @@
           ],
           "outside_mm": [
             232.087127685547,
-            1376.30004882813,
-            574.999938964844
+            0.0,
+            575.676940917969
           ],
           "plates": 4,
           "role": "turret",
           "within": false,
-          "worst_mm": 1376.30004882813,
+          "worst_mm": 575.676940917969,
           "zone": "turret_rear"
         },
         {
           "inset_mm": [
             93.4847564697266,
-            -666.300048828125,
-            151.649948120117
+            780.427001953125,
+            152.326934814453
           ],
           "key_part": true,
           "limits_mm": [
@@ -926,20 +927,20 @@
           ],
           "outside_mm": [
             0.0,
-            666.300048828125,
-            232.999923706055
+            0.0,
+            233.676910400391
           ],
           "plates": 1,
           "role": "turret",
           "within": false,
-          "worst_mm": 666.300048828125,
+          "worst_mm": 233.676910400391,
           "zone": "turret_roof"
         },
         {
           "inset_mm": [
             -331.497406005859,
-            -272.550598144531,
-            6034.5498046875
+            -81.6692428588867,
+            4992.18896484375
           ],
           "key_part": true,
           "limits_mm": [
@@ -949,8 +950,8 @@
           ],
           "outside_mm": [
             663.093078613281,
-            272.550598144531,
-            321.607971191406
+            81.6692428588867,
+            0.0
           ],
           "plates": 4,
           "role": "gun",
@@ -960,8 +961,21 @@
         }
       ],
       "reason": "",
+      "registered_unverified": [
+        "hull_sides_lower_rear",
+        "hull_rear_lower",
+        "hull_sides_rear",
+        "hull_rear_upper",
+        "hull_roof_rear",
+        "turret_front",
+        "turret_sides",
+        "turret_rear",
+        "turret_roof",
+        "gun_shield"
+      ],
       "tolerance_fraction": 0.02,
       "tolerance_mm": 50.0,
+      "unlisted": [],
       "unverified": [],
       "zones": [
         {
@@ -1243,8 +1257,8 @@
         {
           "inset_mm": [
             732.484741210938,
-            -1376.30004882813,
-            -100.350021362305
+            70.4269790649414,
+            -99.6730346679688
           ],
           "key_part": false,
           "limits_mm": [
@@ -1254,20 +1268,20 @@
           ],
           "outside_mm": [
             0.0,
-            1376.30004882813,
-            100.350021362305
+            0.0,
+            99.6730346679688
           ],
           "plates": 4,
           "role": "turret",
           "within": false,
-          "worst_mm": 1376.30004882813,
+          "worst_mm": 99.6730346679688,
           "zone": "turret_front"
         },
         {
           "inset_mm": [
             -167.515274047852,
-            -1376.30004882813,
-            -100.350021362305
+            70.4269790649414,
+            -99.6730346679688
           ],
           "key_part": false,
           "limits_mm": [
@@ -1277,20 +1291,20 @@
           ],
           "outside_mm": [
             332.087280273438,
-            1376.30004882813,
-            100.350021362305
+            0.0,
+            99.6730346679688
           ],
           "plates": 7,
           "role": "turret",
           "within": false,
-          "worst_mm": 1376.30004882813,
+          "worst_mm": 332.087280273438,
           "zone": "turret_sides"
         },
         {
           "inset_mm": [
             -117.515205383301,
-            -1376.30004882813,
-            1832.64990234375
+            70.4269790649414,
+            1833.32690429688
           ],
           "key_part": true,
           "limits_mm": [
@@ -1300,20 +1314,20 @@
           ],
           "outside_mm": [
             232.087127685547,
-            1376.30004882813,
-            574.999938964844
+            0.0,
+            575.676940917969
           ],
           "plates": 4,
           "role": "turret",
           "within": false,
-          "worst_mm": 1376.30004882813,
+          "worst_mm": 575.676940917969,
           "zone": "turret_rear"
         },
         {
           "inset_mm": [
             93.4847564697266,
-            -666.300048828125,
-            151.649948120117
+            780.427001953125,
+            152.326934814453
           ],
           "key_part": true,
           "limits_mm": [
@@ -1323,20 +1337,20 @@
           ],
           "outside_mm": [
             0.0,
-            666.300048828125,
-            232.999923706055
+            0.0,
+            233.676910400391
           ],
           "plates": 1,
           "role": "turret",
           "within": false,
-          "worst_mm": 666.300048828125,
+          "worst_mm": 233.676910400391,
           "zone": "turret_roof"
         },
         {
           "inset_mm": [
             -331.497406005859,
-            -272.550598144531,
-            6034.5498046875
+            -81.6692428588867,
+            4992.18896484375
           ],
           "key_part": true,
           "limits_mm": [
@@ -1346,8 +1360,8 @@
           ],
           "outside_mm": [
             663.093078613281,
-            272.550598144531,
-            321.607971191406
+            81.6692428588867,
+            0.0
           ],
           "plates": 4,
           "role": "gun",
@@ -3413,60 +3427,15 @@
     "layout_id": "test_cd002_germ_leopard_2a4_layout",
     "layout_schema": 1,
     "mesh_overlay": {
+      "drifted": [],
       "leg": "MEASURED",
       "model_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
       "over_tolerance": [
         {
           "inset_mm": [
-            202.828643798828,
-            -1570.0,
-            4631.5546875
-          ],
-          "key_part": true,
-          "limits_mm": [
-            56.1131477355957,
-            58.8000030517578,
-            90.4001159667969
-          ],
-          "outside_mm": [
-            0.0,
-            1570.0,
-            223.549133300781
-          ],
-          "plates": 1,
-          "role": "turret",
-          "within": false,
-          "worst_mm": 1570.0,
-          "zone": "turret_rear"
-        },
-        {
-          "inset_mm": [
-            222.028732299805,
-            -790.0,
-            455.554840087891
-          ],
-          "key_part": true,
-          "limits_mm": [
-            56.1131477355957,
-            58.8000030517578,
-            90.4001159667969
-          ],
-          "outside_mm": [
-            0.0,
-            790.0,
-            111.549140930176
-          ],
-          "plates": 1,
-          "role": "turret",
-          "within": false,
-          "worst_mm": 790.0,
-          "zone": "turret_roof"
-        },
-        {
-          "inset_mm": [
-            -4.2653980255127,
-            -320.767425537109,
-            5216.55029296875
+            -56.7953872680664,
+            18.7025966644287,
+            4040.9501953125
           ],
           "key_part": true,
           "limits_mm": [
@@ -3476,19 +3445,23 @@
           ],
           "outside_mm": [
             60.7919082641602,
-            320.767425537109,
-            1005.49353027344
+            0.0,
+            0.0
           ],
           "plates": 4,
           "role": "gun",
           "within": false,
-          "worst_mm": 1005.49353027344,
+          "worst_mm": 60.7919082641602,
           "zone": "gun_shield"
         }
       ],
       "reason": "",
+      "registered_unverified": [
+        "gun_shield"
+      ],
       "tolerance_fraction": 0.02,
       "tolerance_mm": 50.0,
+      "unlisted": [],
       "unverified": [],
       "zones": [
         {
@@ -3769,9 +3742,9 @@
         },
         {
           "inset_mm": [
-            702.828735351563,
-            -1570.0,
-            393.554931640625
+            722.998657226563,
+            90.9300231933594,
+            13.1049156188965
           ],
           "key_part": false,
           "limits_mm": [
@@ -3781,20 +3754,20 @@
           ],
           "outside_mm": [
             0.0,
-            1570.0,
+            0.0,
             0.0
           ],
           "plates": 4,
           "role": "turret",
-          "within": false,
-          "worst_mm": 1570.0,
+          "within": true,
+          "worst_mm": 0.0,
           "zone": "turret_front"
         },
         {
           "inset_mm": [
-            172.828674316406,
-            -1570.0,
-            393.554931640625
+            192.998641967773,
+            90.9300231933594,
+            13.1049156188965
           ],
           "key_part": false,
           "limits_mm": [
@@ -3804,20 +3777,20 @@
           ],
           "outside_mm": [
             0.0,
-            1570.0,
-            223.549133300781
+            0.0,
+            0.0
           ],
           "plates": 6,
           "role": "turret",
-          "within": false,
-          "worst_mm": 1570.0,
+          "within": true,
+          "worst_mm": 0.0,
           "zone": "turret_sides"
         },
         {
           "inset_mm": [
-            202.828643798828,
-            -1570.0,
-            4631.5546875
+            222.998626708984,
+            90.9300231933594,
+            4251.10498046875
           ],
           "key_part": true,
           "limits_mm": [
@@ -3827,20 +3800,20 @@
           ],
           "outside_mm": [
             0.0,
-            1570.0,
-            223.549133300781
+            0.0,
+            0.0
           ],
           "plates": 1,
           "role": "turret",
-          "within": false,
-          "worst_mm": 1570.0,
+          "within": true,
+          "worst_mm": 0.0,
           "zone": "turret_rear"
         },
         {
           "inset_mm": [
-            222.028732299805,
-            -790.0,
-            455.554840087891
+            242.198699951172,
+            870.929992675781,
+            75.1048355102539
           ],
           "key_part": true,
           "limits_mm": [
@@ -3850,20 +3823,20 @@
           ],
           "outside_mm": [
             0.0,
-            790.0,
-            111.549140930176
+            0.0,
+            0.0
           ],
           "plates": 1,
           "role": "turret",
-          "within": false,
-          "worst_mm": 790.0,
+          "within": true,
+          "worst_mm": 0.0,
           "zone": "turret_roof"
         },
         {
           "inset_mm": [
-            -4.2653980255127,
-            -320.767425537109,
-            5216.55029296875
+            -56.7953872680664,
+            18.7025966644287,
+            4040.9501953125
           ],
           "key_part": true,
           "limits_mm": [
@@ -3873,13 +3846,13 @@
           ],
           "outside_mm": [
             60.7919082641602,
-            320.767425537109,
-            1005.49353027344
+            0.0,
+            0.0
           ],
           "plates": 4,
           "role": "gun",
           "within": false,
-          "worst_mm": 1005.49353027344,
+          "worst_mm": 60.7919082641602,
           "zone": "gun_shield"
         }
       ]
