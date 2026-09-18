@@ -112,3 +112,25 @@ L3 薄 10 mm → 厚 100 mm（arming 50 mm）⇒ armed=**true** ✓ contacts=2 �
 ### ⚠️ 我第九次夹具朝向错 ✓✗（**重复错误类** ✓ 立为 standing rule ✓）
 我沿用 `R_Y(90°)` 却让弹沿 **−X** 飞 ✗ —— 而该旋转把**局部 x 映射到世界 −Z** ✗✓ ⇒ 板与弹**正交** ⇒ `contacts=0 / unresolved_query` ✓。去旋转（板落在 x=0 平面 ✓ 几何法线自然沿 ±X ✓）并按**相遇顺序**排布后三腿全绿 ✓✓。
 **Standing rule** ✓：**施加任何基旋转后，先测几何实际落点/法线，再写期望** ✓（CD05-T05 与本次同源 ✓ 已第三次相遇 ✓）。
+## 10. `CD06-T01` 前置清点：真实弹种集与**缺口精确定位** ✓✓（含第十次实测纠正 ✓）
+### ⚠️ 我此前的对象搞错了 ✗（**实测纠正** ✓）
+`configs/shells/modern_engineering_loadouts.json` **仅出现在执行包文档中** ✗ —— `scripts/` 与 `configs/` 内**无人引用** ✗ ⇒ 它**不是运行时加载的弹种集** ✓（我先前以它统计"4 弹 / 2 剖面 / 6 缺声明" ✗ **对象错误** ✓）。
+**真实加载路径** ✓：`scripts/content/historical_shell_catalog.gd:3` → `configs/shells/historical_loadouts.json` ✓✓。
+### 真实弹种清点 ✓（6 弹 ✓ 按 id 键入的对象 ✓）
+```
+m72_m3        effect=kinetic         pen_last=[2500, 42]   fuze: 无                    post: **absent** ✗
+m72_m6        effect=kinetic         pen_last=[2500, 42]   fuze: 无                    post: **absent** ✗
+m77_m3        effect=kinetic         pen_last=[2500, 80]   fuze: 无                    post: **absent** ✗
+m61_m3        effect=**internal_burst** pen_last=[2500, 39]  fuze: penetration_delay arm=**8.0** delay=**0.003**  post: **absent** ✗
+m61_m6        effect=**internal_burst** pen_last=[2500, 39]  fuze: penetration_delay arm=**8.0** delay=**0.003**  post: **absent** ✗
+m82_m3_2800   effect=**internal_burst** pen_last=[2500,105]  fuze: penetration_delay arm=**8.0** delay=**0.003**  post: **absent** ✗
+```
+- 与 `docs/wt/WT013_DELAYED_FUZE.md:19` ✓ 一致：**三款 APHE** ✓ 独立版本化规则 ✓ 8 mm LOS 阈值 / 0.003 s 延迟 ✓ **明标为可调游戏初值** ✓ 非史实引信性能 ✓；
+- 历史弹以 **`effect_policy`** 区分（`family` 字段为空 ✗）✓ 与工程弹的 `family` 命名不同 ✓ 已记录 ✓。
+### ⇒ `CD06-T01` 的缺口（精确 ✓）
+三个 internal_burst 弹**仅在穿深与速度上不同** ✓ 而**穿后行为完全相同** ✗（皆回落固定内部爆炸模板 ✓）⇒ 子单要求"**引信/分布由各自 profile 决定，不落回同一固定模板**" ✗ **未满足** ✓✓ = **本单的真实待实现项** ✓。
+### 关键约束（决定实现路径 ✓ 已实测）
+`SpallProfile.validate` **只接受 `effect="long_rod"`** ✓（L12 ✓）⇒ **剥落剖面无法服务 APHE 内部爆炸** ✗ ⇒ 必须**扩展**穿后剖面（= 设计 #1 明文"**新增/扩展 PostPenetrationProfile**：后效**通道**、**方向分布**、**作用范围**、**离散采样权重**和**预算**" ✓✓）。
+### 下一轮（实现 ✓ 先判据后实现 ✓）
+1. **先立判据** ✓：同穿深的两款 APHE ✓ 在**同一舱体**上应给出**不同**的后效分布 ✓✓ 且**各等于自己 profile 的参数**（count/cone/range/budget ✓）✓ 且**均不落回固定模板** ✓；
+2. **再改实现** ✓（**扩展**而非新管线 ✓ 符合实现顺序 #1 ✓）：为 internal_burst 增加**版本化剖面** ✓（通道/方向/范围/权重/预算 ✓ **数值为项目设计初值** ✓）⇒ 仅两个弹**显式声明** ✓ 第三个**保持缺席** ✓ ⇒ 缺席者解析到**具名 legacy** ✓（沿用本轮已立的 `legacy-021-toy-inside-v1` ✓✓）。
