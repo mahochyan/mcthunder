@@ -95,7 +95,7 @@ func _double_plate_layout() -> VehicleLayoutDefinition:
 	return layout
 
 ## One real projectile through the manager with a declared section, so the ray count is the only thing that changes.
-func _fire_leg(actor: VehicleActor, world: Node3D, layout: VehicleLayoutDefinition, rays: int, section_m: float, round_id: int) -> Dictionary:
+func _fire_leg(actor: VehicleActor, world: Node3D, layout: VehicleLayoutDefinition, rays: int, section_m: float, round_id: int, delta: float = 1.0/120.0) -> Dictionary:
 	var manager := ProjectileManager.new(); manager.presentation_enabled=false
 	world.add_child(manager); manager.set_physics_process(false)
 	manager.damage_handler = Callable(actor,"apply_projectile_damage")
@@ -116,7 +116,7 @@ func _fire_leg(actor: VehicleActor, world: Node3D, layout: VehicleLayoutDefiniti
 	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
 	for i in 30:
 		if projectile.is_terminal(): break
-		manager.advance_projectile(projectile,1.0/120.0,[snapshot],world.get_world_3d().direct_space_state)
+		manager.advance_projectile(projectile,delta,[snapshot],world.get_world_3d().direct_space_state)
 	var results: Array = []
 	for row in projectile.contacts: results.append(str(row.get("result","")))
 	var out := {"ok":true,"contacts":projectile.contacts.size(),"consumed_mm":float(projectile.consumed_mm),
@@ -152,14 +152,13 @@ func _moving_leg(actor: VehicleActor, z_start: float, z_end: float) -> Dictionar
 func _moving_section_leg(actor: VehicleActor, rot_deg: float) -> Dictionary:
 	var layout := _single_plate_layout(1)
 	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
-	var basis := Basis(Vector3.RIGHT,deg_to_rad(rot_deg))
+	var basis := Basis(Vector3.UP,deg_to_rad(rot_deg))
 	snapshot["part_world_transforms"]["hull"] = Transform3D(basis,Vector3.ZERO)
 	snapshot[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(basis,Vector3.ZERO)}
 	var radius := 0.030
-	# Rotation only, so the CENTRE line cannot drift into the plate. The line is expressed in the PART's frame, so the
-	# geometry is genuinely identical relative to the plate at any rotation - the ring itself is world-fixed, perpendicular
-	# to the world flight direction, which is correct and is why my earlier attempt, which kept a world-fixed line against a
-	# rotating plate, was comparing two different geometries and could only ever disagree.
+	# Rotation about Y, which is PERPENDICULAR to the flight direction. Rotating about the flight axis instead leaves the
+	# flight direction invariant, so the plate turns relative to the section and the experiment compares two different
+	# relative geometries - which is what my previous attempt did and why it could only ever disagree.
 	var line: Vector3 = basis*Vector3(0,0,1.0+0.015)
 	var from_world: Vector3 = basis*Vector3(-3.0,0.0,1.0+0.015)
 	var to_world: Vector3 = basis*Vector3(3.0,0.0,1.0+0.015)
@@ -339,19 +338,30 @@ func _run() -> void:
 	var spin_a := _moving_section_leg(actor,0.0)
 	var spin_b := _moving_section_leg(actor,20.0)
 	var dot := float(spin_a.offset_dir.dot(spin_b.offset_dir))
-	print("[CD03-T05] section under motion: A contacts=%d len=%.6f dir=%s | B contacts=%d len=%.6f dir=%s | dir_dot=%.6f" % [
+	print("[CD03-T05] section under a perpendicular rotation: A contacts=%d len=%.6f dir=%s | B contacts=%d len=%.6f dir=%s | dir_dot=%.6f" % [
 		int(spin_a.contacts),float(spin_a.offset_len),str(spin_a.offset_dir),
 		int(spin_b.contacts),float(spin_b.offset_len),str(spin_b.offset_dir),dot])
-	# RETRACTED as a test-design error, not a product defect: the ring is world-fixed and perpendicular to the WORLD flight
-	# direction, which is correct, while rotating the plate about that same axis legitimately rotates the plate relative to
-	# the section. So "the same relative geometry at two rotations" is not what this experiment builds - it builds two
-	# different relative geometries - and the direction disagreement it reports cannot be evidence of a frame error. A valid
-	# experiment must rotate the flight direction together with the plate so the section stays fixed relative to the plate;
-	# that is the recorded next step, and nothing weaker is asserted here to look green.
-	print("[CD03-T05] RETRACTED sub-check: rotating the plate about the flight axis changes the section's orientation relative to the plate by design; A dir=%s B dir=%s dot=%.6f is therefore not a frame-error measurement. Ring length is the declared radius at both phases (%.6f, %.6f m)." % [
-		str(spin_a.offset_dir),str(spin_b.offset_dir),dot,float(spin_a.offset_len),float(spin_b.offset_len)])
-	check(int(spin_a.contacts)>=1 and int(spin_b.contacts)>=1,"CD03-T05 the grazing shot with a section meets the plate at both part rotations")
+	check(int(spin_a.contacts)>=1 and int(spin_b.contacts)>=1,"CD03-T05 the grazing shot with a section meets the plate at both rotations")
 	check(absf(float(spin_a.offset_len)-0.030)<=0.002,"CD03-T05 the recorded ring offset has the declared radius: %.6f" % float(spin_a.offset_len))
+	check(dot>=0.999,"CD03-T05 with the flight direction rotated together with the plate, the same relative geometry gives the same local offset: dot=%.6f" % dot)
+	# ── CD03-T04: the same comparable scenario at different internal step sizes must agree within the declared tolerance,
+	# and exhausting the declared ray budget must report incomplete rather than a clear path.
+	for step in [1.0/60.0,1.0/120.0,1.0/240.0]:
+		var leg := _fire_leg(actor,world,_single_plate_layout(1),7,0.030,3400+int(step*100000.0),step)
+		print("[CD03-T04] step=1/%.0f contacts=%d consumed=%.6f" % [1.0/step,int(leg.get("contacts",-1)),float(leg.get("consumed_mm",-1.0))])
+		check(int(leg.get("contacts",0))==1,"CD03-T04 a comparable shot meets one plate at step 1/%.0f" % (1.0/step))
+	var budget_layout := _double_plate_layout()
+	var budget_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,budget_layout)
+	# The budget must be reached by work, not by a number in a request: the ray loop stops as soon as the CENTRE ray hits, so
+	# a line down the middle casts one ray per patch and never approaches the budget. A grazing line makes the loop walk the
+	# whole ring on both plates, which is 400 rays each and exceeds the declared 512.
+	var budget_result := ShotQueryService.query({"query_id":"cd003_budget","from_world":Vector3(-3,0,1.015),"to_world":Vector3(3,0,1.015),
+		"motion_fraction":Vector2(0,1),"shape_section":{"section_radius_m":0.03,"rays":400}},[budget_snapshot])
+	var budget_diag := JSON.stringify(budget_result.get("diagnostics",[]))
+	print("[CD03-T04] ray budget: rays=400 over %d plates => complete=%s diagnostic=%s" % [
+		budget_layout.armor_patches.size(),str(budget_result.get("complete",true)),budget_diag])
+	check(not bool(budget_result.get("complete",true)) and budget_diag.contains("ray_budget_exhausted"),
+		"CD03-T04 exhausting the declared ray budget reports incomplete with a diagnostic instead of a clear path")
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
