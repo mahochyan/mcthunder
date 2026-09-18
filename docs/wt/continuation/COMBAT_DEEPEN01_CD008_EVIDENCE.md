@@ -266,3 +266,45 @@ is the first step of the next round, followed by re-applying the migration uncha
 · seven delivered sites named a person by a role and each one has a data driven, stronger replacement;
 · run_recovery_player_checks is WINDOW_REQUIRED by design under headless.
 ```
+
+## 9. The two remaining causes named, and a regex of mine that had to be reverted
+
+### 9.1 What the print showed (one run, no inference)
+```
+damage leg BEFORE : assignments = { driver: person_1, assistant_driver_bow_gunner: person_2, gunner: person_3,
+                                  loader: person_4, commander: person_5 }   mover = person_5, alive = true
+damage leg AFTER  : moved = true, assignments = { driver: person_5, ..., commander: "" }
+damage leg CHECK  : commander_slot = (empty), driver_slot = person_5, mover = person_5
+==> BOTH sub-conditions hold, and that leg passes once the identity is read from the state. The training layout names
+    a station assistant_driver_bow_gunner, which is where my earlier reading of a role name went wrong.
+```
+### 9.2 Cause one: the damage suite still has a dotted access, and my regex broke it
+```
+The runtime error is Invalid access to property or key gunner at run_damage_checks.gd:192, i.e. ANOTHER dotted crew
+access of the same class as the one fixed at line 185. My attempt to rewrite every dotted access in one pass used the
+pattern crew_assignments\\.([a-z_]+), which also matches the METHOD name in crew_assignments.get(...), and it replaced
+those calls with nonsense, so the suite would not even run. That is reverted. The lesson is exact: a regex over dotted
+access must exclude call syntax, and any regex rewrite must be verified by a parse and a run BEFORE it is trusted.
+```
+### 9.3 Cause two: the recovery leg reads an empty person
+```
+The recovery suite error is Invalid access to key assistant_driver, so its crew map does not carry that key either, and
+the print written to show it did not apply because my earlier rewrite had already changed that line. So both remaining
+causes are the SAME class - a delivered test naming a person by a role or reading a key that the state does not hold -
+and both need their own measurement rather than another pattern-based sweep.
+```
+### 9.4 Reverted and verified
+```
+All three files are restored to the committed state and the affected suites are green again. Established results stand:
+the decoupling resolves every station (5 of 5 twice), the replacement path leaves one empty slot and no duplicate
+(measured), eleven of thirteen suites return their exact baselines under the migration, and the recovery player suite
+is window-required by design.
+```
+### 9.5 Next step
+```
+1. find EVERY dotted crew access in the damage suite by a pattern that CANNOT match a method call (for example a regex
+   anchored on a key that is not followed by an opening parenthesis), and list them before changing any;
+2. print, in the recovery suite, the actual assignment keys and the person read for each role, so the empty read is
+   explained rather than assumed;
+3. then re-apply the migration together with those exact corrections and run all thirteen suites, comparing counts.
+```
