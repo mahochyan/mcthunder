@@ -1,0 +1,3561 @@
+[
+  {
+    "admission_status": "",
+    "allowed_overlaps": [
+      {
+        "a": "gunner",
+        "b": "commander",
+        "reason": "both crew stations sit in the same turret compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect"
+      }
+    ],
+    "content_tier": "production",
+    "counts": {
+      "allowed_overlaps": 1,
+      "armor_patches": 46,
+      "crew_stations": 3,
+      "declared_openings": 5,
+      "modules": 11,
+      "parts": 6,
+      "zones": 17
+    },
+    "crew": [
+      {
+        "id": "driver",
+        "part_id": "hull",
+        "position_status": "estimated",
+        "role": "driver",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      },
+      {
+        "id": "gunner",
+        "part_id": "turret",
+        "position_status": "estimated",
+        "role": "gunner",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      },
+      {
+        "id": "commander",
+        "part_id": "turret",
+        "position_status": "estimated",
+        "role": "commander",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      }
+    ],
+    "declared_openings": [
+      {
+        "boundary_loop": [
+          "(-0.95, 1.45, -0.95)",
+          "(0.0, 1.45, -0.95)",
+          "(0.95, 1.45, -0.95)",
+          "(0.95, 1.45, 0.0)",
+          "(0.95, 1.45, 0.95)",
+          "(0.0, 1.45, 0.95)",
+          "(-0.95, 1.45, 0.95)",
+          "(-0.95, 1.45, 0.0)"
+        ],
+        "id": "turret_ring",
+        "part": "hull",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.275704, 0.182, -1.3496)",
+          "(0.275704, 0.182, -1.3496)",
+          "(0.244816, 0.608, -1.1984)",
+          "(-0.244816, 0.608, -1.1984)"
+        ],
+        "id": "gun_aperture",
+        "part": "turret",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.55, 0.04, -1.4)",
+          "(0.55, 0.04, -1.4)",
+          "(1.1, 0.04, -0.95)",
+          "(1.45, 0.04, -0.15)",
+          "(1.4, 0.04, 0.65)",
+          "(0.9, 0.04, 1.6)",
+          "(0.0, 0.04, 1.9)",
+          "(-0.9, 0.04, 1.6)",
+          "(-1.4, 0.04, 0.65)",
+          "(-1.45, 0.04, -0.15)",
+          "(-1.1, 0.04, -0.95)",
+          "(-0.75, 0.04, -1.3)"
+        ],
+        "id": "turret_floor_ring",
+        "part": "turret",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.5, -0.27, -0.1)",
+          "(0.5, -0.27, -0.1)",
+          "(0.5, 0.27, -0.1)",
+          "(-0.5, 0.27, -0.1)"
+        ],
+        "id": "shield_perimeter",
+        "part": "barrel",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.0625, -0.0625, -0.1)",
+          "(0.0625, -0.0625, -0.1)",
+          "(0.0625, 0.0625, -0.1)",
+          "(-0.0625, 0.0625, -0.1)"
+        ],
+        "id": "gun_bore",
+        "part": "barrel",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      }
+    ],
+    "display_name": "T-80B — combat candidate",
+    "entity": "test_cd002_ussr_t_80b",
+    "evidence_profile": "game_reference",
+    "geometry_subset": {
+      "barrel_length": 5.09,
+      "gun_origin": [
+        0.0,
+        0.19,
+        -1.04
+      ],
+      "hull_rings": [
+        [
+          0.35,
+          1.12,
+          -2.95,
+          3.3
+        ],
+        [
+          0.85,
+          1.2,
+          -3.45,
+          3.5
+        ],
+        [
+          1.45,
+          1.15,
+          -2.6,
+          3.5
+        ]
+      ],
+      "mantlet_half_height": 0.27,
+      "mantlet_half_width": 0.5,
+      "muzzle_brake": false,
+      "open_top": false,
+      "ring_half": 0.95,
+      "track_width": 0.6,
+      "turret_bottom": 0.04,
+      "turret_outline": [
+        [
+          -0.55,
+          -1.4
+        ],
+        [
+          0.55,
+          -1.4
+        ],
+        [
+          1.1,
+          -0.95
+        ],
+        [
+          1.45,
+          -0.15
+        ],
+        [
+          1.4,
+          0.65
+        ],
+        [
+          0.9,
+          1.6
+        ],
+        [
+          0.0,
+          1.9
+        ],
+        [
+          -0.9,
+          1.6
+        ],
+        [
+          -1.4,
+          0.65
+        ],
+        [
+          -1.45,
+          -0.15
+        ],
+        [
+          -1.1,
+          -0.95
+        ],
+        [
+          -0.75,
+          -1.3
+        ]
+      ],
+      "turret_taper": 0.82,
+      "turret_top": 0.75
+    },
+    "key_parts": {
+      "bustle_rear": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.275704, 0.182, -1.3496)",
+              "(0.275704, 0.182, -1.3496)",
+              "(0.244816, 0.608, -1.1984)",
+              "(-0.244816, 0.608, -1.1984)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.55, 0.04, -1.4)",
+              "(0.55, 0.04, -1.4)",
+              "(1.1, 0.04, -0.95)",
+              "(1.45, 0.04, -0.15)",
+              "(1.4, 0.04, 0.65)",
+              "(0.9, 0.04, 1.6)",
+              "(0.0, 0.04, 1.9)",
+              "(-0.9, 0.04, 1.6)",
+              "(-1.4, 0.04, 0.65)",
+              "(-1.45, 0.04, -0.15)",
+              "(-1.1, 0.04, -0.95)",
+              "(-0.75, 0.04, -1.3)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [
+          {
+            "ammo_capacity": 28,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "ammo_ready",
+            "integrity_now": 100.0,
+            "kind": "ammo",
+            "part_id": "hull",
+            "size_m": [
+              1.64999997615814,
+              0.219999998807907,
+              1.64999997615814
+            ]
+          },
+          {
+            "ammo_capacity": 10,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "ammo_reserve",
+            "integrity_now": 100.0,
+            "kind": "ammo",
+            "part_id": "hull",
+            "size_m": [
+              0.479999989271164,
+              0.600000023841858,
+              0.800000011920929
+            ]
+          }
+        ],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.turret_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_wall_4",
+                "reactive": false,
+                "thickness_mm": 60.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.turret_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_wall_5",
+                "reactive": false,
+                "thickness_mm": 60.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.turret_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_wall_6",
+                "reactive": false,
+                "thickness_mm": 60.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.turret_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_wall_7",
+                "reactive": false,
+                "thickness_mm": 60.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "turret_rear"
+          }
+        ],
+        "zones": [
+          "turret_rear"
+        ]
+      },
+      "glacis_upper_lower": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.275704, 0.182, -1.3496)",
+              "(0.275704, 0.182, -1.3496)",
+              "(0.244816, 0.608, -1.1984)",
+              "(-0.244816, 0.608, -1.1984)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.55, 0.04, -1.4)",
+              "(0.55, 0.04, -1.4)",
+              "(1.1, 0.04, -0.95)",
+              "(1.45, 0.04, -0.15)",
+              "(1.4, 0.04, 0.65)",
+              "(0.9, 0.04, 1.6)",
+              "(0.0, 0.04, 1.9)",
+              "(-0.9, 0.04, 1.6)",
+              "(-1.4, 0.04, 0.65)",
+              "(-1.45, 0.04, -0.15)",
+              "(-1.1, 0.04, -0.95)",
+              "(-0.75, 0.04, -1.3)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_front_upper",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "composite",
+                "part_id": "hull",
+                "plate_id": "hull_1_0",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_front_upper",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "composite",
+                "part_id": "hull",
+                "plate_id": "hull_1_1",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_front_upper"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_front_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_0",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_front_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_1",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_front_lower"
+          }
+        ],
+        "zones": [
+          "hull_front_upper",
+          "hull_front_lower"
+        ]
+      },
+      "hull_sides": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.275704, 0.182, -1.3496)",
+              "(0.275704, 0.182, -1.3496)",
+              "(0.244816, 0.608, -1.1984)",
+              "(-0.244816, 0.608, -1.1984)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.55, 0.04, -1.4)",
+              "(0.55, 0.04, -1.4)",
+              "(1.1, 0.04, -0.95)",
+              "(1.45, 0.04, -0.15)",
+              "(1.4, 0.04, 0.65)",
+              "(0.9, 0.04, 1.6)",
+              "(0.0, 0.04, 1.9)",
+              "(-0.9, 0.04, 1.6)",
+              "(-1.4, 0.04, 0.65)",
+              "(-1.45, 0.04, -0.15)",
+              "(-1.1, 0.04, -0.95)",
+              "(-0.75, 0.04, -1.3)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_front",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_2",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_front",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_7",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_front"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_3",
+                "reactive": false,
+                "thickness_mm": 70.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_6",
+                "reactive": false,
+                "thickness_mm": 70.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_rear"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_2",
+                "reactive": false,
+                "thickness_mm": 50.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_7",
+                "reactive": false,
+                "thickness_mm": 50.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_lower"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_3",
+                "reactive": false,
+                "thickness_mm": 45.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_6",
+                "reactive": false,
+                "thickness_mm": 45.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_lower_rear"
+          }
+        ],
+        "zones": [
+          "hull_sides_front",
+          "hull_sides_rear",
+          "hull_sides_lower",
+          "hull_sides_lower_rear"
+        ]
+      },
+      "mantlet_gun_shield": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.275704, 0.182, -1.3496)",
+              "(0.275704, 0.182, -1.3496)",
+              "(0.244816, 0.608, -1.1984)",
+              "(-0.244816, 0.608, -1.1984)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.55, 0.04, -1.4)",
+              "(0.55, 0.04, -1.4)",
+              "(1.1, 0.04, -0.95)",
+              "(1.45, 0.04, -0.15)",
+              "(1.4, 0.04, 0.65)",
+              "(0.9, 0.04, 1.6)",
+              "(0.0, 0.04, 1.9)",
+              "(-0.9, 0.04, 1.6)",
+              "(-1.4, 0.04, 0.65)",
+              "(-1.45, 0.04, -0.15)",
+              "(-1.1, 0.04, -0.95)",
+              "(-0.75, 0.04, -1.3)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_0",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_1",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_2",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_3",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "gun_shield"
+          }
+        ],
+        "zones": [
+          "gun_shield"
+        ]
+      },
+      "turret_ring": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.275704, 0.182, -1.3496)",
+              "(0.275704, 0.182, -1.3496)",
+              "(0.244816, 0.608, -1.1984)",
+              "(-0.244816, 0.608, -1.1984)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.55, 0.04, -1.4)",
+              "(0.55, 0.04, -1.4)",
+              "(1.1, 0.04, -0.95)",
+              "(1.45, 0.04, -0.15)",
+              "(1.4, 0.04, 0.65)",
+              "(0.9, 0.04, 1.6)",
+              "(0.0, 0.04, 1.9)",
+              "(-0.9, 0.04, 1.6)",
+              "(-1.4, 0.04, 0.65)",
+              "(-1.45, 0.04, -0.15)",
+              "(-1.1, 0.04, -0.95)",
+              "(-0.75, 0.04, -1.3)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [
+          {
+            "ammo_capacity": 0,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "turret_drive",
+            "integrity_now": 100.0,
+            "kind": "turret_drive",
+            "part_id": "hull",
+            "size_m": [
+              0.319999992847443,
+              0.150000005960464,
+              0.300000011920929
+            ]
+          }
+        ],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.turret_roof",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_roof",
+                "reactive": false,
+                "thickness_mm": 30.0,
+                "thickness_status": "estimated",
+                "triangles": 12,
+                "vertices": 13
+              }
+            ],
+            "zone": "turret_roof"
+          }
+        ],
+        "zones": [
+          "turret_roof"
+        ]
+      }
+    },
+    "layout_id": "test_cd002_ussr_t_80b_layout",
+    "layout_schema": 1,
+    "modules": [
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "engine",
+        "integrity_now": 100.0,
+        "kind": "engine",
+        "part_id": "hull",
+        "size_m": [
+          1.60000002384186,
+          0.649999976158142,
+          1.25
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "transmission",
+        "integrity_now": 100.0,
+        "kind": "transmission",
+        "part_id": "hull",
+        "size_m": [
+          1.5,
+          0.449999988079071,
+          0.200000002980232
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "fuel",
+        "integrity_now": 100.0,
+        "kind": "fuel",
+        "part_id": "hull",
+        "size_m": [
+          0.219999998807907,
+          0.600000023841858,
+          1.10000002384186
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "breech",
+        "integrity_now": 100.0,
+        "kind": "breech",
+        "part_id": "barrel",
+        "size_m": [
+          0.5,
+          0.400000005960464,
+          0.600000023841858
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "turret_drive",
+        "integrity_now": 100.0,
+        "kind": "turret_drive",
+        "part_id": "hull",
+        "size_m": [
+          0.319999992847443,
+          0.150000005960464,
+          0.300000011920929
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "stabilizer",
+        "integrity_now": 100.0,
+        "kind": "stabilizer",
+        "part_id": "hull",
+        "size_m": [
+          0.200000002980232,
+          0.219999998807907,
+          0.25
+        ]
+      },
+      {
+        "ammo_capacity": 28,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "ammo_ready",
+        "integrity_now": 100.0,
+        "kind": "ammo",
+        "part_id": "hull",
+        "size_m": [
+          1.64999997615814,
+          0.219999998807907,
+          1.64999997615814
+        ]
+      },
+      {
+        "ammo_capacity": 10,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "ammo_reserve",
+        "integrity_now": 100.0,
+        "kind": "ammo",
+        "part_id": "hull",
+        "size_m": [
+          0.479999989271164,
+          0.600000023841858,
+          0.800000011920929
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "autoloader",
+        "integrity_now": 100.0,
+        "kind": "autoloader",
+        "part_id": "hull",
+        "size_m": [
+          0.300000011920929,
+          0.219999998807907,
+          0.300000011920929
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": true,
+        "geometry_status": "estimated",
+        "id": "track_left",
+        "integrity_now": 100.0,
+        "kind": "track",
+        "part_id": "running_left",
+        "size_m": [
+          0.550000011920929,
+          1.10000002384186,
+          6.30000019073486
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": true,
+        "geometry_status": "estimated",
+        "id": "track_right",
+        "integrity_now": 100.0,
+        "kind": "track",
+        "part_id": "running_right",
+        "size_m": [
+          0.550000011920929,
+          1.10000002384186,
+          6.30000019073486
+        ]
+      }
+    ],
+    "parts": [
+      {
+        "id": "drive",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": ""
+      },
+      {
+        "id": "hull",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      },
+      {
+        "id": "turret",
+        "joint_kind": "yaw",
+        "max_angle_deg": 180.0,
+        "min_angle_deg": -180.0,
+        "parent_id": "hull"
+      },
+      {
+        "id": "barrel",
+        "joint_kind": "pitch",
+        "max_angle_deg": 15.0,
+        "min_angle_deg": -5.0,
+        "parent_id": "turret"
+      },
+      {
+        "id": "running_left",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      },
+      {
+        "id": "running_right",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      }
+    ],
+    "zones": {
+      "gun_shield": [
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_0",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_1",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_2",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_3",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_floor_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_floor_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "floor_front",
+          "reactive": false,
+          "thickness_mm": 20.0,
+          "thickness_status": "estimated",
+          "triangles": 5,
+          "vertices": 6
+        }
+      ],
+      "hull_floor_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_floor_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "floor_rear",
+          "reactive": false,
+          "thickness_mm": 20.0,
+          "thickness_status": "estimated",
+          "triangles": 5,
+          "vertices": 6
+        }
+      ],
+      "hull_front_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_front_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_0",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_front_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_1",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_front_upper": [
+        {
+          "evidence_keys": [
+            "armor.hull_front_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "hull",
+          "plate_id": "hull_1_0",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_front_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "hull",
+          "plate_id": "hull_1_1",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_rear_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_rear_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_4",
+          "reactive": false,
+          "thickness_mm": 35.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_rear_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_5",
+          "reactive": false,
+          "thickness_mm": 35.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_rear_upper": [
+        {
+          "evidence_keys": [
+            "armor.hull_rear_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_4",
+          "reactive": false,
+          "thickness_mm": 40.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_rear_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_5",
+          "reactive": false,
+          "thickness_mm": 40.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_roof_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_0",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_1",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_2",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_7",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_roof_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_3",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_4",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_5",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_6",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_2",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_7",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_2",
+          "reactive": false,
+          "thickness_mm": 50.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_7",
+          "reactive": false,
+          "thickness_mm": 50.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_lower_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_3",
+          "reactive": false,
+          "thickness_mm": 45.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_6",
+          "reactive": false,
+          "thickness_mm": 45.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_3",
+          "reactive": false,
+          "thickness_mm": 70.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_6",
+          "reactive": false,
+          "thickness_mm": 70.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_front": [
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_0",
+          "reactive": false,
+          "thickness_mm": 200.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_1",
+          "reactive": false,
+          "thickness_mm": 200.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_2",
+          "reactive": false,
+          "thickness_mm": 200.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_3",
+          "reactive": false,
+          "thickness_mm": 200.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_rear": [
+        {
+          "evidence_keys": [
+            "armor.turret_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_4",
+          "reactive": false,
+          "thickness_mm": 60.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_5",
+          "reactive": false,
+          "thickness_mm": 60.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_6",
+          "reactive": false,
+          "thickness_mm": 60.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_7",
+          "reactive": false,
+          "thickness_mm": 60.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_roof": [
+        {
+          "evidence_keys": [
+            "armor.turret_roof",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_roof",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 12,
+          "vertices": 13
+        }
+      ],
+      "turret_sides": [
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_1",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_2",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_3",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_8",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_9",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_10",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_11",
+          "reactive": false,
+          "thickness_mm": 120.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ]
+    }
+  },
+  {
+    "admission_status": "",
+    "allowed_overlaps": [
+      {
+        "a": "gunner",
+        "b": "commander",
+        "reason": "both crew stations sit in the same turret compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect"
+      },
+      {
+        "a": "gunner",
+        "b": "loader",
+        "reason": "both crew stations sit in the same turret compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect"
+      },
+      {
+        "a": "commander",
+        "b": "loader",
+        "reason": "both crew stations sit in the same turret compartment; their seat volumes are interior occupied space rather than armour, so the axis-aligned boxes may intersect"
+      }
+    ],
+    "content_tier": "production",
+    "counts": {
+      "allowed_overlaps": 3,
+      "armor_patches": 42,
+      "crew_stations": 4,
+      "declared_openings": 5,
+      "modules": 12,
+      "parts": 6,
+      "zones": 17
+    },
+    "crew": [
+      {
+        "id": "driver",
+        "part_id": "hull",
+        "position_status": "estimated",
+        "role": "driver",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      },
+      {
+        "id": "gunner",
+        "part_id": "turret",
+        "position_status": "estimated",
+        "role": "gunner",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      },
+      {
+        "id": "commander",
+        "part_id": "turret",
+        "position_status": "estimated",
+        "role": "commander",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      },
+      {
+        "id": "loader",
+        "part_id": "turret",
+        "position_status": "estimated",
+        "role": "loader",
+        "role_placement_status": "estimated",
+        "volume_status": "estimated"
+      }
+    ],
+    "declared_openings": [
+      {
+        "boundary_loop": [
+          "(-0.95, 1.66, -1.33)",
+          "(0.0, 1.66, -1.33)",
+          "(0.95, 1.66, -1.33)",
+          "(0.95, 1.66, -0.38)",
+          "(0.95, 1.66, 0.57)",
+          "(0.0, 1.66, 0.57)",
+          "(-0.95, 1.66, 0.57)",
+          "(-0.95, 1.66, -0.38)"
+        ],
+        "id": "turret_ring",
+        "part": "hull",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.361088, 0.196, -1.5376)",
+          "(0.361088, 0.196, -1.5376)",
+          "(0.352352, 0.664, -1.5004)",
+          "(-0.352352, 0.664, -1.5004)"
+        ],
+        "id": "gun_aperture",
+        "part": "turret",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.7, 0.04, -1.55)",
+          "(0.7, 0.04, -1.55)",
+          "(1.2, 0.04, -0.8)",
+          "(1.23, 0.04, 0.4)",
+          "(1.2, 0.04, 2.8)",
+          "(-1.2, 0.04, 2.8)",
+          "(-1.23, 0.04, 0.4)",
+          "(-1.2, 0.04, -0.8)"
+        ],
+        "id": "turret_floor_ring",
+        "part": "turret",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.5, -0.27, -0.1)",
+          "(0.5, -0.27, -0.1)",
+          "(0.5, 0.27, -0.1)",
+          "(-0.5, 0.27, -0.1)"
+        ],
+        "id": "shield_perimeter",
+        "part": "barrel",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      },
+      {
+        "boundary_loop": [
+          "(-0.06, -0.06, -0.1)",
+          "(0.06, -0.06, -0.1)",
+          "(0.06, 0.06, -0.1)",
+          "(-0.06, 0.06, -0.1)"
+        ],
+        "id": "gun_bore",
+        "part": "barrel",
+        "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+      }
+    ],
+    "display_name": "Leopard 2A4 — combat candidate",
+    "entity": "test_cd002_germ_leopard_2a4",
+    "evidence_profile": "game_reference",
+    "geometry_subset": {
+      "barrel_length": 4.14,
+      "gun_origin": [
+        0.0,
+        0.34,
+        -1.18
+      ],
+      "hull_rings": [
+        [
+          0.4,
+          1.15,
+          -2.95,
+          3.5
+        ],
+        [
+          0.95,
+          1.22,
+          -3.5,
+          3.8
+        ],
+        [
+          1.66,
+          1.18,
+          -2.85,
+          3.8
+        ]
+      ],
+      "mantlet_half_height": 0.27,
+      "mantlet_half_width": 0.5,
+      "muzzle_brake": false,
+      "open_top": false,
+      "ring_half": 0.95,
+      "track_width": 0.57,
+      "turret_bottom": 0.04,
+      "turret_outline": [
+        [
+          -0.7,
+          -1.55
+        ],
+        [
+          0.7,
+          -1.55
+        ],
+        [
+          1.2,
+          -0.8
+        ],
+        [
+          1.23,
+          0.4
+        ],
+        [
+          1.2,
+          2.8
+        ],
+        [
+          -1.2,
+          2.8
+        ],
+        [
+          -1.23,
+          0.4
+        ],
+        [
+          -1.2,
+          -0.8
+        ]
+      ],
+      "turret_taper": 0.96,
+      "turret_top": 0.82
+    },
+    "key_parts": {
+      "bustle_rear": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.361088, 0.196, -1.5376)",
+              "(0.361088, 0.196, -1.5376)",
+              "(0.352352, 0.664, -1.5004)",
+              "(-0.352352, 0.664, -1.5004)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.7, 0.04, -1.55)",
+              "(0.7, 0.04, -1.55)",
+              "(1.2, 0.04, -0.8)",
+              "(1.23, 0.04, 0.4)",
+              "(1.2, 0.04, 2.8)",
+              "(-1.2, 0.04, 2.8)",
+              "(-1.23, 0.04, 0.4)",
+              "(-1.2, 0.04, -0.8)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [
+          {
+            "ammo_capacity": 15,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "ammo_ready",
+            "integrity_now": 100.0,
+            "kind": "ammo",
+            "part_id": "turret",
+            "size_m": [
+              0.850000023841858,
+              0.600000023841858,
+              0.949999988079071
+            ]
+          },
+          {
+            "ammo_capacity": 27,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "ammo_reserve",
+            "integrity_now": 100.0,
+            "kind": "ammo",
+            "part_id": "hull",
+            "size_m": [
+              0.649999976158142,
+              0.649999976158142,
+              1.0
+            ]
+          },
+          {
+            "ammo_capacity": 0,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "bustle_partition",
+            "integrity_now": 100.0,
+            "kind": "ammo_partition",
+            "part_id": "turret",
+            "size_m": [
+              2.34999990463257,
+              0.740000009536743,
+              0.0799999982118607
+            ]
+          },
+          {
+            "ammo_capacity": 0,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "bustle_vent",
+            "integrity_now": 100.0,
+            "kind": "blowout_panel",
+            "part_id": "turret",
+            "size_m": [
+              0.949999988079071,
+              0.0599999986588955,
+              1.04999995231628
+            ]
+          }
+        ],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.turret_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_wall_4",
+                "reactive": false,
+                "thickness_mm": 60.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "turret_rear"
+          }
+        ],
+        "zones": [
+          "turret_rear"
+        ]
+      },
+      "glacis_upper_lower": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.361088, 0.196, -1.5376)",
+              "(0.361088, 0.196, -1.5376)",
+              "(0.352352, 0.664, -1.5004)",
+              "(-0.352352, 0.664, -1.5004)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.7, 0.04, -1.55)",
+              "(0.7, 0.04, -1.55)",
+              "(1.2, 0.04, -0.8)",
+              "(1.23, 0.04, 0.4)",
+              "(1.2, 0.04, 2.8)",
+              "(-1.2, 0.04, 2.8)",
+              "(-1.23, 0.04, 0.4)",
+              "(-1.2, 0.04, -0.8)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_front_upper",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "composite",
+                "part_id": "hull",
+                "plate_id": "hull_1_0",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_front_upper",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "composite",
+                "part_id": "hull",
+                "plate_id": "hull_1_1",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_front_upper"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_front_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_0",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_front_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_1",
+                "reactive": false,
+                "thickness_mm": 80.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_front_lower"
+          }
+        ],
+        "zones": [
+          "hull_front_upper",
+          "hull_front_lower"
+        ]
+      },
+      "hull_sides": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.361088, 0.196, -1.5376)",
+              "(0.361088, 0.196, -1.5376)",
+              "(0.352352, 0.664, -1.5004)",
+              "(-0.352352, 0.664, -1.5004)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.7, 0.04, -1.55)",
+              "(0.7, 0.04, -1.55)",
+              "(1.2, 0.04, -0.8)",
+              "(1.23, 0.04, 0.4)",
+              "(1.2, 0.04, 2.8)",
+              "(-1.2, 0.04, 2.8)",
+              "(-1.23, 0.04, 0.4)",
+              "(-1.2, 0.04, -0.8)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_front",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_2",
+                "reactive": false,
+                "thickness_mm": 65.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_front",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_7",
+                "reactive": false,
+                "thickness_mm": 65.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_front"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_3",
+                "reactive": false,
+                "thickness_mm": 55.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_1_6",
+                "reactive": false,
+                "thickness_mm": 55.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_rear"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_2",
+                "reactive": false,
+                "thickness_mm": 50.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_7",
+                "reactive": false,
+                "thickness_mm": 50.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_lower"
+          },
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_3",
+                "reactive": false,
+                "thickness_mm": 45.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.hull_sides_lower_rear",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "hull",
+                "plate_id": "hull_0_6",
+                "reactive": false,
+                "thickness_mm": 45.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "hull_sides_lower_rear"
+          }
+        ],
+        "zones": [
+          "hull_sides_front",
+          "hull_sides_rear",
+          "hull_sides_lower",
+          "hull_sides_lower_rear"
+        ]
+      },
+      "mantlet_gun_shield": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.361088, 0.196, -1.5376)",
+              "(0.361088, 0.196, -1.5376)",
+              "(0.352352, 0.664, -1.5004)",
+              "(-0.352352, 0.664, -1.5004)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.7, 0.04, -1.55)",
+              "(0.7, 0.04, -1.55)",
+              "(1.2, 0.04, -0.8)",
+              "(1.23, 0.04, 0.4)",
+              "(1.2, 0.04, 2.8)",
+              "(-1.2, 0.04, 2.8)",
+              "(-1.23, 0.04, 0.4)",
+              "(-1.2, 0.04, -0.8)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_0",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_1",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_2",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              },
+              {
+                "evidence_keys": [
+                  "armor.gun_shield",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "barrel",
+                "plate_id": "mantlet_3",
+                "reactive": false,
+                "thickness_mm": 100.0,
+                "thickness_status": "estimated",
+                "triangles": 4,
+                "vertices": 5
+              }
+            ],
+            "zone": "gun_shield"
+          }
+        ],
+        "zones": [
+          "gun_shield"
+        ]
+      },
+      "turret_ring": {
+        "declared_openings": [
+          {
+            "boundary_loop": [
+              "(-0.361088, 0.196, -1.5376)",
+              "(0.361088, 0.196, -1.5376)",
+              "(0.352352, 0.664, -1.5004)",
+              "(-0.352352, 0.664, -1.5004)"
+            ],
+            "id": "gun_aperture",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          },
+          {
+            "boundary_loop": [
+              "(-0.7, 0.04, -1.55)",
+              "(0.7, 0.04, -1.55)",
+              "(1.2, 0.04, -0.8)",
+              "(1.23, 0.04, 0.4)",
+              "(1.2, 0.04, 2.8)",
+              "(-1.2, 0.04, 2.8)",
+              "(-1.23, 0.04, 0.4)",
+              "(-1.2, 0.04, -0.8)"
+            ],
+            "id": "turret_floor_ring",
+            "part": "turret",
+            "reason": "Explicit reconstructed structural aperture; dimensions estimated"
+          }
+        ],
+        "modules": [
+          {
+            "ammo_capacity": 0,
+            "enclosure_id": "",
+            "external": false,
+            "geometry_status": "estimated",
+            "id": "turret_drive",
+            "integrity_now": 100.0,
+            "kind": "turret_drive",
+            "part_id": "hull",
+            "size_m": [
+              0.319999992847443,
+              0.150000005960464,
+              0.300000011920929
+            ]
+          }
+        ],
+        "zone_rows": [
+          {
+            "plates": [
+              {
+                "evidence_keys": [
+                  "armor.turret_roof",
+                  "geometry.exterior"
+                ],
+                "geometry_status": "estimated",
+                "has_thickness": true,
+                "material_kind": "rolled",
+                "part_id": "turret",
+                "plate_id": "turret_roof",
+                "reactive": false,
+                "thickness_mm": 30.0,
+                "thickness_status": "estimated",
+                "triangles": 8,
+                "vertices": 9
+              }
+            ],
+            "zone": "turret_roof"
+          }
+        ],
+        "zones": [
+          "turret_roof"
+        ]
+      }
+    },
+    "layout_id": "test_cd002_germ_leopard_2a4_layout",
+    "layout_schema": 1,
+    "modules": [
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "engine",
+        "integrity_now": 100.0,
+        "kind": "engine",
+        "part_id": "hull",
+        "size_m": [
+          1.60000002384186,
+          0.649999976158142,
+          1.25
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "transmission",
+        "integrity_now": 100.0,
+        "kind": "transmission",
+        "part_id": "hull",
+        "size_m": [
+          1.5,
+          0.449999988079071,
+          0.25
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "fuel",
+        "integrity_now": 100.0,
+        "kind": "fuel",
+        "part_id": "hull",
+        "size_m": [
+          0.219999998807907,
+          0.600000023841858,
+          1.10000002384186
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "breech",
+        "integrity_now": 100.0,
+        "kind": "breech",
+        "part_id": "barrel",
+        "size_m": [
+          0.5,
+          0.400000005960464,
+          0.600000023841858
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "turret_drive",
+        "integrity_now": 100.0,
+        "kind": "turret_drive",
+        "part_id": "hull",
+        "size_m": [
+          0.319999992847443,
+          0.150000005960464,
+          0.300000011920929
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "stabilizer",
+        "integrity_now": 100.0,
+        "kind": "stabilizer",
+        "part_id": "hull",
+        "size_m": [
+          0.200000002980232,
+          0.219999998807907,
+          0.25
+        ]
+      },
+      {
+        "ammo_capacity": 15,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "ammo_ready",
+        "integrity_now": 100.0,
+        "kind": "ammo",
+        "part_id": "turret",
+        "size_m": [
+          0.850000023841858,
+          0.600000023841858,
+          0.949999988079071
+        ]
+      },
+      {
+        "ammo_capacity": 27,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "ammo_reserve",
+        "integrity_now": 100.0,
+        "kind": "ammo",
+        "part_id": "hull",
+        "size_m": [
+          0.649999976158142,
+          0.649999976158142,
+          1.0
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": true,
+        "geometry_status": "estimated",
+        "id": "track_left",
+        "integrity_now": 100.0,
+        "kind": "track",
+        "part_id": "running_left",
+        "size_m": [
+          0.550000011920929,
+          1.10000002384186,
+          6.5
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": true,
+        "geometry_status": "estimated",
+        "id": "track_right",
+        "integrity_now": 100.0,
+        "kind": "track",
+        "part_id": "running_right",
+        "size_m": [
+          0.550000011920929,
+          1.10000002384186,
+          6.5
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "bustle_partition",
+        "integrity_now": 100.0,
+        "kind": "ammo_partition",
+        "part_id": "turret",
+        "size_m": [
+          2.34999990463257,
+          0.740000009536743,
+          0.0799999982118607
+        ]
+      },
+      {
+        "ammo_capacity": 0,
+        "enclosure_id": "",
+        "external": false,
+        "geometry_status": "estimated",
+        "id": "bustle_vent",
+        "integrity_now": 100.0,
+        "kind": "blowout_panel",
+        "part_id": "turret",
+        "size_m": [
+          0.949999988079071,
+          0.0599999986588955,
+          1.04999995231628
+        ]
+      }
+    ],
+    "parts": [
+      {
+        "id": "drive",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": ""
+      },
+      {
+        "id": "hull",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      },
+      {
+        "id": "turret",
+        "joint_kind": "yaw",
+        "max_angle_deg": 180.0,
+        "min_angle_deg": -180.0,
+        "parent_id": "hull"
+      },
+      {
+        "id": "barrel",
+        "joint_kind": "pitch",
+        "max_angle_deg": 20.0,
+        "min_angle_deg": -9.0,
+        "parent_id": "turret"
+      },
+      {
+        "id": "running_left",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      },
+      {
+        "id": "running_right",
+        "joint_kind": "fixed",
+        "max_angle_deg": 0.0,
+        "min_angle_deg": 0.0,
+        "parent_id": "drive"
+      }
+    ],
+    "zones": {
+      "gun_shield": [
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_0",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_1",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_2",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.gun_shield",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "barrel",
+          "plate_id": "mantlet_3",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_floor_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_floor_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "floor_front",
+          "reactive": false,
+          "thickness_mm": 20.0,
+          "thickness_status": "estimated",
+          "triangles": 5,
+          "vertices": 6
+        }
+      ],
+      "hull_floor_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_floor_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "floor_rear",
+          "reactive": false,
+          "thickness_mm": 20.0,
+          "thickness_status": "estimated",
+          "triangles": 5,
+          "vertices": 6
+        }
+      ],
+      "hull_front_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_front_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_0",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_front_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_1",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_front_upper": [
+        {
+          "evidence_keys": [
+            "armor.hull_front_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "hull",
+          "plate_id": "hull_1_0",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_front_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "hull",
+          "plate_id": "hull_1_1",
+          "reactive": false,
+          "thickness_mm": 100.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_rear_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_rear_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_4",
+          "reactive": false,
+          "thickness_mm": 35.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_rear_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_5",
+          "reactive": false,
+          "thickness_mm": 35.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_rear_upper": [
+        {
+          "evidence_keys": [
+            "armor.hull_rear_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_4",
+          "reactive": false,
+          "thickness_mm": 40.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_rear_upper",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_5",
+          "reactive": false,
+          "thickness_mm": 40.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_roof_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_0",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_1",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_2",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_7",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_roof_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_3",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_4",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_5",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_roof_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_roof_6",
+          "reactive": false,
+          "thickness_mm": 25.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_front": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_2",
+          "reactive": false,
+          "thickness_mm": 65.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_7",
+          "reactive": false,
+          "thickness_mm": 65.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_lower": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_2",
+          "reactive": false,
+          "thickness_mm": 50.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_7",
+          "reactive": false,
+          "thickness_mm": 50.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_lower_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_3",
+          "reactive": false,
+          "thickness_mm": 45.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_lower_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_0_6",
+          "reactive": false,
+          "thickness_mm": 45.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "hull_sides_rear": [
+        {
+          "evidence_keys": [
+            "armor.hull_sides_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_3",
+          "reactive": false,
+          "thickness_mm": 55.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.hull_sides_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "hull",
+          "plate_id": "hull_1_6",
+          "reactive": false,
+          "thickness_mm": 55.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_front": [
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_0",
+          "reactive": false,
+          "thickness_mm": 160.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_1",
+          "reactive": false,
+          "thickness_mm": 160.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_2",
+          "reactive": false,
+          "thickness_mm": 160.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_front",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "composite",
+          "part_id": "turret",
+          "plate_id": "turret_front_3",
+          "reactive": false,
+          "thickness_mm": 160.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_rear": [
+        {
+          "evidence_keys": [
+            "armor.turret_rear",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_4",
+          "reactive": false,
+          "thickness_mm": 60.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ],
+      "turret_roof": [
+        {
+          "evidence_keys": [
+            "armor.turret_roof",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_roof",
+          "reactive": false,
+          "thickness_mm": 30.0,
+          "thickness_status": "estimated",
+          "triangles": 8,
+          "vertices": 9
+        }
+      ],
+      "turret_sides": [
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_1",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_2",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_3",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_5",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_6",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        },
+        {
+          "evidence_keys": [
+            "armor.turret_sides",
+            "geometry.exterior"
+          ],
+          "geometry_status": "estimated",
+          "has_thickness": true,
+          "material_kind": "rolled",
+          "part_id": "turret",
+          "plate_id": "turret_wall_7",
+          "reactive": false,
+          "thickness_mm": 80.0,
+          "thickness_status": "estimated",
+          "triangles": 4,
+          "vertices": 5
+        }
+      ]
+    }
+  }
+]

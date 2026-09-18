@@ -1,0 +1,12 @@
+﻿WT-CD-001 implementation order item 4: model/layout suites after T06
+HEAD=69149f36 dirty=0
+run_layout_checks                    exit=0 PASS=   0 FAIL=0 marker=LAYOUT_CHECKS_PASS
+run_bound_model_package_checks       exit=0 PASS=  59 FAIL=0 marker=BOUND_MODEL_PACKAGE_CHECKS_PASS
+run_modern_armor_frame_checks        exit=0 PASS=  17 FAIL=0 marker=MODERN_ARMOR_FRAME_CHECKS_PASS
+run_model_binding_checks             exit=0 PASS=  63 FAIL=0 marker=MODEL_BINDING_CHECKS_PASS
+run_modern_equipment_checks          exit=0 PASS=  55 FAIL=0 marker=MODERN_EQUIPMENT_CHECKS_PASS
+run_equipment_package_checks         exit=0 PASS=  74 FAIL=0 marker=EQUIPMENT_PACKAGE_CHECKS_PASS
+run_vehicle_readiness_checks         exit=0 PASS=  77 FAIL=0 marker=VEHICLE_READINESS_CHECKS_PASS
+run_content_record_checks            exit=0 PASS=  65 FAIL=0 marker=CONTENT_RECORD_CHECKS_PASS
+run_reference_admission_checks       exit=0 PASS= 105 FAIL=0 marker=REFERENCE_ADMISSION_CHECKS_PASS
+TOTAL PASS=515 FAIL=0 suites_with_failures=
