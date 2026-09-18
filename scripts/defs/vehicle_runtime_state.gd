@@ -43,6 +43,8 @@ var action_progress := 0.0
 var recovery_reason := ""
 var extinguisher_charges := RecoveryRules.EXTINGUISH_CHARGES
 var death_record: Dictionary = {}
+# CD08-T06: the last legacy migration performed on this instance, with its rollback, so the change is auditable.
+var legacy_migration: Dictionary = {}
 var death_notified := false
 
 func reset() -> void:
@@ -87,7 +89,9 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 			"fire_module_targets":module.fire_module_targets.duplicate(),"fire_crew_targets":module.fire_crew_targets.duplicate()}
 		if not module.ammo_protection.is_empty(): module_states[module.id]["ammo_protection"]=module.ammo_protection.duplicate(true)
 	for station in layout.crew_stations:
-		crew_states[station.id] = {"alive":true,"original_role":station.role}
+		# CD08: the versioned condition is the readable state; alive is retained and derived so a legacy reader sees
+		# exactly what it saw before. No penalty is applied by the condition in this version.
+		crew_states[station.id] = CrewDamageProfile.fresh_person(station.role)
 		crew_assignments[station.role] = station.id
 		station_roles[station.id] = station.role
 
@@ -97,7 +101,13 @@ func damage_snapshot() -> Dictionary:
 
 func role_available(role: String) -> bool:
 	var person := str(crew_assignments.get(role,""))
-	return not person.is_empty() and crew_states.has(person) and crew_states[person].get("alive",false)
+	if person.is_empty() or not crew_states.has(person): return false
+	# CD08: condition and availability are separate. Legacy records without a condition fall back to the boolean, and in
+	# this version only incapacitation removes a person from duty, so no unconfirmed middle penalty is switched on.
+	var person_state: Dictionary = crew_states[person]
+	var condition := str(person_state.get("condition",""))
+	if condition.is_empty(): return bool(person_state.get("alive",false))
+	return bool(person_state.get("alive",false)) and CrewDamageProfile.is_available(condition)
 
 func alive_crew_count() -> int:
 	var count := 0
@@ -116,6 +126,17 @@ func assign_crew(role: String, person_id: String) -> bool:
 func apply_damage_delta(event_id: String, delta: Dictionary) -> Dictionary:
 	if not delta.get("ok",false) or event_id.is_empty() or _damage_seen.has(event_id):
 		return {"ok":false,"reason":"invalid_or_duplicate"}
+	# CD08-T06: a record written before this order migrates under a named version, and the rollback is kept beside it.
+	if str(delta.get("kind","")) == "legacy_alive":
+		var legacy: Dictionary = delta.get("snapshot",{})
+		var people_in: Dictionary = legacy.get("people",{})
+		var migrated := CrewDamageProfile.migrate_legacy(people_in)
+		crew_states = (migrated.get("people",{}) as Dictionary).duplicate(true)
+		if not crew_assignments.is_empty(): pass
+		legacy_migration = {"version":migrated.get("version",""),"from_version":migrated.get("from_version",""),
+			"migrated":migrated.get("migrated",[]),"rollback":CrewDamageProfile.rollback_to_legacy(crew_states)}
+		return {"ok":true,"migration_version":str(legacy_migration.get("version","")),
+			"migrated_entries":(legacy_migration.get("migrated",[]) as Array).size(),"rollback_available":true}
 	var item := str(delta.get("item_id",""))
 	var before: Dictionary = delta.get("before",{})
 	var after: Dictionary = delta.get("after",{})
