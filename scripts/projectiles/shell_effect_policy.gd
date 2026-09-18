@@ -9,6 +9,19 @@ const FRAGMENT_CONTACTS := 8
 const FRAGMENT_BUDGET_MM := 12.0
 const EPS := 0.0001
 
+## MCT-COMBAT-DEEPEN-01 CD06 design point five: the fixed inside template this project shipped before post-penetration
+## parameterisation is now an EXPLICIT, NAMED legacy template rather than an anonymous set of constants. A shell without a
+## profile of its own resolves to this name, so nothing falls back to it silently, and every number below is unchanged so
+## all existing behaviour is preserved exactly. New engineering shells name their own profile: long rods through the spall
+## rule (which the spall validator accepts only for the long-rod effect) and shaped charges through the chemical rule.
+const LEGACY_TEMPLATE_ID := "legacy-021-toy-inside-v1"
+
+static func legacy_template() -> Dictionary:
+	return {"id":LEGACY_TEMPLATE_ID,"version":VERSION,"provenance":"legacy","explicit_legacy":true,
+		"reason":"the fixed inside template this project shipped before post-penetration parameterisation; kept under its own name so that no shell reaches it by accident",
+		"max_fragments":MAX_FRAGMENTS,"fragment_range_m":FRAGMENT_RANGE_M,"fragment_contacts":FRAGMENT_CONTACTS,
+		"fragment_budget_mm":FRAGMENT_BUDGET_MM,"inside_path_m":INSIDE_PATH_M}
+
 ## A copy of the snapshot whose part transforms are the ones at `fraction` of the step, so a stage can be evaluated at the
 ## contact instant instead of at the end of the step.
 static func _at_fraction(snapshot: Dictionary, fraction: float) -> Dictionary:

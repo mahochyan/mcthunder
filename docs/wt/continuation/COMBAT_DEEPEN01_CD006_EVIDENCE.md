@@ -53,3 +53,28 @@
 - 前置 ✓：**CD001 / CD004 / CD005 均已结项** ✓（CD005 六用例 ✓ 四步 ✓ 五项设计 ✓ 全通过 ✓）；
 - 余项带入 ✓（来自 CD005 台账 ✓）：composite 通道数值区分腿 ✓、带破片记录的 `invalid_burst_seed` ✓、`ArmorLayerProfile` 逐通道对照 ✓。
 - 下一轮 ✓：**设计 #5 + 实现顺序 #1** —— 为**新工程弹**指定各自 `post_penetration_profile` ✓ 并把**固定 12 条**限定为**显式 legacy** ✓（不复制毁伤管线 ✓ 不删旧行为 ✓ 旧配置显式 legacy ✓）。
+## 7. 设计 #5 + 实现顺序 #1 **落地并实测** ✓✓（`CD06_LEGACY_TEMPLATE_PASS` ✓）
+### 改动（**纯增量** ✓ 不删旧行为 ✓ 不复制管线 ✓）
+`scripts/projectiles/shell_effect_policy.gd` ✓ 新增 ✓：
+```
+const LEGACY_TEMPLATE_ID := "legacy-021-toy-inside-v1"   ← 固定模板**具名** ✓
+static func legacy_template() -> Dictionary             ← {id, version:"021-toy-inside-v1", provenance:"legacy",
+                                                           explicit_legacy:true, reason, max_fragments:12,
+                                                           fragment_range_m:3.0, fragment_contacts:8,
+                                                           fragment_budget_mm:12.0, inside_path_m:0.8}
+```
+⇒ **数字与常量逐一相同** ✓✓ ⇒ 旧行为**未移动** ✓；未声明剖面的弹种将解析到**具名 legacy** ✓ 而非匿名常量回退 ✓。
+### 实测（`tests/probe_cd006_legacy_template.gd` ✓）
+```
+L3 legacy = {"id":"legacy-021-toy-inside-v1","version":"021-toy-inside-v1","provenance":"legacy","explicit_legacy":true,
+             "max_fragments":12,"fragment_range_m":3.0,"fragment_contacts":8,"fragment_budget_mm":12.0,"inside_path_m":0.8} ✓
+L1 交付四弹**各自按本族规则参数化** ✓：
+   eng_125_apfsds_v1 ✓ post_penetration=**declared** ✓ ; eng_120_apfsds_v1 ✓ 同 ✓
+   eng_125_heat_v1   ✓ chemical_profile=**declared** ✓ ; eng_120_heat_v1 ✓ 同 ✓
+L2 spall-on-long-rod ⇒ errors=[] ✓ ; spall-on-HEAT ⇒ **refused**（"unsupported effect/version" ✓✓）⇒ 两族**不可共用模板** ✓
+```
+### ⚠️ 我基线两处误判被实测纠正 ✓✗
+① "**8 个弹种**" ✗ —— 实为 **4 个** ✓（先前把 JSON 内所有 `"id"` 计数当弹种 ✗）；
+② "**6 个仍落回固定模板**" ✗ —— 实为**两个 HEAT** ✓ 且它们**本就不该**带 spall 剖面 ✓✓（`SpallProfile.validate` **只接受 `long_rod`** ✓ L12 明文 ✓）⇒ 由**化学剖面**参数化 ✓（化学套件已实测独立射流预算 ✓）⇒ **设计 #5 按族正确满足** ✓✓。
+### 本单余项（未变 ✓）
+设计 #3 预算不复制（母弹残余 + 各采样权重 ✓）· 设计 #2 引信四态 ✓ · 设计 #4 遮挡/空架 ✓ · 六用例 ✓ · 交付四件 ✓。
