@@ -15,7 +15,7 @@ static func validate(value: Variant, effect: String, fragment: bool = false) -> 
 	if value.get("version")==LONG_ROD_VERSION: return _validate_long_rod(value,effect,fragment)
 	if value.get("version")==CHEMICAL_VERSION: return _validate_chemical(value,effect,fragment)
 	if value.get("version") != VERSION: errors.append("impact_profile: unsupported version")
-	if not fragment and effect not in ["kinetic","internal_burst"]: errors.append("impact_profile: unsupported effect")
+	if not fragment and effect not in ["kinetic","internal_burst","he_blast"]: errors.append("impact_profile: unsupported effect")
 	var family := "fragment" if fragment else ("APHE" if effect=="internal_burst" else "AP")
 	if value.get("family") != family: errors.append("impact_profile: family/effect mismatch")
 	if value.get("provenance") != "game_rule": errors.append("impact_profile: game provenance required")

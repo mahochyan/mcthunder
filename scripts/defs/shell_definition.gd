@@ -37,8 +37,8 @@ func validate() -> Dictionary:
 	errors.append_array(SpallProfile.validate(post_penetration_profile,effect_policy))
 	errors.append_array(ChemicalProfile.validate(chemical_profile,effect_policy))
 	if not ChemicalProfile.matches_curve(chemical_profile,penetration_curve): errors.append("chemical_profile: carrier distance must not change chemical budget")
-	if effect_policy not in ["kinetic","internal_burst","long_rod","chemical"]: errors.append("effect_policy: unsupported")
-	if effect_policy in ["internal_burst","long_rod","chemical"] and armor_policy != "resolve": errors.append("terminal effect requires armor resolution")
+	if effect_policy not in ["kinetic","internal_burst","long_rod","chemical","he_blast"]: errors.append("effect_policy: unsupported")
+	if effect_policy in ["internal_burst","long_rod","chemical","he_blast"] and armor_policy != "resolve": errors.append("terminal effect requires armor resolution")
 	if armor_policy not in ["resolve", "legacy_contact_only"]:
 		errors.append("armor_policy: unsupported")
 	if armor_policy == "resolve" and not PenetrationCurve.validate(penetration_curve):
