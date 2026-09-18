@@ -91,3 +91,35 @@ the class the migration table records.
 2. then introduce `ModuleResponseProfile` with per-kind strategies and keep the single derivation as the only place ability is decided;
 3. emit committed events for both failure and recovery, carrying source, rule version and before/after ability;
 4. record the rule in the migration table with before and after, and keep the rollback.
+
+## 3. The per-kind response profile is written, and three attempts to wire it in were all reverted
+
+### 3.1 What was added
+```
+scripts/damage/module_response_profile.gd (cd009-module-response-v1): a strategy per module KIND -
+   linear for engine, transmission and the two turret axes;
+   threshold for track, barrel, autoloader and stabilizer;
+   probabilistic for the breech, evaluated once per real request from a seeded roll;
+   binary_at_zero retained for the kinds the order does not ask to soften.
+Every threshold and chance is declared as a PROJECT DESIGN INITIAL VALUE with comparison NOT_COMPARED, and every
+strategy still reaches exactly zero at zero integrity, which is what the existing suites assert today.
+```
+### 3.2 Why it is not wired in yet, stated plainly
+```
+Three attempts to replace the all-or-nothing skip in vehicle_capabilities.gd were reverted:
+  1. a multi-line text anchor matched nothing, and the script reported zero replacements rather than failing loudly;
+  2. two single-line anchors also matched nothing, even though a whitespace-visible dump showed the exact bytes I had
+     anchored on - so the anchor approach itself is what is unreliable here, not the file;
+  3. a deterministic LINE SURGERY by index truncated the file from seventy lines to twenty nine, because the code that
+     collected the tail of the loop matched nothing and therefore collected an empty suffix. The parse check caught it.
+So the file is reverted to its committed state, the profile is kept (it is self-contained and parses clean), and the
+wiring is redone next round with a method that cannot truncate: read the file whole, rewrite it whole through the file
+tool, and verify the line count and a parse BEFORE running anything.
+```
+### 3.3 Standing lesson from this round
+```
+A pattern that matches nothing must FAIL LOUDLY rather than silently doing nothing or, worse, silently leaving a
+collection empty. Both silent outcomes happened here: the first two attempts changed nothing, and the third changed
+too much. The guard is to assert the expected shape after every structural edit - a line count and a parse - before
+any run is trusted.
+```
