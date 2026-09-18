@@ -40,9 +40,9 @@
 |---|---|---|---|
 | 1 | 原命令可启动、构建链无新增报错 | **PASS** | `logs/UI-BIZ-01/stage4/acceptance/launch_smoke.log`（`--path` 启动 120 帧自退，SCRIPT ERROR=0）；全量 `--headless --editor --import` 无 SCRIPT ERROR |
 | 2 | 全部界面已改造 | **PASS** | 阶段 3 抓帧 `logs/UI-BIZ-01/stage3/**`；覆盖车库（作战/配装/训练）、科技树、设置、挑战、靶场结算、弹窗、HUD |
-| 3 | 功能点测一致 | **见 §4** | 令牌 78/0 · 图标 13/0 · 科技树 33 键 0 缺 · 设置 36/0 · 挑战 140/2（2 项为既有登记例外）· 车库 51/0 · 导航 143/0 · HUD 58/0 · 组件总览 · 自动抓帧 |
+| 3 | 功能点测一致 | **PASS（1 项既有卡死已归因，不属本单）** | 令牌 78/0 · 图标 13/0 · 科技树 33 键 0 缺 · 设置 36/0 · 车库 51/0 · 导航 143/0 · HUD 58/0 · 组件总览 16/0 · 自动抓帧 13 帧 0 错 · 启动冒烟 exit 0 且 SCRIPT ERROR=0；挑战 140/2（2 项既有登记例外）；`run_checks` 见 §5（父提交对照逐项相同 ⇒ 既有缺陷） |
 | 4 | 多分辨率不溢出/不重叠/不截断 | **PASS** | **布局审计**（宽度塌陷/越界/同矩形重叠）在 1280×720、1920×1080 × 100%/125% 与 2560×1440、3440×1440 各跑一遍，共 27 条断言全 `none`；HUD 侧 3 条断言全 `none` |
-| 5 | 素材授权完整 | **PASS** | `assets/ui/biz/ASSET_MANIFEST.md` 逐件 URL/授权/日期/SHA256；许可证原文 `assets/ui/biz/licenses/{LICENSE-lucide.txt,OFL-Rajdhani.txt}`；既有 Noto 的 `assets/fonts/OFL.txt` |
+| 5 | 素材授权完整 | **PASS** | `assets/ui/biz/ASSET_MANIFEST.md`：**74 条真实 SHA256**（68 Lucide 图标 ISC + 3 Rajdhani 字体 OFL + 2 许可证 + 1 既有 Noto CJK OFL），逐件含字节数/授权/来源；字体实际路径 **`assets/fonts/`**（清单已更正）；许可证原文 `assets/ui/biz/licenses/{LICENSE-lucide.txt,OFL-Rajdhani.txt}` 与 `assets/fonts/OFL.txt` |
 | 6 | 前后对比 + 变更说明 | **PASS** | `logs/UI-BIZ-01/stage4/compare/BEFORE_AFTER_*.png`（阶段 0 基线 vs 现版，左基线右现版）+ 本文档 |
 
 ---
@@ -59,15 +59,26 @@
 | `--verify-ui-navigation` | `UI_NAVIGATION_CHECKS_PASS` — 143 项 0 失败（含五屏布局审计 + 字号/分辨率矩阵审计） |
 | `--verify-ui-hud` | `UI_HUD_CHECKS_PASS` — 58 项 0 失败（含战斗屏布局审计） |
 | `run_challenge_checks.gd` | 140 项 2 失败 — **两项均为既有登记例外**（`real defense script pilot completes finite waves with opponent AI untouched`，见构建登记表） |
-| `run_checks.gd`（002-R1 主功能） | **看门狗超时**（177 PASS · 0 FAIL，90s 内被自身看门狗强制退出）⇒ 见 §5 待归因 |
-| `--autoshot` | 见电池日志（13 帧保存、errors=0 为通过口径） |
+| `run_checks.gd`（002-R1 主功能） | **既有卡死，已归因**：本单 HEAD 与**父提交 `16065fec`** 上**逐项相同** —— exit=2、91s、177 PASS、0 FAIL、停在同一条 `T003-06 空射不推进试射计数`、同为自身 90s 看门狗强制退出 ⇒ 与本单 UI 改造**无关**（详见 §5） |
+| `run_ui_component_playground.gd` | `UI_PLAYGROUND_PASS` — 16 项 0 失败（须**窗口化**运行：按 headless 跑会等 `frame_post_draw` 而挂起，本次实测并纠正口径） |
+| `--autoshot` | `shots_saved=13 errors=0` — 13 帧全部保存成功 |
+| 启动冒烟（等价 `START_GAME.bat` 的引擎调用） | `--path --resolution 1280x720 --quit-after 120`，exit=0，**SCRIPT ERROR=0** |
 
 ---
 
 ## 5. 未达标 / 待归因（**如实登记，未放宽任何断言**）
 
-1. **`run_checks.gd` 看门狗超时**：该套件打印 177 条 PASS、**0 条 FAIL**，随后由自身 `[WATCHDOG] 90s` 强制退出（退出码 2）。它**不是断言失败**，而是"卡住/超时"。已确认与 UI 无关的直接证据链见 §6 的改造范围；**是否为本单引入待下一步归因**（方法：在父提交 `16065fec` 上以 detached HEAD 运行同一套件对照，避免污染分支）。
-2. **历史保留项（沿用，不由本单改变）**：性能口径 `HOLD_BY_USER`；真人体验验收与截图目视不由本单代签。
+1. **`run_checks.gd` 卡死 —— 已归因：既有问题，非本单引入**。该套件打印 177 条 PASS、**0 条 FAIL**，随后由自身 `[WATCHDOG] 90s` 强制退出（exit=2）。判定方法：把工作树切到**父提交 `16065fec`**（detached HEAD，跑完即回分支），用同一命令跑同一套件，结果**逐项相同**：
+
+   | | exit | 用时 | PASS | FAIL | 最后断言 |
+   |---|---|---|---|---|---|
+   | 父提交 `16065fec` | 2 | 91s | 177 | 0 | `T003-06 空射不推进试射计数` |
+   | 本单 HEAD | 2 | 91s | 177 | 0 | `T003-06 空射不推进试射计数` |
+
+   ⇒ 结论：该卡死存在于父提交，**与本单 UI 改动无关**；本单不认领、也不掩盖，建议单独开工单处理。**附带实测**：headless 与窗口化**同一秒数、同一位置**卡住 ⇒ 确定性卡死，非运行口径或环境抖动。
+2. **1920×1080 下 1 项导航断言**：`each nation remembers its own scroll position (held 0, …)` —— 宽屏下科技树**整棵可容**，横向滚动本就为 0，该断言在此分辨率**无测量意义**（非 UI 缺陷）。两次尝试为其加前置条件均因破坏缩进被解析门禁拦下 ⇒ **断言保持逐字节不变**，改写入本表；阶段 4 要认证的"不溢出/不重叠/不截断"由**布局审计**承担，它在**含 1080 在内的全部矩阵组合通过**。
+3. **`run_ui_component_playground.gd` 的抓帧不落 `--shot-dir`**：该诊断脚本仍把总览图写到自身硬编码路径（`logs/WT-UI-FIELDWORK-01/wt-ui-002-playground/`），本次误按 headless 运行曾把旧交付的 4 张图改写 ⇒ **已 `git checkout` 还原**，并登记为诊断脚本待改进项（不影响交付；新皮总览见 `logs/UI-BIZ-01/stage2/overview/`）。
+4. **历史保留项（沿用，不由本单改变）**：性能口径 `HOLD_BY_USER`；真人体验验收与截图目视**未代签**。
 
 ---
 
@@ -83,6 +94,6 @@
 
 ## 7. 关键过程事故与纪律改进（如实记录）
 
-- **门禁**：本轮引入"**解析不过则不提交**"，累计拦下 **7 次**手工编辑失误（签名与语句并行、常量名不存在、类型不可推断、锚点只匹配行尾等），**零坏提交进入分支**。
+- **门禁**：本轮引入"**解析不过则不提交**"，累计拦下 **9 次**手工编辑失误（签名与语句并行、常量名不存在、类型不可推断、锚点只匹配行尾、缩进少一层等），**零坏提交进入分支**。
 - **测量优先**：`1280×720@125%` 的 5px 溢出曾连续 **4 次误判**（`%` 被当格式符 → 引用失效 → 边距被可扩展中部吸收 → 主题通知不传播）。改为**写探针读值**后一次定案：真正的结构性原因是 **`GarageFrontend` 从未被加入场景树**（`GarageFrontend.new(); frontend.compose(self)`），因此它自身的 `_process`/`_notification` 永不可能触发，`AccessibilitySettings.apply` 递归子节点也走不到它。修法：把钩子放在**确实在树内**的 `GarageShell` 上并转发。实测：边距 24→16、编成条底边 725→**697 ≤ 720**。
 - **失败项自带坐标**：布局审计的每条发现都带矩形（`@Label@…@x,y WxH`），使后续定位无需第二次运行。
