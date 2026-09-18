@@ -715,10 +715,18 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	if not target.is_empty():
 		var target_layout: Variant = target.get("layout")
 		if target_layout != null: declared_openings = target_layout.declared_openings
+	# The total opening count is NOT the pressure question: every vehicle here declares structural apertures such as the
+	# turret ring and the gun bore, and the effect policy's own comment says those caps bound inside travel and are not
+	# armour. What lets a blast into the fighting compartment is the aperture the geometry declares when the vehicle really
+	# has an open top, so the rule keys on that name rather than on "some opening exists" - which would make every closed
+	# vehicle look open.
 	var opening_count := declared_openings.size()
-	var pressure_reaches: bool = (not burst_outside) or breached or opening_count>0
+	var open_compartment := 0
+	for opening in declared_openings:
+		if str(opening.get("id","")).contains("open_fighting_compartment"): open_compartment += 1
+	var pressure_reaches: bool = (not burst_outside) or breached or open_compartment>0
 	st.burst["channels"]["overpressure"] = {"applied":pressure_reaches,"model":"cd07-bounded-connectivity-v1",
-		"burst_outside":burst_outside,"breached":breached,"declared_openings":opening_count,
+		"burst_outside":burst_outside,"breached":breached,"declared_openings":opening_count,"open_compartment_apertures":open_compartment,
 		"pending":"" ,
 		"reason":("an interior burst, a breached plate or a declared opening gives the pressure a path" if pressure_reaches
 			else "closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure")}

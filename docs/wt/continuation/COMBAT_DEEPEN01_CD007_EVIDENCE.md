@@ -203,3 +203,38 @@ configs/vehicles/historical/ 四个包**均存在** ✓：us_m24_m6_t85e1_1951 �
 ① 常量名与**父类重名**（`HISTORICAL` ✓）⇒ 解析冲突 ✗ ⇒ 改名 ✓；
 ② 误把 `authoring/vehicles/seeds/*.json` 当**包** ✗ ⇒ 实为另一层结构 ✓（**先确认对象再写代码** ✓）；
 ③ 对**已多次编辑**的文件用**逐处替换** ✗ ⇒ 反复未命中 ✗ ⇒ **standing rule 再次生效** ✓：**整体重写优先** ✓。
+## 12. **历史类开口已实测** ✓✓ ＋ **T01/T02 对照成立** ✓✓（`CD07_HIST_OPENINGS_PASS` ✓ `CD07_OPEN_CLOSED_CONTRAST_PASS` ✓）
+### 走**生产 catalog** 打通（纠正上轮的死路 ✓）
+```
+VehicleCatalog.new() ✓ → load_all(defs) ✓ ⇒ 四包注册 ✓（result.ok ✓ packages.size=4 ✓）
+catalog.packages[id] 的键 ✓ = ["ok","audit","errors","notes","**layout**","definitions","packet","model_check"] ✓✓
+⇒ `entry.layout.declared_openings` **可直接读** ✓（上轮"读不到"是我自造读路径 ✗ 而非产品缺失 ✓）
+```
+### 实测：历史四包的**声明开口**（决定 T02 的根据 ✓）
+```
+us_m4a3_75w_vvss_1944  open_top=false ⇒ declared_openings=**7** ✓ open_fighting_compartment=**0** ✓
+us_m24_m6_t85e1_1951   open_top=false ⇒ declared_openings=**5** ✓ open_fighting_compartment=**0** ✓
+us_m26_m3_1945         open_top=false ⇒ declared_openings=**5** ✓ open_fighting_compartment=**0** ✓
+**us_m36_m4a1_1945     open_top=**true**  ⇒ declared_openings=**6** ✓ open_fighting_compartment=**1** ✓✓**
+⇒ **开放顶代表确实声明开放战斗室开口而封闭代表没有（1 vs 0）** ✓✓ ⇒ 连通性来自**声明几何** ✓ **非 `vehicle_type` 标签** ✓
+```
+### ⚠️ 我原规则**太粗** ✓✗（实测暴露 ✓ 已修 ✓）
+首版按"**存在任意开口**"判定 ✗ ⇒ 但**每辆车都声明** `turret_ring` / `gun_bore` 等结构开口（封闭车 5 个 ✓）⇒ 会让**所有车都"开放"** ✗。
+⇒ 依 `shell_effect_policy.gd:49` 的**原文**（"Caps define the limit of inside travel … **They are not armor**" ✓）⇒ 那些是**内部行程盖** ✓ **不是压力开口** ✓ ⇒ 规则改为**只认 `open_fighting_compartment`** ✓✓ 并把两个计数**都上账** ✓（`declared_openings` ✓ `open_compartment_apertures` ✓）。
+### 对照实测（**同一低威力外爆**，M36 vs M26 ✓）
+```
+us_m36_m4a1_1945 ⇒ terminal=**internal_burst** ✓ verdicts=["penetrated","stopped"] ✓ burst=**present** ✓
+                   breached=true ✓ openings=6 ✓ compartments=**1** ✓ **applied=true** ✓（判定=其自身记录输入 ✓）
+us_m26_m3_1945   ⇒ terminal=**armor_stopped** ✓ verdicts=["stopped"] ✓ burst=**none** ✓ breached=false ✓ applied=**false** ✓
+⇒ **T01**"封闭舱无破口 ⇒ 无凭空内舱超压" ✓✓ **由构造成立** ✓（**根本没有爆发** ⇒ 无从凭空产生 ✓）
+```
+### ⚠️ 我一条判据曾**空洞通过** ✓✗（**自查发现并改如实** ✓）
+首版要求"**两跑都产生 root_event**"再比对判定 ✗ ⇒ 而封闭跑**根本没爆发** ✗ ⇒ 其 `false` 来自**默认值** ✗ 而非规则 ✗ ⇒ 该对照**空洞通过** ✗ ⇒ 已改为如实三条 ✓（开放式须**真是规则判定** ✓ / 封闭式**如实记录为"未爆发"** ✓ / 开放式判定**等于其自身输入** ✓）。
+### **新实测事实** ✓（本单的精确边界 ✓）
+**延迟引信的启动需要"打穿某块板"** ✓（CD06-T02 亦见 ✓）⇒ ⇒ "**外爆 + 无破口**"在**当前引信规则下不可达** ✗✓ ⇒ 故：
+- **T01 由构造满足** ✓（封闭车无爆发 ⇒ 无内舱超压 ✓✓）；
+- 规则中的**封闭分支**是**防守性**的 ✓ = **守住当前引信规则所阻止的那个场景** ✓✓（一旦将来可达即生效 ✓）。
+### 下一轮
+1. **实现顺序 #2 的工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓ **不给所有车辆塞不兼容弹种** ✓）；
+2. **T03 薄板破口与隔板** ✓（**外板/隔板与乘员结果逐段可解释** ✓）与 **T04 世界触发与墙后** ✓（**世界接触可引爆** ✓ **遮挡仍有效** ✓ **无 through-wall 总伤** ✓）；
+3. **T05 HEAT 通道隔离** ✓（**射流不冒充超压** ✓）与 **T06 复数目标/终局** ✓（**一对象一次合法作用** ✓ **非许可目标无伤害** ✓ **取消明确** ✓）。
