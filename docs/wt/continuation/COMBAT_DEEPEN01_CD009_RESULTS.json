@@ -1,0 +1,63 @@
+{
+    "template_only":  false,
+    "actual_game_test_executed":  true,
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "work_order_id":  "WT-CD-009",
+    "base_sha":  "c0b7b9c6741ee96b8ff6fb447ac9bfdbff3e5b18",
+    "implementation_sha":  "03d36f8c5cefdd411d4ac164357238f6f38fae63",
+    "tested_sha":  "03d36f8c5cefdd411d4ac164357238f6f38fae63",
+    "final_sha":  "03d36f8c5cefdd411d4ac164357238f6f38fae63",
+    "content_version":  "scripts/damage/module_response_profile.gd + scripts/damage/vehicle_capabilities.gd + scripts/gunner.gd at 03d36f8c5cefdd411d4ac164357238f6f38fae63",
+    "rules_version":  "cd009-module-response-v1 ; cd009-breech-jam-v1",
+    "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
+    "command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --fixed-fps 60 -s res://tests/\u003csuite\u003e.gd",
+    "cwd":  "E:\\AIprogram\\mcthunder-cont",
+    "started_at":  "2026-09-18T21:03:05",
+    "ended_at":  "2026-09-19T07:03:05",
+    "exit_code":  0,
+    "timed_out":  false,
+    "case_ids_expected":  [
+                              "CD09-T01",
+                              "CD09-T02",
+                              "CD09-T03",
+                              "CD09-T04",
+                              "CD09-T05",
+                              "CD09-T06"
+                          ],
+    "case_ids_executed":  [
+                              "CD09-T01",
+                              "CD09-T02",
+                              "CD09-T03",
+                              "CD09-T04",
+                              "CD09-T05",
+                              "CD09-T06"
+                          ],
+    "status":  "COMPLETE",
+    "failure_details":  [
+
+                        ],
+    "script_errors":  null,
+    "test_kind":  "rule_negative ; standard_fixture ; actual_actor_integration ; normal_player_flow ; external_behaviour_not_compared",
+    "input_method":  "headless scripted suites and probes against the production call chain, including a real fire request through the production gunner",
+    "injections_declared":  [
+                                "the breech probe builds its own actor from the production catalog and declares itself a fixture; the fourth case declares its two axis modules because no delivered vehicle carries one"
+                            ],
+    "raw_stdout":  "logs/COMBAT-DEEPEN-01/*.log (per-suite and per-probe captures, unchanged, never filtered for SCRIPT ERROR)",
+    "raw_stderr":  "captured in the same per-run logs",
+    "screenshots":  [
+
+                    ],
+    "events":  [
+                   "per kind module response",
+                   "power_scale",
+                   "breech failure committed record",
+                   "blocked reason breech_jam",
+                   "seeded roll per shot"
+               ],
+    "not_run":  [
+                    "No delivered vehicle carries a barrel, a horizontal or vertical turret axis drive, or a stabilizer, so the fourth case declares those modules instead of claiming them in vehicle data; this is recorded as a named not-applicable item.",
+                    "CD10..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                ],
+    "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+    "next_action":  "continue with CD10, whose prerequisites CD01, CD06, CD08 and CD09 are now all closed"
+}

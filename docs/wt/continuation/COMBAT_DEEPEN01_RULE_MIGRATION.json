@@ -8,7 +8,8 @@
     "migration_index":  [
                             "original/RULE_MIGRATION_INDEX.md",
                             "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration",
-                            "WT-CD-008: versioned crew condition, and person identity separated from station and role"
+                            "WT-CD-008: versioned crew condition, and person identity separated from station and role",
+                            "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -482,6 +483,65 @@
                         "migration":  "This one REQUIRED migrating delivered legs: seven sites named a person by a role or read a role as a person, and each was rewritten data driven - stronger than the name it replaced. The migration is recorded here as the class the package rule change section describes.",
                         "rollback":  "Revert the identity assignment; a person is then the station again and the seven legs pass as before.",
                         "divergences":  "A delivered test may still name a role where a person belongs; the eight such sites found are fixed, and the recovery player suite is window required under headless by design."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-009",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "module_response_all_or_nothing",
+                        "new_rule_version":  "cd009-module-response-v1",
+                        "affected_vehicles":  "every_vehicle_with_modules",
+                        "affected_modes":  "live_fire_and_recovery",
+                        "fields":  [
+                                       "power_scale",
+                                       "yaw_scale",
+                                       "pitch_scale",
+                                       "reasons"
+                                   ],
+                        "reason":  "A module mattered only at exactly zero, so ability was all or nothing; the order requires a response chosen by KIND and forbids one uniform multiplier for every module.",
+                        "reference_sources":  [
+                                                  "R06",
+                                                  "W02"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Every strategy still reaches exactly zero at zero integrity, which is the behaviour the existing suites assert today, and the boolean that says whether the vehicle can move at all keeps its old meaning.",
+                        "legacy_tests":  "tests/run_damage_checks.gd and the six capability consumers, all unchanged",
+                        "new_expected_declared_before_run":  "With the profile declared, a partly damaged engine must reduce motive power before zero, and the tracks and barrel must behave as thresholds while the two turret axes stay linear.",
+                        "independent_oracle":  "The product produced capability dictionary read from the real state, with the new field carrying the curve.",
+                        "measured_before":  "Measured: any module above zero was skipped outright, so a half damaged engine left drive and steering exactly intact and recorded no reason at all.",
+                        "measured_after":  "Measured: an engine taken from full to half records power_scale 0.5 and the reason engine:linear:0.50, while a transmission loss, a track side loss and a driver loss record three different causes with different steering and pivot outcomes.",
+                        "migration":  "A module without a profile entry keeps binary-at-zero behaviour, which is what the delivery set mostly uses; the two axis drives keep the linear behaviour they already had.",
+                        "rollback":  "Remove the profile; every kind is then binary at zero again, exactly as before.",
+                        "divergences":  "Every threshold and chance is a declared project design initial value and the comparison state is NOT_COMPARED; no efficiency figure is claimed as external truth."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-009",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_breech_failure_vocabulary",
+                        "new_rule_version":  "cd009-breech-jam-v1",
+                        "affected_vehicles":  "every_vehicle_whose_breech_can_be_damaged",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "breech_failure",
+                                       "breech_failures",
+                                       "blocked_reason"
+                                   ],
+                        "reason":  "A breech could only fail by reaching zero, and there was no failure vocabulary at all; the order requires a failure judged once at the correct stage of a real fire request, never re-rolled per frame, with a frozen inventory rule.",
+                        "reference_sources":  [
+                                                  "R06",
+                                                  "W02"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "At zero integrity the breech still disables firing exactly as before, through the same match branch; nothing else about a fire request changed.",
+                        "legacy_tests":  "tests/run_fire_control_checks.gd, tests/run_loading_checks.gd and every suite that fires, all unchanged",
+                        "new_expected_declared_before_run":  "With the rule declared, a real request against a damaged breech must be able to jam, the jam must be a committed record carrying a seed and a rule, the same request must answer the same way, and no round may be consumed.",
+                        "independent_oracle":  "The production request path itself: gunner.try_fire over a real actor, with the judgement rolled from the same deterministic seed the shot already uses.",
+                        "measured_before":  "Measured: the gunner blocked reasons were cooldown, grace, barrel occlusion, ammunition, capacity and malformed requests only - there was no breech or jam vocabulary anywhere.",
+                        "measured_after":  "Measured on the production path: after nine real requests a jam occurred and recorded {shot_id 9, seed 2335249131, roll 0.131, chance 0.2, rule cd009-breech-jam-v1, round_consumed false}; the same request was refused the same way; a held trigger did not multiply the record; and the magazine went 104 to 96 with the jam itself consuming nothing. The roll was also shown to be a pure function of the shot seed, with 20 of 80 sampled shots inside the declared chance.",
+                        "migration":  "A vehicle whose breech is undamaged never rolls at all, because the profile declares the kind probabilistic but the chance is scaled by the damage; the existing zero-integrity behaviour is untouched.",
+                        "rollback":  "Remove the judgement; the breech then only disables firing at zero, exactly as before.",
+                        "divergences":  "The chance is a declared project design initial value with comparison NOT_COMPARED, and the rule is frozen: a jam consumes no round and damages no component in this version."
                     }
                 ],
     "divergences":  [
@@ -508,9 +568,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD08 start: run_damage_checks 57/0, run_recovery_checks 64/0, run_ammo_compartment_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0.",
-                              "after":  "CD08 close: all thirteen suites that touch crew state return their exact baseline counts with zero failures and zero script errors (689 passes), and the four acceptance scenes read met on all six cases with their expectations untouched.",
-                              "note":  "The only delivered expectations changed by this sub-order are the eight crew legs recorded above, each rewritten to read the person from the state; none was relaxed."
+                              "before":  "CD09 start: run_damage_checks 57/0, run_recovery_checks 64/0, run_fire_control_checks 59/0, run_loading_checks 62/0, run_historical_checks 192/0.",
+                              "after":  "CD09 close: run_damage_checks 57/0, run_recovery_checks 64/0, run_fire_control_checks 59/0, run_loading_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0, run_ammo_compartment_checks 62/0, run_ai_combat_checks 34/0 - every suite at its exact baseline, with the six acceptance scenes reading met and the breech request probe passing on the production path.",
+                              "note":  "The capability outputs changed by construction, so the same suites were re-run and every one returned its exact baseline count; no delivered expectation was changed by this sub-order."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
