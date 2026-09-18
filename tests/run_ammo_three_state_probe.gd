@@ -204,13 +204,24 @@ func _measure(id: String, tag: String, defs: VehicleDefs, packet: Dictionary, ra
 	if tag=="empty": check(actor.gunner.inventory.total_available()==0,"CD001 EMPTY is reached by normal consumption, not by a field write (%s)" % id)
 	var before := _state(actor,tag+"-before")
 	print("[CD001 %s/%s] produced by normal firing: supplied=%d fired=%d available=%d chamber=%d in_transfer=%d" % [id,tag,before.supplied,before.fired,before.available,before.chamber,before.in_transfer])
+	# CD01-T01 needs the ammo contents' own condition and the budget the strike consumed, not only the inventory total:
+	# the rack module's integrity is read before and after, and the projectile's whole contact trail plus its total
+	# consumed millimetres are captured, because the first armour contact alone cannot prove what happened later.
+	var rack_integrity_before := _module_integrity(actor,RACK_ID)
 	var projectile := _live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)))
 	var after := _state(actor,tag)
+	var rack_integrity_after := _module_integrity(actor,RACK_ID)
+	var consumed_total := float(projectile.consumed_mm) if projectile != null else -1.0
+	var trail: Array = []
 	var contacts := 0
 	var budget := {}
 	var damage: Array = []
 	if projectile != null:
 		contacts = projectile.contacts.size()
+		for index in projectile.contacts.size():
+			var row: Dictionary = projectile.contacts[index]
+			trail.append({"i":index,"part_id":row.get("part_id",""),"patch_id":row.get("patch_id",""),
+				"before_mm":row.get("before_mm",null),"after_mm":row.get("after_mm",null),"result":row.get("result","")})
 		if contacts > 0:
 			var first: Dictionary = projectile.contacts[0]
 			budget = {"part_id":first.get("part_id",""),"before_mm":first.get("before_mm",null),
@@ -223,13 +234,31 @@ func _measure(id: String, tag: String, defs: VehicleDefs, packet: Dictionary, ra
 	var reached := _reached_rack(projectile)
 	var destroyed: bool = actor.state.destroyed
 	var record_ok: bool = ShotRecordBuilder.validate(record).ok
+	var rack_touched := false
+	for row in damage:
+		if str(row.get("item_id",""))==RACK_ID: rack_touched = true
 	print("[CD001 %s/%s] after=%s" % [id,tag,JSON.stringify(after)])
 	print("[CD001 %s/%s] contacts=%d budget=%s" % [id,tag,contacts,JSON.stringify(budget)])
 	print("[CD001 %s/%s] damage=%s destroyed=%s rack_reached=%s" % [id,tag,JSON.stringify(damage),str(destroyed),str(reached)])
 	print("[CD001 %s/%s] record_rules=%s record_valid=%s" % [id,tag,JSON.stringify(record.get("rules_versions",{})),str(record_ok)])
+	# CD01-T01 direct evidence: the ammo contents' own integrity, the whole contact trail, and the total budget consumed.
+	print("[CD01-T01 %s/%s] rack_integrity before=%.3f after=%.3f changed=%s ; consumed_mm_total=%.3f budget_scale=%.3f ricochets=%d ; rack_item_in_damage=%s" % [
+		id,tag,rack_integrity_before,rack_integrity_after,str(rack_integrity_after!=rack_integrity_before),
+		consumed_total,float(projectile.budget_scale) if projectile!=null else -1.0,
+		int(projectile.ricochets) if projectile!=null else -1,str(rack_touched)])
+	print("[CD01-T01 %s/%s] trail=%s" % [id,tag,JSON.stringify(trail)])
+	if tag=="empty":
+		check(rack_integrity_after==rack_integrity_before,"CD01-T01 the empty ammo contents take no module damage ("+id+")")
+		check(not rack_touched,"CD01-T01 the empty ammo contents are not a damaged object in the result rows ("+id+")")
 	world.queue_free(); await _frames(2)
 	return {"id":id,"tag":tag,"before":before,"after":after,"contacts":contacts,"budget":budget,
-		"damage":damage,"destroyed":destroyed,"reached":reached,"record_ok":record_ok}
+		"damage":damage,"destroyed":destroyed,"reached":reached,"record_ok":record_ok,
+		"rack_integrity_before":rack_integrity_before,"rack_integrity_after":rack_integrity_after,
+		"consumed_total":consumed_total,"trail":trail,"rack_touched":rack_touched}
+
+func _module_integrity(actor: VehicleActor, module_id: String) -> float:
+	if actor.state.module_states.has(module_id): return float(actor.state.module_states[module_id].integrity)
+	return -1.0
 
 func _compare(rows: Array, id: String) -> void:
 	if rows.size() < 3: return
