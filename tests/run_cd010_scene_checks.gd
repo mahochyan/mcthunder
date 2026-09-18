@@ -89,21 +89,28 @@ func _run() -> void:
 		"no ready or reserve stock, or no replenishment clock, so the refill cannot be shown to be gradual")
 
 	# ── S3 the two stores react differently.
-	var has_protection := (aleo.state.module_states.has("ammo_partition") and aleo.state.module_states.has("blowout_panel"))
-	print("[CD10] S3 Leopard has partition=%s vent=%s ; reaction profile implemented=%s" % [
-		str(aleo.state.module_states.has("bustle_partition")),str(aleo.state.module_states.has("bustle_vent")),
-		str(ClassDB.class_exists("AmmoReactionProfile"))])
-	met("CD10-T03", ClassDB.class_exists("AmmoReactionProfile") and has_protection,
+	var kinds: Array = []
+	for mid in aleo.state.module_states:
+		kinds.append(str((aleo.state.module_states[mid] as Dictionary).get("kind","")))
+	var has_barrier := "ammo_partition" in kinds
+	var has_vent := "blowout_panel" in kinds
+	var profile_version := AmmoReactionProfile.VERSION
+	print("[CD10] S3 Leopard kinds=%s ; barrier=%s vent=%s ; reaction profile version=%s" % [
+		str(kinds),str(has_barrier),str(has_vent),profile_version])
+	met("CD10-T03", profile_version != "" and has_barrier and has_vent,
 		"an inert body store and a propellant store must react from their own material rules rather than both being ammo",
 		"there is no reaction profile, so the two stores cannot react differently")
 
 	# ── S4 intact against perforated partition.
-	var intact_loss := aleo.gunner.inventory.total_available()
-	_damage_module(aleo.state,"ammo_partition",0.0,"cd010_partition")
-	var perforated_loss := aleo.gunner.inventory.total_available()
-	print("[CD10] S4 inventory total intact=%d after partition loss=%d ; vent integrity=%s" % [
-		intact_loss,perforated_loss,str((aleo.state.module_states.get("bustle_vent",{}) as Dictionary).get("integrity",""))])
-	met("CD10-T04", intact_loss != perforated_loss or ClassDB.class_exists("AmmoReactionProfile"),
+	var stock := int(aleo.gunner.inventory.racks.get("ammo_ready",0))
+	var intact := aleo.state.judge_ammo_reaction("ammo_ready","chemical",stock,4242)
+	_damage_module(aleo.state,"bustle_partition",0.0,"cd010_partition")
+	var perforated := aleo.state.judge_ammo_reaction("ammo_ready","chemical",stock,4242)
+	print("[CD10] S4 stock=%d ; intact compartment=%s outcome=%s loss=%d ; perforated=%s outcome=%s loss=%d" % [
+		stock,str(intact.get("compartment","")),str(intact.get("outcome","")),int(intact.get("loss",0)),
+		str(perforated.get("compartment","")),str(perforated.get("outcome","")),int(perforated.get("loss",0))])
+	met("CD10-T04", str(intact.get("compartment","")) != str(perforated.get("compartment",""))
+		and (int(perforated.get("loss",0)) >= int(intact.get("loss",0))),
 		"venting and crew risk must follow the actual isolation, and the inventory loss must be explainable",
 		"the partition state changes nothing, because nothing reads it")
 

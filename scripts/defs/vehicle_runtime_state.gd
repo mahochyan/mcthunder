@@ -52,6 +52,31 @@ var legacy_migration: Dictionary = {}
 ## auditable and can never be silently re-rolled.
 var breech_failures: Array[Dictionary] = []
 var breech_failure: Dictionary = {}
+
+## CD10: the committed reaction record for a hit on stored ammunition, and the loss it caused. The loss is reported here
+## and moved out of the racks by the single ledger, so the inventory row stays the only book.
+var ammo_reactions: Array[Dictionary] = []
+var ammo_reaction: Dictionary = {}
+var ammo_loss_total := 0
+
+## The compartment state as the profile needs it: the barrier and the vent are read LIVE from the module map, so a
+## perforated partition or a lost vent actually changes the answer instead of being ignored.
+func ammo_compartment_view(module_id: String) -> Dictionary:
+	var view: Dictionary = (module_states.get(module_id,{}) as Dictionary).duplicate(true)
+	var protection: Dictionary = view.get("ammo_protection",{})
+	if not protection.is_empty():
+		view["barrier_integrity"] = float((module_states.get(str(protection.get("barrier_module_id","")),{}) as Dictionary).get("integrity",1.0))
+		view["vent_integrity"] = float((module_states.get(str(protection.get("vent_module_id","")),{}) as Dictionary).get("integrity",1.0))
+	return view
+
+## Judge and record a reaction for one ammunition module at the given stock, deterministically in the seed.
+func judge_ammo_reaction(module_id: String, channel: String, stock: int, seed: int) -> Dictionary:
+	var plan := AmmoReactionProfile.plan(module_id,ammo_compartment_view(module_id),channel,stock,seed)
+	plan["module_id"] = module_id
+	ammo_reaction = plan
+	ammo_reactions.append(plan.duplicate(true))
+	ammo_loss_total += int(plan.get("loss",0))
+	return plan
 var death_notified := false
 
 func reset() -> void:
