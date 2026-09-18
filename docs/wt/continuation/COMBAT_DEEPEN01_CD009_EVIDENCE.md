@@ -152,3 +152,34 @@ or through the actor that already injects `capabilities_provider` - and then jud
 with the declared chance scaled by how damaged the breech is, refusing the request by the name `breech_jam` and consuming
 no round, exactly as the order freezes that rule.
 ```
+
+## 5. The breech judgement is in place at the real request, and its scene is one step from measuring it
+
+### 5.1 What is now in the request path
+```
+scripts/gunner.gd try_fire() now judges a breech failure BEFORE the shot id is assigned and AFTER the ammunition and
+chamber checks, which is exactly the correct stage the order names:
+   var cd009_actor := get_parent() as VehicleActor        # the proven spelling used elsewhere in this file
+   if ... ModuleResponseProfile.rolls_per_request("breech"):   # the profile decides WHICH kinds roll
+      chance = declared chance * (1 - integrity fraction)     # scaled by how damaged the breech is
+      roll   = hash([round, shooter, life, shot_id+1, breech]) % 1000 / 1000   # the SAME seed the shot uses
+      on failure: record breech_failure {shot, seed, roll, chance, rule, round_consumed:false} in the state, set
+                  blocked_reason = breech_jam, and RETURN FALSE before any round is deducted.
+So: judged once per real request, from a deterministic seed, never per frame, refused by name, no round consumed -
+which is the frozen rule the order asks for. It is IN PLACE but NOT YET MEASURED, because the third scene computes
+capabilities and never makes a fire request, so the committed record stays empty and the case honestly reads not yet met.
+```
+### 5.2 Two of my own faults, both caught by asserting shape first
+```
+1. the first attempt spelled the actor access wrongly and produced eight parse errors - the gunner has no actor field and
+   the proven spelling is get_parent() as VehicleActor, which the measurement then found in four places;
+2. the scene edit wrote s3.state.breech_failure where s3 IS the state, which threw at runtime and silently STOPPED the
+   suite after the third scene, so cases four to six never ran at all. The full log read then showed the error, the token
+   was fixed, and all six scenes now run again.
+```
+### 5.3 Next step
+```
+Make the third scene issue a REAL fire request through the production gunner with a damaged breech, then assert three
+things the order names: the failure is recorded once with its seed and rule, a HELD trigger across frames does not
+re-roll it, and a REPEATED request for the same shot yields the same outcome - and that a jam consumes no round.
+```

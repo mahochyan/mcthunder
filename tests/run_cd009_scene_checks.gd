@@ -82,7 +82,8 @@ func _run() -> void:
 	var c3 := VehicleCapabilities.compute(s3)
 	print("[CD09] S3 breech present=%s ; fire=%s ; jam vocabulary=%s" % [
 		str(s3.module_states.has("breech")),str(c3.get("fire")),str(s3.module_states.has("breech_jam"))])
-	met("CD09-T03", s3.module_states.has("breech_jam") or not bool(c3.get("fire",true)),
+	# Judged on the committed product record of a failure and on the fire request being refused by name, not on a proxy.
+	met("CD09-T03", not (s3.breech_failure as Dictionary).is_empty() and bool((s3.breech_failure as Dictionary).get("round_consumed",true)) == false,
 		"a breech failure must be decided once at the correct stage of a real fire request, with a seeded outcome and an inventory result, never re-rolled per frame",
 		"there is no breech failure state or vocabulary at all, so a failure can be neither judged once nor rolled")
 

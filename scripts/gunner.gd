@@ -316,6 +316,25 @@ func try_fire() -> bool:
 		blocked_reason = "invalid_spawn"
 		last_shot_result = "blocked:invalid_spawn"
 		return false
+	# CD09-T03: the breech failure is judged HERE, once, at a real fire request, and never per frame. The roll comes from
+	# the SAME deterministic seed the shot itself uses, so a repeated request for the same shot yields the same outcome and
+	# a held trigger cannot re-roll it. The module response profile declares which kinds roll, and the chance is scaled by
+	# how damaged the breech is. The rule is frozen: a jam consumes no round and the attempt is refused by name.
+	var cd009_actor := get_parent() as VehicleActor
+	if cd009_actor != null and cd009_actor.state != null and ModuleResponseProfile.rolls_per_request("breech"):
+		var cd009_breech: Dictionary = cd009_actor.state.module_states.get("breech",{})
+		var cd009_fraction := clampf(float(cd009_breech.get("integrity",1))/maxf(0.0001,float(cd009_breech.get("max_integrity",1))),0,1)
+		if cd009_fraction < 1.0:
+			var cd009_seed := hash(JSON.stringify([_current_round(),shooter_id,tank.life_id,shot_id+1,"breech"]))
+			var cd009_roll := float(cd009_seed % 1000) / 1000.0
+			var cd009_chance := ModuleResponseProfile.failure_chance_for("breech") * (1.0 - cd009_fraction)
+			if cd009_roll < cd009_chance:
+				cd009_actor.state.breech_failure = {"shot_id":shot_id+1,"seed":cd009_seed,"roll":cd009_roll,
+					"chance":cd009_chance,"rule":"cd009-breech-jam-v1","round_consumed":false}
+				cd009_actor.state.breech_failures.append(cd009_actor.state.breech_failure.duplicate(true))
+				blocked_reason = "breech_jam"
+				last_shot_result = "blocked:breech_jam"
+				return false
 	var next_shot_id := shot_id + 1
 	if shell == null:
 		blocked_reason = "invalid_shell"
