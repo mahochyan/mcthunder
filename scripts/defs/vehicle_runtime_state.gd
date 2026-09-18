@@ -47,6 +47,11 @@ var extinguisher_charges := RecoveryRules.EXTINGUISH_CHARGES
 var death_record: Dictionary = {}
 # CD08-T06: the last legacy migration performed on this instance, with its rollback, so the change is auditable.
 var legacy_migration: Dictionary = {}
+## CD09-T03: the committed record of a breech failure judged at a real fire request. Each entry carries the shot it was
+## judged for, the seed it was rolled from, the rule and its version, and the ability before and after, so the judgement is
+## auditable and can never be silently re-rolled.
+var breech_failures: Array[Dictionary] = []
+var breech_failure: Dictionary = {}
 var death_notified := false
 
 func reset() -> void:

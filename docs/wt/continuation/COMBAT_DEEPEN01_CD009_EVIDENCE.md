@@ -123,3 +123,32 @@ collection empty. Both silent outcomes happened here: the first two attempts cha
 too much. The guard is to assert the expected shape after every structural edit - a line count and a parse - before
 any run is trusted.
 ```
+
+## 4. The breech failure: the state side is in place, the request side needs one measured accessor
+
+### 4.1 What was established before implementing anything
+```
+scripts/gunner.gd try_fire() checks, in order: capability fire, paused, cooldown, grace, ammunition, chamber, spawn,
+barrel occlusion - and it already computes a DETERMINISTIC seed for the shot itself:
+   "seed": hash(JSON.stringify([_current_round(), shooter_id, tank.life_id, next_shot_id]))
+So the correct place to judge a breech failure once is this request, rolled from the SAME seed, which makes a repeated
+request for the same shot yield the same outcome and makes a held trigger unable to re-roll it.
+```
+### 4.2 What was added, and what was reverted
+```
+KEPT: scripts/defs/vehicle_runtime_state.gd gained an additive committed record -
+   var breech_failures: Array[Dictionary] = []  and  var breech_failure: Dictionary = {}
+which parses clean and changes no existing behaviour. Each entry is meant to carry the shot, the seed, the roll, the
+chance, the rule identity and the ability before the failure, so a judgement is auditable and cannot be silently re-rolled.
+REVERTED: the judgement itself was written into try_fire and did not compile, because the gunner has no `actor` field -
+it holds `tank`, `turret`, `weapon`, `shell`, a `capabilities_provider` callable and a `projectile_manager`, and the way it
+reaches the vehicle runtime state is not the spelling I assumed. Eight parse errors were reported at the first shape check
+and the file was reverted immediately, which is exactly what asserting the shape before running is for.
+```
+### 4.3 Next step, narrowed to one measurement
+```
+Measure how the gunner actually reaches the runtime state - whether through `tank`, through an injected provider callable,
+or through the actor that already injects `capabilities_provider` - and then judge the failure there, from the shot seed,
+with the declared chance scaled by how damaged the breech is, refusing the request by the name `breech_jam` and consuming
+no round, exactly as the order freezes that rule.
+```
