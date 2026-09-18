@@ -349,6 +349,9 @@ func try_fire() -> bool:
 		"position_world": muz,
 		"velocity_world": dir * muzzle_velocity + tank.velocity,
 		"gravity_world": gravity_world,
+		# CD004: the declared drag travels with the shot, resolved from the same field and resolver the predictors use.
+		# Absent means zero, which makes the profile-aware advance identical to the constant-acceleration one.
+		"drag_k_per_m": float(BallisticsProfile.resolve(shell).get("drag_k_per_m",0.0)),
 		"max_age_s": max_age,
 		"max_distance_m": max_dist,
 	}

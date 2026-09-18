@@ -18,6 +18,10 @@ extends Resource
 @export var impact_profile: Dictionary = {}
 @export var post_penetration_profile: Dictionary = {}
 @export var chemical_profile: Dictionary = {}
+## CD004 design point 1/2: the DECLARED ballistics profile this round flies with. Empty is the legacy vacuum curve, so
+## nothing existing changes; naming one is what makes the flight, the fire control and the AI prediction share one solver,
+## because all three resolve the drag through BallisticsProfile from this same field.
+@export var ballistics_profile: String = ""
 @export var penetration_curve: PackedVector2Array = PackedVector2Array([Vector2(0, 60), Vector2(200, 50)])
 @export var gravity_scale: float = 1.0      # 006：重力倍率（0 = 无重力弹道）
 @export var max_flight_time_s: float = 8.0  # 006：最大飞行时间（模拟时间，>0）

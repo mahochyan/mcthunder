@@ -17,12 +17,18 @@ const FORWARD_ABS_M := 1.0e-6
 const FORWARD_REL_EPS := 8.0e-7
 const UNIT_LENGTH_SQUARED_EPS := 2.0e-6
 
+## CD004 design point 2: the drag the CURRENT solve resolved from the shell, so the verification inside the root check
+## integrates with the same profile-aware advance the flight uses. This call path is single-threaded and the value is set
+## at the top of every solve, so no caller can observe a stale coefficient.
+static var _drag_k_per_m := 0.0
+
 static func solve(muzzle: Vector3, target: Vector3, target_velocity: Vector3, own_velocity: Vector3, shell: ShellDefinition) -> Dictionary:
 	if shell == null: return _failure("missing_shell")
 	if not muzzle.is_finite() or not target.is_finite(): return _failure("non_finite_position")
 	if not target_velocity.is_finite() or not own_velocity.is_finite(): return _failure("non_finite_velocity")
 	var speed := shell.muzzle_velocity_mps
 	var gravity_scale := shell.gravity_scale
+	_drag_k_per_m = float(BallisticsProfile.resolve(shell).get("drag_k_per_m",0.0))
 	var limit := shell.max_flight_time_s
 	if not is_finite(speed) or speed <= 0.0: return _failure("invalid_muzzle_speed")
 	if not is_finite(gravity_scale) or gravity_scale < 0.0: return _failure("invalid_gravity")
@@ -93,7 +99,7 @@ static func _checked_direction(direction: Vector3, time: float, muzzle: Vector3,
 	if not relative_launch.is_finite() or relative_launch == Vector3.ZERO or not production_launch.is_finite(): return _failure("numeric_overflow")
 	# Relative coordinates can be well behaved while shared world motion exceeds
 	# Vector3 range. Check the actual production operations before accepting it.
-	var forward := BallisticMath.advance_free(muzzle, production_launch, gravity, time)
+	var forward := BallisticMath.advance_profile(muzzle, production_launch, gravity, _drag_k_per_m, time)
 	var predicted := target+target_velocity*time
 	if not forward.ok or not predicted.is_finite(): return _failure("numeric_overflow")
 	var length_scale := 0.0

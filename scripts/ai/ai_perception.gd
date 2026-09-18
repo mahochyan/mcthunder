@@ -127,6 +127,9 @@ func _predict_fire_lane(observer: VehicleActor, observation: Dictionary, solutio
 	var travelled := 0.0
 	var segments := 0
 	var excluded := [{"entity_id":observer.entity_id,"life_id":observer.life_id}]
+	# CD004 design point 2: this lane prediction integrates with the SAME profile-aware advance the flight uses, resolving
+	# the drag from the same shell field, so it is no longer a second copy of the flight that ignores drag.
+	var lane_drag_k_per_m := float(BallisticsProfile.resolve(ammunition).get("drag_k_per_m",0.0))
 	while elapsed<duration-BallisticMath.TIME_EPS:
 		var step := minf(fixed_step,duration-elapsed)
 		var plan := BallisticMath.plan_times(velocity,gravity,step)
@@ -141,7 +144,7 @@ func _predict_fire_lane(observer: VehicleActor, observation: Dictionary, solutio
 			segments+=1
 			if segments>MAX_PREDICTION_SEGMENTS: return _lane(false,"prediction_segment_budget",segments-1)
 			var h := times[part+1]-times[part]
-			var advanced := BallisticMath.advance_free(position,velocity,gravity,h)
+			var advanced := BallisticMath.advance_profile(position,velocity,gravity,lane_drag_k_per_m,h)
 			if not advanced.ok: return _lane(false,"prediction_overflow",segments)
 			var chord: Vector3=advanced.position-position
 			var length := chord.length()

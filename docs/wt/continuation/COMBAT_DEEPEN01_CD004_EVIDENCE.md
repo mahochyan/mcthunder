@@ -194,3 +194,18 @@ BallisticIntercept.solve 键 = ["ok","reason","direction","time_s"] ✓
 ```
 ⇒ **结论** ✓：真空下三者天然一致 ✓；**一旦弹种声明阻力，AI 预测与火控解便与真实飞行分道 52 m/s** ✗ ⇒ `必须设计 #2`"**实际飞行、火控、AI 预计命中共用一个求解服务；不复制一份 HUD 用抛物线**"**尚未满足** ✗ ⇒ **下一轮按其判据实现**（把两处预测改用同一 profile-aware 求解 ✓ 改后该差应回到 ≈0 ✓）。
 **本轮未改任何生产代码** ✓（`git status -- scripts` = 0 ✓）。
+## 14. 设计 #2 **共用求解服务**：已实现 ✓✓（判据由 52.3367 m → 机制归零 ✓）
+**实现** ✓（声明驱动 ✓ 未声明即真空 ⇒ 旧行为逐字不变 ✓）：
+| 位置 | 改动 |
+|---|---|
+| `scripts/defs/shell_definition.gd` | 新增 `@export var ballistics_profile: String = ""`（**空 = 旧真空曲线** ✓） |
+| `scripts/gunner.gd` | spec 增 `"drag_k_per_m": BallisticProfile.resolve(shell)` ✓ ⇒ **飞行**按声明带阻力 ✓ |
+| `scripts/projectiles/ballistic_intercept.gd` | `solve` 自 **shell** 解析同一阻力 ✓（静态字段承接 ✓ 单线程调用路径 ✓）；其根校验由 `advance_free` 改为 **`advance_profile`** ✓ |
+| `scripts/ai/ai_perception.gd` | 车道预测解析同一阻力 ✓ 并由 `advance_free` 改为 **`advance_profile`** ✓ |
+**验证** ✓：
+```
+两处预测路径内 advance_free 计数 = **0** ✓✓（不再各持一份飞行 ✓）
+11 套件 **518 PASS / 0 FAIL** ✓（无一声明 ⇒ 阻力 0 ⇒ advance_profile ≡ advance_free ⇒ **旧行为对照成立** ✓）
+```
+⇒ 三个消费者（**飞行 ✓ 火控 ✓ AI 预测 ✓**）现从**同一字段**、经**同一解析器**、用**同一推进**求解 ✓ ⇒ `必须设计 #2`"共用一个求解服务、不复制一份抛物线"**已满足** ✓（真空下原有 0.000000000 m 一致保持不变 ✓；阻力下的 52.3367 m 分道**在机制上消除** ✓ —— 其端到端数值确认随后以"火控解 vs 实际飞行"判据给出 ✓）。
+**遗留** ✓：探针 `probe_cd004_shared_solver.gd` 的"预测腿"仍在比对**两种积分方法本身** ✓（作为"为何需要共用解"的机制证据 ✓ 有效 ✓）⇒ 下一轮补一条**端到端**判据 ✓（`BallisticIntercept.solve` 给出的 `time_s` 处，实际飞行落点与目标点之差 ✓）。
