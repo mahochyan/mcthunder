@@ -542,8 +542,13 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		st.budget_scale = result.scale
 		st.consumed_mm = result.consumed_mm
 		st.ricochets = result.ricochets
-		if result.result == "ricochet":
-			st.velocity_world = result.direction * st.velocity_world.length() * float(result.speed_scale)
+		if result.result in ["ricochet","penetrated"]:
+			# CD004 design point 3: the residual-velocity rule rides the same application point as ricochet. The resolver
+			# returns the incoming DIRECTION VECTOR for a penetration - which is the velocity that was passed in, not a unit
+			# vector, so it must be normalised or the speed is multiplied by itself; an unnormalised first attempt produced
+			# 725208 m/s, exactly nine hundred squared times the scale. The ricochet branch already returns a unit vector.
+			# A round that declares no residual model carries speed_scale 1.0, which makes this a no-op for existing shots.
+			st.velocity_world = result.direction.normalized() * st.velocity_world.length() * float(result.speed_scale)
 		if result.result == "penetrated":
 			ShellFuze.arm(st, ev, result)
 			st.interior_targets[DamageResolver.target_key(ev)] = not bool(result.backface)

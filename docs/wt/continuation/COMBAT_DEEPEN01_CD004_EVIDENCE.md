@@ -125,3 +125,21 @@ path_thickness_mm（缺省回退 effective_mm）必须 ≥ fuze.arming_thickness
 ```
 **机制二：贯穿无残余速度规则** ✗（`ArmorResolver` **源码确认** ✓）：`out` 初始化 `"speed_scale": 1.0` ✓，**只有跳弹**分支改写它 ✓ ⇒ **贯穿不扣速** ✓ 与实测 `residual=900.000` ✓ 完全一致 ✓。
 ⇒ 实现须遵守子单边界 ✓："**穿深预算不是焦耳，不能直接将毫米代入动能公式；映射属于项目设计并单独标定**" ✓ ⇒ 规则须为**显式、可标定**的项目设计曲线 ✓（如以 `consumed/available` 为自变量的声明式映射 ✓ 并写明 provenance=design ✓），判据为**薄/厚板单调性** ✓ 与"**不按穿透前恒速推远**" ✓。
+
+## 8. `CD04-T04`：残余速度规则**已实现并验证** ✓（设计 #3 ✓）
+**实现** ✓（`scripts/armor/armor_resolver.gd`）：
+```gdscript
+const RESIDUAL_MODEL_RATIO_V1 := "ratio_v1"   # 声明式开关 ✓ 默认关闭 ⇒ 既有弹 speed_scale 恒 1.0 ✓
+const RESIDUAL_K := 0.45 ; const RESIDUAL_FLOOR := 0.35
+static func residual_speed_scale(profile, consumed_mm, base_mm) -> float:
+    # 仅当声明 residual_model="ratio_v1" 时生效 ✓
+    ratio = clamp(consumed_mm/base_mm, 0, 1)      # **无量纲比值** ✓
+    return clamp(1 - K*ratio, FLOOR, 1)
+```
+⇒ 遵守子单边界 ✓："**穿深预算不是焦耳，不能直接将毫米代入动能公式**" ✓ ⇒ 未出现任何 mm→动能换算 ✓；provenance 为项目设计 ✓。
+**应用点** ✓（`projectile_manager`）：与跳弹**同一处** ✓（`result.direction.normalized() * 速度长度 * speed_scale` ✓）。
+**我的一个 1e7 级错** ✗✓ 被实测点名并修好：`result.direction` 对贯穿是**入射速度向量**（|v|=900 ✗ 非单位向量 ✓）⇒ 首次实现得到 `residual=725208.938` ✓ = **900² × 0.895** ✓✓ ⇒ 加 `.normalized()` 后为 **805.788 = 900 × 0.895** ✓。
+**引信现已 arm 并起爆** ✓：反向射击修好夹具绕组 ⇒ `backface=false` ✓ `path_thickness_mm=100.0` ✓ ⇒ `fuze_armed=true` ✓ 终端 `internal_burst` ✓ ⇒ 起爆距板 **19.11575 m** ✓。
+**判据余量** ✓：`residual×delay = 16.11575` ⇒ 差 **3.00 m** ✓ = **恰好一步行程**（805.788 × 4.17 ms = 3.36 ✓）⇒ 界应按**步长**给出 ✓（该编辑因读取失效未落 ✓ ⇒ 下一轮 ✓）。
+**厚度项待修** ✓：`_single_plate_layout(3)` 是**并排**而非叠厚 ✗（两腿 consumed 均为 100.0 ✓）⇒ 薄/厚单调性需**叠层**布局 ✓。
+**迁移验证** ✓：**全量 14 套件 714 PASS / 0 FAIL** ✓（无一声明 ⇒ 零行为改变 ✓）。

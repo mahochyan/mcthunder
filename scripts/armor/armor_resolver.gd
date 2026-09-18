@@ -3,6 +3,23 @@ extends RefCounted
 ## 007 纯决策；所有参数是集中、版本化的游戏规则。
 ## 不改节点/预算/车辆，不把 UNKNOWN 当作 0，不从相机读取方向。
 
+## CD004 design point 3: the residual-velocity rule after a penetration. The penetration budget is NOT joules and a
+## millimetre figure must never be pushed through a kinetic formula, so this is an explicit, calibratable project-design
+## mapping on the dimensionless ratio of what the penetration CONSUMED to what was AVAILABLE. It is off unless a round
+## declares residual_model = "ratio_v1" in its impact profile, so every existing shot keeps speed_scale exactly 1.0 and the
+## old behaviour remains reachable and comparable.
+const RESIDUAL_MODEL_RATIO_V1 := "ratio_v1"
+const RESIDUAL_K := 0.45
+const RESIDUAL_FLOOR := 0.35
+
+static func residual_speed_scale(profile: Dictionary, consumed_mm: float, base_mm: float) -> float:
+	if str(profile.get("residual_model", "")) != RESIDUAL_MODEL_RATIO_V1:
+		return 1.0
+	if not is_finite(consumed_mm) or not is_finite(base_mm) or base_mm <= 0.0:
+		return 1.0
+	var ratio := clampf(consumed_mm / base_mm, 0.0, 1.0)
+	return clampf(1.0 - RESIDUAL_K * ratio, RESIDUAL_FLOOR, 1.0)
+
 static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary) -> Dictionary:
 	var out := {
 		"result": "invalid", "continue_flight": false, "rules_version": GameConfig.ARMOR_RULES_VERSION,
@@ -98,6 +115,10 @@ static func resolve(contact: Dictionary, direction: Vector3, budget: Dictionary)
 		out.continue_flight = true
 		out.consumed_mm = consumed + cost
 		out.after_mm = before - cost
+		# CD004 design point 3: the explicit residual-velocity rule. Off unless the round declares it, in which case the
+		# residual speed follows the declared dimensionless ratio of consumed to available budget - never a millimetre figure
+		# pushed through a kinetic formula.
+		out.speed_scale = residual_speed_scale(profile,float(out.consumed_mm),before)
 	elif absf(before - cost) <= 1e-5:
 		out.result = "perforated_stop"
 		out.consumed_mm = consumed + before

@@ -1,4 +1,4 @@
-extends "res://tests/probe_cd003_gap_baseline.gd"
+﻿extends "res://tests/probe_cd003_gap_baseline.gd"
 ## MCT-COMBAT-DEEPEN-01 CD004-T04: the post-penetration fuze must fire on the RESIDUAL trajectory, not on the speed the
 ## shot had before it met the plate. The case text is explicit: fly NATURALLY to the fuze time after penetrating plates of
 ## different thickness, and do not push the burst further out on a constant pre-penetration speed.
@@ -12,8 +12,12 @@ extends "res://tests/probe_cd003_gap_baseline.gd"
 ## Expectations (3) and (4) together place the burst on the residual trajectory rather than an invented one.
 
 const T04_SEED := 5120
-const T04_DELAY := 0.002
+## The delay must be LONGER than one physics step, otherwise the burst is only detected at the next step and lands a whole
+## step late - measured as four point eight metres against the one point eight a two millisecond delay predicts, because two
+## milliseconds is shorter than the four point one seven millisecond step. Twenty milliseconds is resolvable.
+const T04_DELAY := 0.02
 const T04_SPEED := 900.0
+const T04_CAP_M := 60.0
 
 func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Dictionary, round_id: int) -> Dictionary:
 	var manager := ProjectileManager.new(); manager.presentation_enabled=false
@@ -48,15 +52,18 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 	var aphe_profile := {"version":ArmorImpactProfile.VERSION,"family":"APHE","provenance":"game_rule",
 		"reason":"CD004-T04 probe fixture: an APHE-family rule set so a penetration verdict can arm a delay fuze",
 		"normalization_deg":4.0,"overmatch_ratio":3.0,"ricochet_deg":70.0,
-		"material_coefficients":{"rolled":1.0,"cast":1.1}}
+		"material_coefficients":{"rolled":1.0,"cast":1.1},
+		"residual_model":ArmorResolver.RESIDUAL_MODEL_RATIO_V1}
 	var impact_errors := ArmorImpactProfile.validate(aphe_profile,"internal_burst")
 	print("[CD004 T04] APHE impact profile errors=%s" % JSON.stringify(impact_errors))
+	# Fire from +X toward -X: the armour rule reads a same-direction normal as a backface, and a fuze must not arm on an exit,
+	# so the shot has to enter the plate's front. The plate itself is unchanged; only the direction of travel flips.
 	var spec := {"round_id":round_id,"shooter_id":"cd004_t04","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id+"_t04fixture",
 		"effect_policy":"internal_burst","armor_policy":"resolve",
 		"impact_profile":aphe_profile,"post_penetration_profile":{},"fuze_policy":delay_fuze.duplicate(true),
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
-		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
-		"max_age_s":0.05,"max_distance_m":20.0}
+		"position_world":Vector3(3,0,0),"velocity_world":Vector3(-T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.05,"max_distance_m":T04_CAP_M}
 	var spawned := manager.try_spawn(spec)
 	if not spawned.get("ok",false):
 		manager.queue_free()
@@ -76,14 +83,15 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 		if residual_speed < 0.0 and len(projectile.contacts) > 0:
 			residual_speed = projectile.velocity_world.length()
 			plate_x = previous.x
-			print("[CD004 T04] first contact: result=%s effective_mm=%s consumed=%s fuze_armed=%s" % [
+			print("[CD004 T04] first contact: result=%s effective_mm=%s consumed=%s backface=%s path_thickness_mm=%s fuze_armed=%s" % [
 				str(projectile.contacts[0].get("result","")),str(projectile.contacts[0].get("effective_mm","")),
-				str(projectile.contacts[0].get("consumed_mm","")),str(projectile.fuze_due_age_s >= 0.0)])
+				str(projectile.contacts[0].get("consumed_mm","")),str(projectile.contacts[0].get("backface","")),
+				str(projectile.contacts[0].get("path_thickness_mm","<absent>")),str(projectile.fuze_due_age_s >= 0.0)])
 	terminal = str(projectile.terminal_reason)
 	var burst_x := projectile.position_world.x
 	manager.queue_free()
 	return {"ok":true,"residual_speed":residual_speed,"plate_x":plate_x,"burst_x":burst_x,
-		"burst_distance":burst_x-plate_x,"terminal":terminal,"contacts":len(projectile.contacts)}
+		"burst_distance":absf(burst_x-plate_x),"terminal":terminal,"contacts":len(projectile.contacts)}
 
 ## Control leg: the same fixture round and plate, but with the kinetic policy and no fuze.
 func _t04_fire_kinetic(actor: VehicleActor, world: Node3D, thickness: int, round_id: int) -> Dictionary:
@@ -97,8 +105,8 @@ func _t04_fire_kinetic(actor: VehicleActor, world: Node3D, thickness: int, round
 		"effect_policy":"kinetic","armor_policy":"resolve",
 		"impact_profile":{},"post_penetration_profile":{},"fuze_policy":{},
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
-		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
-		"max_age_s":0.05,"max_distance_m":20.0}
+		"position_world":Vector3(3,0,0),"velocity_world":Vector3(-T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.05,"max_distance_m":T04_CAP_M}
 	var spawned := manager.try_spawn(spec)
 	if not spawned.get("ok",false):
 		manager.queue_free()
