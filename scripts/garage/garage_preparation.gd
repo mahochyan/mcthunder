@@ -36,7 +36,20 @@ var page_summary: Label
 var shell_meta: Dictionary = {}
 
 func group_label(parent: Node, key: String) -> Label:
-	return CoreUI.label(parent,LocalizationService.text(key),16)
+	# UI-BIZ-01 stage 3: one section-heading style for the three loadout groups - an accent caption with a hairline
+	# beneath it - so ammunition, lineup and inspection read as sections of one panel instead of three stray lines.
+	# Every group goes through this function, so this single change lifts all of them.
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation",2)
+	parent.add_child(column)
+	var caption := BizTheme.display_label(column,LocalizationService.text(key),"subtitle")
+	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var rule := ColorRect.new()
+	rule.custom_minimum_size.y = 1
+	rule.color = BizTheme.hairline()
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	column.add_child(rule)
+	return caption
 
 func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	garage = owner_garage; store = profile
@@ -57,17 +70,27 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	# The three groups are visible by default; the toggle above collapses them for compact layouts.
 	details = VBoxContainer.new(); details.name="PreparationDetails"; details.visible = true; add_child(details)
 	group_label(details,"loadout_group_ammo")
-	# Capacity, stock and the first-round condition sit together in one summary block.
-	summary_box = VBoxContainer.new(); details.add_child(summary_box)
-	rack_label = CoreUI.label(summary_box,"",14)
+	# Capacity, stock and the first-round condition sit together in one summary block. UI-BIZ-01 stage 3: that block is
+	# now its own sunken readout inside the group, so the three real values read as one instrument rather than as three
+	# loose lines.
+	var summary_card := PanelContainer.new()
+	summary_card.add_theme_stylebox_override("panel",BizTheme.box(BizTheme.sunken(),BizTheme.hairline(),12,"panel"))
+	details.add_child(summary_card)
+	summary_box = VBoxContainer.new()
+	summary_box.add_theme_constant_override("separation",6)
+	summary_card.add_child(summary_box)
+	rack_label = CoreUI.label(summary_box,"",UiTokens.biz_type_size("body",15))
+	rack_label.add_theme_color_override("font_color",BizTheme.text_primary())
 	rack_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(summary_box,LocalizationService.text("ui_d7fc6412941b"),14)
+	var first_caption := CoreUI.label(summary_box,LocalizationService.text("ui_d7fc6412941b"),UiTokens.biz_type_size("caption",11))
+	first_caption.add_theme_color_override("font_color",BizTheme.text_tertiary())
 	first_choice = OptionButton.new(); summary_box.add_child(first_choice)
 	first_choice.item_selected.connect(func(_index: int) -> void: _ammo_changed())
 	ammo_box = VBoxContainer.new(); details.add_child(ammo_box)
-	ammo_error_label = CoreUI.label(details,"",13)
+	ammo_error_label = CoreUI.label(details,"",UiTokens.biz_type_size("label",13))
 	ammo_error_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	ammo_error_label.add_theme_color_override("font_color",GarageTheme.ACCENT)
+	# An invalid loadout is an error, so it takes the colour the ruling reserves for errors rather than the accent.
+	ammo_error_label.add_theme_color_override("font_color",BizTheme.critical())
 	group_label(details,"loadout_group_lineup")
 	for id in store.service.vehicle_ids():
 		var check := CheckBox.new()
@@ -88,7 +111,8 @@ func setup(owner_garage: GarageShell, profile: ProfileStore) -> void:
 	CoreUI.button(details,LocalizationService.text("ui_bb57985a9b4d"),save_settings)
 	CoreUI.label(details,LocalizationService.text("ui_9fc6354946e0"),13)
 	# Page-bottom summary: the validation result and the resulting totals in one place, not only a red code above.
-	page_summary = CoreUI.label(details,"",13)
+	page_summary = CoreUI.label(details,"",UiTokens.biz_type_size("caption",11))
+	page_summary.add_theme_color_override("font_color",BizTheme.text_secondary())
 	page_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 func mode() -> String:
@@ -130,13 +154,14 @@ func select_vehicle(id: String) -> void:
 		for shell in prepared.options:
 			var row := VBoxContainer.new(); ammo_box.add_child(row)
 			var head := HBoxContainer.new(); row.add_child(head)
-			var label := CoreUI.label(head,shell.display_name,14); label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			var label := CoreUI.label(head,shell.display_name,UiTokens.biz_type_size("body",15)); label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			label.add_theme_color_override("font_color",BizTheme.text_primary())
 			var spin := SpinBox.new(); spin.min_value = 0; spin.max_value = prepared.inventory.capacity; spin.value = loadouts[id].counts[shell.id]
 			head.add_child(spin); shell_spins[shell.id] = spin
 			spin.value_changed.connect(func(_value: float) -> void: _ammo_changed())
 			# Real family, calibre and effect from the shell definition, plus the estimate marker the catalogue enforces.
-			var meta := CoreUI.label(row,LocalizationService.text("loadout_shell_meta")%[str(shell.impact_profile.get("family","—")),float(shell.caliber_mm),str(shell.effect_policy)]+" · "+LocalizationService.text("loadout_estimated"),12)
-			meta.add_theme_color_override("font_color",GarageTheme.MUTED)
+			var meta := CoreUI.label(row,LocalizationService.text("loadout_shell_meta")%[str(shell.impact_profile.get("family","—")),float(shell.caliber_mm),str(shell.effect_policy)]+" · "+LocalizationService.text("loadout_estimated"),UiTokens.biz_type_size("caption",11))
+			meta.add_theme_color_override("font_color",BizTheme.text_tertiary())
 			shell_meta[shell.id] = meta.text
 		if not lineup_ids.has(id) and (mode() == "training" or id in store.snapshot().unlocked):
 			if lineup_ids.size() == 3: lineup_ids.pop_back()
@@ -145,7 +170,8 @@ func select_vehicle(id: String) -> void:
 		# Explicit empty state: the group stays visible and says why it cannot be edited, instead of vanishing.
 		summary_box.visible = false
 		rack_label.text = ""
-		CoreUI.label(ammo_box,LocalizationService.text("loadout_no_packet"),13)
+		var no_packet := CoreUI.label(ammo_box,LocalizationService.text("loadout_no_packet"),UiTokens.biz_type_size("label",13))
+		no_packet.add_theme_color_override("font_color",BizTheme.warning())
 	_refreshing = false
 	_refresh_research()
 	_refresh_lineup()

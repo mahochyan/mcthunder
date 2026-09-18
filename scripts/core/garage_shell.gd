@@ -160,19 +160,29 @@ func _ready() -> void:
 	training_cards.name = "TrainingCards"
 	controls.add_child(training_cards)
 	for card_index in TrainingDirector.TITLES.size():
+		# UI-BIZ-01 stage 3: each lesson is a real card on the page surface with its title in the display type scale,
+		# its goal and restriction as supporting lines and an enter action from the shared component layer.
+		var lesson_card := PanelContainer.new()
+		lesson_card.name = "TrainingCard%d" % card_index
+		lesson_card.custom_minimum_size = Vector2(300,0)
+		lesson_card.add_theme_stylebox_override("panel",BizTheme.panel_box("panel"))
+		training_cards.add_child(lesson_card)
 		var lesson := VBoxContainer.new()
-		lesson.name = "TrainingCard%d" % card_index
-		lesson.custom_minimum_size = Vector2(300,0)
-		training_cards.add_child(lesson)
-		var lesson_title := CoreUI.label(lesson,TrainingDirector.TITLES[card_index],18)
+		lesson.add_theme_constant_override("separation",6)
+		lesson_card.add_child(lesson)
+		var lesson_title := BizTheme.display_label(lesson,TrainingDirector.TITLES[card_index],"subtitle")
 		lesson_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		var lesson_goal := CoreUI.label(lesson,TrainingDirector.GOALS[card_index],14)
+		var lesson_goal := CoreUI.label(lesson,TrainingDirector.GOALS[card_index],UiTokens.biz_type_size("label",13))
+		lesson_goal.add_theme_color_override("font_color",BizTheme.text_secondary())
 		lesson_goal.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		lesson_goal.custom_minimum_size = Vector2(300,58)
-		var lesson_rule := CoreUI.label(lesson,LocalizationService.text("training_card_restriction") % [int(rounds.value),LocalizationService.text("ui_f9ae85491761") if infinite.button_pressed else LocalizationService.text("ui_6bea77acefb3")],13)
+		var lesson_rule := CoreUI.label(lesson,LocalizationService.text("training_card_restriction") % [int(rounds.value),LocalizationService.text("ui_f9ae85491761") if infinite.button_pressed else LocalizationService.text("ui_6bea77acefb3")],UiTokens.biz_type_size("caption",11))
+		lesson_rule.add_theme_color_override("font_color",BizTheme.warning())
 		lesson_rule.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		CoreUI.label(lesson,LocalizationService.text("training_card_completion"),13)
-		CoreUI.button(lesson,LocalizationService.text("training_card_enter"),func() -> void: case_choice.select(card_index); _start())
+		var lesson_state := CoreUI.label(lesson,LocalizationService.text("training_card_completion"),UiTokens.biz_type_size("caption",11))
+		lesson_state.add_theme_color_override("font_color",BizTheme.text_tertiary())
+		var lesson_enter := CoreUI.button(lesson,LocalizationService.text("training_card_enter"),func() -> void: case_choice.select(card_index); _start())
+		BizTheme.apply_button(lesson_enter,"secondary","training")
 	start_button = CoreUI.button(left_column,LocalizationService.text("ui_e9229f452d99"),_start)
 	CoreUI.button(controls,LocalizationService.text("ui_99b3769b6ee2"),func() -> void: laboratory_requested.emit("duel"))
 	CoreUI.button(left_column,LocalizationService.text("ui_56b6b54bb00a"),func() -> void: laboratory_requested.emit("team"))
