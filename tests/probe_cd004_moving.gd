@@ -79,41 +79,75 @@ func _run() -> void:
 	# must be turned to face the shot. Rotating -X by ninety degrees about Y gives +Z, and the plate's own plane then lands
 	# on world z = 0, so translating ten metres along -Z puts it well ahead of the muzzle, which sits around four to five metres forward of the hull facing the incoming round. This is a
 	# transform on the fixture rather than a new layout, so the plate geometry stays the one already in use.
+	# MEASURED, not assumed: the muzzle sits at y = 1.64 while the shared plate spans local y in [-1,1], and rotating it
+	# about Y leaves that vertical extent untouched, so a plate centred on the origin is simply below the shot and no query
+	# along the axis can meet it. The plate is therefore placed at the muzzle's own height.
+	const PLATE_Y := 1.64
 	var plate_basis := Basis(Vector3.UP,deg_to_rad(90.0))
-	var plate_world := Transform3D(plate_basis,Vector3(0,0,-10.0))
+	var plate_world := Transform3D(plate_basis,Vector3(0,PLATE_Y,-10.0))
 	var base_transform := plate_world
 	static_snapshot["part_world_transforms"]["hull"] = plate_world
 	var moving_snapshot: Dictionary = static_snapshot.duplicate(true)
 	moving_snapshot["part_world_transforms"] = static_snapshot["part_world_transforms"].duplicate(true)
-	moving_snapshot["part_world_transforms"]["hull"] = Transform3D(plate_basis,Vector3(0,0,-10.0+T05_TARGET_VZ*T05_STEP))
+	moving_snapshot["part_world_transforms"]["hull"] = Transform3D(plate_basis,Vector3(0,PLATE_Y,-10.0+T05_TARGET_VZ*T05_STEP))
 	moving_snapshot[TranslationSweep.PREVIOUS_KEY] = {"hull":base_transform}
 	var space := world.get_world_3d().direct_space_state
+	# Measure rather than reason: the muzzle the shot actually left, the plate's world transform, the plate's own outward
+	# normal in world space, and what a direct query along the shot's axis finds. Between them these decide whether the
+	# placement is wrong or the manager is being driven wrongly.
+	var probe_from: Vector3 = still.get("state").position_world
+	var probe_to: Vector3 = probe_from + Vector3(0,0,-40.0)
+	var probe_query := ShotQueryService.query({"query_id":"cd004_t05_diag","from_world":probe_from,"to_world":probe_to},[static_snapshot])
+	print("[CD004 T05 diag] muzzle=%s launch_dir=%s hull_xform=%s world_normal=%s" % [
+		str(probe_from),str(still.get("state").launch_velocity.normalized()),str(plate_world),
+		str(plate_world.basis * Vector3(-1,0,0))])
+	print("[CD004 T05 diag] direct query from the muzzle along -Z: events=%d diagnostics=%s" % [
+		len(probe_query.get("events",[])),JSON.stringify(probe_query.get("diagnostics",[]))])
+	if len(probe_query.get("events",[])) > 0:
+		var ev0: Dictionary = probe_query.get("events",[])[0]
+		print("[CD004 T05 diag] what the direct query met: surface_id=%s part=%s distance=%.5f point=%s" % [
+			str(ev0.get("surface_id","")),str(ev0.get("part_id","")),float(ev0.get("distance_m",-1.0)),str(ev0.get("point_world",Vector3.ZERO))])
 	var static_contacts := 0
+	var static_point_z := 0.0
 	for i in 240:
 		if static_state.is_terminal(): break
 		manager.advance_projectile(static_state,T05_STEP,[static_snapshot],space)
-	static_contacts = len(static_state.contacts)
-	var static_distance := (float(static_state.contacts[0].get("distance_m",-1.0)) if static_contacts > 0 else -1.0)
+		if len(static_state.contacts) > 0:
+			static_contacts = len(static_state.contacts)
+			static_point_z = float(static_state.contacts[0].get("point_world",Vector3.ZERO).z)
+			break
+	var static_distance := static_point_z
 	var static_time := (float(static_state.contacts[0].get("t",-1.0))*T05_STEP if static_contacts > 0 else -1.0)
 	var receding := _t05_shoot(actor,manager,world,T05_SEED+3)
 	check(bool(receding.get("ok",false)),"CD004 T05 the receding-target shot fires through the gunner")
 	var receding_state: ProjectileState = receding.get("state")
+	var receding_contacts := 0
+	var receding_point_z := 0.0
 	for i in 240:
 		if receding_state.is_terminal(): break
 		manager.advance_projectile(receding_state,T05_STEP,[moving_snapshot],space)
-	var receding_contacts := len(receding_state.contacts)
-	var receding_distance := (float(receding_state.contacts[0].get("distance_m",-1.0)) if receding_contacts > 0 else -1.0)
+		if len(receding_state.contacts) > 0:
+			receding_contacts = len(receding_state.contacts)
+			receding_point_z = float(receding_state.contacts[0].get("point_world",Vector3.ZERO).z)
+			break
+	var receding_distance := receding_point_z
 	var receding_time := (float(receding_state.contacts[0].get("t",-1.0))*T05_STEP if receding_contacts > 0 else -1.0)
 	print("[CD004 T05 L2] static: contacts=%d distance=%.5f t=%.6f ; receding along -Z at 30 m/s: contacts=%d distance=%.5f t=%.6f" % [
 		static_contacts,static_distance,static_time,receding_contacts,receding_distance,receding_time])
 	check(static_contacts>0 and receding_contacts>0,"CD004 T05 L2 both the static and the receding target are met")
 	if static_contacts>0 and receding_contacts>0:
-		var expected_growth: float = absf(T05_TARGET_VZ)*receding_time
-		print("[CD004 T05 L2] expected growth about target speed times contact time = %.5f m" % expected_growth)
-		check(receding_distance>static_distance,
-			"CD004 T05 L2 the receding target is met FURTHER out than the same target standing still: %.5f > %.5f" % [receding_distance,static_distance])
-		check(absf((receding_distance-static_distance)-expected_growth)<=0.02,
-			"CD004 T05 L2 the extra distance is the target's own travel over the contact time: measured %.5f vs expected %.5f" % [receding_distance-static_distance,expected_growth])
+		# The expectation must use the real time of flight, not the contact's sub-step fraction: t is the fraction within the
+		# step it was found in, so t times the step is microseconds while the flight to the plate lasts milliseconds. The
+		# flight time is derived here from the muzzle, the met point and the shot's own speed.
+		var muzzle_z: float = float(still.get("state").launch_position.z)
+		var flight_time: float = absf(muzzle_z-receding_point_z)/maxf(1.0,moving_v.length())
+		var expected_growth: float = absf(T05_TARGET_VZ)*flight_time
+		print("[CD004 T05 L2] contact point z: static %.5f ; receding %.5f ; flight time %.6f s ; target speed times flight time = %.5f m" % [
+			static_point_z,receding_point_z,flight_time,expected_growth])
+		check(receding_point_z<static_point_z,
+			"CD004 T05 L2 the receding target is met FURTHER along the shot's axis: %.5f < %.5f" % [receding_point_z,static_point_z])
+		check(absf((static_point_z-receding_point_z)-expected_growth)<=0.02,
+			"CD004 T05 L2 the extra distance is the target's own travel over the contact time: measured %.5f vs expected %.5f" % [static_point_z-receding_point_z,expected_growth])
 		check(receding_time>static_time,
 			"CD004 T05 L2 the receding target is also met LATER, on the same time base: %.6f s > %.6f s" % [receding_time,static_time])
 	world.queue_free(); await _frames(2)
