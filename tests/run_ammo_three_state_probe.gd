@@ -152,19 +152,42 @@ func _drive_replenishment(actor: VehicleActor) -> bool:
 	return inv.chamber > 0
 
 func _consume_until(actor: VehicleActor, stop_when: int) -> int:
+	# The guard exists only to stop an infinite loop. It must not be tight enough to end the run while firing is still
+	# making progress: the earlier limit of supplied+8 was consumed by the stall iterations themselves and stopped the
+	# T-80B two rounds short of empty.
 	var guard := 0
-	while actor.gunner.inventory.total_available() > stop_when and guard < actor.gunner.inventory.supplied + 8:
+	var limit: int = actor.gunner.inventory.supplied * 4 + 40
+	while actor.gunner.inventory.total_available() > stop_when and guard < limit:
 		guard += 1
 		if not _fire_and_reload(actor):
 			# Real fields only: the earlier diagnostic named a field that does not exist and aborted the loop itself.
-			print("[CD001 STALL] fired=%d available=%d chamber=%d in_transfer=%d cooldown=%.2f grace=%.2f blocked=%s last_shot=%s loading_reason=%s" % [
+			print("[CD001 STALL] fired=%d available=%d chamber=%d in_transfer=%d cooldown=%.2f grace=%.2f blocked=%s last_shot=%s loading_reason=%s selected=%s counts=%s options=%s" % [
 				actor.gunner.inventory.fired,actor.gunner.inventory.total_available(),actor.gunner.inventory.chamber,
 				actor.gunner.inventory.in_transfer,actor.gunner.cooldown_left,actor.gunner.resume_grace,
-				actor.gunner.blocked_reason,actor.gunner.last_shot_result,actor.gunner.loading_reason])
+				actor.gunner.blocked_reason,actor.gunner.last_shot_result,actor.gunner.loading_reason,
+				actor.gunner.inventory.selected_shell,JSON.stringify(actor.gunner.inventory.shell_counts()),
+				JSON.stringify(_option_ids(actor))])
+			# A normal player action: if the currently selected shell has run out, select the one that still has rounds.
+			if _select_shell_with_rounds(actor) and _ready_chamber(actor): continue
 			if _auto_recovery_probe(actor): continue
 			if _drive_replenishment(actor): continue
 			break
 	return actor.gunner.inventory.fired
+
+func _option_ids(actor: VehicleActor) -> Array:
+	var ids: Array = []
+	for option in actor.gunner.shell_options: ids.append(option.id)
+	return ids
+
+func _select_shell_with_rounds(actor: VehicleActor) -> bool:
+	var counts: Dictionary = actor.gunner.inventory.shell_counts()
+	for index in actor.gunner.shell_options.size():
+		var shell_id: String = actor.gunner.shell_options[index].id
+		if int(counts.get(shell_id,0)) > 0 and shell_id != actor.gunner.inventory.selected_shell:
+			if actor.gunner.select_shell(index):
+				print("[CD001 DRIVE] selected %s because the previously selected shell had no rounds left" % shell_id)
+				return true
+	return false
 
 func _measure(id: String, tag: String, defs: VehicleDefs, packet: Dictionary, rack: Dictionary) -> Dictionary:
 	var holder: Array = []
