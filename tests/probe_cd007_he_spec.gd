@@ -115,9 +115,12 @@ func _run() -> void:
 	var over: Dictionary = channels.get("overpressure",{})
 	var recorded_outside := bool(over.get("burst_outside",true))
 	var recorded_breached := bool(over.get("breached",false))
-	var rederived := (not recorded_outside) or recorded_breached
-	print("[CD07 A2] overpressure verdict=%s ; model=%s ; inputs burst_outside=%s breached=%s ; re-derived=%s ; reason=%s" % [
-		str(over.get("applied","")),str(over.get("model","")),str(recorded_outside),str(recorded_breached),str(rederived),str(over.get("reason",""))])
+	var recorded_openings := int(over.get("declared_openings",-1))
+	var rederived := (not recorded_outside) or recorded_breached or recorded_openings>0
+	print("[CD07 A2] overpressure verdict=%s ; model=%s ; inputs burst_outside=%s breached=%s openings=%d ; re-derived=%s ; reason=%s" % [
+		str(over.get("applied","")),str(over.get("model","")),str(recorded_outside),str(recorded_breached),recorded_openings,str(rederived),str(over.get("reason",""))])
+	check(recorded_openings>=0,
+		"CD07 A2 the opening count is on the record, so the path question is visible rather than implied: %d" % recorded_openings)
 	check(str(over.get("model",""))=="cd07-bounded-connectivity-v1",
 		"CD07 A2 the pressure channel is decided by a NAMED bounded-connectivity model rather than an in-radius switch: %s" % str(over.get("model","")))
 	check(bool(over.get("applied",false))==rederived,

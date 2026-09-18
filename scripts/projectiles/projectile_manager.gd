@@ -708,12 +708,20 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	var breached := false
 	for contact in st.contacts:
 		if str(contact.get("result","")) in ["penetrated","perforated_stop"]: breached = true
-	var pressure_reaches: bool = (not burst_outside) or breached
+	# The route the opening declarations travel was traced rather than assumed: the query snapshot carries the whole layout
+	# under its "layout" key, and the effect policy already reads layout.declared_openings from it. So an opening that the
+	# target's own geometry declares is a path for the pressure, and the verdict needs nothing new built.
+	var declared_openings: Array = []
+	if not target.is_empty():
+		var target_layout: Variant = target.get("layout")
+		if target_layout != null: declared_openings = target_layout.declared_openings
+	var opening_count := declared_openings.size()
+	var pressure_reaches: bool = (not burst_outside) or breached or opening_count>0
 	st.burst["channels"]["overpressure"] = {"applied":pressure_reaches,"model":"cd07-bounded-connectivity-v1",
-		"burst_outside":burst_outside,"breached":breached,
-		"pending":("" if pressure_reaches else "cd07-connectivity-openings"),
-		"reason":("an interior burst or a breached plate gives the pressure a path" if pressure_reaches
-			else "closed compartment with no breach: the pressure has no path in, so there is no invented interior overpressure")}
+		"burst_outside":burst_outside,"breached":breached,"declared_openings":opening_count,
+		"pending":"" ,
+		"reason":("an interior burst, a breached plate or a declared opening gives the pressure a path" if pressure_reaches
+			else "closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure")}
 	if st.effect_policy=="he_blast": st.burst["external_he"]=true
 	if not st.fuze_policy.is_empty():
 		st.burst["fuze"] = {"version":ShellFuze.VERSION,"policy":st.fuze_policy.duplicate(true),

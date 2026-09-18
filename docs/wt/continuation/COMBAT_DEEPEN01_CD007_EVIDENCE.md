@@ -129,3 +129,35 @@ VehicleLayoutDefinition.declared_openings ✓ = [{id, part, boundary_loop, reaso
 1. **追明开口到策略的传递路径** ✓（快照缺该键 ✗ ⇒ 找到 `shell_effect_policy` 实际取用它的路径 ✓）；
 2. **封闭无破口 ⇒ `applied=false`** ✓（T01 核心 ✓）与**开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓（T02 ✓）—— 用 **`open_top=true` 的夹具包** ✓（设计 #5"**开放顶 M36 可作现有代表之一**" ✓ 不把现代坦克改敞篷 ✗）；
 3. 实现顺序 #2 的**工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓）。
+## 9. **开口并入连通判定** ✓✓（`CD07_HE_ROOT_EVENT_PASS` ✓）⇒ 设计 #2 的**连通规则三项齐备** ✓
+### 路径**已测明**（并纠正我上轮的结论 ✗）
+```
+query_snapshot_builder.gd:53 ✓  "layout": layout ✓  ⇒ **快照整体携带 layout 本体** ✓✓
+shell_effect_policy.gd:41 ✓  layout = snapshot.get("layout") ✓ ⇒ 再遍历 layout.declared_openings ✓
+⇒ 我上轮断言"`declared_openings` 未见于快照/查询链" ✗ **是只搜关键词所致的误判** ✓（实际经 `"layout"` 键整体携带 ✓）
+⇒ **传递路径早已完整** ✓✓ ⇒ 实现只需**消费** ✓ 无需新建 ✗
+```
+### 改动（增量 ✓）
+```
+pressure_reaches = (not burst_outside) or breached or **declared_openings>0** ✓
+记录并上账 ✓：burst_outside ✓ breached ✓ **declared_openings** ✓ applied ✓ model ✓ reason ✓（pending 恒为空 ✓ 因规则已全 ✓）
+reason 明写三种路径 ✓："an interior burst, a breached plate or a declared opening gives the pressure a path" ✓
+```
+### 实测 ✓
+```
+overpressure verdict=**true** ✓ ; model=**cd07-bounded-connectivity-v1** ✓
+inputs: burst_outside=true ✓ breached=true ✓ **openings=0** ✓ ; **由自身输入独立重算 = true** ✓✓
+（本夹具为**单板布局** ✓ ⇒ 声明开口 **0** ✓ ⇒ 打开路径的是**被击穿** ✓ 如实记录 ✓）
+```
+### 我本轮的**两处疏漏** ✓✗（**均自查修正** ✓）
+① 用**关键词 grep** 就断言"快照缺该键" ✗ ⇒ 实为经 `"layout"` 整体携带 ✓ ⇒ **教训**：**"没搜到"不等于"不存在"** ✓ 须查**整体载体** ✓；
+② 一处行内替换插入了**措辞含糊的判据**（`… or true` ✗）⇒ 探针**挂起** ✗ ⇒ 修净后复跑通过 ✓ ⇒ **教训**：**替换必须逐字核对，含判据文字** ✓。
+### 设计 #2 连通规则**三条齐备** ✓
+| 分支 | 判据 | 状态 |
+|---|---|---|
+| **内部起爆** ✓ | `not burst_outside` ⇒ 有路径 ✓ | ✅ 规则就位 ✓ |
+| **装甲破口** ✓ | `breached`（`penetrated`/`perforated_stop` ✓）⇒ 有路径 ✓ | ✅ **实测**（breached=true ⇒ applied=true ✓） |
+| **声明开口** ✓ | `declared_openings>0` ⇒ 有路径 ✓ | ✅ 规则与**计数上账** ✓；`open_top` 夹具的**对照**待下一轮 ✓ |
+### 下一轮
+1. **`open_top=true` 夹具的开放/封闭对照** ✓（T01"**封闭无破口 ⇒ applied=false**" ✓ 与 T02"**开放 vs 遮盖同距离对照不同** ✓ **不依赖 `vehicle_type`**" ✓）：以设计 #5 允许的**开放顶代表** ✓（**M36 类** ✓ 不把现代坦克改敞篷 ✗）；须先测明 **`open_top` 经哪条几何重建路径变成 `declared_openings`** ✓（现代包与历史包路径可能不同 ✓ **不猜** ✓）；
+2. **实现顺序 #2 的工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓）。
