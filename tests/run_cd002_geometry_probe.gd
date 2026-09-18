@@ -267,8 +267,10 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	# projectile so the resistance leg is a real resolution rather than a synthetic one that returned invalid.
 	var original_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
 	var modified_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,modified)
-	var original_hits := await _real_shot(actor,world,original_snapshot,packet)
-	var modified_hits := await _real_shot(actor,world,modified_snapshot,packet)
+	var aim := _aim_at_plate(layout,actor)
+	print("[CD02-T03 %s] aiming perpendicular into plate %s of zone %s (normal=%s)" % [id,str(aim.patch),str(aim.get("zone","")),str(aim.get("normal",Vector3.ZERO))])
+	var original_hits := await _real_shot(actor,world,original_snapshot,packet,aim.from,aim.to)
+	var modified_hits := await _real_shot(actor,world,modified_snapshot,packet,aim.from,aim.to)
 	# A miss must not be able to masquerade as invariance: when the probe's own path hits nothing, the case is reported
 	# as not run for this reason instead of passing on 0-versus-0.
 	var landed: bool = int(original_hits.get("contacts",0)) > 0 and int(modified_hits.get("contacts",0)) > 0
@@ -284,18 +286,20 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 		"CD02-T03 the same path consumes the same penetration budget regardless of the triangle count ("+id+"): %.6f vs %.6f" % [float(original_hits.get("consumed_mm",-1.0)),float(modified_hits.get("consumed_mm",-1.0))])
 	check(str(original_hits.get("result","")) not in ["","invalid"],"CD02-T03 the resistance leg is a real resolution ("+id+"): "+str(original_hits.get("result","")))
 
-## A real projectile down the fixed path, returning the contact count, the first plate's result and the budget consumed.
-func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet: Dictionary) -> Dictionary:
+## A real projectile down a caller-supplied path. The earlier version fired one fixed line that reached nothing, which
+## is why the re-triangulation case had to be gated as not run.
+func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet: Dictionary, from_world: Vector3, to_world: Vector3) -> Dictionary:
 	var manager := ProjectileManager.new(); manager.presentation_enabled=false
 	world.add_child(manager); manager.set_physics_process(false)
 	manager.damage_handler = Callable(actor,"apply_projectile_damage")
 	var shell: ShellDefinition = actor.gunner.shell_options[0] if not actor.gunner.shell_options.is_empty() else null
 	if shell == null: manager.queue_free(); return {"contacts":0,"result":"no_shell","consumed_mm":-1.0}
+	var direction := (to_world-from_world).normalized()
 	var spec := {"round_id":1515,"shooter_id":"cd002_probe","shooter_life_id":1,"shot_id":1,"shell_id":shell.id,
 		"effect_policy":shell.effect_policy,"impact_profile":shell.impact_profile,"caliber_mm":shell.caliber_mm,
 		"penetration_curve":shell.penetration_curve,"seed":1515,
-		"position_world":actor.tank.global_transform*Vector3(-6.0,0.95,0.0),
-		"velocity_world":Vector3(0,0,-1650),"gravity_world":Vector3.ZERO,"max_age_s":0.1,"max_distance_m":100.0}
+		"position_world":from_world,"velocity_world":direction*1650.0,"gravity_world":Vector3.ZERO,
+		"max_age_s":0.4,"max_distance_m":200.0}
 	var spawned := manager.try_spawn(spec)
 	if not spawned.get("ok",false): manager.queue_free(); return {"contacts":0,"result":"spawn_refused","consumed_mm":-1.0}
 	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
@@ -310,6 +314,79 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 	return {"contacts":contacts,"part_id":str(first.get("part_id","")),"surface_id":str(first.get("surface_id","")),
 		"result":str(first.get("result","")),"before_mm":float(first.get("before_mm",0.0)),"after_mm":float(first.get("after_mm",0.0)),
 		"consumed_mm":float(projectile.consumed_mm),"terminal":str(record.get("terminal",{}).get("result",""))}
+
+## Aim perpendicular into a real plate: the geometry decides the path, so the case cannot pass on a miss.
+func _aim_at_plate(layout: VehicleLayoutDefinition, actor: VehicleActor) -> Dictionary:
+	var patch: ArmorPatchDefinition = null
+	for candidate in layout.armor_patches:
+		if candidate.has_thickness and str(candidate.plate_group_id)=="gun_shield": patch = candidate; break
+	if patch == null and not layout.armor_patches.is_empty(): patch = layout.armor_patches[0]
+	if patch == null: return {"from":Vector3.ZERO,"to":Vector3.ZERO,"patch":""}
+	var part_xform: Transform3D = actor.tank.hull_frame.global_transform
+	if patch.part_id=="turret": part_xform = actor.turret.global_transform
+	elif patch.part_id=="barrel": part_xform = actor.turret.barrel_pivot.global_transform
+	var centre := Vector3.ZERO
+	for index in patch.triangles: centre += part_xform*patch.vertices_local_m[index]
+	centre /= maxf(1.0,float(patch.triangles.size()))
+	var normal := (part_xform.basis*patch.outward_normal_local).normalized()
+	if not normal.is_finite() or normal.length() < 0.5: normal = (part_xform.basis*Vector3(0,0,-1)).normalized()
+	return {"from":centre+normal*4.0,"to":centre-normal*4.0,"patch":patch.id,"zone":str(patch.plate_group_id),"normal":normal}
+
+## CD02-T06: after a life ends the geometry state must be fresh - the same armour event can land again - and an illegal
+## reference must be refused BY NAME rather than by a bare reason code.
+func invalid_reference_cases(id: String, defs: VehicleDefs, packet: Dictionary, actor: VehicleActor) -> void:
+	var layout: VehicleLayoutDefinition = actor.damage_layout_override
+	if layout.armor_patches.is_empty(): check(false,"CD02-T06 the layout carries armour patches to reference ("+id+")"); return
+	# apply_projectile_armor is the REACTIVE armour path, so the legal and duplicate legs need a plate that actually
+	# carries a reactive profile; picking the first patch blindly was my earlier mistake and would have looked like a
+	# production refusal.
+	var patch: ArmorPatchDefinition = null
+	for candidate in layout.armor_patches:
+		if not candidate.reactive_profile.is_empty(): patch = candidate; break
+	if patch == null:
+		print("[CD02-T06 %s] NOT_RUN for the reactive-acceptance legs: this vehicle declares no reactive plate, so only the illegal-reference legs run" % id)
+		_invalid_only_cases(id,actor,layout)
+		return
+	var event := {"kind":"module","entity_id":actor.entity_id,"life_id":actor.life_id,"target_generation":actor.state.generation,
+		"event_id":"cd002_armor","surface_id":patch.id,"part_id":patch.part_id,"thickness_mm":patch.thickness_mm,
+		"has_thickness":patch.has_thickness,"thickness_status":patch.thickness_status,"material_kind":patch.material_kind,
+		"response_profile":patch.response_profile,"reactive_profile":patch.reactive_profile}
+	var legal := actor.apply_projectile_armor(event,Vector3(0,0,-1),{"base_mm":500.0,"ricochets":0})
+	check(legal.get("ok",false),"CD02-T06 a legal armour reference is accepted ("+id+"): "+str(legal.get("reason","")))
+	var repeated := actor.apply_projectile_armor(event,Vector3(0,0,-1),{"base_mm":500.0,"ricochets":0})
+	check(not repeated.get("ok",false),"CD02-T06 the same armour event is refused while the life is current ("+id+"): "+str(repeated.get("reason","")))
+	actor.reset_vehicle()
+	var after_reset := actor.apply_projectile_armor(event,Vector3(0,0,-1),{"base_mm":500.0,"ricochets":0})
+	check(after_reset.get("ok",false),"CD02-T06 a new life takes the same armour event again, so the old geometry state was cleared ("+id+")")
+	var illegal := event.duplicate(true)
+	illegal["surface_id"] = "cd002_no_such_plate"
+	var refused := actor.apply_projectile_armor(illegal,Vector3(0,0,-1),{"base_mm":500.0,"ricochets":0})
+	print("[CD02-T06 %s] illegal plate reference: %s" % [id,JSON.stringify(refused)])
+	check(not refused.get("ok",false),"CD02-T06 an illegal plate reference is refused ("+id+")")
+	check(JSON.stringify(refused).contains("cd002_no_such_plate"),"CD02-T06 the illegal plate refusal NAMES the offending id ("+id+")")
+	var bad_module := actor.apply_projectile_damage({"kind":"module","module_id":"cd002_no_such_module",
+		"entity_id":actor.entity_id,"life_id":actor.life_id,"target_generation":actor.state.generation,"event_id":"cd002_bad_module"},500)
+	print("[CD02-T06 %s] illegal module reference: %s" % [id,JSON.stringify(bad_module)])
+	check(not bad_module.get("ok",false) and JSON.stringify(bad_module).contains("cd002_no_such_module"),
+		"CD02-T06 the illegal module refusal names the offending id ("+id+")")
+
+## The illegal legs on their own, so a vehicle without reactive armour still reports them instead of nothing.
+func _invalid_only_cases(id: String, actor: VehicleActor, layout: VehicleLayoutDefinition) -> void:
+	var legal_patch: ArmorPatchDefinition = layout.armor_patches[0]
+	var illegal := {"kind":"module","entity_id":actor.entity_id,"life_id":actor.life_id,"target_generation":actor.state.generation,
+		"event_id":"cd002_illegal","surface_id":"cd002_no_such_plate","part_id":legal_patch.part_id,
+		"thickness_mm":legal_patch.thickness_mm,"has_thickness":legal_patch.has_thickness,
+		"thickness_status":legal_patch.thickness_status,"material_kind":legal_patch.material_kind,
+		"response_profile":legal_patch.response_profile,"reactive_profile":legal_patch.reactive_profile}
+	var refused := actor.apply_projectile_armor(illegal,Vector3(0,0,-1),{"base_mm":500.0,"ricochets":0})
+	print("[CD02-T06 %s] illegal plate reference: %s" % [id,JSON.stringify(refused)])
+	check(not refused.get("ok",false),"CD02-T06 an illegal plate reference is refused ("+id+")")
+	check(JSON.stringify(refused).contains("cd002_no_such_plate"),"CD02-T06 the illegal plate refusal NAMES the offending id ("+id+")")
+	var bad_module := actor.apply_projectile_damage({"kind":"module","module_id":"cd002_no_such_module",
+		"entity_id":actor.entity_id,"life_id":actor.life_id,"target_generation":actor.state.generation,"event_id":"cd002_bad_module"},500)
+	print("[CD02-T06 %s] illegal module reference: %s" % [id,JSON.stringify(bad_module)])
+	check(not bad_module.get("ok",false) and JSON.stringify(bad_module).contains("cd002_no_such_module"),
+		"CD02-T06 the illegal module refusal names the offending id ("+id+")")
 
 func cd002_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
@@ -368,6 +445,7 @@ func cd002_case(id: String) -> void:
 	var rack := _key_rack(packet)
 	await pose_cases(id,defs,packet,actor,world)
 	await re_tessellation_cases(id,defs,packet,actor,world,rack)
+	await invalid_reference_cases(id,defs,packet,actor)
 	world.queue_free(); await _frames(2)
 
 func occupancy_equal_guard(actor: VehicleActor) -> void:

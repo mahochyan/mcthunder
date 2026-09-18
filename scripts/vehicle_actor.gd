@@ -218,12 +218,12 @@ func apply_projectile_armor(event: Dictionary, direction: Vector3, budget: Dicti
 	if state.destroyed: return {"ok":false,"reason":"target_destroyed"}
 	var id := str(event.get("surface_id",""))
 	var event_id := str(event.get("event_id",""))
-	if not state.reactive_armor.has(id) or event_id.is_empty() or state._armor_seen.has(event_id): return {"ok":false,"reason":"invalid_or_duplicate_armor"}
+	if not state.reactive_armor.has(id) or event_id.is_empty() or state._armor_seen.has(event_id): return {"ok":false,"reason":"invalid_or_duplicate_armor","surface_id":id}
 	var patch: ArmorPatchDefinition
 	for item in state._damage_layout.armor_patches:
 		if item.id==id and item.part_id==event.get("part_id"): patch=item; break
 	if patch==null or patch.reactive_profile!=event.get("reactive_profile") or patch.response_profile!=event.get("response_profile",{}) or patch.material_kind!=event.get("material_kind") or patch.thickness_mm!=event.get("thickness_mm") or patch.has_thickness!=event.get("has_thickness") or patch.thickness_status!=event.get("thickness_status"):
-		return {"ok":false,"reason":"stale_armor_geometry"}
+		return {"ok":false,"reason":"stale_armor_geometry","surface_id":id}
 	var actual := event.duplicate(true); actual.reactive_before=int(state.reactive_armor[id])
 	var result := ArmorResolver.resolve(actual,direction,budget)
 	if result.get("reactive_triggered",false): state.reactive_armor[id]=int(result.reactive_after)

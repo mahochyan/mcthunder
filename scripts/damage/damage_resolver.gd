@@ -44,7 +44,7 @@ static func resolve(event: Dictionary, available_mm: float, snapshot: Dictionary
 	if kind == "module":
 		var modules: Dictionary = snapshot.get("modules",{})
 		if not modules.has(item_id):
-			return {"ok":false,"reason":"missing_module"}
+			return {"ok":false,"reason":"missing_module","item_id":item_id}
 		var m: Dictionary = modules[item_id]
 		# CD01-T01: an exhausted ammunition contents volume is not a damageable object and consumes no penetration
 		# budget; the projectile keeps flying and fixed structures (partition, vent and the rest) keep their own rules.
