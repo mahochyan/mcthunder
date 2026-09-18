@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "design_id": "MCT-UI-BIZ-01",
+  "version": "1.0",
+  "status": "installed_in_branch_work_ui_biz_01",
+  "extends": "configs/ui/ui_tokens.json",
+  "extends_policy": "additive only - no key of the original design token file is redefined here, so that file stays byte-identical and the colour ruling that governs it still holds. This file adds the depth, glow, type-scale and motion tokens the commercial-client pass needs.",
+  "source_refs": {
+    "original_tokens": "configs/ui/ui_tokens.json (MCT-UI-FIELDWORK-01 original, byte-identical, untouched)",
+    "fonts_cjk": "assets/fonts/NotoSansCJKsc-Regular.otf (SIL OFL 1.1, pre-existing)",
+    "fonts_latin": "assets/fonts/Rajdhani-{Medium,SemiBold,Bold}.ttf (SIL OFL 1.1, added this stage; latin letters, numerals and units only)",
+    "icons_original": "assets/ui/icons/*.svg (in-repo generate_icons.ps1, pre-existing, untouched)",
+    "icons_added": "assets/ui/biz/icons/lucide_*.svg (Lucide, ISC plus MIT for the Feather-derived subset; normalised to white and 1.75 stroke)",
+    "asset_manifest": "assets/ui/biz/ASSET_MANIFEST.md"
+  },
+  "palette_additions": {
+    "scrim": "#0B1013CC",
+    "surface_overlay": "#1B262CD9",
+    "surface_sunken": "#131C21",
+    "hairline": "#2A3A42",
+    "hairline_strong": "#3E535D",
+    "text_tertiary": "#8A9AA1",
+    "accent_soft": "#E0B46A33",
+    "accent_line": "#E0B46A66",
+    "positive_soft": "#A0CBA133",
+    "warning_soft": "#E8BE7033",
+    "critical_soft": "#FF8A8033",
+    "ally_soft": "#7FC9E033",
+    "enemy_soft": "#F17C7233",
+    "shadow": "#05090B"
+  },
+  "elevation": {
+    "panel_offset_y": 2,
+    "panel_blur": 6,
+    "panel_alpha": 0.35,
+    "raised_offset_y": 4,
+    "raised_blur": 12,
+    "raised_alpha": 0.42,
+    "overlay_offset_y": 8,
+    "overlay_blur": 24,
+    "overlay_alpha": 0.5,
+    "modal_offset_y": 12,
+    "modal_blur": 32,
+    "modal_alpha": 0.58
+  },
+  "glow": {
+    "focus_inner_width": 1,
+    "focus_inner_alpha": 0.55,
+    "focus_outer_width": 2,
+    "focus_outer_alpha": 0.28,
+    "focus_ring_offset": 2,
+    "accent_halo_blur": 10,
+    "accent_halo_alpha": 0.25,
+    "danger_halo_blur": 10,
+    "danger_halo_alpha": 0.22
+  },
+  "type_scale": {
+    "logotype": 40,
+    "logotype_letter_spacing": 4,
+    "display_xl": 44,
+    "display_l": 34,
+    "display_m": 26,
+    "title": 22,
+    "subtitle": 18,
+    "body": 15,
+    "label": 13,
+    "caption": 11,
+    "label_letter_spacing": 1,
+    "number_l": 30,
+    "number_m": 22,
+    "number_s": 16
+  },
+  "motion": {
+    "hover_ms": 100,
+    "page_ms": 160,
+    "drawer_ms": 180,
+    "toast_ms": 160,
+    "panel_in_ms": 180,
+    "card_lift_ms": 120,
+    "state_ms": 90,
+    "notice_ms": 200,
+    "ease_standard": "ease_out",
+    "ease_enter": "ease_out",
+    "ease_exit": "ease_in",
+    "ease_emphasis": "back_out"
+  },
+  "components_biz": {
+    "card_thumb_height": 52,
+    "card_min_height": 96,
+    "stat_block_min_width": 96,
+    "tab_min_height": 40,
+    "row_hover_inset": 2,
+    "panel_inner_glow": 1,
+    "section_gap": 24,
+    "section_gap_compact": 12
+  },
+  "notes": [
+    "gold stays the only accent for normal actions; red stays reserved for danger and errors, because the governing colour ruling fixes focus equals accent equals #E0B46A and the design's own line forbids the danger colour on a normal deploy button",
+    "nothing in this file may introduce money balances, battle ratings, power scores, network player availability, unsupported battle capacity or cross-nation lineups: those stay in the original file's forbidden_static_mock_values and are never rendered",
+    "performance_policy stays HOLD_BY_USER; this pass makes no performance claim"
+  ]
+}
