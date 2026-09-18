@@ -27,8 +27,11 @@ const EPS_M := 0.00001
 static func query_world_stop(
 		space_state: PhysicsDirectSpaceState3D,
 		from: Vector3, dir: Vector3, dist: float,
-		exclude_rids: Array[RID] = []
+		exclude_rids: Array[RID] = [],
+		section_radius: float = 0.0, section_rays: int = 0
 	) -> Dictionary:
+	# CD003: the ray budget for sampling a section against the world is declared here, so this stage cannot run unbounded.
+	const WORLD_RAY_BUDGET := 512
 	if space_state == null:
 		return {"ok": false, "hit": false, "reason": "no_space", "contact": {}}
 
@@ -48,7 +51,34 @@ static func query_world_stop(
 	var q := PhysicsRayQueryParameters3D.create(from, to, GameConfig.LAYER_WORLD, exclude_rids)
 	q.hit_from_inside = true
 
-	var hit := space_state.intersect_ray(q)
+	# CD003 必须设计 #4: this stage consumes the declared section too. With a section the nearest hit of a bounded ring wins,
+	# so a round wide enough for an opening beside the centre line still meets the wall it clips; without a section this is
+	# exactly the single ray it always was. The reported distance stays the distance from the shot's own origin, so a ring
+	# hit is at most the section radius away from the centre ray's distance - the same bound the profile declares.
+	var hit: Dictionary = {}
+	var offsets: Array[Vector3] = [Vector3.ZERO]
+	if section_radius > 0.0 and section_rays >= 3:
+		var helper := Vector3.UP if absf(direction.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+		var e1 := direction.cross(helper).normalized()
+		var e2 := direction.cross(e1).normalized()
+		for i in section_rays:
+			var ang := TAU*float(i)/float(section_rays)
+			offsets.append((e1*cos(ang)+e2*sin(ang))*section_radius)
+	var best_distance := INF
+	for ray_index in mini(offsets.size(),WORLD_RAY_BUDGET):
+		var off: Vector3 = offsets[ray_index]
+		var ray := PhysicsRayQueryParameters3D.create(from+off, to+off, GameConfig.LAYER_WORLD, exclude_rids)
+		ray.hit_from_inside = true
+		var candidate := space_state.intersect_ray(ray)
+		if candidate.is_empty():
+			continue
+		var candidate_point: Variant = candidate.get("position", null)
+		if not (candidate_point is Vector3):
+			continue
+		var candidate_distance: float = from.distance_to(candidate_point)
+		if candidate_distance < best_distance:
+			best_distance = candidate_distance
+			hit = candidate
 	if hit.is_empty():
 		return {"ok": true, "hit": false, "reason": "none", "contact": {}}
 

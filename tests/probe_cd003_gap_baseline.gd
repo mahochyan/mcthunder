@@ -495,6 +495,28 @@ func _run() -> void:
 	print("[CD003 vol] side module box 50 mm at y=60 mm: centre-only intervals=%d ; with a 60 mm section intervals=%d" % [centre_hits,section_hits])
 	check(centre_hits==0,"CD003 without a section the centre line misses a module it passes beside")
 	check(section_hits>=1,"CD003 with a declared section the same line meets the module the round is wide enough for")
+	# ── CD003 必须设计 #4: world occlusion consumes the section too. A thin wall sits beside the centre line, raised above
+	# the ground so nothing else can interfere.
+	var wall := StaticBody3D.new()
+	var wall_shape := CollisionShape3D.new()
+	var wall_box := BoxShape3D.new()
+	wall_box.size = Vector3(3.0,0.05,0.05)
+	wall_shape.shape = wall_box
+	wall.add_child(wall_shape)
+	wall.position = Vector3(0,0.56,0)
+	wall.collision_layer = 1
+	wall.collision_mask = 0
+	world.add_child(wall)
+	await _frames(2)
+	var space := world.get_world_3d().direct_space_state
+	var plain_world := WorldQueryAdapter.query_world_stop(space,Vector3(-3,0.5,0),Vector3.RIGHT,6.0,[])
+	var section_world := WorldQueryAdapter.query_world_stop(space,Vector3(-3,0.5,0),Vector3.RIGHT,6.0,[],0.06,13)
+	print("[CD003 world] thin wall 50 mm at y=560 mm, line at y=500 mm: centre-only hit=%s dist=%.3f ; with a 60 mm section hit=%s dist=%.3f" % [
+		str(plain_world.get("hit",false)),float(plain_world.get("distance_m",-1.0)),
+		str(section_world.get("hit",false)),float(section_world.get("distance_m",-1.0))])
+	check(not bool(plain_world.get("hit",false)),"CD003 without a section the centre ray misses the wall beside it")
+	check(bool(section_world.get("hit",false)),"CD003 with a declared section the world stop meets the wall the round clips")
+	wall.queue_free(); await _frames(2)
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
