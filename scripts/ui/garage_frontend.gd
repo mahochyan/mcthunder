@@ -13,6 +13,41 @@ var state_label: Label
 var stats: Label
 var deploy: Button
 var page_index := 0
+## UI-BIZ-01 stage 4: the scale-dependent containers, kept so the layout can be re-applied when the text scale changes.
+var outer_box: MarginContainer
+var main_column: VBoxContainer
+var body_row: HBoxContainer
+## The text scale the current layout was built for, so a change can be noticed and re-applied.
+var _last_scale := 1.0
+
+## UI-BIZ-01 stage 4: the parts of the layout that depend on the text scale, in one place. The garage builds its layout
+## once, so without this a player who raises the text scale in the settings panel would keep the standard margins until a
+## restart, and the matrix shows why that matters: at 1280x720 with a 125 percent scale the vehicle cards land five
+## pixels below the bottom edge. The garage suite's mid-run scale change is the witness for that path.
+func apply_scale_layout() -> void:
+	if outer_box == null or main_column == null or body_row == null: return
+	var compact_layout: bool = AccessibilitySettings.ui_scale > 1.0
+	var layout_prefix := "compact" if compact_layout else "standard"
+	var outer_margin := int(UiTokens.metric("layouts."+layout_prefix+".outer_margin",16.0 if compact_layout else 24.0))
+	var block_gap := int(UiTokens.metric("layouts."+layout_prefix+".gap",12.0 if compact_layout else 16.0))
+	for side in ["left","right","top","bottom"]: outer_box.add_theme_constant_override("margin_"+side,outer_margin)
+	main_column.add_theme_constant_override("separation",maxi(6,block_gap - 4))
+	body_row.add_theme_constant_override("separation",block_gap)
+
+## A theme change is how the settings panel rebuilds a scale, so the scale-aware layout is refreshed with it too. It is
+## not enough on its own: setting a parent's theme does not deliver this notification to children, which a suite run
+## measured by leaving every rectangle identical after the scale changed.
+func _notification(what: int) -> void:
+	if what == Control.NOTIFICATION_THEME_CHANGED: apply_scale_layout()
+
+## The text scale is a static value with no signal of its own, so it is watched here rather than only at build time.
+## One float comparison per frame is cheaper than a stale layout: without this, raising the scale in the settings panel
+## keeps the standard margins until the garage is rebuilt, and the matrix measured the consequence at five pixels of
+## overflow on a 720 pixel window.
+func _process(_delta: float) -> void:
+	if is_equal_approx(_last_scale,AccessibilitySettings.ui_scale): return
+	_last_scale = AccessibilitySettings.ui_scale
+	apply_scale_layout()
 var research_tree: VehicleResearchTree
 var tree_button: Button
 var map_survey_button: Button
@@ -66,8 +101,10 @@ func compose(g: GarageShell) -> void:
 	var block_gap := int(UiTokens.metric("layouts."+layout_prefix+".gap",12.0 if compact_layout else 16.0))
 	var sidebar_width := UiTokens.metric("layouts."+layout_prefix+".sidebar",296.0 if compact_layout else 320.0)
 	var outer := MarginContainer.new(); outer.name="Frontend"; g.add_child(outer); outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	outer_box = outer
 	for side in ["left","right","top","bottom"]: outer.add_theme_constant_override("margin_"+side,outer_margin)
 	var vertical := VBoxContainer.new(); vertical.add_theme_constant_override("separation",maxi(6,block_gap - 4)); outer.add_child(vertical)
+	main_column = vertical
 	var header := HBoxContainer.new(); header.add_theme_constant_override("separation",22); vertical.add_child(header)
 	var brand := VBoxContainer.new(); brand.custom_minimum_size.x=286; header.add_child(brand)
 	# UI-BIZ-01 stage 3 (screen 1): the logotype takes the added OFL latin display face at the overlay's logotype
@@ -93,6 +130,7 @@ func compose(g: GarageShell) -> void:
 	var quit_button := button(header,"退出",func() -> void: AppDialog.focus_cancel(AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit())))
 	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=BizTheme.hairline(); vertical.add_child(line)
 	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",block_gap); vertical.add_child(body)
+	body_row = body
 	# Measured: narrowing the sidebar at 125% made the vertical overflow worse, not better, because the summary and
 	# error text wrapped into more lines. The sidebar width therefore stays where it was; only the outer margin, the
 	# block gap and the strip padding respond to the scale.

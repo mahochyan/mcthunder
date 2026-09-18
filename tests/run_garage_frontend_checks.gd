@@ -77,6 +77,9 @@ func run() -> void:
 					walker = walker.get_parent()
 				check(on_screen or reachable,"vehicle card is on screen or reachable by its row's own horizontal scroll: "+label)
 			check(Rect2(Vector2.ZERO,Vector2(dimensions)).encloses(g.frontend.cards[g.vehicle_choice.selected].get_global_rect()),"the selected vehicle card is scrolled into view: "+label)
+			# Diagnostic, not an assertion: the exact rectangle of the selected card at each combination, so a failure
+			# here explains its own geometry instead of needing another run to be understood.
+			print("[selected card] ",label," viewport=",dimensions," rect=",g.frontend.cards[g.vehicle_choice.selected].get_global_rect()," strip=",g.frontend.collection_scroll.get_global_rect())
 			await capture("04_deployment_%dx%d_%d" % [dimensions.x,dimensions.y,roundi(scale_value*100.0)])
 	AccessibilitySettings.ui_scale = 1.0
 	g.theme = GarageTheme.theme()
