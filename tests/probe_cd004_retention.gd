@@ -1,4 +1,4 @@
-extends "res://tests/run_cd002_geometry_probe.gd"
+﻿extends "res://tests/run_cd002_geometry_probe.gd"
 ## MCT-COMBAT-DEEPEN-01 CD004-T02 (first half): the engineering profile's SPEED RETENTION against its frozen declared curve.
 ##
 ## The declared curve is what the sub-order calls the frozen engineering curve, and it is a project design value rather than
@@ -28,6 +28,11 @@ func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ran
 	if not spawned.get("ok",false):
 		return {"ok":false,"reason":str(spawned.get("reason",""))}
 	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+	# Copy or reference: the instance id of the held handle against a freshly fetched one, printed once so the question is
+	# settled by identity rather than inference.
+	var fresh := manager.get_projectile_state(spawned.projectile_id)
+	print("[CD004 T02] handle identity: held=%d fresh=%d same=%s" % [
+		projectile.get_instance_id(),fresh.get_instance_id(),str(projectile.get_instance_id()==fresh.get_instance_id())])
 	# The frozen launch state must carry the requested coefficient; if it does not, the drag wiring is not reachable and the
 	# retention table measures nothing. This is asserted, not printed, so the failure names itself.
 	if absf(float(projectile.drag_k_per_m)-drag_k) > 1e-12 and drag_k > 0.0:
@@ -37,14 +42,10 @@ func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ran
 	var previous := projectile.position_world
 	var previous_velocity := projectile.velocity_world
 	for i in 20000:
-		if projectile.is_terminal(): break
-		# Live instrumentation: the state's own coefficient and acceleration as the manager sees them, plus the speed, every
-		# 960 steps. The direct unit check already proved the arithmetic, so whatever this shows decides whether the value
-		# reaches the advance or the measurement is at fault.
-		if i % 960 == 0:
-			print("[CD004 T02 live] i=%d x=%.1f speed=%.4f k=%s accel=%s" % [
-				i,projectile.position_world.x,projectile.velocity_world.length(),
-				str(projectile.drag_k_per_m),str(projectile.acceleration_world())])
+		# Re-fetch the live state every step and read position, velocity and speed from THAT, so the measurement cannot be
+		# reading a stale handle. With this in place the retention table reads the same object the manager advances.
+		projectile = manager.get_projectile_state(spawned.projectile_id)
+		if projectile == null or projectile.is_terminal(): break
 		previous = projectile.position_world
 		previous_velocity = projectile.velocity_world
 		manager.advance_projectile(projectile,DT,[],world.get_world_3d().direct_space_state)
@@ -73,23 +74,6 @@ func _run() -> void:
 	if shells.is_empty():
 		world.queue_free(); await _frames(2); quit(1); return
 	_t02_shell = shells[0]
-
-	# Direct unit check of the new advance, with no manager involved: 1500 m/s under k=1.4e-4 must decay to e^(-k*x). If
-	# this passes while the table does not, the arithmetic is right and the plumbing is what to look at; if it fails, the
-	# arithmetic is what to look at. Either way the next step is decided by measurement rather than by reading.
-	var direct_p := Vector3.ZERO
-	var direct_v := Vector3(1500.0,0.0,0.0)
-	while direct_p.x < 1500.0:
-		var step := BallisticMath.advance_profile(direct_p,direct_v,Vector3.ZERO,1.4e-4,1.0/240.0)
-		if not step.get("ok",false):
-			print("[CD004 T02] direct advance refused: %s" % str(step.get("reason",""))); break
-		direct_p = step.position
-		direct_v = step.velocity
-	var direct_retention: float = direct_v.length()/1500.0
-	var direct_analytic: float = exp(-1.4e-4*direct_p.x)
-	print("[CD004 T02] direct advance: after %.2f m speed=%.4f retention=%.5f analytic=%.5f" % [
-		direct_p.x,direct_v.length(),direct_retention,direct_analytic])
-	check(absf(direct_retention-direct_analytic)<=0.002,"CD004 T02 the drag advance itself decays the speed to the closed form: measured %.5f analytic %.5f" % [direct_retention,direct_analytic])
 
 	var curve := BallisticsProfile.retention_curve(BallisticsProfile.PROFILE_QUADRATIC)
 	var table: Array = curve.get("declared_retention",[])
@@ -133,6 +117,23 @@ func _run() -> void:
 	check(not BallisticsProfile.is_validated_history(drag),
 		"CD004 T02 the curve used here is a design value and is not labelled validated_history")
 	world.queue_free(); await _frames(2)
+	# Direct unit check of the new advance, with no manager involved: 1500 m/s under k=1.4e-4 must decay to e^(-k*x). If
+	# this passes while the table does not, the arithmetic is right and the plumbing is what to look at; if it fails, the
+	# arithmetic is what to look at. Either way the next step is decided by measurement rather than by reading.
+	var direct_p := Vector3.ZERO
+	var direct_v := Vector3(1500.0,0.0,0.0)
+	while direct_p.x < 1500.0:
+		var step := BallisticMath.advance_profile(direct_p,direct_v,Vector3.ZERO,1.4e-4,1.0/240.0)
+		if not step.get("ok",false):
+			print("[CD004 T02] direct advance refused: %s" % str(step.get("reason",""))); break
+		direct_p = step.position
+		direct_v = step.velocity
+	var direct_retention: float = direct_v.length()/1500.0
+	var direct_analytic: float = exp(-1.4e-4*direct_p.x)
+	print("[CD004 T02] direct advance: after %.2f m speed=%.4f retention=%.5f analytic=%.5f" % [
+		direct_p.x,direct_v.length(),direct_retention,direct_analytic])
+	check(absf(direct_retention-direct_analytic)<=0.002,"CD004 T02 the drag advance itself decays the speed to the closed form: measured %.5f analytic %.5f" % [direct_retention,direct_analytic])
+
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
 	print("CD004_RETENTION_TABLE_%s" % ("PASS" if failures==0 else "FAIL"))
 	quit(0 if failures==0 else 1)

@@ -458,7 +458,13 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			return
 		st.previous_position_world = st.position_world
 		st.position_world = query_end
-		st.velocity_world += st.gravity_world * used_h
+		# CD004 design point 1: carry the WHOLE profile-aware velocity change, not gravity alone. adv.velocity already holds
+		# the drag term, and this path used to discard it and add gravity by itself, so a shot's speed never decayed with
+		# distance even though its position was advanced with the drag - measured as a retention of exactly 1.000 at every
+		# range while the same advance called directly decayed to 0.81004. The share is proportional because this path may
+		# consume only part of the step (alpha) when the distance cap bites: for a vacuum profile adv.velocity minus the
+		# current velocity is exactly gravity*h, so this reduces to the line it replaces and every existing shot is identical.
+		st.velocity_world += (adv.velocity - st.velocity_world) * alpha
 		st.age_s += used_h
 		st.travelled_m += query_len
 		ShotRecordBuilder.sample_path(st)
