@@ -76,10 +76,19 @@ func _run() -> void:
 			manager.advance_projectile(projectile,DT,[],world.get_world_3d().direct_space_state)
 			elapsed += DT
 			if not sampled and elapsed >= probe_t:
-				var expect_mid := Vector3(vx2*probe_t,LAUNCH_HEIGHT_M+vy2*probe_t-0.5*GRAVITY_MPS2*probe_t*probe_t,0)
+				# Compare at the instant the sample was ACTUALLY taken. My first version compared a position taken after the
+				# advance against the closed form at probe_t, so every angle carried a systematic error of up to one step -
+				# 800 m/s times 1.5 to 4.6 ms, which is exactly the 1.25 to 3.3 m it reported. That was the probe's error, not
+				# the flight model's, and the arithmetic of the five angles is what identified it.
+				var expect_mid := Vector3(vx2*elapsed,LAUNCH_HEIGHT_M+vy2*elapsed-0.5*GRAVITY_MPS2*elapsed*elapsed,0)
 				mid_error = (projectile.position_world-expect_mid).length()
 				sampled = true
-				check(mid_error<=0.001,"CD004 T01 the %.0f degree mid-flight point at %.2f s matches the closed form within 1 mm: error %.6f m" % [float(angle_deg),probe_t,mid_error])
+				# The bound follows the quantity: under a kilometre a millimetre is achievable and is a sharp test, while a
+				# position of several kilometres in float32 resolves to half a millimetre and thousands of accumulated steps
+				# make a few parts in a hundred thousand the achievable agreement - measured below as 0.02 to 0.14 ULP per
+				# step. The bound is still far tighter than the one-step timing error this case caught before the fix.
+				var mid_bound: float = 0.001 if expect_mid.length() < 1000.0 else expect_mid.length()*5.0e-5
+				check(mid_error<=mid_bound,"CD004 T01 the %.0f degree mid-flight point at %.4f s matches the closed form within the derived %.4f m: error %.6f m" % [float(angle_deg),elapsed,mid_bound,mid_error])
 			if projectile.position_world.y <= 0.0:
 				var span: float = maxf(1e-9,previous.y-projectile.position_world.y)
 				alpha = clampf(previous.y/span,0.0,1.0)
