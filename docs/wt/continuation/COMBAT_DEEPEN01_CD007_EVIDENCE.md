@@ -73,3 +73,28 @@
 2. **三通道各自记录 + 单一 `root_event`** ✓（设计 #1 ✓ **不共用"半径内全死"开关** ✓）：`blast` / `fragment` / `overpressure` 分通道 ✓ 同一 root_event 汇总 ✓；
 3. **有界连通规则** ✓（设计 #2 ✓）：**封闭舱无破口 ⇒ 无凭空内舱超压** ✓（CD07-T01 ✓）· **开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓（CD07-T02 ✓）；
 4. **验证** ✓：本探针四条**由拒绝转为接受** ✓，且**既有套件全绿**（旧行为对照 ✓）。
+## 7. **最小实现切片落地** ✓✓（`CD07_HE_ROOT_EVENT_PASS` ✓）
+### 改动（**极小且增量** ✓ 不复制管线 ✓ 且**不假装已实现未做的通道** ✓）
+`scripts/projectiles/projectile_manager.gd` ✓：
+```
+① L140 效果策略白名单 ✓：["kinetic","internal_burst","long_rod","chemical"] → 追加 **"he_blast"** ✓（各 1 处命中 ✓）
+② _emit_internal_burst ✓ 的 root_event 追加 **channels** 块 ✓：
+   fragment     ⇒ {"applied":**true**, "version":ShellEffectPolicy.VERSION, lines/range_m/budget_mm 取**具名 legacy 模板** ✓}
+   blast        ⇒ {"applied":**false**, "pending":"cd07-blast-channel", reason:"…not yet applied"} ✓
+   overpressure ⇒ {"applied":**false**, "pending":"cd07-overpressure-channel", reason:"…not yet applied"} ✓
+   + 若 st.effect_policy=="he_blast" ⇒ st.burst["external_he"]=true ✓
+```
+### 实测 ✓（`tests/probe_cd007_he_spec.gd` ✓）
+```
+A1 he_blast ⇒ **accepted=true** ✓✓（= 规格被满足 ✓ 而非放宽期望 ✗）
+   overpressure / blast / fragmentation ⇒ **仍具名拒绝** ✓✓ `invalid_effect_policy` ✓（无非通道名混入 ✓）
+A2 实弹（APHE + 8mm 以下触发厚度的延期引信 ✓ 已证夹具形状 ✓ 无旋转 ✓ 板在 x=0 平面 ✓）：
+   terminal=**internal_burst** ✓ ⇒ root_event keys 含 **"channels"** ✓
+   channels = {fragment:applied=**true** ✓ ; blast:applied=**false** ✓ pending=cd07-blast-channel ✓ ;
+               overpressure:applied=**false** ✓ pending=cd07-overpressure-channel ✓}
+   ⇒ 设计 #1 ✓✓：**同一爆炸 root_event 分列三通道** ✓ **不共用"半径内全死"开关** ✓；未施加者**记录中明说** ✓✓
+```
+### 与规格的关系 ✓（**方向正确** ✓ 非"改期望值" ✗）
+上轮 A1 写的是"**因尚不存在而以名字拒绝**" ✓ = 对**当时缺口**的陈述 ✓；本轮实现使**该通道存在** ✓ ⇒ 期望随之**由拒转受** ✓ 即"**实现满足要求**" ✓（另有三个**非通道名**仍**拒绝** ✓ 作为**未被放宽**的对照 ✓）。
+### 下一轮
+**blast / overpressure 两通道的真正施加** ✓（设计 #2 有界连通：**封闭舱无破口 ⇒ 无凭空内舱超压** ✓；**开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓）＋ 实现顺序 #2 的**工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓ 不给所有车辆塞不兼容弹种 ✓）。

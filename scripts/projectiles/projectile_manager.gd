@@ -137,7 +137,7 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok": false, "projectile_id": 0, "reason": "projectile_capacity"}
 	var armor_policy := str(spec.get("armor_policy", "resolve"))
 	var effect_policy := str(spec.get("effect_policy","kinetic"))
-	if effect_policy not in ["kinetic","internal_burst","long_rod","chemical"] or (effect_policy in ["internal_burst","long_rod","chemical"] and armor_policy != "resolve"):
+	if effect_policy not in ["kinetic","internal_burst","long_rod","chemical","he_blast"] or (effect_policy in ["internal_burst","long_rod","chemical"] and armor_policy != "resolve"):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_effect_policy"}
 	var curve: PackedVector2Array = spec.get("penetration_curve", PackedVector2Array())
 	var fuze: Variant = spec.get("fuze_policy", {})
@@ -690,6 +690,16 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	var frame := ShotRecordBuilder.capture_frame(st,st.burst_target,snapshots) if not target.is_empty() else -1
 	st.burst = {"point_world":st.position_world,"time_s":st.age_s,"seed":st.seed,"geometry_frame":frame,
 		"target_id":st.burst_target.get("entity_id",""),"target_life_id":st.burst_target.get("life_id",0),"rules_version":ShellEffectPolicy.VERSION}
+	# CD07 design point one: one explosion root event records its channels SEPARATELY. The fragment channel is the existing
+	# bounded emitter called below; the blast and overpressure channels are declared here and explicitly marked as not yet
+	# applied, so nothing pretends that a shared in-radius switch already exists. An external HE round is marked as such.
+	var legacy_channels := ShellEffectPolicy.legacy_template()
+	st.burst["channels"] = {
+		"fragment":{"applied":true,"version":ShellEffectPolicy.VERSION,"lines":int(legacy_channels.max_fragments),
+			"range_m":float(legacy_channels.fragment_range_m),"budget_mm":float(legacy_channels.fragment_budget_mm)},
+		"blast":{"applied":false,"pending":"cd07-blast-channel","reason":"declared by WT-CD-007 design point one and not yet applied"},
+		"overpressure":{"applied":false,"pending":"cd07-overpressure-channel","reason":"declared by WT-CD-007 design point one and not yet applied"}}
+	if st.effect_policy=="he_blast": st.burst["external_he"]=true
 	if not st.fuze_policy.is_empty():
 		st.burst["fuze"] = {"version":ShellFuze.VERSION,"policy":st.fuze_policy.duplicate(true),
 			"armed_age_s":st.fuze_armed_age_s,"due_age_s":st.fuze_due_age_s}
