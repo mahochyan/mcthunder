@@ -1,166 +1,454 @@
 {
-  "schema": "MCT-COMBAT-DEEPEN-01 rule migration record, filled from original/templates_RULE_CHANGE.template.json",
-  "template_only": false,
-  "schema_extension_note": "This document uses every field of the delivered RULE_CHANGE template. It ALSO carries one LOCAL extension, named legacy_tests, and states so explicitly: the migration index records that the original template has no field of that name, so it must not be presented as an original field. The extension exists because the delivery section asks for the retained old-behaviour checks to be listed with the retained entry point.",
-  "approved_scope": "The delivered package's sixteen sub-orders and ninety-six acceptance cases, and nothing outside them. Every entry above is tied to a case or a design point of one of those orders; no rule, no vehicle and no parameter was changed because it seemed reasonable, and no unapproved expansion is claimed.",
-  "source_sha_note": "Rule versions below are the versions this repository actually declares. No deployed version is invented, and rules that were verified rather than changed record the SAME version on both sides.",
-  "delivery_section": "original/05_DELIVERY_AND_ACCEPTANCE.md section 6",
-  "migration_index": "original/RULE_MIGRATION_INDEX.md",
-  "evidence_state": {
-    "engineering_self_consistent": true,
-    "publicly_comparable": false,
-    "claim": "Everything recorded here belongs to the engineering self-consistent version. The delivered package contains no measured historical data, so no numeric agreement with War Thunder is claimed anywhere.",
-    "missing_references": [
-      "real armour thickness and steel quality",
-      "War Thunder's own penetration tables",
-      "range data for the delivered shells",
-      "material coefficients beyond the project design values"
-    ]
-  },
-  "changes": [
-    {
-      "work_order_id": "WT-CD-003",
-      "change_kind": "new_rule",
-      "old_rule_version": "legacy_centre_line_v1",
-      "new_rule_version": "cd003-shape-v1",
-      "affected_vehicles": ["all_vehicles_with_a_declared_ballistics_section"],
-      "affected_modes": ["live_fire"],
-      "fields": ["shape_profile", "shape_kind", "section_radius_m", "rays", "error_bound_m"],
-      "reason": "A finite round needs a declared sampled section rather than one centre line, so a grazing hit is decided by the round's width instead of by a coincidence of the aim line.",
-      "reference_sources": ["R02", "R03", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "The v1 centre-line query is kept and used as the CONTROL in every shape case rather than replaced.",
-      "legacy_tests": ["tests/probe_cd003_gap_baseline.gd (v1 CONTROL leg)"],
-      "new_expected_declared_before_run": "With a declared section, none of the nine gap scenarios may disagree with the analytic gap geometry; the centre line alone disagreed on five of the nine.",
-      "independent_oracle": "Analytic slit geometry: a gap narrower than the round must block, wider than the round must pass.",
-      "measured_before": "v1 control: 5 of 9 scenarios disagree with the analytic geometry.",
-      "measured_after": "Declared section: 0 of 9 disagree.",
-      "migration": "A round without a declaration keeps the v1 centre line exactly. Records made under v1 keep v1 and are not recomputed.",
-      "rollback": "Remove the declaration; the v1 path is then the only path in use.",
-      "divergences": ["The sampled section is a project approximation; its error bound is declared in the profile, not measured."]
-    },
-    {
-      "work_order_id": "WT-CD-003",
-      "change_kind": "behavior_change",
-      "old_rule_version": "legacy_step_basis_v1",
-      "new_rule_version": "cd003-rotation-step-0.02rad",
-      "affected_vehicles": ["all_vehicles_whose_parts_rotate_within_a_step"],
-      "affected_modes": ["live_fire"],
-      "fields": ["ROTATION_STEP_RAD", "part_transform_basis"],
-      "reason": "Rotation was served as a step function: the part jumped to its end-of-step orientation and only its translation was interpolated, so a turning plate was met at the wrong time.",
-      "reference_sources": ["R03", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "A part that does not turn still uses exactly one span and the previous basis behaviour, byte for byte.",
-      "legacy_tests": ["tests/probe_cd003_gap_baseline.gd (frozen control leg)", "tests/probe_cd004_zero_drag.gd"],
-      "new_expected_declared_before_run": "The rotating plate's crossing must match the analytic crossing within the chord bound of the declared angular step.",
-      "independent_oracle": "Bisection on the geometry alone: crossing fraction 0.537424 for a plate turning zero to forty five degrees against a fixed line.",
-      "measured_before": "Step function: crossing 0.583333, a delta of 0.045910, which is exactly what the end-of-step basis predicts.",
-      "measured_after": "Subdivided: crossing 0.536451, a delta of 0.000973; the frozen control is unchanged at 0.500000.",
-      "migration": "The subdivision is internal to a step; recorded results keep the version they were produced with.",
-      "rollback": "Set the angular step above any rotation, which restores the single-span path.",
-      "divergences": ["Two earlier attempts were disproved by measurement and are recorded in the CD003 evidence file."]
-    },
-    {
-      "work_order_id": "WT-CD-004",
-      "change_kind": "new_rule",
-      "old_rule_version": "v1_vacuum",
-      "new_rule_version": "cd004-ballistics-v1",
-      "affected_vehicles": ["all_vehicles"],
-      "affected_modes": ["live_fire"],
-      "fields": ["ballistics_profile", "drag_model", "drag_k_per_m", "provenance", "retention_table"],
-      "reason": "One calibratable drag approximation is needed, and legacy rounds must use the old curve explicitly rather than have it silently changed.",
-      "reference_sources": ["R02", "R03", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "v1_vacuum is the flight the project already had. An empty declaration resolves to it and is named legacy_v1_vacuum in the result.",
-      "legacy_tests": ["tests/probe_cd004_zero_drag.gd (the standing control)"],
-      "new_expected_declared_before_run": "The declared retention curve must be the exponential e^(-k x) within its own tolerance of 0.010; the coefficient is calibrated from that curve rather than guessed.",
-      "independent_oracle": "Closed form under zero gravity, v(x) = v0 e^(-k x).",
-      "measured_before": "No profile existed; the flight was pure gravity.",
-      "measured_after": "Declared retention 0.972 / 0.932 / 0.869 / 0.811 against the frozen 0.972 / 0.932 / 0.871 / 0.814, worst deviation 0.0034; the vacuum control is bit-identical.",
-      "migration": "Rounds that declare nothing keep the vacuum curve. A record names the profile it flew with.",
-      "rollback": "Clear the declaration; the vacuum path returns.",
-      "divergences": ["The coefficient is a project design value awaiting human calibration and is labelled design, not validated_history."]
-    },
-    {
-      "work_order_id": "WT-CD-004",
-      "change_kind": "new_rule",
-      "old_rule_version": "speed_scale_always_one",
-      "new_rule_version": "cd004-residual-ratio-v1",
-      "affected_vehicles": ["all_vehicles"],
-      "affected_modes": ["live_fire"],
-      "fields": ["residual_model", "RESIDUAL_K", "RESIDUAL_FLOOR"],
-      "reason": "The order asks for an explicit residual-velocity rule, and warns that the penetration budget is not joules: millimetres must not be pushed through a kinetic formula.",
-      "reference_sources": ["R03", "R04", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "The rule is declaration gated. A round that does not ask for it keeps a speed scale of exactly one, which is the old behaviour.",
-      "legacy_tests": ["all fourteen suites, unchanged before and after"],
-      "new_expected_declared_before_run": "A thicker plate must leave a lower residual speed, and the fuze must burst on that residual trajectory rather than on the pre-penetration speed.",
-      "independent_oracle": "A dimensionless mapping on consumed over available budget, declared with its constants; no energy conversion anywhere.",
-      "measured_before": "Penetration debited no speed at all: residual 900.000 after either plate.",
-      "measured_after": "One hundred millimetres leaves 805.788 and three hundred leaves 617.363; bursts land 19.11575 and 15.34726 metres out, inside one step of residual times delay.",
-      "migration": "Undeclared rounds are unchanged, so no saved result changes meaning. A record keeps the version it was fired under.",
-      "rollback": "Clear residual_model; the scale returns to one.",
-      "divergences": ["K and the floor are project design values, calibrated by declaration rather than against measured data."]
-    },
-    {
-      "work_order_id": "WT-CD-004",
-      "change_kind": "behavior_change",
-      "old_rule_version": "predictor_constant_acceleration",
-      "new_rule_version": "cd004-ballistics-v1_shared_solver",
-      "affected_vehicles": ["all_vehicles"],
-      "affected_modes": ["live_fire", "ai_fire"],
-      "fields": ["ballistic_intercept_verification", "ai_lane_prediction", "gunner_spec_drag_k_per_m"],
-      "reason": "The order requires the flight, the fire control and the AI prediction to share one solver rather than a copied parabola. Two predictors each held their own constant-acceleration copy and were blind to the drag.",
-      "reference_sources": ["R03", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "With no drag declared the profile aware advance IS the constant acceleration advance, so every existing prediction is unchanged.",
-      "legacy_tests": ["run_ai_intercept_checks (106 passes, green through every step of this work)"],
-      "new_expected_declared_before_run": "At the solver's own predicted time the flight's own method must reach the target within ten millimetres, with and without drag.",
-      "independent_oracle": "Two different code paths compared against each other: the solver's root finding against a step integration mirroring the manager's.",
-      "measured_before": "With drag declared the two integrations separated by 52.3367 metres in position and 100.7149 m/s in speed.",
-      "measured_after": "Vacuum miss 0.000305 m, unchanged; drag miss 0.001376 m, with the predicted time moved from 0.363637 s to 0.379341 s.",
-      "migration": "No stored prediction changes while no round declares a profile; a record names the rule version.",
-      "rollback": "Revert the commit; the two predictor copies return.",
-      "divergences": ["The refinement is an eight step bounded iteration with a forty step bisection inside; its convergence tolerance is declared in the code."]
-    },
-    {
-      "work_order_id": "WT-CD-005",
-      "change_kind": "verification",
-      "old_rule_version": "wt012-reactive-v1",
-      "new_rule_version": "wt012-reactive-v1",
-      "affected_vehicles": ["all_vehicles_carrying_reactive_armour"],
-      "affected_modes": ["live_fire"],
-      "fields": [],
-      "reason": "The order asks whether ERA is single use. It was verified rather than changed, so both sides name the same version and no deployed version is invented.",
-      "reference_sources": ["R03", "R04", "W03"],
-      "old_reference_unchanged": true,
-      "legacy_behavior_retained": true,
-      "legacy_entry": "No behaviour was changed, so there is nothing to retain beyond the rule itself.",
-      "legacy_tests": ["run_era_checks (73 passes)", "run_armor_checks (81 passes)"],
-      "new_expected_declared_before_run": "The charge is spent only when its trigger conditions are met, and a second hit receives no un-consumed protection.",
-      "independent_oracle": "The rule's own declared trigger conditions, recomputed from the same inputs.",
-      "measured_before": "Not previously measured as a case.",
-      "measured_after": "A qualifying hit spends the charge and adds its reduction; a hit below the trigger minimum does NOT spend it; through the resolver a live charge costs 220.0000 mm against a spent charge's 100.0000 mm.",
-      "migration": "None needed: the rule is unchanged. A record names the reactive version whenever ERA events occurred.",
-      "rollback": "Not applicable to a verification with no change.",
-      "divergences": []
-    }
-  ],
-  "divergences": [
-    {"item": "declared layout tolerance", "detail": "The project config declares 50 mm / 2 percent while the reference packet declares 1 mm / 0.1 percent. Both are recorded; reconciliation needs the user."},
-    {"item": "registered mesh divergences", "detail": "Eleven registered items are model coverage rather than authored geometry; no layout fault was found and completion of the models would close them."},
-    {"item": "normal-match checkpoint", "detail": "NOT_RUN. Fixtures do not substitute for a normal match and this agent does not sign for human play."},
-    {"item": "beyond effective range", "detail": "The declared effective range is 200 m, so the 500, 1000 and 1500 m rows of the sampling table are extrapolation only and carry no performance promise."},
-    {"item": "publicly comparable version", "detail": "Not established: the package carries no measured historical data, so all values are project design initial values."}
-  ],
-  "rollback_policy": "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
-  "full_run_evidence": {
-    "after": "Fourteen suites, 737 passes, no failures (commit a79f7e7d). Later runs of ten to fourteen suite subsets are green throughout, most recently seven suites with 470 passes.",
-    "before": "The old-behaviour controls retained above are the before evidence: the CD004 zero-drag baseline is bit-identical, the CD003 v1 control still disagrees on five of nine, and the AI intercept suite has held at 106 passes with no failures."
-  }
+    "schema":  "MCT-COMBAT-DEEPEN-01 rule migration record, filled from original/templates_RULE_CHANGE.template.json",
+    "template_only":  false,
+    "schema_extension_note":  "This document uses every field of the delivered RULE_CHANGE template. It ALSO carries one LOCAL extension, named legacy_tests, and states so explicitly: the migration index records that the original template has no field of that name, so it must not be presented as an original field. The extension exists because the delivery section asks for the retained old-behaviour checks to be listed with the retained entry point.",
+    "approved_scope":  "The delivered package\u0027s sixteen sub-orders and ninety-six acceptance cases, and nothing outside them. Every entry above is tied to a case or a design point of one of those orders; no rule, no vehicle and no parameter was changed because it seemed reasonable, and no unapproved expansion is claimed.",
+    "source_sha_note":  "Rule versions below are the versions this repository actually declares. No deployed version is invented, and rules that were verified rather than changed record the SAME version on both sides.",
+    "delivery_section":  "original/05_DELIVERY_AND_ACCEPTANCE.md section 6",
+    "migration_index":  [
+                            "original/RULE_MIGRATION_INDEX.md",
+                            "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration"
+                        ],
+    "evidence_state":  {
+                           "engineering_self_consistent":  true,
+                           "publicly_comparable":  false,
+                           "claim":  "Everything recorded here belongs to the engineering self-consistent version. The delivered package contains no measured historical data, so no numeric agreement with War Thunder is claimed anywhere.",
+                           "missing_references":  [
+                                                      "real armour thickness and steel quality",
+                                                      "War Thunder\u0027s own penetration tables",
+                                                      "range data for the delivered shells",
+                                                      "material coefficients beyond the project design values"
+                                                  ]
+                       },
+    "changes":  [
+                    {
+                        "work_order_id":  "WT-CD-003",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "legacy_centre_line_v1",
+                        "new_rule_version":  "cd003-shape-v1",
+                        "affected_vehicles":  [
+                                                  "all_vehicles_with_a_declared_ballistics_section"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire"
+                                           ],
+                        "fields":  [
+                                       "shape_profile",
+                                       "shape_kind",
+                                       "section_radius_m",
+                                       "rays",
+                                       "error_bound_m"
+                                   ],
+                        "reason":  "A finite round needs a declared sampled section rather than one centre line, so a grazing hit is decided by the round\u0027s width instead of by a coincidence of the aim line.",
+                        "reference_sources":  [
+                                                  "R02",
+                                                  "R03",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The v1 centre-line query is kept and used as the CONTROL in every shape case rather than replaced.",
+                        "legacy_tests":  [
+                                             "tests/probe_cd003_gap_baseline.gd (v1 CONTROL leg)"
+                                         ],
+                        "new_expected_declared_before_run":  "With a declared section, none of the nine gap scenarios may disagree with the analytic gap geometry; the centre line alone disagreed on five of the nine.",
+                        "independent_oracle":  "Analytic slit geometry: a gap narrower than the round must block, wider than the round must pass.",
+                        "measured_before":  "v1 control: 5 of 9 scenarios disagree with the analytic geometry.",
+                        "measured_after":  "Declared section: 0 of 9 disagree.",
+                        "migration":  "A round without a declaration keeps the v1 centre line exactly. Records made under v1 keep v1 and are not recomputed.",
+                        "rollback":  "Remove the declaration; the v1 path is then the only path in use.",
+                        "divergences":  [
+                                            "The sampled section is a project approximation; its error bound is declared in the profile, not measured."
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-003",
+                        "change_kind":  "behavior_change",
+                        "old_rule_version":  "legacy_step_basis_v1",
+                        "new_rule_version":  "cd003-rotation-step-0.02rad",
+                        "affected_vehicles":  [
+                                                  "all_vehicles_whose_parts_rotate_within_a_step"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire"
+                                           ],
+                        "fields":  [
+                                       "ROTATION_STEP_RAD",
+                                       "part_transform_basis"
+                                   ],
+                        "reason":  "Rotation was served as a step function: the part jumped to its end-of-step orientation and only its translation was interpolated, so a turning plate was met at the wrong time.",
+                        "reference_sources":  [
+                                                  "R03",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "A part that does not turn still uses exactly one span and the previous basis behaviour, byte for byte.",
+                        "legacy_tests":  [
+                                             "tests/probe_cd003_gap_baseline.gd (frozen control leg)",
+                                             "tests/probe_cd004_zero_drag.gd"
+                                         ],
+                        "new_expected_declared_before_run":  "The rotating plate\u0027s crossing must match the analytic crossing within the chord bound of the declared angular step.",
+                        "independent_oracle":  "Bisection on the geometry alone: crossing fraction 0.537424 for a plate turning zero to forty five degrees against a fixed line.",
+                        "measured_before":  "Step function: crossing 0.583333, a delta of 0.045910, which is exactly what the end-of-step basis predicts.",
+                        "measured_after":  "Subdivided: crossing 0.536451, a delta of 0.000973; the frozen control is unchanged at 0.500000.",
+                        "migration":  "The subdivision is internal to a step; recorded results keep the version they were produced with.",
+                        "rollback":  "Set the angular step above any rotation, which restores the single-span path.",
+                        "divergences":  [
+                                            "Two earlier attempts were disproved by measurement and are recorded in the CD003 evidence file."
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-004",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "v1_vacuum",
+                        "new_rule_version":  "cd004-ballistics-v1",
+                        "affected_vehicles":  [
+                                                  "all_vehicles"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire"
+                                           ],
+                        "fields":  [
+                                       "ballistics_profile",
+                                       "drag_model",
+                                       "drag_k_per_m",
+                                       "provenance",
+                                       "retention_table"
+                                   ],
+                        "reason":  "One calibratable drag approximation is needed, and legacy rounds must use the old curve explicitly rather than have it silently changed.",
+                        "reference_sources":  [
+                                                  "R02",
+                                                  "R03",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "v1_vacuum is the flight the project already had. An empty declaration resolves to it and is named legacy_v1_vacuum in the result.",
+                        "legacy_tests":  [
+                                             "tests/probe_cd004_zero_drag.gd (the standing control)"
+                                         ],
+                        "new_expected_declared_before_run":  "The declared retention curve must be the exponential e^(-k x) within its own tolerance of 0.010; the coefficient is calibrated from that curve rather than guessed.",
+                        "independent_oracle":  "Closed form under zero gravity, v(x) = v0 e^(-k x).",
+                        "measured_before":  "No profile existed; the flight was pure gravity.",
+                        "measured_after":  "Declared retention 0.972 / 0.932 / 0.869 / 0.811 against the frozen 0.972 / 0.932 / 0.871 / 0.814, worst deviation 0.0034; the vacuum control is bit-identical.",
+                        "migration":  "Rounds that declare nothing keep the vacuum curve. A record names the profile it flew with.",
+                        "rollback":  "Clear the declaration; the vacuum path returns.",
+                        "divergences":  [
+                                            "The coefficient is a project design value awaiting human calibration and is labelled design, not validated_history."
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-004",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "speed_scale_always_one",
+                        "new_rule_version":  "cd004-residual-ratio-v1",
+                        "affected_vehicles":  [
+                                                  "all_vehicles"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire"
+                                           ],
+                        "fields":  [
+                                       "residual_model",
+                                       "RESIDUAL_K",
+                                       "RESIDUAL_FLOOR"
+                                   ],
+                        "reason":  "The order asks for an explicit residual-velocity rule, and warns that the penetration budget is not joules: millimetres must not be pushed through a kinetic formula.",
+                        "reference_sources":  [
+                                                  "R03",
+                                                  "R04",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The rule is declaration gated. A round that does not ask for it keeps a speed scale of exactly one, which is the old behaviour.",
+                        "legacy_tests":  [
+                                             "all fourteen suites, unchanged before and after"
+                                         ],
+                        "new_expected_declared_before_run":  "A thicker plate must leave a lower residual speed, and the fuze must burst on that residual trajectory rather than on the pre-penetration speed.",
+                        "independent_oracle":  "A dimensionless mapping on consumed over available budget, declared with its constants; no energy conversion anywhere.",
+                        "measured_before":  "Penetration debited no speed at all: residual 900.000 after either plate.",
+                        "measured_after":  "One hundred millimetres leaves 805.788 and three hundred leaves 617.363; bursts land 19.11575 and 15.34726 metres out, inside one step of residual times delay.",
+                        "migration":  "Undeclared rounds are unchanged, so no saved result changes meaning. A record keeps the version it was fired under.",
+                        "rollback":  "Clear residual_model; the scale returns to one.",
+                        "divergences":  [
+                                            "K and the floor are project design values, calibrated by declaration rather than against measured data."
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-004",
+                        "change_kind":  "behavior_change",
+                        "old_rule_version":  "predictor_constant_acceleration",
+                        "new_rule_version":  "cd004-ballistics-v1_shared_solver",
+                        "affected_vehicles":  [
+                                                  "all_vehicles"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire",
+                                               "ai_fire"
+                                           ],
+                        "fields":  [
+                                       "ballistic_intercept_verification",
+                                       "ai_lane_prediction",
+                                       "gunner_spec_drag_k_per_m"
+                                   ],
+                        "reason":  "The order requires the flight, the fire control and the AI prediction to share one solver rather than a copied parabola. Two predictors each held their own constant-acceleration copy and were blind to the drag.",
+                        "reference_sources":  [
+                                                  "R03",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "With no drag declared the profile aware advance IS the constant acceleration advance, so every existing prediction is unchanged.",
+                        "legacy_tests":  [
+                                             "run_ai_intercept_checks (106 passes, green through every step of this work)"
+                                         ],
+                        "new_expected_declared_before_run":  "At the solver\u0027s own predicted time the flight\u0027s own method must reach the target within ten millimetres, with and without drag.",
+                        "independent_oracle":  "Two different code paths compared against each other: the solver\u0027s root finding against a step integration mirroring the manager\u0027s.",
+                        "measured_before":  "With drag declared the two integrations separated by 52.3367 metres in position and 100.7149 m/s in speed.",
+                        "measured_after":  "Vacuum miss 0.000305 m, unchanged; drag miss 0.001376 m, with the predicted time moved from 0.363637 s to 0.379341 s.",
+                        "migration":  "No stored prediction changes while no round declares a profile; a record names the rule version.",
+                        "rollback":  "Revert the commit; the two predictor copies return.",
+                        "divergences":  [
+                                            "The refinement is an eight step bounded iteration with a forty step bisection inside; its convergence tolerance is declared in the code."
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-005",
+                        "change_kind":  "verification",
+                        "old_rule_version":  "wt012-reactive-v1",
+                        "new_rule_version":  "wt012-reactive-v1",
+                        "affected_vehicles":  [
+                                                  "all_vehicles_carrying_reactive_armour"
+                                              ],
+                        "affected_modes":  [
+                                               "live_fire"
+                                           ],
+                        "fields":  [
+
+                                   ],
+                        "reason":  "The order asks whether ERA is single use. It was verified rather than changed, so both sides name the same version and no deployed version is invented.",
+                        "reference_sources":  [
+                                                  "R03",
+                                                  "R04",
+                                                  "W03"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "No behaviour was changed, so there is nothing to retain beyond the rule itself.",
+                        "legacy_tests":  [
+                                             "run_era_checks (73 passes)",
+                                             "run_armor_checks (81 passes)"
+                                         ],
+                        "new_expected_declared_before_run":  "The charge is spent only when its trigger conditions are met, and a second hit receives no un-consumed protection.",
+                        "independent_oracle":  "The rule\u0027s own declared trigger conditions, recomputed from the same inputs.",
+                        "measured_before":  "Not previously measured as a case.",
+                        "measured_after":  "A qualifying hit spends the charge and adds its reduction; a hit below the trigger minimum does NOT spend it; through the resolver a live charge costs 220.0000 mm against a spent charge\u0027s 100.0000 mm.",
+                        "migration":  "None needed: the rule is unchanged. A record names the reactive version whenever ERA events occurred.",
+                        "rollback":  "Not applicable to a verification with no change.",
+                        "divergences":  [
+
+                                        ]
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_family_for_an_external_blast",
+                        "new_rule_version":  "cd07-he-family-v1",
+                        "affected_vehicles":  "engineering_vehicles_whose_gun_matches_the_round",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "family",
+                                       "source_bullet_type",
+                                       "effect_policy"
+                                   ],
+                        "reason":  "The content gate requires a family whose declared source type and effect agree with each other, and there was no family for an external blast, so one is added beside the existing four instead of relabelling an existing family.",
+                        "reference_sources":  [
+                                                  "R07",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The four existing families and every round admitted under them are untouched; a round that declares no family is still refused exactly as before.",
+                        "legacy_tests":  "tests/run_shell_checks.gd (family agreement legs)",
+                        "new_expected_declared_before_run":  "The engineering HE is admitted by the shell catalogue and offered at runtime by the vehicle carrying its gun and by no other.",
+                        "independent_oracle":  "The shell catalogue build result and the runtime option list per engineering vehicle, read from the production install path.",
+                        "measured_before":  "Measured: the shell catalogue REFUSED the round with \"shell.\u003cid\u003e: effect_policy: unsupported\", and the content pipeline likewise.",
+                        "measured_after":  "Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers.",
+                        "migration":  "A round without the declaration keeps the previous refusal word for word; records made before the family existed are not rewritten.",
+                        "rollback":  "Remove the family entry; the round is then refused by name exactly as it was before.",
+                        "divergences":  "The engineering round carries project design initial values only; no historical round or figure is claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "legacy_fragment_template_only",
+                        "new_rule_version":  "cd07-bounded-connectivity-v1",
+                        "affected_vehicles":  "all_vehicles_for_the_external_blast_effect",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "overpressure",
+                                       "blast",
+                                       "fragmentation",
+                                       "declared_openings"
+                                   ],
+                        "reason":  "An external blast needs its own pressure verdict rather than a legacy fragment template, and that verdict must follow from bounded connectivity: pressure reaches the interior only through a breach or a declared opening, and never through a wall.",
+                        "reference_sources":  [
+                                                  "R07",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The internal burst and long rod profiles keep their own recorded versions and are not touched by this rule.",
+                        "legacy_tests":  "tests/probe_cd007_he_spec.gd (root event shape) and tests/probe_cd007_open_contrast.gd (open against closed)",
+                        "new_expected_declared_before_run":  "With the rule declared, a closed compartment with no breach and no declared opening must record the pressure as NOT applied, and an open one must record it as applied.",
+                        "independent_oracle":  "The declared layout openings carried in the query snapshot: the pressure verdict is decided by whether the burst is outside, whether the plate was breached, and how many declared open-fighting-compartment apertures the target has.",
+                        "measured_before":  "Measured: the burst carried only the legacy fragment template, with the blast channel marked applied=false and pending \"cd07-blast-channel\", so there was no pressure verdict at all.",
+                        "measured_after":  "Measured: the burst records three separate channels and the overpressure channel carries a computed verdict with the reason \"closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure\", while the open case records it as applied.",
+                        "migration":  "A burst that declares no external blast keeps the legacy template exactly; existing records keep the version they were made under.",
+                        "rollback":  "Remove the overpressure channel; the burst then carries the legacy template only, as before.",
+                        "divergences":  "The rule keys only on the open-fighting-compartment aperture because structural caps are the limit of inside travel rather than armour, so counting every aperture would make every vehicle look open."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "field_extension",
+                        "old_rule_version":  "external_written_only_for_a_fuzed_burst",
+                        "new_rule_version":  "cd07-external-on-every-burst",
+                        "affected_vehicles":  "all_vehicles_for_the_external_blast_effect",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "external"
+                                   ],
+                        "reason":  "Whether an explosion happened outside the hull is a property of every burst, not only of a fuzed one, and a contact HE carries no fuze at all.",
+                        "reference_sources":  [
+                                                  "R07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Every fuzed burst keeps the same value it already recorded; nothing about the fuze path changes.",
+                        "legacy_tests":  "tests/probe_cd007_world_burst.gd",
+                        "new_expected_declared_before_run":  "A fuzeless external blast must record whether its explosion was outside the hull, rather than leaving the field absent.",
+                        "independent_oracle":  "The recorded external flag is compared against the burst geometry and the hull interior test.",
+                        "measured_before":  "Measured: a contact HE burst recorded the field as ABSENT, so nothing said whether it went off outside.",
+                        "measured_after":  "Measured: the same burst now records external=true, and the fuzed bursts are unchanged.",
+                        "migration":  "Bursts recorded before this change keep whatever they recorded; the field is added for new records only.",
+                        "rollback":  "Remove the unconditional write; fuzed bursts then record it as before and fuzeless ones record nothing.",
+                        "divergences":  "None; the field is additive."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "external_he_stopped_inert",
+                        "new_rule_version":  "cd07-contact-and-world-detonation",
+                        "affected_vehicles":  "all_vehicles_for_the_external_blast_effect",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "burst_target",
+                                       "burst_entry_distance",
+                                       "burst_visited",
+                                       "contact_kind"
+                                   ],
+                        "reason":  "The order requires contact HE and detonation after a world collision first, so an external blast bursts where it meets armour or the world instead of being stopped inert; proximity, timed and guided fuzes stay out of scope.",
+                        "reference_sources":  [
+                                                  "R07",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Every other effect keeps its behaviour exactly: the change is gated on the external blast policy alone, so internal burst, kinetic, long rod and chemical are untouched.",
+                        "legacy_tests":  "tests/probe_cd007_he_runtime.gd (armour contact) and tests/probe_cd007_world_burst.gd (world contact)",
+                        "new_expected_declared_before_run":  "With the rule declared, a round that meets armour and stops must still produce a root event, and a round that meets the world must produce one too.",
+                        "independent_oracle":  "The contact verdict the resolver returns, plus the recorded contact kind, so the two routes are distinguishable in the record.",
+                        "measured_before":  "Measured: the round met the armour with one contact and a stopped verdict and reported burst=none, so an external HE was inert on contact.",
+                        "measured_after":  "Measured: the same shot now reports burst=present with the three channels, the world route records contact_kind=world_contact, and the armour route is unchanged in every other respect.",
+                        "migration":  "A round that declares another effect is unaffected; the recording is additive and the terminal reason is still owned by the emitter.",
+                        "rollback":  "Remove the two gated branches; an external blast is then stopped inert again.",
+                        "divergences":  "The terminal reason for the world route is internal_burst because the emitter owns it; the contact kind therefore has to be recorded on the burst rather than inferred from the terminal name."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "fragment_loop_assumed_inside_target",
+                        "new_rule_version":  "cd07-external-blast-fragment-candidates",
+                        "affected_vehicles":  "all_vehicles_for_the_external_blast_effect",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "eligible",
+                                       "left_target",
+                                       "other_target",
+                                       "burst_target"
+                                   ],
+                        "reason":  "Five places in the fragment loop assumed a non-delayed effect happened inside its target, which is false for an external blast: it is inside none, has no burst target, and must still be able to act on any object its fragments reach while world occlusion still decides what they strike.",
+                        "reference_sources":  [
+                                                  "R07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Delayed and spall fragments keep exactly the eligibility, guard, travel and target rules they had; every change is gated on the external blast policy.",
+                        "legacy_tests":  "tests/run_spall_checks.gd (delayed and spall legs, unchanged)",
+                        "new_expected_declared_before_run":  "With the rule declared, a fragment from an external blast must be able to reach a target in range rather than stopping on the first iteration.",
+                        "independent_oracle":  "The occlusion contrast: a target behind an obstacle against one beside it at a reachable distance.",
+                        "measured_before":  "Measured: the loop treated an external blast as inside its (absent) target, so fragments exited on the first iteration or rejected every other target as other_target.",
+                        "measured_after":  "NOT YET MEASURED. The gated changes are in place but the occlusion contrast still records no damage on either target, so no positive effect is claimed; the remaining link is to be located by instrumenting the loop, which the recorded lessons require before further edits.",
+                        "migration":  "A round without the declaration keeps every one of the five behaviours exactly; the declaration only lifts them for this policy.",
+                        "rollback":  "Remove the five gates; the previous single-target assumption returns unchanged.",
+                        "divergences":  "This entry is deliberately recorded as necessary and NOT sufficient: it is kept because it corrects a real assumption, and it is explicitly not claimed to make external-blast fragments strike anything."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-007",
+                        "change_kind":  "expectation_migration",
+                        "old_rule_version":  "hard_coded_six_rounds",
+                        "new_rule_version":  "edited_loadout_total",
+                        "affected_vehicles":  "engineering_vehicles_carrying_more_than_two_round_types",
+                        "affected_modes":  "live_fire_and_garage",
+                        "fields":  [
+                                       "rounds_remaining"
+                                   ],
+                        "reason":  "Adding a round type necessarily changes how a weapon distributes its rounds, because the install gives the default round seventy percent and splits the rest evenly; the shipping diagnostic asserted the old two-round total as a constant.",
+                        "reference_sources":  [
+                                                  "R07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The historical two-round vehicles and their totals are unchanged; the assertion is satisfied by them as before.",
+                        "legacy_tests":  "scripts/diagnostics/modern_garage_verifier.gd (the same two legs)",
+                        "new_expected_declared_before_run":  "The battle must receive exactly the total the player edited, whatever number of round types the vehicle has.",
+                        "independent_oracle":  "The loadout the player edited: the sum of its own per-round counts.",
+                        "measured_before":  "Measured: the garage suite failed 27 of 29 with the constant, because the third round changed the distribution.",
+                        "measured_after":  "Measured: with the assertion expressed as the edited total the suite is 29 of 29, and the ten-suite run is 893 passes with no failures.",
+                        "migration":  "This is a migration of an expectation, not a relaxation: the constant asserted a number, the replacement asserts the invariant the leg was always about.",
+                        "rollback":  "Reinstate the constant; the two-round vehicles still satisfy it and a three-round one fails again.",
+                        "divergences":  "This is the only delivered expectation this order changed, and it changed because the order instructed adding a round, not to make a failure disappear."
+                    }
+                ],
+    "divergences":  [
+                        {
+                            "item":  "declared layout tolerance",
+                            "detail":  "The project config declares 50 mm / 2 percent while the reference packet declares 1 mm / 0.1 percent. Both are recorded; reconciliation needs the user."
+                        },
+                        {
+                            "item":  "registered mesh divergences",
+                            "detail":  "Eleven registered items are model coverage rather than authored geometry; no layout fault was found and completion of the models would close them."
+                        },
+                        {
+                            "item":  "normal-match checkpoint",
+                            "detail":  "NOT_RUN. Fixtures do not substitute for a normal match and this agent does not sign for human play."
+                        },
+                        {
+                            "item":  "beyond effective range",
+                            "detail":  "The declared effective range is 200 m, so the 500, 1000 and 1500 m rows of the sampling table are extrapolation only and carry no performance promise."
+                        },
+                        {
+                            "item":  "publicly comparable version",
+                            "detail":  "Not established: the package carries no measured historical data, so all values are project design initial values."
+                        }
+                    ],
+    "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
+    "full_run_evidence":  {
+                              "before":  "CD07 start, at the CD06 close: run_historical_checks 192/0, run_shell_checks 193/0, run_chemical_checks 92/0, run_fuze_checks 137/0, run_spall_checks 78/0, run_armor_checks 81/0, run_damage_checks 57/0 (7 suites, 773 passes, no failures).",
+                              "after":  "CD07 close: the same seven suites plus run_modern_garage_checks 29/0 and the probe suites, run repeatedly through the order; the last full pass is run_shell 193/0, run_fuze 137/0, run_spall 78/0, run_chemical 92/0, run_armor 81/0, run_damage 57/0, run_historical 192/0, run_projectile 0/0 (8 suites, 830 passes, no failures).",
+                              "note":  "The same suites give the same totals before and after, so the order is additive: the only migration is the expectation recorded above, and it was required by the order itself."
+                          },
+    "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
