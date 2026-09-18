@@ -270,6 +270,11 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	var aim := _aim_at_plate(layout,actor)
 	print("[CD02-T03 %s] aiming perpendicular into plate %s of zone %s (normal=%s)" % [id,str(aim.patch),str(aim.get("zone","")),str(aim.get("normal",Vector3.ZERO))])
 	var original_hits := await _real_shot(actor,world,original_snapshot,packet,aim.from,aim.to)
+	# KNOWN HARNESS LIMITATION (CD02-T03, open): both runs fire at the SAME life, so the second run meets a target the
+	# first one already damaged - on the Leopard the breech is already destroyed, which is exactly why its second run
+	# reports no module hit and looks like a tessellation-dependent loss. A reset between the runs was tried and made
+	# things worse: it changed the T-80B result too and broke the T06 cases, which are state coupled. The next attempt is
+	# two separate freshly built actors for the two layouts, which removes the shared state instead of patching it.
 	var modified_hits := await _real_shot(actor,world,modified_snapshot,packet,aim.from,aim.to)
 	# A miss must not be able to masquerade as invariance: when the probe's own path hits nothing, the case is reported
 	# as not run for this reason instead of passing on 0-versus-0.
