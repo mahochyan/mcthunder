@@ -75,7 +75,10 @@ static func resolve(shell: Dictionary) -> Dictionary:
 		var errors := validate(explicit)
 		if not errors.is_empty(): return {"ok":false,"reason":"invalid_shape_profile","errors":errors}
 		return {"ok":true,"profile":explicit.duplicate(true),"sampling":sampling_plan(explicit),"source":"explicit"}
-	var kind := str(shell.get("shape_kind", shell.get("effect_policy","")))
+	# Only an EXPLICIT declaration resolves here. Deriving the kind from effect_policy was my first attempt and it would have
+	# silently given every legacy long rod round a section, which is exactly the silent change the sub-order forbids: a round
+	# that declares nothing stays a legacy line round, visibly.
+	var kind := str(shell.get("shape_kind",""))
 	var key := ""
 	match kind:
 		"long_rod": key = "apfsds"

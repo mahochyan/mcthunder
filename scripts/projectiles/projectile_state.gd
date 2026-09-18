@@ -34,6 +34,10 @@ var burst_visited: Dictionary = {}
 var burst: Dictionary = {}
 var fragments: Array[Dictionary] = []
 var penetration_curve := PackedVector2Array()
+## CD003: the finite cross-section sampling this round carries. Empty means the round is a LEGACY line round, which is
+## recorded explicitly in shape_source instead of being an invisible default.
+var shape_sampling: Dictionary = {}
+var shape_source := "legacy_line"
 var budget_scale := 1.0
 var consumed_mm := 0.0
 var ricochets := 0

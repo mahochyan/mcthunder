@@ -145,6 +145,25 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 		return {"ok":false,"projectile_id":0,"reason":"invalid_fuze_policy"}
 	if not fuze.is_empty() and not is_finite(max_age + float(fuze.delay_s)):
 		return {"ok":false,"projectile_id":0,"reason":"invalid_fuze_policy"}
+	# CD003: an ENGINEERING round declares its finite cross-section through the spec. A declaration that cannot be resolved
+	# REFUSES the launch by name instead of quietly falling back to the v1 line rule; a round that declares nothing is a
+	# LEGACY line round and the state records that explicitly, so the fallback is visible rather than silent.
+	var shape_sampling: Dictionary = {}
+	var shape_source := "legacy_line"
+	if spec.has("shape_profile") or spec.has("shape_kind"):
+		var resolved := ProjectileShapeProfile.resolve(spec)
+		if not resolved.get("ok",false):
+			return {"ok":false,"projectile_id":0,"reason":str(resolved.get("reason","no_shape_profile"))}
+		shape_sampling = resolved.get("sampling",{})
+		shape_source = str(resolved.get("source","project_engineering_profile"))
+	elif spec.has("section_radius_m"):
+		var raw_radius := float(spec.get("section_radius_m",0.0))
+		var raw_rays := int(spec.get("section_rays",0))
+		if not is_finite(raw_radius) or raw_radius <= 0.0 or raw_rays < 3:
+			return {"ok":false,"projectile_id":0,"reason":"invalid_shape_section"}
+		shape_sampling = {"section_radius_m":raw_radius,"rays":raw_rays,"error_bound_m":INF,"exact":false,
+			"note":"explicit raw section with no declared error bound"}
+		shape_source = "explicit_section"
 	if armor_policy not in ["resolve", "legacy_contact_only"] \
 			or (armor_policy == "resolve" and not PenetrationCurve.validate(curve)) \
 			or (armor_policy == "legacy_contact_only" and not spec.get("test_only", false)):
@@ -177,6 +196,8 @@ func try_spawn(spec: Dictionary) -> Dictionary:
 	st.shell_id = shell_id
 	st.seed = int(spec.get("seed", 0))
 	st.armor_policy = armor_policy
+	st.shape_sampling = shape_sampling.duplicate(true)
+	st.shape_source = shape_source
 	st.penetration_curve = curve.duplicate()
 	st.born_physics_tick = Engine.get_physics_frames()
 	st.position_world = pos
@@ -299,6 +320,7 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			"motion_fraction": Vector2(clampf((st.age_s - age_at_start) / delta, 0.0, 1.0), clampf((st.age_s - age_at_start + used_h) / delta, 0.0, 1.0)),
 			"excluded_instances": [{"entity_id": st.shooter_id, "life_id": st.shooter_life_id}],
 			"include_modules": true, "include_crew": st.armor_policy == "resolve", "world_stop": world_contact,
+			"shape_section": (st.shape_sampling if not st.shape_sampling.is_empty() else {}),
 		}, snapshots)
 		if not qr.get("ok", false):
 			finish_once(st.projectile_id, "unresolved_query", {"detail": "geometry query"})

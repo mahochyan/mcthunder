@@ -68,6 +68,11 @@ ap     88.0 / 88.0 mm          ⇒ 次口径=false ✓ · rays=5 · bound=8.4032
 
 ### 3.3 明确未完成（`拒收条件 4` ✓ 不得只做 3A 就宣称整单完成 ✓）
 - **3A**：**已完成**（有界环射线 + 声明误差边界 + 射线预算 + 同板一次 ✓）
+- **生产链路接线**：**已完成** ✓ —— 子单要求的落点是整条链 ✓ 现已落实：
+  · 声明只走**显式** `shape_profile`/`shape_kind` ✓（**不从 `effect_policy` 推导** ✓ —— 我最初那样写会让**所有旧长杆弹**被静默加上截面 ✗，正是子单禁止的 ✓）
+  · **无法解析的声明 ⇒ 发射按名拒绝** ✓（实测 `no_shape_profile` ✓）；**未声明者 ⇒ 状态标 `shape_source="legacy_line"`** ✓（回退**可见**而非静默 ✓ `必须设计 #5` ✓）
+  · 实测链路 ✓：工程弹经 `manager.try_spawn` ⇒ 命中 20 mm 窄缝的接触记录为 `section_radius=0.015 m` · **`ray_index=2`** ✓ ⇒ **环射线**（非中心 ✓）⇒ 截面确实走过 `声明 → ProjectileState → ProjectileManager → ShotQueryService` ✓✓
+  · 回归 ✓：**14 套件 714 PASS / 0 FAIL** ✓（ARMOR 81 · DAMAGE 57 · ERA 73 · RECOVERY 64 · SPALL 78 · AMMO 63 · LOADING 62 · LOADING_MECHANISM 65 · MODERN_GARAGE 29 · **AI_INTERCEPT 106** · AUTHORITY 19 · LIVE_FIRE_RESPAWN 17 · QUERY ✓ · PROJECTILE ✓）
 - **3B 相对平移**：现有 `TranslationSweep` 仍是**线段级** ✓；截面偏移按**静置部件系**换算 ✓（3A 静态下精确 ✓）⇒ **移动目标下尚未接入 = 3B 待完成** ✗
 - **3C 旋转部件**：未实现 ✗（`CD03-T06` 需要）
 - `CD03-T01/T02` **已由本节基准覆盖** ✓（窄缝 20/50 mm ✓ 宽缝 200 mm ✓ 边缘接触 ✓）；`CD03-T03`（同板/真双层）、`CD03-T04`（子步/预算）、`CD03-T05`（平移目标）**未开始** ✗

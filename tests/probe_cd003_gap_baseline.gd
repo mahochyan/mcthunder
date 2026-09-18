@@ -116,6 +116,51 @@ func _run() -> void:
 				line_mismatches.append({"gap_mm":gap_mm,"kind":kind,"expected":expect})
 	print("[CD003 3A] with the declared section: %d of 9 disagree with the geometry" % mismatches.size())
 	print("[CD003 v1 CONTROL] the same geometry through the v1 line rule: %d of 9 disagree - the legacy entry is kept as the comparison, not replaced" % line_mismatches.size())
+	# ── Manager leg: the section must travel ShellDeclaration -> state -> manager -> query, a round that declares nothing
+	# must be a VISIBLE legacy line round, and a declaration that cannot be resolved must refuse the launch by name.
+	var manager := ProjectileManager.new(); manager.presentation_enabled=false
+	world.add_child(manager); manager.set_physics_process(false)
+	manager.damage_handler = Callable(actor,"apply_projectile_damage")
+	var gap_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,_synthetic_layout(0.020))
+	var real_shell: ShellDefinition = actor.gunner.shell_options[0]
+	var base := {"round_id":3100,"shooter_id":"cd003_chain","shooter_life_id":1,"shot_id":1,"shell_id":real_shell.id,
+		"effect_policy":real_shell.effect_policy,"impact_profile":real_shell.impact_profile.duplicate(true),
+		"post_penetration_profile":real_shell.post_penetration_profile.duplicate(true),
+		"fuze_policy":real_shell.fuze_policy.duplicate(true),"caliber_mm":real_shell.caliber_mm,
+		"penetration_curve":real_shell.penetration_curve,
+		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(1000,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.05,"max_distance_m":20.0}
+	var engineering := base.duplicate(true); engineering["shape_kind"] = "long_rod"
+	var spawned := manager.try_spawn(engineering)
+	check(spawned.get("ok",false),"CD003 the engineering round launches with a declared shape ("+str(spawned.get("reason",""))+")")
+	if spawned.get("ok",false):
+		var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+		check(str(projectile.shape_source)!="legacy_line","CD003 the engineering round carries a resolved shape source: "+str(projectile.shape_source))
+		for i in 20:
+			if projectile.is_terminal(): break
+			manager.advance_projectile(projectile,1.0/120.0,[gap_snapshot],world.get_world_3d().direct_space_state)
+		var radius_seen := -1.0
+		var ray_seen := -1
+		for row in projectile.contacts:
+			radius_seen = maxf(radius_seen,float(row.get("section_radius_m",-1.0)))
+			ray_seen = maxi(ray_seen,int(row.get("section_ray_index",-1)))
+		print("[CD003 chain] engineering round: contacts=%d section_radius=%s ray_index=%s source=%s" % [
+			projectile.contacts.size(),str(radius_seen),str(ray_seen),str(projectile.shape_source)])
+		check(radius_seen > 0.0,"CD003 the section reached the query through the manager: a contact records radius %.4f m" % radius_seen)
+		check(ray_seen >= 1,"CD003 the contact that met a 20 mm slit came from a ring ray, not the centre: index %d" % ray_seen)
+	var legacy := base.duplicate(true); legacy["round_id"] = 3101
+	var legacy_spawn := manager.try_spawn(legacy)
+	check(legacy_spawn.get("ok",false),"CD003 a round that declares nothing still launches, as the legacy line round")
+	if legacy_spawn.get("ok",false):
+		var st2: ProjectileState = manager.get_projectile_state(legacy_spawn.projectile_id)
+		check(str(st2.shape_source)=="legacy_line","CD003 the legacy round is marked as the legacy line round, visibly: "+str(st2.shape_source))
+		check(st2.shape_sampling.is_empty(),"CD003 the legacy round carries no section")
+	var refused_spec := base.duplicate(true)
+	refused_spec["round_id"] = 3102; refused_spec["shot_id"] = 3; refused_spec["shape_kind"] = "unknown_round"
+	var refused := manager.try_spawn(refused_spec)
+	print("[CD003 chain] refusal for an unresolvable declaration: ok=%s reason=%s" % [str(refused.get("ok",false)),str(refused.get("reason",""))])
+	check(not refused.get("ok",false) and str(refused.get("reason",""))=="no_shape_profile","CD003 a declaration that cannot be resolved refuses the launch by name")
+	manager.queue_free(); await _frames(2)
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
