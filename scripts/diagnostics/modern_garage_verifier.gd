@@ -58,6 +58,10 @@ func run(flow: AppFlow) -> void:
 		for spin in prep.shell_spins.values(): spin.value = 3
 		prep._ammo_changed()
 		var wanted: Dictionary = prep.loadouts[id].duplicate(true)
+		# The total the player edited, rather than a constant: adding a round type changes the weapon's distribution, and what
+		# this assertion has always been about is that the battle receives exactly what the player edited.
+		var expected_total: int = 0
+		for edited_count in wanted.counts.values(): expected_total += int(edited_count)
 		check(prep.save_settings().ok,"save selected modern vehicle and edited ammunition")
 		var reopened := ProfileStore.new(save_path)
 		check(reopened.problem.is_empty() and reopened.snapshot().garage.selected_vehicle_id==id and reopened.snapshot().garage.loadouts[id]==wanted,"disk reload retains modern identity, first round and quantities")
@@ -69,14 +73,14 @@ func run(flow: AppFlow) -> void:
 		var battle := app.training as RiverTeamRange
 		check(battle!=null and battle.team_ready,"normal deploy routes selected modern vehicle to actual river team scene")
 		if battle==null: get_tree().quit(1); return
-		check(battle.actor.definition.id==id and battle.actor.gunner.shell.id==wanted.first_shell and battle.actor.gunner.rounds_remaining==6,"first spawn consumes edited loadout, not defaults")
+		check(battle.actor.definition.id==id and battle.actor.gunner.shell.id==wanted.first_shell and battle.actor.gunner.rounds_remaining==expected_total,"first spawn consumes edited loadout, not defaults")
 		check(battle.director.state.objectives.points.size()==3 and battle.combat_actors().size()==8,"three capture points and registered 4v4 roster")
 		check(battle.opposing_engineering_id!=id and battle.opposing_engineering_id in VehicleCatalog.ENGINEERING_IDS,"opposing modern content explicitly selected")
 		await capture(id+"_river")
 		var previous_match: int = battle.director.state.match_id
 		app.restart_match(); await idle()
 		battle = app.training as RiverTeamRange
-		check(battle!=null and battle.director.state.match_id!=previous_match and battle.actor.definition.id==id and battle.actor.gunner.rounds_remaining==6,"restart retains river, exact type and edited loadout")
+		check(battle!=null and battle.director.state.match_id!=previous_match and battle.actor.definition.id==id and battle.actor.gunner.rounds_remaining==expected_total,"restart retains river, exact type and edited loadout")
 		app.return_to_garage(); await idle()
 		check(app.pending_reward.is_empty() and app.profile.snapshot().research_points==points,"engineering departure settles without rewards or blocking pending receipt")
 		check(app.garage.selected_vehicle_id()==id,"return keeps modern garage selection")
