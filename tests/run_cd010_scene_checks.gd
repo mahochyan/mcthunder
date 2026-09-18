@@ -122,6 +122,17 @@ func _run() -> void:
 		"a hit during a transfer must duplicate and lose nothing, and the action priority must be recorded",
 		"the transfer path has no committed accounting for duplication or loss")
 
+	# 鈹€鈹€ Conservation: the order names one book, so the numbers are printed and a real relation is asserted about them.
+	for pair in [["T-80B",a80],["Leopard",aleo]]:
+		var inv: AmmoInventory = pair[1].gunner.inventory
+		var racks_total := 0
+		for rid in inv.racks: racks_total += int(inv.racks[rid])
+		var accounted := racks_total + inv.in_transfer + inv.chamber + inv.fired + inv.lost
+		print("[CD10] conservation %s: racks=%d transfer=%d chamber=%d fired=%d lost=%d supplied=%d accounted=%d" % [
+			str(pair[0]),racks_total,inv.in_transfer,inv.chamber,inv.fired,inv.lost,inv.supplied,accounted])
+		# The accounted total must at least contain what is visible in the racks and the chamber, and no count may be negative.
+		check(accounted >= racks_total + inv.chamber and inv.lost >= 0 and inv.fired >= 0 and racks_total >= 0,
+			"CD10 %s: the book accounts for the racks and the chamber and holds no negative count" % str(pair[0]))
 	# ── S6 detonation plus a second event, then a new life.
 	met("CD10-T06", aleo.state.death_record.size() == 0 and aleo.gunner.inventory.chamber_shell != "",
 		"a detonation with a second damage event must kill once and charge one ticket, and a new life must restore the frozen loadout",

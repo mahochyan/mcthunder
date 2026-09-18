@@ -97,6 +97,23 @@ func rack_usable(id: String) -> bool:
 	var actor := get_parent() as VehicleActor
 	return inventory.racks.has(id) and (actor==null or actor.state==null or not actor.state.module_states.has(id) or LoadingRules.module_available(actor.state,id))
 
+## CD10: apply a recorded ammunition reaction to the SINGLE ledger. The loss leaves the racks and is counted in lost, so
+## nothing is invented and nothing is duplicated and the book still balances.
+func apply_ammo_reaction() -> Dictionary:
+	# Every function in this file reaches the vehicle this way; the identifier is not a member.
+	var actor := get_parent() as VehicleActor
+	var plan: Dictionary = {}
+	if actor != null and actor.state != null: plan = actor.state.ammo_reaction
+	if plan.is_empty(): return {"ok":false,"reason":"no_reaction_recorded"}
+	var module_id := str(plan.get("module_id",""))
+	var want := int(plan.get("loss",0))
+	if want <= 0 or not inventory.racks.has(module_id): return {"ok":true,"moved":0}
+	var have := int(inventory.racks[module_id])
+	var moved := mini(want,have)
+	inventory.racks[module_id] = have - moved
+	inventory.lost += moved
+	return {"ok":true,"moved":moved,"rack":module_id,"remaining":have-moved}
+
 func supply_racks() -> Array:
 	var profile := loading_profile()
 	return Array(profile.supply_rack_ids) if not profile.supply_rack_ids.is_empty() else inventory.racks.keys()
