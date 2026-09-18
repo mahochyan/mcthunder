@@ -212,3 +212,17 @@ L1 同穿深配对事实保持 ✓（曲线逐值相同 ✓）; L4 具名 legacy
 |---|---|---|
 | **真实隔板** | 同一发弹、内构有无改变结果 ✓ 且隔板**靠被命中**自耗预算 ✓ | ✅ 实测 ✓（`CD06_OCCLUSION_CONTRAST PASS` ✓） |
 | **空架** | 空架/仅膛内不致命且库存守恒 ✓ 对照实弹态会爆燃 ✓ | ✅ 实测 ✓（生产套件逐条件 ✓） |
+## 15. `CD06-T05` **通过** ✓✓（`CD06_JET_LEDGER PASS` ✓）—— **射流不是剩余动能速度的马甲** ✓✓
+探针 `tests/probe_cd006_jet_ledger.gd` ✓（子类覆写 `chemical_cases()` 并 `super` ✓ 复用化学套件已证夹具 ✓）
+```
+同一几何、同一声明预算，仅**母弹速度**不同：
+  母弹 **600 m/s** ⇒ jet distance=**3.0000** ✓ remaining=**40.0000** ✓ complete=true ✓ terminal=chemical_detonation ✓
+  母弹 **300 m/s** ⇒ jet distance=**3.0000** ✓ remaining=**40.0000** ✓ complete=true ✓ terminal=chemical_detonation ✓
+  ⇒ **逐位相同** ✓✓ ⇒ 若射流由母弹剩余动能速度驱动，改速度必改其射程 ✗ ⇒ **判据反面被排除** ✓✓
+每一步的通道 ✓：contacts 的 `effect_channel` = **["chemical_jet"]** ✓（**无 kinetic** ✓）
+账目守恒 ✓：接触行 **20.0000** ＋ 离接触行（module **10** ＋ 末段路径损失 **30**）＋ remaining **40.0000** = **100** ✓✓
+```
+⇒ 子单"**每步路径和通道明确** ✓ **不用 kinetic 剩余速度冒充射流**" ✓✓ **实测成立** ✓。
+### 我第七次账目/期望纠正 ✓✗
+首版把"接触行之和 + remaining"要求等于 100 ✗ ⇒ 得 20+40=60 ✗ ⇒ **套件自身已实测**该夹具"**separate100 budget spends 20 armor, 10 module and 30 terminal path loss**" ✓✓ ⇒ **模块与末段路径损失不是接触行** ✗ ⇒ 改为**按声明的整本账**核对 ✓✓（20+40+40=100 ✓）。
+**教训** ✓：**预算不平先找"不在你所汇总集合里的账目行"** ✓（本套件的断言已把它们点名 ✓）。
