@@ -35,8 +35,12 @@ func idle() -> void:
 ## manual baseline comparison turned into a check, so the whole class of defect the challenge screen had - a collapsed
 ## width, a control outside the viewport, two controls sharing one rectangle - is looked for on every screen instead of
 ## being discovered by eye once.
-func audit(root: Node, label: String) -> void:
-	var found := LayoutAudit.collect(root,Vector2(get_window().size))
+func audit(root, label: String) -> void:
+	# The parameter is deliberately untyped: the callers pass the frontend, which is already statically typed as its own
+	# class, and GDScript refuses an "as Node" cast from that type. From an untyped value the cast is always legal, and
+	# the guard keeps the helper honest if anything else is ever passed.
+	if not (root is Node): return
+	var found := LayoutAudit.collect(root as Node,Vector2(get_window().size))
 	report(found.narrow.is_empty(), "%s: no text control has a collapsed width (%s)" % [label,LayoutAudit.describe(found,"narrow")])
 	report(found.outside.is_empty(), "%s: no visible control is drawn outside the viewport (%s)" % [label,LayoutAudit.describe(found,"outside")])
 	report(found.stacked.is_empty(), "%s: no two visible controls share one rectangle (%s)" % [label,LayoutAudit.describe(found,"stacked")])
@@ -610,6 +614,21 @@ func run(flow: AppFlow) -> void:
 
 	print("=== ui navigation: %d checks, %d failed ===" % [checks,failed])
 	print("UI_NAVIGATION_CHECKS_PASS" if failed == 0 else "UI_NAVIGATION_CHECKS_FAIL")
+	# --- UI-BIZ-01 stage 4: the layout audit at 125% and at the wider sizes --------------------------------
+	# The text scale is the combination most likely to overflow, and the two wide probes are the ones stage four must
+	# certify, so the same three defect checks run at each of them instead of only at 1280x720 and 100%.
+	AccessibilitySettings.ui_scale = 1.25
+	AccessibilitySettings.apply(get_tree().root)
+	await frames(12)
+	audit(f,"battle page at 125%")
+	get_window().size = Vector2i(1920,1080)
+	await frames(12)
+	audit(f,"battle page at 1920x1080 125%")
+	get_window().size = Vector2i(1280,720)
+	AccessibilitySettings.ui_scale = 1.0
+	AccessibilitySettings.apply(get_tree().root)
+	await frames(12)
+
 	# --- WT-UI-012-A01: probe the wider matrix entries honestly instead of assuming they fit ------------------
 	for probe in [Vector2i(2560,1440),Vector2i(3440,1440)]:
 		get_window().size = probe
@@ -618,6 +637,7 @@ func run(flow: AppFlow) -> void:
 		if achieved == probe:
 			report(true, "the UI renders at the probed size %dx%d" % [probe.x,probe.y])
 			await driver.capture("nav_14_%dx%d" % [probe.x,probe.y])
+			audit(f,"battle page at %dx%d" % [probe.x,probe.y])
 		else:
 			print("[NOT_RUN] %dx%d was clamped by the device to %dx%d, so that matrix entry stays NOT_RUN" % [probe.x,probe.y,achieved.x,achieved.y])
 	get_window().size = Vector2i(1280,720)
