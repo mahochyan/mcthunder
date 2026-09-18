@@ -1,0 +1,29 @@
+﻿CD001 first-batch item 4: affected regression
+branch=work/combat-deepen-01 sha=fcd6579d tracked_dirty=0
+run_loading_checks                     exit=0 PASS=  62 FAIL=0 marker=LOADING_CHECKS_PASS
+run_loading_mechanism_checks           exit=0 PASS=  65 FAIL=0 marker=LOADING_MECHANISM_CHECKS_PASS
+run_ammo_compartment_checks            exit=0 PASS=  63 FAIL=0 marker=AMMO_COMPARTMENT_CHECKS_PASS
+run_shell_checks                       exit=0 PASS= 193 FAIL=0 marker=SHELL_CHECKS_PASS
+run_shell_cycle_player_checks          exit=0 PASS=  41 FAIL=0 marker=SHELL_CYCLE_PLAYER_CHECKS_PASS
+run_engineering_loading_checks         exit=0 PASS=  23 FAIL=0 marker=ENGINEERING_LOADING_CHECKS_PASS
+run_engineering_compartment_checks     exit=0 PASS=  11 FAIL=0 marker=ENGINEERING_COMPARTMENT_CHECKS_PASS
+run_engineering_material_checks        exit=0 PASS=  85 FAIL=0 marker=ENGINEERING_MATERIAL_CHECKS_PASS
+run_projectile_checks                  exit=0 PASS=   0 FAIL=0 marker=PROJECTILE_CHECKS_PASS
+run_armor_checks                       exit=0 PASS=  81 FAIL=0 marker=ARMOR_CHECKS_PASS
+run_damage_checks                      exit=0 PASS=  57 FAIL=0 marker=DAMAGE_CHECKS_PASS
+run_spall_checks                       exit=0 PASS=  78 FAIL=0 marker=SPALL_CHECKS_PASS
+run_recovery_checks                    exit=0 PASS=  64 FAIL=0 marker=RECOVERY_CHECKS_PASS
+run_hud_checks                         exit=0 PASS=  56 FAIL=0 marker=HUD_CHECKS_PASS
+run_garage_checks                      exit=0 PASS= 151 FAIL=0 marker=GARAGE_CHECKS_PASS
+run_app_flow_checks                    exit=0 PASS= 127 FAIL=0 marker=APP_FLOW_CHECKS_PASS
+run_modern_garage_checks               exit=0 PASS=  29 FAIL=0 marker=MODERN_GARAGE_CHECKS_PASS
+run_modern_support_checks              exit=0 PASS=  19 FAIL=0 marker=MODERN_SUPPORT_CHECKS_PASS
+run_modern_armor_frame_checks          exit=0 PASS=  17 FAIL=0 marker=MODERN_ARMOR_FRAME_CHECKS_PASS
+run_modern_team_identity_checks        exit=0 PASS=  76 FAIL=0 marker=MODERN_TEAM_IDENTITY_CHECKS_PASS
+check_live_fire_respawn                exit=0 PASS=  17 FAIL=0 marker=LIVE_FIRE_RESPAWN_PASS
+run_bound_model_package_checks         exit=0 PASS=  59 FAIL=0 marker=BOUND_MODEL_PACKAGE_CHECKS_PASS
+run_challenge_checks                   exit=1 PASS= 138 FAIL=2 marker=(none)
+    FAIL: [FAIL] real defense script pilot completes finite waves with opponent AI untouched
+    FAIL: [FAIL] real defense script pilot completes finite waves with opponent AI untouched
+TOTAL PASS=1512 FAIL=2 suites_with_failures=run_challenge_checks
+=== regression done ===

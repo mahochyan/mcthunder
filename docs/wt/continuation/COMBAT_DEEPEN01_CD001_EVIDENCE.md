@@ -40,7 +40,30 @@
 1. **自动补弹存在**：`feed_empty` 后长泵 → 每周期从备用架移 1 发进膛（`ammo_reserve` −1、`chamber`→1）；末段出现**备用→待发整架回填**。
 2. **`feed_empty` 可与"待发架仍有弹"同时成立**（T-80B 余 10 发时仍报空 ✗ / 豹 2 余 8 发 ✗），**切换弹种后即可继续**（T-80B 为双弹种）。⇒ 需子单给出**判据**才能判断这是设计还是缺口 ✓。
 
-## 6. 证据位置（固定提交 ✓）
+## 6. 首批清单第 4 项：受影响回归（本轮实测 ✓ 只跑不改 ✓）
+
+分支 `work/combat-deepen-01` @`fcd6579d`（已跟踪未提交=0 ✓）· 23 套件 · 合计 **1512 PASS / 2 FAIL** ✓
+日志：`logs/COMBAT-DEEPEN-01/regression/SUMMARY.txt` + 每套件 `*.log` ✓
+
+| 套件 | 结果 | 套件 | 结果 |
+|---|---|---|---|
+| loading_checks | 62/0 ✓ | armor_checks | 81/0 ✓ |
+| loading_mechanism_checks | 65/0 ✓ | damage_checks | 57/0 ✓ |
+| ammo_compartment_checks | 63/0 ✓ | spall_checks | 78/0 ✓ |
+| shell_checks | 193/0 ✓ | recovery_checks | 64/0 ✓ |
+| shell_cycle_player_checks | 41/0 ✓ | hud_checks | 56/0 ✓ |
+| engineering_loading_checks | 23/0 ✓ | garage_checks | 151/0 ✓ |
+| engineering_compartment_checks | 11/0 ✓ | app_flow_checks | 127/0 ✓ |
+| engineering_material_checks | 85/0 ✓ | modern_garage_checks | 29/0 ✓ |
+| projectile_checks | 标记 PASS ✓（计数格式不同 ⇒ 以标记+exit=0 为证 ✓） | modern_support_checks | 19/0 ✓ |
+| modern_armor_frame_checks | 17/0 ✓ | modern_team_identity_checks | 76/0 ✓ |
+| check_live_fire_respawn | 17/0 ✓ | bound_model_package_checks | 59/0 ✓ |
+| **run_challenge_checks** | **138 PASS / 2 FAIL** ⚠️ | | |
+
+⚠️ **唯二失败＝构建登记表已裁定例外** ✓：`real defense script pilot completes finite waves with opponent AI untouched` ×2（登记表第 2 条 · 用户裁定 B4 · 与本次改动无关 ✓）⇒ **本批未引入任何新失败** ✓。
+⇒ 覆盖了执行单点名的"**两车正常生成、配弹、发射、接触、损伤、重生**"受影响面 ✓。
+
+## 7. 证据位置（固定提交 ✓）
 - 工具：`tests/run_ammo_three_state_probe.gd`
 - 原始输出：`logs/COMBAT-DEEPEN-01/cd001-three-state-h.log`（三态）· `logs/COMBAT-DEEPEN-01/cd001-boundaries.log`（边界四项）
 - 收尾标记：`=== 结果: 57 项检查, 0 失败 ===` · `CD001_THREE_STATE_PROBE_PASS`
