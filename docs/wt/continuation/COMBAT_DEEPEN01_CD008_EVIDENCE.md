@@ -191,3 +191,48 @@ Run B (decoupling applied to PRODUCTION ONLY): 45 passes, 2 failures
 3. run ALL THIRTEEN suites that touch crew state, not the five run before, and compare RESULT COUNTS as well as failures;
 4. record it in the migration table with the before and after, and keep the rollback.
 ```
+
+## 7. The T02 migration carried out, measured correct, and reverted for ONE unreconciled leg
+
+### 7.1 What was done
+```
+production: every person gets an identity handed out in station order (person_1..person_N), depending on neither the
+            role nor the station, with a station occupancy map so both identities stay readable.
+delivered legs: SEVEN sites that named a person by a role or station were rewritten to read the person from the state
+            (run_damage_checks L156/157/185, run_ammo_compartment_checks L104, run_recovery_checks L109/150/151/167,
+            run_recovery_player_checks L73/74), each one STRONGER than the name it replaced.
+```
+### 7.2 Measured result: eleven of thirteen suites exactly at baseline, two strictly better
+```
+run_ai_combat_checks         34 / was 34      run_ai_recovery_checks        16 / was 16
+run_ai_tactics_checks        39 / was 39      run_ammo_compartment_checks   62 / was 62
+run_damage_checks            59 / was 57  (+2, the two strengthened legs, nothing lost)
+run_engineering_damage       25 / was 25      run_engineering_loading       23 / was 23
+run_fire_control_checks      59 / was 59      run_historical_checks        192 / was 192
+run_loading_checks           62 / was 62      run_modern_candidate_checks   56 / was 56
+run_recovery_checks          60 / was 53  (+7, the whole block resumed once the runtime error was removed)
+run_recovery_player_checks    0 / was 0   WINDOW_REQUIRED by design: the suite quits headless on purpose
+```
+### 7.3 The one leg that is not reconciled
+```
+run_recovery_checks: "[FAIL] one person cannot occupy two roles after replacement"
+   The leg used to read `crew_assignments.gunner == "commander"`, i.e. it watched a particular NAME. It was rewritten as
+   the invariant it was always about - no non-empty person may hold two roles - and that invariant reports holders == 1.
+   So either the replacement path really leaves one person in two roles, or my reading of that leg is wrong.
+   It is NOT guessed at: the probe written to measure it used a suite member that is a local of the suite, so it aborted
+   before printing, which is the same mistake recorded earlier and must not be repeated a third time.
+```
+### 7.4 Why it is reverted rather than kept
+```
+The rule is that a failing state is rolled back to the last runnable state. The change is measured correct on eleven
+suites and strictly stronger on two, but one delivered leg fails and its cause is not yet measured, so the tree returns to
+the green commit and the work is re-applied next round together with the measurement of that last leg.
+```
+### 7.5 Next step, precisely
+```
+1. measure the replacement path directly (a probe that builds its OWN actor, not one borrowed from a suite member): print
+   the assignments before and after the replace command and say whether any non-empty person holds two roles;
+2. re-apply the migration (production + the seven legs) as one change;
+3. run all thirteen suites and compare counts as well as failures;
+4. record it in the migration table with the before and after, and keep the rollback.
+```
