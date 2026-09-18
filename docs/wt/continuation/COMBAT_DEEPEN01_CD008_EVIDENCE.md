@@ -236,3 +236,33 @@ the green commit and the work is re-applied next round together with the measure
 3. run all thirteen suites and compare counts as well as failures;
 4. record it in the migration table with the before and after, and keep the rollback.
 ```
+
+## 8. The replacement path MEASURED clean; the migration re-applied and reverted again on my own two legs
+
+### 8.1 The direct measurement (probe builds its OWN actor, borrows nothing)
+```
+R0 assignments one person per role, duplicates = []
+R1 after assign_crew("gunner", <the person who held commander>):
+   assignments = { assistant_driver: ..., commander: "", loader: ..., gunner: <that person>, driver: ... }
+   duplicates = []   alive 4 -> 4   and the moving person kept their own state
+==> the replacement path does NOT leave one non-empty person holding two roles.
+```
+### 8.2 So the earlier failure was in MY rewritten leg, not in the product
+The re-application ran all thirteen suites: eleven exactly at their baselines, and two failures, BOTH in legs I rewrote
+("one person never occupies two roles" in the damage suite and "one person cannot occupy two roles after replacement" in
+the recovery suite). Since the direct measurement says a move leaves one empty slot and no duplicate, the fault is in how I
+restated those legs, not in the migration.
+### 8.3 Reverted under the rule, with the open question narrowed to ONE step
+```
+A failing state returns to the last runnable state, so everything is reverted and the affected suites are green again.
+What is left to measure is a single question: in the damage leg, which of the two sub-conditions fails - the old role not
+being empty, or the new role not holding the person who moved. Printing those two values answers it in one run, and that
+is the first step of the next round, followed by re-applying the migration unchanged and re-running the thirteen suites.
+```
+### 8.4 Established so far (kept, not discarded)
+```
+· the decoupling resolves every station (5 of 5 in both states);
+· the replacement path is clean (measured);
+· seven delivered sites named a person by a role and each one has a data driven, stronger replacement;
+· run_recovery_player_checks is WINDOW_REQUIRED by design under headless.
+```
