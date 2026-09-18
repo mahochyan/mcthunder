@@ -256,3 +256,23 @@ WT-CD-005 verification    wt012-reactive-v1              -> wt012-reactive-v1   
 - **after** ✓：**全量 14 套件 714 PASS / 0 FAIL** ✓（本轮实跑 ✓）；
 - **before** ✓：旧行为对照**逐字不变** ✓ —— `CD004_ZERO_DRAG_BASELINE_PASS` ✓ 最差值 `range 5.6538 m · time 0.00906 s · speed 0.0327 m/s` ✓（与冻结表一致 ✓）；CD003 的 **v1 CONTROL 仍 5/9 不符** ✓（旧规则作为对照保留 ✓）；`run_ai_intercept_checks` 全程 **106/0** ✓。
 **5 条 divergences** ✓ 明列（含**未建立"公开可对照版"** ✓ 与**有效射程外三行仅外推** ✓）。
+## 17. 实现顺序 #3 **两车主要区域矩阵** ✓（由交付包生成 ✓ 并抓出关键事实 ✓）
+产出 ✓：`docs/wt/continuation/COMBAT_DEEPEN01_ZONE_MATRIX.md` ✓（34 行 = **2 车 × 17 同名区域** ✓）+ `COMBAT_DEEPEN01_ZONE_MATRIX.json` ✓（原始字段快照 ✓）。
+**两车** ✓：`ussr_t_80b` ✓ `germ_leopard_2a4` ✓（区域名两车相同 ✓ 17 个 ✓ 从 `hull_front_upper` 到 `gun_shield` ✓）。
+**实际著录内容** ✓：
+```
+材料分布（两车相同）: composite×2 + rolled×15
+composite 区域 ✓: profile=wt012-passive-composite-v1 ✓ provenance=game_rule ✓ 三通道系数 kinetic/chemical/fragment = 1.2 / 2.4 / 1.0 ✓
+rolled 区域 ✓   : 无 per-zone profile ⇒ 由 impact_profile 的 rolled 系数提供 ✓（结构合法 ✓ 非缺失 ✗）
+```
+### ⚠️ 关键实测事实（决定实现顺序 #3 的可行做法 ✓）
+```
+全包 "thickness_mm" 出现 **0** 次 ✗ ; "thickness_status"/"armor_layers"/"patches"/"zones" 均 **0** 次 ✗
+厚度已著录区域数 = **0 / 34** ✗ ; ERA 已著录区域数 = 0 / 34 ✗
+区域自带 reason 明说非史料 = 4 / 34 ✓（"Original candidate combat tuning; not a decoded historical or
+   War Thunder penetration/material curve" ✓）
+```
+⇒ 两车区域**只著录材料与三通道响应系数** ✓ **完全未著录厚度** ✗ ⇒ 实现顺序 #3 的"**逐步替换明显不当的代表值**"**无法靠改数字完成** ✗ —— **厚度本身就是未知原档案** ✓ ⇒ "**未知原档案保留**" ✓✓ **以最字面的方式成立** ✓（**不得把缺失当成 0 厚度** ✓ 与 T06 一致 ✓）。
+### 我两条判据被实测撤回 ✓✗（第三次由测量纠正判据本身 ✓）
+"**非正厚度 17/17**" ✗ 与"**跨车同区名厚度相同 17/17 ⇒ 疑似代表值**" ✗ 实为在**测量数值缺失** ✗ 而非缺陷 ✓ ⇒ **撤回** ✓，判据改基于**实际著录内容** ✓（每区须有材料 ✓；composite 区须有版本化 profile 与 reason ✓；**每区厚度显式未著录且不得视为 0** ✓）。
+**ERA 说明** ✓：交付配置**未著录 ERA** ✗ ⇒ 本单 ERA 判据使用**自建合法夹具** ✓（`probe_cd005_era.gd` ✓）且**不冒充**交付配置 ✓。

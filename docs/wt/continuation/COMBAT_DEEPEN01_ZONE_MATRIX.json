@@ -1,0 +1,414 @@
+{
+    "germ_leopard_2a4":  {
+                             "turret_front":  {
+                                                  "thickness_status":  "",
+                                                  "reason":  "",
+                                                  "evidence_status":  "",
+                                                  "thickness_mm":  null,
+                                                  "material":  "composite",
+                                                  "sources":  [
+                                                                  null
+                                                              ],
+                                                  "era":  false,
+                                                  "geometry_status":  ""
+                                              },
+                             "hull_sides_lower_rear":  {
+                                                           "thickness_status":  "",
+                                                           "reason":  "",
+                                                           "evidence_status":  "",
+                                                           "thickness_mm":  null,
+                                                           "material":  "rolled",
+                                                           "sources":  [
+                                                                           null
+                                                                       ],
+                                                           "era":  false,
+                                                           "geometry_status":  ""
+                                                       },
+                             "hull_floor_front":  {
+                                                      "thickness_status":  "",
+                                                      "reason":  "",
+                                                      "evidence_status":  "",
+                                                      "thickness_mm":  null,
+                                                      "material":  "rolled",
+                                                      "sources":  [
+                                                                      null
+                                                                  ],
+                                                      "era":  false,
+                                                      "geometry_status":  ""
+                                                  },
+                             "hull_sides_rear":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                             "gun_shield":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "rolled",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            },
+                             "hull_sides_lower":  {
+                                                      "thickness_status":  "",
+                                                      "reason":  "",
+                                                      "evidence_status":  "",
+                                                      "thickness_mm":  null,
+                                                      "material":  "rolled",
+                                                      "sources":  [
+                                                                      null
+                                                                  ],
+                                                      "era":  false,
+                                                      "geometry_status":  ""
+                                                  },
+                             "hull_rear_lower":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                             "turret_sides":  {
+                                                  "thickness_status":  "",
+                                                  "reason":  "",
+                                                  "evidence_status":  "",
+                                                  "thickness_mm":  null,
+                                                  "material":  "rolled",
+                                                  "sources":  [
+                                                                  null
+                                                              ],
+                                                  "era":  false,
+                                                  "geometry_status":  ""
+                                              },
+                             "hull_front_upper":  {
+                                                      "thickness_status":  "",
+                                                      "reason":  "",
+                                                      "evidence_status":  "",
+                                                      "thickness_mm":  null,
+                                                      "material":  "composite",
+                                                      "sources":  [
+                                                                      null
+                                                                  ],
+                                                      "era":  false,
+                                                      "geometry_status":  ""
+                                                  },
+                             "hull_floor_rear":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                             "hull_rear_upper":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                             "turret_rear":  {
+                                                 "thickness_status":  "",
+                                                 "reason":  "",
+                                                 "evidence_status":  "",
+                                                 "thickness_mm":  null,
+                                                 "material":  "rolled",
+                                                 "sources":  [
+                                                                 null
+                                                             ],
+                                                 "era":  false,
+                                                 "geometry_status":  ""
+                                             },
+                             "hull_front_lower":  {
+                                                      "thickness_status":  "",
+                                                      "reason":  "",
+                                                      "evidence_status":  "",
+                                                      "thickness_mm":  null,
+                                                      "material":  "rolled",
+                                                      "sources":  [
+                                                                      null
+                                                                  ],
+                                                      "era":  false,
+                                                      "geometry_status":  ""
+                                                  },
+                             "hull_roof_front":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                             "hull_roof_rear":  {
+                                                    "thickness_status":  "",
+                                                    "reason":  "",
+                                                    "evidence_status":  "",
+                                                    "thickness_mm":  null,
+                                                    "material":  "rolled",
+                                                    "sources":  [
+                                                                    null
+                                                                ],
+                                                    "era":  false,
+                                                    "geometry_status":  ""
+                                                },
+                             "turret_roof":  {
+                                                 "thickness_status":  "",
+                                                 "reason":  "",
+                                                 "evidence_status":  "",
+                                                 "thickness_mm":  null,
+                                                 "material":  "rolled",
+                                                 "sources":  [
+                                                                 null
+                                                             ],
+                                                 "era":  false,
+                                                 "geometry_status":  ""
+                                             },
+                             "hull_sides_front":  {
+                                                      "thickness_status":  "",
+                                                      "reason":  "",
+                                                      "evidence_status":  "",
+                                                      "thickness_mm":  null,
+                                                      "material":  "rolled",
+                                                      "sources":  [
+                                                                      null
+                                                                  ],
+                                                      "era":  false,
+                                                      "geometry_status":  ""
+                                                  }
+                         },
+    "ussr_t_80b":  {
+                       "turret_front":  {
+                                            "thickness_status":  "",
+                                            "reason":  "",
+                                            "evidence_status":  "",
+                                            "thickness_mm":  null,
+                                            "material":  "composite",
+                                            "sources":  [
+                                                            null
+                                                        ],
+                                            "era":  false,
+                                            "geometry_status":  ""
+                                        },
+                       "hull_sides_lower_rear":  {
+                                                     "thickness_status":  "",
+                                                     "reason":  "",
+                                                     "evidence_status":  "",
+                                                     "thickness_mm":  null,
+                                                     "material":  "rolled",
+                                                     "sources":  [
+                                                                     null
+                                                                 ],
+                                                     "era":  false,
+                                                     "geometry_status":  ""
+                                                 },
+                       "hull_floor_front":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "rolled",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            },
+                       "hull_sides_rear":  {
+                                               "thickness_status":  "",
+                                               "reason":  "",
+                                               "evidence_status":  "",
+                                               "thickness_mm":  null,
+                                               "material":  "rolled",
+                                               "sources":  [
+                                                               null
+                                                           ],
+                                               "era":  false,
+                                               "geometry_status":  ""
+                                           },
+                       "gun_shield":  {
+                                          "thickness_status":  "",
+                                          "reason":  "",
+                                          "evidence_status":  "",
+                                          "thickness_mm":  null,
+                                          "material":  "rolled",
+                                          "sources":  [
+                                                          null
+                                                      ],
+                                          "era":  false,
+                                          "geometry_status":  ""
+                                      },
+                       "hull_sides_lower":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "rolled",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            },
+                       "hull_rear_lower":  {
+                                               "thickness_status":  "",
+                                               "reason":  "",
+                                               "evidence_status":  "",
+                                               "thickness_mm":  null,
+                                               "material":  "rolled",
+                                               "sources":  [
+                                                               null
+                                                           ],
+                                               "era":  false,
+                                               "geometry_status":  ""
+                                           },
+                       "turret_sides":  {
+                                            "thickness_status":  "",
+                                            "reason":  "",
+                                            "evidence_status":  "",
+                                            "thickness_mm":  null,
+                                            "material":  "rolled",
+                                            "sources":  [
+                                                            null
+                                                        ],
+                                            "era":  false,
+                                            "geometry_status":  ""
+                                        },
+                       "hull_front_upper":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "composite",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            },
+                       "hull_floor_rear":  {
+                                               "thickness_status":  "",
+                                               "reason":  "",
+                                               "evidence_status":  "",
+                                               "thickness_mm":  null,
+                                               "material":  "rolled",
+                                               "sources":  [
+                                                               null
+                                                           ],
+                                               "era":  false,
+                                               "geometry_status":  ""
+                                           },
+                       "hull_rear_upper":  {
+                                               "thickness_status":  "",
+                                               "reason":  "",
+                                               "evidence_status":  "",
+                                               "thickness_mm":  null,
+                                               "material":  "rolled",
+                                               "sources":  [
+                                                               null
+                                                           ],
+                                               "era":  false,
+                                               "geometry_status":  ""
+                                           },
+                       "turret_rear":  {
+                                           "thickness_status":  "",
+                                           "reason":  "",
+                                           "evidence_status":  "",
+                                           "thickness_mm":  null,
+                                           "material":  "rolled",
+                                           "sources":  [
+                                                           null
+                                                       ],
+                                           "era":  false,
+                                           "geometry_status":  ""
+                                       },
+                       "hull_front_lower":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "rolled",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            },
+                       "hull_roof_front":  {
+                                               "thickness_status":  "",
+                                               "reason":  "",
+                                               "evidence_status":  "",
+                                               "thickness_mm":  null,
+                                               "material":  "rolled",
+                                               "sources":  [
+                                                               null
+                                                           ],
+                                               "era":  false,
+                                               "geometry_status":  ""
+                                           },
+                       "hull_roof_rear":  {
+                                              "thickness_status":  "",
+                                              "reason":  "",
+                                              "evidence_status":  "",
+                                              "thickness_mm":  null,
+                                              "material":  "rolled",
+                                              "sources":  [
+                                                              null
+                                                          ],
+                                              "era":  false,
+                                              "geometry_status":  ""
+                                          },
+                       "turret_roof":  {
+                                           "thickness_status":  "",
+                                           "reason":  "",
+                                           "evidence_status":  "",
+                                           "thickness_mm":  null,
+                                           "material":  "rolled",
+                                           "sources":  [
+                                                           null
+                                                       ],
+                                           "era":  false,
+                                           "geometry_status":  ""
+                                       },
+                       "hull_sides_front":  {
+                                                "thickness_status":  "",
+                                                "reason":  "",
+                                                "evidence_status":  "",
+                                                "thickness_mm":  null,
+                                                "material":  "rolled",
+                                                "sources":  [
+                                                                null
+                                                            ],
+                                                "era":  false,
+                                                "geometry_status":  ""
+                                            }
+                   }
+}
