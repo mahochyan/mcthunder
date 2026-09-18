@@ -14,6 +14,11 @@ extends RefCounted
 ## This reader never becomes a new failure point: if the file is missing or malformed, every accessor falls back
 ## to the values copied from that same original file, so UI construction cannot depend on file IO succeeding.
 const PATH := "res://configs/ui/ui_tokens.json"
+## UI-BIZ-01 (this pass): an ADDITIVE overlay beside the original. The original file above stays the governing
+## source and not one of its keys is redefined here; the overlay only adds depth, glow, type-scale, motion and
+## icon-policy tokens. If it is missing or malformed, every overlay accessor falls back to the caller's default, so
+## it can never become a new failure point either - the same promise the original reader makes.
+const BIZ_PATH := "res://configs/ui/ui_tokens_biz.json"
 
 const FALLBACK_COLORS := {
 	"background":"#10171B", "surface":"#182329", "surface_raised":"#223139",
@@ -47,7 +52,9 @@ const FALLBACK_METRICS := {
 const REQUIRED_STATES := ["normal", "hover", "pressed", "focused", "disabled", "busy", "error"]
 
 static var _data: Dictionary = {}
+static var _biz: Dictionary = {}
 static var _loaded := false
+static var _biz_loaded := false
 static var _source := "fallback"
 
 static func _read() -> Dictionary:
@@ -62,6 +69,33 @@ static func _read() -> Dictionary:
 	if parsed is Dictionary:
 		return parsed
 	return {}
+
+static func _read_biz() -> Dictionary:
+	if not FileAccess.file_exists(BIZ_PATH):
+		return {}
+	var file := FileAccess.open(BIZ_PATH, FileAccess.READ)
+	if file == null:
+		return {}
+	var text := file.get_as_text()
+	file.close()
+	var parsed: Variant = JSON.parse_string(text)
+	if parsed is Dictionary:
+		return parsed
+	return {}
+
+static func biz_data() -> Dictionary:
+	if not _biz_loaded:
+		_biz_loaded = true
+		_biz = _read_biz()
+	return _biz
+
+## "json" when the overlay was read, "absent" when this build runs on the original tokens alone.
+static func biz_source() -> String:
+	biz_data()
+	return "json" if not _biz.is_empty() else "absent"
+
+static func biz_ready() -> bool:
+	return biz_source() == "json"
 
 static func data() -> Dictionary:
 	if not _loaded:
@@ -97,7 +131,11 @@ static func font_size(role: String, fallback: int = 16) -> int:
 	return int(FALLBACK_SIZES.get(role, fallback))
 
 static func _lookup(path: String) -> Variant:
-	var node: Variant = data()
+	return _lookup_in(data(),path)
+
+## Dotted lookup inside any parsed token dictionary, so the overlay uses the same traversal as the original.
+static func _lookup_in(node_in: Variant, path: String) -> Variant:
+	var node: Variant = node_in
 	for part in path.split("."):
 		if node is Dictionary and node.has(part):
 			node = node[part]
@@ -140,3 +178,52 @@ static func ui_scale_first_delivery() -> Array:
 ## True when the reissued token file parsed and carries the colour table.
 static func ready() -> bool:
 	return source() == "json" and data().get("colors", {}) is Dictionary and not data().get("colors", {}).is_empty()
+
+## --- UI-BIZ-01 overlay accessors (additive; the original accessors above are untouched) -------------------------
+
+## Overlay colour, e.g. "surface_sunken" or "accent_line". Falls back to the caller's string when absent.
+static func biz_color(name: String, fallback: String = "") -> Color:
+	var section: Variant = biz_data().get("palette_additions", {})
+	if section is Dictionary and section.has(name):
+		return Color(str(section[name]))
+	if fallback.is_empty():
+		return UiTokens.color(name,"#FF00FF")
+	return Color(fallback)
+
+## Dotted overlay lookup for numbers, e.g. "elevation.panel_blur" or "motion.page_ms".
+static func biz_metric(path: String, fallback: float = 0.0) -> float:
+	var node: Variant = _lookup_in(biz_data(),path)
+	if node is float or node is int:
+		return float(node)
+	return fallback
+
+static func biz_metric_array(path: String, fallback: Array = []) -> Array:
+	var node: Variant = _lookup_in(biz_data(),path)
+	if node is Array:
+		return node
+	return fallback
+
+## Overlay type scale, e.g. "display_l", "number_m", "logotype".
+static func biz_type_size(role: String, fallback: int = 16) -> int:
+	var node: Variant = _lookup_in(biz_data(),"type_scale."+role)
+	if node is float or node is int:
+		return int(node)
+	return fallback
+
+## Overlay motion duration in milliseconds, e.g. "panel_in_ms" or "state_ms".
+static func biz_motion(ms_name: String, fallback: float = 120.0) -> float:
+	return biz_metric("motion."+ms_name, fallback)
+
+## Overlay easing curve name, e.g. "ease_standard".
+static func biz_ease(ease_name: String, fallback: String = "ease_out") -> String:
+	var node: Variant = _lookup_in(biz_data(),"motion."+ease_name)
+	return str(node) if node is String and not str(node).is_empty() else fallback
+
+## Elevation step as a dictionary {offset_y, blur, alpha}, resolved from the overlay's flat keys.
+static func biz_elevation(step: String) -> Dictionary:
+	var prefix := step + "_"
+	return {
+		"offset_y": biz_metric("elevation."+prefix+"offset_y", 0.0),
+		"blur": biz_metric("elevation."+prefix+"blur", 0.0),
+		"alpha": biz_metric("elevation."+prefix+"alpha", 0.0),
+	}
