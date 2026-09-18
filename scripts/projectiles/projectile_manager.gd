@@ -445,7 +445,14 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 				finish_once(st.projectile_id, "contact_budget", {"detail": "bounded contact limit"})
 				return
 			step_contacts += 1
-			if not handle_contact(st, ev):
+			var continuing := handle_contact(st, ev)
+			# The emission belongs here rather than in the handler, because only this frame holds the snapshot list and the
+			# physics space. It reuses the internal burst emitter, so no second damage path exists, and it is gated on the
+			# external blast policy so every other effect behaves exactly as before.
+			if st.effect_policy == "he_blast" and not continuing and not st.burst_target.is_empty() and st.burst.is_empty():
+				var he_snapshots := TranslationSweep.frame_at(snapshots,float(ev.get("motion_fraction",1.0)))
+				_emit_internal_burst(st,he_snapshots,space)
+			if not continuing:
 				return
 			if not st.post_penetration_profile.is_empty():
 				var spall_snapshots := TranslationSweep.frame_at(snapshots,float(ev.get("motion_fraction",1.0)))
@@ -567,6 +574,13 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	var waiting := false
 	if result.get("result", "") in ["stopped", "perforated_stop"]:
 		waiting = _rest_for_fuze(st, ev, "armor_"+str(result.result))
+		# CD07 design point three, first half: a contact HE bursts ON CONTACT instead of being stopped inert. This handler holds
+		# neither the snapshot list nor the physics space, so it can only RECORD the surface it stopped on; the caller emits.
+		if st.effect_policy == "he_blast" and not waiting and st.burst_target.is_empty():
+			st.burst_target = ev.duplicate(true)
+			st.burst_entry_distance = st.travelled_m
+			st.burst_inside_started = false
+			st.burst_visited[DamageResolver.target_key(ev)] = true
 	record.merge(result, true)
 	record.merge({
 		"projectile_id": st.projectile_id, "round_id": st.round_id, "shot_id": st.shot_id,
