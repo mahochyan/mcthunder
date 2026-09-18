@@ -87,3 +87,25 @@ implementation step says to add the state transition and the legacy read first, 
 ### 3.4 Next round
 Write the **acceptance scenes first** (per the order: 同一人多次受伤 / 换位 / 自然恢复 / 死亡重生), against the
 measured baseline above, and only then change the resolver.
+
+## 4. CD08-T02 attempt: the person identity was decoupled, and the assertion count caught what a green run hid
+
+The order asks that `person_id` be separated from station and role. The attempt gave every person an identity handed out in
+station order (`person_1`, `person_2`, ...), which depends on neither the role nor the station, so a person who moves keeps
+the same identity and the same injuries. The scene for this case then read met, and the separation hazard recorded two
+rounds earlier was gone.
+
+What stopped it is worth recording exactly. The delivered damage suite reported PASS 49 FAIL 0 - green - while it had
+reported 57 results before the change. Its `_ok` calls only went from 45 to 47, so the source grew by two and the RUNTIME
+count fell by eight, which can only mean loop driven assertions stopped executing: some crew stations no longer resolve
+their damage, and the loop body only asserts while the resolution succeeds. A green run therefore hid a real loss, and the
+only reason it was noticed is that the number of results is compared between runs rather than only the failures.
+
+So the change is REVERTED rather than kept, and the task is now precise: before decoupling the identities, measure each
+station resolving on its own (the diagnostic written for that failed because `actor_b` is a local of the suite rather than a
+member, so the next one builds its own actor), find why the resolution stops, and only then make the change together with the
+one delivered leg that hard coded a role name as a person id.
+
+Two further lessons from the same round: an identity bound to the role makes a move change who the person is, which the
+existing suite already asserted against; and a guard anchor silently missed because the real line is indented three tabs and
+four were written, caught only because the guard effect was measured.
