@@ -755,6 +755,58 @@ func _accumulate_mesh(node: Node, parent: Transform3D, acc: Dictionary, skip: Ar
 			acc.ok = true
 	for child in node.get_children(): _accumulate_mesh(child,here,acc,skip)
 
+## CD02-T06 turret-off leg: after the turret is lost the query must reflect the wreck, and a respawn must restore the
+## geometry. The wreck is only installed for admitted vehicles or an installed bound model, so the precondition is
+## MEASURED and the leg reports not run with the reason when the fixture cannot reach it - the product path is not
+## claimed to be missing because a test id cannot enter it.
+func turret_loss_cases(id: String, defs: VehicleDefs, packet: Dictionary, world: Node3D) -> void:
+	var fourth := VehicleActor.new()
+	world.add_child(fourth)
+	var away := Transform3D(Basis.IDENTITY,Vector3(0,0,180))
+	check(fourth.setup(defs,packet.id,"cd002_target_d",4,away,2,null).ok,"CD02-T06 a fresh actor is installed for the turret-off leg ("+id+")")
+	fourth.set_physics_process(false); fourth.tank.set_physics_process(false)
+	await _frames(3)
+	var admitted: bool = str(fourth.definition.id) in VehicleCatalog.IDS
+	var bound: bool = bool(fourth.model_binding_installed)
+	print("[CD02-T06 %s] turret-off precondition: admitted_id=%s bound_model=%s definition=%s" % [id,str(admitted),str(bound),str(fourth.definition.id)])
+	var before_xform: Transform3D = fourth.turret.global_transform
+	var guard := 0
+	while not fourth.state.destroyed and guard < 40:
+		guard += 1
+		fourth.apply_projectile_damage({"kind":"module","module_id":"ammo_ready","entity_id":fourth.entity_id,
+			"life_id":fourth.life_id,"target_generation":fourth.state.generation,"event_id":"cd002_loss_%d"%guard},500.0)
+		await _frames(1)
+	var cause := str(fourth.state.death_record.get("cause",""))
+	var wreck_valid := is_instance_valid(fourth.wreck_turret)
+	print("[CD02-T06 %s] turret-off: destroyed=%s cause=%s attempts=%d wreck=%s" % [id,str(fourth.state.destroyed),cause,guard,str(wreck_valid)])
+	if not fourth.state.destroyed:
+		print("[CD02-T06 %s] NOT_RUN for the turret-off query leg: the vehicle did not reach ammo_detonation in %d hits on ammo_ready, so no wreck was installed. Its bustle carries a partition and a vent, so it vents rather than detonates - the same behaviour measured for this vehicle in CD01 - and the leg is exercised through the other vehicle rather than claimed missing here" % [id,guard])
+		fourth.queue_free(); await _frames(2)
+		return
+	if not wreck_valid:
+		print("[CD02-T06 %s] NOT_RUN for the turret-off query leg: it died by cause=%s rather than ammo_detonation, so no wreck was installed (admitted=%s bound=%s)" % [id,cause,str(admitted),str(bound)])
+		fourth.queue_free(); await _frames(2)
+		return
+	await _frames(6)
+	var wreck_xform: Transform3D = fourth.turret.global_transform
+	var moved_mm: float = (wreck_xform.origin-before_xform.origin).length()*1000.0
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(fourth.tank,fourth.damage_layout_override)
+	var snapshot_turret: Transform3D = Transform3D(snapshot.get("part_world_transforms",{}).get("turret",Transform3D.IDENTITY))
+	var follows_mm: float = (snapshot_turret.origin-wreck_xform.origin).length()*1000.0
+	print("[CD02-T06 %s] turret-off pose: turret moved %.1f mm ; snapshot follows the wreck within %.3f mm" % [id,moved_mm,follows_mm])
+	check(moved_mm > 1.0,"CD02-T06 losing the turret actually moves it, so the leg is exercising something real ("+id+"): %.1f mm" % moved_mm)
+	check(follows_mm <= 0.5,"CD02-T06 the query snapshot follows the wrecked turret rather than the old geometry ("+id+"): %.3f mm" % follows_mm)
+	fourth.reset_vehicle()
+	await _frames(4)
+	var restored: Transform3D = fourth.turret.global_transform
+	var restore_mm: float = (restored.origin-before_xform.origin).length()*1000.0
+	var fresh_snapshot := QuerySnapshotBuilder.build_from_vehicle(fourth.tank,fourth.damage_layout_override)
+	var fresh_turret: Transform3D = Transform3D(fresh_snapshot.get("part_world_transforms",{}).get("turret",Transform3D.IDENTITY))
+	check(restore_mm <= 0.5,"CD02-T06 a respawn restores the turret geometry ("+id+"): %.3f mm from the pre-loss pose" % restore_mm)
+	check((fresh_turret.origin-restored.origin).length()*1000.0 <= 0.5,"CD02-T06 the post-respawn query reflects the restored turret ("+id+")")
+	print("[CD02-T06 %s] respawn: turret restored within %.3f mm ; generation=%d" % [id,restore_mm,int(fourth.state.generation)])
+	fourth.queue_free(); await _frames(2)
+
 func cd002_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -815,6 +867,7 @@ func cd002_case(id: String) -> void:
 	await re_tessellation_cases(id,defs,packet,actor,world,rack)
 	await invalid_reference_cases(id,defs,packet,actor)
 	await opening_and_layers_cases(id,defs,packet,world)
+	await turret_loss_cases(id,defs,packet,world)
 	world.queue_free(); await _frames(2)
 
 func occupancy_equal_guard(actor: VehicleActor) -> void:
