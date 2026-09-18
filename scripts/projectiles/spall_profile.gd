@@ -14,6 +14,9 @@ const MAX_COUNT := 8
 static func expected_version(effect: String) -> String:
 	if effect=="long_rod": return VERSION
 	if effect=="internal_burst": return VERSION_INTERNAL_BURST
+	# CD07: an external HE burst declares its post-penetration profile through the SAME extended schema, so the fragment
+	# channel of an HE is parameterised by the rule that belongs to it rather than by a second schema.
+	if effect=="he_blast": return VERSION_INTERNAL_BURST
 	return ""
 
 static func validate(value: Variant, effect: String) -> Array[String]:

@@ -238,3 +238,36 @@ us_m26_m3_1945   ⇒ terminal=**armor_stopped** ✓ verdicts=["stopped"] ✓ bur
 1. **实现顺序 #2 的工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓ **不给所有车辆塞不兼容弹种** ✓）；
 2. **T03 薄板破口与隔板** ✓（**外板/隔板与乘员结果逐段可解释** ✓）与 **T04 世界触发与墙后** ✓（**世界接触可引爆** ✓ **遮挡仍有效** ✓ **无 through-wall 总伤** ✓）；
 3. **T05 HEAT 通道隔离** ✓（**射流不冒充超压** ✓）与 **T06 复数目标/终局** ✓（**一对象一次合法作用** ✓ **非许可目标无伤害** ✓ **取消明确** ✓）。
+## 13. 实现顺序 #2：**一款明确工程 HE** ✓（入库并经内容门接纳 ✓）
+### 绑定机制先测明 ✓（决定"限定可用测试武器"如何表达 ✓）
+```
+弹种 `gun` 字段 ✓："75-mm M3" / "90-mm M3" ✓；车体 `compatible_shells` ✓ = 标签串 ✓
+内容门 ✓：variant_compatibility.gd:30 ✓ "shell: incompatible ammunition" ✓
+          vehicle_shell_catalog.gd:117-120 ✓ "**compatible_shells: must exactly match admitted catalog IDs**" ✓✓
+⇒ 限定方式 ✓ = 声明于**特定 `gun`** ✓ 且**只在许可车型列出** ✓（多列即拒 ✓）
+```
+### 改动（**照抄既有结构** ✓ 不手写新 schema ✓）
+```
+① spall_profile.gd ✓：expected_version 增加 **he_blast ⇒ VERSION_INTERNAL_BURST** ✓（1 处精确命中 ✓ 解析干净 ✓）
+   ⇒ 外部 HE 以**同一扩展 schema** 声明其破片通道 ✓ 而非第二套 schema ✓✓
+② configs/shells/historical_loadouts.json ✓：新增 **`he_75_m3_eng`** ✓（锚点 1 处精确命中 ✓）
+   label "CD07 engineering HE (75-mm M3 only)" ✓ ; **effect_policy="he_blast"** ✓ ; **gun="75-mm M3"** ✓（武器限定 ✓）
+   muzzle 463.0 ✓ ; 穿深曲线 **平 20 mm** ✓（设计上**只为让弹停在外面而非穿透** ✓ 已在 reason 写明 ✓）
+   post_penetration_profile ✓ count=5 cone=50 range=3.0 frac=0.20 max=50 min_res=4 ✓（**CD07 项目设计初值** ✓）
+   fuze ✓ penetration_delay arm=5.0 delay=0.02 ✓ ; ruleset_id **cd07-he-contact-delay-v1** ✓
+   **逐字段标注 ✓**：`historical_observations` 明写"**None claimed … not a historical ammunition type**" ✓✓
+   `estimate_reason` 明写"**Every number is a project design initial value**" ✓ 且说明**绑定 75-mm M3 故只有该炮的车可用** ✓
+```
+### 实测（内容门 ✓）
+```
+json_ok ✓ ; shells=**7** ✓（6+1）; new_effect=**he_blast** ✓ ; gun=**75-mm M3** ✓
+run_historical_checks   **192 PASS / 0 FAIL** ✓
+run_shell_checks        **193 PASS / 0 FAIL** ✓
+run_chemical_content_checks **31 PASS / 0 FAIL** ✓
+⇒ 新弹**被接纳** ✓ 且**未破坏既有内容** ✓✓
+```
+### 本轮**工具疏漏** ✓✗（**已立规并规避** ✓）
+PowerShell here-string 的**终止符**被我写在**同一行** ✗ ⇒ 解析报错 ✗ ⇒ 改为**写成 .ps1 文件再执行** ✓ **一次通过** ✓ ⇒ **Standing rule 扩展** ✓：**长 here-string 一律落成脚本文件执行** ✓（与"整体重写优先"同族 ✓）。
+### 下一轮（**明确两项** ✓）
+1. **实测武器限定** ✓：确认该弹**仅**在 75-mm M3 车型的 `compatible_shells` 中出现 ✓（**未**塞给不带该炮的车 ✓ = 子单"**不给所有车辆塞不兼容弹种**" ✓）；
+2. **实测端到端开火** ✓：以该工程 HE 打出一次**外部爆破** ✓ ⇒ root_event 三通道 ✓ 且**破片通道 applied=true**（用**声明剖面** ✓ 非 legacy ✓）✓ 并核对**预算账目**守恒 ✓。
