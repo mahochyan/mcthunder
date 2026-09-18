@@ -78,3 +78,21 @@ L2 spall-on-long-rod ⇒ errors=[] ✓ ; spall-on-HEAT ⇒ **refused**（"unsupp
 ② "**6 个仍落回固定模板**" ✗ —— 实为**两个 HEAT** ✓ 且它们**本就不该**带 spall 剖面 ✓✓（`SpallProfile.validate` **只接受 `long_rod`** ✓ L12 明文 ✓）⇒ 由**化学剖面**参数化 ✓（化学套件已实测独立射流预算 ✓）⇒ **设计 #5 按族正确满足** ✓✓。
 ### 本单余项（未变 ✓）
 设计 #3 预算不复制（母弹残余 + 各采样权重 ✓）· 设计 #2 引信四态 ✓ · 设计 #4 遮挡/空架 ✓ · 六用例 ✓ · 交付四件 ✓。
+## 8. 设计 #3 前半：**单一分配额 + 采样数不复制预算** ✓✓（`CD06_ONE_ALLOCATION PASS` ✓）
+探针 `tests/probe_cd006_allocation.gd` ✓（子类覆写 `spall_runtime_cases()` 并 `super` ✓ 复用 spall 套件夹具 ✓）
+```
+residual=100.0 ⇒ allocated=**25.0000** ✓ = 由声明字段**独立重算** ✓（fraction 0.25 ✓ cap 60.0 ✓）
+有界 ✓（≤ cap ✓ ≤ residual×fraction ✓）；低于 min_residual ⇒ **恰为 0.0** ✓（非象征性小量 ✓）
+采样线数 1 / 4 / 8 ⇒ 分配额 **均 25.0000** ✓✓ ⇒ **采样数不改变总量** ✓
+per-line × lines == allocation（counts 1,2,4,8 ✓）✓✓ ⇒ **守恒** ✓ 无采样"自带预算" ✓
+count=4 ⇒ 4 条方向 ✓ ; count=8 ⇒ 8 条 ✓ ⇒ **采样数塑造分布** ✓ 而非预算 ✓
+```
+### ⚠️ 我上一步的"缺陷"是**自己的截断误读** ✓✗（第八次由实测纠正 ✓）
+我据 `fragment_system.gd` 前 30 行断言"**每条线各取固定 12.0 mm ⇒ 复制总伤害**" ✗ —— **截断看漏了 L31** ✓：
+```
+L31 ✓  if directional: remaining = profile.range_m ; budget = **spall.batch.allocated_mm / count**
+```
+⇒ 有向剥落**每条线分得分配额÷采样数** ✓✓ ⇒ **代码本已守恒** ✓ **无复制** ✗；`projectile_manager.gd:706` 以 `contact.after_mm` 算**唯一**分配额 ✓。⇒ 子单"**不能每生成一条采样线就复制一份总伤害**" ✓✓ **已满足并经实测** ✓。
+**教训** ✓：**引用行号作断言前必须读全上下文，不得以截断输出为据** ✓（与第 51 轮"临时追踪须按几何过滤"同类 ✓）。
+### 余项
+设计 #3 后半（**母弹残余的显式记录** ✓ 归因可追踪 ✓）· 设计 #2 引信四态 ✓ · 设计 #4 遮挡/空架 ✓ · 六用例 ✓ · 交付四件 ✓。
