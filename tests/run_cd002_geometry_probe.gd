@@ -246,22 +246,12 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	var layout: VehicleLayoutDefinition = actor.damage_layout_override
 	var before_triangles := 0
 	for patch in layout.armor_patches: before_triangles += patch.triangles.size()/3
-	var modified: VehicleLayoutDefinition = layout.duplicate(true)
+	var modified := _retriangulated(layout)
 	var after_triangles := 0
 	var changed_patches := 0
 	for patch in modified.armor_patches:
-		var triangles := PackedInt32Array()
-		var vertices := patch.vertices_local_m.duplicate()
-		for index in range(0,patch.triangles.size(),3):
-			var a: int = patch.triangles[index]; var b: int = patch.triangles[index+1]; var c: int = patch.triangles[index+2]
-			var centroid := (patch.vertices_local_m[a] + patch.vertices_local_m[b] + patch.vertices_local_m[c]) / 3.0
-			var centre := vertices.size()
-			vertices.append(centroid)
-			triangles.append_array(PackedInt32Array([a,b,centre, b,c,centre, c,a,centre]))
-		patch.triangles = triangles
-		patch.vertices_local_m = vertices
 		changed_patches += 1
-		after_triangles += triangles.size()/3
+		after_triangles += patch.triangles.size()/3
 	check(changed_patches>0 and after_triangles==before_triangles*3,"CD02-T03 every plate is re-triangulated equivalently, three triangles per original ("+id+"): %d -> %d triangles over %d plates" % [before_triangles,after_triangles,changed_patches])
 	# Fire the same path against the original and the re-triangulated layout from matched starting states, with a REAL
 	# projectile so the resistance leg is a real resolution rather than a synthetic one that returned invalid.
@@ -581,7 +571,67 @@ func _joint_kinds(parts: Array) -> Dictionary:
 	for part in parts: out[str(part.joint_kind)] = int(out.get(str(part.joint_kind),0)) + 1
 	return out
 
+## An equivalent re-triangulation of every plate: each triangle split into three around its centroid, which preserves the
+## covered surface exactly. Shared by the comparison case and the single-shot mode.
+func _retriangulated(layout: VehicleLayoutDefinition) -> VehicleLayoutDefinition:
+	var out: VehicleLayoutDefinition = layout.duplicate(true)
+	for patch in out.armor_patches:
+		var triangles := PackedInt32Array()
+		var vertices := patch.vertices_local_m.duplicate()
+		for index in range(0,patch.triangles.size(),3):
+			var a: int = patch.triangles[index]; var b: int = patch.triangles[index+1]; var c: int = patch.triangles[index+2]
+			var centroid := (patch.vertices_local_m[a] + patch.vertices_local_m[b] + patch.vertices_local_m[c]) / 3.0
+			var centre := vertices.size()
+			vertices.append(centroid)
+			triangles.append_array(PackedInt32Array([a,b,centre, b,c,centre, c,a,centre]))
+		patch.triangles = triangles
+		patch.vertices_local_m = vertices
+	return out
+
+## CD02-T03 single-shot mode: one process, one actor, one shot, so the two layouts can be compared across processes with
+## a control run of the same layout. The two-actor harness made the second firing irreproducible, which invalidated every
+## earlier reading from it.
+func _run_single_t03() -> void:
+	var mode := "original"
+	for arg in OS.get_cmdline_user_args():
+		if str(arg).begins_with("--t03="): mode = str(arg).substr(6)
+	owned_directory="res://assets/vehicles/test_cd003_single_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
+	DirAccess.make_dir_recursive_absolute(owned_directory)
+	var ignore := FileAccess.open(owned_directory.path_join(".gdignore"),FileAccess.WRITE); ignore.close()
+	for id in MODERN:
+		var packet := _read(PACKAGES+id+".json")
+		packet.id = "test_cd003_"+id
+		for source in packet.sources.values(): source.applies_to_identity_ids=[packet.id]
+		var sources := fixture_asset(packet,1.0)
+		var defs := VehicleDefs.new()
+		var registered := VehicleCatalog.new(sources).register(packet,defs)
+		if not registered.ok:
+			print("CD02-T03-SINGLE %s layout=%s ok=false errors=%s" % [id,mode,JSON.stringify(registered.errors)]); continue
+		var world := Node3D.new(); root.add_child(world)
+		var actor := VehicleActor.new(); world.add_child(actor)
+		if not actor.setup(defs,packet.id,"cd003_target",1,Transform3D.IDENTITY,2,null).ok:
+			print("CD02-T03-SINGLE %s layout=%s ok=false reason=setup" % [id,mode]); world.queue_free(); continue
+		actor.set_physics_process(false); actor.tank.set_physics_process(false)
+		await _frames(3)
+		var layout: VehicleLayoutDefinition = actor.damage_layout_override
+		var chosen: VehicleLayoutDefinition = layout if mode!="modified" else _retriangulated(layout)
+		var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,chosen)
+		var aim := _aim_at_plate(chosen,actor)
+		var hits := await _real_shot(actor,world,snapshot,packet,aim.from,aim.to)
+		print("CD02-T03-SINGLE %s layout=%s ok=true consumed=%.6f contacts=%d travelled=%.4f damage=%s" % [
+			id,mode,float(hits.get("consumed_mm",-1.0)),int(hits.get("contacts",-1)),
+			float(hits.get("travelled_m",-1.0)),str(hits.get("projectile_damage","[]"))])
+		world.queue_free(); await _frames(2)
+	for path in artifact_paths: DirAccess.remove_absolute(path)
+	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
+	print("CD02_T03_SINGLE_DONE")
+	quit(0)
+
 func _run() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if str(arg).begins_with("--t03="):
+			await _run_single_t03()
+			return
 	owned_directory="res://assets/vehicles/test_cd002_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
 	check(DirAccess.make_dir_recursive_absolute(owned_directory)==OK,"CD002 creates its own TEST ONLY model directory")
 	var ignore := FileAccess.open(owned_directory.path_join(".gdignore"),FileAccess.WRITE); ignore.close()
