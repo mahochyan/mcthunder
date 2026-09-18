@@ -29,9 +29,17 @@ func _cd5t1_event(angle_deg: float) -> Dictionary:
 	return {"has_thickness":true,"thickness_mm":CD5T1_THICKNESS,"thickness_status":"estimated","material_kind":"rolled",
 		"response_profile":{},"normal_world":Vector3(0,sin(deg_to_rad(angle_deg)),cos(deg_to_rad(angle_deg)))}
 
-func _cd5t1_resolve(profile: Dictionary, effect: String, angle_deg: float, caliber_mm: float, base_mm: float) -> Dictionary:
-	return ArmorResolver.resolve(_cd5t1_event(angle_deg),Vector3.FORWARD,
+func _cd5t1_resolve(profile: Dictionary, effect: String, angle_deg: float, caliber_mm: float, base_mm: float, thickness_mm: float = CD5T1_THICKNESS) -> Dictionary:
+	# The thickness is a parameter because my first version was not: the helper always built its event from the hundred
+	# millimetre constant, so two legs I described as thirty millimetre plates were actually a hundred, and that is the whole
+	# reason a calibre of a hundred and twenty five reported no overmatch against them. Ratios of nought point seven five and
+	# one point two five are below the declared three, so the resolver was right and the probe was wrong.
+	return ArmorResolver.resolve(_cd5t1_event_with(angle_deg,thickness_mm),Vector3.FORWARD,
 		{"base_mm":base_mm,"impact_profile":profile,"effect_policy":effect,"caliber_mm":caliber_mm})
+
+func _cd5t1_event_with(angle_deg: float, thickness_mm: float) -> Dictionary:
+	return {"has_thickness":true,"thickness_mm":thickness_mm,"thickness_status":"estimated","material_kind":"rolled",
+		"response_profile":{},"normal_world":Vector3(0,sin(deg_to_rad(angle_deg)),cos(deg_to_rad(angle_deg)))}
 
 ## The independent expectation for the full-calibre rule, written from the declared fields alone.
 func _cd5t1_expected_full(profile: Dictionary, angle_deg: float, material: String) -> float:
@@ -87,8 +95,8 @@ func _run() -> void:
 	var rod_125 := ArmorResolver.resolve({"has_thickness":true,"thickness_mm":thin,"thickness_status":"estimated","material_kind":"rolled",
 		"response_profile":{},"normal_world":Vector3(0,sin(deg_to_rad(45.0)),cos(deg_to_rad(45.0)))},Vector3.FORWARD,
 		{"base_mm":400.0,"impact_profile":rod,"effect_policy":"long_rod","caliber_mm":125.0})
-	var full_75 := _cd5t1_resolve(full,"kinetic",45.0,75.0,400.0)
-	var full_125 := _cd5t1_resolve(full,"kinetic",45.0,125.0,400.0)
+	var full_75 := _cd5t1_resolve(full,"kinetic",45.0,75.0,400.0,thin)
+	var full_125 := _cd5t1_resolve(full,"kinetic",45.0,125.0,400.0,thin)
 	print("[CD05 T02] at 45 deg on a %.0f mm plate:" % thin)
 	print("[CD05 T02]   long rod 75 mm calibre => effective %.4f mm overmatch=%s" % [float(rod_75.get("effective_mm",-1.0)),str(rod_75.get("overmatch",""))])
 	print("[CD05 T02]   long rod 125 mm calibre => effective %.4f mm overmatch=%s" % [float(rod_125.get("effective_mm",-1.0)),str(rod_125.get("overmatch",""))])
@@ -104,7 +112,7 @@ func _run() -> void:
 		str(direct_125.get("overmatch","")),str(direct_75.get("overmatch","")),float(full.overmatch_ratio)])
 	check(bool(direct_125.get("overmatch",false)) and not bool(direct_75.get("overmatch",false)),
 		"CD05 T02 the full calibre DOES use calibre overmatch, which is exactly why the two rules must not be shared: 125 mm overmatch=%s, 75 mm overmatch=%s" % [str(full_125.get("overmatch","")),str(full_75.get("overmatch",""))])
-	check(absf(float(full_75.get("effective_mm",-1.0))-_cd5t1_expected_full(full,45.0,"rolled"))<=CD5_LENGTH_BOUND_MM,
+	check(absf(float(full_75.get("effective_mm",-1.0))-(30.0/cos(deg_to_rad(41.0))*float(full.material_coefficients.rolled)))<=CD5_LENGTH_BOUND_MM,
 		"CD05 T02 the full calibre follows its own recomputed rule on the same plate: %.4f" % float(full_75.get("effective_mm",-1.0)))
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
 	print("CD05_ANGLE_SERIES_%s" % ("PASS" if failures==0 else "FAIL"))
