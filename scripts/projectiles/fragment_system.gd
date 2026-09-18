@@ -8,6 +8,9 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 	var origin_target: Dictionary=spall.contact if directional else st.burst_target
 	var target := ShellEffectPolicy.target_snapshot(origin_target,snapshots)
 	var delayed := not st.fuze_policy.is_empty() or directional
+	# CD07: an external HE bursts OUTSIDE a target, which breaks the assumption that a non-delayed effect happened inside
+	# one. Such a burst therefore takes the same multi-target eligibility path as a delayed one, gated on the policy.
+	var external_blast := st.effect_policy == "he_blast"
 	var directions: Array[Vector3]=[]
 	if directional: directions=SpallProfile.directions(spall.profile,spall.batch.direction,st.seed,int(spall.batch.id))
 	var count: int=int(spall.profile.count) if directional else ShellEffectPolicy.MAX_FRAGMENTS
@@ -33,16 +36,20 @@ static func emit_bounded(st: ProjectileState, snapshots: Array, space: PhysicsDi
 		var surfaces := {}
 		var eligible := {DamageResolver.target_key(origin_target):true}
 		if directional: surfaces[ProjectileManager._surface_key(spall.contact)]=true
-		if delayed and not directional:
+		if (delayed or external_blast) and not directional:
 			eligible.clear()
 			for snapshot in snapshots:
-				if snapshot is Dictionary and ShellEffectPolicy.inside(snapshot, point+direction*ShellEffectPolicy.EPS*2):
-					eligible[DamageResolver.target_key(snapshot)] = true
+				# An external blast is NOT inside any target, so an inside test would leave the candidate set empty. For
+				# that policy every supplied snapshot is a candidate; what a fragment actually strikes is still decided
+				# by its ray and by world occlusion, which is what makes the wall matter.
+				if snapshot is Dictionary:
+					if external_blast or ShellEffectPolicy.inside(snapshot, point+direction*ShellEffectPolicy.EPS*2):
+						eligible[DamageResolver.target_key(snapshot)] = true
 		for iteration in ShellEffectPolicy.FRAGMENT_CONTACTS:
 			if not live.call(st): return
-			if not delayed and not ShellEffectPolicy.inside(target,point+direction*ShellEffectPolicy.EPS*2):
+			if not delayed and not external_blast and not ShellEffectPolicy.inside(target,point+direction*ShellEffectPolicy.EPS*2):
 				fragment.reason = "left_target"; break
-			var leave := INF if delayed else ShellEffectPolicy.exit_distance(target,point,direction,remaining)
+			var leave := INF if (delayed or external_blast) else ShellEffectPolicy.exit_distance(target,point,direction,remaining)
 			var ws := WorldQueryAdapter.query_world_stop(space,point,direction,remaining,exclude)
 			if not ws.get("ok",false): fragment.reason = "unresolved_world"; break
 			var qr := ShotQueryService.query({"query_id":"fragment_%d_%d_%d"%[st.projectile_id,fragment_id,iteration],
