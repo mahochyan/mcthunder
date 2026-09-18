@@ -59,11 +59,10 @@ func _run() -> void:
 	var damaged := _damage_module(s1,"engine",50.0)
 	var half := VehicleCapabilities.compute(s1)
 	print("[CD09] S1 engine 100 -> 50 : applied=%s ; drive %s -> %s ; steer %s -> %s ; reasons=%s" % [
-		str(damaged.get("ok",false)),str(full.get("drive")),str(half.get("drive")),
+		str(damaged.get("ok",false)),str(full.get("power_scale")),str(half.get("power_scale")),
 		str(full.get("steer")),str(half.get("steer")),str(half.get("reasons"))])
 	check(bool(damaged.get("ok",false)),"CD09 S1 the engine can be partly damaged through the production submission")
-	met("CD09-T01", str(full.get("drive")) != str(half.get("drive")) or str(full.get("steer")) != str(half.get("steer"))
-		or float(half.get("yaw_scale",1.0)) != float(full.get("yaw_scale",1.0)),
+	met("CD09-T01", float(half.get("power_scale",1.0)) < float(full.get("power_scale",1.0)),
 		"ability must follow a declared curve as integrity falls, not stay identical until zero",
 		"a half damaged engine still gives exactly the intact ability, so ability is all-or-nothing at zero")
 
