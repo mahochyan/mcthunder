@@ -119,11 +119,16 @@ static func _checked_direction(direction: Vector3, time: float, muzzle: Vector3,
 	if _drag_k_per_m > 0.0:
 		var refined_direction := direction
 		var refined_time := time
+		var last_reached := Vector3.ZERO
 		for _iteration in 8:
 			var aim_point: Vector3 = target+target_velocity*refined_time
 			var to_target: Vector3 = aim_point-muzzle
 			if to_target.length_squared() <= 0.0: break
-			refined_direction = to_target.normalized()
+			# Aim at the target AND at the deficit the previous iteration measured. Aiming straight at the target leaves the
+			# round low by exactly the gravity and drag drop, which is what the first iteration has no way to know yet.
+			var correction: Vector3 = Vector3.ZERO
+			if _iteration > 0: correction = aim_point-last_reached
+			refined_direction = (to_target+correction).normalized()
 			var lo := maxf(1.0e-6, refined_time*0.25)
 			var hi := minf(limit, maxf(refined_time*4.0, refined_time+1.0e-3))
 			for _bisect_step in 40:
@@ -133,14 +138,14 @@ static func _checked_direction(direction: Vector3, time: float, muzzle: Vector3,
 				if along < 0.0: lo = mid
 				else: hi = mid
 			refined_time = lo+(hi-lo)*0.5
-			var final_reached := _integrate_profile(muzzle, refined_direction*speed+own_velocity, gravity, _drag_k_per_m, refined_time)
-			if final_reached.distance_to(target+target_velocity*refined_time) <= 1.0e-4: break
+			last_reached = _integrate_profile(muzzle, refined_direction*speed+own_velocity, gravity, _drag_k_per_m, refined_time)
+			if last_reached.distance_to(target+target_velocity*refined_time) <= 1.0e-4: break
 		direction = refined_direction
 		time = refined_time
 	return {"ok":true, "reason":"solved", "direction":direction, "time_s":time}
 
 ## CD004 design point 2: the flight's own stepping, mirrored here so the fire control and the flight integrate identically.
-static func _integrate_profile(muzzle: Vector3, launch: Vector3, gravity: Vector3, _drag_k_per_m: float, total_time: float) -> Vector3:
+static func _integrate_profile(muzzle: Vector3, launch: Vector3, gravity: Vector3, drag_k: float, total_time: float) -> Vector3:
 	const STEP := 1.0/240.0
 	var position := muzzle
 	var velocity := launch
@@ -152,7 +157,7 @@ static func _integrate_profile(muzzle: Vector3, launch: Vector3, gravity: Vector
 		var times: PackedFloat64Array = plan.times
 		for k in range(times.size()-1):
 			var h := times[k+1]-times[k]
-			var adv := BallisticMath.advance_profile(position,velocity,gravity,_drag_k_per_m,h)
+			var adv := BallisticMath.advance_profile(position,velocity,gravity,drag_k,h)
 			if not adv.get("ok",false): return position
 			position = adv.position
 			velocity = adv.velocity
