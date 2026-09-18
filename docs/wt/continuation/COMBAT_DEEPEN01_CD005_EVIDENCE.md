@@ -60,3 +60,22 @@
 | 各弹种**靶场实测曲线** | **未取得** ✗ | 冻结曲线为**项目设计** ✓ 其 `provenance=design` ✓ 不标 `validated_history` ✓ |
 | 材料系数（rolled/cast 等） | **项目自定义** ✓ | 保留现行值 ✓ 标为设计 ✓ 待**"公开可对照版"** 建立时替换 ✓ |
 ⇒ 以上**逐条登记** ✓ 且**不妨碍**工程版继续推进 ✓（遵守实现顺序 #4 ✓）。
+## 7. 设计 #1 **终端状态 → 继续飞行/后效**：实测对应表 ✓✓（`CD05_TERMINAL_VOCABULARY_PASS` ✓）
+探针 `tests/probe_cd005_terminal.gd` ✓（直接问解析器 + 经 manager 真弹对照 ✓）。
+```
+penetrated        => continue_flight=**true**  ✓ ; effective=100.000 consumed=100.000
+ricochet (75°)    => continue_flight=**true**  ✓ ; effective=307.155 consumed=0.000
+stopped (弱预算)  => continue_flight=false ✓ ; effective=100.000 consumed=50.000
+perforated_stop   => continue_flight=false ✓ ; effective=100.000 consumed=100.000（穿深**恰好等值** ✓）
+unknown_material  => continue_flight=false ✓ ; effective=100.000 consumed=0.000（**缺资料不当作 0 厚度** ✓ 见 T06 ✓）
+⇒ 不变式：**continue_flight 恰为 {penetrated, ricochet}** ✓（**0 项不符** ✓）
+跳弹反射实测 ✓：方向 (0, 0.5, -0.866025) ✓；`d·n = −0.2588` → `reflected·n = +0.2588` ✓（**法向精确反向** ✓）
+                切向 dot = **1.000000** ✓（**切向精确保持** ✓）⇒ 是**真镜面反射** ✓ 不是"只置了标志" ✓
+manager 真弹对照 ✓：
+ 强预算(曲线 900 mm) => verdict=penetrated ✓ terminal=true(expired_distance ✓ 继续飞出 92.5000 m ✓)
+ 弱预算(曲线  30 mm) => verdict=stopped     ✓ terminal=true(**armor_stopped** ✓ 接触后 0.0000 m ✓)
+⇒ 终态与**继续飞行行为一致** ✓（CD05-T05 核心 ✓）；剩余预算（consumed ✓）与终态同步 ✓。
+```
+**本轮我两处判据误设** ✓（**均由物理纠正并写明理由** ✓，非为变绿而改 ✗）：
+① 原判据"**只有击穿才可继续飞行**" ✗ —— 跳弹**必须**继续飞 ✓（否则弹丸会凭空消失 ✗），解析器同时给出**反射方向** ✓ ⇒ 判据改为 **{penetrated, ricochet}** ✓；
+② 跳弹反射检查原用"**z 分量转正**" ✗ —— 该镜面主要是 **Y** 轴 ✓（`d·n=−0.2588 → +0.2588` ✓ 切向不变 ✓）⇒ 改为**法向反向 + 切向保持** ✓。
