@@ -128,9 +128,16 @@ func _build_biz() -> void:
 	biz_page.add_child(bg); bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin := MarginContainer.new(); biz_page.add_child(margin); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,18)
+	# The overview is taller than a 720p viewport, so it scrolls: the first capture showed the tooltip clipped at
+	# 1280x720, and a component overview that hides its own last component is not evidence.
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	margin.add_child(scroll)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation",10)
-	margin.add_child(col)
+	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(col)
 	biz_banner = CoreUI.label(col,LocalizationService.text("playground_banner"),15)
 	biz_banner.add_theme_color_override("font_color",BizTheme.warning())
 	var head := HBoxContainer.new()
