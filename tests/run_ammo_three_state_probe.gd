@@ -363,6 +363,82 @@ func boundary_checks(id: String, defs: VehicleDefs, packet: Dictionary, rack: Di
 		id,str(r1.get("ok",false)),str(r2.get("ok",false)),str(committed),str(stale_commit),str(inv.has_rack_move()),str(inv.conserved()),JSON.stringify(inv.racks)])
 	check(committed and not stale_commit and inv.conserved(),"CD001 the current token commits once and a stale token cannot commit again ("+id+")")
 
+## CD01-T02: an active sub-zone and an exhausted one must be different occupancy states with different results, and the
+## ledger must correspond to the per-rack numbers - a half of the whole vehicle is not a half of the target rack.
+func _drain_rack(actor: VehicleActor, rack_id: String) -> int:
+	var guard := 0
+	var limit: int = actor.gunner.inventory.supplied * 4 + 40
+	while int(actor.gunner.inventory.racks.get(rack_id,0)) > 0 and guard < limit:
+		guard += 1
+		if not _fire_and_reload(actor):
+			if _select_shell_with_rounds(actor) and _ready_chamber(actor): continue
+			if _auto_recovery_probe(actor): continue
+			if _drive_replenishment(actor): continue
+			break
+	return int(actor.gunner.inventory.racks.get(rack_id,0))
+
+func _rows(projectile: ProjectileState) -> Array:
+	var out: Array = []
+	if projectile == null: return out
+	for event in projectile.damage_records:
+		out.append({"item_id":event.get("item_id",""),"consumed_mm":event.get("consumed_mm",null),"reason":event.get("reason","")})
+	return out
+
+func occupancy_cases(id: String, defs: VehicleDefs, packet: Dictionary, rack: Dictionary) -> void:
+	var profiles: Array = []
+	for tag in ["ready_full","ready_zero_reserve_kept"]:
+		var holder: Array = []
+		var actor := _fresh(defs,packet,holder)
+		var world: Node3D = holder[0]
+		var manager: ProjectileManager = holder[1]
+		await _frames(2)
+		if tag=="ready_zero_reserve_kept":
+			var left := _drain_rack(actor,RACK_ID)
+			print("[CD01-T02 %s/%s] ready rack drained by normal firing: ready_left=%d racks=%s supplied=%d fired=%d" % [
+				id,tag,left,JSON.stringify(actor.gunner.inventory.racks),actor.gunner.inventory.supplied,actor.gunner.inventory.fired])
+		else:
+			print("[CD01-T02 %s/%s] authored default occupancy: racks=%s supplied=%d" % [id,tag,JSON.stringify(actor.gunner.inventory.racks),actor.gunner.inventory.supplied])
+		var before := _state(actor,tag)
+		check(bool(before.conserved),"CD01-T02 the ledger corresponds to the per-rack occupancy ("+id+"/"+tag+")")
+		var projectile := _live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)))
+		var after := _state(actor,tag)
+		var destroyed: bool = actor.state.destroyed
+		var reached := _reached_rack(projectile)
+		print("[CD01-T02 %s/%s] strike: racks %s -> %s ; lost %d -> %d ; destroyed=%s reached=%s rows=%s" % [
+			id,tag,JSON.stringify(before.racks),JSON.stringify(after.racks),int(before.lost),int(after.lost),str(destroyed),str(reached),JSON.stringify(_rows(projectile))])
+		profiles.append({"tag":tag,"racks_before":before.racks,"lost":int(after.lost)-int(before.lost),"destroyed":destroyed,"reached":reached})
+		world.queue_free(); await _frames(2)
+	if profiles.size()==2:
+		check(str(profiles[0].racks_before)!=str(profiles[1].racks_before),"CD01-T02 an active sub-zone and an exhausted sub-zone are different occupancy states ("+id+"): %s vs %s" % [JSON.stringify(profiles[0].racks_before),JSON.stringify(profiles[1].racks_before)])
+		check(int(profiles[0].lost)!=int(profiles[1].lost),"CD01-T02 the same path gives different results for active and exhausted sub-zones ("+id+"): lost %d vs %d" % [int(profiles[0].lost),int(profiles[1].lost)])
+		print("[CD01-T02 %s] COMPARE active=%s exhausted=%s" % [id,JSON.stringify(profiles[0]),JSON.stringify(profiles[1])])
+
+## CD01-T04: two REAL queries in sequence on the same life. The first clears the rack; the second must reflect the new
+## occupancy instead of a cached one. Calling the damage entry twice is not the same thing and was already covered.
+func two_query_cases(id: String, defs: VehicleDefs, packet: Dictionary, rack: Dictionary) -> void:
+	var holder: Array = []
+	var actor := _fresh(defs,packet,holder)
+	var world: Node3D = holder[0]
+	var manager: ProjectileManager = holder[1]
+	await _frames(2)
+	var first := _live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)))
+	var lost_first: int = int(actor.gunner.inventory.lost)
+	var destroyed_first: bool = actor.state.destroyed
+	print("[CD01-T04 %s] first real query: lost=%d destroyed=%s rows=%s" % [id,lost_first,str(destroyed_first),JSON.stringify(_rows(first))])
+	if destroyed_first:
+		print("[CD01-T04 %s] not applicable: the first real query already destroyed the target, so no second query can follow in this life" % id)
+	else:
+		var second := _live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)))
+		var lost_second: int = int(actor.gunner.inventory.lost)
+		var rack_reason := "no_row"
+		if second != null:
+			for rec in second.damage_records:
+				if str(rec.get("item_id",""))==RACK_ID: rack_reason = str(rec.get("reason",""))
+		print("[CD01-T04 %s] second real query: lost=%d (delta=%d) rack_reason=%s rows=%s" % [id,lost_second,lost_second-lost_first,rack_reason,JSON.stringify(_rows(second))])
+		check(lost_second==lost_first,"CD01-T04 the second real query does not debit the already-cleared rack again ("+id+")")
+		check(rack_reason=="ammo_contents_empty","CD01-T04 the second query reflects the new occupancy rather than a stale cache ("+id+"): "+rack_reason)
+	world.queue_free(); await _frames(2)
+
 func cd001_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -382,6 +458,8 @@ func cd001_case(id: String) -> void:
 	for tag in ["full","half","empty"]: rows.append(await _measure(id,tag,defs,packet,rack))
 	_compare(rows,id)
 	await boundary_checks(id,defs,packet,rack)
+	await occupancy_cases(id,defs,packet,rack)
+	await two_query_cases(id,defs,packet,rack)
 
 func _fresh(defs: VehicleDefs, packet: Dictionary, out: Array) -> VehicleActor:
 	_spawn(out)
