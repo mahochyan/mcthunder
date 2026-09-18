@@ -292,6 +292,10 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	print("[CD02-T03 %s] modified damage records=%s" % [id,str(modified_hits.get("record_damage",""))])
 	print("[CD02-T03 %s] original projectile damage=%s" % [id,str(original_hits.get("projectile_damage",""))])
 	print("[CD02-T03 %s] modified projectile damage=%s" % [id,str(modified_hits.get("projectile_damage",""))])
+	print("[CD02-T03 %s] original module intervals=%s" % [id,JSON.stringify(_module_intervals(original_snapshot,aim))])
+	print("[CD02-T03 %s] modified module intervals=%s" % [id,JSON.stringify(_module_intervals(modified_snapshot,aim))])
+	print("[CD02-T03 %s] original interior=%s seen=%d contacted=%s" % [id,str(original_hits.get("interior_targets","")),int(original_hits.get("damage_seen_count",-1)),str(original_hits.get("contacted_targets",""))])
+	print("[CD02-T03 %s] modified interior=%s seen=%d contacted=%s" % [id,str(modified_hits.get("interior_targets","")),int(modified_hits.get("damage_seen_count",-1)),str(modified_hits.get("contacted_targets",""))])
 	if not landed:
 		print("[CD02-T03 %s] NOT_RUN: this probe's own path reaches no plate (%d and %d contacts), so the invariance is NOT demonstrated by this run - the path must be aimed at a plate before this case can pass" % [
 			id,int(original_hits.get("contacts",0)),int(modified_hits.get("contacts",0))])
@@ -301,6 +305,18 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	check(absf(float(original_hits.get("consumed_mm",-1.0))-float(modified_hits.get("consumed_mm",-1.0))) <= 1e-6,
 		"CD02-T03 the same path consumes the same penetration budget regardless of the triangle count ("+id+"): %.6f vs %.6f" % [float(original_hits.get("consumed_mm",-1.0)),float(modified_hits.get("consumed_mm",-1.0))])
 	check(str(original_hits.get("result","")) not in ["","invalid"],"CD02-T03 the resistance leg is a real resolution ("+id+"): "+str(original_hits.get("result","")))
+
+## The interior module intervals the query offers along the fixed path, so the selection inputs can be compared
+## between the two triangulations without a flight.
+func _module_intervals(snapshot: Dictionary, aim: Dictionary) -> Array:
+	var result := ShotQueryService.query({"query_id":"cd002_modules","from_world":aim.from,"to_world":aim.to},[snapshot])
+	var out: Array = []
+	for interval in result.get("volume_intervals",[]):
+		if str(interval.get("kind",""))!="module": continue
+		out.append({"module_id":str(interval.get("module_id","")),"part_id":str(interval.get("part_id","")),
+			"distance_enter_m":float(interval.get("distance_enter_m",-1.0)),
+			"grazing":bool(interval.get("grazing",false)),"external":bool(interval.get("external",false))})
+	return out
 
 ## The armour events the query offers for one path, so the event layer can be inspected independently of the contacts.
 func _armor_events(snapshot: Dictionary, aim: Dictionary) -> Array:
@@ -380,6 +396,9 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 		"record_contacts":JSON.stringify(record.get("contacts",[])),
 		"record_damage":JSON.stringify(record.get("damage_records",[])),
 		"projectile_damage":JSON.stringify(projectile_damage_summary(projectile)),
+		"interior_targets":JSON.stringify(projectile.interior_targets),
+		"damage_seen_count":(projectile.damage_seen.keys() as Array).size(),
+		"contacted_targets":JSON.stringify(projectile.contacted_targets),
 		"record_keys":(record.keys() as Array).size(),
 		"steps":steps,
 		"spall_surfaces":JSON.stringify(st_spall_surfaces(projectile))}
