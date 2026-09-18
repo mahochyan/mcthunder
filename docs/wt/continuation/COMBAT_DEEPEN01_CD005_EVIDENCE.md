@@ -161,3 +161,17 @@ ArmorImpactProfile.response 直接调用：125/30 ⇒ true ✓ ; 75/30 ⇒ false
 | 设计 #2 概率来源（**种子+事件身份，不每帧抽签** ✓）· 设计 #3 三通道不重复消费（T03 已部分验证 ✓）· 设计 #4 同一碰撞事件 ✓ | 🔶 / ⛔ |
 | T04 ERA 两次命中 · T05 边界等值与背面 · T06 种子与缺资料 | ⛔ 未做 |
 | 实现顺序 #2 规则版本与迁移说明 · #3 两车区域矩阵 | ⛔ 未做（#4 已登记 ✓） |
+## 12. `CD05-T04` ERA 单次使用 **通过** ✓✓（`CD05_ERA_SINGLE_USE_PASS` ✓ 首跑全绿）
+探针 `tests/probe_cd005_era.gd` ✓（规则表 L1–L3 ✓ + 经 resolver 端到端 L4 ✓）
+```
+L1 活电荷 + 内向 + 残余 800 ≥ 100 + 角度 10 ≤ 60 ⇒ triggered=**true** ✓ after=**0** ✓ bonus=**120** ✓
+L2 同弹道、电荷已耗(before=0)                ⇒ triggered=**false** ✓ bonus=**0** ✓ after=0 ✓
+L3 活电荷但残余 = 99 < 触发阈值 100          ⇒ triggered=**false** ✓ **after=1** ✓✓（**电荷未被消耗** ✓）
+L3b 活电荷但非内向                            ⇒ triggered=false ✓ **after=1** ✓（同样不消耗 ✓）
+L4 经 ArmorResolver（内向 ✓ 角度 0 ✓ 板后残余远超阈值 ✓）：
+    活电荷 effective=**220.0000** mm ✓（= 100 被动 + 120 减伤 ✓）；已耗 effective=**100.0000** mm ✓
+    ⇒ 两者之差 **恰为声明减伤 120** ✓✓（1e-6 内 ✓）；已耗态**回到裸被动板** ✓
+```
+⇒ 子单期望 ✓✓ 达成："**首次符合触发条件才消耗** ✓"（L1 vs L3/L3b ✓）、"**第二发不重复获得未消耗防护** ✓"（L2 ✓ L4 ✓）。
+**触发点记录** ✓：`armor_resolver.gd:95` 以**真实参数**调用（`residual = before−cost` ✓ `inward = signed_dot<0` ✓ 真实角度 ✓ 跳弹标志 ✓）；L53 的预合并调用参数恒定（`residual=0, inward=false` ✓）⇒ **永不触发** ✓ 属无害前置 ✓。
+**消耗状态与版本** ✓：`st.reactive_event_count` 逐事件递增 ✓ 并写入记录 ✓；`shot_record_builder` 在存在 ERA 事件时写入 `rules_versions["reactive"] = ReactiveArmorProfile.VERSION` ✓ ⇒ **"旧记录保留旧规则"具备机制** ✓（记录级重放校验留待下一轮 ✓）。
