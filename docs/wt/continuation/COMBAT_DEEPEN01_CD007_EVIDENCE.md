@@ -53,3 +53,23 @@
    shooter_team_id ✓（阵营 ✓）· contact_policy ✓（回调 ✓）· unresolved_query **带 detail** ✓（= **有日志** ✓ 而非静默 ✗）
 ```
 ⇒ 本单起点 ✓：**无**外部爆破/超压链 ✓ **不重写**内部爆炸链 ✓ **新增** HE 效果策略 ✓ **复用**既有遮挡/阵营/查询策略 ✓。
+
+## 6. 实现顺序 #1 **先立判据** ✓（`CD07_HE_CHANNELS_SPEC_PASS` ✓ = 规格而非意外 ✓）
+探针 `tests/probe_cd007_he_spec.gd` ✓（依硬约束"**先写/补验收场景再改实现**" ✓）
+```
+[CD07 A1] effect_policy=he_blast      => accepted=false reason=**invalid_effect_policy** ✓
+[CD07 A1] effect_policy=overpressure  => accepted=false reason=**invalid_effect_policy** ✓
+[CD07 A1] effect_policy=blast         => accepted=false reason=**invalid_effect_policy** ✓
+[CD07 A1] effect_policy=fragmentation => accepted=false reason=**invalid_effect_policy** ✓
+[CD07 A1] all four channel names refused with a reason: **4 of 4** ✓✓
+```
+⇒ 判据 ✓（实现须使其**存在** ✓ 且**不得**静默复用既有效果 ✓）：四个通道名**全部被具名拒绝** ✓✓ ⇒ **不存在静默同义** ✓。
+### ⚠️ 我手搓夹具失败**未被冒充为证据** ✓✗（第十次夹具类疏漏 ✓）
+我试图在本探针里**手搓快照**复现"内构在场/缺席"对照 ✗ ⇒ 两种配置**均得 0 记录** ✗ ⇒ 追因 ✓：**快照的 `entity_id` 与 actor 身份不一致** ✗ ⇒ `ShellEffectPolicy.target_snapshot` **查不到目标** ✓ ⇒ 0 记录是**我的夹具**而非通道行为 ✓（改用套件自带的 `set_damage_layout` + 正确身份即可 ✓ 见 CD06-T04 ✓ 那次用**套件夹具**得 0 vs 5 记录 / 0 vs 20 mm ✓✓）。
+⇒ 处置 ✓：**不把它包装成证据** ✓，该半由 **CD06-T04 的实测对照引用** ✓；本探针只保留**能诚实测到的那一条** ✓。
+**Standing rule** ✓：**优先复用套件自带的夹具助手，不手搓快照；若必须手搓，`entity_id` 必须与 actor 身份一致** ✓（与"旋转后先测几何"同类 ✓）。
+### 下一轮（实现 ✓ 最小面 ✓ 不复制管线 ✓）
+1. **新增外部 HE 效果策略** ✓（子单实现顺序 #2"**增加一款明确工程 HE 并限定可用测试武器**" ✓ **不给所有车辆塞不兼容弹种** ✓）：`effect_policy` 增加 **`he_blast`** ✓ 并使其在 `try_spawn` 被**接受** ✓；
+2. **三通道各自记录 + 单一 `root_event`** ✓（设计 #1 ✓ **不共用"半径内全死"开关** ✓）：`blast` / `fragment` / `overpressure` 分通道 ✓ 同一 root_event 汇总 ✓；
+3. **有界连通规则** ✓（设计 #2 ✓）：**封闭舱无破口 ⇒ 无凭空内舱超压** ✓（CD07-T01 ✓）· **开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓（CD07-T02 ✓）；
+4. **验证** ✓：本探针四条**由拒绝转为接受** ✓，且**既有套件全绿**（旧行为对照 ✓）。
