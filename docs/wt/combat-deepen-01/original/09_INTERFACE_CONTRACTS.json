@@ -1,0 +1,239 @@
+{
+  "package_id": "MCT-COMBAT-DEEPEN-01",
+  "kind": "proposed_contracts_not_existing_api_guarantees",
+  "principles": [
+    "扩展现有生产类和数据，名称可适配；不为匹配本文件而重命名全仓。",
+    "定义资源只读，运行状态每实例独立；前台/AI/网络共用权威规则。",
+    "Snapshot是某个tick及约定subtick的事实集合；模型、装甲、乘员、库存占用不得跨时刻拼接。",
+    "所有新数值标reference/estimated/design及来源；未知不是0。",
+    "有限预算返回incomplete而非默认miss/pass；诊断夹具不能改写正式包。"
+  ],
+  "contracts": [
+    {
+      "name": "CombatIdentity",
+      "owner": "现有车辆/比赛/弹丸权威对象",
+      "fields": [
+        "match_id",
+        "entity_id",
+        "life_id",
+        "generation",
+        "shot_id",
+        "projectile_id",
+        "root_effect_id",
+        "event_id",
+        "rules_version",
+        "content_version"
+      ],
+      "invariants": [
+        "life_id标识新生命，不以life_id>1推断重生次数",
+        "同event_id重复只能读取原结果，不再次变更",
+        "不同版本回放不重新求解旧伤害"
+      ]
+    },
+    {
+      "name": "CombatQuerySnapshotV2",
+      "owner": "QuerySnapshotBuilder及权威模拟阶段",
+      "fields": [
+        "identity",
+        "physics_tick",
+        "motion_fraction",
+        "layout_id",
+        "layout_revision",
+        "part_world_transforms",
+        "damage_revision",
+        "occupancy_revision",
+        "ammo_contents",
+        "fixed_structures",
+        "validity",
+        "diagnostics"
+      ],
+      "invariants": [
+        "ammo_contents来自AmmoInventory真实状态",
+        "存弹耗尽的逻辑体积不参与弹药窄相位；固定结构独立",
+        "提交前revision过期要重查或拒绝，不能承认旧目标",
+        "动态状态不能只用layout_id缓存"
+      ]
+    },
+    {
+      "name": "ProjectileShapeProfile",
+      "owner": "ShellDefinition/具体弹药配置",
+      "fields": [
+        "version",
+        "origin",
+        "reason",
+        "bore_caliber_mm",
+        "effective_shape",
+        "shape_dimensions_m",
+        "sampling_policy",
+        "error_bounds",
+        "supported_motion"
+      ],
+      "invariants": [
+        "炮口径不等于长杆弹芯直径",
+        "缺必需shape的新弹拒绝；legacy只能显式选择",
+        "接触板episode独立于采样线编号和渲染帧"
+      ]
+    },
+    {
+      "name": "TerminalResponseV2",
+      "owner": "ArmorResolver/ProjectileManager",
+      "fields": [
+        "contact_episode_id",
+        "plate_id",
+        "layer_id",
+        "time_of_impact",
+        "result",
+        "budget_unit",
+        "before_budget",
+        "consumed_budget",
+        "after_budget",
+        "incoming_velocity_mps",
+        "outgoing_velocity_mps",
+        "effect_allocations",
+        "normal",
+        "rules_version"
+      ],
+      "invariants": [
+        "毫米等效穿深、游戏伤害量、m/s不是可相加的同一种量",
+        "各通道分配守恒只在已声明同单位模型内验证",
+        "同板重采样不重复扣，真实新层或离开后重入不被吞掉"
+      ]
+    },
+    {
+      "name": "CrewAndModuleCondition",
+      "owner": "VehicleRuntimeState与VehicleCapabilities",
+      "fields": [
+        "person_id_or_module_id",
+        "station_id",
+        "role",
+        "condition",
+        "integrity_or_health",
+        "response_profile_version",
+        "functional_effects",
+        "recovery_target",
+        "reasons"
+      ],
+      "invariants": [
+        "UI颜色不生成伤势",
+        "伤势人随换位移动，不能复制人数",
+        "模块按类型选择线性/阈值/概率，不统一乘数",
+        "实际修理比例与外观损伤颜色可不同，不伪装满修"
+      ]
+    },
+    {
+      "name": "ExplosionEffectV1",
+      "owner": "弹丸终端→统一效果/伤害服务",
+      "fields": [
+        "root_effect_id",
+        "trigger",
+        "origin_world",
+        "trigger_tick",
+        "channel",
+        "game_profile_id",
+        "portal_or_breach_path",
+        "affected_identities",
+        "budget_state",
+        "seed",
+        "completion"
+      ],
+      "invariants": [
+        "blast/fragment/overpressure独立",
+        "HEAT jet不自动触发压力通道",
+        "固定世界遮挡与内部舱室使用真实允许路径",
+        "incomplete不等同于某目标免伤或整条通过"
+      ]
+    },
+    {
+      "name": "CombatContributionReceipt",
+      "owner": "TeamMatchDirector/贡献账本",
+      "fields": [
+        "match_id",
+        "rules_version",
+        "source_events",
+        "owner",
+        "target_life",
+        "damage_contributions",
+        "fatal_source",
+        "assists",
+        "team_ticket_delta",
+        "personal_sp_delta",
+        "reward_delta",
+        "receipt_id",
+        "commit_state"
+      ],
+      "invariants": [
+        "一死亡一次票池变化",
+        "结束后的旧事件不追加奖励",
+        "回放环形缓存不是全场权威统计来源",
+        "写盘/重连重复提交不能再入账"
+      ]
+    },
+    {
+      "name": "SpawnTransaction",
+      "owner": "RespawnService及原编成服务",
+      "fields": [
+        "request_id",
+        "match_id",
+        "player_or_slot_id",
+        "vehicle_id",
+        "loadout_hash",
+        "content_version",
+        "reserved_cost",
+        "status",
+        "new_life_id",
+        "failure_reason"
+      ],
+      "invariants": [
+        "validate→reserve→spawn_commit→charge_commit或rollback",
+        "出生受阻不得丢预留",
+        "未就绪车型不能回退默认车来成功扣款"
+      ]
+    },
+    {
+      "name": "BackendViewForFIELDWORK",
+      "owner": "原HUDPresenter/VehicleDamageView/BattleUI适配",
+      "fields": [
+        "own_identity",
+        "condition_snapshot",
+        "crew_roles",
+        "ammo_chamber",
+        "ammo_next",
+        "rack_occupancy",
+        "capability_reasons",
+        "repair_state",
+        "effect_summary",
+        "spawn_state",
+        "permitted_intel",
+        "result_receipt"
+      ],
+      "invariants": [
+        "只读与当前生命绑定",
+        "不公开敌方实时内构",
+        "界面没有值时显示未知/不可用，不填演示数字",
+        "布局/颜色由UI线维护，后端不覆盖整个界面文件"
+      ]
+    },
+    {
+      "name": "AuditResultV2",
+      "owner": "测试/诊断运行器",
+      "fields": [
+        "suite_id",
+        "tested_sha",
+        "case_ids_expected",
+        "case_ids_executed",
+        "status",
+        "failures",
+        "incomplete_reasons",
+        "exit_code",
+        "log_errors",
+        "evidence_paths"
+      ],
+      "invariants": [
+        "status=complete_no_gaps必须所有必需项执行完毕",
+        "ok=false+errors=[]不得PASS",
+        "exit_code未知/脚本异常/超时不能豁免",
+        "测试原始预期与生产输出独立"
+      ]
+    }
+  ]
+}

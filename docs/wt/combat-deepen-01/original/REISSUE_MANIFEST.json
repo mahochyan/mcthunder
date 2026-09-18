@@ -1,0 +1,277 @@
+{
+  "reissue_id": "MCT-CD-REISSUE-20260918-01",
+  "origin": "extracted_from_uploaded_original_zip",
+  "source_zip_name": "MCTHUNDER_战斗后端深化工作单_COMBAT_DEEPEN01_20260918.zip",
+  "source_zip_sha256": "d98480389f27fd176e931c0b7e4aa779fb7948b5c64fb40474f1a3dfd78e00a4",
+  "original_file_count": 36,
+  "original_payload_count": 35,
+  "all_35_payload_hashes_match_original_manifest": true,
+  "same_as_previously_provided_02_06_html": true,
+  "original_crc_ok": true,
+  "game_tests_executed_here": false,
+  "source_branch_read_only": "work/combat-deepen-01",
+  "source_branch_sha_observed": "2a06e70f12ac20115e2d85d1b9e183d5a4dc6822",
+  "design_validation": {
+    "scope": "design_bundle_integrity_only",
+    "status": "PASS",
+    "work_orders": 16,
+    "acceptance_designs": 96,
+    "dependency_dag": true,
+    "source_references_resolved": true,
+    "game_tests_run": false,
+    "game_acceptance": "NOT_RUN"
+  },
+  "single_file_fallback": {
+    "filename": "COMBAT_DEEPEN01_全部必需输入_单文件合集.md",
+    "bytes": 228914,
+    "sha256": "710aa747e53c4e8f8474473e9a0ea6d5bc8e61808ab19a352f2616ac4ad32997"
+  },
+  "files": [
+    {
+      "path": "00_补发收件说明.md",
+      "kind": "new_reissue_supplement",
+      "bytes": 1243,
+      "sha256": "7172ab12ff4b738ebfec678ca3b01dc73b0e0bcff276860aa07dd3582896af5d"
+    },
+    {
+      "path": "SPEC_RECHECK_20260918.json",
+      "kind": "new_reissue_supplement",
+      "bytes": 238,
+      "sha256": "071a63183ad69cb099c01374131fc24d06589106f8b53d399ec4ea96332c375e"
+    },
+    {
+      "path": "original/00_README.md",
+      "kind": "original_unchanged",
+      "bytes": 1671,
+      "sha256": "372c3b9bde62e5b723d226b8e3050189c88f263773736f31ef2443b2a53a1973"
+    },
+    {
+      "path": "original/01_MASTER_WORK_ORDER.md",
+      "kind": "original_unchanged",
+      "bytes": 8707,
+      "sha256": "d283351e7d10371104bff3701f1bb1ae2aeda7c75f9d6064408a2e262f7c4170"
+    },
+    {
+      "path": "original/02_FIRST_DELIVERY.md",
+      "kind": "original_unchanged",
+      "bytes": 2347,
+      "sha256": "e362e26656f457640989d4c88bd8edfa4e152dede1b1fbbd4bfb27b7b8c44c7e"
+    },
+    {
+      "path": "original/03_ALL_WORK_ORDERS.md",
+      "kind": "original_unchanged",
+      "bytes": 59886,
+      "sha256": "8cdfba1ff8fb0506de4f91d16dc47f26fda872cf8d8223b43c7deee6e7753cb9"
+    },
+    {
+      "path": "original/04_INTERFACE_CONTRACTS.md",
+      "kind": "original_unchanged",
+      "bytes": 5149,
+      "sha256": "61d99e839ea6b807756ef926740197ca613247e5523e424667c748c2f39e6fc9"
+    },
+    {
+      "path": "original/05_DELIVERY_AND_ACCEPTANCE.md",
+      "kind": "original_unchanged",
+      "bytes": 5480,
+      "sha256": "f5a8d5935b12ad6c1782ce55aa7d5685426160c11047d919535d68facb5ec83d"
+    },
+    {
+      "path": "original/06_NEXT_IMPLEMENTER_MESSAGE.txt",
+      "kind": "original_unchanged",
+      "bytes": 3616,
+      "sha256": "e8b8228c23f57f3c3af321bdcdf7e7438229265fd010bead368bc555478027a5"
+    },
+    {
+      "path": "original/07_WORK_ORDERS.json",
+      "kind": "original_unchanged",
+      "bytes": 48329,
+      "sha256": "2bb4d87e45608c71a04786c303a57f53edbb60e27e1e34d0994279158c74375a"
+    },
+    {
+      "path": "original/08_ACCEPTANCE_CASES.json",
+      "kind": "original_unchanged",
+      "bytes": 46413,
+      "sha256": "8c73a585e23f11edc7fc01c19a7bde4c2bc511b657de830a1db2f486d933f806"
+    },
+    {
+      "path": "original/09_INTERFACE_CONTRACTS.json",
+      "kind": "original_unchanged",
+      "bytes": 7095,
+      "sha256": "a37e98352b3b0d2ced4da6669cdba0c0269890940f3ac9417f00d371af9b4fe9"
+    },
+    {
+      "path": "original/10_BENCHMARK_MATRIX_TEMPLATE.json",
+      "kind": "original_unchanged",
+      "bytes": 1857,
+      "sha256": "d15f6c147535ddff6258c8e021f90fa9a835a7c5f07b03a7574da52fa809d77c"
+    },
+    {
+      "path": "original/11_SOURCES.md",
+      "kind": "original_unchanged",
+      "bytes": 11973,
+      "sha256": "66e9864a632923139168abfdf340de3131d1f91b693326213989042fb6a30baa"
+    },
+    {
+      "path": "original/11_SOURCE_REGISTER.json",
+      "kind": "original_unchanged",
+      "bytes": 13856,
+      "sha256": "38930ecfad481ec33b6d3379c17af3469c986e1bcab1bdfdd06d068f4c8e6163"
+    },
+    {
+      "path": "original/PACKAGE_MANIFEST.json",
+      "kind": "original_unchanged",
+      "bytes": 5835,
+      "sha256": "f1c6d9b72530c14dffe355f46d67cc62ec0e103cefa99b8004e88b2b70fb520f"
+    },
+    {
+      "path": "original/SPEC_VALIDATION.json",
+      "kind": "original_unchanged",
+      "bytes": 238,
+      "sha256": "071a63183ad69cb099c01374131fc24d06589106f8b53d399ec4ea96332c375e"
+    },
+    {
+      "path": "original/templates/REQUIRED_CONTENT.template.json",
+      "kind": "original_unchanged",
+      "bytes": 773,
+      "sha256": "5c7c019d0931008e0e854846085f8430964bbcf9f9ad4040096368b74db37374"
+    },
+    {
+      "path": "original/templates/RESULTS.template.json",
+      "kind": "original_unchanged",
+      "bytes": 766,
+      "sha256": "8d861a72bfdfff03069fdb43af6b23d593c319e342fa7f32cf3bc195827bdf65"
+    },
+    {
+      "path": "original/templates/RULE_CHANGE.template.json",
+      "kind": "original_unchanged",
+      "bytes": 477,
+      "sha256": "edfb0cd357ea1f01063e4c5da1c1d79e016281de1ce6357385713f3139d29109"
+    },
+    {
+      "path": "original/validate_spec.py",
+      "kind": "original_unchanged",
+      "bytes": 2703,
+      "sha256": "8770512292e10597a21001199672237e9efc4f3e7b41be17d9d1819ff79d875d"
+    },
+    {
+      "path": "original/work_orders/WT-CD-001.md",
+      "kind": "original_unchanged",
+      "bytes": 4113,
+      "sha256": "472222a64d0b1e989607403b86f4f5b341a020a0c769e2ce3950c55a7d5b2a4e"
+    },
+    {
+      "path": "original/work_orders/WT-CD-002.md",
+      "kind": "original_unchanged",
+      "bytes": 3627,
+      "sha256": "367e390212a7521aab75c5e925eeaf157628c13c37dd7a9e5cec09c01fd16088"
+    },
+    {
+      "path": "original/work_orders/WT-CD-003.md",
+      "kind": "original_unchanged",
+      "bytes": 3839,
+      "sha256": "d77eef00b0e362a7d299684c2deb8e7af55df83b87087d99b529b012127203d1"
+    },
+    {
+      "path": "original/work_orders/WT-CD-004.md",
+      "kind": "original_unchanged",
+      "bytes": 3727,
+      "sha256": "aa780ff2a03dc579ce5c840bd8f5cf7afb30bda4048d49a2cfe13112a317f596"
+    },
+    {
+      "path": "original/work_orders/WT-CD-005.md",
+      "kind": "original_unchanged",
+      "bytes": 3538,
+      "sha256": "dd298629de30d648ca1414af7e55cabd815fe0dd3ecb1b9779c4192090843cc8"
+    },
+    {
+      "path": "original/work_orders/WT-CD-006.md",
+      "kind": "original_unchanged",
+      "bytes": 3547,
+      "sha256": "fb5223abcaa82d1cc791a21b1ec868f2023a98b391bfca311876cd2392a6c326"
+    },
+    {
+      "path": "original/work_orders/WT-CD-007.md",
+      "kind": "original_unchanged",
+      "bytes": 3743,
+      "sha256": "c1dbaece614cc0b227f656c797d8f41ce68f9dce5da80a23085f3bf71571d94a"
+    },
+    {
+      "path": "original/work_orders/WT-CD-008.md",
+      "kind": "original_unchanged",
+      "bytes": 3630,
+      "sha256": "2932754e8adb17fad90a5721433f61a57ea3d4ea0343ce7ed1fcac39e1103b8a"
+    },
+    {
+      "path": "original/work_orders/WT-CD-009.md",
+      "kind": "original_unchanged",
+      "bytes": 3706,
+      "sha256": "9fbf6cf9f8fee3f969e7b6aeabf49525e2e376d05e8c9576d8680a8191eebebc"
+    },
+    {
+      "path": "original/work_orders/WT-CD-010.md",
+      "kind": "original_unchanged",
+      "bytes": 3775,
+      "sha256": "d9279e7fbbc10c6221da60f31aae5e504b56a8533248bd5196f5c12cdfce87ff"
+    },
+    {
+      "path": "original/work_orders/WT-CD-011.md",
+      "kind": "original_unchanged",
+      "bytes": 3486,
+      "sha256": "4b0964d47888bf356e780dedf9a3a794917b70e36a78040302d43dc5d122acc8"
+    },
+    {
+      "path": "original/work_orders/WT-CD-012.md",
+      "kind": "original_unchanged",
+      "bytes": 3469,
+      "sha256": "3ea287cacd473ff773847e11a0fe36ffa489257cae1eda80857a659373e90004"
+    },
+    {
+      "path": "original/work_orders/WT-CD-013.md",
+      "kind": "original_unchanged",
+      "bytes": 3644,
+      "sha256": "d1e278fdfecc13054c577f073c83b2279d260eb2ac7ea30abf94114a8d0687b0"
+    },
+    {
+      "path": "original/work_orders/WT-CD-014.md",
+      "kind": "original_unchanged",
+      "bytes": 3699,
+      "sha256": "9a48520cd0b4c32149bb96cd890ca29a387394b7c11d80407fb8bcbfb604ee7a"
+    },
+    {
+      "path": "original/work_orders/WT-CD-015.md",
+      "kind": "original_unchanged",
+      "bytes": 3846,
+      "sha256": "a5158a19a74fbb7c9b162b41637374f94390c8a7f0e35f546ee174971f6813fc"
+    },
+    {
+      "path": "original/work_orders/WT-CD-016.md",
+      "kind": "original_unchanged",
+      "bytes": 4248,
+      "sha256": "802047266b472720c41ee95f0be480ebbebe5d7d981532e733e69baaae5c039b"
+    },
+    {
+      "path": "original/工作单_阅读版.html",
+      "kind": "original_unchanged",
+      "bytes": 107841,
+      "sha256": "d4ba31613813b3deda088709678eeae6d92bfd5dd5b7ae26c0409b76286f2630"
+    },
+    {
+      "path": "supplement/RESUME_DECISION_20260918.md",
+      "kind": "new_reissue_supplement",
+      "bytes": 9182,
+      "sha256": "4dea287c5e04d3efa98e48219d8832da5ae77bc89d799a2a1e1c2a21b1cd99db"
+    },
+    {
+      "path": "supplement/RULE_MIGRATION_INDEX.md",
+      "kind": "new_reissue_supplement",
+      "bytes": 1876,
+      "sha256": "98f93bb768d3dccbe4e0513d74a06d138b4885c10b72d4121d0e0415c9ddfb97"
+    },
+    {
+      "path": "supplement/SOURCE_RECHECK_20260918.json",
+      "kind": "new_reissue_supplement",
+      "bytes": 3432,
+      "sha256": "220bec3bd5b41b93d0ecd7508a8f98cc581090d7ebe1de2bfc1aa4d7fc2ecb2b"
+    }
+  ]
+}

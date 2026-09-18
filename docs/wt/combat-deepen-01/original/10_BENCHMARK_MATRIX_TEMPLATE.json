@@ -1,0 +1,63 @@
+{
+  "package_id": "MCT-COMBAT-DEEPEN-01",
+  "schema_version": 1,
+  "purpose": "填写前是模板，不代表任何已测数据或战雷一致性",
+  "evidence_levels": [
+    "SOURCE_RULE",
+    "PROJECT_FIXTURE",
+    "WT_BEHAVIOR_COMPARISON",
+    "HUMAN_PLAYTEST"
+  ],
+  "case_template": {
+    "id": null,
+    "work_order_id": null,
+    "status": "NOT_COMPARED",
+    "mechanic": null,
+    "war_thunder": {
+      "game_build": null,
+      "mode": "Ground Realistic Battles (normal mode)",
+      "vehicle_variant": null,
+      "shell": null,
+      "crew_or_modifications": null,
+      "source_url_or_capture_id": null,
+      "observed_at": null
+    },
+    "mcthunder": {
+      "tested_sha": null,
+      "package_sha256": null,
+      "rules_version": null,
+      "vehicle_id": null,
+      "shell_id": null,
+      "content_version": null
+    },
+    "conditions": {
+      "distance_m": null,
+      "impact_angle_deg": null,
+      "target_part": null,
+      "target_pose": null,
+      "ammo_occupancy": null,
+      "damage_before": null,
+      "seed_set": []
+    },
+    "sample_policy": {
+      "deterministic_cases": "按同一输入重复并比较；不声称跨平台逐bit一致",
+      "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
+    },
+    "metric": null,
+    "expected_reference": null,
+    "tolerance_predeclared": null,
+    "actual_project": null,
+    "outcome": null,
+    "limitation": null,
+    "raw_evidence": [],
+    "deviation_class": null
+  },
+  "known_reference_conflicts": [
+    {
+      "id": "REF-CREW-01",
+      "source_id": "W02",
+      "issue": "乘员章节对受伤效能的文字与表格不一致",
+      "decision": "伤势状态可以作为明确项目设计实现；具体战雷效能罚率保留待核，不自动采用统一线性罚率。"
+    }
+  ]
+}

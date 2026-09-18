@@ -1,0 +1,1073 @@
+{
+  "metadata": {
+    "package_id": "MCT-COMBAT-DEEPEN-01",
+    "title": "战斗后端深化：弹药、装甲、毁伤、物理与结算",
+    "spec_version": "1.0.0",
+    "issued_on": "2026-09-18",
+    "repository": "mahochyan/mcthunder",
+    "audit_baseline_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+    "observed_main_sha": "3b2fe165a69e1a777c5c4d02b852b7e5438e3388",
+    "latest_check_scope": "仅HEAD及元数据、AGENTS、DamageResolver、QuerySnapshotBuilder；未重做完整审计",
+    "execution_baseline": "执行开始时核对最新获准主线一次；保留后继，不强制checkout审查SHA",
+    "reference_target": "常规Ground Realistic Battles的公开机制和可观察行为，不含限时活动特例；工程默认值不冒充官方值",
+    "status": "design_delivered_implementation_not_started_by_this_assistant",
+    "work_order_count": 16,
+    "acceptance_case_count": 96,
+    "game_tests_executed_in_this_delivery": false,
+    "human": "PENDING",
+    "performance": "HOLD_BY_USER",
+    "release_ready": false,
+    "public_release": false,
+    "compatibility": {
+      "retain_legacy_mode": "team_standard_300",
+      "new_mode_proposed": "ground_rb_like_v1",
+      "ui_line": "MCT-UI-FIELDWORK-01 stays active; no blind file overwrite"
+    },
+    "status_note": "JSON内planned/NOT_RUN是规范发布状态，不覆盖执行端已有进度；相应功能若已存在，只补验证和差距。"
+  },
+  "items": [
+    {
+      "id": "WT-CD-001",
+      "title": "空弹架、搬运弹与动态毁伤占用",
+      "priority": "P1",
+      "phase": "G1",
+      "depends_on": [],
+      "related_parent_orders": [
+        "WT-010",
+        "WT-014",
+        "WT-015"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "待复现风险：上一轮调用链提示空架可能仍进入盒体命中和预算消耗；本次抽查快照及模块求解仍值得验证。不是已实测Bug。",
+      "player_outcome": "少带弹真正减少可命中的弹药体积；空弹架不再凭空吸收弹丸或发生弹药损失。",
+      "read_first": [
+        "scripts/query/query_snapshot_builder.gd",
+        "scripts/query/shot_query_service.gd",
+        "scripts/damage/damage_resolver.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/vehicle_actor.gd",
+        "scripts/gunner.gd"
+      ],
+      "design_requirements": [
+        "分开ammo_contents、rack_structure与compartment_barrier。弹药耗尽不等于隔板或钢支架消失；每种实体有自己的命中/阻力策略。",
+        "运行快照加入不可变的弹架占用和revision，覆盖在架、已预留、搬运中、膛内及已损失五种状态。装填使用现有库存服务，任何一发只占一个定义清楚的位置。",
+        "首版以实际装填顺序激活子体积；没有逐发几何时采用明确的分区占用近似，不把库存比例简单乘到整个盒子的穿透阻力。",
+        "同一物理步内前一发导致弹架清空后，后一发不得使用已过期占用；方案可选提交时复核并重查，或事件有序更新派生快照，必须保留相同时刻的位姿。",
+        "缺占用状态明确incomplete/拒绝，不把未知默认为空；固定布局缓存不缓存动态库存结果。"
+      ],
+      "implementation_steps": [
+        "先在两车相同射线路径上做满/半/空架对照，记录实际命中对象、预算消费、库存前后，不先改代码。",
+        "证实后只补查询快照、动态过滤和提交复核的最小缺口；若未复现，保留闭合证据，不制造diff。",
+        "接入现有Inventory和HUD采样；只增加必要的显示字段，不在UI另算占用。",
+        "对照无修改基线与新实现，重跑装填、弹药守恒、模型/布局和恢复相关套件。"
+      ],
+      "deliverables": [
+        "满/半/空实弹对照JSON及事件路径",
+        "动态占用契约与限定范围生产补丁",
+        "六场景结果和受影响回归",
+        "正常配弹后少带弹的演示"
+      ],
+      "rejection_conditions": [
+        "仅让HUD隐藏弹架，后台仍结算满架",
+        "为了空架测试删除隔板或改穿深",
+        "重置时把消耗过的库存补回",
+        "用格式校验代替实际接触"
+      ],
+      "source_ids": [
+        "R01",
+        "R06",
+        "R07",
+        "W02"
+      ],
+      "acceptance_case_ids": [
+        "CD01-T01",
+        "CD01-T02",
+        "CD01-T03",
+        "CD01-T04",
+        "CD01-T05",
+        "CD01-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-002",
+      "title": "两辆样车的战斗几何与装甲区域",
+      "priority": "P1",
+      "phase": "G1",
+      "depends_on": [],
+      "related_parent_orders": [
+        "WT-011",
+        "WT-014",
+        "WT-030"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "源码审查：三环重建与17逻辑区为简化结构；模型绑定存在并不证明每处弱点几何正确。",
+      "player_outcome": "玩家瞄准的炮盾边缘、首下、炮塔侧面、尾舱和空隙与实际受击相符。",
+      "read_first": [
+        "scripts/content/historical_vehicle_geometry.gd",
+        "configs/vehicles/engineering/ussr_t_80b.json",
+        "configs/vehicles/engineering/germ_leopard_2a4.json",
+        "scripts/content/bound_vehicle_model.gd",
+        "scripts/query/query_snapshot_builder.gd"
+      ],
+      "design_requirements": [
+        "保留17个logical_zone作为分类；允许每区下拆多个physical_plate，稳定板件ID与真实层ID分别定义。",
+        "建立model/drive_collision/armor/module/crew五层视图。视觉LOD只改变外观，不改变任何战斗几何。",
+        "原始参考档案不可覆盖；参考来源、空间估计和项目设计逐字段分账。没有证据的局部不能被整区最大厚度填满。",
+        "区分绘图AABB/粗筛AABB与窄相位装甲；粗筛命中不能直接当实体装甲命中。",
+        "先冻结炮盾、座圈、首上首下、车体侧面、尾舱六类主要部位；其他细附件保留明确粗略状态，不停等全车精模。"
+      ],
+      "implementation_steps": [
+        "读取当前已交付两车及后继修正，用正常Actor导出几何与模型叠加视图。",
+        "在隔离authoring目录编辑，给出每处误差采用依据；运行转换并确认未碰用户制作中GLB。",
+        "修复已确认的空间错误；生成可读zone→plate→part映射及单位标记。",
+        "用真实旋转/悬挂姿态验证，不将静置截图作为全部姿态通过。"
+      ],
+      "deliverables": [
+        "两车更新后的生产布局/证据映射",
+        "六类关键部位多视图叠加与实际射线点集",
+        "导出可复现步骤与LOD独立性结果"
+      ],
+      "rejection_conditions": [
+        "把AABB壳当精确装甲且未标注",
+        "用补整片装甲掩盖孔洞",
+        "修改用户未提交美术源",
+        "为赶进度虚构真实防护值"
+      ],
+      "source_ids": [
+        "R04",
+        "R11"
+      ],
+      "acceptance_case_ids": [
+        "CD02-T01",
+        "CD02-T02",
+        "CD02-T03",
+        "CD02-T04",
+        "CD02-T05",
+        "CD02-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-003",
+      "title": "有限截面弹丸与运动目标接触",
+      "priority": "P1",
+      "phase": "G1/G2",
+      "depends_on": [
+        "WT-CD-001",
+        "WT-CD-002"
+      ],
+      "related_parent_orders": [
+        "WT-010",
+        "WT-011"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "源码审查：主命中路径为线段；已有平移扫掠但不等于弹丸体积或旋转连续碰撞。",
+      "player_outcome": "炮弹不再像无尺寸针穿过窄缝，同时接缝不会凭空叠出数倍装甲。",
+      "read_first": [
+        "scripts/projectiles/projectile_manager.gd",
+        "scripts/projectiles/projectile_state.gd",
+        "scripts/query/shot_query_service.gd",
+        "scripts/query/query_geometry.gd",
+        "scripts/query/translation_sweep.gd（按实际路径确认）"
+      ],
+      "design_requirements": [
+        "定义ProjectileShapeProfile：bore_caliber_mm与effective_projectile_shape分开；APFSDS不用炮膛直径冒充弹芯。缺实测形状采用独立工程profile并标design。",
+        "3A静态有限截面先落地，3B相对平移，3C旋转部件。采用有界多射线/扫掠凸体之一并写出采样和误差边界，不假定任一方式天然精确。",
+        "同物理板在同一连续接触episode只计算一次；不同真实层仍分别作用。反弹后再次真正进入同板属于新episode，不用永久plate去重吞接触。",
+        "装甲、模块、乘员、世界遮挡和后效统一采用接触时刻；预算上限到达返回明确incomplete，不当作无命中。",
+        "保留v1线查询的显式旧规则入口作对照；新工程弹不能因缺shape偷偷回退旧线规则。"
+      ],
+      "implementation_steps": [
+        "先建立比弹体窄/相当/宽的人工缝隙与单板基准；用期望几何而非被测函数算测试答案。",
+        "实现3A，并以两车实际炮盾和侧裙验证；交付G1时明确3B/3C待完成。",
+        "在同一接口逐步接平移和旋转，重查后效快照时间；不一次重写查询缓存和网络。",
+        "修正接触记录和回放字段；按变更影响重跑装甲、弹丸、世界遮挡。"
+      ],
+      "deliverables": [
+        "ProjectileShapeProfile及实际工程弹配置",
+        "分阶段窄缝/接缝/运动目标用例",
+        "接触TOI、板件ID和去重日志",
+        "3A可玩检查点及3B/3C完成记录"
+      ],
+      "rejection_conditions": [
+        "把所有碰撞盒等比放大冒充体积弹",
+        "多条射线重复扣同一块板",
+        "靠减速或禁转炮塔掩盖漏判",
+        "仅3A通过却把整单完成"
+      ],
+      "source_ids": [
+        "R02",
+        "W01"
+      ],
+      "acceptance_case_ids": [
+        "CD03-T01",
+        "CD03-T02",
+        "CD03-T03",
+        "CD03-T04",
+        "CD03-T05",
+        "CD03-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-004",
+      "title": "弹道时间、速度与火控预测一致",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-003"
+      ],
+      "related_parent_orders": [
+        "WT-007",
+        "WT-010"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "源码审查：飞行主要重力、距离穿深曲线独立；穿透预算与残余速度未建立统一更新。",
+      "player_outcome": "测距、提前量和穿后引信基于同一套时间与速度，不出现瞄具算一条、炮弹飞另一条。",
+      "read_first": [
+        "scripts/projectiles/ballistic_math.gd",
+        "scripts/projectiles/projectile_state.gd",
+        "scripts/projectiles/projectile_manager.gd",
+        "scripts/projectiles/ballistic_intercept.gd",
+        "scripts/gunner.gd",
+        "scripts/vehicle_actor.gd"
+      ],
+      "design_requirements": [
+        "建立BallisticsProfile版本：单位、初速、重力、可选经验阻力/速度衰减与寿命/距离上限；第一版选择一种可校准近似，不同时上多套空气模型。",
+        "实际飞行、火控、AI预计命中共用一个求解服务；不复制一份HUD用抛物线。",
+        "接触返回明确的residual_velocity规则。穿深预算不是焦耳，不能直接将毫米代入动能公式；映射属于项目设计并单独标定。",
+        "长距离距离穿深、速度衰减和装甲扣耗不得重复惩罚；记录空气段和接触段分别消费。重力导致速度变化不等于凭空增能。",
+        "初速继续包含已支持的车体速度；炮口角运动项只有实现/验证后才声明；每弹固定随机种子避免帧率影响散布。"
+      ],
+      "implementation_steps": [
+        "冻结0阻力解析基准与一套工程阻力曲线，先输出时间/落点/速度表。",
+        "接入权威弹丸和预测器，再接穿透后速度/引信；旧历史配置显式使用v1，不静默改变其曲线。",
+        "在200/500/1000/1500 m范围内按武器有效射程采样，明确超范围不作性能承诺。",
+        "完成运动射手/目标和壁后引信专项，禁止直接调瞄准答案掩盖求解差异。"
+      ],
+      "deliverables": [
+        "同源弹道服务和两类profile",
+        "射程/飞行时间/速度/落点对照表",
+        "穿透前后速度和引信时刻记录",
+        "更新的预测/实际一致性回归"
+      ],
+      "rejection_conditions": [
+        "UI单独修弹着点",
+        "距离曲线和新阻力重复扣穿深未说明",
+        "增加阻力参数但飞行不使用",
+        "为通过把目标瞬移到弹着点"
+      ],
+      "source_ids": [
+        "R02",
+        "R03",
+        "W03"
+      ],
+      "acceptance_case_ids": [
+        "CD04-T01",
+        "CD04-T02",
+        "CD04-T03",
+        "CD04-T04",
+        "CD04-T05",
+        "CD04-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-005",
+      "title": "分弹族穿透、跳弹与材料响应校准",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-002",
+        "WT-CD-003"
+      ],
+      "related_parent_orders": [
+        "WT-012",
+        "WT-030"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已存在AP/APHE、长杆、HEAT及复合/ERA策略，但为项目自定义阈值和系数。需验证行为，不是从零重写。",
+      "player_outcome": "同一炮弹打不同角度/材料得到稳定且可解释的差异，命中记录可以复核理由。",
+      "read_first": [
+        "scripts/armor/armor_resolver.gd",
+        "scripts/armor/armor_impact_profile.gd",
+        "scripts/armor/armor_layer_profile.gd",
+        "scripts/armor/reactive_armor_profile.gd",
+        "configs/shells/modern_engineering_loadouts.json"
+      ],
+      "design_requirements": [
+        "定义终端状态not_penetrated/perforated_stop/penetrated/ricochet等与实际继续飞行/后效的对应。",
+        "把AP/APHE的口径压制/转正、长杆角度响应、HEAT射流规则分开；需要概率时使用服务器种子和事件身份，不每帧抽签。",
+        "复合和ERA保留三通道结构，但参数逐区域有依据；同一物理层不可在厚度、角度、材料和外挂处重复消费。",
+        "几何法向、前/背面与局部倾角基于同一碰撞事件；穿深预算继续用明确game_rha_equivalent_mm。",
+        "先冻结“工程自洽版”和“公开可对照版”两种证据状态；没有实测对照时不宣称战雷数值一致。"
+      ],
+      "implementation_steps": [
+        "先验证一块板、两层板、复合和单块ERA，不先调两车胜率。",
+        "为配置添加规则版本和迁移说明；旧记录保留旧规则，不跨版本直接播放重算。",
+        "将两车主要区域接入矩阵，逐步替换明显不当的代表值；未知原档案保留。",
+        "记录未能得到的外部参考，不因缺保密数据中断工程版。"
+      ],
+      "deliverables": [
+        "分弹族/角度/材料矩阵",
+        "两车选定区域的v2规则配置",
+        "每次预算扣减的可追溯记录",
+        "公开参考与工程设计分账"
+      ],
+      "rejection_conditions": [
+        "拿自身校验通过冒充战雷一致",
+        "把APFSDS口径当弹芯直径",
+        "ERA重复触发同一块",
+        "一个全车防护乘数覆盖空间差异"
+      ],
+      "source_ids": [
+        "R03",
+        "R04",
+        "W03"
+      ],
+      "acceptance_case_ids": [
+        "CD05-T01",
+        "CD05-T02",
+        "CD05-T03",
+        "CD05-T04",
+        "CD05-T05",
+        "CD05-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-006",
+      "title": "APHE、动能剥落与HEAT穿后参数化",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-001",
+        "WT-CD-004",
+        "WT-CD-005"
+      ],
+      "related_parent_orders": [
+        "WT-013"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有有限破片/射流/引信；普通内部爆炸仍共用固定后效模板。",
+      "player_outcome": "换弹种不只改变穿深；穿后方向、范围、遮挡和引信位置产生不同打法。",
+      "read_first": [
+        "scripts/projectiles/shell_effect_policy.gd",
+        "scripts/projectiles/fragment_system.gd",
+        "scripts/projectiles/chemical_jet_system.gd",
+        "scripts/projectiles/projectile_manager.gd",
+        "configs/shells/modern_engineering_loadouts.json"
+      ],
+      "design_requirements": [
+        "新增/扩展PostPenetrationProfile：后效通道、方向分布、作用范围、离散采样权重和预算；数值为游戏规则，不称真实碎片数量。",
+        "APHE引信启动、延期、弹体停止后起爆、穿出后起爆分别处理；后效不强制全部留在首个车体。",
+        "长杆母弹、装甲剥落、HEAT射流、壳体爆炸为不同通道；同一来源事件的预算和归因可追踪，不能每生成一条采样线就复制一份总伤害。",
+        "破片/射流按接触时刻的内构和实体占用遮挡，空架过滤与隔板有效性共用CD001。",
+        "旧固定12条等模板仅允许显式legacy配置使用，新工程弹必须指定自己的profile。"
+      ],
+      "implementation_steps": [
+        "保留现有生产后效入口，把固定参数挪入有版本配置而不复制一套毁伤管线。",
+        "先做两款后效不同的工程APHE，再接两车APFSDS与HEAT已有配置。",
+        "增加可视化轨迹与只读记录，明确哪些是真采样哪些只是展示线。",
+        "验证多次接触的预算及身份守恒，射手死亡不吞掉已发射弹的正确归因。"
+      ],
+      "deliverables": [
+        "按弹药配置的穿后规则",
+        "内部遮挡/引信位置对照JSON",
+        "剥落与母弹预算记录",
+        "实际命中回放示例"
+      ],
+      "rejection_conditions": [
+        "只把破片数加大",
+        "每片复制母弹全伤害",
+        "穿出后永不爆炸但仍宣称延期完整",
+        "用视觉爆炸替代实际后效"
+      ],
+      "source_ids": [
+        "R05",
+        "R03",
+        "W03"
+      ],
+      "acceptance_case_ids": [
+        "CD06-T01",
+        "CD06-T02",
+        "CD06-T03",
+        "CD06-T04",
+        "CD06-T05",
+        "CD06-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-007",
+      "title": "HE外部爆破、破片与超压",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-002",
+        "WT-CD-005",
+        "WT-CD-006"
+      ],
+      "related_parent_orders": [
+        "WT-013",
+        "WT-018"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "上次审查未找到完整独立HE/超压生产链；开始时先确认后继是否补充，已有部分不重写。",
+      "player_outcome": "HE打开放战斗室、薄装甲或近失弹有实际用途，墙后与封闭舱不能隔空被同一种球形伤害清空。",
+      "read_first": [
+        "scripts/projectiles/projectile_manager.gd",
+        "scripts/projectiles/fragment_system.gd",
+        "scripts/projectiles/chemical_jet_system.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/query/shot_query_service.gd"
+      ],
+      "design_requirements": [
+        "按游戏规则独立设计blast、fragment、overpressure三条通道；同一爆炸root_event记录各通道，不共用一个“半径内全死”开关。",
+        "使用有界舱室/开口/装甲破口连通规则表达压力影响；这是游戏抽象，不要求计算流体力学，也不填写真实武器爆压公式。",
+        "先支持接触HE和世界碰撞后爆炸；近炸/定时/导弹/HESH不在本单第一版。",
+        "HEAT已有射流和可选爆炸分开触发，不能把射流穿透本身认成超压伤害。",
+        "开放顶M36可作为现有代表之一，能否用其战斗几何取决于CD002检查；不临时把现代坦克改成敞篷测试。",
+        "世界遮挡、阵营/出生保护和不完整查询使用同一策略；预算边界不能导致无日志的穿墙杀。"
+      ],
+      "implementation_steps": [
+        "用标准开放舱/封闭舱/带隔板夹具先证明传递规则。",
+        "增加一款明确工程HE并限定可用测试武器，不给所有车辆塞不兼容弹种。",
+        "接入真实炮弹世界/车辆接触后的爆炸，加入有限受影响对象和完成状态。",
+        "在现有代表车辆上做正常射击验证，再接效果与音效；不先做大爆炸画面。"
+      ],
+      "deliverables": [
+        "爆炸通道及舱室连通规范",
+        "实际工程HE配置和注册入口",
+        "开放/封闭/墙后/隔舱实弹证据",
+        "预算上限、保护和去重回归"
+      ],
+      "rejection_conditions": [
+        "用整车总血条或简单球伤代替舱室",
+        "把HEAT射流直接当爆压",
+        "新弹只在测试脚本能发射",
+        "用增加伤害强行让期望敌人死亡"
+      ],
+      "source_ids": [
+        "R02",
+        "R05",
+        "W04"
+      ],
+      "acceptance_case_ids": [
+        "CD07-T01",
+        "CD07-T02",
+        "CD07-T03",
+        "CD07-T04",
+        "CD07-T05",
+        "CD07-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-008",
+      "title": "乘员伤势、失能与岗位替补",
+      "priority": "P2",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-001",
+        "WT-CD-006"
+      ],
+      "related_parent_orders": [
+        "WT-014",
+        "WT-015"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "当前抽查DamageResolver对有效乘员命中直接alive=false；需要分开伤势、岗位和可用性。官方乘员页面中间伤势效能表述存在矛盾。",
+      "player_outcome": "轻微伤害不自动等于全失能；乘员状态、换位和实际岗位能力一致，不凭空复活。",
+      "read_first": [
+        "scripts/damage/damage_resolver.gd",
+        "scripts/defs/vehicle_runtime_state.gd",
+        "scripts/damage/vehicle_capabilities.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/ui/（只协调显示契约）"
+      ],
+      "design_requirements": [
+        "引入versioned CrewDamageProfile/condition，保留兼容alive或明确迁移；人物person_id与station/role分离，移动的是人而不是复制一名乘员。",
+        "轻伤/重伤/失能作为项目状态设计；是否降低岗位效能逐模式单列。未核实战雷相应版本之前，不声称伤势罚率属于战雷真值，工程版可先只改变伤势与失能阈值。",
+        "局部命中、破片和爆炸使用不同输入通道但同一伤势提交服务；受伤不靠UI变色模拟。",
+        "已失能人员不在本次生命中自然复活；存活伤员恢复的延时/上限如实现则显式配置；换位不增加人数。",
+        "人员不足死亡条件按车辆/模式能力显式定义，默认保留当前规则直到新preset启用；不强行给两人特殊车套通用结论。"
+      ],
+      "implementation_steps": [
+        "增加状态迁移和保底旧档读取，再改生产伤害求解。",
+        "先用可解释的固定游戏响应，再对需要的随机结果添加确定性seed。",
+        "与UI线仅共享只读伤势/岗位字段，不改其视觉主题。",
+        "补同一人多次受伤、换位、自然恢复和死亡重生验证。"
+      ],
+      "deliverables": [
+        "CrewDamageProfile及状态迁移",
+        "岗位和伤势对照测试",
+        "本车HUD数据契约补充",
+        "同生命伤势记录与新生命重建证据"
+      ],
+      "rejection_conditions": [
+        "只增加红黄黑颜色而不变状态",
+        "伤员换位后变成满员",
+        "把官方有冲突的效能描述编成确定事实",
+        "把失能人物自然复活"
+      ],
+      "source_ids": [
+        "R01",
+        "R06",
+        "W02"
+      ],
+      "acceptance_case_ids": [
+        "CD08-T01",
+        "CD08-T02",
+        "CD08-T03",
+        "CD08-T04",
+        "CD08-T05",
+        "CD08-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-009",
+      "title": "模块渐进失能、故障与恢复后能力",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-005",
+        "WT-CD-008"
+      ],
+      "related_parent_orders": [
+        "WT-014",
+        "WT-015"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有模块完整度、炮塔轴比例和能力推导，但部分关键模块只在归零禁用。需按模块区分，不是所有模块都线性削弱。",
+      "player_outcome": "发动机重损后的机动力、炮闩故障风险、机构失能和维修结果，能改变玩家下一步决策。",
+      "read_first": [
+        "scripts/damage/vehicle_capabilities.gd",
+        "scripts/damage/damage_resolver.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/gunner.gd",
+        "scripts/defs/vehicle_runtime_state.gd"
+      ],
+      "design_requirements": [
+        "建立ModuleResponseProfile：支持linear/threshold/probabilistic等按类型选择的策略；引擎/传动、炮闩、炮管、瞄准机构、电子设备不得共用一个统一完整度乘数。",
+        "单一VehicleCapabilities派生发动机动力、yaw/pitch、装填、开火与火控可用性；玩家、AI、服务器和HUD不分别判断。",
+        "炮闩故障仅在真实开火请求的正确阶段判一次；故障是否耗膛内弹/毁坏部件必须冻结规则，不能在UI每帧重新掷骰。",
+        "炮管、水平/垂直机构和火控依赖使用存在的模块；没有某部件的车型不凭空获得装备。",
+        "维修恢复目标与显示阈值分开。先保留当前50%等旧规则用于旧preset，再在新规则中明确时间、可中断性和恢复能力；不能自动满修。"
+      ],
+      "implementation_steps": [
+        "列出现有两车和四历史车的模块→功能依赖表，明确不适用项。",
+        "补齐关键模块响应，然后测试伤而未毁时的实际驾驶/开火变化。",
+        "故障和恢复均发出已提交事件，保留来源、规则版本、前后能力。",
+        "六车及不含对应模块的配置一起回归，避免主战模板污染。"
+      ],
+      "deliverables": [
+        "模块能力映射及v2配置",
+        "真实操作下的完好/受损/修复对照",
+        "种子化故障与重复请求检查",
+        "UI可消费的原因枚举"
+      ],
+      "rejection_conditions": [
+        "所有模块统一线性乘数",
+        "完整度颜色变了但实际能力未变",
+        "维修完成直接全新且无规则变更",
+        "测试直接修改能力布尔值冒充生产损伤"
+      ],
+      "source_ids": [
+        "R06",
+        "W02"
+      ],
+      "acceptance_case_ids": [
+        "CD09-T01",
+        "CD09-T02",
+        "CD09-T03",
+        "CD09-T04",
+        "CD09-T05",
+        "CD09-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-010",
+      "title": "装填、分体弹药、殉爆与隔舱状态",
+      "priority": "P1",
+      "phase": "G2",
+      "depends_on": [
+        "WT-CD-001",
+        "WT-CD-006",
+        "WT-CD-008",
+        "WT-CD-009"
+      ],
+      "related_parent_orders": [
+        "WT-015",
+        "WT-027"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "现有T-80自动装填、豹2待发/备用和泄压已实现，优先复用并补边界。",
+      "player_outcome": "玩家能通过携弹量、弹种、待发耗尽和隔舱选择管理生存与持续作战。",
+      "read_first": [
+        "scripts/defs/loading_profile.gd",
+        "scripts/gunner.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/defs/vehicle_runtime_state.gd",
+        "configs/vehicles/engineering/ussr_t_80b.json",
+        "configs/vehicles/engineering/germ_leopard_2a4.json"
+      ],
+      "design_requirements": [
+        "保留现有AmmoInventory唯一账本；在架/预留/搬运/膛内/消耗/损失守恒。待发补充与开炮装填是独立计时任务。",
+        "按实际支持选择一体弹或分装弹的逻辑储存；分体配置区分弹体与发射药。APFSDS非爆炸弹芯不等于整发不存在发射药风险。",
+        "AmmoReactionProfile按储存类型、实际库存、伤害通道和隔舱状态定义不起爆/燃烧/局部损失/致死，不把全部有弹架归零都必然整车炸。",
+        "隔舱门状态、隔板被穿、泄压出口和装填搬运期间的隔离有效性必须有显式规则。没有动态门模型时保留项目逻辑抽象和范围说明。",
+        "自动装填机构受损不取消已装膛最后一发；维修不返还被炸失弹药；备用和膛内弹按实际隔舱保留或损失。"
+      ],
+      "implementation_steps": [
+        "回归当前T-80和豹2成果，再只扩展新边界。",
+        "原有殉爆确定性保留legacy策略，v2反应状态按配置接到生产事件；随机方案需seed。",
+        "将分体弹药/隔板和泄压数据落实到两车可证实部分，不借此重做整个外观模型。",
+        "运行连续射击到待发耗尽、真实补弹、隔舱受击、再出击全过程。"
+      ],
+      "deliverables": [
+        "库存事务与反应状态机",
+        "两车实际装填/弹架配置及来源标记",
+        "隔舱实弹、待发耗尽和最后一发专项",
+        "损失与补给事件守恒报告"
+      ],
+      "rejection_conditions": [
+        "另建第二套弹数",
+        "将不明真实结构伪造为史实",
+        "维修凭空返还损失炮弹",
+        "用所有弹架都必爆替代有区别的反应"
+      ],
+      "source_ids": [
+        "R07",
+        "R06",
+        "W02",
+        "W05"
+      ],
+      "acceptance_case_ids": [
+        "CD10-T01",
+        "CD10-T02",
+        "CD10-T03",
+        "CD10-T04",
+        "CD10-T05",
+        "CD10-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-011",
+      "title": "驾驶、履带、悬挂与后坐标定",
+      "priority": "P2",
+      "phase": "G3",
+      "depends_on": [
+        "WT-CD-009"
+      ],
+      "related_parent_orders": [
+        "WT-004",
+        "WT-005",
+        "WT-006"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有运动学驾驶、等效动力、四点悬挂、侧向履带失能等；不是要求改用另一引擎或逐履带板刚体。",
+      "player_outcome": "两车抢位、制动、倒车回掩体、坡顶急停和受损撤退有可信差异。",
+      "read_first": [
+        "scripts/tank.gd",
+        "scripts/drive/drive_powertrain.gd",
+        "scripts/drive/suspension_response.gd",
+        "scripts/drive/track_drive.gd（按实际路径确认）",
+        "scripts/drive/landing_response.gd（按实际路径确认）"
+      ],
+      "design_requirements": [
+        "先明确现有车型的速度/加速度/倒车/转向损速/坡地能力设计表；参考值和设计值分列，不编造历史齿比。",
+        "底盘仍有唯一位移/姿态提交者，悬挂只在既有权威结构内更新；HUD和视觉摇晃不能反写碰撞。",
+        "后坐响应按武器/车型配置建立有界项目反应，不要求现实冲量数值；不能所有炮开火统一踢一段车速。",
+        "车体碰撞先保证稳定阻挡、不卡出生和可脱困；推挤/拖救等新物理若无可靠约束则显式不包含，不宣称已达战雷。",
+        "此处记录速度、距离、收敛和功能执行时间属于行为标定；FPS、p95/p99、大容量和性能优化继续HOLD。"
+      ],
+      "implementation_steps": [
+        "复用主线已修的通行，不重新当作未修；用最新车型/地图短对照确认。",
+        "根据行为表做小范围配置和代码修改，禁止为验收临时关闭阻力/碰撞。",
+        "验证左右履带支撑、失能和重生，坡顶姿态同步到炮口/装甲。",
+        "将选定行为用于AI驾驶，而非为AI另设超能力参数。"
+      ],
+      "deliverables": [
+        "两车驾驶行为曲线与采用依据",
+        "坡地/路沿/狭路/战损对照",
+        "后坐配置和姿态一致性证据",
+        "限定范围补丁"
+      ],
+      "rejection_conditions": [
+        "换引擎或整套推倒作为本单交付",
+        "逐帧改测试输入绕过真实通行",
+        "为静止修复直接传送",
+        "借本单恢复性能专项"
+      ],
+      "source_ids": [
+        "R08",
+        "R11"
+      ],
+      "acceptance_case_ids": [
+        "CD11-T01",
+        "CD11-T02",
+        "CD11-T03",
+        "CD11-T04",
+        "CD11-T05",
+        "CD11-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-012",
+      "title": "观瞄、稳定、测距与战斗情报",
+      "priority": "P2",
+      "phase": "G3",
+      "depends_on": [
+        "WT-CD-004",
+        "WT-CD-009",
+        "WT-CD-011"
+      ],
+      "related_parent_orders": [
+        "WT-007",
+        "WT-008",
+        "WT-017",
+        "WT-018"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有观瞄与固定步机构；需要把观测、瞄具意图、炮管能力和可见情报进一步分开。",
+      "player_outcome": "发现目标、建立射击条件、用烟幕脱离和依靠队友侦察成为有代价的战术选择。",
+      "read_first": [
+        "scripts/camera_rig.gd",
+        "scripts/turret_rig.gd",
+        "scripts/vehicle_actor.gd",
+        "scripts/battle/observation_policy.gd",
+        "scripts/battle/support_actions.gd",
+        "scripts/ui/battle_intel.gd"
+      ],
+      "design_requirements": [
+        "观察方向/瞄具方向/炮管方向三者独立；稳定器范围和受损后能力来自具体车型，不是稳定镜头开关。",
+        "测距结果、装定、炮口遮挡和实际发射共用CD004求解；没有装备的车不能拥有激光测距/热成像。",
+        "先完成可用光学与烟幕规则；热成像/雷达只保留明确未支持状态，不用灰度滤镜冒充传感器。",
+        "ObservationSnapshot只包含对观察者允许的目标/last_seen位置；AI不得读取hidden实时目标作为射击依据。",
+        "烟幕同时影响相应玩家辅助显示/AI观测；低画质只降效果不移除玩法遮蔽。不同传感器穿烟能力只有明确规则才开放。"
+      ],
+      "implementation_steps": [
+        "把现有观瞄和失能配置列为实际能力矩阵，核对缺项。",
+        "先验证同路段有/无稳定的建立射击时间和视线/炮管差异。",
+        "将烟幕/侦察已有规则接回正常命令和信息接口，不新建影子AI感知。",
+        "与FIELDWORK UI线仅交换理由/进度/标记来源，UI不授予装备能力。"
+      ],
+      "deliverables": [
+        "车型观瞄能力配置",
+        "真实急停/移动开火对照",
+        "烟幕、丢失目标和last_seen验证",
+        "信息权限与UI字段映射"
+      ],
+      "rejection_conditions": [
+        "镜头不晃就称双轴稳定",
+        "侦察标记永久追踪隐蔽目标",
+        "低画质删除烟幕遮挡",
+        "靠新增热视按钮冒充传感器完成"
+      ],
+      "source_ids": [
+        "R08",
+        "R10",
+        "W06",
+        "W07"
+      ],
+      "acceptance_case_ids": [
+        "CD12-T01",
+        "CD12-T02",
+        "CD12-T03",
+        "CD12-T04",
+        "CD12-T05",
+        "CD12-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-013",
+      "title": "死亡、损失与多人贡献归因",
+      "priority": "P1",
+      "phase": "G3",
+      "depends_on": [
+        "WT-CD-008",
+        "WT-CD-009",
+        "WT-CD-010"
+      ],
+      "related_parent_orders": [
+        "WT-014",
+        "WT-022",
+        "WT-023"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有死亡去重、来源和玩家统计；多来源贡献、持续火灾和同生命实弹链需更完整的统一账本。",
+      "player_outcome": "玩家知道是谁、通过哪次打击让自己失能或死亡，击毁/助攻/损失只结算一次。",
+      "read_first": [
+        "scripts/vehicle_actor.gd",
+        "scripts/defs/vehicle_runtime_state.gd",
+        "scripts/damage/vehicle_recovery.gd",
+        "scripts/battle/team_match_director.gd",
+        "scripts/battle/ticket_ledger.gd"
+      ],
+      "design_requirements": [
+        "建立CombatEvent/ContributionLedger的单一服务：match/entity/life/generation/shot/projectile/root_effect/event身份齐备；不把16条回放缓存当全场统计账本。",
+        "实际接触数、有效损伤数、发射数、开火槽位数、击毁数分别计数；统计对象和去重键不混用。",
+        "击毁归因、助攻窗口、侦察/修理贡献与持续火灾继承规则显式版本化；无正当伤害的不分击毁，友伤/弃车/环境死亡分别处理。",
+        "关键损伤与最终死亡可以来自不同射手，按冻结规则决定主归因和助攻；临时UI提示不写入收益。",
+        "同一玩家生命必须覆盖敌方实弹致死→扣票→等待→实际点击→新生命，旧弃车证据单独保留；若后继已验过则不重复制造缺口。"
+      ],
+      "implementation_steps": [
+        "从最新主线已通过的实弹生命周期记录开始补差，先修统计入口而非改伤害。",
+        "在生产提交之后记录贡献，不从观察到的HUD颜色猜击毁。",
+        "补死亡同tick多源、射手先死、火灾延迟致死等边界。",
+        "形成结算收据和只读重放接口供后续模式/经济/网络共用。"
+      ],
+      "deliverables": [
+        "事件与贡献规则表",
+        "去重/归因/损失收据",
+        "同生命实弹再出击版本绑定证据",
+        "正常整局统计与快照对照"
+      ],
+      "rejection_conditions": [
+        "从残骸数当作全场死亡",
+        "同一伤害拆成多后效重复刷贡献",
+        "回放一次又发奖励",
+        "源码生命周期冒充新包结果"
+      ],
+      "source_ids": [
+        "R06",
+        "R09",
+        "R11"
+      ],
+      "acceptance_case_ids": [
+        "CD13-T01",
+        "CD13-T02",
+        "CD13-T03",
+        "CD13-T04",
+        "CD13-T05",
+        "CD13-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-014",
+      "title": "陆战拟真出击规则与局外结算",
+      "priority": "P2",
+      "phase": "G3",
+      "depends_on": [
+        "WT-CD-012",
+        "WT-CD-013"
+      ],
+      "related_parent_orders": [
+        "WT-022",
+        "WT-033"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "现有固定300票/等待再出击/胜负奖励为项目规则，不等于常规战雷Ground RB的个人出击资源。",
+      "player_outcome": "保存经典训练与原对局，同时增加明确的拟真出击选择、贡献奖励和可靠局外保存。",
+      "read_first": [
+        "scripts/battle/match_rule_preset.gd",
+        "scripts/battle/respawn_service.gd",
+        "scripts/battle/team_match_director.gd",
+        "scripts/garage/（实际保存与编成服务定位一次）"
+      ],
+      "design_requirements": [
+        "新增ground_rb_like_v1，不覆盖team_standard_300。队伍票池、个人SP、研究收益、修理/补弹费用是四种独立账本。",
+        "初始SP、车型费用、重复出击限制和贡献所得由冻结项目表提供；缺真实BR/价格时用project_balance_band，禁止虚构官方BR。",
+        "模式选择改变实际规则及信息显示；缺配置车型明确拒绝，不回退到历史/训练车。",
+        "重生请求采用校验→预留→生成确认→提交扣费；出生被堵/失败/取消释放预留。重复请求幂等，余额不能负值。",
+        "局外净收益/费用分项记录并只入账一次；本轮不做付费商城、账号服务或真实货币机制。可关闭经济费用但必须标为项目偏离。",
+        "资料未核全时允许工程项目初值，不逐字段等用户确认；公开参考与项目差异用DIVERGENCE_REGISTER登记。"
+      ],
+      "implementation_steps": [
+        "提取原规则实际调用边界并保持旧模式全部回归。",
+        "先本地加入新preset与SP账本，再接编成合法性、费用和贡献。",
+        "更新最小模式说明/禁入原因供UI，不重做科技树页面。",
+        "实现保存事务/收据迁移及重启验证，不把本地收益当可信线上进度。"
+      ],
+      "deliverables": [
+        "版本化拟真preset及余额规则",
+        "个人/队伍/局外账本分项收据",
+        "失败出击回滚与存档迁移",
+        "旧模式与新模式正常流程"
+      ],
+      "rejection_conditions": [
+        "偷偷修改旧300票模式",
+        "队伍票数直接当个人SP",
+        "UI扣款但生成失败不退",
+        "用现实价格或假BR冒充已核实游戏数据"
+      ],
+      "source_ids": [
+        "R09",
+        "W07"
+      ],
+      "acceptance_case_ids": [
+        "CD14-T01",
+        "CD14-T02",
+        "CD14-T03",
+        "CD14-T04",
+        "CD14-T05",
+        "CD14-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-015",
+      "title": "战斗反馈、回放与现有权威网络一致性",
+      "priority": "P2",
+      "phase": "G3",
+      "depends_on": [
+        "WT-CD-003",
+        "WT-CD-004",
+        "WT-CD-006",
+        "WT-CD-007",
+        "WT-CD-010",
+        "WT-CD-012",
+        "WT-CD-013",
+        "WT-CD-014"
+      ],
+      "related_parent_orders": [
+        "WT-009",
+        "WT-024",
+        "WT-025",
+        "WT-034"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "已有事件反馈、回放和本机两客户端；深化后的弹道/伤害/模式必须接入同一链，不能只在单机测试可用。",
+      "player_outcome": "玩家听到看到的结果与实际炮弹、损伤和比赛一致，两端不会各自判定同一发的生死。",
+      "read_first": [
+        "scripts/feedback/combat_feedback.gd",
+        "scripts/replay/（现有回放服务）",
+        "scripts/network/network_battle_server.gd",
+        "scripts/vehicle_actor.gd",
+        "scripts/ui/battle_ui.gd（协调展示接口）"
+      ],
+      "design_requirements": [
+        "声音/火花/爆炸/后坐/命中提示只消费已提交事件，按弹族/口径档/材质选择表现，不得反向决定结算。",
+        "新增事件字段包括后效通道、部件/乘员、占用revision、接触时间、规则版本和seed；回放记录消费结果，不重新随机求伤害。",
+        "本机服务器+两独立客户端继续验证权威输入/快照/关键事件；不新建公网账号和匹配系统，不改外部服务。",
+        "客户端不能提交hit/kill/reward作为权威事实；失效版本、未知包、旧生命、重复包、乱序重连必须有明确策略。",
+        "仅本车内构用于战斗HUD；敌方命中反馈/死亡回放按信息权限裁剪，不因新数据字段泄露实时内构。",
+        "FIELDWORK UI控制样式，本单控制语义接口。音频资源来源明确，无法获得的资源用项目自制占位而非盗用。"
+      ],
+      "implementation_steps": [
+        "先把新规则字段接到现有事件流和回放，不同时做全新的录制系统。",
+        "增加每弹族/命中材质的反馈映射和缺资源降级，不阻止战斗模拟。",
+        "运行既有双客户端切片的相关权威边界，记录协议/内容版本。",
+        "做重连/乱序等有界功能检查；不采集吞吐、容量、p95或展开联网产品开发。"
+      ],
+      "deliverables": [
+        "表现事件/资源映射",
+        "旧新记录兼容策略",
+        "服务端与两客户端一致性记录",
+        "UI字段契约及敌方信息裁剪证明"
+      ],
+      "rejection_conditions": [
+        "为画面同步让客户端裁定伤害",
+        "两边各算自己的随机毁伤",
+        "关闭特效后命中变化",
+        "把本机两客户端PASS冒充公网团队战"
+      ],
+      "source_ids": [
+        "R10",
+        "R11"
+      ],
+      "acceptance_case_ids": [
+        "CD15-T01",
+        "CD15-T02",
+        "CD15-T03",
+        "CD15-T04",
+        "CD15-T05",
+        "CD15-T06"
+      ]
+    },
+    {
+      "id": "WT-CD-016",
+      "title": "对标矩阵、两车完成样片与独立交付",
+      "priority": "P1出口",
+      "phase": "G4",
+      "depends_on": [
+        "WT-CD-001",
+        "WT-CD-002",
+        "WT-CD-003",
+        "WT-CD-004",
+        "WT-CD-005",
+        "WT-CD-006",
+        "WT-CD-007",
+        "WT-CD-008",
+        "WT-CD-009",
+        "WT-CD-010",
+        "WT-CD-011",
+        "WT-CD-012",
+        "WT-CD-013",
+        "WT-CD-014",
+        "WT-CD-015"
+      ],
+      "related_parent_orders": [
+        "WT-016",
+        "WT-023",
+        "WT-029",
+        "WT-038"
+      ],
+      "status": "planned",
+      "scope": "core",
+      "basis": "当前有可玩内部包及专项证据；新规则必须再绑定同一源码/内容/包验证，不能继承旧版本PASS。",
+      "player_outcome": "从正常车库选两辆现代车之一，在同一独立包内完成可理解的战斗、恢复、死亡、再出击和保存。",
+      "read_first": [
+        "tests/build_release.ps1",
+        "tests/run_suite_checks.ps1",
+        "tests/run_modern_player_flow.ps1",
+        "tests/run_player_flow_checks.ps1",
+        "docs/wt/continuation/（最新入口文档）"
+      ],
+      "design_requirements": [
+        "对照层分为公开机制符合、标准夹具符合、同条件战雷行为接近、真人体验接受四项，不以其中一个代替其余。",
+        "每条外部对照绑定战雷版本/模式/车型改型/弹药/距离角度/装填与乘员条件/来源及取证时间；未知保留NOT_COMPARED。",
+        "两车核心样片+至少一辆历史AP/APHE回归车+开放舱HE夹具；不要求这阶段把113模型全部战斗化。",
+        "内部包必需内容为两现代车、各自弹种/装甲/模块、河谷和正常入口；缺任一不能降级历史车后声明通过。",
+        "正常整局不要求为了证据强行产生所有伤害；专项夹具补罕见条件，明确来源。自然局与受控损伤不拼成一场。",
+        "release_ready=false/public_release=false/human=PENDING/performance=HOLD_BY_USER。相似度只对已比较行为报告，不给伪精确总百分比。"
+      ],
+      "implementation_steps": [
+        "每单完成即维护对照矩阵，最后只汇总事实，不开始新一轮全面文件搜寻。",
+        "集成最新获准UI与后端提交，保留用户制作中资源，按确定提交快照构建。",
+        "先短门禁/专项，再当前包的两车入口/正常对局/实弹同生命/下一局/关闭重启。",
+        "独立目录验证不依赖logs、源码树和外部制作路径，缺资源真实失败。",
+        "保留旧包和回退提交，源码被测身份和证据后续提交分开。"
+      ],
+      "deliverables": [
+        "两车现代河谷内部开发包及manifest/hashes",
+        "对标矩阵及未比较项",
+        "整局/专项/重启证据索引",
+        "已知问题、旧档迁移和回退说明"
+      ],
+      "rejection_conditions": [
+        "把文件数量或PASS数当相似度",
+        "同一项目检查器自证战雷一致",
+        "必需工程车缺资源后换训练车通过",
+        "未运行的最终包套用旧包证据"
+      ],
+      "source_ids": [
+        "R11",
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07"
+      ],
+      "acceptance_case_ids": [
+        "CD16-T01",
+        "CD16-T02",
+        "CD16-T03",
+        "CD16-T04",
+        "CD16-T05",
+        "CD16-T06"
+      ]
+    }
+  ]
+}

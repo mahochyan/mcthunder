@@ -1,0 +1,249 @@
+{
+  "package_id": "MCT-COMBAT-DEEPEN-01",
+  "retrieved_on": "2026-09-18",
+  "sources": [
+    {
+      "id": "R00",
+      "title": "本次主线与AGENTS抽查",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/3b2fe165a69e1a777c5c4d02b852b7e5438e3388/AGENTS.md"
+      ],
+      "reference_sha": "3b2fe165a69e1a777c5c4d02b852b7e5438e3388",
+      "supports": "2026-09-18 读取主线为3b2fe165；读取其HEAD元数据、AGENTS、DamageResolver和QuerySnapshotBuilder。",
+      "does_not_establish": "没有重新全量审计该HEAD，不能声称全部旧差距仍未修。执行时保留后继内容。"
+    },
+    {
+      "id": "R01",
+      "title": "动态命中对象与空弹架风险",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/3b2fe165a69e1a777c5c4d02b852b7e5438e3388/scripts/query/query_snapshot_builder.gd",
+        "https://github.com/mahochyan/mcthunder/blob/3b2fe165a69e1a777c5c4d02b852b7e5438e3388/scripts/damage/damage_resolver.gd"
+      ],
+      "reference_sha": "3b2fe165a69e1a777c5c4d02b852b7e5438e3388",
+      "supports": "当前抽查快照主要包含布局/位姿；模块伤害按预算与阻力求解。与上一轮调用链一起提示空架仍可能参与损伤和阻力。",
+      "does_not_establish": "这是待复现风险，不是本次已运行证明的Bug。"
+    },
+    {
+      "id": "R02",
+      "title": "弹丸推进与几何查询",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/projectile_manager.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/projectile_state.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/ballistic_math.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/query/shot_query_service.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "上一轮审查显示主查询是线段；运动处理为有限平移扫掠，旋转/不连续有回退；飞行主要按重力。",
+      "does_not_establish": "未证明最新后继已无改动，也未测体积或移动边缘漏判频率。"
+    },
+    {
+      "id": "R03",
+      "title": "穿透、材料与反应装甲",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/armor/armor_resolver.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/armor/armor_impact_profile.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/armor/armor_layer_profile.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/armor/reactive_armor_profile.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已有分弹族的版本化游戏规则、材料响应、复合系数和单次ERA状态。",
+      "does_not_establish": "配置自洽不等于与战雷具体车型数值一致。"
+    },
+    {
+      "id": "R04",
+      "title": "车型几何和现代工程配置",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/content/historical_vehicle_geometry.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/configs/vehicles/engineering/ussr_t_80b.json",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/configs/vehicles/engineering/germ_leopard_2a4.json",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/configs/shells/modern_engineering_loadouts.json"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已有三环车体重建、逻辑装甲区和明确标为工程设计的两车弹药数据。",
+      "does_not_establish": "原始资料、工程估算、游戏规则和历史真值不能互换；17逻辑区并非17块真实均匀板。"
+    },
+    {
+      "id": "R05",
+      "title": "穿后与引信后效",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/shell_effect_policy.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/fragment_system.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/projectiles/chemical_jet_system.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已有APHE内部路径/有限破片、定向剥落和HEAT射流；旧内部爆炸有固定预算/范围模板。",
+      "does_not_establish": "没有本次完整HE/超压链的运行证明；数量多不自动意味着更真实。"
+    },
+    {
+      "id": "R06",
+      "title": "状态、乘员、模块和恢复",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/defs/vehicle_runtime_state.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/damage/vehicle_capabilities.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/damage/vehicle_recovery.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/vehicle_actor.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已有独立状态、死亡去重、能力推导、起火/恢复/隔舱保护；部分能力是完整度零阈值，乘员以alive表示。",
+      "does_not_establish": "不能据HUD颜色认定乘员已具有伤势或所有模块都有渐进功能。"
+    },
+    {
+      "id": "R07",
+      "title": "装填与弹架后继成果",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/defs/loading_profile.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/gunner.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/docs/wt/continuation/WT040_MATERIAL_AND_STOWAGE_20260917.md"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已实现T-80B自动装填、豹2待发/备用及隔舱策略的接续和实弹专项记录。",
+      "does_not_establish": "不重新设计一套库存；专项证据不能代替全部自然对局。"
+    },
+    {
+      "id": "R08",
+      "title": "驾驶、悬挂、机构",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/tank.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/drive/drive_powertrain.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/drive/suspension_response.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/turret_rig.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已有CharacterBody3D驱动、等效动力区间、履带与四点运动学悬挂，实际姿态参与查询。",
+      "does_not_establish": "本单不将换刚体节点或逐轮物理设为目标，也未实测对标驾驶曲线。"
+    },
+    {
+      "id": "R09",
+      "title": "战斗规则和归因",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/battle/match_rule_preset.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/battle/respawn_service.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/battle/team_match_director.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "现有300票等项目规则、事件去重和结果冻结；个人SP与完整贡献结算不由固定胜负奖励替代。",
+      "does_not_establish": "这里只引用审查时实现；不把建议新增的RB规则认定为当前已有。"
+    },
+    {
+      "id": "R10",
+      "title": "反馈与网络边界",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/feedback/combat_feedback.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/network/network_battle_server.gd",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/scripts/battle/observation_policy.gd"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "反馈有真实事件来源；审查的网络服务仍是本机双客户端技术会话。",
+      "does_not_establish": "本计划不自动授权公网部署/付费账号服务/容量冲刺。"
+    },
+    {
+      "id": "R11",
+      "title": "已完成后继必须保留",
+      "kind": "repository",
+      "urls": [
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/docs/wt/continuation/WT040_CE697_PACKAGE_20260917.md",
+        "https://github.com/mahochyan/mcthunder/blob/b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60/docs/wt/WT033_DAMAGE_HUD_20260917.md"
+      ],
+      "reference_sha": "b7da3e508b0dcf0a786eb7bc74cc2fc43ad6de60",
+      "supports": "已记录现代包入口、同一玩家受控实弹死亡再出击、内构分色HUD及AI后继成果。",
+      "does_not_establish": "不沿用更老的“现代包不可用/没有悬挂”等结论；包身份与每次测试分别绑定。"
+    },
+    {
+      "id": "W01",
+      "title": "官方：体积弹丸",
+      "kind": "official",
+      "urls": [
+        "https://warthunder.com/en/news/6856-development-volumetric-shells-in-the-raining-fire-update-en"
+      ],
+      "reference_sha": null,
+      "supports": "官方开发说明解释以弹丸尺寸处理窄缝和边缘接触的机制动机。",
+      "does_not_establish": "不是可直接复制的全部当前算法或完整误差规格。"
+    },
+    {
+      "id": "W02",
+      "title": "官方Wiki：地面模块",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/mechanics/4775-ground-vehicle-modules"
+      ],
+      "reference_sha": null,
+      "supports": "空弹架、不同模块损伤方式及隔舱等公开机制是行为参考。",
+      "does_not_establish": "乘员章节正文与表格对中间伤势效能表述不一致；不得据此硬编码统一伤势罚率。"
+    },
+    {
+      "id": "W03",
+      "title": "官方Wiki：坦克弹药",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/weapon/2544-tank-ammunition"
+      ],
+      "reference_sha": null,
+      "supports": "弹族、引信和后效差异作为对标范围。",
+      "does_not_establish": "不是所有具体弹药的完整参数或保密物理模型。"
+    },
+    {
+      "id": "W04",
+      "title": "官方Wiki：高爆与超压",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/mechanics/4236-the-mechanics-of-high-explosive-effect-and-overpressure"
+      ],
+      "reference_sha": null,
+      "supports": "区分爆破/破片/超压；HEAT射流与爆炸通道不等同。",
+      "does_not_establish": "本单不提供现实爆炸工程设计或将未公开阈值冒充已知。"
+    },
+    {
+      "id": "W05",
+      "title": "官方Wiki：自动装填",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/mechanics/5255-autoloader"
+      ],
+      "reference_sha": null,
+      "supports": "机制损坏、待发弹架与已装膛最后一发需要区别对待。",
+      "does_not_establish": "车型性能、时间与规则仍须明确版本化。"
+    },
+    {
+      "id": "W06",
+      "title": "官方Wiki：稳定器",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/mechanics/199-gun-stabilizer"
+      ],
+      "reference_sha": null,
+      "supports": "不同稳定能力、瞄具与炮管跟随的区分。",
+      "does_not_establish": "不将镜头稳定直接等价为武器稳定。"
+    },
+    {
+      "id": "W07",
+      "title": "官方Wiki：常规陆战拟真",
+      "kind": "official",
+      "urls": [
+        "https://wiki.warthunder.com/gamemode/realistic_battles"
+      ],
+      "reference_sha": null,
+      "supports": "常规Ground RB的个人出击资源、编成和情报边界作为本轮目标。",
+      "does_not_establish": "活动模式例外不纳入；费用/收益不是冻结不变的常数。"
+    },
+    {
+      "id": "H01",
+      "title": "用户附件：当前项目开发进度报告（历史快照）",
+      "kind": "user_attachment",
+      "urls": [],
+      "reference_sha": "a1bac406d2bc12b32c7f7d130590f1c1a17907c9",
+      "supports": "说明原项目模块、旧/新WT台账及长期目标；原文保留自己的时点与术语。",
+      "does_not_establish": "其2026-09-13未推送、0 completed、旧导出预设和远端落后等结论不代表当前状态。"
+    }
+  ]
+}

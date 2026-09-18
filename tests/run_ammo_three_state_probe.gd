@@ -439,6 +439,50 @@ func two_query_cases(id: String, defs: VehicleDefs, packet: Dictionary, rack: Di
 		check(rack_reason=="ammo_contents_empty","CD01-T04 the second query reflects the new occupancy rather than a stale cache ("+id+"): "+rack_reason)
 	world.queue_free(); await _frames(2)
 
+## CD01-T03: the last stored round is either carried or chambered. It must exist in exactly one place, the source rack
+## must keep no ghost of it, and the chambered round must stay traceable by shell id and by source rack.
+func last_round_cases(id: String, defs: VehicleDefs, packet: Dictionary) -> void:
+	var holder: Array = []
+	var actor := _fresh(defs,packet,holder)
+	await _frames(2)
+	var inv: AmmoInventory = actor.gunner.inventory
+	var guard := 0
+	var limit: int = inv.supplied * 4 + 40
+	while int(inv.racks.get(RACK_ID,0)) > 1 and guard < limit:
+		guard += 1
+		if not _fire_and_reload(actor):
+			if _select_shell_with_rounds(actor) and _ready_chamber(actor): continue
+			if _auto_recovery_probe(actor): continue
+			if _drive_replenishment(actor): continue
+			break
+	# Settle the mechanism first: the firing loop leaves its own load request in flight, and cancelling it (a real
+	# production API) is what makes the carry measured here the one this case opens rather than a leftover.
+	for i in 120: actor._apply_command_once(VehicleCommand.new(),1.0/60.0)
+	if inv.in_transfer==1: inv.cancel_transfer()
+	inv.consume_chamber()
+	# The shell that is actually in the ready rack decides the carry; asserting on shell_options[0] was my earlier error
+	# because the consumption loop switches shell when the selected one runs out.
+	var shell_id := ""
+	for option in actor.gunner.shell_options:
+		if inv.available_in_rack(RACK_ID,option.id) > 0: shell_id = option.id; break
+	check(not shell_id.is_empty(),"CD01-T03 the ready rack holds a traceable shell before the carry ("+id+")")
+	if shell_id.is_empty(): holder[0].queue_free(); await _frames(2); return
+	var ready_before := int(inv.racks.get(RACK_ID,0))
+	var available_before := inv.total_available()
+	var opened := inv.begin_transfer_from(RACK_ID,shell_id)
+	print("[CD01-T03 %s] ready_before=%d available_before=%d opened=%s in_transfer=%d chamber=%d racks=%s" % [
+		id,ready_before,available_before,str(opened),inv.in_transfer,inv.chamber,JSON.stringify(inv.racks)])
+	check(opened and inv.in_transfer==1 and inv.chamber==0,"CD01-T03 the last stored round is carried, not duplicated ("+id+")")
+	check(int(inv.racks.get(RACK_ID,0))==ready_before-1,"CD01-T03 the source rack keeps no ghost of the carried round ("+id+"): %d -> %d" % [ready_before,int(inv.racks.get(RACK_ID,0))])
+	check(inv.total_available()==available_before,"CD01-T03 the carried round is still counted exactly once ("+id+")")
+	check(str(inv.transfer_shell)==shell_id and str(inv.transfer_from)==RACK_ID,"CD01-T03 the carried round is traceable to its shell and source rack ("+id+")")
+	var completed: bool = inv.complete_load()
+	print("[CD01-T03 %s] complete_load=%s chamber=%d chamber_shell=%s chamber_from=%s in_transfer=%d available=%d racks=%s conserved=%s" % [
+		id,str(completed),inv.chamber,str(inv.chamber_shell),str(inv.chamber_from),inv.in_transfer,inv.total_available(),JSON.stringify(inv.racks),str(inv.conserved())])
+	check(completed and inv.chamber==1 and str(inv.chamber_shell)==shell_id and str(inv.chamber_from)==RACK_ID,"CD01-T03 the chambered last round stays traceable ("+id+")")
+	check(inv.total_available()==available_before and inv.conserved(),"CD01-T03 the count is unchanged through the whole carry-and-chamber cycle ("+id+")")
+	holder[0].queue_free(); await _frames(2)
+
 func cd001_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -460,6 +504,7 @@ func cd001_case(id: String) -> void:
 	await boundary_checks(id,defs,packet,rack)
 	await occupancy_cases(id,defs,packet,rack)
 	await two_query_cases(id,defs,packet,rack)
+	await last_round_cases(id,defs,packet)
 
 func _fresh(defs: VehicleDefs, packet: Dictionary, out: Array) -> VehicleActor:
 	_spawn(out)

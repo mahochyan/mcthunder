@@ -1,0 +1,20 @@
+{
+  "template_only": true,
+  "work_order_id": null,
+  "change_kind": null,
+  "old_rule_version": null,
+  "new_rule_version": null,
+  "affected_vehicles": [],
+  "affected_modes": [],
+  "fields": [],
+  "reason": null,
+  "reference_sources": [],
+  "old_reference_unchanged": null,
+  "legacy_behavior_retained": null,
+  "new_expected_declared_before_run": null,
+  "migration": null,
+  "rollback": null,
+  "independent_oracle": null,
+  "approved_scope": null,
+  "divergences": []
+}
