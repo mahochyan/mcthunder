@@ -47,8 +47,10 @@ func _expected(section_m: float, gap_m: float) -> String:
 	if section_m > gap_m + 1e-9: return "contact"
 	return "tangent_contact"
 
-func _gap_shot(snapshot: Dictionary, y: float) -> Dictionary:
-	var result := ShotQueryService.query({"query_id":"cd003_gap","from_world":Vector3(-3.0,y,0.0),"to_world":Vector3(3.0,y,0.0)},[snapshot])
+func _gap_shot(snapshot: Dictionary, y: float, section: Dictionary = {}) -> Dictionary:
+	var request := {"query_id":"cd003_gap","from_world":Vector3(-3.0,y,0.0),"to_world":Vector3(3.0,y,0.0)}
+	if not section.is_empty(): request["shape_section"] = section
+	var result := ShotQueryService.query(request,[snapshot])
 	var armour := 0
 	var first := {}
 	for event in result.get("events",[]):
@@ -84,29 +86,36 @@ func _run() -> void:
 	print("[CD003 baseline] declared effective sections: long_rod=%.0f mm full_caliber=%.0f mm chemical=%.0f mm" % [
 		sections.long_rod*1000.0,sections.full_caliber*1000.0,sections.chemical*1000.0])
 	var mismatches: Array = []
+	var line_mismatches: Array = []
 	for gap_mm in [20.0,50.0,200.0]:
 		var gap_m: float = float(gap_mm)/1000.0
 		var layout := _synthetic_layout(gap_m)
 		var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
-		var through := _gap_shot(snapshot,0.0)
+		var line := _gap_shot(snapshot,0.0)
 		var edge := _gap_shot(snapshot,gap_m*0.5)
 		var square := _gap_shot(snapshot,gap_m*0.5+0.15)
-		print("[CD003 baseline] gap=%.0f mm | line through the slit: contacts=%d | line on the edge: contacts=%d | line 150 mm inboard: contacts=%d" % [
-			gap_mm,int(through.armour_contacts),int(edge.armour_contacts),int(square.armour_contacts)])
+		print("[CD003 baseline] gap=%.0f mm | v1 LINE through the slit: contacts=%d | line on the edge: contacts=%d | line 150 mm inboard: contacts=%d" % [
+			gap_mm,int(line.armour_contacts),int(edge.armour_contacts),int(square.armour_contacts)])
 		for kind in sections.keys():
+			var profile: Dictionary = ProjectileShapeProfile.resolve({"shape_kind":kind}).get("profile",{})
+			var plan: Dictionary = ProjectileShapeProfile.sampling_plan(profile)
+			var section := {"section_radius_m":float(plan.get("section_radius_m",0.0)),"rays":int(plan.get("rays",0))}
+			var measured := _gap_shot(snapshot,0.0,section)
 			var expect := _expected(float(sections[kind]),gap_m)
-			var measured_contacts := int(through.armour_contacts)
-			var fits := measured_contacts == 0
+			var fits := int(measured.armour_contacts) == 0
 			var expected_fits := expect == "pass_through"
-			print("[CD003 baseline] gap=%.0f mm %-12s section=%.0f mm expect=%-14s line_result=%s  match=%s" % [
-				gap_mm,kind,float(sections[kind])*1000.0,expect,("pass" if fits else "contact(%d)"%measured_contacts),str(fits==expected_fits)])
+			var line_fits := int(line.armour_contacts) == 0
+			print("[CD003 3A] gap=%.0f mm %-12s section=%.0f mm rays=%d bound=%.2f mm expect=%-14s 3A=%s v1_line=%s" % [
+				gap_mm,kind,float(sections[kind])*1000.0,int(plan.get("rays",0)),float(plan.get("error_bound_mm",-1.0)),expect,
+				("pass" if fits else "contact(%d)"%int(measured.armour_contacts)),("pass" if line_fits else "contact")])
+			check(fits == expected_fits,"CD003-T01 3A agrees with the independently computed geometry: gap=%.0f mm %s (section %.0f mm) expected %s but measured %s" % [
+				gap_mm,kind,float(sections[kind])*1000.0,expect,("pass_through" if fits else "contact")])
 			if fits != expected_fits:
-				mismatches.append({"gap_mm":gap_mm,"kind":kind,"section_mm":float(sections[kind])*1000.0,
-					"expected":expect,"measured":"pass" if fits else "contact"})
-	print("[CD003 baseline] sections that do NOT match the independently computed geometry: %d of 9 ; %s" % [
-		mismatches.size(),JSON.stringify(mismatches)])
-	print("[CD003 baseline] NOTE: the current query is a line, so a shot down the middle of the slit always passes and the "
-		+ "projectile's declared section never enters the result. This is the gap 3A has to close, measured rather than assumed.")
+				mismatches.append({"gap_mm":gap_mm,"kind":kind,"expected":expect})
+			if line_fits != expected_fits:
+				line_mismatches.append({"gap_mm":gap_mm,"kind":kind,"expected":expect})
+	print("[CD003 3A] with the declared section: %d of 9 disagree with the geometry" % mismatches.size())
+	print("[CD003 v1 CONTROL] the same geometry through the v1 line rule: %d of 9 disagree - the legacy entry is kept as the comparison, not replaced" % line_mismatches.size())
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)

@@ -1,5 +1,9 @@
 class_name ShotQueryService
 extends RefCounted
+## CD003 3A: the bounded ray budget for one query. Sampling a finite cross-section multiplies the narrow-phase ray work by
+## the ray count, so the budget is declared here and its exhaustion reports incomplete with a diagnostic rather than being
+## read as a clear path. The v1 line query uses exactly one ray and never approaches it.
+const RAY_BUDGET := 512
 ## 005：统一有限线段命中查询——汇总几何结果、身份过滤、去重、排序、诊断。
 ## 不修改弹药、模块、任务计数；不调用 register_hit / accept_hit / 冷却。
 ## 目标："这条线段在当前姿态下，几何上经过了什么"——不是穿透/损伤判定。
@@ -115,6 +119,30 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 	var to_world: Vector3 = request.get("to_world", Vector3.ZERO)
 	if not from_world.is_finite() or not to_world.is_finite():
 		return _fail(query_id, "non_finite_segment")
+	# CD003 3A: an optional STATIC FINITE CROSS-SECTION. When the request carries one, the narrow phase samples the section
+	# with a bounded ring of rays, so a round no longer passes a slit narrower than itself. The centre ray still defines
+	# the contact point, TOI and normal, so one plate is charged once per episode while the ring only decides whether the
+	# plate is met at all - that is what keeps "same plate once, different layers separately" true. Without a section the
+	# query keeps the v1 line behaviour byte for byte, which stays the explicit legacy entry. The ray budget is declared
+	# and exhausting it reports incomplete rather than "no hit".
+	var section_radius := 0.0
+	var section_offsets: Array[Vector3] = []
+	if request.has("shape_section") and request.shape_section is Dictionary:
+		var sec: Dictionary = request.shape_section
+		section_radius = float(sec.get("section_radius_m",0.0))
+		var rays := int(sec.get("rays",0))
+		if not is_finite(section_radius) or section_radius < 0.0:
+			return _fail(query_id,"invalid_shape_section")
+		if section_radius > 0.0 and rays >= 3:
+			var axis := (to_world-from_world)
+			if axis.length() <= QueryGeometry.EPS_M: return _fail(query_id,"zero_or_invalid_segment")
+			var dir := axis.normalized()
+			var helper := Vector3.UP if absf(dir.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+			var e1 := dir.cross(helper).normalized()
+			var e2 := dir.cross(e1).normalized()
+			for i in rays:
+				var ang := TAU*float(i)/float(rays)
+				section_offsets.append((e1*cos(ang)+e2*sin(ang))*section_radius)
 	var seg := to_world - from_world
 	var seg_length := seg.length()
 	if not is_finite(seg_length) or seg_length <= QueryGeometry.EPS_M:
@@ -178,7 +206,7 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 				entity_id, bad, str(snapshot.get("missing_parts", []))])
 			complete = false
 			continue
-		if not _collect_patches(snapshot, layout, transforms, from_world, to_world, seg_length, events, diagnostics, fractions):
+		if not _collect_patches(snapshot, layout, transforms, from_world, to_world, seg_length, events, diagnostics, fractions, section_radius, section_offsets):
 			complete = false
 		if include_modules:
 			if not _collect_boxes(snapshot, layout, transforms, from_world, to_world, seg_length, "module", events, intervals, diagnostics, fractions):
@@ -274,10 +302,13 @@ static func _excluded_set(excluded_instances: Array) -> Dictionary:
 static func _collect_patches(
 		snapshot: Dictionary, layout: VehicleLayoutDefinition, transforms: Dictionary,
 		from_world: Vector3, to_world: Vector3, seg_length: float,
-		events: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE
+		events: Array, diagnostics: Array, fractions: Vector2 = Vector2.ONE,
+		section_radius: float = 0.0, section_offsets: Array[Vector3] = []
 	) -> bool:
 	# 返回 complete（false = 存在未解几何关系/退化三角形——保守未决）
 	var complete := true
+	# CD003 3A: the ray budget is per query and its exhaustion reports incomplete, never "no hit".
+	var ray_casts := 0
 	var entity_id: String = str(snapshot.get("entity_id", ""))
 	var life_id: int = int(snapshot.get("life_id", 0))
 	var local_segments := {}
@@ -311,9 +342,10 @@ static func _collect_patches(
 			local_segments[patch.part_id]=segment
 		var local_from: Vector3=segment[0]
 		var local_to: Vector3=segment[1]
-		# 保守 AABB 粗筛（局部系）
+		# 保守 AABB 粗筛（局部系）。有截面时按半径外扩：这是给真实多射线的保守粗筛，不是把碰撞盒放大冒充体积弹。
 		var bounds:=_bounds(patch.vertices_local_m)
-		var pmin:=bounds[0]; var pmax:=bounds[1]
+		var pmin:=bounds[0]-Vector3(section_radius,section_radius,section_radius)
+		var pmax:=bounds[1]+Vector3(section_radius,section_radius,section_radius)
 		var seg_min := segment[2]
 		var seg_max := segment[3]
 		if seg_max.x < pmin.x or seg_min.x > pmax.x \
@@ -321,21 +353,49 @@ static func _collect_patches(
 				or seg_max.z < pmin.z or seg_min.z > pmax.z:
 			continue
 		var tris := patch.triangles
-		for start in range(0, tris.size(), 3):
-			var a := patch.vertices_local_m[tris[start]]
-			var b := patch.vertices_local_m[tris[start + 1]]
-			var c := patch.vertices_local_m[tris[start + 2]]
-			var r := QueryGeometry.segment_triangle(local_from, local_to, a, b, c)
-			if not r.get("ok", false):
-				diagnostics.append("patch %s: %s" % [patch.id, str(r.get("error", "unknown"))])
+		# The rays are offsets in the patch's own local frame. For a static target the part transform is constant, so this
+		# is exact; the moving case is 3B and is not claimed here.
+		var local_offsets: Array[Vector3] = [Vector3.ZERO]
+		if not section_offsets.is_empty():
+			var part_xform := TranslationSweep.part_transform(snapshot,patch.part_id,1.0)
+			for world_offset in section_offsets:
+				local_offsets.append(part_xform.basis.inverse()*world_offset)
+		var best_hit: Dictionary = {}
+		var budget_hit := false
+		for ray_index in local_offsets.size():
+			if ray_casts >= RAY_BUDGET:
+				budget_hit = true
+				diagnostics.append("ray_budget_exhausted at patch %s (budget %d)" % [patch.id,RAY_BUDGET])
 				complete = false
-				continue
-			if not r.get("hit", false):
-				if r.get("relation", "") == "coplanar_unresolved":
-					diagnostics.append("patch %s: coplanar_unresolved (no unique crossing; not proof of clear path)" % patch.id)
+				break
+			ray_casts += 1
+			var lf: Vector3 = local_from+local_offsets[ray_index]
+			var lt: Vector3 = local_to+local_offsets[ray_index]
+			for start in range(0, tris.size(), 3):
+				var a := patch.vertices_local_m[tris[start]]
+				var b := patch.vertices_local_m[tris[start + 1]]
+				var c := patch.vertices_local_m[tris[start + 2]]
+				var r := QueryGeometry.segment_triangle(lf, lt, a, b, c)
+				if not r.get("ok", false):
+					diagnostics.append("patch %s: %s" % [patch.id, str(r.get("error", "unknown"))])
 					complete = false
-				continue
+					continue
+				if not r.get("hit", false):
+					if r.get("relation", "") == "coplanar_unresolved":
+						diagnostics.append("patch %s: coplanar_unresolved (no unique crossing; not proof of clear path)" % patch.id)
+						complete = false
+					continue
+				if best_hit.is_empty() or float(r["t"]) < float((best_hit["r"] as Dictionary).get("t",INF)):
+					best_hit = {"r":r,"ray":ray_index}
+				break
+			if not best_hit.is_empty() and int(best_hit["ray"]) == 0:
+				break
+		if best_hit.is_empty():
+			continue
+		var r: Dictionary = best_hit["r"]
+		if best_hit.has("r"):
 			var t: float = r["t"]
+			var ray_offset: Vector3 = local_offsets[int(best_hit["ray"])]
 			var point_world := from_world.lerp(to_world, t)
 			var contact_fraction := lerpf(fractions.x, fractions.y, t)
 			var part_world := TranslationSweep.part_transform(snapshot, patch.part_id, contact_fraction)
@@ -357,6 +417,9 @@ static func _collect_patches(
 				"at_end": r.get("at_end", false),
 				"on_edge": r.get("on_edge", false),
 				"has_thickness": patch.has_thickness,
+				"section_ray_index": int(best_hit["ray"]),
+				"section_offset_local_m": ray_offset,
+				"section_radius_m": section_radius,
 				"thickness_mm": patch.thickness_mm,
 				"thickness_status": patch.thickness_status,
 				"material_kind": patch.material_kind,
