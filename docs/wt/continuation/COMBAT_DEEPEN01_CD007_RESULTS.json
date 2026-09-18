@@ -1,0 +1,63 @@
+{
+    "template_only":  false,
+    "actual_game_test_executed":  true,
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "work_order_id":  "WT-CD-007",
+    "base_sha":  "44c33c83d5876383793bfcce4a4e314d5acb4e24",
+    "implementation_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
+    "tested_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
+    "final_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
+    "content_version":  "configs/shells/historical_loadouts.json + configs/vehicles/engineering/ussr_t_80b.json at e843133bb3a9d2c817eda4aacba5a5a248630fd6",
+    "rules_version":  "cd07-he-family-v1 ; cd07-bounded-connectivity-v1 ; cd07-external-on-every-burst ; cd07-contact-and-world-detonation ; cd07-external-blast-fragment-candidates",
+    "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
+    "command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --fixed-fps 60 -s res://tests/\u003csuite\u003e.gd",
+    "cwd":  "E:\\AIprogram\\mcthunder-cont",
+    "started_at":  "2026-09-18T21:48:32",
+    "ended_at":  "2026-09-19T03:48:32",
+    "exit_code":  0,
+    "timed_out":  false,
+    "case_ids_expected":  [
+                              "CD07-T01",
+                              "CD07-T02",
+                              "CD07-T03",
+                              "CD07-T04",
+                              "CD07-T05",
+                              "CD07-T06"
+                          ],
+    "case_ids_executed":  [
+                              "CD07-T01",
+                              "CD07-T02",
+                              "CD07-T03",
+                              "CD07-T05",
+                              "CD07-T06"
+                          ],
+    "status":  "COMPLETE_WITH_GAPS",
+    "failure_details":  [
+
+                        ],
+    "script_errors":  null,
+    "test_kind":  "rule_negative ; standard_fixture ; actual_actor_integration ; normal_player_flow ; external_behaviour_not_compared",
+    "input_method":  "headless scripted suites and probes against the production call chain",
+    "injections_declared":  [
+                                "probe fixtures declare their own layouts and are marked TEST ONLY in their own directories"
+                            ],
+    "raw_stdout":  "logs/COMBAT-DEEPEN-01/*.log (per-suite and per-probe captures, unchanged, never filtered for SCRIPT ERROR)",
+    "raw_stderr":  "captured in the same per-run logs",
+    "screenshots":  [
+
+                    ],
+    "events":  [
+                   "burst channel records",
+                   "bounded connectivity verdict",
+                   "contact and world detonation records",
+                   "segmented plate contacts",
+                   "loadout total invariant"
+               ],
+    "not_run":  [
+                    "CD07-T04 occlusion half: the rig needs a burst origin outside the obstacle, which a contact point is not, and no product hook was added for it.",
+                    "CD07-T04 occlusion half is additionally blocked by the external-blast fragment candidate work, which is necessary but measured NOT sufficient.",
+                    "CD08..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                ],
+    "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+    "next_action":  "measure the occlusion half of CD07-T04 with a rig that does not overreach, or leave it named; then continue with the sub-orders CD008..CD016 in dependency order"
+}
