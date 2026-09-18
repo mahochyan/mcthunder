@@ -9,6 +9,17 @@ const FRAGMENT_CONTACTS := 8
 const FRAGMENT_BUDGET_MM := 12.0
 const EPS := 0.0001
 
+## A copy of the snapshot whose part transforms are the ones at `fraction` of the step, so a stage can be evaluated at the
+## contact instant instead of at the end of the step.
+static func _at_fraction(snapshot: Dictionary, fraction: float) -> Dictionary:
+	var out: Dictionary = snapshot.duplicate(true)
+	var transforms: Dictionary = out.get("part_world_transforms",{})
+	var rebuilt: Dictionary = {}
+	for part_id in transforms.keys():
+		rebuilt[part_id] = TranslationSweep.part_transform(snapshot,str(part_id),fraction)
+	out["part_world_transforms"] = rebuilt
+	return out
+
 static func target_snapshot(event: Dictionary, snapshots: Array) -> Dictionary:
 	for snapshot in snapshots:
 		if DamageResolver.target_key(snapshot) == DamageResolver.target_key(event): return snapshot
@@ -65,11 +76,17 @@ static func exit_distance(snapshot: Dictionary, point: Vector3, direction: Vecto
 		if not inside(snapshot,point+direction*(distance+EPS*2)): return distance
 	return INF
 
-static func on_inside_path(st: ProjectileState, snapshots: Array, direction: Vector3, maximum: float) -> Dictionary:
+static func on_inside_path(st: ProjectileState, snapshots: Array, direction: Vector3, maximum: float, fraction: float = 1.0) -> Dictionary:
 	if st.effect_policy != "internal_burst" or st.burst_target.is_empty(): return {}
 	var snapshot := target_snapshot(st.burst_target,snapshots)
 	if snapshot.is_empty():
 		st.burst_target.clear(); return {}
+	# CD003 必须设计 #4: the after-effect stage uses the CONTACT instant. A snapshot's transforms are the END of the step, so
+	# with a moving target this was asking about a position the target only reaches later - measured as the same point reading
+	# outside in the end frame and inside at the contact instant. At fraction < 1 the transforms are rebuilt with the same
+	# interpolation the narrow phase uses, so armour, volumes, world occlusion and after-effects share one instant.
+	if fraction < 1.0 - EPS:
+		snapshot = _at_fraction(snapshot,fraction)
 	var at_inside := inside(snapshot,st.position_world+direction*EPS*2)
 	if not st.burst_inside_started:
 		if at_inside:

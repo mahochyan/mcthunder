@@ -546,6 +546,52 @@ func _run() -> void:
 		str(probe_point),str(inside_end),str(inside_contact)])
 	check(inside_end != inside_contact,
 		"CD003 the after-effect predicate depends on the frame it is evaluated in, so the contact-instant unification is measurable (end=%s contact=%s)" % [str(inside_end),str(inside_contact)])
+	# ── CD003 必须设计 #4, the fix path: with the contact fraction, on_inside_path must behave exactly like the same call on
+	# an explicitly contact-frame snapshot, and must NOT behave like the end-of-step frame. The reference snapshot is built
+	# by this probe's own interpolation, so the equivalence does not rest on the engine helper it is checking.
+	var eff_layout: VehicleLayoutDefinition = actor.damage_layout_override
+	var eff_base := QuerySnapshotBuilder.build_from_vehicle(actor.tank,eff_layout)
+	var eff_lo := Vector3(INF,INF,INF)
+	var eff_hi := Vector3(-INF,-INF,-INF)
+	for patch in eff_layout.armor_patches:
+		if str(patch.part_id) != "hull": continue
+		for vertex in patch.vertices_local_m:
+			eff_lo = Vector3(minf(eff_lo.x,vertex.x),minf(eff_lo.y,vertex.y),minf(eff_lo.z,vertex.z))
+			eff_hi = Vector3(maxf(eff_hi.x,vertex.x),maxf(eff_hi.y,vertex.y),maxf(eff_hi.z,vertex.z))
+	var eff_point: Vector3 = (eff_lo+eff_hi)*0.5
+	var eff_frac := 0.54
+	var shift_end := 4.0
+	var snapshot_end := eff_base.duplicate(true)
+	snapshot_end["part_world_transforms"]["hull"] = Transform3D(Basis.IDENTITY,Vector3(0,0,shift_end))
+	snapshot_end[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis.IDENTITY,Vector3.ZERO)}
+	var snapshot_ref := eff_base.duplicate(true)
+	var ref_transforms: Dictionary = {}
+	for part_id in snapshot_ref.get("part_world_transforms",{}).keys():
+		var origin := Vector3.ZERO
+		if str(part_id) == "hull": origin = Vector3(0,0,shift_end*eff_frac)
+		ref_transforms[part_id] = Transform3D(Basis.IDENTITY,origin)
+	snapshot_ref["part_world_transforms"] = ref_transforms
+	snapshot_ref[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis.IDENTITY,Vector3.ZERO)}
+	var target_key := {"entity_id":str(snapshot_end.get("entity_id","")),"life_id":int(snapshot_end.get("life_id",0)),
+		"target_generation":int(snapshot_end.get("target_generation",-1))}
+	var state_end := ProjectileState.new()
+	state_end.effect_policy = "internal_burst"; state_end.burst_target = target_key.duplicate(true)
+	state_end.position_world = eff_point; state_end.travelled_m = 0.0
+	var state_fixed := ProjectileState.new()
+	state_fixed.effect_policy = "internal_burst"; state_fixed.burst_target = target_key.duplicate(true)
+	state_fixed.position_world = eff_point; state_fixed.travelled_m = 0.0
+	var state_ref := ProjectileState.new()
+	state_ref.effect_policy = "internal_burst"; state_ref.burst_target = target_key.duplicate(true)
+	state_ref.position_world = eff_point; state_ref.travelled_m = 0.0
+	var as_end := ShellEffectPolicy.on_inside_path(state_end,[snapshot_end],Vector3.RIGHT,10.0,1.0)
+	var as_fixed := ShellEffectPolicy.on_inside_path(state_fixed,[snapshot_end],Vector3.RIGHT,10.0,eff_frac)
+	var as_ref := ShellEffectPolicy.on_inside_path(state_ref,[snapshot_ref],Vector3.RIGHT,10.0,1.0)
+	print("[CD003 effect fix] end-of-step=%s ; with the contact fraction=%s ; contact-frame reference=%s" % [
+		JSON.stringify(as_end),JSON.stringify(as_fixed),JSON.stringify(as_ref)])
+	check(JSON.stringify(as_fixed)==JSON.stringify(as_ref),
+		"CD003 with the contact fraction the after-effect agrees with the independently built contact-frame snapshot")
+	check(JSON.stringify(as_end)!=JSON.stringify(as_ref),
+		"CD003 the end-of-step frame would have given a different after-effect, so the fix is not a no-op")
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)

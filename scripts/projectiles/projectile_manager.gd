@@ -376,7 +376,8 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			var boundary := query_len+ShellEffectPolicy.EPS
 			if status in ["vehicle","damage"]: boundary = float(sel.event.distance_m)
 			elif status == "world": boundary = float(sel.contact.distance_m)
-			var effect := ShellEffectPolicy.on_inside_path(st,snapshots,dir,query_len)
+			var contact_fraction := clampf(boundary/maxf(query_len,ShellEffectPolicy.EPS),0.0,1.0)
+			var effect := ShellEffectPolicy.on_inside_path(st,snapshots,dir,query_len,contact_fraction)
 			if not effect.is_empty() and float(effect.distance_m) < boundary:
 				status = "burst" if effect.kind == "burst" else ("effect_entry" if effect.kind == "entry" else "effect_exit")
 				sel.event = {"t":float(effect.distance_m)/query_len,"point_world":st.position_world+dir*float(effect.distance_m)}
