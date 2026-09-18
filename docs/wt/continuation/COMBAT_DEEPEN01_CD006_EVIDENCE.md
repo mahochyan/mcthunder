@@ -190,3 +190,25 @@ L1 同穿深配对事实保持 ✓（曲线逐值相同 ✓）; L4 具名 legacy
 ⇒ 设计 #4 的"**破片/射流按接触时刻的内构与实体占用遮挡**" ✓✓ **实测成立** ✓（同一发弹，内构有无**改变结果** ✓）。
 ### `CD06-T04` 的第二半（**空架不冒充实体弹药** ✓）
 该半属**弹药隔舱域** ✓ ⇒ 在 `run_ammo_compartment_checks` ✓（本轮 0 FAIL ✓）与 **CD001 三态工作**所立结论处实测 ✓：**空架既不吸伤也不扣预算** ✓ ⇒ **下一轮在该套件上加一条显式对照** ✓（**不在此处冒称** ✓）。
+## 14. `CD06-T04` 空架半 ✓✓ ⇒ **T04 两半齐备** ✓（生产路径自证 ✓）
+证据来源 ✓：**实际加载**的生产套件 `tests/run_ammo_compartment_checks.gd` ✓ 本轮实跑 **63 PASS / 0 FAIL** ✓
+（其夹具 L83-101 ✓ 对**七种架态**逐一执行 `hit(actor,"ammo_ready")` ✓ 并断言 `destroyed==lethal` 且 `inventory.conserved()` ✓）
+```
+[PASS] actual damage obeys isolation and inventory state: partition      ✓ ＋ unisolated stored rack produces attributed terminal detonation ✓
+[PASS] actual damage obeys isolation and inventory state: loading        ✓ ＋ 同上 ✓
+[PASS] actual damage obeys isolation and inventory state: replenishing   ✓ ＋ 同上 ✓
+[PASS] actual damage obeys isolation and inventory state: reserve        ✓ ＋ 同上 ✓
+[PASS] actual damage obeys isolation and inventory state: spent_vent     ✓（**无爆燃断言** ⇒ 不致命 ✓）
+[PASS] actual damage obeys isolation and inventory state: **empty**       ✓（**无爆燃断言** ⇒ 不致命 ✓✓）
+[PASS] actual damage obeys isolation and inventory state: **chamber_only** ✓（**无爆燃断言** ⇒ 不致命 ✓）
+```
+⇒ 对照**明确** ✓：**四种实弹态**（partition / loading / replenishing / reserve ✓）⇒ **归属化终末爆燃** ✓；
+而 **empty / chamber_only / spent_vent** ⇒ **不致命且库存守恒** ✓✓ ⇒ 子单"**空架不冒充实体弹药**" ✓✓ **实测成立** ✓
+（且 `repeated rack loss is idempotent` ✓ 与 `inventory.conserved()` ✓ 说明**不重复计费** ✓）。
+### 具名余项（**带入交付台账** ✓ 不静默丢弃 ✓）
+**"破片穿越空架时不在其上吸收预算"** ✓ —— 本轮测的是**直接命中**弹药架 ✓（生产套件的既有覆盖 ✓）；"**后效路径穿越**"的同一判据尚未单独立 ✓ ⇒ 其可测形式已写定 ✓：**一条破片的路径穿过空架时，该架上的 `consumed_mm` 必须为 0** ✓（下一轮或与 T05/T06 同批补 ✓）。
+### T04 小结
+| 半 | 判据 | 结果 |
+|---|---|---|
+| **真实隔板** | 同一发弹、内构有无改变结果 ✓ 且隔板**靠被命中**自耗预算 ✓ | ✅ 实测 ✓（`CD06_OCCLUSION_CONTRAST PASS` ✓） |
+| **空架** | 空架/仅膛内不致命且库存守恒 ✓ 对照实弹态会爆燃 ✓ | ✅ 实测 ✓（生产套件逐条件 ✓） |
