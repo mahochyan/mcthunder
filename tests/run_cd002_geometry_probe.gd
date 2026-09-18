@@ -676,7 +676,10 @@ func mesh_overlay_cases(id: String, packet: Dictionary, layout: VehicleLayoutDef
 				"mesh_hi_mm":[mesh_hi.x*1000.0,mesh_hi.y*1000.0,mesh_hi.z*1000.0]}
 			out.zones.append(entry)
 			if not within and MESH_KEY_ZONES.has(str(zone)): out.over_tolerance.append(entry)
-	_print_role_bounds(id,role_roots,production.get("geometry",packet.get("geometry",{})))
+	# The LAYOUT is built from the reference packet, so parameter comparisons must use THAT packet's geometry. Reading the
+	# production config here produced a third false verdict of the same kind as before: it claimed the hull plates
+	# exceeded their own authorised parameter by 345 mm, when the plate simply followed a different packet's value.
+	_print_role_bounds(id,role_roots,packet.get("geometry",{}))
 	var over: int = out.over_tolerance.size()
 	print("[CD02-T01 %s] mesh leg: %s ; model=%s ; tolerance=%.0f mm / %.2f%% ; zones compared=%d ; over tolerance (key zones)=%d" % [
 		id,out.leg,path,out.tolerance_mm,out.tolerance_fraction*100.0,out.zones.size(),over])
