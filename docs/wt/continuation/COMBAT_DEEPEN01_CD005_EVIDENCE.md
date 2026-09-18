@@ -105,3 +105,15 @@ ArmorImpactProfile.response 直接调用：125/30 ⇒ overmatch=**true** ✓ ; 7
 经 ArmorResolver.resolve 的结果：两者均 overmatch=**false** ✗
 ⇒ 标志在 **response → resolver 输出** 之间丢失 ✓ ⇒ 下一轮读 `resolve` 取口径的那一行/加临时仪器即定论 ✓（**不猜** ✓）
 ```
+## 9. 开放项 **收口**：不是产品缺陷，是**我的探针传错厚度** ✓✓（临时仪器已删净 ✓ 生产净改动 0 ✓）
+**临时仪器所证** ✓（条件设为"只打 `thickness ≤ 50` 的腿" ✓）：
+```
+[CD05 trace] caliber=75.0  thickness=30.0 family=APFSDS ratio=(空) response.overmatch=false out.overmatch=false ✓
+[CD05 trace] caliber=125.0 thickness=30.0 family=APFSDS ratio=(空) response.overmatch=false out.overmatch=false ✓
+⇒ 长杆族**本就没有 `overmatch_ratio`** ✓（`_validate_long_rod` 明文禁止 ✓）⇒ false **正确** ✓
+```
+**真因** ✓：我那两条"30 mm 薄板"的**全口径**腿 ✗ 其实用的是 **100 mm** 板 ✓（助手 `_cd5t1_resolve` 内部固定调用 `_cd5t1_event(45°)` ✓，其厚度是常量 `CD5T1_THICKNESS=100` ✗✓）⇒ 于是
+`75/100 = 0.75` ✓、`125/100 = 1.25` ✓ **均 < 3** ⇒ `overmatch=false` ✓✓ **完全正确** ✓；
+而**显式 30 mm** 的直接调用给出 `125/30 ⇒ overmatch=**true**` ✓（4.17 ≥ 3 ✓）⇒ 两条证据**并不矛盾** ✓。
+⇒ 结论 ✓：**`ArmorResolver` 的 `overmatch` 传播没有问题** ✓✓（L37-38 从 `caliber_mm` 取值并校验 ✓ L84 传 `float(caliber)` ✓ L87 复制 `overmatch` ✓）；**我的探针传错厚度** ✓ ⇒ **生产净改动 0** ✓（临时仪器 `git diff` 仅注释/静态变量，删除后 **0** ✓）。
+⇒ **下一轮**：把 T02 的两条全口径腿改为**真正的 30 mm 板** ✓（助手加厚度参数 ✓）⇒ 判据应给出 `125/30 ⇒ true` ✓ 与 `75/30 ⇒ false` ✓，从而把"弹族分离"连同**口径压制**一并实测闭合 ✓。
