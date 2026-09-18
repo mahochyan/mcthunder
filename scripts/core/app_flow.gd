@@ -498,32 +498,45 @@ func show_results(result: Dictionary) -> void:
 	result_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	result_overlay.theme = CoreUI.theme()
 	var dim := ColorRect.new()
-	dim.color = Color(0.025,0.04,0.05,0.93)
+	dim.color = BizTheme.dialog_scrim()
 	result_overlay.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var center := CenterContainer.new()
 	result_overlay.add_child(center)
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel",BizTheme.dialog_box("modal"))
 	center.add_child(panel)
 	var content := VBoxContainer.new()
 	content.custom_minimum_size.x = 600
 	content.add_theme_constant_override("separation",12)
 	panel.add_child(content)
-	CoreUI.label(content,LocalizationService.text("ui_7bd045755db7")+result.title,28)
-	CoreUI.label(content,{"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_b2d1898e6ec6")}.get(result.status,LocalizationService.text("ui_d79b1d0e5c61")),23)
+	# UI-BIZ-01 stage 3: the outcome line takes the display type scale and the ink that matches the real status, so a
+	# pass, a fail and a still-running result never look alike.
+	var heading := BizTheme.display_label(content,LocalizationService.text("ui_7bd045755db7")+result.title,"display_m")
+	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var status_text: String = {"passed":LocalizationService.text("ui_c0b3fbff51cc"),"failed":LocalizationService.text("ui_6707de42c29d"),"running":LocalizationService.text("ui_b2d1898e6ec6")}.get(result.status,LocalizationService.text("ui_d79b1d0e5c61"))
+	var status_ink := BizTheme.positive() if result.status == "passed" else (BizTheme.critical() if result.status == "failed" else BizTheme.accent())
+	var status_label := BizTheme.display_label(content,status_text,"subtitle",status_ink)
+	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var explanation_scroll := ScrollContainer.new()
 	explanation_scroll.custom_minimum_size.y = 180
 	explanation_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	content.add_child(explanation_scroll)
-	var explanation := CoreUI.label(explanation_scroll,result.explanation,17)
+	var explanation := CoreUI.label(explanation_scroll,result.explanation,UiTokens.biz_type_size("body",15))
+	explanation.add_theme_color_override("font_color",BizTheme.text_secondary())
 	explanation.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	explanation.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	CoreUI.label(content,LocalizationService.text("ui_62c939aba273") % result.shots,15)
-	CoreUI.button(content,LocalizationService.text("ui_e0fd78bdd191"),_resume_training)
-	CoreUI.button(content,LocalizationService.text("ui_e7598cfa241d"),func() -> void: _resume_training(); core.restart_lesson())
-	CoreUI.button(content,LocalizationService.text("ui_6ea101bebe06"),func() -> void: return_to_garage(last_result))
+	var shots_label := CoreUI.label(content,LocalizationService.text("ui_62c939aba273") % result.shots,UiTokens.biz_type_size("caption",11))
+	shots_label.add_theme_color_override("font_color",BizTheme.text_tertiary())
+	var resume_button := CoreUI.button(content,LocalizationService.text("ui_e0fd78bdd191"),_resume_training)
+	BizTheme.apply_button(resume_button,"secondary","play")
+	var restart_button := CoreUI.button(content,LocalizationService.text("ui_e7598cfa241d"),func() -> void: _resume_training(); core.restart_lesson())
+	BizTheme.apply_button(restart_button,"secondary","reset")
+	var garage_button := CoreUI.button(content,LocalizationService.text("ui_6ea101bebe06"),func() -> void: return_to_garage(last_result))
+	BizTheme.apply_button(garage_button,"primary","back")
 	ModalNavigation.attach(result_overlay)
+	BizTheme.fade_in(result_overlay,"panel_in_ms")
 
 func _resume_training() -> void:
 	if is_instance_valid(result_overlay): result_overlay.queue_free()

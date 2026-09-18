@@ -345,7 +345,14 @@ func run(flow: AppFlow) -> void:
 				if label_text.begins_with("完成情况："): has_completion = true
 			if has_goal and has_completion and card.find_children("*","Button",true,false).size() >= 1: complete_cards += 1
 		report(complete_cards == cards.size(), "every lesson card carries its goal, its honest completion line and an enter button (%d of %d)" % [complete_cards,cards.size()])
-	await driver.capture("nav_12_training_cards")
+		# The lesson cards sit below the fold of the training page's scroll area, so the capture scrolls the first card
+		# into view first: a before-and-after image that does not show the thing it names is not evidence.
+		var scroll_host: Node = training_cards[0].get_parent()
+		while scroll_host != null and not (scroll_host is ScrollContainer): scroll_host = scroll_host.get_parent()
+		if scroll_host is ScrollContainer and not cards.is_empty():
+			(scroll_host as ScrollContainer).ensure_control_visible(cards[0] as Control)
+			await frames(8)
+		await driver.capture("nav_12_training_cards")
 	await driver.click(tab_battle)
 	await frames(3)
 

@@ -104,6 +104,14 @@ func _column(parent: Node, separation: int = 5) -> VBoxContainer:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(box)
 	return box
+## UI-BIZ-01 stage 3: a numeric readout takes the added latin display face at the overlay's number size, so the clock,
+## the tickets, the objective captions and the speed read like instrument figures rather than body text. Chinese text
+## is never routed here, so the CJK face is untouched.
+func numeral_face(label: Label, role: String) -> void:
+	if label == null: return
+	label.add_theme_font_override("font",BizTheme.FONT_LATIN)
+	label.add_theme_font_size_override("font_size",roundi(float(UiTokens.biz_type_size(role,22)) * AccessibilitySettings.ui_scale))
+
 func _panel(parent: Node) -> PanelContainer:
 	var panel := PanelContainer.new()
 	# UI-BIZ-01 stage 3: every HUD panel is built here, so one change lifts the whole in-battle surface - the raised
@@ -199,10 +207,12 @@ func _build() -> void:
 	# the objective or the ticket line; these labels keep single lines and widen the panel.
 	title_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	point_label = _label(objective,LocalizationService.text("ui_bf262136b7c6"),15)
+	numeral_face(point_label,"number_s")
 	point_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	var totals := _column(top,3)
 	totals.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	ticket_label = _label(totals,LocalizationService.text("ui_799ec9f66823"),22)
+	numeral_face(ticket_label,"number_m")
 	ticket_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ticket_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	capture_bar = _bar(totals)
@@ -210,6 +220,7 @@ func _build() -> void:
 	capture_fill.bg_color = UiTokens.color("ally","#7FC9E0")
 	capture_bar.add_theme_stylebox_override("fill",capture_fill)
 	clock_label = _label(top,"10:00",25)
+	numeral_face(clock_label,"number_l")
 	clock_label.size_flags_horizontal = Control.SIZE_SHRINK_END
 	clock_label.custom_minimum_size.x = 100
 	clock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -257,6 +268,7 @@ func _build() -> void:
 	gun.add_child(gun_row)
 	weapon_label = _label(gun_row,LocalizationService.text("ui_491169f99fb7"),20)
 	speed_label = _label(gun_row,"0 km/h",17)
+	numeral_face(speed_label,"number_s")
 	speed_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	# WT-UI-007: the overview shares the weapon row instead of taking a line of its own, which keeps this panel
 	# inside the bottom band the token layout reserves (the four separate semantics below carry the detail).
