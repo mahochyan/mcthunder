@@ -13,7 +13,77 @@ const KEY_PARTS := {
 	"hull_sides": {"zones":["hull_sides_front","hull_sides_rear","hull_sides_lower","hull_sides_lower_rear"],"modules":[]},
 	"bustle_rear": {"zones":["turret_rear"],"modules":["ammo_ready","ammo_reserve","bustle_partition","bustle_vent"]},
 }
+## CD02-T01: the tolerance is NOT invented here. The delivered packets already carry it in model_binding.units -
+## attachment_tolerance_m = 0.05 (50 mm) and tolerance_fraction = 0.02 (2% of a dimension) - and the existing binding
+## validator enforces exactly those two numbers. The declaration below freezes them for this sub-order, marks them as a
+## project estimate taken from the delivered packet, and marks the War Thunder comparison as NOT_COMPARED.
+const TOLERANCE_SOURCE := "delivered packet model_binding.units (attachment_tolerance_m / tolerance_fraction) - project estimate, NOT_COMPARED against War Thunder"
+const TOLERANCE_FALLBACK_ATTACHMENT_M := 0.05
+const TOLERANCE_FALLBACK_FRACTION := 0.02
 var export_rows: Array = []
+
+## Compare the layout the normal actor installed against the authored positions and sizes the delivered packet carries,
+## item by item, using the declared tolerance. Anything beyond it is named rather than smoothed over.
+func _tolerance_checks(id: String, packet: Dictionary, layout: VehicleLayoutDefinition) -> Dictionary:
+	# The declared tolerance comes from the PRODUCTION config the sub-order names as a read entry - not from the
+	# reference packet this fixture was built from - and it is the same pair the existing binding validator enforces.
+	var production := _read("res://configs/vehicles/engineering/"+id+".json")
+	var units: Dictionary = production.get("model_binding",{}).get("units",{})
+	var fixture_units: Dictionary = packet.get("model_binding",{}).get("units",{})
+	var attachment_m := float(units.get("attachment_tolerance_m",TOLERANCE_FALLBACK_ATTACHMENT_M))
+	var fraction := float(units.get("tolerance_fraction",TOLERANCE_FALLBACK_FRACTION))
+	var authored_modules := {}
+	for row in packet.get("modules",[]): authored_modules[str(row.get("id",""))] = row
+	var authored_crew := {}
+	for row in packet.get("crew",[]): authored_crew[str(row.get("id",""))] = row
+	var rows: Array = []
+	var worst_attachment_mm := 0.0
+	var worst_size_ratio := 0.0
+	var over: Array = []
+	for module in layout.modules:
+		if not authored_modules.has(module.id): continue
+		var authored: Dictionary = authored_modules[module.id]
+		var expected_pos := HistoricalVehicleGeometry.vec(authored.get("position",[0,0,0]))
+		var delta_mm := (module.local_box_transform.origin - expected_pos).length() * 1000.0
+		var expected_size := HistoricalVehicleGeometry.vec(authored.get("size",[0,0,0]))
+		var size_delta := module.size_m - expected_size
+		var worst_axis := 0.0
+		for axis in ["x","y","z"]:
+			var expected_axis: float = maxf(float(expected_size[axis]),0.0001)
+			worst_axis = maxf(worst_axis, absf(float(size_delta[axis]))/expected_axis)
+		worst_attachment_mm = maxf(worst_attachment_mm,delta_mm)
+		worst_size_ratio = maxf(worst_size_ratio,worst_axis)
+		var ok := delta_mm <= attachment_m*1000.0 + 1e-6 and worst_axis <= fraction + 1e-6
+		if not ok: over.append({"item":"module:"+module.id,"delta_mm":delta_mm,"size_ratio":worst_axis})
+		rows.append({"item":"module:"+module.id,"part_id":module.part_id,"delta_mm":delta_mm,"size_ratio":worst_axis,
+			"tolerance_mm":attachment_m*1000.0,"tolerance_ratio":fraction,"within":ok})
+	for station in layout.crew_stations:
+		if not authored_crew.has(station.id): continue
+		var authored: Dictionary = authored_crew[station.id]
+		var expected_pos := HistoricalVehicleGeometry.vec(authored.get("position",[0,0,0]))
+		var delta_mm := (station.local_box_transform.origin - expected_pos).length() * 1000.0
+		worst_attachment_mm = maxf(worst_attachment_mm,delta_mm)
+		var ok := delta_mm <= attachment_m*1000.0 + 1e-6
+		if not ok: over.append({"item":"crew:"+station.id,"delta_mm":delta_mm})
+		rows.append({"item":"crew:"+station.id,"part_id":station.part_id,"delta_mm":delta_mm,
+			"tolerance_mm":attachment_m*1000.0,"within":ok})
+	var result := {"tolerance":{"attachments_mm":attachment_m*1000.0,"dimension_fraction":fraction,
+			"source":TOLERANCE_SOURCE,"unit_length":"m","unit_thickness":"mm",
+			"production_config":"res://configs/vehicles/engineering/"+id+".json",
+			"reference_packet_units":fixture_units},
+		"items":rows,"worst_attachment_mm":worst_attachment_mm,"worst_size_ratio":worst_size_ratio,
+		"out_of_tolerance":over,
+		"authored_leg":"layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
+		"model_anchor_leg":"NOT_RUN",
+		"model_anchor_reason":"the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead"}
+	check(worst_attachment_mm <= attachment_m*1000.0 + 1e-6,"CD02-T01 the installed module and crew origins reproduce the authored packet exactly, as a generation sanity check ("+id+"): worst %.2f mm <= %.0f mm declared" % [worst_attachment_mm,attachment_m*1000.0])
+	check(worst_size_ratio <= fraction + 1e-6,"CD02-T01 the installed module boxes reproduce the authored sizes exactly, as a generation sanity check ("+id+"): worst ratio %.4f <= %.2f declared" % [worst_size_ratio,fraction])
+	print("[CD02-T01 %s] declared tolerance: attachments=%.0f mm dimension=%.2f%% from %s" % [id,attachment_m*1000.0,fraction*100.0,result.tolerance.production_config])
+	print("[CD02-T01 %s] reference packet units (transparency): %s" % [id,JSON.stringify(fixture_units)])
+	print("[CD02-T01 %s] generation sanity: worst attachment delta=%.2f mm ; worst size ratio=%.4f ; items=%d ; out_of_tolerance=%s" % [
+		id,worst_attachment_mm,worst_size_ratio,rows.size(),JSON.stringify(over)])
+	print("[CD02-T01 %s] model-anchor leg: NOT_RUN (%s)" % [id,result.model_anchor_reason])
+	return result
 
 func _summary(packet: Dictionary, layout: VehicleLayoutDefinition, actor: VehicleActor) -> Dictionary:
 	var zones := {}
@@ -86,6 +156,7 @@ func cd002_case(id: String) -> void:
 	await _frames(2)
 	var layout: VehicleLayoutDefinition = actor.damage_layout_override
 	var summary := _summary(packet,layout,actor)
+	summary["tolerance_check"] = _tolerance_checks(id,packet,layout)
 	export_rows.append(summary)
 	print("[CD02 %s] layout=%s schema=%d tier=%s ; counts=%s" % [id,summary.layout_id,summary.layout_schema,summary.content_tier,JSON.stringify(summary.counts)])
 	print("[CD02 %s] zones=%s" % [id,JSON.stringify(summary.zones.keys())])

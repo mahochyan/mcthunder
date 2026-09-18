@@ -1050,6 +1050,155 @@
         "parent_id": "drive"
       }
     ],
+    "tolerance_check": {
+      "authored_leg": "layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
+      "items": [
+        {
+          "delta_mm": 0.0,
+          "item": "module:engine",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:transmission",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:fuel",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:breech",
+          "part_id": "barrel",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:turret_drive",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:stabilizer",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:ammo_ready",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:ammo_reserve",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:autoloader",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:track_left",
+          "part_id": "running_left",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:track_right",
+          "part_id": "running_right",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:driver",
+          "part_id": "hull",
+          "tolerance_mm": 50.0,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:gunner",
+          "part_id": "turret",
+          "tolerance_mm": 50.0,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:commander",
+          "part_id": "turret",
+          "tolerance_mm": 50.0,
+          "within": true
+        }
+      ],
+      "model_anchor_leg": "NOT_RUN",
+      "model_anchor_reason": "the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead",
+      "out_of_tolerance": [],
+      "tolerance": {
+        "attachments_mm": 50.0,
+        "dimension_fraction": 0.02,
+        "production_config": "res://configs/vehicles/engineering/ussr_t_80b.json",
+        "reference_packet_units": {
+          "attachment_tolerance_m": 0.001,
+          "dimensions_m": [
+            2.90000009536743,
+            2.30000996589661,
+            9.6300106048584
+          ],
+          "meters_per_unit": 1.0,
+          "source_unit": "m",
+          "tolerance_fraction": 0.001
+        },
+        "source": "delivered packet model_binding.units (attachment_tolerance_m / tolerance_fraction) - project estimate, NOT_COMPARED against War Thunder",
+        "unit_length": "m",
+        "unit_thickness": "mm"
+      },
+      "worst_attachment_mm": 0.0,
+      "worst_size_ratio": 0.0
+    },
     "zones": {
       "gun_shield": [
         {
@@ -2849,6 +2998,171 @@
         "parent_id": "drive"
       }
     ],
+    "tolerance_check": {
+      "authored_leg": "layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
+      "items": [
+        {
+          "delta_mm": 0.0,
+          "item": "module:engine",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:transmission",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:fuel",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:breech",
+          "part_id": "barrel",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:turret_drive",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:stabilizer",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:ammo_ready",
+          "part_id": "turret",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:ammo_reserve",
+          "part_id": "hull",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:track_left",
+          "part_id": "running_left",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:track_right",
+          "part_id": "running_right",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:bustle_partition",
+          "part_id": "turret",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "module:bustle_vent",
+          "part_id": "turret",
+          "size_ratio": 0.0,
+          "tolerance_mm": 50.0,
+          "tolerance_ratio": 0.02,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:driver",
+          "part_id": "hull",
+          "tolerance_mm": 50.0,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:gunner",
+          "part_id": "turret",
+          "tolerance_mm": 50.0,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:commander",
+          "part_id": "turret",
+          "tolerance_mm": 50.0,
+          "within": true
+        },
+        {
+          "delta_mm": 0.0,
+          "item": "crew:loader",
+          "part_id": "turret",
+          "tolerance_mm": 50.0,
+          "within": true
+        }
+      ],
+      "model_anchor_leg": "NOT_RUN",
+      "model_anchor_reason": "the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead",
+      "out_of_tolerance": [],
+      "tolerance": {
+        "attachments_mm": 50.0,
+        "dimension_fraction": 0.02,
+        "production_config": "res://configs/vehicles/engineering/germ_leopard_2a4.json",
+        "reference_packet_units": {
+          "attachment_tolerance_m": 0.001,
+          "dimensions_m": [
+            2.46000003814697,
+            2.58000993728638,
+            9.50000953674316
+          ],
+          "meters_per_unit": 1.0,
+          "source_unit": "m",
+          "tolerance_fraction": 0.001
+        },
+        "source": "delivered packet model_binding.units (attachment_tolerance_m / tolerance_fraction) - project estimate, NOT_COMPARED against War Thunder",
+        "unit_length": "m",
+        "unit_thickness": "mm"
+      },
+      "worst_attachment_mm": 0.0,
+      "worst_size_ratio": 0.0
+    },
     "zones": {
       "gun_shield": [
         {
