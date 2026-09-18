@@ -1,0 +1,26 @@
+{
+  "consumed_mm": 64.0,
+  "damage_count": 5,
+  "fragment_count": 6,
+  "identity": {
+    "projectile_id": 11,
+    "round_id": 1312,
+    "seed": 2101,
+    "shell_id": "test_long_rod_spall",
+    "shooter_id": "fixture",
+    "shooter_life_id": 1,
+    "shooter_team_id": 0,
+    "shot_id": 11
+  },
+  "note": "MCT-COMBAT-DEEPEN-01 CD06 deliverable four: an actual hit replay example, validated by ShotRecordBuilder.validate at production time. Project design values only; no measured historical data is claimed.",
+  "rules_versions": {
+    "armor": "armor-test-v1",
+    "damage": "direct-hit-test-v1",
+    "impact": "wt012-long-rod-v1",
+    "post_penetration": "wt013-directional-spall-v1",
+    "recovery": "recovery-test-v1"
+  },
+  "spall_event_count": 1,
+  "terminal": "expired_distance",
+  "validated": true
+}

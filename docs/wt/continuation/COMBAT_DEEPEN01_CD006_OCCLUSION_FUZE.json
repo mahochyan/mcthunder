@@ -1,0 +1,19 @@
+{
+    "fuze_paths_measured":  [
+                                "[CD06 T02] L1 arming 999 mm vs a 100 mm plate =\u003e armed=false due=-1.000000 terminal=expired_distance verdicts=[\"penetrated\"] contacts=1",
+                                "[CD06 T02] L2 arming 5 mm vs a 100 mm plate =\u003e armed=true due=0.026667 age=0.026667 x=-18.0000 terminal=internal_burst",
+                                "[CD06 T02] L3 thin 10 mm then thick 100 mm, arming 50 mm =\u003e armed=true contacts=2 verdicts=[\"penetrated\", \"penetrated\"] x=-18.0000 terminal=internal_burst"
+                            ],
+    "occlusion_claim":  "a real bulkhead screens by being HIT and spending budget on itself; with no internals the same shot damages nothing",
+    "fuze_claim":  "an arming thickness no plate reaches leaves the fuze unarmed with no burst; a thicker plate arms it and the burst lands past the plate; a thin plate followed by a thick one arms on the second, so the after-effect is not forced to stay in the first hull",
+    "note":  "CD06 deliverable two: internal occlusion and fuze position, quoting the measured lines from this order\u0027s runs. Project design values only.",
+    "occlusion_measured":  [
+                               "[CD06 T04] internals ABSENT =\u003e fragments=6 damage_records=0 sum_consumed=0.0000 mm",
+                               "[CD06 T04] internals PRESENT =\u003e fragments=6 damage_records=5 sum_consumed=20.0000 mm",
+                               "[CD06 T04]   internals-present record: target=component_0 consumed=4.0000",
+                               "[CD06 T04]   internals-present record: target=component_2 consumed=4.0000",
+                               "[CD06 T04]   internals-present record: target=component_0 consumed=4.0000",
+                               "[CD06 T04]   internals-present record: target=component_2 consumed=4.0000",
+                               "[CD06 T04]   internals-present record: target=component_0 consumed=4.0000"
+                           ]
+}

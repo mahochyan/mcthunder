@@ -247,3 +247,38 @@ L3 校验一次/二次 均 ok ✓ ; **弹药库存未变** ✓✓ ; **模块完�
 | **T06** 同 seed 与回放 | 结算不变 ✓ 回放**不再次施加** ✓ | ✅ ✓ |
 ### CD06 余项
 **设计 #3 后半**（母弹残余**显式记录** + 逐采样**归因**可查 ✓ —— T03/T05 已覆盖预算与守恒 ✓ 命名与账目待文档化 ✓）· 具名**破片穿越空架**腿 ✓ · **交付四件**（穿后规则 ✓ 遮挡/引信位置对照 JSON ✓ 剥落与母弹预算记录 ✓ 命中回放示例 ✓）。
+## 17. **交付四件齐备** ✓✓ ⇒ **CD06 结项** ✓✓（全部由实测生成 ✓）
+| # | 交付物 | 文件 | 来源 |
+|---|---|---|---|
+| ① | **按弹药配置的穿后规则** | `COMBAT_DEEPEN01_CD006_POST_RULES.json` ✓ | 由**实际加载集** `configs/shells/historical_loadouts.json` **逐弹生成** ✓ |
+| ② | **内部遮挡/引信位置对照** | `COMBAT_DEEPEN01_CD006_OCCLUSION_FUZE.json` ✓ | 取本轮**实测行**（隔板对照 ✓ 引信三路径 ✓）✓ |
+| ③ | **剥落与母弹预算记录** | `COMBAT_DEEPEN01_CD006_BUDGET_RECORD.json` ✓ | 分配代数 ✓ + **守恒恒等式** ✓（实测行 ✓）✓ |
+| ④ | **实际命中回放示例** | `COMBAT_DEEPEN01_CD006_REPLAY_EXAMPLE.json` ✓ | 由真实射击产出 ✓ 并经 `ShotRecordBuilder.validate` **校验通过** ✓✓ |
+### ① 逐弹表要点 ✓（实测导出 ✓）
+```
+m61_m3        internal_burst  profile=**cd006-internal-burst-v1** declared  count=4 cap=40 ✓
+m61_m6        internal_burst  profile=**cd006-internal-burst-v1** declared  count=6 cap=70 ✓
+m72_m3 / m72_m6 / m77_m3 / m82_m3_2800 ⇒ profile=absent ⇒ **named legacy** ✓ count=12 cap=(legacy 12.0 mm 预算 ✓)
+```
+⇒ **同穿深配对（m61_m3 与 m61_m6）各自声明不同剖面** ✓✓ 而**其余弹保持旧行为**（解析到具名 legacy ✓）。
+### ④ 回放示例要点 ✓
+```
+identity = {projectile_id:11, round_id:1312, seed:**2101**, shell:test_long_rod_spall, life:1, shot:11} ✓
+rules_versions = {armor:armor-test-v1, damage:direct-hit-test-v1, impact:wt012-long-rod-v1,
+                  post_penetration:**wt013-directional-spall-v1**, recovery:recovery-test-v1} ✓
+fragments=6 damage=5 spall_events=1 consumed=**64.0000 mm** valid=**true** ✓✓
+```
+### 我生成器上的两处手误 ✓✗（**自查发现并修正** ✓）
+① `resolution` 字段混入一个 **NUL 字符** ✗（源于我误用 `UTF8.GetString([byte[]](0))` ✓ 纯手误 ✓）；
+② legacy 行的 `cap` 标成"40（legacy 12.0 budget）" ✗ **自相矛盾** ✓（legacy 预算实为 **12.0** ✓）。
+⇒ 修后 ✓：**四件 NUL 扫描全 0** ✓✓；legacy 行如实标注 **12 线 / 12.0 mm 预算 / 3.0 m 射程 / 0.8 m 内路径** ✓。
+### 🎯 **CD06 结项状态**
+| 项 | 状态 |
+|---|---|
+| **六条用例 T01–T06** | ✅ **全部通过并经实测** ✓ |
+| **必须设计 #1 扩展剖面 / #2 引信四态 / #3 预算不复制 / #4 同一时刻遮挡 / #5 新弹具名 legacy** | ✅ **全部落地并经实测** ✓ |
+| **实现顺序 #1 保留入口 / #2 两款工程 APHE / #3 只读记录与真/展示线 / #4 预算与身份守恒** | ✅ **#1 ✓ #2 ✓ #4 ✓**；**#3（可视化轨迹与只读记录）** ⇒ 只读记录 ✓ 已由回放示例与记录校验覆盖 ✓；**可视化轨迹**属**表现层** ✗ 未做 ⇒ **具名余项** ✓（不静默丢弃 ✓） |
+| **交付四件** | ✅ **齐备** ✓（全由实测生成 ✓） |
+### 具名余项（**带入交付台账** ✓）
+1. **破片穿越空架不在其上吸收预算** ✓（可测形式已写定：该架 `consumed_mm` 必须为 0 ✓）；
+2. **可视化轨迹 vs 真采样线的标注** ✓（子单实现顺序 #3 后半 ✓ 属表现层 ✓ 不冒充模拟 ✓）。

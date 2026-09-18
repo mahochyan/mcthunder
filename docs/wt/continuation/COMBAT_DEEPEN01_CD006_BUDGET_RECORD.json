@@ -1,0 +1,12 @@
+{
+    "conservation_measured":  "[CD06 T05] step-by-step spend=20.0000 mm ; declared off-contact module+path loss=40.0000 ; jet remaining=40.0000 ; budget=100",
+    "single_source_event":  "the sample count distributes the allocation (allocated/count per line) and never multiplies it",
+    "allocation_rule":  "allocation = min(residual * budget_fraction, max_total_mm) when residual \u003e= min_residual_mm, else exactly 0",
+    "note":  "CD06 deliverable three: the spall and carrier budget record. Project design values only.",
+    "conservation_identity":  "contact lines + module + terminal path loss + remaining == declared budget",
+    "allocation_measured":  [
+                                "[CD06 T03] residual=100.0 =\u003e allocated=25.0000 ; independently re-derived=25.0000 (fraction 0.25, cap 60.0)",
+                                "[CD06 T03] allocation for 1 / 4 / 8 sample lines = 25.0000 / 25.0000 / 25.0000",
+                                "[CD06 T03] per-line budget x lines == allocation for counts 1,2,4,8: true"
+                            ]
+}
