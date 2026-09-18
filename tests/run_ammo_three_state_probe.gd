@@ -251,6 +251,79 @@ func _compare(rows: Array, id: String) -> void:
 	for key in ["chamber","in_transfer","available","lost"]:
 		print("[CD001 %s] divergence probe %s: full=%s half=%s empty=%s" % [id,key,str(full.after[key]),str(half.after[key]),str(empty.after[key])])
 
+## The four boundaries the delivery sheet names next: carried round, two events in one tick, a new life, and the
+## reservation revision that stands in for the ammunition-side cache token.
+func _hit_event(actor: VehicleActor, module_id: String, event_id: String, tick: int) -> Dictionary:
+	var event := {"kind":"module","entity_id":actor.entity_id,"life_id":actor.life_id,"target_generation":actor.state.generation,
+		"event_id":event_id,"round_id":1515,"shooter_id":"cd001_probe","shooter_life_id":1,"shot_id":1,"projectile_id":1,
+		"module_id":module_id,"physics_tick":tick}
+	var result := actor.apply_projectile_damage(event,500)
+	event.merge(result,true)
+	return event
+
+func boundary_checks(id: String, defs: VehicleDefs, packet: Dictionary, rack: Dictionary) -> void:
+	# 1) A carried round is one physical location, and a strike on its source must not resurrect or double-count it.
+	var holder: Array = []
+	var actor := _fresh(defs,packet,holder)
+	var world: Node3D = holder[0]
+	var manager: ProjectileManager = holder[1]
+	await _frames(2)
+	actor.gunner.inventory.consume_chamber()
+	var shell_id: String = actor.gunner.shell_options[0].id
+	var opened: bool = actor.gunner.inventory.begin_transfer_from("ammo_ready",shell_id)
+	check(opened and actor.gunner.inventory.in_transfer==1 and actor.gunner.inventory.chamber==0,"CD001 a carried round opens on the real ready rack ("+id+")")
+	check(actor.gunner.inventory.conserved() and actor.gunner.inventory.chamber+actor.gunner.inventory.in_transfer<=1,"CD001 a carried round occupies one location, not two ("+id+")")
+	var before := _state(actor,"transfer")
+	_live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)))
+	var after := _state(actor,"transfer")
+	print("[CD001 %s/carried] before=%s after=%s destroyed=%s" % [id,JSON.stringify(before),JSON.stringify(after),str(actor.state.destroyed)])
+	check(actor.gunner.inventory.conserved(),"CD001 conservation holds through a strike while carrying ("+id+")")
+	world.queue_free(); await _frames(2)
+
+	# 2) Two events in one tick: an identical event must not debit twice; a distinct one must keep the ledger conserved.
+	var holder2: Array = []
+	var actor2 := _fresh(defs,packet,holder2)
+	await _frames(2)
+	var first := _hit_event(actor2,"ammo_ready","cd001_same_tick_a",4242)
+	var lost_after_first: int = actor2.gunner.inventory.lost
+	var repeat := _hit_event(actor2,"ammo_ready","cd001_same_tick_a",4242)
+	var lost_after_repeat: int = actor2.gunner.inventory.lost
+	check(lost_after_repeat==lost_after_first and actor2.gunner.inventory.conserved(),"CD001 an identical same-tick event cannot debit the rack twice ("+id+")")
+	var distinct := _hit_event(actor2,"ammo_ready","cd001_same_tick_b",4242)
+	print("[CD001 %s/same_tick] lost first=%d repeat=%d distinct=%d destroyed=%s conserved=%s" % [id,lost_after_first,lost_after_repeat,actor2.gunner.inventory.lost,str(actor2.state.destroyed),str(actor2.gunner.inventory.conserved())])
+	if not actor2.state.destroyed:
+		check(actor2.gunner.inventory.conserved(),"CD001 a distinct same-tick event keeps the ledger conserved ("+id+")")
+	else:
+		print("[CD001 %s/same_tick] not applicable: the first same-tick strike already destroyed the vehicle, so a second distinct strike cannot land" % id)
+	holder2[0].queue_free(); await _frames(2)
+
+	# 3) A new life: the authored loadout returns and the ledger resets, and an old-generation event cannot debit it.
+	var holder3: Array = []
+	var actor3 := _fresh(defs,packet,holder3)
+	await _frames(2)
+	var authored: int = actor3.gunner.inventory.supplied
+	var stale := _hit_event(actor3,"ammo_ready","cd001_respawn_a",777)
+	actor3.reset_vehicle()
+	var fresh := _state(actor3,"respawn")
+	print("[CD001 %s/respawn] authored=%d fresh=%s" % [id,authored,JSON.stringify(fresh)])
+	check(int(fresh.available)==authored and int(fresh.lost)==0 and int(fresh.fired)==0 and bool(fresh.conserved),"CD001 a new life restores the authored loadout and clears the ledger ("+id+")")
+	actor3.apply_projectile_damage(stale,500)
+	check(actor3.gunner.inventory.lost==0 and actor3.gunner.inventory.conserved(),"CD001 an old-generation event cannot debit the fresh life ("+id+")")
+	holder3[0].queue_free(); await _frames(2)
+
+	# 4) The ammunition-side revision: a reservation token is the cache token here, and a stale one must not commit.
+	var inv := AmmoInventory.new()
+	inv.configure_loadout({"ap":6},["ready","reserve"],{"ready":3,"reserve":3},"ap")
+	inv.consume_chamber()
+	var r1 := inv.reserve_rack_move("reserve","ready","ap")
+	var r2 := inv.reserve_rack_move("reserve","ready","ap")
+	check(bool(r1.get("ok",false)) and not bool(r2.get("ok",false)),"CD001 a second reservation is refused while one is outstanding ("+id+")")
+	var committed: bool = inv.commit_rack_move(int(r1.token))
+	var stale_commit: bool = inv.commit_rack_move(int(r1.token))
+	print("[CD001 %s/revision] first=%s second=%s committed=%s stale_commit=%s outstanding=%s conserved=%s racks=%s" % [
+		id,str(r1.get("ok",false)),str(r2.get("ok",false)),str(committed),str(stale_commit),str(inv.has_rack_move()),str(inv.conserved()),JSON.stringify(inv.racks)])
+	check(committed and not stale_commit and inv.conserved(),"CD001 the current token commits once and a stale token cannot commit again ("+id+")")
+
 func cd001_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -269,6 +342,11 @@ func cd001_case(id: String) -> void:
 	var rows: Array = []
 	for tag in ["full","half","empty"]: rows.append(await _measure(id,tag,defs,packet,rack))
 	_compare(rows,id)
+	await boundary_checks(id,defs,packet,rack)
+
+func _fresh(defs: VehicleDefs, packet: Dictionary, out: Array) -> VehicleActor:
+	_spawn(out)
+	return _actor(out[0],out[1],defs,packet)
 
 func _run() -> void:
 	owned_directory="res://assets/vehicles/test_cd001_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
