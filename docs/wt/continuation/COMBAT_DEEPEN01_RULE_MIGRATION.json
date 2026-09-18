@@ -9,7 +9,8 @@
                             "original/RULE_MIGRATION_INDEX.md",
                             "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration",
                             "WT-CD-008: versioned crew condition, and person identity separated from station and role",
-                            "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request"
+                            "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request",
+                            "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -542,6 +543,40 @@
                         "migration":  "A vehicle whose breech is undamaged never rolls at all, because the profile declares the kind probabilistic but the chance is scaled by the damage; the existing zero-integrity behaviour is untouched.",
                         "rollback":  "Remove the judgement; the breech then only disables firing at zero, exactly as before.",
                         "divergences":  "The chance is a declared project design initial value with comparison NOT_COMPARED, and the rule is frozen: a jam consumes no round and damages no component in this version."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-010",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "ammo_hit_has_no_reaction",
+                        "new_rule_version":  "cd10-ammo-reaction-v1",
+                        "affected_vehicles":  "every_vehicle_with_stored_ammunition",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "ammo_reactions",
+                                       "ammo_reaction",
+                                       "ammo_loss_total",
+                                       "lost",
+                                       "store class",
+                                       "compartment state"
+                                   ],
+                        "reason":  "A hit on stored ammunition only reported whether the contents were known, and the compartment rule that already existed was read by nothing, so an inert body store and a propellant store could not differ and a perforated partition changed nothing. The order forbids turning every rack at zero into a guaranteed detonation and forbids reading an inert penetrator as proof that no propellant risk exists.",
+                        "reference_sources":  [
+                                                  "R07",
+                                                  "R06",
+                                                  "W02",
+                                                  "W05"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "AmmoCompartmentProfile, version wt015-rear-bustle-v1, is KEPT and remains reachable through the new profile as the legacy strategy; the Leopard bustle rule is not replaced and not deleted.",
+                        "legacy_tests":  "tests/run_ammo_compartment_checks.gd and tests/run_loading_checks.gd, both unchanged",
+                        "new_expected_declared_before_run":  "With the profile declared, an inert body store and a propellant store must answer from their own material rules, an intact and a perforated compartment must differ, and the loss must leave the racks and appear in lost so the single ledger still balances.",
+                        "independent_oracle":  "The production inventory ledger itself: ready plus reserve plus in transfer plus chamber plus fired plus lost must account for what was supplied.",
+                        "measured_before":  "Measured: the ammunition branch of the damage resolver only produced ammo_contents_empty, there was no reaction profile at all (mentioned four times, implemented nowhere), and driving the Leopard partition to zero left the inventory total at forty two, which showed that nothing read the partition state.",
+                        "measured_after":  "Measured: the profile answers with one of four outcomes keyed on storage class, damage channel and compartment state; the fourth case reads isolated against vent_only once the real barrier module is the one damaged; and the conservation prints exactly - the T-80 accounts for 37 in racks plus 1 chambered against 38 supplied, the Leopard for 41 plus 1 against 42.",
+                        "migration":  "A vehicle whose store carries no declared protection policy is treated as mixed storage, which is the conservative reading; the legacy compartment rule is untouched and keeps its determinism.",
+                        "rollback":  "Remove the reaction call and the record; a hit on ammunition then reports only whether the contents are known, exactly as before.",
+                        "divergences":  "Every chance, loss fraction and isolation credit is a declared project design initial value with comparison NOT_COMPARED; no real ammunition behaviour is claimed, and where no dynamic door model exists the project keeps a logical abstraction with a scope note."
                     }
                 ],
     "divergences":  [
@@ -568,9 +603,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD09 start: run_damage_checks 57/0, run_recovery_checks 64/0, run_fire_control_checks 59/0, run_loading_checks 62/0, run_historical_checks 192/0.",
-                              "after":  "CD09 close: run_damage_checks 57/0, run_recovery_checks 64/0, run_fire_control_checks 59/0, run_loading_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0, run_ammo_compartment_checks 62/0, run_ai_combat_checks 34/0 - every suite at its exact baseline, with the six acceptance scenes reading met and the breech request probe passing on the production path.",
-                              "note":  "The capability outputs changed by construction, so the same suites were re-run and every one returned its exact baseline count; no delivered expectation was changed by this sub-order."
+                              "before":  "CD10 start: run_loading_checks 62/0, run_damage_checks 57/0, run_ammo_compartment_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0, run_recovery_checks 64/0.",
+                              "after":  "CD10 close: the same six suites at their exact baselines, 630 passes and no failures, with the six acceptance scenes reading met and the conservation printing exactly for both engineering vehicles.",
+                              "note":  "Nothing in this sub-order changed a delivered expectation; the legacy compartment rule was kept rather than replaced, and the only new behaviour is the reaction itself plus the ledger application."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
