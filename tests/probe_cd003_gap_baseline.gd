@@ -517,6 +517,35 @@ func _run() -> void:
 	check(not bool(plain_world.get("hit",false)),"CD003 without a section the centre ray misses the wall beside it")
 	check(bool(section_world.get("hit",false)),"CD003 with a declared section the world stop meets the wall the round clips")
 	wall.queue_free(); await _frames(2)
+	# ── CD003 必须设计 #4: after-effects must use the CONTACT instant. on_inside_path evaluates with the snapshot's
+	# end-of-step transforms while the projectile sits at the query start, so a moving target is tested in a frame it only
+	# reaches later. The two predicates below are the same geometry in two frames; an independent expectation is that they
+	# differ exactly when the target moves, which makes this a measurable item rather than a no-op.
+	# inside() asks whether a point is inside an ENCLOSED compartment, so a zero-thickness test plate is always outside it -
+	# my first attempt used one and both frames read false. This uses the vehicle's own layout and a point at the centre of
+	# its hull armour bounds, with a shift large enough that the two frames must disagree.
+	var real_layout: VehicleLayoutDefinition = actor.damage_layout_override
+	var base_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,real_layout)
+	var hull_lo := Vector3(INF,INF,INF)
+	var hull_hi := Vector3(-INF,-INF,-INF)
+	for patch in real_layout.armor_patches:
+		if str(patch.part_id) != "hull": continue
+		for vertex in patch.vertices_local_m:
+			hull_lo = Vector3(minf(hull_lo.x,vertex.x),minf(hull_lo.y,vertex.y),minf(hull_lo.z,vertex.z))
+			hull_hi = Vector3(maxf(hull_hi.x,vertex.x),maxf(hull_hi.y,vertex.y),maxf(hull_hi.z,vertex.z))
+	var probe_point: Vector3 = (hull_lo+hull_hi)*0.5
+	var end_frame := base_snapshot.duplicate(true)
+	end_frame["part_world_transforms"]["hull"] = Transform3D(Basis.IDENTITY,Vector3(0,0,4.0))
+	end_frame[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis.IDENTITY,Vector3.ZERO)}
+	var contact_frame := base_snapshot.duplicate(true)
+	contact_frame["part_world_transforms"]["hull"] = Transform3D(Basis.IDENTITY,Vector3(0,0,2.16))
+	contact_frame[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis.IDENTITY,Vector3.ZERO)}
+	var inside_end := ShellEffectPolicy.inside(end_frame,probe_point)
+	var inside_contact := ShellEffectPolicy.inside(contact_frame,probe_point)
+	print("[CD003 effect] same geometry in two frames on a moving target: point=%s inside(end-of-step,+4.00 m)=%s ; inside(contact instant,+2.16 m)=%s" % [
+		str(probe_point),str(inside_end),str(inside_contact)])
+	check(inside_end != inside_contact,
+		"CD003 the after-effect predicate depends on the frame it is evaluated in, so the contact-instant unification is measurable (end=%s contact=%s)" % [str(inside_end),str(inside_contact)])
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
