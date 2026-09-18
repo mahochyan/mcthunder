@@ -58,21 +58,21 @@ func _run() -> void:
 		str((snap0.get("people",{}) as Dictionary).keys()),str(snap0.get("station_roles",{}))])
 
 	# S1: the same person wounded repeatedly. The submission contract already carries an event identity.
-	var sub := _crew_submission(state,"station_gunner",{"alive":false,"condition":"incapacitated","original_role":"gunner"})
+	var sub := _crew_submission(state,"person_gunner",{"alive":false,"condition":"incapacitated","original_role":"gunner"})
 	check(not sub.is_empty(),"CD08 S1 a lawful crew submission can be built against the real state")
 	var first := state.apply_damage_delta("cd008_evt_1",sub)
 	var after_first: Dictionary = state.damage_snapshot().get("people",{})
-	var repeat_sub := _crew_submission(state,"station_gunner",{"alive":false,"condition":"incapacitated","original_role":"gunner"})
+	var repeat_sub := _crew_submission(state,"person_gunner",{"alive":false,"condition":"incapacitated","original_role":"gunner"})
 	var repeat := state.apply_damage_delta("cd008_evt_1",repeat_sub)
 	var alive_after: int = state.alive_crew_count()
 	print("[CD08] S1 first=%s repeat=%s alive=%d people=%s" % [
-		str(first),str(repeat),alive_after,str(after_first.get("station_gunner",{}))])
+		str(first),str(repeat),alive_after,str(after_first.get("person_gunner",{}))])
 	check(bool(first.get("ok",false)),"CD08 S1 the first lawful submission is accepted")
 	met("CD08-T03", bool(repeat.get("ok",true)) == false and str(repeat.get("reason","")) == "invalid_or_duplicate",
 		"a repeated event identity must not be applied a second time",
 		"a repeated event identity was not refused as a duplicate")
 	# Judged on the product produced state read BEFORE any submission of mine: condition I wrote myself would prove nothing.
-	met("CD08-T01", str((snap0.get("people",{}).get("station_gunner",{}) as Dictionary).get("condition","")) != "",
+	met("CD08-T01", str((snap0.get("people",{}).get("person_gunner",{}) as Dictionary).get("condition","")) != "",
 		"a graded condition (light/serious/incapacitated) must exist rather than a boolean",
 		"condition is still a boolean, so there is nothing to grade")
 
@@ -89,12 +89,12 @@ func _run() -> void:
 		"the person key is the station key, so a person and a station are not yet distinguishable")
 
 	# S3: recovery and incapacitation.
-	var incap_sub := _crew_submission(state,"station_driver",{"alive":false,"condition":"incapacitated","original_role":"driver"})
+	var incap_sub := _crew_submission(state,"person_driver",{"alive":false,"condition":"incapacitated","original_role":"driver"})
 	var incap := state.apply_damage_delta("cd008_evt_3",incap_sub)
 	var alive_after_incap: int = state.alive_crew_count()
 	var revived := false
 	for i in 3:
-		var rec_sub := _crew_submission(state,"station_driver",{"alive":true,"condition":"healthy","original_role":"driver"})
+		var rec_sub := _crew_submission(state,"person_driver",{"alive":true,"condition":"healthy","original_role":"driver"})
 		state.apply_damage_delta("cd008_recover_%d" % i,rec_sub)
 		if state.alive_crew_count() > alive_after_incap: revived = true
 	print("[CD08] S3 incap ok=%s alive=%d revived=%s" % [str(incap.get("ok",false)),alive_after_incap,str(revived)])

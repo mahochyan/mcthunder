@@ -48,6 +48,13 @@ static func validate(condition: String) -> Array:
 	return []
 
 ## A fresh, versioned person record. `alive` is retained and derived, so a legacy reader sees exactly what it saw before.
+## A person identity that is deliberately NOT the station id: the two must be separable, which is the second case.
+static func person_id_for(station: Object) -> String:
+	var role := str(station.get("role")) if station != null else ""
+	var sid := str(station.get("id")) if station != null else ""
+	if role.is_empty(): return "person_" + sid
+	return "person_" + role
+
 static func fresh_person(original_role: String) -> Dictionary:
 	return {"alive":true, "condition":CONDITION_HEALTHY, "condition_version":VERSION,
 		"condition_severity":0, "original_role":original_role}

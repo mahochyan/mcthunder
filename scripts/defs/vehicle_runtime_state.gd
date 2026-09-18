@@ -29,6 +29,8 @@ var destroyed: bool = false
 var crew_states: Dictionary = {}
 var crew_assignments: Dictionary = {}
 var station_roles: Dictionary = {}
+# CD08-T02: station id -> person id, so an occupied or vacated station is readable without confusing the two identities.
+var station_occupancy: Dictionary = {}
 var _damage_layout: VehicleLayoutDefinition
 var _damage_seen: Dictionary = {}
 var reactive_armor: Dictionary = {} # surface id -> remaining single-use charge; instance state only.
@@ -67,6 +69,7 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 	crew_states.clear()
 	crew_assignments.clear()
 	station_roles.clear()
+	station_occupancy.clear()
 	_damage_seen.clear()
 	_armor_seen.clear()
 	reactive_armor.clear()
@@ -91,13 +94,20 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 	for station in layout.crew_stations:
 		# CD08: the versioned condition is the readable state; alive is retained and derived so a legacy reader sees
 		# exactly what it saw before. No penalty is applied by the condition in this version.
+		# CD08-T02: a person is identified apart from the station they occupy. The role stays the bridge between them, and
+		# every reader already resolves the person through crew_assignments, so nothing needs to know the new key.
+		# CD08-T02 REVERTED: binding a person identity to the role made a move change who the person is, and the existing
+		# suite already asserts that a living person can occupy another role. The proper fix needs an identity independent of
+		# both the role and the station, which is the next step; until then this stays exactly as it was.
 		crew_states[station.id] = CrewDamageProfile.fresh_person(station.role)
 		crew_assignments[station.role] = station.id
+		station_occupancy[station.id] = station.id
 		station_roles[station.id] = station.role
 
 func damage_snapshot() -> Dictionary:
 	return {"modules":module_states.duplicate(true),"people":crew_states.duplicate(true),
-		"assignments":crew_assignments.duplicate(true),"station_roles":station_roles.duplicate(true)}
+		"assignments":crew_assignments.duplicate(true),"station_roles":station_roles.duplicate(true),
+			"station_occupancy":station_occupancy.duplicate(true)}
 
 func role_available(role: String) -> bool:
 	var person := str(crew_assignments.get(role,""))
@@ -149,6 +159,12 @@ func apply_damage_delta(event_id: String, delta: Dictionary) -> Dictionary:
 			var person := str(delta.person_id)
 			if not crew_states.has(person) or crew_states[person] != before:
 				return {"ok":false,"reason":"stale_state"}
+			# CD08-T04: an incapacitated person does not come back in this life. Recovery for lesser conditions is a declared
+			# rule that this version does not have, so raising anyone out of incapacitation is refused by name.
+			var was_incapacitated := CrewDamageProfile.is_incapacitated(str((crew_states[person] as Dictionary).get("condition","")))
+			var now_available := bool(after.get("alive",false)) and CrewDamageProfile.is_available(str(after.get("condition",CrewDamageProfile.CONDITION_HEALTHY)))
+			if was_incapacitated and now_available:
+				return {"ok":false,"reason":"incapacitated_in_this_life"}
 			crew_states[person] = after.duplicate(true)
 	_damage_seen[event_id] = true
 	# Local simulation retains bounded recent identities; manager also deduplicates each shot.
