@@ -443,6 +443,8 @@
       "label": "CD07 engineering HE (75-mm M3 only)",
       "gun": "75-mm M3",
       "caliber_mm": 75,
+      "family": "HE",
+      "source_bullet_type": "he_tank",
       "effect_policy": "he_blast",
       "muzzle_velocity_mps": 463.0,
       "penetration_curve": [

@@ -3,7 +3,10 @@ extends RefCounted
 ## Shared inventory interface. Reference shells use only actually implemented effects.
 const MAX_SHELLS := 8
 const FAMILIES := {"AP":{"source":"ap_tank","effect":"kinetic"},"APHE":{"source":"aphe_tank","effect":"internal_burst"},
-	"APFSDS":{"source":"game_rule_apfsds","effect":"long_rod"},"HEAT":{"source":"heat_fs_tank","effect":"chemical"}}
+	"APFSDS":{"source":"game_rule_apfsds","effect":"long_rod"},"HEAT":{"source":"heat_fs_tank","effect":"chemical"},
+	# CD07: an external HE blast is its own family, so its source type and effect must be declared as a pair like every
+	# other family rather than relabelled from one of them.
+	"HE":{"source":"he_tank","effect":"he_blast"}}
 
 static func number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))
