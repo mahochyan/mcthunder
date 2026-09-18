@@ -56,6 +56,12 @@ static func part_transform(snapshot: Dictionary, part_id: String, fraction: floa
 	if not previous.has(part_id):
 		return current
 	var start: Transform3D = previous[part_id]
+	# CD003 3C is NOT implemented here, and a one-line basis interpolation is not the way: measured, interpolating the basis
+	# makes a rotating plate miss entirely, because local_segment expresses BOTH endpoints in one part frame, so an
+	# interpolated basis leaves the segment in a frame that never existed. Rotation is presently a step function (the end
+	# basis is used for the whole step), measured as a crossing at fraction 0.58333 where the turning plate's analytic
+	# crossing is 0.53742. A correct 3C has to subdivide the rotation across the step with a declared angular step; that is
+	# the recorded next step, and the static path is exact today (its control matches its analytic crossing to six decimals).
 	return Transform3D(current.basis, start.origin.lerp(current.origin, fraction))
 
 static func local_segment(snapshot: Dictionary, part_id: String, from: Vector3, to: Vector3, fractions: Vector2) -> PackedVector3Array:
