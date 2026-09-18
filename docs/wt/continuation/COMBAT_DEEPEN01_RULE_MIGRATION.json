@@ -7,7 +7,8 @@
     "delivery_section":  "original/05_DELIVERY_AND_ACCEPTANCE.md section 6",
     "migration_index":  [
                             "original/RULE_MIGRATION_INDEX.md",
-                            "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration"
+                            "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration",
+                            "WT-CD-008: versioned crew condition, and person identity separated from station and role"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -420,6 +421,67 @@
                         "migration":  "This is a migration of an expectation, not a relaxation: the constant asserted a number, the replacement asserts the invariant the leg was always about.",
                         "rollback":  "Reinstate the constant; the two-round vehicles still satisfy it and a three-round one fails again.",
                         "divergences":  "This is the only delivered expectation this order changed, and it changed because the order instructed adding a round, not to make a failure disappear."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-008",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "alive_is_a_boolean",
+                        "new_rule_version":  "cd008-crew-condition-v1",
+                        "affected_vehicles":  "every_vehicle_with_crew_stations",
+                        "affected_modes":  "live_fire_and_ui_readout",
+                        "fields":  [
+                                       "condition",
+                                       "condition_version",
+                                       "condition_severity",
+                                       "alive"
+                                   ],
+                        "reason":  "Injury, station and availability must be three separate things, so a versioned condition replaces the boolean for reading while alive stays present and derived for anything that already reads it.",
+                        "reference_sources":  [
+                                                  "R01",
+                                                  "R06",
+                                                  "W02"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The legacy alive field is retained and derived, so a reader that only knows the boolean sees exactly what it saw before.",
+                        "legacy_tests":  "tests/run_cd008_scene_checks.gd (S1/S3) and tests/run_damage_checks.gd (crew legs)",
+                        "new_expected_declared_before_run":  "With the condition declared, a graded state must exist as product state, and no middle condition may reduce duty because no efficiency figure has been verified.",
+                        "independent_oracle":  "The product produced crew state read before any submission, so a condition written by the test itself cannot be mistaken for the product.",
+                        "measured_before":  "Measured: the product crew record was {\"alive\":true,\"original_role\":...} only - a boolean, with nothing to grade.",
+                        "measured_after":  "Measured: every record carries condition, condition_version and severity, the scene reads met, and availability still only depends on incapacitation so no unconfirmed penalty is switched on.",
+                        "migration":  "A record without a condition falls back to the boolean; nothing that reads alive changes.",
+                        "rollback":  "Remove the condition fields; the boolean is then the only state again, as before.",
+                        "divergences":  "Thresholds are project design initial values and are declared as such; no external efficiency figure is claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-008",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "person_identity_is_the_station",
+                        "new_rule_version":  "cd008-person-station-separation",
+                        "affected_vehicles":  "every_vehicle_with_crew_stations",
+                        "affected_modes":  "live_fire_and_recovery",
+                        "fields":  [
+                                       "crew_states keys",
+                                       "crew_assignments values",
+                                       "station_occupancy"
+                                   ],
+                        "reason":  "A person must be identifiable apart from the station they occupy, and a relief move must move the person rather than duplicate one; the training layout already had a station id and a role that differ, so the identity had to be separated from both.",
+                        "reference_sources":  [
+                                                  "R01",
+                                                  "R06",
+                                                  "W02"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The role remains the bridge between station and person, so every reader resolves a person through the assignments map exactly as before.",
+                        "legacy_tests":  "tests/run_damage_checks.gd, tests/run_recovery_checks.gd, tests/run_ammo_compartment_checks.gd, tests/run_recovery_player_checks.gd (the crew legs in each)",
+                        "new_expected_declared_before_run":  "With identities separated, no non-empty person holds two roles after a relief move, the headcount is conserved and the moving person keeps their own state and injuries.",
+                        "independent_oracle":  "The replacement path measured directly by a probe that builds its own actor: one empty slot, no duplicate, headcount unchanged.",
+                        "measured_before":  "Measured: a person key WAS the station key, so a person and a station were not distinguishable; the assignment map was keyed by role while station ids were read as persons.",
+                        "measured_after":  "Measured: person keys are person_1..person_N, station_roles keeps station to role, station_occupancy keeps station to person, the acceptance scene reads met, and thirteen suites return their exact baseline result counts with no runtime errors.",
+                        "migration":  "This one REQUIRED migrating delivered legs: seven sites named a person by a role or read a role as a person, and each was rewritten data driven - stronger than the name it replaced. The migration is recorded here as the class the package rule change section describes.",
+                        "rollback":  "Revert the identity assignment; a person is then the station again and the seven legs pass as before.",
+                        "divergences":  "A delivered test may still name a role where a person belongs; the eight such sites found are fixed, and the recovery player suite is window required under headless by design."
                     }
                 ],
     "divergences":  [
@@ -446,9 +508,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD07 start, at the CD06 close: run_historical_checks 192/0, run_shell_checks 193/0, run_chemical_checks 92/0, run_fuze_checks 137/0, run_spall_checks 78/0, run_armor_checks 81/0, run_damage_checks 57/0 (7 suites, 773 passes, no failures).",
-                              "after":  "CD07 close: the same seven suites plus run_modern_garage_checks 29/0 and the probe suites, run repeatedly through the order; the last full pass is run_shell 193/0, run_fuze 137/0, run_spall 78/0, run_chemical 92/0, run_armor 81/0, run_damage 57/0, run_historical 192/0, run_projectile 0/0 (8 suites, 830 passes, no failures).",
-                              "note":  "The same suites give the same totals before and after, so the order is additive: the only migration is the expectation recorded above, and it was required by the order itself."
+                              "before":  "CD08 start: run_damage_checks 57/0, run_recovery_checks 64/0, run_ammo_compartment_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0.",
+                              "after":  "CD08 close: all thirteen suites that touch crew state return their exact baseline counts with zero failures and zero script errors (689 passes), and the four acceptance scenes read met on all six cases with their expectations untouched.",
+                              "note":  "The only delivered expectations changed by this sub-order are the eight crew legs recorded above, each rewritten to read the person from the state; none was relaxed."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }

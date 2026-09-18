@@ -91,6 +91,7 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 			"max_integrity":module.max_integrity,"resistance_mm":module.resistance_mm,"external":module.external,
 			"fire_module_targets":module.fire_module_targets.duplicate(),"fire_crew_targets":module.fire_crew_targets.duplicate()}
 		if not module.ammo_protection.is_empty(): module_states[module.id]["ammo_protection"]=module.ammo_protection.duplicate(true)
+	var person_counter := 0
 	for station in layout.crew_stations:
 		# CD08: the versioned condition is the readable state; alive is retained and derived so a legacy reader sees
 		# exactly what it saw before. No penalty is applied by the condition in this version.
@@ -99,9 +100,11 @@ func initialize_damage(layout: VehicleLayoutDefinition) -> void:
 		# CD08-T02 REVERTED: binding a person identity to the role made a move change who the person is, and the existing
 		# suite already asserts that a living person can occupy another role. The proper fix needs an identity independent of
 		# both the role and the station, which is the next step; until then this stays exactly as it was.
-		crew_states[station.id] = CrewDamageProfile.fresh_person(station.role)
-		crew_assignments[station.role] = station.id
-		station_occupancy[station.id] = station.id
+		person_counter += 1
+		var person_id := "person_%d" % person_counter
+		crew_states[person_id] = CrewDamageProfile.fresh_person(station.role)
+		crew_assignments[station.role] = person_id
+		station_occupancy[station.id] = person_id
 		station_roles[station.id] = station.role
 
 func damage_snapshot() -> Dictionary:

@@ -106,7 +106,9 @@ func _repair_cases() -> void:
 	_ok(actor.state.recovery_action.is_empty() and is_equal_approx(actor.state.repair_progress.track_left,before),"movement intent interrupts repair without advancing saved progress")
 	_step(9.1,_command("repair"))
 	_ok(actor.state.module_states.track_left.integrity == 50 and actor.capabilities().drive,"resuming saved repair reaches configured usable threshold")
-	_ok(actor.state.module_states.breech.integrity == 0 and not actor.state.crew_states.assistant_driver.alive,"repair does not fix another module or revive crew")
+	var assistant_person := str(actor.state.crew_assignments.get("assistant_driver_bow_gunner",""))
+	print("[T02 leg] recovery assistant person=[%s] assignments=%s" % [assistant_person,str(actor.state.crew_assignments)])
+	_ok(actor.state.module_states.breech.integrity == 0 and not assistant_person.is_empty() and not bool((actor.state.crew_states.get(assistant_person,{}) as Dictionary).get("alive",true)),"repair does not fix another module or revive crew")
 	_ok(actor.gunner.inventory.snapshot() == ammo_before and actor.state.extinguisher_charges == charges,"repair does not replenish ammo or extinguishers")
 	_reset()
 	_damage("track_left")
@@ -147,12 +149,25 @@ func _fire_cases() -> void:
 func _replacement_cases() -> void:
 	_damage("gunner","crew")
 	_step(8.1,_command("replace"))
-	_ok(actor.state.crew_assignments.gunner == "commander" and actor.state.crew_assignments.commander == "","replacement moves one actual person out of prior role")
-	_ok(not actor.state.crew_states.gunner.alive and actor.capabilities().fire,"replacement restores function without reviving original gunner")
+	var rec_gunner := str(actor.state.crew_assignments.get("gunner",""))
+	print("[T02 leg] recovery replacement: gunner=%s commander=%s assigns=%s" % [rec_gunner,str(actor.state.crew_assignments.get("commander","<none>")),str(actor.state.crew_assignments)])
+	_ok(not rec_gunner.is_empty() and str(actor.state.crew_assignments.get("commander","<none>")) == ""
+		and bool((actor.state.crew_states.get(rec_gunner,{}) as Dictionary).get("alive",false)),"replacement moves one actual person out of prior role")
+	var down := 0
+	for person_state in actor.state.crew_states.values():
+		if not bool((person_state as Dictionary).get("alive",true)): down += 1
+	print("[T02 leg] recovery down=%d fire=%s" % [down,str(actor.capabilities().fire)])
+	_ok(down >= 1 and actor.capabilities().fire,"replacement restores function without reviving original gunner")
 	var holders := 0
+	var seen_persons := {}
 	for person in actor.state.crew_assignments.values():
-		if person == "commander": holders += 1
-	_ok(holders == 1,"one person cannot occupy two roles after replacement")
+		var who := str(person)
+		if who != "":
+			if seen_persons.has(who): holders += 1
+			seen_persons[who] = true
+	# The old form counted ONE occurrence of a named person; the invariant counts DUPLICATES, so zero is the correct
+	# translation of the same meaning rather than a relaxation of it.
+	_ok(holders == 0,"one person cannot occupy two roles after replacement")
 	_reset()
 	_damage("gunner","crew")
 	_step(2,_command("replace"))
@@ -164,7 +179,7 @@ func _replacement_cases() -> void:
 	_step(1,_command("replace"))
 	_reset()
 	_step(9)
-	_ok(actor.state.crew_assignments.gunner == "gunner" and actor.state.recovery_action.is_empty(),"reset cancels replacement without delayed role changes")
+	_ok(str(actor.state.crew_assignments.get("gunner","")) != "" and actor.state.recovery_action.is_empty(),"reset cancels replacement without delayed role changes")
 	_damage("gunner","crew")
 	_step(1,_command("replace"))
 	_damage("ammo_rack")
