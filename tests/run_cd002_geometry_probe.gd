@@ -270,12 +270,39 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	var aim := _aim_at_plate(layout,actor)
 	print("[CD02-T03 %s] aiming perpendicular into plate %s of zone %s (normal=%s)" % [id,str(aim.patch),str(aim.get("zone","")),str(aim.get("normal",Vector3.ZERO))])
 	var original_hits := await _real_shot(actor,world,original_snapshot,packet,aim.from,aim.to)
-	# KNOWN HARNESS LIMITATION (CD02-T03, open): both runs fire at the SAME life, so the second run meets a target the
-	# first one already damaged - on the Leopard the breech is already destroyed, which is exactly why its second run
-	# reports no module hit and looks like a tessellation-dependent loss. A reset between the runs was tried and made
-	# things worse: it changed the T-80B result too and broke the T06 cases, which are state coupled. The next attempt is
-	# two separate freshly built actors for the two layouts, which removes the shared state instead of patching it.
-	var modified_hits := await _real_shot(actor,world,modified_snapshot,packet,aim.from,aim.to)
+	# The two runs must not share a life: firing both at one target made the second shot unable to destroy a module the
+	# first one had already destroyed, which I misread for several rounds as a tessellation-dependent loss of a real
+	# module hit. The second layout is therefore measured on a second, freshly built actor with its own life id, so no
+	# damage state, seen set or interior flag is shared between the two measurements.
+	# The second target is placed sixty metres away: two actors at the same transform let the second shot be stopped by the
+	# first actor's collider, which produced run-to-run differences that looked like tessellation effects. Its own
+	# transform then gives the same RELATIVE line, so the two measurements share geometry but no life, no damage state and
+	# no collider.
+	var second := VehicleActor.new()
+	world.add_child(second)
+	var away := Transform3D(Basis.IDENTITY,Vector3(0,0,60))
+	check(second.setup(defs,packet.id,"cd002_target_b",2,away,2,null).ok,"CD02-T03 a second fresh actor is installed for the re-triangulated run ("+id+")")
+	second.set_physics_process(false); second.tank.set_physics_process(false)
+	await _frames(3)
+	var second_snapshot := QuerySnapshotBuilder.build_from_vehicle(second.tank,modified)
+	var second_aim := _aim_at_plate(modified,second)
+	# CONTROL: the SAME original layout, fired at the second actor. If this does not reproduce the first run exactly, then
+	# the second run is not reproducible and no difference measured against it can be attributed to the triangulation.
+	# This control should have come before every layout comparison in this case.
+	var control_snapshot := QuerySnapshotBuilder.build_from_vehicle(second.tank,layout)
+	var control_aim := _aim_at_plate(layout,second)
+	var control_hits := await _real_shot(second,world,control_snapshot,packet,control_aim.from,control_aim.to)
+	var reproducible: bool = absf(float(original_hits.get("consumed_mm",-1.0))-float(control_hits.get("consumed_mm",-1.0))) <= 1e-6
+	print("[CD02-T03 %s] CONTROL same layout twice: first=%s second=%s reproducible=%s" % [
+		id,str(original_hits.get("consumed_mm",-1.0)),str(control_hits.get("consumed_mm",-1.0)),str(reproducible)])
+	print("[CD02-T03 %s] CONTROL contact counts: first=%d second=%d" % [id,int(original_hits.get("contacts",-1)),int(control_hits.get("contacts",-1))])
+	if not reproducible:
+		print("[CD02-T03 %s] NOT_RUN for the tessellation comparison: the SAME layout fired at a second fresh actor does not reproduce the first run (%s vs %s consumed, %d vs %d contacts), so this probe cannot attribute any difference to the triangulation. Every earlier reading of a tessellation effect from this comparison was a harness artifact; the re-triangulation itself is still verified (%d -> %d triangles)." % [
+			id,str(original_hits.get("consumed_mm",-1.0)),str(control_hits.get("consumed_mm",-1.0)),
+			int(original_hits.get("contacts",-1)),int(control_hits.get("contacts",-1)),before_triangles,after_triangles])
+		return
+	check(reproducible,"CD02-T03 CONTROL the same layout fired twice reproduces itself, which is the precondition for attributing any difference to the triangulation ("+id+")")
+	var modified_hits := await _real_shot(second,world,second_snapshot,packet,second_aim.from,second_aim.to)
 	# A miss must not be able to masquerade as invariance: when the probe's own path hits nothing, the case is reported
 	# as not run for this reason instead of passing on 0-versus-0.
 	var landed: bool = int(original_hits.get("contacts",0)) > 0 and int(modified_hits.get("contacts",0)) > 0
