@@ -699,6 +699,21 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 			"range_m":float(legacy_channels.fragment_range_m),"budget_mm":float(legacy_channels.fragment_budget_mm)},
 		"blast":{"applied":false,"pending":"cd07-blast-channel","reason":"declared by WT-CD-007 design point one and not yet applied"},
 		"overpressure":{"applied":false,"pending":"cd07-overpressure-channel","reason":"declared by WT-CD-007 design point one and not yet applied"}}
+	# CD07 design point two, first half: whether the pressure has a PATH into the compartment is decided by bounded
+	# connectivity rules, and the two facts available at the burst are whether the explosion is outside the hull and whether
+	# the armour was actually breached. A closed compartment with no breach therefore gets NO invented interior overpressure,
+	# while an interior burst or a perforated plate gives the pressure a path. This is a game abstraction, not a pressure
+	# formula, and the verdict and its inputs are both recorded rather than a silent in-radius switch.
+	var burst_outside := bool(st.burst.get("external",true))
+	var breached := false
+	for contact in st.contacts:
+		if str(contact.get("result","")) in ["penetrated","perforated_stop"]: breached = true
+	var pressure_reaches: bool = (not burst_outside) or breached
+	st.burst["channels"]["overpressure"] = {"applied":pressure_reaches,"model":"cd07-bounded-connectivity-v1",
+		"burst_outside":burst_outside,"breached":breached,
+		"pending":("" if pressure_reaches else "cd07-connectivity-openings"),
+		"reason":("an interior burst or a breached plate gives the pressure a path" if pressure_reaches
+			else "closed compartment with no breach: the pressure has no path in, so there is no invented interior overpressure")}
 	if st.effect_policy=="he_blast": st.burst["external_he"]=true
 	if not st.fuze_policy.is_empty():
 		st.burst["fuze"] = {"version":ShellFuze.VERSION,"policy":st.fuze_policy.duplicate(true),

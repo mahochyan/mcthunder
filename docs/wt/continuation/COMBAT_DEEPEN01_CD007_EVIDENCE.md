@@ -98,3 +98,34 @@ A2 实弹（APHE + 8mm 以下触发厚度的延期引信 ✓ 已证夹具形状 
 上轮 A1 写的是"**因尚不存在而以名字拒绝**" ✓ = 对**当时缺口**的陈述 ✓；本轮实现使**该通道存在** ✓ ⇒ 期望随之**由拒转受** ✓ 即"**实现满足要求**" ✓（另有三个**非通道名**仍**拒绝** ✓ 作为**未被放宽**的对照 ✓）。
 ### 下一轮
 **blast / overpressure 两通道的真正施加** ✓（设计 #2 有界连通：**封闭舱无破口 ⇒ 无凭空内舱超压** ✓；**开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓）＋ 实现顺序 #2 的**工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓ 不给所有车辆塞不兼容弹种 ✓）。
+## 8. 设计 #2 前半：**有界连通判定** ✓✓（`CD07_HE_ROOT_EVENT_PASS` ✓）
+### 改动（增量 ✓ 且**判定与输入都上账** ✓）
+`projectile_manager.gd` ✓ 的 root_event 中 ✓ `overpressure` 由**硬写 false** 改为**按规则算出** ✓：
+```
+"overpressure": { "applied": (not burst_outside) or breached  ✓
+                  "model": "cd07-bounded-connectivity-v1" ✓
+                  "burst_outside": <实测> ✓ "breached": <实测> ✓
+                  "pending": "" 或 "cd07-connectivity-openings" ✓
+                  "reason": 明写"内部起爆或被击穿给压力一条路径" / "封闭舱无破口 ⇒ 无凭空内舱超压" ✓ }
+```
+### 实测 ✓
+```
+overpressure verdict=**true** ✓ ; model=**cd07-bounded-connectivity-v1** ✓
+inputs: burst_outside=**true** ✓ breached=**true** ✓ ; **由自身输入独立重算 = true** ✓✓ ⇒ 判定与规则一致 ✓ 可复核 ✓
+reason="an interior burst or a breached plate gives the pressure a path" ✓
+blast ⇒ applied=**false** ✓ 仍明说"**已声明未施加**" ✓（不假装 ✓）
+```
+⇒ 设计 #2 ✓ 的**被击穿分支** ✓ **已实现并实测** ✓；**封闭无破口分支** ✓ 由**同一规则**给出（`applied=false` ✓）但**尚不可演示** ✗ ⇒ 因其需要一个**外爆 + 封闭目标**的场景 ✓ ⇒ **开口路径**是下一轮的**具名**工作 ✓（见下 ✓）。
+### 关键发现：**开口机制早已存在于生产链** ✓✓
+```
+VehicleLayoutDefinition.declared_openings ✓ = [{id, part, boundary_loop, reason}] ✓
+声明者 ✓：historical_vehicle_geometry（g.open_top ⇒ declare_opening(...,"open_fighting_compartment",...) ✓）✓
+          vehicle_armor_layers ✓（逐层 perimeter ✓）
+消费者 ✓：shell_effect_policy.gd:49-50 ✓ 已在**遍历 declared_openings**（"Caps define the limit of inside travel through real openings" ✓）
+⇒ 设计 #2 所需"**有界舱室/开口/装甲破口连通规则**"的**开口数据已存在** ✓ ⇒ 下一轮**消费**它 ✓ 而非新建 ✗
+（快照构造器取 **layout** ✓ 但 `declared_openings` **未见于快照/查询链** ✗ ⇒ 其到策略的**传递路径**须下一轮**测明** ✓ 不猜 ✓）
+```
+### 下一轮（**明确三项** ✓）
+1. **追明开口到策略的传递路径** ✓（快照缺该键 ✗ ⇒ 找到 `shell_effect_policy` 实际取用它的路径 ✓）；
+2. **封闭无破口 ⇒ `applied=false`** ✓（T01 核心 ✓）与**开放 vs 遮盖同距离对照不同** ✓ 且**不依赖 `vehicle_type` 标签** ✓（T02 ✓）—— 用 **`open_top=true` 的夹具包** ✓（设计 #5"**开放顶 M36 可作现有代表之一**" ✓ 不把现代坦克改敞篷 ✗）；
+3. 实现顺序 #2 的**工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓）。

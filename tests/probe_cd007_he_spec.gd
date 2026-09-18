@@ -112,11 +112,21 @@ func _run() -> void:
 		"CD07 A2 the root event records THREE separate channels, not one shared switch: %s" % str(channels.keys()))
 	check(bool(channels.get("fragment",{}).get("applied",false)),
 		"CD07 A2 the fragment channel is really applied, on the existing bounded emitter the order tells us not to rewrite")
-	check(not bool(channels.get("blast",{}).get("applied",true)) and not bool(channels.get("overpressure",{}).get("applied",true)),
-		"CD07 A2 and the two channels that are declared but NOT yet applied say so in the record instead of pretending to work")
-	check(not str(channels.get("blast",{}).get("pending","")).is_empty() and not str(channels.get("overpressure",{}).get("pending","")).is_empty(),
-		"CD07 A2 each pending channel names what is still missing: %s / %s" % [
-			str(channels.get("blast",{}).get("pending","")),str(channels.get("overpressure",{}).get("pending",""))])
+	var over: Dictionary = channels.get("overpressure",{})
+	var recorded_outside := bool(over.get("burst_outside",true))
+	var recorded_breached := bool(over.get("breached",false))
+	var rederived := (not recorded_outside) or recorded_breached
+	print("[CD07 A2] overpressure verdict=%s ; model=%s ; inputs burst_outside=%s breached=%s ; re-derived=%s ; reason=%s" % [
+		str(over.get("applied","")),str(over.get("model","")),str(recorded_outside),str(recorded_breached),str(rederived),str(over.get("reason",""))])
+	check(str(over.get("model",""))=="cd07-bounded-connectivity-v1",
+		"CD07 A2 the pressure channel is decided by a NAMED bounded-connectivity model rather than an in-radius switch: %s" % str(over.get("model","")))
+	check(bool(over.get("applied",false))==rederived,
+		"CD07 A2 the recorded verdict equals an independent re-derivation from its own recorded inputs, so the rule is visible and checkable: applied=%s re-derived=%s" % [
+			str(over.get("applied","")),str(rederived)])
+	check(recorded_breached and bool(over.get("applied",false)),
+		"CD07 A2 this fixture's plate WAS breached, so the pressure has a path in and the channel is applied - the breach half of the rule")
+	check(not bool(channels.get("blast",{}).get("applied",true)) and not str(channels.get("blast",{}).get("pending","")).is_empty(),
+		"CD07 A2 while the blast channel still says plainly that it is declared and not yet applied: %s" % str(channels.get("blast",{}).get("pending","")))
 	manager.queue_free()
 	world.queue_free(); await _frames(2)
 	print("=== 结果: %d 项检查, %d 失败 ==="%[checks,failures])
