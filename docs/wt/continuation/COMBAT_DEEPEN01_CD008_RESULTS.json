@@ -1,0 +1,63 @@
+{
+    "template_only":  false,
+    "actual_game_test_executed":  true,
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "work_order_id":  "WT-CD-008",
+    "base_sha":  "deb6033f2ef1adde83b584de1e824ba9b7af33f1",
+    "implementation_sha":  "b29662201933f17a99a46690d962a532cacd3257",
+    "tested_sha":  "b29662201933f17a99a46690d962a532cacd3257",
+    "final_sha":  "b29662201933f17a99a46690d962a532cacd3257",
+    "content_version":  "scripts/damage/crew_damage_profile.gd + scripts/defs/vehicle_runtime_state.gd at b29662201933f17a99a46690d962a532cacd3257",
+    "rules_version":  "cd008-crew-condition-v1 ; cd008-person-station-separation",
+    "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
+    "command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --fixed-fps 60 -s res://tests/\u003csuite\u003e.gd",
+    "cwd":  "E:\\AIprogram\\mcthunder-cont",
+    "started_at":  "2026-09-18T21:53:03",
+    "ended_at":  "2026-09-19T05:53:03",
+    "exit_code":  0,
+    "timed_out":  false,
+    "case_ids_expected":  [
+                              "CD08-T01",
+                              "CD08-T02",
+                              "CD08-T03",
+                              "CD08-T04",
+                              "CD08-T05",
+                              "CD08-T06"
+                          ],
+    "case_ids_executed":  [
+                              "CD08-T01",
+                              "CD08-T02",
+                              "CD08-T03",
+                              "CD08-T04",
+                              "CD08-T05",
+                              "CD08-T06"
+                          ],
+    "status":  "COMPLETE",
+    "failure_details":  [
+
+                        ],
+    "script_errors":  null,
+    "test_kind":  "rule_negative ; standard_fixture ; actual_actor_integration ; normal_player_flow ; external_behaviour_not_compared",
+    "input_method":  "headless scripted suites and probes against the production call chain",
+    "injections_declared":  [
+                                "the acceptance scene suite builds its own state and declares itself a test fixture; the replacement probe builds its own actor"
+                            ],
+    "raw_stdout":  "logs/COMBAT-DEEPEN-01/*.log (per-suite and per-probe captures, unchanged, never filtered for SCRIPT ERROR)",
+    "raw_stderr":  "captured in the same per-run logs",
+    "screenshots":  [
+
+                    ],
+    "events":  [
+                   "graded crew condition",
+                   "versioned legacy migration with rollback",
+                   "person identity separated from station and role",
+                   "station occupancy map",
+                   "incapacitation refusal within a life"
+               ],
+    "not_run":  [
+                    "The recovery player suite reports nothing under headless because it requires a real window by design; recorded, not counted as a gap in this sub-order.",
+                    "CD09..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                ],
+    "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+    "next_action":  "continue with CD09 (ammunition and crew chain), whose prerequisites CD05 and CD08 are now both closed"
+}
