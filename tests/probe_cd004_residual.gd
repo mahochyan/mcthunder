@@ -40,9 +40,20 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 	# adding the manager's exclusion and include flags returned none.
 	snapshot["entity_id"] = "cd004_t04_target"
 	snapshot["life_id"] = 7
+	# A legal APHE-family impact profile, built from the rules ArmorImpactProfile.validate actually enforces: the full-calibre
+	# version, family APHE for an internal_burst effect, game_rule provenance with a stated reason, normalization inside
+	# zero to twenty degrees, overmatch zero or one to a hundred, a ricochet angle strictly between zero and ninety, and an
+	# explicit rolled/cast coefficient table with no unknown substitution. Without this the armour verdict never reaches
+	# penetrated, ShellFuze.arm never runs, and no fuze behaviour can be measured at all.
+	var aphe_profile := {"version":ArmorImpactProfile.VERSION,"family":"APHE","provenance":"game_rule",
+		"reason":"CD004-T04 probe fixture: an APHE-family rule set so a penetration verdict can arm a delay fuze",
+		"normalization_deg":4.0,"overmatch_ratio":3.0,"ricochet_deg":70.0,
+		"material_coefficients":{"rolled":1.0,"cast":1.1}}
+	var impact_errors := ArmorImpactProfile.validate(aphe_profile,"internal_burst")
+	print("[CD004 T04] APHE impact profile errors=%s" % JSON.stringify(impact_errors))
 	var spec := {"round_id":round_id,"shooter_id":"cd004_t04","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id+"_t04fixture",
 		"effect_policy":"internal_burst","armor_policy":"resolve",
-		"impact_profile":{},"post_penetration_profile":{},"fuze_policy":delay_fuze.duplicate(true),
+		"impact_profile":aphe_profile,"post_penetration_profile":{},"fuze_policy":delay_fuze.duplicate(true),
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
 		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
 		"max_age_s":0.05,"max_distance_m":20.0}
@@ -65,6 +76,9 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 		if residual_speed < 0.0 and len(projectile.contacts) > 0:
 			residual_speed = projectile.velocity_world.length()
 			plate_x = previous.x
+			print("[CD004 T04] first contact: result=%s effective_mm=%s consumed=%s fuze_armed=%s" % [
+				str(projectile.contacts[0].get("result","")),str(projectile.contacts[0].get("effective_mm","")),
+				str(projectile.contacts[0].get("consumed_mm","")),str(projectile.fuze_due_age_s >= 0.0)])
 	terminal = str(projectile.terminal_reason)
 	var burst_x := projectile.position_world.x
 	manager.queue_free()

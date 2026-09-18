@@ -107,3 +107,21 @@ k=0 控制腿：速度保持偏差 0.00000000 ✓✓
 ```
 ⇒ **两个可测缺口** ✓：① `必须设计 #3` 的**明确 `residual_velocity` 规则**尚未实现 ✗（`speed_scale` 默认 1.0 ✓ 仅跳弹改 ✓）；② 引信未 arm ✓ —— 因为**空 `impact_profile`** 使装甲判决不是 `penetrated` ✗（应给一份**属于 APHE 家族**的合法 `internal_burst` 剖面 ✓ 才可 arm ✓）。
 ⇒ **下一轮**：先补合法 APHE 剖面使引信可 arm ✓，再按薄/厚板**单调性**实现并验证 `residual_velocity` 规则 ✓（**先判据后实现** ✓）。
+
+## 7. `CD04-T04` 深挖：判决已达 penetrated ✓，两机制已定位 ✓
+**夹具升级** ✓：交付包**无任何 `internal_burst` 包** ✗（`authoring/` 全搜 0 ✓）⇒ 按 `ArmorImpactProfile.validate` 的**全部规则内联构造**合法 APHE 剖面 ✓：
+```
+version=wt012-full-caliber-v1 ✓ family=APHE ✓ provenance=game_rule ✓ reason 非空 ✓
+normalization_deg=4.0 ∈[0,20] ✓ overmatch_ratio=3.0 ∈{0}∪[1,100] ✓ ricochet_deg=70 ∈(0,90) ✓
+material_coefficients={rolled:1.0, cast:1.1} ✓（禁止未知替换 ✓）
+⇒ validate errors=[] ✓ ；实测首次接触 result=**penetrated** ✓ effective_mm=100.0 ✓ consumed=100.0 ✓
+```
+**机制一：引信为何仍未 arm** ✗（`ShellFuze.arm` 三条件，**读源码** ✓）：
+```
+result.result 必须 == "penetrated" ✓（已满足 ✓）
+result.backface 必须为 false ✓
+path_thickness_mm（缺省回退 effective_mm）必须 ≥ fuze.arming_thickness_mm（我设 5 mm ✓）
+⇒ 未 arm ⇒ 只能是 backface=true ✗ 或 path_thickness_mm 存在但为 0 ✗ ⇒ **下一轮打印这两个值即定论** ✓（1 行 ✓）
+```
+**机制二：贯穿无残余速度规则** ✗（`ArmorResolver` **源码确认** ✓）：`out` 初始化 `"speed_scale": 1.0` ✓，**只有跳弹**分支改写它 ✓ ⇒ **贯穿不扣速** ✓ 与实测 `residual=900.000` ✓ 完全一致 ✓。
+⇒ 实现须遵守子单边界 ✓："**穿深预算不是焦耳，不能直接将毫米代入动能公式；映射属于项目设计并单独标定**" ✓ ⇒ 规则须为**显式、可标定**的项目设计曲线 ✓（如以 `consumed/available` 为自变量的声明式映射 ✓ 并写明 provenance=design ✓），判据为**薄/厚板单调性** ✓ 与"**不按穿透前恒速推远**" ✓。
