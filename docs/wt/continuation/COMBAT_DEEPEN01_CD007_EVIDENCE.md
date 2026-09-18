@@ -182,3 +182,24 @@ R2 **强制 open_top=true** ⇒ ok=**false** ✓
 ### 下一轮
 1. **历史开放顶代表**上的**开放/封闭对照** ✓（**T01**"封闭无破口 ⇒ `applied=false`" ✓；**T02**"开放 vs 遮盖同距离对照不同 ✓ **不依赖 `vehicle_type`**" ✓）：先测明**历史包**是否/如何声明 `open_top` ✓ 并据此给出两句对照 ✓；
 2. **实现顺序 #2 的工程 HE 配置与注册入口** ✓（**限定可用测试武器** ✓）。
+## 11. **开放/封闭对照**：数据级对照**已由交付内容实测** ✓✓（探针读路径未打通 ⇒ **具名**为下一步 ✓）
+### 实测（真实命令输出 ✓）
+```
+configs/vehicles/historical/ 四个包**均存在** ✓：us_m24_m6_t85e1_1951 ✓ us_m26_m3_1945 ✓ us_m36_m4a1_1945 ✓ us_m4a3_75w_vvss_1944 ✓（各 ~28 KB ✓）
+**us_m36_m4a1_1945 : geometry.open_top = **True** ✓✓**（设计 #5 点名的开放顶代表 ✓）
+**us_m26_m3_1945   : geometry.open_top = **False** ✓✓**（同代封闭代表 ✓）
+两者均带 `armor` 键 ✓ ⇒ **交付内容自带正确的开放/封闭对照** ✓✓ **无需改动交付件** ✓ 且**不违反设计 #5** ✓
+```
+⇒ 即 **T02** 所需的"**开放 vs 遮盖**"在**交付数据层**已具备 ✓；且其判据须落在"**声明几何**"上 ✓ 而非 `vehicle_type` 标签 ✓✓。
+### 重建路径（**分别实测/引用** ✓ 不含糊 ✓）
+| 类 | 事实 | 状态 |
+|---|---|---|
+| **现代类** | 交付包重建后 `declared_openings=**5**` ✓（turret_ring / gun_aperture / turret_floor_ring / shield_perimeter / gun_bore ✓）| ✅ **实测** ✓ |
+| **历史类** | `historical_vehicle_geometry.gd:117` ✓ `if g.open_top: declare_opening(out,"turret","**open_fighting_compartment**",upper)` ✓ | 🔶 **引用代码** ✓ **未实测** ✗（见下 ✓） |
+### 我的探针读路径**未打通** ✗（**如实记录 ✓ 并具名 ✓**）
+我为历史包写了探针 `probe_cd007_open_closed.gd` ✓ 但**读取始终为空** ✗：文件**确实存在** ✓（上面直查 ✓）、路径与**生产 catalog 完全一致** ✓（`vehicle_catalog.gd:39` ✓）、改用 `FileAccess.open` **仍为空** ✗ ⇒ **根因未定** ✗（**不猜** ✓）。⇒ 依我自己的 standing rule **停止路径狩猎** ✓，移除该未打通探针 ✓ **不留失败件** ✓。
+**下一步（具名 ✓）**：改走**生产 catalog 自身的加载** ✓（`tests/run_historical_checks.gd` L20-25 ✓ 已证四包可注册 ✓ 并从 `catalog.packages[id].packet` 取包 ✓）⇒ 由此**实测**历史类的 `declared_openings` ✓ 并给出 **T01/T02** 两句对照 ✓（**外爆 + 无破口** ⇒ 封闭 `applied=false` ✓；开放顶 `applied=true` ✓）。
+### 本轮**三处工具/对象疏漏** ✓✗（**均自查** ✓）
+① 常量名与**父类重名**（`HISTORICAL` ✓）⇒ 解析冲突 ✗ ⇒ 改名 ✓；
+② 误把 `authoring/vehicles/seeds/*.json` 当**包** ✗ ⇒ 实为另一层结构 ✓（**先确认对象再写代码** ✓）；
+③ 对**已多次编辑**的文件用**逐处替换** ✗ ⇒ 反复未命中 ✗ ⇒ **standing rule 再次生效** ✓：**整体重写优先** ✓。
