@@ -308,3 +308,32 @@ is window-required by design.
    explained rather than assumed;
 3. then re-apply the migration together with those exact corrections and run all thirteen suites, comparing counts.
 ```
+
+## 10. The migration with the ROLE as the key: errors gone, two legs left, and the count deltas measured
+
+### 10.1 The role key table, established by reading the fixtures
+```
+damage_training_layout.gd:38   station id = "assistant_driver"   role = "assistant_driver_bow_gunner"
+==> the two were ALREADY different in the training fixture, which is exactly what this case is about.
+crew_assignments is keyed by ROLE, so a leg must ask for "assistant_driver_bow_gunner", not for the station id.
+That single confusion explains every site I got wrong: I read a station id where a role key belongs.
+```
+### 10.2 What the role-keyed re-application achieved
+```
+runtime errors : ZERO in all thirteen suites (the dotted-access class is fixed)
+suites at baseline: eleven of thirteen
+remaining failures: two, both legs I restated -
+   run_damage_checks  "one person never occupies two roles"
+   run_recovery_checks "one person cannot occupy two roles after replacement"
+count deltas: run_damage_checks 54 (was 57, -3) ; run_recovery_checks 60 (was 64, -4)
+==> a failing leg still PRINTS, so a lower count means legs that do not run at all, which points at a preceding
+    condition whose value the migration changes, not at the failures themselves.
+```
+### 10.3 Reverted, and the whole remaining task is now two sentences
+```
+1. print, at each of the two failing legs, the values they read (old role slot, new role slot, the person, and the
+   alive flags), so the wording matches the measurement instead of my reading of it;
+2. explain the two count deltas by listing which legs stop appearing - the same set comparison that named the twelve
+   earlier - and only then re-apply.
+Everything is reverted to the committed state and the affected suites are verified green again.
+```
