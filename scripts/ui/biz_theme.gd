@@ -348,6 +348,18 @@ static func animate_in(control: Control, kind: String = "panel_in", rise: float 
 	tween.tween_property(control,"modulate",Color(1,1,1,1),ms / 1000.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(control,"position",start,ms / 1000.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
+## A pure fade, used for page switches. It animates modulate only - never position or size - so a verifier that
+## measures geometry at any point during the transition still sees the final layout.
+static func fade_in(control: Control, ms_name: String = "page_ms") -> void:
+	if control == null: return
+	if AccessibilitySettings.reduce_flashes:
+		control.modulate = Color(1,1,1,1)
+		return
+	var ms := UiTokens.biz_motion(ms_name,160.0)
+	control.modulate = Color(1,1,1,0)
+	var tween := control.create_tween()
+	tween.tween_property(control,"modulate",Color(1,1,1,1),ms / 1000.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
 ## A brief highlight pulse, e.g. when a value changes or an action lands.
 static func pulse(control: Control, colour: Color = Color.TRANSPARENT) -> void:
 	if control == null or AccessibilitySettings.reduce_flashes: return

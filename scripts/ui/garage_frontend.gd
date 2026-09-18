@@ -53,25 +53,41 @@ func compose(g: GarageShell) -> void:
 	var view_controls: Control=g.inspect_button.get_parent()
 	old_margin.hide()
 	g.theme=GarageTheme.theme()
+	# UI-BIZ-01 stage 3: the atmosphere goes in first so it sits behind every later sibling - base colour, procedural
+	# vignette and a faint accent wash along the top edge. It is full-bleed and ignores the mouse.
+	BizTheme.atmosphere(g)
 	var outer := MarginContainer.new(); outer.name="Frontend"; g.add_child(outer); outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: outer.add_theme_constant_override("margin_"+side,24)
 	var vertical := VBoxContainer.new(); vertical.add_theme_constant_override("separation",10); outer.add_child(vertical)
 	var header := HBoxContainer.new(); header.add_theme_constant_override("separation",22); vertical.add_child(header)
 	var brand := VBoxContainer.new(); brand.custom_minimum_size.x=286; header.add_child(brand)
-	GarageTheme.text(brand,"MCTHUNDER",25)
-	GarageTheme.text(brand,"A R M O R E D   W A R F A R E",10,GarageTheme.MUTED)
-	tree_button=button(header,"科技树",open_research_tree)
+	# UI-BIZ-01 stage 3 (screen 1): the logotype takes the added OFL latin display face at the overlay's logotype
+	# size, and the strapline keeps its latin face at caption size. Chinese text elsewhere keeps the project font.
+	BizTheme.logotype(brand,"MCTHUNDER")
+	var brand_sub := GarageTheme.text(brand,"A R M O R E D   W A R F A R E",10,BizTheme.text_tertiary())
+	brand_sub.add_theme_font_override("font",BizTheme.FONT_LATIN)
+	tree_button=button(header,"科技树",open_research_tree); BizTheme.apply_button(tree_button,"ghost","research")
+	var tab_icons := ["battle","ammo","training"]
 	for i in 3:
 		var nav := button(header,["作战","车辆配装","训练中心"][i],func() -> void: show_page(i))
-		nav.custom_minimum_size.x=96; tabs.append(nav)
+		nav.custom_minimum_size.x=118; tabs.append(nav)
+		# UI-BIZ-01 stage 3: the shared icon set reaches the tab row too, so the header reads as one system.
+		var tex := BizTheme.icon_texture(tab_icons[i],18)
+		if tex != null:
+			nav.icon=tex
+			nav.add_theme_constant_override("h_separation",8)
+	_refresh_tabs()
 	var spacer := Control.new(); spacer.size_flags_horizontal=Control.SIZE_EXPAND_FILL; header.add_child(spacer)
 	var settings_button := button(header,"设置",func() -> void:
 		var panel := InputSettingsPanel.new(); panel.profile=g.profile
 		panel.progress_reset.connect(func() -> void: g.progress_reset.emit()); g.add_child(panel))
 	var quit_button := button(header,"退出",func() -> void: AppDialog.focus_cancel(AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit())))
-	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=Color("344045"); vertical.add_child(line)
+	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=BizTheme.hairline(); vertical.add_child(line)
 	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",24); vertical.add_child(body)
 	var side := PanelContainer.new(); side.custom_minimum_size.x=310; body.add_child(side)
+	# UI-BIZ-01 stage 3: the action column is the raised surface of a two-level layout, so the deploy decision sits
+	# on a visibly different plane from the scrolling page beside it.
+	side.add_theme_stylebox_override("panel",BizTheme.panel_box("raised"))
 	var side_column := VBoxContainer.new(); side_column.add_theme_constant_override("separation",12); side.add_child(side_column)
 	var scroll := ScrollContainer.new(); scroll.follow_focus=true; scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; side_column.add_child(scroll)
 	var page_host := VBoxContainer.new(); page_host.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(page_host)
@@ -82,14 +98,14 @@ func compose(g: GarageShell) -> void:
 	GarageTheme.text(pages[0],"对局规则",13,GarageTheme.MUTED); move(g.preparation.mode_choice,pages[0])
 	GarageTheme.text(pages[0],"行动区域",13,GarageTheme.MUTED); move(g.preparation.map_choice,pages[0]); move(g.preparation.map_note,pages[0])
 	GarageTheme.text(pages[0],"对手难度",13,GarageTheme.MUTED); move(g.preparation.difficulty_choice,pages[0])
-	var loadout_open := button(pages[0],"调整携弹与出战阵容   →",func() -> void: show_page(1))
-	g.challenge_button=button(pages[0],"战术挑战   ↗",g._open_challenges)
+	var loadout_open := button(pages[0],"调整携弹与出战阵容   →",func() -> void: show_page(1)); BizTheme.apply_button(loadout_open,"secondary","ammo")
+	g.challenge_button=button(pages[0],"战术挑战   ↗",g._open_challenges); BizTheme.apply_button(g.challenge_button,"secondary","challenge")
 	move(g.result_label,pages[0]); g.result_label.add_theme_color_override("font_color",GarageTheme.MUTED)
 	move(g.error_label,side_column)
 	# WT-UI-006 (S03): the current configuration summary is fixed outside the scrolling area, beside the main action.
 	loadout_summary=GarageTheme.text(side_column,"",12,GarageTheme.MUTED)
 	loadout_summary.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	deploy=button(side_column,"进入战斗   →",func() -> void: g.laboratory_requested.emit("team")); GarageTheme.primary(deploy)
+	deploy=button(side_column,"进入战斗   →",func() -> void: g.laboratory_requested.emit("team")); BizTheme.apply_button(deploy,"primary","battle")
 	section(pages[1],"02  /  VEHICLE SYSTEMS","车辆配装")
 	# WT-UI-006 (S03): the ammunition and lineup groups come first in the loadout column, so shell cards and counts
 	# are visible without scrolling; the vehicle picker, dossier and research line follow below them.
@@ -128,6 +144,14 @@ func compose(g: GarageShell) -> void:
 	state_label=GarageTheme.text(name_stack,"",13,GarageTheme.ACCENT)
 	stats=GarageTheme.text(hero_header,"",14,GarageTheme.MUTED); stats.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; stats.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	move(viewport_container,hero); viewport_container.custom_minimum_size=Vector2(200,120); viewport_container.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	# UI-BIZ-01 stage 3: a one-pixel accent bezel above the model view. It reads as an instrument screen rather than a
+	# hole in the panel, and it costs a single pixel of layout height in a column that expands anyway.
+	var bezel := ColorRect.new()
+	bezel.custom_minimum_size.y=1
+	bezel.color=BizTheme.accent_line()
+	bezel.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	hero.add_child(bezel)
+	hero.move_child(bezel,viewport_container.get_index())
 	move(view_controls,hero); move(g.inspection_row,hero)
 	# WT-UI-006 (S03): inspection is its own group and reads this vehicle's own panels, modules and crew.
 	GarageTheme.text(hero,LocalizationService.text("loadout_group_check"),16)
@@ -158,6 +182,11 @@ func compose(g: GarageShell) -> void:
 		var id: String=g.vehicle_choice.get_item_metadata(i)
 		var card := button(carousel,"%02d   %s\n%s"%[i+1,short_names.get(id,id),_country(id)],func() -> void: g.vehicle_choice.select(i); g._select_vehicle(i))
 		card.tooltip_text=g.vehicle_choice.get_item_text(i)
+		BizTheme.apply_button(card,"secondary")
+		# UI-BIZ-01 stage 3: measured, not assumed - a thumbnail inside the 216x96 token card squeezed the two text
+		# lines into three or four at 125%, which pushed the strip to 128 px (bound 80-112) and stopped the selected
+		# card scrolling fully into view. The card therefore stays text-only and the real render plate belongs in the
+		# hero, where there is room; a vehicle without a render says so instead of borrowing another vehicle's image.
 		card.custom_minimum_size=Vector2(UiTokens.metric("components.vehicle_card.width",216.0),UiTokens.metric("components.vehicle_card.height",96.0))
 		card.clip_text=false; card.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
 	var footer := HBoxContainer.new(); vertical.add_child(footer)
@@ -237,13 +266,23 @@ func show_page(index: int) -> void:
 	page_index=index
 	for i in pages.size():
 		pages[i].visible=i==index
-		tabs[i].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if i==index else Color.TRANSPARENT,GarageTheme.ACCENT if i==index else Color.TRANSPARENT))
+	_refresh_tabs()
+	# UI-BIZ-01 stage 3: a fade-only transition on the page that just became visible. Modulate alone, so nothing a
+	# verifier measures mid-transition changes.
+	BizTheme.fade_in(pages[index])
 	garage.preparation.details.visible=index==1 and garage.profile.service.has_vehicle(garage.selected_vehicle_id())
 
 func refresh() -> void:
 	if title==null: return
 	var id := garage.selected_vehicle_id()
 	title.text=short_names.get(id,garage.vehicle_choice.get_item_text(garage.vehicle_choice.selected))
+	# UI-BIZ-01 stage 3: a latin vehicle name takes the added display face at the overlay's display size; a Chinese
+	# name keeps the project's CJK face, so neither language can end up on a missing glyph.
+	title.add_theme_font_size_override("font_size",roundi(float(UiTokens.biz_type_size("display_l",34)) * AccessibilitySettings.ui_scale))
+	if BizTheme.is_latin(title.text):
+		title.add_theme_font_override("font",BizTheme.FONT_LATIN)
+	else:
+		title.remove_theme_font_override("font")
 	subtitle.text=VehicleDisplayMetadata.identity_line(id)
 	if state_label != null:
 		var admitted: bool = garage.profile.service.has_vehicle(id)
@@ -259,7 +298,7 @@ func refresh() -> void:
 		var packet: Dictionary=garage.catalog.packages[id].packet
 		stats.text="%s mm  主炮\n%d  发携弹上限"%[str(packet.assembly.caliber_mm),int(packet.runtime.rounds)]
 	for i in cards.size():
-		cards[i].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if i==garage.vehicle_choice.selected else Color("171f24"),GarageTheme.ACCENT if i==garage.vehicle_choice.selected else Color("303a3e")))
+		cards[i].add_theme_stylebox_override("normal",BizTheme.row_box(i==garage.vehicle_choice.selected,false))
 	# WT-UI-004: the collection row scrolls horizontally, so the selected card is scrolled into view instead of being
 	# left off-screen; the row still keeps every card reachable.
 	if collection_scroll != null and cards.size() > garage.vehicle_choice.selected:
@@ -305,3 +344,22 @@ func _country(id: String) -> String:
 	# WT-UI-004: one presenter, no default country. An id whose nation the data does not state shows the unknown
 	# entry instead of the old unconditional "美国 · 陆战载具" fallback.
 	return VehicleDisplayMetadata.identity_line(id)
+
+## UI-BIZ-01 stage 3: the tab row reads the shared component layer, so the current page is marked by the one
+## accent-coloured element in the header rather than by a per-file literal colour.
+func _refresh_tabs() -> void:
+	for i in tabs.size():
+		var active := i == page_index
+		BizTheme.apply_tab(tabs[i],active)
+		tabs[i].add_theme_color_override("font_color",BizTheme.accent() if active else BizTheme.text_secondary())
+
+## UI-BIZ-01 stage 3: a vehicle's OWN checked-in thumbnail, or null. The set is the research render set, whose
+## manifest records its sources; a vehicle without one says the picture is missing and keeps its name, and another
+## vehicle's image is never substituted.
+## UI-BIZ-01 stage 3: a vehicle's OWN checked-in render, or null. Kept for the hero render plate; the collection card
+## deliberately does not use it (see the measurement note there). Another vehicle's image is never substituted.
+static func thumbnail_for(id: String) -> Texture2D:
+	var path := "res://assets/research/thumbnails/%s.png" % id
+	if not ResourceLoader.exists(path): return null
+	var loaded: Variant = load(path)
+	return loaded if loaded is Texture2D else null
