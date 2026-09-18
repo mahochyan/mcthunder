@@ -41,15 +41,24 @@ func _ready() -> void:
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.focus_mode = Control.FOCUS_ALL
-	description = BizTheme.display_label(scroll,"","subtitle",BizTheme.text_primary()); description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# UI-BIZ-01 stage 3: a ScrollContainer holds ONE child. Three labels used to be added here directly, so they were
+	# laid out on top of each other, and rounds_label had no horizontal expand, which collapsed its minimum width to a
+	# single pixel and wrapped every character onto its own line - the orphaned column the stage 0 baseline already
+	# shows at the left edge. One column container now hosts all three, each with the same expand flag.
+	var body := VBoxContainer.new()
+	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body.add_theme_constant_override("separation",6)
+	scroll.add_child(body)
+	description = BizTheme.display_label(body,"","subtitle",BizTheme.text_primary()); description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# WT-UI-011 (S08): the rules, the recorded best and the current-attempt note are three separate lines, and the
 	# ammunition the challenge pins is stated with the config's own round count.
-	rules_label = CoreUI.label(scroll,"",UiTokens.biz_type_size("body",15)); rules_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	rules_label = CoreUI.label(body,"",UiTokens.biz_type_size("body",15)); rules_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	rules_label.add_theme_color_override("font_color",BizTheme.text_secondary())
 	rules_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	rounds_label = CoreUI.label(scroll,"",UiTokens.biz_type_size("label",13)); rounds_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	rounds_label = CoreUI.label(body,"",UiTokens.biz_type_size("label",13)); rounds_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	rounds_label.add_theme_color_override("font_color",BizTheme.warning())
+	rounds_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	current_label = CoreUI.label(content,"",UiTokens.biz_type_size("caption",11)); current_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	current_label.add_theme_color_override("font_color",BizTheme.text_tertiary())
 	best_label = CoreUI.label(content,"",UiTokens.biz_type_size("subtitle",18))
