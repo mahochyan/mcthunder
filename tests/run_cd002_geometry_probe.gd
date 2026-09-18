@@ -669,7 +669,11 @@ func mesh_overlay_cases(id: String, packet: Dictionary, layout: VehicleLayoutDef
 			var within: bool = outside.x<=limits.x and outside.y<=limits.y and outside.z<=limits.z
 			var entry := {"role":str(role),"zone":str(zone),"plates":int(row.plates),"worst_mm":worst,
 				"outside_mm":[outside.x,outside.y,outside.z],"inset_mm":[inset.x,inset.y,inset.z],
-				"limits_mm":[limits.x,limits.y,limits.z],"within":within,"key_part":MESH_KEY_ZONES.has(str(zone))}
+				"limits_mm":[limits.x,limits.y,limits.z],"within":within,"key_part":MESH_KEY_ZONES.has(str(zone)),
+				"plate_lo_mm":[row.min.x*1000.0,row.min.y*1000.0,row.min.z*1000.0],
+				"plate_hi_mm":[row.max.x*1000.0,row.max.y*1000.0,row.max.z*1000.0],
+				"mesh_lo_mm":[mesh_lo.x*1000.0,mesh_lo.y*1000.0,mesh_lo.z*1000.0],
+				"mesh_hi_mm":[mesh_hi.x*1000.0,mesh_hi.y*1000.0,mesh_hi.z*1000.0]}
 			out.zones.append(entry)
 			if not within and MESH_KEY_ZONES.has(str(zone)): out.over_tolerance.append(entry)
 	_print_role_bounds(id,role_roots,production.get("geometry",packet.get("geometry",{})))
@@ -682,6 +686,13 @@ func mesh_overlay_cases(id: String, packet: Dictionary, layout: VehicleLayoutDef
 			entry.inset_mm[0],entry.inset_mm[1],entry.inset_mm[2],
 			entry.limits_mm[0],entry.limits_mm[1],entry.limits_mm[2],
 			str(entry.within)," KEY" if entry.key_part else ""])
+		if not bool(entry.within):
+			print("[CD02-T01 %s]     over axis detail %s: outside_xyz=[%.0f,%.0f,%.0f] plate_lo=[%.0f,%.0f,%.0f] plate_hi=[%.0f,%.0f,%.0f] mesh_lo=[%.0f,%.0f,%.0f] mesh_hi=[%.0f,%.0f,%.0f]" % [
+				id,entry.zone,entry.outside_mm[0],entry.outside_mm[1],entry.outside_mm[2],
+				entry.plate_lo_mm[0],entry.plate_lo_mm[1],entry.plate_lo_mm[2],
+				entry.plate_hi_mm[0],entry.plate_hi_mm[1],entry.plate_hi_mm[2],
+				entry.mesh_lo_mm[0],entry.mesh_lo_mm[1],entry.mesh_lo_mm[2],
+				entry.mesh_hi_mm[0],entry.mesh_hi_mm[1],entry.mesh_hi_mm[2]])
 	check(out.leg!="NOT_RUN","CD02-T01 the delivered model can be loaded for the mesh leg ("+id+"): "+str(out.reason))
 	var registered: Dictionary = MESH_UNVERIFIED_ITEMS.get(id,{})
 	var unlisted: Array = []
