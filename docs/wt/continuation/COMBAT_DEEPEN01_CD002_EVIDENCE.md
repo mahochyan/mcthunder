@@ -43,6 +43,21 @@ dimension   = 2.00%  (model_binding.units.tolerance_fraction   = 0.02)
 ### 2.4 尚未完成 ✗
 **板件轮廓 vs 交付模型网格 AABB** 的叠加（含空隙保持 ✓）**未测** ✗ ⇒ 需要从交付场景取 `MeshInstance3D` 包围盒 ⇒ 列为下一项 ✓。
 
+### 2.5 板件轮廓 vs 交付模型网格：**已测，并列出超差项** ✓✗
+读法与**项目自身一致** ✓：交付目录 `assets/vehicles/modern_bound/` 带 **`.gdignore`**（**有意不导入** ✓ 见 `asset_registry_audit.gd:32` 的证据说明 ✓）⇒ 必须用 **`GLTFDocument.append_from_file`** ✓（`model_anchor_reader.gd:22` 同法 ✓）；GLB 路径取自**生产配置** ✓（夹具内的 packet 已被 TEST ONLY 模型改写 ✗）。
+判定方式：板件是**部件的子区域** ✓ ⇒ 检验**包含性**（轮廓不得越出所属部件的模型包围盒 ✓；并**排除子角色**以免车体盒被炮塔/火炮撑大 ✓），容差＝**50 mm 或 2%** 取大 ✓（按轴 ✓）。
+
+| 车 | 车体 12 区 | 炮塔 4 区 | 炮盾 `gun_shield` |
+|---|---|---|---|
+| `ussr_t_80b` | 多数 **within**（outside 0.0 mm ✓）；**`hull_sides_rear` / `hull_sides_lower_rear` / `hull_rear_upper` / `hull_rear_lower` / `hull_roof_rear` 超 210 mm** ✗（Z 向 ⇒ 后部板件伸出车体网格 0.21 m） | **超 666–1376 mm** ✗（Y inset **−1376 mm** ⇒ 炮塔板件伸到炮塔网格**下方** 1.38 m） | **超 663 mm** ✗ |
+| `germ_leopard_2a4` | **全部 12 区 within（outside 0.0 mm）** ✓ | **超 790–1570 mm** ✗（Y inset **−1570 mm**） | **超 1005 mm** ✗ |
+
+**待办（按用例原文"超差逐处修复或列未验" ✓）**——以下**逐处登记**，尚未修复 ⇒ 探针中该断言**按设计保持红** ✓（不为变绿改期望 ✓）：
+1. 两车**炮塔**板件（`turret_front` / `turret_sides` / `turret_rear` / `turret_roof`）向**下**越出炮塔网格 1.38 m（T-80B）/ 1.57 m（豹2）⇒ 需判定：**模型缺炮塔吊篮** ✓ 还是**布局炮塔下沿过高** ✗（下一轮在**隔离 authoring 目录**内判定并修 ✓ 不碰你在制作的 GLB ✓）；
+2. 两车**炮盾**越出 `gun` 角色网格 663 / 1005 mm ⇒ 同上判定（炮盾/炮口开口区域 ✓）；
+3. T-80B **车体后部** 5 区越出 210 mm ⇒ 后甲板/尾板与模型轮廓不一致 ✓。
+以上均为**项目内部一致性**问题（模型 ↔ 窄相位几何 ✓），**与战雷对照无关** ✓ ⇒ 标 `NOT_COMPARED` ✓；每处的"实际误差"已按轴记录于导出 JSON 的 `mesh_overlay.zones` ✓（含 `outside_mm` / `inset_mm` / `limits_mm` / `within` ✓）。
+
 ## 3. `CD02-T02` 姿态与机构：**通过** ✓（无双重变换）
 
 姿态：车体倾斜 **9°** · 炮塔偏转 **28°** · 火炮俯仰 **7°** ⇒ **单一快照**（`physics_tick` 随快照 ✓）

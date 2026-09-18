@@ -839,6 +839,524 @@
     },
     "layout_id": "test_cd002_ussr_t_80b_layout",
     "layout_schema": 1,
+    "mesh_overlay": {
+      "leg": "MEASURED",
+      "model_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
+      "over_tolerance": [
+        {
+          "inset_mm": [
+            618.999938964844,
+            367.967102050781,
+            3580.0
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_sides_lower_rear"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            867.967102050781,
+            3580.0
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_sides_rear"
+        },
+        {
+          "inset_mm": [
+            -117.515205383301,
+            -1376.30004882813,
+            1832.64990234375
+          ],
+          "key_part": true,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            232.087127685547,
+            1376.30004882813,
+            574.999938964844
+          ],
+          "plates": 4,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1376.30004882813,
+          "zone": "turret_rear"
+        },
+        {
+          "inset_mm": [
+            93.4847564697266,
+            -666.300048828125,
+            151.649948120117
+          ],
+          "key_part": true,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            0.0,
+            666.300048828125,
+            232.999923706055
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 666.300048828125,
+          "zone": "turret_roof"
+        },
+        {
+          "inset_mm": [
+            -331.497406005859,
+            -272.550598144531,
+            6034.5498046875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            50.0,
+            50.0,
+            114.258834838867
+          ],
+          "outside_mm": [
+            663.093078613281,
+            272.550598144531,
+            321.607971191406
+          ],
+          "plates": 4,
+          "role": "gun",
+          "within": false,
+          "worst_mm": 663.093078613281,
+          "zone": "gun_shield"
+        }
+      ],
+      "reason": "",
+      "tolerance_fraction": 0.02,
+      "tolerance_mm": 50.0,
+      "unverified": [],
+      "zones": [
+        {
+          "inset_mm": [
+            618.999938964844,
+            367.967102050781,
+            129.999877929688
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_front_lower"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            367.967102050781,
+            129.999877929688
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_lower"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            367.967102050781,
+            3580.0
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_sides_lower_rear"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            367.967102050781,
+            6880.0
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_rear_lower"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            867.967102050781,
+            129.999877929688
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_front_upper"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            867.967102050781,
+            129.999877929688
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_front"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            867.967102050781,
+            3580.0
+          ],
+          "key_part": true,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_sides_rear"
+        },
+        {
+          "inset_mm": [
+            618.999938964844,
+            867.967102050781,
+            7080.0
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_rear_upper"
+        },
+        {
+          "inset_mm": [
+            669.0,
+            1467.96716308594,
+            980.0
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 4,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_roof_front"
+        },
+        {
+          "inset_mm": [
+            669.0,
+            1467.96716308594,
+            3580.0
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            210.000030517578
+          ],
+          "plates": 4,
+          "role": "hull",
+          "within": false,
+          "worst_mm": 210.000030517578,
+          "zone": "hull_roof_rear"
+        },
+        {
+          "inset_mm": [
+            699.0,
+            367.967102050781,
+            629.999877929688
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 1,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_floor_front"
+        },
+        {
+          "inset_mm": [
+            699.0,
+            367.967102050781,
+            3580.0
+          ],
+          "key_part": false,
+          "limits_mm": [
+            72.7600021362305,
+            50.0,
+            137.399993896484
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            9.99999046325684
+          ],
+          "plates": 1,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 9.99999046325684,
+          "zone": "hull_floor_rear"
+        },
+        {
+          "inset_mm": [
+            732.484741210938,
+            -1376.30004882813,
+            -100.350021362305
+          ],
+          "key_part": false,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            0.0,
+            1376.30004882813,
+            100.350021362305
+          ],
+          "plates": 4,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1376.30004882813,
+          "zone": "turret_front"
+        },
+        {
+          "inset_mm": [
+            -167.515274047852,
+            -1376.30004882813,
+            -100.350021362305
+          ],
+          "key_part": false,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            332.087280273438,
+            1376.30004882813,
+            100.350021362305
+          ],
+          "plates": 7,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1376.30004882813,
+          "zone": "turret_sides"
+        },
+        {
+          "inset_mm": [
+            -117.515205383301,
+            -1376.30004882813,
+            1832.64990234375
+          ],
+          "key_part": true,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            232.087127685547,
+            1376.30004882813,
+            574.999938964844
+          ],
+          "plates": 4,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1376.30004882813,
+          "zone": "turret_rear"
+        },
+        {
+          "inset_mm": [
+            93.4847564697266,
+            -666.300048828125,
+            151.649948120117
+          ],
+          "key_part": true,
+          "limits_mm": [
+            51.3582572937012,
+            50.0,
+            52.4930000305176
+          ],
+          "outside_mm": [
+            0.0,
+            666.300048828125,
+            232.999923706055
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 666.300048828125,
+          "zone": "turret_roof"
+        },
+        {
+          "inset_mm": [
+            -331.497406005859,
+            -272.550598144531,
+            6034.5498046875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            50.0,
+            50.0,
+            114.258834838867
+          ],
+          "outside_mm": [
+            663.093078613281,
+            272.550598144531,
+            321.607971191406
+          ],
+          "plates": 4,
+          "role": "gun",
+          "within": false,
+          "worst_mm": 663.093078613281,
+          "zone": "gun_shield"
+        }
+      ]
+    },
     "modules": [
       {
         "ammo_capacity": 0,
@@ -2894,6 +3412,478 @@
     },
     "layout_id": "test_cd002_germ_leopard_2a4_layout",
     "layout_schema": 1,
+    "mesh_overlay": {
+      "leg": "MEASURED",
+      "model_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
+      "over_tolerance": [
+        {
+          "inset_mm": [
+            202.828643798828,
+            -1570.0,
+            4631.5546875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            1570.0,
+            223.549133300781
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1570.0,
+          "zone": "turret_rear"
+        },
+        {
+          "inset_mm": [
+            222.028732299805,
+            -790.0,
+            455.554840087891
+          ],
+          "key_part": true,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            790.0,
+            111.549140930176
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 790.0,
+          "zone": "turret_roof"
+        },
+        {
+          "inset_mm": [
+            -4.2653980255127,
+            -320.767425537109,
+            5216.55029296875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            50.0,
+            50.0,
+            84.2211303710938
+          ],
+          "outside_mm": [
+            60.7919082641602,
+            320.767425537109,
+            1005.49353027344
+          ],
+          "plates": 4,
+          "role": "gun",
+          "within": false,
+          "worst_mm": 1005.49353027344,
+          "zone": "gun_shield"
+        }
+      ],
+      "reason": "",
+      "tolerance_fraction": 0.02,
+      "tolerance_mm": 50.0,
+      "unverified": [],
+      "zones": [
+        {
+          "inset_mm": [
+            575.259704589844,
+            431.760528564453,
+            61.403751373291
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_front_lower"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            431.760528564453,
+            61.403751373291
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_lower"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            431.760528564453,
+            3561.40380859375
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_lower_rear"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            431.760528564453,
+            7061.40380859375
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_rear_lower"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            981.760498046875,
+            61.403751373291
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_front_upper"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            981.760498046875,
+            61.403751373291
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_front"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            981.760498046875,
+            3561.40380859375
+          ],
+          "key_part": true,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_sides_rear"
+        },
+        {
+          "inset_mm": [
+            575.259704589844,
+            981.760498046875,
+            7361.4033203125
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 2,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_rear_upper"
+        },
+        {
+          "inset_mm": [
+            615.259765625,
+            1691.76037597656,
+            711.403869628906
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 4,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_roof_front"
+        },
+        {
+          "inset_mm": [
+            615.259765625,
+            1691.76037597656,
+            3181.40356445313
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 4,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_roof_rear"
+        },
+        {
+          "inset_mm": [
+            645.259765625,
+            431.760528564453,
+            611.403686523438
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 1,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_floor_front"
+        },
+        {
+          "inset_mm": [
+            645.259765625,
+            431.760528564453,
+            3561.40380859375
+          ],
+          "key_part": false,
+          "limits_mm": [
+            71.8110275268555,
+            50.0,
+            150.128158569336
+          ],
+          "outside_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "plates": 1,
+          "role": "hull",
+          "within": true,
+          "worst_mm": 0.0,
+          "zone": "hull_floor_rear"
+        },
+        {
+          "inset_mm": [
+            702.828735351563,
+            -1570.0,
+            393.554931640625
+          ],
+          "key_part": false,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            1570.0,
+            0.0
+          ],
+          "plates": 4,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1570.0,
+          "zone": "turret_front"
+        },
+        {
+          "inset_mm": [
+            172.828674316406,
+            -1570.0,
+            393.554931640625
+          ],
+          "key_part": false,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            1570.0,
+            223.549133300781
+          ],
+          "plates": 6,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1570.0,
+          "zone": "turret_sides"
+        },
+        {
+          "inset_mm": [
+            202.828643798828,
+            -1570.0,
+            4631.5546875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            1570.0,
+            223.549133300781
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 1570.0,
+          "zone": "turret_rear"
+        },
+        {
+          "inset_mm": [
+            222.028732299805,
+            -790.0,
+            455.554840087891
+          ],
+          "key_part": true,
+          "limits_mm": [
+            56.1131477355957,
+            58.8000030517578,
+            90.4001159667969
+          ],
+          "outside_mm": [
+            0.0,
+            790.0,
+            111.549140930176
+          ],
+          "plates": 1,
+          "role": "turret",
+          "within": false,
+          "worst_mm": 790.0,
+          "zone": "turret_roof"
+        },
+        {
+          "inset_mm": [
+            -4.2653980255127,
+            -320.767425537109,
+            5216.55029296875
+          ],
+          "key_part": true,
+          "limits_mm": [
+            50.0,
+            50.0,
+            84.2211303710938
+          ],
+          "outside_mm": [
+            60.7919082641602,
+            320.767425537109,
+            1005.49353027344
+          ],
+          "plates": 4,
+          "role": "gun",
+          "within": false,
+          "worst_mm": 1005.49353027344,
+          "zone": "gun_shield"
+        }
+      ]
+    },
     "modules": [
       {
         "ammo_capacity": 0,

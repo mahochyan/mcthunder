@@ -581,6 +581,118 @@ func _as_vector(value) -> Vector3:
 	if parts.size() < 3: return Vector3.ZERO
 	return Vector3(float(parts[0]),float(parts[1]),float(parts[2]))
 
+## CD02-T01 mesh leg: the delivered model's own bounds against the narrow-phase plate outlines, judged with the
+## tolerance declared from the delivered packet. Read-only - the scene is instantiated OFF the tree, nothing is written
+## back, and a model that cannot be loaded is reported as not run with the reason instead of being guessed at.
+const MESH_ROLE_OF_PART := {"hull":"hull","turret":"turret","barrel":"gun","gun":"gun","drive":"hull"}
+const MESH_KEY_ZONES := ["gun_shield","turret_roof","turret_rear","hull_front_upper","hull_front_lower",
+	"hull_sides_front","hull_sides_rear","hull_sides_lower","hull_sides_lower_rear"]
+
+func mesh_overlay_cases(id: String, packet: Dictionary, layout: VehicleLayoutDefinition) -> Dictionary:
+	# The packet inside this case has been rewritten by the fixture helper to point at a TEST ONLY generated model, so the
+	# DELIVERED binding is read from the production config the sub-order names as a read entry - the same source the
+	# anchor leg uses. Reading the fixture's path made this leg report not run for the wrong reason.
+	var production := _read("res://configs/vehicles/engineering/"+id+".json")
+	var binding: Dictionary = production.get("model_binding",packet.get("model_binding",{}))
+	var path := str(binding.get("model",{}).get("path",""))
+	var units: Dictionary = binding.get("units",{})
+	var attachment_m := float(units.get("attachment_tolerance_m",TOLERANCE_FALLBACK_ATTACHMENT_M))
+	var fraction := float(units.get("tolerance_fraction",TOLERANCE_FALLBACK_FRACTION))
+	var out := {"model_path":path,"leg":"NOT_RUN","reason":"","zones":[],"over_tolerance":[],"unverified":[],
+		"tolerance_mm":attachment_m*1000.0,"tolerance_fraction":fraction}
+	# The delivered model directory carries a .gdignore by design, so it is deliberately NOT imported and ResourceLoader
+	# can never see it. The project reads these assets with GLTFDocument instead, which works on the byte-level GLB; this
+	# mirrors that and is why the earlier attempts reported not run.
+	var doc := GLTFDocument.new()
+	var state := GLTFState.new()
+	if doc.append_from_file(path,state) != OK:
+		out["reason"] = "GLTFDocument could not read the delivered model: "+path
+		print("[CD02-T01 %s] mesh leg: NOT_RUN (%s)" % [id,out["reason"]])
+		return out
+	var scene: Node = doc.generate_scene(state)
+	if scene == null:
+		out["reason"] = "the delivered model generated no scene: "+path
+		print("[CD02-T01 %s] mesh leg: NOT_RUN (%s)" % [id,out["reason"]])
+		return out
+	var role_roots := {}
+	for role in ["hull","turret","gun"]:
+		var node_path := str(binding.get("nodes",{}).get(role,""))
+		if node_path.is_empty(): continue
+		var node := scene.get_node_or_null(NodePath(node_path))
+		if node is Node3D: role_roots[role] = node
+	out["leg"] = "MEASURED" if role_roots.size()==3 else "PARTIAL"
+	for role in role_roots.keys():
+		# A plate is a SUB-region of its part, so the meaningful test is containment: the outline must not stick out of
+		# the model bounds of the part that carries it. Comparing min/max symmetrically produced metre-scale nonsense
+		# because it asked a sub-plate to match a whole part. Child roles are excluded so the hull test is not inflated
+		# by the turret and gun that sit above it.
+		var skip: Array = []
+		for other in role_roots.keys():
+			if str(other)!=str(role): skip.append(role_roots[other])
+		var mesh_bounds := _mesh_bounds(role_roots[role],skip)
+		var zones := {}
+		for patch in layout.armor_patches:
+			if str(MESH_ROLE_OF_PART.get(str(patch.part_id),"")) != str(role): continue
+			var zone := str(patch.plate_group_id)
+			if not zones.has(zone): zones[zone] = {"min":Vector3(INF,INF,INF),"max":Vector3(-INF,-INF,-INF),"plates":0}
+			zones[zone].plates = int(zones[zone].plates)+1
+			for vertex in patch.vertices_local_m:
+				var lo: Vector3 = zones[zone].min; var hi: Vector3 = zones[zone].max
+				zones[zone].min = Vector3(minf(lo.x,vertex.x),minf(lo.y,vertex.y),minf(lo.z,vertex.z))
+				zones[zone].max = Vector3(maxf(hi.x,vertex.x),maxf(hi.y,vertex.y),maxf(hi.z,vertex.z))
+		for zone in zones.keys():
+			var row: Dictionary = zones[zone]
+			if int(row.plates)==0 or not row.min.is_finite(): continue
+			var mesh_lo: Vector3 = mesh_bounds.position
+			var mesh_hi: Vector3 = mesh_bounds.position+mesh_bounds.size
+			var outside := Vector3(
+				maxf(0.0,mesh_lo.x-row.min.x)+maxf(0.0,row.max.x-mesh_hi.x),
+				maxf(0.0,mesh_lo.y-row.min.y)+maxf(0.0,row.max.y-mesh_hi.y),
+				maxf(0.0,mesh_lo.z-row.min.z)+maxf(0.0,row.max.z-mesh_hi.z))*1000.0
+			var inset := Vector3(row.min.x-mesh_lo.x,row.min.y-mesh_lo.y,row.min.z-mesh_lo.z)*1000.0
+			var limits := Vector3(
+				maxf(attachment_m*1000.0,fraction*absf(mesh_bounds.size.x)*1000.0),
+				maxf(attachment_m*1000.0,fraction*absf(mesh_bounds.size.y)*1000.0),
+				maxf(attachment_m*1000.0,fraction*absf(mesh_bounds.size.z)*1000.0))
+			var worst := maxf(maxf(outside.x,outside.y),outside.z)
+			var within: bool = outside.x<=limits.x and outside.y<=limits.y and outside.z<=limits.z
+			var entry := {"role":str(role),"zone":str(zone),"plates":int(row.plates),"worst_mm":worst,
+				"outside_mm":[outside.x,outside.y,outside.z],"inset_mm":[inset.x,inset.y,inset.z],
+				"limits_mm":[limits.x,limits.y,limits.z],"within":within,"key_part":MESH_KEY_ZONES.has(str(zone))}
+			out.zones.append(entry)
+			if not within and MESH_KEY_ZONES.has(str(zone)): out.over_tolerance.append(entry)
+	var over: int = out.over_tolerance.size()
+	print("[CD02-T01 %s] mesh leg: %s ; model=%s ; tolerance=%.0f mm / %.2f%% ; zones compared=%d ; over tolerance (key zones)=%d" % [
+		id,out.leg,path,out.tolerance_mm,out.tolerance_fraction*100.0,out.zones.size(),over])
+	for entry in out.zones:
+		print("[CD02-T01 %s]   zone %-22s role=%-6s plates=%2d outside=%8.1f mm inset=[%.0f,%.0f,%.0f] limits=[%.0f,%.0f,%.0f] within=%s%s" % [
+			id,entry.zone,entry.role,int(entry.plates),float(entry.worst_mm),
+			entry.inset_mm[0],entry.inset_mm[1],entry.inset_mm[2],
+			entry.limits_mm[0],entry.limits_mm[1],entry.limits_mm[2],
+			str(entry.within)," KEY" if entry.key_part else ""])
+	check(out.leg!="NOT_RUN","CD02-T01 the delivered model can be loaded for the mesh leg ("+id+"): "+str(out.reason))
+	check(over==0,"CD02-T01 every key zone's plate outline lies within the declared tolerance of the delivered model bounds ("+id+"): %d over" % over)
+	return out
+
+## Union of every mesh bound under a node, expressed in that node's own local space, skipping the given subtrees.
+func _mesh_bounds(root: Node, skip: Array = []) -> AABB:
+	var acc := {"ok":false,"box":AABB()}
+	_accumulate_mesh(root,Transform3D.IDENTITY,acc,skip)
+	return acc.box
+
+func _accumulate_mesh(node: Node, parent: Transform3D, acc: Dictionary, skip: Array = []) -> void:
+	if skip.has(node): return
+	var here := parent
+	if node is Node3D: here = parent*(node as Node3D).transform
+	if node is MeshInstance3D:
+		var mesh: Mesh = (node as MeshInstance3D).mesh
+		if mesh != null:
+			var box: AABB = here*mesh.get_aabb()
+			if acc.ok: acc.box = acc.box.merge(box)
+			else: acc.box = box
+			acc.ok = true
+	for child in node.get_children(): _accumulate_mesh(child,here,acc,skip)
+
 func cd002_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -598,6 +710,7 @@ func cd002_case(id: String) -> void:
 	var layout: VehicleLayoutDefinition = actor.damage_layout_override
 	var summary := _summary(packet,layout,actor)
 	summary["tolerance_check"] = _tolerance_checks(id,packet,layout)
+	summary["mesh_overlay"] = mesh_overlay_cases(id,packet,layout)
 	export_rows.append(summary)
 	print("[CD02 %s] layout=%s schema=%d tier=%s ; counts=%s" % [id,summary.layout_id,summary.layout_schema,summary.content_tier,JSON.stringify(summary.counts)])
 	print("[CD02 %s] zones=%s" % [id,JSON.stringify(summary.zones.keys())])
