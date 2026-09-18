@@ -282,6 +282,8 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	# too: which surface was offered, as what event type, and whether it was classified on an edge.
 	print("[CD02-T03 %s] original armour events=%s" % [id,JSON.stringify(_armor_events(original_snapshot,aim))])
 	print("[CD02-T03 %s] modified armour events=%s" % [id,JSON.stringify(_armor_events(modified_snapshot,aim))])
+	print("[CD02-T03 %s] original terminal=%s" % [id,str(original_hits.get("terminal_full",""))])
+	print("[CD02-T03 %s] modified terminal=%s" % [id,str(modified_hits.get("terminal_full",""))])
 	if not landed:
 		print("[CD02-T03 %s] NOT_RUN: this probe's own path reaches no plate (%d and %d contacts), so the invariance is NOT demonstrated by this run - the path must be aimed at a plate before this case can pass" % [
 			id,int(original_hits.get("contacts",0)),int(modified_hits.get("contacts",0))])
@@ -329,13 +331,18 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 		trail.append({"surface_id":str(row.get("surface_id","")),"part_id":str(row.get("part_id","")),
 			"result":str(row.get("result","")),"before_mm":float(row.get("before_mm",-1.0)),
 			"after_mm":float(row.get("after_mm",-1.0)),"t":float(row.get("t",-1.0)),
-			"distance_m":float(row.get("distance_m",-1.0))})
+			"distance_m":float(row.get("distance_m",-1.0)),
+			"scale":float(row.get("scale",-1.0)),"contact_consumed_mm":float(row.get("consumed_mm",-1.0)),
+			"ricochets":int(row.get("ricochets",-1))})
 	var record: Dictionary = {}
 	if manager.shot_records.count() > 0: record = manager.shot_records.get_record(manager.shot_records.count()-1)
 	manager.queue_free()
 	return {"contacts":contacts,"part_id":str(first.get("part_id","")),"surface_id":str(first.get("surface_id","")),
 		"result":str(first.get("result","")),"before_mm":float(first.get("before_mm",0.0)),"after_mm":float(first.get("after_mm",0.0)),
-		"consumed_mm":float(projectile.consumed_mm),"trail":trail,"terminal":str(record.get("terminal",{}).get("result",""))}
+		"consumed_mm":float(projectile.consumed_mm),"trail":trail,"terminal":str(record.get("terminal",{}).get("result","")),
+		"final_scale":float(projectile.budget_scale),"final_consumed_mm":float(projectile.consumed_mm),
+		"travelled_m":float(projectile.travelled_m),"terminal_reason":str(record.get("terminal",{}).get("reason","")),
+		"terminal_full":JSON.stringify(record.get("terminal",{}))}
 
 ## Aim perpendicular into a real plate: the geometry decides the path, so the case cannot pass on a miss.
 func _aim_at_plate(layout: VehicleLayoutDefinition, actor: VehicleActor) -> Dictionary:

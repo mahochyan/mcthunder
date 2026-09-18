@@ -566,7 +566,16 @@ func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		return false
 	var committed := _commit_damage_event(st,ev,before,st.position_world,st.velocity_world)
 	if not committed.get("ok",false):
-		if _live(st): finish_once(st.projectile_id,"unresolved_damage",{"detail":committed.get("reason","")})
+		# CD02-T03 / CombatIdentity invariant: a repeated event id must read the original result and change nothing, so a
+		# duplicate commit is a no-op that lets the flight continue. Treating it as fatal aborted the whole shot, which
+		# is how a denser triangulation of the SAME plate swallowed a real later layer. The duplicate must also be
+		# recorded as seen: returning without marking it made the manager offer the same event again for ever, which
+		# spun the probe at full CPU until it was killed.
+		var why := str(committed.get("reason",""))
+		if why=="invalid_or_duplicate":
+			st.damage_seen[DamageResolver.item_key(ev)] = true
+			return _live(st)
+		if _live(st): finish_once(st.projectile_id,"unresolved_damage",{"detail":why})
 		return false
 	if before - float(committed.consumed_mm) <= 1e-5:
 		if _rest_for_fuze(st, ev, "damage_budget_exhausted"): return true
