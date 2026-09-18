@@ -56,9 +56,18 @@ func compose(g: GarageShell) -> void:
 	# UI-BIZ-01 stage 3: the atmosphere goes in first so it sits behind every later sibling - base colour, procedural
 	# vignette and a faint accent wash along the top edge. It is full-bleed and ignores the mouse.
 	BizTheme.atmosphere(g)
+	# UI-BIZ-01 stage 4: the design says a 125% text scale triggers the compact layout on content demand, and the matrix
+	# audit measured exactly why - at 125% the footer sat twenty-seven pixels below the bottom edge, because the standard
+	# margins and gaps leave no vertical room once the type grows. The layout row is therefore chosen from the tokens with
+	# the scale taken into account, instead of the literals this file used before.
+	var compact_layout: bool = AccessibilitySettings.ui_scale > 1.0
+	var layout_prefix := "compact" if compact_layout else "standard"
+	var outer_margin := int(UiTokens.metric("layouts."+layout_prefix+".outer_margin",16.0 if compact_layout else 24.0))
+	var block_gap := int(UiTokens.metric("layouts."+layout_prefix+".gap",12.0 if compact_layout else 16.0))
+	var sidebar_width := UiTokens.metric("layouts."+layout_prefix+".sidebar",296.0 if compact_layout else 320.0)
 	var outer := MarginContainer.new(); outer.name="Frontend"; g.add_child(outer); outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left","right","top","bottom"]: outer.add_theme_constant_override("margin_"+side,24)
-	var vertical := VBoxContainer.new(); vertical.add_theme_constant_override("separation",10); outer.add_child(vertical)
+	for side in ["left","right","top","bottom"]: outer.add_theme_constant_override("margin_"+side,outer_margin)
+	var vertical := VBoxContainer.new(); vertical.add_theme_constant_override("separation",maxi(6,block_gap - 4)); outer.add_child(vertical)
 	var header := HBoxContainer.new(); header.add_theme_constant_override("separation",22); vertical.add_child(header)
 	var brand := VBoxContainer.new(); brand.custom_minimum_size.x=286; header.add_child(brand)
 	# UI-BIZ-01 stage 3 (screen 1): the logotype takes the added OFL latin display face at the overlay's logotype
@@ -83,7 +92,10 @@ func compose(g: GarageShell) -> void:
 		panel.progress_reset.connect(func() -> void: g.progress_reset.emit()); g.add_child(panel))
 	var quit_button := button(header,"退出",func() -> void: AppDialog.focus_cancel(AppDialog.show(g,LocalizationService.text("menu_quit"),LocalizationService.text("menu_quit_body"),LocalizationService.text("menu_quit_confirm"),func() -> void: g.quit_requested.emit())))
 	var line := ColorRect.new(); line.custom_minimum_size.y=1; line.color=BizTheme.hairline(); vertical.add_child(line)
-	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",24); vertical.add_child(body)
+	var body := HBoxContainer.new(); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; body.add_theme_constant_override("separation",block_gap); vertical.add_child(body)
+	# Measured: narrowing the sidebar at 125% made the vertical overflow worse, not better, because the summary and
+	# error text wrapped into more lines. The sidebar width therefore stays where it was; only the outer margin, the
+	# block gap and the strip padding respond to the scale.
 	var side := PanelContainer.new(); side.custom_minimum_size.x=310; body.add_child(side)
 	# UI-BIZ-01 stage 3: the action column is the raised surface of a two-level layout, so the deploy decision sits
 	# on a visibly different plane from the scrolling page beside it.
@@ -174,7 +186,10 @@ func compose(g: GarageShell) -> void:
 	collection_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO
 	collection_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	# The design's own range for the bottom strip is 80-112 px, so the row asks for the token card height plus the
-	# strip's own padding and lands at 112 rather than 114.
+	# strip's own padding and lands at 112 rather than 114. At a raised text scale the CARD itself needs about 120 px
+	# because its two text lines wrap further, so tightening the padding to 104 clipped the card and broke the garage
+	# suite's scroll-into-view check - measured, then reverted. The strip keeps its full padding; the raised-scale
+	# savings come from the compact outer margin and block gap instead.
 	collection_scroll.custom_minimum_size.y=float(UiTokens.metric("components.vehicle_card.height",96.0))+16.0
 	vertical.add_child(collection_scroll)
 	var carousel := HBoxContainer.new(); carousel.add_theme_constant_override("separation",10); collection_scroll.add_child(carousel)
@@ -189,9 +204,16 @@ func compose(g: GarageShell) -> void:
 		# hero, where there is room; a vehicle without a render says so instead of borrowing another vehicle's image.
 		card.custom_minimum_size=Vector2(UiTokens.metric("components.vehicle_card.width",216.0),UiTokens.metric("components.vehicle_card.height",96.0))
 		card.clip_text=false; card.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; card.alignment=HORIZONTAL_ALIGNMENT_LEFT; cards.append(card)
-	var footer := HBoxContainer.new(); vertical.add_child(footer)
-	var hint := GarageTheme.text(footer,"TAB  切换焦点     ENTER  确认     ·     在车辆视图拖动以旋转",11,GarageTheme.MUTED); hint.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	GarageTheme.text(footer,"MCT  /  "+BuildIdentity.describe(),11,GarageTheme.MUTED)
+	# UI-BIZ-01 stage 4: a flowing footer. At 125% text scale the hint and the build identity together are wider than
+	# the window, and the layout audit caught both labels being drawn outside the viewport. Shrinking the type is
+	# forbidden by the design, so the footer wraps instead of running off the edge.
+	var footer := HFlowContainer.new()
+	footer.add_theme_constant_override("h_separation",18)
+	footer.add_theme_constant_override("v_separation",2)
+	vertical.add_child(footer)
+	var hint := GarageTheme.text(footer,"TAB  切换焦点     ENTER  确认     ·     在车辆视图拖动以旋转",11,BizTheme.text_tertiary())
+	var identity := GarageTheme.text(footer,"MCT  /  "+BuildIdentity.describe(),11,BizTheme.text_tertiary())
+	identity.add_theme_font_override("font",BizTheme.FONT_LATIN)
 	viewport_container.gui_input.connect(_preview_input)
 	_stage(viewport_container.get_child(0))
 	show_page(0); refresh(); g._refresh_inspection()

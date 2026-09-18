@@ -9,6 +9,9 @@ extends Node
 ## Rejected by the work order and therefore not done anywhere in this file: re-showing the old
 ## GarageControlSource, and changing global battle key bindings to fix UI focus.
 const RESEARCH := "res://scripts/ui/vehicle_research_tree.gd"
+## Temporary diagnostic: prints every audit call and whether its root is a live node, so a silently skipped audit is
+## visible in the log instead of being guessed at. Flipped off once the cause is measured.
+const AUDIT_DEBUG := false
 var app: AppFlow
 var driver: Node
 var checks := 0
@@ -39,10 +42,13 @@ func audit(root, label: String) -> void:
 	# The parameter is deliberately untyped: the callers pass the frontend, which is already statically typed as its own
 	# class, and GDScript refuses an "as Node" cast from that type. From an untyped value the cast is always legal, and
 	# the guard keeps the helper honest if anything else is ever passed.
-	if not (root is Node): return
+	if AUDIT_DEBUG: print("[audit] enter %s root=%s valid=%s" % [label,str(root),str(is_instance_valid(root))])
+	# is_instance_valid is safe on a freed object; the "is" operator is not, and that is what aborted this helper
+	# silently: the matrix audits were handed a freed node and the guard threw before a single assertion could run.
+	if not is_instance_valid(root) or not (root is Node): return
 	var found := LayoutAudit.collect(root as Node,Vector2(get_window().size))
 	report(found.narrow.is_empty(), "%s: no text control has a collapsed width (%s)" % [label,LayoutAudit.describe(found,"narrow")])
-	report(found.outside.is_empty(), "%s: no visible control is drawn outside the viewport (%s)" % [label,LayoutAudit.describe(found,"outside")])
+	report(found.outside.is_empty(), "%s: no visible control is drawn outside the viewport (%s) deepest=%s" % [label,LayoutAudit.describe(found,"outside"),str(found.get("deepest",[]))])
 	report(found.stacked.is_empty(), "%s: no two visible controls share one rectangle (%s)" % [label,LayoutAudit.describe(found,"stacked")])
 
 func by_id(root: Node, id: String) -> Control:
@@ -617,16 +623,24 @@ func run(flow: AppFlow) -> void:
 	# --- UI-BIZ-01 stage 4: the layout audit at 125% and at the wider sizes --------------------------------
 	# The text scale is the combination most likely to overflow, and the two wide probes are the ones stage four must
 	# certify, so the same three defect checks run at each of them instead of only at 1280x720 and 100%.
-	# The garage screen is rebuilt when a match returns, so the frontend reference captured at the start of the run is
-	# stale by this point and the audit was silently skipping on a freed node. Re-acquire the live one first.
-	if g != null and g.frontend != null: f = g.frontend
+	# The frontend and the shell captured at the start of the run are both freed by this point, because the garage is
+	# rebuilt when a match returns. Measured, not guessed: the audit's own diagnostic reported invalid roots and the
+	# log carried "Left operand of 'is' is a previously freed instance" from the guard itself. The matrix audits
+	# therefore walk the window root, which is always live and contains the whole live UI.
 	AccessibilitySettings.ui_scale = 1.25
 	AccessibilitySettings.apply(get_tree().root)
 	await frames(12)
-	audit(f,"battle page at text scale 125")
+	# The garage builds its layout once, when it is created, so raising the scale afterwards changed nothing - measured:
+	# the footer stayed at exactly the same coordinate across three attempts to fix it. A player's saved 125 percent is
+	# applied before the garage is ever built, so the honest way to reach that state here is the app's own path: return
+	# to the garage, which rebuilds the frontend exactly as startup would.
+	app.return_to_garage({})
+	await idle()
+	await frames(12)
+	audit(get_tree().root,"battle page at text scale 125")
 	get_window().size = Vector2i(1920,1080)
 	await frames(12)
-	audit(f,"battle page at 1920x1080 text scale 125")
+	audit(get_tree().root,"battle page at 1920x1080 text scale 125")
 	get_window().size = Vector2i(1280,720)
 	AccessibilitySettings.ui_scale = 1.0
 	AccessibilitySettings.apply(get_tree().root)
@@ -640,7 +654,7 @@ func run(flow: AppFlow) -> void:
 		if achieved == probe:
 			report(true, "the UI renders at the probed size %dx%d" % [probe.x,probe.y])
 			await driver.capture("nav_14_%dx%d" % [probe.x,probe.y])
-			audit(f,"battle page at %dx%d" % [probe.x,probe.y])
+			audit(get_tree().root,"battle page at %dx%d" % [probe.x,probe.y])
 		else:
 			print("[NOT_RUN] %dx%d was clamped by the device to %dx%d, so that matrix entry stays NOT_RUN" % [probe.x,probe.y,achieved.x,achieved.y])
 	get_window().size = Vector2i(1280,720)
