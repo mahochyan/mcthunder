@@ -14,7 +14,7 @@ const RANGES_M := [200.0,500.0,1000.0,1500.0]
 const CONTROL_TOLERANCE := 1.0e-6
 const ANALYTIC_TOLERANCE := 0.005
 
-func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ranges: Array) -> Dictionary:
+func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ranges: Array, gravity: Vector3 = Vector3.ZERO) -> Dictionary:
 	var spawned := manager.try_spawn({"round_id":4900+int(drag_k*1.0e7),"shooter_id":"cd004_t02","shooter_life_id":1,
 		"shot_id":4900+int(drag_k*1.0e7),"shell_id":"cd004_retention",
 		"effect_policy":str(_t02_shell.get("effect_policy","kinetic")),
@@ -24,7 +24,7 @@ func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ran
 		"caliber_mm":float(_t02_shell.get("caliber_mm",88.0)),
 		"penetration_curve":PackedVector2Array([Vector2(0,500),Vector2(2000,500)]),
 		"position_world":Vector3.ZERO,"velocity_world":Vector3(MUZZLE_MPS,0,0),
-		"gravity_world":Vector3.ZERO,"drag_k_per_m":drag_k,"max_age_s":60.0,"max_distance_m":5000.0})
+		"gravity_world":gravity,"drag_k_per_m":drag_k,"max_age_s":60.0,"max_distance_m":5000.0})
 	if not spawned.get("ok",false):
 		return {"ok":false,"reason":str(spawned.get("reason",""))}
 	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
@@ -38,6 +38,13 @@ func _retention_at(manager: ProjectileManager, world: Node3D, drag_k: float, ran
 	var previous_velocity := projectile.velocity_world
 	for i in 20000:
 		if projectile.is_terminal(): break
+		# Live instrumentation: the state's own coefficient and acceleration as the manager sees them, plus the speed, every
+		# 960 steps. The direct unit check already proved the arithmetic, so whatever this shows decides whether the value
+		# reaches the advance or the measurement is at fault.
+		if i % 960 == 0:
+			print("[CD004 T02 live] i=%d x=%.1f speed=%.4f k=%s accel=%s" % [
+				i,projectile.position_world.x,projectile.velocity_world.length(),
+				str(projectile.drag_k_per_m),str(projectile.acceleration_world())])
 		previous = projectile.position_world
 		previous_velocity = projectile.velocity_world
 		manager.advance_projectile(projectile,DT,[],world.get_world_3d().direct_space_state)
@@ -103,6 +110,7 @@ func _run() -> void:
 	check(worst_control<=CONTROL_TOLERANCE,"CD004 T02 CONTROL: with k=0 the same rig holds the muzzle speed at every range (worst deviation %.8f)" % worst_control)
 
 	var measured := _retention_at(manager,world,drag_k,RANGES_M)
+	print("[CD004 T02] measured map: %s" % JSON.stringify(measured.get("retention",{})))
 	check(bool(measured.get("ok",false)),"CD004 T02 the engineering-drag shot launches")
 	var worst_table := 0.0
 	var worst_analytic := 0.0
