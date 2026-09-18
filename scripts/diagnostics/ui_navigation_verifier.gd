@@ -617,6 +617,9 @@ func run(flow: AppFlow) -> void:
 	# --- UI-BIZ-01 stage 4: the layout audit at 125% and at the wider sizes --------------------------------
 	# The text scale is the combination most likely to overflow, and the two wide probes are the ones stage four must
 	# certify, so the same three defect checks run at each of them instead of only at 1280x720 and 100%.
+	# The garage screen is rebuilt when a match returns, so the frontend reference captured at the start of the run is
+	# stale by this point and the audit was silently skipping on a freed node. Re-acquire the live one first.
+	if g != null and g.frontend != null: f = g.frontend
 	AccessibilitySettings.ui_scale = 1.25
 	AccessibilitySettings.apply(get_tree().root)
 	await frames(12)
