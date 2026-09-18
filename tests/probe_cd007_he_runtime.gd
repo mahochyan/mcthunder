@@ -85,6 +85,14 @@ func _run() -> void:
 		var manager := ProjectileManager.new(); manager.presentation_enabled=false
 		world.add_child(manager); manager.set_physics_process(false)
 		manager.damage_handler = Callable(actor2,"apply_projectile_damage")
+		# The target's own rebuilt layout, so the round actually MEETS the vehicle this time: the previous leg passed an
+		# empty snapshot list and the round met nothing at all, which is why its outcome said nothing about contact.
+		var target_layout: VehicleLayoutDefinition = actor2.state._damage_layout
+		var target_snapshot := QuerySnapshotBuilder.build_from_vehicle(actor2.tank,target_layout)
+		target_snapshot["entity_id"] = str(vid); target_snapshot["life_id"] = 7
+		print("[CD07 landed] R2 target layout=%s armour_patches=%d" % [
+			str(target_layout.id) if target_layout != null else "<none>",
+			target_layout.armor_patches.size() if target_layout != null else -1])
 		var spec := {"round_id":SEED,"shooter_id":"cd007","shooter_life_id":1,"shot_id":SEED,
 			"shell_id":str(found.id),"effect_policy":"he_blast","armor_policy":"resolve",
 			"impact_profile":found.impact_profile,"post_penetration_profile":found.post_penetration_profile,
@@ -98,7 +106,7 @@ func _run() -> void:
 			var space := world.get_world_3d().direct_space_state
 			for i in 400:
 				if state.is_terminal(): break
-				manager.advance_projectile(state,1.0/240.0,[],space)
+				manager.advance_projectile(state,1.0/240.0,[target_snapshot],space)
 			var burst: Dictionary = state.burst if state.burst is Dictionary else {}
 			print("[CD07 landed] R2 OUTCOME terminal=%s contacts=%d verdicts=%s burst=%s" % [
 				str(state.terminal_reason),state.contacts.size(),
