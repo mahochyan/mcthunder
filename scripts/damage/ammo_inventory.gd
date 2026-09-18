@@ -14,6 +14,13 @@ var transfer_from := ""
 var chamber_from := ""
 var _rack_move: Dictionary = {}
 var _move_sequence := 0
+## WT-CD-001 design point 2 / CD01-T06: a signature of the current dynamic occupancy, so a query snapshot can state
+## which occupancy it was taken from and a stale request can be refused instead of being answered from old data. It is
+## derived from the state itself - rack contents, carried round, chamber, losses and reservations - so no mutation site
+## can forget to update it.
+var occupancy_revision: int:
+	get:
+		return hash([racks,chamber_shell,transfer_shell,transfer_from,chamber_from,fired,supplied,lost,_move_sequence,_rack_move])
 var supplied := 0
 var fired := 0
 var lost := 0
@@ -234,3 +241,14 @@ func snapshot() -> Dictionary:
 		"chamber_shell":chamber_shell,"transfer_shell":transfer_shell,"selected_shell":selected_shell,
 		"transfer_from":transfer_from,"available":total_available(),"capacity":capacity,"shell_counts":shell_counts(),
 		"supplied":supplied,"fired":fired,"lost":lost,"chamber_from":chamber_from,"rack_move":rack_move_snapshot()}
+
+## WT-CD-001 design point 2 and CD01-T06: an immutable view of the five ammunition states - stowed in each rack,
+## reserved by a pending rack move, carried in the loader, chambered, and lost - together with the revision it was
+## taken from. Fixed structures are deliberately absent: the rack structure and the compartment barrier are separate
+## entities with their own hit and resistance rules, so an exhausted contents volume never removes them.
+func occupancy_snapshot() -> Dictionary:
+	var reserved := {}
+	if not _rack_move.is_empty(): reserved[str(_rack_move.get("to",""))] = int(reserved.get(str(_rack_move.get("to","")),0)) + 1
+	return {"stowed":racks.duplicate(),"reserved":reserved,"carried":in_transfer,"carried_shell":transfer_shell,
+		"carried_from":transfer_from,"chambered":chamber,"chamber_shell":chamber_shell,"chamber_from":chamber_from,
+		"lost":lost,"revision":occupancy_revision}

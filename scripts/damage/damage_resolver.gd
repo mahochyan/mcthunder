@@ -8,7 +8,7 @@ static func item_key(event: Dictionary) -> String:
 	return JSON.stringify([event.get("entity_id",""),event.get("life_id",0),event.get("kind",""),
 		event.get("part_id",""),event.get("module_id",event.get("crew_id","")),event.get("target_generation",-1)])
 
-static func next_contact(query: Dictionary, interior: Dictionary, seen: Dictionary, before_distance: float) -> Dictionary:
+static func next_contact(query: Dictionary, interior: Dictionary, seen: Dictionary, before_distance: float, occupancy: Dictionary = {}) -> Dictionary:
 	if not query.get("ok",false) or not query.get("complete",false):
 		return {}
 	var best: Dictionary = {}
@@ -17,6 +17,15 @@ static func next_contact(query: Dictionary, interior: Dictionary, seen: Dictiona
 			continue
 		if not interval.get("external",false) and not interior.get(target_key(interval),false):
 			continue
+		# WT-CD-001 design points 2 and 5 / CD01-T06: an exhausted ammunition contents volume takes no part in the
+		# narrow phase. The rack structure and the compartment barrier are separate entities that keep their own hit and
+		# resistance rules, which is why only ids listed in the stowed map are affected. An occupancy that is absent from
+		# the snapshot is unknown and is never read as an empty rack.
+		if str(interval.get("kind",""))=="module" and occupancy.has("stowed"):
+			var stowed: Dictionary = occupancy.get("stowed",{})
+			var interval_module := str(interval.get("module_id",""))
+			if stowed.has(interval_module) and int(stowed.get(interval_module,0))<=0:
+				continue
 		var distance := float(interval.get("distance_enter_m",INF))
 		# Armor/world wins an exact tie; a successful armor contact re-queries at t=0.
 		if distance >= before_distance - 1e-6:

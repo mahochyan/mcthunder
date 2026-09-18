@@ -99,6 +99,36 @@
 ### 8.6 残余缺口（**如实登记，不冒充已闭合** ✗）
 契约不变式要求"存弹耗尽的逻辑体积**不参与弹药窄相位**" ✓；本轮是在**求解器层**拒绝（`reason=ammo_contents_empty` ✓），该体积**仍会被窄相位选中** ✗ ⇒ 归入 **CD01-T06（占用/revision）与 CD003A（查询路径）** 一并处理 ✓（共享查询/Actor 文件按裁定协调写入 ✓）。
 
+## 9. CD01-T06 闭合（生产代码已改 ✓ 依据：子单「必须设计」第 2/4/5 条 + 契约字段 ✓）
+
+### 9.1 契约落点（4 处生产编辑 ✓）
+| 文件 | 改动 |
+|---|---|
+| `scripts/damage/ammo_inventory.gd` | 新增 **`occupancy_revision`**（由状态**派生**的签名：架内/搬运/膛内/已损失/预留任一变化即变 ⇒ 变更点不可能漏 ✓）＋ **`occupancy_snapshot()`**（**五态** `stowed`/`reserved`/`carried`/`chambered`/`lost` ✓；**不含固定结构** ⇒ 对应子单"分开 ammo_contents／rack_structure／compartment_barrier" ✓） |
+| `scripts/query/query_snapshot_builder.gd` | 快照增补 `ammo_contents` + `occupancy_revision`（Actor 可达时 ✓）；不可达时**省略** `ammo_contents` 并给 `occupancy_revision=-1` ⇒ **缺失即未知，绝不等于空架** ✓（"固定布局缓存不得缓存动态库存" ✓） |
+| `scripts/damage/damage_resolver.gd::next_contact` | 新增可选 `occupancy`：**已耗尽的弹药体积不进入窄相位** ✓（只影响 `stowed` 表内 id ⇒ **隔板/钢支架规则照旧** ✓） |
+| `scripts/projectiles/projectile_manager.gd` | 取**目标快照**占用并入选择 ✓；目标**声明弹药模块**而快照**缺占用字段** ⇒ 以 `ammo_occupancy_unknown` **显式结束**（不 PASS、不默认空/满 ✓） |
+| `scripts/query/shot_query_service.gd` | 可选 `expected_occupancy_revision`：与快照不一致 ⇒ `stale_occupancy_revision` **拒绝** ✓（不传该字段的调用方行为**不变** ✓） |
+
+### 9.2 实测（`CD01-T06` ✓ 探针 107 项 0 失败）
+```
+快照五态：revision=2090129141(T-80B) / 501251908(豹2)
+          stowed={ammo_ready:27,ammo_reserve:10} / {14,27} · reserved={} · carried=0 · chambered=1 · lost=0   ✓
+当前 revision 查询 ⇒ ok=true ✓
+旧 revision 查询   ⇒ ok=false · diagnostics=["stale_occupancy_revision"] ✓
+删除必需字段 + 真实射击 ⇒ terminal.detail="the query snapshot carries no ammunition occupancy for a target that declares ammunition modules" ✓
+                          弹药行=0 ✓ · 弹药架完整度不变 ✓ ⇒ **绝不"以空架 PASS"** ✓
+```
+另：`CD01-T01` 的空架现在**被窄相位直接排除**（`reason=no_row`、无该行 ✓）⇒ §8.6 登记的"残余缺口"**已闭合** ✓（不再是"仅被求解器拒绝" ✓）。
+
+### 9.3 受影响回归（20 套件 **1178 PASS / 0 FAIL** ✓）
+`AMMO_COMPARTMENT 63` · `LOADING 62` · `LOADING_MECHANISM 65` · `DAMAGE 57` · `SPALL 78` · `ARMOR 81` · `RECOVERY 64` · `PROJECTILE ✓` · `QUERY ✓` · `QUERY_CACHE 13` · `ENGINEERING_DAMAGE 29` · `ENGINEERING_MATERIAL 85` · `MODERN_GARAGE 29` · `MODERN_TEAM_IDENTITY 76` · `HUD 56` · `GARAGE 151` · `APP_FLOW 127` · **`AI_INTERCEPT 106`** · **`AUTHORITY_STATE 19`** · `LIVE_FIRE_RESPAWN 17` ✓
+（`PROJECTILE`／`QUERY` 以自身 `_PASS` 标记 + `exit=0` 为证 ✓ 计数格式不同 ⇒ 与首轮同样**如实标注** ✓）
+
+### 9.4 本轮我自己的两处错误（已修 ✓ 一并记录）
+① 写完 `occupancy_contract_cases` **漏了调用** ⇒ 该轮 T06 根本没执行 ✓ 自查发现后补上 ✓；
+② 我按 `projectile.terminal` 与 `refusal.reason` 取字段 ✗（前者在 **射击记录** 的 terminal ✓、后者在 `diagnostics` ✓）⇒ 按实测改正 ✓。
+
 ## 7. 证据位置（固定提交 ✓）
 - 工具：`tests/run_ammo_three_state_probe.gd`
 - 原始输出：`logs/COMBAT-DEEPEN-01/cd001-three-state-h.log`（三态）· `logs/COMBAT-DEEPEN-01/cd001-boundaries.log`（边界四项）

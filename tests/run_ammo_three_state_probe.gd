@@ -48,7 +48,7 @@ func _actor(world: Node3D, manager: ProjectileManager, defs: VehicleDefs, packet
 	return actor
 
 ## The same live-fire spec the compartment fixture uses, with the path parameters made explicit.
-func _live_fire(actor: VehicleActor, manager: ProjectileManager, world: Node3D, rack: Dictionary, part: String, standoff: float) -> ProjectileState:
+func _live_fire(actor: VehicleActor, manager: ProjectileManager, world: Node3D, rack: Dictionary, part: String, standoff: float, snapshots_override: Array = []) -> ProjectileState:
 	sequence += 1
 	var shell: ShellDefinition = actor.gunner.shell_options[0]
 	var frame: Transform3D = actor.turret.global_transform if part=="turret" else actor.tank.global_transform
@@ -61,9 +61,10 @@ func _live_fire(actor: VehicleActor, manager: ProjectileManager, world: Node3D, 
 	var result := manager.try_spawn(spec)
 	if not result.ok: return null
 	var projectile: ProjectileState = manager.get_projectile_state(result.projectile_id)
+	var snapshots: Array = snapshots_override if not snapshots_override.is_empty() else [QuerySnapshotBuilder.build_from_vehicle(actor.tank,actor.damage_layout_override)]
 	for i in ADVANCE_STEPS:
 		if projectile.is_terminal(): break
-		manager.advance_projectile(projectile,1.0/120.0,[QuerySnapshotBuilder.build_from_vehicle(actor.tank,actor.damage_layout_override)],world.get_world_3d().direct_space_state)
+		manager.advance_projectile(projectile,1.0/120.0,snapshots,world.get_world_3d().direct_space_state)
 	return projectile
 
 func _reached_rack(projectile: ProjectileState) -> bool:
@@ -259,7 +260,7 @@ func _measure(id: String, tag: String, defs: VehicleDefs, packet: Dictionary, ra
 				if str(event.get("item_id",""))==RACK_ID:
 					consumed_for_rack = float(event.get("consumed_mm",0.0)); reason_for_rack = str(event.get("reason",""))
 		check(consumed_for_rack<=1e-6,"CD01-T01 the empty ammo contents consume no penetration budget ("+id+", consumed=%.3f, reason=%s)" % [consumed_for_rack,reason_for_rack])
-		print("[CD01-T01 %s/empty] rack row: consumed_mm=%.3f reason=%s ; OPEN GAP: the exhausted volume is still selected by the narrow phase and only refused by the solver, so the contract invariant that it take no part in the ammunition narrow phase belongs to CD01-T06 and the CD003A query path" % [id,consumed_for_rack,reason_for_rack])
+		print("[CD01-T01 %s/empty] rack row: consumed_mm=%.3f reason=%s ; the exhausted contents volume is now excluded by the narrow phase itself (no row) rather than only refused by the solver, which closes the gap recorded against CD01-T06" % [id,consumed_for_rack,reason_for_rack])
 	world.queue_free(); await _frames(2)
 	return {"id":id,"tag":tag,"before":before,"after":after,"contacts":contacts,"budget":budget,
 		"damage":damage,"destroyed":destroyed,"reached":reached,"record_ok":record_ok,
@@ -436,7 +437,10 @@ func two_query_cases(id: String, defs: VehicleDefs, packet: Dictionary, rack: Di
 				if str(rec.get("item_id",""))==RACK_ID: rack_reason = str(rec.get("reason",""))
 		print("[CD01-T04 %s] second real query: lost=%d (delta=%d) rack_reason=%s rows=%s" % [id,lost_second,lost_second-lost_first,rack_reason,JSON.stringify(_rows(second))])
 		check(lost_second==lost_first,"CD01-T04 the second real query does not debit the already-cleared rack again ("+id+")")
-		check(rack_reason=="ammo_contents_empty","CD01-T04 the second query reflects the new occupancy rather than a stale cache ("+id+"): "+rack_reason)
+		# Either signal means the second query used the NEW occupancy: the exhausted volume is excluded by the narrow
+		# phase (no_row, the stronger outcome this work produced) or refused by the solver (ammo_contents_empty). What
+		# must never appear is a fresh damage or budget row on the cleared rack, which would mean stale data.
+		check(rack_reason in ["no_row","ammo_contents_empty"],"CD01-T04 the second query reflects the new occupancy rather than a stale cache ("+id+"): "+rack_reason)
 	world.queue_free(); await _frames(2)
 
 ## CD01-T03: the last stored round is either carried or chambered. It must exist in exactly one place, the source rack
@@ -483,6 +487,50 @@ func last_round_cases(id: String, defs: VehicleDefs, packet: Dictionary) -> void
 	check(inv.total_available()==available_before and inv.conserved(),"CD01-T03 the count is unchanged through the whole carry-and-chamber cycle ("+id+")")
 	holder[0].queue_free(); await _frames(2)
 
+## CD01-T06: a request naming a stale occupancy revision, and a snapshot with the required occupancy field removed,
+## must both come back as an explicit refusal or unknown - never as a pass derived from an assumed empty rack.
+func occupancy_contract_cases(id: String, defs: VehicleDefs, packet: Dictionary, rack: Dictionary) -> void:
+	var holder: Array = []
+	var actor := _fresh(defs,packet,holder)
+	var world: Node3D = holder[0]
+	var manager: ProjectileManager = holder[1]
+	await _frames(2)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,actor.damage_layout_override)
+	check(snapshot.has("ammo_contents") and snapshot.has("occupancy_revision"),"CD01-T06 the query snapshot carries the ammunition occupancy and its revision ("+id+")")
+	var revision := int(snapshot.get("occupancy_revision",-1))
+	check(revision!=-1,"CD01-T06 the revision is a real value, not the unknown marker ("+id+")")
+	var contents: Dictionary = snapshot.get("ammo_contents",{})
+	print("[CD01-T06 %s] occupancy snapshot: revision=%d stowed=%s reserved=%s carried=%d chambered=%d lost=%d" % [
+		id,revision,JSON.stringify(contents.get("stowed",{})),JSON.stringify(contents.get("reserved",{})),
+		int(contents.get("carried",0)),int(contents.get("chambered",0)),int(contents.get("lost",0))])
+	var from_world: Vector3 = actor.tank.global_transform*Vector3(-5,0.95,0)
+	var to_world: Vector3 = actor.tank.global_transform*Vector3(5,0.95,0)
+	var fresh := ShotQueryService.query({"query_id":"t06_fresh","from_world":from_world,"to_world":to_world,"expected_occupancy_revision":revision},[snapshot])
+	check(fresh.get("ok",false),"CD01-T06 a query naming the current revision is answered ("+id+")")
+	var stale := ShotQueryService.query({"query_id":"t06_stale","from_world":from_world,"to_world":to_world,"expected_occupancy_revision":revision-1},[snapshot])
+	var stale_json := JSON.stringify(stale)
+	print("[CD01-T06 %s] current_revision_ok=%s ; stale_revision ok=%s refusal=%s" % [id,str(fresh.get("ok",false)),str(stale.get("ok",false)),stale_json])
+	check(not stale.get("ok",false) and stale_json.contains("stale_occupancy_revision"),"CD01-T06 a request carrying a stale revision is refused as stale ("+id+")")
+	# The required field removed: a real shot must finish as an explicit unknown, with the rack left intact.
+	var without := snapshot.duplicate(true)
+	without.erase("ammo_contents")
+	var integrity_before := _module_integrity(actor,RACK_ID)
+	var projectile := _live_fire(actor,manager,world,rack,str(locked.get("part","turret")),float(locked.get("standoff",-5.0)),[without])
+	var integrity_after := _module_integrity(actor,RACK_ID)
+	# The finish reason lives on the shot record's terminal entry, not on the projectile state: my earlier attempt read a
+	# field that does not exist there.
+	var record: Dictionary = {}
+	if manager.shot_records.count() > 0: record = manager.shot_records.get_record(manager.shot_records.count()-1)
+	var terminal_json := JSON.stringify(record.get("terminal",{}))
+	var ammo_rows := 0
+	if projectile != null:
+		for event in projectile.damage_records:
+			if str(event.get("item_id",""))==RACK_ID: ammo_rows += 1
+	print("[CD01-T06 %s] missing occupancy: terminal=%s rack_integrity %.0f->%.0f ammo_rows=%d" % [id,terminal_json,integrity_before,integrity_after,ammo_rows])
+	check(ammo_rows==0 and is_equal_approx(integrity_after,integrity_before),"CD01-T06 a missing occupancy never becomes a pass from an assumed empty rack ("+id+")")
+	check(terminal_json.contains("ammo_occupancy_unknown"),"CD01-T06 the missing occupancy is reported as an explicit unknown finish ("+id+")")
+	world.queue_free(); await _frames(2)
+
 func cd001_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -505,6 +553,7 @@ func cd001_case(id: String) -> void:
 	await occupancy_cases(id,defs,packet,rack)
 	await two_query_cases(id,defs,packet,rack)
 	await last_round_cases(id,defs,packet)
+	await occupancy_contract_cases(id,defs,packet,rack)
 
 func _fresh(defs: VehicleDefs, packet: Dictionary, out: Array) -> VehicleActor:
 	_spawn(out)

@@ -321,7 +321,20 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 				boundary = float(sel.event.distance_m)
 			elif status == "world":
 				boundary = float(sel.contact.distance_m)
-			var damage_contact := DamageResolver.next_contact(qr,st.interior_targets,st.damage_seen,boundary)
+			# CD01-T06: an ammunition occupancy that the snapshot does not carry is unknown, not empty. When the target
+			# declares ammunition modules but the snapshot omits their occupancy, the shot is finished as an explicit
+			# incomplete result instead of being answered from an assumed empty or assumed full rack.
+			var target_snapshot := {}
+			for candidate in snapshots:
+				if str(candidate.get("entity_id",""))==str(sel.event.get("entity_id","")) \
+						and int(candidate.get("life_id",-1))==int(sel.event.get("life_id",-1)):
+					target_snapshot = candidate
+					break
+			if not target_snapshot.has("ammo_contents") and _declares_ammo_modules(target_snapshot):
+				finish_once(st.projectile_id,"ammo_occupancy_unknown",{"detail":"the query snapshot carries no ammunition occupancy for a target that declares ammunition modules"})
+				return
+			var occupancy: Dictionary = target_snapshot.get("ammo_contents",{})
+			var damage_contact := DamageResolver.next_contact(qr,st.interior_targets,st.damage_seen,boundary,occupancy)
 			if not damage_contact.is_empty():
 				status = "damage"
 				sel.event = damage_contact
@@ -532,6 +545,15 @@ func handle_contact(st: ProjectileState, ev: Dictionary) -> bool:
 		})
 		return false
 	return true
+
+## CD01-T06: does this snapshot belong to a target that declares ammunition modules? Only such a target needs the
+## ammunition occupancy, and only such a target is refused when the snapshot omits it.
+func _declares_ammo_modules(snapshot: Dictionary) -> bool:
+	var layout = snapshot.get("layout",null)
+	if layout == null: return false
+	for module in layout.modules:
+		if module.kind == "ammo": return true
+	return false
 
 func handle_damage_contact(st: ProjectileState, ev: Dictionary) -> bool:
 	if not damage_handler.is_valid() or st.damage_records.size() >= GameConfig.DAMAGE_MAX_CONTACTS:

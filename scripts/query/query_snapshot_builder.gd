@@ -52,6 +52,16 @@ static func build_from_vehicle(vehicle: TankVehicle, layout: VehicleLayoutDefini
 		"missing_parts": missing.duplicate(),
 		"layout": layout,
 	}
+	# WT-CD-001 design points 2 and 5 / CD01-T06: the query snapshot carries the dynamic ammunition occupancy and the
+	# revision it was taken from, so the narrow phase can leave an exhausted contents volume out and a commit can refuse
+	# a stale request. A dynamic inventory result is never cached under the fixed layout id, and when the occupancy
+	# cannot be read the snapshot simply omits it - absence means unknown, never an empty rack.
+	var host := vehicle.get_parent()
+	if host is VehicleActor and host.gunner != null:
+		out["ammo_contents"] = host.gunner.inventory.occupancy_snapshot()
+		out["occupancy_revision"] = host.gunner.inventory.occupancy_revision
+	else:
+		out["occupancy_revision"] = -1
 	return out
 
 

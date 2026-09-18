@@ -104,6 +104,13 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 	# complete=false 含义：几何未全解（共面未决/退化三角形）或快照不完整（缺布局/缺变换/非有限）——
 	# 调用方不得据此判命中（保守未决）。
 	var query_id: String = str(request.get("query_id", "q"))
+	# CD01-T06 / WT-CD-001 design point 4: an optional expected occupancy revision. A request that names a revision
+	# different from the one the snapshot was built from is refused as stale rather than being answered from older or
+	# newer dynamic data. Callers that do not supply the field keep the previous behaviour.
+	if request.has("expected_occupancy_revision"):
+		for snapshot in snapshots:
+			if int(snapshot.get("occupancy_revision",-1)) != int(request.get("expected_occupancy_revision")):
+				return _fail(query_id,"stale_occupancy_revision")
 	var from_world: Vector3 = request.get("from_world", Vector3.ZERO)
 	var to_world: Vector3 = request.get("to_world", Vector3.ZERO)
 	if not from_world.is_finite() or not to_world.is_finite():
