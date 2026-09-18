@@ -175,3 +175,23 @@ L4 经 ArmorResolver（内向 ✓ 角度 0 ✓ 板后残余远超阈值 ✓）�
 ⇒ 子单期望 ✓✓ 达成："**首次符合触发条件才消耗** ✓"（L1 vs L3/L3b ✓）、"**第二发不重复获得未消耗防护** ✓"（L2 ✓ L4 ✓）。
 **触发点记录** ✓：`armor_resolver.gd:95` 以**真实参数**调用（`residual = before−cost` ✓ `inward = signed_dot<0` ✓ 真实角度 ✓ 跳弹标志 ✓）；L53 的预合并调用参数恒定（`residual=0, inward=false` ✓）⇒ **永不触发** ✓ 属无害前置 ✓。
 **消耗状态与版本** ✓：`st.reactive_event_count` 逐事件递增 ✓ 并写入记录 ✓；`shot_record_builder` 在存在 ERA 事件时写入 `rules_versions["reactive"] = ReactiveArmorProfile.VERSION` ✓ ⇒ **"旧记录保留旧规则"具备机制** ✓（记录级重放校验留待下一轮 ✓）。
+## 13. `CD05-T06` 种子与缺资料 **通过** ✓✓（`CD05_SEED_MISSING_DATA_PASS` ✓ 首跑全绿）
+探针 `tests/probe_cd005_seed_missing.gd` ✓
+```
+L1 该发实际携带的 seed = **3593413562** ；由**声明公式独立重算** = **3593413562** ✓✓（逐位相同 ✓）
+   帧无关性 ✓：physics_frames 4 → 7（帧确实推进 ✓）而同一身份的 seed **3593413562 → 3593413562** ✓✓
+   ⇒ "**不每帧抽签**" ✓✓ **实测成立**（`gunner.gd:346` 的公式 `hash([round, shooter, life, shot])` 本身不含帧项 ✓）
+L2 同 seed 两生成器序列**完全相同** ✓（⇒ 重放可复现散布 ✓）；异 seed **分道** ✓ ⇒ seed 确是**散布来源** ✓
+   （机制 ✓：`fragment_system.gd:6` `rng.seed = st.seed` ✓；记录侧 `spall_record_validator` 由 `identity.seed` **重算方向** ✓）
+L3 unknown 材料 ⇒ result=**unknown_material** ✓ effective=**100.0000 mm** ✓✓（**不为 0 厚度** ✓）consumed=0 ✓ continue_flight=**false** ✓
+L3b 无厚度声明 ⇒ result=**unknown_armor** ✓（**具名状态** ✓ 而非"白送穿透" ✓）
+```
+⇒ 子单三条期望 ✓✓ 达成："**同 seed 可复现**" ✓ · "**缺资料明确处理**" ✓ · "**不变成 0 厚度**" ✓✓。
+
+### CD05 累计：**六条用例已完成五条**
+| 项 | 状态 |
+|---|---|
+| 实现顺序 #1 基线 · 设计 #1 · **T01 · T02 · T03 · T04 · T06** | ✅ **通过** ✓ |
+| **T05 边界等值与背面**（穿深**刚好等值** ✓ 接缝 ✓ **从内向外**穿板 ✓） | ⛔ **仅剩此用例** |
+| 设计 #2 概率来源（T06 已证 seed 决定性 ✓ 帧无关 ✓）· 设计 #3 三通道（T03/T04 部分 ✓）· 设计 #4 同一碰撞事件 | 🔶 / 🔶 / ⛔ |
+| 实现顺序 #2 规则版本与迁移说明（记录侧 ✓ 文档化待做）· #3 两车区域矩阵 · 记录级重放校验 | 🔶 / ⛔ / ⛔ |
