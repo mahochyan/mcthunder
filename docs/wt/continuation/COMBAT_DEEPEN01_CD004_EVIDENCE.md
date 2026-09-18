@@ -43,7 +43,29 @@
 首版把**推进之后**取到的位置与 `probe_t` 时刻的闭式值相比 ✗ ⇒ 每个角度都带**最多一个步长**的系统偏移 ✓。识别方式为**算术自证** ✓：误差 ÷ 水平速度 = 1.56 / 3.22 / 4.23 / 4.34 / 4.61 **ms** ✓ 全部 ≤ `DT = 4.17 ms` ✓ ⇒ 确定是**采样时刻**而非飞行模型 ✗ ⇒ 改为按**实际采样时刻**求闭式值后，0° 误差 **1.246 m → 0.000153 m** ✓✓（~8000×）。
 **未改任何 `scripts/` 代码** ✓（`git status -- scripts` = 0 ✓）。
 
-## 3. 探针自伤记录 ✓（三处 ✓ 全部留档）
+## 2.2 设计 #1：**版本化 `BallisticsProfile`** ✓ 已落（旧曲线**未被静默改变** ✓）
+模块：`scripts/projectiles/ballistics_profile.gd`（`class_name BallisticsProfile` ✓ `VERSION = "cd004-ballistics-v1"` ✓）
+- **单位显式声明** ✓（`UNITS`：m / s / m_per_s / m_per_s2 / per_m ✓ 不靠假设 ✓）；
+- **只上一种可校准近似** ✓：`v1_vacuum`（`drag_model = "none"` ✓ = 工程**既有**飞行 ✓）与 `eng_quadratic_v1`（**唯一**新增项 `a = -k·|v|·v` ✓ `k = 2.2e-5 /m` ✓ 项目设计初值 ✓）；
+- **只认显式声明** ✓（`resolve` 不按弹种策略/口径猜测 ✓ ⇒ 不会"悄悄换曲线" ✓）：未声明 ⇒ `source = "legacy_v1_vacuum"` ✓；显式声明 ⇒ `source = "project_engineering_profile"` ✓；
+- **按名拒绝** ✓（`validate`）：`unknown_ballistics_profile` ✓ `invalid_ballistics_drag_k` ✓ `invalid_ballistics_max_age` ✓ `invalid_ballistics_max_distance` ✓；
+- **`provenance = "design"`** ✓ 且 `is_validated_history()` 恒 false ✓ ⇒ **未实测历史数据不标 `validated_history`** ✓（`CD04-T02` 后半 ✓）；
+- **冻结工程曲线** ✓ `RETENTION_TABLE`：200/500/1000/1500 m ⇒ 0.972 / 0.932 / 0.871 / 0.814 ✓ 容差 0.010 ✓（**项目设计**，非实测历史 ✓）。
+
+**判据探针** ✓：`tests/probe_cd004_ballistics_profile.gd` ⇒ **`CD004_BALLISTICS_PROFILE_PASS`** ✓（含：阻力幅值 = `k·|v|²` 独立核对 ✓ 方向与速度反向 `dot ≤ -0.9999` ✓ 真空阻力**恰为 ZERO** ✓ 曲线单调且在 (0,1) ✓）。
+
+### 2.2.1 旧行为对照 ✓（硬约束"保留旧行为对照" ✓ 以实测满足）
+**同一进程外复跑 T01 基准** ✓（`tests/probe_cd004_zero_drag.gd` ✓）⇒ **`CD004_ZERO_DRAG_BASELINE_PASS`** ✓ 且最差值**逐字相同** ✓：
+```
+worst: range 5.6538 m · time 0.00906 s · speed 0.0327 m/s      （与冻结表原值完全一致 ✓）
+```
+⇒ 新增剖面模块**未改变任何既有飞行行为** ✓（真空阻力恒为零 ✓ 未声明即走 v1 ✓）。
+
+### 2.2.2 设计 #5 的"每弹固定随机种子"：**既已满足** ✓（实测定位 ✓）
+`gunner.gd` 组 spec 时 `seed = hash(JSON.stringify([round, shooter_id, life_id, shot_id]))` ✓ ⇒ **纯函数于射击身份** ✓ 与帧率/帧序无关 ✓ ⇒ 设计 #5 该分项**无需改动** ✓（后续 T06 只验证"帧率不改变散布" ✓）。
+
+### 2.2.3 本轮我的一处自伤 ✓
+新增 `class_name` 后**未先 `--import`** ✗ ⇒ 探针报 `Identifier "BallisticsProfile" not declared` ✗（**我自己早先记录过的教训** ✓）⇒ 导入后即解析 ✓；随后又有一处**类型错**（把 float 赋给 `var row: Dictionary` ✗）⇒ 模块编译失败 ⇒ 探针首项失败并超时 ✓ ⇒ 修正后 PASS ✓（残留进程已清零 ✓）。
 1. 自制 `impact_profile` 与弹种 `effect_policy` 不匹配 ⇒ 被 `invalid_impact_profile` 拒绝 ✓ ⇒ 改为**读交付包真弹** ✓；
 2. `max_distance_m=6000` ⇒ 800 m/s 下 **7.5 s 即触上限** ✗ ⇒ 远距离"落地"为 0 ✓ ⇒ 抬到 100 km / 200 s ✓；
 3. 调 `BallisticMath.advance_free` 时**丢弃其返回 Dictionary** ✗ ⇒ 状态不前进 ⇒ **死循环** ✓ ⇒ 由超时**精确终止** ✓ ⇒ 改为在推进循环内**采样真实弹丸** ✓（更贴近生产路径 ✓）。
