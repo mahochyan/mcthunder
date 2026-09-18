@@ -79,15 +79,22 @@ class ResearchCatalogChecks(unittest.TestCase):
             packet_path = ROOT/link['path'].removeprefix('res://')
             runtime_path = ROOT/link['runtime_model']['path'].removeprefix('res://')
             packet = json.loads(packet_path.read_text(encoding='utf-8'))
+            authored = json.loads((ROOT/f'authoring/reference_data/modern_vehicles/{vehicle_id}.json').read_text(encoding='utf-8'))
             self.assertEqual(packet['id'], vehicle_id)
             self.assertEqual(packet['source_binding']['source_vehicle_id'], vehicle_id)
             self.assertEqual(packet['model_binding']['vehicle_id'], vehicle_id)
             self.assertEqual(packet['model_binding']['model']['source_vehicle_id'], vehicle_id)
+            self.assertEqual(packet['gameplay_mode'], 'arcade')
+            tuning = packet['arcade_tuning']
+            self.assertAlmostEqual(packet['runtime']['acceleration'], tuning['base_acceleration_mps2'] * tuning['arcade_power_multiplier_applied'])
+            self.assertEqual(authored['runtime']['acceleration'], packet['runtime']['acceleration'])
             self.assertEqual(hashlib.sha256(packet_path.read_bytes()).hexdigest(), link['sha256'])
             self.assertEqual(hashlib.sha256(runtime_path.read_bytes()).hexdigest(), link['runtime_model']['sha256'])
 
     def test_runtime_reference_profiles_are_exact_and_complete(self):
-        self.assertEqual(P['schema_version'], 1)
+        self.assertEqual(P['schema_version'], 2)
+        self.assertEqual(P['gameplay_mode'], 'arcade')
+        self.assertEqual(P['arcade_policy']['explicit_multiplier_count'], 5)
         self.assertEqual(P['set_policy'], 'exact_tree_id_no_alias_no_missing_no_extra')
         self.assertEqual(set(PROFILES), set(ROWS))
         self.assertEqual(P['vehicle_count'], 212)
@@ -96,6 +103,7 @@ class ResearchCatalogChecks(unittest.TestCase):
         for vehicle_id, profile in PROFILES.items():
             row = ROWS[vehicle_id]
             source = profile['source']
+            self.assertEqual(profile['gameplay_mode'], 'arcade')
             snapshot = ROOT/source['snapshot'].removeprefix('res://')
             self.assertEqual(hashlib.sha256(snapshot.read_bytes()).hexdigest(), source['sha256'])
             self.assertEqual(source['sha256'], row['source_sha256'])
@@ -106,9 +114,23 @@ class ResearchCatalogChecks(unittest.TestCase):
                     self.assertGreaterEqual(mobility[key]['value'], 0)
                 else:
                     self.assertGreater(mobility[key]['value'], 0)
-            self.assertEqual(mobility['trial_acceleration_mps2']['resolution_state'], 'project_design_fallback')
+            arcade = mobility['arcade_power_multiplier']
+            acceleration = mobility['trial_acceleration_mps2']
+            self.assertIn(acceleration['resolution_state'], ('derived_arcade_reference', 'arcade_design_fallback'))
+            self.assertAlmostEqual(acceleration['value'], acceleration['base_value'] * acceleration['arcade_power_multiplier_applied'])
+            if acceleration['resolution_state'] == 'derived_arcade_reference':
+                self.assertEqual(arcade['resolution_state'], 'explicit_reference_candidate')
+                self.assertAlmostEqual(arcade['value'], acceleration['arcade_power_multiplier_applied'])
+            else:
+                self.assertIsNone(arcade['value'])
+                self.assertEqual(acceleration['arcade_power_multiplier_applied'], 1.0)
             self.assertEqual(profile['runtime_use']['research_trial_mobility'], row['model'] is not None)
             self.assertEqual(profile['runtime_use']['combat'], row['combat_package'] is not None)
+
+        self.assertEqual(PROFILES['germ_leopard_2a4']['mobility']['arcade_power_multiplier']['value'], 1.5)
+        self.assertEqual(PROFILES['germ_leopard_2a4']['mobility']['trial_acceleration_mps2']['value'], 6.0)
+        self.assertIsNone(PROFILES['ussr_t_80b']['mobility']['arcade_power_multiplier']['value'])
+        self.assertEqual(PROFILES['ussr_t_80b']['mobility']['trial_acceleration_mps2']['resolution_state'], 'arcade_design_fallback')
 
     def test_model_interfaces_match_every_selected_model(self):
         modeled = {vehicle_id for vehicle_id, row in ROWS.items() if row['model']}

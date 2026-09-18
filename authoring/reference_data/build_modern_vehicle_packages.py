@@ -70,6 +70,12 @@ def build(identity):
             raise ValueError("missing/conflicting required explicit reference field: " + key)
         return rows[0]
 
+    def optional_field(key):
+        rows = [row for row in candidate["fields"] if row["key"] == key]
+        if len(rows) != 1:
+            raise ValueError("missing/conflicting optional reference field: " + key)
+        return rows[0]
+
     def field_location(key):
         return snapshot.name + ":" + "; ".join(
             "L" + str(row["line"]) + " " + row.get("section", "") + "/" + row.get("group", "")
@@ -131,6 +137,27 @@ def build(identity):
                 shell["evidence"][evidence_key] = claim(shell[key])
         shells.append(shell)
     runtime = design["runtime"]
+    arcade_field = optional_field("drive.arcade_power_multiplier")
+    explicit_arcade_power = (
+        arcade_field.get("resolution_state") == "explicit_reference_candidate"
+        and isinstance(arcade_field.get("candidate_value"), (int, float))
+        and arcade_field["candidate_value"] > 0
+    )
+    arcade_multiplier = float(arcade_field["candidate_value"]) if explicit_arcade_power else 1.0
+    base_acceleration = float(runtime["acceleration"])
+    runtime["acceleration"] = base_acceleration * arcade_multiplier
+    arcade_tuning = {
+        "resolution_state": "derived_arcade_reference" if explicit_arcade_power else "arcade_design_fallback",
+        "base_acceleration_mps2": base_acceleration,
+        "arcade_power_multiplier_applied": arcade_multiplier,
+        "source_field": "drive.arcade_power_multiplier",
+        "source_value": arcade_field.get("candidate_value"),
+        "note": (
+            "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
+            if explicit_arcade_power else
+            "No numeric cache arcade power multiplier; explicit project arcade fallback applies multiplier 1.0."
+        ),
+    }
     runtime.update(rounds=capacity, muzzle_velocity=shells[0]["muzzle_velocity_mps"],
                    penetration_curve=shells[0]["penetration_curve"],
                    turret_yaw_speed=traverse["yaw"], turret_pitch_speed=traverse["pitch"])
@@ -157,6 +184,7 @@ def build(identity):
     facts["runtime.turret_yaw_speed"] = claim(traverse["yaw"], "deg/s", field_location("primary.traverse"), True)
     facts["runtime.turret_pitch_speed"] = claim(traverse["pitch"], "deg/s", field_location("primary.traverse"), True)
     facts["reference.heat_carrier_velocity"] = claim(field("shell.muzzle_velocity_mps")["candidate_value"], "m/s", field_location("shell.muzzle_velocity_mps"), True)
+    facts["gameplay.ruleset"] = claim({"mode": "arcade", "tuning": arcade_tuning})
     for key, fact in [("geometry", "geometry.exterior"), ("modules", "geometry.modules"), ("crew", "geometry.crew"), ("runtime", "runtime.simulation")]:
         facts[fact] = claim(design[key])
     for module in design["modules"]:
@@ -172,6 +200,7 @@ def build(identity):
                 coefficients={"kinetic": 1.6 if zone == "turret_front" else 1.2, "chemical": 2.4, "fragment": 1.0}))
             facts["protection.zone." + zone] = claim({"material": "composite", "response_profile": armor[zone]["response_profile"]})
     packet = dict(id=identity, display_name=design["display_name"], license="Original project-authored geometry/rules; reference data use authorized by project owner",
+                  gameplay_mode="arcade", arcade_tuning=arcade_tuning,
                   evidence_profile="game_reference", admission_status="candidate", historical_verified=False,
                   source_binding={"source_vehicle_id": identity, "primary_source": "reference"}, unit_contract=UNITS,
                   sources=sources, facts=facts, assembly=assembly, compatible_shells=[shell["id"] for shell in shells],

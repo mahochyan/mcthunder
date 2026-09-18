@@ -357,7 +357,7 @@ func _select_vehicle(_index: int) -> void:
 		else:
 			HistoricalVehicleModel.build_details(preview._part_nodes.hull,preview._part_nodes.turret,preview._part_nodes.barrel,packet,1)
 		preview_note.text = LocalizationService.text("ui_299e3fe8604d")%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
-		if reference: preview_note.text="%s\n%s · %d 发 · %.1f km/h 参考／设计速度\n游戏参考与工程估计，未做历史核验。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
+		if reference: preview_note.text="%s\n%s · %d 发 · %.1f km/h 街机参考／设计速度\n街机游戏参考与工程估计，未做历史核验。"%[packet.display_name,packet.assembly.shell,packet.runtime.rounds,packet.runtime.forward_max_speed*3.6]
 		var ammo := VehicleShellCatalog.build(packet)
 		if ammo.ok:
 			var names := PackedStringArray()
@@ -397,7 +397,7 @@ func _show_dossier() -> void:
 	view.bbcode_enabled = true; view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	view.selection_enabled = true; box.add_child(view)
 	var reference: bool = packet.get("evidence_profile","historical_verified")=="game_reference"
-	view.append_text("游戏参考／工程估计；未做历史核验。\n" if reference else LocalizationService.text("ui_286db738c052"))
+	view.append_text("街机游戏参考／工程估计；未做历史核验。\n" if reference else LocalizationService.text("ui_286db738c052"))
 	var ammunition := VehicleShellCatalog.build(packet)
 	if ammunition.ok:
 		view.append_text("\n[b]当前参考弹种[/b]\n" if reference else LocalizationService.text("ui_0f251c001808"))

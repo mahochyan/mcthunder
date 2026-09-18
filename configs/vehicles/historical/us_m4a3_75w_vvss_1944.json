@@ -712,6 +712,26 @@
         "m4table"
       ],
       "location": "M4A3(75)W: General, Dimensions, Armament, Armor, Suspension, Performance"
+    },
+    "gameplay.ruleset": {
+      "value": {
+        "mode": "arcade",
+        "tuning": {
+          "resolution_state": "arcade_design_fallback",
+          "base_acceleration_mps2": 2.2,
+          "arcade_power_multiplier_applied": 1.0,
+          "source_field": null,
+          "source_value": null,
+          "note": "No authorized War Thunder arcade cache row is available for this legacy vehicle; current project arcade tuning is explicit and makes no historical/full-real claim."
+        }
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Active gameplay uses the project arcade ruleset. Historical records remain evidence only and are not a full-real simulation preset."
     }
   },
   "sources": {
@@ -1207,5 +1227,14 @@
   "limitations": [
     "Armor geometry and interior volumes are estimates; inspect field evidence.",
     "Kinetic projectile and damage approximation; no historical penetration validation."
-  ]
+  ],
+  "gameplay_mode": "arcade",
+  "arcade_tuning": {
+    "resolution_state": "arcade_design_fallback",
+    "base_acceleration_mps2": 2.2,
+    "arcade_power_multiplier_applied": 1.0,
+    "source_field": null,
+    "source_value": null,
+    "note": "No authorized War Thunder arcade cache row is available for this legacy vehicle; current project arcade tuning is explicit and makes no historical/full-real claim."
+  }
 }

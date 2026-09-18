@@ -23,6 +23,9 @@ class ModernPackageBuilderChecks(unittest.TestCase):
             self.assertEqual(packet, builder.build(identity))
             self.assertNotIn("model_binding", packet)
             self.assertEqual(packet["completion"]["status"], "candidate_only")
+            self.assertEqual(packet["gameplay_mode"], "arcade")
+            tuning = packet["arcade_tuning"]
+            self.assertAlmostEqual(packet["runtime"]["acceleration"], tuning["base_acceleration_mps2"] * tuning["arcade_power_multiplier_applied"])
             for source in packet["sources"].values():
                 self.assertTrue(source["artifact"].startswith("res://"))
                 self.assertEqual(source["sha256"], builder.sha(ROOT / source["artifact"][6:]))
@@ -36,6 +39,7 @@ class ModernPackageBuilderChecks(unittest.TestCase):
                 self.assertEqual(packet["reference_trace"][field], candidate[field])
             self.assertEqual(packet["reference_trace"]["unresolved"], candidate["gaps"])
             self.assertEqual(packet["facts"]["runtime.simulation"]["origin"], "game_rule")
+            self.assertEqual(packet["facts"]["gameplay.ruleset"]["value"]["mode"], "arcade")
             self.assertEqual(packet["facts"]["geometry.modules"]["origin"], "game_rule")
             self.assertNotEqual(packet["runtime"]["reload_time"], candidate["ammo_racks"][0]["supply"]["replenish_seconds"])
             self.assertIsNone(candidate["ammo_racks"][0]["supply"]["shot_reload_seconds"])

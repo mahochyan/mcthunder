@@ -176,7 +176,7 @@ func _refresh_racks() -> void:
 	garage.rounds.value = inventory.available
 	var packet: Dictionary = store.service.catalog.packages[current_id].packet
 	garage.preview_note.text = LocalizationService.text("ui_f18548e09801")%[packet.display_name,inventory.available,inventory.capacity,packet.assembly.caliber_mm,packet.runtime.forward_max_speed*3.6,packet.runtime.reload_time]
-	if packet.get("evidence_profile","historical_verified")=="game_reference": garage.preview_note.text = "%s · %d / %d 发\n%.0f mm · 参考／设计速度 %.1f km/h · 装填 %.1f秒（估算）\n游戏参考与工程估计，未做历史核验。"%[packet.display_name,inventory.available,inventory.capacity,packet.assembly.caliber_mm,packet.runtime.forward_max_speed*3.6,packet.runtime.reload_time]
+	if packet.get("evidence_profile","historical_verified")=="game_reference": garage.preview_note.text = "%s · %d / %d 发\n%.0f mm · 街机参考／设计速度 %.1f km/h · 装填 %.1f秒（估算）\n街机游戏参考与工程估计，未做历史核验。"%[packet.display_name,inventory.available,inventory.capacity,packet.assembly.caliber_mm,packet.runtime.forward_max_speed*3.6,packet.runtime.reload_time]
 	elif current_id.begins_with("us_m24"): garage.preview_note.text += LocalizationService.text("ui_7ec5dcfbc36a")
 	rack_label.text = LocalizationService.text("ui_7c2a6d68853f")%[inventory.available,inventory.capacity]
 	for id in inventory.racks: rack_label.text += "%s：%d\n"%[CoreUI.word(id),inventory.racks[id]]

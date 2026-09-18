@@ -1,8 +1,8 @@
 class_name ResearchTrialDrive
 extends PanelContainer
 ## Isolated model driving. Speed/turn limits come from the exact vehicle reference
-## profile (or its admitted combat packet); unresolved acceleration stays an explicit
-## project-design fallback and is never presented as historical data.
+## profile (or its admitted combat packet). The active gameplay ruleset is arcade;
+## cache arcade power multipliers scale an explicit project base acceleration.
 var row: Dictionary
 var view: ResearchModelView
 var vehicle: CharacterBody3D
@@ -16,6 +16,8 @@ var reverse_max_speed := 0.0
 var acceleration := 0.0
 var hull_turn_speed := 0.0
 var mobility_source := ""
+var gameplay_mode := ""
+var arcade_power_multiplier := 1.0
 var design_fallbacks: Array=[]
 var turret_pivot: Node3D
 var gun_pivot: Node3D
@@ -37,6 +39,7 @@ func configure_mobility() -> bool:
 	forward_max_speed=float(result.forward_max_speed); reverse_max_speed=float(result.reverse_max_speed)
 	acceleration=float(result.acceleration); hull_turn_speed=float(result.hull_turn_speed)
 	mobility_source=str(result.source_kind); design_fallbacks=result.get("design_fallbacks",[])
+	gameplay_mode=str(result.get("gameplay_mode","")); arcade_power_multiplier=float(result.get("arcade_power_multiplier",1.0))
 	return true
 
 static func advance_speed(current: float,throttle: float,delta: float,forward_limit: float,reverse_limit: float,accel: float) -> float:
@@ -103,7 +106,7 @@ func _ready() -> void:
 	for x in [-6.0,6.0]:
 		for z in range(-80,81,8): CoreVehicleVisual.box(view.stage,Vector3(x,0.01,z),Vector3(0.09,0.015,4),Color("a49d7e"))
 	status=GarageTheme.text(column,"",16,GarageTheme.ACCENT)
-	var note:="速度与转向使用该车型缓存参考值；射击与战损尚未开放。"
+	var note:="街机规则：速度与转向使用该车型缓存参考值，动力倍率 ×%.2f；射击与战损尚未开放。"%arcade_power_multiplier
 	if weapon_control_status=="none": note+=" 该车型模型没有可控武器。"
 	elif weapon_control_status=="unavailable_nonstandard": note+=" 非标准武器机构尚未声明控制适配，不会套用坦克炮塔参数。"
 	if not design_fallbacks.is_empty(): note+=" 未解析字段使用明确登记的试驾设计值。"

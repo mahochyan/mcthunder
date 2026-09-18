@@ -664,6 +664,26 @@
         "m24table"
       ],
       "location": "M24: General, Armament and Armor; dimensions/identity below use TM9-729 (1951)"
+    },
+    "gameplay.ruleset": {
+      "value": {
+        "mode": "arcade",
+        "tuning": {
+          "resolution_state": "arcade_design_fallback",
+          "base_acceleration_mps2": 3.3,
+          "arcade_power_multiplier_applied": 1.0,
+          "source_field": null,
+          "source_value": null,
+          "note": "No authorized War Thunder arcade cache row is available for this legacy vehicle; current project arcade tuning is explicit and makes no historical/full-real claim."
+        }
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "implementation"
+      ],
+      "location": "docs/IMPLEMENTATION_020.md",
+      "note": "Active gameplay uses the project arcade ruleset. Historical records remain evidence only and are not a full-real simulation preset."
     }
   },
   "sources": {
@@ -1112,5 +1132,14 @@
     "Armor geometry and interior volumes are estimates; inspect field evidence.",
     "Kinetic projectile and damage approximation; no historical penetration validation.",
     "M61 has a historical fuze; only kinetic effect is implemented until 021."
-  ]
+  ],
+  "gameplay_mode": "arcade",
+  "arcade_tuning": {
+    "resolution_state": "arcade_design_fallback",
+    "base_acceleration_mps2": 3.3,
+    "arcade_power_multiplier_applied": 1.0,
+    "source_field": null,
+    "source_value": null,
+    "note": "No authorized War Thunder arcade cache row is available for this legacy vehicle; current project arcade tuning is explicit and makes no historical/full-real claim."
+  }
 }

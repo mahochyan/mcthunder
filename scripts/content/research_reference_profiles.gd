@@ -15,7 +15,7 @@ static func catalog() -> Dictionary:
 	var parsed: Variant=JSON.parse_string(FileAccess.get_file_as_string(PATH))
 	if not parsed is Dictionary: return {}
 	_catalog_cache=parsed
-	if parsed.get("schema_version")==1 and parsed.get("profiles") is Array:
+	if parsed.get("schema_version")==2 and parsed.get("gameplay_mode")=="arcade" and parsed.get("profiles") is Array:
 		for row in parsed.profiles:
 			if row is Dictionary: _profiles_by_id[str(row.get("id",""))]=row
 	return _catalog_cache
@@ -42,15 +42,24 @@ static func mobility_for(row: Dictionary) -> Dictionary:
 		var packet: Variant=JSON.parse_string(FileAccess.get_file_as_string(path))
 		if not packet is Dictionary or str(packet.get("id",""))!=vehicle_id or not packet.get("runtime") is Dictionary:
 			return {"ok":false,"error":"combat_packet_identity_mismatch"}
+		if packet.get("gameplay_mode")!="arcade": return {"ok":false,"error":"combat_packet_not_arcade"}
 		var runtime: Dictionary=packet.runtime
 		for key in ["forward_max_speed","reverse_max_speed","acceleration","hull_turn_speed"]:
 			if not _positive(runtime.get(key)): return {"ok":false,"error":"combat_runtime_invalid_"+key}
-		return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"combat_packet","source_sha256":expected,
+		var tuning: Variant=packet.get("arcade_tuning")
+		if not tuning is Dictionary: return {"ok":false,"error":"combat_arcade_tuning_missing"}
+		if not _positive(tuning.get("base_acceleration_mps2")) or not _positive(tuning.get("arcade_power_multiplier_applied")):
+			return {"ok":false,"error":"combat_arcade_tuning_invalid"}
+		if not is_equal_approx(float(runtime.acceleration),float(tuning.base_acceleration_mps2)*float(tuning.arcade_power_multiplier_applied)):
+			return {"ok":false,"error":"combat_arcade_acceleration_mismatch"}
+		return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"arcade_combat_packet","source_sha256":expected,
 			"forward_max_speed":float(runtime.forward_max_speed),"reverse_max_speed":float(runtime.reverse_max_speed),
 			"acceleration":float(runtime.acceleration),"hull_turn_speed":float(runtime.hull_turn_speed),
-			"design_fallbacks":[]}
+			"gameplay_mode":"arcade","arcade_power_multiplier":float(tuning.arcade_power_multiplier_applied),
+			"design_fallbacks":(["arcade_power_multiplier"] if tuning.get("resolution_state")=="arcade_design_fallback" else [])}
 	var data:=profile(vehicle_id)
 	if data.is_empty(): return {"ok":false,"error":"reference_profile_missing"}
+	if data.get("gameplay_mode")!="arcade": return {"ok":false,"error":"reference_profile_not_arcade"}
 	var source: Dictionary=data.get("source",{})
 	if str(source.get("sha256",""))!=str(row.get("source_sha256","")): return {"ok":false,"error":"reference_profile_hash_mismatch"}
 	var snapshot:=str(source.get("snapshot",""))
@@ -64,12 +73,24 @@ static func mobility_for(row: Dictionary) -> Dictionary:
 		if field.get("resolution_state")!="explicit_reference_candidate" or not valid_value:
 			return {"ok":false,"error":"reference_mobility_unresolved_"+key}
 	var acceleration: Variant=mobility.get("trial_acceleration_mps2")
-	if not acceleration is Dictionary or acceleration.get("resolution_state")!="project_design_fallback" or not _positive(acceleration.get("value")):
+	if not acceleration is Dictionary or acceleration.get("resolution_state") not in ["derived_arcade_reference","arcade_design_fallback"] or not _positive(acceleration.get("value")):
 		return {"ok":false,"error":"trial_acceleration_unresolved"}
-	return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"warthunder_reference","source_sha256":source.sha256,
+	var multiplier: Variant=mobility.get("arcade_power_multiplier")
+	if not multiplier is Dictionary or not _positive(acceleration.get("base_value")) or not _positive(acceleration.get("arcade_power_multiplier_applied")):
+		return {"ok":false,"error":"arcade_multiplier_unresolved"}
+	if not is_equal_approx(float(acceleration.value),float(acceleration.base_value)*float(acceleration.arcade_power_multiplier_applied)):
+		return {"ok":false,"error":"arcade_acceleration_mismatch"}
+	if acceleration.get("resolution_state")=="derived_arcade_reference":
+		if multiplier.get("resolution_state")!="explicit_reference_candidate" or not _positive(multiplier.get("value")) or not is_equal_approx(float(multiplier.value),float(acceleration.arcade_power_multiplier_applied)):
+			return {"ok":false,"error":"arcade_reference_multiplier_mismatch"}
+	elif multiplier.get("value")!=null or not is_equal_approx(float(acceleration.arcade_power_multiplier_applied),1.0):
+		return {"ok":false,"error":"arcade_fallback_multiplier_mismatch"}
+	return {"ok":true,"vehicle_id":vehicle_id,"source_kind":"arcade_reference","source_sha256":source.sha256,
 		"forward_max_speed":float(mobility.forward_max_mps.value),"reverse_max_speed":float(mobility.reverse_max_mps.value),
 		"acceleration":float(acceleration.value),"hull_turn_speed":float(mobility.hull_turn_deg_s.value),
-		"design_mass_kg":mobility.get("design_mass_kg",{}).get("value"),"design_fallbacks":["acceleration"]}
+		"gameplay_mode":"arcade","arcade_power_multiplier":float(acceleration.arcade_power_multiplier_applied),
+		"design_mass_kg":mobility.get("design_mass_kg",{}).get("value"),
+		"design_fallbacks":(["acceleration","arcade_power_multiplier"] if acceleration.get("resolution_state")=="arcade_design_fallback" else ["acceleration_base"])}
 
 static func weapon_motion_for(row: Dictionary) -> Dictionary:
 	var identity:=mobility_for(row)

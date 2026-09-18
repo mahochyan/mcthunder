@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parents[2]
 TREE = ROOT / "assets/research/soviet_german_tree.json"
 INDEX = ROOT / "assets/reference_data/index.json"
 TARGET = ROOT / "assets/research/research_runtime_profiles.json"
+GAMEPLAY_MODE = "arcade"
+BASE_TRIAL_ACCELERATION_MPS2 = 4.0
 
 
 def _read(path: Path) -> dict:
@@ -83,9 +85,18 @@ def build() -> dict:
         parsed = Summary(snapshot.read_bytes(), vehicle_id).detailed()
         fields = {item["key"]: item for item in parsed["fields"]}
         crew = parsed["crew_roster"]
+        arcade_power = _field(fields, "drive.arcade_power_multiplier")
+        explicit_arcade_power = (
+            arcade_power["resolution_state"] == "explicit_reference_candidate"
+            and isinstance(arcade_power["value"], (int, float))
+            and arcade_power["value"] > 0
+        )
+        applied_arcade_power = float(arcade_power["value"]) if explicit_arcade_power else 1.0
+        trial_acceleration = BASE_TRIAL_ACCELERATION_MPS2 * applied_arcade_power
         profile = {
             "id": vehicle_id,
             "nation": row.get("nation"),
+            "gameplay_mode": GAMEPLAY_MODE,
             "source": {
                 "origin": "warthunder_reference",
                 "resource_version": entry.get("resource_version"),
@@ -98,12 +109,20 @@ def build() -> dict:
                 "reverse_max_mps": _field(fields, "drive.reverse_speed_candidate"),
                 "hull_turn_deg_s": _field(fields, "drive.hull_turn_candidate"),
                 "design_mass_kg": _field(fields, "drive.design_mass"),
+                "arcade_power_multiplier": arcade_power,
                 "trial_acceleration_mps2": {
-                    "resolution_state": "project_design_fallback",
-                    "value": 4.0,
+                    "resolution_state": "derived_arcade_reference" if explicit_arcade_power else "arcade_design_fallback",
+                    "value": trial_acceleration,
                     "unit": "m/s2",
-                    "origin": "mcthunder_design",
-                    "reason": "cache acceleration units/semantics are unresolved; no historical claim",
+                    "origin": "warthunder_reference_plus_mcthunder_arcade_rule" if explicit_arcade_power else "mcthunder_arcade_rule",
+                    "base_value": BASE_TRIAL_ACCELERATION_MPS2,
+                    "arcade_power_multiplier_applied": applied_arcade_power,
+                    "formula": "base_trial_acceleration_mps2 * arcade_power_multiplier_applied",
+                    "reason": (
+                        "Explicit cache arcade power multiplier scales the project trial acceleration; no historical claim"
+                        if explicit_arcade_power else
+                        "Cache has no numeric arcade power multiplier; explicit arcade design fallback uses multiplier 1.0; no historical claim"
+                    ),
                 },
             },
             "primary_weapon": {
@@ -134,9 +153,18 @@ def build() -> dict:
         profiles.append(profile)
 
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "origin": "warthunder_reference",
         "historical_verified": False,
+        "gameplay_mode": GAMEPLAY_MODE,
+        "arcade_policy": {
+            "base_trial_acceleration_mps2": BASE_TRIAL_ACCELERATION_MPS2,
+            "explicit_multiplier_count": sum(
+                p["mobility"]["trial_acceleration_mps2"]["resolution_state"] == "derived_arcade_reference"
+                for p in profiles
+            ),
+            "missing_multiplier_policy": "explicit_multiplier_1_design_fallback",
+        },
         "set_policy": "exact_tree_id_no_alias_no_missing_no_extra",
         "vehicle_count": len(profiles),
         "trial_mobility_count": sum(p["runtime_use"]["research_trial_mobility"] for p in profiles),

@@ -38,6 +38,33 @@ def sync() -> None:
         runtime_reference = runtime.get("sources", {}).get(runtime_source_id, {})
         if authored_reference.get("sha256") != source_hash or runtime_reference.get("sha256") != source_hash:
             raise ValueError(f"packet reference hash mismatch: {vehicle_id}")
+        authored_tuning = authored.get("arcade_tuning")
+        if authored.get("gameplay_mode") != "arcade" or not isinstance(authored_tuning, dict):
+            raise ValueError(f"authored arcade tuning missing: {vehicle_id}")
+        multiplier = authored_tuning.get("arcade_power_multiplier_applied")
+        if not isinstance(multiplier, (int, float)) or multiplier <= 0:
+            raise ValueError(f"authored arcade multiplier invalid: {vehicle_id}")
+        existing_tuning = runtime.get("arcade_tuning")
+        base_acceleration = (
+            existing_tuning.get("base_acceleration_mps2")
+            if isinstance(existing_tuning, dict)
+            else runtime.get("runtime", {}).get("acceleration")
+        )
+        if not isinstance(base_acceleration, (int, float)) or base_acceleration <= 0:
+            raise ValueError(f"runtime base acceleration invalid: {vehicle_id}")
+        runtime["gameplay_mode"] = "arcade"
+        runtime["arcade_tuning"] = copy.deepcopy(authored_tuning)
+        runtime["arcade_tuning"]["base_acceleration_mps2"] = float(base_acceleration)
+        runtime["runtime"]["acceleration"] = float(base_acceleration) * float(multiplier)
+        runtime["facts"]["gameplay.ruleset"] = {
+            "value": {"mode": "arcade", "tuning": copy.deepcopy(runtime["arcade_tuning"])},
+            "status": "design",
+            "origin": "game_rule",
+            "source_refs": ["mcthunder_pipeline"],
+            "location": "arcade runtime binding; source field drive.arcade_power_multiplier remains in the frozen candidate trace",
+            "unit": "structured",
+            "note": runtime["arcade_tuning"]["note"],
+        }
         for key in ("turret_yaw_speed", "turret_pitch_speed"):
             value = authored["runtime"][key]
             fact_key = "runtime." + key

@@ -23,6 +23,9 @@ func _run() -> void:
 		check(defs.resolve_vehicle(id).ok,id+": common definition registry resolves actual historical package")
 		if not catalog.packages.has(id): continue
 		var packet: Dictionary = catalog.packages[id].packet
+		check(packet.get("gameplay_mode")=="arcade",id+": active combat package declares arcade gameplay")
+		var wrong_mode:=packet.duplicate(true); wrong_mode.gameplay_mode="realistic"
+		check(not VehicleContentPipeline.validate_package(wrong_mode).ok,id+": realistic/full-real package cannot enter the active arcade runtime")
 		for change in [["year",1943],["gun","wrong gun"],["mount","wrong mount"],["shell","wrong shell"]]:
 			var bad := packet.duplicate(true); bad.assembly[change[0]] = change[1]
 			check(not VehicleContentPipeline.validate_package(bad).ok,id+": rejects mismatched "+str(change[0]))

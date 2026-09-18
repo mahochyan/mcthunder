@@ -34,6 +34,7 @@ func _run() -> void:
 	var weapon_rigs:=0
 	var nonstandard_weapons:=0
 	var unarmed_models:=0
+	var explicit_arcade_multipliers:=0
 	var speed_values: Dictionary={}
 	for id in rows:
 		var row: Dictionary=rows[id]
@@ -56,8 +57,10 @@ func _run() -> void:
 			motion=ResearchReferenceProfiles.weapon_motion_for(row)
 			_check(not motion.get("ok",false) and not bool(interface.get("weapon_rig_ready",true)),id+": missing or ambiguous weapon data cannot animate a fake tank-gun rig")
 		if not trial.data_ready: continue
-		if trial.mobility_source=="combat_packet": packet_sources+=1
-		elif trial.mobility_source=="warthunder_reference": reference_sources+=1
+		_check(trial.gameplay_mode=="arcade",id+": runtime mobility is locked to arcade rules")
+		if trial.arcade_power_multiplier>1.0: explicit_arcade_multipliers+=1
+		if trial.mobility_source=="arcade_combat_packet": packet_sources+=1
+		elif trial.mobility_source=="arcade_reference": reference_sources+=1
 		speed_values[snappedf(trial.forward_max_speed,0.001)]=true
 		var first_step:=ResearchTrialDrive.advance_speed(0.0,1.0,0.25,trial.forward_max_speed,trial.reverse_max_speed,trial.acceleration)
 		_check(is_equal_approx(first_step,minf(trial.forward_max_speed,trial.acceleration*0.25)),id+": authored acceleration changes the actual trial speed step")
@@ -90,6 +93,8 @@ func _run() -> void:
 	_check(tracked_interfaces==127 and wheeled_interfaces==14,"all model locomotion interfaces are exact: 127 tracked and 14 wheeled")
 	_check(weapon_rigs==136 and nonstandard_weapons==2 and unarmed_models==3,"weapon interfaces are exact: 136 standard, 2 nonstandard unresolved, 3 unarmed")
 	_check(packet_sources==2 and reference_sources==139,"two combat packets override their trial values; 139 static models use exact cache profiles")
+	_check(int(profiles.get("arcade_policy",{}).get("explicit_multiplier_count",0))==5,"all five cache rows with explicit arcade power multipliers are preserved")
+	_check(explicit_arcade_multipliers==4,"all four currently modeled vehicles with explicit cache arcade power multipliers use them at runtime")
 	# The lossy cache currently contains three distinct forward-speed values across
 	# the modeled set. Preserve that source truth; never
 	# invent extra variation merely to make the fleet look more diverse.

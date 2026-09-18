@@ -66,6 +66,10 @@ func _run() -> void:
 		_check(FileAccess.file_exists(package_path) and FileAccess.get_sha256(package_path)==str(link.get("sha256","")),"combat packet bytes match: "+id)
 		var packet := _read(package_path)
 		_check(str(packet.get("id",""))==id and str(packet.get("source_binding",{}).get("source_vehicle_id",""))==id,"packet and source data use exact identity: "+id)
+		var tuning: Dictionary=packet.get("arcade_tuning",{})
+		_check(packet.get("gameplay_mode")=="arcade" and _near(float(packet.get("runtime",{}).get("acceleration",0.0)),float(tuning.get("base_acceleration_mps2",0.0))*float(tuning.get("arcade_power_multiplier_applied",0.0))),"combat runtime applies the declared arcade tuning: "+id)
+		var wrong_mode:=packet.duplicate(true); wrong_mode.gameplay_mode="realistic"
+		_check(not VehicleContentPipeline.validate_package(wrong_mode,catalog.model_sources).ok,"realistic/full-real packet is rejected from arcade combat: "+id)
 		_check(str(packet.get("model_binding",{}).get("vehicle_id",""))==id and str(packet.get("model_binding",{}).get("model",{}).get("source_vehicle_id",""))==id,"packet and runtime model use exact identity: "+id)
 		_check(str(packet.get("model_binding",{}).get("model",{}).get("path",""))==str(runtime.get("path","")),"tree and packet select the same runtime model: "+id)
 		var resolved: Dictionary=defs.resolve_vehicle(id)

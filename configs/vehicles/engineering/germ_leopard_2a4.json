@@ -1127,7 +1127,7 @@
       "status": "estimated",
       "unit": "structured",
       "value": {
-        "acceleration": 4.0,
+        "acceleration": 6.0,
         "forward_max_speed": 20.8333333333333,
         "hull_turn_speed": 30.0,
         "muzzle_velocity": 1140.0,
@@ -1234,6 +1234,27 @@
       "location": "germ_leopard_2a4.txt:L454 武器与弹药/primary",
       "unit": "deg/s",
       "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "gameplay.ruleset": {
+      "value": {
+        "mode": "arcade",
+        "tuning": {
+          "resolution_state": "derived_arcade_reference",
+          "base_acceleration_mps2": 4.0,
+          "arcade_power_multiplier_applied": 1.5,
+          "source_field": "drive.arcade_power_multiplier",
+          "source_value": 1.5,
+          "note": "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
+        }
+      },
+      "status": "design",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "location": "arcade runtime binding; source field drive.arcade_power_multiplier remains in the frozen candidate trace",
+      "unit": "structured",
+      "note": "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
     }
   },
   "geometry": {
@@ -1645,7 +1666,7 @@
     }
   ],
   "runtime": {
-    "acceleration": 4.0,
+    "acceleration": 6.0,
     "forward_max_speed": 20.8333333333333,
     "hull_turn_speed": 30.0,
     "muzzle_velocity": 1140.0,
@@ -2122,5 +2143,14 @@
     "mass": "kg",
     "speed": "m/s",
     "time": "s"
+  },
+  "gameplay_mode": "arcade",
+  "arcade_tuning": {
+    "resolution_state": "derived_arcade_reference",
+    "base_acceleration_mps2": 4.0,
+    "arcade_power_multiplier_applied": 1.5,
+    "source_field": "drive.arcade_power_multiplier",
+    "source_value": 1.5,
+    "note": "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
   }
 }

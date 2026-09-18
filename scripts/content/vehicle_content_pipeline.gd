@@ -17,6 +17,12 @@ static func audit_state(result: Dictionary) -> String:
 static func validate_package(packet: Dictionary, model_sources: Dictionary = {}) -> Dictionary:
 	var shape_errors := check_shape(packet)
 	if not shape_errors.is_empty(): return {"ok":false,"audit":"complete_with_gaps","errors":shape_errors,"notes":[],"skipped_checks":[]}
+	if packet.get("gameplay_mode")!="arcade": return {"ok":false,"audit":"complete_with_gaps","errors":["gameplay_mode: every combat package must use arcade"],"notes":[],"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
+	var arcade_tuning: Variant=packet.get("arcade_tuning")
+	if not arcade_tuning is Dictionary or not number(arcade_tuning.get("base_acceleration_mps2")) or float(arcade_tuning.get("base_acceleration_mps2",0))<=0 or not number(arcade_tuning.get("arcade_power_multiplier_applied")) or float(arcade_tuning.get("arcade_power_multiplier_applied",0))<=0:
+		return {"ok":false,"audit":"complete_with_gaps","errors":["arcade_tuning: positive base acceleration and applied power multiplier required"],"notes":[],"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
+	if not packet.get("runtime") is Dictionary or not is_equal_approx(float(packet.runtime.get("acceleration",0)),float(arcade_tuning.base_acceleration_mps2)*float(arcade_tuning.arcade_power_multiplier_applied)):
+		return {"ok":false,"audit":"complete_with_gaps","errors":["arcade_tuning: runtime acceleration does not equal base * multiplier"],"notes":[],"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	var profile: Variant = packet.get("evidence_profile","historical_verified")
 	if profile not in ["historical_verified","game_reference"]: return {"ok":false,"audit":"complete_with_gaps","errors":["evidence_profile: unsupported"],"notes":[],"skipped_checks":["layout_reconstruction","definition_validation","shell_catalog"]}
 	var evidence: Dictionary = ReferenceEvidenceGate.check(packet) if profile=="game_reference" else HistoricalEvidenceGate.check(packet)

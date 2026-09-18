@@ -2,6 +2,15 @@
   "id": "germ_leopard_2a4",
   "display_name": "Leopard 2A4 — combat candidate",
   "license": "Original project-authored geometry/rules; reference data use authorized by project owner",
+  "gameplay_mode": "arcade",
+  "arcade_tuning": {
+    "resolution_state": "derived_arcade_reference",
+    "base_acceleration_mps2": 4.0,
+    "arcade_power_multiplier_applied": 1.5,
+    "source_field": "drive.arcade_power_multiplier",
+    "source_value": 1.5,
+    "note": "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
+  },
   "evidence_profile": "game_reference",
   "admission_status": "candidate",
   "historical_verified": false,
@@ -40,7 +49,7 @@
         "germ_leopard_2a4"
       ],
       "excluded_identity_ids": [],
-      "sha256": "5a56edd47948f4d7608918eb2175f0f67a2fb1973a4dceb5140129a03ae8020c",
+      "sha256": "8403268de383fa82e0b791a97cbb818860e7062c18811ec638262664ca6fc26d",
       "artifact": "res://authoring/reference_data/modern_vehicles/design_rules.json",
       "read_state": "authored"
     },
@@ -62,7 +71,7 @@
         "germ_leopard_2a4"
       ],
       "excluded_identity_ids": [],
-      "sha256": "40ce061dfdba65bc6ca5d094ce9603f02d48d311eddcb28f81afb41f510733af",
+      "sha256": "e88b1a45b0c713f34ea926accc2c596162868cc1e7fde62f58d7b0b2f89689fc",
       "artifact": "res://authoring/reference_data/build_modern_vehicle_packages.py",
       "read_state": "authored"
     }
@@ -256,6 +265,28 @@
       "location": "germ_leopard_2a4.txt:L459 武器与弹药/primary",
       "unit": "m/s",
       "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "gameplay.ruleset": {
+      "value": {
+        "mode": "arcade",
+        "tuning": {
+          "resolution_state": "derived_arcade_reference",
+          "base_acceleration_mps2": 4.0,
+          "arcade_power_multiplier_applied": 1.5,
+          "source_field": "drive.arcade_power_multiplier",
+          "source_value": 1.5,
+          "note": "Explicit War Thunder cache arcade power multiplier applied to project base acceleration."
+        }
+      },
+      "status": "estimated",
+      "origin": "game_rule",
+      "source_refs": [
+        "design",
+        "builder"
+      ],
+      "location": "design_rules.json",
+      "unit": "structured",
+      "note": "Explicit original game design; unresolved source facts remain in reference_trace. Not historical performance or model delivery."
     },
     "geometry.exterior": {
       "value": {
@@ -638,7 +669,7 @@
       "value": {
         "forward_max_speed": 19,
         "reverse_max_speed": 8,
-        "acceleration": 4.5,
+        "acceleration": 6.0,
         "hull_turn_speed": 30,
         "turret_yaw_speed": 40.0,
         "turret_pitch_speed": 40.0,
@@ -1573,7 +1604,7 @@
   "runtime": {
     "forward_max_speed": 19,
     "reverse_max_speed": 8,
-    "acceleration": 4.5,
+    "acceleration": 6.0,
     "hull_turn_speed": 30,
     "turret_yaw_speed": 40.0,
     "turret_pitch_speed": 40.0,

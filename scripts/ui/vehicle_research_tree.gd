@@ -164,7 +164,8 @@ func select_vehicle(id: String) -> void:
 	var mobility:=ResearchReferenceProfiles.mobility_for(row)
 	if mobility.get("ok",false):
 		detail_label.text+="\n前进 %.1f km/h · 倒车 %.1f km/h · 车体转向 %.1f°/s"%[float(mobility.forward_max_speed)*3.6,float(mobility.reverse_max_speed)*3.6,float(mobility.hull_turn_speed)]
-		if not mobility.get("design_fallbacks",[]).is_empty(): detail_label.text+="\n加速度：独立游戏设计值（缓存单位未确认）"
+		var multiplier_source:="缓存街机倍率" if "arcade_power_multiplier" not in mobility.get("design_fallbacks",[]) else "街机设计回退"
+		detail_label.text+="\n街机动力：加速度 %.2f m/s² · ×%.2f（%s）"%[float(mobility.acceleration),float(mobility.get("arcade_power_multiplier",1.0)),multiplier_source]
 	var profile:=ResearchReferenceProfiles.profile(id)
 	if not profile.is_empty():
 		var mass: Variant=profile.get("mobility",{}).get("design_mass_kg")
@@ -183,7 +184,7 @@ func select_vehicle(id: String) -> void:
 		variants_button.text="改型参考  ·  %d 项   ▾"%row.variant_refs.size()
 		for variant in row.variant_refs: variants_label.text+="\n· "+str(variant.label)
 	status_label.text="模型已就绪 · 战斗配置待完成" if loaded else "模型制作中 · 暂未开放试驾"
-	if loaded and row.get("combat_package") is Dictionary: status_label.text="缓存数据 · 运行模型 · 战斗配置已按车型 ID 对齐"
+	if loaded and row.get("combat_package") is Dictionary: status_label.text="街机数据 · 运行模型 · 战斗配置已按车型 ID 对齐"
 	if row.model is Dictionary and not loaded: status_label.text="模型加载失败 · 暂不可用"
 	test_button.disabled=not loaded
 	# Availability remains tied to a real, admitted packet; static models cannot bypass it.

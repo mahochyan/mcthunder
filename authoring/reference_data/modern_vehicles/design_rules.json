@@ -381,7 +381,7 @@
       "runtime": {
         "forward_max_speed": 18,
         "reverse_max_speed": 3,
-        "acceleration": 5,
+        "acceleration": 4,
         "hull_turn_speed": 30,
         "turret_yaw_speed": 24,
         "turret_pitch_speed": 6,
@@ -812,7 +812,7 @@
       "runtime": {
         "forward_max_speed": 19,
         "reverse_max_speed": 8,
-        "acceleration": 4.5,
+        "acceleration": 4,
         "hull_turn_speed": 30,
         "turret_yaw_speed": 40,
         "turret_pitch_speed": 20,

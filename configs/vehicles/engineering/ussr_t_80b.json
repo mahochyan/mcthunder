@@ -1544,6 +1544,27 @@
       "location": "ussr_t_80b.txt:L440 武器与弹药/primary",
       "unit": "deg/s",
       "note": "Frozen War Thunder summary candidate; not historically verified."
+    },
+    "gameplay.ruleset": {
+      "value": {
+        "mode": "arcade",
+        "tuning": {
+          "resolution_state": "arcade_design_fallback",
+          "base_acceleration_mps2": 4.0,
+          "arcade_power_multiplier_applied": 1.0,
+          "source_field": "drive.arcade_power_multiplier",
+          "source_value": null,
+          "note": "No numeric cache arcade power multiplier; explicit project arcade fallback applies multiplier 1.0."
+        }
+      },
+      "status": "design",
+      "origin": "game_rule",
+      "source_refs": [
+        "mcthunder_pipeline"
+      ],
+      "location": "arcade runtime binding; source field drive.arcade_power_multiplier remains in the frozen candidate trace",
+      "unit": "structured",
+      "note": "No numeric cache arcade power multiplier; explicit project arcade fallback applies multiplier 1.0."
     }
   },
   "geometry": {
@@ -2496,5 +2517,14 @@
     "mass": "kg",
     "speed": "m/s",
     "time": "s"
+  },
+  "gameplay_mode": "arcade",
+  "arcade_tuning": {
+    "resolution_state": "arcade_design_fallback",
+    "base_acceleration_mps2": 4.0,
+    "arcade_power_multiplier_applied": 1.0,
+    "source_field": "drive.arcade_power_multiplier",
+    "source_value": null,
+    "note": "No numeric cache arcade power multiplier; explicit project arcade fallback applies multiplier 1.0."
   }
 }
