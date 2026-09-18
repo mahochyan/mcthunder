@@ -57,12 +57,11 @@ static func restore(values: Dictionary) -> void:
 static func apply(root: Node) -> void:
 	if root is Control and root.has_meta("hud_font_size"):
 		root.add_theme_font_size_override("font_size",roundi(float(root.get_meta("hud_font_size"))*ui_scale))
-	# UI-BIZ-01 stage 4: a hook was tried here, calling apply_scale_layout on any node that exposes it. It was reverted
-	# because a probe measured that it did not fire on the garage frontend even though the recursion reached the node -
-	# the fonts rescaled while the margins stayed at twenty-four - and unproven code that looks like a fix is worse than
-	# none. tests/probe_scale_layout.gd is committed instead: it shows that one explicit call moves the vehicle row from
-	# 725 to 697 pixels at 1280x720 with a 125 percent scale, so the layout itself is correct and only the trigger is
-	# still open.
+	# UI-BIZ-01 stage 4: applying a scale is the event that must re-run a scale-aware layout. The hook lives on nodes that
+	# are really in the tree - the garage shell forwards it to its frontend, which is composed by hand - so a text-scale
+	# change re-applies the garage's margins in every path: the settings panel, startup, and a suite that raises the scale
+	# mid-run all call apply(). Without it the vehicle row ended five pixels past the bottom edge at 1280x720 at 125%.
+	if root.has_method("apply_scale_layout"): root.call("apply_scale_layout")
 	for child in root.get_children(): apply(child)
 static func apply_vehicle(vehicle: VehicleActor) -> void:
 	vehicle.turret.flash_enabled = not reduce_flashes and fx_level>0

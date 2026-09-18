@@ -42,6 +42,14 @@ func _open_challenges() -> void:
 	add_child(challenge_selection)
 	challenge_selection.chosen.connect(func(id: String, difficulty: String) -> void: challenge_requested.emit(id,difficulty))
 
+## UI-BIZ-01 stage 4: the scale-aware layout hook, on the node that is really in the tree. The frontend is built and
+## composed by hand and is never added as a child, so a probe proved that neither its own per-frame watch nor a theme
+## notification could ever run, and AccessibilitySettings.apply walking this node's children never reached it. The shell
+## forwards instead, which makes a text-scale change re-apply the layout in every path: the settings panel calls apply()
+## on the window root and the suites call it on the shell, and in both cases this method is found on a node that exists.
+func apply_scale_layout() -> void:
+	if frontend != null: frontend.apply_scale_layout()
+
 func _ready() -> void:
 	if profile == null: profile = ProfileStore.new()
 	catalog = profile.service.catalog

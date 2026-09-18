@@ -34,20 +34,9 @@ func apply_scale_layout() -> void:
 	main_column.add_theme_constant_override("separation",maxi(6,block_gap - 4))
 	body_row.add_theme_constant_override("separation",block_gap)
 
-## A theme change is how the settings panel rebuilds a scale, so the scale-aware layout is refreshed with it too. It is
-## not enough on its own: setting a parent's theme does not deliver this notification to children, which a suite run
-## measured by leaving every rectangle identical after the scale changed.
-func _notification(what: int) -> void:
-	if what == Control.NOTIFICATION_THEME_CHANGED: apply_scale_layout()
-
-## The text scale is a static value with no signal of its own, so it is watched here rather than only at build time.
-## One float comparison per frame is cheaper than a stale layout: without this, raising the scale in the settings panel
-## keeps the standard margins until the garage is rebuilt, and the matrix measured the consequence at five pixels of
-## overflow on a 720 pixel window.
-func _process(_delta: float) -> void:
-	if is_equal_approx(_last_scale,AccessibilitySettings.ui_scale): return
-	_last_scale = AccessibilitySettings.ui_scale
-	apply_scale_layout()
+## A theme change cannot reach this node: the frontend is composed by hand and the shell adds it as a child only now, so
+## both a per-frame watch and a theme notification would be unreliable here. The trigger lives on the shell instead, which
+## is in the tree, and refresh() calls this directly on the app's own path back to the garage.
 var research_tree: VehicleResearchTree
 var tree_button: Button
 var map_survey_button: Button
@@ -333,6 +322,9 @@ func show_page(index: int) -> void:
 	garage.preparation.details.visible=index==1 and garage.profile.service.has_vehicle(garage.selected_vehicle_id())
 
 func refresh() -> void:
+	# The app's own path back to the garage, so the scale-aware layout is re-applied here as well as through the shell's
+	# hook.
+	apply_scale_layout()
 	if title==null: return
 	var id := garage.selected_vehicle_id()
 	title.text=short_names.get(id,garage.vehicle_choice.get_item_text(garage.vehicle_choice.selected))
