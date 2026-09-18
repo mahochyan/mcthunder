@@ -305,11 +305,23 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 			return
 		# Only suppress already processed surfaces at this exact starting point.
 		# Co-located other surfaces remain candidates; never exclude an entire target.
+		# CD02-T03 / TerminalResponseV2 invariant: re-sampling the SAME plate at the SAME crossing must not debit it a
+		# second time. A denser triangulation added a small second charge on the mantlet that never reached the contact
+		# list, which shifted every later layer's entry budget by exactly that amount - measured as one hundred and ten
+		# millimetres of implied accumulation against one hundred. A genuine re-entry after leaving a plate happens
+		# metres away, so comparing the crossing distance keeps that case alive while dropping the duplicate triangles.
+		var crossed: Dictionary = {}
+		for row in st.contacts:
+			crossed[str(row.get("surface_id",""))] = float(row.get("distance_m",INF))
 		var filtered: Array = []
 		for ev in qr.get("events", []):
 			var key := _surface_key(ev)
 			if st.start_surfaces.has(key) and float(ev.get("distance_m", INF)) <= GameConfig.ARMOR_START_EPS_M \
 					and (ev.get("point_world", Vector3.INF) as Vector3).distance_to(st.start_surfaces[key]) <= GameConfig.ARMOR_START_EPS_M:
+				continue
+			var crossed_surface := str(ev.get("surface_id",""))
+			if not crossed_surface.is_empty() and crossed.has(crossed_surface) \
+					and absf(float(ev.get("distance_m",INF)) - float(crossed[crossed_surface])) <= GameConfig.ARMOR_START_EPS_M:
 				continue
 			filtered.append(ev)
 		qr.events = filtered

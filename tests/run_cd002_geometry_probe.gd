@@ -341,7 +341,10 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 			"after_mm":float(row.get("after_mm",-1.0)),"t":float(row.get("t",-1.0)),
 			"distance_m":float(row.get("distance_m",-1.0)),
 			"scale":float(row.get("scale",-1.0)),"contact_consumed_mm":float(row.get("consumed_mm",-1.0)),
-			"ricochets":int(row.get("ricochets",-1))})
+			"ricochets":int(row.get("ricochets",-1)),
+			"sample_at_travelled_mm":PenetrationCurve.sample_mm(projectile.penetration_curve,float(row.get("travelled_m",0.0))),
+			"implied_accumulated_mm":PenetrationCurve.sample_mm(projectile.penetration_curve,float(row.get("travelled_m",0.0)))-float(row.get("before_mm",0.0)),
+			"curve_points":projectile.penetration_curve.size()})
 	var record: Dictionary = {}
 	if manager.shot_records.count() > 0: record = manager.shot_records.get_record(manager.shot_records.count()-1)
 	manager.queue_free()
