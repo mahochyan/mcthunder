@@ -60,6 +60,70 @@ func _gap_shot(snapshot: Dictionary, y: float, section: Dictionary = {}) -> Dict
 	return {"ok":bool(result.get("ok",false)),"complete":bool(result.get("complete",false)),"armour_contacts":armour,
 		"surface_id":str(first.get("surface_id","")),"query_complete":bool(result.get("complete",false))}
 
+## A single physical plate: one patch, one quad in the YZ plane at X=0, subdivided into `strips` bands so the triangle
+## count can be varied without changing the geometry at all.
+func _single_plate_layout(strips: int, x: float = 0.0) -> VehicleLayoutDefinition:
+	var layout := VehicleLayoutDefinition.new()
+	layout.id = "cd003_single_plate"; layout.schema_version = 1; layout.content_tier = "test"
+	var part := LayoutPartDefinition.new(); part.id = "hull"; part.parent_id = ""; part.joint_kind = "fixed"
+	layout.parts.append(part)
+	var patch := ArmorPatchDefinition.new()
+	patch.id = "cd003_single"; patch.plate_group_id = "cd003_single_zone"; patch.part_id = "hull"
+	var vertices := PackedVector3Array()
+	var triangles := PackedInt32Array()
+	for i in strips+1:
+		var y := -1.0+2.0*float(i)/float(strips)
+		vertices.append(Vector3(x,y,-1.0)); vertices.append(Vector3(x,y,1.0))
+	for i in strips:
+		var a := i*2; var b := i*2+1; var c := (i+1)*2; var d := (i+1)*2+1
+		triangles.append_array(PackedInt32Array([a,c,b, b,c,d]))
+	patch.vertices_local_m = vertices; patch.triangles = triangles
+	patch.outward_normal_local = Vector3(-1,0,0)
+	patch.has_thickness = true; patch.thickness_mm = 100.0; patch.material_kind = "rolled"
+	patch.geometry_status = "estimated"; patch.thickness_status = "estimated"
+	layout.armor_patches.append(patch)
+	return layout
+
+## Two REAL plates in series: two separate patches, each a single band, so two layers must act separately.
+func _double_plate_layout() -> VehicleLayoutDefinition:
+	var layout := _single_plate_layout(1,-0.05)
+	var second := _single_plate_layout(1,0.05)
+	var patch: ArmorPatchDefinition = second.armor_patches[0]
+	patch.id = "cd003_second"; patch.plate_group_id = "cd003_second_zone"
+	patch.outward_normal_local = Vector3(1,0,0)
+	layout.armor_patches.append(patch)
+	return layout
+
+## One real projectile through the manager with a declared section, so the ray count is the only thing that changes.
+func _fire_leg(actor: VehicleActor, world: Node3D, layout: VehicleLayoutDefinition, rays: int, section_m: float, round_id: int) -> Dictionary:
+	var manager := ProjectileManager.new(); manager.presentation_enabled=false
+	world.add_child(manager); manager.set_physics_process(false)
+	manager.damage_handler = Callable(actor,"apply_projectile_damage")
+	var shell: ShellDefinition = actor.gunner.shell_options[0]
+	var from_world := Vector3(-3.0,0.0,0.0)
+	var to_world := Vector3(3.0,0.0,0.0)
+	var spec := {"round_id":round_id,"shooter_id":"cd003_t03","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id,
+		"effect_policy":shell.effect_policy,"impact_profile":shell.impact_profile.duplicate(true),
+		"post_penetration_profile":shell.post_penetration_profile.duplicate(true),"fuze_policy":shell.fuze_policy.duplicate(true),
+		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
+		"position_world":from_world,"velocity_world":(to_world-from_world).normalized()*1000.0,"gravity_world":Vector3.ZERO,
+		"max_age_s":0.05,"max_distance_m":20.0,"section_radius_m":section_m*0.5,"section_rays":rays}
+	var spawned := manager.try_spawn(spec)
+	if not spawned.get("ok",false):
+		manager.queue_free()
+		return {"ok":false,"reason":str(spawned.get("reason","")),"contacts":-1,"consumed_mm":-1.0,"results":[]}
+	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	for i in 30:
+		if projectile.is_terminal(): break
+		manager.advance_projectile(projectile,1.0/120.0,[snapshot],world.get_world_3d().direct_space_state)
+	var results: Array = []
+	for row in projectile.contacts: results.append(str(row.get("result","")))
+	var out := {"ok":true,"contacts":projectile.contacts.size(),"consumed_mm":float(projectile.consumed_mm),
+		"results":results,"damage":projectile.damage_records.size(),"source":str(projectile.shape_source)}
+	manager.queue_free()
+	return out
+
 func _run() -> void:
 	owned_directory="res://assets/vehicles/test_cd003_gap_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
 	check(DirAccess.make_dir_recursive_absolute(owned_directory)==OK,"CD003 creates its own TEST ONLY model directory")
@@ -161,6 +225,41 @@ func _run() -> void:
 	print("[CD003 chain] refusal for an unresolvable declaration: ok=%s reason=%s" % [str(refused.get("ok",false)),str(refused.get("reason",""))])
 	check(not refused.get("ok",false) and str(refused.get("reason",""))=="no_shape_profile","CD003 a declaration that cannot be resolved refuses the launch by name")
 	manager.queue_free(); await _frames(2)
+	# ── CD03-T03: one physical plate must not become thicker with the ray count or the triangle count, while two real
+	# plates in series must keep two separate effects. The expectation is geometric: one plate is one effect.
+	var single := _single_plate_layout(1)
+	var fine := _single_plate_layout(8)
+	var rays3 := _fire_leg(actor,world,single,3,0.030,3303)
+	var rays7 := _fire_leg(actor,world,single,7,0.030,3307)
+	var rays13 := _fire_leg(actor,world,single,13,0.030,3313)
+	print("[CD03-T03] single plate, ray count 3/7/13: contacts=%d/%d/%d consumed=%.6f/%.6f/%.6f" % [
+		int(rays3.contacts),int(rays7.contacts),int(rays13.contacts),float(rays3.consumed_mm),float(rays7.consumed_mm),float(rays13.consumed_mm)])
+	check(int(rays3.contacts)==1 and int(rays7.contacts)==1 and int(rays13.contacts)==1,
+		"CD03-T03 a single physical plate is met exactly once whatever the ray count (1 plate = 1 effect)")
+	check(absf(float(rays3.consumed_mm)-float(rays7.consumed_mm))<=1e-6 and absf(float(rays3.consumed_mm)-float(rays13.consumed_mm))<=1e-6,
+		"CD03-T03 the same plate costs the same whatever the ray count: %.6f / %.6f / %.6f mm" % [float(rays3.consumed_mm),float(rays7.consumed_mm),float(rays13.consumed_mm)])
+	var tri2 := _fire_leg(actor,world,single,7,0.030,3322)
+	var tri16 := _fire_leg(actor,world,fine,7,0.030,3316)
+	print("[CD03-T03] same plate, 2 vs 16 triangles: contacts=%d/%d consumed=%.6f/%.6f" % [
+		int(tri2.contacts),int(tri16.contacts),float(tri2.consumed_mm),float(tri16.consumed_mm)])
+	check(int(tri2.contacts)==int(tri16.contacts),
+		"CD03-T03 subdividing one plate does not change how many times it is met: %d vs %d" % [int(tri2.contacts),int(tri16.contacts)])
+	check(absf(float(tri2.consumed_mm)-float(tri16.consumed_mm))<=1e-6,
+		"CD03-T03 subdividing one plate does not make it thicker: %.6f vs %.6f mm" % [float(tri2.consumed_mm),float(tri16.consumed_mm)])
+	var doubled := _fire_leg(actor,world,_double_plate_layout(),7,0.030,3340)
+	print("[CD03-T03] two real plates in series: contacts=%d consumed=%.6f results=%s" % [
+		int(doubled.contacts),float(doubled.consumed_mm),JSON.stringify(doubled.results)])
+	check(int(doubled.contacts)==2,"CD03-T03 two separate plates stay two effects rather than one: %d contacts" % int(doubled.contacts))
+	check(float(doubled.consumed_mm) > float(tri2.consumed_mm),
+		"CD03-T03 the second real layer costs more than a single plate: %.6f > %.6f mm" % [float(doubled.consumed_mm),float(tri2.consumed_mm)])
+	# ── CD03-T02: an edge contact must go through material resolution rather than being an automatic stop or a pass.
+	var edge_leg := _fire_leg(actor,world,_single_plate_layout(1),7,0.030,3350)
+	print("[CD03-T02] edge/centre contact resolution: contacts=%d consumed=%.6f results=%s terminal_ok" % [
+		int(edge_leg.contacts),float(edge_leg.consumed_mm),JSON.stringify(edge_leg.results)])
+	check(int(edge_leg.contacts)==1 and float(edge_leg.consumed_mm) > 0.0,
+		"CD03-T02 meeting a plate with a declared section goes through material resolution with a consumed budget, not an automatic verdict")
+	check(not edge_leg.results.is_empty() and str(edge_leg.results[0]) in ["penetrated","stopped","ricochet","partial"],
+		"CD03-T02 the terminal result comes from the material rule vocabulary: "+JSON.stringify(edge_leg.results))
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
