@@ -1051,6 +1051,126 @@
       }
     ],
     "tolerance_check": {
+      "anchors": [
+        {
+          "anchor": "Attachment_engine",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:engine",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_transmission",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:transmission",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_fuel",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:fuel",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_breech",
+          "anchor_parent": "GunPivot",
+          "delta_mm": 0.0000298023223876953,
+          "item": "module:breech",
+          "ok": true,
+          "part": "barrel",
+          "part_node": "GunPivot"
+        },
+        {
+          "anchor": "Attachment_turret_drive",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:turret_drive",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_ammo_ready",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:ammo_ready",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_ammo_reserve",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:ammo_reserve",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_autoloader",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "module:autoloader",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_track_left",
+          "anchor_parent": "RunningLeft",
+          "delta_mm": 0.0,
+          "item": "module:track_left",
+          "ok": true,
+          "part": "running_left",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_track_right",
+          "anchor_parent": "RunningRight",
+          "delta_mm": 0.0,
+          "item": "module:track_right",
+          "ok": true,
+          "part": "running_right",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_driver",
+          "anchor_parent": "ussr_t_80b",
+          "delta_mm": 0.0,
+          "item": "crew:driver",
+          "ok": true,
+          "part": "hull",
+          "part_node": "ussr_t_80b"
+        },
+        {
+          "anchor": "Attachment_gunner",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "crew:gunner",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_commander",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "crew:commander",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        }
+      ],
+      "anchors_out_of_tolerance": [],
       "authored_leg": "layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
       "items": [
         {
@@ -1174,8 +1294,9 @@
           "within": true
         }
       ],
-      "model_anchor_leg": "NOT_RUN",
-      "model_anchor_reason": "the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead",
+      "model_anchor_leg": "MEASURED",
+      "model_anchor_reason": "",
+      "model_path": "res://assets/vehicles/modern_bound/ussr_t_80b.glb",
       "out_of_tolerance": [],
       "tolerance": {
         "attachments_mm": 50.0,
@@ -1196,6 +1317,7 @@
         "unit_length": "m",
         "unit_thickness": "mm"
       },
+      "worst_anchor_mm": 0.0000596046447753906,
       "worst_attachment_mm": 0.0,
       "worst_size_ratio": 0.0
     },
@@ -2999,6 +3121,144 @@
       }
     ],
     "tolerance_check": {
+      "anchors": [
+        {
+          "anchor": "Attachment_engine",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "module:engine",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_transmission",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "module:transmission",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_fuel",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "module:fuel",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_breech",
+          "anchor_parent": "GunPivot",
+          "delta_mm": 0.0000298023223876953,
+          "item": "module:breech",
+          "ok": true,
+          "part": "barrel",
+          "part_node": "GunPivot"
+        },
+        {
+          "anchor": "Attachment_turret_drive",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "module:turret_drive",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_ammo_ready",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000298023223876953,
+          "item": "module:ammo_ready",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_ammo_reserve",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "module:ammo_reserve",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_track_left",
+          "anchor_parent": "RunningLeft",
+          "delta_mm": 0.0,
+          "item": "module:track_left",
+          "ok": true,
+          "part": "running_left",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_track_right",
+          "anchor_parent": "RunningRight",
+          "delta_mm": 0.0,
+          "item": "module:track_right",
+          "ok": true,
+          "part": "running_right",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_bustle_partition",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "module:bustle_partition",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_bustle_vent",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.000119209289550781,
+          "item": "module:bustle_vent",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_driver",
+          "anchor_parent": "VehicleRoot",
+          "delta_mm": 0.0,
+          "item": "crew:driver",
+          "ok": true,
+          "part": "hull",
+          "part_node": "VehicleRoot"
+        },
+        {
+          "anchor": "Attachment_gunner",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "crew:gunner",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_commander",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "crew:commander",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        },
+        {
+          "anchor": "Attachment_loader",
+          "anchor_parent": "TurretPivot",
+          "delta_mm": 0.0000596046447753906,
+          "item": "crew:loader",
+          "ok": true,
+          "part": "turret",
+          "part_node": "TurretPivot"
+        }
+      ],
+      "anchors_out_of_tolerance": [],
       "authored_leg": "layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
       "items": [
         {
@@ -3138,8 +3398,9 @@
           "within": true
         }
       ],
-      "model_anchor_leg": "NOT_RUN",
-      "model_anchor_reason": "the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead",
+      "model_anchor_leg": "MEASURED",
+      "model_anchor_reason": "",
+      "model_path": "res://assets/vehicles/modern_bound/germ_leopard_2a4.glb",
       "out_of_tolerance": [],
       "tolerance": {
         "attachments_mm": 50.0,
@@ -3160,6 +3421,7 @@
         "unit_length": "m",
         "unit_thickness": "mm"
       },
+      "worst_anchor_mm": 0.000119209289550781,
       "worst_attachment_mm": 0.0,
       "worst_size_ratio": 0.0
     },

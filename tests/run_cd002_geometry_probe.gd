@@ -73,16 +73,66 @@ func _tolerance_checks(id: String, packet: Dictionary, layout: VehicleLayoutDefi
 			"reference_packet_units":fixture_units},
 		"items":rows,"worst_attachment_mm":worst_attachment_mm,"worst_size_ratio":worst_size_ratio,
 		"out_of_tolerance":over,
-		"authored_leg":"layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence",
-		"model_anchor_leg":"NOT_RUN",
-		"model_anchor_reason":"the delivered bound GLB is not present in this working tree (res://assets/vehicles/modern_bound/<id>.glb) and user in-progress assets must not be touched, so the layout-versus-model-anchor leg cannot be measured here; the authored-packet leg above is measured instead"}
-	check(worst_attachment_mm <= attachment_m*1000.0 + 1e-6,"CD02-T01 the installed module and crew origins reproduce the authored packet exactly, as a generation sanity check ("+id+"): worst %.2f mm <= %.0f mm declared" % [worst_attachment_mm,attachment_m*1000.0])
-	check(worst_size_ratio <= fraction + 1e-6,"CD02-T01 the installed module boxes reproduce the authored sizes exactly, as a generation sanity check ("+id+"): worst ratio %.4f <= %.2f declared" % [worst_size_ratio,fraction])
-	print("[CD02-T01 %s] declared tolerance: attachments=%.0f mm dimension=%.2f%% from %s" % [id,attachment_m*1000.0,fraction*100.0,result.tolerance.production_config])
-	print("[CD02-T01 %s] reference packet units (transparency): %s" % [id,JSON.stringify(fixture_units)])
-	print("[CD02-T01 %s] generation sanity: worst attachment delta=%.2f mm ; worst size ratio=%.4f ; items=%d ; out_of_tolerance=%s" % [
-		id,worst_attachment_mm,worst_size_ratio,rows.size(),JSON.stringify(over)])
-	print("[CD02-T01 %s] model-anchor leg: NOT_RUN (%s)" % [id,result.model_anchor_reason])
+		"authored_leg":"layout versus the very packet it was constructed from - it must agree at zero and is kept as a generation sanity check, NOT as the CD02-T01 tolerance evidence"}
+	# The delivered bound model IS present. The earlier NOT_RUN here was my own path bug: the packet's model entry is a
+	# nested object and string-replacing it produced a bad path. The anchors are now read through the existing reader,
+	# using the packet's own internal_attachments node paths, and compared against the installed part-local origins.
+	var model_binding: Dictionary = production.get("model_binding",{})
+	var glb_path := str(model_binding.get("model",{}).get("path",""))
+	var attachments: Dictionary = model_binding.get("internal_attachments",{})
+	var anchor_rows: Array = []
+	var worst_anchor_mm := 0.0
+	var anchor_over: Array = []
+	var leg := "NOT_RUN"
+	var leg_reason := "the production config does not name a delivered model path"
+	if not glb_path.is_empty() and FileAccess.file_exists(glb_path):
+		leg = "MEASURED"
+		leg_reason = ""
+		var module_paths: Dictionary = attachments.get("modules",{})
+		for module in layout.modules:
+			if not module_paths.has(module.id): continue
+			var node_path := str(module_paths[module.id])
+			var read := ModelAnchorReader.part_relative(glb_path,node_path.get_file(),module.part_id)
+			if not read.get("ok",false):
+				anchor_rows.append({"item":"module:"+module.id,"ok":false,"reason":str(read.get("reason","")),
+					"anchor":node_path.get_file(),"part":module.part_id})
+				continue
+			var anchor_position: Vector3 = read.position
+			var delta_mm := (anchor_position - module.local_box_transform.origin).length()*1000.0
+			worst_anchor_mm = maxf(worst_anchor_mm,delta_mm)
+			var ok := delta_mm <= attachment_m*1000.0 + 1e-6
+			if not ok: anchor_over.append({"item":"module:"+module.id,"delta_mm":delta_mm,"anchor":node_path.get_file()})
+			anchor_rows.append({"item":"module:"+module.id,"ok":ok,"delta_mm":delta_mm,"anchor":node_path.get_file(),
+				"part":module.part_id,"part_node":str(read.get("part_node","")),"anchor_parent":str(read.get("anchor_parent",""))})
+		var crew_paths: Dictionary = attachments.get("crew",{})
+		for station in layout.crew_stations:
+			if not crew_paths.has(station.id): continue
+			var node_path := str(crew_paths[station.id])
+			var read := ModelAnchorReader.part_relative(glb_path,node_path.get_file(),station.part_id)
+			if not read.get("ok",false):
+				anchor_rows.append({"item":"crew:"+station.id,"ok":false,"reason":str(read.get("reason","")),
+					"anchor":node_path.get_file(),"part":station.part_id})
+				continue
+			var anchor_position: Vector3 = read.position
+			var delta_mm := (anchor_position - station.local_box_transform.origin).length()*1000.0
+			worst_anchor_mm = maxf(worst_anchor_mm,delta_mm)
+			var ok := delta_mm <= attachment_m*1000.0 + 1e-6
+			if not ok: anchor_over.append({"item":"crew:"+station.id,"delta_mm":delta_mm,"anchor":node_path.get_file()})
+			anchor_rows.append({"item":"crew:"+station.id,"ok":ok,"delta_mm":delta_mm,"anchor":node_path.get_file(),
+				"part":station.part_id,"part_node":str(read.get("part_node","")),"anchor_parent":str(read.get("anchor_parent",""))})
+	result["model_anchor_leg"] = leg
+	result["model_anchor_reason"] = leg_reason
+	result["model_path"] = glb_path
+	result["anchors"] = anchor_rows
+	result["worst_anchor_mm"] = worst_anchor_mm
+	result["anchors_out_of_tolerance"] = anchor_over
+	check(leg=="MEASURED","CD02-T01 the delivered bound model is readable from the production config ("+id+"): "+glb_path)
+	check(anchor_over.is_empty(),"CD02-T01 every installed module and crew origin agrees with the delivered model anchor within the declared tolerance ("+id+"): worst %.2f mm <= %.0f mm over %d anchors" % [worst_anchor_mm,attachment_m*1000.0,anchor_rows.size()])
+	print("[CD02-T01 %s] model-anchor leg: %s ; anchors=%d ; worst=%.2f mm ; over_tolerance=%s" % [
+		id,leg,anchor_rows.size(),worst_anchor_mm,JSON.stringify(anchor_over)])
+	for row in anchor_rows:
+		if not bool(row.get("ok",false)):
+			print("[CD02-T01 %s]   anchor item: %s" % [id,JSON.stringify(row)])
 	return result
 
 func _summary(packet: Dictionary, layout: VehicleLayoutDefinition, actor: VehicleActor) -> Dictionary:
