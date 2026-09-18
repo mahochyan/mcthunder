@@ -14,6 +14,7 @@ extends "res://tests/run_modern_candidate_checks.gd"
 const FIXTURE_PREFIX := "test_cd001_"
 const RACK_ID := "ammo_ready"
 const RELOAD_FRAMES := 560
+const RECOVERY_FRAMES := 3600
 const ADVANCE_STEPS := 40
 const PARTS := ["turret","hull"]
 const STANDOFFS := [-5.0,-6.0,-8.0,-10.0,-12.0]
@@ -92,22 +93,63 @@ func _lock_path(id: String, defs: VehicleDefs, packet: Dictionary, rack: Diction
 
 ## Normal consumption only: real fire request, real load request, then let the mechanism work through the ordinary
 ## command consumer.
+## Load the chamber FIRST and only then fire. The earlier order fired into an empty chamber, which the gunner
+## correctly blocks with chamber_empty, and this loop then mis-counted that as a failed iteration and stopped.
+func _ready_chamber(actor: VehicleActor) -> bool:
+	var guard := 0
+	while guard < RELOAD_FRAMES:
+		guard += 1
+		if actor.gunner.inventory.chamber > 0: return true
+		actor.gunner.request_load()
+		actor._apply_command_once(VehicleCommand.new(),1.0/60.0)
+	return actor.gunner.inventory.chamber > 0
+
 func _fire_and_reload(actor: VehicleActor) -> bool:
+	if not _ready_chamber(actor): return false
 	var before_fired: int = actor.gunner.inventory.fired
 	var fire := VehicleCommand.new()
 	fire.fire_requested = true
 	actor._apply_command_once(fire,1.0/60.0)
 	# Each ordinary shot spawns a real projectile; the fixture clears them after every shot, so this measurement does
-	# the same. Without it the live-projectile cap is reached and firing stops consuming, which is what the earlier
-	# runs were actually measuring instead of the empty state.
+	# the same. Without it the live-projectile cap is reached and firing stops consuming.
 	if actor.gunner.projectile_manager != null: actor.gunner.projectile_manager.cancel_all("cd001_consume")
-	actor.gunner.request_load()
-	var guard := 0
-	while guard < RELOAD_FRAMES:
-		guard += 1
-		actor._apply_command_once(VehicleCommand.new(),1.0/60.0)
-		if actor.gunner.inventory.chamber>0 or actor.gunner.inventory.total_available()==0: break
 	return actor.gunner.inventory.fired > before_fired
+
+## Measurement, not a fix: pump a long window and see whether the game replenishes the feed by itself.
+func _auto_recovery_probe(actor: VehicleActor) -> bool:
+	print("[CD001 RECOVERY PROBE] start: available=%d chamber=%d in_transfer=%d feed=%s cooldown=%.2f" % [
+		actor.gunner.inventory.total_available(),actor.gunner.inventory.chamber,actor.gunner.inventory.in_transfer,
+		actor.gunner.loading_reason,actor.gunner.cooldown_left])
+	for i in RECOVERY_FRAMES:
+		if actor.gunner.inventory.chamber > 0: break
+		if i % 60 == 0: actor.gunner.request_load()
+		actor._apply_command_once(VehicleCommand.new(),1.0/60.0)
+	var recovered: bool = actor.gunner.inventory.chamber > 0 or actor.gunner.loading_reason != "feed_empty"
+	print("[CD001 RECOVERY PROBE] after %d frames: recovered=%s available=%d chamber=%d in_transfer=%d feed=%s racks=%s" % [
+		RECOVERY_FRAMES,str(recovered),actor.gunner.inventory.total_available(),actor.gunner.inventory.chamber,
+		actor.gunner.inventory.in_transfer,actor.gunner.loading_reason,JSON.stringify(actor.gunner.inventory.racks)])
+	return recovered
+
+## The game's own rack-move API, used only because the recovery probe showed no automatic replenishment. This is my
+## driving method, recorded as such - not a claim about what production does or should do.
+func _drive_replenishment(actor: VehicleActor) -> bool:
+	var inv: AmmoInventory = actor.gunner.inventory
+	var shell_id: String = actor.gunner.shell_options[0].id
+	var empty_rack := ""
+	var loaded_rack := ""
+	for id in inv.racks:
+		if int(inv.racks[id]) <= 0: empty_rack = id
+		else: loaded_rack = id
+	if empty_rack.is_empty() or loaded_rack.is_empty(): return false
+	var reserved := inv.reserve_rack_move(loaded_rack,empty_rack,shell_id)
+	print("[CD001 DRIVE] reserve_rack_move(%s -> %s, %s) ok=%s" % [loaded_rack,empty_rack,shell_id,str(reserved.get("ok",false))])
+	if not reserved.get("ok",false): return false
+	for i in RECOVERY_FRAMES:
+		if inv.chamber > 0: break
+		actor._apply_command_once(VehicleCommand.new(),1.0/60.0)
+	if inv.has_rack_move(): inv.commit_rack_move(int(reserved.token))
+	print("[CD001 DRIVE] after driving: available=%d chamber=%d feed=%s racks=%s" % [inv.total_available(),inv.chamber,actor.gunner.loading_reason,JSON.stringify(inv.racks)])
+	return inv.chamber > 0
 
 func _consume_until(actor: VehicleActor, stop_when: int) -> int:
 	var guard := 0
@@ -119,6 +161,8 @@ func _consume_until(actor: VehicleActor, stop_when: int) -> int:
 				actor.gunner.inventory.fired,actor.gunner.inventory.total_available(),actor.gunner.inventory.chamber,
 				actor.gunner.inventory.in_transfer,actor.gunner.cooldown_left,actor.gunner.resume_grace,
 				actor.gunner.blocked_reason,actor.gunner.last_shot_result,actor.gunner.loading_reason])
+			if _auto_recovery_probe(actor): continue
+			if _drive_replenishment(actor): continue
 			break
 	return actor.gunner.inventory.fired
 
