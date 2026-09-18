@@ -238,3 +238,21 @@ L3 **从内向外** ⇒ 实测朝向：normal_world=(0,0,-1) ✓ flight=(0,0,-1)
 | 六条用例 T01–T06 · 实现顺序 #1 · 设计 #1 / #2 / #4 / #5 | ✅ **全部通过** ✓ |
 | 设计 #3 **三通道**（厚度 ✓ ERA kinetic 通道 ✓；chemical / fragment 通道未逐条对照 ✗） | 🔶 |
 | 实现顺序 #2 **迁移说明文档化** · #3 **两车主要区域矩阵** · **记录级重放校验** | ⛔ 未做 |
+## 16. 实现顺序 #2 **规则迁移表** ✓（阶段 4 素材 ✓ 依交付 §6 与模板 ✓）
+产出 ✓：`docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json` ✓（以 `original/templates_RULE_CHANGE.template.json` 的**全部字段**填写 ✓）
+- **模板字段覆盖** ✓：`template_only, work_order_id, change_kind, old_rule_version, new_rule_version, affected_vehicles, affected_modes, fields, reason, reference_sources, old_reference_unchanged, legacy_behavior_retained, new_expected_declared_before_run, migration, rollback, independent_oracle, approved_scope, divergences` ⇒ **全覆盖** ✓；
+- **本地扩展已声明** ✓：新增 `legacy_tests` ✓ 并**明写这是本地扩展** ✓（迁移索引载明原模板无此字段 ✓ ⇒ **不冒充原字段** ✓）；
+- **不编造已部署版本** ✓：`WT-CD-005` 为 **verification** ⇒ `old_rule_version == new_rule_version == wt012-reactive-v1` ✓✓。
+**六条变更** ✓（版本 → 版本 ✓ 保留旧行为 ✓）：
+```
+WT-CD-003 new_rule        legacy_centre_line_v1          -> cd003-shape-v1                    legacy=true
+WT-CD-003 behavior_change legacy_step_basis_v1           -> cd003-rotation-step-0.02rad       legacy=true
+WT-CD-004 new_rule        v1_vacuum                      -> cd004-ballistics-v1               legacy=true
+WT-CD-004 new_rule        speed_scale_always_one         -> cd004-residual-ratio-v1           legacy=true
+WT-CD-004 behavior_change predictor_constant_acceleration -> cd004-ballistics-v1_shared_solver legacy=true
+WT-CD-005 verification    wt012-reactive-v1              -> wt012-reactive-v1                 legacy=true
+```
+**迁移前后证据** ✓：
+- **after** ✓：**全量 14 套件 714 PASS / 0 FAIL** ✓（本轮实跑 ✓）；
+- **before** ✓：旧行为对照**逐字不变** ✓ —— `CD004_ZERO_DRAG_BASELINE_PASS` ✓ 最差值 `range 5.6538 m · time 0.00906 s · speed 0.0327 m/s` ✓（与冻结表一致 ✓）；CD003 的 **v1 CONTROL 仍 5/9 不符** ✓（旧规则作为对照保留 ✓）；`run_ai_intercept_checks` 全程 **106/0** ✓。
+**5 条 divergences** ✓ 明列（含**未建立"公开可对照版"** ✓ 与**有效射程外三行仅外推** ✓）。
