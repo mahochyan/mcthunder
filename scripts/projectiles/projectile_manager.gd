@@ -426,6 +426,13 @@ func advance_projectile(st: ProjectileState, delta: float, snapshots: Array, spa
 						"round_id":st.round_id,"shooter_id":st.shooter_id,"shooter_life_id":st.shooter_life_id,
 						"shot_id":st.shot_id,"point":st.position_world,"velocity":st.velocity_world})
 				var waiting := _rest_for_fuze(st, {}, "impact_world")
+				# CD07 design point three, second half: a contact HE detonates on a WORLD contact too, not only on armour. The burst
+				# is emitted with NO target, which leaves the pressure verdict honestly false - the explosion is outside everything and no
+				# opening or breach can be claimed - while the fragment channel still flies and stays subject to world occlusion.
+				if st.effect_policy == "he_blast" and not waiting and st.burst.is_empty():
+					_emit_internal_burst(st,snapshots,space)
+					# The emitter owns the terminal reason, so the world contact is recorded on the burst itself.
+					if st.burst is Dictionary: st.burst["contact_kind"] = "world_contact"
 				if not waiting: finish_once(st.projectile_id, "impact_world", {"surface_id": "world_contact","world_damage":world_damage})
 				if collider != null and is_instance_valid(collider) and collider.has_method("register_hit"):
 					collider.register_hit({})
@@ -707,6 +714,9 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	# CD07 design point one: one explosion root event records its channels SEPARATELY. The fragment channel is the existing
 	# bounded emitter called below; the blast and overpressure channels are declared here and explicitly marked as not yet
 	# applied, so nothing pretends that a shared in-radius switch already exists. An external HE round is marked as such.
+	# The external verdict belongs to EVERY burst, not only to a fuzed one: a contact HE carries no fuze and its burst must
+	# still say whether the explosion happened outside the hull.
+	st.burst["external"] = target.is_empty() or not ShellEffectPolicy.inside(target, st.position_world)
 	var legacy_channels := ShellEffectPolicy.legacy_template()
 	st.burst["channels"] = {
 		"fragment":{"applied":true,"version":ShellEffectPolicy.VERSION,"lines":int(legacy_channels.max_fragments),
@@ -748,7 +758,7 @@ func _emit_internal_burst(st: ProjectileState, snapshots: Array, space: PhysicsD
 	if not st.fuze_policy.is_empty():
 		st.burst["fuze"] = {"version":ShellFuze.VERSION,"policy":st.fuze_policy.duplicate(true),
 			"armed_age_s":st.fuze_armed_age_s,"due_age_s":st.fuze_due_age_s}
-		st.burst["external"] = target.is_empty() or not ShellEffectPolicy.inside(target, st.position_world)
+
 		st.burst["stop_reason"] = st.fuze_stop_reason
 	FragmentSystem.emit_bounded(st,snapshots,space,_exclude_for(st),Callable(self,"_commit_damage_event").bind(),contact_policy,Callable(self,"_live"),{},Callable(self,"resolve_armor"))
 	if _live(st): finish_once(st.projectile_id,"internal_burst",{"target_id":st.burst.target_id,"target_life_id":st.burst.target_life_id})
