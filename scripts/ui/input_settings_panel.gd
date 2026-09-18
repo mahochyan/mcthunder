@@ -122,7 +122,8 @@ func _group_header(contents: VBoxContainer, key: String) -> void:
 	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(rule)
 
-func _build_display(contents: VBoxContainer) -> void:	display_preview = DisplaySettings.new(); add_child(display_preview)
+func _build_display(contents: VBoxContainer) -> void:
+	display_preview = DisplaySettings.new(); add_child(display_preview)
 	CoreUI.label(contents,LocalizationService.text("display_title"),19)
 	var mode := OptionButton.new(); mode.name = "DisplayMode"; contents.add_child(mode)
 	mode.add_item(LocalizationService.text("display_windowed")); mode.add_item(LocalizationService.text("display_fullscreen"))
