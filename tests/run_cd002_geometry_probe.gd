@@ -498,6 +498,89 @@ func _invalid_only_cases(id: String, actor: VehicleActor, layout: VehicleLayoutD
 	check(not bad_module.get("ok",false) and JSON.stringify(bad_module).contains("cd002_no_such_module"),
 		"CD02-T06 the illegal module refusal names the offending id ("+id+")")
 
+## CD02-T04: real openings and real layers. A path through a declared structural opening must not be treated as a plate,
+## a path through two plates must debited them separately, and an interior that no visual shows must still be hit.
+## It runs on its own fresh actor, one hundred and twenty metres away, so no other case shares its damage state.
+func opening_and_layers_cases(id: String, defs: VehicleDefs, packet: Dictionary, world: Node3D) -> void:
+	var third := VehicleActor.new()
+	world.add_child(third)
+	var away := Transform3D(Basis.IDENTITY,Vector3(0,0,120))
+	check(third.setup(defs,packet.id,"cd002_target_c",3,away,2,null).ok,"CD02-T04 a fresh actor is installed for the opening and layer cases ("+id+")")
+	third.set_physics_process(false); third.tank.set_physics_process(false)
+	await _frames(3)
+	var layout: VehicleLayoutDefinition = third.damage_layout_override
+	var hull_xform: Transform3D = third.tank.hull_frame.global_transform
+	# ── Leg 1: through the turret ring opening versus onto the deck beside it.
+	var ring := {}
+	for opening in layout.declared_openings:
+		if str(opening.get("id",""))=="turret_ring": ring = opening
+	check(not ring.is_empty(),"CD02-T04 the layout declares the turret ring opening with a boundary loop ("+id+")")
+	if not ring.is_empty():
+		var centre := Vector3.ZERO
+		var points: Array = ring.get("boundary_loop",[])
+		for point in points: centre += _as_vector(point)
+		centre /= maxf(1.0,float(points.size()))
+		var ring_world: Vector3 = hull_xform*centre
+		# Beside the ring but still ON the deck: my first attempt offset by 1.6 m, which is outside the hull altogether and
+		# met no armour at all, so the contrast proved nothing.
+		var beside_world: Vector3 = hull_xform*(centre+Vector3(0,0,1.2))
+		var through := await _real_shot(third,world,QuerySnapshotBuilder.build_from_vehicle(third.tank,layout),packet,
+			ring_world+Vector3(0,3,0),ring_world-Vector3(0,3,0))
+		var aside := await _real_shot(third,world,QuerySnapshotBuilder.build_from_vehicle(third.tank,layout),packet,
+			beside_world+Vector3(0,3,0),beside_world-Vector3(0,3,0))
+		var zone_of := {}
+		for patch in layout.armor_patches: zone_of[str(patch.id)] = str(patch.plate_group_id)
+		var through_zones := _zones_hit(through,zone_of)
+		var aside_zones := _zones_hit(aside,zone_of)
+		print("[CD02-T04 %s] ring loop=%d centre_local=%s ; through=%s zones=%s ; beside=%s zones=%s" % [
+			id,points.size(),str(centre),
+			JSON.stringify({"contacts":through.get("contacts",-1),"consumed":through.get("consumed_mm",-1.0)}),JSON.stringify(through_zones.keys()),
+			JSON.stringify({"contacts":aside.get("contacts",-1),"consumed":aside.get("consumed_mm",-1.0)}),JSON.stringify(aside_zones.keys())])
+		# The turret sits ABOVE the ring, so a vertical line legitimately meets the turret roof before reaching the deck;
+		# the gap test is about the DECK plate, which the line through the opening must not register while the line beside
+		# it must.
+		var through_deck: bool = through_zones.has("hull_roof_front") or through_zones.has("hull_roof_rear")
+		var aside_deck: bool = aside_zones.has("hull_roof_front") or aside_zones.has("hull_roof_rear")
+		check(not through_deck,
+			"CD02-T04 the line through the declared turret ring opening passes the deck without registering a deck plate, so the gap is not a plate ("+id+"): "+JSON.stringify(through_zones.keys()))
+		check(aside_deck,
+			"CD02-T04 the matching line beside the opening does register the deck plate, so the gap is real and not a hole in the query ("+id+"): "+JSON.stringify(aside_zones.keys()))
+	# ── Leg 2: a horizontal path through both hull sides, where the plates must act separately.
+	var left := hull_xform*Vector3(-4.5,1.0,0.0)
+	var right := hull_xform*Vector3(4.5,1.0,0.0)
+	var across := await _real_shot(third,world,QuerySnapshotBuilder.build_from_vehicle(third.tank,layout),packet,left,right)
+	var trail: Array = across.get("trail",[])
+	var surfaces: Array = []
+	for row in trail: surfaces.append(str(row.get("surface_id","")))
+	print("[CD02-T04 %s] across the hull: contacts=%d consumed=%.3f surfaces=%s" % [id,int(across.get("contacts",-1)),float(across.get("consumed_mm",-1.0)),JSON.stringify(surfaces)])
+	check(int(across.get("contacts",0)) >= 2,"CD02-T04 a path across the hull meets more than one plate rather than one thick plate ("+id+"): %d" % int(across.get("contacts",0)))
+	var distinct := {}
+	for name in surfaces: distinct[str(name)] = true
+	check(distinct.size() >= 2,"CD02-T04 those plates are separate entities with separate ids ("+id+"): "+JSON.stringify(surfaces))
+	# ── Leg 3: the interior that no visual shows must still be hit.
+	var aim := _aim_at_plate(layout,third)
+	var inside := await _real_shot(third,world,QuerySnapshotBuilder.build_from_vehicle(third.tank,layout),packet,aim.from,aim.to)
+	var damage: Array = inside.get("projectile_damage","[]") if inside.get("projectile_damage","[]") is Array else JSON.parse_string(str(inside.get("projectile_damage","[]")))
+	print("[CD02-T04 %s] interior leg: contacts=%d module damage=%s" % [id,int(inside.get("contacts",-1)),JSON.stringify(damage)])
+	check(not damage.is_empty(),"CD02-T04 an interior module that no visual shows is still damaged by a penetrating shot ("+id+")")
+	third.queue_free(); await _frames(2)
+
+## Which logical zones a shot's contacts belong to, via the plate id to zone mapping.
+func _zones_hit(hits: Dictionary, zone_of: Dictionary) -> Dictionary:
+	var out: Dictionary = {}
+	for row in hits.get("trail",[]):
+		var surface := str(row.get("surface_id",""))
+		if surface.is_empty(): continue
+		out[str(zone_of.get(surface,"unknown:"+surface))] = true
+	return out
+
+func _as_vector(value) -> Vector3:
+	if value is Vector3: return value
+	var text := str(value).replace("(","").replace(")","")
+	var parts := text.split(",")
+	if parts.size() < 3: return Vector3.ZERO
+	return Vector3(float(parts[0]),float(parts[1]),float(parts[2]))
+
 func cd002_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
 	packet.id = FIXTURE_PREFIX+id
@@ -556,6 +639,7 @@ func cd002_case(id: String) -> void:
 	await pose_cases(id,defs,packet,actor,world)
 	await re_tessellation_cases(id,defs,packet,actor,world,rack)
 	await invalid_reference_cases(id,defs,packet,actor)
+	await opening_and_layers_cases(id,defs,packet,world)
 	world.queue_free(); await _frames(2)
 
 func occupancy_equal_guard(actor: VehicleActor) -> void:
