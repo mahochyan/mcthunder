@@ -612,18 +612,18 @@ func run(flow: AppFlow) -> void:
 			report(card.contains(LocalizationService.text("result_saved")) or card.contains(LocalizationService.text("result_no_reward")) or card.contains(LocalizationService.text("result_save_failed")), "the result card states the save or no-reward state")
 		await driver.capture("nav_10_result_card")
 
-	print("=== ui navigation: %d checks, %d failed ===" % [checks,failed])
-	print("UI_NAVIGATION_CHECKS_PASS" if failed == 0 else "UI_NAVIGATION_CHECKS_FAIL")
+	# The summary is printed at the very end of run(): the resolution matrix and the wide probes below add assertions,
+	# and printing the totals before them made the counts understate what the suite actually checked.
 	# --- UI-BIZ-01 stage 4: the layout audit at 125% and at the wider sizes --------------------------------
 	# The text scale is the combination most likely to overflow, and the two wide probes are the ones stage four must
 	# certify, so the same three defect checks run at each of them instead of only at 1280x720 and 100%.
 	AccessibilitySettings.ui_scale = 1.25
 	AccessibilitySettings.apply(get_tree().root)
 	await frames(12)
-	audit(f,"battle page at 125%")
+	audit(f,"battle page at text scale 125")
 	get_window().size = Vector2i(1920,1080)
 	await frames(12)
-	audit(f,"battle page at 1920x1080 125%")
+	audit(f,"battle page at 1920x1080 text scale 125")
 	get_window().size = Vector2i(1280,720)
 	AccessibilitySettings.ui_scale = 1.0
 	AccessibilitySettings.apply(get_tree().root)
@@ -643,5 +643,8 @@ func run(flow: AppFlow) -> void:
 	get_window().size = Vector2i(1280,720)
 	await frames(10)
 
+	# Every assertion has run by now, including the text-scale matrix and the wide probes, so this is the honest total.
+	print("=== ui navigation: %d checks, %d failed ===" % [checks,failed])
+	print("UI_NAVIGATION_CHECKS_PASS" if failed == 0 else "UI_NAVIGATION_CHECKS_FAIL")
 	print("driver checks=%d driver failed=%d" % [int(driver.checks),int(driver.failed)])
 	get_tree().quit(0 if failed == 0 else 1)
