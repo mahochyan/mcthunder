@@ -1,4 +1,6 @@
 {
+  "hud_shell_experimental": "AP120（游戏实验值）",
+  "biz_card_thumb_missing": "缺缩略图 · 以车型名为准",
   "playground_banner": "组件实验场 · 本页全部数值与文案均为模拟数据，仅用于外观与状态验证；正式界面绑定真实状态。",
   "playground_title": "FIELDWORK 01 · 组件与六类状态",
   "playground_sample_action": "示例操作",

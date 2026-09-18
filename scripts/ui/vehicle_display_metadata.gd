@@ -70,6 +70,10 @@ static func identity_line(vehicle_id: String) -> String:
 ## still reports unknown elsewhere, and this function only names the state the callers actually measured.
 static func state_term(vehicle_id: String, admitted: bool, unlocked: bool, has_model: bool, config_ok: bool, switching: bool = false) -> String:
 	if switching: return LocalizationService.text("vehicle_state_switching")
+	# UI-BIZ-01 stage 3: the training vehicle is not in the catalogue's admitted set, so without this branch it fell
+	# through to "engineering candidate missing from this package", which is wrong for the vehicle the training centre
+	# actually drives. It can deploy, so it reads as ready - still one of the design's own six terms.
+	if not admitted and VehicleCatalog.is_training(vehicle_id): return LocalizationService.text("vehicle_state_combat_ready")
 	if not admitted and VehicleCatalog.is_engineering(vehicle_id): return LocalizationService.text("vehicle_state_engineering_missing")
 	if not admitted and has_model: return LocalizationService.text("vehicle_state_preview_only")
 	if not admitted: return LocalizationService.text("vehicle_state_engineering_missing")

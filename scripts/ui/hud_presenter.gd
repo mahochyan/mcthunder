@@ -71,14 +71,14 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 	var feedback := ""
 	if gun.last_shot_result.begins_with("blocked:"): feedback = LocalizationService.text("ui_bc8f0b6e77bb")+reason(gun.blocked_reason)
 	var shell_text := "AP120" if gun.shell.id.contains("120") else ("AP70" if gun.shell.id.contains("70") else gun.shell.id.to_upper())
-	if gun.inventory.typed: shell_text = gun.shell_label(gun.inventory.chamber_shell)
+	if gun.inventory.typed: shell_text = shell_display(gun,str(gun.inventory.chamber_shell))
 	return {"life_id":vehicle.life_id,"entity_id":vehicle.entity_id,"destroyed":state.destroyed,"speed_kph":vehicle.tank.forward_speed*3.6,"crew_alive":state.alive_crew_count(),"crew":crew,"modules":modules,"drive_reasons":drive,"weapon_reasons":weapon,"drive_text":" · ".join(drive),"weapon_text":" · ".join(weapon),"ready":ready,"weapon_status":gun_text,"cooldown":gun.cooldown_left,"reload_time":gun.weapon.reload_time,"ammo":gun.rounds_remaining,"chamber":gun.inventory.chamber,"shell":shell_text,"extinguishers":state.extinguisher_charges,"fire":not state.fires.is_empty(),"action":action,"action_progress":state.action_progress,"action_duration":duration,"recovery_feedback":recovery_reason(state.recovery_reason),"shot_feedback":feedback,"protection":protection,"match":match_info.duplicate(true),"actual_point":gun.actual_hit_point,"intent_point":vehicle.cam_rig.intent_point(),"aim_error_degrees":vehicle.turret.alignment_error_deg(),"observing":vehicle.cam_rig.is_observing(),"optics_text":vehicle.cam_rig.optics_text(),
 		# WT-UI-007 (S04): the minimal read interface the design contract asked the integrator to add, taken straight
 		# from AmmoInventory - the chambered round, the round being carried, the next-round choice and the per-shell
 		# counts - so the HUD can keep those four semantics apart instead of concatenating one sentence.
-		"chamber_shell_label":"" if str(gun.inventory.chamber_shell).is_empty() else gun.shell_label(str(gun.inventory.chamber_shell)),
-		"carrying_shell_label":"" if str(gun.inventory.transfer_shell).is_empty() else gun.shell_label(str(gun.inventory.transfer_shell)),
-		"next_shell_label":"" if str(gun.inventory.selected_shell).is_empty() else gun.shell_label(str(gun.inventory.selected_shell)),
+		"chamber_shell_label":shell_display(gun,str(gun.inventory.chamber_shell)),
+		"carrying_shell_label":shell_display(gun,str(gun.inventory.transfer_shell)),
+		"next_shell_label":shell_display(gun,str(gun.inventory.selected_shell)),
 		"inventory_counts":gun.inventory.shell_counts(),
 		"in_transfer":bool(gun.inventory.in_transfer),
 		"shell_option_count":gun.shell_options.size(),
@@ -88,3 +88,13 @@ static func present(vehicle: VehicleActor, match_info: Dictionary, protection: f
 		"hit_damage":int(extra.get("hit_damage",0)),
 		"hit_shot_id":int(extra.get("hit_shot_id",0)),
 		"hit_feedback_text":hit_feedback_text(extra)}
+
+## UI-BIZ-01 stage 3: the ammunition inventory uses "__legacy__" (scripts/damage/ammo_inventory.gd, the LEGACY const)
+## as an internal sentinel id, and it was reaching the HUD verbatim - the wide capture read "膛内: __legacy__". The
+## presenter is exactly where display names are chosen (the shell_text line above already maps 120/70 ids), so the
+## sentinel is mapped here to the localised experimental-shell name. The id itself is not touched, and the HUD check
+## that compares the shown line with the model's own label still passes because both come through this function.
+static func shell_display(gun, id: String) -> String:
+	if id.is_empty(): return ""
+	if id == "__legacy__": return LocalizationService.text("hud_shell_experimental")
+	return gun.shell_label(id)
