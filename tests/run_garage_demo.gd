@@ -1,5 +1,5 @@
 extends "res://tests/run_historical_demo.gd"
-## Public UI only. No direct unlock, loadout mutation, actor damage, cooldown or score edits.
+## Public UI only. No direct loadout mutation, actor damage, cooldown or score edits.
 var flow_complete := false
 
 func choose(control: OptionButton, index: int) -> void:
@@ -31,11 +31,10 @@ func run(flow: AppFlow) -> void:
 	await click(find_button(app.garage,"M26\n重型 / 中型"))
 	var prep := app.garage.preparation
 	await choose(prep.mode_choice,1)
-	check(prep.mode()=="normal" and prep.research_button.disabled and prep.research_label.text.contains("M36"),"normal mode visibly requires M36 before M26 research")
-	await capture("01_research_dependency")
+	check(prep.mode()=="normal" and not prep.research_button.visible and prep.research_label.text.contains("全科技树已解锁"),"normal mode visibly reports the complete tree unlocked")
+	await capture("01_research_unlocked")
 	await click(find_button(app.garage,"M24\n轻型"))
-	await click(prep.research_button)
-	check(app.profile.snapshot().research_points==20 and VehicleCatalog.IDS[1] in app.profile.snapshot().unlocked,"real research button spends initial 80 points and unlocks M24")
+	check(app.profile.snapshot().research_points==100 and app.profile.snapshot().unlocked==ResearchGraph.all_ids(),"M24 is immediately available without spending research points")
 	await capture("02_researched_m24")
 	await click(app.garage.inspect_button)
 	var side_index := -1
@@ -100,7 +99,7 @@ func run(flow: AppFlow) -> void:
 	check(battle.actor.definition.id==m4 and not battle.actor.state.destroyed and battle.actor.gunner.rounds_remaining==1,"normal respawn chooses M4 with its own single-round manifest")
 	await capture("09_battle_m4")
 	await tap(KEY_ESCAPE); await click(battle.hud._training_btn); await frames(20)
-	check(is_instance_valid(app.garage) and app.profile.snapshot().research_points==20 and app.last_result.progression.points==0,"normal early return preserves 20 points and records zero reward")
+	check(is_instance_valid(app.garage) and app.profile.snapshot().research_points==100 and app.last_result.progression.points==0,"normal early return preserves points and records zero reward")
 	check(app.garage.preparation.loadouts[m4]==confirmed.loadout(m4) and app.garage.preparation.loadouts[m24]==confirmed.loadout(m24),"return restores both actual vehicle configurations")
 	await capture("10_returned_garage")
 	var old_token := app.match_token
@@ -116,10 +115,10 @@ func run(flow: AppFlow) -> void:
 	check(battle.director.state.phase=="finished" and battle.director.state.result.outcome!="abandoned","actual AI match reaches natural ticket or time-limit completion")
 	if battle.director.state.phase!="finished": finish(); return
 	var award: int = ProgressionService.REWARDS[battle.director.state.result.outcome]
-	check(app.profile.snapshot().research_points==20+award and battle.result_text.text.contains("研发点 +"+str(award)),"natural result panel and persisted balance show the actual earned award")
+	check(app.profile.snapshot().research_points==100+award and battle.result_text.text.contains("研发点 +"+str(award)),"natural result panel and persisted balance show the actual earned award")
 	await capture("11_completed_match_reward")
 	await click(battle.return_button); await frames(20)
-	check(app.profile.snapshot().research_points==20+award and app.garage.result_label.text.contains("研发点 +"+str(award)),"returning from completed result does not award a second time")
+	check(app.profile.snapshot().research_points==100+award and app.garage.result_label.text.contains("研发点 +"+str(award)),"returning from completed result does not award a second time")
 	await capture("12_persisted_reward")
 	flow_complete=true
 	finish()

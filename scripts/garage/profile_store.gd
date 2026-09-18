@@ -19,7 +19,7 @@ func _fresh() -> Dictionary:
 	var loadouts := {}
 	for id in VehicleCatalog.IDS: loadouts[id] = service.default_loadout(id)
 	return {"schema_version":3,"tutorial":{"chapter":0,"completed":[]},"challenge_bests":{},"revision":0,"profile_id":Crypto.new().generate_random_bytes(16).hex_encode(),
-		"research_points":100,"unlocked":[ResearchGraph.STARTER],"next_match":1,"pending":{},"receipts":{},
+		"research_points":100,"unlocked":ResearchGraph.all_ids(),"next_match":1,"pending":{},"receipts":{},
 		"garage":{"mode":"training","selected_vehicle_id":ResearchGraph.STARTER,"map":"hill_village","difficulty":"normal","lineup":[ResearchGraph.STARTER],"loadouts":loadouts}}
 
 func snapshot() -> Dictionary: return _data.duplicate(true)
@@ -49,6 +49,8 @@ func validate(value: Dictionary) -> Dictionary:
 		unique[id] = true
 		for parent in ResearchGraph.NODES[id].requires:
 			if parent not in value.unlocked: return _bad(LocalizationService.text("ui_edc4f9cc34c7"))
+	for id in ResearchGraph.all_ids():
+		if id not in value.unlocked: return _bad("当前版本要求全部科技树车辆保持解锁")
 	for field in ["pending","receipts"]:
 		if not value[field] is Dictionary or value[field].size() > (16 if field == "pending" else 128): return _bad(LocalizationService.text("ui_b9b067aa625c"))
 		for token in value[field]:
@@ -186,6 +188,10 @@ func _read(path: String) -> Dictionary:
 	if normalized.get("schema_version") == 2 and normalized.size() == 10 and not normalized.has("tutorial"):
 		normalized.schema_version = 3
 		normalized.tutorial = {"chapter":0,"completed":[]}
+	# Unlock policy migration: old saves keep all progress/currency/loadouts, while the
+	# former partial unlock list is expanded deterministically to the complete graph.
+	if normalized.get("schema_version") == 3 and ResearchGraph.valid_legacy_unlocks(normalized.get("unlocked")):
+		normalized.unlocked = ResearchGraph.all_ids()
 	var result := validate(normalized)
 	return {"ok":true,"data":normalized} if result.ok else result
 

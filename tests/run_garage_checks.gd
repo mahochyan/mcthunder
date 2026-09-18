@@ -40,26 +40,24 @@ func _run() -> void:
 			_check(not service.build_loadout(bad).ok,"reject "+bad_kind+": "+id)
 	var store := ProfileStore.new("",service)
 	_check(store.validate(store.snapshot()).ok,"fresh profile is schema valid")
-	_check(not _config(store,[VehicleCatalog.IDS[1]]).ok,"formal mode rejects locked vehicle")
-	_check(_config(store,VehicleCatalog.IDS.slice(1),"training").ok,"training permits all three locked vehicles")
+	_check(store.snapshot().unlocked == ResearchGraph.all_ids(),"fresh profile unlocks the complete admitted research graph")
+	_check(_config(store,[VehicleCatalog.IDS[1]]).ok,"formal mode accepts every unlocked admitted vehicle")
+	_check(_config(store,VehicleCatalog.IDS.slice(1),"normal").ok,"formal lineup accepts any three unlocked vehicles")
 	for ids in [[],[ResearchGraph.STARTER,ResearchGraph.STARTER],VehicleCatalog.IDS,["alien"]]:
 		_check(not Lineup.validate(ids,ResearchGraph.STARTER,"training",[]).ok,"lineup invalid fixture "+str(ids))
 	var before := store.snapshot()
-	_check(not ResearchGraph.unlock(store,VehicleCatalog.IDS[2]).ok and store.snapshot() == before,"research dependency rejection is transactional")
-	_check(ResearchGraph.unlock(store,VehicleCatalog.IDS[1]).ok and store.snapshot().research_points == 20,"real unlock subtracts 80 once")
-	before = store.snapshot()
-	_check(not ResearchGraph.unlock(store,VehicleCatalog.IDS[1]).ok and store.snapshot() == before,"duplicate unlock cannot spend again")
-	_check(not ResearchGraph.unlock(store,VehicleCatalog.IDS[3]).ok and store.snapshot() == before,"insufficient research points preserve state")
+	var already := ResearchGraph.unlock(store,VehicleCatalog.IDS[2])
+	_check(not already.ok and already.unlocked and already.cost == 0 and store.snapshot() == before,"unlocked research status never spends points or mutates the save")
 	var valid := _config(store,[ResearchGraph.STARTER,VehicleCatalog.IDS[1]])
 	var config: MatchConfig = valid.config
 	var exposed := config.snapshot(); exposed.loadouts[ResearchGraph.STARTER].counts.clear(); exposed.lineup.clear()
 	_check(config.vehicle_ids().size()==2 and not config.loadout(ResearchGraph.STARTER).counts.is_empty(),"match snapshot cannot be mutated by returned dictionaries")
-	for kind in ["negative_points","fractional_points","dependency","unknown","duplicate","foreign_profile","negative_revision","bad_loadout","receipt","pending"]:
+	for kind in ["negative_points","fractional_points","missing_unlock","unknown","duplicate","foreign_profile","negative_revision","bad_loadout","receipt","pending"]:
 		var bad := store.snapshot()
 		match kind:
 			"negative_points": bad.research_points = -1
 			"fractional_points": bad.research_points = 0.5
-			"dependency": bad.unlocked.append(VehicleCatalog.IDS[2])
+			"missing_unlock": bad.unlocked.erase(VehicleCatalog.IDS[2])
 			"unknown": bad.unlocked.append("foreign")
 			"duplicate": bad.unlocked.append(ResearchGraph.STARTER)
 			"foreign_profile": bad.profile_id = "hello"
@@ -76,6 +74,20 @@ func _run() -> void:
 	quit(0 if failed == 0 else 1)
 
 func _persistence() -> void:
+	var migration_path := "user://tests/garage_unlock_migration_"+str(Time.get_ticks_usec())+"/commander"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(migration_path).get_base_dir())
+	var legacy := ProfileStore.new("",service).snapshot()
+	legacy.unlocked = [ResearchGraph.STARTER]
+	var legacy_file := FileAccess.open(migration_path+".0.json",FileAccess.WRITE)
+	legacy_file.store_string(JSON.stringify(legacy)); legacy_file.close()
+	var migrated := ProfileStore.new(migration_path,service)
+	_check(migrated.problem.is_empty() and migrated.snapshot().unlocked==ResearchGraph.all_ids() and migrated.snapshot().research_points==100,"existing partial save migrates to the complete unlocked graph without losing currency")
+	var invalid_path := migration_path+"_invalid"
+	var invalid_legacy := legacy.duplicate(true); invalid_legacy.unlocked = [ResearchGraph.STARTER,"foreign_vehicle"]
+	var invalid_file := FileAccess.open(invalid_path+".0.json",FileAccess.WRITE)
+	invalid_file.store_string(JSON.stringify(invalid_legacy)); invalid_file.close()
+	var refused_migration := ProfileStore.new(invalid_path,service)
+	_check(not refused_migration.writable and not refused_migration.problem.is_empty(),"unlock migration refuses malformed legacy arrays instead of laundering them")
 	var path := "user://tests/garage_022_"+str(Time.get_ticks_usec())+"/commander"
 	var disk := ProfileStore.new(path,service)
 	var next := disk.snapshot()
@@ -86,11 +98,12 @@ func _persistence() -> void:
 	_check(disk.commit(next).ok,"atomic slot writes actual custom loadout")
 	var restored := ProfileStore.new(path,service)
 	_check(restored.snapshot() == disk.snapshot(),"JSON save restores exact typed counts, settings and profile identity")
-	_check(ResearchGraph.unlock(disk,VehicleCatalog.IDS[1]).ok,"second slot persists real research transaction")
+	var second := disk.snapshot(); second.garage.difficulty = "easy"
+	_check(disk.commit(second).ok,"second slot persists a regular garage transaction")
 	var stale := restored.snapshot(); stale.research_points += 1
 	_check(not restored.commit(stale).ok,"stale concurrent instance cannot overwrite newer progress")
 	var fresh := ProfileStore.new(path,service)
-	_check(fresh.snapshot().research_points == 20 and VehicleCatalog.IDS[1] in fresh.snapshot().unlocked,"restart restores unlocked research and balance")
+	_check(fresh.snapshot().research_points == 100 and fresh.snapshot().unlocked == ResearchGraph.all_ids(),"restart restores the complete unlocked graph and balance")
 	var corrupt := FileAccess.open(path+".0.json",FileAccess.WRITE); corrupt.store_string("{broken"); corrupt.close()
 	var recovered := ProfileStore.new(path,service)
 	_check(recovered.snapshot().revision == 1 and not recovered.problem.is_empty(),"damaged latest slot visibly restores previous valid slot")
@@ -101,7 +114,8 @@ func _persistence() -> void:
 	var marker := FileAccess.open(blocked_path,FileAccess.WRITE); marker.store_string("fixture"); marker.close()
 	var failing := ProfileStore.new(blocked_path+"/commander",service)
 	var unchanged := failing.snapshot()
-	_check(not ResearchGraph.unlock(failing,VehicleCatalog.IDS[1]).ok and failing.snapshot()==unchanged,"write failure cannot subtract points or unlock in memory")
+	var unsaved := failing.snapshot(); unsaved.research_points += 1
+	_check(not failing.commit(unsaved).ok and failing.snapshot()==unchanged,"write failure cannot mutate unlocked progress in memory")
 	# 029 small item (GPT ruling round two): lock age NEVER authorizes takeover —
 	# only suspected-stale messaging; existing same-PID locks are also preserved.
 	var lock_root := "user://tests/lockfix_"+str(Time.get_ticks_usec())
@@ -158,7 +172,7 @@ func _rewards(store: ProfileStore, config: MatchConfig) -> void:
 	director.advance(3.0); director.advance(600.0)
 	_check(director.state.phase=="finished" and director.state.result.outcome=="draw","actual director creates timeout result for equal tickets")
 	var reward := progression.apply_result_once(registration.token,director.state.result)
-	_check(reward.ok and reward.points==40 and store.snapshot().research_points==60,"authoritative draw awards exactly 40 in one transaction")
+	_check(reward.ok and reward.points==40 and store.snapshot().research_points==140,"authoritative draw awards exactly 40 in one transaction")
 	before = store.snapshot()
 	var again := progression.apply_result_once(registration.token,director.state.result)
 	_check(again.ok and again.duplicate and again.points==0 and store.snapshot()==before,"reopened result has no duplicate award")
@@ -171,7 +185,7 @@ func _rewards(store: ProfileStore, config: MatchConfig) -> void:
 	progression.bind_director(second.token,other)
 	other.finish_once("abandoned","player_returned")
 	var abandoned := progression.apply_result_once(second.token,other.state.result)
-	_check(abandoned.ok and abandoned.points==0 and store.snapshot().research_points==60,"early exit consumes pending match without reward")
+	_check(abandoned.ok and abandoned.points==0 and store.snapshot().research_points==140,"early exit consumes pending match without reward")
 	var third := progression.register_match(config)
 	var final_director := TeamMatchDirector.new(); root.add_child(final_director); final_director.begin(); final_director.set_physics_process(false)
 	progression.bind_director(third.token,final_director)
@@ -215,9 +229,7 @@ func _battle_flow() -> void:
 	_check(not app.garage.preview.find_children("*","VehicleActor",true,false).size(),"preview has no live battle actor")
 	preparation.mode_choice.select(1); preparation._mode_changed(1)
 	app.garage.vehicle_choice.select(2); app.garage._select_vehicle(2)
-	_check(not preparation.build_match().ok,"locked selected vehicle produces visible configuration rejection")
-	preparation._research()
-	_check(preparation.build_match().ok and app.profile.snapshot().research_points==20,"garage unlock makes selected M24 eligible")
+	_check(preparation.build_match().ok and app.profile.snapshot().research_points==100,"already-unlocked M24 enters the formal lineup without spending points")
 	var m24: String = VehicleCatalog.IDS[1]
 	var m24_keys: Array = preparation.loadouts[m24].counts.keys()
 	preparation.shell_spins[m24_keys[0]].value = 2; preparation.shell_spins[m24_keys[1]].value = 3

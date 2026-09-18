@@ -94,6 +94,12 @@ func _run() -> void:
 	_check(not locked_lineup.ok and str(locked_lineup.get("code","")) == "not_unlocked","normal lineup without research refused with not_unlocked")
 	var over := Lineup.validate([ResearchGraph.STARTER,"us_m24_m6_t85e1_1951","us_m26_m3_1945","us_m36_m4a1_1945"],ResearchGraph.STARTER,"training",[])
 	_check(not over.ok,"lineup larger than three vehicles is refused")
+	var admitted := GarageService.new()
+	var unlocked_profile := ProfileStore.new("",admitted).snapshot()
+	var full_lineup := Lineup.validate(VehicleCatalog.IDS.slice(0,3),VehicleCatalog.IDS[2],"normal",unlocked_profile.unlocked,admitted.catalog)
+	_check(full_lineup.ok,"fresh profile can queue any three admitted research vehicles")
+	var modern_lineup := Lineup.validate(VehicleCatalog.ENGINEERING_IDS,VehicleCatalog.ENGINEERING_IDS[1],"engineering",unlocked_profile.unlocked,admitted.catalog)
+	_check(modern_lineup.ok,"both admitted Soviet and German modern vehicles can share the deployment lineup")
 	# --- AI slot and respawn cannot bypass the gate (same helper they now use) ---
 	var ai_pick := VehicleReadiness.first_eligible(["ussr_t_80b","nonexistent_vehicle"],"training",{},catalog)
 	_check(ai_pick.ok and str(ai_pick.id) in VehicleCatalog.IDS,"AI slot falls back to an admitted vehicle instead of a preview id")

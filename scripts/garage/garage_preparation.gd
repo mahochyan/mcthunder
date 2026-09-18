@@ -77,7 +77,10 @@ func select_vehicle(id: String) -> void:
 		mode_choice.set_item_text(mode_choice.selected,"现代测试（无研发奖励）")
 		map_choice.set_item_text(map_choice.selected,"河谷枢纽 · 三点争夺")
 	map_note.text = "河谷枢纽 · 苏德现代测试\n4v4 · A / B / C 三点争夺\n不发放研发奖励；10v10 / 16v16 尚待验证。" if engineering else MapRegistry.ENTRIES[MapRegistry.IDS[map_choice.selected]].description
-	lineup_ids = [id] if engineering else lineup_ids.filter(func(vehicle_id: String) -> bool: return not VehicleCatalog.is_engineering(vehicle_id))
+	lineup_ids = lineup_ids.filter(func(vehicle_id: String) -> bool: return VehicleCatalog.is_engineering(vehicle_id)==engineering)
+	if store.service.has_vehicle(id) and not lineup_ids.has(id):
+		if lineup_ids.size()>=3: lineup_ids.pop_back()
+		lineup_ids.append(id)
 	_refreshing = true
 	for child in ammo_box.get_children(): child.free()
 	shell_spins.clear()
@@ -122,19 +125,17 @@ func _mode_changed(_index: int) -> void:
 func _refresh_research() -> void:
 	var profile := store.snapshot()
 	if VehicleCatalog.is_engineering(current_id):
-		research_label.text = "现代工程车 · 内部测试开放\n配弹可保存；对局不发放研发点。"
+		research_label.text = "现代工程车已解锁 · 可加入编队\n配弹可保存；对局不发放研发点。"
 		research_button.visible = false
 		return
 	if not store.service.has_vehicle(current_id):
 		research_label.text = LocalizationService.text("ui_741319de5a0c")%profile.research_points
 		research_button.visible = false
 		return
-	var availability := ResearchGraph.availability(current_id,profile)
-	research_label.text = LocalizationService.text("ui_7dc14f99eba8")%[profile.research_points,availability.reason]
+	research_label.text = "全科技树已解锁 · 最多选择 3 辆加入编队"
 	if mode() == "training": research_label.text += LocalizationService.text("ui_b95c8942557e")
-	research_button.visible = not availability.get("unlocked",false)
-	research_button.disabled = not availability.ok or not store.writable
-	research_button.text = LocalizationService.text("ui_6eaae0d1eab7")%ResearchGraph.NODES[current_id].cost
+	research_button.visible = false
+	research_button.disabled = true
 
 func _research() -> void:
 	var result := ResearchGraph.unlock(store,current_id)
@@ -145,7 +146,7 @@ func _research() -> void:
 func _refresh_lineup() -> void:
 	for id in lineup_checks:
 		lineup_checks[id].set_pressed_no_signal(id in lineup_ids)
-		lineup_checks[id].disabled = mode() == "engineering" or VehicleCatalog.is_engineering(id) or (mode() == "normal" and id not in store.snapshot().unlocked)
+		lineup_checks[id].disabled = VehicleCatalog.is_engineering(id)!=(mode()=="engineering")
 
 func _lineup_changed(id: String, on: bool) -> void:
 	if on and id not in lineup_ids:

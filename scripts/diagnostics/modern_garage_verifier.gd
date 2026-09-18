@@ -14,6 +14,8 @@ func idle() -> void:
 		await get_tree().process_frame
 		if not app._transitioning: return
 	check(false,"bounded scene transition")
+func frames(count: int) -> void:
+	for i in count: await get_tree().physics_frame
 func activate(button: Button) -> void:
 	if DisplayServer.get_name()=="headless": button.pressed.emit(); await get_tree().process_frame; return
 	for i in 5: await get_tree().process_frame
@@ -39,6 +41,7 @@ func run(flow: AppFlow) -> void:
 	print("MODERN_GARAGE_RUNTIME release=",OS.has_feature("release")," evidence=",shot_dir)
 	app = flow; await idle()
 	var points: int = app.profile.snapshot().research_points
+	var visited: Array = []
 	for id in VehicleCatalog.ENGINEERING_IDS:
 		var g := app.garage
 		var index := -1
@@ -47,6 +50,7 @@ func run(flow: AppFlow) -> void:
 		check(index >= 0,"modern vehicle has actual garage entry: "+id)
 		if index < 0: continue
 		await activate(g.frontend.cards[index])
+		visited.append(id)
 		var preview_hull: Node = g.preview._part_nodes.hull.get_node_or_null("Bound_hull")
 		check(preview_hull!=null and preview_hull.get_meta("model_sha256","")==g.catalog.packages[id].packet.model_binding.model.sha256,"garage shows exact admitted bound model")
 		g._view_mode=1; g._apply_preview_mode()
@@ -54,6 +58,7 @@ func run(flow: AppFlow) -> void:
 		g._view_mode=0; g._apply_preview_mode()
 		var prep := g.preparation
 		check(prep.mode()=="engineering" and not prep.research_button.visible,"modern selection uses explicit engineering mode without historical research lookup")
+		check(visited.all(func(visited_id: String) -> bool: return visited_id in prep.lineup_ids) and prep.lineup_ids.size()<=3,"every visited modern vehicle is kept in the unlocked deployment lineup")
 		prep.first_choice.select(1)
 		for spin in prep.shell_spins.values(): spin.value = 3
 		prep._ammo_changed()
@@ -65,13 +70,23 @@ func run(flow: AppFlow) -> void:
 		invalid.garage.loadouts["unregistered_vehicle"] = wanted
 		check(not reopened.validate(invalid).ok,"save still rejects unknown vehicle loadouts")
 		await capture(id+"_garage")
+		var queued: Array = prep.lineup_ids.duplicate()
 		await activate(g.frontend.deploy); await idle()
 		var battle := app.training as RiverTeamRange
 		check(battle!=null and battle.team_ready,"normal deploy routes selected modern vehicle to actual river team scene")
 		if battle==null: get_tree().quit(1); return
+		check(battle.prepared_match.vehicle_ids()==queued and battle.vehicle_choice.item_count==queued.size(),"river deployment and respawn selector receive the complete modern lineup")
 		check(battle.actor.definition.id==id and battle.actor.gunner.shell.id==wanted.first_shell and battle.actor.gunner.rounds_remaining==6,"first spawn consumes edited loadout, not defaults")
 		check(battle.director.state.objectives.points.size()==3 and battle.combat_actors().size()==8,"three capture points and registered 4v4 roster")
 		check(battle.opposing_engineering_id!=id and battle.opposing_engineering_id in VehicleCatalog.ENGINEERING_IDS,"opposing modern content explicitly selected")
+		if queued.size()==2:
+			await frames(200)
+			battle.abandon_vehicle(); await frames(500)
+			var replacement: String = str(queued[0] if queued[0]!=id else queued[1])
+			for choice_index in battle.vehicle_choice.item_count:
+				if battle.vehicle_choice.get_item_metadata(choice_index)==replacement: battle.vehicle_choice.select(choice_index)
+			battle.request_respawn(); await frames(30)
+			check(battle.actor.definition.id==replacement and not battle.actor.state.destroyed,"respawn deploys the other queued modern vehicle in the same match")
 		await capture(id+"_river")
 		var previous_match: int = battle.director.state.match_id
 		app.restart_match(); await idle()
@@ -80,6 +95,7 @@ func run(flow: AppFlow) -> void:
 		app.return_to_garage(); await idle()
 		check(app.pending_reward.is_empty() and app.profile.snapshot().research_points==points,"engineering departure settles without rewards or blocking pending receipt")
 		check(app.garage.selected_vehicle_id()==id,"return keeps modern garage selection")
+	check(app.garage.preparation.lineup_ids==VehicleCatalog.ENGINEERING_IDS,"T-80B and Leopard 2A4 remain together in the deployment lineup")
 	# Historical settings remain usable after visiting modern vehicles.
 	app.garage.vehicle_choice.select(1); app.garage._select_vehicle(1)
 	check(app.garage.preparation.save_settings().ok,"historical setup remains saveable with optional modern loadouts")

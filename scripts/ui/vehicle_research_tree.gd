@@ -183,14 +183,14 @@ func select_vehicle(id: String) -> void:
 	if not row.variant_refs.is_empty():
 		variants_button.text="改型参考  ·  %d 项   ▾"%row.variant_refs.size()
 		for variant in row.variant_refs: variants_label.text+="\n· "+str(variant.label)
-	status_label.text="模型已就绪 · 战斗配置待完成" if loaded else "模型制作中 · 暂未开放试驾"
-	if loaded and row.get("combat_package") is Dictionary: status_label.text="街机数据 · 运行模型 · 战斗配置已按车型 ID 对齐"
-	if row.model is Dictionary and not loaded: status_label.text="模型加载失败 · 暂不可用"
+	status_label.text="已解锁 · 模型已就绪 · 战斗配置待完成" if loaded else "已解锁 · 模型制作中 · 暂未开放试驾"
+	if loaded and row.get("combat_package") is Dictionary: status_label.text="已解锁 · 街机数据与战斗配置已按车型 ID 对齐 · 可加入编队"
+	if row.model is Dictionary and not loaded: status_label.text="已解锁 · 模型加载失败 · 暂不可用"
 	test_button.disabled=not loaded
 	# Availability remains tied to a real, admitted packet; static models cannot bypass it.
 	var accessible: bool=VehicleCatalog.is_engineering(id) or id in garage.profile.snapshot().unlocked
 	select_button.disabled=not garage.profile.service.has_vehicle(id) or not accessible
-	select_button.tooltip_text="该车型的武器、装甲与战损接入完成后开放。" if select_button.disabled else "进入车辆配装"
+	select_button.tooltip_text="已解锁；该车型的武器、装甲与战损接入完成后可加入编队。" if select_button.disabled else "进入车辆配装并加入出战编队"
 	for key in tree_nodes: tree_nodes[key].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if key==id else Color("182126"),GarageTheme.ACCENT if key==id else Color("39484c"),12))
 
 func _test_drive() -> void:
