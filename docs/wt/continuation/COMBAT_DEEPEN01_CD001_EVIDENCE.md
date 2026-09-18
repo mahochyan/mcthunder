@@ -63,6 +63,42 @@
 ⚠️ **唯二失败＝构建登记表已裁定例外** ✓：`real defense script pilot completes finite waves with opponent AI untouched` ×2（登记表第 2 条 · 用户裁定 B4 · 与本次改动无关 ✓）⇒ **本批未引入任何新失败** ✓。
 ⇒ 覆盖了执行单点名的"**两车正常生成、配弹、发射、接触、损伤、重生**"受影响面 ✓。
 
+## 8. CD01-T01 补闭合（生产代码已修 ✓ 授权：裁定 §3「生产缺陷证实后按CD001已有授权修复」）
+
+### 8.1 直接补测（**修前** ✗）
+| 车 | 满 / 半 / 空 | `rack_integrity` | `consumed_mm_total` | 结果行含弹药项 |
+|---|---|---|---|---|
+| T-80B | 三态 | `100 → 0` **三态皆变** ✗ | `125.454` **三态相同** ✗ | `true` ✗ |
+| 豹 2A4 | 三态 | `100 → 0` **三态皆变** ✗ | `173.940` **三态相同** ✗ | `true` ✗ |
+⇒ 空弹药内容**仍被当作可损伤对象**且**消耗同样预算** ⇒ `CD01-T01` 未满足 ✓（此后不再宣称"风险不成立" ✗）
+
+### 8.2 生产修复（2 处最小改动 ✓）
+| 文件 | 改动 |
+|---|---|
+| `scripts/vehicle_actor.gd::apply_projectile_damage` | 把**真实库存占用**写入毁伤快照 `ammo_contents`（契约 `CombatQuerySnapshotV2` 字段 ✓）；**快照缺该架时保守按原行为**（"未知不是 0" ✓） |
+| `scripts/damage/damage_resolver.gd::resolve` | `kind=="ammo"` 且占用为 0 ⇒ 不改完整度、`consumed_mm=0`、`reason="ammo_contents_empty"`，**弹丸继续飞行** ✓；`kind` 取自既有 `module_states[id].kind` ✓ ⇒ **独立隔板/泄压板规则不变** ✓ |
+
+### 8.3 修后对照（实测 ✓）
+| 车 | 状态 | `rack_integrity` | `consumed_mm_total` | rack 行 consumed / reason |
+|---|---|---|---|---|
+| T-80B | 满 | `100→0`（**不变** ✓） | `125.454`（**不变** ✓） | `10.000` / `module_destroyed` |
+| T-80B | **空** | **`100 → 100`** ✓ | **`115.454`（−10）** ✓ | **`0.000` / `ammo_contents_empty`** ✓ |
+| 豹 2A4 | 满 | `100→0`（不变 ✓） | `173.940`（不变 ✓） | `10.000` / `module_destroyed` |
+| 豹 2A4 | **空** | **`100 → 100`** ✓ | **`163.940`（−10）** ✓ | **`0.000` / `ammo_contents_empty`** ✓ |
+另：航迹显示**下游装甲预算提高 10 mm**（T-80B `372.027→324.300` 对满架 `362.027→314.299` ✓）⇒ 空弹架确实不再吃掉该 10 mm ✓
+⇒ `CD01-T01` 两条要求（**无损伤** ✓ **无预算消耗** ✓）均已满足 ✓；探针 **61 项 · 0 失败** ✓
+
+### 8.4 冲突登记（按裁定「先记录冲突点」✓ 包内场景一字未改 ✓）
+- **冲突**：项目既有检查 `tests/run_recovery_checks.gd`（旧文）要求**空架也必须被打坏**（`ammo_rack.integrity == 0`）✗ ↔ 包内 `CD01-T01` 要求**空架不受损伤** ✓
+- **处置**：只更新**项目既有检查**为按 `loadout` 分支断言 ✓（满装保持原期望一字不动 ✓；空装改为"完整度不变 + `consumed==0` + reason"✓），并在**代码注释**内写明冲突来源与"包内期望未改" ✓
+- **结果**：`RECOVERY_CHECKS_PASS` ✓，新断言实测 `before=100 after=100 consumed=0.000 reason=ammo_contents_empty` ✓
+
+### 8.5 修复后受影响回归 ✓
+13 套件全 PASS ✓：`AMMO_COMPARTMENT` · `DAMAGE` · `LOADING` · `LOADING_MECHANISM` · `ENGINEERING_COMPARTMENT` · `ENGINEERING_DAMAGE` · `ENGINEERING_MATERIAL` · `SPALL` · `ARMOR` · `MODERN_GARAGE` · `MODERN_TEAM_IDENTITY` · `LIVE_FIRE_RESPAWN` · `RECOVERY`（冲突更新后 ✓；首轮 `716 PASS / 1 FAIL` 的那个 FAIL 即该冲突 ✓ 已定位处理 ✓）
+
+### 8.6 残余缺口（**如实登记，不冒充已闭合** ✗）
+契约不变式要求"存弹耗尽的逻辑体积**不参与弹药窄相位**" ✓；本轮是在**求解器层**拒绝（`reason=ammo_contents_empty` ✓），该体积**仍会被窄相位选中** ✗ ⇒ 归入 **CD01-T06（占用/revision）与 CD003A（查询路径）** 一并处理 ✓（共享查询/Actor 文件按裁定协调写入 ✓）。
+
 ## 7. 证据位置（固定提交 ✓）
 - 工具：`tests/run_ammo_three_state_probe.gd`
 - 原始输出：`logs/COMBAT-DEEPEN-01/cd001-three-state-h.log`（三态）· `logs/COMBAT-DEEPEN-01/cd001-boundaries.log`（边界四项）

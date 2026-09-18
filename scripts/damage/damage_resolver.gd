@@ -37,6 +37,17 @@ static func resolve(event: Dictionary, available_mm: float, snapshot: Dictionary
 		if not modules.has(item_id):
 			return {"ok":false,"reason":"missing_module"}
 		var m: Dictionary = modules[item_id]
+		# CD01-T01: an exhausted ammunition contents volume is not a damageable object and consumes no penetration
+		# budget; the projectile keeps flying and fixed structures (partition, vent and the rest) keep their own rules.
+		# Only an explicit zero in the occupancy map takes this branch - absent data is treated as unknown.
+		if str(m.get("kind",""))=="ammo":
+			var contents: Dictionary = snapshot.get("ammo_contents",{})
+			if contents.has(item_id) and int(contents[item_id])<=0:
+				out.before = m.duplicate(true)
+				out.after = m.duplicate(true)
+				out.consumed_mm = 0.0
+				out.reason = "ammo_contents_empty"
+				return out
 		var resistance := float(m.get("resistance_mm",-1))
 		var maximum := float(m.get("max_integrity",-1))
 		if not is_finite(resistance) or resistance <= 0 or not is_finite(maximum) or maximum <= 0:

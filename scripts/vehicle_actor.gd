@@ -237,7 +237,16 @@ func apply_projectile_damage(event: Dictionary, available_mm: float) -> Dictiona
 		return {"ok":false,"reason":"stale_entity"}
 	if int(event.get("target_generation",-1)) >= 0 and int(event.target_generation) != state.generation:
 		return {"ok":false,"reason":"stale_generation"}
-	var delta := DamageResolver.resolve(event,available_mm,state.damage_snapshot())
+	var snapshot := state.damage_snapshot()
+	# CD01-T01 / CombatQuerySnapshotV2.ammo_contents: a logical ammunition volume whose stored rounds are exhausted
+	# must not take part in the ammunition phase, while fixed structures keep their own rules. The occupancy is read
+	# from the real inventory here; when a rack is absent from the map the resolver keeps its previous behaviour
+	# instead of assuming an empty rack, because unknown is not zero.
+	if gunner != null:
+		var contents := {}
+		for rack_id in gunner.inventory.racks: contents[rack_id] = int(gunner.inventory.racks[rack_id])
+		snapshot["ammo_contents"] = contents
+	var delta := DamageResolver.resolve(event,available_mm,snapshot)
 	if not delta.get("ok",false):
 		return delta
 	delta["source"] = VehicleRecovery.source_from(event)

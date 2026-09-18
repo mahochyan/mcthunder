@@ -221,6 +221,7 @@ func _integration_cases(defs: VehicleDefs) -> void:
 	for loadout in [0,30]:
 		_reset()
 		actor.gunner.rounds_remaining = loadout
+		var rack_integrity_before := float(actor.state.module_states.ammo_rack.integrity)
 		var spawn := manager.try_spawn({"round_id":8,"shooter_id":"actual_source","shooter_life_id":123,
 			"shot_id":loadout+1,"shell_id":"test_ap120","armor_policy":"resolve",
 			"penetration_curve":PackedVector2Array([Vector2(0,120)]),
@@ -229,7 +230,22 @@ func _integration_cases(defs: VehicleDefs) -> void:
 		_ok(spawn.get("ok",false),"real manager accepts recovery comparison shot")
 		var st := manager.get_projectile_state(spawn.projectile_id)
 		manager.advance_projectile(st,1.0/60,[QuerySnapshotBuilder.build_from_vehicle(actor.tank,actor.damage_layout_override)],world.get_world_3d().direct_space_state)
-		_ok(actor.state.module_states.ammo_rack.integrity == 0 and not st.damage_records.is_empty(),"actual penetrated path reaches physical ammo rack")
+		# CD01-T01 CONFLICT, recorded rather than hidden: this check used to demand that the penetrated path damage the
+		# physical ammo rack in BOTH loadout cases, including the empty one. The package scenario CD01-T01 requires the
+		# opposite for an exhausted rack - no ammo_contents damage and no ammunition budget consumption - so the empty
+		# case now asserts the mandated behaviour while the loaded case keeps its original expectation. The package
+		# expectation itself was not touched, and the loaded case is unchanged.
+		if loadout > 0:
+			_ok(actor.state.module_states.ammo_rack.integrity == 0 and not st.damage_records.is_empty(),"actual penetrated path reaches physical ammo rack (loaded)")
+		else:
+			var rack_consumed := 0.0
+			var rack_reason := "no_row"
+			for rec in st.damage_records:
+				if str(rec.get("item_id",""))=="ammo_rack":
+					rack_consumed = float(rec.get("consumed_mm",0.0)); rack_reason = str(rec.get("reason",""))
+			_ok(is_equal_approx(float(actor.state.module_states.ammo_rack.integrity),rack_integrity_before) and rack_consumed <= 1e-6,
+				"CD01-T01: an exhausted ammo rack keeps its integrity and consumes no budget (before=%.0f after=%.0f consumed=%.3f reason=%s)" % [
+					rack_integrity_before,float(actor.state.module_states.ammo_rack.integrity),rack_consumed,rack_reason])
 		_ok(actor.state.destroyed == (loadout > 0),"same real path distinguishes loaded and empty rack")
 		if loadout > 0:
 			_ok(deaths.size() == 1 and deaths[0].source.shooter_id == "actual_source","real projectile death retains committed source identity")

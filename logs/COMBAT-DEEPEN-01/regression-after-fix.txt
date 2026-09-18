@@ -1,0 +1,17 @@
+﻿CD01-T01 fix: affected regression
+branch=8f304581 dirty=3
+run_ammo_compartment_checks            exit=0 PASS=  63 FAIL=0 marker=AMMO_COMPARTMENT_CHECKS_PASS
+run_damage_checks                      exit=0 PASS=  57 FAIL=0 marker=DAMAGE_CHECKS_PASS
+run_loading_checks                     exit=0 PASS=  62 FAIL=0 marker=LOADING_CHECKS_PASS
+run_loading_mechanism_checks           exit=0 PASS=  65 FAIL=0 marker=LOADING_MECHANISM_CHECKS_PASS
+run_engineering_compartment_checks     exit=0 PASS=  11 FAIL=0 marker=ENGINEERING_COMPARTMENT_CHECKS_PASS
+run_engineering_damage_checks          exit=0 PASS=  29 FAIL=0 marker=ENGINEERING_DAMAGE_CHECKS_PASS
+run_engineering_material_checks        exit=0 PASS=  85 FAIL=0 marker=ENGINEERING_MATERIAL_CHECKS_PASS
+run_recovery_checks                    exit=1 PASS=  63 FAIL=1 marker=RECOVERY_CHECKS_FAIL
+    FAIL: [FAIL] actual penetrated path reaches physical ammo rack
+run_spall_checks                       exit=0 PASS=  78 FAIL=0 marker=SPALL_CHECKS_PASS
+run_armor_checks                       exit=0 PASS=  81 FAIL=0 marker=ARMOR_CHECKS_PASS
+run_modern_garage_checks               exit=0 PASS=  29 FAIL=0 marker=MODERN_GARAGE_CHECKS_PASS
+run_modern_team_identity_checks        exit=0 PASS=  76 FAIL=0 marker=MODERN_TEAM_IDENTITY_CHECKS_PASS
+check_live_fire_respawn                exit=0 PASS=  17 FAIL=0 marker=LIVE_FIRE_RESPAWN_PASS
+TOTAL PASS=716 FAIL=1 suites_with_failures=run_recovery_checks
