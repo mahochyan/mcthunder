@@ -112,7 +112,52 @@ static func _checked_direction(direction: Vector3, time: float, muzzle: Vector3,
 		length_scale = maxf(length_scale, maxf(absf(r[i]), maxf(absf(movement), absf(acceleration))))
 		error_scale = maxf(error_scale, absf(error))
 	if error_scale > FORWARD_ABS_M+FORWARD_REL_EPS*length_scale: return _failure("numeric_resolution")
+	# CD004 design point 2: with a declared drag the constant-acceleration root above is only a starting point. Refine the
+	# direction and the time under the SAME profile-aware integration the flight uses - stepped exactly as the manager steps
+	# it, so the two agree by construction rather than by tolerance - and return the refined solution. The whole block is
+	# skipped when no drag is declared, which keeps every existing solve bit-identical and the AI suite as its guard.
+	if _drag_k_per_m > 0.0:
+		var refined_direction := direction
+		var refined_time := time
+		for _iteration in 8:
+			var aim_point: Vector3 = target+target_velocity*refined_time
+			var to_target: Vector3 = aim_point-muzzle
+			if to_target.length_squared() <= 0.0: break
+			refined_direction = to_target.normalized()
+			var lo := maxf(1.0e-6, refined_time*0.25)
+			var hi := minf(limit, maxf(refined_time*4.0, refined_time+1.0e-3))
+			for _bisect_step in 40:
+				var mid := lo+(hi-lo)*0.5
+				var reached := _integrate_profile(muzzle, refined_direction*speed+own_velocity, gravity, _drag_k_per_m, mid)
+				var along := (reached-(target+target_velocity*mid)).dot(refined_direction)
+				if along < 0.0: lo = mid
+				else: hi = mid
+			refined_time = lo+(hi-lo)*0.5
+			var final_reached := _integrate_profile(muzzle, refined_direction*speed+own_velocity, gravity, _drag_k_per_m, refined_time)
+			if final_reached.distance_to(target+target_velocity*refined_time) <= 1.0e-4: break
+		direction = refined_direction
+		time = refined_time
 	return {"ok":true, "reason":"solved", "direction":direction, "time_s":time}
+
+## CD004 design point 2: the flight's own stepping, mirrored here so the fire control and the flight integrate identically.
+static func _integrate_profile(muzzle: Vector3, launch: Vector3, gravity: Vector3, _drag_k_per_m: float, total_time: float) -> Vector3:
+	const STEP := 1.0/240.0
+	var position := muzzle
+	var velocity := launch
+	var remaining := total_time
+	while remaining > BallisticMath.TIME_EPS:
+		var step := minf(STEP,remaining)
+		var plan := BallisticMath.plan_times(velocity,gravity,step)
+		if not plan.get("ok",false): return position
+		var times: PackedFloat64Array = plan.times
+		for k in range(times.size()-1):
+			var h := times[k+1]-times[k]
+			var adv := BallisticMath.advance_profile(position,velocity,gravity,_drag_k_per_m,h)
+			if not adv.get("ok",false): return position
+			position = adv.position
+			velocity = adv.velocity
+		remaining -= step
+	return position
 
 static func _value(coefficients: PackedFloat64Array, x: float) -> float:
 	var result := 0.0
