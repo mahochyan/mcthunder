@@ -288,6 +288,10 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	print("[CD02-T03 %s] modified spall=%s" % [id,JSON.stringify(modified_hits.get("spall_events",[]))])
 	print("[CD02-T03 %s] original record contacts=%s" % [id,str(original_hits.get("record_contacts",""))])
 	print("[CD02-T03 %s] modified record contacts=%s" % [id,str(modified_hits.get("record_contacts",""))])
+	print("[CD02-T03 %s] original damage records=%s" % [id,str(original_hits.get("record_damage",""))])
+	print("[CD02-T03 %s] modified damage records=%s" % [id,str(modified_hits.get("record_damage",""))])
+	print("[CD02-T03 %s] original projectile damage=%s" % [id,str(original_hits.get("projectile_damage",""))])
+	print("[CD02-T03 %s] modified projectile damage=%s" % [id,str(modified_hits.get("projectile_damage",""))])
 	if not landed:
 		print("[CD02-T03 %s] NOT_RUN: this probe's own path reaches no plate (%d and %d contacts), so the invariance is NOT demonstrated by this run - the path must be aimed at a plate before this case can pass" % [
 			id,int(original_hits.get("contacts",0)),int(modified_hits.get("contacts",0))])
@@ -306,6 +310,16 @@ func _armor_events(snapshot: Dictionary, aim: Dictionary) -> Array:
 		if not event.has("surface_id"): continue
 		out.append({"surface_id":str(event.get("surface_id","")),"event_type":str(event.get("event_type","")),
 			"on_edge":bool(event.get("on_edge",false)),"t":float(event.get("t",-1.0)),"part_id":str(event.get("part_id",""))})
+	return out
+
+## The projectile's OWN damage records. Reading them from the shot record returned an empty list because that key does
+## not exist there, which made an earlier reading of "no damage" vacuous.
+func projectile_damage_summary(projectile: ProjectileState) -> Array:
+	var out: Array = []
+	for row in projectile.damage_records:
+		out.append({"item_id":str(row.get("item_id","")),"kind":str(row.get("kind","")),"part_id":str(row.get("part_id","")),
+			"reason":str(row.get("reason","")),"consumed_mm":float(row.get("consumed_mm",-1.0)),
+			"before_mm":float(row.get("before_mm",-1.0)),"after_mm":float(row.get("after_mm",-1.0))})
 	return out
 
 ## Which surfaces already received a spall allocation, so the ten millimetre difference can be attributed.
@@ -329,9 +343,17 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 	var spawned := manager.try_spawn(spec)
 	if not spawned.get("ok",false): manager.queue_free(); return {"contacts":0,"result":"spawn_refused","consumed_mm":-1.0}
 	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+	var steps: Array = []
+	var last_scale := projectile.budget_scale
+	var last_consumed := projectile.consumed_mm
 	for i in 40:
 		if projectile.is_terminal(): break
 		manager.advance_projectile(projectile,1.0/120.0,[snapshot],world.get_world_3d().direct_space_state)
+		if not is_equal_approx(projectile.budget_scale,last_scale) or absf(projectile.consumed_mm-last_consumed) > 1e-9:
+			steps.append({"step":i,"scale":projectile.budget_scale,"consumed_mm":projectile.consumed_mm,
+				"travelled_m":projectile.travelled_m,"contacts":projectile.contacts.size()})
+			last_scale = projectile.budget_scale
+			last_consumed = projectile.consumed_mm
 	var contacts := projectile.contacts.size()
 	var first: Dictionary = projectile.contacts[0] if contacts>0 else {}
 	var trail: Array = []
@@ -356,6 +378,10 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 		"terminal_full":JSON.stringify(record.get("terminal",{})),
 		"spall_events":record.get("spall_events",[]),
 		"record_contacts":JSON.stringify(record.get("contacts",[])),
+		"record_damage":JSON.stringify(record.get("damage_records",[])),
+		"projectile_damage":JSON.stringify(projectile_damage_summary(projectile)),
+		"record_keys":(record.keys() as Array).size(),
+		"steps":steps,
 		"spall_surfaces":JSON.stringify(st_spall_surfaces(projectile))}
 
 ## Aim perpendicular into a real plate: the geometry decides the path, so the case cannot pass on a miss.
