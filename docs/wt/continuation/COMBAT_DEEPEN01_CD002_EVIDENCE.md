@@ -113,7 +113,8 @@ modified          ：T-80B consumed=110.000000 contacts=1 · 豹2 consumed=439.5
 | 非法**板**引用 | `{"ok":false,"reason":"invalid_or_duplicate_armor","surface_id":"cd002_no_such_plate"}` ✓ **按名拒绝** ✓ |
 | 非法**模块**引用 | `{"item_id":"cd002_no_such_module","ok":false,"reason":"missing_module"}` ✓ **按名拒绝** ✓ |
 | 反应装甲接受性（合法/重复/重生后重击） | **NOT_RUN** ✓ —— 实测**两车反应装甲板均为 0** ✓（`apply_projectile_armor` 是反应装甲通道 ✓） |
-| 脱塔后查询 | **未做** ✗ |
+| **脱塔后查询**（T-80B） | ✅ **通过** ✓：1 次 500 mm 命中待发架即 `ammo_detonation` 摧毁 ✓ ⇒ 废塔安装 ✓ ⇒ 炮塔**移动 924.6 mm** ✓，**查询快照 0.000 mm 跟随废塔** ✓（**旧几何清理、新几何正确** ✓）；重生后**恢复 0.000 mm** ✓ `generation=2` ✓，重生后查询反映恢复后的炮塔 ✓ |
+| **脱塔后查询**（豹 2A4） | **NOT_RUN** ✓ —— 40 次 `ammo_ready` 命中**仍未摧毁** ✓：其尾舱带**隔板+泄压** ⇒ **泄压而非殉爆** ✓（与 `CD01` 对同一车的实测一致 ✓）；前置条件也实测记录（`admitted=false` · **`bound_model=true`** ✓ ⇒ 若殉爆则废塔会经该分支安装 ✓） |
 
 ## 6.5 `CD02-T04` 真实多层与开口：**通过** ✓
 
