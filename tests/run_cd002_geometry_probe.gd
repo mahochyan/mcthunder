@@ -284,6 +284,10 @@ func re_tessellation_cases(id: String, defs: VehicleDefs, packet: Dictionary, ac
 	print("[CD02-T03 %s] modified armour events=%s" % [id,JSON.stringify(_armor_events(modified_snapshot,aim))])
 	print("[CD02-T03 %s] original terminal=%s" % [id,str(original_hits.get("terminal_full",""))])
 	print("[CD02-T03 %s] modified terminal=%s" % [id,str(modified_hits.get("terminal_full",""))])
+	print("[CD02-T03 %s] original spall=%s" % [id,JSON.stringify(original_hits.get("spall_events",[]))])
+	print("[CD02-T03 %s] modified spall=%s" % [id,JSON.stringify(modified_hits.get("spall_events",[]))])
+	print("[CD02-T03 %s] original record contacts=%s" % [id,str(original_hits.get("record_contacts",""))])
+	print("[CD02-T03 %s] modified record contacts=%s" % [id,str(modified_hits.get("record_contacts",""))])
 	if not landed:
 		print("[CD02-T03 %s] NOT_RUN: this probe's own path reaches no plate (%d and %d contacts), so the invariance is NOT demonstrated by this run - the path must be aimed at a plate before this case can pass" % [
 			id,int(original_hits.get("contacts",0)),int(modified_hits.get("contacts",0))])
@@ -303,6 +307,10 @@ func _armor_events(snapshot: Dictionary, aim: Dictionary) -> Array:
 		out.append({"surface_id":str(event.get("surface_id","")),"event_type":str(event.get("event_type","")),
 			"on_edge":bool(event.get("on_edge",false)),"t":float(event.get("t",-1.0)),"part_id":str(event.get("part_id",""))})
 	return out
+
+## Which surfaces already received a spall allocation, so the ten millimetre difference can be attributed.
+func st_spall_surfaces(projectile: ProjectileState) -> Dictionary:
+	return projectile.spall_surfaces.duplicate()
 
 ## A real projectile down a caller-supplied path. The earlier version fired one fixed line that reached nothing, which
 ## is why the re-triangulation case had to be gated as not run.
@@ -342,7 +350,10 @@ func _real_shot(actor: VehicleActor, world: Node3D, snapshot: Dictionary, packet
 		"consumed_mm":float(projectile.consumed_mm),"trail":trail,"terminal":str(record.get("terminal",{}).get("result","")),
 		"final_scale":float(projectile.budget_scale),"final_consumed_mm":float(projectile.consumed_mm),
 		"travelled_m":float(projectile.travelled_m),"terminal_reason":str(record.get("terminal",{}).get("reason","")),
-		"terminal_full":JSON.stringify(record.get("terminal",{}))}
+		"terminal_full":JSON.stringify(record.get("terminal",{})),
+		"spall_events":record.get("spall_events",[]),
+		"record_contacts":JSON.stringify(record.get("contacts",[])),
+		"spall_surfaces":JSON.stringify(st_spall_surfaces(projectile))}
 
 ## Aim perpendicular into a real plate: the geometry decides the path, so the case cannot pass on a miss.
 func _aim_at_plate(layout: VehicleLayoutDefinition, actor: VehicleActor) -> Dictionary:
