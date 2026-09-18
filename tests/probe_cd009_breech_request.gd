@@ -77,7 +77,8 @@ func _run() -> void:
 			jam_shot = actor.gunner.shot_id + 1
 			jam_rounds = actor.gunner.rounds_remaining
 			break
-		if fired: break
+		# A successful shot advances the shot id, so a jam can only be reached by asking again with the NEXT shot; the
+		# loop therefore continues rather than stopping at the first successful request.
 	print("[CD09 T03] after %d attempts: jam=%s rounds %d -> %d ; record=%s" % [
 		attempts,str(jam_shot >= 0),rounds_before,actor.gunner.rounds_remaining,str(actor.state.breech_failure)])
 
