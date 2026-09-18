@@ -4,6 +4,10 @@ extends RefCounted
 ## the ray count, so the budget is declared here and its exhaustion reports incomplete with a diagnostic rather than being
 ## read as a clear path. The v1 line query uses exactly one ray and never approaches it.
 const RAY_BUDGET := 512
+## CD003 3C: the declared angular step for subdividing a rotating part across one step. Each sub-interval is expressed in a
+## single frame, so a rotating boundary is met at the rotation's own time; the chord error of a sub-interval is bounded by
+## this angle. A part that does not turn is never subdivided and its cull still runs exactly as before.
+const ROTATION_STEP_RAD := 0.02
 ## 005：统一有限线段命中查询——汇总几何结果、身份过滤、去重、排序、诊断。
 ## 不修改弹药、模块、任务计数；不调用 register_hit / accept_hit / 冷却。
 ## 目标："这条线段在当前姿态下，几何上经过了什么"——不是穿透/损伤判定。
@@ -340,9 +344,14 @@ static func _collect_patches(
 					bound[1]+Vector3(section_radius,section_radius,section_radius)])
 			# Match the existing patch AABB gate. A tighter slab test could suppress
 			# its coplanar/degenerate diagnostics and incorrectly turn unknown into clear.
-			if segment[3].x<bound[0].x or segment[2].x>bound[1].x or segment[3].y<bound[0].y or segment[2].y>bound[1].y or segment[3].z<bound[0].z or segment[2].z>bound[1].z:
-				missed_parts[part_id]=true
-			elif _safe_slab_miss(part_data,str(part_id),a,b,bound): missed_parts[part_id]=true
+			# CD003 3C: a part that TURNS across the step is NOT culled here. The whole-step local segment mixes two frames
+			# once the basis rotates, so this conservative gate marked the whole part as missed and the patch loop never ran -
+			# which is exactly why the first subdivided attempt produced no contact at all. A rotating part is culled per
+			# sub-interval inside the patch loop instead, where each span has a single frame.
+			if TranslationSweep.rotation_angle(snapshot,str(part_id)) <= ROTATION_STEP_RAD:
+				if segment[3].x<bound[0].x or segment[2].x>bound[1].x or segment[3].y<bound[0].y or segment[2].y>bound[1].y or segment[3].z<bound[0].z or segment[2].z>bound[1].z:
+					missed_parts[part_id]=true
+				elif _safe_slab_miss(part_data,str(part_id),a,b,bound): missed_parts[part_id]=true
 		if missed_parts.size()==part_bounds.size() and part_bounds.size()>0: return true
 	for patch in layout.armor_patches:
 		if patch == null:
@@ -360,58 +369,76 @@ static func _collect_patches(
 		var local_to: Vector3=segment[1]
 		# 保守 AABB 粗筛（局部系）。有截面时按半径外扩：这是给真实多射线的保守粗筛，不是把碰撞盒放大冒充体积弹。
 		var bounds:=_bounds(patch.vertices_local_m)
-		var pmin:=bounds[0]-Vector3(section_radius,section_radius,section_radius)
-		var pmax:=bounds[1]+Vector3(section_radius,section_radius,section_radius)
-		var seg_min := segment[2]
-		var seg_max := segment[3]
-		if seg_max.x < pmin.x or seg_min.x > pmax.x \
-				or seg_max.y < pmin.y or seg_min.y > pmax.y \
-				or seg_max.z < pmin.z or seg_min.z > pmax.z:
-			continue
+		# CD003 3C: a part that TURNS across the step cannot be served by one local segment; the step is subdivided by the
+		# declared angular step and each sub-interval gets its own frame, local segment and ray offsets. A part that does not
+		# turn keeps exactly one span, so nothing changes for it.
+		var turn := TranslationSweep.rotation_angle(snapshot,patch.part_id)
+		var spans: Array = []
+		if turn > ROTATION_STEP_RAD:
+			var count := int(ceil(turn/ROTATION_STEP_RAD))
+			for i in count:
+				var fa := float(i)/float(count)
+				var fb := float(i+1)/float(count)
+				spans.append({"fa":fa,"fb":fb,
+					"seg":TranslationSweep.local_sub_segment(snapshot,patch.part_id,from_world,to_world,fa,fb),
+					"xform":TranslationSweep.part_transform(snapshot,patch.part_id,fa)})
+		else:
+			spans.append({"fa":0.0,"fb":1.0,"seg":segment,
+				"xform":TranslationSweep.part_transform(snapshot,patch.part_id,1.0)})
 		var tris := patch.triangles
-		# The rays are offsets in the patch's own local frame. For a static target the part transform is constant, so this
-		# is exact; the moving case is 3B and is not claimed here.
-		var local_offsets: Array[Vector3] = [Vector3.ZERO]
-		if not section_offsets.is_empty():
-			var part_xform := TranslationSweep.part_transform(snapshot,patch.part_id,1.0)
-			for world_offset in section_offsets:
-				local_offsets.append(part_xform.basis.inverse()*world_offset)
 		var best_hit: Dictionary = {}
-		var budget_hit := false
-		for ray_index in local_offsets.size():
-			if ray_casts >= RAY_BUDGET:
-				budget_hit = true
-				diagnostics.append("ray_budget_exhausted at patch %s (budget %d)" % [patch.id,RAY_BUDGET])
-				complete = false
-				break
-			ray_casts += 1
-			var lf: Vector3 = local_from+local_offsets[ray_index]
-			var lt: Vector3 = local_to+local_offsets[ray_index]
-			for start in range(0, tris.size(), 3):
-				var a := patch.vertices_local_m[tris[start]]
-				var b := patch.vertices_local_m[tris[start + 1]]
-				var c := patch.vertices_local_m[tris[start + 2]]
-				var r := QueryGeometry.segment_triangle(lf, lt, a, b, c)
-				if not r.get("ok", false):
-					diagnostics.append("patch %s: %s" % [patch.id, str(r.get("error", "unknown"))])
+		for span in spans:
+			var span_seg: PackedVector3Array = span.seg
+			var span_from: Vector3 = span_seg[0]
+			var span_to: Vector3 = span_seg[1]
+			var pmin:=bounds[0]-Vector3(section_radius,section_radius,section_radius)
+			var pmax:=bounds[1]+Vector3(section_radius,section_radius,section_radius)
+			var seg_min := span_seg[2]
+			var seg_max := span_seg[3]
+			if seg_max.x < pmin.x or seg_min.x > pmax.x \
+					or seg_max.y < pmin.y or seg_min.y > pmax.y \
+					or seg_max.z < pmin.z or seg_min.z > pmax.z:
+				continue
+			var span_xform: Transform3D = span.xform
+			var local_offsets: Array[Vector3] = [Vector3.ZERO]
+			for world_offset in section_offsets:
+				local_offsets.append(span_xform.basis.inverse()*world_offset)
+			for ray_index in local_offsets.size():
+				if ray_casts >= RAY_BUDGET:
+					diagnostics.append("ray_budget_exhausted at patch %s (budget %d)" % [patch.id,RAY_BUDGET])
 					complete = false
-					continue
-				if not r.get("hit", false):
-					if r.get("relation", "") == "coplanar_unresolved":
-						diagnostics.append("patch %s: coplanar_unresolved (no unique crossing; not proof of clear path)" % patch.id)
+					break
+				ray_casts += 1
+				var lf: Vector3 = span_from+local_offsets[ray_index]
+				var lt: Vector3 = span_to+local_offsets[ray_index]
+				for start in range(0, tris.size(), 3):
+					var a := patch.vertices_local_m[tris[start]]
+					var b := patch.vertices_local_m[tris[start + 1]]
+					var c := patch.vertices_local_m[tris[start + 2]]
+					var r := QueryGeometry.segment_triangle(lf, lt, a, b, c)
+					if not r.get("ok", false):
+						diagnostics.append("patch %s: %s" % [patch.id, str(r.get("error", "unknown"))])
 						complete = false
-					continue
-				if best_hit.is_empty() or float(r["t"]) < float((best_hit["r"] as Dictionary).get("t",INF)):
-					best_hit = {"r":r,"ray":ray_index}
-				break
-			if not best_hit.is_empty() and int(best_hit["ray"]) == 0:
+						continue
+					if not r.get("hit", false):
+						if r.get("relation", "") == "coplanar_unresolved":
+							diagnostics.append("patch %s: coplanar_unresolved (no unique crossing; not proof of clear path)" % patch.id)
+							complete = false
+						continue
+					var t_global: float = lerpf(span.fa,span.fb,float(r["t"]))
+					if best_hit.is_empty() or t_global < float(best_hit.get("t",INF)):
+						best_hit = {"r":r,"ray":ray_index,"t":t_global,"offset":local_offsets[ray_index]}
+					break
+				if not best_hit.is_empty() and int(best_hit["ray"]) == 0:
+					break
+			if not best_hit.is_empty():
 				break
 		if best_hit.is_empty():
 			continue
 		var r: Dictionary = best_hit["r"]
 		if best_hit.has("r"):
-			var t: float = r["t"]
-			var ray_offset: Vector3 = local_offsets[int(best_hit["ray"])]
+			var t: float = float(best_hit.get("t",r["t"]))
+			var ray_offset: Vector3 = best_hit.get("offset",Vector3.ZERO)
 			var point_world := from_world.lerp(to_world, t)
 			var contact_fraction := lerpf(fractions.x, fractions.y, t)
 			var part_world := TranslationSweep.part_transform(snapshot, patch.part_id, contact_fraction)

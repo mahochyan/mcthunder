@@ -56,13 +56,26 @@ static func part_transform(snapshot: Dictionary, part_id: String, fraction: floa
 	if not previous.has(part_id):
 		return current
 	var start: Transform3D = previous[part_id]
-	# CD003 3C is NOT implemented here, and a one-line basis interpolation is not the way: measured, interpolating the basis
-	# makes a rotating plate miss entirely, because local_segment expresses BOTH endpoints in one part frame, so an
-	# interpolated basis leaves the segment in a frame that never existed. Rotation is presently a step function (the end
-	# basis is used for the whole step), measured as a crossing at fraction 0.58333 where the turning plate's analytic
-	# crossing is 0.53742. A correct 3C has to subdivide the rotation across the step with a declared angular step; that is
-	# the recorded next step, and the static path is exact today (its control matches its analytic crossing to six decimals).
-	return Transform3D(current.basis, start.origin.lerp(current.origin, fraction))
+	# CD003 3C: the basis is INTERPOLATED. This is only correct together with the sub-step subdivision in ShotQueryService:
+	# on its own it makes local_segment express its two endpoints in different frames and a rotating plate misses entirely,
+	# which is what a one-line attempt measured. Identical bases slerp to themselves, so non-rotating callers are unchanged.
+	return Transform3D(start.basis.slerp(current.basis,fraction), start.origin.lerp(current.origin, fraction))
+
+## The angle the part turns through across the step; 0 when it does not rotate or has no previous frame.
+static func rotation_angle(snapshot: Dictionary, part_id: String) -> float:
+	var current: Transform3D = snapshot.part_world_transforms[part_id]
+	var previous: Dictionary = snapshot.get(PREVIOUS_KEY, {})
+	if not previous.has(part_id): return 0.0
+	var start: Transform3D = previous[part_id]
+	return absf(start.basis.get_rotation_quaternion().angle_to(current.basis.get_rotation_quaternion()))
+
+## A local segment for ONE sub-interval [fa,fb]: both endpoints are expressed in the SAME frame (the part's at fa), so it is
+## a straight chord of the rotated path whose error is bounded by the angular step the caller declares.
+static func local_sub_segment(snapshot: Dictionary, part_id: String, from: Vector3, to: Vector3, fa: float, fb: float) -> PackedVector3Array:
+	var xform := part_transform(snapshot,part_id,fa).affine_inverse()
+	var a := xform * from.lerp(to,fa)
+	var b := xform * from.lerp(to,fb)
+	return PackedVector3Array([a,b,a.min(b),a.max(b)])
 
 static func local_segment(snapshot: Dictionary, part_id: String, from: Vector3, to: Vector3, fractions: Vector2) -> PackedVector3Array:
 	var start := part_transform(snapshot, part_id, fractions.x).affine_inverse() * from
