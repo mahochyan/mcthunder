@@ -1,0 +1,1083 @@
+{
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "case_count":  96,
+    "note":  "The packaged case list is read-only, so its ninety six ids are mirrored here rather than edited: each row names the sub-order, the evidence document this order keeps, the probes that execute it, and the state. A sub-order with no evidence document is NOT_RUN rather than assumed.",
+    "naming_note":  "Case ids use two digits after the prefix and the evidence documents use three, so the mapping is stated in the generator rather than guessed.",
+    "evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established",
+    "summary":  [
+                    {
+                        "sub_order":  "CD01",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD02",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD03",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD04",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD05",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD06",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD07",
+                        "cases":  6,
+                        "state":  "EVIDENCE_RECORDED",
+                        "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD08",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD09",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD10",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD11",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD12",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD13",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD14",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD15",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    },
+                    {
+                        "sub_order":  "CD16",
+                        "cases":  6,
+                        "state":  "NOT_RUN",
+                        "evidence_document":  "",
+                        "executors":  ""
+                    }
+                ],
+    "rows":  [
+                 {
+                     "case_id":  "CD01-T01",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "同一路径满架与空架",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD01-T02",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "半装与分区占用",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD01-T03",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "最后一发在搬运或已装膛",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD01-T04",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "同一物理步两发先后到达",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD01-T05",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "切弹、补弹、重生及回放",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD01-T06",
+                     "sub_order":  "CD01",
+                     "work_order":  "WT-CD-001",
+                     "title":  "缺少占用与旧缓存",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T01",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "关键部位叠加",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T02",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "姿态与机构",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T03",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "同板拆三角",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T04",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "真实多层与开口",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T05",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "LOD与显示开关",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD02-T06",
+                     "sub_order":  "CD02",
+                     "work_order":  "WT-CD-002",
+                     "title":  "脱塔重生与无效数据",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T01",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "静态窄缝",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T02",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "大缝与切向擦边",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T03",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "同板/真双层",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T04",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "子步拆分与容量",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T05",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "平移目标",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD03-T06",
+                     "sub_order":  "CD03",
+                     "work_order":  "WT-CD-003",
+                     "title":  "旋转炮塔与车体运动",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T01",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "零阻力基准",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T02",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "经验阻力配置",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T03",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "预测与真实炮弹",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T04",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "贯穿后引信",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T05",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "移动射手与目标",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD04-T06",
+                     "sub_order":  "CD04",
+                     "work_order":  "WT-CD-004",
+                     "title":  "长步、无效值和暂停",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T01",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "正面/斜面普通板",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T02",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "长杆与全口径分离",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T03",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "真复合多层",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T04",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "ERA两次命中",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T05",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "边界等值与背面",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD05-T06",
+                     "sub_order":  "CD05",
+                     "work_order":  "WT-CD-005",
+                     "title":  "种子和缺资料",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T01",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "不同APHE同穿深",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T02",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "未启动/延期/穿出",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T03",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "母弹与剥落预算",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T04",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "隔板和空架遮挡",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T05",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "HEAT多层及失去能量",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD06-T06",
+                     "sub_order":  "CD06",
+                     "work_order":  "WT-CD-006",
+                     "title":  "同seed与回放",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T01",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "封闭舱无破口",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T02",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "开放舱与遮盖对照",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T03",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "薄板破口与隔板",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T04",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "世界触发与墙后",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T05",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "HEAT通道隔离",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD07-T06",
+                     "sub_order":  "CD07",
+                     "work_order":  "WT-CD-007",
+                     "title":  "复数目标与终局",
+                     "state":  "EVIDENCE_RECORDED",
+                     "evidence_document":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T01",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "低/中/高剂量同目标",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T02",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "人和岗位分离",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T03",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "渐进累积与重复事件",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T04",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "恢复与失能",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T05",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "岗位能力契约",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD08-T06",
+                     "sub_order":  "CD08",
+                     "work_order":  "WT-CD-008",
+                     "title":  "旧档和新生命",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T01",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "发动机部分损伤",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T02",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "传动/履带/驾驶员",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T03",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "炮闩故障单次请求",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T04",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "炮管与轴机构",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T05",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "修理与中断",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD09-T06",
+                     "sub_order":  "CD09",
+                     "work_order":  "WT-CD-009",
+                     "title":  "无模块车型与重生",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T01",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "自动装填机构毁坏",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T02",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "待发耗尽",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T03",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "炮弹/装药分账",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T04",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "隔舱完好与被穿",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T05",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "搬运与起火",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD10-T06",
+                     "sub_order":  "CD10",
+                     "work_order":  "WT-CD-010",
+                     "title":  "重生和并发事件",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T01",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "起步/制动/倒车",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T02",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "转向损速与单侧履带",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T03",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "坡顶与侧坡",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T04",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "后坐对比",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T05",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "碰撞和脱困",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD11-T06",
+                     "sub_order":  "CD11",
+                     "work_order":  "WT-CD-011",
+                     "title":  "玩家/AI和显示率",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T01",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "观察与炮塔分离",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T02",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "稳定范围与机构",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T03",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "测距/装定/遮挡",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T04",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "烟幕与AI",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T05",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "侦察与最后目击",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD12-T06",
+                     "sub_order":  "CD12",
+                     "work_order":  "WT-CD-012",
+                     "title":  "低画质/缺装备/改键",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T01",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "单发多模块",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T02",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "多射手与持续火灾",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T03",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "同tick致死与重复回调",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T04",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "射手先死与新目标生命",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T05",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "玩家实弹死亡再出击",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD13-T06",
+                     "sub_order":  "CD13",
+                     "work_order":  "WT-CD-013",
+                     "title":  "回放缓存与终局",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T01",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "旧模式回归",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T02",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "个人SP与队票",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T03",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "出击失败与重复请求",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T04",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "编成次数与资格",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T05",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "结算重试与存盘失败",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD14-T06",
+                     "sub_order":  "CD14",
+                     "work_order":  "WT-CD-014",
+                     "title":  "重启与不同规则版本",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T01",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "表现开关",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T02",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "各弹族事件",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T03",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "回放旧新版本",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T04",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "同发三进程",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T05",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "乱序/重复/旧生命",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD15-T06",
+                     "sub_order":  "CD15",
+                     "work_order":  "WT-CD-015",
+                     "title":  "情报权限",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T01",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "版本锁定与证据完整性",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T02",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "两车入口与配装",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T03",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "正常完整对局",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T04",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "同生命实弹再出击",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T05",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "历史与开放舱兼容",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 },
+                 {
+                     "case_id":  "CD16-T06",
+                     "sub_order":  "CD16",
+                     "work_order":  "WT-CD-016",
+                     "title":  "关闭重启和独立路径",
+                     "state":  "NOT_RUN",
+                     "evidence_document":  "",
+                     "executors":  "",
+                     "original_status":  "NOT_RUN"
+                 }
+             ]
+}
