@@ -21,10 +21,15 @@ static func show(parent: Node, title: String, body: String, accept_text: String 
 	var margin := MarginContainer.new(); root.add_child(margin)
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,32)
-	# The card sits inside the safe margin, which is the modal height rule the token file states, expressed as layout.
+	# The card is centred and sized to its content: a short confirmation used to fill the whole safe area and read as
+	# a large empty box. The body keeps a bounded window of its own, so a long error body still scrolls inside the
+	# card instead of pushing the actions out of view.
+	var centre := CenterContainer.new()
+	margin.add_child(centre)
 	var card := PanelContainer.new()
+	card.custom_minimum_size.x = 720.0
 	card.add_theme_stylebox_override("panel",BizTheme.dialog_box("danger" if accept_kind == "danger" else "modal"))
-	margin.add_child(card)
+	centre.add_child(card)
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation",12)
 	card.add_child(box)
@@ -35,13 +40,18 @@ static func show(parent: Node, title: String, body: String, accept_text: String 
 	rule.color = BizTheme.hairline()
 	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(rule)
+	var body_scroll := ScrollContainer.new()
+	body_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	body_scroll.custom_minimum_size.y = 160.0
+	box.add_child(body_scroll)
 	var text := RichTextLabel.new()
 	text.name = "DialogBody"
-	text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	text.fit_content = true
 	text.selection_enabled = true; text.focus_mode = Control.FOCUS_ALL
 	text.text = body
 	text.add_theme_color_override("default_color",BizTheme.text_secondary())
-	box.add_child(text)
+	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body_scroll.add_child(text)
 	var footer := HBoxContainer.new()
 	footer.add_theme_constant_override("separation",10)
 	footer.alignment = BoxContainer.ALIGNMENT_END

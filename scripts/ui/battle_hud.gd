@@ -106,13 +106,11 @@ func _column(parent: Node, separation: int = 5) -> VBoxContainer:
 	return box
 func _panel(parent: Node) -> PanelContainer:
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	# WT-UI-007: HUD panels take the token surface with a decorative edge, the token radius and the token padding.
-	style.bg_color = Color(UiTokens.color("surface","#182329"),0.88)
-	style.border_color = UiTokens.color("border_decorative","#35464E")
-	style.set_border_width_all(int(UiTokens.metric("components.border",1.0)))
-	style.set_content_margin_all(int(UiTokens.metric("components.panel_padding",16.0)))
-	style.set_corner_radius_all(int(UiTokens.metric("components.radius",4.0)))
+	# UI-BIZ-01 stage 3: every HUD panel is built here, so one change lifts the whole in-battle surface - the raised
+	# elevation with a real shadow, on the same translucent surface the HUD always used so the scene stays readable.
+	var style := BizTheme.box(Color(BizTheme.surface(),0.88),BizTheme.decorative(),int(UiTokens.metric("components.panel_padding",16.0)),"raised")
+	# WT-UI-007: HUD panels take the token surface with a decorative edge, the token radius and the token padding -
+	# all four now come from the shared box builder above, which also adds the raised elevation.
 	panel.add_theme_stylebox_override("panel",style)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -209,7 +207,7 @@ func _build() -> void:
 	ticket_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	capture_bar = _bar(totals)
 	capture_fill = StyleBoxFlat.new()
-	capture_fill.bg_color = Color("72c9ee")
+	capture_fill.bg_color = UiTokens.color("ally","#7FC9E0")
 	capture_bar.add_theme_stylebox_override("fill",capture_fill)
 	clock_label = _label(top,"10:00",25)
 	clock_label.size_flags_horizontal = Control.SIZE_SHRINK_END
@@ -422,9 +420,12 @@ func _refresh_notices() -> void:
 	for index in notices.size():
 		if index == 0: continue
 		if shown >= 4: break
-		var row := GarageTheme.text(notice_corner,str(notices[index].text),13,GarageTheme.MUTED)
+		var row := GarageTheme.text(notice_corner,str(notices[index].text),UiTokens.biz_type_size("label",13),BizTheme.text_secondary())
 		row.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		# UI-BIZ-01 stage 3: the corner queue reads as transient toasts rather than bare lines, and a critical notice
+		# takes the colour the ruling reserves for danger.
+		BizTheme.apply_chip(row,"critical" if bool(notices[index].critical) else "neutral")
 		shown += 1
 
 func _tick_notices(delta: float) -> void:
@@ -488,12 +489,12 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 		var owner: int = int(row.owner)
 		var label: String = "争夺中" if row.contested else {0:"中立",1:"友军控制",2:"敌军控制"}[owner]
 		card.label.text = "%s  ·  %s  %d%%"%[row.id,label,roundi(absf(row.progress)*100)]
-		card.label.modulate = Color("ffe135") if row.contested else RiverObjectiveHUD.COLORS[owner]
+		card.label.modulate = BizTheme.warning() if row.contested else RiverObjectiveHUD.COLORS[owner]
 		card.bar.value = absf(row.progress)
 		card.fill.bg_color = RiverObjectiveHUD.COLORS[1 if row.progress >= 0 else 2]
 	capture_bar.visible = info.get("team_mode",false) and not objective_strip.visible
 	capture_bar.value = absf(float(info.get("capture_progress",0)))
-	capture_fill.bg_color = Color("72c9ee") if float(info.get("capture_progress",0))>=0 else Color("ffc47e")
+	capture_fill.bg_color = UiTokens.color("ally","#7FC9E0") if float(info.get("capture_progress",0))>=0 else BizTheme.warning()
 	crew_label.text = LocalizationService.text("ui_b80473d17af7")%[model.crew_alive,model.crew.size()]
 	var missing: Array[String] = []
 	for person in model.crew:
@@ -528,14 +529,14 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 	if model.destroyed: drive_label.text = LocalizationService.text("ui_21777ac7fa81")
 	speed_label.text = "%.0f km/h"%model.speed_kph
 	weapon_label.text = model.weapon_status
-	weapon_label.modulate = Color("a6deb5") if model.ready else Color("ffcf8f")
+	weapon_label.modulate = BizTheme.positive() if model.ready else BizTheme.warning()
 	var error := float(model.get("aim_error_degrees",0))
 	var optics: String=model.get("optics_text","")
 	if not model.get("observing",false):
 		var tracking := LocalizationService.text("optics_tracking")%error if error>0.5 else LocalizationService.text("optics_aligned")
 		optics=(optics+" · " if not optics.is_empty() else "")+tracking
 	optics_label.text=optics
-	optics_label.modulate=Color("ffcf8f") if error>0.5 else Color("d7e2dc")
+	optics_label.modulate=BizTheme.warning() if error>0.5 else BizTheme.text_primary()
 	# WT-UI-007 (S04): chambered round, carried round, next-round choice and remaining stock are four separate lines,
 	# all fed by real AmmoInventory state (chamber_shell / transfer_shell / selected_shell / shell_counts).
 	var chamber_id := str(model.get("chamber_shell_label",""))
