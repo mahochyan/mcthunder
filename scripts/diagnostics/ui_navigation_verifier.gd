@@ -31,6 +31,16 @@ func idle() -> void:
 	report(false,"bounded scene transition")
 
 ## Find a control by its stable ui_id. Never by visible text and never by child index.
+## UI-BIZ-01 stage 3: run the shared layout audit on one live screen and report its three defect classes. This is the
+## manual baseline comparison turned into a check, so the whole class of defect the challenge screen had - a collapsed
+## width, a control outside the viewport, two controls sharing one rectangle - is looked for on every screen instead of
+## being discovered by eye once.
+func audit(root: Node, label: String) -> void:
+	var found := LayoutAudit.collect(root,Vector2(get_window().size))
+	report(found.narrow.is_empty(), "%s: no text control has a collapsed width (%s)" % [label,LayoutAudit.describe(found,"narrow")])
+	report(found.outside.is_empty(), "%s: no visible control is drawn outside the viewport (%s)" % [label,LayoutAudit.describe(found,"outside")])
+	report(found.stacked.is_empty(), "%s: no two visible controls share one rectangle (%s)" % [label,LayoutAudit.describe(found,"stacked")])
+
 func by_id(root: Node, id: String) -> Control:
 	if root is Control and str(root.get_meta("ui_id","")) == id: return root
 	for child in root.get_children():
@@ -253,12 +263,17 @@ func run(flow: AppFlow) -> void:
 	for round_index in 2:
 		await driver.click(tab_loadout)
 		report(f.page_index == 1 and f.pages[1].is_visible_in_tree() and not f.pages[0].is_visible_in_tree(), "clicking the loadout tab switches page (round %d)" % (round_index+1))
-		if round_index == 0: await driver.capture("nav_01_loadout_page")
+		if round_index == 0:
+			await driver.capture("nav_01_loadout_page")
+			audit(f.pages[1],"loadout page")
 		await driver.click(tab_training)
 		report(f.page_index == 2 and f.pages[2].is_visible_in_tree(), "clicking the training tab switches page (round %d)" % (round_index+1))
-		if round_index == 0: await driver.capture("nav_02_training_page")
+		if round_index == 0:
+			await driver.capture("nav_02_training_page")
+			audit(f.pages[2],"training page")
 		await driver.click(tab_battle)
 		report(f.page_index == 0 and f.pages[0].is_visible_in_tree() and not f.pages[2].is_visible_in_tree(), "clicking the battle tab returns (round %d)" % (round_index+1))
+	audit(f.pages[0],"battle page")
 	var loadout_open := by_id(g,"garage.loadout.open")
 	report(loadout_open != null, "the loadout entry on the battle page exposes a stable id")
 	if loadout_open != null:
@@ -287,6 +302,7 @@ func run(flow: AppFlow) -> void:
 				for child in node3.get_children(): stack3.append(child)
 			report(seen.size() == 4, "the settings panel shows all four S08 groups %s" % str(seen))
 			report(panel.find_children("*","HSlider",true,false).size() >= 4, "the input and sound groups carry real sliders")
+			audit(panel,"settings panel")
 			panel.queue_free()
 			await frames(4)
 	await driver.click(tab_battle)
@@ -299,6 +315,7 @@ func run(flow: AppFlow) -> void:
 		for child in g.find_children("*","ChallengeSelection",true,false): selection = child
 		report(selection != null, "the challenge entry opens the real challenge selection")
 		if selection != null:
+			audit(selection,"challenge card")
 			report(selection.rules_label != null and selection.rules_label.text.length() > 0, "the challenge card states the rules from the catalogue")
 			report(selection.rounds_label != null and selection.rounds_label.text.length() > 0, "the challenge card states the ammunition the challenge pins")
 			report(selection.best_label != null and selection.best_label.text.length() > 0, "the challenge card states the recorded best score")
