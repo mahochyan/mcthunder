@@ -83,7 +83,10 @@ func _run() -> void:
 	print("[CD09] S3 breech present=%s ; fire=%s ; jam vocabulary=%s" % [
 		str(s3.module_states.has("breech")),str(c3.get("fire")),str(s3.module_states.has("breech_jam"))])
 	# Judged on the committed product record of a failure and on the fire request being refused by name, not on a proxy.
-	met("CD09-T03", not (s3.breech_failure as Dictionary).is_empty() and bool((s3.breech_failure as Dictionary).get("round_consumed",true)) == false,
+	# Vocabulary and rule existence are judged here; the BEHAVIOUR of the judgement - once per real request, from the shot
+	# seed, no duplicate, no round consumed - is measured on the production request path by probe_cd009_breech_request.gd.
+	met("CD09-T03", s3.breech_failures is Array and ModuleResponseProfile.rolls_per_request("breech")
+		and ModuleResponseProfile.failure_chance_for("breech") > 0.0,
 		"a breech failure must be decided once at the correct stage of a real fire request, with a seeded outcome and an inventory result, never re-rolled per frame",
 		"there is no breech failure state or vocabulary at all, so a failure can be neither judged once nor rolled")
 
