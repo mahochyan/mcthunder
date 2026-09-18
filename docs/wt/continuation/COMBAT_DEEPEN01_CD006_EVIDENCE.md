@@ -150,3 +150,30 @@ L4 **通过** ✓：未声明者解析到**具名、显式 legacy** ✓ `legacy-
 2. **让声明生效** ✓：`fragment_system` 目前对内部爆炸走**固定常量** ✓（`ShellEffectPolicy.MAX_FRAGMENTS` / `FRAGMENT_RANGE_M` / `FRAGMENT_BUDGET_MM` ✓）⇒ 声明剖面后须由**剖面**驱动同一消费路径 ✓（**声明门控** ✓ ⇒ 未声明者**逐字保持旧行为** ✓✓ 不删旧规则 ✓）；
 3. **声明对象** ✓：仅 **m61_m3 与 m61_m6** 各声明**不同**的剖面 ✓（**数值为项目设计初值** ✓ 逐弹有依据 ✓ 不冒充史料 ✓）；**m82_m3_2800 保持缺席** ✓ ⇒ 解析到具名 legacy ✓✓；
 4. **验证** ✓：本探针 L2/L3 **转绿** ✓、L1/L4 **保持不变** ✓，且**全部套件**（尤其 `run_spall_checks` ✓ `run_fuze_checks` ✓）**保持全绿** ✓（旧行为对照 ✓）。
+## 12. `CD06-T01` **实现落地并转绿** ✓✓（`CD06_SAME_PENETRATION_PAIR_PASS` ✓）
+### 改动（**扩展**而非新管线 ✓✓ 且**门控** ✓）
+```
+① scripts/projectiles/spall_profile.gd ✓
+   + const VERSION_INTERNAL_BURST := "cd006-internal-burst-v1" ✓（长杆 VERSION **未动** ✓）
+   + static func expected_version(effect) ✓ ⇒ 长杆取旧版本 ✓ 内部爆炸取新版本 ✓ 其它返回空 ⇒ 仍拒 ✓
+   ⇒ 原报错文案与长杆行为**逐字不变** ✓✓
+② configs/shells/historical_loadouts.json ✓（**实际加载**的历史弹种集 ✓）
+   m61_m3 ✓ 声明 cd006-internal-burst-v1 ✓ count=4 cone=30 range=2.0 frac=0.15 max=40 min_res=3 ✓
+   m61_m6 ✓ 声明 cd006-internal-burst-v1 ✓ count=6 cone=45 range=2.8 frac=0.30 max=70 min_res=5 ✓
+   m82_m3_2800 ✓ **保持缺席** ✓ ⇒ 解析到具名 legacy ✓ legacy-021-toy-inside-v1 ✓
+   两者 fragment_impact_profile 照抄**已验证**形状 ✓（wt012-full-caliber-v1 ✓ family=fragment ✓
+   normalization_deg=0 / overmatch_ratio=0 ✓ 符合 ArmorImpactProfile L31 对 fragment 的明文要求 ✓）
+```
+### 关键发现：**消费路径本已通用** ✓✓（故无需复制管线 ✓）
+`projectile_manager._emit_spall` ✓（L701-715 ✓）**只要求** `st.post_penetration_profile` **非空** ✓ 且接触为**正面 `penetrated`** ✓
+⇒ 分配（`SpallProfile.allocation` ✓）、批次（`batch.allocated_mm` ✓）、破片消费（`fragment_system` 的 count/range/budget ✓）**全部共用同一路径** ✓✓
+⇒ **唯一阻塞点只是校验器** ✗ ⇒ 故实现仅需**扩校验器 + 两处声明** ✓✓ = **零管线复制** ✓ **零新分支** ✓
+### 实测（`CD06-T01` 全绿 ✓ 且 L1/L4 事实保持 ✓）
+```
+m61_m3 profile=cd006-internal-burst-v1 count=4 ✓ ; m61_m6 count=6 ✓ ; 两者剖面**不同** ✓✓ ; m82_m3_2800 缺席 ✓✓
+L1 同穿深配对事实保持 ✓（曲线逐值相同 ✓）; L4 具名 legacy 事实保持 ✓
+```
+### 旧行为对照 ✓（"保留旧行为对照" ✓）
+长杆版本常量未动 ✓ 报错文案未动 ✓ 未声明弹 `_emit_spall` 首行即返回 ✓ ⇒ **未声明者逐字保持旧行为** ✓；套件见本轮提交信息 ✓。
+### 待办（并入迁移表 ✓）
+规则迁移条目 ✓：`legacy-021-toy-inside-v1`（旧模板 ✓ 已具名保留 ✓）→ `cd006-internal-burst-v1`（内部爆炸自有剖面 ✓ 声明门控 ✓ 回退＝删除声明 ✓）。

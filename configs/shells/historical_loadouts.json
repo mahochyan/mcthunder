@@ -141,6 +141,27 @@
       "effect_status": "game_rule",
       "historical_observations": "TM printed 101 data applies to M61 through printed 102 para.89: M3 2030 ft/s, 2.8 in homogeneous at 1000 yd, 0 degrees.",
       "estimate_reason": "914.4m homogeneous anchor transcribed. Other ranges are game estimates. SOIC gives 2024 ft/s and angled table; retained as differing source, not silently combined. Inside burst is a toy game effect.",
+      "post_penetration_profile": {
+        "version": "cd006-internal-burst-v1",
+        "provenance": "game_rule",
+        "reason": "CD06 project design initial value: a narrow, short, frugal inside-burst distribution for this round. Adjustable gameplay numbers chosen for the engineering self-consistent version, not measured fragment counts and not a historical burst pattern.",
+        "count": 4,
+        "cone_deg": 30,
+        "range_m": 2.0,
+        "budget_fraction": 0.15,
+        "max_total_mm": 40,
+        "min_residual_mm": 3,
+        "fragment_impact_profile": {
+          "version": "wt012-full-caliber-v1",
+          "family": "fragment",
+          "provenance": "game_rule",
+          "reason": "CD06 project design initial value: the fragment channel's own material response for the inside burst, kept separate from the long-rod curve.",
+          "normalization_deg": 0,
+          "overmatch_ratio": 0,
+          "ricochet_deg": 85,
+          "material_coefficients": {"rolled": 1, "cast": 0.95}
+        }
+      },
       "fuze_policy": {
         "mode": "penetration_delay",
         "arming_thickness_mm": 8.0,
@@ -257,6 +278,27 @@
       "effect_status": "game_rule",
       "historical_observations": "TM9-729 printed 360 Table V authorizes fuzed M61; printed 345 Fig.197B/C explicitly gives M61/M61A1 2030 ft/s for M6.",
       "estimate_reason": "Gun-specific compatibility and velocity verified. Penetration transfers the M3 M61 game curve as an estimate; no M6-specific terminal test curve found. Inside burst is a toy effect.",
+      "post_penetration_profile": {
+        "version": "cd006-internal-burst-v1",
+        "provenance": "game_rule",
+        "reason": "CD06 project design initial value: a wider, longer and richer inside-burst distribution than the M3 round's, on the same penetration curve. Adjustable gameplay numbers for the engineering self-consistent version, not measured fragment counts and not a historical burst pattern.",
+        "count": 6,
+        "cone_deg": 45,
+        "range_m": 2.8,
+        "budget_fraction": 0.30,
+        "max_total_mm": 70,
+        "min_residual_mm": 5,
+        "fragment_impact_profile": {
+          "version": "wt012-full-caliber-v1",
+          "family": "fragment",
+          "provenance": "game_rule",
+          "reason": "CD06 project design initial value: the fragment channel's own material response for the inside burst, kept separate from the long-rod curve.",
+          "normalization_deg": 0,
+          "overmatch_ratio": 0,
+          "ricochet_deg": 85,
+          "material_coefficients": {"rolled": 1, "cast": 0.95}
+        }
+      },
       "fuze_policy": {
         "mode": "penetration_delay",
         "arming_thickness_mm": 8.0,

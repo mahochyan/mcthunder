@@ -2,14 +2,26 @@ class_name SpallProfile
 extends RefCounted
 ## Bounded authored game rules. No claim of measured fragment/penetrator physics.
 const VERSION := "wt013-directional-spall-v1"
+## MCT-COMBAT-DEEPEN-01 CD06 design point one: the post-penetration profile is EXTENDED to the internal burst rather than
+## duplicated. An internal burst carries its own version and the same declared field set - channel, direction distribution,
+## range, sample weights and budget - and it reaches the very same consumption path the long rod already uses, because the
+## manager's spall emitter only requires that a profile be declared and that the contact be a front-facing penetration. The
+## long-rod version is untouched, so every existing long-rod profile and every undeclared round behave exactly as before.
+const VERSION_INTERNAL_BURST := "cd006-internal-burst-v1"
 const MAX_EVENTS := 4
 const MAX_COUNT := 8
+
+static func expected_version(effect: String) -> String:
+	if effect=="long_rod": return VERSION
+	if effect=="internal_burst": return VERSION_INTERNAL_BURST
+	return ""
 
 static func validate(value: Variant, effect: String) -> Array[String]:
 	var errors: Array[String]=[]
 	if not value is Dictionary: return ["post_penetration_profile: dictionary required"]
 	if value.is_empty(): return errors
-	if effect!="long_rod" or value.get("version")!=VERSION: errors.append("post_penetration_profile: unsupported effect/version")
+	var wanted := expected_version(effect)
+	if wanted.is_empty() or value.get("version")!=wanted: errors.append("post_penetration_profile: unsupported effect/version")
 	if value.get("provenance")!="game_rule" or not value.get("reason") is String or str(value.get("reason","")).strip_edges().is_empty(): errors.append("post_penetration_profile: game-rule explanation required")
 	for field in ["count","cone_deg","range_m","budget_fraction","max_total_mm","min_residual_mm"]:
 		if not _number(value.get(field)): errors.append("post_penetration_profile: finite "+field+" required")
