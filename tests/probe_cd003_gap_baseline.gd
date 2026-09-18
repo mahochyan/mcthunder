@@ -124,6 +124,67 @@ func _fire_leg(actor: VehicleActor, world: Node3D, layout: VehicleLayoutDefiniti
 	manager.queue_free()
 	return out
 
+## CD03-T05 / 3B: one moving target, one contact time. The target translates along +Z across the swept step and the shell
+## runs along +X, so the crossing is analytically at t = 0.5 (from -3 to +3 through a plate at X=0), the target's Z at that
+## instant is lerp(z_start, z_end, 0.5), and the hit expressed in the PLATE's own frame must therefore be minus that. If
+## the query used a stale or fixed frame the local value would be off by the motion inside the step, which is exactly the
+## cross-tick bias the case forbids. No function under test computes the expectation.
+func _moving_leg(actor: VehicleActor, z_start: float, z_end: float) -> Dictionary:
+	var layout := _single_plate_layout(1)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	snapshot["part_world_transforms"]["hull"] = Transform3D(Basis.IDENTITY,Vector3(0,0,z_end))
+	snapshot[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis.IDENTITY,Vector3(0,0,z_start))}
+	var result := ShotQueryService.query({"query_id":"cd003_move","from_world":Vector3(-3,0,0),"to_world":Vector3(3,0,0),
+		"motion_fraction":Vector2(0,1)},[snapshot])
+	var first := {}
+	for event in result.get("events",[]):
+		if str(event.get("surface_id",""))=="cd003_single": first = event
+	if first.is_empty(): return {"ok":false,"t":-1.0,"fraction":-1.0,"local_z":INF}
+	var fraction := float(first.get("motion_fraction",float(first.get("t",0.0))))
+	var part_at_contact: Transform3D = TranslationSweep.part_transform(snapshot,"hull",fraction)
+	var local: Vector3 = part_at_contact.affine_inverse()*Vector3(first.get("point_world",Vector3.ZERO))
+	return {"ok":true,"t":float(first.get("t",-1.0)),"fraction":fraction,"local_z":local.z,
+		"expected_z":-lerpf(z_start,z_end,0.5)}
+
+## The same moving target, but with a declared section and a grazing line so that a RING ray meets the plate. The recorded
+## local offset is then the section offset converted into the part's frame, and its length must still be the radius: if the
+## conversion used a stale frame it would be short or long by the part's motion during the step.
+func _moving_section_leg(actor: VehicleActor, rot_deg: float) -> Dictionary:
+	var layout := _single_plate_layout(1)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	var basis := Basis(Vector3.RIGHT,deg_to_rad(rot_deg))
+	snapshot["part_world_transforms"]["hull"] = Transform3D(basis,Vector3.ZERO)
+	snapshot[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(basis,Vector3.ZERO)}
+	var radius := 0.030
+	# Rotation only, so the CENTRE line cannot drift into the plate: the line sits at local Z = 1.015, just outside the edge
+	# at 1.0, and the ring ray at 180 degrees lands at Z = 0.985, inside. My earlier attempt translated the plate in Z, which
+	# let the centre hit, and it also placed the graze between two rays - a miss the profile's declared error bound covers.
+	var line: Vector3 = basis*Vector3(0,0,1.0+0.015)
+	var result := ShotQueryService.query({"query_id":"cd003_move_section","from_world":Vector3(-3,line.y,line.z),
+		"to_world":Vector3(3,line.y,line.z),"motion_fraction":Vector2(0,1),
+		"shape_section":{"section_radius_m":radius,"rays":13}},[snapshot])
+	var contacts := 0
+	var offset := Vector3.ZERO
+	for event in result.get("events",[]):
+		if str(event.get("surface_id",""))!="cd003_single": continue
+		contacts += 1
+		if offset == Vector3.ZERO: offset = event.get("section_offset_local_m",Vector3.ZERO)
+	var local_seg: PackedVector3Array = TranslationSweep.local_segment(snapshot,"hull",Vector3(-3,line.y,line.z),Vector3(3,line.y,line.z),Vector2(0,1))
+	print("[CD03-T05]   rotation %.0f deg: ok=%s complete=%s events=%d diagnostics=%s local_from=%s local_to=%s" % [
+		rot_deg,str(result.get("ok",false)),str(result.get("complete",false)),result.get("events",[]).size(),
+		JSON.stringify(result.get("diagnostics",[])),str(local_seg[0]),str(local_seg[1])])
+	var inside := ShotQueryService.query({"query_id":"cd003_inside","from_world":Vector3(-3,0,0.985),"to_world":Vector3(3,0,0.985)},[snapshot])
+	var inside_contacts := 0
+	for event in inside.get("events",[]):
+		if str(event.get("surface_id",""))=="cd003_single": inside_contacts += 1
+	var outside_contacts := 0
+	var outside := ShotQueryService.query({"query_id":"cd003_outside","from_world":Vector3(-3,line.y,line.z),"to_world":Vector3(3,line.y,line.z)},[snapshot])
+	for event in outside.get("events",[]):
+		if str(event.get("surface_id",""))=="cd003_single": outside_contacts += 1
+	print("[CD03-T05]   controls: centre line at local Z=0.985 (inside) => %d ; centre line at the graze (outside) => %d" % [inside_contacts,outside_contacts])
+	return {"contacts":contacts,"offset":offset,"offset_len":offset.length(),"radius":radius,
+		"offset_dir":(offset.normalized() if offset.length()>1e-9 else Vector3.ZERO)}
+
 func _run() -> void:
 	owned_directory="res://assets/vehicles/test_cd003_gap_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
 	check(DirAccess.make_dir_recursive_absolute(owned_directory)==OK,"CD003 creates its own TEST ONLY model directory")
@@ -260,6 +321,30 @@ func _run() -> void:
 		"CD03-T02 meeting a plate with a declared section goes through material resolution with a consumed budget, not an automatic verdict")
 	check(not edge_leg.results.is_empty() and str(edge_leg.results[0]) in ["penetrated","stopped","ricochet","partial"],
 		"CD03-T02 the terminal result comes from the material rule vocabulary: "+JSON.stringify(edge_leg.results))
+	# ── CD03-T05 / 3B: the moving target must use ONE contact time for shell and target, with the analytic crossing and
+	# the analytic local hit, at two different tick phases.
+	for phase in [[0.0,1.0],[-0.5,0.5],[-1.0,1.0]]:
+		var z0: float = float(phase[0]); var z1: float = float(phase[1])
+		var leg := _moving_leg(actor,z0,z1)
+		print("[CD03-T05] phase z %.2f -> %.2f : ok=%s t=%.6f fraction=%.6f local_z=%.6f expected=%.6f" % [
+			z0,z1,str(leg.ok),float(leg.get("t",-1.0)),float(leg.get("fraction",-1.0)),
+			float(leg.get("local_z",INF)),float(leg.get("expected_z",INF))])
+		check(bool(leg.ok),"CD03-T05 the moving target is met at all (z %.2f -> %.2f)" % [z0,z1])
+		if not leg.ok: continue
+		check(absf(float(leg.fraction)-0.5)<=0.02,"CD03-T05 shell and target use the same contact time, the analytic crossing at t=0.5 (z %.2f -> %.2f): got %.6f" % [z0,z1,float(leg.fraction)])
+		check(absf(float(leg.local_z)-float(leg.expected_z))<=0.02,"CD03-T05 the hit in the plate's own frame matches the analytic value (z %.2f -> %.2f): %.6f vs %.6f" % [z0,z1,float(leg.local_z),float(leg.expected_z)])
+	# 3B residual: with a section and a ROTATING part the ring offset must be expressed in the frame at the CONTACT instant.
+	# The same relative grazing geometry is used at two different part rotations, so the offset expressed in the part's own
+	# frame must be the same at both phases; a stale-frame conversion would rotate with the part and disagree.
+	var spin_a := _moving_section_leg(actor,0.0)
+	var spin_b := _moving_section_leg(actor,20.0)
+	var dot := float(spin_a.offset_dir.dot(spin_b.offset_dir))
+	print("[CD03-T05] section under motion: A contacts=%d len=%.6f dir=%s | B contacts=%d len=%.6f dir=%s | dir_dot=%.6f" % [
+		int(spin_a.contacts),float(spin_a.offset_len),str(spin_a.offset_dir),
+		int(spin_b.contacts),float(spin_b.offset_len),str(spin_b.offset_dir),dot])
+	check(int(spin_a.contacts)>=1 and int(spin_b.contacts)>=1,"CD03-T05 the grazing shot with a section meets the plate at both part rotations")
+	check(absf(float(spin_a.offset_len)-0.030)<=0.002,"CD03-T05 the recorded ring offset has the declared radius: %.6f" % float(spin_a.offset_len))
+	check(dot>=0.999,"CD03-T05 the ring offset is expressed at the contact instant, so the same relative geometry gives the same local offset at both part rotations: dot=%.6f" % dot)
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
