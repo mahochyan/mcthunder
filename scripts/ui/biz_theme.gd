@@ -356,3 +356,213 @@ static func pulse(control: Control, colour: Color = Color.TRANSPARENT) -> void:
 	var tween := control.create_tween()
 	tween.tween_property(control,"modulate",Color(tint.r,tint.g,tint.b,1.0),ms / 2000.0)
 	tween.tween_property(control,"modulate",Color(1,1,1,1),ms / 1000.0)
+
+# --- the global theme --------------------------------------------------------------------------------------------
+#
+# UI-BIZ-01 stage 3 (whole-style pass): this is the single lever that re-skins the application. Every screen already
+# builds its controls through CoreUI/GarageTheme, and both of those now return this theme, so buttons, inputs,
+# panels, popups, scroll bars, sliders, progress bars, separators and tooltips change together instead of screen by
+# screen. Geometry stays on the original design tokens (border 1, focus 2, corner 4, panel padding 16), which is what
+# the token self-test measures, so the new skin cannot drift the metrics the design fixed.
+
+static func _state_fill(kind: String, state: String) -> Color:
+	match kind:
+		"primary":
+			if state == "hover": return accent().lightened(0.08)
+			if state == "pressed": return accent().darkened(0.12)
+			if state == "disabled": return Color(accent(),0.35)
+			return accent()
+		_:
+			if state == "hover": return surface_raised()
+			if state == "pressed": return surface_raised().darkened(0.18)
+			if state == "disabled": return background()
+			return surface()
+
+## The full application theme, built from the original tokens plus the UI-BIZ-01 overlay.
+static func theme() -> Theme:
+	var out := Theme.new()
+	out.default_font = CoreUI.FONT
+	out.default_font_size = roundi(float(UiTokens.font_size("body",16)) * AccessibilitySettings.ui_scale)
+	var pad := int(UiTokens.metric("components.panel_padding",16.0))
+
+	# Panels: the raised surface with a real shadow, so a page reads as layers rather than one flat sheet.
+	out.set_stylebox("panel","PanelContainer",panel_box("panel"))
+	out.set_stylebox("panel","Panel",panel_box("panel"))
+	out.set_stylebox("panel","PopupPanel",panel_box("overlay"))
+	out.set_stylebox("panel","TooltipPanel",tooltip_box())
+
+	# Buttons and option buttons: the design's own state set, with the focus ring carrying the glow.
+	for type in ["Button","OptionButton","CheckBox","CheckButton"]:
+		out.set_stylebox("normal",type,button_box("secondary","normal"))
+		out.set_stylebox("hover",type,button_box("secondary","hover"))
+		out.set_stylebox("pressed",type,button_box("secondary","pressed"))
+		out.set_stylebox("disabled",type,button_box("secondary","disabled"))
+		# The focus ring is a ring and nothing else: the design's token test measures that it adds no padding of its
+		# own, so it is a zero-margin box with the two-pixel focus token border plus the halo.
+		var ring := box(Color.TRANSPARENT,UiTokens.color("focus","#E0B46A"),0,"raised")
+		ring.set_border_width_all(int(UiTokens.metric("components.focus_border",2.0)))
+		ring.shadow_color = Color(accent(),float(UiTokens.biz_metric("glow.focus_outer_alpha",0.28)))
+		ring.shadow_size = int(UiTokens.biz_metric("glow.accent_halo_blur",10.0))
+		ring.set_content_margin_all(0)
+		out.set_stylebox("focus",type,ring)
+		out.set_color("font_color",type,text_primary())
+		out.set_color("font_hover_color",type,Color.WHITE)
+		out.set_color("font_pressed_color",type,accent())
+		out.set_color("font_focus_color",type,text_primary())
+		out.set_color("font_disabled_color",type,disabled_text())
+		out.set_color("icon_normal_color",type,text_secondary())
+		out.set_color("icon_hover_color",type,text_primary())
+		out.set_color("icon_disabled_color",type,disabled_text())
+	out.set_constant("h_separation","Button",8)
+	# A plain label never draws a plate; the ink is the primary text token.
+	out.set_color("font_color","Label",text_primary())
+	out.set_color("font_shadow_color","Label",Color(shadow_colour(),0.6))
+
+	# Inputs sit lower than the surface they are on, which is what makes a form read as a form. The outline stays the
+	# design's own control_outline token; only the fill is deepened to the overlay's sunken surface.
+	out.set_stylebox("normal","LineEdit",box(sunken(),control_outline_check(),8,"panel"))
+	out.set_stylebox("focus","LineEdit",box(sunken(),UiTokens.color("focus","#E0B46A"),8,"raised"))
+	out.set_stylebox("read_only","LineEdit",box(background(),control_outline_check(),8,"panel"))
+	out.set_color("font_color","LineEdit",text_primary())
+	out.set_color("font_placeholder_color","LineEdit",text_tertiary())
+	out.set_color("caret_color","LineEdit",accent())
+	out.set_color("selection_color","LineEdit",accent_soft())
+	out.set_stylebox("normal","TextEdit",box(sunken(),control_outline_check(),8,"panel"))
+	out.set_color("font_color","TextEdit",text_primary())
+
+	# Progress: a sunken track with a coloured fill, so capacity and tickets read at a glance.
+	var track := StyleBoxFlat.new()
+	track.bg_color = sunken()
+	track.border_color = hairline()
+	track.set_border_width_all(1)
+	track.set_corner_radius_all(2)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = accent()
+	fill.set_corner_radius_all(2)
+	out.set_stylebox("background","ProgressBar",track)
+	out.set_stylebox("fill","ProgressBar",fill)
+	out.set_color("font_color","ProgressBar",text_secondary())
+
+	# Sliders: hairline track, accent grabber - the settings panel inherits this without a single line of its own.
+	var slider_track := StyleBoxFlat.new()
+	slider_track.bg_color = sunken()
+	slider_track.border_color = hairline()
+	slider_track.set_border_width_all(1)
+	slider_track.set_corner_radius_all(2)
+	slider_track.set_content_margin_all(2)
+	var grabber := StyleBoxFlat.new()
+	grabber.bg_color = accent()
+	grabber.set_corner_radius_all(3)
+	grabber.set_content_margin_all(4)
+	out.set_stylebox("slider","HSlider",slider_track)
+	out.set_stylebox("grabber_area","HSlider",slider_track)
+	out.set_stylebox("grabber_area_highlight","HSlider",slider_track)
+	for name in ["grabber","grabber_highlight","grabber_pressed"]:
+		var box_variant := grabber.duplicate() as StyleBoxFlat
+		if name != "grabber": box_variant.bg_color = accent().lightened(0.12)
+		out.set_stylebox(name,"HSlider",box_variant)
+
+	# Scroll bars: thin, quiet, accent on hover - the garage, the research tree and every list share them.
+	for type in ["VScrollBar","HScrollBar"]:
+		var quiet := StyleBoxFlat.new()
+		quiet.bg_color = Color(background(),0.35)
+		quiet.set_corner_radius_all(3)
+		var grip := StyleBoxFlat.new()
+		grip.bg_color = Color(control_outline_check(),0.55)
+		grip.set_corner_radius_all(3)
+		var grip_hot := StyleBoxFlat.new()
+		grip_hot.bg_color = Color(accent(),0.75)
+		grip_hot.set_corner_radius_all(3)
+		out.set_stylebox("scroll",type,quiet)
+		out.set_stylebox("grabber",type,grip)
+		out.set_stylebox("grabber_highlight",type,grip_hot)
+		out.set_stylebox("grabber_pressed",type,grip_hot)
+	out.set_stylebox("panel","ScrollContainer",StyleBoxEmpty.new())
+
+	# Popups and tooltips: overlay elevation, accent hover, quiet separators.
+	out.set_stylebox("panel","PopupMenu",panel_box("overlay"))
+	out.set_stylebox("hover","PopupMenu",box(accent_soft(),accent_line(),8,"panel"))
+	out.set_stylebox("separator","PopupMenu",box(hairline(),Color.TRANSPARENT,1,"panel",0))
+	out.set_color("font_color","PopupMenu",text_primary())
+	out.set_color("font_hover_color","PopupMenu",accent())
+	out.set_color("font_disabled_color","PopupMenu",disabled_text())
+	out.set_color("font_separator_color","PopupMenu",text_tertiary())
+	out.set_constant("v_separation","PopupMenu",10)
+	out.set_constant("item_start_padding","PopupMenu",10)
+	out.set_constant("item_end_padding","PopupMenu",10)
+	out.set_color("font_color","TooltipLabel",text_secondary())
+	out.set_font_size("font_size","TooltipLabel",UiTokens.biz_type_size("caption",11))
+
+	# Separators carry the hairline rather than a default grey.
+	out.set_stylebox("separator","HSeparator",box(hairline(),Color.TRANSPARENT,0,"panel",0))
+	out.set_stylebox("separator","VSeparator",box(hairline(),Color.TRANSPARENT,0,"panel",0))
+	out.set_color("default_color","RichTextLabel",text_secondary())
+	out.set_stylebox("normal","RichTextLabel",StyleBoxEmpty.new())
+	return out
+
+## The control outline token, read once so the scroll bars can derive a translucent grip from it.
+static func control_outline_check() -> Color:
+	return UiTokens.color("control_outline","#697F88")
+
+# --- atmosphere --------------------------------------------------------------------------------------------------
+
+static var _vignette_cache: Dictionary = {}
+
+## A layered page background: the base colour, a procedural vignette that darkens the corners, and a soft glow along
+## the top edge. Both gradients are generated at runtime from the tokens, so the atmosphere costs no external asset
+## and cannot introduce a licence question. Returns the container so a caller can put its content above it.
+static func atmosphere(parent: Node, level: String = "page") -> Control:
+	var holder := Control.new()
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(holder)
+	holder.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var base := ColorRect.new()
+	base.color = background() if level == "page" else sunken()
+	base.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.add_child(base)
+	base.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var vignette := TextureRect.new()
+	vignette.texture = _radial_texture("vignette")
+	vignette.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	vignette.stretch_mode = TextureRect.STRETCH_SCALE
+	vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.add_child(vignette)
+	vignette.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var glow := TextureRect.new()
+	glow.texture = _top_glow_texture()
+	glow.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	glow.stretch_mode = TextureRect.STRETCH_SCALE
+	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.add_child(glow)
+	glow.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	glow.offset_bottom = 220.0
+	return holder
+
+## 256x256 radial gradient, dark at the edges, fully transparent in the middle.
+static func _radial_texture(key: String) -> ImageTexture:
+	if _vignette_cache.has(key): return _vignette_cache[key]
+	var size := 256
+	var image := Image.create(size,size,false,Image.FORMAT_RGBA8)
+	var centre := Vector2(float(size) * 0.5,float(size) * 0.42)
+	var max_distance := centre.length()
+	for y in size:
+		for x in size:
+			var d := Vector2(float(x),float(y)).distance_to(centre) / max_distance
+			var a := clampf((d - 0.35) / 0.65,0.0,1.0)
+			image.set_pixel(x,y,Color(shadow_colour(),a * 0.55))
+	var texture := ImageTexture.create_from_image(image)
+	_vignette_cache[key] = texture
+	return texture
+
+## 8x256 vertical gradient: a faint accent wash at the top edge fading to nothing.
+static func _top_glow_texture() -> ImageTexture:
+	var key := "top_glow"
+	if _vignette_cache.has(key): return _vignette_cache[key]
+	var height := 256
+	var image := Image.create(8,height,false,Image.FORMAT_RGBA8)
+	for y in height:
+		var a := pow(1.0 - float(y) / float(height),2.0) * 0.10
+		for x in 8: image.set_pixel(x,y,Color(accent(),a))
+	var texture := ImageTexture.create_from_image(image)
+	_vignette_cache[key] = texture
+	return texture

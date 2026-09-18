@@ -45,32 +45,11 @@ static func box(color: Color, border: Color = Color.TRANSPARENT, padding: int = 
 	return out
 
 static func theme() -> Theme:
-	var out := CoreUI.theme()
-	var shades := derived_shades()
-	var pad := int(UiTokens.metric("components.panel_padding",16.0))
-	out.default_font_size=roundi(float(UiTokens.font_size("body",16))*AccessibilitySettings.ui_scale)
-	out.set_color("font_color","Label",PAPER)
-	out.set_stylebox("panel","PanelContainer",box(shades.panel_scrim,border_decorative(),pad))
-	for type in ["Button","OptionButton"]:
-		for state in ["normal","hover","pressed","disabled"]:
-			var fill: Color = shades.button_normal
-			if state=="hover": fill=shades.button_hover
-			if state=="pressed": fill=shades.button_pressed
-			if state=="disabled": fill=shades.button_disabled
-			var edge: Color = border_decorative()
-			if state=="hover": edge=control_outline()
-			out.set_stylebox(state,type,box(fill,edge,6 if type=="OptionButton" else 10))
-		# focus is a token in the reissued file and shares the warm gold with accent.
-		out.set_stylebox("focus",type,box(Color.TRANSPARENT,focus_color(),0,int(UiTokens.metric("components.focus_border",2.0))))
-		out.set_color("font_color",type,PAPER); out.set_color("font_hover_color",type,Color.WHITE)
-		out.set_color("font_disabled_color",type,disabled_text())
-	out.set_stylebox("normal","LineEdit",box(background(),control_outline(),8))
-	out.set_stylebox("focus","LineEdit",box(background(),focus_color(),8,int(UiTokens.metric("components.focus_border",2.0))))
-	out.set_stylebox("panel","PopupMenu",box(surface_raised(),border_decorative(),10))
-	out.set_stylebox("hover","PopupMenu",box(shades.menu_hover))
-	out.set_color("font_color","PopupMenu",PAPER)
-	out.set_constant("v_separation","PopupMenu",12)
-	return out
+	# UI-BIZ-01 stage 3 (whole-style pass): this is the same single skin as CoreUI's, built in BizTheme from the
+	# original tokens plus the additive overlay. The public surface of this file is unchanged, so every existing call
+	# site - including the ones that ask GarageTheme for a theme - simply gets the new look. Geometry stays on the
+	# original tokens (border 1, focus 2, corner 4, panel padding 16) so the token self-test still passes.
+	return BizTheme.theme()
 
 static func primary(button: Button) -> void:
 	for state in ["normal","hover","pressed"]:

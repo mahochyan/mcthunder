@@ -31,22 +31,11 @@ static func _styled(bg: Color, border: Color, padding: int) -> StyleBoxFlat:
 	return out
 
 static func theme() -> Theme:
-	var out := Theme.new()
-	out.default_font = FONT
-	out.default_font_size = roundi(float(UiTokens.font_size("body",16)) * AccessibilitySettings.ui_scale)
-	# Derived from the surface_raised token: the design gives no translucent variant, and the base panel keeps the
-	# original scrim behaviour by applying alpha to the token colour rather than inventing a new one.
-	out.set_stylebox("panel","PanelContainer",_styled(Color(UiTokens.color("surface_raised","#223139"),0.95),UiTokens.color("border_decorative","#35464E"),int(UiTokens.metric("components.panel_padding",16.0))))
-	for state in ["normal","hover","pressed","disabled"]:
-		var bg: Color = UiTokens.color("surface","#182329")
-		if state == "hover": bg = UiTokens.color("surface_raised","#223139")
-		if state == "pressed": bg = UiTokens.color("surface_raised","#223139").darkened(0.18)
-		if state == "disabled": bg = UiTokens.color("background","#10171B")
-		out.set_stylebox(state,"Button",_styled(bg,UiTokens.color("border_decorative","#35464E"),10))
-	out.set_stylebox("focus","Button",_styled(Color.TRANSPARENT,UiTokens.color("focus","#E0B46A"),0))
-	out.set_color("font_color","Button",UiTokens.color("text_primary","#ECEDE6"))
-	out.set_color("font_disabled_color","Button",UiTokens.color("disabled_text","#83969D"))
-	return out
+	# UI-BIZ-01 stage 3 (whole-style pass): the theme is now built once in BizTheme from the original tokens plus the
+	# additive overlay, and every screen that asks CoreUI or GarageTheme for a theme gets that one skin. Geometry still
+	# comes from the original token file (border 1, focus 2, corner 4, panel padding 16), which the token self-test
+	# measures against the real styleboxes, so the new look cannot drift the metrics the design fixed.
+	return BizTheme.theme()
 
 static func apply(root: Node) -> void:
 	if root is Control: root.theme = theme()
