@@ -58,6 +58,10 @@ static func critical_soft() -> Color: return UiTokens.biz_color("critical_soft",
 static func warning() -> Color: return UiTokens.color("warning","#E8BE70")
 static func positive() -> Color: return UiTokens.color("positive","#A0CBA1")
 static func scrim() -> Color: return UiTokens.biz_color("scrim","#0B1013CC")
+
+## The modal scrim: the background token at the opacity the base theme already used for its panel scrim, so the dim
+## behind a dialog is derived from a token rather than from a literal.
+static func dialog_scrim() -> Color: return Color(background(),0.93)
 static func shadow_colour() -> Color: return UiTokens.biz_color("shadow","#05090B")
 
 # --- boxes: elevation, glow, states ------------------------------------------------------------------------------

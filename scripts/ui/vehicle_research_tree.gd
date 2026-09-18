@@ -68,20 +68,29 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); theme=GarageTheme.theme()
 	catalog=JSON.parse_string(FileAccess.get_file_as_string(DATA))
 	for row in catalog.vehicles: vehicles[row.id]=row
-	# WT-UI-005: the backdrop is decoration, so it takes the background token and never the mouse.
-	var bg := ColorRect.new(); bg.color=UiTokens.color("background","#10171B"); bg.mouse_filter=Control.MOUSE_FILTER_IGNORE; add_child(bg); bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# UI-BIZ-01 stage 3: the same layered atmosphere as the garage - base colour, procedural vignette and a top wash -
+	# added first so it sits behind every later sibling and never takes the mouse.
+	BizTheme.atmosphere(self)
 	var margin := MarginContainer.new(); add_child(margin); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
 	var vertical := VBoxContainer.new(); vertical.add_theme_constant_override("separation",14); margin.add_child(vertical)
 	var top := HBoxContainer.new(); vertical.add_child(top)
-	var heading := GarageTheme.text(top,LocalizationService.text("research_heading"),30); heading.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	points_label=GarageTheme.text(top,"",14,GarageTheme.MUTED); tag(points_label,"research.counts")
+	var heading := BizTheme.display_label(top,LocalizationService.text("research_heading"),"display_l"); heading.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	points_label=GarageTheme.text(top,"",UiTokens.biz_type_size("label",13),BizTheme.text_tertiary()); tag(points_label,"research.counts")
 	back_button=CoreUI.button(top,LocalizationService.text("research_back"),close); tag(back_button,"research.back")
+	BizTheme.apply_button(back_button,"ghost","back")
 	var nations := HBoxContainer.new(); nations.add_theme_constant_override("separation",12); vertical.add_child(nations)
 	for entry in [["ussr","苏联  /  USSR"],["germany","德国  /  GERMANY"]]:
-		var tab := CoreUI.button(nations,entry[1],func() -> void: show_country(entry[0])); tab.custom_minimum_size=Vector2(196,48); nation_buttons[entry[0]]=tag(tab,"research.nation."+entry[0])
+		var tab := CoreUI.button(nations,entry[1],func() -> void: show_country(entry[0])); tab.custom_minimum_size=Vector2(196,48)
+		BizTheme.apply_tab(tab,entry[0]==country)
+		var flag := BizTheme.icon_texture("flag",18)
+		if flag != null:
+			tab.icon=flag
+			tab.add_theme_constant_override("h_separation",8)
+		nation_buttons[entry[0]]=tag(tab,"research.nation."+entry[0])
 	var spacer := Control.new(); spacer.size_flags_horizontal=Control.SIZE_EXPAND_FILL; spacer.mouse_filter=Control.MOUSE_FILTER_IGNORE; nations.add_child(spacer)
-	GarageTheme.text(nations,"GROUND FORCES",12,GarageTheme.ACCENT)
+	var forces := GarageTheme.text(nations,"GROUND FORCES",UiTokens.biz_type_size("caption",11),BizTheme.accent())
+	forces.add_theme_font_override("font",BizTheme.FONT_LATIN)
 	var filters := HBoxContainer.new(); filters.add_theme_constant_override("separation",16); vertical.add_child(filters)
 	search=LineEdit.new(); search.placeholder_text=LocalizationService.text("research_search_hint"); search.size_flags_horizontal=Control.SIZE_EXPAND_FILL; filters.add_child(search)
 	search.text_changed.connect(func(_text: String) -> void: rebuild())
@@ -93,27 +102,33 @@ func _ready() -> void:
 	for branch in BRANCHES:
 		var route := CoreUI.button(routes,branch_label(branch),func() -> void:
 			if branch_columns.has(branch): tree_scroll.scroll_horizontal=branch_columns[branch]*228)
-		route.add_theme_font_size_override("font_size",13); route_buttons[branch]=tag(route,"research.route."+branch)
+		# UI-BIZ-01 stage 3: the route row joins the icon system; the glyph is a category mark, not a research claim.
+		BizTheme.apply_button(route,"ghost",{"medium":"vehicle","heavy":"shield","light":"zap","destroyer":"target"}.get(branch,"list"))
+		route_buttons[branch]=tag(route,"research.route."+branch)
 	var body := HBoxContainer.new(); body.add_theme_constant_override("separation",18); body.size_flags_vertical=Control.SIZE_EXPAND_FILL; vertical.add_child(body)
 	var panel := PanelContainer.new(); panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL; body.add_child(panel)
+	# The tree is the page surface; the inspector beside it is the raised one, so the two planes read differently.
+	panel.add_theme_stylebox_override("panel",BizTheme.panel_box("panel"))
 	tree_scroll=ScrollContainer.new(); tree_scroll.follow_focus=true; panel.add_child(tree_scroll)
 	graph=GraphCanvas.new(); tree_scroll.add_child(graph)
 	tag(tree_scroll,"research.tree.scroll")
 	var aside := PanelContainer.new(); aside.custom_minimum_size.x=360; body.add_child(aside)
+	aside.add_theme_stylebox_override("panel",BizTheme.panel_box("raised"))
 	var right := VBoxContainer.new(); right.add_theme_constant_override("separation",10); aside.add_child(right)
 	var info_scroll := ScrollContainer.new(); info_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; info_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; right.add_child(info_scroll)
 	var info := VBoxContainer.new(); info.add_theme_constant_override("separation",10); info.size_flags_horizontal=Control.SIZE_EXPAND_FILL; info_scroll.add_child(info)
-	GarageTheme.text(info,"BASE VEHICLE  /  基础车型",12,GarageTheme.ACCENT)
-	name_label=GarageTheme.text(info,"",25); name_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	var base_caption := GarageTheme.text(info,"BASE VEHICLE  /  基础车型",UiTokens.biz_type_size("caption",11),BizTheme.accent())
+	base_caption.add_theme_font_override("font",BizTheme.FONT_LATIN)
+	name_label=BizTheme.display_label(info,"","display_m"); name_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	preview_control=ResearchModelView.new(); info.add_child(preview_control)
 	detail_label=GarageTheme.text(info,"",14,GarageTheme.MUTED); detail_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	variants_button=CoreUI.button(info,"",func() -> void: variants_label.visible=not variants_label.visible)
 	variants_button.add_theme_font_size_override("font_size",13)
 	variants_label=GarageTheme.text(info,"",13,GarageTheme.MUTED); variants_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; variants_label.hide()
 	status_label=GarageTheme.text(right,"",14,GarageTheme.ACCENT); status_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	test_button=CoreUI.button(right,LocalizationService.text("research_trial"),_test_drive); GarageTheme.primary(test_button)
-	select_button=CoreUI.button(right,LocalizationService.text("research_select"),_select_for_battle)
-	GarageTheme.text(vertical,LocalizationService.text("research_tree_footnote"),12,GarageTheme.MUTED)
+	test_button=CoreUI.button(right,LocalizationService.text("research_trial"),_test_drive); BizTheme.apply_button(test_button,"primary","play")
+	select_button=CoreUI.button(right,LocalizationService.text("research_select"),_select_for_battle); BizTheme.apply_button(select_button,"secondary","ready")
+	var footnote := GarageTheme.text(vertical,LocalizationService.text("research_tree_footnote"),UiTokens.biz_type_size("caption",11),BizTheme.text_tertiary())
 	# WT-UI-003: attach the modal BEFORE hiding the frontend. A hidden control loses focus immediately, so hiding
 	# first left the modal with nothing recorded and Esc could not restore focus to the control that opened it.
 	ModalNavigation.attach(self,close)
@@ -139,7 +154,7 @@ func show_country(id: String) -> void:
 	scroll_memory[country]=tree_scroll.scroll_horizontal
 	country=id
 	for key in nation_buttons:
-		nation_buttons[key].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if key==id else Color("171f24"),GarageTheme.ACCENT if key==id else Color("303a3e")))
+		BizTheme.apply_tab(nation_buttons[key],key==id)
 	rebuild()
 	tree_scroll.scroll_horizontal=int(scroll_memory.get(id,0))
 
@@ -218,7 +233,7 @@ func select_vehicle(id: String) -> void:
 	var unlocked: bool = id in garage.profile.snapshot().unlocked
 	select_button.disabled=not admitted or not unlocked
 	select_button.tooltip_text=LocalizationService.text("research_select_blocked") if select_button.disabled else LocalizationService.text("research_select_open")
-	for key in tree_nodes: tree_nodes[key].add_theme_stylebox_override("normal",GarageTheme.box(Color("30382f") if key==id else Color("182126"),GarageTheme.ACCENT if key==id else Color("39484c"),12))
+	for key in tree_nodes: tree_nodes[key].add_theme_stylebox_override("normal",BizTheme.row_box(key==id,false))
 
 func _test_drive() -> void:
 	if test_button.disabled or selected_id.is_empty() or is_instance_valid(trial): return
