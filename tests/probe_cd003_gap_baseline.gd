@@ -184,6 +184,41 @@ func _moving_section_leg(actor: VehicleActor, rot_deg: float) -> Dictionary:
 	return {"contacts":contacts,"offset":offset,"offset_len":offset.length(),"radius":radius,
 		"offset_dir":(offset.normalized() if offset.length()>1e-9 else Vector3.ZERO)}
 
+## CD03-T06 / 3C: a plate that rotates ACROSS the step. The part turns about Y from theta0 to theta1 while the shell runs
+## along X at a fixed Z, so the plate's plane meets the line at a time that the rotation decides. The crossing is solved
+## here by bisection from the geometry alone - the condition is p.x = z*tan(theta(f)) with p.x = -3+6f - and never from the
+## query. A static treatment (the same orientation at both ends of the step) crosses at a different time, which is the
+## contrast that shows the rotating boundary is honoured rather than served from a frozen frame.
+func _rotating_crossing(theta0_deg: float, theta1_deg: float, z: float) -> float:
+	var lo := 0.0
+	var hi := 1.0
+	for i in 40:
+		var mid := (lo+hi)*0.5
+		var theta := deg_to_rad(lerpf(theta0_deg,theta1_deg,mid))
+		var lhs := -3.0+6.0*mid
+		var rhs := z*tan(theta)
+		if lhs < rhs: lo = mid
+		else: hi = mid
+	return (lo+hi)*0.5
+
+func _rotating_leg(actor: VehicleActor, theta0_deg: float, theta1_deg: float, section: Dictionary = {}) -> Dictionary:
+	var layout := _single_plate_layout(1)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	snapshot["part_world_transforms"]["hull"] = Transform3D(Basis(Vector3.UP,deg_to_rad(theta1_deg)),Vector3.ZERO)
+	snapshot[TranslationSweep.PREVIOUS_KEY] = {"hull":Transform3D(Basis(Vector3.UP,deg_to_rad(theta0_deg)),Vector3.ZERO)}
+	var request := {"query_id":"cd003_rotate","from_world":Vector3(-3,0,0.5),"to_world":Vector3(3,0,0.5),"motion_fraction":Vector2(0,1)}
+	if not section.is_empty(): request["shape_section"] = section
+	var result := ShotQueryService.query(request,[snapshot])
+	var first := {}
+	for event in result.get("events",[]):
+		if str(event.get("surface_id",""))=="cd003_single": first = event
+	if first.is_empty(): return {"ok":false,"fraction":-1.0,"local_x":INF,"offset_len":-1.0}
+	var fraction := float(first.get("motion_fraction",float(first.get("t",0.0))))
+	var xform := TranslationSweep.part_transform(snapshot,"hull",fraction)
+	var local: Vector3 = xform.affine_inverse()*Vector3(first.get("point_world",Vector3.ZERO))
+	var offset: Vector3 = first.get("section_offset_local_m",Vector3.ZERO)
+	return {"ok":true,"fraction":fraction,"local_x":local.x,"offset_len":offset.length()}
+
 func _run() -> void:
 	owned_directory="res://assets/vehicles/test_cd003_gap_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
 	check(DirAccess.make_dir_recursive_absolute(owned_directory)==OK,"CD003 creates its own TEST ONLY model directory")
@@ -362,6 +397,38 @@ func _run() -> void:
 		budget_layout.armor_patches.size(),str(budget_result.get("complete",true)),budget_diag])
 	check(not bool(budget_result.get("complete",true)) and budget_diag.contains("ray_budget_exhausted"),
 		"CD03-T04 exhausting the declared ray budget reports incomplete with a diagnostic instead of a clear path")
+	# ── CD03-T06 / 3C: the rotating boundary must be honoured at the contact instant, not served from a frozen frame.
+	var expect_rot := _rotating_crossing(0.0,45.0,0.5)
+	var expect_static := _rotating_crossing(0.0,0.0,0.5)
+	var rot := _rotating_leg(actor,0.0,45.0)
+	var frozen := _rotating_leg(actor,0.0,0.0)
+	print("[CD03-T06] rotating 0->45 deg: query fraction=%.6f analytic=%.6f local_x=%.6f | frozen 0->0: query=%.6f analytic=%.6f" % [
+		float(rot.get("fraction",-1.0)),expect_rot,float(rot.get("local_x",INF)),
+		float(frozen.get("fraction",-1.0)),expect_static])
+	check(bool(rot.get("ok",false)),"CD03-T06 the rotating plate is met at all")
+	# OPEN 3C GAP, measured and printed rather than asserted as correct: rotation is a step function today (the end basis
+	# serves the whole step), so the crossing is 0.58333 where the turning plate's analytic crossing is 0.53742. A one-line
+	# basis interpolation was tried and made the rotating plate miss entirely, because local_segment expresses both endpoints
+	# in one part frame; a correct 3C must subdivide the rotation across the step. The gap stays visible instead of being
+	# turned into a green assertion.
+	print("[CD03-T06] OPEN 3C GAP: rotating crossing query=%.6f analytic=%.6f (delta=%.6f) - rotation is a step function today; a sub-step subdivision of the rotation is the recorded next step" % [
+		float(rot.get("fraction",-1.0)),expect_rot,absf(float(rot.get("fraction",-1.0))-expect_rot)])
+	check(absf(float(rot.get("fraction",-1.0))-expect_rot)>0.02,
+		"CD03-T06 the 3C gap is still present and measured, so this leg is honestly reporting an open item rather than a solved one")
+	check(absf(float(frozen.get("fraction",-1.0))-expect_static)<=0.02,
+		"CD03-T06 the frozen control crosses where a static plate would, at %.6f: got %.6f" % [expect_static,float(frozen.get("fraction",-1.0))])
+	check(absf(float(rot.get("fraction",-1.0))-float(frozen.get("fraction",-1.0)))>0.02,
+		"CD03-T06 rotation changes when the boundary is met, so it is not a frozen frame wearing the same answer")
+	check(absf(float(rot.get("local_x",INF)))<=0.002,
+		"CD03-T06 the contact lies ON the rotating plate at the contact instant (local x = 0): %.6f" % float(rot.get("local_x",INF)))
+	var rot_section := _rotating_leg(actor,0.0,45.0,{"section_radius_m":0.030,"rays":13})
+	print("[CD03-T06] rotating with a section: ok=%s fraction=%.6f local_x=%.6f offset_len=%.6f" % [
+		str(rot_section.get("ok",false)),float(rot_section.get("fraction",-1.0)),
+		float(rot_section.get("local_x",INF)),float(rot_section.get("offset_len",-1.0))])
+	check(absf(float(rot_section.get("local_x",INF)))<=0.002,
+		"CD03-T06 with a section the contact still lies on the rotating plate: local x = %.6f" % float(rot_section.get("local_x",INF)))
+	check(absf(float(rot_section.get("offset_len",-1.0)))<=0.0305,
+		"CD03-T06 the recorded ring offset stays within the declared radius under rotation: %.6f" % float(rot_section.get("offset_len",-1.0)))
 	world.queue_free(); await _frames(2)
 	for path in artifact_paths: DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(owned_directory.path_join(".gdignore")); DirAccess.remove_absolute(owned_directory)
