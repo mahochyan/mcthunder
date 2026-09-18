@@ -143,6 +143,9 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 			for i in rays:
 				var ang := TAU*float(i)/float(rays)
 				section_offsets.append((e1*cos(ang)+e2*sin(ang))*section_radius)
+	# The sampling is declared in the result as well as in the profile, so a caller can see which section a query actually
+	# used instead of inferring it from the contacts (the sub-order asks for exactly this in the contact record).
+	var section_declared := not section_offsets.is_empty()
 	var seg := to_world - from_world
 	var seg_length := seg.length()
 	if not is_finite(seg_length) or seg_length <= QueryGeometry.EPS_M:
@@ -250,6 +253,11 @@ static func _query(request: Dictionary, snapshots: Array) -> Dictionary:
 		ordered_contacts.append(wrow)
 	ordered_contacts.sort_custom(event_less)
 
+	# State the sampling this query actually used, once, in the result. The sub-order asks for the sampling and its error
+	# bound to be visible in the record rather than inferred from the contacts.
+	if section_declared:
+		diagnostics.append("section_sampled rays=%d radius_m=%.6f" % [section_offsets.size(),section_radius])
+
 	return {
 		"ok": true,
 		"complete": complete,
@@ -322,6 +330,14 @@ static func _collect_patches(
 			var a := segment[0]; var b := segment[1]
 			local_segments[part_id]=segment
 			var bound: PackedVector3Array=part_bounds[part_id]
+			# CD003 3A: this PART-level cull must allow for the section too. It did not, so a declared section whose centre
+			# line ran just outside the part's bounding box marked the whole part as missed and the ring rays were never
+			# tried - which is exactly why a grazing shot passed with no contact while a control centre line at the position
+			# a ring ray should occupy did hit. The expansion is a conservative pre-filter for the real multi-ray narrow
+			# phase, not a scaled-up collision box standing in for a volumetric round.
+			if section_radius > 0.0:
+				bound = PackedVector3Array([bound[0]-Vector3(section_radius,section_radius,section_radius),
+					bound[1]+Vector3(section_radius,section_radius,section_radius)])
 			# Match the existing patch AABB gate. A tighter slab test could suppress
 			# its coplanar/degenerate diagnostics and incorrectly turn unknown into clear.
 			if segment[3].x<bound[0].x or segment[2].x>bound[1].x or segment[3].y<bound[0].y or segment[2].y>bound[1].y or segment[3].z<bound[0].z or segment[2].z>bound[1].z:
