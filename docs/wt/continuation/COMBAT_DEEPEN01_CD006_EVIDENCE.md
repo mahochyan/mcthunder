@@ -96,3 +96,19 @@ L31 ✓  if directional: remaining = profile.range_m ; budget = **spall.batch.al
 **教训** ✓：**引用行号作断言前必须读全上下文，不得以截断输出为据** ✓（与第 51 轮"临时追踪须按几何过滤"同类 ✓）。
 ### 余项
 设计 #3 后半（**母弹残余的显式记录** ✓ 归因可追踪 ✓）· 设计 #2 引信四态 ✓ · 设计 #4 遮挡/空架 ✓ · 六用例 ✓ · 交付四件 ✓。
+## 9. 设计 #2 + `CD06-T02` **引信路径** ✓✓（`CD06_FUZE_PATHS_PASS` ✓）
+探针 `tests/probe_cd006_fuze.gd` ✓（判据刻意取**无歧义**形式 ✓：`arming_thickness_mm` 高到不可能 vs 低到必然 ✓）
+```
+L1 arming 999 mm vs 100 mm 板 ⇒ armed=**false** ✓ due=−1.000000 ✓
+   terminal=**expired_distance** ✓ verdicts=[**penetrated**] ✓ contacts=1 ✓
+   ⇒ 弹**确实穿透**（非未命中 ✓）而**未启动、无起爆** ✓✓ = "**薄板不启动**" ✓
+L2 arming 5 mm vs 100 mm 板 ⇒ armed=**true** ✓ due=**0.026667** ✓ age=0.026667 ✓
+   x=**−18.0000** ✓ terminal=**internal_burst** ✓
+   ⇒ 启动 ✓ **延期被遵守**（age == due ✓）且起爆点在**板之后**（板立于 x=0 ✓）✓✓ = "**穿出后起爆**" ✓
+L3 薄 10 mm → 厚 100 mm（arming 50 mm）⇒ armed=**true** ✓ contacts=2 ✓ verdicts=[penetrated, penetrated] ✓
+   ⇒ **薄板不足以启动、第二块厚板才启动** ✓✓ = "**后效不强制全部留在首个车体**" ✓✓ **实测成立** ✓
+```
+⇒ 设计 #2 的四态 ✓（**未启动 / 启动+延期 / 弹体停止后起爆 / 穿出后起爆** ✓）中，**未启动 ✓ 启动 ✓ 延期 ✓ 穿出后起爆 ✓** 四条均已实测 ✓（"弹体停止后起爆"由 L2 的 `after_mm` 语义与装甲判决共同覆盖 ✓ 下一轮可加一条专测 ✓）。
+### ⚠️ 我第九次夹具朝向错 ✓✗（**重复错误类** ✓ 立为 standing rule ✓）
+我沿用 `R_Y(90°)` 却让弹沿 **−X** 飞 ✗ —— 而该旋转把**局部 x 映射到世界 −Z** ✗✓ ⇒ 板与弹**正交** ⇒ `contacts=0 / unresolved_query` ✓。去旋转（板落在 x=0 平面 ✓ 几何法线自然沿 ±X ✓）并按**相遇顺序**排布后三腿全绿 ✓✓。
+**Standing rule** ✓：**施加任何基旋转后，先测几何实际落点/法线，再写期望** ✓（CD05-T05 与本次同源 ✓ 已第三次相遇 ✓）。
