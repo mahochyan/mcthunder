@@ -19,25 +19,24 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 	var manager := ProjectileManager.new(); manager.presentation_enabled=false
 	world.add_child(manager); manager.set_physics_process(false)
 	manager.damage_handler = Callable(actor,"apply_projectile_damage")
-	var shell: ShellDefinition = null
-	for candidate in actor.gunner.shell_options:
-		if candidate.effect_policy == "internal_burst":
-			shell = candidate
-			break
-	if shell == null:
+	var base: ShellDefinition = actor.gunner.shell_options[0]
+	# A penetration-delay fuze is only valid on an internal_burst shell, and the delivered packets carry none, so this probe
+	# builds a fixture round: the base shell supplies a valid penetration curve and caliber, the effect policy becomes
+	# internal_burst with a resolve armour policy, and the impact and post-penetration profiles are left EMPTY because the
+	# delivered ones are empty too and ArmorImpactProfile only accepts an empty profile or one matching the effect family.
+	var shell: ShellDefinition = base
+	var delay_fuze: Dictionary = {"mode":"penetration_delay","arming_thickness_mm":5.0,"delay_s":T04_DELAY,
+		"provenance":"game_rule","reason":"CD004-T04 probe fixture: measure the burst offset after plates of different thickness"}
+	var fuze_errors := ShellFuze.validate(delay_fuze,"internal_burst")
+	print("[CD004 T04] fixture fuze validation errors=%s" % JSON.stringify(fuze_errors))
+	if not fuze_errors.is_empty():
 		manager.queue_free()
-		print("[CD004 T04] no internal_burst shell is available: a penetration-delay fuze is only valid on that policy")
-		return {"ok":false,"reason":"no_internal_burst_shell"}
-	# Use the shell's OWN fuze policy, which is already valid, and only shorten the delay. Writing a fuze by hand was
-	# refused with invalid_fuze_policy, correctly: the validator requires the internal_burst policy, penetration_delay mode,
-	# positive arming thickness and delay, game_rule provenance and a stated reason.
-	var delay_fuze: Dictionary = shell.fuze_policy.duplicate(true)
-	delay_fuze["delay_s"] = T04_DELAY
+		return {"ok":false,"reason":"fixture_fuze_invalid"}
 	var layout := _single_plate_layout(thickness)
 	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
-	var spec := {"round_id":round_id,"shooter_id":"cd004_t04","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id,
-		"effect_policy":shell.effect_policy,"impact_profile":shell.impact_profile.duplicate(true),
-		"post_penetration_profile":shell.post_penetration_profile.duplicate(true),"fuze_policy":delay_fuze.duplicate(true),
+	var spec := {"round_id":round_id,"shooter_id":"cd004_t04","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id+"_t04fixture",
+		"effect_policy":"internal_burst","armor_policy":"resolve",
+		"impact_profile":{},"post_penetration_profile":{},"fuze_policy":delay_fuze.duplicate(true),
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
 		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
 		"max_age_s":0.05,"max_distance_m":20.0}
@@ -65,6 +64,36 @@ func _t04_fire(actor: VehicleActor, world: Node3D, thickness: int, fuze: Diction
 	manager.queue_free()
 	return {"ok":true,"residual_speed":residual_speed,"plate_x":plate_x,"burst_x":burst_x,
 		"burst_distance":burst_x-plate_x,"terminal":terminal,"contacts":len(projectile.contacts)}
+
+## Control leg: the same fixture round and plate, but with the kinetic policy and no fuze.
+func _t04_fire_kinetic(actor: VehicleActor, world: Node3D, thickness: int, round_id: int) -> Dictionary:
+	var manager := ProjectileManager.new(); manager.presentation_enabled=false
+	world.add_child(manager); manager.set_physics_process(false)
+	manager.damage_handler = Callable(actor,"apply_projectile_damage")
+	var shell: ShellDefinition = actor.gunner.shell_options[0]
+	var layout := _single_plate_layout(thickness)
+	var snapshot := QuerySnapshotBuilder.build_from_vehicle(actor.tank,layout)
+	var spec := {"round_id":round_id,"shooter_id":"cd004_t04k","shooter_life_id":1,"shot_id":round_id,"shell_id":shell.id+"_t04k",
+		"effect_policy":"kinetic","armor_policy":"resolve",
+		"impact_profile":{},"post_penetration_profile":{},"fuze_policy":{},
+		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
+		"position_world":Vector3(-3,0,0),"velocity_world":Vector3(T04_SPEED,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.05,"max_distance_m":20.0}
+	var spawned := manager.try_spawn(spec)
+	if not spawned.get("ok",false):
+		manager.queue_free()
+		print("[CD004 T04 control] kinetic launch refused: reason=%s" % str(spawned.get("reason","")))
+		return {"ok":false}
+	var projectile: ProjectileState = manager.get_projectile_state(spawned.projectile_id)
+	for i in 40:
+		if projectile.is_terminal(): break
+		manager.advance_projectile(projectile,1.0/240.0,[snapshot],world.get_world_3d().direct_space_state)
+	var out := {"ok":true,"contacts":len(projectile.contacts),"terminal":str(projectile.terminal_reason),
+		"residual_speed":projectile.velocity_world.length()}
+	print("[CD004 T04 control] kinetic, same fixture: contacts=%d terminal=%s speed=%.3f" % [
+		int(out.contacts),str(out.terminal),float(out.residual_speed)])
+	manager.queue_free()
+	return out
 
 func _run() -> void:
 	owned_directory="res://assets/vehicles/test_cd004_t04_"+str(OS.get_process_id())+"_"+str(Time.get_ticks_usec())
@@ -94,6 +123,9 @@ func _run() -> void:
 
 	var thin := _t04_fire(actor,world,1,fuze,T04_SEED+1)
 	var thick := _t04_fire(actor,world,3,fuze,T04_SEED+3)
+	# Control: the SAME fixture round and plate with the kinetic policy, which does not go through the internal_burst frame
+	# rebuild. If this one contacts the plate while the fuze rounds do not, the frame rebuild is what loses the target.
+	var kinetic_probe := _t04_fire_kinetic(actor,world,1,T04_SEED+9)
 	print("[CD004 T04] thin(1 strip): residual=%.3f burst_from_plate=%.5f terminal=%s contacts=%d" % [
 		float(thin.get("residual_speed",-1.0)),float(thin.get("burst_distance",-1.0)),str(thin.get("terminal","")),int(thin.get("contacts",-1))])
 	print("[CD004 T04] thick(3 strips): residual=%.3f burst_from_plate=%.5f terminal=%s contacts=%d" % [
