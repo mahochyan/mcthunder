@@ -50,43 +50,102 @@ func _new_match(tag: String) -> TeamRange:
 	return scene
 
 func _run() -> void:
-	# ── S1 presentation off, identical input, identical outcome. Measured by running the same commitment twice, once with
-	# the feedback layer stopped, and comparing the event stream and the tickets.
+	# ── S1 presentation off, identical input, identical outcome. The feedback layer is reached the way a range really holds
+	# it - through the range OWN projectiles member - and stopped, then the committed events and the tickets are compared.
 	var s1a: TeamRange = await _new_match("S1a")
 	var s1b: TeamRange = await _new_match("S1b")
-	for fb in s1b.get_children():
-		if fb.get_class() == "Node" and fb.has_method("stop_all"): fb.stop_all()
 	var stopped := false
-	for fb in s1b.get_children():
-		if fb.has_method("stop_all"): stopped = true
+	var s1b_manager: ProjectileManager = s1b.projectiles
+	if s1b_manager != null and s1b_manager.feedback != null:
+		s1b_manager.feedback.stop_all(); stopped = true
+	await _frames(3)
 	var events_a := s1a.director.state.events.size()
 	var events_b := s1b.director.state.events.size()
 	var tickets_a := str(s1a.director.state.tickets)
 	var tickets_b := str(s1b.director.state.tickets)
-	print("[CD15] S1 feedback layer present=%s ; events %d vs %d ; tickets %s vs %s ; rules identical=%s" % [
-		str(stopped),events_a,events_b,tickets_a,tickets_b,str(s1a.director.state.events.size() == s1b.director.state.events.size())])
+	print("[CD15] S1 feedback layer REACHED AND STOPPED=%s ; events %d vs %d ; tickets %s vs %s" % [
+		str(stopped),events_a,events_b,tickets_a,tickets_b])
 	check(events_a == events_b and events_a > 0,"CD15 S1 both matches commit the same number of events")
-	met("CD15-T01", events_a == events_b and events_a > 0 and tickets_a == tickets_b,
+	met("CD15-T01", stopped and events_a == events_b and events_a > 0 and tickets_a == tickets_b,
 		"switching the sound, the particles and the HUD off must leave ammunition, hits, damage and the outcome unchanged",
-		"the presentation path changed the committed events or the tickets, so presentation is deciding the outcome")
+		"the feedback layer could not be reached and stopped, or stopping it changed the committed events or the tickets")
 
-	# ── S2 each shell family from a real event, and an unexploded round never gets a lethal burst.
-	var has_feedback_entry := _exists("res://scripts/feedback/combat_feedback.gd")
-	var has_replay_records := _exists("res://scripts/replay/shot_record_builder.gd")
-	var has_shell_families := _exists("res://scripts/projectiles/shell_effect_policy.gd") or _exists("res://scripts/projectiles/terminal_effect_policy.gd") or _exists("res://scripts/projectiles/post_penetration_policy.gd")
-	print("[CD15] S2 feedback entry=%s ; replay records=%s ; shell families=%s" % [
-		str(has_feedback_entry),str(has_replay_records),str(has_shell_families)])
-	met("CD15-T02", has_feedback_entry and has_replay_records and has_shell_families,
+	# ── S2 each shell family driven through the REAL spawn gate, plus both negative cases.
+	var manager2: ProjectileManager = s1b.projectiles
+	var actor2: VehicleActor = s1b.combat_actors()[0]
+	var shell2: ShellDefinition = actor2.gunner.shell if actor2 != null and actor2.gunner != null else null
+	var accepted_families: Array = []
+	var family_refusals: Array = []
+	if manager2 != null and shell2 != null:
+		var want := {"kinetic":"AP","he_blast":"AP","internal_burst":"APHE","long_rod":"APFSDS"}
+		var index := 0
+		for effect in want.keys():
+			index += 1
+			var fam := str(want[effect])
+			var profile: Dictionary = {}
+			if fam == "APFSDS":
+				profile = {"version":"wt012-long-rod-v1","family":"APFSDS","provenance":"game_rule",
+					"reason":"CD15 scene family probe (project declaration)","ricochet_deg":70.0,
+					"angle_resistance_curve":[[0.0,1.0],[30.0,1.4],[60.0,2.2],[90.0,3.0]],
+					"material_coefficients":{"rolled":1.0,"cast":0.95}}
+			else:
+				profile = {"version":"wt012-full-caliber-v1","family":fam,"provenance":"game_rule",
+					"reason":"CD15 scene family probe (project declaration)","normalization_deg":5.0,
+					"overmatch_ratio":2.0,"ricochet_deg":60.0,"material_coefficients":{"rolled":1.0,"cast":0.95}}
+			var spawned := manager2.try_spawn({"round_id":1900+index,"shooter_id":"cd015s","shooter_life_id":1,"shot_id":1900+index,
+				"shell_id":str(shell2.id),"effect_policy":str(effect),"armor_policy":"resolve","impact_profile":profile,
+				"post_penetration_profile":{},"fuze_policy":{},"caliber_mm":shell2.caliber_mm,
+				"penetration_curve":shell2.penetration_curve,"seed":9500+index,
+				"position_world":Vector3(20,1.2,0),"velocity_world":Vector3(-700,0,0),"gravity_world":Vector3.ZERO,
+				"max_age_s":0.2,"max_distance_m":40.0})
+			if bool(spawned.get("ok",false)): accepted_families.append(str(effect))
+			else: family_refusals.append("%s:%s" % [str(effect),str(spawned.get("reason",""))])
+	# An undeclared effect must be refused by name.
+	var undeclared := manager2.try_spawn({"round_id":1999,"shooter_id":"cd015s","shooter_life_id":1,"shot_id":1999,
+		"shell_id":str(shell2.id),"effect_policy":"unexploded_placeholder","armor_policy":"resolve",
+		"impact_profile":{"family":"AP"},"post_penetration_profile":{},"fuze_policy":{},
+		"caliber_mm":shell2.caliber_mm,"penetration_curve":shell2.penetration_curve,"seed":9599,
+		"position_world":Vector3(20,1.2,0),"velocity_world":Vector3(-700,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.2,"max_distance_m":40.0})
+	# A round that reaches nothing must not produce a lethal burst.
+	var lone := manager2.try_spawn({"round_id":1998,"shooter_id":"cd015s","shooter_life_id":1,"shot_id":1998,
+		"shell_id":str(shell2.id),"effect_policy":"internal_burst","armor_policy":"resolve",
+		"impact_profile":{"version":"wt012-full-caliber-v1","family":"APHE","provenance":"game_rule",
+			"reason":"CD15 scene lone-round probe (project declaration)","normalization_deg":5.0,
+			"overmatch_ratio":2.0,"ricochet_deg":60.0,"material_coefficients":{"rolled":1.0,"cast":0.95}},
+		"post_penetration_profile":{},"fuze_policy":{},"caliber_mm":shell2.caliber_mm,
+		"penetration_curve":shell2.penetration_curve,"seed":9598,
+		"position_world":Vector3(20,40,0),"velocity_world":Vector3(-700,0,0),"gravity_world":Vector3.ZERO,
+		"max_age_s":0.2,"max_distance_m":40.0})
+	var lone_state: ProjectileState = manager2.get_projectile_state(lone.projectile_id) if bool(lone.get("ok",false)) else null
+	if lone_state != null:
+		for i in 200:
+			if lone_state.is_terminal(): break
+			manager2.advance_projectile(lone_state,1.0/240.0,[],s1b.get_world_3d().direct_space_state)
+	var lone_burst: Dictionary = (lone_state.burst if lone_state != null and lone_state.burst is Dictionary else {})
+	print("[CD15] S2 accepted=%s ; refusals=%s ; undeclared=%s ; lone burst=%s" % [
+		str(accepted_families),str(family_refusals),str(undeclared.get("reason","")) ,
+		("none" if lone_burst.is_empty() else str(lone_burst.keys()))])
+	met("CD15-T02", accepted_families.size() == 4 and not bool(undeclared.get("ok",true)) and lone_burst.is_empty(),
 		"each shell family must produce its own effect from a real event, and an unexploded round must never be given a lethal burst",
-		"the feedback, replay record or shell family machinery needed to distinguish the families is not all present")
+		"the families were not all accepted through the real gate, an undeclared effect was not refused, or a round that hit nothing still burst")
 
-	# ── S3 a replay record from an old and from a new rule version.
-	var has_codec := _exists("res://scripts/replay/shot_record_codec.gd")
-	var has_validators := _exists("res://scripts/replay/chemical_record_validator.gd") and _exists("res://scripts/replay/spall_record_validator.gd")
-	print("[CD15] S3 record codec=%s ; record validators=%s" % [str(has_codec),str(has_validators)])
-	met("CD15-T03", has_codec and has_validators,
+	# ── S3 a record from an old and from a new rule version, DRIVEN through the interpreter rather than looked for on disk.
+	var old_read := RuleVersionInterpreter.interpret({"rule_version":MatchRulePreset.VERSION,"outcome":"victory"})
+	var unknown_read := RuleVersionInterpreter.interpret({"rule_version":999,"outcome":"victory"})
+	var codec_version := ""
+	var codec_path := "res://scripts/replay/shot_record_codec.gd"
+	if FileAccess.file_exists(codec_path):
+		var src := FileAccess.get_file_as_string(codec_path)
+		for token in ["VERSION",":="]:
+			if src.contains(token): codec_version = "present"
+	print("[CD15] S3 codec=%s ; old ok=%s rules=%s ; unknown ok=%s reason=%s action=%s" % [
+		codec_version,str(old_read.get("ok",false)),str(old_read.get("rules","")),str(unknown_read.get("ok",true)),
+		str(unknown_read.get("reason","")),str(unknown_read.get("action",""))])
+	met("CD15-T03", bool(old_read.get("ok",false)) and str(old_read.get("rules","")) != ""
+		and not bool(unknown_read.get("ok",true)) and str(unknown_read.get("action","")) == "refuse_or_migrate",
 		"a replay record from an old and from a new rule version must be explained or explicitly unsupported, and never re-settled",
-		"the replay record side cannot yet say whether a stored record is explicable under its own version")
+		"a stored record could not be explained by its own version, or an unknown version was not refused")
 
 	# ── S4 one server and two clients. The authority side is measured by its own version rejection and its freeze.
 	var server_present := _exists("res://scripts/network/network_battle_server.gd")

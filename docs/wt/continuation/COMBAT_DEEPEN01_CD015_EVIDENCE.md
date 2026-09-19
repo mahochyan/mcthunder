@@ -221,3 +221,22 @@ SO WHAT WAS A WEAK PASS IS NOW A BEHAVIOURAL PROOF
 
 NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
 ```
+## 9. The SCENE conditions are behaviour now: both weaknesses are gone at BOTH levels
+
+```
+CD15_SCENES_PASS with not_yet_met = 0, and the first three cases are no longer presence checks at all.
+   T01 the feedback layer is REACHED AND STOPPED through the range OWN projectiles member, and the same match still commits
+       nine events with identical tickets 300/300. The scene prints REACHED AND STOPPED=true, so the presentation half is
+       exercised rather than assumed.
+   T02 all FOUR declared families - kinetic, he_blast, internal_burst and long_rod - are ACCEPTED through the real spawn gate
+       with zero refusals, an undeclared effect is REFUSED BY NAME as invalid_effect_policy, and a round that reaches nothing
+       produces NO burst at all.
+   T03 the record interpreter is DRIVEN: version one is explained as team_standard_300, and version 999 is refused with
+       unknown_rule_version:999 and the action refuse_or_migrate, alongside the codec being present.
+   T04, T05 and T06 already rested on the authority surface, the baseline and version refusal, and the information classes
+       read from the policy itself.
+So the two weaknesses the first pass admitted are now removed at BOTH levels: the dedicated behaviour probe passes in full,
+and the acceptance scene itself drives behaviour instead of looking for a file.
+
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```
