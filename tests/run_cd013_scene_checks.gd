@@ -85,7 +85,20 @@ func _run() -> void:
 	s2.director.observe_contact(record)
 	print("[CD13] S2 report=%s ; per shot dedup sets hits=%d penetrating=%d ; ledger class=%s" % [
 		str(report.keys()),s2.director._hit_shots.size(),s2.director._penetrating_shots.size(),str(_ledger_exists())])
-	met("CD13-T02", report.has("kills") and s2.director._penetrating_shots.size() <= 1 and _ledger_exists(),
+	# BEHAVIOUR, not existence: drive the ledger the same way the probe does and require the frozen rule to decide.
+	var lb := ContributionLedger.new()
+	lb.begin(s2.director.state.match_id)
+	lb.record_damage({"root_effect":"re_a"},"t02:shot:1","shooter_A","B",2.0,0.0)
+	lb.record_damage({"root_effect":"re_b"},"t02:shot:2","shooter_C","B",5.0,0.5)
+	var t02_receipt := lb.attribute("B",1.0)
+	var t02_refusal := lb.credit_kill("B",1.0,"friendly_fire")
+	print("[CD13] S2 ledger behaviour: primary=%s assists=%s version=%s ; friendly fire ok=%s reason=%s" % [
+		str(t02_receipt.get("primary","")),str(t02_receipt.get("assists",[])),str(t02_receipt.get("attribution_version","")),
+		str(t02_refusal.get("ok",true)),str(t02_refusal.get("reason",""))])
+	met("CD13-T02", report.has("kills") and s2.director._penetrating_shots.size() <= 1
+		and str(t02_receipt.get("primary","")) == "shooter_C" and "shooter_A" in Array(t02_receipt.get("assists",[]))
+		and str(t02_receipt.get("attribution_version","")) == ContributionLedger.ATTRIBUTION_VERSION
+		and not bool(t02_refusal.get("ok",true)),
 		"attribution and the assist window must follow a fixed version, and a repeated event must add no score",
 		"a repeated contact added score again, or there is no versioned attribution ledger")
 	s2.queue_free(); await _frames(2)
@@ -124,7 +137,7 @@ func _run() -> void:
 	var stale2 := v4.state.destroy_once("cd013_stale",{"round_id":s4.director.state.match_id})
 	print("[CD13] S4 target life=%d ; first=%s repeat=%s ; ledger class=%s" % [
 		life4,str(stale1),str(stale2),str(_ledger_exists())])
-	met("CD13-T04", (not stale2) and _ledger_exists(),
+	met("CD13-T04", (not stale2) and ContributionLedger.VERSION != "" and lb.count_for("shooter_C","kill") == 0,
 		"a lawfully fired round keeps its attribution when the shooter dies, and an old target event must not injure a new life",
 		"an event aimed at an old life was accepted again, or the attribution of a round in flight is not readable")
 	s4.queue_free(); await _frames(2)
