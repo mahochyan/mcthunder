@@ -26,7 +26,15 @@ class EnemyOperator extends Node:
 		var seats: Array=layout.crew_stations.duplicate()
 		seats.sort_custom(func(a: CrewStationDefinition,b: CrewStationDefinition) -> bool: return a.part_id=="turret" and b.part_id!="turret")
 		for station in seats:
-			if not target.state.crew_states.get(station.id,{}).get("alive",false): continue
+			# WT-EXPANSION-02 (CD16-T04 regression): this read crew_states by STATION id. CD08-T02 then separated the
+			# person identity from the station and the role (crew_states is keyed by PERSON id, with station_roles and
+			# crew_assignments as the bridge), so every station lookup returned empty, the loop continued past every
+			# seat, fire_requested was never set and the scripted enemy never fired once - measured as shots=0 with
+			# query_events=[] while the same case passed on 2026-09-17. Resolved through the SAME production mapping
+			# DamageResolver uses (station -> role -> person, damage_resolver.gd:74-80).
+			var station_role := str(target.state.station_roles.get(station.id,""))
+			var person := str(target.state.crew_assignments.get(station_role,""))
+			if person.is_empty() or not target.state.crew_states.get(person,{}).get("alive",false): continue
 			cmd.has_aim_point=true
 			cmd.aim_world_point=DamageTrainingLayout.part_node(target,station.part_id).global_transform*station.local_box_transform.origin
 			var aim: Vector3=(cmd.aim_world_point-gunner.turret.muzzle.global_position).normalized()
@@ -59,6 +67,11 @@ func run(flow: AppFlow) -> void:
 	var id := "ussr_t_80b"
 	var wanted := service.default_loadout(id)
 	for shell in wanted.counts: wanted.counts[shell]=4
+	# WT-EXPANSION-02 (CD16-T04 expectation migration): the new-life assertion below carried a literal 8, which is four
+	# rounds for each of TWO shells. CD07 then delivered the third round, so this fixture edits twelve and the literal
+	# went stale exactly like the modern-match verifier's 18. Derived from the fixture's own edit, so it cannot go stale.
+	var wanted_total := 0
+	for shell in wanted.counts: wanted_total += int(wanted.counts[shell])
 	var configured := MatchConfig.build({"mode":"engineering","selected_vehicle_id":id,"map":"river_junction_team","difficulty":"normal","lineup":[id],"loadouts":{id:wanted}},service,[])
 	check(configured.ok,"fixture validates actual modern loadout")
 	if not configured.ok: get_tree().quit(1); return
@@ -110,7 +123,7 @@ func run(flow: AppFlow) -> void:
 		if DisplayServer.get_name()!="headless": await driver.capture("waiting")
 		await driver.click(scene.respawn_button); await frames(20)
 		check(driver.failed==0 and scene.actor.life_id!=initial_life and not scene.actor.state.destroyed,"actual mouse click creates a living new player life")
-		check(scene.actor.definition.id==id and scene.actor.gunner.rounds_remaining==8 and scene.actor.gunner.shell.id==wanted.first_shell,"new life preserves chosen model and eight-round edited loadout")
+		check(scene.actor.definition.id==id and scene.actor.gunner.rounds_remaining==wanted_total and scene.actor.gunner.shell.id==wanted.first_shell,"new life preserves chosen model and the edited loadout")
 		evidence["new_life"]=scene.actor.life_id; evidence["events"]=scene.director.state.events.duplicate(true)
 		if DisplayServer.get_name()!="headless": await driver.capture("respawned")
 	var file := FileAccess.open(output+"/evidence.json",FileAccess.WRITE)

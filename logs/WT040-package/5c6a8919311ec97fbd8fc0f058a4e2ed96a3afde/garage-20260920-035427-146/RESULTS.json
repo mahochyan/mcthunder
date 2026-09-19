@@ -1,0 +1,21 @@
+﻿{
+    "case":  "garage",
+    "source_sha":  "5c6a8919311ec97fbd8fc0f058a4e2ed96a3afde",
+    "scope":  "packaged production diagnostic; separate component proof, not a complete natural player match",
+    "command":  "\"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\5c6a8919311ec97fbd8fc0f058a4e2ed96a3afde\\20260920-021753-030\\package\\PixelArmor.exe\" --resolution 1280x720 --fixed-fps 60 -- --verify-modern-garage --shot-dir \"E:\\AIprogram\\mcthunder-cont\\logs\\WT040-package\\5c6a8919311ec97fbd8fc0f058a4e2ed96a3afde\\garage-20260920-035427-146/shots\"",
+    "working_directory":  "E:\\AIprogram\\mcthunder-cont\\logs\\WT040-package\\5c6a8919311ec97fbd8fc0f058a4e2ed96a3afde\\garage-20260920-035427-146/workdir",
+    "exit_code":  0,
+    "timed_out":  false,
+    "passed":  true,
+    "checks":  37,
+    "exe_sha256":  "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+    "pck_sha256":  "F5FD5675FF314BCDC8C120768FD24EE7E89194440E133EC4F9035E4BF77436BB",
+    "manifest_sha256":  "9E029868A7DBDAE31DF4F70E260F71A635887FB0025D81A4ED397B91D25F74F5",
+    "package_unchanged":  true,
+    "missing_screenshots":  [
+
+                            ],
+    "human":  "PENDING",
+    "userdata":  "E:\\AIprogram\\mcthunder-cont\\logs\\WT040-runtime\\20260920-035427-146",
+    "runner_sha256":  "A04E4C72351FD4CEF50D0D04E4E3C4C52954DEFABD1C78029BC8E591C4DE7726"
+}

@@ -5,16 +5,17 @@
 param(
     [string]$Tree = 'E:\AIprogram\mcthunder-cont',
     [string]$Engine = 'E:\AIprogram\mcthunder\tools\godot\Godot_v4.7.2-stable_win64_console.exe',
-    [int]$Limit = 900
+    [int]$Limit = 900,
+    [string]$Mode = '--verify-modern-match'
 )
 $ErrorActionPreference='Stop'
 $stamp=Get-Date -Format yyyyMMdd-HHmmss-fff
-$run=Join-Path $Tree "logs/COMBAT-DEEPEN-01/modern-srcflow/$stamp"
+$run=Join-Path $Tree "logs/COMBAT-DEEPEN-01/modern-srcflow/$($Mode.TrimStart('-'))-$stamp"
 $userData=Join-Path $Tree "logs/COMBAT-DEEPEN-01/modern-srcflow-runtime/$stamp"
 New-Item -ItemType Directory -Force -Path "$run/workdir",$userData | Out-Null
 $psi=[Diagnostics.ProcessStartInfo]::new()
 $psi.FileName=$Engine
-$psi.Arguments='--path "'+$Tree+'" --resolution 1280x720 -- --verify-modern-match'
+$psi.Arguments='--path "'+$Tree+'" --resolution 1280x720 --fixed-fps 60 -- '+$Mode
 $psi.WorkingDirectory="$run/workdir"
 $psi.EnvironmentVariables['APPDATA']=$userData
 $psi.UseShellExecute=$false; $psi.CreateNoWindow=$true

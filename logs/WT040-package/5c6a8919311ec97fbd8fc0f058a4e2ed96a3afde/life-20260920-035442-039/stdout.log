@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+LIVE_ROUND_EVIDENCE=user://tests/modern_live_round/run_1789847685
+MODERN_LIFE_RUNTIME release=true fixture=flat encounter / scripted enemy operator
+[PASS] fixture validates actual modern loadout
+[PASS] encounter uses the real team director and modern actors
+LIVE_ROUND elapsed=0.23333333333333 shots=0 crew=3 victim=(-350.0, 0.000156, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=10.2333333333334 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=20.2333333333335 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=30.2333333333329 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=40.2333333333323 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=50.2333333333318 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=60.2333333333312 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=70.2333333333306 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+LIVE_ROUND elapsed=80.2333333333301 shots=0 crew=3 victim=(-350.0, 0.000101, 720.0) aim=(0.0, 0.0, 0.0) query_ok=true query_events=[]
+[FAIL] enemy actual round records contact and damage on the same player life
+[FAIL] that player life dies exactly once from enemy live rounds
+[FAIL] one death deducts the production ticket cost
+[PASS] same-life event evidence can be written
+=== 结果: 6 项检查, 3 失败 ===
+PLAYER_LIVE_ROUND_FAIL
