@@ -24,7 +24,12 @@ $engineVersion = (& $engine --version).Trim()
 $summary = [System.Collections.Generic.List[object]]::new()
 $steps = @(@{Name='import'; Args='--headless --path "' + $projectRoot + '" --editor --import'})
 foreach ($suite in $Suites) {
-    $simulationClock = if ($suite -in @('run_app_flow_checks','run_tutorial_checks','run_settings_checks','run_input_binding_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks','run_challenge_checks','run_art_checks','run_structure_checks','run_wreck_visual_checks','run_feedback_checks')) { ' --fixed-fps 60' } else { '' }
+    # WT-EXPANSION-02 (user ruling): run_checks was the one long-standing suite in this list WITHOUT --fixed-fps, and
+    # it is frame-based: measured, it is deterministic at --fixed-fps 60 (217 checks, 0 failed, twice) while in the
+    # real-time regime the SAME build produced 217/0 once and 217/4 once (R2-B held-fire precondition plus the T003-06
+    # trial-hit lag its own _wait_trial_hits comment documents). The suite's watchdog is also a game-time timer, so a
+    # fixed step is the only regime in which its frame-based waits and its timer agree. No check or expectation changed.
+    $simulationClock = if ($suite -in @('run_checks','run_app_flow_checks','run_tutorial_checks','run_settings_checks','run_input_binding_checks','run_ai_drive_checks','run_ai_combat_checks','run_duel_checks','run_team_checks','run_hud_checks','run_map_checks','run_village_battle_checks','run_telemetry_checks','run_historical_checks','run_historical_road_checks','run_blender_asset_checks','run_shell_checks','run_garage_checks','run_industrial_checks','run_industrial_obstruction_checks','run_industrial_battle_checks','run_challenge_checks','run_art_checks','run_structure_checks','run_wreck_visual_checks','run_feedback_checks')) { ' --fixed-fps 60' } else { '' }
     if ($suite -in @('run_modern_support_checks','run_modern_armor_frame_checks','run_modern_garage_checks','run_engineering_runtime_checks','run_engineering_damage_checks','run_river_entry_traffic_checks')) { $simulationClock = ' --fixed-fps 60' }
     $steps += @{Name=$suite; Args='--headless --path "' + $projectRoot + '"' + $simulationClock + ' -s "res://tests/' + $suite + '.gd"'}
 }

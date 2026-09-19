@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] production catalog loads every packet for the damage suite
+[PASS] ussr_t_80b: the real actor installs for the damage suite
+[PASS] ussr_t_80b: a healthy vehicle reports the fire capability
+[PASS] ussr_t_80b: the admitted layout carries a breech module to damage
+      [damage] ussr_t_80b breech before={ "kind": "breech", "integrity": 100.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] } available_mm=470.0
+[PASS] ussr_t_80b: DamageResolver resolves a real module hit (reason module_destroyed)
+[PASS] ussr_t_80b: the resolver reports a real damage outcome
+[PASS] ussr_t_80b: the state applies the delta through its own applier
+[PASS] ussr_t_80b: re-applying the same event is rejected, so one hit cannot be counted twice
+      [damage] ussr_t_80b breech after={ "kind": "breech", "integrity": 0.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] }
+[PASS] ussr_t_80b: a destroyed breech removes the fire capability
+[PASS] ussr_t_80b: the capability derivation names the breech as the cause
+      [damage] ussr_t_80b crew resolver returned { "ok": true, "kind": "crew", "item_id": "person_1", "consumed_mm": 0.0, "before": {  }, "after": {  }, "person_id": "", "reason": "empty_station" }
+      [damage] ussr_t_80b real repair after 12.0 s simulated: breech={ "kind": "breech", "integrity": 50.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] } action= reason=module_repaired
+[PASS] ussr_t_80b: the real repair path restores the breech to its documented repair target (50.0 of 100.0)
+[PASS] ussr_t_80b: fire returns once the breech is repaired
+[PASS] ussr_t_80b: the next-life rebuild restores every module, the fire capability and the full crew
+[PASS] germ_leopard_2a4: the real actor installs for the damage suite
+[PASS] germ_leopard_2a4: a healthy vehicle reports the fire capability
+[PASS] germ_leopard_2a4: the admitted layout carries a breech module to damage
+      [damage] germ_leopard_2a4 breech before={ "kind": "breech", "integrity": 100.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] } available_mm=470.0
+[PASS] germ_leopard_2a4: DamageResolver resolves a real module hit (reason module_destroyed)
+[PASS] germ_leopard_2a4: the resolver reports a real damage outcome
+[PASS] germ_leopard_2a4: the state applies the delta through its own applier
+[PASS] germ_leopard_2a4: re-applying the same event is rejected, so one hit cannot be counted twice
+      [damage] germ_leopard_2a4 breech after={ "kind": "breech", "integrity": 0.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] }
+[PASS] germ_leopard_2a4: a destroyed breech removes the fire capability
+[PASS] germ_leopard_2a4: the capability derivation names the breech as the cause
+      [damage] germ_leopard_2a4 crew resolver returned { "ok": true, "kind": "crew", "item_id": "person_1", "consumed_mm": 0.0, "before": {  }, "after": {  }, "person_id": "", "reason": "empty_station" }
+      [damage] germ_leopard_2a4 real repair after 12.0 s simulated: breech={ "kind": "breech", "integrity": 50.0, "max_integrity": 100.0, "resistance_mm": 10.0, "external": false, "fire_module_targets": [], "fire_crew_targets": [] } action= reason=module_repaired
+[PASS] germ_leopard_2a4: the real repair path restores the breech to its documented repair target (50.0 of 100.0)
+[PASS] germ_leopard_2a4: fire returns once the breech is repaired
+[PASS] germ_leopard_2a4: the next-life rebuild restores every module, the fire capability and the full crew
+=== result: 25 checks, 0 failed ===
+ENGINEERING_DAMAGE_CHECKS_PASS

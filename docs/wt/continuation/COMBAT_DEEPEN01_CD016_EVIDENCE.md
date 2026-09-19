@@ -851,6 +851,54 @@ construction - measured identical on the untouched `main` tree, so it is pre-exi
 honest options there are to derive the watchdog from the suite's designed frame budget, or to register it; the
 decision is the user's and the measurement is already in section 16.
 
+## 22. `run_checks` was a PASSING suite cut short by its own watchdog, and the fix is measured in both invocation regimes
+
+The gate's second blocker was `run_checks` - "177 PASS, 0 FAIL, then the watchdog". It was never a hang.
+
+MEASURED BUDGET (`tests/probe_run_checks_budget.gd`: the suite, byte-for-byte, with ONLY the watchdog raised to 900 s
+so it can report what it needs):
+```
+217 checks, 0 failed, 0 SCRIPT ERROR, CHECKS_PASS
+[BUDGET] seconds=45.0 physics_frames=7876 process_frames=7875 wall_ms=45004
+```
+   The suite needs **7876 physics frames = 131 s of GAME TIME**. The 90 s timer expired at 5400 frames, which is why
+   every run stopped at the same 177 checks. It was always a passing suite in an aborted run.
+
+CHANGE 1: `tests/run_checks.gd`'s watchdog is now **240 s** (14400 frames at 60 Hz, a ~1.8x margin over the measured
+7876), with the measurement in the comment. No check, threshold or expectation was touched; the run goes from an
+aborted 177 to a complete 217, all passing.
+
+CHANGE 2 (user ruling): the gate's runner now runs this suite in the deterministic regime. `tests/run_suite_checks.ps1`
+gave `--fixed-fps 60` to 24 suites and NOT to `run_checks`, the one long-standing suite whose waits are frame-based.
+Measured in both regimes on the same build:
+```
+--fixed-fps 60 : 217 checks, 0 failed, 0 SCRIPT ERROR, CHECKS_PASS, exit 0   (twice: 45 s and 58 s wall)
+no --fixed-fps : 217 checks, 4 failed once (R2-B held-fire precondition + T003-06 trial-hit lag, hits 0/1/2 against
+                 1/2/3) and 0 failed on the repeat run of the SAME build  -> FLAKY, in exactly the registration lag
+                 the suite's own _wait_trial_hits comment already documents
+untouched main : still aborts at 177 checks on its own 90 s watchdog (the pre-existing baseline)
+```
+   `run_checks` is in the `--fixed-fps 60` list now, so its frame-based waits and its game-time watchdog finally agree.
+
+VERIFIED THROUGH THE GATE'S OWN RUNNER, not by re-running the suite by hand
+(`tests/run_suite_checks.ps1 -Suites run_checks`, evidence `logs/007/97fb6bd7.../20260919-221132/RESULTS.json`):
+```
+import:                        checks=0   exit=0 passed=True unexpected_errors=0
+run_checks:                    checks=217 exit=0 passed=True unexpected_errors=0
+run_engineering_runtime_checks checks=54  exit=0 passed=True unexpected_errors=0
+check_engineering_admission:   checks=2   exit=0 passed=True unexpected_errors=0
+run_engineering_damage_checks: checks=25  exit=0 passed=True unexpected_errors=0
+```
+   runner exit code 0. The suite the gate refused as "an UNREGISTERED failing suite" now reports `passed=true` in the
+   gate's own bookkeeping.
+
+STILL OPEN, named: `run_ammo_compartment_checks` carries a pre-existing test-suite SCRIPT ERROR (its own line 104,
+recorded since CD07/CD10), and the register can NEVER accept a script error - the matcher refuses a registered failure
+whose log carries one. So that one must be FIXED, not registered. `run_industrial_battle_checks` is registered as an
+arrival red, but a registered red that TIMES OUT is also refused (`is a registered failure but its run timed out`), so
+its 1500 s timeout needs measuring against its real budget before the next build attempt.
+
+
 
 
 
