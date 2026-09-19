@@ -768,6 +768,49 @@ physical-obstacle loop). Cause 1 is NOT a defect: a killed vehicle respawning at
 criterion's demand that all seven arrive within 120 s of a live fight is a criterion-design question for the user,
 not something to be relaxed here.
 
+## 20. The village red is fully explained and it is NOT an AI defect: a WRECK closes the direct road, and the wreck lifetime equals the criterion window
+
+Three more measurements (`route-diagnostic3.log`, `-4.log`; the probe now prints the driver's waypoint index, path
+length and the route length with and without the block memory) settle it.
+
+FIRST, THE LOOP HYPOTHESIS IS DEAD. B3 is NOT stuck and NOT looping: its waypoint index ADVANCES steadily through a
+long route - `wp 0/19 -> 2/18 -> 7/18 -> 11/18` - with `attempts=0`, the driver's goal is the objective itself, the
+last waypoint is (3,-9) = the objective, and the planner succeeds at every sample. It simply does not finish the
+route before the 120 s criterion expires.
+
+SECOND, THE DETOUR IS FORCED BY A REMEMBERED BLOCK, AND THE LENGTHS QUANTIFY IT:
+
+```
+                    clean_len (no block memory)   remembered_len (with it)
+B3  t=60.1s                    7                          19
+B3  t=80.1s                   10                          16
+B3  t=100.1s                  12                          12
+```
+   At t=60 s the DIRECT route is SEVEN waypoints and the remembered block makes it NINETEEN - the block alone
+   triples the route. By t=100 s the two agree, i.e. by then the detour is what the road network requires from where
+   B3 has got to. The block's own event records it: `edge_blocked edge=road_89_1:road_89_2 mode=recover limit=2.5
+   blocker=B4`.
+
+THIRD, AND THIS IS THE ANSWER: `mode=recover` is chosen when the blocking vehicle's `controller == null`
+(ai_path_driver.gd:291), which the driver reads as "parked hull, a dead end". B4's controller was null because
+B4 WAS DESTROYED - `team_range.gd:436-449` clears the controller of a lost vehicle, stops its physics, and
+**`wrecks.register(vehicle)` keeps the hull in the world** ("A previous player hull becomes ordinary visible cover in
+the next life's gunsight"). So the permanent block is CORRECT: a wreck really does close that road, and B3's long
+detour around it is the correct route.
+   And the wreck cannot clear inside the measured window: `RecoveryRules.WRECK_LIFETIME_SECONDS = 120.0` while the
+   arrival criterion's own window is 120 s from the start of the match. A wreck created at t=34 s is still there at
+   the end of the window by construction.
+
+SO THE RED IS A MATCH-OUTCOME FAILURE produced by the damage system working as designed: a wreck in a choke point
+closes the short route, one actor (B3) correctly takes a detour too long to finish, and another actor (A2) is
+destroyed and respawns 126 m out with about 20 s left. Neither is stalled, frozen, paused, mis-routed or
+clock-dependent, and NO bounded AI progress fix can address it without either gaming the criterion or changing
+combat balance. What remains is a user decision between REGISTERING this red as understood (the gate's own mechanism
+for exactly this) and changing the wreck lifetime - which is gameplay balance with its own blast radius
+(`WRECK_MAX_COUNT = 12` is also read by the performance verifier) - and NOT relaxing the criterion, which the
+package forbids.
+
+
 
 
 

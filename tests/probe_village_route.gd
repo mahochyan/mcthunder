@@ -57,6 +57,12 @@ func _report(scene: Node, tag: String, verbose: bool) -> void:
 		for key in drv._blocked_edges.keys(): blocked_count += 1
 		var clean: Dictionary = nav.request_path(p,ai.patrol_goal,width,{}) if nav != null else {"ok":false,"reason":"no_navigator"}
 		var remembered: Dictionary = nav.request_path(p,ai.patrol_goal,width,drv._blocked_edges) if nav != null else {"ok":false,"reason":"no_navigator"}
+		# PATH LENGTH is the datum that separates the two live explanations: if the clean route is much shorter than
+		# the remembered one, the block MEMORY is what forces the detour; if both are long, the road network does.
+		var clean_len := 0
+		var remembered_len := 0
+		if clean.get("ok",false): clean_len = (clean.get("points",PackedVector3Array()) as PackedVector3Array).size()
+		if remembered.get("ok",false): remembered_len = (remembered.get("points",PackedVector3Array()) as PackedVector3Array).size()
 		var hop: Vector3 = drv.escape_goal(ai._last_hop,ai._task_hops)
 		# The driver's ACTUAL goal matters: the first version of this probe printed only the distance to patrol_goal and
 		# then guessed, while the actor may legitimately be driving to a retreat point or a hop instead.
@@ -67,10 +73,11 @@ func _report(scene: Node, tag: String, verbose: bool) -> void:
 			if drv.goal.distance_to(ai.patrol_goal) < 1.0: goal_kind = "objective"
 			elif drv.goal.distance_to(ai.retreat_goal) < 1.0: goal_kind = "retreat"
 			else: goal_kind = "hop"
-		print("[route] %s %s ai=%s drv=%s blocked_edges=%d clean_plan=%s remembered_plan=%s goal=%s(%.0f,%.0f)d=%.1f hops=%d obj_blocked=%s ammo=%d deaths=%d escape_hop=%s dist_obj=%.1f z=%.1f approached=%s" % [
-			tag,actor.entity_id,ai.phase,drv.phase,blocked_count,
-			str(clean.get("ok",false)),str(remembered.get("ok",false)),
-			goal_kind,drv.goal.x,drv.goal.z,to_goal,ai._task_hops.size(),str(ai.objective_blocked),
+		print("[route] %s %s ai=%s drv=%s wp=%d/%d dist_wp=%.1f next=(%.0f,%.0f) attempts=%d blocked_edges=%d clean_len=%d remembered_len=%d goal=%s d=%.1f hops=%d obj_blocked=%s ammo=%d deaths=%d dist_obj=%.1f z=%.1f approached=%s" % [
+			tag,actor.entity_id,ai.phase,drv.phase,drv.waypoint,drv.path.size(),
+			(p.distance_to(drv.path[drv.waypoint]) if drv.waypoint < drv.path.size() else -1.0),
+			(drv.path[drv.waypoint].x if drv.waypoint < drv.path.size() else 0.0),(drv.path[drv.waypoint].z if drv.waypoint < drv.path.size() else 0.0),
+			drv.attempts,blocked_count,clean_len,remembered_len,
+			goal_kind,to_goal,ai._task_hops.size(),str(ai.objective_blocked),
 			actor.gunner.rounds_remaining,int(row.get("deaths",-1)),
-			("INF" if not hop.is_finite() else "%.0f,%.0f" % [hop.x,hop.z]),
 			p.distance_to(ai.patrol_goal),p.z,str(reached)])
