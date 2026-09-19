@@ -1,0 +1,21 @@
+WT-EXPANSION-01 item B: the wiring point is LOCATED and the blind edit is deliberately not made.
+
+WHAT WAS FOUND by reading rather than by guessing: scripts/player_controller.gd matches the fire action in several
+places, but it does not fire the gun there. It sets a PENDING FLAG (`_fire_pending = true`) and the shot is issued by
+whatever consumes that flag later in the same file. So the secondary call belongs at the CONSUMER, beside the main
+gun shot - and adding it at the read site, which is what a quick edit would have done, would fire a round OUTSIDE the
+pending protocol that every other weapon follows.
+
+WHY NO CODE CHANGED THIS ROUND: with the consumer not yet read, any wiring edit would have been a guess, and this
+session has already recorded three separate occasions where a guessed interface produced script errors or a
+malformed packet. The parse check would have caught a wrong member name, but it cannot catch a call placed at the
+wrong POINT in a protocol, which is the actual risk here. The note therefore records the location and the next step
+instead of the edit.
+
+THE STATE, each piece marked done or not done rather than as a percentage: the snapshot carries the channels, the HUD
+model carries them as text rows, and the input action fire_secondary exists on physical keycode 72 - all three with
+their suites green. The overlay does not draw the rows yet, and nothing reads the key yet.
+
+NEXT, precisely: read the consumer of _fire_pending in scripts/player_controller.gd, add the secondary branch beside
+the main gun shot so it obeys the same pending protocol, then extend the acceptance to fire through the INPUT path
+instead of calling the gunner directly.
