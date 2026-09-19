@@ -376,6 +376,20 @@ func present(model: Dictionary, intel: Dictionary, camera: Camera3D, roster: Arr
 			ammo_label.text += " · " + LocalizationService.text("shell_cycle_hint") % InputBindingService.hint("cycle_shell")
 		if not str(model.get("carrying_shell","")).is_empty(): ammo_label.text += LocalizationService.text("ui_b9c816a8cf71")+str(model.carrying_shell)
 	if not str(model.get("supply_status","")).is_empty(): ammo_label.text += "\n"+str(model.supply_status)
+	# WT-EXPANSION-01 item B step 5: RENDER the secondary firing channels. Until this line the channels existed in the
+	# model and nowhere on screen, which is the same as not having them for a player. The rows are drawn under the main
+	# gun line (group, belt remaining / capacity) and the trigger key is read back from the real InputMap, so if the
+	# binding moves the hint follows instead of lying. No new node and no new localization key: an absent
+	# secondary_channels field (a vehicle with no authored secondary weapon) changes nothing on screen.
+	if model.has("secondary_channels"):
+		var channel_rows: Array = model.secondary_channels
+		if not channel_rows.is_empty():
+			var trigger := ""
+			if InputMap.has_action("fire_secondary"):
+				var trigger_events: Array = InputMap.action_get_events("fire_secondary")
+				if not trigger_events.is_empty() and trigger_events[0] is InputEventKey:
+					trigger = " "+OS.get_keycode_string(int((trigger_events[0] as InputEventKey).physical_keycode))
+			ammo_label.text += "\nSEC"+trigger+"  "+" · ".join(channel_rows)
 	reload_bar.value = clampf(1-float(model.cooldown)/maxf(0.01,float(model.reload_time)),0,1)
 	reason_label.text = model.weapon_text
 	reason_label.visible = not reason_label.text.is_empty()

@@ -1,22 +1,62 @@
-WT-EXPANSION-01 item B: the consumer is READ, and it changes the shape of the wiring edit - recorded instead of a
-one-line call that would have been wrong.
+WT-EXPANSION-01 item B: the secondary weapon is reachable by a player
 
-WHAT line 128 of scripts/player_controller.gd shows: `cmd.fire_requested = _fire_pending`, with the flag cleared at
-line 139 and on three further cleanup paths. The fire INTENT therefore travels as a FIELD OF THE COMMAND into the
-simulation and is honoured there, and the controller never calls the gunner at all. A secondary fire must follow the
-same route: a command field of its own set on that same line beside the main one, the honouring branch in the same
-place the main gun shot is issued, and the clear on the same cleanup paths.
+The secondary armament was declared, installed and firing, but only from a probe: nothing read the key, and
+the overlay never drew the channels. This closes that, and the acceptance leg that closed it found two silent
+drop points on the way.
 
-WHY THAT MATTERS ENOUGH TO RECORD RATHER THAN RUSH: calling the gunner directly from the controller would put the
-second weapon outside the command protocol that carries the aim intent, the owning vehicle, the life id and the
-pending/release rules every other weapon obeys - a second weapon that ignores those would fire with stale aim or on
-the wrong life, which is exactly the class of fault this project keeps catching by measurement.
+The command protocol is a field of the command, not a call into the gunner (three sites, as predicted):
+  * site 1 (already committed, 66a4e713): VehicleCommand.secondary_fire_requested + secondary_fire_index, inert
+    until the other two sites existed.
+  * site 2: PlayerController captures the fire_secondary edge under exactly the gates the main gun edge uses
+    (pause, debug panel, binoculars, post-menu release gate, reset) and publishes it on the same command.
+  * site 3: VehicleActor issues the secondary shot where the main shot is issued, in the same committed step, and
+    records the Gunner's answer on the actor instead of swallowing it.
 
-NO CODE CHANGED THIS ROUND: the finding is a protocol shape, not a value, and it is the third time in this expansion
-that reading the gate changed the plan before an edit was made - the first two being the armour profile version the
-validator keys on and the record that is frozen only when a round terminates.
+What the input-path leg then found, which reading had not:
+  * VehicleCommandCodec.encode_body/decode rebuild the command from a FLAGS list and lost the new field.
+  * CommandMailbox.submit copies field by field and lost it too.
+  Neither produced an error anywhere: the committed command simply arrived with secondary=false. Both now carry
+  the flag and the channel index, validated 0..7 at each gate. The codec body shape changed from 18 to 20 fields
+  and VERSION deliberately stays 3 (the field count is already exact and the shipped protocol triple 6/1/3 is
+  asserted by run_network_authority_checks); bumping to 4 is recorded as the option not taken.
 
-STATE, unchanged otherwise: the snapshot carries the channels, the HUD model carries them as text rows and the input
-action fire_secondary exists on key 72, each with its suites green; the overlay still does not draw the rows and
-nothing reads the key yet. NEXT: the three-site command change above, then an acceptance leg that fires through the
-INPUT path.
+  * The cadence clock was never ticked: try_fire_secondary arms cooldown_left from the declared cadence and
+    advance_secondary() was called from nowhere (found by reading). It now runs in the simulation advance beside
+    the main gun's timers. MEASURED both ways: with it the declared cadence runs down in 6 (T-80B, 0.0858 s) and 4
+    (Leopard, 0.05 s) simulation steps and the channel fires again; with the line commented out both vehicles fail
+    exactly those two checks under a 600-step watchdog - the channel never leaves cooldown.
+
+  * The trigger key is physical I, not H. H is already apply_range in InputBindingService.ACTIONS, so one press
+    would have applied a rangefinder solution AND fired the gun. The probe asserts the chosen key collides with no
+    action in that table and none in the real InputMap.
+
+  * The overlay draws the rows under the main gun line, with the trigger letter read back from the real InputMap.
+    Measured on the real battle scene with the engineering T-80B as the player:
+    "SEC I  coaxial 750/750 · machinegun 250/250".
+
+Measurements:
+  * tests/probe_wtexp01_secondary_armament.gd: 71 checks, 0 failed, 0 SCRIPT ERROR, WT_EXPANSION_01_PASS. The input
+    path leg prints command carried secondary=[true], {"ok":true,"reason":"fired"}, belt 749 -> 748, shots 1 -> 2,
+    a LIVE projectile.
+  * Green after the change: engineering runtime 54/0, shell 193/0, HUD 56/0, input binding 16/0, command contract
+    35/0, authority state 19/0 - all exit 0.
+  * Network slice through its own driver: all three roles passed=true, ONE digest 004747fc..., SERVER_PASS and
+    CLIENT_PASS. The runner's top-level passed flag is false only because Start-Process -PassThru cannot report a
+    child exit code in this environment (measured on a control command, cmd /c exit 7 -> empty ExitCode), so that
+    flag is vacuous here and the product reports are the evidence.
+  * tests/run_checks.gd ends in its own 90 s watchdog with 177 PASS, 0 FAIL. PRE-EXISTING, not a regression: the
+    same invocation on the untouched main tree (7b66007d) gives 177 PASS, 0 FAIL and the same watchdog at 91 s.
+  * tests/run_turret_tick_checks.gd exits 1 BY DESIGN under --headless (line 4 refuses without a display), so it
+    is NOT_RUN here rather than failed.
+
+Two verification notes, recorded rather than smoothed over:
+  * In -s headless mode Input.parse_input_event(InputEventKey) does not update the action state: the event maps to
+    the action but is_action_pressed stays false before and after a frame boundary (measured, log committed). The
+    acceptance leg therefore injects through the action API and asserts the key BINDING separately through
+    InputMap.event_is_action with a real key event.
+  * The main-gun authorize_fire() veto is deliberately not applied to the secondary channel: it is a shot-solution
+    veto keyed on the main-gun candidate tick, so routing a secondary request through it would silently block every
+    secondary shot on the AI path while looking like an admission rule.
+
+Still not done, stated rather than implied: only channel 0 is bound to a key (WT triggers 2/3 are not),
+fire_secondary is not in the rebindable action table, and a secondary belt does not reload when emptied.

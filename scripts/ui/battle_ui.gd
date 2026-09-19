@@ -194,9 +194,8 @@ func _process(_delta: float) -> void:
 	if battle is TeamRange: model["supply_status"] = battle.ammunition_supply.status.get(str(player().life_id),"")
 	# WT-EXPANSION-01 item B step 2: the model now carries the secondary firing channels with their group and belt
 	# state, built from the gunner own channels rather than from a second copy. ADDITIVE: no existing field changes,
-	# and the rows are plain text so a renderer can print them without knowing the channel structure.
-	# WHAT IS STILL MISSING AND IS NOT CLAIMED HERE: the overlay does not RENDER this field yet, so this step puts
-	# the state on the HUD data path and the drawing of it is the remaining piece of item B.
+	# and the rows are plain text so a renderer can print them without knowing the channel structure. RENDERED since
+	# item B step 5 by scripts/ui/battle_hud.gd present(), under the main gun line.
 	if player().gunner.secondary.size() > 0:
 		var secondary_rows: Array = []
 		for channel in player().gunner.secondary:

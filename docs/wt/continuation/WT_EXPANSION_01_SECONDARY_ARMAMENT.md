@@ -1,7 +1,7 @@
-# WT-EXPANSION-01 secondary armament: DECLARED, INSTALLED and FIRING; the records and the HUD are what remain
+# WT-EXPANSION-01 secondary armament: DECLARED, INSTALLED, FIRING and PLAYER-REACHABLE
 
-**Status: steps 1 to 5 DONE and measured; the round never left a runnable state at any point.** The acceptance
-scenario is 45 checks with zero failures and `WT_EXPANSION_01_PASS`, and the main-gun suites are unchanged.
+**Status: items A and B COMPLETE and measured; the round never left a runnable state at any point.** The acceptance
+scenario is 71 checks with zero failures and `WT_EXPANSION_01_PASS`, and the main-gun suites are unchanged.
 
 **Scope statement, so this cannot be mistaken for package content.** The user asked on 2026-09-19 to raise this
 game's completeness directly from the unpacked War Thunder data on this machine. This work order is that mandate
@@ -17,6 +17,9 @@ WT-CD-017, and every artifact it produces says so in its own text.
 | 3 round profiles | each secondary round declares its own classic AP profile: family, normalization, overmatch, ricochet limit, explicit rolled/cast table and a typed penetration curve | the declared round identity, belt and speed stay the game values while the penetration profile is declared project policy, and the final piece was the `wt012-full-caliber-v1` version the armour validator keys on |
 | 4 launch | the shot is built in the SAME shape the main gun builds and fired through the SAME `ProjectileManager`, carrying the round own profile and calibre | a refused launch is ROLLED BACK - belt 750 to 750 and 200 to 200 with `projectile_id` 0 - which was measured against the real manager, twice, as the gates refused `invalid_armor_policy` and then `invalid_impact_profile` |
 | 5 firing | the round actually leaves the barrel | `{ "ok": true, "reason": "fired" }` with the belt 750 to 749 and 200 to 199 and a REAL projectile whose state the manager returns, asserted by the probe |
+| 6 command protocol | the secondary trigger is a COMMAND FIELD (`secondary_fire_requested` + index) set by the controller beside the main one and honoured by the actor where the main shot is issued, in the same committed step | three sites plus two silent drop points, each found by measurement rather than by reading - see the item B record below |
+| 7 input path | a real press of the bound key produces a real secondary shot through the whole production chain, not through a direct gunner call | the probe binds a real `PlayerController`, presses the action, ticks the actor once: `command carried secondary=[true]`, `{"ok":true,"reason":"fired"}`, belt 749 to 748, shots 1 to 2, a LIVE projectile, then a second shot after the declared cadence |
+| 8 overlay | the channels and their belt state are DRAWN on the ordinary battle HUD | the real battle scene with the engineering T-80B as the player prints `SEC I  coaxial 750/750 · machinegun 250/250` from `ammo_label.text` |
 
 Guards that earned their keep along the way, all recorded where they happened: the packet insertion is parsed before
 it is written (two malformed candidates refused, no packet touched), the scripts are parse-checked before any suite
@@ -37,23 +40,43 @@ A. the secondary rounds must enter the DAMAGE and REPLAY records the same way th
    flight age (960 steps at 1/240), so the flight stopped just short of its own expiry. Both were faults of the leg,
    not of the product, and the record path had been working all along.
 B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
-   not only by a probe. PROGRESS, with each piece stated as done or not done rather than as a percentage:
-   DONE - the snapshot carries the channels (item B step 1), the HUD model carries them as text rows (step 2), and
-   the input action `fire_secondary` exists bound to physical keycode 72 (step 3), with the input, HUD, engineering
-   runtime and feedback suites all green after each.
-   NOT DONE - the overlay does not draw the rows yet, and NOTHING READS THE KEY YET.
-   THE CONSUMER IS NOW READ, and it changes what the wiring edit must be: scripts/player_controller.gd line 128 sets
-   `cmd.fire_requested = _fire_pending` and line 139 clears the flag, so the fire INTENT TRAVELS AS A FIELD OF THE
-   COMMAND into the simulation and is honoured there - not by calling the gunner from the controller. A secondary
-   fire therefore needs a COMMAND FIELD of its own (`secondary_fire_requested` or equivalent) set on the same line
-   beside the main one, plus the honouring branch in the same place the main gun shot is issued, plus the clear on
-   the same three cleanup paths. That is a three-site protocol change rather than a one-line call, and it is the
-   next step; doing it as a direct gunner call from the controller would put the second weapon outside the command
-   protocol that carries aim, owning vehicle, life and the pending/release rules for every other weapon.
-   The entry points recorded earlier remain valid: `scripts/battle/simulation_snapshot.gd` (done),
-   `scripts/ui/battle_ui.gd` line 192 (done) and the input map (done).
-C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and
-   feedback all exit 0 after the latest change.
+   not only by a probe. **DONE AND MEASURED.** What the pieces are, and what each one cost to get right:
+   - the input action `fire_secondary` exists in `project.godot`. IT IS **NOT** THE KEY FIRST CHOSEN: physical H is
+     already `apply_range` in `InputBindingService.ACTIONS`, so one press would have applied a rangefinder solution
+     AND fired the gun. The collision was found by reading the binding table, the key is now physical I, and the probe
+     asserts the chosen key collides with NO action in that table and NO action in the real InputMap (measured: the
+     first run reported `found: []` only after the move; H had produced the collision).
+   - the command protocol is THREE sites, as predicted, and it was not enough: the intent travels
+     `PlayerController.poll()` -> `VehicleCommandCodec` body -> mailbox -> committed step, and the flag was silently
+     dropped by TWO of those stages. `VehicleCommandCodec.encode_body`/`decode` collect fields from a `FLAGS` list and
+     rebuild the command from it; `CommandMailbox.submit` copies field by field. Both lost the new field with no error
+     anywhere, and the acceptance leg is the only reason either was found: it reached the actor with
+     `secondary=false`. Both now carry the flag (and the channel index, validated 0..7 at each gate).
+   - `VehicleActor.advance_simulation_loading` now ticks `gunner.advance_secondary(delta)`. No caller existed before
+     (found by reading, then MEASURED): with the tick, the declared cadence runs down in 6 (T-80B, 0.0858 s) and 4
+     (Leopard, 0.05 s) simulation steps and the channel fires again; with the line commented out, both vehicles fail
+     exactly those two checks and a 600-step watchdog bounds the wait - the channel never leaves cooldown.
+   - the overlay draws the rows. Before this, the channels existed in the model and nowhere on screen.
+   - the main-gun `authorize_fire()` veto is deliberately NOT applied to the secondary channel: it is a shot-SOLUTION
+     veto keyed on the main-gun candidate tick (`ai_tank_controller.gd:336` returns `no_current_candidate` whenever
+     `cmd.fire_requested` is false), so routing a secondary request through it would silently block every secondary
+     shot on the AI path while looking like an admission rule. Admission stays in the Gunner, which answers by name.
+   - STILL NOT DONE, stated rather than implied: only channel 0 is bound to a key (WT triggers 2/3 for the AA gun and
+     the commander weapon are not), `fire_secondary` is not in the rebindable action table so the key is fixed at the
+     default, and the cadence/reload of a secondary belt does not yet RELOAD when a belt is emptied.
+C. the main-gun suites must keep passing at every step, which they have. Measured AFTER item B: engineering runtime
+   54/0, shell 193/0, HUD 56/0, input binding 16/0, command contract 35/0, authority state 19/0, all exit 0 with zero
+   SCRIPT ERROR. The network slice was run through its own driver (`tests/run_network_slice.ps1`): all three roles
+   report `passed=true` with ONE digest `004747fc...` and `NETWORK_SLICE_SERVER_PASS`/`NETWORK_SLICE_CLIENT_PASS`.
+   Two verification limits are recorded rather than smoothed over: the runner's own top-level `passed` is false
+   because `Start-Process -PassThru` cannot report a child exit code in this environment (measured on a control
+   command, `cmd /c exit 7` -> empty `ExitCode`), so the product reports are the evidence and the runner flag is
+   vacuous here; and `tests/run_turret_tick_checks.gd` exits 1 BY DESIGN under `--headless` (line 4 refuses to run
+   without a display), so it is NOT_RUN in these runs rather than failed.
+   `tests/run_checks.gd` ends in its own 90 s watchdog with 177 PASS, 0 FAIL. That is PRE-EXISTING, not a regression:
+   the same file, the same invocation and the same result were measured on the untouched `main` tree (`7b66007d`) -
+   177 PASS, 0 FAIL, watchdog at 91 s - and the suite's own designed waits already exceed 90 s of game time (three
+   `_wait_trial_hits(...,1200)` calls before any real hit are 3600 frames on their own).
 ```
 
 ## The contract, taken from the local game build and not invented
@@ -81,9 +104,14 @@ because it fires nothing.
 3. when the implementation lands, the **main gun is untouched** - the same tests that cover it today must run
    unchanged, because the point of a separate channel is that it does not become a bigger magazine.
 
-**Measured state today: 15 checks, 8 failed, 6 unmet-declaration legs, `WT_EXPANSION_01_FAIL`.** The failing legs
-are exactly the declaration and runtime-channel ones; the setup legs pass (the definitions load, both engineering
-packets are admitted, real actors install), so the failure is the absent feature rather than a broken probe.
+**Measured state when the scenario was written (kept as history): 15 checks, 8 failed, 6 unmet-declaration legs,
+`WT_EXPANSION_01_FAIL`.** The failing legs were exactly the declaration and runtime-channel ones; the setup legs
+passed (the definitions load, both engineering packets are admitted, real actors install), so the failure was the
+absent feature rather than a broken probe.
+
+**Measured state now: 71 checks, 0 failed, 0 unmet-declaration legs, `WT_EXPANSION_01_PASS`** - the legs added since
+cover the command protocol (a bound `PlayerController` pressing the real key), the input path end to end, the cadence
+clock in simulation time, the codec round trip and the drawn overlay rows.
 
 ## 3. Implementation order, and what will NOT be done
 

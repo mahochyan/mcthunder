@@ -49,6 +49,10 @@ var presentation_enabled := true
 var fire_control := FireControlState.new()
 var last_consumed_sequence := -1
 var _staged_sequence := -1
+## WT-EXPANSION-01 item B step 4 (site 3 of 3): the answer the Gunner gave to the last secondary fire request,
+## recorded on the actor so an acceptance leg can read WHY a secondary shot did not happen instead of inferring it
+## from a belt that did not move. Empty until a secondary request has been consumed.
+var last_secondary_result: Dictionary = {}
 
 func _expire_pending_input() -> void:
 	if _pending_input_tick>=0 and Engine.get_physics_frames()-_pending_input_tick>GameConfig.COMMAND_MAX_AGE_TICKS:
@@ -418,6 +422,15 @@ func advance_simulation_loading(step: Dictionary, delta: float) -> void:
 	# Recovery and actual movement commit first. Complete the current chamber
 	# before solving this tick's sight trajectory so a new shell uses its own speed.
 	gunner.advance_timers(delta)
+	# WT-EXPANSION-01 item B step 4 (site 3 of 3): the secondary cadence ticks in the SIMULATION advance, beside the
+	# main gun's timers and never in the render path. try_fire_secondary() arms cooldown_left from the declared cadence
+	# and advance_secondary() is the only thing that decrements it, so this call is what makes a belt a belt rather than
+	# a single shot. No caller existed before this line (found by reading, not assumed). MEASURED against the acceptance
+	# probe: with this line the declared cadence runs down in 6 (T-80B, 0.0858 s) and 4 (Leopard, 0.05 s) simulation
+	# steps and the channel fires again; with the line commented out, both vehicles fail exactly those two checks and the
+	# 600-step watchdog bounds the wait - the channel never leaves cooldown
+	# (logs/COMBAT-DEEPEN-01/wtexp01-itemB4-cadence-off.log vs wtexp01-itemB4-input-leg.log).
+	gunner.advance_secondary(delta)
 
 func advance_simulation_aim(step: Dictionary, delta: float) -> void:
 	if not simulation_step_valid(step): return
@@ -468,6 +481,18 @@ func finish_simulation_command(step: Dictionary) -> void:
 			permitted = controller.call("authorize_fire",cmd) == true
 			if not simulation_step_valid(step): return
 		if permitted: gunner.request_fire()
+	# WT-EXPANSION-01 item B step 4 (site 3 of 3): the secondary channel is issued where the main shot is issued, in the
+	# same committed step, so a secondary round reads this tick's actual barrel transform. The answer is recorded rather
+	# than swallowed: a refusal has a name (no_such_secondary_channel / cooldown / no_ammo /
+	# secondary_round_profile_missing / secondary_launch_refused:*) and the acceptance leg asserts on it.
+	#
+	# The main gun's authorize_fire() veto is deliberately NOT applied here. That veto is a shot-SOLUTION veto: the AI
+	# implementation keys it on the main-gun candidate tick (ai_tank_controller.gd:336 returns no_current_candidate when
+	# cmd.fire_requested is false), so passing a secondary request through it would silently block every secondary shot
+	# on the AI path while looking like an admission rule. Admission for this channel stays in the Gunner.
+	if cmd.secondary_fire_requested and not state.destroyed:
+		last_secondary_result = gunner.try_fire_secondary(cmd.secondary_fire_index)
+		if not simulation_step_valid(step): return
 	# 状态同步：真实状态来源（HUD/试射目标只读，不另算一套显示用结果）
 	state.forward_speed = tank.forward_speed
 	state.turret_yaw = turret.global_rotation.y

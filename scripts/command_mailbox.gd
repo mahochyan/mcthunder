@@ -38,6 +38,7 @@ func submit(cmd: VehicleCommand) -> bool:
 		return false
 	if cmd.aim_intent.active and cmd.has_aim_point: return false
 	if cmd.select_shell < -1 or cmd.select_shell > 7: return false
+	if cmd.secondary_fire_index < 0 or cmd.secondary_fire_index > 7: return false
 	var copy := VehicleCommand.new()
 	copy.throttle = clampf(cmd.throttle, -1.0, 1.0)
 	copy.steer = clampf(cmd.steer, -1.0, 1.0)
@@ -59,6 +60,11 @@ func submit(cmd: VehicleCommand) -> bool:
 	copy.extinguish_requested = cmd.extinguish_requested
 	copy.replace_crew_requested = cmd.replace_crew_requested
 	copy.cancel_recovery_requested = cmd.cancel_recovery_requested
+	# WT-EXPANSION-01 item B step 4: this copy is field by field, so a command field that is not named here is dropped
+	# on the last stage before execution. The secondary request is copied AND merged like the main gun's, because the
+	# input-path acceptance leg reached the actor with the flag already gone and no error anywhere.
+	copy.secondary_fire_requested = cmd.secondary_fire_requested
+	copy.secondary_fire_index = cmd.secondary_fire_index
 	if _pending != null:
 		if copy.select_shell == -1: copy.select_shell = _pending.select_shell
 		copy.cycle_shell_requested = copy.cycle_shell_requested or _pending.cycle_shell_requested
@@ -71,6 +77,11 @@ func submit(cmd: VehicleCommand) -> bool:
 		copy.extinguish_requested = copy.extinguish_requested or _pending.extinguish_requested
 		copy.replace_crew_requested = copy.replace_crew_requested or _pending.replace_crew_requested
 		copy.cancel_recovery_requested = copy.cancel_recovery_requested or _pending.cancel_recovery_requested
+		copy.secondary_fire_requested = copy.secondary_fire_requested or _pending.secondary_fire_requested
+		# The channel index belongs to the submission that actually asked to fire: a later driving-only sample in the
+		# same physics step must not retarget a staged secondary request to another channel.
+		if not cmd.secondary_fire_requested and _pending.secondary_fire_requested:
+			copy.secondary_fire_index = _pending.secondary_fire_index
 		if not copy.has_aim_point and not copy.clear_aim and not copy.aim_intent.active:
 			copy.has_aim_point = _pending.has_aim_point
 			copy.aim_world_point = _pending.aim_world_point

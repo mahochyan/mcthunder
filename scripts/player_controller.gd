@@ -11,6 +11,10 @@ var cam_rig: CameraRig = null   # 由 actor 注入（本地控制者设置时）
 var gunner: Gunner = null       # 由 actor 注入（仅用于状态查询，不直接调用开火）
 var commands_enabled := true    # 005-d：调试面板打开时禁用意图生成（面板不消费弹药/任务，也不得被点击误触开火）
 var _fire_pending := false
+## WT-EXPANSION-01 item B step 4 (site 2 of 3): the secondary weapon edge rides the SAME gates as the main gun edge
+## (pause, debug panel, binoculars, post-menu release gate, reset). Its own pending bit is kept beside _fire_pending
+## and both are cleared together by _clear_fire_input(), so no gate can leave the secondary armed behind it.
+var _secondary_fire_pending := false
 var _shell_pending := -1
 var _cycle_shell_pending := false
 var _cycle_shell_release_guard := true
@@ -37,6 +41,7 @@ func _process(_delta: float) -> void:
 		_recovery_pending.clear()
 		_arm_recovery_release()
 		_fire_pending = false   # 003-R1：暂停清空待发请求，恢复后不补发
+		_secondary_fire_pending = false   # WT-EXPANSION-01：同一门禁清副武器边沿
 		return
 	if not commands_enabled:
 		_clear_range_input()
@@ -44,25 +49,32 @@ func _process(_delta: float) -> void:
 		_shell_pending = -1
 		_recovery_pending.clear()
 		_fire_pending = false   # 005-d：面板打开期间不捕获开火边沿（面板点击=左键=fire 动作）
+		_secondary_fire_pending = false   # WT-EXPANSION-01：面板打开期间同样不捕获副武器边沿
 		return
 	var in_binoculars := cam_rig!=null and cam_rig.binoculars
 	if in_binoculars:
 		_fire_pending=false
+		_secondary_fire_pending=false   # WT-EXPANSION-01：炮镜中不捕获副武器边沿（与主炮同门禁）
 		if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"): _binocular_fire_release=true
 	if _binocular_fire_release:
 		_fire_pending=false
+		_secondary_fire_pending=false
 		if not Input.is_action_pressed("fire") and not Input.is_action_just_pressed("fire"): _binocular_fire_release=false
 	if _need_fire_release:
 		if Engine.get_process_frames()<=_fire_release_after_frame or Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
 			_fire_pending = false
+			_secondary_fire_pending = false
 			return
 		_need_fire_release = false
 		# A menu press and release can share one render frame. Input may still
 		# report just_pressed after held became false; discard this entire edge.
 		_fire_pending = false
+		_secondary_fire_pending = false
 		return
 	if Input.is_action_just_pressed("fire") and not in_binoculars and not _binocular_fire_release:
 		_fire_pending = true
+	if Input.is_action_just_pressed("fire_secondary") and not in_binoculars and not _binocular_fire_release:
+		_secondary_fire_pending = true
 	for i in 2:
 		if Input.is_action_just_pressed("shell_%d"%(i+1)): _shell_pending = i
 	for action in ["repair","extinguish","replace_crew","cancel_recovery"]:
@@ -84,13 +96,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("zeroing_up"): _zeroing_pending=mini(20,_zeroing_pending+1)
 		if event.is_action_pressed("zeroing_down"): _zeroing_pending=maxi(-20,_zeroing_pending-1)
 	if event.is_action_pressed("fire") and cam_rig.binoculars:
-		_binocular_fire_release=true; _fire_pending=false
+		_binocular_fire_release=true; _fire_pending=false; _secondary_fire_pending=false
 	if event.is_action("free_look") and not _observation_release_required:
 		cam_rig.set_free_look(event.is_pressed())
 	if event.is_action("binoculars") and not _observation_release_required:
 		cam_rig.set_observation(cam_rig.free_look,event.is_pressed())
 		if cam_rig.binoculars:
 			_fire_pending=false
+			_secondary_fire_pending=false
 			if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"): _binocular_fire_release=true
 	if event.is_action_pressed("optic_zoom") and not event.is_echo():
 		cam_rig.cycle_zoom()
@@ -127,6 +140,13 @@ func poll() -> VehicleCommand:
 	_range_pending=false; _apply_range_pending=false; _zeroing_pending=0
 	cmd.fire_requested = _fire_pending
 	if _binocular_fire_release or (cam_rig!=null and cam_rig.binoculars): cmd.fire_requested=false
+	# WT-EXPANSION-01 item B step 4 (site 2 of 3): the secondary fire intent is published on the SAME command as the
+	# main shot and consumed once by the actor's committed step. The channel index is fixed at the first authored
+	# secondary channel (WT trigger 1, coaxial); per-group triggers (WT trigger 2/3) are not bound to keys yet and
+	# that gap is recorded rather than implied. A vehicle with no authored channel refuses by name and does not fire.
+	cmd.secondary_fire_requested = _secondary_fire_pending
+	if _binocular_fire_release or (cam_rig!=null and cam_rig.binoculars): cmd.secondary_fire_requested=false
+	_secondary_fire_pending = false
 	cmd.select_shell = _shell_pending
 	cmd.cycle_shell_requested = _cycle_shell_pending
 	_shell_pending = -1
@@ -149,6 +169,7 @@ func require_fire_release() -> void:
 	# 005-R1-C：重新允许意图前调用——关闭调试面板用的鼠标左键/暂停中按下的 fire
 	# 不得被当作开火边沿；若火键此刻仍按住则等到真实释放（保守门）。
 	_fire_pending = false
+	_secondary_fire_pending = false
 	_need_fire_release = true
 	# Input.parse_input_event/accumulated OS input can expose its edge on the next
 	# render frame. Observe release only after crossing that input boundary.
@@ -166,6 +187,7 @@ func reset_pending() -> void:
 	# 只清待发边沿，不臂释放门（002 语义：无冷却时 按下→立即合法射击；
 	# 门仅由 close_query_debug 的 require_fire_release 臂起，防面板关闭瞬时的按住误射）。
 	_fire_pending = false
+	_secondary_fire_pending = false
 
 func _arm_recovery_release() -> void:
 	for action in ["repair","extinguish","replace_crew","cancel_recovery"]:
