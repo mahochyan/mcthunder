@@ -82,3 +82,25 @@ authority for tickets.
 2. then add the single `CombatEvent` / `ContributionLedger` service with the five separate counters and versioned attribution,
    keeping `death_notified` the only death dedup gate and `ticket_ledger` the only ticket authority;
 3. emit a settlement receipt and a read-only replay interface for later modes, economy and network to share.
+
+## 3. The six scenes, first pass, and what their own readings exposed
+```
+The scenes drive the real versioned event stream, the real destroy_once gate and the real director report, and they
+already show two things holding and four not, with the four explained by the readings rather than by opinion:
+   HELD  T01: the hull carries ten modules and a single cause destroys the same life ONCE - the first call returns true and
+         the second returns false, so the de-duplication gate is real and is measured.
+   HELD  T05: after a death the state reports destroyed true with all ten of its module keys intact and a respawn service
+         present, so the life can close and re-enter keeping the vehicle and its loadout.
+   GAP   T02: the director report carries hits, penetrations, kills, deaths and last death, but its per shot de-duplication
+         sets are empty and no contribution ledger class exists at all, so a fixed attribution version cannot be shown.
+   GAP   T03: ONE EVENT WAS PRODUCED IN THE TICK AND NO DEATH EVENT EXISTS IN THE STREAM, because the state the scene
+         built by hand is not the state the director commits into. That is a wiring fault in the harness, named here so
+         the next pass wires a fresh state per scene and a director that has actually begun.
+   GAP   T04: a stale cause is refused, which is right, but the attribution of a round already in flight is not something
+         this build can read yet, and the case needs the ledger to judge it.
+   GAP   T06: finishing the match returns false and the match identity still reads as zero, because the director was never
+         begun in this harness - again a wiring fault, not a product finding.
+The honest summary is that the scenes are a FIRST PASS whose own readings show the harness is not yet wired to the match
+lifecycle, and that two of the six expectations already hold on the machinery that exists. The next pass fixes the wiring
+first - a fresh match state and a proper director begin per scene - so that the four remaining readings mean something.
+```
