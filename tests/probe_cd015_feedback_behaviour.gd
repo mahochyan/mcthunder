@@ -14,6 +14,9 @@ extends "res://tests/probe_cd003_gap_baseline.gd"
 
 const ENG := "res://configs/vehicles/engineering/ussr_t_80b.json"
 
+## The profile builder used by the family check, declared as a member so a lambda can be assigned to it.
+var _impact_profile: Callable = Callable()
+
 func _run() -> void:
 	var defs := VehicleDefs.new()
 	var handle := FileAccess.open(ENG,FileAccess.READ)
@@ -41,7 +44,9 @@ func _run() -> void:
 		str(feedback != null),events_before,events_after,tickets_before,tickets_after])
 	check(feedback != null and events_after == events_before and tickets_after == tickets_before,
 		"CD15 probe P1 stopping the FEEDBACK LAYER leaves the committed events and the tickets untouched")
-	scene.queue_free(); await _frames(2)
+	# The range is NOT freed here: the family check below uses the range OWN admitted actor and manager, so freeing it at this
+	# point is what made the earlier run report a previously freed base. It is freed once, at the end.
+	await _frames(2)
 
 	# ── P2 each shell family through the real spawn gate, using the RANGE OWN admitted actor and manager rather than a
 	# second hand-built one: the range admitted its packet through its own path, so building a parallel world here would be
@@ -56,11 +61,22 @@ func _run() -> void:
 	if shell == null: quit(1); return
 	var families := []
 	var refusals := []
-	# The declared effects, each with the impact family the armour side maps it to.
+	# The declared effects, each with the COMPLETE impact profile the armour side actually validates: its own version, its
+	# family, a game provenance, an explanation, the three numeric rules and BOTH material coefficients. A bare family key is
+	# not enough and was refused as invalid_impact_profile, which is the armour side behaving exactly as designed.
 	var wanted := {"kinetic":"AP","he_blast":"AP","internal_burst":"APHE","long_rod":"APFSDS"}
+	var long_rod_version := "wt012-long-rod-v1"
+	_impact_profile = func(family: String) -> Dictionary:
+		var profile := {"version":("wt012-long-rod-v1" if family == "APFSDS" else "wt012-full-caliber-v1"),
+			"family":family,"provenance":"game_rule","reason":"CD15 family probe: a declared project profile for this family",
+			"normalization_deg":(0.0 if family == "APFSDS" else 5.0),"overmatch_ratio":(0.0 if family == "APFSDS" else 2.0),
+			"ricochet_deg":60.0,"material_coefficients":{"rolled":1.0,"cast":0.95}}
+		return profile
+	var effect_index := 0
 	for effect in wanted.keys():
-		var impact := {"family":str(wanted[effect])}
-		var spec := {"round_id":1700,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1700,
+		effect_index += 1
+		var impact: Dictionary = _impact_profile.call(str(wanted[effect]))
+		var spec := {"round_id":1700+effect_index,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1700+effect_index,
 			"shell_id":str(shell.id),"effect_policy":str(effect),"armor_policy":"resolve",
 			"impact_profile":impact,"post_penetration_profile":{},"fuze_policy":{},
 			"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,

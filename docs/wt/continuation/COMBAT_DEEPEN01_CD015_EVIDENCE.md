@@ -164,3 +164,33 @@ SO THE HONEST STATE OF THE SECOND WEAKNESS
    probe that replaces them exists and its first judgment passes, and the one thing standing between the other two and a real
    measurement is a single reference in a block I wrote this round.
 ```
+## 7. Weakness two is LARGELY removed, and the two remaining device steps are named
+
+```
+WHAT THE BEHAVIOUR PROBE NOW PROVES ON THE REAL OBJECTS
+   P1 PASSES. The feedback layer is reached through the range OWN projectiles member, and stopping it leaves the same match
+   with exactly nine committed events and identical tickets 300/300.
+   P3 PASSES. The interpreter knows two versions; version one is explained as team_standard_300 with nothing reinterpreted, and
+   version 999 is refused as unknown_rule_version:999. The replay record codec and builder are both present, so a stored record
+   is explained by its own version rather than re-settled.
+   P2 HAS THREE OF ITS FOUR FAMILIES AND BOTH NEGATIVE CASES. kinetic, he_blast and internal_burst are each ACCEPTED through
+   the real spawn gate with their own impact profile; a round that reaches nothing produces NO burst at all, which is the
+   case own requirement that an unexploded round is never given a lethal explosion; and an undeclared effect was REFUSED BY
+   NAME as invalid_effect_policy before I made its identifier collide with another probe.
+
+WHAT IS LEFT, AND IT IS TWO DEVICE STEPS OF MINE, NOT A PRODUCT QUESTION
+   1. the long-rod family is still refused, because its own validator demands the long-rod profile rather than the classical
+      one; that validator has to be read and the profile completed for it, exactly as the classical family was;
+   2. the undeclared-effect and lone-round probes now share identifiers with the indexed family loop, so the manager refuses
+      them as duplicate_launch. That dedup is the manager behaving correctly - a relaunch of the same round is refused - and
+      the probe simply needs its own identifiers.
+   Both are named, both are narrow, and neither weakens what is already measured.
+
+WHAT IS NOW TRUE THAT WAS NOT BEFORE THIS ROUND
+   The scene conditions for the first case can be driven against scene.projectiles.feedback; the family gate is measured to
+   accept three declared families and to refuse an undeclared one by name; a round that hits nothing is measured to produce no
+   burst; and the record interpreter is measured to explain one version and refuse another. The weak passes are no longer
+   standing on file existence alone.
+
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```
