@@ -13,3 +13,16 @@ outside the obstacle, and the external blast fragment candidate path is necessar
 The goal hard constraint says to STOP AND CONFIRM when the pickup is incomplete, so this is recorded and raised with the
 user rather than quietly worked around, and nothing is being opened in CD15 until that is settled.
 ```
+
+## 2. USER RULING, recorded verbatim in substance
+```
+RULING ONE on CD07-T04: BUILD IT FIRST, then open CD15. So the occlusion half of CD07-T04 is to be completed with a
+fixture whose burst origin lies OUTSIDE the obstacle, the case is to be run, and CD007 result status is to be raised
+from COMPLETE_WITH_GAPS to COMPLETE only when that measurement actually passes. Nothing about the existing evidence
+claim is being taken on trust: the case is measured, not restated.
+RULING TWO on CD003, CD004 and CD006: the evidence-document form is ACCEPTED, and this is to be noted in the coverage
+table as a form difference rather than presented as an identical delivery. They were closed as prerequisites of this
+continuation package before it started, and each already carries a substantial evidence document.
+Consequence for CD15: it stays UNOPENED until CD07-T04 is measured and closed, exactly as the goal hard constraint
+requires when the pickup is incomplete.
+```

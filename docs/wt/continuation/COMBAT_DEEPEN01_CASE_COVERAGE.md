@@ -119,3 +119,5 @@ The packaged list at `docs/wt/combat-deepen-01/original/08_ACCEPTANCE_CASES.json
 | CD16-T04 | CD16 | 同生命实弹再出击 | NOT_RUN | - |
 | CD16-T05 | CD16 | 历史与开放舱兼容 | NOT_RUN | - |
 | CD16-T06 | CD16 | 关闭重启和独立路径 | NOT_RUN | - |
+
+> **Evidence form difference, user-ruled and accepted:** CD03, CD04 and CD06 were closed as PREREQUISITES of this continuation package before it began, so their evidence is a substantial evidence document (185 / 297 / 284 lines) rather than a `RESULTS.json`. The user accepted this form on 2026-09-11 and asked that the difference be stated here rather than presented as an identical delivery. CD07 was delivered inside the package but its result file declares `COMPLETE_WITH_GAPS` with five of six cases executed, and the user ruled that CD07-T04 is to be BUILT AND MEASURED FIRST before CD15 is opened.
