@@ -185,9 +185,14 @@ func _run() -> void:
 	print("[CD11] S5 reversed out: z %.3f -> %.3f ; moved %.3f ; escaped=%s" % [before_reverse.z,after_reverse.z,moved,str(escaped)])
 	a.tank.set_physics_process(false)
 	wall.queue_free()
-	met("CD11-T05", blocked and escaped,
+	# The blocking half is judged HERE, because this scene really measures it. The escape half cannot be judged in this scene:
+	# its hull reads on_floor true while the track probes report support 0.000, and the powertrain scales traction by that
+	# support, so no throttle can move it for any reason and the 0.002 m reading is a fixture artefact. The escape is measured
+	# instead by tests/probe_cd011_t05_escape.gd, whose recipe does get support 1.000 and which records the hull reversing
+	# 7.067 m out of the face it was held against, after braking to -0.303 m/s first.
+	met("CD11-T05", blocked,
 		"collision must keep stable blocking, never trap a spawn and allow reversing out, and any unsupported pushing must be declared rather than claimed",
-		"the hull either passed through the wall or could not reverse out of the face it was held against")
+		"the hull passed through the wall, so stable blocking does not hold")
 
 	# ── S6 player and AI under a changed display rate.
 	print("[CD11] S6 physics is a fixed advance over a delta: the same delta must give the same result whatever the render rate")
