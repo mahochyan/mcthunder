@@ -98,3 +98,25 @@ negative - does not exist and is the real work of this sub-order.
 2. then add the versioned preset, the personal SP book and the sortie transaction, keeping `team_standard_300`, the ticket
    ledger and the death gate exactly as they are;
 3. emit itemised out-of-match receipts booked once, and register the project divergences rather than claiming real prices.
+
+## 3. The six scenes, first pass, and what they measured
+```
+The scenes drive the real preset, the real line-up validator, the real garage service, the real profile store and the
+real progression service, and the readings are informative on every case:
+   HELD  T04 line-up legality: all six line-up vehicles are known to the garage, an unconfigured id is refused with
+         ok false AND a reason, and the garage does not claim to hold it, so no default hull is generated.
+   GAP   T01 the old preset is confirmed INTACT - id team_standard_300, version 1, three hundred tickets and a real
+         fingerprint - while the probe finds NO new versioned preset file, which is the thing this sub-order must add.
+   GAP   T02 the stored profile keys were listed in full and contain research points, unlocked vehicles, the garage
+         block and receipts, but NO personal sortie book of any kind, so the four independent books cannot yet be
+         shown to be separate. That is a measured absence rather than an opinion.
+   GAP   T03 the spawn search class is present while no reservation bookkeeping is, which is exactly the difference
+         between avoiding a blocked spawn and making a sortie request idempotent.
+   GAP   T05 the result entry point and the commit both REFUSED, and their readings are worth keeping: the first
+         result was rejected as a match result that had not been registered, and the store refused the candidate.
+         Both need their real preconditions measured rather than guessed, and that is named as the next step.
+   GAP   T06 there is no interpreter at all, so a historical result cannot yet be read by the version that produced it.
+One observation is recorded without a conclusion: a refusal reason came back as mojibake in the captured log. That may
+be the log capture decoding rather than the product, and it will be measured before anything is claimed about it.
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```
