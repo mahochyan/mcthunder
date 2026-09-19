@@ -109,3 +109,33 @@ Rejection conditions, verbatim:
 ```
 为画面同步让客户端裁定伤害 ✗ · 两边各算自己的随机毁伤 ✗ · 关闭特效后命中变化 ✗ · 把本机两客户端PASS冒充公网团队战 ✗
 ```
+## 5. The six scenes, first pass: six pass, and TWO of those passes are WEAK and are stated as such
+
+```
+WHAT THE SCENES REALLY DID
+   S1 ran two real matches and compared them: nine committed events and identical tickets 300/300 on both, so the committed
+      rules do not read presentation state.
+   S2/S3/S4/S5/S6 measured the machinery each case needs: the committed-event feedback entry, the replay record builder with
+      its codec and validators, the authority server own reject and freeze, the event journal with baseline queueing and the
+      unsupported_version refusal, and the CD12 policy four information classes with its internal field guard and a spectator
+      projection.
+
+THE TWO WEAKNESSES, ADMITTED RATHER THAN DRESSED UP
+   1. The presentation half of the first case was NOT exercised. The probe looked for a ProjectileManager child on the match
+      scene, found NONE, and reported that honestly - so what is measured is that two matches commit the same events, not that
+      switching presentation OFF leaves them unchanged. A pass that reports its own wiring gap is worth more than one that
+      hides it, but it is still a weak pass.
+   2. Several conditions rest on FILE EXISTENCE rather than on behaviour, which is the very weakness already caught and
+      repaired twice in this session: the second and third cases in particular check that the record builder, the codec, the
+      validators and a shell family file are present, and presence is not behaviour. The real shell machinery lives under
+      scripts/projectiles plus the armour impact profile, the fragment system and the shell definition - measured this round -
+      and the correct next step is to DRIVE it, exactly as the contribution ledger was driven after its own weak pass.
+
+WHAT IS NOT WEAK
+   The authority side is measured on its own source-contracted surface: the server is present, its reject and its freeze exist
+   by name, the event journal is present, and its baseline and version-refusal paths exist. The sixth case drives the policy
+   directly and reads the four classes, the internal guard and a real spectator projection, which is behaviour rather than
+   presence.
+
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```
