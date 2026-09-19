@@ -91,10 +91,16 @@ func _run() -> void:
 	var progression := ProgressionService.new(store)
 	# register_match returns an EMPTY token unless the config mode is normal, which is what its own first line checks, so the
 	# scene must build a normal config and then use the token THE SERVICE ISSUED rather than one of its own invention.
-	var built := MatchConfig.build({"mode":"normal","selected_vehicle_id":str(line_up[0]),
-		"map":"hill_village","difficulty":"normal","lineup":line_up},service,stored.get("unlocked",[]))
+	# build() gates on SIX things, two of which this scene first got wrong: the value must carry a loadouts DICTIONARY,
+	# and the line-up may hold at most THREE vehicles. It also reports a refusal through REASON, not through an errors list,
+	# which is why the earlier print of errors came back empty.
+	var probe_ids: Array = [str(line_up[0])]
+	var probe_loadouts := {}
+	for id in probe_ids: probe_loadouts[str(id)] = service.default_loadout(str(id))
+	var built := MatchConfig.build({"mode":"normal","selected_vehicle_id":str(probe_ids[0]),"map":"hill_village",
+		"difficulty":"normal","lineup":probe_ids,"loadouts":probe_loadouts},service,stored.get("unlocked",[]))
 	var registered: Dictionary = progression.register_match(built.config) if built.ok else {"ok":false,"token":""}
-	print("[CD14] S5 config built=%s errors=%s mode=%s" % [str(built.get("ok",false)),str(built.get("errors",[])),str(built.get("config",null) != null and built.config.mode())])
+	print("[CD14] S5 config built=%s errors=%s mode=%s" % [str(built.get("ok",false)),str(built.get("reason","")),str(built.get("config",null) != null and built.config.mode())])
 	var token := str(registered.get("token",""))
 	# apply_result_once needs a REGISTERED token whose director is bound and whose match has FINISHED with this exact result,
 	# which is what its own body gates on; without that it refuses as an unregistered match result, which is what the first pass met.
@@ -114,10 +120,14 @@ func _run() -> void:
 	var commit := store.commit(candidate)
 	var reloaded: Dictionary = ProfileStore.new("user://profiles/cd014_probe").snapshot()
 	print("[CD14] S5 register=%s ; first ok=%s second ok=%s second reason=%s ; commit ok=%s ; reloaded has probe=%s ; rewards=%s" % [
-		str(registered.get("ok",false)),str(first.get("ok",false)),str(second.get("ok",false)),str(second.get("reason","")),
+		str(registered.get("ok",false)),str(first.get("ok",false))+" points="+str(first.get("points",0)),str(second.get("ok",false))+" duplicate="+str(second.get("duplicate",false))+" points="+str(second.get("points",0)),str(second.get("reason","")),
 		str(commit.get("ok",false)),str(reloaded.size() == store.snapshot().size()),str(ProgressionService.REWARDS)])
-	met("CD14-T05", bool(first.get("ok",false)) and not bool(second.get("ok",true)) and bool(commit.get("ok",false))
-		and reloaded.size() == store.snapshot().size(),
+	# The REAL semantics, read from the service own body: a repeat is reported as a DUPLICATE with zero points rather than as a
+	# failure, so not rewarding twice means points 0 and the duplicate flag. The first pass asked for a failure and therefore
+	# read a correctly behaving product as a gap.
+	met("CD14-T05", bool(first.get("ok",false)) and int(first.get("points",0)) > 0
+		and bool(second.get("duplicate",false)) and int(second.get("points",-1)) == 0
+		and bool(commit.get("ok",false)) and reloaded.size() == store.snapshot().size(),
 		"a repeated settlement must not reward twice, a failure must be clearly recoverable and the real profile must not be polluted",
 		"the repeated settlement rewarded twice, or the candidate was not committed and reloadable")
 
