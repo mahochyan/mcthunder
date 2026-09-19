@@ -172,7 +172,15 @@ $suiteLaunch=Join-Path $runDir 'run-regression.ps1'
 & '$($source.Replace("'","''"))/tests/run_suite_checks.ps1' -SourceSha '$sourceSha' -EnginePath '$($engine.Replace("'","''"))' -Order '031-clean' -Suites @($suiteLiteral)
 exit `$LASTEXITCODE
 "@ | Set-Content -LiteralPath $suiteLaunch -Encoding utf8
-Run-Checked 'regression' $shell ('-NoProfile -File "'+$suiteLaunch+'"') $source 7200 'EVIDENCE=' '' -TolerateNonZeroExit:$Candidate
+Run-Checked 'regression' $shell ('-NoProfile -File "'+$suiteLaunch+'"') $source 14400 'EVIDENCE=' '' -TolerateNonZeroExit:$Candidate
+# WT-EXPANSION-02 (measured, not guessed): this bound was 7200 s, which the batch used to fit inside with room to
+# spare - a real 38-suite batch on 2026-09-15 cost 3701 s. The same suites are 3.8x slower per simulated frame today
+# (run_industrial_battle_checks: 1146 s then, 4327 s now, for the SAME two matches - last game clock 340/333 s then
+# and 367/355 s now, logs/007/99afbe5c.../ and logs/COMBAT-DEEPEN-01/industrial-budget.log), because the simulation
+# itself has grown. Extrapolating the unchanged 2555 s of the other 37 suites plus today's 4327 s industrial run gives
+# about 6882 s - already 96% of the old cap before the -ModernRiver additions, so a legitimate regression would have
+# been killed as a timeout and reported as a build failure. 14400 s is a 2x margin over that estimate. This is a
+# harness bound, not a pass condition: a genuinely hung batch is still killed, only later.
 $suiteResults=Get-ChildItem -LiteralPath (Join-Path $source 'logs/031-clean') -Recurse -Filter RESULTS.json | Select-Object -Last 1
 $regression=Get-Content -LiteralPath $suiteResults.FullName -Raw | ConvertFrom-Json
 $failing=@($regression | Where-Object { -not $_.passed })
