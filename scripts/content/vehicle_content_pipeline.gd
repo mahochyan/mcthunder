@@ -273,13 +273,20 @@ static func definitions_for(packet: Dictionary, layout: VehicleLayoutDefinition)
 	v.forward_max_speed = r.forward_max_speed; v.reverse_max_speed = r.reverse_max_speed
 	v.forward_accel = r.acceleration; v.reverse_accel = r.acceleration*0.65
 	# Explicit design curves, separate from historical facts and their evidence gate.
-	match str(packet.id):
-		"us_m4a3_75w_vvss_1944":
-			v.drive_profile=preload("res://configs/drive/m4a3_design.tres")
-			v.optics_profile=preload("res://configs/optics/m4a3_design.tres")
-		"us_m24_m6_t85e1_1951":
-			v.drive_profile=preload("res://configs/drive/m24_design.tres")
-			v.optics_profile=preload("res://configs/optics/m24_design.tres")
+	# CD11: a packet may DECLARE its own drive profile, which is how the two engineering vehicles come to differ from each
+	# other and from the historical pair. The match below is the legacy path and is unchanged: a packet that declares nothing
+	# keeps exactly the design resource it had before, so no existing vehicle changes behaviour.
+	if packet.has("drive_profile") and packet.drive_profile is Dictionary:
+		var cd011_row: Variant = packet.drive_profile.get("values",packet.drive_profile)
+		if cd011_row is Dictionary: v.drive_profile = DriveProfile.from_packet(cd011_row)
+	else:
+		match str(packet.id):
+			"us_m4a3_75w_vvss_1944":
+				v.drive_profile=preload("res://configs/drive/m4a3_design.tres")
+				v.optics_profile=preload("res://configs/optics/m4a3_design.tres")
+			"us_m24_m6_t85e1_1951":
+				v.drive_profile=preload("res://configs/drive/m24_design.tres")
+				v.optics_profile=preload("res://configs/optics/m24_design.tres")
 	VehicleEquipmentProfiles.apply(packet,v)
 	v.hull_turn_speed = r.hull_turn_speed; v.turret_yaw_speed = r.get("turret_yaw_speed",24.0)
 	v.turret_pitch_speed = r.get("turret_pitch_speed",10.0)

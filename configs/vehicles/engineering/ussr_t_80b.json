@@ -1589,7 +1589,51 @@
                                                      "location":  "ussr_t_80b.txt:L440 武器与弹药/primary",
                                                      "unit":  "deg/s",
                                                      "note":  "Frozen War Thunder summary candidate; not historically verified."
-                                                 }
+                                                 },
+                  "drive.profile":  {
+                                        "location":  "ussr_t_80b: drive.profile",
+                                        "note":  "Declared project design curve for this vehicle, matching the drive_profile content above field for field.",
+                                        "origin":  "game_rule",
+                                        "source_refs":  [
+                                                            "mcthunder_pipeline"
+                                                        ],
+                                        "status":  "estimated",
+                                        "unit":  "structured",
+                                        "value":  {
+                                                      "schema_version":  1,
+                                                      "origin":  "game_rule",
+                                                      "note":  "Declared project design curve for this vehicle. Every field is stated explicitly because the gate demands it; the two engineering vehicles differ in turning, one sided track loss and recoil. These are game tuning values, not measurements of any real vehicle.",
+                                                      "values":  {
+                                                                     "power_falloff":  0.42,
+                                                                     "shift_seconds":  0.18,
+                                                                     "shift_power":  0.15,
+                                                                     "gear_count":  5,
+                                                                     "downshift_hysteresis":  0.08,
+                                                                     "grade_acceleration":  9.81,
+                                                                     "brake_scale":  0.95,
+                                                                     "coast_scale":  0.92,
+                                                                     "turn_speed_falloff":  0.3,
+                                                                     "turn_drag_per_second":  0.32,
+                                                                     "track_spacing_m":  2.72,
+                                                                     "neutral_turn":  true,
+                                                                     "damaged_track_turn_scale":  0.22,
+                                                                     "pitch_degrees_per_acceleration":  0.18,
+                                                                     "pitch_limit_degrees":  1.5,
+                                                                     "pitch_response_rate":  8,
+                                                                     "landing_min_speed":  2,
+                                                                     "landing_restitution":  0.12,
+                                                                     "landing_max_rebound":  1,
+                                                                     "suspension_enabled":  false,
+                                                                     "suspension_compression_m":  0.18,
+                                                                     "suspension_extension_m":  0.3,
+                                                                     "suspension_response_rate":  10,
+                                                                     "suspension_impact_scale":  0.28,
+                                                                     "suspension_angle_limit_degrees":  8,
+                                                                     "suspension_point_speed_limit":  4,
+                                                                     "suspension_contact_margin_m":  0.02
+                                                                 }
+                                                  }
+                                    }
               },
     "geometry":  {
                      "barrel_length":  5.092,
@@ -2742,5 +2786,39 @@
                           "mass":  "kg",
                           "speed":  "m/s",
                           "time":  "s"
+                      },
+    "drive_profile":  {
+                          "schema_version":  1,
+                          "origin":  "game_rule",
+                          "note":  "Declared project design curve for this vehicle. Every field is stated explicitly because the gate demands it; the two engineering vehicles differ in turning, one sided track loss and recoil. These are game tuning values, not measurements of any real vehicle.",
+                          "values":  {
+                                         "power_falloff":  0.42,
+                                         "shift_seconds":  0.18,
+                                         "shift_power":  0.15,
+                                         "gear_count":  5,
+                                         "downshift_hysteresis":  0.08,
+                                         "grade_acceleration":  9.81,
+                                         "brake_scale":  0.95,
+                                         "coast_scale":  0.92,
+                                         "turn_speed_falloff":  0.3,
+                                         "turn_drag_per_second":  0.32,
+                                         "track_spacing_m":  2.72,
+                                         "neutral_turn":  true,
+                                         "damaged_track_turn_scale":  0.22,
+                                         "pitch_degrees_per_acceleration":  0.18,
+                                         "pitch_limit_degrees":  1.5,
+                                         "pitch_response_rate":  8,
+                                         "landing_min_speed":  2,
+                                         "landing_restitution":  0.12,
+                                         "landing_max_rebound":  1,
+                                         "suspension_enabled":  false,
+                                         "suspension_compression_m":  0.18,
+                                         "suspension_extension_m":  0.3,
+                                         "suspension_response_rate":  10,
+                                         "suspension_impact_scale":  0.28,
+                                         "suspension_angle_limit_degrees":  8,
+                                         "suspension_point_speed_limit":  4,
+                                         "suspension_contact_margin_m":  0.02
+                                     }
                       }
 }
