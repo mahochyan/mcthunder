@@ -1,0 +1,19 @@
+WT-EXPANSION-01 item B step 2: the HUD model now carries the secondary firing channels, and what is NOT yet done is
+stated in the same breath rather than left to be discovered.
+
+WHAT CHANGED: battle_ui.gd enriches the HUD model with a `secondary_channels` field built from the gunner own
+channels - group and belt state per channel, as plain text rows so a renderer can print them without knowing the
+channel structure. It is ADDITIVE: no existing field changes, and the field is only present for a vehicle that
+actually carries secondary channels, so every historical vehicle model is byte-identical to before.
+
+WHAT IS NOT DONE, AND IS NOT CLAIMED: the overlay does not RENDER this field yet. This step puts the state on the
+HUD data path - which is where item B had to start, since a renderer cannot draw a value the model does not carry -
+and the drawing of it remains the last piece of item B, together with the new input binding the input map still
+lacks (fire, shell_1 and shell_2 exist and there is no third slot).
+
+MEASURED AFTER THE CHANGE, and the slice was chosen for what the HUD path touches: run_hud_checks (the HUD suite
+itself), run_vehicle_damage_hud_checks (the second HUD suite, which also builds a model and a diagram),
+run_engineering_runtime_checks (the vehicles that carry the channels) and run_feedback_checks (the presentation side)
+all exit 0 with no failures. A parse check ran before any of them.
+
+NO MAIN GUN BEHAVIOUR CHANGED and no expectation was edited.
