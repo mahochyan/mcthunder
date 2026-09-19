@@ -147,3 +147,16 @@ spacing, damaged track scale and recoil, and reference each from its packet as d
 game_rule origin and the explanation the gate demands. Then the two curves differ by construction, which is what T01 and
 T02 need, and the recoil differs by vehicle, which is what T04 needs.
 ```
+
+## 5. The data path measured, and the insertion that was abandoned rather than forced
+```
+DriveProfile.from_packet now exists, mirroring the idiom the loading profile already uses, so a per vehicle curve can be
+declared in data instead of being hard coded per vehicle id. It parses clean and nothing calls it yet, so it changes no
+existing behaviour.
+The pipeline edit was attempted five times and each attempt was reverted by its own shape guard. The reason is now known
+rather than guessed: the hard coded per id preloads are MATCH ARMS, and the block continues past the arm that was used as
+the insertion anchor, so an injected statement lands inside the match and the parser refuses it. Indenting the tail was
+tried and was worse, because it swallowed the rest of the file including the function return. The next attempt must
+REWRITE THE WHOLE FUNCTION through the file tool, the way the capability file was rewritten when the same class of
+problem appeared there, rather than continue to insert.
+```

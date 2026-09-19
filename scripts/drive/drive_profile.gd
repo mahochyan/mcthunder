@@ -33,6 +33,16 @@ extends Resource
 @export var suspension_angle_limit_degrees := 8.0
 @export var suspension_point_speed_limit := 4.0
 @export var suspension_contact_margin_m := 0.02
+## CD11: build a profile from a packet row, the same idiom the loading profile already uses, so a per vehicle curve can be
+## DECLARED IN DATA rather than hard coded per vehicle id. Any key the row omits keeps the declared default, which is the
+## behaviour every vehicle had before this existed.
+static func from_packet(row: Dictionary) -> DriveProfile:
+	var p := DriveProfile.new()
+	for key in row.keys():
+		var k := str(key)
+		if not (k in p): continue
+		p.set(k,row[key])
+	return p
 func validate() -> Array[String]:
 	var errors: Array[String]=[]
 	for key in ["suspension_compression_m","suspension_extension_m","suspension_response_rate","suspension_impact_scale","suspension_angle_limit_degrees","suspension_point_speed_limit","suspension_contact_margin_m"]:
