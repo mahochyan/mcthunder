@@ -985,6 +985,31 @@ the derivation in the comment. It is a harness bound and not a pass condition - 
 killed, only later. Verified: the script stays pure ASCII, parses with 0 errors, and the register still holds its
 three entries (`run_industrial_battle_checks`, `run_challenge_checks`, `run_village_battle_checks`).
 
+## 26. Every red from the previous build attempt is now either FIXED or REGISTERED-AND-VERIFIED, and the batch prediction is on record before the build finishes
+
+The previous candidate build (2026-09-19 12:26, source `6c945fb2`) ran its regression to the END of the batch - it
+printed `EVIDENCE=` - and its complete failure list is five rows
+(`logs/031/6c945fb2.../build-20260919-122619-427/regression.stdout.log`):
+
+| previous red | what it was | state now, with its evidence |
+|---|---|---|
+| `run_checks` `exit=2` | its own 90 s game-time watchdog cut a PASSING suite short | **FIXED** - watchdog 240 s (measured need 7876 frames) and the suite is in the runner's `--fixed-fps 60` list; verified THROUGH the runner: `checks=217 exit=0 passed=True` |
+| `run_village_battle_checks` `exit=1` | one arrival check, caused by a wreck closing the choke | **REGISTERED** - matcher accepts the real failure set, refuses new/extra/timeout/script-error variants |
+| `run_industrial_battle_checks` `exit=-1` | killed by the shared 1500 s per-suite bound (`checks=0` because it died before printing) | **FIXED** - per-suite 6000 s from the measured 4327 s; verified THROUGH the runner: `checks=16 exit=1 passed=False timed_out=False`, and the matcher accepts the runner's own log |
+| `run_challenge_checks` `exit=1` | the registered two-wave fixture boundary | **REGISTERED** - its batch log carries exactly the two registered `[FAIL]` lines, 0 SCRIPT ERROR, 0 `^ERROR:`, 0 `Parse Error`; matcher verdict `ACCEPTED=True` |
+| `run_engineering_runtime_checks` `checks=26 exit=1` | the "exactly two authored rounds" expectation, stale after CD07 added HE | **FIXED** earlier by the ruled expectation migration; the suite is 54/0 |
+
+   So the prediction being tested by the running build is explicit: the regression should complete with exactly THREE
+   known failures - village, industrial, challenge - all registered, and none of them timed out. Anything else is a
+   new red and stops the build, which is the behaviour the gate is supposed to have.
+
+A NOTE ON THE RUNNER'S OWN READING OF SUMMARY LINES, recorded because it explains `checks=0` in that batch: many
+suites print the Chinese summary and the runner reads the child's stdout in an encoding that mangles it
+(`=== 缁撴灉: 140 椤规鏌? 2 澶辫触 ===`), so `$checkMatch` misses and the runner falls back to the `_PASS` marker or
+the per-check lines. That fallback works for passing suites and it does NOT affect the register, which is judged from
+`^\[FAIL\]` lines - but it is why a suite's recorded `checks` can be 0 while its own log shows 140.
+
+
 
 
 
