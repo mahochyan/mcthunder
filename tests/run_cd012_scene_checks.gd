@@ -83,12 +83,13 @@ func _run() -> void:
 	var begin := {}
 	support.begin("us_m26_pershing",3)
 	var mark := support.recon_mark("B",1,Vector3(50,0,-20),0.0,"authority")
+	var mark_row: Dictionary = mark.get("mark",{})
 	var marks_now := support.recon_marks_now(1.0)
 	var marks_later := support.recon_marks_now(999.0)
 	print("[CD12] S5 capable=%s ; mark ok=%s source=%s expires_at=%s ; marks now=%d later=%d ; last_seen expiry=%.1f" % [
 		str(capable),str(mark.get("ok",false)),str(mark.get("source","")),str(mark.get("expires_at","")),
 		marks_now.size(),marks_later.size(),ObservationPolicy.expiry_for("last_seen_memory")])
-	met("CD12-T05", bool(mark.get("ok",false)) and str(mark.get("source","")) != "" and marks_now.size() > 0 and marks_later.size() == 0,
+	met("CD12-T05", bool(mark.get("ok",false)) and str(mark_row.get("source","")) != "" and float(mark_row.get("expires_at",-1.0)) > 0.0 and marks_now.size() > 0 and marks_later.size() == 0,
 		"a recon mark must carry its source and expire, and a last seen position must not secretly follow the target",
 		"a recon mark has no source or does not expire, so a mark could track a hidden target for ever")
 
