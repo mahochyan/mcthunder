@@ -52,7 +52,8 @@ const LEVEL = {
   'cd15-record-interpretation-v1': ['PROJECT_FIXTURE', 'the interpreter and the record codec are driven together'],
   'cd15-local-authority-v1': ['PROJECT_FIXTURE', 'one authority and two production clients run as three real processes'],
   'cd15-information-permission-v1': ['PROJECT_FIXTURE', 'the policy is driven with its guard and a real spectator projection'],
-  'cd16-declared-manifest-expectation-v1': ['PROJECT_FIXTURE', 'the integration suite was driven after the migration and validates the packet own declared manifest: 54 checks with no failures']
+  'cd16-declared-manifest-expectation-v1': ['PROJECT_FIXTURE', 'the integration suite was driven after the migration and validates the packet own declared manifest: 54 checks with no failures'],
+  'cd16-he-velocity-850-v1': ['PROJECT_FIXTURE', 'the real ammunition and firing path was driven after the alignment across six suites (307 checks, no failures), and the reference itself is the local game file round definition']
 };
 
 // THE WAR THUNDER REFERENCE, measured in this session from the local install (docs/wt/wt-reference/).
@@ -76,7 +77,7 @@ const WT = {
     },
     'cd07-he-family-v1': {
       reference: 'gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850 m/s, explosive a_ix_2 3.402 kg',
-      verdict: 'DIFFERS: our engineering HE declares 700 m/s, a 150 m/s shortfall against the file - recorded as an open item, not corrected in this round'
+      verdict: 'ALIGNED: the declared 700 m/s was moved to the file value 850 m/s as declared behavior change cd16-he-velocity-850-v1 with its measured before and after, and the six affected suites are green (307 checks, no failures); the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy and NOT_COMPARED'
     }
   }
 };

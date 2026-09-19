@@ -8,7 +8,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 
 | measure | value |
 |---|---|
-| rows | 32 |
+| rows | 33 |
 | `WT_BEHAVIOR_COMPARISON` rows | **0** |
 | `HUMAN_PLAYTEST` rows | **0** |
 | similarity percentage | **none given** |
@@ -16,7 +16,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | evidence level | rows |
 |---|---|
 | `SOURCE_RULE` | 5 |
-| `PROJECT_FIXTURE` | 27 |
+| `PROJECT_FIXTURE` | 28 |
 
 | sub-order | rows in matrix | coverage state | cases |
 |---|---|---|---|
@@ -66,7 +66,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | `BM-04-cd004-residual-ratio-v1` | WT-CD-004 | `SOURCE_RULE` | cd004-residual-ratio-v1 :: residual_model, RESIDUAL_K, RESIDUAL_FLOOR | One hundred millimetres leaves 805.788 and three hundred leaves 617.363; bursts land 19.11575 and 15.34726 metres out, inside one step of residual times delay. | `null` / NOT_COMPARED |
 | `BM-05-cd004-ballistics-v1_shared_solver` | WT-CD-004 | `PROJECT_FIXTURE` | cd004-ballistics-v1_shared_solver :: ballistic_intercept_verification, ai_lane_prediction, gunner_spec_drag_k_per_m | Vacuum miss 0.000305 m, unchanged; drag miss 0.001376 m, with the predicted time moved from 0.363637 s to 0.379341 s. | `null` / NOT_COMPARED |
 | `BM-06-wt012-reactive-v1` | WT-CD-005 | `SOURCE_RULE` | wt012-reactive-v1 ::  | A qualifying hit spends the charge and adds its reduction; a hit below the trigger minimum does NOT spend it; through the resolver a live charge costs 220.0000 mm against a spent charge's 100.0000 mm. | `null` / NOT_COMPARED |
-| `BM-07-cd07-he-family-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-he-family-v1 :: family, source_bullet_type, effect_policy | Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers. | **`COMPARED_TO_SOURCE_FILE`** - gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850 m/s, explosive a_ix_2 3.402 kg -> DIFFERS: our engineering HE declares 700 m/s, a 150 m/s shortfall against the file - recorded as an open item, not corrected in this round |
+| `BM-07-cd07-he-family-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-he-family-v1 :: family, source_bullet_type, effect_policy | Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers. | **`COMPARED_TO_SOURCE_FILE`** - gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850 m/s, explosive a_ix_2 3.402 kg -> ALIGNED: the declared 700 m/s was moved to the file value 850 m/s as declared behavior change cd16-he-velocity-850-v1 with its measured before and after, and the six affected suites are green (307 checks, no failures); the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy and NOT_COMPARED |
 | `BM-08-cd07-bounded-connectivity-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-bounded-connectivity-v1 :: overpressure, blast, fragmentation, declared_openings | Measured: the burst records three separate channels and the overpressure channel carries a computed verdict with the reason "closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure", … | `null` / NOT_COMPARED |
 | `BM-09-cd07-external-on-every-burst` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-external-on-every-burst :: external | Measured: the same burst now records external=true, and the fuzed bursts are unchanged. | `null` / NOT_COMPARED |
 | `BM-10-cd07-contact-and-world-detonation` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-contact-and-world-detonation :: burst_target, burst_entry_distance, burst_visited, contact_kind | Measured: the same shot now reports burst=present with the three channels, the world route records contact_kind=world_contact, and the armour route is unchanged in every other respect. | `null` / NOT_COMPARED |
@@ -92,6 +92,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | `BM-30-cd15-local-authority-v1` | WT-CD-015 | `PROJECT_FIXTURE` | cd15-local-authority-v1 :: reject, not_owner, stale_sequence, unsupported_message, unsupported_version, baseline, event_journal, final_snapshot | Measured by driving three real processes: the authority and BOTH production clients finished with the SAME final digest b7a1c492eae3dcb76994b6ea13bd6e6dd6b1d73a65dd6a9868c6ec5d244feebf, the server accepted 311 commands and refused by name not_owner:2 for a spo … | `null` / NOT_COMPARED |
 | `BM-31-cd15-information-permission-v1` | WT-CD-015 | `PROJECT_FIXTURE` | cd15-information-permission-v1 :: INFO_CLASSES, is_internal_field, project, precision_m, expires_at | Measured by driving the policy: the four classes read world_truth, observer_visible, shared_intel and last_seen_memory; the internal field guard refuses an internal field; and a real spectator projection is produced from observer_visible rather than from world … | `null` / NOT_COMPARED |
 | `BM-32-cd16-declared-manifest-expectation-v1` | WT-CD-016 | `PROJECT_FIXTURE` | cd16-declared-manifest-expectation-v1 :: shell_catalog.shells, shell_catalog.default, shell_options, muzzle_velocity_mps, effect_policy | Measured after the migration: 54 checks, 0 failed. The T-80B declares three rounds and all three validate with their own policies; the Leopard declares two and both validate; the HEAT reload, both real launches and the reset restoration still pass for both veh … | `null` / NOT_COMPARED |
+| `BM-33-cd16-he-velocity-850-v1` | WT-CD-016 | `PROJECT_FIXTURE` | cd16-he-velocity-850-v1 :: shell_catalog.shells.muzzle_velocity_mps, evidence.ballistics.muzzle_velocity_mps | Measured after: the packet declares 850 m/s in both places, the fixture launch velocity is read from found.muzzle_velocity_mps, and the six suites above are green with no expectation edited. probe_cd007_he_landed had been failing for three fixture reasons of i … | `null` / NOT_COMPARED |
 
 ## 4. Every row carries these bindings
 
@@ -149,6 +150,7 @@ Rows are derived from rule migration entries. A sub-order that changed no rule t
 - **WT-CD-015/cd15-local-authority-v1** — The harness own aggregate flag reads false because it reads a NULL process exit code from its started processes, while each process printed its PASS line and returned through the passing branch and the three digests are identical; that instrument fault is stated rather than smoothed over. Losing and delaying the transport is a fixture and the order permits it; no packet loss, capacity or p95 measurement is claimed and performance stays HOLD_BY_USER.
 - **WT-CD-015/cd15-information-permission-v1** — Precision, expiry and attenuation values remain declared project design initial values with comparison NOT_COMPARED, and thermal and radar remain explicitly unsupported states rather than a filter standing in for a sensor.
 - **WT-CD-016/cd16-declared-manifest-expectation-v1** — The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed.
+- **WT-CD-016/cd16-he-velocity-850-v1** — The 850 m/s is now a value taken from the local game build and not a project design value, while the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy with comparison NOT_COMPARED. The alignment is a SOURCE comparison against a data file, not an in-game behaviour capture.
 - **package** — declared layout tolerance: The project config declares 50 mm / 2 percent while the reference packet declares 1 mm / 0.1 percent. Both are recorded; reconciliation needs the user.
 - **package** — registered mesh divergences: Eleven registered items are model coverage rather than authored geometry; no layout fault was found and completion of the models would close them.
 - **package** — normal-match checkpoint: NOT_RUN. Fixtures do not substitute for a normal match and this agent does not sign for human play.

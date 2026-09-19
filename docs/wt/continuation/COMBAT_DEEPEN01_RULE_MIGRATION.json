@@ -16,7 +16,8 @@
                             "WT-CD-013: a single contribution ledger with separate counters, and a versioned attribution rule with named refusals",
                             "WT-CD-014: a realistic rule preset beside the old one, a personal sortie book, a four step sortie transaction, and a rule version interpreter",
                             "WT-CD-015: the presentation layer, the shell family gate, the replay record interpretation, the local authority across three processes and the information permission are CONFIRMED and DRIVEN on the same chain rather than replaced",
-                            "WT-CD-016: the integration gate found a stale expectation left by CD07 own HE addition, and the assertion now reads the declared manifest instead of a literal count"
+                            "WT-CD-016: the integration gate found a stale expectation left by CD07 own HE addition, and the assertion now reads the declared manifest instead of a literal count",
+                            "WT-CD-016: the engineering HE velocity is aligned to the value the local game file states, 700 to 850 m/s, as a declared behavior change with its measured before and after"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -1057,6 +1058,34 @@
                         "migration":  "The assertion now reads the declaration instead of a literal, so a future authored round is validated rather than breaking the suite, while a round with an undeclared family or a wrong effect policy still fails.",
                         "rollback":  "Restore the literal two-round assertion; the T-80B HE round then fails the suite again exactly as it did at HEAD.",
                         "divergences":  "The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-016",
+                        "change_kind":  "behavior_change",
+                        "old_rule_version":  "cd07-he-family-v1",
+                        "new_rule_version":  "cd16-he-velocity-850-v1",
+                        "affected_vehicles":  "ussr_t_80b",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "shell_catalog.shells.muzzle_velocity_mps",
+                                       "evidence.ballistics.muzzle_velocity_mps"
+                                   ],
+                        "reason":  "The War Thunder reference read from the local installation states 850 m/s for the 125mm_ussr_HE round, while this project engineering HE declared 700 m/s. Every other round already matched the file exactly (3BM42 1700, 3BK12 905, NATO APDS_FS 1650, NATO HEAT_FS 1140), so the HE was the one declared value that disagreed with its own reference and it is aligned here.",
+                        "reference_sources":  [
+                                                  "WT local install 2.59.0.13",
+                                                  "gamedata/weapons/groundmodels_weapons/125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The HE family rules of CD07 are untouched: the shell keeps its family HE, its he_blast effect policy, its flat 30 mm penetration curve, its post-penetration profile and its blast channels. Only the declared muzzle velocity moves, and the old value is kept here as the before reference rather than deleted.",
+                        "legacy_tests":  "run_shell_checks.gd 193/0, run_engineering_runtime_checks.gd 54/0, probe_cd007_he_runtime.gd 19/0, probe_cd007_world_burst.gd 15/0, probe_cd007_occlusion_target.gd 13/0, ran again with the new value; probe_cd007_he_landed.gd reads the packet velocity rather than a literal and passes 13/0",
+                        "new_expected_declared_before_run":  "The engineering HE must declare the velocity its reference states and every dependent fixture must read that value rather than a literal, so the round flies at 850 m/s and the launch speed assertion in the engineering runtime suite still matches the packet it reads.",
+                        "independent_oracle":  "The gun file own round definition: 125mm_ussr_HE speed 850, explosive a_ix_2 with 3.402 kg, from the extracted build 2.59.0.13.",
+                        "measured_before":  "Measured before: the packet declared 700 m/s in both places, the reference comparison reported velocity_differs with delta -150 m/s, and probe_cd007_he_landed carried a hardcoded 700 in its own launch velocity, which is a second copy of a packet value inside a fixture.",
+                        "measured_after":  "Measured after: the packet declares 850 m/s in both places, the fixture launch velocity is read from found.muzzle_velocity_mps, and the six suites above are green with no expectation edited. probe_cd007_he_landed had been failing for three fixture reasons of its own (wrong catalog entry point, no physics frames before reading the installed rounds, packet id compared against runtime id) and those are repaired in the same round so that the velocity change is not landed on top of an unmeasured fixture.",
+                        "migration":  "A stored shot record keeps the velocity it was fired with; the change affects new rounds only and the ballistic profile resolution reads the packet, so nothing is recomputed across records.",
+                        "rollback":  "Restore the two 700 declarations; the reference comparison then reports the -150 m/s difference again and nothing else changes.",
+                        "divergences":  "The 850 m/s is now a value taken from the local game build and not a project design value, while the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy with comparison NOT_COMPARED. The alignment is a SOURCE comparison against a data file, not an in-game behaviour capture."
                     }
                 ],
     "divergences":  [

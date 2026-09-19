@@ -2529,7 +2529,7 @@
                                                                                  "value":  {
                                                                                                "gravity_scale":  1,
                                                                                                "max_flight_time_s":  6,
-                                                                                               "muzzle_velocity_mps":  700,
+                                                                                               "muzzle_velocity_mps":  850,
                                                                                                "penetration_curve":  [
                                                                                                                          [
                                                                                                                              0,
@@ -2644,7 +2644,7 @@
                                              "id":  "eng_125_he_v1",
                                              "label":  "125mm engineering HE (project design values)",
                                              "max_flight_time_s":  6,
-                                             "muzzle_velocity_mps":  700,
+                                             "muzzle_velocity_mps":  850,
                                              "penetration_curve":  [
                                                                        [
                                                                            0,

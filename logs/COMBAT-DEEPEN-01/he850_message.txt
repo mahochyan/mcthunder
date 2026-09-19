@@ -1,0 +1,25 @@
+MCT-COMBAT-DEEPEN-01: the engineering HE velocity is ALIGNED to the value the local game file states, landed as a
+declared behavior change with its measured before and after.
+
+The reference read this session states 850 m/s for the round 125mm_ussr_HE in
+gamedata/weapons/groundmodels_weapons/125mm_2a46_2_user_cannon.blk of build 2.59.0.13, while this project declared
+700 m/s - the one declared round of five that disagreed with its own reference, since 3BM42 1700, 3BK12 905, NATO
+APDS_FS 1650 and NATO HEAT_FS 1140 all match exactly.
+
+The change moves BOTH declarations in the T-80B packet - the shell_catalog entry and the evidence claim value that
+must agree with it - from 700 to 850, with the packet edited by exact replacement so its formatting survives byte
+for byte, and it is recorded as migration entry cd16-he-velocity-850-v1 of kind behavior_change: old rule
+cd07-he-family-v1, the game file as reference, the retained old value as the before reference rather than deleted,
+and a rollback that restores the two 700 declarations.
+
+MEASURED AFTER: six suites green with 307 checks and no failures - run_engineering_runtime_checks 54/0,
+run_shell_checks 193/0, probe_cd007_he_landed 13/0, probe_cd007_he_runtime 19/0, probe_cd007_world_burst 15/0 and
+probe_cd007_occlusion_target 13/0. NO EXPECTATION WAS EDITED: the engineering runtime suite asserts the launch
+speed MATCHES the packet it reads, so it follows the value, and probe_cd007_he_landed - repaired in the previous
+round - now reads found.muzzle_velocity_mps instead of carrying its own second copy of 700.
+
+The comparison matrix is regenerated: it now carries 33 rows because the alignment is itself a rule change, the
+cd07-he-family-v1 verdict reads ALIGNED with the migration id and the measured suite counts, and the separation
+the matrix exists to protect is untouched - wt_behavior_comparison_rows stays ZERO, no similarity percentage is
+given, and the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy that is
+NOT_COMPARED. What changed is a SOURCE comparison against a data file, which is labelled as one.
