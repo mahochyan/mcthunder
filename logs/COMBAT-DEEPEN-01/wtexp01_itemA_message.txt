@@ -1,0 +1,20 @@
+WT-EXPANSION-01 item A: the first attempt to measure the record path GUESSED the API, broke the probe, and was
+reverted - the tree is green again and the correct interface is now named.
+
+What was attempted: asserting that a secondary shot enters the same shot-record path the replay reads, by counting
+the manager records before and after the launch instead of assuming that a spawn implies a record. The leg produced
+THREE script errors because it called `shot_records.count()` and `get_record()` on what is a ShotRecordStore, and
+it also read a `record.identity` the way the modern-match verifier does. That is a guess about an interface, which
+is exactly the failure mode this session keeps recording, so the change was REVERTED rather than debugged in place:
+the probe is back to 45 checks with zero failures and zero script error lines, and the product code was not touched
+at all.
+
+What is now known and written down instead of guessed: ProjectileManager holds `shot_records := ShotRecordStore.new()`
+and raises the signal `shot_record_ready(record)`, so the leg must be written against ShotRecordStore own interface
+in scripts/replay/shot_record_store.gd - and the reading is the first step of the next round, before any code is
+written against it.
+
+The record in the expansion note now states item A as NOT MEASURED with that instruction attached, so the gap is
+visible in the document rather than only in a log, and the two remaining items are unchanged: the HUD and controls
+that let a player fire a secondary channel, and the main-gun suites that must keep passing - which they do, with
+engineering runtime, shell, damage and feedback all green after the last product change.

@@ -104,6 +104,9 @@ func _run() -> void:
 			actor.gunner.projectile_manager = manager
 			actor.gunner.round_provider = func() -> int: return 7001
 			var belt_before: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
+			# ITEM A IS NOT MEASURED YET: an attempt to count the manager shot records across the launch was
+			# reverted because it guessed the record API and produced three script errors instead of a measurement.
+			# The record path must be read from ProjectileManager before this leg is written again.
 			var answer: Dictionary = actor.gunner.try_fire_secondary(0)
 			var belt_after: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
 			var pid: int = int(actor.gunner.secondary_channel(0).get("last_projectile_id",0))

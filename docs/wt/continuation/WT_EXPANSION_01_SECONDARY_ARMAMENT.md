@@ -28,7 +28,12 @@ passed with it present.
 
 ```
 A. the secondary rounds must enter the DAMAGE and REPLAY records the same way the main gun rounds do, which is the
-   consistency this package objective is about rather than a separate feature;
+   consistency this package objective is about rather than a separate feature. NOT MEASURED YET, and the first
+   attempt is recorded rather than hidden: counting records across the launch by guessing the store API produced
+   three script errors, so the change was REVERTED and the probe is green again at 45 checks with zero failures.
+   The API to read first is now known and named: ProjectileManager holds `shot_records := ShotRecordStore.new()`
+   and raises the signal `shot_record_ready(record)`, so the leg must be written against ShotRecordStore own
+   interface (`scripts/replay/shot_record_store.gd`) instead of against a guessed `count()`/`get_record()` pair.
 B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
    not only by a probe;
 C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and
