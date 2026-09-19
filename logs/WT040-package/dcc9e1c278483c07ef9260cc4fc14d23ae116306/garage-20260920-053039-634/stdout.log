@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+MODERN_GARAGE_RUNTIME release=true evidence=E:\AIprogram\mcthunder-cont\logs\WT040-package\dcc9e1c278483c07ef9260cc4fc14d23ae116306\garage-20260920-053039-634/shots
+[PASS] modern vehicle has actual garage entry: ussr_t_80b
+[PASS] real mouse target is visible and enabled
+[PASS] garage shows exact admitted bound model
+[PASS] armor inspection hides opaque authored shell
+[PASS] modern selection uses explicit engineering mode without historical research lookup
+[PASS] save selected modern vehicle and edited ammunition
+[PASS] disk reload retains modern identity, first round and quantities
+[PASS] save still rejects unknown vehicle loadouts
+[PASS] capture actual modern frontend: ussr_t_80b_garage
+[PASS] real mouse target is visible and enabled
+[PASS] normal deploy routes selected modern vehicle to actual river team scene
+[PASS] first spawn consumes edited loadout, not defaults
+[PASS] three capture points and registered 4v4 roster
+[PASS] opposing modern content explicitly selected
+[PASS] capture actual modern frontend: ussr_t_80b_river
+[PASS] restart retains river, exact type and edited loadout
+[PASS] engineering departure settles without rewards or blocking pending receipt
+[PASS] return keeps modern garage selection
+[PASS] modern vehicle has actual garage entry: germ_leopard_2a4
+[PASS] real mouse target is visible and enabled
+[PASS] garage shows exact admitted bound model
+[PASS] armor inspection hides opaque authored shell
+[PASS] modern selection uses explicit engineering mode without historical research lookup
+[PASS] save selected modern vehicle and edited ammunition
+[PASS] disk reload retains modern identity, first round and quantities
+[PASS] save still rejects unknown vehicle loadouts
+[PASS] capture actual modern frontend: germ_leopard_2a4_garage
+[PASS] real mouse target is visible and enabled
+[PASS] normal deploy routes selected modern vehicle to actual river team scene
+[PASS] first spawn consumes edited loadout, not defaults
+[PASS] three capture points and registered 4v4 roster
+[PASS] opposing modern content explicitly selected
+[PASS] capture actual modern frontend: germ_leopard_2a4_river
+[PASS] restart retains river, exact type and edited loadout
+[PASS] engineering departure settles without rewards or blocking pending receipt
+[PASS] return keeps modern garage selection
+[PASS] historical setup remains saveable with optional modern loadouts
+=== 结果: 37 项检查, 0 失败 ===
+MODERN_GARAGE_CHECKS_PASS

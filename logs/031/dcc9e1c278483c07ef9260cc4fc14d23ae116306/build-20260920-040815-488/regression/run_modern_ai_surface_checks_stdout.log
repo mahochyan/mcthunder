@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] registered modern packets retain their actual validation
+[PASS] actual Actor setup: ussr_t_80b
+[PASS] actual Actor setup: germ_leopard_2a4
+[PASS] stationary encounter exposes a real visible enemy
+[PASS] own weapon remains usable with actual ammunition
+[PASS] usable AI can finish aiming and fire in the bounded stationary encounter
+[PASS] surface retry retains the same difficulty error rather than rolling a better one
+[PASS] the initial river-life error exercises predicted_path_misses and surface retry
+[PASS] every observed shot still requires actual lane authorization
+[PASS] real projectile contacts the intended modern vehicle after the surface retry
+[PASS] stationary diagnostic evidence can be written
+[PASS] registered modern packets retain their actual validation
+[PASS] actual Actor setup: ussr_t_80b
+[PASS] actual Actor setup: germ_leopard_2a4
+[PASS] stationary encounter exposes a real visible enemy
+[PASS] own weapon remains usable with actual ammunition
+[PASS] usable AI can finish aiming and fire in the bounded stationary encounter
+[PASS] surface retry retains the same difficulty error rather than rolling a better one
+[PASS] the initial river-life error exercises world_blocked and surface retry
+[PASS] every observed shot still requires actual lane authorization
+[PASS] real projectile contacts the intended modern vehicle after the surface retry
+[PASS] stationary diagnostic evidence can be written
+[PASS] registered modern packets retain their actual validation
+[PASS] actual Actor setup: ussr_t_80b
+[PASS] actual Actor setup: germ_leopard_2a4
+[PASS] real friendly hull partly screens the lower firing lane
+[PASS] stationary encounter exposes a real visible enemy
+[PASS] own weapon remains usable with actual ammunition
+[PASS] usable AI can finish aiming and fire in the bounded stationary encounter
+[PASS] surface retry retains the same difficulty error rather than rolling a better one
+[PASS] the initial river-life error exercises other_vehicle_first and surface retry
+[PASS] every observed shot still requires actual lane authorization
+[PASS] real projectile contacts the intended modern vehicle after the surface retry
+[PASS] surface retry does not fire through the actual friendly hull
+[PASS] stationary diagnostic evidence can be written
+=== result: 35 checks, 0 failed ===

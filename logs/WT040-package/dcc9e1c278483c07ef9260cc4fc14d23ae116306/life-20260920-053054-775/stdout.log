@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+LIVE_ROUND_EVIDENCE=user://tests/modern_live_round/run_1789853457
+MODERN_LIFE_RUNTIME release=true fixture=flat encounter / scripted enemy operator
+[PASS] fixture validates actual modern loadout
+[PASS] encounter uses the real team director and modern actors
+LIVE_ROUND elapsed=0.23333333333333 shots=0 crew=3 victim=(-350.0, 0.000156, 720.0) aim=(-350.65, 1.877156, 719.901) query_ok=true query_events=[{ "distance_m": 31.1093622221177, "t": 0.86624241310443, "kind": "armor", "target_generation": 1, "event_type": "surface", "entity_id": "A", "life_id": 1, "part_id": "turret", "surface_id": "turret_wall_13", "point_world": (-348.865, 1.884629, 719.6427), "normal_world": (0.934923, 0.276349, -0.222601), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 157.0, "thickness_status": "estimated", "material_kind": "cast", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-350.0, 1.447156, 720.001)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false }, { "distance_m": 32.6603883099626, "t": 0.90943084530467, "kind": "crew", "event_type": "enter", "entity_id": "A", "life_id": 1, "part_id": "turret", "crew_id": "gunner", "point_world": (-350.4, 1.878203, 719.8648), "normal_world": (1.0, 0.0, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "occluded_by_world": false }, { "distance_m": 33.1656001985272, "t": 0.92349850642721, "kind": "crew", "event_type": "exit", "entity_id": "A", "life_id": 1, "part_id": "turret", "crew_id": "gunner", "point_world": (-350.9, 1.87611, 719.9372), "normal_world": (-1.0, 0.0, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "occluded_by_world": false }, { "distance_m": 33.4020780988268, "t": 0.93008325045182, "kind": "armor", "target_generation": 1, "event_type": "surface", "entity_id": "A", "life_id": 1, "part_id": "turret", "surface_id": "turret_wall_30", "point_world": (-351.134, 1.87513, 719.9711), "normal_world": (-0.930512, 0.253092, 0.264748), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 157.0, "thickness_status": "estimated", "material_kind": "cast", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-350.0, 1.447156, 720.001)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false }]
+[PASS] enemy actual round records contact and damage on the same player life
+[PASS] that player life dies exactly once from enemy live rounds
+[PASS] one death deducts the production ticket cost
+[PASS] production waiting panel shown after real death
+[PASS] actual window capture waiting (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@Node3D@300/HUD/@PanelContainer@624/@VBoxContainer@625/@Button@639 visible=true disabled=false
+[PASS] actual mouse click creates a living new player life
+[PASS] new life preserves chosen model and the edited loadout
+[PASS] actual window capture respawned (review pending)
+[PASS] same-life event evidence can be written
+=== 结果: 9 项检查, 0 失败 ===
+PLAYER_LIVE_ROUND_PASS

@@ -1,0 +1,72 @@
+﻿[
+    {
+        "name":  "fresh_import",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"E:\\AIprogram\\mcthunder-cont\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\clean-source\" --editor --import",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    },
+    {
+        "name":  "regression",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -File \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\run-regression.ps1\"",
+        "exit_code":  1,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  false
+    },
+    {
+        "name":  "export_release",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"E:\\AIprogram\\mcthunder-cont\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\clean-source\" --export-release \"Windows Release\" \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\package\\PixelArmor.exe\"",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    },
+    {
+        "name":  "engine_notices",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"E:\\AIprogram\\mcthunder-cont\\tools\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\clean-source\" -s res://tests/write_engine_notices.gd -- \"E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\dcc9e1c278483c07ef9260cc4fc14d23ae116306\\20260920-040815-488\\package\\GODOT_LICENSES.txt\"",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    },
+    {
+        "name":  "independent_default_start",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260920-040815-488\\PixelArmor.exe\" --headless --quit-after 30",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    },
+    {
+        "name":  "independent_content",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260920-040815-488\\PixelArmor.exe\" --headless --fixed-fps 60 -- --verify-installation --require-modern-river",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    },
+    {
+        "name":  "independent_window",
+        "source_sha":  "dcc9e1c278483c07ef9260cc4fc14d23ae116306",
+        "command":  "\"C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260920-040815-488\\PixelArmor.exe\" --resolution 1280x720 -- --verify-installation --require-modern-river",
+        "exit_code":  0,
+        "exit_known":  true,
+        "timed_out":  false,
+        "artifact_ok":  true,
+        "passed":  true
+    }
+]
