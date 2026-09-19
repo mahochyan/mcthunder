@@ -6,6 +6,14 @@ param(
     [string]$EnginePath = ''
 )
 $ErrorActionPreference = 'Stop'
+# WT-EXPANSION-02 (measured, not guessed): one suite runs TWO complete real matches and is CPU-bound rather than
+# real-time bound, so the single shared bound below marked it timed_out while it was in fact PASSING its other checks
+# and failing exactly its one registered check - and the register matcher refuses a registered failure whose run timed
+# out, so the build could never accept it. Measured on this machine under --fixed-fps 60: 4327 s of wall time
+# (logs/COMBAT-DEEPEN-01/industrial-budget.log, 16 checks / 1 failure / 0 SCRIPT ERROR / 0 ERROR lines) for two seeds
+# that together simulate about 710 s of match clock across 8 AI actors with full perception. 6000 s is a ~1.4x margin
+# over the measurement. Every other suite keeps the shared bound, so hang detection latency elsewhere is unchanged.
+$suiteTimeouts = @{ 'run_industrial_battle_checks' = 6000 }
 . (Join-Path $PSScriptRoot 'read_suite_log.ps1')
 if('run_art_checks' -in $Suites -and 'run_menu_fire_handoff_checks' -notin $Suites){$Suites += 'run_menu_fire_handoff_checks'}
 # WT-040-R1: the two engineering vehicles have their own runtime suite - admitted through the production
@@ -54,7 +62,8 @@ foreach ($step in $steps) {
     [void]$process.Start()
     $outTask=$process.StandardOutput.ReadToEndAsync()
     $errTask=$process.StandardError.ReadToEndAsync()
-    $timedOut = -not $process.WaitForExit($TimeoutSeconds * 1000)
+    $suiteBound = if ($suiteTimeouts.ContainsKey($step.Name)) { [int]$suiteTimeouts[$step.Name] } else { $TimeoutSeconds }
+    $timedOut = -not $process.WaitForExit($suiteBound * 1000)
     if ($timedOut) { Stop-Process -Id $process.Id -Force }
     $process.WaitForExit()
     [IO.File]::WriteAllText($stdout,$outTask.GetAwaiter().GetResult())
