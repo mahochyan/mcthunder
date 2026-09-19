@@ -107,8 +107,8 @@
     "CD16":  {
                  "sub_order":  "CD16",
                  "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
-                 "evidence_sha":  "fe1c8f4c7c7f73b573567e3eee1fabd215d97f46",
+                 "evidence_sha":  "ce6044f0907995efd4eacbf1eaff4d83a465478b",
                  "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json",
-                 "results_sha":  null
+                 "results_sha":  "9fee8afaacc40aedc995e430909b4f30a16337c0"
              }
 }

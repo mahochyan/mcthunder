@@ -20,7 +20,7 @@
     "HUMAN_PLAYTEST"
   ],
   "summary": {
-    "rows": 33,
+    "rows": 35,
     "rows_per_work_order": {
       "WT-CD-003": 2,
       "WT-CD-004": 3,
@@ -34,11 +34,11 @@
       "WT-CD-013": 2,
       "WT-CD-014": 4,
       "WT-CD-015": 5,
-      "WT-CD-016": 2
+      "WT-CD-016": 4
     },
     "rows_per_outcome": {
       "SOURCE_RULE": 5,
-      "PROJECT_FIXTURE": 28
+      "PROJECT_FIXTURE": 30
     },
     "wt_behavior_comparison_rows": 0,
     "human_playtest_rows": 0,
@@ -372,7 +372,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd003_gap_baseline.gd (v1 CONTROL leg)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 1 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 1 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -432,7 +432,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd003_gap_baseline.gd (frozen control leg),tests/probe_cd004_zero_drag.gd",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 2 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 2 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -492,7 +492,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd004_zero_drag.gd (the standing control)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 3 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 3 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -552,7 +552,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: all fourteen suites, unchanged before and after",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 4 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 4 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -613,7 +613,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: run_ai_intercept_checks (106 passes, green through every step of this work)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 5 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 5 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -673,7 +673,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
         "legacy and regression checks: run_era_checks (73 passes),run_armor_checks (81 passes)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 6 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 6 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -729,7 +729,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/run_shell_checks.gd (family agreement legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 7 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 7 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -785,7 +785,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_he_spec.gd (root event shape) and tests/probe_cd007_open_contrast.gd (open against closed)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 8 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 8 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -841,7 +841,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_world_burst.gd",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 9 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 9 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -897,7 +897,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_he_runtime.gd (armour contact) and tests/probe_cd007_world_burst.gd (world contact)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 10 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 10 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -953,7 +953,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/run_spall_checks.gd (delayed and spall legs, unchanged)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 11 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 11 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1009,7 +1009,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: scripts/diagnostics/modern_garage_verifier.gd (the same two legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 12 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 12 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1065,7 +1065,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD008_EVIDENCE.md",
         "legacy and regression checks: tests/run_cd008_scene_checks.gd (S1/S3) and tests/run_damage_checks.gd (crew legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 13 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 13 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1121,7 +1121,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD008_EVIDENCE.md",
         "legacy and regression checks: tests/run_damage_checks.gd, tests/run_recovery_checks.gd, tests/run_ammo_compartment_checks.gd, tests/run_recovery_player_checks.gd (the crew legs in each)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 14 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 14 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1177,7 +1177,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD009_EVIDENCE.md",
         "legacy and regression checks: tests/run_damage_checks.gd and the six capability consumers, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 15 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 15 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1233,7 +1233,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD009_EVIDENCE.md",
         "legacy and regression checks: tests/run_fire_control_checks.gd, tests/run_loading_checks.gd and every suite that fires, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 16 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 16 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1289,7 +1289,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD010_EVIDENCE.md",
         "legacy and regression checks: tests/run_ammo_compartment_checks.gd and tests/run_loading_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 17 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 17 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1345,7 +1345,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD011_EVIDENCE.md",
         "legacy and regression checks: tests/run_drive_checks.gd, run_slope_pivot_checks.gd, run_track_damage_checks.gd, run_surface_drive_checks.gd, run_track_drive_checks.gd, run_airborne_drive_checks.gd, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 18 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 18 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1401,7 +1401,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD011_EVIDENCE.md",
         "legacy and regression checks: tests/run_drive_checks.gd and every suite that fires, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 19 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 19 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1457,7 +1457,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD012_EVIDENCE.md",
         "legacy and regression checks: tests/run_observation_policy_checks.gd 32/0, run_optics_checks.gd 24/0, run_sight_ballistics_checks.gd 73/0, run_support_actions_checks.gd 51/0, run_modern_support_checks.gd 19/0, run_partial_support_checks.gd 7/0, run_fire_control_checks.gd 59/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 20 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 20 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1513,7 +1513,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md",
         "legacy and regression checks: check_live_fire_respawn.gd, run_match_event_checks.gd, run_match_rules_checks.gd and every damage and recovery suite, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 21 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 21 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1569,7 +1569,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 22 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 22 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1625,7 +1625,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd 43/0 and run_match_event_checks.gd 11/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 23 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 23 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1681,7 +1681,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 24 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 24 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1737,7 +1737,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: check_live_fire_respawn.gd 17/0 and run_match_rules_checks.gd 43/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 25 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 25 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1793,7 +1793,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_save_lock_checks.gd 8/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 26 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 26 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1849,7 +1849,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_feedback_checks.gd 40/0, run_hud_checks.gd 56/0, run_vehicle_damage_hud_checks.gd 109/0 and run_network_authority_checks.gd 62/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 27 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 27 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1905,7 +1905,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_damage_checks.gd 57/0, run_material_replay_checks.gd 43/0 and run_network_event_journal_checks.gd 64/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 28 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 28 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1961,7 +1961,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_replay_checks.gd 73/0, run_material_replay_checks.gd 43/0 and run_era_network_checks.gd 22/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 29 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 29 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -2017,7 +2017,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_network_event_recovery_checks.gd 58/0, run_network_authority_checks.gd 62/0, run_network_fault_checks.gd 42/0, run_network_identity_checks.gd 60/0 and run_network_event_journal_checks.gd 64/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 30 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 30 of 35)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -2073,7 +2073,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_observation_policy_checks.gd, run_optics_checks.gd, run_sight_ballistics_checks.gd and run_support_actions_checks.gd as confirmed under WT-CD-012, unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 31 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 31 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -2094,15 +2094,15 @@
         "observed_at": "2026-09-19"
       },
       "mcthunder": {
-        "tested_sha": "fe1c8f4c7c7f73b573567e3eee1fabd215d97f46",
-        "sha_kind": "evidence_document_last_commit",
+        "tested_sha": "9fee8afaacc40aedc995e430909b4f30a16337c0",
+        "sha_kind": "result_document_last_commit",
         "package_sha256": null,
         "rules_version": "cd16-declared-manifest-expectation-v1",
         "rules_version_previous": "engineering_runtime_two_round_manifest_expectation",
         "vehicle_id": "ussr_t_80b and germ_leopard_2a4",
         "modes": "engineering_runtime_checks",
         "shell_id": null,
-        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md"
+        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json"
       },
       "conditions": {
         "distance_m": null,
@@ -2129,7 +2129,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
         "legacy and regression checks: tests/run_engineering_runtime_checks.gd 54/0 after the migration; the same suite stood at 44/0 with the old two-round assertion on the 2026-09-17 clean build and at 26/1 at HEAD before the migration",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 32 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 32 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -2150,15 +2150,15 @@
         "observed_at": "2026-09-19"
       },
       "mcthunder": {
-        "tested_sha": "fe1c8f4c7c7f73b573567e3eee1fabd215d97f46",
-        "sha_kind": "evidence_document_last_commit",
+        "tested_sha": "9fee8afaacc40aedc995e430909b4f30a16337c0",
+        "sha_kind": "result_document_last_commit",
         "package_sha256": null,
         "rules_version": "cd16-he-velocity-850-v1",
         "rules_version_previous": "cd07-he-family-v1",
         "vehicle_id": "ussr_t_80b",
         "modes": "live_fire",
         "shell_id": null,
-        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md"
+        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json"
       },
       "conditions": {
         "distance_m": null,
@@ -2185,9 +2185,121 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
         "legacy and regression checks: run_shell_checks.gd 193/0, run_engineering_runtime_checks.gd 54/0, probe_cd007_he_runtime.gd 19/0, probe_cd007_world_burst.gd 15/0, probe_cd007_occlusion_target.gd 13/0, ran again with the new value; probe_cd007_he_landed.gd reads the packet velocity rather than a literal and passes 13/0",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 33 of 33)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 33 of 35)"
       ],
       "deviation_class": "declared_project_design_value"
+    },
+    {
+      "id": "BM-34-cd16-modern-player-flow-derived-edit-v1",
+      "work_order_id": "WT-CD-016",
+      "status": "MEASURED_INTERNAL",
+      "evidence_level": "PROJECT_FIXTURE",
+      "evidence_level_reason": "the packaged player flow drives the real garage, deploy, match, next match and separate-process restart, and the spawn and the restored life are compared against the loadout the flow itself edits",
+      "mechanic": "cd16-modern-player-flow-derived-edit-v1 :: modern_match_verifier.expected_rounds, modern_match_verifier.resume_proof_total",
+      "war_thunder": {
+        "game_build": "2.59.0.13",
+        "mode": "Ground Realistic Battles (normal mode)",
+        "vehicle_variant": null,
+        "shell": null,
+        "crew_or_modifications": null,
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
+      },
+      "mcthunder": {
+        "tested_sha": "9fee8afaacc40aedc995e430909b4f30a16337c0",
+        "sha_kind": "result_document_last_commit",
+        "package_sha256": null,
+        "rules_version": "cd16-modern-player-flow-derived-edit-v1",
+        "rules_version_previous": "cd16-modern-player-flow-literal-18-v1",
+        "vehicle_id": "ussr_t_80b",
+        "modes": "player_flow",
+        "shell_id": null,
+        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json"
+      },
+      "conditions": {
+        "distance_m": null,
+        "impact_angle_deg": null,
+        "target_part": null,
+        "target_pose": null,
+        "ammo_occupancy": null,
+        "damage_before": null,
+        "seed_set": [],
+        "note": "no external comparison condition was captured, so these are left null rather than filled from an internal run; the internal conditions of each row live in the referenced evidence document"
+      },
+      "sample_policy": {
+        "deterministic_cases": "按同一输入重复并比较；不声称跨平台逐bit一致",
+        "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
+      },
+      "metric": "The spawn, the next match and the fresh process must each consume EXACTLY the loadout this flow edits, derived from the edit itself through edited_count per shell spin instead of a remembered number, so a delivered change to the vehicle shell set can never leave a stale literal behind again.",
+      "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
+      "tolerance_predeclared": null,
+      "actual_project": "Measured after: 30 checks, 0 failed, MODERN_MATCH_PASS in the source tree on the same scenario, with MODERN_SPAWN printing rounds=24 wanted_rounds=24. The package flow, which additionally runs the separate process resume proof and captures 06_fresh_process, is re-run on the rebuilt package and is the CD16 T02 T03 T06 evidence.",
+      "outcome": "PROJECT_FIXTURE",
+      "limitation": "The expected total is now derived from the flow own edit rather than stated, so the historical 18 lives in THIS entry instead of inside the check. The per spin counts 12 and 6 remain the flow edit policy, a project design value rather than a War Thunder value, and the check compares the product against that policy and not against the game. ; NO external capture exists, so the War Thunder layer of this row is NOT_COMPARED and no similarity is claimed.",
+      "raw_evidence": [
+        "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+        "legacy and regression checks: the in game player flow: 30 checks, 0 failed, MODERN_MATCH_PASS in the source tree after the migration (logs/COMBAT-DEEPEN-01/modern-srcflow/20260920-020804-483), against 30 checks and 2 failed before it (logs/COMBAT-DEEPEN-01/modern-srcflow/20260920-020246-510). The 4a2c9744 package run that found it is kept as the before evidence (logs/WT040-modern-player/4a2c9744.../20260920-015630-506).",
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 34 of 35)"
+      ],
+      "deviation_class": "not_compared_no_capture"
+    },
+    {
+      "id": "BM-35-cd16-modern-life-fixture-derived-edit-v1",
+      "work_order_id": "WT-CD-016",
+      "status": "MEASURED_INTERNAL",
+      "evidence_level": "PROJECT_FIXTURE",
+      "evidence_level_reason": "the packaged live-round fixture drives a scripted enemy, the production damage and ticket rules and a real respawn click, with the seat resolved through the production station-to-role-to-person mapping and the new-life total derived from the fixture own edit",
+      "mechanic": "cd16-modern-life-fixture-derived-edit-v1 :: modern_life_verifier.expected_new_life_rounds",
+      "war_thunder": {
+        "game_build": "2.59.0.13",
+        "mode": "Ground Realistic Battles (normal mode)",
+        "vehicle_variant": null,
+        "shell": null,
+        "crew_or_modifications": null,
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
+      },
+      "mcthunder": {
+        "tested_sha": "9fee8afaacc40aedc995e430909b4f30a16337c0",
+        "sha_kind": "result_document_last_commit",
+        "package_sha256": null,
+        "rules_version": "cd16-modern-life-fixture-derived-edit-v1",
+        "rules_version_previous": "cd16-modern-life-fixture-eight-round-v1",
+        "vehicle_id": "ussr_t_80b",
+        "modes": "player_live_round",
+        "shell_id": null,
+        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json"
+      },
+      "conditions": {
+        "distance_m": null,
+        "impact_angle_deg": null,
+        "target_part": null,
+        "target_pose": null,
+        "ammo_occupancy": null,
+        "damage_before": null,
+        "seed_set": [],
+        "note": "no external comparison condition was captured, so these are left null rather than filled from an internal run; the internal conditions of each row live in the referenced evidence document"
+      },
+      "sample_policy": {
+        "deterministic_cases": "按同一输入重复并比较；不声称跨平台逐bit一致",
+        "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
+      },
+      "metric": "The scripted enemy must find the first living crew seat through the production station to role to person mapping and actually fire, the same player life must take recorded contact and damage and die exactly once, the production ticket cost must be deducted, and the new life must restore exactly the loadout this fixture edits - derived, not remembered.",
+      "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
+      "tolerance_predeclared": null,
+      "actual_project": "Measured after: PLAYER_LIVE_ROUND_PASS from the source tree on the same fixture, with the enemy firing, the player life dying once, the ticket cost deducted and the new life restoring the derived total; waiting.png and respawned.png are produced. The package case is re-run on the rebuilt package as the CD16-T04 evidence.",
+      "outcome": "PROJECT_FIXTURE",
+      "limitation": "The expected total is now derived from the fixture own edit, so the historical 8 lives in THIS entry. The four rounds per shell remain the fixture edit policy, a project design value rather than a War Thunder value. ; NO external capture exists, so the War Thunder layer of this row is NOT_COMPARED and no similarity is claimed.",
+      "raw_evidence": [
+        "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+        "legacy and regression checks: the fixture from the source tree: PLAYER_LIVE_ROUND_PASS with waiting.png and respawned.png produced (logs/COMBAT-DEEPEN-01/modern-srcflow/verify-modern-life-20260920-035706-676), against PLAYER_LIVE_ROUND_FAIL with 3 failures in the 5c6a8919 package (logs/WT040-package/5c6a8919.../life-20260920-035442-039) and PASS on three 2026-09-17 builds.",
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 35 of 35)"
+      ],
+      "deviation_class": "not_compared_no_capture"
     }
   ],
   "not_compared_items": [
@@ -2328,6 +2440,14 @@
     {
       "source": "WT-CD-016/cd16-he-velocity-850-v1",
       "item": "The 850 m/s is now a value taken from the local game build and not a project design value, while the HE damage model, its 30 mm flat curve and its blast channels remain declared project policy with comparison NOT_COMPARED. The alignment is a SOURCE comparison against a data file, not an in-game behaviour capture."
+    },
+    {
+      "source": "WT-CD-016/cd16-modern-player-flow-derived-edit-v1",
+      "item": "The expected total is now derived from the flow own edit rather than stated, so the historical 18 lives in THIS entry instead of inside the check. The per spin counts 12 and 6 remain the flow edit policy, a project design value rather than a War Thunder value, and the check compares the product against that policy and not against the game."
+    },
+    {
+      "source": "WT-CD-016/cd16-modern-life-fixture-derived-edit-v1",
+      "item": "The expected total is now derived from the fixture own edit, so the historical 8 lives in THIS entry. The four rounds per shell remain the fixture edit policy, a project design value rather than a War Thunder value."
     },
     {
       "source": "package",
