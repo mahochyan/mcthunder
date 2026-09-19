@@ -1,0 +1,114 @@
+{
+    "CD01":  {
+                 "sub_order":  "CD01",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md",
+                 "evidence_sha":  "69149f36fc2b38d32059494473f09d89110953ee",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD001_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD02":  {
+                 "sub_order":  "CD02",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md",
+                 "evidence_sha":  "fad05f887e4978aaf7d2a3e3dea361a7f56f6402",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD002_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD03":  {
+                 "sub_order":  "CD03",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
+                 "evidence_sha":  "8949b6392507cfe860d0c7d57f16b2c4d6d9ce09",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD003_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD04":  {
+                 "sub_order":  "CD04",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
+                 "evidence_sha":  "29f4cd98df3b6f3139805de01283eff94c46ac86",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD004_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD05":  {
+                 "sub_order":  "CD05",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
+                 "evidence_sha":  "45b88736571ebf913c4f764e52b9b2ff6746c9c1",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD005_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD06":  {
+                 "sub_order":  "CD06",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md",
+                 "evidence_sha":  "e398bbbdf6584aea01507b38bdfc55ea47c57787",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD006_RESULTS.json",
+                 "results_sha":  null
+             },
+    "CD07":  {
+                 "sub_order":  "CD07",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
+                 "evidence_sha":  "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD007_RESULTS.json",
+                 "results_sha":  "39762ec96040f03a43117a6c269bbbec5d1ef1eb"
+             },
+    "CD08":  {
+                 "sub_order":  "CD08",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD008_EVIDENCE.md",
+                 "evidence_sha":  "14c2463f65396cfed7174e8d715e66e3a680f097",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD008_RESULTS.json",
+                 "results_sha":  "4c6f5a2232a61932e0328ef2e9ed270c02545cd5"
+             },
+    "CD09":  {
+                 "sub_order":  "CD09",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD009_EVIDENCE.md",
+                 "evidence_sha":  "a6fe494a8250fe80e0bc0087178c12fa738c98f4",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD009_RESULTS.json",
+                 "results_sha":  "1f8553a5dcb268cd7e8301ffffe9e4beec68861a"
+             },
+    "CD10":  {
+                 "sub_order":  "CD10",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD010_EVIDENCE.md",
+                 "evidence_sha":  "29056cb993d73f6b70e8739d3b272393fd15568f",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD010_RESULTS.json",
+                 "results_sha":  "fa9d93b860d3ed86bcfbd7ce52d3f00ff4106418"
+             },
+    "CD11":  {
+                 "sub_order":  "CD11",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD011_EVIDENCE.md",
+                 "evidence_sha":  "fdb7229b2d2af61d3d67af6f7c9ea2647ee0bd7d",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD011_RESULTS.json",
+                 "results_sha":  "9493e2867a03386fabc27d9810b0c71d941b5671"
+             },
+    "CD12":  {
+                 "sub_order":  "CD12",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD012_EVIDENCE.md",
+                 "evidence_sha":  "937fd033ded739d6e60c81f70beedbf1fbe24371",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD012_RESULTS.json",
+                 "results_sha":  "6132bcfa8c25d466a3c3dda7482c50965c38eccb"
+             },
+    "CD13":  {
+                 "sub_order":  "CD13",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md",
+                 "evidence_sha":  "656f6ab5f4672668219853e0eb3aba11ba69717e",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD013_RESULTS.json",
+                 "results_sha":  "399ae69c7cf9bc466e0478aaf990f96a8bbb24ad"
+             },
+    "CD14":  {
+                 "sub_order":  "CD14",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
+                 "evidence_sha":  "f31fc14beb76d23cda6cadb148590105e33cdf52",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD014_RESULTS.json",
+                 "results_sha":  "cc42d6d88ef8dabcfc45c661fa2d2c61ac78aeac"
+             },
+    "CD15":  {
+                 "sub_order":  "CD15",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
+                 "evidence_sha":  "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD015_RESULTS.json",
+                 "results_sha":  "e8d7e9a45285456da87234de0a87a2dfec4bc88d"
+             },
+    "CD16":  {
+                 "sub_order":  "CD16",
+                 "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+                 "evidence_sha":  "fe1c8f4c7c7f73b573567e3eee1fabd215d97f46",
+                 "results":  "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json",
+                 "results_sha":  null
+             }
+}

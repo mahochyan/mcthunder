@@ -108,3 +108,50 @@ comparison has been performed by this agent and none is claimed.
 4. NOTHING IS CLAIMED YET. release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER,
    and the evidence state stays the engineering self-consistent version only.
 ```
+## 7. Stage one DONE: the benchmark matrix is built from measurement, and its external half is empty on purpose
+
+```
+WHAT WAS BUILT
+   docs/wt/continuation/COMBAT_DEEPEN01_BENCHMARK_MATRIX.json  (122674 bytes before the no-row section was added)
+   docs/wt/continuation/COMBAT_DEEPEN01_BENCHMARK_MATRIX.md    (the rendered tables)
+   built by logs/COMBAT-DEEPEN-01/build_cd016_matrix.js, which reads the READ-ONLY template, the migration
+   table, the coverage mirror, the divergence register and the commit map, and REFUSES TO WRITE when any of its
+   eight shape assertions fail.
+
+THE SHAPE, MEASURED
+   rows                      31, one per migration entry, so every row is a rule that the package actually changed
+   evidence_level            SOURCE_RULE 5, PROJECT_FIXTURE 26
+   WT_BEHAVIOR_COMPARISON    0
+   HUMAN_PLAYTEST            0
+   similarity percentage     none given, and the summary says a row count or a pass count is not a similarity
+   dependencies bound        15 of 15, each to the commit that last touched its evidence document (and to its
+                             result commit where the order delivered one), twelve distinct tested commits
+   not-compared items        41, listed individually rather than implied
+   sub-orders with no row    4, each with a stated reason: CD001 and CD002 deliver geometry and CD006 delivers the
+                             post-penetration, fuze and fragment behaviour, so none of the three changed a rule;
+                             CD016 is the delivery itself and its rows arrive with its own six cases
+   every row carries         war_thunder.game_build null, mode Ground Realistic Battles (normal mode), variant, shell,
+                             crew and capture null, expected_reference null, tolerance_predeclared null, and a
+                             limitation that names the absent external capture
+
+WHAT IT DELIBERATELY DOES NOT DO
+   It does not carry a percentage, it does not treat a project fixture as evidence about War Thunder, and it does
+   not fill conditions from an internal run. Every external field is null and every row says NOT_COMPARED, which
+   is the only honest state while no capture of any external title exists.
+
+TWO DEVICE FAULTS OF MINE, BOTH FOUND BY MEASURING RATHER THAN BY LUCK, AND BOTH NAMED
+   1. THE THREE-DIGIT AGAINST TWO-DIGIT NAMING TRAP BIT THIS GENERATOR TOO, for the third time in this session
+      and this time in a way the previous two did not cover: packaged ORDER ids carry three digits (WT-CD-001)
+      while the coverage mirror and the commit map address sub-orders with two (CD01), so deriving the mirror key
+      by string replacement produced CD001 and the first run wrote a dependency graph of fifteen UNKNOWN rows with
+      NULL shas. The generator now maps explicitly and its shape check asserts all fifteen dependencies are bound
+      to a forty character commit before it will write anything.
+   2. A POWERSHELL STRING-SURGERY PASS OVER THE GENERATOR ITSELF RE-ENCODED IT AND DESTROYED ITS TEXT. The lesson
+      this session had already recorded twice - edit text with the file tools, not with PowerShell - was applied
+      to product files and not to a helper script, and the helper was the thing that broke. The file was rewritten
+      whole, and the broken one removed rather than left beside its replacement.
+
+STATE: the matrix is built and bound; the package, the two-vehicle entry, the full match, the live-fire re-sortie,
+the historical and open-top regression and the independent restart are NOT_RUN and are the remaining stages.
+release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```
