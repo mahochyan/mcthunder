@@ -170,3 +170,25 @@ Rounds the game has that this project does not model, listed rather than ignored
 Real round data now available to argue our damage model against: masses (4.85 / 19 / 23 kg), explosive types and
 masses (`a_ix_2` 3.402 kg on the HE round, `a_ix_1` 1.65 kg on the HEAT round, `comp_b` 1.64 kg on the NATO HEAT
 round), `bulletType`, `maxDistance`, and the normalization and ricochet presets each round names.
+
+## The fourth result: the REAL secondary armament, and the completeness gap measured
+
+`WT_REFERENCE_SECONDARY.json`, built by `logs/COMBAT-DEEPEN-01/build_wt_secondary.js`, resolves every weapon
+trigger the unit files declare to the gun file it names, and reads the belt the gun fires.
+
+| vehicle | trigger group | belt | reload | cadence | round |
+|---|---|---|---|---|---|
+| T-80B | `coaxial` | 750 | 8 s | 11.66 rps (~700 rpm) | 7.62 mm, **817.5 m/s**, `ap_i_ball`, 0.00995 kg |
+| T-80B | `machinegun` (AA) | 250 | 5 s | 11.666 rps | 12.7 mm, **865 m/s**, `ap_i_t_ball`, 0.0456 kg, 3400 m |
+| T-80B | `commander` | - | - | - | a dummy trigger the game keeps for that position |
+| Leopard 2A4 | `coaxial` | 200 | 8 s | 20 rps (1200 rpm) | 7.92 mm, **853 m/s**, `ap_ball`, 0.0107 kg |
+| Leopard 2A4 | `machinegun` | 200 | 8 s | 20 rps | 7.92 mm, 853 m/s, the same MG3 |
+| Leopard 2A4 | `commander` | - | - | - | dummy trigger |
+
+**Both vehicles declare FOUR triggers, THREE of them secondary, while this project declares ONE weapon per
+vehicle.** The gap is therefore measured rather than asserted: the coaxial machine gun, the anti-air machine gun
+(12.7 mm NSV on the T-80B), the commander position, and with them the belt sizes, the reload times and the round
+velocities above. Both real belts are armour-piercing incendiary rounds, not tracers or dummies, so a machine gun
+in this project is not a cosmetic feature - it is a second real firing path with its own cadence.
+
+

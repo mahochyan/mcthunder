@@ -1,0 +1,26 @@
+MCT-COMBAT-DEEPEN-01: the REAL secondary armament of both vehicles is now recorded, and the completeness gap is
+measured instead of asserted.
+
+docs/wt/wt-reference/WT_REFERENCE_SECONDARY.json, built by logs/COMBAT-DEEPEN-01/build_wt_secondary.js, resolves
+every weapon trigger the unit files declare to the gun file it names, reads that file and records the belt.
+
+BOTH VEHICLES DECLARE FOUR TRIGGERS, THREE OF THEM SECONDARY, WHILE THIS PROJECT DECLARES ONE WEAPON PER VEHICLE.
+The measured gap is: the T-80B coaxial 7.62 mm PKT with a 750 round belt, an 8 s reload and 11.66 rounds per second
+firing ap_i_ball at 817.5 m/s; the T-80B anti-air 12.7 mm NSV with a 250 round belt, a 5 s reload, the same cadence
+and ap_i_t_ball at 865 m/s out to 3400 m; and on the Leopard 2A4 the coaxial and hull 7.92 mm MG3 with 200 round
+belts, an 8 s reload and 20 rounds per second firing ap_ball at 853 m/s. Each vehicle also carries a commander
+trigger that the game keeps as a dummy.
+
+Two things make this worth recording rather than treating as decoration: both real belts are ARMOUR PIERCING
+INCENDIARY rounds, so a machine gun is a second firing path with a real round and its own cadence rather than a
+cosmetic extra; and the cadence difference between the two vehicles is real data this project has never had - 700
+rounds per minute on the T-80B against 1200 on the Leopard.
+
+A fixture detail found while reading, recorded because it cost a first attempt: a machine gun states its belt
+under `bullet` as an ARRAY of round blocks rather than in named round objects, so a scan for named rounds finds
+nothing and the first version of this record reported empty rounds for every machine gun. The fallback now reads
+the array and records which belt round it took, so the numbers above are traceable to a position in the belt
+rather than to a hopeful first entry.
+
+The boundary is unchanged and was checked again: the extraction and the tool live outside the repository, and only
+derived values and provenance were committed.

@@ -1,0 +1,312 @@
+{
+  "reference_kind": "secondary_armament_from_local_war_thunder",
+  "game_build": "2.59.0.13",
+  "boundary": "derived values and provenance only; the extracted game data stays outside the repository",
+  "read_at": "2026-09-19T07:34:53",
+  "vehicles": [
+    {
+      "vehicle": "ussr_t_80b",
+      "unit_file": "gamedata/units/tankmodels/ussr_t_80b.blk",
+      "war_thunder_triggers": [
+        {
+          "trigger": "0",
+          "triggerGroup": null,
+          "gun_file": "gameData/Weapons/groundModels_weapons/125mm_2A46_2_user_cannon.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "bae8075b16649fe85b4d5b8a9f3080c50a10bd838857cb5b2d0e51c9a9a1427c",
+          "cannon": true,
+          "shotFreq_rps": 0.16666,
+          "rounds": [
+            {
+              "round": "125mm_ussr_HE",
+              "speed": 850,
+              "mass": 23,
+              "caliber": 0.125,
+              "bulletType": "he_frag_fs_tank",
+              "explosiveType": "a_ix_2",
+              "explosiveMass": 3.402
+            },
+            {
+              "round": "125mm_ussr_3BM42_APDS_FS",
+              "speed": 1700,
+              "mass": 4.85,
+              "caliber": 0.125,
+              "bulletType": "apds_fs_tungsten_caliber_fins_tank",
+              "explosiveType": null,
+              "explosiveMass": null
+            },
+            {
+              "round": "125mm_ussr_3BK12_HEAT_FS",
+              "speed": 905,
+              "mass": 19,
+              "caliber": 0.125,
+              "bulletType": "heat_fs_tank",
+              "explosiveType": "a_ix_1",
+              "explosiveMass": 1.65
+            },
+            {
+              "round": "125mm_ussr_APDS_FS",
+              "speed": 1760,
+              "mass": 4.83,
+              "caliber": 0.125,
+              "bulletType": "apds_fs_tungsten_small_core_tank",
+              "explosiveType": null,
+              "explosiveMass": null
+            },
+            {
+              "round": "125mm_ussr_ATGM",
+              "speed": null,
+              "mass": 27.5,
+              "caliber": 0.125,
+              "bulletType": "atgm_tank",
+              "explosiveType": null,
+              "explosiveMass": null
+            }
+          ],
+          "belt_bullets": -1,
+          "belt_reload_s": null,
+          "cartridge": null,
+          "aim_max_distance_m": 2000
+        },
+        {
+          "trigger": "1",
+          "triggerGroup": "coaxial",
+          "gun_file": "gameData/Weapons/groundModels_weapons/7_62mm_PKT_user_machinegun.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "7bde85862288edeb3af3c62fa5154bbb4f03ca1fed834b0929671fc052eda01b",
+          "cannon": false,
+          "shotFreq_rps": 11.66,
+          "rounds": [
+            {
+              "round": "belt round 1 of 2",
+              "speed": 817.5,
+              "mass": 0.00995,
+              "caliber": 0.00762,
+              "bulletType": "ap_i_ball",
+              "bulletName": null,
+              "explosiveType": null,
+              "explosiveMass": null,
+              "maxDistance": 2000
+            }
+          ],
+          "belt_bullets": 750,
+          "belt_reload_s": 8,
+          "cartridge": 250,
+          "aim_max_distance_m": 1500
+        },
+        {
+          "trigger": "2",
+          "triggerGroup": "machinegun",
+          "gun_file": "gameData/Weapons/groundModels_weapons/12_7mm_NSV_t_80_user_cannon.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "274a8493ece7c6b14d2fc53868ded6730a2b059fe4b656f15b4b869ca3779541",
+          "cannon": false,
+          "shotFreq_rps": 11.666,
+          "rounds": [
+            {
+              "round": "belt round 1 of 4",
+              "speed": 865,
+              "mass": 0.0456,
+              "caliber": 0.0127,
+              "bulletType": "ap_i_t_ball",
+              "bulletName": "ap_i_t_ball_bzt_44",
+              "explosiveType": null,
+              "explosiveMass": null,
+              "maxDistance": 3400
+            }
+          ],
+          "belt_bullets": 250,
+          "belt_reload_s": 5,
+          "cartridge": 100,
+          "aim_max_distance_m": 1000
+        },
+        {
+          "trigger": "3",
+          "triggerGroup": "commander",
+          "gun_file": "gameData/Weapons/dummy_weapon.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "cannon": false,
+          "shotFreq_rps": null,
+          "rounds": [],
+          "belt_bullets": null,
+          "belt_reload_s": null,
+          "cartridge": null,
+          "aim_max_distance_m": null
+        }
+      ],
+      "war_thunder_trigger_count": 4,
+      "war_thunder_secondary_count": 3,
+      "mcthunder_declared_weapons": [
+        {
+          "id": "assembly_gun",
+          "gun": "125mm_2A46_2_user_cannon"
+        }
+      ],
+      "mcthunder_declared_weapon_count": 1,
+      "gap": {
+        "wt_triggers_not_modelled": [
+          {
+            "trigger": "1",
+            "group": "coaxial",
+            "gun_file": "gameData/Weapons/groundModels_weapons/7_62mm_PKT_user_machinegun.blk"
+          },
+          {
+            "trigger": "2",
+            "group": "machinegun",
+            "gun_file": "gameData/Weapons/groundModels_weapons/12_7mm_NSV_t_80_user_cannon.blk"
+          },
+          {
+            "trigger": "3",
+            "group": "commander",
+            "gun_file": "gameData/Weapons/dummy_weapon.blk"
+          }
+        ],
+        "note": "This project declares one gun per vehicle. Every trigger the file marks with a triggerGroup is a secondary weapon this project does not model: the coaxial machine gun, the commander or anti-air machine gun, and any dummy trigger the game keeps for the commander position."
+      }
+    },
+    {
+      "vehicle": "germ_leopard_2a4",
+      "unit_file": "gamedata/units/tankmodels/germ_leopard_2a4.blk",
+      "war_thunder_triggers": [
+        {
+          "trigger": "0",
+          "triggerGroup": null,
+          "gun_file": "gameData/Weapons/groundModels_weapons/120mm_Rheinmetall_L44_user_cannon.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "f86fc9c663ffbf532740f90e2d4b55548a9abdd0d945339e61718dd461821435",
+          "cannon": true,
+          "shotFreq_rps": 0.2,
+          "rounds": [
+            {
+              "round": "120mm_NATO_HEAT_FS",
+              "speed": 1140,
+              "mass": 13.5,
+              "caliber": 0.12,
+              "bulletType": "heat_fs_tank",
+              "explosiveType": "comp_b",
+              "explosiveMass": 1.64
+            },
+            {
+              "round": "120mm_NATO_APDS_FS",
+              "speed": 1650,
+              "mass": 4.436,
+              "caliber": 0.12,
+              "bulletType": "apds_fs_tungsten_l10_l15_tank",
+              "explosiveType": null,
+              "explosiveMass": null
+            },
+            {
+              "round": "120mm_DM_APDS_FS",
+              "speed": 1640,
+              "mass": 4.3,
+              "caliber": 0.12,
+              "bulletType": "apds_fs_tungsten_l10_l15_tank",
+              "explosiveType": null,
+              "explosiveMass": null
+            }
+          ],
+          "belt_bullets": -1,
+          "belt_reload_s": null,
+          "cartridge": null,
+          "aim_max_distance_m": 2000
+        },
+        {
+          "trigger": "1",
+          "triggerGroup": "coaxial",
+          "gun_file": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "d02a09714aabca10f4fc2f881fbb3ac2f22aa22fe689b3c12de378c51da19010",
+          "cannon": false,
+          "shotFreq_rps": 20,
+          "rounds": [
+            {
+              "round": "belt round 1 of 2",
+              "speed": 853,
+              "mass": 0.01073718,
+              "caliber": 0.00762,
+              "bulletType": "ap_ball",
+              "bulletName": null,
+              "explosiveType": null,
+              "explosiveMass": null,
+              "maxDistance": 2000
+            }
+          ],
+          "belt_bullets": 200,
+          "belt_reload_s": 8,
+          "cartridge": 200,
+          "aim_max_distance_m": 1500
+        },
+        {
+          "trigger": "2",
+          "triggerGroup": "machinegun",
+          "gun_file": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "d02a09714aabca10f4fc2f881fbb3ac2f22aa22fe689b3c12de378c51da19010",
+          "cannon": false,
+          "shotFreq_rps": 20,
+          "rounds": [
+            {
+              "round": "belt round 1 of 2",
+              "speed": 853,
+              "mass": 0.01073718,
+              "caliber": 0.00762,
+              "bulletType": "ap_ball",
+              "bulletName": null,
+              "explosiveType": null,
+              "explosiveMass": null,
+              "maxDistance": 2000
+            }
+          ],
+          "belt_bullets": 200,
+          "belt_reload_s": 8,
+          "cartridge": 200,
+          "aim_max_distance_m": 1500
+        },
+        {
+          "trigger": "3",
+          "triggerGroup": "commander",
+          "gun_file": "gameData/Weapons/dummy_weapon.blk",
+          "gun_file_present": true,
+          "gun_file_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "cannon": false,
+          "shotFreq_rps": null,
+          "rounds": [],
+          "belt_bullets": null,
+          "belt_reload_s": null,
+          "cartridge": null,
+          "aim_max_distance_m": null
+        }
+      ],
+      "war_thunder_trigger_count": 4,
+      "war_thunder_secondary_count": 3,
+      "mcthunder_declared_weapons": [
+        {
+          "id": "assembly_gun",
+          "gun": "120mm_Rheinmetall_L44_user_cannon"
+        }
+      ],
+      "mcthunder_declared_weapon_count": 1,
+      "gap": {
+        "wt_triggers_not_modelled": [
+          {
+            "trigger": "1",
+            "group": "coaxial",
+            "gun_file": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk"
+          },
+          {
+            "trigger": "2",
+            "group": "machinegun",
+            "gun_file": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk"
+          },
+          {
+            "trigger": "3",
+            "group": "commander",
+            "gun_file": "gameData/Weapons/dummy_weapon.blk"
+          }
+        ],
+        "note": "This project declares one gun per vehicle. Every trigger the file marks with a triggerGroup is a secondary weapon this project does not model: the coaxial machine gun, the commander or anti-air machine gun, and any dummy trigger the game keeps for the commander position."
+      }
+    }
+  ]
+}
