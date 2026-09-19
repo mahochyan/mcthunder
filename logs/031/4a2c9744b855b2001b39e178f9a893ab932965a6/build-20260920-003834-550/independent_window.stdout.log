@@ -1,0 +1,67 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+[PASS] T031-01 actual Windows release template
+[PASS] T031-01 independent installation has no source fallback
+[PASS] T031-02 complete PCK inventory excludes non-runtime files: []
+[PASS] T031-02 excluded development file: res://tests/run_release_checks.gd
+[PASS] T031-02 excluded development file: res://tests/run_checks.gd
+[PASS] T031-02 excluded development file: res://AGENTS.md
+[PASS] T031-02 excluded development file: res://docs/PROJECT_PROGRESS.json
+[PASS] T031-02 excluded development file: res://authoring/vehicles/us_m4a3_75w_vvss_1944.blend
+[PASS] T031-01 Chinese glyphs and font license present
+[PASS] T031-02 engine and font notices beside executable
+[PASS] T031-01 four historical content packages admitted
+[PASS] T031-01 relative GLB and palette: us_m4a3_75w_vvss_1944
+[PASS] T031-01 relative GLB and palette: us_m24_m6_t85e1_1951
+[PASS] T031-01 relative GLB and palette: us_m26_m3_1945
+[PASS] T031-01 relative GLB and palette: us_m36_m4a1_1945
+[PASS] modern candidate admits both complete engineering packets: []
+[PASS] modern candidate preserves exact source GLB bytes: ussr_t_80b
+[PASS] modern candidate preserves exact source GLB bytes: germ_leopard_2a4
+[PASS] modern candidate includes the river team scene
+[PASS] modern candidate resolves actual RiverTeamRange
+[PASS] modern candidate instantiates its registered 4v4 engineering roster
+[PASS] river director has exactly three capture objectives
+[PASS] modern candidate uses requested vehicle, layout and round for slot A
+[PASS] modern candidate installs the exact bound model for slot A
+[PASS] modern candidate uses requested vehicle, layout and round for slot A2
+[PASS] modern candidate installs the exact bound model for slot A2
+[PASS] modern candidate uses requested vehicle, layout and round for slot A3
+[PASS] modern candidate installs the exact bound model for slot A3
+[PASS] modern candidate uses requested vehicle, layout and round for slot A4
+[PASS] modern candidate installs the exact bound model for slot A4
+[PASS] modern candidate uses requested vehicle, layout and round for slot B
+[PASS] modern candidate installs the exact bound model for slot B
+[PASS] modern candidate uses requested vehicle, layout and round for slot B2
+[PASS] modern candidate installs the exact bound model for slot B2
+[PASS] modern candidate uses requested vehicle, layout and round for slot B3
+[PASS] modern candidate installs the exact bound model for slot B3
+[PASS] modern candidate uses requested vehicle, layout and round for slot B4
+[PASS] modern candidate installs the exact bound model for slot B4
+[PASS] modern candidate contains both actual modern vehicle types
+[PASS] T031-01 all thirteen sound streams load
+[PASS] T031-01 default application opens usable garage
+[PASS] T031-01 settings write into independent user directory
+[PASS] T031-01 garage enters complete map 0
+[PASS] T031-01 normal countdown and any focus pause resolve through player input 0
+[PASS] T031-01 ordinary keyboard drives live actor 0
+[PASS] T031-01 remapped key fires actual gun 0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_02.json
+[PASS] T031-01 battle returns through normal navigation
+[PASS] T031-01 garage enters complete map 1
+[PASS] T031-01 normal countdown and any focus pause resolve through player input 1
+[PASS] T031-01 ordinary keyboard drives live actor 1
+[PASS] T031-01 remapped key fires actual gun 1
+[PASS] T031-01 real release render captured
+RELEASE_CAPTURE=C:/Users/lapyin/AppData/Roaming/Godot/app_userdata/PixelArmor/tests/release031_5353953/release_battle.png
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_03.json
+[PASS] T031-01 battle returns through normal navigation
+[PASS] T031-01 authored challenge opens: flank_hunter
+[PASS] T031-01 authored challenge opens: hold_ground
+[PASS] T031-01 authored challenge opens: td_route
+[PASS] T031-01 real tutorial guide loaded without fabricated completion
+[PASS] T031-01 chapter checkpoint reopens from actual disk
+[PASS] T031-01 rendered paths contain no missing translation keys
+=== 结果: 59 项检查, 0 失败 ===
+RELEASE_CHECKS_PASS

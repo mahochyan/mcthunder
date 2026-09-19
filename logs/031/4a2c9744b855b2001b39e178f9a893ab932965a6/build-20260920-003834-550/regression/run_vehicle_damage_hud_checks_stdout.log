@@ -1,0 +1,119 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] us_m4a3_75w_vvss_1944: actual river and normal HUD initialise
+[PASS] us_m4a3_75w_vvss_1944: every real module and crew station is represented
+[PASS] us_m4a3_75w_vvss_1944: hull outline comes from actual armor patches
+[PASS] us_m4a3_75w_vvss_1944: presentation is read-only
+[PASS] us_m4a3_75w_vvss_1944: cutaway is present in ordinary battle HUD
+[PASS] us_m4a3_75w_vvss_1944: production damage maps engine to light
+[PASS] us_m4a3_75w_vvss_1944: production damage maps breech to heavy
+[PASS] us_m4a3_75w_vvss_1944: production damage maps transmission to critical
+[PASS] us_m4a3_75w_vvss_1944: production damage maps track_left to disabled
+[PASS] us_m4a3_75w_vvss_1944: actual gunner station exists
+[PASS] us_m4a3_75w_vvss_1944: crew incapacity follows real assignment state
+[PASS] us_m4a3_75w_vvss_1944: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] us_m4a3_75w_vvss_1944: HUD panel remains within the battle viewport
+[PASS] us_m4a3_75w_vvss_1944: reset clears old module and crew damage colours
+[PASS] us_m4a3_75w_vvss_1944: real turret turn moves breech geometry without moving hull modules
+[PASS] us_m4a3_75w_vvss_1944: active repair marks its actual module
+[PASS] us_m4a3_75w_vvss_1944: production field repair shows actual half integrity, not fictitious full health
+[PASS] us_m4a3_75w_vvss_1944: large text keeps damage display on screen
+[PASS] us_m24_m6_t85e1_1951: actual river and normal HUD initialise
+[PASS] us_m24_m6_t85e1_1951: every real module and crew station is represented
+[PASS] us_m24_m6_t85e1_1951: hull outline comes from actual armor patches
+[PASS] us_m24_m6_t85e1_1951: presentation is read-only
+[PASS] us_m24_m6_t85e1_1951: cutaway is present in ordinary battle HUD
+[PASS] us_m24_m6_t85e1_1951: production damage maps engine to light
+[PASS] us_m24_m6_t85e1_1951: production damage maps breech to heavy
+[PASS] us_m24_m6_t85e1_1951: production damage maps transmission to critical
+[PASS] us_m24_m6_t85e1_1951: production damage maps track_left to disabled
+[PASS] us_m24_m6_t85e1_1951: actual gunner station exists
+[PASS] us_m24_m6_t85e1_1951: crew incapacity follows real assignment state
+[PASS] us_m24_m6_t85e1_1951: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] us_m24_m6_t85e1_1951: HUD panel remains within the battle viewport
+[PASS] us_m24_m6_t85e1_1951: reset clears old module and crew damage colours
+[PASS] us_m24_m6_t85e1_1951: real turret turn moves breech geometry without moving hull modules
+[PASS] us_m24_m6_t85e1_1951: active repair marks its actual module
+[PASS] us_m24_m6_t85e1_1951: production field repair shows actual half integrity, not fictitious full health
+[PASS] us_m24_m6_t85e1_1951: large text keeps damage display on screen
+[PASS] us_m26_m3_1945: actual river and normal HUD initialise
+[PASS] us_m26_m3_1945: every real module and crew station is represented
+[PASS] us_m26_m3_1945: hull outline comes from actual armor patches
+[PASS] us_m26_m3_1945: presentation is read-only
+[PASS] us_m26_m3_1945: cutaway is present in ordinary battle HUD
+[PASS] us_m26_m3_1945: production damage maps engine to light
+[PASS] us_m26_m3_1945: production damage maps breech to heavy
+[PASS] us_m26_m3_1945: production damage maps transmission to critical
+[PASS] us_m26_m3_1945: production damage maps track_left to disabled
+[PASS] us_m26_m3_1945: actual gunner station exists
+[PASS] us_m26_m3_1945: crew incapacity follows real assignment state
+[PASS] us_m26_m3_1945: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] us_m26_m3_1945: HUD panel remains within the battle viewport
+[PASS] us_m26_m3_1945: reset clears old module and crew damage colours
+[PASS] us_m26_m3_1945: real turret turn moves breech geometry without moving hull modules
+[PASS] us_m26_m3_1945: active repair marks its actual module
+[PASS] us_m26_m3_1945: production field repair shows actual half integrity, not fictitious full health
+[PASS] us_m26_m3_1945: large text keeps damage display on screen
+[PASS] us_m36_m4a1_1945: actual river and normal HUD initialise
+[PASS] us_m36_m4a1_1945: every real module and crew station is represented
+[PASS] us_m36_m4a1_1945: hull outline comes from actual armor patches
+[PASS] us_m36_m4a1_1945: presentation is read-only
+[PASS] us_m36_m4a1_1945: cutaway is present in ordinary battle HUD
+[PASS] us_m36_m4a1_1945: production damage maps engine to light
+[PASS] us_m36_m4a1_1945: production damage maps breech to heavy
+[PASS] us_m36_m4a1_1945: production damage maps transmission to critical
+[PASS] us_m36_m4a1_1945: production damage maps track_left to disabled
+[PASS] us_m36_m4a1_1945: actual gunner station exists
+[PASS] us_m36_m4a1_1945: crew incapacity follows real assignment state
+[PASS] us_m36_m4a1_1945: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] us_m36_m4a1_1945: HUD panel remains within the battle viewport
+[PASS] us_m36_m4a1_1945: reset clears old module and crew damage colours
+[PASS] us_m36_m4a1_1945: real turret turn moves breech geometry without moving hull modules
+[PASS] us_m36_m4a1_1945: active repair marks its actual module
+[PASS] us_m36_m4a1_1945: production field repair shows actual half integrity, not fictitious full health
+[PASS] us_m36_m4a1_1945: large text keeps damage display on screen
+[PASS] ussr_t_80b: actual river and normal HUD initialise
+[PASS] ussr_t_80b: every real module and crew station is represented
+[PASS] ussr_t_80b: hull outline comes from actual armor patches
+[PASS] ussr_t_80b: presentation is read-only
+[PASS] ussr_t_80b: cutaway is present in ordinary battle HUD
+[PASS] ussr_t_80b: production damage maps engine to light
+[PASS] ussr_t_80b: production damage maps breech to heavy
+[PASS] ussr_t_80b: production damage maps transmission to critical
+[PASS] ussr_t_80b: production damage maps track_left to disabled
+[PASS] ussr_t_80b: actual gunner station exists
+[PASS] ussr_t_80b: crew incapacity follows real assignment state
+[PASS] ussr_t_80b: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] ussr_t_80b: HUD panel remains within the battle viewport
+[PASS] ussr_t_80b: reset clears old module and crew damage colours
+[PASS] ussr_t_80b: real turret turn moves breech geometry without moving hull modules
+[PASS] ussr_t_80b: active repair marks its actual module
+[PASS] ussr_t_80b: production field repair shows actual half integrity, not fictitious full health
+[PASS] ussr_t_80b: large text keeps damage display on screen
+[PASS] germ_leopard_2a4: actual river and normal HUD initialise
+[PASS] germ_leopard_2a4: every real module and crew station is represented
+[PASS] germ_leopard_2a4: hull outline comes from actual armor patches
+[PASS] germ_leopard_2a4: presentation is read-only
+[PASS] germ_leopard_2a4: cutaway is present in ordinary battle HUD
+[PASS] germ_leopard_2a4: production damage maps engine to light
+[PASS] germ_leopard_2a4: production damage maps breech to heavy
+[PASS] germ_leopard_2a4: production damage maps transmission to critical
+[PASS] germ_leopard_2a4: production damage maps track_left to disabled
+[PASS] germ_leopard_2a4: actual gunner station exists
+[PASS] germ_leopard_2a4: crew incapacity follows real assignment state
+[PASS] germ_leopard_2a4: displayed diagram refreshes after actual damage
+HUD_BOUNDS panel=[P: (16.0, 272.0), S: (330.0, 400.0)] viewport=(1280.0, 720.0)
+[PASS] germ_leopard_2a4: HUD panel remains within the battle viewport
+[PASS] germ_leopard_2a4: reset clears old module and crew damage colours
+[PASS] germ_leopard_2a4: real turret turn moves breech geometry without moving hull modules
+[PASS] germ_leopard_2a4: active repair marks its actual module
+[PASS] germ_leopard_2a4: production field repair shows actual half integrity, not fictitious full health
+[PASS] germ_leopard_2a4: large text keeps damage display on screen
+[PASS] all six vehicle fixtures reach their final checks
+=== result: 109 checks, 0 failed ===
+DAMAGE_HUD_CHECKS_PASS

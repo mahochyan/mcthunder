@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] production engineering packets pass evidence and model binding gates: []
+[PASS] ussr_t_80b: actual Actor setup
+LOADING_BASELINE ussr_t_80b mode=automatic rate=1.0 nominal_s=7.1 roles=["gunner", "driver", "commander"] racks={ "ammo_ready": 27, "ammo_reserve": 10 }
+[PASS] ussr_t_80b: healthy authored equipment has no missing-crew penalty
+[PASS] ussr_t_80b: healthy HUD does not report a missing loader
+[PASS] T-80B installs bound mechanism and separate reserve
+[PASS] T-80B restores authored 28/10 layout with unchanged 38 total capacity
+[PASS] ussr_t_80b: actual chambered round launches
+NATURAL_LOADING ussr_t_80b elapsed_s=7.13333333333331 remaining_s=0.0
+[PASS] ussr_t_80b: actual healthy cycle completes at authored shot reload time
+[PASS] ussr_t_80b: complete shot/loading conserves finite ammunition
+[PASS] second real shot starts an automatic load
+[PASS] explicit mechanism damage disables actual automatic feed
+[PASS] disabled mechanism holds transfer and prevents completion bypass
+[PASS] HUD reports damaged mechanism rather than nonexistent crew
+[PASS] normal repair restores automatic mechanism
+[PASS] repaired mechanism finishes held cycle without adding rounds
+[PASS] reset preserves three-crew automatic equipment and original finite loadout
+[PASS] germ_leopard_2a4: actual Actor setup
+LOADING_BASELINE germ_leopard_2a4 mode=crew rate=1.0 nominal_s=6.0 roles=["gunner", "driver", "loader", "commander"] racks={ "ammo_ready": 14, "ammo_reserve": 27 }
+[PASS] germ_leopard_2a4: healthy authored equipment has no missing-crew penalty
+[PASS] germ_leopard_2a4: healthy HUD does not report a missing loader
+[PASS] germ_leopard_2a4: actual chambered round launches
+NATURAL_LOADING germ_leopard_2a4 elapsed_s=6.03333333333332 remaining_s=0.0
+[PASS] germ_leopard_2a4: actual healthy cycle completes at authored shot reload time
+[PASS] germ_leopard_2a4: complete shot/loading conserves finite ammunition
+[PASS] Leopard manual-loader casualty still slows loading and reports actual lost role
+=== result: 23 checks, 0 failed ===
+ENGINEERING_LOADING_CHECKS_PASS

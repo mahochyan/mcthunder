@@ -1029,6 +1029,56 @@ engineering vehicle may not be swapped for a training vehicle when resources are
 never reuse an older package's evidence. Release state stays `release_ready=false`, `public_release=false`,
 `human=PENDING`, `performance=HOLD_BY_USER`.
 
+## 28. CD16-T01 ACHIEVED: the candidate package was built and independently verified, from a definite commit, with exactly the three registered reds accepted and nothing else
+
+`build_release.ps1 -Candidate -ModernRiver -CommittedSnapshot` from `4a2c9744` completed with **BUILD_EXIT=0** in
+**4609 s**, with every step's own verdict recorded (`logs/031/4a2c9744.../build-20260920-003834-550/RESULTS.json`):
+
+```
+fresh_import              passed=True  exit=0  timed_out=False
+regression                passed=False exit=1  timed_out=False   <- tolerated in candidate mode, judged by the register
+export_release            passed=True  exit=0  timed_out=False
+engine_notices            passed=True  exit=0  timed_out=False
+independent_default_start passed=True  exit=0  timed_out=False
+independent_content       passed=True  exit=0  timed_out=False
+independent_window        passed=True  exit=0  timed_out=False
+RELEASE_READY=False candidate=True known_failures=3
+VERIFIED_CANDIDATE=...\PixelArmor-1.0.0-rc.3-dev-Windows-x64-4a2c9744-devcandidate.zip
+INDEPENDENT_INSTALL=<temp>\PixelArmor 独立测试 20260920-003834-550
+```
+
+THE REGISTER DID ITS JOB, and this is the first candidate this package has produced: the batch's failing set is
+EXACTLY the three registered reds, accepted one by one with their reasons printed, and nothing else was tolerated.
+`regression_checks=432`, `regression_failed_checks=4` (1 + 1 + 2), and the manifest records them:
+`known_failures` = village (1 check), industrial (1 check), challenge (2 checks), each with its FAIL detail and its
+registered reason.
+
+IDENTITY IS TRACEABLE, checked against the ARTEFACTS rather than read from the log:
+```
+BUILD_MANIFEST.json: source_sha = 4a2c9744b855b2001b39e178f9a893ab932965a6     (the definite commit)
+                     engine     = 4.7.2.stable.official.ed1daf0bf               (the fixed engine)
+                     release_ready = False   public_release = False   modern_river_required = True
+                     human = PENDING   full_player_flow = PENDING_SEPARATE_VERIFICATION
+                     required_map = res://scenes/maps/map_river_team.tscn
+                     files = 7 entries with sha256
+  PixelArmor.exe  recorded 8E6C6A7782B22965... = actual 8E6C6A7782B22965...
+  PixelArmor.pck  recorded 60B9883FDB0B6781... = actual 60B9883FDB0B6781...
+```
+   So T01's own wording is satisfied: the package came from a definite integrated commit, source/content/rule/package
+   identities are traceable, and an UNKNOWN exit or a script error is refused by `Run-Checked` rather than reported as
+   a pass. T02 to T06 remain PENDING and each needs the PACKAGE (not the source tree), which is what
+   `full_player_flow = PENDING_SEPARATE_VERIFICATION` in the manifest itself says.
+
+CORRECTION OF SECTION 25, recorded where the wrong number was used: section 25 concluded "the same suites are 3.8x
+slower per simulated frame today" from a standalone measurement of 4327 s. The build's own batch measured the SAME
+suite at **1380 s** (started 01:17:26, finished 01:40:33) against the historical 1146 s - only **1.2x**. The 4327 s
+figure was inflated by machine state in that standalone run, so the batch estimate of 6882 s was conservative: the
+real batch would have been about 3935 s (3701 - 1146 + 1380), which WOULD have fitted the old 7200 s bound, and
+raising it to 14400 s was precautionary rather than required. THE PER-SUITE BOUND STILL STANDS on different evidence:
+the original shared 1500 s bound DID kill this suite in the previous build attempt (exit=-1), and a bound has to cover
+the loaded case, which measured 4327 s.
+
+
 
 
 

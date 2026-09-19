@@ -1,0 +1,39 @@
+﻿{
+    "build_manifest_sha256":  "284CCD759DDAABEB17A0DD7827DC916CF9118DF089BB65EA787C830EACCBC992",
+    "zip_sha256":  "D664DC9005012BE0DF23A14B9F921A66A0AD59D3D6C0A72F04ABB5B1222EF23D",
+    "known_failures":  [
+                           {
+                               "suite":  "run_village_battle_checks",
+                               "checks":  0,
+                               "failures":  1,
+                               "detail":  [
+                                              "[FAIL] all seven autonomous actors leave spawn and reach central approaches: [\"A4\", \"B\", \"A3\", \"B4\", \"B2\"]"
+                                          ],
+                               "reason":  "registered arrival red, user ruling: a wreck in the choke closes the direct road (route 7 -\u003e 19 waypoints, no recovery loop) and the wreck lifetime equals the criterion window; one actor therefore detours too long and one dies and respawns 126 m out"
+                           },
+                           {
+                               "suite":  "run_industrial_battle_checks",
+                               "checks":  0,
+                               "failures":  1,
+                               "detail":  [
+                                              "[FAIL] at least three actual slots from each team physically reach central approaches"
+                                          ],
+                               "reason":  "registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)"
+                           },
+                           {
+                               "suite":  "run_challenge_checks",
+                               "checks":  0,
+                               "failures":  2,
+                               "detail":  [
+                                              "[FAIL] real defense script pilot completes finite waves with opponent AI untouched",
+                                              "[FAIL] real defense script pilot completes finite waves with opponent AI untouched"
+                                          ],
+                               "reason":  "registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice"
+                           }
+                       ],
+    "independent_install":  "C:\\Users\\lapyin\\AppData\\Local\\Temp\\PixelArmor 独立测试 20260920-003834-550",
+    "zip":  "E:\\AIprogram\\mcthunder-cont\\backups\\builds\\031\\4a2c9744b855b2001b39e178f9a893ab932965a6\\20260920-003834-550\\PixelArmor-1.0.0-rc.3-dev-Windows-x64-4a2c9744-devcandidate.zip",
+    "source_sha":  "4a2c9744b855b2001b39e178f9a893ab932965a6",
+    "candidate":  true,
+    "release_ready":  false
+}

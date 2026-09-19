@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[admit] catalog.new = 0 ms; registry errors=0
+[admit] historical us_m4a3_75w_vvss_1944 = 16 ms ok=true
+[admit] historical us_m24_m6_t85e1_1951 = 12 ms ok=true
+[admit] historical us_m26_m3_1945 = 15 ms ok=true
+[admit] historical us_m36_m4a1_1945 = 12 ms ok=true
+[admit] engineering ussr_t_80b = 46 ms ok=true vehicle=true packet=true model_source=true layout=true (ussr_t_80b_layout)
+        admitted definition: id=ussr_t_80b display_name_key=T-80B (engineering candidate) / 125mm 2A46 / wt040-eng-v1 tier=production admission=validated ; defs now hold weapons=5 shells=5 layouts=5
+[admit] engineering germ_leopard_2a4 = 39 ms ok=true vehicle=true packet=true model_source=true layout=true (germ_leopard_2a4_layout)
+        admitted definition: id=germ_leopard_2a4 display_name_key=Leopard 2A4 (engineering candidate) / 120mm Rheinmetall L/44 / wt040-eng-v1 tier=production admission=validated ; defs now hold weapons=6 shells=6 layouts=6
+[admit] all loaded ids: ["us_m4a3_75w_vvss_1944", "us_m24_m6_t85e1_1951", "us_m26_m3_1945", "us_m36_m4a1_1945", "ussr_t_80b", "germ_leopard_2a4"]
+[admit] rejected: []
+[PASS] ussr_t_80b admitted through the production catalog with its binding and model source
+[PASS] germ_leopard_2a4 admitted through the production catalog with its binding and model source
+=== result: 2 checks, 0 failed ===
+ENGINEERING_ADMISSION_PASS

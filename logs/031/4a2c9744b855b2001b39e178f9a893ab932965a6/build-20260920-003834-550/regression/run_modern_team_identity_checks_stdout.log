@@ -1,0 +1,80 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] ussr_t_80b: registered river match initialises
+[PASS] ussr_t_80b / A: actual Actor exists
+[PASS] ussr_t_80b / A: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] ussr_t_80b / A: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / A2: actual Actor exists
+[PASS] ussr_t_80b / A2: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] ussr_t_80b / A2: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / A3: actual Actor exists
+[PASS] ussr_t_80b / A3: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] ussr_t_80b / A3: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / A4: actual Actor exists
+[PASS] ussr_t_80b / A4: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] ussr_t_80b / A4: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / B: actual Actor exists
+[PASS] ussr_t_80b / B: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] ussr_t_80b / B: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / B2: actual Actor exists
+[PASS] ussr_t_80b / B2: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] ussr_t_80b / B2: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / B3: actual Actor exists
+[PASS] ussr_t_80b / B3: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] ussr_t_80b / B3: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / B4: actual Actor exists
+[PASS] ussr_t_80b / B4: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] ussr_t_80b / B4: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b: actual composition stays registered 4v4
+[PASS] ussr_t_80b: selection follows authoritative team membership
+[PASS] ussr_t_80b / A2: explicit factory rebuild registers a new life
+[PASS] ussr_t_80b / A2: rebuild has a distinct life identity
+[PASS] ussr_t_80b / rebuilt A2: actual Actor exists
+[PASS] ussr_t_80b / rebuilt A2: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] ussr_t_80b / rebuilt A2: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b / B2: explicit factory rebuild registers a new life
+[PASS] ussr_t_80b / B2: rebuild has a distinct life identity
+[PASS] ussr_t_80b / rebuilt B2: actual Actor exists
+[PASS] ussr_t_80b / rebuilt B2: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] ussr_t_80b / rebuilt B2: ammunition and layout belong to the expected side
+[PASS] ussr_t_80b: identity handling leaves match rules unchanged
+[PASS] germ_leopard_2a4: registered river match initialises
+[PASS] germ_leopard_2a4 / A: actual Actor exists
+[PASS] germ_leopard_2a4 / A: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] germ_leopard_2a4 / A: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / A2: actual Actor exists
+[PASS] germ_leopard_2a4 / A2: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] germ_leopard_2a4 / A2: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / A3: actual Actor exists
+[PASS] germ_leopard_2a4 / A3: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] germ_leopard_2a4 / A3: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / A4: actual Actor exists
+[PASS] germ_leopard_2a4 / A4: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] germ_leopard_2a4 / A4: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / B: actual Actor exists
+[PASS] germ_leopard_2a4 / B: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] germ_leopard_2a4 / B: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / B2: actual Actor exists
+[PASS] germ_leopard_2a4 / B2: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] germ_leopard_2a4 / B2: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / B3: actual Actor exists
+[PASS] germ_leopard_2a4 / B3: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] germ_leopard_2a4 / B3: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / B4: actual Actor exists
+[PASS] germ_leopard_2a4 / B4: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] germ_leopard_2a4 / B4: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4: actual composition stays registered 4v4
+[PASS] germ_leopard_2a4: selection follows authoritative team membership
+[PASS] germ_leopard_2a4 / A2: explicit factory rebuild registers a new life
+[PASS] germ_leopard_2a4 / A2: rebuild has a distinct life identity
+[PASS] germ_leopard_2a4 / rebuilt A2: actual Actor exists
+[PASS] germ_leopard_2a4 / rebuilt A2: actual vehicle is germ_leopard_2a4 (got germ_leopard_2a4)
+[PASS] germ_leopard_2a4 / rebuilt A2: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4 / B2: explicit factory rebuild registers a new life
+[PASS] germ_leopard_2a4 / B2: rebuild has a distinct life identity
+[PASS] germ_leopard_2a4 / rebuilt B2: actual Actor exists
+[PASS] germ_leopard_2a4 / rebuilt B2: actual vehicle is ussr_t_80b (got ussr_t_80b)
+[PASS] germ_leopard_2a4 / rebuilt B2: ammunition and layout belong to the expected side
+[PASS] germ_leopard_2a4: identity handling leaves match rules unchanged
+=== result: 76 checks, 0 failed ===
+MODERN_TEAM_IDENTITY_CHECKS_PASS

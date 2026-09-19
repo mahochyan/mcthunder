@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] corrected packets retain production admission
+[PASS] zero-height turret remains rejected
+[PASS] nonfinite local coordinate remains rejected
+[PASS] original model identity and binding remain valid: ussr_t_80b
+[PASS] delivered model contains its authored turret armor mesh
+[PASS] combat turret height matches model in pivot-local metres: ussr_t_80b
+[PASS] actual modern actor installs corrected layout
+[PASS] side ray reaches turret armor before occupied crew, yaw=0.0: ussr_t_80b
+[PASS] side ray reaches turret armor before occupied crew, yaw=37.0: ussr_t_80b
+[PASS] zero-height turret remains rejected
+[PASS] nonfinite local coordinate remains rejected
+[PASS] original model identity and binding remain valid: germ_leopard_2a4
+[PASS] delivered model contains its authored turret armor mesh
+[PASS] combat turret height matches model in pivot-local metres: germ_leopard_2a4
+[PASS] actual modern actor installs corrected layout
+[PASS] side ray reaches turret armor before occupied crew, yaw=0.0: germ_leopard_2a4
+[PASS] side ray reaches turret armor before occupied crew, yaw=37.0: germ_leopard_2a4
+=== 缁撴灉: 17 椤规鏌? 0 澶辫触 ===
+MODERN_ARMOR_FRAME_CHECKS_PASS

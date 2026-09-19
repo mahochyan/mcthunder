@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MODERN_GARAGE_RUNTIME release=false evidence=
+[PASS] modern vehicle has actual garage entry: ussr_t_80b
+[PASS] garage shows exact admitted bound model
+[PASS] armor inspection hides opaque authored shell
+[PASS] modern selection uses explicit engineering mode without historical research lookup
+[PASS] save selected modern vehicle and edited ammunition
+[PASS] disk reload retains modern identity, first round and quantities
+[PASS] save still rejects unknown vehicle loadouts
+[PASS] normal deploy routes selected modern vehicle to actual river team scene
+[PASS] first spawn consumes edited loadout, not defaults
+[PASS] three capture points and registered 4v4 roster
+[PASS] opposing modern content explicitly selected
+[PASS] restart retains river, exact type and edited loadout
+[PASS] engineering departure settles without rewards or blocking pending receipt
+[PASS] return keeps modern garage selection
+[PASS] modern vehicle has actual garage entry: germ_leopard_2a4
+[PASS] garage shows exact admitted bound model
+[PASS] armor inspection hides opaque authored shell
+[PASS] modern selection uses explicit engineering mode without historical research lookup
+[PASS] save selected modern vehicle and edited ammunition
+[PASS] disk reload retains modern identity, first round and quantities
+[PASS] save still rejects unknown vehicle loadouts
+[PASS] normal deploy routes selected modern vehicle to actual river team scene
+[PASS] first spawn consumes edited loadout, not defaults
+[PASS] three capture points and registered 4v4 roster
+[PASS] opposing modern content explicitly selected
+[PASS] restart retains river, exact type and edited loadout
+[PASS] engineering departure settles without rewards or blocking pending receipt
+[PASS] return keeps modern garage selection
+[PASS] historical setup remains saveable with optional modern loadouts
+=== 缁撴灉: 29 椤规鏌? 0 澶辫触 ===
+MODERN_GARAGE_CHECKS_PASS

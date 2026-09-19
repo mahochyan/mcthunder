@@ -1,0 +1,239 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== PixelArmor 鑷姩妫€鏌?===
+engine=4.7.2-stable (official)  os=Windows
+font_cjk_support=false  (榛樿瀛椾綋涓枃瀛楀舰鑳藉姏 鈫?鍐冲畾 HUD 璇█)
+[PASS] 榛樿瀛椾綋 CJK 鑳藉姏宸茶褰?
+[PASS] 鑴氭湰鍙В鏋愬姞杞? game_config.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? world_builder.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? target_board.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? tank.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? turret_rig.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? camera_rig.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? gunner.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? hud.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? main.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/vehicle_definition.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/weapon_definition.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/shell_definition.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/vehicle_defs.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/vehicle_runtime_state.gd
+[PASS] 鑴氭湰鍙В鏋愬姞杞? defs/vehicle_command.gd
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: move_forward
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: move_back
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: turn_left
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: turn_right
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: fire
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: aim
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: reset
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: pause
+[PASS] 杈撳叆鍔ㄤ綔瀛樺湪: debug_toggle
+[PASS] T003-05 缂?ID 鏍￠獙澶辫触骞跺畾浣?id 瀛楁
+[PASS] T003-05 闈炴硶閫熷害鏍￠獙澶辫触骞跺畾浣?forward_max_speed 瀛楁
+[PASS] T003-05 缂烘鍣ㄥ紩鐢ㄦ牎楠屽け璐ュ苟瀹氫綅 weapon_id 瀛楁
+[PASS] T003-05 姝﹀櫒缂?ID 鏍￠獙澶辫触骞跺畾浣?id 瀛楁
+[PASS] T003-05 寮圭缂?ID 鏍￠獙澶辫触骞跺畾浣?id 瀛楁
+[PASS] T003-05 榛樿閰嶇疆 .tres 鍔犺浇骞舵牎楠岄€氳繃
+[PASS] T003-05 榛樿杞﹁締瀹氫箟鏍￠獙閫氳繃
+[PASS] T003-05 鏈煡杞﹁締寮曠敤澶辫触骞跺畾浣?vehicle_id
+[PASS] T003-05 缂烘鍣ㄥ紩鐢ㄨВ鏋愬け璐ュ苟瀹氫綅 weapon_id 瀛楁
+[PASS] T003-05 闈炴硶 content_tier 鏍￠獙澶辫触骞跺畾浣嶅瓧娈?
+[PASS] T003-05 production 鏈牳楠屾牎楠屽け璐ュ苟瀹氫綅 verification 瀛楁
+[PASS] T003-05 verified 鏃犲疄璐ㄦ潵婧愭牎楠屽け璐ュ苟瀹氫綅 verification 瀛楁
+[PASS] T003-05 verified 浠?TEST ONLY 澹版槑浠嶄笉閫氳繃
+[PASS] T003-05 production+verified+瀹炶川鏉ユ簮鏍￠獙閫氳繃
+[PASS] T003-05 榛樿娴嬭瘯杞?content_tier=test
+[PASS] T003-05 榛樿娴嬭瘯杞?verification=unknown
+[PASS] T003-05 榛樿娴嬭瘯杞?source_refs 鏄惧紡 TEST ONLY 澹版槑
+[PASS] T003-05 榛樿娴嬭瘯姝﹀櫒 source_refs 鏄惧紡 TEST ONLY 澹版槑
+[PASS] T003-05 榛樿娴嬭瘯寮圭 source_refs 鏄惧紡 TEST ONLY 澹版槑
+[PASS] 涓诲満鏅祫婧愬彲鍔犺浇
+[PASS] 涓诲満鏅彲瀹炰緥鍖?
+[PASS] 蹇呰鑺傜偣: 鍧﹀厠瀛樺湪
+[PASS] 蹇呰鑺傜偣: 鐐瀛樺湪
+[PASS] 蹇呰鑺傜偣: 鐩告満瀛樺湪
+[PASS] 蹇呰鑺傜偣: 灏勫嚮鎺у埗瀛樺湪
+[PASS] 蹇呰鑺傜偣: 鐣岄潰瀛樺湪
+[PASS] 涓夊潡闈舵澘瀛樺湪 (瀹為檯=3)
+[PASS] 棣栨寮€鐏垚鍔?
+[PASS] 鍐峰嵈鏈熷唴绗簩娆″紑鐏鎷?
+[PASS] 鍐峰嵈鏈熷唴鏈骇鐢熼澶栧皠鍑?(shots=1)
+[PASS] 鎸変綇寮€鐏敭涓嶇粫杩囧喎鍗?(shots=1)
+[PASS] 鍐峰嵈鑷劧缁撴潫
+[PASS] 鏆傚仠鎭㈠瀹介檺鏈熷唴寮€鐏鎷?
+[PASS] 閬尅鍓嶆彁锛氱浉鏈虹‘瀹炵湅瑙佹寚瀹氶澏鏉匡紙collider 韬唤楠岃瘉锛?
+[PASS] 鏃犻伄鎸℃椂寮€鐏垚鍔?
+[PASS] 閬尅澧欏悗闈舵澘鏈鍛戒腑 (hits=0)
+[PASS] 绉婚櫎澧欏悗鍚屼竴灏勫嚮浠ｇ爜寮€鐏垚鍔?
+[PASS] 绉婚櫎澧欏悗鍚屼竴灏勫嚮浠ｇ爜鍛戒腑闈舵澘 (hits=1)
+[PASS] 鍛戒腑鍚庨澏鏉垮彉鑹插弽棣堣Е鍙?
+[PASS] 鐐绌垮鏃跺紑鐏闃绘
+[PASS] 绌垮寮€鐏湭浜х敓灏勫嚮
+[PASS] 绌垮鏈懡涓鍚庨澏鏉?(hits=0)
+[PASS] 鍓嶈繘鍔犻€熸湁鏁?(v=7.74)
+[PASS] 鍓嶈繘闄愰€?8m/s (v=7.74)
+[PASS] 杞﹁締娌?-Z 鍓嶈繘 (z=-0.44)
+[PASS] 鏉惧紑鎸夐敭婊戣鍋滆溅 (v=0.00)
+[PASS] 鍊掕溅闄愰€?3m/s (v=-3.00)
+[PASS] 鍊掕溅浣嶇Щ鏈夋晥 (z=-4.05)
+[PASS] A 閿師鍦拌浆鍚戞湁鏁?
+[PASS] 鏃犲乏鍙冲钩绉?(x=0.21)
+[PASS] 閲嶇疆娓呴浂闈舵澘鍛戒腑
+[PASS] 閲嶇疆娓呴浂瑁呭～鐘舵€?
+[PASS] 閲嶇疆鎭㈠鍑虹敓浣嶇疆
+[PASS] T002-03a 鍓嶆彁锛氱浉鏈鸿绾胯秺杩囪繎澧欏苟閫変腑澧欏悗闈舵澘锛坈ollider 韬唤楠岃瘉锛?
+[PASS] T002-03a 鍓嶆彁锛氳窛绂昏緟鍔?(dist=1.40)
+[PASS] T002-03a 寮€鐏紙鐐牴鈫掔偖鍙ｆ棤閬尅锛?
+[PASS] T002-03a 杩戝鎸′綇鐐皠绾匡紝澧欏悗闈舵澘鏈鍛戒腑 (hits=0)
+[PASS] T002-03b 鍓嶆彁锛氱偖鍙ｄ綅浜庡浣撳唴閮?(muzzle_z=-3.15, 澧?-2.2..-3.4)
+[PASS] T002-03b 鐐彛鍏ュ鏃跺紑鐏闃绘
+[PASS] T002-03b 鏈懡涓鍚庨澏鏉?(hits=0)
+[PASS] T002-03c 鍓嶆彁锛氱偖鍙ｈ秺杩囧浣撹繙闈?(muzzle_z=-0.97 < -0.7)
+[PASS] T002-03c 璐村寮€鐐闃绘锛堢偖鏍光啋鐐彛绾挎琚鎴柇锛?
+[PASS] T002-03c 鏈懡涓鍚庨澏鏉?(hits=0)
+[PASS] 绗笁浜虹О鐩告満璐村闃茬┛ (cam_z=28.70 < 29.0 鍐呭闈?
+[PASS] R2-A 鐩告満鍓嶅悜淇话鍝嶅簲鎰忓浘锛堟剰鍥?-10掳 瀹為檯=-10.0掳锛?
+[PASS] R2-A 鐩告満鍓嶅悜淇话鍝嶅簲鎰忓浘锛堟剰鍥?0掳 瀹為檯=-0.0掳锛?
+[PASS] R2-A 鐩告満鍓嶅悜淇话鍝嶅簲鎰忓浘锛堟剰鍥?10掳 瀹為檯=10.0掳锛?
+[PASS] R3-A 鎰忓浘灏勭嚎閫変腑杩戦澏 B1锛坈ollider 韬唤楠岃瘉锛?
+[PASS] R3-A 杩戦澏 B1 璺濈杈呭姪 (dist=1.43)
+[stab] frame=0 err=59.160deg first_cross=-1
+[stab] frame=60 err=37.789deg first_cross=-1
+[stab] frame=120 err=3.551deg first_cross=-1
+[stab] frame=180 err=0.040deg first_cross=147
+[PASS] R3-A 杩戦澏 B1 绋冲畾鏀舵暃锛堥娆¤繃绾?147 甯э紝淇濇寔 1.00 绉掞紝鏈€澶ц宸?60.44掳锛岀粨鏉熻宸?0.01掳锛?
+[PASS] R3-A 绋冲畾鍚庡疄灏勫懡涓繎闈?B1 (b1=1 b2=0 b3=0)
+[PASS] R3-A 绗簩鐐墠寮€鐏潯浠跺凡鑷劧婊¤冻 (cooldown=0.00 grace=0.00)
+[PASS] R3-A 瑁呭～鑷劧缁撴潫鍚庣浜岀偖浠嶅懡涓繎闈?B1 (b1=2)
+[PASS] R3-A 鎰忓浘灏勭嚎閫変腑鍙充晶杩滈澏 B2锛坈ollider 韬唤楠岃瘉锛?
+[PASS] R3-A 杩滈澏 B2 璺濈杈呭姪 (dist=1.36)
+[stab] frame=0 err=46.715deg first_cross=-1
+[stab] frame=60 err=20.092deg first_cross=-1
+[stab] frame=120 err=0.452deg first_cross=119
+[PASS] R3-A 鍙充晶杩滈澏 B2 绋冲畾鏀舵暃锛堥娆¤繃绾?119 甯э紝淇濇寔 1.00 绉掞紝鏈€澶ц宸?46.75掳锛岀粨鏉熻宸?0.03掳锛?
+[PASS] R3-A 绋冲畾鍚庡疄灏勫懡涓彸渚ц繙闈?B2 (b1=2 b2=1 b3=0)
+[PASS] R3-A 鎰忓浘灏勭嚎閫変腑宸︿晶杩滈澏 B3锛坈ollider 韬唤楠岃瘉锛?
+[PASS] R3-A 杩滈澏 B3 璺濈杈呭姪 (dist=1.35)
+[stab] frame=0 err=46.711deg first_cross=-1
+[stab] frame=60 err=20.105deg first_cross=-1
+[stab] frame=120 err=0.467deg first_cross=119
+[PASS] R3-A 宸︿晶杩滈澏 B3 绋冲畾鏀舵暃锛堥娆¤繃绾?119 甯э紝淇濇寔 1.00 绉掞紝鏈€澶ц宸?46.75掳锛岀粨鏉熻宸?0.05掳锛?
+[PASS] R3-A 绋冲畾鍚庡疄灏勫懡涓乏渚ц繙闈?B3 (b1=2 b2=1 b3=1)
+[PASS] R3-A 杞︿綋杞繃闈為浂瑙掑害鍚庢剰鍥惧皠绾夸粛閫変腑杩戦澏 B1锛坈ollider 韬唤楠岃瘉锛?
+[stab] frame=0 err=88.064deg first_cross=-1
+[stab] frame=60 err=58.211deg first_cross=-1
+[stab] frame=120 err=22.212deg first_cross=-1
+[stab] frame=180 err=0.493deg first_cross=-1
+[stab] frame=240 err=0.027deg first_cross=180
+[PASS] R3-A 杞︿綋闈為浂 yaw 涓嬭繎闈?B1 绋冲畾鏀舵暃锛堥娆¤繃绾?180 甯э紝淇濇寔 1.00 绉掞紝鏈€澶ц宸?88.06掳锛岀粨鏉熻宸?0.03掳锛?
+[PASS] R3-A 杞︿綋闈為浂 yaw 涓嬪疄灏勫懡涓繎闈?B1 (b1=3)
+[PASS] 灞忓箷鍚庢柟鐬勭偣鏍囪闅愯棌锛堢偣绉繃婊わ級
+[PASS] 灞忓箷鍓嶆柟鐬勭偣鏍囪淇濈暀
+[PASS] T002-04 鍓嶆彁锛氭寔鐏凡浜х敓涓€娆″皠鍑?(shots=10)
+[PASS] T002-04 绐楀彛澶辩劍閫氱煡瑙﹀彂鑷姩鏆傚仠
+[PASS] T002-04 鏆傚仠鏈熼棿瑁呭～璁℃椂鐪熸鍐荤粨锛堟殏鍋滃墠=1.617锛屾殏鍋?.6s鍚?1.617锛?
+[PASS] T002-04 鏆傚仠鏈熼棿椹鹃┒鍋滄
+[PASS] T002-04 鎭㈠鍚庢寔鐏湭琛ュ皠 (shots=10)
+[PASS] R2-B 鎭㈠鍚庤濉鏃剁户缁帹杩?(1.62 鈫?0.62)
+[PASS] R1-B 鍓嶆彁锛氭棤鍐峰嵈鎸佺伀绔嬪嵆鍚堟硶灏勫嚮 (shots=11)
+[PASS] R1-B 鍓嶆彁锛氳濉畬鎴愩€佹棤鍐峰嵈閬帺 (cd=0.00)
+[PASS] R1-B 鍓嶆彁锛氱户缁寜閽瓨鍦ㄤ笖鍙
+[PASS] 007 baseline: actual menu click lies inside configured viewport
+[PASS] R1-B 鐪熷疄榧犳爣浜嬩欢鐐瑰嚮鈥滅户缁€濇寜閽?鈫?鎭㈠
+[PASS] R1-B 鎭㈠鐬棿鏃犺灏?(shots=11)
+[PASS] R1-B 瀹介檺缁撴潫鍚庢棤寤惰繜琛ュ皠锛堢伀鎸佺画鎸変綇锛?shots=11)
+[PASS] R1-B 瀹介檺缁撴潫鍚庨噸鏂版寜涓嬪彲鍚堟硶灏勫嚮 (shots=12)
+[PASS] T002-05 杩炵画 20 娆￠噸缃細3 鍧楅澏鏉?浣嶇疆/鏈濆悜/閫熷害/鍐峰嵈鍏ㄩ儴澶嶄綅
+[PASS] R2-B 鍓嶆彁锛氭棤鍐峰嵈鎸佺伀绔嬪嵆鍚堟硶灏勫嚮 (shots=13)
+[PASS] R2-B 鍓嶆彁锛歠ire 澶勪簬鎸変綇鐘舵€?
+[PASS] R2-B 鐪熷疄 Esc 浜嬩欢瑙﹀彂鏆傚仠
+[PASS] R2-B 鏆傚仠鏈熼棿 fire 浠嶆寜浣?
+[PASS] R2-B 鏆傚仠 0.5s 鍚?fire 浠嶆寜浣?
+[PASS] R2-B 鐪熷疄 Esc 浜嬩欢瑙﹀彂鎭㈠
+[PASS] R2-B 鎭㈠鍚?fire 浠嶆寜浣?
+[PASS] R2-B 鎸佺画鎸佺伀璺ㄦ殏鍋?鎭㈠/瑁呭～/瀹介檺鍚庢棤棰濆灏勫嚮 (shots=13)
+[PASS] R2-B 閲婃斁鍚庨噸鏂版寜涓嬪彲鍚堟硶灏勫嚮 (shots=14)
+[PASS] R2-B 杩愯涓湡瀹?R 浜嬩欢閲嶇疆涓斾笉鏆傚仠
+[PASS] R2-B 杩愯涓?R 閲嶇疆浣嶇疆 (dist=0.00)
+[PASS] R2-B 鏆傚仠涓湡瀹?R 浜嬩欢閲嶇疆涓斾繚鎸佹殏鍋?
+[PASS] R2-B 鏆傚仠涓?R 閲嶇疆浣嶇疆 (dist=0.00)
+[PASS] R2-B 鐪熷疄 F3 浜嬩欢寮€鍚皟璇曟樉绀?
+[PASS] R2-B 鍐嶆 F3 鍏抽棴璋冭瘯鏄剧ず
+[PASS] Esc 鏆傚仠鐢熸晥骞舵樉绀烘殏鍋滅晫闈?
+[PASS] 鎭㈠鐢熸晥涓斿甫寮€鐐闄?
+[PASS] T003-01 A/B 鐘舵€佸疄渚嬬嫭绔?
+[PASS] T003-01 A/B 鍏变韩鍚屼竴閰嶇疆瀹氫箟 (id=player_tank)
+[PASS] T003-01 A/B 鍏变韩鍚屼竴 VehicleDefinition 瀹炰緥
+[PASS] T003-01 A 鐪熷疄椹鹃┒浜х敓閫熷害 (v=2.21)
+[PASS] T003-01 B 鐪熷疄鐘舵€佷笉鍙?A 椹鹃┒褰卞搷 (v=0.00)
+[PASS] T003-01 A 鐘舵€佸揩鐓т笌鐪熷疄缁勪欢涓€鑷?
+[PASS] T003-01 B 鐘舵€佸揩鐓т繚鎸?0
+[PASS] T003-01 鍏变韩閰嶇疆鏈 A 琛屽姩淇敼
+[PASS] T003-02 閿洏杈撳叆鍙┍鍔?A (v=2.21)
+[PASS] T003-02 B 闆跺懡浠や笉鍝嶅簲閿洏 (v=0.00)
+[PASS] T003-02 B 浣嶇疆涓嶅姩
+[PASS] T003-02 鑴氭湰鍛戒护缁忕粺涓€閫氶亾椹卞姩 B 鐐 (螖yaw=9.84掳)
+[PASS] T003-02 姣忕墿鐞嗘鎭板ソ娑堣垂涓€娆★紙鏃犲弻璺緞骞惰锛宒rive=60锛?
+[PASS] T003-02 鑴氭湰鎸佺画鍛戒护椹卞姩 B 鐪熷疄绉诲姩 (dist=2.40)
+[PASS] T003-02 鎻愪氦鍛戒护涓嶇珛鍗虫墽琛岋紙绛夌墿鐞嗘娑堣垂锛?
+[PASS] T003-02 鏆傚仠鏃跺懡浠ゆ彁浜よ鎷掔粷
+[PASS] T003-02 鏆傚仠鏃跺懡浠ゅ叆鍙ｆ嫆缁濇墽琛?
+[PASS] T003-02 闈炴湁闄愯緭鍏ヤ笉浜х敓 NaN 鐘舵€?
+[PASS] T003-03 A 寮€鐏垚鍔?
+[PASS] T003-03 A 鍛戒腑 B锛堣嚜韬帓闄ょ敓鏁堬級(hits=1)
+[PASS] T003-03 A 鏈鑷韩鍛戒腑
+[PASS] 007 baseline: wall thin axis actually faces muzzle
+[PASS] T003-03 澧欐尅鏃跺紑鐏粛鎴愬姛锛堝懡涓锛?
+[PASS] T003-03 澧欐尅涓嶅懡涓?B (hits=1)
+[PASS] T003-03 澧欐尅缁撴灉 = 涓栫晫鎺ヨЕ锛堜笘鐣屾帴瑙︿紭鍏堬級(reason=WORLD)
+[PASS] 005-F-A 鏁存牴鐐鍦ㄥ疄浣撳鍐咃細寮€鐏闃绘 (result=blocked:barrel_occluded)
+[PASS] 005-F-A 澧欏唴寮€鐏笉娑堣€楀皠鍑荤紪鍙?
+[PASS] 005-F-A 澧欏唴寮€鐏笉浜х敓绌垮杞﹁締璁″垎 (hits=1)
+[PASS] 005-F-A 绉诲鍚庢甯稿紑鐏彲鐢?(result=fired)
+[PASS] T003-03 鐐暅鍓旈櫎 A 鑷韩瑙嗚灞?
+[PASS] T003-03 鐐暅淇濈暀 B 瑙嗚灞傦紙B 鍙锛?
+[PASS] T003-04 20 娆＄敓鎴?閿€姣侊細瀹炰綋/鐩告満/淇″彿娓呯悊骞插噣
+[PASS] T003-06 閲嶇疆鍚庤瘯灏勮鏁板綊闆?
+[PASS] T003-06 绌哄皠涓嶆帹杩涜瘯灏勮鏁?
+[PASS] T003-06 鍐峰嵈鎷掔粷涓嶆帹杩涜瘯灏勮鏁?
+[PASS] T003-06 鐪熷疄鍛戒腑鎺ㄨ繘璇曞皠璁℃暟 (hits=1)
+[PASS] T003-06 绗簩娆″懡涓帹杩?(hits=2)
+[PASS] T003-06 绗笁娆″懡涓畬鎴愯瘯灏?(hits=3)
+[PASS] T003-06 瀹屾垚鍚庡啀鍛戒腑涓嶈秴璁?(hits=3)
+[PASS] T003-06 鍗曡溅閲嶇疆涓嶆薄鏌撹瘯灏勮鏁?(hits=3)
+[PASS] T003-06 鏁村満閲嶇疆鍚庤瘯灏勮鏁板綊闆讹紙鍙噸澶嶏級
+[PASS] T003-07 涓ゅ閰嶇疆瀹炰綋鐢熸垚鎴愬姛
+[PASS] T003-07 涓よ溅瀹為檯鎺ュ湴鍚庢墠寮€濮嬪姩鍔涘鐓?
+[PASS] T003-07 鎱㈣溅/蹇溅鐪熷疄閫熷害涓嶅悓 (slow=4.00 fast=12.00)
+[PASS] T003-07 鎱㈣溅閫熷害鎺ヨ繎閰嶇疆涓婇檺 4 m/s (v=4.00)
+[PASS] T003-07 蹇溅閫熷害鎺ヨ繎閰嶇疆涓婇檺 12 m/s (v=12.00)
+[PASS] T003-07 蹇溅鐐杞€熷揩浜庢參杞?(slow=17.5掳 fast=37.5掳)
+[PASS] T003-07 鎱㈣溅瑁呭～ 3s 鏉ヨ嚜閰嶇疆 (cd=3.00)
+[PASS] T003-07 蹇溅瑁呭～ 1s 鏉ヨ嚜閰嶇疆 (cd=1.00)
+[PASS] T003-07 灏勭▼鏉ヨ嚜鍚勮嚜姝﹀櫒閰嶇疆
+[PASS] T003-08 C 瀹炰綋鐢熸垚
+[PASS] T003-08 C 琚?B 闃绘尅涓嶇┛杩?(c.z=4.20 b.z=0.00)
+[PASS] T003-08 B 鏈鎺ㄥ姩
+[PASS] T003-08 鏃嬭浆鍑虹敓瀹炰綋 setup 鎴愬姛
+[PASS] T003-08 鏃嬭浆鍑虹敓涓嬬Щ鍔ㄦ部杞﹀ご鏂瑰悜 (dist=2.33 dot=1.00)
+[PASS] T003-08 閲嶇疆鍥炴纭笘鐣屽嚭鐢熷彉鎹?
+[PASS] T003-08 閲嶇疆鍥炴纭嚭鐢熸湞鍚?
+[PASS] T003-08 绀鸿釜绾跨鐐瑰彲璇?
+[PASS] T003-08 绀鸿釜绾胯捣鐐?= 鐪熷疄鐐彛涓栫晫浣嶇疆
+[PASS] T003-08 鏃хず韪嚎涓嶉殢杞﹁締杩愬姩鎷栧姩
+[PASS] T003-09 C2 瀹炰綋鐢熸垚
+[PASS] T003-09 C 灏勫嚮 B 鍙懡涓?(b_hits=1)
+[PASS] T003-09 C 鍛戒腑涓嶆浛 A 寰楀垎 (trial=0)
+[PASS] T003-09 鍚屽悕杞﹂噸寤哄悗 life_id 涓嶅悓 (27鈫?8)
+[PASS] T003-09 鏂板皠鍑荤紪鍙锋帹杩?(trial=1)
+[PASS] T003-09 鍚屼竴灏勫嚮缂栧彿閲嶅鎶曢€掍笉閲嶅璁″垎 (trial=1)
+[PASS] T003-09 鏃ц疆娆′簨浠堕噸寮€鍚庨娆￠€佽揪涓嶈鍒?(trial=0)
+[PASS] T003-09 鏃х敓鍛藉懆鏈熻韩浠戒簨浠朵笉璁″垎 (trial=0)
+[PASS] T003-09 姝ｅ父杈撳叆閾捐矾鐪熷疄鍛戒腑鎺ㄨ繘 (trial=1)
+[PASS] T003-09 鑷劧瑁呭～鍚庣浜屾鍛戒腑鎺ㄨ繘 (trial=2)
+[PASS] T003-09 鐪熷疄 R 浜嬩欢鏁村満閲嶅紑褰掗浂 (trial=0)
+[PASS] T003-10 澶辫触缁堟鎬佹敹澶辩劍閫氱煡涓嶈繘鍏ユ甯告殏鍋?
+[PASS] T003-10 鍒濆鍖栨湭瀹屾垚鎬佹敹澶辩劍閫氱煡琚畧鍗嫤鎴?
+[PASS] T003-10 姝ｅ父鎬佸け鐒﹁嚜鍔ㄦ殏鍋滀繚鎸侊紙002 琛屼负锛?
+=== 缁撴灉: 217 椤规鏌? 0 澶辫触 ===
+CHECKS_PASS

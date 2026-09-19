@@ -1,0 +1,163 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] actual engineering packets pass provenance and binding gates: []
+[PASS] actual Actor setup: ussr_t_80b
+[PASS] actual Actor setup: germ_leopard_2a4
+[PASS] ussr_t_80b / hull_front_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_front_lower germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_front_lower / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_front_lower germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_front_lower / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_sides_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_sides_lower germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_lower / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_sides_lower germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_lower / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_sides_lower_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_sides_lower_rear germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_lower_rear / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_sides_lower_rear germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_lower_rear / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_rear_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_rear_lower germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_rear_lower / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_rear_lower germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_rear_lower / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_front_upper: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_front_upper germ_leopard_2a4_shell material=composite result=penetrated
+[PASS] ussr_t_80b / hull_front_upper / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_front_upper germ_leopard_2a4_eng_120_heat_v1 material=composite result=penetrated
+[PASS] ussr_t_80b / hull_front_upper / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_sides_front: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_sides_front germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_front / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_sides_front germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_front / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_sides_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_sides_rear germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_rear / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_sides_rear germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_sides_rear / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_rear_upper: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_rear_upper germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_rear_upper / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_rear_upper germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_rear_upper / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_roof_front: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_roof_front germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_roof_front / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_roof_front germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_roof_front / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_roof_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_roof_rear germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_roof_rear / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_roof_rear germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_roof_rear / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_floor_front: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_floor_front germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_floor_front / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_floor_front germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_floor_front / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b / hull_floor_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE ussr_t_80b hull_floor_rear germ_leopard_2a4_shell material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_floor_rear / germ_leopard_2a4_shell: material reaches a defined battle outcome
+MATERIAL_PROBE ussr_t_80b hull_floor_rear germ_leopard_2a4_eng_120_heat_v1 material=rolled result=penetrated
+[PASS] ussr_t_80b / hull_floor_rear / germ_leopard_2a4_eng_120_heat_v1: material reaches a defined battle outcome
+[PASS] ussr_t_80b: all twelve hull zones exercised through actual query geometry
+[PASS] germ_leopard_2a4 / hull_front_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_front_lower ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_front_lower / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_front_lower ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_front_lower / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_front_lower ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_front_lower / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_sides_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_lower / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_lower / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_sides_lower / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_sides_lower_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower_rear ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_lower_rear / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower_rear ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_lower_rear / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_lower_rear ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_sides_lower_rear / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_rear_lower: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_lower ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_lower / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_lower ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_lower / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_lower ussr_t_80b_eng_125_he_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_lower / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_front_upper: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_front_upper ussr_t_80b_shell material=composite result=stopped
+[PASS] germ_leopard_2a4 / hull_front_upper / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_front_upper ussr_t_80b_eng_125_heat_v1 material=composite result=stopped
+[PASS] germ_leopard_2a4 / hull_front_upper / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_front_upper ussr_t_80b_eng_125_he_v1 material=composite result=stopped
+[PASS] germ_leopard_2a4 / hull_front_upper / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_sides_front: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_front ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_front / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_front ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_front / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_front ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_sides_front / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_sides_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_rear ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_rear / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_rear ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_sides_rear / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_sides_rear ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_sides_rear / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_rear_upper: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_upper ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_upper / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_upper ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_upper / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_rear_upper ussr_t_80b_eng_125_he_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_rear_upper / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_roof_front: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_front ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_roof_front / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_front ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_roof_front / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_front ussr_t_80b_eng_125_he_v1 material=rolled result=stopped
+[PASS] germ_leopard_2a4 / hull_roof_front / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_roof_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_rear ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_roof_rear / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_rear ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_roof_rear / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_roof_rear ussr_t_80b_eng_125_he_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_roof_rear / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_floor_front: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_front ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_front / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_front ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_front / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_front ussr_t_80b_eng_125_he_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_front / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4 / hull_floor_rear: probe reaches the actual authored hull face
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_rear ussr_t_80b_shell material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_rear / ussr_t_80b_shell: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_rear ussr_t_80b_eng_125_heat_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_rear / ussr_t_80b_eng_125_heat_v1: material reaches a defined battle outcome
+MATERIAL_PROBE germ_leopard_2a4 hull_floor_rear ussr_t_80b_eng_125_he_v1 material=rolled result=penetrated
+[PASS] germ_leopard_2a4 / hull_floor_rear / ussr_t_80b_eng_125_he_v1: material reaches a defined battle outcome
+[PASS] germ_leopard_2a4: all twelve hull zones exercised through actual query geometry
+[PASS] driver volume is authored for the real-shot fixture
+[PASS] real manager accepts unchanged opponent shell: germ_leopard_2a4_shell
+HULL_LIVE_SHOT shell=germ_leopard_2a4_shell contacts=[{ "distance_m": 4.52723331261926, "t": 0.98775996122597, "kind": "armor", "target_generation": 2, "event_type": "surface", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "surface_id": "hull_0_2", "point_world": (1.306099, 0.969662, -2.0), "normal_world": (0.942771, -0.33344, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 80.0, "thickness_status": "estimated", "material_kind": "rolled", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false, "geometry_frame": 0, "result": "penetrated", "continue_flight": true, "rules_version": "armor-test-v1", "angle_deg": 19.4805205757945, "effective_mm": 87.7922082303178, "before_mm": 469.452243976593, "after_mm": 381.660035746275, "scale": 1.0, "consumed_mm": 87.7922082303178, "ricochets": 0, "direction": (-1650.0, -0.081416, 0.0), "speed_scale": 1.0, "backface": false, "impact_profile_version": "wt012-long-rod-v1", "terminal_family": "APFSDS", "budget_unit": "game_rha_equivalent_mm", "path_thickness_mm": 84.8576845775976, "adjusted_angle_deg": 19.4805205757945, "material_multiplier": 1.0, "overmatch": false, "angle_multiplier": 1.09740260287897, "projectile_id": 1, "round_id": 4042, "shot_id": 1, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "target_id": "ussr_t_80b", "target_life_id": 1, "shell_id": "germ_leopard_2a4_shell", "contact_index": 1, "first_for_target": true, "armor_policy": "resolve", "flight_time_s": 0.00829933322563, "travelled_m": 13.6939005851746, "impact_point": (1.306099, 0.969662, -2.0), "impact_velocity": (-1650.0, -0.081416, 0.0), "incoming_velocity": (-1650.0, -0.081416, 0.0), "outgoing_velocity": (-1650.0, -0.081416, 0.0), "physics_tick": 1 }, { "distance_m": 1.55604448123552, "t": 0.36612811323189, "kind": "armor", "target_generation": 2, "event_type": "surface", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "surface_id": "hull_0_7", "point_world": (-1.306044, 0.969506, -2.0), "normal_world": (-0.942771, -0.33344, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 80.0, "thickness_status": "estimated", "material_kind": "rolled", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false, "geometry_frame": 0, "result": "penetrated", "continue_flight": true, "rules_version": "armor-test-v1", "angle_deg": 19.4743240761342, "effective_mm": 87.7897296304537, "before_mm": 319.555549991308, "after_mm": 231.765820360855, "scale": 1.0, "consumed_mm": 237.581937860771, "ricochets": 0, "direction": (-1650.0, -0.096947, 0.0), "speed_scale": 1.0, "backface": true, "impact_profile_version": "wt012-long-rod-v1", "terminal_family": "APFSDS", "budget_unit": "game_rha_equivalent_mm", "path_thickness_mm": 84.8544388562273, "adjusted_angle_deg": 19.4743240761342, "material_multiplier": 1.0, "overmatch": false, "angle_multiplier": 1.09737162038067, "projectile_id": 1, "round_id": 4042, "shot_id": 1, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "target_id": "ussr_t_80b", "target_life_id": 1, "shell_id": "germ_leopard_2a4_shell", "contact_index": 2, "first_for_target": false, "armor_policy": "resolve", "flight_time_s": 0.00988245082587, "travelled_m": 16.306044459343, "impact_point": (-1.306044, 0.969506, -2.0), "impact_velocity": (-1650.0, -0.096947, 0.0), "incoming_velocity": (-1650.0, -0.096947, 0.0), "outgoing_velocity": (-1650.0, -0.096947, 0.0), "physics_tick": 1 }] damage=[{ "kind": "crew", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "crew_id": "driver", "t_enter": 0.36017894126661, "target_generation": 2, "t_exit": 0.37065836647843, "distance_enter_m": 1.08053673792648, "distance_exit_m": 1.11197501106344, "starts_inside": false, "grazing": false, "external": false, "distance_m": 1.08053673792648, "t": 0.36017894126661, "point_world": (0.25, 0.751352, -2.067487), "event_type": "enter", "box_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.97, -2.0)], "box_size_m": (0.5, 0.45, 0.5), "geometry_frame": 0, "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 1, "projectile_id": 1, "event_id": "[4042,\"germ_leopard_2a4\",2,1,1,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",2]\",0]", "fragment_id": 0, "ok": true, "item_id": "driver", "consumed_mm": 2.0, "before": { "alive": true, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "after": { "alive": false, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "person_id": "person_2", "reason": "crew_incapacitated", "source": { "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 1, "projectile_id": 1, "event_id": "[4042,\"germ_leopard_2a4\",2,1,1,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",2]\",0]" }, "newly_destroyed": false, "state_generation": 2, "target_id": "ussr_t_80b", "target_life_id": 1, "damage_index": 1, "flight_time_s": 0.00829933322563, "travelled_m": 13.6939005851746, "before_mm": 15.0, "after_mm": 13.0, "impact_point": (0.25, 0.751352, -2.067487), "impact_velocity": (-0.977384, -0.202038, -0.062457), "rules_version": "direct-hit-test-v1", "physics_tick": 1 }, { "kind": "crew", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "crew_id": "driver", "t_enter": 0.22948539984249, "target_generation": 2, "t_exit": 0.33813303122121, "distance_enter_m": 1.05609941482544, "distance_exit_m": 1.55609941482544, "starts_inside": false, "grazing": false, "external": false, "distance_m": 1.05609941482544, "t": 0.22948539984249, "point_world": (0.25, 0.969601, -2.0), "event_type": "enter", "box_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.97, -2.0)], "box_size_m": (0.5, 0.45, 0.5), "geometry_frame": 0, "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 1, "projectile_id": 1, "event_id": "[4042,\"germ_leopard_2a4\",2,1,1,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",2]\"]", "fragment_id": -1, "ok": true, "item_id": "driver", "consumed_mm": 2.0, "before": { "alive": false, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "after": { "alive": false, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "person_id": "person_2", "reason": "crew_incapacitated", "source": { "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 1, "projectile_id": 1, "event_id": "[4042,\"germ_leopard_2a4\",2,1,1,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",2]\"]" }, "newly_destroyed": false, "state_generation": 2, "target_id": "ussr_t_80b", "target_life_id": 1, "damage_index": 2, "flight_time_s": 0.00893939351241, "travelled_m": 14.75, "before_mm": 321.617791769682, "after_mm": 319.617791769682, "impact_point": (0.25, 0.969601, -2.0), "impact_velocity": (-1650.0, -0.087695, 0.0), "rules_version": "direct-hit-test-v1", "physics_tick": 1 }]
+[PASS] actual side shot commits internal damage: germ_leopard_2a4_shell
+[PASS] real manager accepts unchanged opponent shell: germ_leopard_2a4_eng_120_heat_v1
+HULL_LIVE_SHOT shell=germ_leopard_2a4_eng_120_heat_v1 contacts=[{ "distance_m": 4.19403419121245, "t": 0.88295447793409, "kind": "armor", "target_generation": 3, "event_type": "surface", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "surface_id": "hull_0_2", "point_world": (1.305965, 0.969283, -2.0), "normal_world": (0.942771, -0.33344, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 80.0, "thickness_status": "estimated", "material_kind": "rolled", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false, "geometry_frame": 0, "effect_channel": "chemical_jet", "jet_distance_m": 0.0, "jet_event_index": 0, "result": "penetrated", "continue_flight": true, "rules_version": "armor-test-v1", "angle_deg": 19.4836129957878, "effective_mm": 84.8593048487779, "before_mm": 260.0, "after_mm": 175.140695151222, "scale": 1.0, "consumed_mm": 84.8593048487779, "ricochets": 0, "direction": (-1.0, -0.000103, 0.0), "speed_scale": 1.0, "backface": false, "impact_profile_version": "wt012-chemical-v1", "terminal_family": "HEAT", "budget_unit": "game_rha_equivalent_mm", "path_thickness_mm": 84.8593048487779, "adjusted_angle_deg": 19.4836129957878, "material_multiplier": 1.0, "overmatch": false, "projectile_id": 2, "round_id": 4042, "shot_id": 2, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shell_id": "germ_leopard_2a4_eng_120_heat_v1", "target_id": "ussr_t_80b", "target_life_id": 1, "contact_index": 1, "first_for_target": true, "armor_policy": "resolve", "flight_time_s": 0.01201231032473, "travelled_m": 13.694034576416, "impact_point": (1.305965, 0.969283, -2.0), "impact_velocity": (-1.0, -0.000103, 0.0), "incoming_velocity": (-1.0, -0.000103, 0.0), "outgoing_velocity": (-1.0, -0.000103, 0.0), "physics_tick": 1 }, { "distance_m": 1.5558700306299, "t": 0.52848225462215, "kind": "armor", "target_generation": 3, "event_type": "surface", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "surface_id": "hull_0_7", "point_world": (-1.30587, 0.969013, -2.0), "normal_world": (-0.942771, -0.33344, 0.0), "normal_known": true, "at_start": false, "at_end": false, "on_edge": false, "has_thickness": true, "section_ray_index": 0, "section_offset_local_m": (0.0, 0.0, 0.0), "section_radius_m": 0.0, "thickness_mm": 80.0, "thickness_status": "estimated", "material_kind": "rolled", "response_profile": {  }, "reactive_profile": {  }, "part_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)], "layout_id": "ussr_t_80b_layout", "layout_revision": 1, "content_tier": "production", "occluded_by_world": false, "geometry_frame": 0, "effect_channel": "chemical_jet", "jet_distance_m": 2.61183545421388, "jet_event_index": 2, "result": "penetrated", "continue_flight": true, "rules_version": "armor-test-v1", "angle_deg": 19.4717732306681, "effective_mm": 84.8531030860007, "before_mm": 171.834777424115, "after_mm": 86.9816743381145, "scale": 1.0, "consumed_mm": 84.8531030860007, "ricochets": 0, "direction": (-1.0, -0.000103, 0.0), "speed_scale": 1.0, "backface": true, "impact_profile_version": "wt012-chemical-v1", "terminal_family": "HEAT", "budget_unit": "game_rha_equivalent_mm", "path_thickness_mm": 84.8531030860007, "adjusted_angle_deg": 19.4717732306681, "material_multiplier": 1.0, "overmatch": false, "projectile_id": 2, "round_id": 4042, "shot_id": 2, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shell_id": "germ_leopard_2a4_eng_120_heat_v1", "target_id": "ussr_t_80b", "target_life_id": 1, "contact_index": 2, "first_for_target": false, "armor_policy": "resolve", "flight_time_s": 0.01201231032473, "travelled_m": 13.694034576416, "impact_point": (-1.30587, 0.969013, -2.0), "impact_velocity": (-1.0, -0.000103, 0.0), "incoming_velocity": (-1.0, -0.000103, 0.0), "outgoing_velocity": (-1.0, -0.000103, 0.0), "physics_tick": 1 }] damage=[{ "kind": "crew", "entity_id": "ussr_t_80b", "life_id": 1, "part_id": "hull", "crew_id": "driver", "t_enter": 0.263991355896, "target_generation": 3, "t_exit": 0.388991355896, "distance_enter_m": 1.05596542358398, "distance_exit_m": 1.55596542358398, "starts_inside": false, "grazing": false, "external": false, "distance_m": 1.05596542358398, "t": 0.263991355896, "point_world": (0.25, 0.969174, -2.0), "event_type": "enter", "box_world_transform": [X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.97, -2.0)], "box_size_m": (0.5, 0.45, 0.5), "geometry_frame": 0, "effect_channel": "chemical_jet", "jet_distance_m": 1.05596542358398, "jet_event_index": 1, "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 2, "projectile_id": 2, "event_id": "[4042,\"germ_leopard_2a4\",2,2,2,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",3]\"]", "fragment_id": -1, "ok": true, "item_id": "driver", "consumed_mm": 2.0, "before": { "alive": true, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "after": { "alive": false, "condition": "healthy", "condition_version": "cd008-crew-condition-v1", "condition_severity": 0, "original_role": "driver" }, "person_id": "person_2", "reason": "crew_incapacitated", "source": { "round_id": 4042, "shooter_id": "germ_leopard_2a4", "shooter_life_id": 2, "shot_id": 2, "projectile_id": 2, "event_id": "[4042,\"germ_leopard_2a4\",2,2,2,\"[\\\"ussr_t_80b\\\",1,\\\"crew\\\",\\\"hull\\\",\\\"driver\\\",3]\"]" }, "newly_destroyed": false, "state_generation": 3, "target_id": "ussr_t_80b", "target_life_id": 1, "damage_index": 1, "flight_time_s": 0.01201231032473, "travelled_m": 13.694034576416, "before_mm": 174.61271243943, "after_mm": 172.61271243943, "impact_point": (0.25, 0.969174, -2.0), "impact_velocity": (-1.0, -0.000103, 0.0), "rules_version": "direct-hit-test-v1", "physics_tick": 1 }]
+[PASS] actual side shot commits internal damage: germ_leopard_2a4_eng_120_heat_v1
+[PASS] all raw missing material facts remain unknown independently of gameplay defaults
+[PASS] changing a gameplay material without its registered policy is rejected
+[PASS] both complete geometry matrices and the real-shot fixture reached their checks
+=== result: 97 checks, 0 failed ===
+ENGINEERING_MATERIAL_CHECKS_PASS

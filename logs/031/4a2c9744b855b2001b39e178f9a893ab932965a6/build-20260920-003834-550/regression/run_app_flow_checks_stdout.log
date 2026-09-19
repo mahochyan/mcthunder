@@ -1,0 +1,141 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] missing resource opens recoverable error without paused black screen
+[PASS] error return preserves profile and playable garage
+[PASS] wrong scene root is rejected before entering tree
+[PASS] cancelled load never resurrects old battle 0
+[PASS] cancelled load never resurrects old battle 1
+[PASS] cancelled load never resurrects old battle 2
+[PASS] rapid start creates one complete battle 0
+[PASS] selected map reaches actual world 0
+[PASS] live leave waits for confirmation 0
+[PASS] cancel leave changes no result or progress 0
+[PASS] player death enters redeploy selection 0
+[PASS] dead player return is also confirmed 0
+[PASS] cancel dead-player exit restores selection 0
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] authoritative result and receipt are frozen together 0
+[PASS] duplicate result cannot grant another reward 0
+[PASS] retry does not append duplicate settlement text 0
+[PASS] rapid restart frees old actors and opens one new match 0
+[PASS] return releases world, pause and pending reward 0
+[PASS] rapid start creates one complete battle 1
+[PASS] selected map reaches actual world 1
+[PASS] live leave waits for confirmation 1
+[PASS] cancel leave changes no result or progress 1
+[PASS] player death enters redeploy selection 1
+[PASS] dead player return is also confirmed 1
+[PASS] cancel dead-player exit restores selection 1
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_03.json
+[PASS] authoritative result and receipt are frozen together 1
+[PASS] duplicate result cannot grant another reward 1
+[PASS] retry does not append duplicate settlement text 1
+[PASS] rapid restart frees old actors and opens one new match 1
+[PASS] return releases world, pause and pending reward 1
+[PASS] rapid start creates one complete battle 2
+[PASS] selected map reaches actual world 2
+[PASS] live leave waits for confirmation 2
+[PASS] cancel leave changes no result or progress 2
+[PASS] player death enters redeploy selection 2
+[PASS] dead player return is also confirmed 2
+[PASS] cancel dead-player exit restores selection 2
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_05.json
+[PASS] authoritative result and receipt are frozen together 2
+[PASS] duplicate result cannot grant another reward 2
+[PASS] retry does not append duplicate settlement text 2
+[PASS] rapid restart frees old actors and opens one new match 2
+[PASS] return releases world, pause and pending reward 2
+[PASS] rapid start creates one complete battle 3
+[PASS] selected map reaches actual world 3
+[PASS] live leave waits for confirmation 3
+[PASS] cancel leave changes no result or progress 3
+[PASS] player death enters redeploy selection 3
+[PASS] dead player return is also confirmed 3
+[PASS] cancel dead-player exit restores selection 3
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_07.json
+[PASS] authoritative result and receipt are frozen together 3
+[PASS] duplicate result cannot grant another reward 3
+[PASS] retry does not append duplicate settlement text 3
+[PASS] rapid restart frees old actors and opens one new match 3
+[PASS] return releases world, pause and pending reward 3
+[PASS] rapid start creates one complete battle 4
+[PASS] selected map reaches actual world 4
+[PASS] live leave waits for confirmation 4
+[PASS] cancel leave changes no result or progress 4
+[PASS] player death enters redeploy selection 4
+[PASS] dead player return is also confirmed 4
+[PASS] cancel dead-player exit restores selection 4
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_09.json
+[PASS] authoritative result and receipt are frozen together 4
+[PASS] duplicate result cannot grant another reward 4
+[PASS] retry does not append duplicate settlement text 4
+[PASS] rapid restart frees old actors and opens one new match 4
+[PASS] return releases world, pause and pending reward 4
+[PASS] rapid start creates one complete battle 5
+[PASS] selected map reaches actual world 5
+[PASS] live leave waits for confirmation 5
+[PASS] cancel leave changes no result or progress 5
+[PASS] player death enters redeploy selection 5
+[PASS] dead player return is also confirmed 5
+[PASS] cancel dead-player exit restores selection 5
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] authoritative result and receipt are frozen together 5
+[PASS] duplicate result cannot grant another reward 5
+[PASS] retry does not append duplicate settlement text 5
+[PASS] rapid restart frees old actors and opens one new match 5
+[PASS] return releases world, pause and pending reward 5
+[PASS] rapid start creates one complete battle 6
+[PASS] selected map reaches actual world 6
+[PASS] live leave waits for confirmation 6
+[PASS] cancel leave changes no result or progress 6
+[PASS] player death enters redeploy selection 6
+[PASS] dead player return is also confirmed 6
+[PASS] cancel dead-player exit restores selection 6
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_03.json
+[PASS] authoritative result and receipt are frozen together 6
+[PASS] duplicate result cannot grant another reward 6
+[PASS] retry does not append duplicate settlement text 6
+[PASS] rapid restart frees old actors and opens one new match 6
+[PASS] return releases world, pause and pending reward 6
+[PASS] rapid start creates one complete battle 7
+[PASS] selected map reaches actual world 7
+[PASS] live leave waits for confirmation 7
+[PASS] cancel leave changes no result or progress 7
+[PASS] player death enters redeploy selection 7
+[PASS] dead player return is also confirmed 7
+[PASS] cancel dead-player exit restores selection 7
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_05.json
+[PASS] authoritative result and receipt are frozen together 7
+[PASS] duplicate result cannot grant another reward 7
+[PASS] retry does not append duplicate settlement text 7
+[PASS] rapid restart frees old actors and opens one new match 7
+[PASS] return releases world, pause and pending reward 7
+[PASS] rapid start creates one complete battle 8
+[PASS] selected map reaches actual world 8
+[PASS] live leave waits for confirmation 8
+[PASS] cancel leave changes no result or progress 8
+[PASS] player death enters redeploy selection 8
+[PASS] dead player return is also confirmed 8
+[PASS] cancel dead-player exit restores selection 8
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_07.json
+[PASS] authoritative result and receipt are frozen together 8
+[PASS] duplicate result cannot grant another reward 8
+[PASS] retry does not append duplicate settlement text 8
+[PASS] rapid restart frees old actors and opens one new match 8
+[PASS] return releases world, pause and pending reward 8
+[PASS] rapid start creates one complete battle 9
+[PASS] selected map reaches actual world 9
+[PASS] live leave waits for confirmation 9
+[PASS] cancel leave changes no result or progress 9
+[PASS] player death enters redeploy selection 9
+[PASS] dead player return is also confirmed 9
+[PASS] cancel dead-player exit restores selection 9
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_09.json
+[PASS] authoritative result and receipt are frozen together 9
+[PASS] duplicate result cannot grant another reward 9
+[PASS] retry does not append duplicate settlement text 9
+[PASS] rapid restart frees old actors and opens one new match 9
+[PASS] return releases world, pause and pending reward 9
+[PASS] all started matches leave settled receipts, no dangling pending tokens
+=== 缁撴灉: 127 椤规鏌? 0 澶辫触 ===
+APP_FLOW_CHECKS_PASS

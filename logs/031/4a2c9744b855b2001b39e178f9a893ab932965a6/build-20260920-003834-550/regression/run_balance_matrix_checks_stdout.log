@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] all four production vehicle packages load
+[PASS] target loads us_m4a3_75w_vvss_1944
+[PASS] finite mobility/reload/turret and nonempty armor us_m4a3_75w_vvss_1944
+[matrix] target=us_m4a3_75w_vvss_1944 cumulative_cases=384
+[PASS] level-impact target pose remains fixed us_m4a3_75w_vvss_1944
+[PASS] target loads us_m24_m6_t85e1_1951
+[PASS] finite mobility/reload/turret and nonempty armor us_m24_m6_t85e1_1951
+[matrix] target=us_m24_m6_t85e1_1951 cumulative_cases=768
+[PASS] level-impact target pose remains fixed us_m24_m6_t85e1_1951
+[PASS] target loads us_m26_m3_1945
+[PASS] finite mobility/reload/turret and nonempty armor us_m26_m3_1945
+[matrix] target=us_m26_m3_1945 cumulative_cases=1152
+[PASS] level-impact target pose remains fixed us_m26_m3_1945
+[PASS] target loads us_m36_m4a1_1945
+[PASS] finite mobility/reload/turret and nonempty armor us_m36_m4a1_1945
+[matrix] target=us_m36_m4a1_1945 cumulative_cases=1536
+[PASS] level-impact target pose remains fixed us_m36_m4a1_1945
+[PASS] 1536 actual distance/direction/aim-point shots terminate
+[PASS] matrix includes real geometry contacts and committed damage
+[PASS] every armor contact retains its actual named surface
+[PASS] both shell policies have an actual paired crew-damage advantage
+[PASS] matrix evidence destination writable
+=== 缁撴灉: 18 椤规鏌? 0 澶辫触 ===
+BALANCE_MATRIX_CHECKS_PASS
