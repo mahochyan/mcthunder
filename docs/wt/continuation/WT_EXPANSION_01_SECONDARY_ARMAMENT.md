@@ -28,12 +28,13 @@ passed with it present.
 
 ```
 A. the secondary rounds must enter the DAMAGE and REPLAY records the same way the main gun rounds do, which is the
-   consistency this package objective is about rather than a separate feature. NOT MEASURED YET, and the first
-   attempt is recorded rather than hidden: counting records across the launch by guessing the store API produced
-   three script errors, so the change was REVERTED and the probe is green again at 45 checks with zero failures.
-   The API to read first is now known and named: ProjectileManager holds `shot_records := ShotRecordStore.new()`
-   and raises the signal `shot_record_ready(record)`, so the leg must be written against ShotRecordStore own
-   interface (`scripts/replay/shot_record_store.gd`) instead of against a guessed `count()`/`get_record()` pair.
+   consistency this package objective is about rather than a separate feature. NOW MEASURED AS A GAP, with numbers:
+   the leg is written against ShotRecordStore own interface (count() and get_record(index), with a record read as a
+   DICTIONARY rather than by property access - the first attempt did the latter and was reverted after three script
+   errors). The measurement is unambiguous: the channel answers { "ok": true, "reason": "fired" }, debits its belt
+   750 to 749 and 200 to 199, and the manager returns a REAL projectile - while the shot-record count stays 0 to 0,
+   so A SECONDARY ROUND DOES NOT REACH THE REPLAY PATH TODAY. The acceptance scenario therefore stands at 47 checks
+   with 2 failures until that is fixed, and the failures are exactly this gap.
 B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
    not only by a probe;
 C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and

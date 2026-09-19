@@ -1,0 +1,21 @@
+WT-EXPANSION-01 item A is now MEASURED, and the measurement found a real gap with numbers instead of an opinion.
+
+WHAT WAS WRITTEN: the record leg is written against ShotRecordStore own interface - count() and get_record(index)
+both exist, and a record is a DICTIONARY, so its fields are read with get() rather than by property access. That
+single difference is what produced three script errors on the first attempt and made it look like an API guess: the
+API was right and the access was wrong.
+
+WHAT IT MEASURED, unambiguously: the channel answers { "ok": true, "reason": "fired" }, debits its belt 750 to 749
+on the T-80B and 200 to 199 on the Leopard, and the manager returns a REAL projectile - WHILE THE SHOT-RECORD COUNT
+STAYS 0 to 0. So a secondary round fires and flies but DOES NOT REACH THE REPLAY PATH today, and that is precisely
+the consistency the package objective asks for: the same event must be readable by the same records.
+
+THE ACCEPTANCE SCENARIO NOW STANDS AT 47 CHECKS WITH 2 FAILURES, and the two failures are exactly this gap. The
+scenario is left RED on purpose rather than softened: a red leg that names a measured gap is worth more than a
+green one that hides it, and the expansion cannot be claimed complete while a fired round is invisible to replay.
+Zero script error lines this time, so the failure is the product and not the instrument - which is the distinction
+the previous round was about.
+
+The note records the gap with its numbers, and the two remaining items are unchanged: the HUD and controls that let
+a player fire a secondary channel, and the main-gun suites that must keep passing - which they do, with engineering
+runtime, shell, damage and feedback all green after the last product change.

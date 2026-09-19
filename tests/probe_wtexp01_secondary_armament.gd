@@ -104,13 +104,23 @@ func _run() -> void:
 			actor.gunner.projectile_manager = manager
 			actor.gunner.round_provider = func() -> int: return 7001
 			var belt_before: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
-			# ITEM A IS NOT MEASURED YET: an attempt to count the manager shot records across the launch was
-			# reverted because it guessed the record API and produced three script errors instead of a measurement.
-			# The record path must be read from ProjectileManager before this leg is written again.
+			# ITEM A: the shot must enter the SAME record path the replay reads. Written against the store REAL
+			# interface this time - count() and get_record(index) exist, and a record is a DICTIONARY, so its
+			# fields are read with get() rather than with property access, which is what produced three script
+			# errors when this leg was first attempted and then reverted.
+			var records_before: int = manager.shot_records.count()
 			var answer: Dictionary = actor.gunner.try_fire_secondary(0)
 			var belt_after: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
 			var pid: int = int(actor.gunner.secondary_channel(0).get("last_projectile_id",0))
-			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d, projectile_id=%d)" % [str(id),str(answer),belt_before,belt_after,pid])
+			var records_after: int = manager.shot_records.count()
+			var identity_line := "none"
+			if records_after > records_before:
+				var record: Dictionary = manager.shot_records.get_record(records_after-1)
+				var ident: Dictionary = record.get("identity",{})
+				identity_line = "shell_id=%s shooter=%s shot=%s" % [str(ident.get("shell_id","")),str(ident.get("shooter_id","")),str(ident.get("shot_id",""))]
+			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d, projectile_id=%d, records %d -> %d)" % [str(id),str(answer),belt_before,belt_after,pid,records_before,records_after])
+			print("[WT-EXPANSION-01] %s record identity: %s" % [str(id),identity_line])
+			check(records_after>records_before,"WT-EXPANSION-01 %s the secondary shot enters the SAME shot-record path the replay reads" % str(id))
 			check(answer.get("reason","")!="" ,"WT-EXPANSION-01 %s the secondary fire request is ANSWERED" % str(id))
 			if not bool(answer.get("ok",false)):
 				check(belt_after==belt_before,"WT-EXPANSION-01 %s a refused secondary shot debits NOTHING" % str(id))
