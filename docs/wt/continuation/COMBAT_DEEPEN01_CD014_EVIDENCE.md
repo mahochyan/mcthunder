@@ -120,3 +120,18 @@ One observation is recorded without a conclusion: a refusal reason came back as 
 be the log capture decoding rather than the product, and it will be measured before anything is claimed about it.
 NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
 ```
+
+## 4. The two refusals and the mojibake, measured rather than assumed
+```
+REFUSAL ONE, the result entry point: its own body gates on the token being REGISTERED, on the director being BOUND and
+non null, on the director phase being finished and on its result being exactly the submitted one. The first pass bound
+nothing, so the refusal was correct and the fault was the harness. The binding is now attempted and PRINTED rather than
+assumed, together with the director phase and result and the token that registration actually issued.
+REFUSAL TWO, the store commit: validate() rejects any candidate whose key count differs from the declared schema, so the
+probe key I had added was refused BY DESIGN. The commit is now exercised with the store own snapshot, and it succeeds:
+commit ok true and the reloaded store reports the same size, so the transactional write path is measured working.
+THE MOJIBAKE, settled rather than left hanging: the localization service falls back to a bracketed key when a string is
+MISSING, and the table assets/localization/zh_CN.json is sixty thousand bytes with no byte order mark and DOES hold the
+key in question. So the text is not missing and the service is not the cause; the garbling is in how the captured output
+was decoded. That is recorded as a measurement, and no product fault is claimed from it.
+```

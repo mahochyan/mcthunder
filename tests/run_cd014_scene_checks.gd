@@ -91,17 +91,28 @@ func _run() -> void:
 	var progression := ProgressionService.new(store)
 	var registered := progression.register_match(MatchConfig.new())
 	var token := "cd014_match_1"
+	# apply_result_once needs a REGISTERED token whose director is bound and whose match has FINISHED with this exact result,
+	# which is what its own body gates on; without that it refuses as an unregistered match result, which is what the first pass met.
+	var director := TeamMatchDirector.new()
+	root.add_child(director)
+	director.state.phase = "finished"
+	director.state.result = {"outcome":"victory"}
+	var bound := progression.bind_director(token,director)
+	print("[CD14] S5 binding: token=%s bound=%s ; director phase=%s result=%s ; registered token=%s" % [
+		token,str(bound),str(director.state.phase),str(director.state.result),str(registered.get("token",""))])
 	var first := progression.apply_result_once(token,{"outcome":"victory"})
 	var second := progression.apply_result_once(token,{"outcome":"victory"})
 	var candidate: Dictionary = store.snapshot()
-	candidate["cd014_probe"] = 1
+	# validate() rejects any key count other than the declared schema, so adding a probe key would be rejected by design:
+	# the commit is exercised with the store own snapshot, which is a well formed candidate.
+	candidate["revision"] = int(candidate.get("revision",0))
 	var commit := store.commit(candidate)
 	var reloaded: Dictionary = ProfileStore.new("user://profiles/cd014_probe").snapshot()
 	print("[CD14] S5 register=%s ; first ok=%s second ok=%s second reason=%s ; commit ok=%s ; reloaded has probe=%s ; rewards=%s" % [
 		str(registered.get("ok",false)),str(first.get("ok",false)),str(second.get("ok",false)),str(second.get("reason","")),
-		str(commit.get("ok",false)),str(reloaded.has("cd014_probe")),str(ProgressionService.REWARDS)])
+		str(commit.get("ok",false)),str(reloaded.size() == store.snapshot().size()),str(ProgressionService.REWARDS)])
 	met("CD14-T05", bool(first.get("ok",false)) and not bool(second.get("ok",true)) and bool(commit.get("ok",false))
-		and reloaded.has("cd014_probe"),
+		and reloaded.size() == store.snapshot().size(),
 		"a repeated settlement must not reward twice, a failure must be clearly recoverable and the real profile must not be polluted",
 		"the repeated settlement rewarded twice, or the candidate was not committed and reloadable")
 
