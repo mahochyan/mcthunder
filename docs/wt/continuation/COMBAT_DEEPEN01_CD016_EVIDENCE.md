@@ -633,3 +633,44 @@ STILL OPEN, stated rather than implied: the village AI repair (ruling three) is 
 focus-out in the original failing run is not recoverable from that log - what is now known is that ANY focus-out
 during the leg produces exactly the recorded signature, and that the leg no longer disguises it.
 
+## 17. Ruling three RE-MEASURED in the current build: the village red is still red, and this round's fresh facts narrow it to two actors and one destroyed-and-respawned one
+
+`run_village_battle_checks` on the current work tree (log `logs/COMBAT-DEEPEN-01/village-baseline-before-fix.log`,
+380 s): **20 PASS, 1 FAIL**. The failing check is unchanged - `all seven autonomous actors leave spawn and reach
+central approaches: ["A4", "B", "A3", "B4", "B2"]` - and its criterion is `absf(p.z) < 45` inside 120 s of game time,
+sampled every 15 s.
+
+WHAT THE TIME SERIES ADDS, which the earlier record did not have (the two unreached actors, every 15 s):
+
+```
+         A2                                   B3
+ 5.1s    (-15.4,  0.008,  105.2) following   ( 15.4,  0.008, -105.2) following
+20.2s    (-71.0,  0.021,  113.9) following   ( 71.0,  0.021, -113.9) following
+35.1s    (-71.1,  0.013,   50.2) following   ( 72.1, -0.020,  -81.8) yielding
+50.1s    (-70.2, -0.019,   49.1) following   ( 72.1, -0.008,  -83.2) reverse
+65.1s    (-70.2, -0.019,   49.1) idle        ( 75.6, -0.018, -106.5) following
+80.1s    (-70.2, -0.019,   49.1) idle        ( 37.3,  0.007, -117.0) following
+95.1s    (-70.2, -0.019,   49.1) player *    ( -8.4, -0.019, -128.9) following
+110.1s   (-33.0, -0.000,  107.8) following   (-56.8,  0.015, -116.5) following
+```
+   * `drive: "player"` in the harness means `actor.controller is AITankController` was FALSE at that sample, i.e.
+     the controller was transiently absent, which is the shape of a respawn - and the next sample has A2 back near
+     the spawn side of the map with a fresh AI phase. A2 also came to rest at z=49.08, which is 4 m OUTSIDE the
+     `absf(z) < 45` criterion, after 45 s of not moving at all in the "idle" drive phase.
+   NEITHER ACTOR IS FROZEN, which is how the earlier record described it: both drive 50 to 90 m across the map.
+     B3 in particular walks out to z=-128.9, i.e. behind its own spawn, before coming back. Both end with
+     `hop=(inf, inf, inf)`, so the final state of both is "no finite escape hop", but that is the state at the END of
+     a 120 s match and it is not the whole story.
+   A2 fired at least once during the match (it is in the `fired` set), so it was engaged before it stopped.
+
+THE NEXT MEASUREMENT, NAMED BEFORE IT IS RUN (no product change until it is read): the bisect already established
+`c164511e` GOOD and `99c96674` BAD in the same run, so the question is no longer WHETHER that commit matters but
+WHICH BEHAVIOUR it moved. The answer needs the same match recorded on both builds with per-sample per-actor record
+of: roster deaths, `state.destroyed`, position, AI phase, drive phase, and `driver.goal`/`_last_hop`. The harness
+already prints most of that, so the run is a two-build comparison of the existing output, not new instrumentation.
+The two candidates to separate, both testable from that output: (a) actors dying and respawning lose their progress
+before arriving, i.e. the aim commit changed the FIGHT rather than the ROUTE; (b) the route/jam behaviour itself
+changed and A2's 45 s "idle" at z=49.08 is the route failing to finish. Candidate (a) is supported so far by the
+`player` sample and the position reset, and it is NOT yet proven.
+
+
