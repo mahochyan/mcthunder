@@ -1,0 +1,17 @@
+WT-EXPANSION-01 item B: the entry points are located and recorded before any UI code is touched.
+
+WHAT WAS MEASURED, not searched for again later: scripts/battle/simulation_snapshot.gd line 23 already reads the
+gunner shell state and is what feeds the HUD, so the secondary channels must be carried THERE first; the HUD side
+that reads shell_options is scripts/ui/battle_ui.gd line 192; and the input map already defines fire, shell_1 and
+shell_2 with NO third slot, so a secondary fire is a NEW binding rather than a reuse of an existing one. The plan is
+recorded in that order - snapshot, HUD, input, then an acceptance leg that fires a secondary channel through the
+INPUT path instead of calling the gunner directly, because a feature a player cannot reach is not delivered.
+
+NO CODE CHANGED IN THIS ROUND beyond the note, and none was needed: the state after the last product change is the
+state being handed forward, with the expansion acceptance at 47 checks and zero failures, WT_EXPANSION_01_PASS, and
+zero script error lines.
+
+The remainder is unchanged and now fully specified: item B as above, and the standing queue outside this expansion -
+the real crew stations, the 21 damage parts, the 29 and 25 modification lists and the T-80B ATGM channel from the
+extracted game data; the two authorised CD16 items (the R3-A clock investigation and the bounded village AI fix);
+and the package build, still blocked by the five measured reds rather than by anything unknown.

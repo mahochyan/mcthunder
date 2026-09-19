@@ -37,7 +37,13 @@ A. the secondary rounds must enter the DAMAGE and REPLAY records the same way th
    flight age (960 steps at 1/240), so the flight stopped just short of its own expiry. Both were faults of the leg,
    not of the product, and the record path had been working all along.
 B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
-   not only by a probe;
+   not only by a probe. THE ENTRY POINTS ARE NOW LOCATED AND RECORDED rather than left to be searched again:
+   `scripts/battle/simulation_snapshot.gd` line 23 already reads the gunner shell state and is what feeds the HUD,
+   so the secondary channels must be carried there first; `scripts/ui/battle_ui.gd` line 192 is the HUD side that
+   reads `shell_options`; and the input map already defines `fire`, `shell_1` and `shell_2` with NO third slot, so a
+   separate action (for example a secondary fire) is a new binding rather than a reuse. The plan is therefore
+   snapshot, then HUD, then input, then an acceptance leg that fires a secondary channel through the input path
+   rather than by calling the gunner directly.
 C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and
    feedback all exit 0 after the latest change.
 ```
