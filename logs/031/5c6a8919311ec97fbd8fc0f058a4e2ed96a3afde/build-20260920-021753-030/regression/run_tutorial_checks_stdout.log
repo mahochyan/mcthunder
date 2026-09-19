@@ -1,0 +1,61 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] schema2 migration adds only chapter progress and preserves real saved economy
+[PASS] invalid tutorial checkpoint rejected
+[PASS] invalid tutorial checkpoint rejected
+[PASS] invalid tutorial checkpoint rejected
+[PASS] invalid tutorial checkpoint rejected
+[PASS] chapter 0 starts actual configured scene
+[PASS] chapter 0 cannot complete by opening it
+[PASS] uncompleted guide cannot award a chapter
+[PASS] real driving and parking completes chapter and saves once
+[PASS] chapter completion is idempotent
+[PASS] retry clears observation of previous round
+[PASS] chapter 1 starts actual configured scene
+[PASS] chapter 1 cannot complete by opening it
+[PASS] actual turret motion and real gunsight complete observation chapter
+[PASS] chapter 2 starts actual configured scene
+[PASS] chapter 2 cannot complete by opening it
+TUTORIAL_ACTUAL chapter=2 passed=true shots=1 director=passed target={ "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": [], "crew_alive": 5, "power_scale": 1.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+[PASS] real projectile/recovery pipeline completes chapter 2
+[PASS] chapter 3 starts actual configured scene
+[PASS] chapter 3 cannot complete by opening it
+[PASS] save failure leaves chapter visibly unsaved and preserves prior disk state
+[PASS] retry saves the same verified chapter after write access returns
+TUTORIAL_ACTUAL chapter=3 passed=true shots=1 director=passed target={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": ["engine"], "crew_alive": 5, "power_scale": 0.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+[PASS] real projectile/recovery pipeline completes chapter 3
+[PASS] chapter 4 starts actual configured scene
+[PASS] chapter 4 cannot complete by opening it
+[PASS] actual engine hit cannot complete the required breech chapter
+TUTORIAL_ACTUAL chapter=4 passed=true shots=2 director=passed target={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": false, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": ["engine", "breech"], "crew_alive": 5, "power_scale": 0.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+[PASS] real projectile/recovery pipeline completes chapter 4
+[PASS] chapter 5 starts actual configured scene
+[PASS] chapter 5 cannot complete by opening it
+[PASS] damage alone cannot complete recovery chapter 5
+TUTORIAL_ACTUAL chapter=5 passed=true shots=1 director=passed target={ "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": ["track:threshold:0.50"], "crew_alive": 5, "power_scale": 1.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+[PASS] real projectile/recovery pipeline completes chapter 5
+[PASS] chapter 6 starts actual configured scene
+[PASS] chapter 6 cannot complete by opening it
+[PASS] damage alone cannot complete recovery chapter 6
+TUTORIAL_ACTUAL chapter=6 passed=true shots=1 director=passed target={ "drive": false, "steer": false, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": ["engine", "fuel:binary_at_zero:0.80"], "crew_alive": 5, "power_scale": 0.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+TUTORIAL_FIRE observed=true action_seen=true charges=1 initial=2 fires={  } action= reason=fire_extinguished enabled=true
+[PASS] real projectile/recovery pipeline completes chapter 6
+[PASS] chapter 7 starts actual configured scene
+[PASS] chapter 7 cannot complete by opening it
+TUTORIAL_ACTUAL chapter=7 passed=true shots=1 director=passed target={ "drive": true, "steer": true, "track_pivot": false, "left_track": true, "right_track": true, "fire": true, "turret_speed": 1.0, "yaw_scale": 1.0, "pitch_scale": 1.0, "stabilizer_available": true, "reload_rate": 1.0, "reasons": [], "crew_alive": 5, "power_scale": 1.0, "can_load": true, "loading_mode": "crew", "loading_reasons": [], "replenishment_allowed": false }
+[PASS] real projectile/recovery pipeline completes chapter 7
+[PASS] chapter 8 starts actual configured scene
+[PASS] chapter 8 cannot complete by opening it
+[PASS] time outside capture circle does not complete chapter
+[PASS] actual entry and full production capture duration complete objective
+[PASS] chapter 9 starts actual configured scene
+[PASS] chapter 9 cannot complete by opening it
+[PASS] death itself does not count as redeploy
+[PASS] early redeploy cannot skip preparation
+[PASS] normal respawn completes chapter without infinite battle ammo or formal reward
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_02.json
+[PASS] skip/return leaves tutorial context
+[PASS] all ten chapters persist through real disk reload
+[PASS] tutorial never grants formal combat rewards
+=== 缁撴灉: 49 椤规鏌? 0 澶辫触 ===
+TUTORIAL_CHECKS_PASS

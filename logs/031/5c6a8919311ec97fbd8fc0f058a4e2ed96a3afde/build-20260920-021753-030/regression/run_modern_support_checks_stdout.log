@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] production historical and modern catalog admission
+[PASS] ussr_t_80b installs actual bound model
+[PASS] ussr_t_80b both treads support on a physical 25 cm curb
+[PASS] ussr_t_80b normal steering crosses curb without phantom unsupported side
+[PASS] ussr_t_80b one metre drop retains unsupported-side rejection
+[PASS] ussr_t_80b cannot borrow steering from unsupported tread
+[PASS] ussr_t_80b production through-route completes right-angle corner
+[PASS] ussr_t_80b corner stays inside 12 m road with hull clearance
+CORNER ussr_t_80b ticks=1148 minimum_z=-40.2749252319336 phase=arrived
+[PASS] ussr_t_80b steep ramp still exceeds unchanged climb limit
+[PASS] ussr_t_80b real reverse input backs away after steep-face collision
+SLOPE_RECOVERY ussr_t_80b blocked=(0.0, 0.031221, 3.083205) recovered=(0.0, 0.00094, 18.02259) speed=-2.77777777777778
+[PASS] germ_leopard_2a4 installs actual bound model
+[PASS] germ_leopard_2a4 both treads support on a physical 25 cm curb
+[PASS] germ_leopard_2a4 normal steering crosses curb without phantom unsupported side
+[PASS] germ_leopard_2a4 one metre drop retains unsupported-side rejection
+[PASS] germ_leopard_2a4 cannot borrow steering from unsupported tread
+[PASS] germ_leopard_2a4 production through-route completes right-angle corner
+[PASS] germ_leopard_2a4 corner stays inside 12 m road with hull clearance
+CORNER germ_leopard_2a4 ticks=1150 minimum_z=-40.8548355102539 phase=arrived
+[PASS] germ_leopard_2a4 steep ramp still exceeds unchanged climb limit
+[PASS] germ_leopard_2a4 real reverse input backs away after steep-face collision
+SLOPE_RECOVERY germ_leopard_2a4 blocked=(0.0, 0.048761, 3.385904) recovered=(0.0, 0.000943, 18.37941) speed=-2.77777777777778
+=== 缁撴灉: 19 椤规鏌? 0 澶辫触 ===
+MODERN_SUPPORT_CHECKS_PASS

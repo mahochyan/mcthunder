@@ -1,0 +1,2214 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (602 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AimSolver[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AIDifficulty[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AIPathDriver[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AIPerception[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AIRoleAllocator[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | AITankController[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | DriveNavigator[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | StuckDetector[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | TrafficTelemetry[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | ArmorImpactProfile[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | ArmorLayerProfile[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | ArmorResolver[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | PenetrationCurve[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | ReactiveArmorProfile[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | ArtPalette[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | AssetBudgetReport[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | AssetManifestValidator[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | DestructibleSection[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | GeometryOverlay[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | HistoricalTrackMotion[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | SpecialStructures[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | StaticArtBatch[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | StructureCollapse[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | StructureDust[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | VehicleAtlas[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | WorldArtKit[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | WorldLighting[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | WorldProps[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | BattleObjectives[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | CapturePoint[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | CapturePointState[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | ContributionLedger[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | DuelRange[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | GroundRbLikePreset[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | MatchDirector[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | MatchRulePreset[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | ObservationPolicy[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | RespawnService[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | RuleVersionInterpreter[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | SimulationPhases[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | SimulationSnapshot[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | SortieService[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | SupportActions[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | TeamArena[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | TeamCoordinator[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | TeamMatchDirector[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | TeamMatchState[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | TeamRange[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | TicketLedger[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | VehicleSimulationDriver[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | ChallengeBattleUI[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | ChallengeCatalog[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | ChallengeDirector[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | ChallengeProgression[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | ChallengeRange[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | ChallengeScore[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | ChallengeSelection[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | AssetRegistryAudit[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | BoundVehicleModel[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | HistoricalEvidenceGate[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | HistoricalShellCatalog[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | HistoricalVehicleGeometry[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | HistoricalVehicleModel[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | ModelAnchorReader[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | ModelBindingProbe[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ModelBindingValidator[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ModernEquipment[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ModernModelMountAdapter[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ModernSample[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ReferenceEvidenceGate[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ResearchModelInterfaces[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | ResearchReferenceProfiles[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | RoleMapping[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | RoleMappingAudit[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | TechSegment[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | VariantCompatibility[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | VehicleArmorLayers[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleCatalog[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleContentPipeline[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleContentRecord[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleEquipmentProfiles[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleReadiness[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | VehicleShellCatalog[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | AcceptanceChecklist[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | AppFlow[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | AppSceneLoader[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | BuildIdentity[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | CoreRange[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | CoreUI[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | CoreVehicleVisual[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | GarageShell[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | M4EngineeringProfile[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | M4LowPolyDetails[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | M4TrackMotion[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | ModelShowroom[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | ShotExplanation[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | TrainingDirector[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | TrainingLoadout[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | TutorialCatalog[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | TutorialGuide[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | AmmoCompartmentProfile[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | AmmoInventory[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | AmmoReactionProfile[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | AmmunitionSupply[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | CrewDamageProfile[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | CrewRoster[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | DamageResolver[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | LoadingMechanism[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | LoadingRules[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | ModuleResponseProfile[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | RecoveryRules[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | RecoveryVisuals[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | VehicleCapabilities[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | VehicleRecovery[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | WreckRegistry[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | WreckTurretMotion[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | AimIntent[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | FireControlProfile[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | FireControlState[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | LoadingProfile[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | OpticsProfile[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | ShellDefinition[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | VehicleCommand[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | VehicleCommandCodec[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | VehicleDefinition[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | VehicleDefs[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | VehicleRuntimeState[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | WeaponDefinition[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | MatchScenarioRunner[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | TelemetrySnapshot[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | ChassisResponse[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | DrivePowertrain[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | DriveProfile[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | DriveSurface[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | GroundProbe[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | LandingResponse[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | SuspensionResponse[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | TerrainFixtures[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | TrackAssembly[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | TrackDrive[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | TurretMechanismState[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | VehicleFramePose[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | VehiclePose[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CombatAudioPool[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CombatFeedback[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CombatSubtitles[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CombatFXPool[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | GaragePreparation[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | GarageService[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Lineup[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | MatchConfig[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | ProfileStore[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | ProgressionService[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | ResearchGraph[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | PreviewCameraMath[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | QueryDebugPanel[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | VehicleInspector[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | VehiclePreviewModel[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | ArmorPatchDefinition[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | ArmorPatchMesh[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | CrewStationDefinition[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | LayoutCatalog[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | LayoutMath[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | LayoutPartDefinition[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | LayoutValidator[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | ModuleVolumeDefinition[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | VehicleLayoutDefinition[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | IndustrialDefinition[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | IndustrialRange[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | IndustrialWorld[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | MapDefinition[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | MapRegistry[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | NavigationBakePipeline[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | RiverCaptureMarkers[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionDefinition[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionNavigation[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionRange[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionWorld[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | RiverTeamDefinition[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | RiverTeamRange[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | SpawnSelector[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | VillageDefinition[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | VillageRange[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | VillageWorld[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | WorldCollisionRules[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | NetworkAuthorityContract[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | NetworkBattleClient[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | NetworkBattleServer[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | NetworkBattleWorld[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkClientView[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkController[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkEventJournal[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkFaultInjector[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkIdentityPolicy[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkPoseBuffer[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | NetworkResultReceipt[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | NetworkRoomService[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | NetworkTimeModel[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | BallisticsProfile[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | BallisticIntercept[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | BallisticMath[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | ChemicalJetSystem[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | ChemicalProfile[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | FragmentSystem[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | ProjectileManager[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | ProjectileShapeProfile[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | ProjectileState[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | ProjectileVisuals[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | ShellEffectPolicy[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | ShellFuze[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | SightBallistics[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | SpallProfile[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | TranslationSweep[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | ExternalContactSelector[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | QueryGeometry[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | QuerySnapshotBuilder[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | ShotQueryService[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | WorldQueryAdapter[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | ChemicalRecordValidator[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ReactiveArmorRecordValidator[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ReplayController[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ReplayView[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ShotRecordBuilder[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ShotRecordCodec[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | ShotRecordStore[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | SpallRecordValidator[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | AICombatRange[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | AIDriveRange[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | ArmorRange[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | ArmorTrainingTargets[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | BallisticsRange[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | DamageRange[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | DamageTrainingLayout[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | RecoveryRange[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | ShellRange[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | ShellTrainingTargets[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | TerrainRange[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | AccessibilitySettings[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | AppDialog[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | BattleHUD[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | BattleIntel[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | BattleUI[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | DisplaySettings[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | GarageFrontend[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | GarageTheme[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | HUDPresenter[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | InputBindingService[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | InputFocusRouter[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | InputSettingsPanel[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | LocalizationService[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | MinimapPresenter[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | ModalNavigation[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | ResearchModelView[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | ResearchTrialDrive[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionAtlas[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | RiverJunctionSurvey[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | RiverObjectiveHUD[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | SightGraduations[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | VehicleDamageDiagram[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | VehicleDamageView[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | VehicleResearchTree[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | CameraRig[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | CommandMailbox[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | GameConfig[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Gunner[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | HUD[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Main[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | PlayerController[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | TankVehicle[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | TargetBoard[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | TrialHitGate[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | TurretRig[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | VehicleActor[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | WorldBuilder[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | RouteHarness[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 正在扫描动作…… (308 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | destroyed.wav[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | engine.wav[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | explosion.wav[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | fire.wav[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | flyby.wav[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | non_penetration.wav[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | penetrated.wav[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | reload.wav[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | ricochet.wav[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | shot.wav[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | tracks.wav[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | turret.wav[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | world.wav[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | NotoSansCJKsc-Regular.otf[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | germ_9a33bm3.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | germ_9a35_m.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | germ_amd_35_kwk.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | germ_begleitpanzer_57.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | germ_bmp_1_ddr.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | germ_boxer_3105.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | germ_boxer_swatrinf.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | germ_erprobungstrager_3_achs_turm.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_38t_Gepard.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_IV_Kugelblitz.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_IV_Ostwind.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_IV_Wirbelwind.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_I_ausf_A.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_V_Coelian.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | germ_flakpanzer_zerstorer_45.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | germ_flakpz_I_Gepard.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | germ_flarakpz_1.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | germ_flarakrad.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | germ_hummel.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | germ_infanterie_kampfpanzer_churchill.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | germ_iris_slm_fcs.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | germ_iris_slm_launcher.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | germ_jaguar_2.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | germ_jgdpz_38t.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | germ_jgdpz_IV_L48.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | germ_kanonenjagdpanzer.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | germ_kpz_70.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | germ_kpz_t72m1.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | germ_kv_1_kwk_40.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | germ_kv_2_754r.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | germ_leichter_ladungstrager_303a.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | germ_leopard_2a4.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | germ_leopard_I.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | germ_le_kpz_m41.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | germ_m44.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | germ_m55.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | germ_m109g.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | germ_marder_1a1.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | germ_marder_df_105.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | germ_mkpz_m47.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | germ_mkpz_m48a2c.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | germ_nbfz_VI.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | germ_panther_II.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | germ_panzerjager_1.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | germ_panzerjager_nashorn.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | germ_panzerjager_panther.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | germ_panzerjager_tiger.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | germ_panzerjager_tiger_P_ferdinand.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | germ_panzerwerfer_42.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | germ_pzh_2000.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_35t.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_38t_Aufklarungspanzer.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_38t_ausf_A.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_38t_Marder_III.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_e_100.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_III_ausf_B.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_II_ausf_C.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_IV_ausf_C.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_Maus.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_VI_ausf_b_tiger_IIh.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_VI_ausf_h1_tiger.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_VI_tiger_P.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | germ_pzkpfw_V_ausf_d_panther.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | germ_pzsflk40_sturer_emil.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | germ_pzsfl_IVa_dickermax.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | germ_radpanzer_90.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | germ_raketenjagdpanzer_2.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | germ_ru251.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | germ_schutzenpanzer_puma.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_6_2_flak36.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_9_flak37.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_221_s_pz_b_41.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_222.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_234_2.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | germ_sdkfz_251_9.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | germ_sk105_a2.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | germ_sppz2_luchs_a2.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | germ_spz_12_3.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | germ_spz_oerlikon_raketenautomat.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | germ_stug_III_ausf_A.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | germ_sturmmorser_sturmtiger.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | germ_sturmpanzer_II.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | germ_sturmpanzer_IV_brummbar.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | germ_thyssen_henschel_tam.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | germ_th_400.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | germ_truck_sdkfz_6_2_tent.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | germ_t_34_747.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | germ_vilkas.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | germ_vk_3002m.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | germ_vsw_flak_41.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | germ_vt_1_2.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | germ_waffentrager_krupp_steyr.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | germ_wiesel_1_mk20.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | germ_wiesel_1_tow.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | germ_wiesel_2_adwc.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | ussr_asu_57.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | ussr_asu_85.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | ussr_bt_5.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | ussr_isu_122.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | ussr_isu_152.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | ussr_is_1.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | ussr_is_2_1943.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | ussr_is_3.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | ussr_is_4m.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | ussr_is_6.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | ussr_is_7.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | ussr_kv_1_L_11.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | ussr_kv_2_1939.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | ussr_object_120.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | ussr_object_140.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | ussr_object_268.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | ussr_object_435.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | ussr_object_685.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ussr_object_775.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ussr_object_906.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ussr_pt_76b.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | ussr_su_57b.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | ussr_su_76d.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | ussr_su_76m_1943.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | ussr_su_85_1943.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | ussr_su_100Y.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | ussr_su_100_1945.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | ussr_su_122.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | ussr_su_122_54.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | ussr_su_152.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | ussr_t_10a.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | ussr_t_26_1940.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | ussr_t_28.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | ussr_t_34_1941.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | ussr_t_35.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | ussr_t_44.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | ussr_t_50.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | ussr_t_54_1947.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | ussr_t_55a.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | ussr_t_62.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | ussr_t_64a_1971.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | ussr_t_72a.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | ussr_t_80.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | ussr_t_80b.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | ussr_t_90a.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | us_m4a2_1944_germ.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | vehicle_adapter_olive_mechanical_atlas.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | vehicle_adapter.glb[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | leopard2a7v.glb[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | leopard2a7v_Redesigned_Albedo.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | m1a1.glb[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | m1a1_1k.glb[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | m1a1_1k_base_color.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | m1a1_1k_normal.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | m1a1_1k_orm.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | m1a1_2k.glb[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | m1a1_2k_base_color.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | m1a1_2k_normal.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | m1a1_2k_orm.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | m1a1_base_color.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | m1a1_normal.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | m1a1_orm.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | vehicle_concept_atlas_v1.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_basecolor.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_normal.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_orm.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_basecolor.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_normal.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_orm.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_basecolor.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_normal.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_orm.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | ztz99a_1000.glb[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_ztz99a_1000_basecolor.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_ztz99a_1000_normal.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | ztz99a_1000_ztz99a_1000_orm.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | ztz99a_2000.glb[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_ztz99a_2000_basecolor.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_ztz99a_2000_normal.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | ztz99a_2000_ztz99a_2000_orm.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | ztz99a_4000.glb[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_ztz99a_4000_basecolor.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_ztz99a_4000_normal.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | ztz99a_4000_ztz99a_4000_orm.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | us_m4a3_75w_vvss_1944.glb[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | us_m24_m6_t85e1_1951.glb[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | us_m26_m3_1945.glb[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | us_m36_m4a1_1945.glb[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | autoshot_1_thirdperson.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | autoshot_2_sight.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | autoshot_3_moved.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | autoshot_4_paused.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | autoshot_5_resumed.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | autoshot_6_two_vehicles.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | autoshot_7_sight_sees_b.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | autoshot_8_trial_complete.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | autoshot_9_trial_normal_complete.png[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | autoshot_10_trial_restarted.png[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | autoshot_11_two_vehicles_r1.png[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | autoshot_12_sight_sees_b_r1.png[39m[0m
+[  99% ] [90m[1m_update_scan_actions[22m | autoshot_13_hud_r1.png[39m[0m
+[  99% ] [90m[1m_update_scan_actions[22m | icon.svg[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (308 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   1% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   1% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   1% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   2% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   2% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   2% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   3% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   3% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   3% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   4% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   4% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   4% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   5% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   5% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   5% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   6% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   6% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   6% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   7% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   7% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   7% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   8% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   8% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   8% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   9% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   9% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   9% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  10% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  10% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  10% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  11% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  11% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  11% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  11% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  12% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  12% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  12% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  13% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  13% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  13% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  14% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  14% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  14% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  15% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  15% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  15% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  16% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  16% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  16% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  17% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  17% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  17% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  18% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  18% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  18% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  19% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  19% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  19% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  20% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  20% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  20% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  21% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  21% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  21% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  22% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  22% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  22% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  22% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  23% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  23% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  23% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  24% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  24% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  24% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  25% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  25% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  25% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  26% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  26% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  26% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  27% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  27% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  27% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  28% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  28% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  28% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  29% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  29% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  29% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  30% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  30% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  30% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  31% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  31% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  31% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  32% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  32% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  32% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  33% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  33% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  33% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  33% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  34% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  34% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  34% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  35% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  35% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  35% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  36% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  36% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  36% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  37% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  37% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  37% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  38% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  38% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  38% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  39% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  39% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  39% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  40% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  40% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  40% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  41% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  41% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  41% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  42% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  42% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  42% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  43% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  43% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  43% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  44% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  44% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  44% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  44% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  45% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  45% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  45% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  46% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  46% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  46% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  47% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  47% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  47% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  48% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  48% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  48% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  49% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  49% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  49% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  50% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  51% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  51% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  51% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  52% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  52% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  52% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  53% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  53% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  53% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  54% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  54% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  54% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  55% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  55% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  55% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  55% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  56% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  56% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  56% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  57% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  57% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  57% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  58% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  58% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  58% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  59% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  59% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  59% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  60% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  60% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  60% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  61% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  61% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  61% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  62% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  62% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  62% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  63% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  63% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  63% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  64% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  64% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  64% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  65% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  65% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  65% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  66% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  66% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  66% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  66% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  67% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  67% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  67% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  68% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  68% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  68% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  69% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  69% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  69% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  70% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  70% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  70% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  71% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  71% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  71% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  72% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  72% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  72% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  73% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  73% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  73% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  74% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  74% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  74% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  75% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  75% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  75% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  76% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  76% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  76% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  77% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  77% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  77% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  77% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  78% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  78% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  78% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  79% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  79% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  79% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  80% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  80% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  80% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  81% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  81% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  81% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  82% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  82% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  82% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  83% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  83% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  83% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  84% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  84% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  84% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  85% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  85% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  85% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  86% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  86% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  86% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  87% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  87% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  87% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  88% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  88% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  88% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  88% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  89% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  89% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  89% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  90% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  90% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  90% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  91% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  91% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  91% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  92% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  92% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  92% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  93% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  93% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  93% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  94% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  94% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  94% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  95% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  95% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  95% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  96% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  96% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  96% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  97% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  97% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  97% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  98% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  98% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  98% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  99% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[  99% ] [90m[1mreimport[22m | 正在准备重新导入文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的前置操作……[39m[0m
+[   0% ] [90m[1mreimport[22m | NotoSansCJKsc-Regular.otf[39m[0m
+[   0% ] [90m[1mreimport[22m | NotoSansCJKsc-Regular.otf[39m[0m
+[   0% ] [90m[1mreimport[22m | ussr_object_435.png[39m[0m
+[   0% ] [90m[1mreimport[22m | ussr_object_685.png[39m[0m
+[   1% ] [90m[1mreimport[22m | ussr_object_775.png[39m[0m
+[   1% ] [90m[1mreimport[22m | ussr_object_906.png[39m[0m
+[   1% ] [90m[1mreimport[22m | ussr_pt_76b.png[39m[0m
+[   2% ] [90m[1mreimport[22m | ussr_su_57b.png[39m[0m
+[   2% ] [90m[1mreimport[22m | ussr_su_76d.png[39m[0m
+[   2% ] [90m[1mreimport[22m | ussr_su_76m_1943.png[39m[0m
+[   3% ] [90m[1mreimport[22m | ussr_su_85_1943.png[39m[0m
+[   3% ] [90m[1mreimport[22m | ussr_su_100Y.png[39m[0m
+[   3% ] [90m[1mreimport[22m | ussr_su_100_1945.png[39m[0m
+[   4% ] [90m[1mreimport[22m | ussr_su_122.png[39m[0m
+[   4% ] [90m[1mreimport[22m | ussr_su_122_54.png[39m[0m
+[   4% ] [90m[1mreimport[22m | ussr_su_152.png[39m[0m
+[   5% ] [90m[1mreimport[22m | ussr_t_10a.png[39m[0m
+[   5% ] [90m[1mreimport[22m | ussr_t_26_1940.png[39m[0m
+[   5% ] [90m[1mreimport[22m | ussr_t_28.png[39m[0m
+[   6% ] [90m[1mreimport[22m | ussr_t_34_1941.png[39m[0m
+[   6% ] [90m[1mreimport[22m | ussr_t_35.png[39m[0m
+[   6% ] [90m[1mreimport[22m | ussr_t_44.png[39m[0m
+[   7% ] [90m[1mreimport[22m | ussr_t_50.png[39m[0m
+[   7% ] [90m[1mreimport[22m | ussr_t_54_1947.png[39m[0m
+[   7% ] [90m[1mreimport[22m | ussr_t_55a.png[39m[0m
+[   8% ] [90m[1mreimport[22m | ussr_t_62.png[39m[0m
+[   8% ] [90m[1mreimport[22m | germ_t_34_747.png[39m[0m
+[   8% ] [90m[1mreimport[22m | germ_vilkas.png[39m[0m
+[   9% ] [90m[1mreimport[22m | germ_vk_3002m.png[39m[0m
+[   9% ] [90m[1mreimport[22m | germ_vsw_flak_41.png[39m[0m
+[   9% ] [90m[1mreimport[22m | germ_vt_1_2.png[39m[0m
+[  10% ] [90m[1mreimport[22m | germ_waffentrager_krupp_steyr.png[39m[0m
+[  10% ] [90m[1mreimport[22m | germ_wiesel_1_mk20.png[39m[0m
+[  10% ] [90m[1mreimport[22m | germ_wiesel_1_tow.png[39m[0m
+[  11% ] [90m[1mreimport[22m | germ_wiesel_2_adwc.png[39m[0m
+[  11% ] [90m[1mreimport[22m | ussr_asu_57.png[39m[0m
+[  11% ] [90m[1mreimport[22m | ussr_asu_85.png[39m[0m
+[  11% ] [90m[1mreimport[22m | ussr_bt_5.png[39m[0m
+[  12% ] [90m[1mreimport[22m | ussr_isu_122.png[39m[0m
+[  12% ] [90m[1mreimport[22m | ussr_isu_152.png[39m[0m
+[  12% ] [90m[1mreimport[22m | ussr_is_1.png[39m[0m
+[  13% ] [90m[1mreimport[22m | ussr_is_2_1943.png[39m[0m
+[  13% ] [90m[1mreimport[22m | ussr_is_3.png[39m[0m
+[  13% ] [90m[1mreimport[22m | ussr_is_4m.png[39m[0m
+[  14% ] [90m[1mreimport[22m | ussr_is_6.png[39m[0m
+[  14% ] [90m[1mreimport[22m | ussr_is_7.png[39m[0m
+[  14% ] [90m[1mreimport[22m | ussr_kv_1_L_11.png[39m[0m
+[  15% ] [90m[1mreimport[22m | ussr_kv_2_1939.png[39m[0m
+[  15% ] [90m[1mreimport[22m | ussr_object_120.png[39m[0m
+[  15% ] [90m[1mreimport[22m | ussr_object_140.png[39m[0m
+[  16% ] [90m[1mreimport[22m | ussr_object_268.png[39m[0m
+[  16% ] [90m[1mreimport[22m | ussr_object_268.png[39m[0m
+[  16% ] [90m[1mreimport[22m | ztz99a_4000_normal.png[39m[0m
+[  16% ] [90m[1mreimport[22m | ztz99a_4000_orm.png[39m[0m
+[  17% ] [90m[1mreimport[22m | ztz99a_1000_ztz99a_1000_basecolor.png[39m[0m
+[  17% ] [90m[1mreimport[22m | ztz99a_1000_ztz99a_1000_normal.png[39m[0m
+[  17% ] [90m[1mreimport[22m | ztz99a_1000_ztz99a_1000_orm.png[39m[0m
+[  18% ] [90m[1mreimport[22m | ztz99a_2000_ztz99a_2000_basecolor.png[39m[0m
+[  18% ] [90m[1mreimport[22m | ztz99a_2000_ztz99a_2000_normal.png[39m[0m
+[  18% ] [90m[1mreimport[22m | ztz99a_2000_ztz99a_2000_orm.png[39m[0m
+[  19% ] [90m[1mreimport[22m | ztz99a_4000_ztz99a_4000_basecolor.png[39m[0m
+[  19% ] [90m[1mreimport[22m | ztz99a_4000_ztz99a_4000_normal.png[39m[0m
+[  19% ] [90m[1mreimport[22m | ztz99a_4000_ztz99a_4000_orm.png[39m[0m
+[  20% ] [90m[1mreimport[22m | autoshot_1_thirdperson.png[39m[0m
+[  20% ] [90m[1mreimport[22m | autoshot_2_sight.png[39m[0m
+[  20% ] [90m[1mreimport[22m | autoshot_3_moved.png[39m[0m
+[  21% ] [90m[1mreimport[22m | autoshot_4_paused.png[39m[0m
+[  21% ] [90m[1mreimport[22m | autoshot_5_resumed.png[39m[0m
+[  21% ] [90m[1mreimport[22m | autoshot_6_two_vehicles.png[39m[0m
+[  22% ] [90m[1mreimport[22m | autoshot_7_sight_sees_b.png[39m[0m
+[  22% ] [90m[1mreimport[22m | autoshot_8_trial_complete.png[39m[0m
+[  22% ] [90m[1mreimport[22m | autoshot_9_trial_normal_complete.png[39m[0m
+[  22% ] [90m[1mreimport[22m | autoshot_10_trial_restarted.png[39m[0m
+[  23% ] [90m[1mreimport[22m | autoshot_11_two_vehicles_r1.png[39m[0m
+[  23% ] [90m[1mreimport[22m | autoshot_12_sight_sees_b_r1.png[39m[0m
+[  23% ] [90m[1mreimport[22m | autoshot_13_hud_r1.png[39m[0m
+[  24% ] [90m[1mreimport[22m | icon.svg[39m[0m
+[  24% ] [90m[1mreimport[22m | ussr_t_64a_1971.png[39m[0m
+[  24% ] [90m[1mreimport[22m | ussr_t_72a.png[39m[0m
+[  25% ] [90m[1mreimport[22m | ussr_t_80.png[39m[0m
+[  25% ] [90m[1mreimport[22m | ussr_t_80b.png[39m[0m
+[  25% ] [90m[1mreimport[22m | ussr_t_90a.png[39m[0m
+[  26% ] [90m[1mreimport[22m | us_m4a2_1944_germ.png[39m[0m
+[  26% ] [90m[1mreimport[22m | vehicle_adapter_olive_mechanical_atlas.png[39m[0m
+[  26% ] [90m[1mreimport[22m | leopard2a7v_Redesigned_Albedo.png[39m[0m
+[  27% ] [90m[1mreimport[22m | m1a1_1k_base_color.png[39m[0m
+[  27% ] [90m[1mreimport[22m | m1a1_1k_normal.png[39m[0m
+[  27% ] [90m[1mreimport[22m | m1a1_1k_orm.png[39m[0m
+[  28% ] [90m[1mreimport[22m | m1a1_2k_base_color.png[39m[0m
+[  28% ] [90m[1mreimport[22m | m1a1_2k_normal.png[39m[0m
+[  28% ] [90m[1mreimport[22m | m1a1_2k_orm.png[39m[0m
+[  29% ] [90m[1mreimport[22m | m1a1_base_color.png[39m[0m
+[  29% ] [90m[1mreimport[22m | m1a1_normal.png[39m[0m
+[  29% ] [90m[1mreimport[22m | m1a1_orm.png[39m[0m
+[  30% ] [90m[1mreimport[22m | vehicle_concept_atlas_v1.png[39m[0m
+[  30% ] [90m[1mreimport[22m | ztz99a_1000_basecolor.png[39m[0m
+[  30% ] [90m[1mreimport[22m | ztz99a_1000_normal.png[39m[0m
+[  31% ] [90m[1mreimport[22m | ztz99a_1000_orm.png[39m[0m
+[  31% ] [90m[1mreimport[22m | ztz99a_2000_basecolor.png[39m[0m
+[  31% ] [90m[1mreimport[22m | ztz99a_2000_normal.png[39m[0m
+[  32% ] [90m[1mreimport[22m | ztz99a_2000_orm.png[39m[0m
+[  32% ] [90m[1mreimport[22m | ztz99a_4000_basecolor.png[39m[0m
+[  32% ] [90m[1mreimport[22m | germ_flakpanzer_38t_Gepard.png[39m[0m
+[  33% ] [90m[1mreimport[22m | germ_erprobungstrager_3_achs_turm.png[39m[0m
+[  33% ] [90m[1mreimport[22m | germ_boxer_swatrinf.png[39m[0m
+[  33% ] [90m[1mreimport[22m | germ_boxer_3105.png[39m[0m
+[  33% ] [90m[1mreimport[22m | germ_bmp_1_ddr.png[39m[0m
+[  34% ] [90m[1mreimport[22m | germ_begleitpanzer_57.png[39m[0m
+[  34% ] [90m[1mreimport[22m | germ_amd_35_kwk.png[39m[0m
+[  34% ] [90m[1mreimport[22m | germ_9a35_m.png[39m[0m
+[  35% ] [90m[1mreimport[22m | germ_9a33bm3.png[39m[0m
+[  35% ] [90m[1mreimport[22m | germ_leopard_2a4.png[39m[0m
+[  35% ] [90m[1mreimport[22m | germ_leopard_I.png[39m[0m
+[  36% ] [90m[1mreimport[22m | germ_le_kpz_m41.png[39m[0m
+[  36% ] [90m[1mreimport[22m | germ_m44.png[39m[0m
+[  36% ] [90m[1mreimport[22m | germ_m55.png[39m[0m
+[  37% ] [90m[1mreimport[22m | germ_m109g.png[39m[0m
+[  37% ] [90m[1mreimport[22m | germ_marder_1a1.png[39m[0m
+[  37% ] [90m[1mreimport[22m | germ_marder_df_105.png[39m[0m
+[  38% ] [90m[1mreimport[22m | germ_mkpz_m47.png[39m[0m
+[  38% ] [90m[1mreimport[22m | germ_mkpz_m48a2c.png[39m[0m
+[  38% ] [90m[1mreimport[22m | germ_nbfz_VI.png[39m[0m
+[  39% ] [90m[1mreimport[22m | germ_panther_II.png[39m[0m
+[  39% ] [90m[1mreimport[22m | germ_leichter_ladungstrager_303a.png[39m[0m
+[  39% ] [90m[1mreimport[22m | germ_kv_2_754r.png[39m[0m
+[  40% ] [90m[1mreimport[22m | germ_kv_1_kwk_40.png[39m[0m
+[  40% ] [90m[1mreimport[22m | germ_kpz_t72m1.png[39m[0m
+[  40% ] [90m[1mreimport[22m | germ_kpz_70.png[39m[0m
+[  41% ] [90m[1mreimport[22m | germ_kanonenjagdpanzer.png[39m[0m
+[  41% ] [90m[1mreimport[22m | germ_jgdpz_IV_L48.png[39m[0m
+[  41% ] [90m[1mreimport[22m | germ_jgdpz_38t.png[39m[0m
+[  42% ] [90m[1mreimport[22m | germ_jaguar_2.png[39m[0m
+[  42% ] [90m[1mreimport[22m | germ_iris_slm_launcher.png[39m[0m
+[  42% ] [90m[1mreimport[22m | germ_iris_slm_fcs.png[39m[0m
+[  43% ] [90m[1mreimport[22m | germ_infanterie_kampfpanzer_churchill.png[39m[0m
+[  43% ] [90m[1mreimport[22m | germ_hummel.png[39m[0m
+[  43% ] [90m[1mreimport[22m | germ_flarakrad.png[39m[0m
+[  44% ] [90m[1mreimport[22m | germ_flarakpz_1.png[39m[0m
+[  44% ] [90m[1mreimport[22m | germ_flakpz_I_Gepard.png[39m[0m
+[  44% ] [90m[1mreimport[22m | germ_flakpanzer_zerstorer_45.png[39m[0m
+[  44% ] [90m[1mreimport[22m | germ_flakpanzer_V_Coelian.png[39m[0m
+[  45% ] [90m[1mreimport[22m | germ_flakpanzer_I_ausf_A.png[39m[0m
+[  45% ] [90m[1mreimport[22m | germ_flakpanzer_IV_Wirbelwind.png[39m[0m
+[  45% ] [90m[1mreimport[22m | germ_flakpanzer_IV_Ostwind.png[39m[0m
+[  46% ] [90m[1mreimport[22m | germ_flakpanzer_IV_Kugelblitz.png[39m[0m
+[  46% ] [90m[1mreimport[22m | germ_pzkpfw_Maus.png[39m[0m
+[  46% ] [90m[1mreimport[22m | germ_pzkpfw_VI_ausf_b_tiger_IIh.png[39m[0m
+[  47% ] [90m[1mreimport[22m | germ_pzkpfw_VI_ausf_h1_tiger.png[39m[0m
+[  47% ] [90m[1mreimport[22m | germ_pzkpfw_VI_tiger_P.png[39m[0m
+[  47% ] [90m[1mreimport[22m | germ_pzkpfw_V_ausf_d_panther.png[39m[0m
+[  48% ] [90m[1mreimport[22m | germ_pzsflk40_sturer_emil.png[39m[0m
+[  48% ] [90m[1mreimport[22m | germ_pzsfl_IVa_dickermax.png[39m[0m
+[  48% ] [90m[1mreimport[22m | germ_radpanzer_90.png[39m[0m
+[  49% ] [90m[1mreimport[22m | germ_raketenjagdpanzer_2.png[39m[0m
+[  49% ] [90m[1mreimport[22m | germ_ru251.png[39m[0m
+[  49% ] [90m[1mreimport[22m | germ_schutzenpanzer_puma.png[39m[0m
+[  50% ] [90m[1mreimport[22m | germ_sdkfz_6_2_flak36.png[39m[0m
+[  50% ] [90m[1mreimport[22m | germ_sdkfz_9_flak37.png[39m[0m
+[  50% ] [90m[1mreimport[22m | germ_sdkfz_221_s_pz_b_41.png[39m[0m
+[  51% ] [90m[1mreimport[22m | germ_sdkfz_222.png[39m[0m
+[  51% ] [90m[1mreimport[22m | germ_sdkfz_234_2.png[39m[0m
+[  51% ] [90m[1mreimport[22m | germ_sdkfz_251_9.png[39m[0m
+[  52% ] [90m[1mreimport[22m | germ_sk105_a2.png[39m[0m
+[  52% ] [90m[1mreimport[22m | germ_sppz2_luchs_a2.png[39m[0m
+[  52% ] [90m[1mreimport[22m | germ_spz_12_3.png[39m[0m
+[  53% ] [90m[1mreimport[22m | germ_spz_oerlikon_raketenautomat.png[39m[0m
+[  53% ] [90m[1mreimport[22m | germ_stug_III_ausf_A.png[39m[0m
+[  53% ] [90m[1mreimport[22m | germ_sturmmorser_sturmtiger.png[39m[0m
+[  54% ] [90m[1mreimport[22m | germ_sturmpanzer_II.png[39m[0m
+[  54% ] [90m[1mreimport[22m | germ_sturmpanzer_IV_brummbar.png[39m[0m
+[  54% ] [90m[1mreimport[22m | germ_thyssen_henschel_tam.png[39m[0m
+[  55% ] [90m[1mreimport[22m | germ_th_400.png[39m[0m
+[  55% ] [90m[1mreimport[22m | germ_truck_sdkfz_6_2_tent.png[39m[0m
+[  55% ] [90m[1mreimport[22m | germ_panzerjager_1.png[39m[0m
+[  55% ] [90m[1mreimport[22m | germ_panzerjager_nashorn.png[39m[0m
+[  56% ] [90m[1mreimport[22m | germ_panzerjager_panther.png[39m[0m
+[  56% ] [90m[1mreimport[22m | germ_panzerjager_tiger.png[39m[0m
+[  56% ] [90m[1mreimport[22m | germ_panzerjager_tiger_P_ferdinand.png[39m[0m
+[  57% ] [90m[1mreimport[22m | germ_panzerwerfer_42.png[39m[0m
+[  57% ] [90m[1mreimport[22m | germ_pzh_2000.png[39m[0m
+[  57% ] [90m[1mreimport[22m | germ_pzkpfw_35t.png[39m[0m
+[  58% ] [90m[1mreimport[22m | germ_pzkpfw_38t_Aufklarungspanzer.png[39m[0m
+[  58% ] [90m[1mreimport[22m | germ_pzkpfw_38t_ausf_A.png[39m[0m
+[  58% ] [90m[1mreimport[22m | germ_pzkpfw_38t_Marder_III.png[39m[0m
+[  59% ] [90m[1mreimport[22m | germ_pzkpfw_e_100.png[39m[0m
+[  59% ] [90m[1mreimport[22m | germ_pzkpfw_III_ausf_B.png[39m[0m
+[  59% ] [90m[1mreimport[22m | germ_pzkpfw_II_ausf_C.png[39m[0m
+[  59% ] [90m[1mreimport[22m | germ_pzkpfw_II_ausf_C.png[39m[0m
+[  59% ] [90m[1mreimport[22m | germ_pzkpfw_II_ausf_C.png[39m[0m
+[  60% ] [90m[1mreimport[22m | NotoSansCJKsc-Regular.otf[39m[0m
+[  60% ] [90m[1mreimport[22m | ussr_object_435.png[39m[0m
+[  60% ] [90m[1mreimport[22m | ussr_object_685.png[39m[0m
+[  61% ] [90m[1mreimport[22m | ussr_object_775.png[39m[0m
+[  61% ] [90m[1mreimport[22m | ussr_object_906.png[39m[0m
+[  61% ] [90m[1mreimport[22m | ussr_pt_76b.png[39m[0m
+[  62% ] [90m[1mreimport[22m | ussr_su_57b.png[39m[0m
+[  62% ] [90m[1mreimport[22m | ussr_su_76d.png[39m[0m
+[  62% ] [90m[1mreimport[22m | ussr_su_76m_1943.png[39m[0m
+[  63% ] [90m[1mreimport[22m | ussr_su_85_1943.png[39m[0m
+[  63% ] [90m[1mreimport[22m | ussr_su_100Y.png[39m[0m
+[  63% ] [90m[1mreimport[22m | ussr_su_100_1945.png[39m[0m
+[  64% ] [90m[1mreimport[22m | ussr_su_122.png[39m[0m
+[  64% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  64% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  65% ] [90m[1mreimport[22m | ztz99a_1000.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  65% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  65% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  66% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  66% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  66% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  66% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  67% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  67% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  67% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  68% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  68% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  68% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  69% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  69% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  69% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  70% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  70% ] [90m[1mreimport[22m | m1a1_2k.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  70% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  71% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  71% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  71% ] [90m[1mreimport[22m | m1a1_1k.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  72% ] [90m[1mreimport[22m | m1a1.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  72% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  72% ] [90m[1mreimport[22m | leopard2a7v.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  73% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  73% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  73% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  74% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  74% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  74% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  75% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  75% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  75% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  76% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  76% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  76% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  77% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  77% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  77% ] [90m[1mreimport[22m | us_m36_m4a1_1945.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  77% ] [90m[1mreimport[22m | us_m26_m3_1945.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  78% ] [90m[1mreimport[22m | us_m24_m6_t85e1_1951.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  78% ] [90m[1mreimport[22m | us_m4a3_75w_vvss_1944.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  78% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  79% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  79% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  79% ] [90m[1mreimport[22m | ztz99a_4000.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  80% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  80% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  80% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  81% ] [90m[1mreimport[22m | ztz99a_2000.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  81% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  81% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  82% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  82% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  82% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  83% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  83% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  83% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  84% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  84% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  84% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  85% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  85% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  85% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  86% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  86% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  86% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  87% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  87% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  87% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  88% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  88% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  88% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  88% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  89% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  89% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  89% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  90% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  90% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  90% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  91% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  91% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  91% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  92% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  92% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  92% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  93% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  93% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  93% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  94% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  94% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  94% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  95% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  95% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  95% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  96% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  96% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  96% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  97% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  97% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  97% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  98% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  98% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  98% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  99% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  99% ] [90m[1mreimport[22m | vehicle_adapter.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  99% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (308 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

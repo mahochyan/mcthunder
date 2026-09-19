@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+MODERN_MATCH_RUNTIME release=true evidence=E:/AIprogram/mcthunder-cont/logs/WT040-runtime/20260920-033511-084/Godot/app_userdata/PixelArmor/tests/modern_match_shots
+[PASS] fresh process restores selected modern vehicle
+[PASS] fresh process restores the edited loadout without pending reward
+[PASS] actual window capture 06_fresh_process (review pending)
+=== result: 3 checks, 0 failed ===
+MODERN_MATCH_PASS

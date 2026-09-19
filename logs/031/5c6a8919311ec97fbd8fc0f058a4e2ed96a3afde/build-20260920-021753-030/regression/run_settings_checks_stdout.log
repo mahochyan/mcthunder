@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] T029-01 real settings transaction saves sound and key: 
+[PASS] T029-03 backup contains last verified settings
+[PASS] T029-01 production reopen restores settings
+[PASS] T029-02 corrupt primary recovers backup with warning
+[PASS] T029-03 recovery can safely save again
+[PASS] T029-03 exact corrupt original is retained
+[PASS] T029-02 schema 1 migration fills only new defaults
+[PASS] T029-02 malformed fixture 0 opens with defaults
+[PASS] T029-02 malformed fixture 1 opens with defaults
+[PASS] T029-02 malformed fixture 2 opens with defaults
+[PASS] T029-02 malformed fixture 3 opens with defaults
+[PASS] T029-02 malformed fixture 4 opens with defaults
+[PASS] T029-02 malformed fixture 5 opens with defaults
+[PASS] T029-02 malformed fixture 6 opens with defaults
+[PASS] T029-02 malformed fixture 7 opens with defaults
+[PASS] T029-02 malformed fixture 8 opens with defaults
+[PASS] T029-02 malformed fixture 9 opens with defaults
+[PASS] T029-02 malformed fixture 10 opens with defaults
+[PASS] T029-02 malformed fixture 11 opens with defaults
+[PASS] T029-02 malformed fixture 12 opens with defaults
+[PASS] T029-02 malformed fixture 13 opens with defaults
+[PASS] T029-02 future primary blocks reset and overwrite even with old good backup
+[PASS] T029-02 future backup is protected too
+[PASS] T029-03 temp write failure retains disk and active binding
+[PASS] T029-03 backup failure retains primary
+[PASS] T029-03 concurrent writer lock refuses replacement
+[PASS] T029-03 actual rename failure keeps target intact
+[PASS] T029-01 isolated progress saved to actual disk
+[PASS] T029-04 settings reset leaves progress intact
+[PASS] T029-04 restored bindings update live hints
+[PASS] T029-04 progress reset commits through production profile transaction
+[PASS] T029-05 reset preserves identity and monotonic match sequence
+[PASS] T029-05 pre-reset pending match cannot reward cleared progress
+[PASS] T029-04 progress reset leaves settings file intact
+[PASS] T029-02 future profile beside old valid slot is read-only
+[PASS] T029-03 active old instance also rejects new future slot
+=== 缁撴灉: 36 椤规鏌? 0 澶辫触 ===
+SETTINGS_CHECKS_PASS
