@@ -160,3 +160,20 @@ tried and was worse, because it swallowed the rest of the file including the fun
 REWRITE THE WHOLE FUNCTION through the file tool, the way the capability file was rewritten when the same class of
 problem appeared there, rather than continue to insert.
 ```
+
+## 6. T05 measured for the first time, and it found a real gap rather than confirming the expectation
+```
+The collision and escape case was previously not measured at all, so it read not yet met for the honest reason that it
+had not been tried. It is now driven for real: a StaticBody3D wall on the world layer, the real hull advanced through its
+own apply_drive for three hundred physics frames, and then three hundred frames of reverse.
+BLOCKING HOLDS: the hull stopped at z -4.979 against a wall at z -9.000 and never passed through it, so stable blocking
+is measured and the hull is not relying on a disabled collision to pass.
+ESCAPE FAILS: after stopping against the face, three hundred frames of reverse moved the hull 0.002 metres, which is
+nothing. The order expects a hull in contact to reverse out normally, and this is exactly the situation the code already
+comments on in tank.gd, where it notes that a non-walkable face can hold the hull and that restoring engine speed every
+tick kept pushing it into the face even after the player asked for reverse. That comment describes a repair, and the
+measurement says the repair does not cover this case: the hull is stopped by a vertical wall rather than held on a slope.
+So T05 stays NOT YET MET, now on a measured gap instead of an untried one, and the next step is to find why reverse
+produces no motion against a vertical face - whether the throttle sign reaching the powertrain, the slope block check, or
+the engine speed being restored each tick.
+```

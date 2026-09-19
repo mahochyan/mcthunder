@@ -131,12 +131,43 @@ func _run() -> void:
 		"the recoil response must come from a per weapon and per vehicle profile, be bounded, and not accumulate drift",
 		"the recoil response is identical for both vehicles, so it does not come from a per vehicle profile")
 
-	# ── S5 collision and escape: declared scope rather than a claim.
+	# ── S5 collision and escape, MEASURED: a real wall on the world layer, a real hull driven into it, and a real reverse out.
 	var scope_note := "pushing and towing are declared out of scope; no reliable constraint exists for them"
 	print("[CD11] S5 scope: %s" % scope_note)
-	met("CD11-T05", false,
+	a.tank.set_physics_process(true)
+	await physics_frame
+	var wall := StaticBody3D.new()
+	var wall_shape := CollisionShape3D.new()
+	var box := BoxShape3D.new(); box.size = Vector3(14.0,5.0,1.0)
+	wall_shape.shape = box; wall.add_child(wall_shape)
+	wall.collision_layer = GameConfig.LAYER_WORLD
+	root.add_child(wall)
+	var start: Vector3 = a.tank.global_position
+	wall.global_position = start + Vector3(0,2.5,-9.0)
+	a.tank.forward_speed = 6.0
+	for i in 300:
+		a.tank.apply_drive(1.0,0.0,1.0/60.0)
+		await physics_frame
+	var blocked_at: Vector3 = a.tank.global_position
+	var wall_z: float = wall.global_position.z
+	var passed_through := blocked_at.z < (wall_z - 1.0)
+	var blocked := (not passed_through) and blocked_at.z > (wall_z + 0.8)
+	print("[CD11] S5 drove at the wall: z %.3f -> %.3f ; wall at %.3f ; passed through=%s ; blocked=%s" % [
+		start.z,blocked_at.z,wall_z,str(passed_through),str(blocked)])
+	a.tank.forward_speed = 0.0
+	var before_reverse: Vector3 = a.tank.global_position
+	for i in 300:
+		a.tank.apply_drive(-1.0,0.0,1.0/60.0)
+		await physics_frame
+	var after_reverse: Vector3 = a.tank.global_position
+	var escaped := (after_reverse.z - before_reverse.z) > 0.5
+	var moved := before_reverse.distance_to(after_reverse)
+	print("[CD11] S5 reversed out: z %.3f -> %.3f ; moved %.3f ; escaped=%s" % [before_reverse.z,after_reverse.z,moved,str(escaped)])
+	a.tank.set_physics_process(false)
+	wall.queue_free()
+	met("CD11-T05", blocked and escaped,
 		"collision must keep stable blocking, never trap a spawn and allow reversing out, and any unsupported pushing must be declared rather than claimed",
-		"the collision and escape behaviour is not measured here, and the unsupported pushing case is only declared, not implemented")
+		"the hull either passed through the wall or could not reverse out of the face it was held against")
 
 	# ── S6 player and AI under a changed display rate.
 	print("[CD11] S6 physics is a fixed advance over a delta: the same delta must give the same result whatever the render rate")
