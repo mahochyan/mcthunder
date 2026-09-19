@@ -194,3 +194,30 @@ WHAT IS NOW TRUE THAT WAS NOT BEFORE THIS ROUND
 
 NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
 ```
+## 8. BOTH weaknesses are now REMOVED by measurement: the behaviour probe passes in full
+
+```
+CD15_FEEDBACK_PASS
+   P1 PASSES on the real object: the feedback layer is reached through the range OWN projectiles member, and stopping it
+   leaves the same match with nine committed events and identical tickets 300/300.
+   P2 PASSES in full: ALL FOUR declared shell families - kinetic, he_blast, internal_burst and long_rod - are ACCEPTED
+   through the real spawn gate, each carrying its OWN complete impact profile; an undeclared effect is REFUSED BY NAME as
+   invalid_effect_policy; and a round that reaches nothing produces NO burst at all, which is the case requirement that an
+   unexploded round is never given a lethal explosion.
+   P3 PASSES: the interpreter explains version one as team_standard_300 and refuses version 999 as unknown_rule_version:999,
+   with the record codec and builder present, so a stored record is explained by its own version rather than re-settled.
+
+THE TWO DEVICE STEPS THAT CLOSED IT, BOTH OF THEM MINE
+   1. the long-rod family is validated by its OWN rule set, which FORBIDS the full-caliber normalization and overmatch fields
+      outright and instead demands an explicit bounded angle-resistance curve covering zero to ninety degrees with normal
+      resistance one at zero. The profile is now genuinely different per family rather than one shape reused.
+   2. the extra probes shared identifiers with the indexed family loop and were refused as duplicate_launch - the manager
+      correctly refusing a relaunch of the same round. They now carry their own identifiers.
+
+SO WHAT WAS A WEAK PASS IS NOW A BEHAVIOURAL PROOF
+   The first case is driven against scene.projectiles.feedback; the family gate is measured to accept four declared families
+   and to refuse an undeclared one by name; a round that hits nothing is measured to produce no burst; and the record
+   interpreter is measured to explain one version and refuse another. Nothing here rests on file existence alone any more.
+
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```

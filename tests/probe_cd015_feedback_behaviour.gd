@@ -67,11 +67,19 @@ func _run() -> void:
 	var wanted := {"kinetic":"AP","he_blast":"AP","internal_burst":"APHE","long_rod":"APFSDS"}
 	var long_rod_version := "wt012-long-rod-v1"
 	_impact_profile = func(family: String) -> Dictionary:
-		var profile := {"version":("wt012-long-rod-v1" if family == "APFSDS" else "wt012-full-caliber-v1"),
-			"family":family,"provenance":"game_rule","reason":"CD15 family probe: a declared project profile for this family",
-			"normalization_deg":(0.0 if family == "APFSDS" else 5.0),"overmatch_ratio":(0.0 if family == "APFSDS" else 2.0),
-			"ricochet_deg":60.0,"material_coefficients":{"rolled":1.0,"cast":0.95}}
-		return profile
+		# The long-rod family is validated by its OWN rule set, which FORBIDS the full-caliber normalization and overmatch
+		# fields outright and instead demands an explicit bounded angle-resistance curve covering zero to ninety degrees with
+		# normal resistance one at zero. So the families get genuinely different profiles rather than one shape reused.
+		if family == "APFSDS":
+			return {"version":"wt012-long-rod-v1","family":"APFSDS","provenance":"game_rule",
+				"reason":"CD15 family probe: a declared project long-rod profile for this family",
+				"ricochet_deg":70.0,
+				"angle_resistance_curve":[[0.0,1.0],[30.0,1.4],[60.0,2.2],[90.0,3.0]],
+				"material_coefficients":{"rolled":1.0,"cast":0.95}}
+		return {"version":"wt012-full-caliber-v1","family":family,"provenance":"game_rule",
+			"reason":"CD15 family probe: a declared project profile for this family",
+			"normalization_deg":5.0,"overmatch_ratio":2.0,"ricochet_deg":60.0,
+			"material_coefficients":{"rolled":1.0,"cast":0.95}}
 	var effect_index := 0
 	for effect in wanted.keys():
 		effect_index += 1
@@ -86,15 +94,17 @@ func _run() -> void:
 		var family := str(spawned.get("family",impact.get("family","")))
 		if bool(spawned.get("ok",false)): families.append(str(effect))
 		else: refusals.append("%s:%s" % [str(effect),str(spawned.get("reason",""))])
-	# An effect nobody declared must be refused rather than silently treated as kinetic.
-	var bogus := m2.try_spawn({"round_id":1701,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1701,
+	# An effect nobody declared must be refused rather than silently treated as kinetic. Its identifiers are their OWN, well
+	# clear of the indexed family loop above, because the manager correctly refuses a RELAUNCH of the same round as
+	# duplicate_launch and that dedup is not what this probe is about.
+	var bogus := m2.try_spawn({"round_id":1801,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1801,
 		"shell_id":str(shell.id),"effect_policy":"unexploded_placeholder","armor_policy":"resolve",
 		"impact_profile":{"family":"AP"},"post_penetration_profile":{},"fuze_policy":{},
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
 		"seed":9002,"position_world":Vector3(20,1.2,0),"velocity_world":Vector3(-700,0,0),"gravity_world":Vector3.ZERO,
 		"max_age_s":0.4,"max_distance_m":60.0})
 	# A round that never reaches anything must not produce a lethal burst.
-	var lone := m2.try_spawn({"round_id":1702,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1702,
+	var lone := m2.try_spawn({"round_id":1802,"shooter_id":"cd015","shooter_life_id":1,"shot_id":1802,
 		"shell_id":str(shell.id),"effect_policy":"internal_burst","armor_policy":"resolve",
 		"impact_profile":{"family":"APHE"},"post_penetration_profile":{},"fuze_policy":{},
 		"caliber_mm":shell.caliber_mm,"penetration_curve":shell.penetration_curve,
