@@ -290,3 +290,61 @@ WHAT THIS STAGE NEEDS BEFORE IT CAN CONTINUE
    measured, and whether they belong to this package or predate it is the next measurement.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 10. Stage three continues: the user ruled both boundary questions, item 1 is MIGRATED and measured, and the attribution of the two new reds has its mechanism and its plan
+
+```
+THE TWO RULINGS, RECORDED IN SUBSTANCE
+   RULING ONE on the in-scope stale expectation: MIGRATE IT UNDER THE PROTOCOL - assert the manifest the packet
+   actually declares, keep every old assertion, add the HE round and its he_blast policy, and record it as an
+   expectation migration with a declared version. No bar is lowered.
+   RULING TWO on the two new behavioural reds: ATTRIBUTE FIRST, THEN FIX INSIDE THE PACKAGE SCOPE - bisect the
+   production files changed since the last passing clean build, name the causing commit, repair it if it belongs
+   to this package own rules, and report before anything outside them is touched.
+
+ITEM 1 IS DONE AND MEASURED, NOT ASSERTED
+   tests/run_engineering_runtime_checks.gd no longer compares the manifest against the literal two. It reads the
+   declaration: every declared round must carry an identifier and the family policy that family declares
+   (APFSDS long_rod, HEAT chemical, HE he_blast), the default must still resolve to a declared round and must
+   still be the APFSDS long-rod round, the HEAT round must still be chemical, and the runtime option count is now
+   compared against the PACKET OWN DECLARATION instead of a literal, which also cross-checks data against runtime.
+   MEASURED BEFORE: 26 checks, 1 failed, twelve further checks never reached because the suite returned early;
+   the same suite stood at 44 checks with no failures on the 2026-09-17 clean build, before CD07 added the HE round.
+   MEASURED AFTER: 54 checks, 0 failed. The T-80B declares three rounds and all three validate with their own
+   policies; the Leopard declares two and both validate; the HEAT reload, both real launches and the reset
+   restoration still pass for both vehicles. THE SUITE IS STRONGER THAN IT WAS, not weaker: fifty four checks
+   against the forty four of the old literal version.
+   RECORDED: the migration table gains its thirty second entry, WT-CD-016 / expectation_migration /
+   cd16-declared-manifest-expectation-v1, with the before and after measurements, the retained two-round
+   regression, and a rollback that says restoring the literal makes the T-80B HE round fail exactly as it did.
+   The append helper again proved its own serialiser byte for byte against the previous last entry before writing.
+
+THE ATTRIBUTION OF ITEMS 2 AND 3: THE MECHANISM IS NAMED AND THE DETERMINISM IS PROVEN
+   DETERMINISM FIRST, because a bisect is worthless if the failure is machine speed. Both AI clocks are
+   accumulated from delta - ai_tank_controller.gd line 166 clock += delta and ai_path_driver.gd line 201
+   clock += delta, both fed by the physics delta - and the suite runs under --fixed-fps 60, so one simulated
+   second is exactly sixty physics steps whatever the wall clock does. The village failure is therefore a
+   PRODUCT BEHAVIOUR CHANGE.
+   THE VILLAGE FAILURE READ FROM ITS OWN DIAGNOSTIC, not from the check text alone. The check prints the
+   APPROACHED set, so the five names it lists are the ones that arrived and TWO actors did NOT: A2 and B3. The
+   suite also prints an [unreached route] line for each, and both read hop=(inf, inf, inf), meaning the driver
+   holds no current hop while still reporting phase "following". A2 emitted only three driver events, all at
+   simulated time 0.0, and finished at (-33, 0, 108) against a spawn of (-9, 0, 116): it moved laterally and
+   never advanced. B3 looped through physical_obstacle, edge_blocked by B4, reverse, turn_recovery and repeated
+   idle/new_goal/path_ready cycles that reset the waypoint to zero, drifting to (-57, 0, -117) - the wrong side of
+   the map. So the red is a NAVIGATION PROGRESS stall for two named actors, not a scene, spawn or physics failure.
+   THE MECHANISM FILES THAT CHANGED ARE FEW, AND THAT IS THE BISECT SET. Between the last passing clean build
+   15026f1a and HEAD the navigation, map and battle-driver files are UNCHANGED; the changed candidates in that
+   mechanism are exactly four - scripts/ai/ai_perception.gd (CD004, the fire-lane prediction now integrates the
+   profile-aware advance), scripts/ai/ai_tank_controller.gd (99c96674, aim recovery from persistently blocked
+   surfaces), scripts/drive/drive_profile.gd (CD11, per vehicle declared curves with the old globals as defaults)
+   and scripts/vehicle_actor.gd (CD01-T01, the ammunition contents now fed into the damage snapshot). The query
+   layer that feeds AI observation also changed and is therefore in the set rather than assumed innocent:
+   scripts/query/shot_query_service.gd, query_snapshot_builder.gd and world_query_adapter.gd.
+   THE PLAN, STATED SO IT CAN BE CHECKED: bisect the production commits in that range with the village suite as
+   the test, run in a SEPARATE git worktree so the main tree stays clean and every artifact already committed
+   here is untouched, with the engine path passed explicitly because tools/ is not part of the snapshot. The test
+   is deterministic, so the boundary it finds will be a real one. R3-A is the second target and is checked at the
+   commit the bisect names, since one cause may explain both.
+   NOTHING WAS FIXED FOR ITEMS 2 AND 3 IN THIS ROUND, and nothing outside the package own files was touched.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```

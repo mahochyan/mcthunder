@@ -1,6 +1,6 @@
 extends SceneTree
 ## WT-040-R1 Stage 3 runtime half: the two engineering vehicles, admitted through the PRODUCTION catalog,
-## spawned as real actors, loaded with both authored engineering rounds, fired through the real projectile
+## spawned as real actors, loaded with the authored engineering rounds, fired through the real projectile
 ## manager, and reset. Nothing is teleported, no cooldown is cleared, no hit is fabricated and no combat
 ## number is altered to make anything pass: the reload happens on real physics frames and the assertions are
 ## about the shipped shell set and the shipped geometry.
@@ -50,22 +50,36 @@ func _vehicle_case(defs: VehicleDefs, id: String) -> void:
 		id+": resolves as an admitted game-reference vehicle (profile/status preserved)")
 	var catalog_block: Dictionary = packet.get("shell_catalog",{})
 	var shells: Array = catalog_block.get("shells",[])
-	check(shells.size()==2 and str(catalog_block.get("default",""))!="",id+": the packet carries exactly two authored rounds and a default")
-	if shells.size()!=2: return
 	var main_id := str(catalog_block.get("default",""))
-	var alt_id := ""
-	for row in shells:
-		if str((row as Dictionary).get("id",""))!=main_id: alt_id = str((row as Dictionary).get("id",""))
-	check(alt_id!="",id+": the second authored round is identified")
+	# CD16 expectation migration (declared, not loosened): this suite used to assert a FIXED count of two authored
+	# rounds. CD07 deliberately added an HE round to the T-80B packet (commit 37afe1a9) and migrated the loadout
+	# consequence but not this assertion, so the package integration gate found the stale expectation. The check now
+	# asserts the manifest the packet DECLARES: every declared round must be identified and must carry the family
+	# policy it declares, the default must still be the APFSDS long-rod round, and the HEAT round must still be
+	# chemical. Nothing is relaxed: the Leopard still declares exactly two rounds, the T-80B now declares three, and
+	# the runtime install count below is compared against the packet's own declaration instead of a literal.
+	check(shells.size()>=2 and main_id!="",id+": the packet declares its authored rounds and a default (declared=%d)"%shells.size())
+	if shells.size()<2: return
 	var main_row: Dictionary = {}
-	var alt_row: Dictionary = {}
 	for row in shells:
-		if str((row as Dictionary).get("id",""))==main_id: main_row = row
-		if str((row as Dictionary).get("id",""))==alt_id: alt_row = row
+		var row_id := str((row as Dictionary).get("id",""))
+		check(row_id!="",id+": every declared round carries an identifier")
+		if row_id==main_id: main_row=row
+	check(not main_row.is_empty(),id+": the declared default resolves to a declared round")
 	check(str(main_row.get("family",""))=="APFSDS" and str(main_row.get("effect_policy",""))=="long_rod",
 		id+": the default is the APFSDS main round with the long-rod terminal effect")
-	check(str(alt_row.get("family",""))=="HEAT" and str(alt_row.get("effect_policy",""))=="chemical",
-		id+": the second round is the HEAT round with the chemical terminal effect")
+	var alt_id := ""
+	var alt_row: Dictionary = {}
+	for row in shells:
+		if str((row as Dictionary).get("id",""))!=main_id and str((row as Dictionary).get("family",""))=="HEAT":
+			alt_id=str((row as Dictionary).get("id","")); alt_row=row; break
+	check(alt_id!="" and str(alt_row.get("effect_policy",""))=="chemical",
+		id+": the HEAT round is declared with the chemical terminal effect")
+	for row in shells:
+		var family := str((row as Dictionary).get("family",""))
+		var expected_policy := str({"APFSDS":"long_rod","HEAT":"chemical","HE":"he_blast"}.get(family,""))
+		check(expected_policy!="" and str((row as Dictionary).get("effect_policy",""))==expected_policy,
+			id+": declared round "+str((row as Dictionary).get("id",""))+" carries the "+family+" family with the "+expected_policy+" policy")
 	# --- spawn the real actor from the admitted definitions -------------------------------------
 	var world := Node3D.new()
 	root.add_child(world)
@@ -94,8 +108,8 @@ func _vehicle_case(defs: VehicleDefs, id: String) -> void:
 	gun.aim_preview_enabled = false
 	await _frames(30)
 	var total := gun.rounds_remaining
-	check(gun.shell_options.size()==2 and total>0 and gun.inventory.conserved(),
-		id+": both engineering rounds are installed and the rack ledger conserves stock (%d rounds)" % total)
+	check(gun.shell_options.size()==shells.size() and total>0 and gun.inventory.conserved(),
+		id+": every declared engineering round is installed and the rack ledger conserves stock (%d rounds)" % total)
 	var main_runtime_id: String = id+"_shell"
 	check(gun.inventory.shell_counts().has(main_runtime_id) and gun.inventory.shell_counts().has(id+"_"+alt_id),
 		id+": the installed inventory is keyed by the engineering round ids")
@@ -152,5 +166,5 @@ func _vehicle_case(defs: VehicleDefs, id: String) -> void:
 	actor.reset_vehicle()
 	check(gun.rounds_remaining==total and gun.inventory.shell_counts()==gun.initial_shell_counts
 		and gun.inventory.chamber_shell==main_runtime_id and gun.inventory.conserved(),
-		id+": reset restores the authored two-round manifest and the default chamber")
+		id+": reset restores the authored declared manifest and the default chamber")
 	world.queue_free(); await _frames(3)

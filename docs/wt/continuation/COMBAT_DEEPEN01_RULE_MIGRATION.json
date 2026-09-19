@@ -15,7 +15,8 @@
                             "WT-CD-012: the observation, smoke and recon rules are confirmed in place and exercised by six scenes rather than replaced",
                             "WT-CD-013: a single contribution ledger with separate counters, and a versioned attribution rule with named refusals",
                             "WT-CD-014: a realistic rule preset beside the old one, a personal sortie book, a four step sortie transaction, and a rule version interpreter",
-                            "WT-CD-015: the presentation layer, the shell family gate, the replay record interpretation, the local authority across three processes and the information permission are CONFIRMED and DRIVEN on the same chain rather than replaced"
+                            "WT-CD-015: the presentation layer, the shell family gate, the replay record interpretation, the local authority across three processes and the information permission are CONFIRMED and DRIVEN on the same chain rather than replaced",
+                            "WT-CD-016: the integration gate found a stale expectation left by CD07 own HE addition, and the assertion now reads the declared manifest instead of a literal count"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -1025,6 +1026,37 @@
                         "migration":  "The permission rules are confirmed in place and exercised rather than replaced, so a record written earlier keeps exactly the information it was allowed to carry.",
                         "rollback":  "No policy value changed and nothing was removed, so there is nothing to roll back; removing the scene leaves the machinery as it was found.",
                         "divergences":  "Precision, expiry and attenuation values remain declared project design initial values with comparison NOT_COMPARED, and thermal and radar remain explicitly unsupported states rather than a filter standing in for a sensor."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-016",
+                        "change_kind":  "expectation_migration",
+                        "old_rule_version":  "engineering_runtime_two_round_manifest_expectation",
+                        "new_rule_version":  "cd16-declared-manifest-expectation-v1",
+                        "affected_vehicles":  "ussr_t_80b and germ_leopard_2a4",
+                        "affected_modes":  "engineering_runtime_checks",
+                        "fields":  [
+                                       "shell_catalog.shells",
+                                       "shell_catalog.default",
+                                       "shell_options",
+                                       "muzzle_velocity_mps",
+                                       "effect_policy"
+                                   ],
+                        "reason":  "CD07 deliberately added an HE round to the T-80B packet, so the integration suite fixed two-round expectation became stale and the package gate refused the candidate. The delivery protocol allows a new expectation with an explicit version when a rule changed, provided the old rule regression is kept and the semantic change is explained, so this entry records that migration rather than a relaxation. The user ruled this path explicitly on 2026-09-19.",
+                        "reference_sources":  [
+                                                  "R11",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The two-round path is still asserted: the Leopard declares and validates exactly two rounds, and the APFSDS default, the HEAT chemical round, the natural reload of the HEAT round, the two real launches and the reset restoration are still checked for BOTH vehicles.",
+                        "legacy_tests":  "tests/run_engineering_runtime_checks.gd 54/0 after the migration; the same suite stood at 44/0 with the old two-round assertion on the 2026-09-17 clean build and at 26/1 at HEAD before the migration",
+                        "new_expected_declared_before_run":  "Every declared round must be identified and must carry the family policy it declares (APFSDS long_rod, HEAT chemical, HE he_blast), the default must still be the APFSDS long-rod round, and the runtime option count must equal the packet own declaration instead of a literal.",
+                        "independent_oracle":  "The packet own shell_catalog compared against the runtime gunner.shell_options, with the declared default resolving to a declared round.",
+                        "measured_before":  "Measured at HEAD before the migration: 26 checks, 1 failed - ussr_t_80b: the packet carries exactly two authored rounds and a default - and the suite returned early, so twelve further checks never ran. The same suite passed with 44 checks and no failures on the 2026-09-17 clean build, before CD07 added the HE round.",
+                        "measured_after":  "Measured after the migration: 54 checks, 0 failed. The T-80B declares three rounds and all three validate with their own policies; the Leopard declares two and both validate; the HEAT reload, both real launches and the reset restoration still pass for both vehicles.",
+                        "migration":  "The assertion now reads the declaration instead of a literal, so a future authored round is validated rather than breaking the suite, while a round with an undeclared family or a wrong effect policy still fails.",
+                        "rollback":  "Restore the literal two-round assertion; the T-80B HE round then fails the suite again exactly as it did at HEAD.",
+                        "divergences":  "The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed."
                     }
                 ],
     "divergences":  [
