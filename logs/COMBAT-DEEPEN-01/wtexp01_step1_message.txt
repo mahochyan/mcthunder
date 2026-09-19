@@ -1,0 +1,28 @@
+WT-EXPANSION-01 step 1 DONE: the real secondary armament is DECLARED in both packets, and the declaration is
+verified against the game files while the main gun is proven untouched.
+
+WHAT WAS DECLARED, from the local War Thunder 2.59.0.13 build and not invented: the T-80B coaxial 7.62 mm PKT with
+a 750 round belt, an 8 s reload, 11.66 rounds per second and ap_i_ball at 817.5 m/s; the T-80B anti-air 12.7 mm
+NSV with a 250 round belt, a 5 s reload, 11.666 rounds per second, ap_i_t_ball at 865 m/s and a 3400 m reach; the
+Leopard 2A4 coaxial and hull 7.92 mm MG3 with 200 round belts, an 8 s reload, 20 rounds per second and ap_ball at
+853 m/s. Each entry carries flat provenance in the same shape the rest of the packet uses for scalar values:
+origin warthunder_reference, status reference, unit structured, source_refs [wt-2.59.0.13], and a location naming
+the gun file and the three figures read out of it.
+
+THE INSERTION IS GUARDED, AND THE GUARD EARNED ITS KEEP TWICE. The declarations are spliced in before each packet
+top-level shell_catalog key so the rest of the file survives byte for byte, and the file is PARSED before it is
+written. Two malformed attempts were refused by that guard and neither touched a packet: the first nested an
+evidence object whose closing brace landed at the wrong level, and the second serialised a whole wrapper object and
+spliced it in, adding a brace level. Both were found by parsing the candidate rather than by trusting the
+serialiser, and the provenance is therefore carried flat while the source list stays an array of strings, the shape
+the serialiser had already been proven against.
+
+MEASURED STATE OF THE ACCEPTANCE SCENARIO: 39 checks, 2 failed - and the two failures are exactly the runtime
+channel legs that step 2 has not built yet. Every declaration leg passes for both vehicles: the group key, the
+calibre, the belt, the reload, the cadence, the round name and the round speed all match the file values, and the
+production pipeline still ADMITS both engineering packets, which is what proves the insertion is structurally
+sound rather than merely parseable.
+
+THE MAIN GUN DID NOT MOVE, measured rather than asserted: run_engineering_runtime_checks 54/0 and run_shell_checks
+193/0 are unchanged after the declaration, so the second weapon is being added as a separate channel instead of as
+a bigger magazine.

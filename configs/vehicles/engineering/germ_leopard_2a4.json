@@ -1731,6 +1731,46 @@
                     "turret_yaw_speed":  40.0,
                     "turret_pitch_speed":  40.0
                 },
+        "secondary_weapons":  [
+                                                                    {
+                                      "group":  "coaxial",
+                                      "gun":  "7_92mm_MG3_user_machinegun",
+                                      "caliber_mm":  7.92,
+                                      "belt":  200,
+                                      "reload_s":  8,
+                                      "cadence_rps":  20,
+                                      "round":  "ap_ball",
+                                      "speed_mps":  853,
+                                      "trigger":  "gunner1",
+                                      "trigger_group":  "coaxial",
+                                      "evidence_origin":  "warthunder_reference",
+                                      "evidence_status":  "reference",
+                                      "evidence_unit":  "structured",
+                                      "evidence_source_refs":  [
+                                                                   "wt-2.59.0.13"
+                                                               ],
+                                      "evidence_location":  "gamedata/weapons/groundmodels_weapons/7_92mm_mg3_user_machinegun.blk: belt 200, reloadTime 8, shotFreq 20, round ap_ball at 853 m/s"
+                                  },
+                                                                    {
+                                      "group":  "machinegun",
+                                      "gun":  "7_92mm_MG3_user_machinegun",
+                                      "caliber_mm":  7.92,
+                                      "belt":  200,
+                                      "reload_s":  8,
+                                      "cadence_rps":  20,
+                                      "round":  "ap_ball",
+                                      "speed_mps":  853,
+                                      "trigger":  "gunner2",
+                                      "trigger_group":  "machinegun",
+                                      "evidence_origin":  "warthunder_reference",
+                                      "evidence_status":  "reference",
+                                      "evidence_unit":  "structured",
+                                      "evidence_source_refs":  [
+                                                                   "wt-2.59.0.13"
+                                                               ],
+                                      "evidence_location":  "gamedata/weapons/groundmodels_weapons/7_92mm_mg3_user_machinegun.blk: belt 200, reloadTime 8, shotFreq 20, round ap_ball at 853 m/s"
+                                  }
+                              ],
     "shell_catalog":  {
                           "default":  "eng_120_apfsds_v1",
                           "schema_version":  1,
