@@ -40,7 +40,8 @@ func _run() -> void:
 	# ── S1 the old preset intact, and whether a second versioned preset exists, measured by a runtime file check.
 	var old_preset := MatchRulePreset.standard()
 	var old_snap: Dictionary = old_preset.snapshot()
-	var new_preset_id := "ground_rb_like_v1" if _exists("res://scripts/battle/ground_rb_like_preset.gd") else ""
+	var new_preset := GroundRbLikePreset.ground_rb_like()
+	var new_preset_id := new_preset.id()
 	print("[CD14] S1 old id=%s version=%d tickets=%s fingerprint=%s ; new preset id=%s" % [
 		old_preset.id(),MatchRulePreset.VERSION,str(old_snap.get("start_tickets","")),old_preset.fingerprint(),new_preset_id])
 	met("CD14-T01", old_preset.id() == "team_standard_300" and int(old_snap.get("start_tickets",0)) == 300
@@ -133,10 +134,16 @@ func _run() -> void:
 
 	# ── S6 the version tag, and an interpreter able to read or refuse a version.
 	var tagged := old_snap.has("start_tickets") and MatchRulePreset.VERSION >= 1
-	var interpreter_present := _exists("res://scripts/battle/rule_version_interpreter.gd")
+	var known_read := RuleVersionInterpreter.interpret({"rule_version":MatchRulePreset.VERSION,"outcome":"victory"})
+	var unknown_read := RuleVersionInterpreter.interpret({"rule_version":999,"outcome":"victory"})
+	print("[CD14] S6 known=%s rules=%s ; unknown ok=%s reason=%s action=%s" % [
+		str(known_read.get("ok",false)),str(known_read.get("rules","")),str(unknown_read.get("ok",true)),
+		str(unknown_read.get("reason","")),str(unknown_read.get("action",""))])
+	var interpreter_present: bool = Array(RuleVersionInterpreter.known_versions()).size() >= 2
 	print("[CD14] S6 stored result carries version=%d ; version interpreter present=%s" % [
 		MatchRulePreset.VERSION,str(interpreter_present)])
-	met("CD14-T06", tagged and interpreter_present,
+	met("CD14-T06", tagged and interpreter_present and bool(known_read.get("ok",false))
+		and not bool(unknown_read.get("ok",true)) and str(unknown_read.get("action","")) == "refuse_or_migrate",
 		"a historical result must be explained by its own rule version, and an unknown version explicitly migrated or refused",
 		"no interpreter exists to read a result by its own version or to refuse an unknown one")
 
