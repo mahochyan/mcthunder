@@ -2129,7 +2129,7 @@
                     "turret_yaw_speed":  24.0,
                     "turret_pitch_speed":  3.35
                 },
-                "secondary_weapons":  [
+                    "secondary_weapons":  [
                                                             {
                                   "group":  "coaxial",
                                   "gun":  "7.62mm_PKT_user_machinegun",
@@ -2178,7 +2178,8 @@
                                       "evidence_source_refs":  [
                                           "wt-2.59.0.13"
                                       ],
-                                      "evidence_location":  "round identity and speed from the extracted machine gun file; the penetration curve is project policy"
+                                      "evidence_location":  "round identity and speed from the extracted machine gun file; the penetration curve is project policy",
+                                      "version":  "wt012-full-caliber-v1"
                                   }
                               },
                                                             {
@@ -2233,7 +2234,8 @@
                                       "evidence_source_refs":  [
                                           "wt-2.59.0.13"
                                       ],
-                                      "evidence_location":  "round identity, speed and 3400 m reach from the extracted 12.7 mm gun file; the penetration curve is project policy"
+                                      "evidence_location":  "round identity, speed and 3400 m reach from the extracted 12.7 mm gun file; the penetration curve is project policy",
+                                      "version":  "wt012-full-caliber-v1"
                                   }
                               }
                           ],

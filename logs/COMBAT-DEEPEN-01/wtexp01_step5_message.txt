@@ -1,0 +1,28 @@
+WT-EXPANSION-01 step 5: the secondary weapons FIRE, and a real projectile is created - the whole chain from the
+declaration to the launch now works end to end on the production path.
+
+THE CAUSE OF THE LAST REFUSAL, found by reading the gate rather than guessing: ArmorImpactProfile.validate keys on
+`version` FIRST, and my declared secondary profiles carried no version at all, so the manager refused the launch as
+invalid_impact_profile before reading a single other field. Both profiles now declare wt012-full-caliber-v1 - the
+same versioned full-caliber contract the main gun rounds use - with family AP, normalization 4 or 5, overmatch 3 or
+4, ricochet 70 degrees and an explicit rolled/cast material table, all within the bounds the validator states.
+
+MEASURED END TO END: the T-80B channel answers { "ok": true, "reason": "fired" }, debits its belt 750 to 749 and
+creates a REAL projectile whose state the manager can return; the Leopard 2A4 answers the same way with its belt 200
+to 199. The acceptance scenario is 45 checks with ZERO failures and WT_EXPANSION_01_PASS, and the log contains ZERO
+script error lines. The probe now asserts what the step was for: a fired secondary shot must produce a real
+projectile, and a refused one must debit nothing.
+
+WHAT THE WHOLE EXPANSION NOW DELIVERS, each link measured: the armament is DECLARED from the extracted game data with
+its provenance split between the game values (round identity, belt, speed) and declared project policy (the
+penetration profile); the runtime installs one independent channel per weapon with its own belt ledger and cadence;
+a shot is fired through the SAME projectile manager the main gun uses, carrying the round own profile and calibre; a
+refused shot is rolled back so it costs nothing; and the main gun has not moved at any step.
+
+THE MAIN GUN DID NOT MOVE, measured after the change: run_engineering_runtime_checks, run_shell_checks,
+run_damage_checks and run_feedback_checks all exit 0 with no failures - the feedback suite was added to the slice
+because a fictional second firing path would show up there first if it were wired wrongly.
+
+NEXT: the HUD and controls still need to select and fire a secondary channel, and the secondary rounds should be
+carried in the damage and replay records the same way the main gun rounds are, which is the consistency the package
+objective is about.
