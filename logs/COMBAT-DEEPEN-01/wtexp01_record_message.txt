@@ -1,0 +1,24 @@
+WT-EXPANSION-01: the expansion record is brought up to date with the measured state, so the note no longer says
+the feature is unimplemented when it is firing.
+
+The note now reads: steps 1 to 5 DONE and measured, the round never left a runnable state at any point, and the
+acceptance scenario stands at 45 checks with zero failures and WT_EXPANSION_01_PASS with the main-gun suites
+unchanged. Each step is recorded with the measurement that proves it - the declaration passing every leg while the
+production pipeline still admits both packets; the runtime exposing two independent channels per vehicle; each round
+carrying its own versioned profile whose identity, belt and speed stay the game values while the penetration curve
+is declared project policy; the launch going through the SAME projectile manager with a rollback that was measured
+against the real manager twice, as the gates refused invalid_armor_policy and then invalid_impact_profile; and the
+round finally leaving the barrel as a real projectile the manager can return.
+
+The guards that earned their keep are recorded where they happened rather than summarised away: two malformed
+packet insertions refused by parsing the candidate before writing, a wiring edit refused by the parse check because
+`defs` was out of scope, and a script error I introduced - asking a TankVehicle for an actor property it does not
+have - removed rather than tolerated even though the probe passed with it present.
+
+WHAT REMAINS IS NOW STATED AS THREE ITEMS AND NOT AS A VAGUE BACKLOG: the secondary rounds must enter the damage and
+replay records the way the main gun rounds do, which is the consistency this package objective is actually about;
+the HUD and controls must let a player select and fire a secondary channel so the feature is reachable outside a
+probe; and the main-gun suites must keep passing at every step, which they have - engineering runtime, shell, damage
+and feedback all exit 0 after the latest change.
+
+No code and no expectation changed in this round; only the record of what was measured.

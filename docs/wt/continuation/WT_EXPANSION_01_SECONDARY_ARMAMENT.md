@@ -1,15 +1,41 @@
-# WT-EXPANSION-01 secondary armament: scenario written FIRST, implementation not started
+# WT-EXPANSION-01 secondary armament: DECLARED, INSTALLED and FIRING; the records and the HUD are what remain
 
-**Status: NOT_RUN / not implemented.** The acceptance scenario exists and fails for the right reason. Nothing was
-implemented in this round, and nothing in the package's sixteen sub-orders or its ninety-six cases is touched by
-this note.
+**Status: steps 1 to 5 DONE and measured; the round never left a runnable state at any point.** The acceptance
+scenario is 45 checks with zero failures and `WT_EXPANSION_01_PASS`, and the main-gun suites are unchanged.
 
 **Scope statement, so this cannot be mistaken for package content.** The user asked on 2026-09-19 to raise this
 game's completeness directly from the unpacked War Thunder data on this machine. This work order is that mandate
 made concrete: it is an **authorised expansion beyond the package**, it is named WT-EXPANSION-01 rather than
 WT-CD-017, and every artifact it produces says so in its own text.
 
-## 1. The contract, taken from the local game build and not invented
+## What is DONE, with the measurement that proves each step
+
+| step | what it does | measured evidence |
+|---|---|---|
+| 1 declaration | both packets carry `secondary_weapons` with the group, gun, calibre, belt, reload, cadence, round and round speed from the extracted files, with flat provenance naming the gun file | every declaration leg passes; the production pipeline still ADMITS both packets, which is what proves the insertion is structurally sound |
+| 2 runtime channels | `Gunner` installs one INDEPENDENT channel per weapon, each with its own belt ledger, cadence, round and cooldown; `VehicleActor` installs them from the packet on the setup path | the runtime exposes 2 channels per vehicle, built from the declaration |
+| 3 round profiles | each secondary round declares its own classic AP profile: family, normalization, overmatch, ricochet limit, explicit rolled/cast table and a typed penetration curve | the declared round identity, belt and speed stay the game values while the penetration profile is declared project policy, and the final piece was the `wt012-full-caliber-v1` version the armour validator keys on |
+| 4 launch | the shot is built in the SAME shape the main gun builds and fired through the SAME `ProjectileManager`, carrying the round own profile and calibre | a refused launch is ROLLED BACK - belt 750 to 750 and 200 to 200 with `projectile_id` 0 - which was measured against the real manager, twice, as the gates refused `invalid_armor_policy` and then `invalid_impact_profile` |
+| 5 firing | the round actually leaves the barrel | `{ "ok": true, "reason": "fired" }` with the belt 750 to 749 and 200 to 199 and a REAL projectile whose state the manager returns, asserted by the probe |
+
+Guards that earned their keep along the way, all recorded where they happened: the packet insertion is parsed before
+it is written (two malformed candidates refused, no packet touched), the scripts are parse-checked before any suite
+runs (a wiring edit using `defs` out of scope was refused outright), and a script error I introduced - asking a
+`TankVehicle` for an `actor` property it does not have - was removed rather than tolerated even though the probe
+passed with it present.
+
+## What REMAINS
+
+```
+A. the secondary rounds must enter the DAMAGE and REPLAY records the same way the main gun rounds do, which is the
+   consistency this package objective is about rather than a separate feature;
+B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
+   not only by a probe;
+C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and
+   feedback all exit 0 after the latest change.
+```
+
+## The contract, taken from the local game build and not invented
 
 From `docs/wt/wt-reference/WT_REFERENCE_SECONDARY.json` (War Thunder **2.59.0.13**, extracted with
 `wt_ext_cli v0.6.6`, provenance and hashes in `docs/wt/wt-reference/README.md`):
