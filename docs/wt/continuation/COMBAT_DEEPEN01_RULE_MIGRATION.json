@@ -10,7 +10,8 @@
                             "WT-CD-007: family, pressure verdict, external flag, contact and world detonation, fragment candidates, expectation migration",
                             "WT-CD-008: versioned crew condition, and person identity separated from station and role",
                             "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request",
-                            "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept"
+                            "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept",
+                            "WT-CD-011: data declared per vehicle drive curves, and a bounded per vehicle recoil instead of one global kick"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -577,6 +578,67 @@
                         "migration":  "A vehicle whose store carries no declared protection policy is treated as mixed storage, which is the conservative reading; the legacy compartment rule is untouched and keeps its determinism.",
                         "rollback":  "Remove the reaction call and the record; a hit on ammunition then reports only whether the contents are known, exactly as before.",
                         "divergences":  "Every chance, loss fraction and isolation credit is a declared project design initial value with comparison NOT_COMPARED; no real ammunition behaviour is claimed, and where no dynamic door model exists the project keeps a logical abstraction with a scope note."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-011",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "per_id_hard_coded_drive_resource",
+                        "new_rule_version":  "cd11-drive-profiles-v1",
+                        "affected_vehicles":  "ussr_t_80b and germ_leopard_2a4",
+                        "affected_modes":  "live_drive",
+                        "fields":  [
+                                       "drive_profile",
+                                       "turn_speed_falloff",
+                                       "turn_drag_per_second",
+                                       "track_spacing_m",
+                                       "damaged_track_turn_scale",
+                                       "power_falloff"
+                                   ],
+                        "reason":  "A per vehicle curve was hard coded per vehicle id in the content pipeline, so the two engineering vehicles shared one curve. The order requires each vehicle own frozen configuration to be visible in the result, and it forbids inventing historical gear ratios, so the curves are declared as project design values in each packet and read from data.",
+                        "reference_sources":  [
+                                                  "R08",
+                                                  "R11"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "A packet that declares no drive profile still falls through to the hard coded per id design resource in the match, which is left untouched, so every existing vehicle behaves exactly as before.",
+                        "legacy_tests":  "tests/run_drive_checks.gd, run_slope_pivot_checks.gd, run_track_damage_checks.gd, run_surface_drive_checks.gd, run_track_drive_checks.gd, run_airborne_drive_checks.gd, all unchanged",
+                        "new_expected_declared_before_run":  "With the profiles declared, the two vehicles must differ in turn falloff, turn drag, track spacing, damaged track scale and power falloff, and the measured curve must follow each one.",
+                        "independent_oracle":  "The production content pipeline and the capability-free power train advance, read from the real vehicles admitted through the documented engineering entry point.",
+                        "measured_before":  "Measured: both vehicles returned the SAME forward top speed of 10.498 and the same reverse top of -2.778, with turn falloff 0.350 and track spacing 2.500 for both, because neither packet declared a curve and both fell through to one shared default.",
+                        "measured_after":  "Measured: the Leopard reads power falloff 0.500, six gears, turn falloff 0.420, track spacing 2.880 and turn drag 0.400 while the T-80 reads 0.420, five gears, 0.300, 2.720 and 0.320, and their forward tops differ at 10.304 against 10.373.",
+                        "migration":  "The allowed field table gained the drive profile names, and an explicit OPTIONAL set was added beside it so that listing a new name does not retroactively make it mandatory for every envelope already written - which is exactly what broke an in-memory packet in another suite before the set existed.",
+                        "rollback":  "Remove the drive_profile key from the two packets; both then fall through to the hard coded per id resource again, exactly as before.",
+                        "divergences":  "Every value is a declared project design initial value with comparison NOT_COMPARED; no historical gear ratio is invented and no real vehicle performance is claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-011",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "one_global_recoil_kick",
+                        "new_rule_version":  "cd11-recoil-v1",
+                        "affected_vehicles":  "every_vehicle_that_can_fire",
+                        "affected_modes":  "live_fire",
+                        "fields":  [
+                                       "recoil_speed_mps",
+                                       "recoil_max_mps",
+                                       "recoil_velocity"
+                                   ],
+                        "reason":  "The recoil response read one global pair of constants, so every gun on every vehicle kicked the hull by the same amount, which the order forbids by name. The response must come from each vehicle own profile, be bounded and not accumulate.",
+                        "reference_sources":  [
+                                                  "R08",
+                                                  "R11"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Both new fields default to exactly the global constants the uniform kick already used, so a vehicle whose profile declares nothing keeps byte for byte the old behaviour. The damping stays global, because that is where the attenuation reads it.",
+                        "legacy_tests":  "tests/run_drive_checks.gd and every suite that fires, all unchanged",
+                        "new_expected_declared_before_run":  "With the profile declared, the recoil from the real entry must differ per vehicle, be capped, and not drift.",
+                        "independent_oracle":  "The real TankVehicle.kick_recoil entry, read from recoil_velocity before and after, on both engineering vehicles.",
+                        "measured_before":  "Measured: kick_recoil moved the hull by exactly the global constant 0.65 for both vehicles, which is one uniform kick and is what the order names as forbidden.",
+                        "measured_after":  "Measured: the Leopard moves 0.780 and the T-80 0.550 through the same entry, so the response differs by vehicle, and both are bounded by their own declared caps of 1.55 and 1.10.",
+                        "migration":  "A device fault was found and fixed on the way: the probe had been reading forward_speed while the recoil is applied to a separate recoil_velocity vector, which is why the first reading was zero for both vehicles and looked like a missing response rather than a wrong field.",
+                        "rollback":  "Clear the two values from the packets; both then read the global default of 0.65 again, exactly as before.",
+                        "divergences":  "Both values are declared project design initial values with comparison NOT_COMPARED; the order explicitly does not require realistic impulse figures and none are claimed."
                     }
                 ],
     "divergences":  [
@@ -603,9 +665,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD10 start: run_loading_checks 62/0, run_damage_checks 57/0, run_ammo_compartment_checks 62/0, run_historical_checks 192/0, run_shell_checks 193/0, run_recovery_checks 64/0.",
-                              "after":  "CD10 close: the same six suites at their exact baselines, 630 passes and no failures, with the six acceptance scenes reading met and the conservation printing exactly for both engineering vehicles.",
-                              "note":  "Nothing in this sub-order changed a delivered expectation; the legacy compartment rule was kept rather than replaced, and the only new behaviour is the reaction itself plus the ledger application."
+                              "before":  "CD11 start: run_drive_checks 26/0, run_slope_pivot_checks 3/0, run_track_damage_checks 21/0, run_surface_drive_checks 15/0, run_track_drive_checks 15/0, run_airborne_drive_checks 13/0.",
+                              "after":  "CD11 close: the same six driving suites plus run_loading_checks 62/0, run_damage_checks 57/0 and run_recovery_checks 64/0, all at their exact baselines, with the six acceptance scenes reading met and the escape probe passing.",
+                              "note":  "No delivered expectation was changed. One suite regressed while the allowed field table was being extended and was fixed by adding an explicit OPTIONAL set rather than by weakening the gate or editing the suite."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
