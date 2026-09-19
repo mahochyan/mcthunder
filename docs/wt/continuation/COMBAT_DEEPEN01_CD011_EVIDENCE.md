@@ -195,3 +195,28 @@ is unchanged: BLOCKING IS MEASURED AND HOLDS, the hull stopped 4.02 m short of t
 the ESCAPE LEG CANNOT YET BE JUDGED because the harness drives the hull by writing its speed rather than through the real
 throttle path. The next measurement is therefore narrow and named: find how a grounded throttle becomes forward speed.
 ```
+
+## 8. The trace resolved: the grounded throttle never reaches the powertrain, which is a real gap in this file
+```
+Every use of the powertrain in the whole script tree was listed rather than sampled:
+   tank.gd:8    var powertrain := DrivePowertrain.new()
+   tank.gd:147  powertrain.traction_acceleration=0        # airborne branch
+   tank.gd:148  powertrain.braking=false                  # airborne branch
+   tank.gd:151  if track_pivot: powertrain.reset()        # airborne branch
+   tank.gd:152  else: forward_speed=powertrain.step(...)   # the ELSE of a grounded test => AIRBORNE
+   tank.gd:233  powertrain.reset()
+So DrivePowertrain.step, which implements throttle completely - including braking to zero before reversing, the exact
+behaviour the first acceptance case expects - is called ONLY when the hull is not grounded. The grounded branch advances
+the speed through TrackDrive.step, whose signature takes yaw and turn drag and NO throttle, and it returns the speed it
+was given times a decay factor. With a speed of zero it returns zero, for ever.
+That is the whole reason the reverse produced no motion: not the wall, not the slope block, and not the collision solver.
+And it is a real gap rather than a harness artefact, because the only entry the game itself uses is the same one:
+   vehicle_actor.gd:407  tank.apply_drive(step.throttle,step.steer,delta)
+which is exactly what this test calls. A grounded hull therefore has no longitudinal drive in this file at all, and the
+only reason the collision leg moved is that the test wrote the speed directly.
+OPEN QUESTION FOR THE USER, recorded rather than assumed: the project instructions describe the tank as drivable, and this
+reading says a grounded hull cannot accelerate from rest through its own command path. Either the description refers to an
+earlier state of the code, or a production path outside these scripts writes the speed. It is NOT claimed here as a
+regression and NOT fixed by guessing: the next step is to run the real game loop once with its own command and read the
+speed trace, which settles it in one measurement.
+```
