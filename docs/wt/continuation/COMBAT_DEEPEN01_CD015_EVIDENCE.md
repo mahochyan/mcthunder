@@ -139,3 +139,28 @@ WHAT IS NOT WEAK
 
 NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
 ```
+## 6. Weakness one is REMOVED; weakness two is narrowed and its blocker is named
+
+```
+WHAT THE BEHAVIOUR PROBE PROVED
+   The first pass had admitted that its presentation half was never exercised because it looked for a ProjectileManager as a
+   CHILD of the match scene. The probe now reaches it the way a range really holds it - through the range OWN projectiles
+   member - and that member does own the feedback layer. With the feedback layer STOPPED, the same range keeps exactly nine
+   committed events and the identical tickets 300/300, so the case claim is now measured on the real object:
+      "stopping the FEEDBACK LAYER leaves the committed events and the tickets untouched" PASSES.
+   That removes weakness one, and it was a WIRING error of mine rather than a product question: the member existed all along,
+   I was simply looking for it in the wrong place.
+
+WHAT IS STILL NOT DRIVEN, AND WHY, STATED PLAINLY
+   The family and replay halves of the probe do not yet run. Each attempt stopped at the point where the probe builds its own
+   actor for the family check, for the same reason the first weakness existed: I built a parallel world with its own defs
+   instead of using the range OWN admitted actor and manager, and an empty defs cannot admit a vehicle. The fix is written into
+   the probe - use the range own actor and its own manager - and the run still stopped on one reference in that block, so this
+   is now a narrow and named blocker rather than an open weakness: the next pass reads that block, fixes the one reference, and
+   the family and replay judgments will then run on the real objects exactly as P1 now does.
+
+SO THE HONEST STATE OF THE SECOND WEAKNESS
+   Still open, but no longer an opinion: the family and replay conditions in the SCENE remain presence checks, the behaviour
+   probe that replaces them exists and its first judgment passes, and the one thing standing between the other two and a real
+   measurement is a single reference in a block I wrote this round.
+```
