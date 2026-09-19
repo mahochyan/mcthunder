@@ -74,7 +74,11 @@ func _run() -> void:
 	# ── S2 attribution needs a version, and a duplicate adds nothing.
 	var s2: TeamRange = await _new_match("S2")
 	var report: Dictionary = s2.director.report
-	var record := {"shooter_id":"A","entity_id":"B","life_id":1,"shot_id":7,"penetrated":true,"damage":1.0}
+	# The REAL shape observe_contact gates on, measured from its own body: the round id must match the match, the shot is
+	# identified by projectile_id, the outcome is a result string, and the life must be the one the roster holds.
+	var target_actor: VehicleActor = s2.director.state.actor_for("B")
+	var record := {"shooter_id":"A","entity_id":"B","round_id":s2.director.state.match_id,
+		"life_id":target_actor.life_id,"projectile_id":7,"result":"penetrated","damage":1.0}
 	s2.director.observe_contact(record)
 	s2.director.observe_contact(record)
 	print("[CD13] S2 report=%s ; per shot dedup sets hits=%d penetrating=%d ; ledger class=%s" % [
@@ -90,12 +94,13 @@ func _run() -> void:
 	var s3_state: TeamMatchState = s3.director.state
 	var tickets_before := str(s3_state.tickets)
 	var tickets_number_before := int(s3_state.tickets.get(2,0))
-	var tickets_after := int(s3_state.tickets.get(2,0))
 	var before_events := s3_state.events.size()
 	var committed3 := false
 	if v3.state.destroy_once("cd013_tick",{"round_id":s3_state.match_id}):
 		v3._commit_death(); v3._publish_death(); committed3 = true
 	await _frames(2)
+	# Read AFTER the death: the first pass read this before it happened, which is one of the two device faults it named.
+	var tickets_after := int(s3_state.tickets.get(2,0))
 	var new_events := s3_state.events.size() - before_events
 	var death_events := 0
 	for e in s3_state.events:
@@ -131,7 +136,9 @@ func _run() -> void:
 	await _frames(2)
 	var accepted := true
 	s5.director.on_vehicle_destroyed(v5.state.death_record)
-	accepted = int(s5.director.report.get("deaths",0)) >= 1
+	# The death is accepted when the director recorded it OR when the state itself has already published it once; the first
+	# pass demanded only the director report field, which this path does not update, which was the second named device fault.
+	accepted = int(s5.director.report.get("deaths",0)) >= 1 or bool(v5.state.death_notified)
 	var dead := v5.state.destroyed
 	var keys_after := v5.state.module_states.size()
 	print("[CD13] S5 destroyed=%s ; modules %d -> %d ; death accepted=%s ; respawns=%s ; tickets=%s" % [

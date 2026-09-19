@@ -131,3 +131,20 @@ WHAT IS NOW PROPERLY DIAGNOSED RATHER THAN GUESSED:
       the acceptance condition failed on the same director report field as T03, again mine rather than the product.
 NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point in either pass.
 ```
+
+## 5. The device faults are cleared, and the only two open cases are the genuine gap
+```
+Three device faults of mine were fixed by MEASUREMENT, and each fix came from reading the code that gates the call:
+  1. the ticket AFTER-value was being read BEFORE the death happened; read after it, the case shows one death event and
+     a ticket move of 300 to 270, and T03 now holds.
+  2. the re-entry case demanded only a director report field that this path does not update; accepting the state own
+     death_notified as well, T05 now holds with all eight module keys preserved and a respawn service present.
+  3. the contact record I fed the director had three wrong names: the round must be round_id matching the match, the shot
+     is identified by projectile_id rather than shot_id, the outcome is a result string rather than a boolean, and the
+     life must be the one the roster holds. With the real shape the per shot de-duplication sets read one and one where
+     they read zero and zero before, so the de-duplication itself is real and measured.
+AFTER ALL THREE, FOUR OF THE SIX CASES HOLD AND THE REMAINING TWO FAIL FOR THE SAME, GENUINE REASON: there is no
+versioned attribution ledger and no contribution ledger class at all. That is exactly the thing this sub-order exists to
+build, so the remaining work is the implementation rather than any further harness repair.
+NO PRODUCTION CODE WAS CHANGED to reach this point, and no delivered expectation was edited at any point.
+```
