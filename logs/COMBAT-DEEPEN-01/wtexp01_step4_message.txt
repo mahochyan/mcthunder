@@ -1,0 +1,36 @@
+WT-EXPANSION-01 step 4: the secondary launch is wired into the SAME projectile manager the main gun uses, and it
+stops at the next real gate with the accounting proven correct.
+
+WHAT WAS WIRED: try_fire_secondary now builds the launch spec in the same shape the main gun builds - round, shooter
+identity and team, shot id, effect policy kinetic for an AP round, the round own declared impact profile, calibre,
+seed, muzzle position and barrel direction, the round declared speed, gravity and bounded age and distance - and
+calls projectile_manager.try_spawn. If the manager REFUSES the round, the belt debit and the cadence are ROLLED
+BACK, so a refused shot never costs a round.
+
+MEASURED, and the measurement corrected the code twice:
+  1. with no manager bound the channel only accounted for a round, so the probe was given a REAL ProjectileManager
+     and the difference between an accounted round and a flown one became visible;
+  2. the manager refused the first attempt with invalid_armor_policy, and the cause was mine: the curve built from
+     the packet pairs is an Array of Arrays, which PenetrationCurve.validate rejects outright, so the spec now
+     converts the declared pairs into a TYPED curve before the launch;
+  3. with that fixed the manager advanced to the next gate and refused with invalid_impact_profile, so the declared
+     secondary profile does not yet satisfy the armour side complete-profile contract. The launch does NOT happen
+     yet, and it is NOT claimed to: the measured answer is
+     { "ok": false, "reason": "secondary_launch_refused:invalid_impact_profile" } with the belt UNCHANGED at 750 and
+     200 and projectile_id 0.
+
+WHAT THAT PROVES rather than merely asserts: the rollback is real. A refused secondary shot costs nothing - the belt
+goes 750 to 750 and 200 to 200 - which is the property that matters when the gate is a real one, and it was measured
+against the real manager rather than against the channel own bookkeeping.
+
+THE STATE OF THE ACCEPTANCE SCENARIO: 43 checks, ZERO failures, WT_EXPANSION_01_PASS, and ZERO script error lines.
+The probe passes because it asserts what is TRUE - the request is answered, a fired shot debits exactly one round,
+a refused shot debits none, and a fired shot must produce a real projectile - while the shot itself is still refused
+by the armour side.
+
+THE MAIN GUN DID NOT MOVE, measured after the change: run_engineering_runtime_checks, run_shell_checks and
+run_damage_checks all exit 0 with no failures.
+
+NEXT, precisely: read ArmorImpactProfile validation and complete the declared secondary profile so the manager
+accepts it, then the round flies and the same probe asserts the projectile; after that the HUD and controls need to
+select and fire a secondary channel.

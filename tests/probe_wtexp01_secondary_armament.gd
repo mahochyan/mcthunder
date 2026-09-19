@@ -97,15 +97,24 @@ func _run() -> void:
 		#    with either a real shot or a refusal BY NAME. Until the round own impact profile is declared the honest
 		#    answer is secondary_round_profile_missing, and a belt that was not debited proves no silent shot.
 		if channels > 0:
+			# A REAL manager is bound first: without one the channel would only account for a round, and the
+			# difference between an accounted round and a flown one is exactly what this leg exists to measure.
+			var manager := ProjectileManager.new(); manager.presentation_enabled=false
+			world.add_child(manager); manager.set_physics_process(false)
+			actor.gunner.projectile_manager = manager
+			actor.gunner.round_provider = func() -> int: return 7001
 			var belt_before: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
 			var answer: Dictionary = actor.gunner.try_fire_secondary(0)
 			var belt_after: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
-			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d)" % [str(id),str(answer),belt_before,belt_after])
+			var pid: int = int(actor.gunner.secondary_channel(0).get("last_projectile_id",0))
+			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d, projectile_id=%d)" % [str(id),str(answer),belt_before,belt_after,pid])
 			check(answer.get("reason","")!="" ,"WT-EXPANSION-01 %s the secondary fire request is ANSWERED" % str(id))
 			if not bool(answer.get("ok",false)):
 				check(belt_after==belt_before,"WT-EXPANSION-01 %s a refused secondary shot debits NOTHING" % str(id))
 			else:
 				check(belt_after==belt_before-1,"WT-EXPANSION-01 %s a fired secondary shot debits exactly one round" % str(id))
+				check(pid!=0 and manager.get_projectile_state(pid)!=null,
+					"WT-EXPANSION-01 %s the secondary shot produced a REAL projectile (%d)" % [str(id),pid])
 		actor.queue_free()
 	world.queue_free(); await _frames(2)
 	print("=== result: %d checks, %d failed, %d unmet-declaration legs ==="%[checks,fail,unmet])

@@ -311,6 +311,49 @@ func try_fire_secondary(index: int) -> Dictionary:
 	channel["belt_remaining"] = int(channel["belt_remaining"]) - 1
 	channel["cooldown_left"] = float(channel.get("cadence_s",0.0))
 	channel["shots_fired"] = int(channel.get("shots_fired",0)) + 1
+	# WT-EXPANSION-01 step 4: the launch goes through the SAME projectile manager the main gun uses, with the round
+	# own declared profile and calibre. If the manager REFUSES the round the debit and the cadence are rolled back,
+	# so a refused shot never costs a round and the channel accounting stays truthful.
+	if projectile_manager != null and turret != null:
+		var profile: Dictionary = channel.get("impact_profile",{}) as Dictionary
+		# The manager validates a TYPED curve: a curve built from the packet JSON pairs is an Array of Arrays, which
+		# PenetrationCurve.validate rejects, and the launch was refused as invalid_armor_policy until this conversion
+		# was added. Measured against the real manager rather than assumed from the profile being declared.
+		var curve := PackedVector2Array()
+		for point in (profile.get("penetration_curve",[]) as Array):
+			if point is Array and (point as Array).size() >= 2:
+				curve.append(Vector2(float((point as Array)[0]),float((point as Array)[1])))
+		var spec := {
+			"round_id": _current_round(),
+			"shooter_id": shooter_id,
+			"shooter_life_id": tank.life_id if tank != null else 0,
+			"shooter_team_id": shooter_team_id,
+			"shot_id": int(channel.get("shots_fired",0)),
+			"shell_id": str(channel.get("round","secondary")),
+			"armor_policy": "resolve",
+			"effect_policy": "kinetic",
+			"fuze_policy": {},
+			"impact_profile": profile.duplicate(true),
+			"post_penetration_profile": {},
+			"chemical_profile": {},
+			"caliber_mm": float(channel.get("caliber_mm",0.0)),
+			"seed": hash(JSON.stringify([_current_round(),shooter_id,str(channel.get("round","")),int(channel.get("shots_fired",0))])),
+			"penetration_curve": curve,
+			"test_only": false,
+			"position_world": turret.muzzle.global_position,
+			"velocity_world": turret.barrel_direction()*float(channel.get("speed_mps",0.0)),
+			"gravity_world": Vector3(0.0,-9.81,0.0),
+			"max_age_s": 4.0,
+			"max_distance_m": 3400.0
+		}
+		var spawned := projectile_manager.try_spawn(spec)
+		if not bool(spawned.get("ok",false)):
+			channel["belt_remaining"] = int(channel["belt_remaining"]) + 1
+			channel["cooldown_left"] = 0.0
+			channel["shots_fired"] = int(channel["shots_fired"]) - 1
+			channel["blocked_reason"] = "secondary_launch_refused:"+str(spawned.get("reason",""))
+			return {"ok":false,"reason":"secondary_launch_refused:"+str(spawned.get("reason",""))}
+		channel["last_projectile_id"] = int(spawned.get("projectile_id",0))
 	return {"ok":true,"reason":"fired"}
 
 func select_shell(index: int) -> bool:
