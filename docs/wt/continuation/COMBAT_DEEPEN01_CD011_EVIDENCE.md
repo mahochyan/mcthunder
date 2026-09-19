@@ -220,3 +220,31 @@ earlier state of the code, or a production path outside these scripts writes the
 regression and NOT fixed by guessing: the next step is to run the real game loop once with its own command and read the
 speed trace, which settles it in one measurement.
 ```
+
+## 9. CORRECTION: section 8 is WRONG, and the measurement that refutes it
+```
+Section 8 above states that "the grounded throttle never reaches the powertrain, which is a real gap in this file". THAT
+STATEMENT IS WRONG and it is left in place only so the correction is visible next to it. It was reached by reading the
+call graph and then running a harness that had NO FLOOR, and a hull with no ground support cannot accelerate whatever
+the throttle does - the powertrain scales its traction by the support the ground probe reports.
+The settling measurement, with a floor added and the production entry used exactly as the game uses it:
+   on_floor=true  support=1.000  drive_calls=120
+   t=  0 speed=0.0000 traction=0.0000
+   t= 30 speed=1.9976 traction=3.9856
+   t= 60 speed=3.9800 traction=3.9407
+   t= 90 speed=5.3280 traction=3.8928
+   after 2 s speed=7.1882
+So a grounded hull DOES accelerate from rest through VehicleActor.advance_simulation_drive, which is the same entry the
+game itself calls. The probe now prints REFUTED in that case, and it is the probe own verdict rather than my reading.
+What survives from the investigation, and what does not:
+   DOES NOT SURVIVE: "the grounded branch never hands the throttle to the powertrain". The grounded branch calls
+   TrackDrive.step, which handles yaw and turn drag, and the throttle reaches the powertrain through the shared
+   DrivePowertrain state the same tank owns - the direct powertrain call in the probe returning a smaller value after
+   the shared state had been advanced is the evidence that the two are one object, not two paths.
+   SURVIVES: the collision case blocking measurement, the hull stopping 4.02 m short of the wall and never passing
+   through it, and the escape reading of 0.002 m of motion, which is still unexplained and still needs a measurement.
+The remaining measurement is now narrow and named: print ground_state.traction_support during the collision scene own
+reverse phase. If it reads zero there, the scene actor is standing on ground that gives no support, the escape failure is
+a harness fault like the first one, and T05 must be re-judged. If it reads one, the hull really cannot reverse out of a
+vertical face and that is a genuine product gap for this order to close.
+```
