@@ -125,3 +125,48 @@ policy, as they already say in their own notes.
 4. the armour, ammo-stowage, weapon and compartment sections are still in the extraction, unread, with their
    names recorded in the JSON, so the next comparisons are a matter of reading rather than of searching.
 ```
+
+## The third result: the ammunition matches the real rounds, with ONE named discrepancy
+
+`WT_AMMO_COMPARISON.json`, built by `logs/COMBAT-DEEPEN-01/compare_wt_ammo.js`, reads the real gun files the unit
+files name - `gamedata/weapons/groundmodels_weapons/125mm_2a46_2_user_cannon.blk` and
+`120mm_rheinmetall_l44_user_cannon.blk` - and pairs each of our five shells with the round that matches.
+
+| our shell | ours m/s | War Thunder round | file m/s | delta | outcome |
+|---|---|---|---|---|---|
+| `eng_125_apfsds_v1` | 1700 | `125mm_ussr_3BM42_APDS_FS` | 1700 | **0** | velocity_equal |
+| `eng_125_heat_v1` | 905 | `125mm_ussr_3BK12_HEAT_FS` | 905 | **0** | velocity_equal |
+| `eng_125_he_v1` | 700 | `125mm_ussr_HE` | **850** | **-150** | velocity_differs |
+| `eng_120_apfsds_v1` | 1650 | `120mm_NATO_APDS_FS` | 1650 | **0** | velocity_equal |
+| `eng_120_heat_v1` | 1140 | `120mm_NATO_HEAT_FS` | 1140 | **0** | velocity_equal |
+
+**Four of five muzzle velocities are exactly the value the game file states, including the 1700 of our APFSDS
+against 3BM42 and the 905 of our HEAT against 3BK12.** The pairing rule is printed per row and it was the family
+keyword, NOT our own `source_bullet_type` field: that field does not name a real round, which is itself a small
+completeness item. The exact velocities are what makes the pairing credible rather than convenient.
+
+**The one discrepancy is the finding, and it is named rather than smoothed over: our engineering HE round declares
+700 m/s while the game's 125 mm HE round is 850 m/s, a 150 m/s shortfall.** Nothing was changed in this round; the
+number is recorded as an open item against CD07's HE family.
+
+Two other measured facts, shown side by side rather than declared equal because they are different quantities:
+
+| | gun file `shotFreq` | implied seconds between shots | our `runtime.reload_time` |
+|---|---|---|---|
+| T-80B 2A46-2 | 0.16666 rps | 6 s | 7.1 s (project balance value) |
+| Leopard 2A4 Rh L44 | 0.2 rps | 5 s | 6 s (project balance value) |
+
+So our reloads are 1.1 s and 1.0 s slower than the cadence the weapon file implies - a declared project choice
+that is now a measured difference rather than an unknown one.
+
+Rounds the game has that this project does not model, listed rather than ignored:
+
+| vehicle | round | speed | mass | type |
+|---|---|---|---|---|
+| T-80B | `125mm_ussr_APDS_FS` | 1760 | 4.83 | `apds_fs_tungsten_small_core_tank` |
+| T-80B | `125mm_ussr_ATGM` | (none stated) | 27.5 | `atgm_tank` - a guided missile the T-80B can fire |
+| Leopard 2A4 | `120mm_DM_APDS_FS` | 1640 | 4.3 | `apds_fs_tungsten_l10_l15_tank` |
+
+Real round data now available to argue our damage model against: masses (4.85 / 19 / 23 kg), explosive types and
+masses (`a_ix_2` 3.402 kg on the HE round, `a_ix_1` 1.65 kg on the HEAT round, `comp_b` 1.64 kg on the NATO HEAT
+round), `bulletType`, `maxDistance`, and the normalization and ricochet presets each round names.

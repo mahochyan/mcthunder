@@ -1,0 +1,226 @@
+{
+  "reference_kind": "ammunition_comparison_against_local_war_thunder",
+  "game_build": "2.59.0.13",
+  "boundary": "derived values and provenance only; the extracted game data stays outside the repository",
+  "compared_at": "2026-09-19T07:23:29",
+  "notes": {
+    "firing_cadence": "the gun file states shotFreq, which is rounds per second, and the unit file states no reload of its own; the reciprocal is recorded as the cadence the file implies and is NOT the same quantity as this project reload_time, so the two are shown side by side rather than declared equal",
+    "speed_units": "speed is stored raw as the file states it; the gun and round files do not restate a unit, and it is read as metres per second because every value matches the class of the weapon"
+  },
+  "vehicles": [
+    {
+      "vehicle": "ussr_t_80b",
+      "gun_file": "gamedata/weapons/groundmodels_weapons/125mm_2a46_2_user_cannon.blk",
+      "gun_label": "T-80B 2A46-2 125 mm",
+      "wt_shot_freq_rps": 0.16666,
+      "wt_implied_seconds_between_shots": 6,
+      "our_reload_time_s": 7.1,
+      "wt_rounds_available": [
+        {
+          "round": "125mm_ussr_HE",
+          "speed": 850,
+          "mass": 23,
+          "caliber": 0.125,
+          "bulletType": "he_frag_fs_tank",
+          "explosiveType": "a_ix_2",
+          "explosiveMass": 3.402,
+          "maxDistance": 10000,
+          "normalizationPreset": "heat",
+          "ricochetPreset": "he"
+        },
+        {
+          "round": "125mm_ussr_3BM42_APDS_FS",
+          "speed": 1700,
+          "mass": 4.85,
+          "caliber": 0.125,
+          "bulletType": "apds_fs_tungsten_caliber_fins_tank",
+          "explosiveType": null,
+          "explosiveMass": null,
+          "maxDistance": 10000,
+          "normalizationPreset": "default",
+          "ricochetPreset": "apds_fs_long"
+        },
+        {
+          "round": "125mm_ussr_3BK12_HEAT_FS",
+          "speed": 905,
+          "mass": 19,
+          "caliber": 0.125,
+          "bulletType": "heat_fs_tank",
+          "explosiveType": "a_ix_1",
+          "explosiveMass": 1.65,
+          "maxDistance": 7000,
+          "normalizationPreset": "heat",
+          "ricochetPreset": "heat_fs"
+        },
+        {
+          "round": "125mm_ussr_APDS_FS",
+          "speed": 1760,
+          "mass": 4.83,
+          "caliber": 0.125,
+          "bulletType": "apds_fs_tungsten_small_core_tank",
+          "explosiveType": null,
+          "explosiveMass": null,
+          "maxDistance": 20000,
+          "normalizationPreset": "apcr",
+          "ricochetPreset": "apds_fs"
+        },
+        {
+          "round": "125mm_ussr_ATGM",
+          "speed": null,
+          "mass": 27.5,
+          "caliber": 0.125,
+          "bulletType": "atgm_tank",
+          "explosiveType": null,
+          "explosiveMass": null,
+          "maxDistance": null,
+          "normalizationPreset": "heat",
+          "ricochetPreset": "atgm"
+        }
+      ],
+      "wt_rounds_not_modelled_by_us": [
+        "125mm_ussr_APDS_FS",
+        "125mm_ussr_ATGM"
+      ],
+      "rows": [
+        {
+          "our_shell": "eng_125_apfsds_v1",
+          "our_family": "APFSDS",
+          "our_caliber_mm": 125,
+          "our_muzzle_velocity_mps": 1700,
+          "our_source_bullet_type": "game_rule_apfsds",
+          "pairing_rule": "family keyword fallback",
+          "wt_round": "125mm_ussr_3BM42_APDS_FS",
+          "wt_speed": 1700,
+          "wt_mass": 4.85,
+          "wt_bullet_type": "apds_fs_tungsten_caliber_fins_tank",
+          "wt_explosive_type": null,
+          "wt_explosive_mass": null,
+          "velocity_delta_mps": 0,
+          "outcome": "velocity_equal"
+        },
+        {
+          "our_shell": "eng_125_heat_v1",
+          "our_family": "HEAT",
+          "our_caliber_mm": 125,
+          "our_muzzle_velocity_mps": 905,
+          "our_source_bullet_type": "heat_fs_tank",
+          "pairing_rule": "family keyword fallback",
+          "wt_round": "125mm_ussr_3BK12_HEAT_FS",
+          "wt_speed": 905,
+          "wt_mass": 19,
+          "wt_bullet_type": "heat_fs_tank",
+          "wt_explosive_type": "a_ix_1",
+          "wt_explosive_mass": 1.65,
+          "velocity_delta_mps": 0,
+          "outcome": "velocity_equal"
+        },
+        {
+          "our_shell": "eng_125_he_v1",
+          "our_family": "HE",
+          "our_caliber_mm": 125,
+          "our_muzzle_velocity_mps": 700,
+          "our_source_bullet_type": "he_tank",
+          "pairing_rule": "family keyword fallback",
+          "wt_round": "125mm_ussr_HE",
+          "wt_speed": 850,
+          "wt_mass": 23,
+          "wt_bullet_type": "he_frag_fs_tank",
+          "wt_explosive_type": "a_ix_2",
+          "wt_explosive_mass": 3.402,
+          "velocity_delta_mps": -150,
+          "outcome": "velocity_differs"
+        }
+      ]
+    },
+    {
+      "vehicle": "germ_leopard_2a4",
+      "gun_file": "gamedata/weapons/groundmodels_weapons/120mm_rheinmetall_l44_user_cannon.blk",
+      "gun_label": "Leopard 2A4 Rheinmetall L44 120 mm",
+      "wt_shot_freq_rps": 0.2,
+      "wt_implied_seconds_between_shots": 5,
+      "our_reload_time_s": 6,
+      "wt_rounds_available": [
+        {
+          "round": "120mm_NATO_HEAT_FS",
+          "speed": 1140,
+          "mass": 13.5,
+          "caliber": 0.12,
+          "bulletType": "heat_fs_tank",
+          "explosiveType": "comp_b",
+          "explosiveMass": 1.64,
+          "maxDistance": 7000,
+          "normalizationPreset": "heat",
+          "ricochetPreset": "heat_fs"
+        },
+        {
+          "round": "120mm_NATO_APDS_FS",
+          "speed": 1650,
+          "mass": 4.436,
+          "caliber": 0.12,
+          "bulletType": "apds_fs_tungsten_l10_l15_tank",
+          "explosiveType": null,
+          "explosiveMass": null,
+          "maxDistance": 10000,
+          "normalizationPreset": "default",
+          "ricochetPreset": "apds_fs_long"
+        },
+        {
+          "round": "120mm_DM_APDS_FS",
+          "speed": 1640,
+          "mass": 4.3,
+          "caliber": 0.12,
+          "bulletType": "apds_fs_tungsten_l10_l15_tank",
+          "explosiveType": null,
+          "explosiveMass": null,
+          "maxDistance": 10000,
+          "normalizationPreset": "default",
+          "ricochetPreset": "apds_fs_long"
+        }
+      ],
+      "wt_rounds_not_modelled_by_us": [
+        "120mm_DM_APDS_FS"
+      ],
+      "rows": [
+        {
+          "our_shell": "eng_120_apfsds_v1",
+          "our_family": "APFSDS",
+          "our_caliber_mm": 120,
+          "our_muzzle_velocity_mps": 1650,
+          "our_source_bullet_type": "game_rule_apfsds",
+          "pairing_rule": "family keyword fallback",
+          "wt_round": "120mm_NATO_APDS_FS",
+          "wt_speed": 1650,
+          "wt_mass": 4.436,
+          "wt_bullet_type": "apds_fs_tungsten_l10_l15_tank",
+          "wt_explosive_type": null,
+          "wt_explosive_mass": null,
+          "velocity_delta_mps": 0,
+          "outcome": "velocity_equal"
+        },
+        {
+          "our_shell": "eng_120_heat_v1",
+          "our_family": "HEAT",
+          "our_caliber_mm": 120,
+          "our_muzzle_velocity_mps": 1140,
+          "our_source_bullet_type": "heat_fs_tank",
+          "pairing_rule": "family keyword fallback",
+          "wt_round": "120mm_NATO_HEAT_FS",
+          "wt_speed": 1140,
+          "wt_mass": 13.5,
+          "wt_bullet_type": "heat_fs_tank",
+          "wt_explosive_type": "comp_b",
+          "wt_explosive_mass": 1.64,
+          "velocity_delta_mps": 0,
+          "outcome": "velocity_equal"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "rows": 5,
+    "by_outcome": {
+      "velocity_equal": 4,
+      "velocity_differs": 1
+    }
+  }
+}

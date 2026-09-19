@@ -1,0 +1,32 @@
+MCT-COMBAT-DEEPEN-01: the ammunition half of the comparison is done, and FOUR of our five muzzle velocities are
+EXACTLY the value the real game files state - with one named discrepancy.
+
+docs/wt/wt-reference/WT_AMMO_COMPARISON.json reads the real gun files that the unit files name,
+gamedata/weapons/groundmodels_weapons/125mm_2a46_2_user_cannon.blk and 120mm_rheinmetall_l44_user_cannon.blk, and
+pairs each of our five shells with the round that matches, printing the pairing rule on every row.
+
+THE RESULT: eng_125_apfsds_v1 1700 m/s equals 125mm_ussr_3BM42_APDS_FS 1700; eng_125_heat_v1 905 equals
+125mm_ussr_3BK12_HEAT_FS 905; eng_120_apfsds_v1 1650 equals 120mm_NATO_APDS_FS 1650; eng_120_heat_v1 1140 equals
+120mm_NATO_HEAT_FS 1140. Four exact matches out of five, and the exactness is what makes the pairing credible
+rather than convenient.
+
+THE ONE DISCREPANCY IS THE FINDING AND IS NAMED RATHER THAN SMOOTHED OVER: our engineering HE round declares
+700 m/s while the game 125 mm HE round is 850 m/s, a 150 m/s shortfall. Nothing was changed this round; it is
+recorded as an open item against the CD07 HE family.
+
+TWO FURTHER MEASURED FACTS, shown side by side rather than declared equal because they are different quantities:
+the T-80B gun file states shotFreq 0.16666 rounds per second, i.e. one shot every 6 s, against our project
+reload_time of 7.1 s, and the Leopard gun file states 0.2, i.e. 5 s, against our 6 s. Our reloads are therefore
+1.1 s and 1.0 s slower than the cadence the weapon file implies - a declared project choice that is now a
+measured difference instead of an unknown.
+
+ROUNDS THE GAME HAS THAT WE DO NOT MODEL, listed rather than ignored: the T-80B also fires 125mm_ussr_APDS_FS
+(1760 m/s, 4.83 kg, small-core tungsten) and 125mm_ussr_ATGM (27.5 kg, atgm_tank - a guided missile), and the
+Leopard 2A4 also fires 120mm_DM_APDS_FS (1640 m/s, 4.3 kg). Real round data is now available to argue the damage
+model against: masses 4.85 / 19 / 23 kg, explosive types with masses (a_ix_2 3.402 kg on HE, a_ix_1 1.65 kg on
+HEAT, comp_b 1.64 kg on the NATO HEAT round), bulletType, maxDistance, and the normalization and ricochet presets
+each round names. One completeness item was also found on our side: our shells carry a source_bullet_type field
+that does NOT name a real round, which is why the pairing needed the family keyword.
+
+The boundary is unchanged and was checked again: the extraction and the tool live outside the repository, and only
+derived values and provenance were committed.
