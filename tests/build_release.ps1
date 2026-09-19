@@ -18,7 +18,16 @@ if ($ModernRiver) {
 # never a whole suite. A new or different failure inside a registered suite still stops the build.
 $deviationRegister = @(
     [pscustomobject]@{ suite='run_industrial_battle_checks'; failures=1; signatures=@([pscustomobject]@{match='at least three actual slots from each team physically reach central approaches';count=1}); must_match='physically reach central approaches'; reason='registered pre-existing arrival red: only 15/16 reach checks pass (WT-036-R1_INDUSTRIAL_BATTLE_MECHANISM.md)' },
-    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' }
+    [pscustomobject]@{ suite='run_challenge_checks';          failures=2; signatures=@([pscustomobject]@{match='real defense script pilot completes finite waves with opponent AI untouched';count=2}); must_match='finite waves with opponent AI untouched'; reason='registered fixture boundary, user ruling B4: the defence-script pilot fails the same check twice' },
+    # WT-EXPANSION-02 / village arrival (user ruling 2026-09-19: REGISTER, do not tune the game to the test).
+    # Measured cause, not an assumed one: a destroyed hull STAYS in the world (team_range.gd clears its controller and
+    # calls wrecks.register), the path driver correctly reads a null-controller hull as a parked dead end and records a
+    # PERMANENT block for that edge, and the route to the objective goes from 7 waypoints (direct) to 19 (around the
+    # wreck) while the driver's waypoint index advances normally with attempts=0 - it simply cannot finish inside the
+    # 120 s criterion, whose window EQUALS RecoveryRules.WRECK_LIFETIME_SECONDS, so a wreck from t=34 s never clears in
+    # it. A second actor is separately destroyed and respawns 126 m from the objective with about 20 s left. Evidence:
+    # docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md sections 18 to 20 and logs/COMBAT-DEEPEN-01/route-diagnostic*.log
+    [pscustomobject]@{ suite='run_village_battle_checks';      failures=1; signatures=@([pscustomobject]@{match='all seven autonomous actors leave spawn and reach central approaches';count=1}); must_match='all seven autonomous actors leave spawn and reach central approaches'; reason='registered arrival red, user ruling: a wreck in the choke closes the direct road (route 7 -> 19 waypoints, no recovery loop) and the wreck lifetime equals the criterion window; one actor therefore detours too long and one dies and respawns 126 m out' }
 )
 # WT040-CONT-20260917-01 section 4 (build constraint): the implementer-added R3-A exemption is NOT in force. A
 # narrow signature is not by itself an approved exception, so the entry was removed and the register keeps only

@@ -810,6 +810,48 @@ for exactly this) and changing the wreck lifetime - which is gameplay balance wi
 (`WRECK_MAX_COUNT = 12` is also read by the performance verifier) - and NOT relaxing the criterion, which the
 package forbids.
 
+## 21. Ruling EXECUTED: the village red is REGISTERED in the build gate, and the registration was verified against the real failing line plus two negative controls
+
+The user ruled: register it as a known red, do not tune the game to the test. `tests/build_release.ps1` now carries a
+third `$deviationRegister` entry:
+
+```
+suite     = run_village_battle_checks
+failures  = 1
+signature = 'all seven autonomous actors leave spawn and reach central approaches' (count 1)
+reason    = a wreck in the choke closes the direct road (route 7 -> 19 waypoints, no recovery loop) and the wreck
+            lifetime equals the criterion window; one actor therefore detours too long and one dies and respawns
+            126 m out   (recorded in ASCII, because a Chinese literal in this .ps1 is read as ANSI and has already
+            broken packaging once)
+```
+
+WHY THIS IS A REGISTRATION AND NOT AN EXCUSE, verified rather than asserted
+(`logs/COMBAT-DEEPEN-01/verify_village_register.ps1`, which dot-sources the gate's OWN matcher instead of copying it
+and reads the register out of the script's real AST so it cannot drift from what the build executes):
+```
+PARSE_OK tokens=2764 parseErrors=0
+REGISTER_ENTRIES=3 suites=run_industrial_battle_checks,run_challenge_checks,run_village_battle_checks
+REAL_FAIL_ACCEPTED=True    the failure set matches the register exactly
+NEW_FAILURE_REFUSED=True   signature matched 0 failure(s); the register expects exactly 1
+EXTRA_FAILURE_REFUSED=True failed 2 check(s) but its registered signatures account for exactly 1
+```
+   So the gate tolerates THIS ONE check and nothing else: a different failure, or this failure plus any other, still
+   stops the build. The suite log health guard also passes - the village logs carry 0 `SCRIPT ERROR`, 0 `^ERROR:` and
+   0 `Parse Error` lines. `tests/check_candidate_register_match.ps1` still passes (15 checks, 0 failed,
+   `CANDIDATE_REGISTER_MATCH_PASS`) and `build_release.ps1` remains pure ASCII.
+
+WHAT THIS DOES NOT CLAIM: the check is still RED and still visible. Nothing in the product was tuned to make it pass,
+no expectation was changed, and the criterion (`absf(z) < 45` for all seven inside 120 s) is untouched.
+
+NEXT BLOCKER FOR THE PACKAGE BUILD, named now that the village red no longer stops it: `run_checks` ends in its own
+90 s watchdog with 177 PASS / 0 FAIL, and the gate refuses an unregistered failing suite. That watchdog is a
+GAME-TIME timer while the suite's waits are frame-based, and the suite's designed waits (three
+`_wait_trial_hits(...,1200)` calls alone are 3600 frames = 60 s of game time) exceed 90 s of game time by
+construction - measured identical on the untouched `main` tree, so it is pre-existing and not a regression. The two
+honest options there are to derive the watchdog from the suite's designed frame budget, or to register it; the
+decision is the user's and the measurement is already in section 16.
+
+
 
 
 
