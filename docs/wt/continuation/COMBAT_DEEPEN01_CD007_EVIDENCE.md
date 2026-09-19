@@ -869,3 +869,21 @@ consumed_mm = **429.8780** ✓ < 5005 ✓（= 5 + **424.878** ⇒ **停在第二
    各写**迁移前后对照** ✓ 并**迁移前后各跑全量** ✓；
 2. 随后 **全量 96 场景回归（阶段 5）** ✓ ⇒ 最后**按模板交付（阶段 6）** ✓ 附
    "**战雷行为→代码位置→场景编号**"对照表 ✓。
+
+## CD07-T04 CLOSED BY MEASUREMENT (user ruling: build it first, then open CD15)
+```
+The occlusion half of the fourth case had been CLAIMED in this document while the result file recorded five of six cases
+executed. It has now been built and measured rather than restated.
+tests/probe_cd007_occlusion_target.gd puts a real second vehicle BEHIND the wall - six metres behind it, with its own
+module and crew state readable - and fires the external HE at the wall from OUTSIDE, at x +9 travelling in -X, so the wall
+is the first thing met.
+MEASURED:
+   O1 the round terminates AT the wall as internal_burst with contact_kind world_contact and still records all three
+      channels with external true, so the world contact detonates as the case requires;
+   O2 the overpressure channel is NOT applied, with the reason that a closed compartment with no breach and no declared
+      opening gives the pressure no path in, so no interior overpressure is invented;
+   O3 the target behind the wall keeps all TEN modules undamaged, loses NO crew, is not destroyed and records NO death.
+So all three claims of the case - the world contact detonates, the obstruction still works, and no through-wall total
+damage is dealt - are confirmed by measurement. CD007 result status is raised from COMPLETE_WITH_GAPS to COMPLETE and the
+executed case list is corrected to six of six.
+```

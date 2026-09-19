@@ -5,8 +5,8 @@
     "work_order_id":  "WT-CD-007",
     "base_sha":  "44c33c83d5876383793bfcce4a4e314d5acb4e24",
     "implementation_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
-    "tested_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
-    "final_sha":  "e843133bb3a9d2c817eda4aacba5a5a248630fd6",
+    "tested_sha":  "67db9ece120dd42577954c76152964e54f5a697f",
+    "final_sha":  "67db9ece120dd42577954c76152964e54f5a697f",
     "content_version":  "configs/shells/historical_loadouts.json + configs/vehicles/engineering/ussr_t_80b.json at e843133bb3a9d2c817eda4aacba5a5a248630fd6",
     "rules_version":  "cd07-he-family-v1 ; cd07-bounded-connectivity-v1 ; cd07-external-on-every-burst ; cd07-contact-and-world-detonation ; cd07-external-blast-fragment-candidates",
     "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
@@ -29,9 +29,10 @@
                               "CD07-T02",
                               "CD07-T03",
                               "CD07-T05",
-                              "CD07-T06"
+                              "CD07-T06",
+                              "CD07-T04"
                           ],
-    "status":  "COMPLETE_WITH_GAPS",
+    "status":  "COMPLETE",
     "failure_details":  [
 
                         ],
@@ -54,10 +55,9 @@
                    "loadout total invariant"
                ],
     "not_run":  [
-                    "CD07-T04 occlusion half: the rig needs a burst origin outside the obstacle, which a contact point is not, and no product hook was added for it.",
-                    "CD07-T04 occlusion half is additionally blocked by the external-blast fragment candidate work, which is necessary but measured NOT sufficient.",
-                    "CD08..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                    "No performance measurement: the order keeps throughput, capacity and percentile work out of scope."
                 ],
     "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
-    "next_action":  "measure the occlusion half of CD07-T04 with a rig that does not overreach, or leave it named; then continue with the sub-orders CD008..CD016 in dependency order"
+    "next_action":  "measure the occlusion half of CD07-T04 with a rig that does not overreach, or leave it named; then continue with the sub-orders CD008..CD016 in dependency order",
+    "cd07_t04_closure":  "CD07-T04 closed AFTER a user ruling that it must be built and measured BEFORE CD15 opens. Its evidence document had CLAIMED the occlusion half while the result file recorded five of six cases, so nothing was taken on trust: tests/probe_cd007_occlusion_target.gd puts a real second vehicle BEHIND the wall, fires the external HE at the wall from outside, and reads the target own state. Measured: the round terminates at the wall as internal_burst with contact_kind world_contact and still records all three channels as external; the overpressure channel is NOT applied with the reason that a closed compartment with no breach and no declared opening gives the pressure no path in, so no interior overpressure is invented; and the target behind the wall keeps all ten modules undamaged, loses no crew, is not destroyed and records no death. All three claims in the document are therefore confirmed by measurement rather than restated."
 }
