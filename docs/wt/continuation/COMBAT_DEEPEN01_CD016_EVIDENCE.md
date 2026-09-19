@@ -898,6 +898,24 @@ whose log carries one. So that one must be FIXED, not registered. `run_industria
 arrival red, but a registered red that TIMES OUT is also refused (`is a registered failure but its run timed out`), so
 its 1500 s timeout needs measuring against its real budget before the next build attempt.
 
+## 23. The pre-existing SCRIPT ERROR in `run_ammo_compartment_checks` is FIXED, and it was hiding a check that never ran
+
+That suite had printed "62 checks, 0 failed" for many rounds while carrying a SCRIPT ERROR, which is why it was never
+counted green and why it could never be registered. The cause was one line of the test itself:
+
+```gdscript
+check(not actor.state.crew_states.loader.alive, "bustle protection does not immunize separately hit crew")
+```
+   `crew_states` is a Dictionary keyed by PERSON id (`vehicle_runtime_state.gd:135`), so `.loader` is property access
+   on a Dictionary and raised `Invalid access to property or key 'loader'` on every run. The event one line above names
+   a crew STATION ("loader"), and `DamageResolver` maps station -> role -> person (`damage_resolver.gd:74-80`). The
+   check now reads the person through that same production mapping, with its criterion and label UNCHANGED.
+
+MEASURED: **63 checks, 0 failed, 0 SCRIPT ERROR, 0 `^ERROR:` lines, `AMMO_COMPARTMENT_CHECKS_PASS`**, exit 0.
+   The check count went 62 -> 63 because the broken assertion never completed: it was not a passing check with a
+   noisy log, it was a check that had never run. It passes now.
+
+
 
 
 

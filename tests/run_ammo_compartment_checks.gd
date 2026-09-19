@@ -101,7 +101,15 @@ func recovery_cases(actor: VehicleActor) -> void:
 		if lethal: check(damage.newly_destroyed and actor.state.death_record.cause=="ammo_detonation","unisolated stored rack produces attributed terminal detonation")
 	actor.reset_vehicle(); hit(actor,"ammo_ready")
 	hit(actor,"loader","crew")
-	check(not actor.state.crew_states.loader.alive,"bustle protection does not immunize separately hit crew")
+	# WT-EXPANSION-02: this line read `actor.state.crew_states.loader.alive`, i.e. property access on a Dictionary, which
+	# raised "Invalid access to property or key 'loader'" as a SCRIPT ERROR on EVERY run and made the whole suite
+	# impossible to register (the gate's matcher refuses a registered failure whose log carries a script error).
+	# The event names a crew STATION ("loader"); DamageResolver maps station -> role -> person
+	# (damage_resolver.gd:74-80) and crew_states is keyed by PERSON id (vehicle_runtime_state.gd:135). Same criterion and
+	# same label, read through the production mapping instead of a guess.
+	var loader_station_role := str(actor.state.station_roles.get("loader",""))
+	var loader_person := str(actor.state.crew_assignments.get(loader_station_role,""))
+	check(not loader_person.is_empty() and not bool((actor.state.crew_states.get(loader_person,{}) as Dictionary).get("alive",true)),"bustle protection does not immunize separately hit crew")
 
 func combat_case(id: String) -> void:
 	var packet := _read(PACKAGES+id+".json")
