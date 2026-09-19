@@ -1,0 +1,2 @@
+WARNING: Detected another project.godot at res://backups/builds/031/1a3747fa47af3a9ff3af7d3ad17da4a07c2544f3/20260917-015106-535/clean-source. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
