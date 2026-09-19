@@ -12,7 +12,8 @@
                             "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request",
                             "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept",
                             "WT-CD-011: data declared per vehicle drive curves, and a bounded per vehicle recoil instead of one global kick",
-                            "WT-CD-012: the observation, smoke and recon rules are confirmed in place and exercised by six scenes rather than replaced"
+                            "WT-CD-012: the observation, smoke and recon rules are confirmed in place and exercised by six scenes rather than replaced",
+                            "WT-CD-013: a single contribution ledger with separate counters, and a versioned attribution rule with named refusals"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -675,6 +676,72 @@
                         "migration":  "The rules are kept as they are and CONFIRMED rather than replaced, and the scenes exercise the production objects directly, so the wiring that remains is on the command and information interfaces rather than in the policy itself.",
                         "rollback":  "No policy value was changed, so there is nothing to roll back in the rules; removing the scenes leaves the machinery exactly as it was found.",
                         "divergences":  "Every precision, expiry, attenuation and blocking value remains a declared project design initial value with comparison NOT_COMPARED. Thermal and radar remain explicitly unsupported states rather than a grey filter standing in for a sensor, and no sensor ability is granted to a vehicle that does not carry it."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-013",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_contribution_ledger",
+                        "new_rule_version":  "cd13-contribution-v1",
+                        "affected_vehicles":  "every_vehicle_and_every_shooter",
+                        "affected_modes":  "live_fire ; live_match",
+                        "fields":  [
+                                       "events",
+                                       "counters",
+                                       "contacts",
+                                       "effective_damages",
+                                       "shots_fired",
+                                       "firing_slots",
+                                       "kills"
+                                   ],
+                        "reason":  "The order requires ONE service whose event identity is complete, five SEPARATE counters, and explicitly forbids using the replay buffer as the whole match statistics ledger. Before this sub-order the contribution ledger did not exist in any form, while death de-duplication and the ticket ledger did.",
+                        "reference_sources":  [
+                                                  "R06",
+                                                  "R09",
+                                                  "R11"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The runtime state death_notified gate stays the ONLY thing that decides a death happens once, and ticket_ledger stays the ONLY place tickets move. The new ledger RECORDS contribution and is neither authority; this is written into the class itself so it cannot be crossed by accident.",
+                        "legacy_tests":  "check_live_fire_respawn.gd, run_match_event_checks.gd, run_match_rules_checks.gd and every damage and recovery suite, all unchanged",
+                        "new_expected_declared_before_run":  "With the ledger declared, one firing damaging several modules must count one shot, three effective damages and at most one kill, and a repeated dedup key must add nothing.",
+                        "independent_oracle":  "The ledger object itself driven directly, plus the real match event stream, the destroy_once gate and the director report.",
+                        "measured_before":  "Measured: searching the whole script tree for ContributionLedger or CombatEvent returned ZERO files, and the director per shot de-duplication sets were empty until the contact record matched what observe_contact actually gates on.",
+                        "measured_after":  "Measured by a dedicated probe: contacts 1, effective damages 3, shots fired 1, firing slots 1 and kills 1 from one firing and several module damages; the same dedup key twice is refused as already_counted with the counter unmoved; and a life is killed once.",
+                        "migration":  "The counters are keyed by SUBJECT while the de-duplication is keyed by KEY, which is the order explicit requirement that the statistics subject and the dedup key never be conflated; a receipt is emitted for every attribution and every refusal.",
+                        "rollback":  "Remove the ledger and its callers; nothing else changes, because the ledger was never the authority for a death or a ticket.",
+                        "divergences":  "Every window and threshold is a declared project design initial value with comparison NOT_COMPARED, and no real-world attribution figure is claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-013",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_versioned_attribution",
+                        "new_rule_version":  "cd13-attribution-v1",
+                        "affected_vehicles":  "every_vehicle_and_every_shooter",
+                        "affected_modes":  "live_fire ; live_match",
+                        "fields":  [
+                                       "primary",
+                                       "assists",
+                                       "attribution_version",
+                                       "assist_window_s",
+                                       "no_credit_causes"
+                                   ],
+                        "reason":  "The order requires kill attribution, the assist window, recon and repair contribution and sustained fire inheritance to be explicitly VERSIONED, requires damage without a legitimate cause to never be credited as a kill, and requires friendly fire, abandonment and environmental death to be handled separately.",
+                        "reference_sources":  [
+                                                  "R06",
+                                                  "R09",
+                                                  "R11"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The director existing report and its per shot sets are untouched; they remain the match director own accounting, and the ledger adds attribution beside them rather than replacing them.",
+                        "legacy_tests":  "run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
+                        "new_expected_declared_before_run":  "With the version declared, the larger effective damage must take the primary under a named attribution version, damage outside the assist window must not assist, and each no-credit cause must be refused by name and score nothing.",
+                        "independent_oracle":  "The ledger attribution rule driven directly, with the window and the causes read from the class own declared constants.",
+                        "measured_before":  "Measured: no attribution version existed at all, and the only accounting was the director report of hits, penetrations, kills, deaths and last death, with no notion of a primary shooter, an assist window or a refused cause.",
+                        "measured_after":  "Measured: two shooters on one target give primary shooter_C with shooter_A as an assist under cd13-attribution-v1; a hit older than the twelve second window is not an assist however large; friendly fire, abandonment, an environmental death and an orphaned fire are each refused with a named reason and the kill counter stays at zero; and a sustained fire keeps its origin when read inside the window.",
+                        "migration":  "Ties inside the window are broken by earliest time and then by subject id, so the same inputs always decide the same way, which is what makes the version meaningful.",
+                        "rollback":  "Remove the attribution rule; the ledger then records without deciding, and the director report is all that remains, exactly as before.",
+                        "divergences":  "The assist window of twelve seconds and the key damage minimum are declared project design initial values with comparison NOT_COMPARED."
                     }
                 ],
     "divergences":  [
@@ -701,9 +768,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD12 start: run_observation_policy_checks 32/0, run_optics_checks 24/0, run_sight_ballistics_checks 73/0, run_support_actions_checks 51/0, run_modern_support_checks 19/0, run_partial_support_checks 7/0, run_fire_control_checks 59/0.",
-                              "after":  "CD12 scenes: all six hold before any implementation, and the same eight suites are re-run green at 265 passes with no failures.",
-                              "note":  "A correction to my own working method is recorded: two suite names I used early on do not exist and reported zero checks, so the real suite names were measured and used instead. Three device faults of mine in the scenes were also found by measurement and fixed: the attenuation figure is occlusion strength so the comparison was reversed, the support table uses its own vehicle keys rather than catalogue ids, and the recon reply nests the mark under its own key."
+                              "before":  "CD13 start: run_match_event_checks 11/0, run_match_rules_checks 43/0, run_damage_checks 57/0, run_recovery_checks 64/0, run_ammo_compartment_checks 62/0.",
+                              "after":  "CD13 close: the same suites plus the ledger behaviour probe at 7/0, all green, with the six acceptance scenes reading met on behaviour rather than on existence.",
+                              "note":  "The ticket ledger and the runtime death gate were NOT replaced, and no delivered expectation was changed. Two of my own device faults and one weak pass are recorded in the delivery rather than hidden."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }

@@ -1,0 +1,67 @@
+{
+    "template_only":  false,
+    "actual_game_test_executed":  true,
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "work_order_id":  "WT-CD-013",
+    "base_sha":  "6132bcfa8c25d466a3c3dda7482c50965c38eccb",
+    "implementation_sha":  "12c2c2aa2eb8d12bb5bf69b2d1510b1ae2395e94",
+    "tested_sha":  "12c2c2aa2eb8d12bb5bf69b2d1510b1ae2395e94",
+    "final_sha":  "12c2c2aa2eb8d12bb5bf69b2d1510b1ae2395e94",
+    "content_version":  "scripts/battle/contribution_ledger.gd plus the CD13 scene and behaviour probe at 12c2c2aa2eb8d12bb5bf69b2d1510b1ae2395e94",
+    "rules_version":  "cd13-contribution-v1 ; cd13-attribution-v1",
+    "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
+    "command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --fixed-fps 60 -s res://tests/\u003csuite\u003e.gd",
+    "cwd":  "E:\\AIprogram\\mcthunder-cont",
+    "started_at":  "2026-09-18T22:49:45",
+    "ended_at":  "2026-09-19T10:49:45",
+    "exit_code":  0,
+    "timed_out":  false,
+    "case_ids_expected":  [
+                              "CD13-T01",
+                              "CD13-T02",
+                              "CD13-T03",
+                              "CD13-T04",
+                              "CD13-T05",
+                              "CD13-T06"
+                          ],
+    "case_ids_executed":  [
+                              "CD13-T01",
+                              "CD13-T02",
+                              "CD13-T03",
+                              "CD13-T04",
+                              "CD13-T05",
+                              "CD13-T06"
+                          ],
+    "status":  "COMPLETE",
+    "failure_details":  [
+
+                        ],
+    "script_errors":  null,
+    "test_kind":  "rule_negative ; standard_fixture ; actual_actor_integration ; normal_player_flow ; external_behaviour_not_compared",
+    "input_method":  "headless scripted scenes over a real TeamRange match whose director has spawned and committed its opening events, one scene per case, plus a dedicated probe driving the ledger directly",
+    "injections_declared":  [
+                                "the scenes and the probe declare themselves fixtures; the first pass built its match state by hand and its own readings exposed that, which is recorded rather than hidden"
+                            ],
+    "raw_stdout":  "logs/COMBAT-DEEPEN-01/*.log (per-suite and per-probe captures, unchanged, never filtered for SCRIPT ERROR)",
+    "raw_stderr":  "captured in the same per-run logs",
+    "screenshots":  [
+
+                    ],
+    "events":  [
+                   "versioned ordered match event stream",
+                   "death committed once",
+                   "destroy_once de-duplication",
+                   "ticket moved once",
+                   "contribution ledger with five counters",
+                   "versioned attribution with assists",
+                   "named no-credit refusals",
+                   "sustained fire inheritance",
+                   "frozen match end and distinct next identity"
+               ],
+    "not_run":  [
+                    "The long multi seed batch match suite is not part of this sub-order gate and is run separately in the background, because it is a long simulation rather than a quick check.",
+                    "CD14..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                ],
+    "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+    "next_action":  "continue with CD14, after confirming its prerequisites"
+}
