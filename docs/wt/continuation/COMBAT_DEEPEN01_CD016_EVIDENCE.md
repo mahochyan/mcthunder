@@ -716,5 +716,58 @@ not reproduce the parent's whole-match outcome today, because 237 commits now si
 therefore a user ruling between a bounded AI-behaviour fix (an engaged or repairing AI keeps or resumes its
 objective) and registering this red as understood - NOT a silent expectation change, which the package forbids.
 
+## 19. Ruling three executed as a BOUNDED AI FIX: the first attempt was a measured NO-OP and was reverted, and the navigator then named two different real causes
+
+The user ruled on section 18: bounded AI progress fix. This section is what happened, including the attempt that
+failed, because a recorded no-op is worth more than a silent one.
+
+ATTEMPT 1, REVERTED (the change is not in the tree): gate MOVEMENT on the mobility capability `caps.drive` instead of
+on "a repair is pending" (`recovering`), at four sites in `ai_tank_controller.gd` (the objective retry, the patrol
+and search returns, and the advance-while-engaged branch), on the reading that a repairing-but-mobile AI was standing
+down from its objective.
+   MEASURED: `run_village_battle_checks` 20 PASS / 1 FAIL, still A2+B3, and the per-sample phase/position series is
+   **BIT-IDENTICAL** to the pre-fix run - the change had no effect on the match at all, so the reading was wrong.
+   The five AI suites were green with it (recovery 17, combat 35, drive 41, river traffic 5, team 68) which is
+   exactly why a green suite set is NOT evidence that a change does anything. Reverted with `git checkout`; the tree
+   is at `018e266c` with no AI change.
+
+ATTEMPT 2, MEASUREMENT FIRST (`tests/probe_village_route.gd`, logs `route-diagnostic.log`, `route-diagnostic2.log`).
+The probe runs the same natural match and asks the NAVIGATOR, every 20 s, the three questions the phases cannot
+answer. Answers for both stranded actors at every sample:
+
+```
+                       clean_plan  remembered_plan  drv.goal     hops  obj_blocked  deaths  ammo
+A2  t=60.1s engage/idle   true         true        objective    0     false          0     25
+A2  final   patrol/follow true         true        objective    0     false          1     30   z=115.8 (spawn side)
+B3  t=40.1s repair/yield  true         true        objective    0     false          0     30
+B3  final   patrol/follow true         true        objective    0     false          0     30   z=-91.7
+```
+   Q1/Q2/Q3 answered: the objective IS plannable from where both actors strand, WITH and WITHOUT the remembered
+   traffic blocks; a finite escape hop exists; the driver's goal is the objective itself; the hop list is empty and
+   `objective_blocked` is false. THE EARLIER "stranded route / hop=(inf,inf,inf)" READING WAS A SNAPSHOT OF A
+   DIFFERENT MOMENT, and the actors never lose their objective.
+
+TWO REAL CAUSES, DIFFERENT FROM EACH OTHER AND FROM EVERY EARLIER HYPOTHESIS:
+   1. **A2 DIES AND RESPAWNS.** `deaths=1`, ammo back to 30, and its final position is z=115.8 - its own spawn side,
+      126 m from the objective. It had arrived nowhere near the criterion before dying at about 95 s, and a respawn
+      that far out cannot reach |z|<45 in the 20 s that remain. A single death makes the criterion unreachable; on
+      the PASSING parent build A2 had already crossed into the zone (z=17.8) before its damage stopped it.
+   2. **B3 IS IN A PHYSICAL STUCK/REVERSE LOOP WITH A VALID PATH.** `deaths=0`, `ammo=30` (it never fired), goal =
+      objective, plan true - and its distance to the objective GROWS: 100.4 -> 108.1 -> 113.3 -> 111.4 -> 111.6 m
+      while z oscillates -81.8 -> -92.3 -> -117.0 -> -119.0 -> -91.7. The driver event log for this pattern is
+      `yielding physical_obstacle` -> `reverse insufficient_actual_progress` -> `turn_recovery reverse_complete` ->
+      `path_ready` -> the same edge again: 30 m forward, 40 m back, forever. That is a driver-level defect (a route
+      it cannot physically complete and never resolves), and it is the one part of this red that is a defect rather
+      than an outcome.
+
+WHAT THIS MEANS FOR THE NEXT BOUNDED FIX, named before it is written: the objective is never abandoned, so nothing
+in the engage/repair decision needs changing; the fix belongs in the path driver's recovery loop - after N failed
+recoveries on the same edge, that edge must be REMEMBERED as blocked for this task (the driver already keeps
+`_blocked_edges` and already has `_release_vacated_traffic`, so the mechanism exists and is not being applied to the
+physical-obstacle loop). Cause 1 is NOT a defect: a killed vehicle respawning at its spawn is correct, and the
+criterion's demand that all seven arrive within 120 s of a live fight is a criterion-design question for the user,
+not something to be relaxed here.
+
+
 
 
