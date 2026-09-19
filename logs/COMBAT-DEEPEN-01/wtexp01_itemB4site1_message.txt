@@ -1,0 +1,20 @@
+WT-EXPANSION-01 item B step 4, SITE 1 OF 3: the secondary fire intent is now a field of the command, which is the
+only route that keeps the second weapon inside the same protocol as every other weapon.
+
+WHAT CHANGED: scripts/defs/vehicle_command.gd gains `secondary_fire_requested` and `secondary_fire_index` beside
+`fire_requested`, both cleared in reset(). The comment in the file states plainly that the field is INERT until the
+other two sites exist, so a later reader cannot mistake a declared field for a working feature.
+
+WHY A COMMAND FIELD rather than a direct gunner call, which is what the previous round established by READING the
+consumer: line 128 of scripts/player_controller.gd sets `cmd.fire_requested = _fire_pending` and the simulation
+honours it, so the command is what carries the aim intent, the owning vehicle, the life id and the pending/release
+rules. A second weapon outside that protocol would fire with stale aim or on the wrong life.
+
+MEASURED: the command file parses, and run_engineering_runtime_checks, run_shell_checks and run_hud_checks all exit 0
+with no failures. The field is additive and unused, so no behaviour can have changed - which is exactly why the
+suites are expected to be at their previous values and are.
+
+WHAT REMAINS, and it is the other two sites: the controller must SET the field from the `fire_secondary` action on
+the same line beside the main fire, and the simulation must HONOUR it in the same place the main gun shot is issued,
+with the clear on the same cleanup paths. Until both exist the acceptance must not claim a player can fire the
+secondary weapon, and the probe continues to measure the channel directly.

@@ -15,6 +15,11 @@ var range_requested := false
 var apply_range_requested := false
 var zeroing_steps := 0
 var fire_requested: bool = false
+## WT-EXPANSION-01 item B step 4 (site 1 of 3): the SECONDARY weapon rides the same command protocol as every other
+## weapon, so its fire intent is a command field rather than a direct call into the gunner. This field is INERT until
+## the controller sets it and the simulation honours it - those are sites 2 and 3 and they are not written yet.
+var secondary_fire_requested: bool = false
+var secondary_fire_index: int = 0
 var repair_requested := false
 var extinguish_requested := false
 var replace_crew_requested := false
@@ -35,6 +40,8 @@ func reset() -> void:
 	apply_range_requested = false
 	zeroing_steps = 0
 	fire_requested = false
+	secondary_fire_requested = false
+	secondary_fire_index = 0
 	repair_requested = false
 	extinguish_requested = false
 	replace_crew_requested = false
