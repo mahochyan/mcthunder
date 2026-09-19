@@ -1,0 +1,65 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+MODERN_MATCH_RUNTIME release=true evidence=E:/AIprogram/mcthunder-cont/logs/WT040-runtime/20260920-015630-506/Godot/app_userdata/PixelArmor/tests/modern_match_shots
+[PASS] modern player vehicle is present in real garage
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@271/@Button@277 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@214/@Button@220 visible=true disabled=false
+[PASS] real card selects T-80B
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@226/@PanelContainer@227/@VBoxContainer@228/@ScrollContainer@231/@VBoxContainer@232/@VBoxContainer@234/@VBoxContainer@48/@VBoxContainer@63/@VBoxContainer@64/@HBoxContainer@301/@SpinBox@305/@SpinBoxLineEdit@303 visible=true disabled=false
+[PASS] normal keyboard edits ammunition count
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@226/@PanelContainer@227/@VBoxContainer@228/@ScrollContainer@231/@VBoxContainer@232/@VBoxContainer@234/@VBoxContainer@48/@VBoxContainer@63/@VBoxContainer@64/@HBoxContainer@306/@SpinBox@310/@SpinBoxLineEdit@308 visible=true disabled=false
+[PASS] normal keyboard edits ammunition count
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@226/@PanelContainer@227/@VBoxContainer@228/@ScrollContainer@231/@VBoxContainer@232/@VBoxContainer@234/@VBoxContainer@48/@VBoxContainer@63/@VBoxContainer@64/@HBoxContainer@311/@SpinBox@315/@SpinBoxLineEdit@313 visible=true disabled=false
+[PASS] normal keyboard edits ammunition count
+[PASS] actual window capture 00_prepared (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/@Control@4/Frontend/@VBoxContainer@213/@HBoxContainer@226/@PanelContainer@227/@VBoxContainer@228/@Button@244 visible=true disabled=false
+[PASS] real deployment enters river team match
+[FAIL] actual player spawn consumes edited eighteen-round loadout
+[PASS] normal deployment saves exact edited loadout to disk
+[PASS] pilot reads actual river road graph
+[PASS] actual window capture 01_deployed (review pending)
+MODERN_ROUTE life=1 goal=A ok=true points=41
+MODERN_PLAYER { "seconds": 7.18333333333331, "life": 1, "position": "(-286.7409, 8.03232, 684.6103)", "distance": 4.69760639406741, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+[PASS] actual window capture 03_driving (review pending)
+MODERN_PLAYER { "seconds": 17.1833333333336, "life": 1, "position": "(-326.0251, 8.645523, 712.5926)", "distance": 70.7369318567216, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 27.1833333333331, "life": 1, "position": "(-369.3516, 9.012135, 711.5399)", "distance": 114.599745034589, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 37.1833333333325, "life": 1, "position": "(-369.3516, 8.952482, 711.3959)", "distance": 114.75565847801, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 47.1833333333319, "life": 1, "position": "(-369.3516, 8.892964, 711.2522)", "distance": 114.911180603551, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 57.1833333333314, "life": 1, "position": "(-369.3516, 8.885697, 711.103)", "distance": 115.082185131381, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 67.1833333333308, "life": 1, "position": "(-369.3516, 8.886508, 710.9512)", "distance": 115.245866672602, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 77.1833333333302, "life": 1, "position": "(-372.1533, 8.037055, 679.8272)", "distance": 147.785906657577, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 87.1833333333297, "life": 1, "position": "(-477.5931, 8.008268, 679.9426)", "distance": 253.25725325942, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 97.1833333333291, "life": 1, "position": "(-540.7627, 8.024926, 654.1798)", "distance": 335.115703787655, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 107.183333333329, "life": 1, "position": "(-547.5693, 8.011565, 534.7319)", "distance": 455.038817491382, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 117.183333333328, "life": 1, "position": "(-528.832, 8.001649, 416.2418)", "distance": 575.188999976963, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 127.183333333327, "life": 1, "position": "(-502.421, 8.002437, 299.1836)", "distance": 695.217754688114, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 137.183333333335, "life": 1, "position": "(-491.6398, 8.003244, 179.9441)", "distance": 815.147827472538, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_PLAYER { "seconds": 147.183333333343, "life": 1, "position": "(-511.1746, 8.000146, 101.5487)", "distance": 896.969811044633, "shots": 0, "tickets": { 1: 300, 2: 300 } }
+MODERN_ROUTE life=1 goal=B ok=true points=41
+MODERN_PLAYER { "seconds": 157.183333333351, "life": 1, "position": "(-520.6411, 8.006586, 52.25591)", "distance": 947.700326343998, "shots": 0, "tickets": { 1: 294, 2: 294 } }
+MODERN_PLAYER { "seconds": 167.183333333359, "life": 1, "position": "(-520.7476, 8.008905, -67.77558)", "distance": 1067.7891255822, "shots": 0, "tickets": { 1: 284, 2: 284 } }
+MODERN_PLAYER { "seconds": 177.183333333366, "life": 1, "position": "(-548.5451, 8.001781, -183.044)", "distance": 1187.6553185191, "shots": 0, "tickets": { 1: 274, 2: 265 } }
+MODERN_PLAYER { "seconds": 187.200000000041, "life": 1, "position": "(-538.4056, 8.037383, -217.7219)", "distance": 1230.07600493636, "shots": 1, "tickets": { 1: 264, 2: 185 } }
+MODERN_PLAYER { "seconds": 197.200000000049, "life": 1, "position": "(-421.57, 8.005544, -219.9857)", "distance": 1347.13644136395, "shots": 1, "tickets": { 1: 254, 2: 165 } }
+MODERN_PLAYER { "seconds": 207.200000000057, "life": 1, "position": "(-301.4897, 8.004456, -220.1282)", "distance": 1467.243417277, "shots": 1, "tickets": { 1: 244, 2: 145 } }
+MODERN_PLAYER { "seconds": 217.200000000065, "life": 1, "position": "(-181.385, 8.002732, -219.8777)", "distance": 1587.37050487008, "shots": 1, "tickets": { 1: 234, 2: 125 } }
+MODERN_PLAYER { "seconds": 227.250000000073, "life": 1, "position": "(-87.07101, 8.000885, -220.1423)", "distance": 1681.78339026216, "shots": 1, "tickets": { 1: 224, 2: 105 } }
+MODERN_PLAYER { "seconds": 237.233333333414, "life": 1, "position": "(-27.23896, 8.038918, -217.0446)", "distance": 1743.70433731843, "shots": 2, "tickets": { 1: 214, 2: 55 } }
+MODERN_PLAYER { "seconds": 247.233333333422, "life": 1, "position": "(-23.20088, 8.010628, -137.1981)", "distance": 1824.08566698898, "shots": 2, "tickets": { 1: 204, 2: 35 } }
+MODERN_PLAYER { "seconds": 257.233333333428, "life": 1, "position": "(-23.20088, 8.008534, -137.1981)", "distance": 1824.41002688278, "shots": 2, "tickets": { 1: 196, 2: 15 } }
+TRAFFIC_EVIDENCE user://diagnostics/traffic/match_01.json
+[PASS] normal keyboard player advances more than 100 metres
+[PASS] normal player fire produces real contacts and damage
+[PASS] unchanged river rules naturally finish the player's match
+[PASS] engineering result settles without blocked reward receipt
+[PASS] actual window capture 04_result (review pending)
+[PASS] natural player flow event evidence saved
+[PASS] normal UI control is visible before click: /root/AppFlow/RiverJunctionTeam/HUD/@PanelContainer@3525/@VBoxContainer@3526/@HBoxContainer@3531/@Button@3532 visible=true disabled=false
+[FAIL] result button starts next river match with selected vehicle and saved loadout
+[PASS] actual window capture 05_next_match (review pending)
+[PASS] normal UI control is visible before click: /root/AppFlow/RiverJunctionTeam/HUD/@Control@6809/@CenterContainer@6811/@VBoxContainer@6812/@Button@6816 visible=true disabled=false
+[PASS] normal UI control is visible before click: /root/AppFlow/@CanvasLayer@2/ApplicationDialog/@MarginContainer@7233/@VBoxContainer@7234/@HBoxContainer@7238/@Button@7240 visible=true disabled=false
+[PASS] normal leave returns to saved garage before process restart
+=== result: 30 checks, 2 failed ===
+MODERN_MATCH_FAIL

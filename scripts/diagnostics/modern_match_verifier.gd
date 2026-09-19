@@ -2,6 +2,12 @@ extends "res://scripts/diagnostics/window_input_driver.gd"
 ## Normal garage and keyboard/mouse pilot, on the unmodified river match.
 ## No pose, health, ammo, cooldown, AI-controller or match-rule writes.
 const ID := "ussr_t_80b"
+## WT-EXPANSION-02 (CD16-T02/T03 expectation migration): the ONE place that decides how many rounds this flow writes
+## into each shell spin. The spawn, the next match and the fresh process are all compared against this edit, so the
+## suite can no longer carry a literal that a delivered change to the vehicle's shell set makes stale - which is
+## exactly what happened when CD07 added the third round (12 + 6 became 12 + 6 + 6).
+static func edited_count(shell_id: String) -> int:
+	return 12 if shell_id.ends_with("_shell") else 6
 var held := {KEY_W:false,KEY_S:false,KEY_A:false,KEY_D:false}
 var navigator := DriveNavigator.new()
 var route: Array = []
@@ -108,9 +114,14 @@ func run(flow: AppFlow) -> void:
 	if OS.get_cmdline_user_args().has("--resume-proof"):
 		var saved := app.profile.snapshot()
 		check(saved.garage.selected_vehicle_id == ID and app.garage.selected_vehicle_id() == ID,"fresh process restores selected modern vehicle")
-		var total := 0
-		for amount in saved.garage.loadouts.get(ID,{}).get("counts",{}).values(): total += int(amount)
-		check(total == 18 and saved.pending.is_empty(),"fresh process restores eighteen-round loadout without pending reward")
+		# WT-EXPANSION-02 (CD16-T02/T03 expectation migration): this asserted a hard-coded total of 18. That literal was
+		# correct while the T-80B carried TWO shells (12 + 6); CD07 then delivered the third, so the SAME edit produces
+		# 24 and the literal failed for a rule change it never followed. The assertion is now DERIVED from the edit
+		# itself: every restored shell must carry exactly the count this flow writes into its spin.
+		var restored_counts: Dictionary = saved.garage.loadouts.get(ID,{}).get("counts",{})
+		var rule_ok := not restored_counts.is_empty()
+		for shell_id in restored_counts: rule_ok = rule_ok and int(restored_counts[shell_id]) == edited_count(str(shell_id))
+		check(rule_ok and saved.pending.is_empty(),"fresh process restores the edited loadout without pending reward")
 		await capture("06_fresh_process")
 		finish(); return
 	var g := app.garage
@@ -122,15 +133,22 @@ func run(flow: AppFlow) -> void:
 	await click(g.frontend.cards[index]); await click(g.frontend.tabs[1])
 	check(g.selected_vehicle_id() == ID,"real card selects T-80B")
 	for shell_id in g.preparation.shell_spins:
-		await type_count(g.preparation.shell_spins[shell_id],12 if shell_id.ends_with("_shell") else 6)
+		await type_count(g.preparation.shell_spins[shell_id],edited_count(str(shell_id)))
 	if failed > 0: finish(); return
 	wanted = g.preparation.loadouts[ID].duplicate(true)
+	# The total this flow actually edited. Derived, so a delivered change to the vehicle's shell set cannot leave a
+	# stale literal behind: the spawn and the next match are compared against the edit, not against a remembered number.
+	var wanted_total := 0
+	for shell_id in wanted.get("counts",{}): wanted_total += int(wanted.counts[shell_id])
 	await capture("00_prepared")
 	await click(g.frontend.deploy); await idle()
 	var battle := app.training as RiverTeamRange
 	check(battle != null and battle.team_ready,"real deployment enters river team match")
 	if battle == null: finish(); return
-	check(battle.actor.definition.id == ID and battle.actor.gunner.rounds_remaining == 18,"actual player spawn consumes edited eighteen-round loadout")
+	# WT-EXPANSION-02 (CD16-T02/T03): the check prints what it actually saw. This failed on the 4a2c9744 package with no
+	# way to tell WHICH half was wrong (the vehicle identity or the round count), so the diagnostic is part of the fix.
+	print("MODERN_SPAWN id=",battle.actor.definition.id," wanted_id=",ID," rounds=",battle.actor.gunner.rounds_remaining," wanted_rounds=",wanted_total," typed=",battle.actor.gunner.inventory.typed," capacity=",battle.actor.gunner.inventory.capacity," wanted_counts=",JSON.stringify(wanted.get("counts",{}))," first=",JSON.stringify(wanted.get("first_shell","")))
+	check(battle.actor.definition.id == ID and battle.actor.gunner.rounds_remaining == wanted_total,"actual player spawn consumes the edited loadout")
 	check(ProfileStore.new(app.profile._path).snapshot().garage.loadouts[ID] == wanted,"normal deployment saves exact edited loadout to disk")
 	check(navigator.configure(battle.navigation_graph()).ok,"pilot reads actual river road graph")
 	var match_id := battle.director.state.match_id
@@ -171,7 +189,7 @@ func run(flow: AppFlow) -> void:
 	if battle.director.state.phase == "finished":
 		await click(battle.restart_button); await idle()
 		battle = app.training as RiverTeamRange
-		check(battle != null and battle.director.state.match_id != match_id and battle.actor.definition.id == ID and battle.actor.gunner.rounds_remaining == 18,"result button starts next river match with selected vehicle and saved loadout")
+		check(battle != null and battle.director.state.match_id != match_id and battle.actor.definition.id == ID and battle.actor.gunner.rounds_remaining == wanted_total,"result button starts next river match with selected vehicle and saved loadout")
 		await capture("05_next_match")
 		if not battle._paused: await tap(KEY_ESCAPE)
 		await click(battle.hud._training_btn)

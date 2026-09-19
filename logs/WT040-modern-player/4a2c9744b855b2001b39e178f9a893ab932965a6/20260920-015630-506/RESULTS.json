@@ -1,0 +1,26 @@
+﻿{
+    "source_sha":  "4a2c9744b855b2001b39e178f9a893ab932965a6",
+    "scope":  "normal keyboard/mouse modern river player flow and separate fresh-process save reload",
+    "userdata":  "E:\\AIprogram\\mcthunder-cont\\logs\\WT040-runtime\\20260920-015630-506",
+    "shots":  "E:\\AIprogram\\mcthunder-cont\\logs\\WT040-runtime\\20260920-015630-506/Godot/app_userdata/PixelArmor/tests/modern_match_shots",
+    "runner_sha256":  "71725A8B66DA2B7D606EAC10428BDF84392789EC977B391F22F4BE42E8C885E2",
+    "match":  {
+                  "name":  "match",
+                  "command":  "--resolution 1280x720 -- --verify-modern-match ",
+                  "exit_code":  1,
+                  "timed_out":  false,
+                  "passed":  false
+              },
+    "restart":  null,
+    "passed":  false,
+    "package_unchanged":  true,
+    "save_unchanged_by_restart":  false,
+    "exe_sha256":  "8E6C6A7782B22965569CE4CBA6CE7B7E6BD357C33302E2BE420AC22556DC17C9",
+    "pck_sha256":  "60B9883FDB0B678111BCFEC7EB218F7405E2293681EE022FB0D873574044CE7F",
+    "missing":  [
+                    "06_fresh_process.png"
+                ],
+    "human":  "PENDING",
+    "release_ready":  false,
+    "public_release":  false
+}
