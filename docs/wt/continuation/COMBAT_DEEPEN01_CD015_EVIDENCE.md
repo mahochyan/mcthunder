@@ -94,3 +94,18 @@ run_network_authority_checks, run_network_event_recovery_checks, run_network_eve
 run_network_fault_checks, run_network_identity_checks, run_network_view_checks, run_era_network_checks,
 run_shell_checks, run_damage_checks, run_ammo_compartment_checks
 ```
+## 4. The six cases, quoted verbatim from the packaged list (recorded so the evidence carries them, not only the log)
+
+| case | title | action | expected |
+|---|---|---|---|
+| **CD15-T01** | 表现开关 | 关闭音效/粒子/HUD并重复相同输入 | **弹药、命中、毁伤、胜负结果不变** |
+| **CD15-T02** | 各弹族事件 | 分别触发未穿/穿透/HE/殉爆/泄压 | **不同效果来自真实事件，不给未爆弹播放致死爆炸** |
+| **CD15-T03** | 回放旧新版本 | 查看旧规则及新规则单炮记录 | **可解释或明确不支持，绝不再结算** |
+| **CD15-T04** | 同发三进程 | 一服务端两客户端完成实弹损伤和再出击 | **权威结果和身份一致，客户端无自行增加击毁/收益** |
+| **CD15-T05** | 乱序/重复/旧生命 | 重放网络输入和过期伤害后重连 | **不重复扣弹伤害，基线恢复到正确规则/内容版本** |
+| **CD15-T06** | 情报权限 | 观察者失去视线及进入回放 | **只获得许可信息，敌方实时内构不从扩展字段泄露** |
+
+Rejection conditions, verbatim:
+```
+为画面同步让客户端裁定伤害 ✗ · 两边各算自己的随机毁伤 ✗ · 关闭特效后命中变化 ✗ · 把本机两客户端PASS冒充公网团队战 ✗
+```
