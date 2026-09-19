@@ -1,0 +1,35 @@
+MCT-COMBAT-DEEPEN-01 CD07 fixture repaired: the probe that reported "does not register" was wrong THREE times, all
+of it mine, and the product truth it was hiding is now measured.
+
+FAULT ONE, THE WRONG ENTRY POINT: L1 built the catalog as VehicleCatalog.new(packet.get("sources",{})), handing the
+packet EVIDENCE sources where the catalog expects the project MODEL registry
+(res://configs/vehicles/model_sources.json), so registration failed on the model binding - and the old code
+asserted only "does not register" and printed no reason at all. It now uses the default constructor, which is the
+same entry point production uses, and PRINTS the registration errors so a future failure explains itself.
+
+FAULT TWO, NO PHYSICS BEFORE READING: L1 disabled physics on the actor and waited two PROCESS frames before
+reading the shell options, while the rounds are installed by the loading step on PHYSICS frames. It therefore read
+an empty list and reported a product gap that was really its own wiring. It now waits thirty frames with physics
+running, exactly as run_engineering_runtime_checks does, and only then freezes the actor.
+
+FAULT THREE, THE WRONG ID FORM: the runtime shell id is the packet-scoped id PREFIXED WITH THE VEHICLE ID, so the
+round is ussr_t_80b_eng_125_he_v1 and not eng_125_he_v1. Comparing against the packet id made the leg report that
+nothing offered the round while the printed option list immediately above it showed the round installed.
+
+WHAT THE REPAIRED PROBE MEASURES, WHICH IS THE CD07 CLAIM ITSELF: the T-80B carries 125mm_2A46_2_user_cannon and
+offers ussr_t_80b_shell, ussr_t_80b_eng_125_heat_v1 and ussr_t_80b_eng_125_he_v1; the Leopard carries
+120mm_Rheinmetall_L44_user_cannon and offers only its default and HEAT round; the vehicles offering the engineering
+HE are exactly ["ussr_t_80b"] - so the round is reachable on the vehicle that carries its gun AND limited to it,
+1 of 2, with the Leopard explicitly checked not to offer it. RESULT: 13 checks, 0 failures,
+CD07_HE_LANDED_PASS.
+
+The L2 outcome is unchanged and still recorded honestly by the probe own note: terminal=expired_distance,
+contacts=0, burst=none, because the fixture has nothing in the flight path - so that leg measures what happens when
+the round meets nothing and does NOT claim a burst. The contact burst path itself is measured elsewhere and green:
+probe_cd007_world_burst 15/0 and probe_cd007_occlusion_target 13/0, the latter recording terminal=internal_burst
+with contact_kind=world_contact and three channels.
+
+NO EXPECTATION WAS LOWERED. The failures that disappeared were failures of the fixture own wiring; the product
+assertions are the same assertions, and the option list that proves the behaviour is printed as evidence. The HE
+velocity alignment stays prepared rather than applied, and can now proceed as a declared behavior change with its
+own migration entry.

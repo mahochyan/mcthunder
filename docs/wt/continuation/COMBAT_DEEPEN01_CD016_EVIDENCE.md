@@ -492,6 +492,42 @@ STATE OF THE TREE AND OF THE ALIGNMENT
    fixture must not be fixed in the same breath.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 15. The CD07 HE fixture defect is FIXED, and the product truth it was hiding is now measured
+
+```
+THREE FIXTURE FAULTS IN ONE PROBE, ALL OF THEM MINE AND ALL NOW CORRECTED
+   1. WRONG ENTRY POINT: L1 built the catalog as VehicleCatalog.new(packet.get("sources",{})), handing the packet
+      EVIDENCE sources where the catalog expects the project MODEL registry
+      (res://configs/vehicles/model_sources.json), so registration failed on the model binding. The old code then
+      asserted only "does not register" and printed no reason. It now uses the default constructor - the same
+      entry point production uses - and PRINTS the registration errors, so a future failure explains itself.
+   2. NO PHYSICS BEFORE READING: L1 disabled physics on the actor and waited two PROCESS frames before reading the
+      shell options, while the rounds are installed by the loading step on PHYSICS frames. It therefore read an
+      empty list and reported a product gap that was its own wiring. It now waits thirty frames with physics
+      running, exactly as run_engineering_runtime_checks does, and only then freezes the actor.
+   3. WRONG ID FORM: the runtime shell id is the packet-scoped id PREFIXED WITH THE VEHICLE ID, so the round is
+      ussr_t_80b_eng_125_he_v1 and not eng_125_he_v1. Comparing against the packet id made the leg report that
+      nothing offered the round while the printed option list immediately above it showed the round installed.
+
+WHAT THE FIXED PROBE NOW MEASURES, AND IT IS THE CD07 CLAIM ITSELF
+   [CD07 HE] L1 ussr_t_80b       gun=125mm_2A46_2_user_cannon options=["ussr_t_80b_shell",
+                                  "ussr_t_80b_eng_125_heat_v1", "ussr_t_80b_eng_125_he_v1"]
+   [CD07 HE] L1 germ_leopard_2a4 gun=120mm_Rheinmetall_L44_user_cannon options=["germ_leopard_2a4_shell",
+                                  "germ_leopard_2a4_eng_120_heat_v1"]
+   [CD07 HE] L1 vehicles offering eng_125_he_v1: ["ussr_t_80b"]
+   -> the HE is reachable on the vehicle that carries its gun, and it is LIMITED to that vehicle: 1 of 2 offer it,
+      with the Leopard explicitly checked not to offer it.
+   RESULT: 13 checks, 0 failures, CD07_HE_LANDED_PASS.
+   L2 outcome unchanged and still recorded honestly by the probe own note: terminal=expired_distance, contacts=0,
+   burst=none - the fixture has nothing in the flight path, so this leg measures what happens when the round meets
+   nothing and does NOT claim a burst. The contact burst path itself is measured elsewhere and green:
+   probe_cd007_world_burst 15/0 and probe_cd007_occlusion_target 13/0, the latter recording terminal=internal_burst
+   with contact_kind=world_contact and three channels.
+
+NO EXPECTATION WAS LOWERED: the three failures that disappeared were failures of the fixture own wiring, the
+product assertions are the same assertions, and the option list that proves the behaviour is printed as evidence.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```
 ## 13. The user ruled both boundary questions again, and the R3-A trace turns the instability from a suspicion into a mechanism
 
 ```

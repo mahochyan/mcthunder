@@ -48,13 +48,26 @@ func _run() -> void:
 	for id in packets:
 		index += 1
 		var packet: Dictionary = packets[id]
-		var sources: Variant = packet.get("sources",{})
-		var registered := VehicleCatalog.new(sources).register(packet,defs)
+		# CD16 fixture fix: this leg used to construct the catalog as VehicleCatalog.new(packet.get("sources",{})),
+		# which hands the packet EVIDENCE sources where the catalog expects the project MODEL registry
+		# (res://configs/vehicles/model_sources.json). Registration therefore failed on the model binding and the
+		# leg reported "does not register" for both engineering vehicles with no reason printed. The default
+		# constructor loads the real registry, which is the same entry point production uses, and the errors are
+		# printed so a future failure explains itself instead of only asserting.
+		var registered := VehicleCatalog.new().register(packet,defs)
+		if not registered.ok:
+			print("[CD07 HE] L1 %s registration errors: %s" % [str(id),str(registered.get("errors",[]))])
 		check(registered.ok,"CD07 HE L1 %s registers" % str(id))
 		if not registered.ok: continue
 		var actor := VehicleActor.new(); world.add_child(actor)
 		var installed := actor.setup(defs,str(id),"cd07hev_"+str(index),index,Transform3D.IDENTITY,2,null)
 		check(installed.ok,"CD07 HE L1 %s installs" % str(id))
+		# CD16 fixture fix: the shell options are installed by the loading and ammunition step, which needs PHYSICS
+		# frames. The old code disabled physics and waited two PROCESS frames, so nothing was ever installed and
+		# this leg read an empty list - it reported a product gap that was really its own wiring. The production
+		# flow used by run_engineering_runtime_checks waits about thirty frames with physics running, and this now
+		# does the same BEFORE it reads anything.
+		await _frames(30)
 		actor.set_physics_process(false); actor.tank.set_physics_process(false)
 		await _frames(2)
 		var ids: Array = []
@@ -62,14 +75,18 @@ func _run() -> void:
 		offers[str(id)] = ids
 		print("[CD07 HE] L1 %-16s gun=%s options=%s" % [str(id),str(packet.assembly.get("gun","")),str(ids)])
 	var offering: Array = []
-	for id in offers: if (offers[id] as Array).has(HE_ID): offering.append(str(id))
+	# CD16 fixture fix: the RUNTIME shell id is the packet-scoped id prefixed with the vehicle id, so the round on
+	# the T-80B is ussr_t_80b_eng_125_he_v1 and not eng_125_he_v1. Comparing against the packet id made this leg
+	# report that nothing offers it while the printed option list right above showed the round installed. The intent
+	# is unchanged; only the id form it looks for is corrected, and the option list is still printed as evidence.
+	for id in offers: if (offers[id] as Array).has(str(id)+"_"+HE_ID): offering.append(str(id))
 	print("[CD07 HE] L1 vehicles offering %s: %s" % [HE_ID,str(offering)])
 	check(offering.size()>=1,"CD07 HE L1 the engineering HE is reachable on the vehicle that carries its gun: %s" % str(offering))
 	check(offering.size()<offers.size(),
 		"CD07 HE L1 and it is LIMITED rather than handed to every vehicle: %d of %d offer it" % [offering.size(),offers.size()])
 	for id in offers:
 		if str(id) in offering: continue
-		check(not (offers[id] as Array).has(HE_ID),"CD07 HE L1 %s does not offer it, so the weapon limit is enforced per vehicle" % str(id))
+		check(not (offers[id] as Array).has(str(id)+"_"+HE_ID),"CD07 HE L1 %s does not offer it, so the weapon limit is enforced per vehicle" % str(id))
 
 	# L2: fire it and record what really happens.
 	if offering.is_empty():
@@ -77,16 +94,19 @@ func _run() -> void:
 	else:
 		var target_id := str(offering[0])
 		var packet: Dictionary = packets[target_id]
-		var sources2: Variant = packet.get("sources",{})
-		var registered2 := VehicleCatalog.new(sources2).register(packet,defs)
+		# Same entry point as production and as L1 above: the default constructor loads the real model registry.
+		VehicleCatalog.new().register(packet,defs)
 		var actor2 := VehicleActor.new(); world.add_child(actor2)
 		var installed2 := actor2.setup(defs,target_id,"cd07hefire",9,Transform3D.IDENTITY,2,null)
 		check(installed2.ok,"CD07 HE L2 the firing actor installs")
+		# Same fixture fix as L1: let the loading step install the rounds before reading them.
+		await _frames(30)
 		actor2.set_physics_process(false); actor2.tank.set_physics_process(false)
 		await _frames(3)
 		var found: ShellDefinition = null
+		# Same runtime-id correction as L1: the installed round carries the vehicle prefix.
 		for shell in actor2.gunner.shell_options:
-			if str(shell.id)==HE_ID: found = shell
+			if str(shell.id)==target_id+"_"+HE_ID: found = shell
 		check(found != null,"CD07 HE L2 the round is among the installed options")
 		var manager := ProjectileManager.new(); manager.presentation_enabled=false
 		world.add_child(manager); manager.set_physics_process(false)
@@ -95,7 +115,7 @@ func _run() -> void:
 			"shell_id":HE_ID,"effect_policy":"he_blast","armor_policy":"resolve",
 			"impact_profile":found.impact_profile,"post_penetration_profile":found.post_penetration_profile,
 			"fuze_policy":{},"caliber_mm":found.caliber_mm,"penetration_curve":found.penetration_curve,
-			"seed":2101,"position_world":Vector3(9,1.2,0),"velocity_world":Vector3(-700,0,0),"gravity_world":Vector3.ZERO,
+			"seed":2101,"position_world":Vector3(9,1.2,0),"velocity_world":Vector3(-float(found.muzzle_velocity_mps),0,0),"gravity_world":Vector3.ZERO,
 			"max_age_s":0.6,"max_distance_m":90.0}
 		var spawned := manager.try_spawn(spec)
 		check(spawned.ok,"CD07 HE L2 the engineering HE launches with the effect policy the order names")
