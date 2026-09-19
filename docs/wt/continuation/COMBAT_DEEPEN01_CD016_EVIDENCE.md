@@ -673,4 +673,48 @@ before arriving, i.e. the aim commit changed the FIGHT rather than the ROUTE; (b
 changed and A2's 45 s "idle" at z=49.08 is the route failing to finish. Candidate (a) is supported so far by the
 `player` sample and the position reset, and it is NOT yet proven.
 
+## 18. Ruling three MEASURED THREE WAYS: the red really does start at that commit, and it is a MATCH-OUTCOME flip near the criterion, not a stall bug to repair
+
+The two-build comparison of section 17 was run, and then the attributed commit itself was measured, because a
+parent-versus-current comparison cannot isolate a commit that has 237 commits sitting on top of it.
+
+THREE POINTS, SAME MACHINE, SAME INSTRUMENT, SAME CRITERION (`absf(p.z) < 45` inside 120 s):
+
+| build | result | unreached actors |
+|---|---|---|
+| parent `c164511e` (worktree, imported) | **PASS 21/0** | none |
+| attributed `99c96674` (worktree, imported) | **FAIL 20/1** | **B3, B4** |
+| current `work/combat-deepen-01` HEAD, twice | **FAIL 20/1** | **A2, B3** (identical both runs, 380 s and 686 s wall) |
+
+   ATTRIBUTION CONFIRMED: the red appears exactly at `99c96674` and not at its parent, on this machine, with the
+   package's own suite. The earlier bisect verdict is now independently reproduced rather than inherited.
+   THE FAILING SET IS NOT STABLE ACROSS BUILDS: B3+B4 at the commit, A2+B3 at HEAD. So the criterion is not
+   "some actor is broken" but "six or seven actors finish a fight near the z=45 line and the seventh is decided by
+   combat timing".
+
+WHY: the AI stops driving while it engages or repairs, on BOTH builds, so arrival is a race between progress and
+damage. From the `[natural battle]` series (AI phase, drive phase, position):
+```
+PASS parent   A2: engage/idle z=77.5 -> engage/following z=39.8 -> engage/idle z=17.8 -> repair z=17.9   ARRIVED
+              B3: ... engage/following z=-61.6 -> turn_recovery z=-44.7 -> ...                          ARRIVED
+FAIL HEAD     A2: repair/following z=49.1 -> engage/idle z=49.1 -> repair/idle z=49.1 -> DEAD (dead=true,
+                  controller absent for one sample) -> respawned near its own spawn -> patrol z=107.8   MISSED by 4 m
+              B3: never below z=-81.8 before wandering out to z=-128.9                                 MISSED
+```
+   The parent's A2 had already reached z=17.8 before its damage stopped it; HEAD's A2 took its damage 30 m further
+   out, stopped at z=49.08 - FOUR METRES outside the criterion - repaired, and was destroyed while stationary. The
+   behaviour is identical IN KIND on both builds (stop to engage, stop to repair); what moved is WHEN the damage
+   lands. There is no frozen route, no infinite hop at the moment of failure (the `hop=(inf,inf,inf)` line is the
+   state at the END of the match), and no render/physics clock involved.
+   The red is also NOT load-sensitive: the current build failed identically at 380 s and at 686 s wall time.
+
+CONSEQUENCE FOR RULING THREE: the ruling authorised "repair that commit's AI aim and visible-sample change ... so
+the integration gate can pass". The measurement says the commit is a genuine cause, but there is no defect of the
+kind the ruling assumed: the aim fix makes the AI recover from blocked surfaces, which changes who is hit when, and
+a criterion of seven arrivals inside a 120 s fight turns that into a pass/fail. Repairing the aim change would also
+not reproduce the parent's whole-match outcome today, because 237 commits now sit between them. The next step is
+therefore a user ruling between a bounded AI-behaviour fix (an engaged or repairing AI keeps or resumes its
+objective) and registering this red as understood - NOT a silent expectation change, which the package forbids.
+
+
 
