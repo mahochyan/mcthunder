@@ -43,6 +43,14 @@ for (let i = 1; i <= 16; i++) {
   if (fs.existsSync(path.join(root, scene))) runners.push(scene);
   const probes = fs.readdirSync(path.join(root, 'tests')).filter((f) => f.startsWith('probe_cd' + doc + '_') && f.endsWith('.gd'));
   for (const p of probes.sort()) runners.push('tests/' + p);
+  // WT-CD-016 is the integration and delivery order: it is executed by the build gate and by the four PACKAGE
+  // verifications rather than by a scene check, so those are named explicitly when they exist on disk. Without this the
+  // row would claim an empty executor list for an order that has four real ones.
+  if (sub === 'CD16') {
+    for (const f of ['tests/build_release.ps1', 'tests/run_suite_checks.ps1', 'tests/run_modern_player_flow.ps1', 'tests/run_modern_package_checks.ps1', 'tests/run_player_flow_checks.ps1']) {
+      if (fs.existsSync(path.join(root, f))) runners.push(f);
+    }
+  }
   if (runners.length === 0 && hasEvidence) runners.push('evidence document only (no runner)');
   orders.push({
     sub_order: sub,
@@ -92,7 +100,7 @@ const out = {
   case_count: mirror.case_count,
   note: mirror.note,
   naming_note: mirror.naming_note,
-  regeneration_note: 'Regenerated after WT-CD-015 from DISK rather than from memory: every sub-order state below is derived from a result file, an evidence document and the runners that exist, and the packaged ninety six ids and titles were re-checked against the read-only original before writing (title differences: 0). CD07 is now COMPLETE at six of six under the user ruling, CD08 to CD15 are COMPLETE with six executed cases each, and CD16 alone is NOT_RUN. Two fields are added to each summary row - result_document and cases_executed - so that a COMPLETE state can be audited without opening the document.',
+  regeneration_note: 'Regenerated after WT-CD-016 from DISK rather than from memory: every sub-order state below is derived from a result file, an evidence document and the runners that exist, and the packaged ninety six ids and titles were re-checked against the read-only original before writing (title differences: 0). CD07 and CD08 to CD16 are COMPLETE with six executed cases each; CD16 is complete on the package built from dcc9e1c2 with all four packaged verifications passing, and its executors are the build gate and the four package checks rather than a scene check. CD01 to CD06 remain EVIDENCE_RECORDED in the closure form the user accepted for them. Two fields are added to each summary row - result_document and cases_executed - so that a COMPLETE state can be audited without opening the document.',
   evidence_state: mirror.evidence_state,
   summary: orders.map((o) => ({
     sub_order: o.sub_order,

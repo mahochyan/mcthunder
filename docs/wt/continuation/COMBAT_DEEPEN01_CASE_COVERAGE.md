@@ -19,7 +19,7 @@ The packaged list at `docs/wt/combat-deepen-01/original/08_ACCEPTANCE_CASES.json
 | CD13 | 6 | COMPLETE | 6/6 | `docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md` | `docs/wt/continuation/COMBAT_DEEPEN01_CD013_RESULTS.json` | tests/run_cd013_scene_checks.gd + tests/probe_cd013_ledger_behaviour.gd |
 | CD14 | 6 | COMPLETE | 6/6 | `docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md` | `docs/wt/continuation/COMBAT_DEEPEN01_CD014_RESULTS.json` | tests/run_cd014_scene_checks.gd |
 | CD15 | 6 | COMPLETE | 6/6 | `docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md` | `docs/wt/continuation/COMBAT_DEEPEN01_CD015_RESULTS.json` | tests/run_cd015_scene_checks.gd + tests/probe_cd015_feedback_behaviour.gd |
-| CD16 | 6 | NOT_RUN | - | - | - | - |
+| CD16 | 6 | COMPLETE | 6/6 | `docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md` | `docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json` | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
 
 | case | sub-order | title | state | executors |
 |---|---|---|---|---|
@@ -113,12 +113,12 @@ The packaged list at `docs/wt/combat-deepen-01/original/08_ACCEPTANCE_CASES.json
 | CD15-T04 | CD15 | 同发三进程 | COMPLETE | tests/run_cd015_scene_checks.gd + tests/probe_cd015_feedback_behaviour.gd |
 | CD15-T05 | CD15 | 乱序/重复/旧生命 | COMPLETE | tests/run_cd015_scene_checks.gd + tests/probe_cd015_feedback_behaviour.gd |
 | CD15-T06 | CD15 | 情报权限 | COMPLETE | tests/run_cd015_scene_checks.gd + tests/probe_cd015_feedback_behaviour.gd |
-| CD16-T01 | CD16 | 版本锁定与证据完整性 | NOT_RUN | - |
-| CD16-T02 | CD16 | 两车入口与配装 | NOT_RUN | - |
-| CD16-T03 | CD16 | 正常完整对局 | NOT_RUN | - |
-| CD16-T04 | CD16 | 同生命实弹再出击 | NOT_RUN | - |
-| CD16-T05 | CD16 | 历史与开放舱兼容 | NOT_RUN | - |
-| CD16-T06 | CD16 | 关闭重启和独立路径 | NOT_RUN | - |
+| CD16-T01 | CD16 | 版本锁定与证据完整性 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
+| CD16-T02 | CD16 | 两车入口与配装 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
+| CD16-T03 | CD16 | 正常完整对局 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
+| CD16-T04 | CD16 | 同生命实弹再出击 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
+| CD16-T05 | CD16 | 历史与开放舱兼容 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
+| CD16-T06 | CD16 | 关闭重启和独立路径 | COMPLETE | tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1 |
 
 > **Evidence form difference, user-ruled and accepted:** CD03, CD04 and CD06 were closed as PREREQUISITES of this continuation package before it began, so their evidence is a substantial evidence document (185 / 297 / 284 lines) rather than a `RESULTS.json`. The user accepted this form and asked that the difference be stated here rather than presented as an identical delivery. An earlier revision of this note dated that ruling 2026-09-11; the ruling was recorded in this session and the correct date is 2026-09-19, which is corrected here rather than left standing. The same evidence-document form is also what CD01, CD02 and CD05 carry - they are left as EVIDENCE_RECORDED and are NOT presented as user-accepted, because the ruling named only CD03, CD04 and CD06.
 

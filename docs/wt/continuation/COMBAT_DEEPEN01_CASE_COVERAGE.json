@@ -3,7 +3,7 @@
   "case_count": 96,
   "note": "The packaged case list is read-only, so its ninety six ids are mirrored here rather than edited: each row names the sub-order, the evidence document this order keeps, the probes that execute it, and the state. A sub-order with no evidence document is NOT_RUN rather than assumed.",
   "naming_note": "Case ids use two digits after the prefix and the evidence documents use three, so the mapping is stated in the generator rather than guessed.",
-  "regeneration_note": "Regenerated after WT-CD-015 from DISK rather than from memory: every sub-order state below is derived from a result file, an evidence document and the runners that exist, and the packaged ninety six ids and titles were re-checked against the read-only original before writing (title differences: 0). CD07 is now COMPLETE at six of six under the user ruling, CD08 to CD15 are COMPLETE with six executed cases each, and CD16 alone is NOT_RUN. Two fields are added to each summary row - result_document and cases_executed - so that a COMPLETE state can be audited without opening the document.",
+  "regeneration_note": "Regenerated after WT-CD-016 from DISK rather than from memory: every sub-order state below is derived from a result file, an evidence document and the runners that exist, and the packaged ninety six ids and titles were re-checked against the read-only original before writing (title differences: 0). CD07 and CD08 to CD16 are COMPLETE with six executed cases each; CD16 is complete on the package built from dcc9e1c2 with all four packaged verifications passing, and its executors are the build gate and the four package checks rather than a scene check. CD01 to CD06 remain EVIDENCE_RECORDED in the closure form the user accepted for them. Two fields are added to each summary row - result_document and cases_executed - so that a COMPLETE state can be audited without opening the document.",
   "evidence_state": "engineering self-consistent version only; a publicly comparable version is NOT established",
   "summary": [
     {
@@ -159,12 +159,12 @@
     {
       "sub_order": "CD16",
       "cases": 6,
-      "state": "NOT_RUN",
-      "status": "",
-      "evidence_document": "",
-      "result_document": "",
-      "cases_executed": "",
-      "executors": ""
+      "state": "COMPLETE",
+      "status": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "result_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_RESULTS.json",
+      "cases_executed": "6/6",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1"
     }
   ],
   "rows": [
@@ -1073,9 +1073,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "版本锁定与证据完整性",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     },
     {
@@ -1083,9 +1083,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "两车入口与配装",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     },
     {
@@ -1093,9 +1093,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "正常完整对局",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     },
     {
@@ -1103,9 +1103,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "同生命实弹再出击",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     },
     {
@@ -1113,9 +1113,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "历史与开放舱兼容",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     },
     {
@@ -1123,9 +1123,9 @@
       "sub_order": "CD16",
       "work_order": "WT-CD-016",
       "title": "关闭重启和独立路径",
-      "state": "NOT_RUN",
-      "evidence_document": "",
-      "executors": "",
+      "state": "COMPLETE",
+      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+      "executors": "tests/build_release.ps1 + tests/run_suite_checks.ps1 + tests/run_modern_player_flow.ps1 + tests/run_modern_package_checks.ps1 + tests/run_player_flow_checks.ps1",
       "original_status": "NOT_RUN"
     }
   ]
