@@ -46,7 +46,10 @@ func _vehicles() -> Dictionary:
 	var out := {}
 	for vid in VehicleCatalog.ENGINEERING_IDS:
 		var actor := VehicleActor.new(); root.add_child(actor)
-		if not actor.setup(defs,str(vid),"cd011_"+str(vid),1,Transform3D.IDENTITY,2,null).ok:
+		var admitted: Dictionary = actor.setup(defs,str(vid),"cd011_"+str(vid),1,Transform3D.IDENTITY,2,null)
+		if not admitted.ok:
+			print("[CD11] admission refused for %s: %s" % [str(vid),str(admitted.get("errors",admitted.get("reason","")))])
+			push_error("CD11 admission refused")
 			actor.queue_free(); continue
 		actor.set_physics_process(false); actor.tank.set_physics_process(false)
 		out[str(vid)] = actor
@@ -112,12 +115,12 @@ func _run() -> void:
 		"no bounded pitch response is declared, so a crest cannot be shown to converge")
 
 	# ── S4 recoil compared: the real entry, per weapon and per vehicle.
-	var before_a: float = a.tank.forward_speed if a.tank != null else 0.0
+	var before_a: float = a.tank.recoil_velocity.length() if a.tank != null else 0.0
 	a.tank.kick_recoil(Vector3(0,0,-1))
-	var after_a: float = a.tank.forward_speed if a.tank != null else 0.0
-	var before_b: float = b.tank.forward_speed if b.tank != null else 0.0
+	var after_a: float = a.tank.recoil_velocity.length() if a.tank != null else 0.0
+	var before_b: float = b.tank.recoil_velocity.length() if b.tank != null else 0.0
 	b.tank.kick_recoil(Vector3(0,0,-1))
-	var after_b: float = b.tank.forward_speed if b.tank != null else 0.0
+	var after_b: float = b.tank.recoil_velocity.length() if b.tank != null else 0.0
 	print("[CD11] S4 %s recoil %.4f -> %.4f ; %s recoil %.4f -> %.4f ; drive calls a=%d b=%d" % [
 		ids[0],before_a,after_a,ids[1],before_b,after_b,a.tank.drive_call_count() if a.tank != null else -1,b.tank.drive_call_count() if b.tank != null else -1])
 	# Zero equalling zero must never count as a response, so a non zero move is required from the real entry.

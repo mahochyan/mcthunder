@@ -34,8 +34,15 @@ var recoil_velocity := Vector3.ZERO # World-space response, separate from engine
 func kick_recoil(shot_direction: Vector3) -> void:
 	if not shot_direction.is_finite() or shot_direction.length_squared() < 0.01: return
 	var up: Vector3 = ground_state.normal if ground_state.grounded else Vector3.UP
-	recoil_velocity -= shot_direction.normalized().slide(up)*GameConfig.CHASSIS_RECOIL_SPEED_MPS
-	recoil_velocity = recoil_velocity.limit_length(GameConfig.CHASSIS_RECOIL_MAX_MPS)
+	# CD11: bounded by the profile, which each vehicle may declare. The profile defaults are the old global values, so an
+	# undeclared profile is the legacy behaviour, and the damping stays global exactly as the attenuation below reads it.
+	var cd011_speed := GameConfig.CHASSIS_RECOIL_SPEED_MPS
+	var cd011_max := GameConfig.CHASSIS_RECOIL_MAX_MPS
+	if defs != null and defs.drive_profile != null:
+		cd011_speed = defs.drive_profile.recoil_speed_mps
+		cd011_max = defs.drive_profile.recoil_max_mps
+	recoil_velocity -= shot_direction.normalized().slide(up)*cd011_speed
+	recoil_velocity = recoil_velocity.limit_length(cd011_max)
 
 signal hit_registered(identity: Dictionary)   # 003-R2：生产命中事件携带发射时冻结的完整身份（round/shooter/shot/target/life）
 

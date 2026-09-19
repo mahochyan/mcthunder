@@ -117,3 +117,33 @@ T06 is the only case whose reading discriminates by construction: one second of 
 at sixty steps and 3.9791 at thirty, a difference of five ten thousandths, so the advance is rate independent and the
 physics time does not follow the render rate.
 ```
+
+## 4. The implementation attempt, and the mechanism it measured instead of guessed
+
+### 4.1 What was landed in code and what was reverted
+```
+KEPT: DriveProfile gained recoil_speed_mps and recoil_max_mps, both DEFAULTING to the global constants that the uniform
+kick already used, and TankVehicle.kick_recoil now reads them through the member defs, which is the member the local
+definition is built from. A profile that declares nothing therefore behaves exactly as before, so the previous uniform
+behaviour is retained as the legacy strategy rather than deleted. The damping stays global, because that is where the
+attenuation reads it.
+REVERTED: the two engineering packets were given a drive_profile block directly. That broke their admission, and the
+diagnostic says exactly why rather than leaving it a mystery: the packet field is an ENVELOPE, it must carry a schema, an
+explicit game_rule origin with an explanation, and its numbers under values - and the correct key is not drive_profile at
+all but drive.profile, which is a REFERENCE CLAIM. The loader shows the established pattern for every other vehicle:
+   v.drive_profile = preload("res://configs/drive/m4a3_design.tres")
+so a per vehicle curve belongs in its own .tres resource referenced from the packet, not inlined into it.
+```
+### 4.2 The device fault that the earlier zero reading was
+```
+The recoil scene read forward_speed, but the recoil goes to a SEPARATE recoil_velocity vector that is applied into the
+velocity later. That is why the first measurement read zero for both vehicles: a wrong field, not a missing response. The
+scene now reads recoil_velocity, so the next run will distinguish a real per vehicle response from a uniform one.
+```
+### 4.3 Next step, now fully specified
+```
+Write one DriveProfile .tres per engineering vehicle with different, declared design values for turn falloff, track
+spacing, damaged track scale and recoil, and reference each from its packet as drive.profile with the schema, the
+game_rule origin and the explanation the gate demands. Then the two curves differ by construction, which is what T01 and
+T02 need, and the recoil differs by vehicle, which is what T04 needs.
+```

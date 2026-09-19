@@ -21,6 +21,11 @@ extends Resource
 @export var landing_restitution := 0.12
 @export var landing_max_rebound := 1.0
 @export var suspension_enabled := false
+## CD11: the recoil response is a per weapon and per vehicle value rather than one global kick. The defaults ARE the values
+## the global constants already used, so a profile that declares nothing behaves exactly as before and the previous uniform
+## behaviour is retained as the legacy strategy rather than deleted. The damping stays global, exactly as the code reads it.
+@export var recoil_speed_mps: float = GameConfig.CHASSIS_RECOIL_SPEED_MPS
+@export var recoil_max_mps: float = GameConfig.CHASSIS_RECOIL_MAX_MPS
 @export var suspension_compression_m := 0.18
 @export var suspension_extension_m := 0.30
 @export var suspension_response_rate := 10.0
