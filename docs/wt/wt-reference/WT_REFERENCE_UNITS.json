@@ -1,0 +1,355 @@
+{
+  "reference_kind": "war_thunder_local_install_extraction",
+  "game_build": "2.59.0.13",
+  "game_build_source": "vromf_version reports 2.59.0.13 for aces.vromfs.bin, char.vromfs.bin, game.vromfs.bin and mis.vromfs.bin of the local install at E:/WarThunder",
+  "install_path": "E:/WarThunder",
+  "tool": {
+    "name": "wt_ext_cli",
+    "release": "v0.6.6",
+    "binary_commit": "764867e35eb7ead01425781ecae0bc6488be4e22",
+    "release_asset": "wt_ext_cli-x86_64-pc-windows-msvc.zip",
+    "asset_sha256": "2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af",
+    "license_file": "E:/AIprogram/wt-tools/wt_ext_cli/LICENSE (carried with the tool, outside the repository)"
+  },
+  "extracted_to": "E:/AIprogram/wt-datamine (OUTSIDE the repository; never committed, never packaged)",
+  "boundary": "Only derived values and provenance are recorded here. No War Thunder file, model, texture, sound or data dump is copied into this repository or into any package this project builds, and no claim is made that these values are the project own design values - they are the reference the project is measured against.",
+  "extracted_at": "2026-09-19T07:20:50",
+  "units_note": "mass is stored as the file states it and is kilograms; maxFwdSpeed/maxRevSpeed are stored raw and are read as km/h in the conversions below; maxAccel/maxDecel have no unit in the file and are read as m/s^2 in the conversions, which is an ASSUMPTION recorded as such; maxAngSpeed/maxAngAccel have no unit and are read as degrees per second ALSO AS AN ASSUMPTION. The raw values are authoritative; the conversions are interpretations.",
+  "vehicles": [
+    {
+      "label": "T-80B",
+      "war_thunder": {
+        "unit_file": "gamedata/units/tankmodels/ussr_t_80b.blk",
+        "unit_file_sha256": "0aa45815921d483a0f908cf06ca2ff0b092023a906f7cd26a948d2af1c40f923",
+        "unit_file_bytes": 125507,
+        "raw_values": {
+          "model": "t_80b",
+          "subclass": "heavyVehicle",
+          "type": "typeMediumTank",
+          "moveType": "vehicle",
+          "onRadarAs": "tracked",
+          "mass": 50000,
+          "maxFwdSpeed": 75,
+          "maxRevSpeed": 10,
+          "maxAngSpeed": 30,
+          "maxAccel": 4,
+          "maxDecel": 8,
+          "maxAngAccel": 40,
+          "maxAngAccel0": 20,
+          "maxAngAccelV": 0,
+          "groundNormSmoothViscosity": 0.1,
+          "smokeScreenActivateTime": 5,
+          "smokeScreenEffectTime": 7,
+          "smokeScreenRad": 12,
+          "rearmSmokeTimeOnField": 60,
+          "autoSightDistanceCorrection": true
+        },
+        "conversions": {
+          "forward_max_speed_mps": 20.833,
+          "reverse_max_speed_mps": 2.778,
+          "acceleration_mps2_assumed": 4,
+          "deceleration_mps2_assumed": 8,
+          "turn_rate_deg_s_assumed": 30
+        },
+        "mass_kg": 50000,
+        "crew_entries": 3,
+        "crew_keys": [
+          "gunner",
+          "driver",
+          "commander"
+        ],
+        "weapon_names": [
+          {
+            "trigger": "0",
+            "triggerGroup": null,
+            "blk": "gameData/Weapons/groundModels_weapons/125mm_2A46_2_user_cannon.blk",
+            "name": null
+          },
+          {
+            "trigger": "1",
+            "triggerGroup": "coaxial",
+            "blk": "gameData/Weapons/groundModels_weapons/7_62mm_PKT_user_machinegun.blk",
+            "name": null
+          },
+          {
+            "trigger": "2",
+            "triggerGroup": "machinegun",
+            "blk": "gameData/Weapons/groundModels_weapons/12_7mm_NSV_t_80_user_cannon.blk",
+            "name": null
+          },
+          {
+            "trigger": "3",
+            "triggerGroup": "commander",
+            "blk": "gameData/Weapons/dummy_weapon.blk",
+            "name": null
+          }
+        ],
+        "damage_parts_count": 21,
+        "damage_part_sample": [
+          "hull_composite_armor",
+          "driver_protection",
+          "hull_composite_xray_info",
+          "hull",
+          "turret_composite_armor",
+          "turret",
+          "era_turret_hull",
+          "body_side_screens"
+        ],
+        "sections_available": [
+          "collisionSphere0",
+          "collisionSphere1",
+          "smokeScreenOffset",
+          "DamageParts",
+          "attachables",
+          "xray_viewer_data",
+          "xrayOverride",
+          "chainIK",
+          "sound",
+          "DamageEffects",
+          "tank_crew",
+          "MetaParts",
+          "gunConvergence",
+          "class_tags",
+          "commonWeapons",
+          "weapon_presets",
+          "VehiclePhys",
+          "PhysSys",
+          "ammo",
+          "wreckedParts",
+          "unitFx",
+          "commanderView",
+          "cockpit",
+          "ircmProjector",
+          "dmgAngles",
+          "dmgPosOffset",
+          "modifications",
+          "nightVision",
+          "user_skin",
+          "skin",
+          "ammoStowages",
+          "smokeScreenExhaustEmitters"
+        ],
+        "ammo_stowage_keys": [
+          "ammo1"
+        ],
+        "modification_keys": [
+          "new_tank_tracks",
+          "new_tank_suspension",
+          "new_tank_filter",
+          "new_tank_brakes",
+          "new_tank_transmission",
+          "new_tank_engine",
+          "tank_camouflage",
+          "tank_additional_armor",
+          "manual_extinguisher",
+          "tank_tool_kit",
+          "new_tank_horizontal_aiming",
+          "new_tank_vertical_aiming",
+          "tank_new_gun",
+          "art_support",
+          "tank_engine_smoke_screen_system",
+          "tank_medical_kit",
+          "tank_medical_kit_expendable",
+          "modern_tank_laser_rangefinder",
+          "tank_bulldozer_blade",
+          "125mm_ussr_HE",
+          "125mm_ussr_APDS_FS",
+          "125mm_ussr_ATGM",
+          "125mm_ussr_3BM42_APDS_FS",
+          "125mm_ussr_APDS_FS_ammo_pack",
+          "125mm_ussr_ATGM_ammo_pack",
+          "125mm_ussr_3BM42_APDS_FS_ammo_pack",
+          "night_vision_system_upgrade_nv_to_thermal",
+          "t_80b_protection_improvement",
+          "tank_smoke_screen_system_mod"
+        ]
+      },
+      "mcthunder": {
+        "packet": "configs/vehicles/engineering/ussr_t_80b.json",
+        "declared": {
+          "design_mass_kg": 50000,
+          "engine": {
+            "engine_id": "klimov gtd_1000tf",
+            "power_hp": 1100
+          },
+          "forward_speed_mps": 20.8333333333333,
+          "acceleration": 4,
+          "forward_max_speed": 20.8333333333333,
+          "reverse_max_speed": 2.77777777777778,
+          "hull_turn_speed": 30,
+          "turret_yaw_speed": 24,
+          "turret_pitch_speed": 3.35,
+          "reload_time": 7.1,
+          "caliber_mm": 125,
+          "crew_count": 3,
+          "drive_profile_origin": "game_rule"
+        },
+        "provenance_of_our_values": "Read from the packet facts entries, which themselves record origin, source_refs and a location note; where the entry says origin=warthunder_reference the project already copied that figure from a reference dossier, and this record is the first time it has been checked against the actual extracted game file.",
+        "comparison_state": "NOW_COMPARABLE: both sides are on disk with a named War Thunder build, so a row can be filled with actual_reference instead of NOT_COMPARED."
+      }
+    },
+    {
+      "label": "Leopard 2A4",
+      "war_thunder": {
+        "unit_file": "gamedata/units/tankmodels/germ_leopard_2a4.blk",
+        "unit_file_sha256": "2d09f0ed2de7143b7450445ce117908537a3687fb9928d8bd65da510dd4e2ee6",
+        "unit_file_bytes": 117104,
+        "raw_values": {
+          "model": "leopard_2a4",
+          "subclass": "heavyVehicle",
+          "type": "typeMediumTank",
+          "moveType": "vehicle",
+          "onRadarAs": "tracked",
+          "mass": 47000,
+          "maxFwdSpeed": 75,
+          "maxRevSpeed": 10,
+          "maxAngSpeed": 30,
+          "maxAccel": 4,
+          "maxDecel": 8,
+          "maxAngAccel": 40,
+          "maxAngAccel0": 20,
+          "maxAngAccelV": 0,
+          "groundNormSmoothViscosity": 0.1,
+          "rearmSmokeTimeOnField": 60,
+          "autoSightDistanceCorrection": true
+        },
+        "conversions": {
+          "forward_max_speed_mps": 20.833,
+          "reverse_max_speed_mps": 2.778,
+          "acceleration_mps2_assumed": 4,
+          "deceleration_mps2_assumed": 8,
+          "turn_rate_deg_s_assumed": 30
+        },
+        "mass_kg": 47000,
+        "crew_entries": 4,
+        "crew_keys": [
+          "gunner",
+          "driver",
+          "loader",
+          "commander"
+        ],
+        "weapon_names": [
+          {
+            "trigger": "0",
+            "triggerGroup": null,
+            "blk": "gameData/Weapons/groundModels_weapons/120mm_Rheinmetall_L44_user_cannon.blk",
+            "name": null
+          },
+          {
+            "trigger": "1",
+            "triggerGroup": "coaxial",
+            "blk": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk",
+            "name": null
+          },
+          {
+            "trigger": "2",
+            "triggerGroup": "machinegun",
+            "blk": "gameData/Weapons/groundModels_weapons/7_92mm_MG3_user_machinegun.blk",
+            "name": null
+          },
+          {
+            "trigger": "3",
+            "triggerGroup": "commander",
+            "blk": "gameData/Weapons/dummy_weapon.blk",
+            "name": null
+          }
+        ],
+        "damage_parts_count": 21,
+        "damage_part_sample": [
+          "hull_front_composite_armor",
+          "hull",
+          "turret",
+          "inner_armor",
+          "hull_turret_spaced_armor",
+          "heavy_body_screens",
+          "tank_structural_steel_elements",
+          "mask"
+        ],
+        "sections_available": [
+          "collisionSphere0",
+          "collisionSphere1",
+          "DamageParts",
+          "DamageEffects",
+          "xrayOverride",
+          "tank_crew",
+          "fuelTanks",
+          "xray_viewer_data",
+          "MetaParts",
+          "gunConvergence",
+          "attachables",
+          "sound",
+          "tags",
+          "class_tags",
+          "commonWeapons",
+          "weapon_presets",
+          "VehiclePhys",
+          "PhysSys",
+          "ammo",
+          "wreckedParts",
+          "unitFx",
+          "commanderView",
+          "cockpit",
+          "modifications",
+          "nightVision",
+          "user_skin",
+          "skin",
+          "ammoStowages",
+          "compartments"
+        ],
+        "ammo_stowage_keys": [
+          "ammo1"
+        ],
+        "modification_keys": [
+          "new_tank_tracks",
+          "new_tank_suspension",
+          "new_tank_filter",
+          "new_tank_brakes",
+          "new_tank_transmission",
+          "new_tank_engine",
+          "tank_camouflage",
+          "tank_additional_armor",
+          "manual_extinguisher",
+          "tank_tool_kit",
+          "new_tank_horizontal_aiming",
+          "new_tank_vertical_aiming",
+          "art_support",
+          "tank_new_gun",
+          "tank_bulldozer_blade",
+          "tank_medical_kit",
+          "tank_medical_kit_expendable",
+          "120mm_NATO_HEAT_FS",
+          "120mm_NATO_APDS_FS",
+          "120mm_NATO_APDS_FS_ammo_pack",
+          "120mm_DM_APDS_FS",
+          "120mm_DM_APDS_FS_ammo_pack",
+          "modern_tank_laser_rangefinder",
+          "tank_smoke_screen_system_mod",
+          "night_vision_system"
+        ]
+      },
+      "mcthunder": {
+        "packet": "configs/vehicles/engineering/germ_leopard_2a4.json",
+        "declared": {
+          "design_mass_kg": 47000,
+          "engine": {
+            "engine_id": "mtu mb_873_ka_501",
+            "power_hp": 1500
+          },
+          "forward_speed_mps": 20.8333333333333,
+          "acceleration": 4,
+          "forward_max_speed": 20.8333333333333,
+          "reverse_max_speed": 2.77777777777778,
+          "hull_turn_speed": 30,
+          "turret_yaw_speed": 40,
+          "turret_pitch_speed": 40,
+          "reload_time": 6,
+          "caliber_mm": 120,
+          "crew_count": 4,
+          "drive_profile_origin": "game_rule"
+        },
+        "provenance_of_our_values": "Read from the packet facts entries, which themselves record origin, source_refs and a location note; where the entry says origin=warthunder_reference the project already copied that figure from a reference dossier, and this record is the first time it has been checked against the actual extracted game file.",
+        "comparison_state": "NOW_COMPARABLE: both sides are on disk with a named War Thunder build, so a row can be filled with actual_reference instead of NOT_COMPARED."
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+MCT-COMBAT-DEEPEN-01: the War Thunder reference channel is opened under the user authorisation, and its FIRST result
+is that the figures this project had copied from a dossier are confirmed by the game itself.
+
+The premise was verified before anything was promised: War Thunder IS installed at E:/WarThunder, and
+wt_ext_cli vromf_version reports build 2.59.0.13 for aces.vromfs.bin, char.vromfs.bin, game.vromfs.bin and
+mis.vromfs.bin. No extraction tooling was present and there is no Rust toolchain, so the release binary was used:
+wt_ext_cli v0.6.6, asset wt_ext_cli-x86_64-pc-windows-msvc.zip, downloaded from the project release page and HASH
+VERIFIED against its published sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af. The tool
+and every extracted byte live OUTSIDE the repository - E:/AIprogram/wt-tools and E:/AIprogram/wt-datamine - so no
+game file can be committed or packaged, and the staging check above confirms none is.
+
+The extraction produced 26023 files and 727.3 MB, of which gamedata holds 25481 files. The two vehicles this
+project actually models are present by name: gamedata/units/tankmodels/ussr_t_80b.blk (sha256 0aa45815921d483a,
+125507 bytes) and germ_leopard_2a4.blk (sha256 2d09f0ed2de7143b, 117104 bytes), and both parse as JSON with the
+fields a comparison needs.
+
+THE FIRST RESULT, and it is a verification rather than an invention: our own packet facts already record
+origin=warthunder_reference for these figures, and the extracted game file states the SAME values - T-80B mass
+50000 kg, forward 75 km/h = 20.833 m/s, reverse 10 km/h = 2.778 m/s, acceleration 4, turn 30, crew three with NO
+loader (autoloader), 125 mm; Leopard 2A4 mass 47000 kg, the same speeds, crew four WITH a loader, 120 mm. The two
+fields whose units the game file leaves empty - acceleration and turn rate - stay flagged as ASSUMPTIONS and are
+not upgraded to facts by this record.
+
+What is newly available for completeness: real weapon identities with their gun files (T-80B 2A46-2 125 mm with
+7.62mm PKT coaxial and 12.7mm NSV AA; Leopard 2A4 Rheinmetall L44 120 mm with 7.92mm MG3, including the coaxial
+and commander machine guns this project does not model), the real crew stations, 21 damage parts on both
+vehicles, ammo stowage keys, the 29 and 25 modification lists, and the armour, weapon, stowage and compartment
+sections still unread with their names recorded.
+
+docs/wt/wt-reference/README.md states the boundary and the exact reproduction commands; WT_REFERENCE_UNITS.json
+carries the values, provenance and hashes; logs/COMBAT-DEEPEN-01/build_wt_reference.js builds it and
+probe_wt_units.js was the structural probe. Every benchmark matrix row can now name War Thunder 2.59.0.13 and cite
+a real file instead of carrying null and NOT_COMPARED.
