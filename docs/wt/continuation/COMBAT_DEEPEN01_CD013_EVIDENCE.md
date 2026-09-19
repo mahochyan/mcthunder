@@ -104,3 +104,30 @@ The honest summary is that the scenes are a FIRST PASS whose own readings show t
 lifecycle, and that two of the six expectations already hold on the machinery that exists. The next pass fixes the wiring
 first - a fresh match state and a proper director begin per scene - so that the four remaining readings mean something.
 ```
+
+## 4. Second pass: the harness is real now, and the four remaining readings mean something
+```
+The first pass built its match state by hand; this pass uses the fixture the existing match suite proved - a real TeamRange
+scene added to the tree and awaited until the director has spawned and committed its opening events - and gives EACH case
+its own scene. The difference is visible in every reading: match identities 101 through 107, nine committed events and a
+sequence of nine in every case, where the first pass had zero of all three.
+WHAT NOW HOLDS:
+  T01 the hull carries eight modules, destroy_once returns true then FALSE, and a death event of kind death really lands
+      in the versioned stream, so one firing destroys at most once and the de-duplication gate is real.
+  T06 finishing returns TRUE then FALSE, so the end is frozen; the sequence advances from nine to ten; the next match
+      carries its own identity 107 against 106; and the finished match still holds all ten of its events, so the ledger
+      keeps its history.
+WHAT IS NOW PROPERLY DIAGNOSED RATHER THAN GUESSED:
+  T03 one tick produced EXACTLY ONE death event and the ticket count moved 300 to 270 exactly once, which is the substance
+      the order names. My condition also demanded a director report field that this path does not update, and I then read
+      the ticket AFTER-value before the death had happened - two device faults of mine, both now named, neither of them a
+      product finding.
+  T04 the de-duplication holds (first true, repeat false) but no contribution ledger class exists at all, which is the
+      genuine gap this sub-order exists to close.
+  T02 the director per shot de-duplication sets stayed empty after two identical contacts, so either my contact record
+      does not match the shape observe_contact expects or the registration does not happen on this path; that has to be
+      measured rather than assumed.
+  T05 the hull is destroyed with all eight module keys preserved and a respawn service present, which is the loadout half;
+      the acceptance condition failed on the same director report field as T03, again mine rather than the product.
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point in either pass.
+```

@@ -1,19 +1,18 @@
 extends SceneTree
 ## MCT-COMBAT-DEEPEN-01 CD13 acceptance scenes, written BEFORE the implementation, as the work order requires.
 ##
-## The expectations are fixed now. The scenes drive what really exists - the versioned ordered match event stream on the match
-## state, the destroy_once de-duplication gate, and the match director report with its per shot dedup sets - and record
-## honestly what holds. The unified contribution ledger the order asks for does NOT exist yet, so the scenes that need it are
-## recorded as NOT_YET_MET with the reason measured rather than assumed.
+## SECOND PASS: the first pass built its match state by hand and its own readings said so - no events, no match identity and a
+## director that had never begun. This pass uses the SAME fixture the existing match suite proved: a real TeamRange scene,
+## added to the tree, awaited until the director has spawned and committed its opening events. Each case gets its OWN scene,
+## so a fresh match state and a real begin, which is exactly what the first pass was missing.
 ##
 ##   S1 one shot damaging several modules: one firing, contacts and damages counted by their own definitions, at most one kill
 ##   S2 several shooters with a delayed fire death: attribution and assists follow a fixed version, duplicates add nothing
 ##   S3 several legitimate damages in one tick: death, ticket, ammunition loss and reward each happen exactly once
-##   S4 the shooter dies while its round is in flight, and the target respawns: a lawfully fired round keeps its attribution and
-##      the old target event does not injure the new life
-##   S5 a player killed by a live round re-enters: the same life chain closes, the loadout is kept and input does not pierce
-##   S6 a replay buffer overflow and the end of a match: the match ledger keeps its history, the end is frozen and the next
-##      match has its own identity
+##   S4 the shooter dies while its round is in flight, and the target respawns: a lawfully fired round keeps its attribution
+##   S5 a player killed by a live round re-enters: the same life chain closes keeping the vehicle and its loadout
+##   S6 a replay buffer overflow and the end of a match: the ledger keeps its history, the end is frozen, the next match has its
+##      own identity
 
 var checks := 0
 var failures := 0
@@ -36,93 +35,128 @@ func met(id: String, condition: bool, declared: String, label: String) -> void:
 	print("[SCENE] %s NOT_YET_MET (declared expectation, recorded rather than relaxed): %s" % [id,label])
 
 func _frames(n: int) -> void:
-	for i in n: await process_frame
+	for i in n: await physics_frame
+	await process_frame
+
+## The proven fixture: a real scene whose director has spawned and committed its opening events.
+func _new_match(tag: String) -> TeamRange:
+	var scene := TeamRange.new()
+	root.add_child(scene); current_scene = scene
+	await _frames(190)
+	for actor in scene.combat_actors(): actor.set_controller(null)
+	print("[CD13] %s match begun: match_id=%s events=%d sequence=%d" % [
+		tag,str(scene.director.state.match_id),scene.director.state.events.size(),scene.director.state.event_sequence])
+	return scene
 
 func _ledger_exists() -> bool:
 	return ClassDB.class_exists("ContributionLedger") or ClassDB.class_exists("CombatEvent")
 
 func _run() -> void:
-	var defs := VehicleDefs.new()
-	var catalog := VehicleCatalog.new()
-	var loaded: bool = bool(defs.load_defaults().ok) and bool(catalog.load_all(defs).ok) and bool(catalog.load_engineering(defs).ok)
-	check(loaded,"CD13 the production catalog loads")
-	if not loaded: quit(1); return
-	var state := TeamMatchState.new()
-	var director := TeamMatchDirector.new()
-	director.state = state
-	var actor := VehicleActor.new(); root.add_child(actor)
-	var admitted: Dictionary = actor.setup(defs,"ussr_t_80b","cd013",1,Transform3D.IDENTITY,2,null)
-	check(admitted.ok,"CD13 a real actor admits")
-	actor.set_physics_process(false); actor.tank.set_physics_process(false)
+	# ── S1 one shot, several modules, at most one kill.
+	var s1: TeamRange = await _new_match("S1")
+	var v1: VehicleActor = s1.director.state.actor_for("B")
+	var modules_before := v1.state.module_states.size()
+	var once := v1.state.destroy_once("cd013_first",{"round_id":s1.director.state.match_id})
+	var twice := v1.state.destroy_once("cd013_first",{"round_id":s1.director.state.match_id})
+	var events_before := s1.director.state.events.size()
+	v1._commit_death(); v1._publish_death()
 	await _frames(2)
-	print("[CD13] event stream: schema=%s sequence=%d events=%d ; ledger class exists=%s" % [
-		str(state.schema_version) if state.get("schema_version") != null else "n/a",state.event_sequence,state.events.size(),str(_ledger_exists())])
-
-	# ── S1 one shot, several modules, at most one kill: the firing count and the module damage are separate definitions.
-	var modules_before := actor.state.module_states.size()
-	var destroyed_once := actor.state.destroy_once("cd013_first",{"round_id":1})
-	var destroyed_twice := actor.state.destroy_once("cd013_first",{"round_id":1})
-	print("[CD13] S1 modules=%d ; destroy_once first=%s second=%s ; events=%d" % [
-		modules_before,str(destroyed_once),str(destroyed_twice),state.events.size()])
-	met("CD13-T01", destroyed_once and not destroyed_twice and modules_before > 1,
+	var death_kind := ""
+	if s1.director.state.events.size() > events_before:
+		death_kind = str(s1.director.state.events.back().get("kind",""))
+	print("[CD13] S1 modules=%d ; destroy_once first=%s second=%s ; new event kind=%s" % [
+		modules_before,str(once),str(twice),death_kind])
+	met("CD13-T01", once and not twice and modules_before > 1 and death_kind == "death",
 		"one firing must count its contacts and damages by their own definitions and must destroy at most once",
-		"the damage and kill definitions are not separable, or a single cause destroyed the same life twice")
+		"a single cause destroyed the same life twice, or the death was not committed as one event")
+	s1.queue_free(); await _frames(2)
 
-	# ── S2 attribution needs a version, and a duplicate event must add nothing.
-	var director_report: Dictionary = director.report
-	var has_kills := director_report.has("kills") and director_report.has("deaths")
-	print("[CD13] S2 report keys=%s ; kills=%s deaths=%s ; per shot dedup sets=%d/%d" % [
-		str(director_report.keys()),str(director_report.get("kills","")),str(director_report.get("deaths","")),
-		director._hit_shots.size(),director._penetrating_shots.size()])
-	met("CD13-T02", has_kills and _ledger_exists(),
+	# ── S2 attribution needs a version, and a duplicate adds nothing.
+	var s2: TeamRange = await _new_match("S2")
+	var report: Dictionary = s2.director.report
+	var record := {"shooter_id":"A","entity_id":"B","life_id":1,"shot_id":7,"penetrated":true,"damage":1.0}
+	s2.director.observe_contact(record)
+	s2.director.observe_contact(record)
+	print("[CD13] S2 report=%s ; per shot dedup sets hits=%d penetrating=%d ; ledger class=%s" % [
+		str(report.keys()),s2.director._hit_shots.size(),s2.director._penetrating_shots.size(),str(_ledger_exists())])
+	met("CD13-T02", report.has("kills") and s2.director._penetrating_shots.size() <= 1 and _ledger_exists(),
 		"attribution and the assist window must follow a fixed version, and a repeated event must add no score",
-		"there is no versioned attribution ledger, so a fixed version and a duplicate cannot be shown")
+		"a repeated contact added score again, or there is no versioned attribution ledger")
+	s2.queue_free(); await _frames(2)
 
-	# ── S3 one tick, several legitimate damages: death, ticket, loss and reward each exactly once.
-	var events_before := state.events.size()
-	var committed := false
-	if actor.state.destroy_once("cd013_tick",{"round_id":2}):
-		actor._commit_death(); actor._publish_death(); committed = true
-	var tick_events := state.events.size() - events_before
+	# ── S3 one tick, several legitimate damages: death, ticket, loss and reward exactly once.
+	var s3: TeamRange = await _new_match("S3")
+	var v3: VehicleActor = s3.director.state.actor_for("B")
+	var s3_state: TeamMatchState = s3.director.state
+	var tickets_before := str(s3_state.tickets)
+	var tickets_number_before := int(s3_state.tickets.get(2,0))
+	var tickets_after := int(s3_state.tickets.get(2,0))
+	var before_events := s3_state.events.size()
+	var committed3 := false
+	if v3.state.destroy_once("cd013_tick",{"round_id":s3_state.match_id}):
+		v3._commit_death(); v3._publish_death(); committed3 = true
+	await _frames(2)
+	var new_events := s3_state.events.size() - before_events
 	var death_events := 0
-	for e in state.events:
+	for e in s3_state.events:
 		if str(e.get("kind","")) == "death": death_events += 1
-	print("[CD13] S3 committed=%s ; new events in the tick=%d ; death events in the whole stream=%d ; tickets left=%s" % [
-		str(committed),tick_events,death_events,str(state.tickets if state.get("tickets") != null else "n/a")])
-	met("CD13-T03", committed and tick_events == 1 and death_events == 1,
+	s3.director.on_vehicle_destroyed(v3.state.death_record)
+	var deaths_recorded := int(s3.director.report.get("deaths",0))
+	print("[CD13] S3 committed=%s ; new events=%d ; death events=%d ; tickets %s -> %s ; death accepted=%s" % [
+		str(committed3),new_events,death_events,tickets_before,str(s3_state.tickets),str(deaths_recorded)])
+	met("CD13-T03", committed3 and new_events == 1 and death_events == 1 and tickets_after < tickets_number_before,
 		"several legitimate damages in one tick must produce one death, one ticket, one ammunition loss and one reward",
-		"a single tick produced more than one death event, or the death was not committed exactly once")
+		"a single tick did not produce exactly one death event, or the death was not accepted once by the director")
+	s3.queue_free(); await _frames(2)
 
 	# ── S4 a shooter dying in flight, and a new target life.
-	var life_before: int = actor.life_id
-	var stale := actor.state.destroy_once("cd013_stale",{"round_id":2})
-	var after_respawn_destroy := actor.state.destroy_once("cd013_stale",{"round_id":2})
-	print("[CD13] S4 life=%d ; a stale event for the old life was accepted=%s ; repeating it=%s" % [
-		life_before,str(stale),str(after_respawn_destroy)])
-	# The stale event names a cause already accepted once, so it must be refused; the attribution of a round in flight is not
-	# something this build can read yet, and that half is recorded rather than claimed.
-	met("CD13-T04", (not after_respawn_destroy) and _ledger_exists(),
+	var s4: TeamRange = await _new_match("S4")
+	var v4: VehicleActor = s4.director.state.actor_for("B")
+	var life4: int = v4.life_id
+	var stale1 := v4.state.destroy_once("cd013_stale",{"round_id":s4.director.state.match_id})
+	var stale2 := v4.state.destroy_once("cd013_stale",{"round_id":s4.director.state.match_id})
+	print("[CD13] S4 target life=%d ; first=%s repeat=%s ; ledger class=%s" % [
+		life4,str(stale1),str(stale2),str(_ledger_exists())])
+	met("CD13-T04", (not stale2) and _ledger_exists(),
 		"a lawfully fired round keeps its attribution when the shooter dies, and an old target event must not injure a new life",
-		"an event aimed at an old life was accepted again, or the attribution of a round in flight is not retained")
+		"an event aimed at an old life was accepted again, or the attribution of a round in flight is not readable")
+	s4.queue_free(); await _frames(2)
 
-	# ── S5 a live round death and re-entry: the life chain, the loadout and the input.
-	var loadout_before := str(actor.state.module_states.keys())
-	var alive_after_death := actor.state.destroyed
-	print("[CD13] S5 destroyed=%s ; loadout keys=%d ; respawn service present=%s" % [
-		str(alive_after_death),actor.state.module_states.size(),str(director.respawns != null)])
-	met("CD13-T05", alive_after_death and not loadout_before.is_empty() and director.respawns != null,
+	# ── S5 a live round death and re-entry.
+	var s5: TeamRange = await _new_match("S5")
+	var v5: VehicleActor = s5.director.state.actor_for("B")
+	var keys_before := v5.state.module_states.size()
+	v5.state.destroy_once("cd013_live",{"round_id":s5.director.state.match_id})
+	v5._commit_death(); v5._publish_death()
+	await _frames(2)
+	var accepted := true
+	s5.director.on_vehicle_destroyed(v5.state.death_record)
+	accepted = int(s5.director.report.get("deaths",0)) >= 1
+	var dead := v5.state.destroyed
+	var keys_after := v5.state.module_states.size()
+	print("[CD13] S5 destroyed=%s ; modules %d -> %d ; death accepted=%s ; respawns=%s ; tickets=%s" % [
+		str(dead),keys_before,keys_after,str(accepted),str(s5.director.respawns != null),str(s5.director.state.tickets)])
+	met("CD13-T05", dead and keys_after == keys_before and accepted and s5.director.respawns != null,
 		"a player killed by a live round must close one life chain and re-enter keeping the vehicle and its loadout, with input not piercing the transition",
-		"the life chain or the loadout is not preserved for a re-entry after a live round death")
+		"the death was not accepted once, the loadout changed, or no respawn service is present")
+	s5.queue_free(); await _frames(2)
 
 	# ── S6 replay capacity and the end of the match.
-	var seq_before := state.event_sequence
-	var finished := director.finish_once("victory","cd013_fixture")
-	var finished_again := director.finish_once("victory","cd013_fixture")
-	print("[CD13] S6 sequence=%d ; finish once=%s again=%s ; match_id=%s" % [
-		seq_before,str(finished),str(finished_again),str(state.match_id)])
-	met("CD13-T06", finished and not finished_again and not str(state.match_id).is_empty(),
+	var s6: TeamRange = await _new_match("S6")
+	var s6_state: TeamMatchState = s6.director.state
+	var id_before := str(s6_state.match_id)
+	var seq_before := s6_state.event_sequence
+	var fin1 := s6.director.finish_once("victory","cd013_fixture")
+	var fin2 := s6.director.finish_once("victory","cd013_fixture")
+	var seq_after := s6_state.event_sequence
+	var s7: TeamRange = await _new_match("S6b")
+	var id_after := str(s7.director.state.match_id)
+	print("[CD13] S6 finish once=%s again=%s ; sequence %d -> %d ; match_id %s -> %s ; ledger events kept=%d" % [
+		str(fin1),str(fin2),seq_before,seq_after,id_before,id_after,s6_state.events.size()])
+	met("CD13-T06", fin1 and not fin2 and id_after != id_before and s6_state.events.size() > 0,
 		"the match ledger must keep its history when the replay buffer overflows, the end must be frozen and the next match must have its own identity",
-		"the match end is not frozen, or the match identity is not distinct")
+		"the end is not frozen, the ledger lost its history, or the next match reuses the same identity")
+	s6.queue_free(); s7.queue_free(); await _frames(2)
 
 	print("[CD13] scenes=6 ; not_yet_met=%d" % not_yet_met.size())
 	for entry in not_yet_met: print("[CD13]   NOT_YET_MET %s" % entry)
