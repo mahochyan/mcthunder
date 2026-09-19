@@ -159,6 +159,9 @@ func _run() -> void:
 	for i in 300:
 		a.tank.apply_drive(-1.0,0.0,1.0/60.0)
 		await physics_frame
+		if i % 60 == 0:
+			print("[CD11] S5 reverse t=%d speed=%.4f throttle=%.2f blocked=%s on_floor=%s velocity=%s" % [
+				i,a.tank.forward_speed,-1.0,str(a.tank.slope_blocked),str(a.tank.is_on_floor()),str(a.tank.velocity)])
 	var after_reverse: Vector3 = a.tank.global_position
 	var escaped := (after_reverse.z - before_reverse.z) > 0.5
 	var moved := before_reverse.distance_to(after_reverse)

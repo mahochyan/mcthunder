@@ -177,3 +177,21 @@ So T05 stays NOT YET MET, now on a measured gap instead of an untried one, and t
 produces no motion against a vertical face - whether the throttle sign reaching the powertrain, the slope block check, or
 the engine speed being restored each tick.
 ```
+
+## 7. Why the reverse produced no motion: traced to the throttle path, with the trace left in place
+```
+The reverse phase was instrumented with the internals printed every sixty frames, and the reading is unambiguous:
+   reverse t=0..240 speed=0.0000 throttle=-1.00 blocked=false on_floor=true velocity=(0,0,0)
+So the hull is on the floor, the slope block is NOT the cause, the throttle reaches apply_drive, and the speed stays at
+zero for the whole three hundred frames. Reading the producers of forward_speed explains it: the grounded branch advances
+the speed through TrackDrive.step, which computes yaw and turn drag only and has no throttle parameter at all, while the
+only call that passes the throttle to DrivePowertrain sits in the ELSE branch, which is the airborne case. The powertrain
+itself implements throttle fully, including braking to zero before reversing, which is exactly the behaviour the first
+acceptance case expects.
+This is left as an open measured question rather than a claim: the game is described as drivable, so either the throttle
+reaches the powertrain through a path not yet read, or the grounded longitudinal drive really is absent in this file and
+setting the speed directly is the only reason this harness moved the hull at all. Either way the honest position for T05
+is unchanged: BLOCKING IS MEASURED AND HOLDS, the hull stopped 4.02 m short of the wall and never passed through it, and
+the ESCAPE LEG CANNOT YET BE JUDGED because the harness drives the hull by writing its speed rather than through the real
+throttle path. The next measurement is therefore narrow and named: find how a grounded throttle becomes forward speed.
+```
