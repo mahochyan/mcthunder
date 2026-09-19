@@ -136,6 +136,21 @@ func _run() -> void:
 	print("[CD11] S5 scope: %s" % scope_note)
 	a.tank.set_physics_process(true)
 	await physics_frame
+	# A FLOOR of this scene own, because ground support is what the powertrain scales its traction by: without it the hull reads
+	# on_floor true while the track probes report no support at all, and no throttle can move it whatever the collision does.
+	var s5_floor := StaticBody3D.new()
+	var s5_floor_shape := CollisionShape3D.new()
+	var s5_floor_box := BoxShape3D.new(); s5_floor_box.size = Vector3(60.0,1.0,60.0)
+	s5_floor_shape.shape = s5_floor_box; s5_floor.add_child(s5_floor_shape)
+	s5_floor.collision_layer = GameConfig.LAYER_WORLD
+	s5_floor.global_position = Vector3(a.tank.global_position.x,a.tank.global_position.y-0.5,a.tank.global_position.z)
+	root.add_child(s5_floor)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	print("[CD11] S5 floor placed: on_floor=%s support=%.3f" % [
+		str(a.tank.is_on_floor()),float(a.tank.ground_state.get("traction_support",-1.0))])
 	var wall := StaticBody3D.new()
 	var wall_shape := CollisionShape3D.new()
 	var box := BoxShape3D.new(); box.size = Vector3(14.0,5.0,1.0)
@@ -160,8 +175,10 @@ func _run() -> void:
 		a.tank.apply_drive(-1.0,0.0,1.0/60.0)
 		await physics_frame
 		if i % 60 == 0:
-			print("[CD11] S5 reverse t=%d speed=%.4f throttle=%.2f blocked=%s on_floor=%s velocity=%s" % [
-				i,a.tank.forward_speed,-1.0,str(a.tank.slope_blocked),str(a.tank.is_on_floor()),str(a.tank.velocity)])
+			print("[CD11] S5 reverse t=%d speed=%.4f support=%.3f traction=%.4f calls=%d blocked=%s on_floor=%s velocity=%s" % [
+				i,a.tank.forward_speed,float(a.tank.ground_state.get("traction_support",-1.0)),
+				a.tank.powertrain.traction_acceleration,a.tank.drive_call_count(),
+				str(a.tank.slope_blocked),str(a.tank.is_on_floor()),str(a.tank.velocity)])
 	var after_reverse: Vector3 = a.tank.global_position
 	var escaped := (after_reverse.z - before_reverse.z) > 0.5
 	var moved := before_reverse.distance_to(after_reverse)

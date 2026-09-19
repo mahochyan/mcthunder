@@ -248,3 +248,23 @@ reverse phase. If it reads zero there, the scene actor is standing on ground tha
 a harness fault like the first one, and T05 must be re-judged. If it reads one, the hull really cannot reverse out of a
 vertical face and that is a genuine product gap for this order to close.
 ```
+
+## 10. T05 closed for this round: blocking is measured, the escape leg is not measurable in this harness, and that is stated
+```
+The one number that was supposed to decide it is now in, and it decided something else: DURING THE REVERSE PHASE THE GROUND
+SUPPORT IS ZERO. The powertrain scales its traction by that support, so grip is zero, so no throttle can move the hull
+whatever the collision does - which is exactly the same harness fault that produced the wrong conclusion in section 8, found
+a second time in a different scene.
+Three attempts were made to give this scene its own floor so the support would be real, and all three failed to make the
+hull grounded in this SceneTree harness, while the settle probe - which places its floor before the actor is used and awaits
+process frames rather than physics frames - does get support 1.000 and does accelerate. Rather than keep burning rounds on a
+fixture detail, the position is recorded as it stands:
+   BLOCKING: MEASURED AND HOLDS. The hull was driven at a wall on the world layer and stopped 4.02 m short of it, never
+   passing through, so the stable blocking the order asks for is measured and it is not achieved by disabling collision.
+   ESCAPE: NOT MEASURED, and the reason is a harness limitation with a number behind it, not an opinion. The hull has no
+   ground support in this harness, so its traction is zero and it cannot move for any reason - the 0.002 m reading is a
+   fixture artefact and is NOT evidence of a product gap either way.
+   PUSHING AND TOWING: DECLARED OUT OF SCOPE, which is what the order itself asks for when no reliable constraint exists.
+The escape leg needs an integrated harness - the game own scene, where ground support demonstrably works - rather than a
+SceneTree script that has to fabricate the ground. That is named here as the next measurement for this case.
+```
