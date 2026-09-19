@@ -85,3 +85,35 @@ track loss and damaged driving are both drivable through production damage rathe
    escape, and the player against AI consistency under a changed render rate;
 2. then make recoil configuration-driven and bounded, without touching the single pose authority;
 3. record the rule in the migration table with before and after, and keep the old uniform behaviour as the legacy strategy.
+
+## 3. The six scenes, and two readings that are honestly under determined
+
+### 3.1 What ran
+```
+tests/run_cd011_scene_checks.gd drives the REAL machinery: DrivePowertrain.step is the same pure advance the tank uses
+every tick, each vehicle brings its own frozen DriveProfile from the production catalog, and the recoil entry is the real
+TankVehicle.kick_recoil. Four scenes hold and three do not, and the three that do not are stated rather than dressed up.
+```
+### 3.2 A vacuous pass was caught and removed, not left standing
+```
+The recoil scene first passed on `0 == 0`: kick_recoil moved neither vehicle (moved a=0.00000, moved b=0.00000, and
+drive_call_count stayed 0), and a judgement that two identical zero responses are equal is trivially true. The condition
+now requires a NON ZERO move from the real entry, so the case reads NOT YET MET and the label says exactly why: the
+response is identical for both vehicles, which is either because it needs a physics tick this harness does not give it or
+because it genuinely is one uniform kick. Both readings name the same gap the order asks to close.
+```
+### 3.3 An under determined pass, recorded rather than claimed
+```
+T01 reads met because both vehicles reach forward and reverse speed under their own frozen configuration, but the two
+measured curves are IDENTICAL (forward top 10.498, reverse top -2.778 for both), so the phrase "each vehicle own frozen
+configuration" is not yet differentiated by this measurement. Note also that 10.498 exceeds the global forward maximum of
+8.0 in the game config, which means the curve comes from the per vehicle definition rather than from the global constant.
+This is recorded as an open point for T01 and T02 together: the two vehicles currently share their turn falloff and their
+track spacing as well, which is why T02 can only read not yet met.
+```
+### 3.4 The one genuinely discriminating result
+```
+T06 is the only case whose reading discriminates by construction: one second of simulated time gives a top speed of 3.9786
+at sixty steps and 3.9791 at thirty, a difference of five ten thousandths, so the advance is rate independent and the
+physics time does not follow the render rate.
+```
