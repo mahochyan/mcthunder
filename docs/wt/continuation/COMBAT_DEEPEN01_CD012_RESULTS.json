@@ -1,0 +1,65 @@
+{
+    "template_only":  false,
+    "actual_game_test_executed":  true,
+    "package_id":  "MCT-COMBAT-DEEPEN-01",
+    "work_order_id":  "WT-CD-012",
+    "base_sha":  "9493e2867a03386fabc27d9810b0c71d941b5671",
+    "implementation_sha":  "239bd843f7fa15744b3bf52ed7a76eaaf507c083",
+    "tested_sha":  "239bd843f7fa15744b3bf52ed7a76eaaf507c083",
+    "final_sha":  "239bd843f7fa15744b3bf52ed7a76eaaf507c083",
+    "content_version":  "scripts/battle/observation_policy.gd + scripts/battle/support_actions.gd exercised unchanged at 239bd843f7fa15744b3bf52ed7a76eaaf507c083",
+    "rules_version":  "cd12-observation-and-support-wired-v1 (existing rules confirmed, nothing replaced)",
+    "engine_version":  "Godot 4.7.2-stable win64 console, gl_compatibility",
+    "command":  "Godot_v4.7.2-stable_win64_console.exe --headless --path \u003cworktree\u003e --fixed-fps 60 -s res://tests/\u003csuite\u003e.gd",
+    "cwd":  "E:\\AIprogram\\mcthunder-cont",
+    "started_at":  "2026-09-19T03:56:08",
+    "ended_at":  "2026-09-19T09:56:08",
+    "exit_code":  0,
+    "timed_out":  false,
+    "case_ids_expected":  [
+                              "CD12-T01",
+                              "CD12-T02",
+                              "CD12-T03",
+                              "CD12-T04",
+                              "CD12-T05",
+                              "CD12-T06"
+                          ],
+    "case_ids_executed":  [
+                              "CD12-T01",
+                              "CD12-T02",
+                              "CD12-T03",
+                              "CD12-T04",
+                              "CD12-T05",
+                              "CD12-T06"
+                          ],
+    "status":  "COMPLETE",
+    "failure_details":  [
+
+                        ],
+    "script_errors":  null,
+    "test_kind":  "rule_negative ; standard_fixture ; actual_actor_integration ; normal_player_flow ; external_behaviour_not_compared",
+    "input_method":  "headless scripted scenes driving the production observation policy and support actions directly, plus the eight existing optics, sight, support and fire control suites",
+    "injections_declared":  [
+                                "the scenes instantiate the production policy and support objects and declare themselves fixtures; no perception system of their own is created"
+                            ],
+    "raw_stdout":  "logs/COMBAT-DEEPEN-01/*.log (per-suite captures, unchanged, never filtered for SCRIPT ERROR)",
+    "raw_stderr":  "captured in the same per-run logs",
+    "screenshots":  [
+
+                    ],
+    "events":  [
+                   "observation recorded without commanding the turret",
+                   "per source precision and expiry",
+                   "physical blocking versus visual attenuation",
+                   "smoke occluding optical more than thermal",
+                   "recon mark with source and expiry",
+                   "unequipped vehicle denied"
+               ],
+    "not_run":  [
+                    "Thermal imaging and radar remain explicitly UNSUPPORTED states, as the order requires; no grey filter stands in for a sensor and no sensor ability is granted to a vehicle that does not carry it.",
+                    "The wiring of the existing machinery onto the normal command and information interfaces, and committed events for loss of contact, expiry and mark source, remain as the next step in this sub-order family.",
+                    "CD13..CD016: six cases each, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md"
+                ],
+    "package_hash":  "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+    "next_action":  "continue with CD13, after confirming its prerequisites"
+}

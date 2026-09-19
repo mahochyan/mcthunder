@@ -11,7 +11,8 @@
                             "WT-CD-008: versioned crew condition, and person identity separated from station and role",
                             "WT-CD-009: per-kind module response profile, and a breech failure judged once at a real request",
                             "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept",
-                            "WT-CD-011: data declared per vehicle drive curves, and a bounded per vehicle recoil instead of one global kick"
+                            "WT-CD-011: data declared per vehicle drive curves, and a bounded per vehicle recoil instead of one global kick",
+                            "WT-CD-012: the observation, smoke and recon rules are confirmed in place and exercised by six scenes rather than replaced"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -639,6 +640,41 @@
                         "migration":  "A device fault was found and fixed on the way: the probe had been reading forward_speed while the recoil is applied to a separate recoil_velocity vector, which is why the first reading was zero for both vehicles and looked like a missing response rather than a wrong field.",
                         "rollback":  "Clear the two values from the packets; both then read the global default of 0.65 again, exactly as before.",
                         "divergences":  "Both values are declared project design initial values with comparison NOT_COMPARED; the order explicitly does not require realistic impulse figures and none are claimed."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-012",
+                        "change_kind":  "existing_rule_confirmed_and_wired",
+                        "old_rule_version":  "observation_and_support_rules_unwired",
+                        "new_rule_version":  "cd12-observation-and-support-wired-v1",
+                        "affected_vehicles":  "every_vehicle_and_every_observer_view",
+                        "affected_modes":  "live_fire ; live_observation",
+                        "fields":  [
+                                       "INFO_CLASSES",
+                                       "PRECISION_M",
+                                       "MEDIA_RULES",
+                                       "INTERNAL_FIELDS",
+                                       "recon_marks",
+                                       "smoke_clouds",
+                                       "stabilizer_available"
+                                   ],
+                        "reason":  "The order asks for observation, sight intent, barrel ability and visible information to be SEPARATED, for ranging, zeroing, muzzle occlusion and the actual shot to share one solve, for an unequipped vehicle to be denied rather than given a fake sensor, and for smoke to affect both the player aids and the AI. The reading found the policy and support machinery already present and unwired, so this sub-order CONFIRMS and WIRES it rather than writing a second perception system, which the order forbids by name.",
+                        "reference_sources":  [
+                                                  "R08",
+                                                  "R10",
+                                                  "W06",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "Every existing policy and support rule keeps its identity: INFO_CLASSES, PRECISION_M, MEDIA_RULES, INTERNAL_FIELDS, the per vehicle smoke and recon declarations, and the physical blocking rule are unchanged and remain the only authority.",
+                        "legacy_tests":  "tests/run_observation_policy_checks.gd 32/0, run_optics_checks.gd 24/0, run_sight_ballistics_checks.gd 73/0, run_support_actions_checks.gd 51/0, run_modern_support_checks.gd 19/0, run_partial_support_checks.gd 7/0, run_fire_control_checks.gd 59/0, all unchanged",
+                        "new_expected_declared_before_run":  "With the separation declared, an observation must not command the turret, the stabiliser must be a configured capability and not a camera option, a building must block a projectile while smoke must not, smoke must occlude the optical channel more than the thermal one, world truth must be refused from a client view, a recon mark must carry its source and expire, and an unequipped vehicle must report no smoke and no recon.",
+                        "independent_oracle":  "The policy and support objects themselves, read from the production classes rather than from a fixture that mimics them.",
+                        "measured_before":  "Measured by reading the sources rather than assumed: all six named files exist, the four information classes with their per source precision and expiry were already declared, smoke and recon were already declared per vehicle with a mark carrying source and expires_at, and the two engineering vehicles carried no optics profile while both the camera and the fire control already read one.",
+                        "measured_after":  "Measured by the six acceptance scenes: an observation leaves the turret yaw at zero rather than commanding it; the stabiliser reads false when absent and true when present; a building blocks a projectile while smoke does not, and smoke occludes the optical channel at 1.000 against 0.600 for thermal; world truth is refused from a client view with the reason world_truth_is_authority_only; a recon mark is created with one mark now and none after expiry; and the unequipped hull reports no smoke and no recon while an equipped vehicle reports both.",
+                        "migration":  "The rules are kept as they are and CONFIRMED rather than replaced, and the scenes exercise the production objects directly, so the wiring that remains is on the command and information interfaces rather than in the policy itself.",
+                        "rollback":  "No policy value was changed, so there is nothing to roll back in the rules; removing the scenes leaves the machinery exactly as it was found.",
+                        "divergences":  "Every precision, expiry, attenuation and blocking value remains a declared project design initial value with comparison NOT_COMPARED. Thermal and radar remain explicitly unsupported states rather than a grey filter standing in for a sensor, and no sensor ability is granted to a vehicle that does not carry it."
                     }
                 ],
     "divergences":  [
@@ -665,9 +701,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD11 start: run_drive_checks 26/0, run_slope_pivot_checks 3/0, run_track_damage_checks 21/0, run_surface_drive_checks 15/0, run_track_drive_checks 15/0, run_airborne_drive_checks 13/0.",
-                              "after":  "CD11 close: the same six driving suites plus run_loading_checks 62/0, run_damage_checks 57/0 and run_recovery_checks 64/0, all at their exact baselines, with the six acceptance scenes reading met and the escape probe passing.",
-                              "note":  "No delivered expectation was changed. One suite regressed while the allowed field table was being extended and was fixed by adding an explicit OPTIONAL set rather than by weakening the gate or editing the suite."
+                              "before":  "CD12 start: run_observation_policy_checks 32/0, run_optics_checks 24/0, run_sight_ballistics_checks 73/0, run_support_actions_checks 51/0, run_modern_support_checks 19/0, run_partial_support_checks 7/0, run_fire_control_checks 59/0.",
+                              "after":  "CD12 scenes: all six hold before any implementation, and the same eight suites are re-run green at 265 passes with no failures.",
+                              "note":  "A correction to my own working method is recorded: two suite names I used early on do not exist and reported zero checks, so the real suite names were measured and used instead. Three device faults of mine in the scenes were also found by measurement and fixed: the attenuation figure is occlusion strength so the comparison was reversed, the support table uses its own vehicle keys rather than catalogue ids, and the recon reply nests the mark under its own key."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
