@@ -1,0 +1,47 @@
+R3-A investigated and answered: it is a PAUSED WORLD, not a clock, and the harness was reporting a frozen turret as a convergence failure
+
+Ruling four authorised a focused clock investigation: instrument where the physics clock and the render clock meet
+in the aim chain, prove the mechanism, and fix the harness or the driver only once the cause is shown. This is that
+result. Both candidate mechanisms are REJECTED by measurement and the real one is measured through the product's own
+pause path.
+
+THE INSTRUMENT (always on, as authorised - the previous debug_command_trace attempt printed nothing in either log):
+  * vehicle_actor.gd: aim_phase_steps / aim_steps_this_physics_frame / aim_steps_max_per_physics_frame, stepped by
+    _note_aim_step() at the top of advance_simulation_aim.
+  * camera_rig.gd: pose_updates_from_physics vs pose_updates_from_render, and aim_point_reads_precise vs
+    aim_point_reads_pose, because the convergence TRUTH is get_aim_point() and it can be answered from two clocks.
+  * tests/probe_r3a_clock.gd: reproduces the leg exactly, with --load-ms, --pause-at and --focus-out-at.
+
+MEASURED, FOUR REGIMES, ONE BUILD (logs/COMBAT-DEEPEN-01/r3a-clock-*.log):
+  fixed-fps 60 quiet        process:physics 1.00 | aim steps/frame 0.999 (max 1) | truth physics | first_cross 136 | final_err 0.00
+  real-time quiet           process:physics 2.20 | aim steps/frame 0.999 (max 1) | truth physics | first_cross 136 | final_err 0.00
+  real-time --load-ms 12    process:physics 0.61 | aim steps/frame 0.999 (max 1) | truth physics | first_cross 136 | final_err 0.00
+  4 CPU burners + 30ms load process:physics 0.36 | aim steps/frame 0.999 (max 1) | truth physics | first_cross 136 | final_err 0.00
+  H1 (render-clocked aim) REJECTED: at most one aim step per physics frame in every regime.
+  H2 (render-clock truth) REJECTED: aim_reads_pose = 0 in every regime; the truth is the physics-derived intent.
+  The convergence is BIT-IDENTICAL from a 0.36 to a 2.20 process:physics ratio under real CPU contention, so the
+  trajectory is render-clock independent - which is what the code claims and what the flake appeared to contradict.
+
+THE REAL MECHANISM, through the product path: main.gd:477 pauses the battle on NOTIFICATION_APPLICATION_FOCUS_OUT
+(the suite exercises it as T002-04). Delivered mid-leg (--focus-out-at 60): tree paused=true, main._paused=true, the
+error PLATEAUS at 31.074 deg for the remaining 840 samples, first_cross=-1, and aim_phase_steps=60 over 900 physics
+frames - the mechanism stops at the pause while the loop keeps sampling a world that is not running. --pause-at 150
+shows the same freeze after convergence. That constant-residual signature is the recorded failure.
+
+A CORRECTION OF MY OWN RECORD: section 12 called R3-A "measured as load-dependent". Of the package logs carrying the
+[stab] frame=0 ... first_cross=-1 line, FOUR continue to a PASS at frame 143/147 (c16r2, fc, w42,
+r43-runchecks-baseline2) - frame 0 is the sample taken before the turret has moved, so that line was never evidence
+of failure. Exactly ONE log is a real failure: c16r, plateauing at 10.987 deg from frame 180. The load correlation
+was real (other foreground processes are what generate a focus-out), the mechanism is a pause, and one failing run
+was generalised into "load-dependent" on a line that passing runs print too. Section 12 now carries the pointer.
+
+THE HARNESS GUARD, criteria NOT relaxed: _stable_converge returns {"aborted":"world_paused"} and prints
+[stab] ABORTED at frame N: the world is PAUSED ... instead of reporting non-convergence about a world that is not
+running. A paused world is still a failure, just a named one. Non-interference measured: the leg still passes at
+first_cross=147, final_err=0.01 deg, 177 PASS / 0 FAIL, watchdog outcome unchanged from the untouched main tree.
+
+Still open, stated rather than implied: the village AI repair (ruling three) is untouched, and what delivered the
+original focus-out is not recoverable from c16r's log. What is now known is that any focus-out during the leg
+produces exactly that signature and that the leg no longer disguises it.
+
+release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.

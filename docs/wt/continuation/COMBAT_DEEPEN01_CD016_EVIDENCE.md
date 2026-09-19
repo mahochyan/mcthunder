@@ -448,6 +448,9 @@ WHAT IS TRUE AT THE END OF THIS ROUND
    NOT a product regression that any commit can be blamed for on this evidence, and it is reported rather than
    registered or papered over. The build script own instruction about R3-A - that a reappearance must be reported,
    fixed or proposed as a separately bounded exception and never silently tolerated - is satisfied by this report.
+   **CORRECTED IN SECTION 16 (read that before quoting this):** the "two failures under load" reading counted logs
+   whose `first_cross=-1` line is printed by PASSING runs as well. One log is a real failure, it is a FROZEN WORLD
+   (a focus-out pause), and the mechanism is measured there.
    The industrial timeout, the in-scope expectation migration and the still-missing package are unchanged from the
    previous sections.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
@@ -569,3 +572,64 @@ NOTHING WAS CHANGED FOR EITHER ITEM YET, and the two authorisations are recorded
 from the rulings rather than from memory. release_ready=false, public_release=false, human=PENDING,
 performance=HOLD_BY_USER.
 ```
+
+## 16. Ruling four EXECUTED: R3-A is not a clock problem at all, it is a PAUSED WORLD, and the harness was reporting a frozen turret as a convergence failure
+
+The authorised instrument was built and it answered the question in one round, by rejecting both candidate mechanisms
+and finding the real one through the product's own pause path.
+
+WHAT WAS BUILT (always on, as authorised - the earlier `debug_command_trace` attempt was a dead end because it printed
+nothing, and a counter that is off cannot measure anything):
+   - `vehicle_actor.gd`: `aim_phase_steps`, `aim_steps_this_physics_frame`, `aim_steps_max_per_physics_frame`, stepped
+     by `_note_aim_step()` at the top of `advance_simulation_aim`.
+   - `camera_rig.gd`: `pose_updates_from_physics` / `pose_updates_from_render` and `aim_point_reads_precise` /
+     `aim_point_reads_pose`, because the convergence TRUTH is `get_aim_point()` and it can be answered from two
+     different clocks - the physics-derived precise intent, or a ray built from the CAMERA TRANSFORM that only
+     `_process` (render) refreshes.
+   - `tests/probe_r3a_clock.gd`: reproduces the leg exactly and takes `--load-ms N`, `--pause-at N`, `--focus-out-at N`.
+
+MEASURED, FOUR REGIMES, ONE BUILD (all logs in `logs/COMBAT-DEEPEN-01/r3a-clock-*.log`):
+
+| regime | process:physics ratio | aim steps per physics frame | truth clock | first_cross | final_err |
+|---|---|---|---|---|---|
+| `--fixed-fps 60`, quiet | 1.00 | 0.999 (max 1 in a frame) | precise (physics) | 136 | 0.00 |
+| real-time, quiet | 2.20 | 0.999 (max 1) | precise (physics) | 136 | 0.00 |
+| real-time, `--load-ms 12` | 0.61 | 0.999 (max 1) | precise (physics) | 136 | 0.00 |
+| real-time, 4 CPU burners + `--load-ms 30` | 0.36 | 0.999 (max 1) | precise (physics) | 136 | 0.00 |
+
+   H1 REJECTED: the aim phase advances AT MOST ONCE per physics frame in every regime, so it is not render-clocked.
+   H2 REJECTED: the convergence truth is answered from the physics-derived precise intent - `aim_reads_pose = 0` in all
+   four regimes - so the leg is not chasing a stale render-clock point.
+   The convergence numbers are BIT-IDENTICAL from a 0.36 to a 2.20 process:physics ratio, under real CPU contention.
+   The trajectory is render-clock independent, which is exactly what the code comments claim and what the flake
+   appeared to contradict.
+
+THE REAL MECHANISM, MEASURED THROUGH THE PRODUCT'S OWN PATH
+   `scripts/main.gd:477` pauses the battle on `NOTIFICATION_APPLICATION_FOCUS_OUT` (the suite exercises this as
+   T002-04). Deliver that notification mid-leg with `--focus-out-at 60`:
+     `FOCUS_OUT delivered at frame 60 -> tree paused=true (main._paused=true)`, then the error PLATEAUS at 31.074 deg
+     for the remaining 840 samples, `first_cross=-1`, and `aim_phase_steps=60` over 900 physics frames - the mechanism
+     stops advancing at the pause and the loop keeps sampling a world that is not running.
+   `--pause-at 150` (a pause set after convergence) shows the same freeze with the criterion already met. So the
+   signature - constant residual, `first_cross=-1` - is a PAUSED WORLD, not a stopped aim refresh and not load.
+
+A CORRECTION OF MY OWN EARLIER RECORD, which is why this section exists
+   Section 12 recorded R3-A as "measured as load-dependent and therefore NOT attributable". Reading the logs again:
+   of the package logs containing the `[stab] frame=0 ... first_cross=-1` line, FOUR continue to a PASS at frame
+   143/147 (c16r2, fc, w42, r43-runchecks-baseline2) - frame 0 is simply the sample taken before the turret has moved,
+   so that line was never evidence of failure. Exactly ONE log is a real failure: c16r, whose error plateaus at
+   10.987 deg from frame 180 (the "10.99 deg" figure in the earlier notes). The load correlation was real - other
+   foreground processes are what generate a focus-out - but the mechanism is a pause, and one failing run was
+   generalised into "load-dependent" on the strength of a line that passing runs print too.
+
+THE HARNESS GUARD (convergence criteria NOT relaxed)
+   `tests/run_checks.gd` `_stable_converge` now returns `{"aborted":"world_paused"}` and prints
+   `[stab] ABORTED at frame N: the world is PAUSED, so the mechanism cannot move - this is not a convergence result`
+   instead of reporting non-convergence about a world that is not running. A paused world is still a FAILURE; it is
+   named rather than disguised. Non-interference measured: the suite still passes the leg at first_cross=147,
+   final_err=0.01 deg, 177 PASS / 0 FAIL, with the same pre-existing watchdog outcome as the untouched `main` tree.
+
+STILL OPEN, stated rather than implied: the village AI repair (ruling three) is untouched, and what delivered the
+focus-out in the original failing run is not recoverable from that log - what is now known is that ANY focus-out
+during the leg produces exactly the recorded signature, and that the leg no longer disguises it.
+

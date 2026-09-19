@@ -49,6 +49,22 @@ var presentation_enabled := true
 var fire_control := FireControlState.new()
 var last_consumed_sequence := -1
 var _staged_sequence := -1
+## R3-A CLOCK INSTRUMENT (authorised focused investigation, 2026-09-19), always on and one integer per phase call.
+## The aim phase must advance EXACTLY ONCE PER PHYSICS FRAME and never on a render frame: if it advances more than once
+## inside one physics frame the aim trajectory is render-clocked, which is the one mechanism that would make turret
+## convergence depend on frame load. These counters make that ratio readable instead of inferred.
+var aim_phase_steps := 0
+var aim_steps_this_physics_frame := 0
+var aim_steps_max_per_physics_frame := 0
+var _aim_step_physics_frame := -1
+func _note_aim_step() -> void:
+	var frame := Engine.get_physics_frames()
+	if frame != _aim_step_physics_frame:
+		_aim_step_physics_frame = frame
+		aim_steps_this_physics_frame = 0
+	aim_steps_this_physics_frame += 1
+	aim_phase_steps += 1
+	aim_steps_max_per_physics_frame = maxi(aim_steps_max_per_physics_frame,aim_steps_this_physics_frame)
 ## WT-EXPANSION-01 item B step 4 (site 3 of 3): the answer the Gunner gave to the last secondary fire request,
 ## recorded on the actor so an acceptance leg can read WHY a secondary shot did not happen instead of inferring it
 ## from a belt that did not move. Empty until a secondary request has been consumed.
@@ -433,6 +449,7 @@ func advance_simulation_loading(step: Dictionary, delta: float) -> void:
 	gunner.advance_secondary(delta)
 
 func advance_simulation_aim(step: Dictionary, delta: float) -> void:
+	_note_aim_step()
 	if not simulation_step_valid(step): return
 	var cmd: VehicleCommand = step.cmd
 	turret.observation_hold=cmd.hold_aim

@@ -1099,6 +1099,15 @@ func _stable_converge(main) -> Dictionary:
 	# stable hold. Keep the angular threshold and hold duration unchanged.
 	for i in 900:
 		await physics_frame
+		# R3-A INVESTIGATION RESULT (2026-09-19, authorised focused investigation). A PAUSED world freezes the turret
+		# mechanism (the aim phase is a pausable node) while this loop keeps sampling physics frames, so the old code
+		# silently reported "not converged" about a world that was not running at all. The ONE real R3-A failure on
+		# record has exactly that signature - the error plateaus and never moves again (c16r-run_checks.log: 10.987
+		# degrees from frame 180 onward), and pausing mid-loop reproduces it on demand. The convergence criteria are
+		# NOT relaxed: a paused world is still a failure, it is just named instead of disguised.
+		if paused:
+			print("[stab] ABORTED at frame %d: the world is PAUSED, so the mechanism cannot move - this is not a convergence result" % i)
+			return {"converged": false, "first_cross": first_cross, "hold_time": hold_time, "max_err": max_err, "final_err": final_err, "aborted": "world_paused"}
 		var bdir: Vector3 = main.turret.barrel_direction()
 		var want: Vector3 = (P - main.turret.barrel_pivot.global_position).normalized()
 		var err: float = rad_to_deg(bdir.angle_to(want))

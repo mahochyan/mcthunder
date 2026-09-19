@@ -59,6 +59,14 @@ var shake_enabled := false # Optical offset only; never changes the transform us
 var visual_layer: int = GameConfig.VIS_LAYER_VEHICLE   # 003：本车视觉层（炮镜只剔除该位）
 
 var _sight_requested := false
+## R3-A CLOCK INSTRUMENT (authorised focused investigation, 2026-09-19): the convergence TRUTH is
+## get_aim_point(), and it can be answered from two different clocks - the physics-derived precise intent, or a ray
+## built from the CAMERA TRANSFORM that only _process (render) refreshes. These counters say which one each read used
+## and how many pose updates came from which clock, so a render-clock truth is visible rather than suspected.
+var pose_updates_from_physics := 0
+var pose_updates_from_render := 0
+var aim_point_reads_precise := 0
+var aim_point_reads_pose := 0
 var snapshot_provider := Callable()
 var _precise_point := Vector3.ZERO
 var _precise_valid := false
@@ -174,6 +182,7 @@ func _process(_delta: float) -> void:
 	recoil*=clampf(AccessibilitySettings.shake_strength,0,1)*(0.2 if _sight_requested else 1.0)
 	cam.h_offset = sin(recoil*80)*recoil*0.2
 	cam.v_offset = recoil*0.15
+	pose_updates_from_render += 1
 	_update_camera_pose()
 
 func _update_camera_pose() -> void:
@@ -222,7 +231,9 @@ func _ray(from: Vector3, to: Vector3, mask: int = GameConfig.LAYER_WORLD) -> Dic
 
 func get_aim_point() -> Vector3:
 	if _precise_valid and not sight:
+		aim_point_reads_precise += 1
 		return _precise_point
+	aim_point_reads_pose += 1
 	# 玩家想瞄的点：相机中心射线（第三人称下即屏幕中心方向）。
 	# 003：意图射线查 WORLD|VEHICLE（排除本车）——B 等车辆可被瞄准，
 	# 否则炮塔会越过车辆对准其后方世界点，炮管射线从目标上方掠过。
@@ -259,7 +270,9 @@ func intent_point() -> Vector3:
 
 func refresh_intent(update_pose: bool = true) -> void:
 	# Actual armor silhouette in resolve mode. World queries stay in the physical update.
-	if update_pose and presentation_enabled: _update_camera_pose()
+	if update_pose and presentation_enabled:
+		pose_updates_from_physics += 1
+		_update_camera_pose()
 	_precise_valid = false
 	intent_contact.clear()
 	if not snapshot_provider.is_valid() or tank == null: return
