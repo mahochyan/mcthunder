@@ -2,9 +2,17 @@ class_name VehicleEquipmentProfiles
 extends RefCounted
 ## Fully authored JSON profiles. No resource paths or inferred equipment capabilities.
 const FIELDS := {
-	"drive": ["power_falloff","shift_seconds","shift_power","gear_count","downshift_hysteresis","grade_acceleration","brake_scale","coast_scale","turn_speed_falloff","turn_drag_per_second","track_spacing_m","neutral_turn","damaged_track_turn_scale","pitch_degrees_per_acceleration","pitch_limit_degrees","pitch_response_rate","landing_min_speed","landing_restitution","landing_max_rebound","suspension_enabled","suspension_compression_m","suspension_extension_m","suspension_response_rate","suspension_impact_scale","suspension_angle_limit_degrees","suspension_point_speed_limit","suspension_contact_margin_m"],
+	"drive": ["power_falloff","shift_seconds","shift_power","gear_count","downshift_hysteresis","grade_acceleration","brake_scale","coast_scale","turn_speed_falloff","turn_drag_per_second","track_spacing_m","neutral_turn","damaged_track_turn_scale","pitch_degrees_per_acceleration","pitch_limit_degrees","pitch_response_rate","landing_min_speed","landing_restitution","landing_max_rebound","suspension_enabled","suspension_compression_m","suspension_extension_m","suspension_response_rate","suspension_impact_scale","suspension_angle_limit_degrees","suspension_point_speed_limit","suspension_contact_margin_m","recoil_speed_mps","recoil_max_mps"],
 	"optics": ["sight_fovs","sight_offset","binocular_fov","binocular_offset","rangefinder_min_m","rangefinder_max_m","rangefinder_resolution_m","measurement_time_s","measurement_valid_s","zeroing_step_m","zeroing_max_m"],
 	"fire_control": ["provenance","pitch_accel_deg_s2","yaw_accel_deg_s2","pitch_brake_deg_s2","yaw_brake_deg_s2","response_time_s","stabilizer_mode","speed_limit_mps","speed_hysteresis_mps"]
+}
+
+## CD11: a kind may gain a field that packets written earlier do not carry. Listing a new name in FIELDS alone makes it
+## MANDATORY for every envelope ever written, which retroactively invalidates packets that were valid when they were authored -
+## and that is exactly what broke an in-memory packet built by another suite. This set names fields a packet MAY declare
+## without being required to, so the gate stays strict about what it already knows while a new capability can be added.
+const OPTIONAL := {
+	"drive": ["recoil_speed_mps","recoil_max_mps"]
 }
 
 static func from_packet(kind: String, envelope: Variant) -> Dictionary:
@@ -20,8 +28,9 @@ static func from_packet(kind: String, envelope: Variant) -> Dictionary:
 		if key not in ["schema_version","origin","note","values"]: errors.append(prefix+": unknown envelope field "+str(key))
 	if not envelope.get("values") is Dictionary: return {"ok":false,"errors":errors+[prefix+": values must be a dictionary"]}
 	var values: Dictionary=envelope.values
+	var optional: Array = OPTIONAL.get(kind,[])
 	for key in FIELDS[kind]:
-		if not values.has(key): errors.append(prefix+"."+key+": explicit value required")
+		if not values.has(key) and not (key in optional): errors.append(prefix+"."+key+": explicit value required")
 	var profile: Resource
 	match kind:
 		"drive": profile=DriveProfile.new()

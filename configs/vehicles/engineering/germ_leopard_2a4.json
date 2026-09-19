@@ -1281,7 +1281,9 @@
                                                                      "suspension_impact_scale":  0.28,
                                                                      "suspension_angle_limit_degrees":  8,
                                                                      "suspension_point_speed_limit":  4,
-                                                                     "suspension_contact_margin_m":  0.02
+                                                                     "suspension_contact_margin_m":  0.02,
+                                                                     "recoil_speed_mps":  0.78,
+                                                                     "recoil_max_mps":  1.55
                                                                  }
                                                   }
                                     }
@@ -2216,7 +2218,9 @@
                                          "suspension_impact_scale":  0.28,
                                          "suspension_angle_limit_degrees":  8,
                                          "suspension_point_speed_limit":  4,
-                                         "suspension_contact_margin_m":  0.02
+                                         "suspension_contact_margin_m":  0.02,
+                                         "recoil_speed_mps":  0.78,
+                                         "recoil_max_mps":  1.55
                                      }
                       }
 }
