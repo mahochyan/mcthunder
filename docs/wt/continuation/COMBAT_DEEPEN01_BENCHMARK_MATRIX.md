@@ -1,6 +1,6 @@
 # MCT-COMBAT-DEEPEN-01 benchmark matrix: every row measured internally, every external comparison NOT_COMPARED
 
-Filled from what the fifteen closed sub-orders measured. It contains **zero** `WT_BEHAVIOR_COMPARISON` rows and **zero** `HUMAN_PLAYTEST` rows, gives **no** similarity percentage, and leaves the War Thunder half of every row `null` and `NOT_COMPARED` because no capture of any external title exists in this work.
+Filled from what the fifteen closed sub-orders measured, and bound to the War Thunder build on this machine. It contains **zero** `WT_BEHAVIOR_COMPARISON` rows and **zero** `HUMAN_PLAYTEST` rows and gives **no** similarity percentage. Two things are kept apart on purpose: every row cites game build **2.59.0.13** and its extraction provenance, while only the rows whose real counterpart was actually read carry an expected reference - those are source comparisons, labelled `COMPARED_TO_SOURCE_FILE`, and every other row stays `NOT_COMPARED`.
 
 Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIXTURE` · `WT_BEHAVIOR_COMPARISON` · `HUMAN_PLAYTEST`.
 
@@ -8,7 +8,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 
 | measure | value |
 |---|---|
-| rows | 31 |
+| rows | 32 |
 | `WT_BEHAVIOR_COMPARISON` rows | **0** |
 | `HUMAN_PLAYTEST` rows | **0** |
 | similarity percentage | **none given** |
@@ -16,7 +16,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | evidence level | rows |
 |---|---|
 | `SOURCE_RULE` | 5 |
-| `PROJECT_FIXTURE` | 26 |
+| `PROJECT_FIXTURE` | 27 |
 
 | sub-order | rows in matrix | coverage state | cases |
 |---|---|---|---|
@@ -62,11 +62,11 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 |---|---|---|---|---|---|
 | `BM-01-cd003-shape-v1` | WT-CD-003 | `SOURCE_RULE` | cd003-shape-v1 :: shape_profile, shape_kind, section_radius_m, rays, error_bound_m | Declared section: 0 of 9 disagree. | `null` / NOT_COMPARED |
 | `BM-02-cd003-rotation-step-0.02rad` | WT-CD-003 | `SOURCE_RULE` | cd003-rotation-step-0.02rad :: ROTATION_STEP_RAD, part_transform_basis | Subdivided: crossing 0.536451, a delta of 0.000973; the frozen control is unchanged at 0.500000. | `null` / NOT_COMPARED |
-| `BM-03-cd004-ballistics-v1` | WT-CD-004 | `SOURCE_RULE` | cd004-ballistics-v1 :: ballistics_profile, drag_model, drag_k_per_m, provenance, retention_table | Declared retention 0.972 / 0.932 / 0.869 / 0.811 against the frozen 0.972 / 0.932 / 0.871 / 0.814, worst deviation 0.0034; the vacuum control is bit-identical. | `null` / NOT_COMPARED |
+| `BM-03-cd004-ballistics-v1` | WT-CD-004 | `SOURCE_RULE` | cd004-ballistics-v1 :: ballistics_profile, drag_model, drag_k_per_m, provenance, retention_table | Declared retention 0.972 / 0.932 / 0.869 / 0.811 against the frozen 0.972 / 0.932 / 0.871 / 0.814, worst deviation 0.0034; the vacuum control is bit-identical. | **`COMPARED_TO_SOURCE_FILE`** - gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_3BM42_APDS_FS speed 1700 m/s; 120mm_rheinmetall_l44_user_cannon.blk round 120mm_NATO_APDS_FS speed 1650 m/s -> EQUAL to our APFSDS muzzle velocity on both vehicles (docs/wt/wt-reference/WT_AMMO_COMPARISON.json) |
 | `BM-04-cd004-residual-ratio-v1` | WT-CD-004 | `SOURCE_RULE` | cd004-residual-ratio-v1 :: residual_model, RESIDUAL_K, RESIDUAL_FLOOR | One hundred millimetres leaves 805.788 and three hundred leaves 617.363; bursts land 19.11575 and 15.34726 metres out, inside one step of residual times delay. | `null` / NOT_COMPARED |
 | `BM-05-cd004-ballistics-v1_shared_solver` | WT-CD-004 | `PROJECT_FIXTURE` | cd004-ballistics-v1_shared_solver :: ballistic_intercept_verification, ai_lane_prediction, gunner_spec_drag_k_per_m | Vacuum miss 0.000305 m, unchanged; drag miss 0.001376 m, with the predicted time moved from 0.363637 s to 0.379341 s. | `null` / NOT_COMPARED |
 | `BM-06-wt012-reactive-v1` | WT-CD-005 | `SOURCE_RULE` | wt012-reactive-v1 ::  | A qualifying hit spends the charge and adds its reduction; a hit below the trigger minimum does NOT spend it; through the resolver a live charge costs 220.0000 mm against a spent charge's 100.0000 mm. | `null` / NOT_COMPARED |
-| `BM-07-cd07-he-family-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-he-family-v1 :: family, source_bullet_type, effect_policy | Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers. | `null` / NOT_COMPARED |
+| `BM-07-cd07-he-family-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-he-family-v1 :: family, source_bullet_type, effect_policy | Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers. | **`COMPARED_TO_SOURCE_FILE`** - gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850 m/s, explosive a_ix_2 3.402 kg -> DIFFERS: our engineering HE declares 700 m/s, a 150 m/s shortfall against the file - recorded as an open item, not corrected in this round |
 | `BM-08-cd07-bounded-connectivity-v1` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-bounded-connectivity-v1 :: overpressure, blast, fragmentation, declared_openings | Measured: the burst records three separate channels and the overpressure channel carries a computed verdict with the reason "closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure", … | `null` / NOT_COMPARED |
 | `BM-09-cd07-external-on-every-burst` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-external-on-every-burst :: external | Measured: the same burst now records external=true, and the fuzed bursts are unchanged. | `null` / NOT_COMPARED |
 | `BM-10-cd07-contact-and-world-detonation` | WT-CD-007 | `PROJECT_FIXTURE` | cd07-contact-and-world-detonation :: burst_target, burst_entry_distance, burst_visited, contact_kind | Measured: the same shot now reports burst=present with the three channels, the world route records contact_kind=world_contact, and the armour route is unchanged in every other respect. | `null` / NOT_COMPARED |
@@ -77,7 +77,7 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | `BM-15-cd009-module-response-v1` | WT-CD-009 | `PROJECT_FIXTURE` | cd009-module-response-v1 :: power_scale, yaw_scale, pitch_scale, reasons | Measured: an engine taken from full to half records power_scale 0.5 and the reason engine:linear:0.50, while a transmission loss, a track side loss and a driver loss record three different causes with different steering and pivot outcomes. | `null` / NOT_COMPARED |
 | `BM-16-cd009-breech-jam-v1` | WT-CD-009 | `PROJECT_FIXTURE` | cd009-breech-jam-v1 :: breech_failure, breech_failures, blocked_reason | Measured on the production path: after nine real requests a jam occurred and recorded {shot_id 9, seed 2335249131, roll 0.131, chance 0.2, rule cd009-breech-jam-v1, round_consumed false}; the same request was refused the same way; a held trigger did not multip … | `null` / NOT_COMPARED |
 | `BM-17-cd10-ammo-reaction-v1` | WT-CD-010 | `PROJECT_FIXTURE` | cd10-ammo-reaction-v1 :: ammo_reactions, ammo_reaction, ammo_loss_total, lost, store class, compartment state | Measured: the profile answers with one of four outcomes keyed on storage class, damage channel and compartment state; the fourth case reads isolated against vent_only once the real barrier module is the one damaged; and the conservation prints exactly - the T- … | `null` / NOT_COMPARED |
-| `BM-18-cd11-drive-profiles-v1` | WT-CD-011 | `PROJECT_FIXTURE` | cd11-drive-profiles-v1 :: drive_profile, turn_speed_falloff, turn_drag_per_second, track_spacing_m, damaged_track_turn_scale, power_falloff | Measured: the Leopard reads power falloff 0.500, six gears, turn falloff 0.420, track spacing 2.880 and turn drag 0.400 while the T-80 reads 0.420, five gears, 0.300, 2.720 and 0.320, and their forward tops differ at 10.304 against 10.373. | `null` / NOT_COMPARED |
+| `BM-18-cd11-drive-profiles-v1` | WT-CD-011 | `PROJECT_FIXTURE` | cd11-drive-profiles-v1 :: drive_profile, turn_speed_falloff, turn_drag_per_second, track_spacing_m, damaged_track_turn_scale, power_falloff | Measured: the Leopard reads power falloff 0.500, six gears, turn falloff 0.420, track spacing 2.880 and turn drag 0.400 while the T-80 reads 0.420, five gears, 0.300, 2.720 and 0.320, and their forward tops differ at 10.304 against 10.373. | **`COMPARED_TO_SOURCE_FILE`** - unit file gamedata/units/tankmodels/{ussr_t_80b,germ_leopard_2a4}.blk: mass 50000 / 47000 kg, maxFwdSpeed 75 km/h = 20.833 m/s, maxRevSpeed 10 km/h = 2.778 m/s, maxAccel 4, maxDecel 8, maxAngSpeed 30 -> EQUAL on every figure our packets declare (docs/wt/wt-reference/WT_REFERENCE_UNITS.json) |
 | `BM-19-cd11-recoil-v1` | WT-CD-011 | `PROJECT_FIXTURE` | cd11-recoil-v1 :: recoil_speed_mps, recoil_max_mps, recoil_velocity | Measured: the Leopard moves 0.780 and the T-80 0.550 through the same entry, so the response differs by vehicle, and both are bounded by their own declared caps of 1.55 and 1.10. | `null` / NOT_COMPARED |
 | `BM-20-cd12-observation-and-support-wired-v1` | WT-CD-012 | `PROJECT_FIXTURE` | cd12-observation-and-support-wired-v1 :: INFO_CLASSES, PRECISION_M, MEDIA_RULES, INTERNAL_FIELDS, recon_marks, smoke_clouds, stabilizer_available | Measured by the six acceptance scenes: an observation leaves the turret yaw at zero rather than commanding it; the stabiliser reads false when absent and true when present; a building blocks a projectile while smoke does not, and smoke occludes the optical cha … | `null` / NOT_COMPARED |
 | `BM-21-cd13-contribution-v1` | WT-CD-013 | `PROJECT_FIXTURE` | cd13-contribution-v1 :: events, counters, contacts, effective_damages, shots_fired, firing_slots, kills | Measured by a dedicated probe: contacts 1, effective damages 3, shots fired 1, firing slots 1 and kills 1 from one firing and several module damages; the same dedup key twice is refused as already_counted with the counter unmoved; and a life is killed once. | `null` / NOT_COMPARED |
@@ -91,15 +91,16 @@ Evidence levels are the four the package declares: `SOURCE_RULE` · `PROJECT_FIX
 | `BM-29-cd15-record-interpretation-v1` | WT-CD-015 | `PROJECT_FIXTURE` | cd15-record-interpretation-v1 :: rule_version, known_versions, action, shot_record, seed | Measured by driving the interpreter and reading the codec: version one is explained as team_standard_300 with nothing reinterpreted, version 999 is refused with reason unknown_rule_version:999 and action refuse_or_migrate, and both the codec and the builder ar … | `null` / NOT_COMPARED |
 | `BM-30-cd15-local-authority-v1` | WT-CD-015 | `PROJECT_FIXTURE` | cd15-local-authority-v1 :: reject, not_owner, stale_sequence, unsupported_message, unsupported_version, baseline, event_journal, final_snapshot | Measured by driving three real processes: the authority and BOTH production clients finished with the SAME final digest b7a1c492eae3dcb76994b6ea13bd6e6dd6b1d73a65dd6a9868c6ec5d244feebf, the server accepted 311 commands and refused by name not_owner:2 for a spo … | `null` / NOT_COMPARED |
 | `BM-31-cd15-information-permission-v1` | WT-CD-015 | `PROJECT_FIXTURE` | cd15-information-permission-v1 :: INFO_CLASSES, is_internal_field, project, precision_m, expires_at | Measured by driving the policy: the four classes read world_truth, observer_visible, shared_intel and last_seen_memory; the internal field guard refuses an internal field; and a real spectator projection is produced from observer_visible rather than from world … | `null` / NOT_COMPARED |
+| `BM-32-cd16-declared-manifest-expectation-v1` | WT-CD-016 | `PROJECT_FIXTURE` | cd16-declared-manifest-expectation-v1 :: shell_catalog.shells, shell_catalog.default, shell_options, muzzle_velocity_mps, effect_policy | Measured after the migration: 54 checks, 0 failed. The T-80B declares three rounds and all three validate with their own policies; the Leopard declares two and both validate; the HEAT reload, both real launches and the reset restoration still pass for both veh … | `null` / NOT_COMPARED |
 
 ## 4. Every row carries these bindings
 
 | field | value for the rows above |
 |---|---|
-| `war_thunder.game_build` | `null` in every row |
+| `war_thunder.game_build` | `2.59.0.13` in every row, measured from the local install |
 | `war_thunder.mode` | `Ground Realistic Battles (normal mode)` |
 | `war_thunder.vehicle_variant` / `shell` / `crew_or_modifications` | `null` in every row |
-| `war_thunder.source_url_or_capture_id` / `observed_at` | `null` in every row |
+| `war_thunder.source_url_or_capture_id` / `observed_at` | the local install path and the extraction provenance, in every row |
 | `mcthunder.tested_sha` | the commit that last touched the order result document, or its evidence document where the order carries the accepted evidence-document form; `sha_kind` says which |
 | `mcthunder.package_sha256` | `null` until CD16-T01 builds the package |
 | `conditions.*` | `null`, with a note saying they are left null rather than filled from an internal run |
@@ -114,7 +115,6 @@ Rows are derived from rule migration entries. A sub-order that changed no rule t
 | WT-CD-001 | no rule migration entry: this sub-order delivers rack and loading GEOMETRY and its state machine, measured in its own evidence document, so it contributes content rather than a rule row | `docs/wt/continuation/COMBAT_DEEPEN01_CD001_EVIDENCE.md` |
 | WT-CD-002 | no rule migration entry: this sub-order delivers armour and module GEOMETRY and coverage, measured in its own evidence document | `docs/wt/continuation/COMBAT_DEEPEN01_CD002_EVIDENCE.md` |
 | WT-CD-006 | no rule migration entry: this sub-order delivers the post-penetration, fuze and fragment behaviour measured in its own evidence document, and its occlusion half is the CD07-T04 fixture closed under the user ruling | `docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md` |
-| WT-CD-016 | this sub-order is the delivery itself: its rows are written when its own six cases are measured, and package_sha256 stays null until then | `docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md` |
 
 ## 6. Not-compared items, listed rather than implied
 
@@ -148,6 +148,7 @@ Rows are derived from rule migration entries. A sub-order that changed no rule t
 - **WT-CD-015/cd15-shell-family-effects-v1** — No shell family, penetration or fragment value is a real ammunition figure; they remain declared project design initial values with comparison NOT_COMPARED.
 - **WT-CD-015/cd15-local-authority-v1** — The harness own aggregate flag reads false because it reads a NULL process exit code from its started processes, while each process printed its PASS line and returned through the passing branch and the three digests are identical; that instrument fault is stated rather than smoothed over. Losing and delaying the transport is a fixture and the order permits it; no packet loss, capacity or p95 measurement is claimed and performance stays HOLD_BY_USER.
 - **WT-CD-015/cd15-information-permission-v1** — Precision, expiry and attenuation values remain declared project design initial values with comparison NOT_COMPARED, and thermal and radar remain explicitly unsupported states rather than a filter standing in for a sensor.
+- **WT-CD-016/cd16-declared-manifest-expectation-v1** — The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed.
 - **package** — declared layout tolerance: The project config declares 50 mm / 2 percent while the reference packet declares 1 mm / 0.1 percent. Both are recorded; reconciliation needs the user.
 - **package** — registered mesh divergences: Eleven registered items are model coverage rather than authored geometry; no layout fault was found and completion of the models would close them.
 - **package** — normal-match checkpoint: NOT_RUN. Fixtures do not substitute for a normal match and this agent does not sign for human play.

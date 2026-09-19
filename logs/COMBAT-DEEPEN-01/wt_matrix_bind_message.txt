@@ -1,0 +1,27 @@
+MCT-COMBAT-DEEPEN-01: the benchmark matrix is now BOUND to the measured War Thunder build, and the first three
+rows carry real reference values from the game files.
+
+Every one of the thirty two rows now cites war_thunder.game_build 2.59.0.13, measured from the local install, with
+the extraction provenance (local path, wt_ext_cli v0.6.6 and its release asset sha256) recorded in the row instead
+of a null. That is a fact about this machine and is not a claim about the row, which is why it is bound for all of
+them.
+
+Three rows whose real counterpart was actually read now carry an expected reference AND a verdict, under a new
+field reference_state that keeps the distinction visible rather than implicit: cd004-ballistics-v1 EQUALS the game
+round velocities (125mm_ussr_3BM42_APDS_FS 1700 m/s and 120mm_NATO_APDS_FS 1650 m/s), cd11-drive-profiles-v1
+EQUALS the unit file figures on every value our packets declare, and cd07-he-family-v1 DIFFERS - our engineering
+HE declares 700 m/s against the file 850 m/s, a 150 m/s shortfall recorded as an open item rather than corrected.
+
+WHAT DID NOT CHANGE, because changing it would be dishonest: wt_behavior_comparison_rows stays ZERO, the
+human_playtest count stays ZERO, no similarity percentage is given anywhere, and every row without a real
+counterpart stays NOT_COMPARED. Reading a data file is a SOURCE comparison, not an in-game behaviour capture, and
+the matrix now says exactly that in its own summary note.
+
+The generator own shape guards caught two things while this was built and both are worth recording: the LEVEL
+table refused to run until the new CD16 expectation-migration rule had an evidence level, and the comparison guard
+refused to write until the row count matched the references - which is how a typo in the rule key (cd011 against
+the real cd11) was found instead of silently producing a matrix with a reference that matched nothing. The matrix
+also grew to thirty two rows because the CD16 expectation migration is itself a rule change.
+
+Artifacts: docs/wt/continuation/COMBAT_DEEPEN01_BENCHMARK_MATRIX.json and .md rebuilt by
+logs/COMBAT-DEEPEN-01/build_cd016_matrix.js.

@@ -2,7 +2,7 @@
   "package_id": "MCT-COMBAT-DEEPEN-01",
   "schema_version": 1,
   "template_only": false,
-  "purpose": "Filled from what the fifteen closed sub-orders MEASURED, not from what they intended. It contains ZERO WT_BEHAVIOR_COMPARISON rows and ZERO HUMAN_PLAYTEST rows, gives NO similarity percentage, and leaves the War Thunder half of every row null and NOT_COMPARED because no capture of any external title exists in this work.",
+  "purpose": "Filled from what the fifteen closed sub-orders MEASURED, not from what they intended, and bound to the War Thunder build measured on this machine. It contains ZERO WT_BEHAVIOR_COMPARISON rows and ZERO HUMAN_PLAYTEST rows, gives NO similarity percentage, and separates two things that must not be confused: every row now cites game build 2.59.0.13 and its extraction provenance, while only the rows whose real counterpart was actually read carry an expected reference - those are SOURCE comparisons, labelled COMPARED_TO_SOURCE_FILE, and every other row stays NOT_COMPARED.",
   "row_source": "Every row is derived from one entry of docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json, so a behaviour that changed no rule has no row and is listed in sub_orders_without_rows with its reason instead of being padded with an invented row.",
   "source_template": "docs/wt/combat-deepen-01/original/10_BENCHMARK_MATRIX_TEMPLATE.json (read-only; the case_template, the four evidence levels and the known reference conflicts below are mirrored verbatim, and only the rows are added)",
   "field_semantics": {
@@ -20,7 +20,7 @@
     "HUMAN_PLAYTEST"
   ],
   "summary": {
-    "rows": 31,
+    "rows": 32,
     "rows_per_work_order": {
       "WT-CD-003": 2,
       "WT-CD-004": 3,
@@ -33,16 +33,18 @@
       "WT-CD-012": 1,
       "WT-CD-013": 2,
       "WT-CD-014": 4,
-      "WT-CD-015": 5
+      "WT-CD-015": 5,
+      "WT-CD-016": 1
     },
     "rows_per_outcome": {
       "SOURCE_RULE": 5,
-      "PROJECT_FIXTURE": 26
+      "PROJECT_FIXTURE": 27
     },
     "wt_behavior_comparison_rows": 0,
     "human_playtest_rows": 0,
+    "rows_compared_to_source_file": 3,
     "similarity_percentage": null,
-    "note": "A count of rows or a count of passes is NOT a similarity and is not offered as one. The only honest statement this matrix makes about external behaviour is that no comparison has been made."
+    "note": "A count of rows or a count of passes is NOT a similarity and is not offered as one. The only honest statement this matrix makes about external BEHAVIOUR is that no in-game comparison has been made; what has changed is that every row now cites the measured game build 2.59.0.13 and the rows whose counterpart was actually read carry a real reference value from the game files, which is a SOURCE comparison and is labelled as one."
   },
   "dependency_graph": {
     "work_order_id": "WT-CD-016",
@@ -311,11 +313,6 @@
       "work_order_id": "WT-CD-006",
       "reason": "no rule migration entry: this sub-order delivers the post-penetration, fuze and fragment behaviour measured in its own evidence document, and its occlusion half is the CD07-T04 fixture closed under the user ruling",
       "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD006_EVIDENCE.md"
-    },
-    {
-      "work_order_id": "WT-CD-016",
-      "reason": "this sub-order is the delivery itself: its rows are written when its own six cases are measured, and package_sha256 stays null until then",
-      "evidence_document": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md"
     }
   ],
   "rows": [
@@ -327,13 +324,13 @@
       "evidence_level_reason": "the oracle is the analytic slit geometry itself, independent of the tested function",
       "mechanic": "cd003-shape-v1 :: shape_profile, shape_kind, section_radius_m, rays, error_bound_m",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "8949b6392507cfe860d0c7d57f16b2c4d6d9ce09",
@@ -366,6 +363,8 @@
       },
       "metric": "With a declared section, none of the nine gap scenarios may disagree with the analytic gap geometry; the centre line alone disagreed on five of the nine.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Declared section: 0 of 9 disagree.",
       "outcome": "SOURCE_RULE",
@@ -373,7 +372,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd003_gap_baseline.gd (v1 CONTROL leg)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 1 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 1 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -385,13 +384,13 @@
       "evidence_level_reason": "the oracle is a bisection on the geometry alone",
       "mechanic": "cd003-rotation-step-0.02rad :: ROTATION_STEP_RAD, part_transform_basis",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "8949b6392507cfe860d0c7d57f16b2c4d6d9ce09",
@@ -424,6 +423,8 @@
       },
       "metric": "The rotating plate's crossing must match the analytic crossing within the chord bound of the declared angular step.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Subdivided: crossing 0.536451, a delta of 0.000973; the frozen control is unchanged at 0.500000.",
       "outcome": "SOURCE_RULE",
@@ -431,7 +432,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD003_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd003_gap_baseline.gd (frozen control leg),tests/probe_cd004_zero_drag.gd",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 2 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 2 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -443,13 +444,13 @@
       "evidence_level_reason": "the oracle is the closed form v(x) = v0 e^(-k x) under zero gravity",
       "mechanic": "cd004-ballistics-v1 :: ballistics_profile, drag_model, drag_k_per_m, provenance, retention_table",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "29f4cd98df3b6f3139805de01283eff94c46ac86",
@@ -481,7 +482,9 @@
         "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
       },
       "metric": "The declared retention curve must be the exponential e^(-k x) within its own tolerance of 0.010; the coefficient is calibrated from that curve rather than guessed.",
-      "expected_reference": null,
+      "expected_reference": "gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_3BM42_APDS_FS speed 1700 m/s; 120mm_rheinmetall_l44_user_cannon.blk round 120mm_NATO_APDS_FS speed 1650 m/s",
+      "reference_state": "COMPARED_TO_SOURCE_FILE",
+      "reference_verdict": "EQUAL to our APFSDS muzzle velocity on both vehicles (docs/wt/wt-reference/WT_AMMO_COMPARISON.json)",
       "tolerance_predeclared": null,
       "actual_project": "Declared retention 0.972 / 0.932 / 0.869 / 0.811 against the frozen 0.972 / 0.932 / 0.871 / 0.814, worst deviation 0.0034; the vacuum control is bit-identical.",
       "outcome": "SOURCE_RULE",
@@ -489,7 +492,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd004_zero_drag.gd (the standing control)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 3 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 3 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -501,13 +504,13 @@
       "evidence_level_reason": "the rule is a declared dimensionless mapping with its constants named",
       "mechanic": "cd004-residual-ratio-v1 :: residual_model, RESIDUAL_K, RESIDUAL_FLOOR",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "29f4cd98df3b6f3139805de01283eff94c46ac86",
@@ -540,6 +543,8 @@
       },
       "metric": "A thicker plate must leave a lower residual speed, and the fuze must burst on that residual trajectory rather than on the pre-penetration speed.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "One hundred millimetres leaves 805.788 and three hundred leaves 617.363; bursts land 19.11575 and 15.34726 metres out, inside one step of residual times delay.",
       "outcome": "SOURCE_RULE",
@@ -547,7 +552,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: all fourteen suites, unchanged before and after",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 4 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 4 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -559,13 +564,13 @@
       "evidence_level_reason": "two project code paths are compared against each other, which is an integration check",
       "mechanic": "cd004-ballistics-v1_shared_solver :: ballistic_intercept_verification, ai_lane_prediction, gunner_spec_drag_k_per_m",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "29f4cd98df3b6f3139805de01283eff94c46ac86",
@@ -599,6 +604,8 @@
       },
       "metric": "At the solver's own predicted time the flight's own method must reach the target within ten millimetres, with and without drag.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Vacuum miss 0.000305 m, unchanged; drag miss 0.001376 m, with the predicted time moved from 0.363637 s to 0.379341 s.",
       "outcome": "PROJECT_FIXTURE",
@@ -606,7 +613,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD004_EVIDENCE.md",
         "legacy and regression checks: run_ai_intercept_checks (106 passes, green through every step of this work)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 5 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 5 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -618,13 +625,13 @@
       "evidence_level_reason": "the declared trigger conditions are recomputed from the same inputs",
       "mechanic": "wt012-reactive-v1 :: ",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "45b88736571ebf913c4f764e52b9b2ff6746c9c1",
@@ -657,6 +664,8 @@
       },
       "metric": "The charge is spent only when its trigger conditions are met, and a second hit receives no un-consumed protection.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "A qualifying hit spends the charge and adds its reduction; a hit below the trigger minimum does NOT spend it; through the resolver a live charge costs 220.0000 mm against a spent charge's 100.0000 mm.",
       "outcome": "SOURCE_RULE",
@@ -664,7 +673,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD005_EVIDENCE.md",
         "legacy and regression checks: run_era_checks (73 passes),run_armor_checks (81 passes)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 6 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 6 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -676,13 +685,13 @@
       "evidence_level_reason": "the shell catalogue build and the runtime option list are read from the real vehicles",
       "mechanic": "cd07-he-family-v1 :: family, source_bullet_type, effect_policy",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -710,7 +719,9 @@
         "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
       },
       "metric": "The engineering HE is admitted by the shell catalogue and offered at runtime by the vehicle carrying its gun and by no other.",
-      "expected_reference": null,
+      "expected_reference": "gun file 125mm_2a46_2_user_cannon.blk round 125mm_ussr_HE speed 850 m/s, explosive a_ix_2 3.402 kg",
+      "reference_state": "COMPARED_TO_SOURCE_FILE",
+      "reference_verdict": "DIFFERS: our engineering HE declares 700 m/s, a 150 m/s shortfall against the file - recorded as an open item, not corrected in this round",
       "tolerance_predeclared": null,
       "actual_project": "Measured: VehicleShellCatalog.build ok=true, and the runtime option list is three rounds on the vehicle carrying the 125 mm gun and two on the other, so the weapon limit holds at the configuration, admission and runtime layers.",
       "outcome": "PROJECT_FIXTURE",
@@ -718,7 +729,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/run_shell_checks.gd (family agreement legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 7 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 7 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -730,13 +741,13 @@
       "evidence_level_reason": "the verdict is read from the real layout openings carried in the query snapshot",
       "mechanic": "cd07-bounded-connectivity-v1 :: overpressure, blast, fragmentation, declared_openings",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -765,6 +776,8 @@
       },
       "metric": "With the rule declared, a closed compartment with no breach and no declared opening must record the pressure as NOT applied, and an open one must record it as applied.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the burst records three separate channels and the overpressure channel carries a computed verdict with the reason \"closed compartment with no breach and no declared opening: the pressure has no path in, so there is no invented interior overpressure\", while the open case records it as applied.",
       "outcome": "PROJECT_FIXTURE",
@@ -772,7 +785,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_he_spec.gd (root event shape) and tests/probe_cd007_open_contrast.gd (open against closed)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 8 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 8 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -784,13 +797,13 @@
       "evidence_level_reason": "the recorded flag is compared against the burst geometry on a real burst",
       "mechanic": "cd07-external-on-every-burst :: external",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -819,6 +832,8 @@
       },
       "metric": "A fuzeless external blast must record whether its explosion was outside the hull, rather than leaving the field absent.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the same burst now records external=true, and the fuzed bursts are unchanged.",
       "outcome": "PROJECT_FIXTURE",
@@ -826,7 +841,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_world_burst.gd",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 9 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 9 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -838,13 +853,13 @@
       "evidence_level_reason": "the resolver contact verdict is read on the real runtime path",
       "mechanic": "cd07-contact-and-world-detonation :: burst_target, burst_entry_distance, burst_visited, contact_kind",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -873,6 +888,8 @@
       },
       "metric": "With the rule declared, a round that meets armour and stops must still produce a root event, and a round that meets the world must produce one too.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the same shot now reports burst=present with the three channels, the world route records contact_kind=world_contact, and the armour route is unchanged in every other respect.",
       "outcome": "PROJECT_FIXTURE",
@@ -880,7 +897,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/probe_cd007_he_runtime.gd (armour contact) and tests/probe_cd007_world_burst.gd (world contact)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 10 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 10 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -892,13 +909,13 @@
       "evidence_level_reason": "the occlusion contrast is measured between a target behind and beside an obstacle",
       "mechanic": "cd07-external-blast-fragment-candidates :: eligible, left_target, other_target, burst_target",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -927,6 +944,8 @@
       },
       "metric": "With the rule declared, a fragment from an external blast must be able to reach a target in range rather than stopping on the first iteration.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "NOT YET MEASURED. The gated changes are in place but the occlusion contrast still records no damage on either target, so no positive effect is claimed; the remaining link is to be located by instrumenting the loop, which the recorded lessons require before further edits.",
       "outcome": "PROJECT_FIXTURE",
@@ -934,7 +953,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: tests/run_spall_checks.gd (delayed and spall legs, unchanged)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 11 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 11 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -946,13 +965,13 @@
       "evidence_level_reason": "the player edited loadout is read back through the garage verifier legs",
       "mechanic": "edited_loadout_total :: rounds_remaining",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
@@ -981,6 +1000,8 @@
       },
       "metric": "The battle must receive exactly the total the player edited, whatever number of round types the vehicle has.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: with the assertion expressed as the edited total the suite is 29 of 29, and the ten-suite run is 893 passes with no failures.",
       "outcome": "PROJECT_FIXTURE",
@@ -988,7 +1009,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD007_EVIDENCE.md",
         "legacy and regression checks: scripts/diagnostics/modern_garage_verifier.gd (the same two legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 12 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 12 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1000,13 +1021,13 @@
       "evidence_level_reason": "the product produced crew state is read before any submission",
       "mechanic": "cd008-crew-condition-v1 :: condition, condition_version, condition_severity, alive",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "4c6f5a2232a61932e0328ef2e9ed270c02545cd5",
@@ -1035,6 +1056,8 @@
       },
       "metric": "With the condition declared, a graded state must exist as product state, and no middle condition may reduce duty because no efficiency figure has been verified.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: every record carries condition, condition_version and severity, the scene reads met, and availability still only depends on incapacitation so no unconfirmed penalty is switched on.",
       "outcome": "PROJECT_FIXTURE",
@@ -1042,7 +1065,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD008_EVIDENCE.md",
         "legacy and regression checks: tests/run_cd008_scene_checks.gd (S1/S3) and tests/run_damage_checks.gd (crew legs)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 13 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 13 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1054,13 +1077,13 @@
       "evidence_level_reason": "the replacement path is measured by a probe over one empty slot",
       "mechanic": "cd008-person-station-separation :: crew_states keys, crew_assignments values, station_occupancy",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "4c6f5a2232a61932e0328ef2e9ed270c02545cd5",
@@ -1089,6 +1112,8 @@
       },
       "metric": "With identities separated, no non-empty person holds two roles after a relief move, the headcount is conserved and the moving person keeps their own state and injuries.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: person keys are person_1..person_N, station_roles keeps station to role, station_occupancy keeps station to person, the acceptance scene reads met, and thirteen suites return their exact baseline result counts with no runtime errors.",
       "outcome": "PROJECT_FIXTURE",
@@ -1096,7 +1121,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD008_EVIDENCE.md",
         "legacy and regression checks: tests/run_damage_checks.gd, tests/run_recovery_checks.gd, tests/run_ammo_compartment_checks.gd, tests/run_recovery_player_checks.gd (the crew legs in each)",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 14 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 14 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1108,13 +1133,13 @@
       "evidence_level_reason": "the capability dictionary is read from the real state with the new field carrying the cause",
       "mechanic": "cd009-module-response-v1 :: power_scale, yaw_scale, pitch_scale, reasons",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "1f8553a5dcb268cd7e8301ffffe9e4beec68861a",
@@ -1143,6 +1168,8 @@
       },
       "metric": "With the profile declared, a partly damaged engine must reduce motive power before zero, and the tracks and barrel must behave as thresholds while the two turret axes stay linear.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: an engine taken from full to half records power_scale 0.5 and the reason engine:linear:0.50, while a transmission loss, a track side loss and a driver loss record three different causes with different steering and pivot outcomes.",
       "outcome": "PROJECT_FIXTURE",
@@ -1150,7 +1177,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD009_EVIDENCE.md",
         "legacy and regression checks: tests/run_damage_checks.gd and the six capability consumers, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 15 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 15 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1162,13 +1189,13 @@
       "evidence_level_reason": "the judgement is driven through gunner.try_fire on a real actor",
       "mechanic": "cd009-breech-jam-v1 :: breech_failure, breech_failures, blocked_reason",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "1f8553a5dcb268cd7e8301ffffe9e4beec68861a",
@@ -1197,6 +1224,8 @@
       },
       "metric": "With the rule declared, a real request against a damaged breech must be able to jam, the jam must be a committed record carrying a seed and a rule, the same request must answer the same way, and no round may be consumed.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured on the production path: after nine real requests a jam occurred and recorded {shot_id 9, seed 2335249131, roll 0.131, chance 0.2, rule cd009-breech-jam-v1, round_consumed false}; the same request was refused the same way; a held trigger did not multiply the record; and the magazine went 104 to 96 with the jam itself consuming nothing. The roll was also shown to be a pure function of the shot seed, with 20 of 80 sampled shots inside the declared chance.",
       "outcome": "PROJECT_FIXTURE",
@@ -1204,7 +1233,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD009_EVIDENCE.md",
         "legacy and regression checks: tests/run_fire_control_checks.gd, tests/run_loading_checks.gd and every suite that fires, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 16 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 16 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1216,13 +1245,13 @@
       "evidence_level_reason": "the production inventory ledger is driven and its conservation printed",
       "mechanic": "cd10-ammo-reaction-v1 :: ammo_reactions, ammo_reaction, ammo_loss_total, lost, store class, compartment state",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "fa9d93b860d3ed86bcfbd7ce52d3f00ff4106418",
@@ -1251,6 +1280,8 @@
       },
       "metric": "With the profile declared, an inert body store and a propellant store must answer from their own material rules, an intact and a perforated compartment must differ, and the loss must leave the racks and appear in lost so the single ledger still balances.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the profile answers with one of four outcomes keyed on storage class, damage channel and compartment state; the fourth case reads isolated against vent_only once the real barrier module is the one damaged; and the conservation prints exactly - the T-80 accounts for 37 in racks plus 1 chambered against 38 supplied, the Leopard for 41 plus 1 against 42.",
       "outcome": "PROJECT_FIXTURE",
@@ -1258,7 +1289,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD010_EVIDENCE.md",
         "legacy and regression checks: tests/run_ammo_compartment_checks.gd and tests/run_loading_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 17 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 17 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1270,13 +1301,13 @@
       "evidence_level_reason": "the production content pipeline and power train are driven and a speed is read",
       "mechanic": "cd11-drive-profiles-v1 :: drive_profile, turn_speed_falloff, turn_drag_per_second, track_spacing_m, damaged_track_turn_scale, power_falloff",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "9493e2867a03386fabc27d9810b0c71d941b5671",
@@ -1304,7 +1335,9 @@
         "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
       },
       "metric": "With the profiles declared, the two vehicles must differ in turn falloff, turn drag, track spacing, damaged track scale and power falloff, and the measured curve must follow each one.",
-      "expected_reference": null,
+      "expected_reference": "unit file gamedata/units/tankmodels/{ussr_t_80b,germ_leopard_2a4}.blk: mass 50000 / 47000 kg, maxFwdSpeed 75 km/h = 20.833 m/s, maxRevSpeed 10 km/h = 2.778 m/s, maxAccel 4, maxDecel 8, maxAngSpeed 30",
+      "reference_state": "COMPARED_TO_SOURCE_FILE",
+      "reference_verdict": "EQUAL on every figure our packets declare (docs/wt/wt-reference/WT_REFERENCE_UNITS.json)",
       "tolerance_predeclared": null,
       "actual_project": "Measured: the Leopard reads power falloff 0.500, six gears, turn falloff 0.420, track spacing 2.880 and turn drag 0.400 while the T-80 reads 0.420, five gears, 0.300, 2.720 and 0.320, and their forward tops differ at 10.304 against 10.373.",
       "outcome": "PROJECT_FIXTURE",
@@ -1312,7 +1345,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD011_EVIDENCE.md",
         "legacy and regression checks: tests/run_drive_checks.gd, run_slope_pivot_checks.gd, run_track_damage_checks.gd, run_surface_drive_checks.gd, run_track_drive_checks.gd, run_airborne_drive_checks.gd, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 18 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 18 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1324,13 +1357,13 @@
       "evidence_level_reason": "the real kick_recoil entry is read before and after on both engineering vehicles",
       "mechanic": "cd11-recoil-v1 :: recoil_speed_mps, recoil_max_mps, recoil_velocity",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "9493e2867a03386fabc27d9810b0c71d941b5671",
@@ -1359,6 +1392,8 @@
       },
       "metric": "With the profile declared, the recoil from the real entry must differ per vehicle, be capped, and not drift.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the Leopard moves 0.780 and the T-80 0.550 through the same entry, so the response differs by vehicle, and both are bounded by their own declared caps of 1.55 and 1.10.",
       "outcome": "PROJECT_FIXTURE",
@@ -1366,7 +1401,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD011_EVIDENCE.md",
         "legacy and regression checks: tests/run_drive_checks.gd and every suite that fires, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 19 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 19 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1378,13 +1413,13 @@
       "evidence_level_reason": "the policy and support production objects are driven by six acceptance scenes",
       "mechanic": "cd12-observation-and-support-wired-v1 :: INFO_CLASSES, PRECISION_M, MEDIA_RULES, INTERNAL_FIELDS, recon_marks, smoke_clouds, stabilizer_available",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "6132bcfa8c25d466a3c3dda7482c50965c38eccb",
@@ -1413,6 +1448,8 @@
       },
       "metric": "With the separation declared, an observation must not command the turret, the stabiliser must be a configured capability and not a camera option, a building must block a projectile while smoke must not, smoke must occlude the optical channel more than the thermal one, world truth must be refused from a client view, a recon mark must carry its source and expire, and an unequipped vehicle must report no smoke and no recon.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured by the six acceptance scenes: an observation leaves the turret yaw at zero rather than commanding it; the stabiliser reads false when absent and true when present; a building blocks a projectile while smoke does not, and smoke occludes the optical channel at 1.000 against 0.600 for thermal; world truth is refused from a client view with the reason world_truth_is_authority_only; a recon mark is created with one mark now and none after expiry; and the unequipped hull reports no smoke and no recon while an equipped vehicle reports both.",
       "outcome": "PROJECT_FIXTURE",
@@ -1420,7 +1457,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD012_EVIDENCE.md",
         "legacy and regression checks: tests/run_observation_policy_checks.gd 32/0, run_optics_checks.gd 24/0, run_sight_ballistics_checks.gd 73/0, run_support_actions_checks.gd 51/0, run_modern_support_checks.gd 19/0, run_partial_support_checks.gd 7/0, run_fire_control_checks.gd 59/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 20 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 20 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1432,13 +1469,13 @@
       "evidence_level_reason": "the ledger is driven directly plus the real match event stream",
       "mechanic": "cd13-contribution-v1 :: events, counters, contacts, effective_damages, shots_fired, firing_slots, kills",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "399ae69c7cf9bc466e0478aaf990f96a8bbb24ad",
@@ -1467,6 +1504,8 @@
       },
       "metric": "With the ledger declared, one firing damaging several modules must count one shot, three effective damages and at most one kill, and a repeated dedup key must add nothing.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured by a dedicated probe: contacts 1, effective damages 3, shots fired 1, firing slots 1 and kills 1 from one firing and several module damages; the same dedup key twice is refused as already_counted with the counter unmoved; and a life is killed once.",
       "outcome": "PROJECT_FIXTURE",
@@ -1474,7 +1513,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md",
         "legacy and regression checks: check_live_fire_respawn.gd, run_match_event_checks.gd, run_match_rules_checks.gd and every damage and recovery suite, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 21 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 21 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1486,13 +1525,13 @@
       "evidence_level_reason": "the attribution rule is driven directly with the window read from the class",
       "mechanic": "cd13-attribution-v1 :: primary, assists, attribution_version, assist_window_s, no_credit_causes",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "399ae69c7cf9bc466e0478aaf990f96a8bbb24ad",
@@ -1521,6 +1560,8 @@
       },
       "metric": "With the version declared, the larger effective damage must take the primary under a named attribution version, damage outside the assist window must not assist, and each no-credit cause must be refused by name and score nothing.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: two shooters on one target give primary shooter_C with shooter_A as an assist under cd13-attribution-v1; a hit older than the twelve second window is not an assist however large; friendly fire, abandonment, an environmental death and an orphaned fire are each refused with a named reason and the kill counter stays at zero; and a sustained fire keeps its origin when read inside the window.",
       "outcome": "PROJECT_FIXTURE",
@@ -1528,7 +1569,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD013_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 22 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 22 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1540,13 +1581,13 @@
       "evidence_level_reason": "both presets are snapshotted in the same scene and compared",
       "mechanic": "cd14-ground-rb-preset-v1 :: start_tickets, time_limit_s, books, initial_sp, vehicle_cost, repeat_sortie_limit, contribution_income, sortie_rules",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "cc42d6d88ef8dabcfc45c661fa2d2c61ac78aeac",
@@ -1575,6 +1616,8 @@
       },
       "metric": "With the new preset declared, the old one must remain byte for byte explainable by its own fingerprint and the new one must carry its own id, its own books and its own transaction rules.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: the old preset still reports the same id, version, three hundred tickets and the SAME fingerprint, while the new preset reports id ground_rb_like_v1 with four books, initial SP 450, per class costs, a repeat limit of three, contribution income and the four transaction steps declared with release on failure and cancellation, an idempotent token and a never negative balance.",
       "outcome": "PROJECT_FIXTURE",
@@ -1582,7 +1625,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd 43/0 and run_match_event_checks.gd 11/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 23 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 23 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1594,13 +1637,13 @@
       "evidence_level_reason": "the sortie service is driven including a duplicate key and an unaffordable request",
       "mechanic": "cd14-personal-sp-book-v1 :: initial_sp, balance, lifetime_earned, lifetime_spent, entries",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "cc42d6d88ef8dabcfc45c661fa2d2c61ac78aeac",
@@ -1629,6 +1672,8 @@
       },
       "metric": "With the book declared, a committed event must credit once, a replayed event must add nothing, and no balance in its history may ever be negative.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: earning from a committed event credited 120 to a 450 balance for 570, the same event key again was refused as already_earned, and the book own check reports that no balance in its entry history ever went negative.",
       "outcome": "PROJECT_FIXTURE",
@@ -1636,7 +1681,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 24 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 24 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1648,13 +1693,13 @@
       "evidence_level_reason": "the sortie service is driven through all four transaction steps",
       "mechanic": "cd14-sortie-transaction-v1 :: reservations, receipts, sortie_rules",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "cc42d6d88ef8dabcfc45c661fa2d2c61ac78aeac",
@@ -1683,6 +1728,8 @@
       },
       "metric": "With the transaction declared, a blocked spawn and a cancellation must release with the balance untouched, a confirmed and committed sortie must charge once, a repeat token must be idempotent with zero charged, and an unaffordable request must be refused by name.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: a blocked spawn released with the balance still 300, a cancellation released as well, a confirmed and committed sortie charged once, the same token again returned idempotent with zero charged, and a request the balance could not cover was refused as insufficient_sp with the balance still never negative.",
       "outcome": "PROJECT_FIXTURE",
@@ -1690,7 +1737,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: check_live_fire_respawn.gd 17/0 and run_match_rules_checks.gd 43/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 25 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 25 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1702,13 +1749,13 @@
       "evidence_level_reason": "the interpreter is driven with a known and an unknown version",
       "mechanic": "cd14-rule-version-interpreter-v1 :: rule_version, known_versions, migrated, action",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "cc42d6d88ef8dabcfc45c661fa2d2c61ac78aeac",
@@ -1737,6 +1784,8 @@
       },
       "metric": "With the interpreter declared, a known version must be explained by its own rules and an unknown version must be refused by name with an action, never read as if it were current.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured: version one is explained as team_standard_300 with nothing reinterpreted, and version 999 is refused with reason unknown_rule_version:999 and action refuse_or_migrate alongside the known version list.",
       "outcome": "PROJECT_FIXTURE",
@@ -1744,7 +1793,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD014_EVIDENCE.md",
         "legacy and regression checks: run_match_rules_checks.gd and run_save_lock_checks.gd 8/0, both unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 26 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 26 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1756,13 +1805,13 @@
       "evidence_level_reason": "two real begun matches are compared with the presentation layer stopped",
       "mechanic": "cd15-presentation-consumer-v1 :: effect_policy, committed_event, stop_all, presentation_stopped",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
@@ -1791,6 +1840,8 @@
       },
       "metric": "With the separation declared, stopping the presentation layer must leave the committed event count, the ammunition, the damage and the tickets of the same match unchanged, and no presentation value may be read back into a rule.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured on the production objects: the manager is reached through the range OWN projectiles member and that member does own the feedback layer; stopping it leaves the same match with nine committed events and identical tickets 300/300 on both sides. The dedicated probe prints P1 feedback present=true with 9 -> 9 events, and the acceptance scene prints REACHED AND STOPPED=true, so the presentation half is exercised and is no longer inferred from a file name.",
       "outcome": "PROJECT_FIXTURE",
@@ -1798,7 +1849,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_feedback_checks.gd 40/0, run_hud_checks.gd 56/0, run_vehicle_damage_hud_checks.gd 109/0 and run_network_authority_checks.gd 62/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 27 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 27 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1810,13 +1861,13 @@
       "evidence_level_reason": "the real spawn gate is driven with every declared family and an undeclared one",
       "mechanic": "cd15-shell-family-effects-v1 :: effect_policy, impact_profile, burst, fragment_candidates, termination_reason",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
@@ -1845,6 +1896,8 @@
       },
       "metric": "Every declared family must be admitted by the real gate carrying its own complete effect profile, an undeclared effect must be refused by name rather than treated as kinetic, and a round that reaches nothing must produce no lethal burst at all.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured through the real spawn gate: all FOUR declared families - kinetic, he_blast, internal_burst and long_rod - are ACCEPTED with zero refusals, each carrying its OWN complete impact profile. The long-rod family is validated by its own rule set, which FORBIDS the full-caliber normalization and overmatch fields outright and instead demands a bounded angle-resistance curve from zero to ninety degrees, so the profiles are genuinely different per family rather than one shape reused. An undeclared effect is REFUSED BY NAME as invalid_effect_policy, and a round that reaches nothing produces NO burst at all, with the accepted and refused lists printed by both the probe and the scene.",
       "outcome": "PROJECT_FIXTURE",
@@ -1852,7 +1905,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_damage_checks.gd 57/0, run_material_replay_checks.gd 43/0 and run_network_event_journal_checks.gd 64/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 28 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 28 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1864,13 +1917,13 @@
       "evidence_level_reason": "the interpreter and the record codec are driven together",
       "mechanic": "cd15-record-interpretation-v1 :: rule_version, known_versions, action, shot_record, seed",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
@@ -1899,6 +1952,8 @@
       },
       "metric": "A stored record must be explained by the version that produced it, and an unknown version must be refused by name with an action, so that reading a replay never re-randomises damage or re-settles an outcome.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured by driving the interpreter and reading the codec: version one is explained as team_standard_300 with nothing reinterpreted, version 999 is refused with reason unknown_rule_version:999 and action refuse_or_migrate, and both the codec and the builder are present on the production path, so a stored record is explained by its own version and is never re-randomised or re-settled.",
       "outcome": "PROJECT_FIXTURE",
@@ -1906,7 +1961,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_replay_checks.gd 73/0, run_material_replay_checks.gd 43/0 and run_era_network_checks.gd 22/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 29 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 29 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     },
@@ -1918,13 +1973,13 @@
       "evidence_level_reason": "one authority and two production clients run as three real processes",
       "mechanic": "cd15-local-authority-v1 :: reject, not_owner, stale_sequence, unsupported_message, unsupported_version, baseline, event_journal, final_snapshot",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
@@ -1953,6 +2008,8 @@
       },
       "metric": "A client that spoofs another vehicle identity, replays a stale sequence, sends an unknown message or claims a hit must be refused by name, and the authority digest must be identical across the server and both clients, with no client adding its own kill or reward.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured by driving three real processes: the authority and BOTH production clients finished with the SAME final digest b7a1c492eae3dcb76994b6ea13bd6e6dd6b1d73a65dd6a9868c6ec5d244feebf, the server accepted 311 commands and refused by name not_owner:2 for a spoofed entity identity, stale_sequence:2 for a replayed sequence, unsupported_message:2 for a client CLAIMING A HIT through claim_hit, and unsupported_version:4 for a bad protocol version, with 4 shots fired and 4 finished and 2 final acknowledgements. Both clients report passed=true with the snapshot and event order verified and their own cursor equal to the final event sequence, so neither client added a kill or a reward. In addition run_network_event_recovery_checks.gd drives the initial versioned baseline, a duplicate reliable batch that moves no cursor, a malformed suffix that rejects the whole batch, an event tick regression across batch boundaries, the retention window and an overlapping resync.",
       "outcome": "PROJECT_FIXTURE",
@@ -1960,7 +2017,7 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_network_event_recovery_checks.gd 58/0, run_network_authority_checks.gd 62/0, run_network_fault_checks.gd 42/0, run_network_identity_checks.gd 60/0 and run_network_event_journal_checks.gd 64/0, all unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 30 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 30 of 32)"
       ],
       "deviation_class": "not_compared_no_capture"
     },
@@ -1972,13 +2029,13 @@
       "evidence_level_reason": "the policy is driven with its guard and a real spectator projection",
       "mechanic": "cd15-information-permission-v1 :: INFO_CLASSES, is_internal_field, project, precision_m, expires_at",
       "war_thunder": {
-        "game_build": null,
+        "game_build": "2.59.0.13",
         "mode": "Ground Realistic Battles (normal mode)",
         "vehicle_variant": null,
         "shell": null,
         "crew_or_modifications": null,
-        "source_url_or_capture_id": null,
-        "observed_at": null
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
       },
       "mcthunder": {
         "tested_sha": "e8d7e9a45285456da87234de0a87a2dfec4bc88d",
@@ -2007,6 +2064,8 @@
       },
       "metric": "An observer or a replay must receive only permitted information, a spectator projection must come from an observer class rather than from world truth, and an internal field must be refused rather than trimmed silently.",
       "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
       "tolerance_predeclared": null,
       "actual_project": "Measured by driving the policy: the four classes read world_truth, observer_visible, shared_intel and last_seen_memory; the internal field guard refuses an internal field; and a real spectator projection is produced from observer_visible rather than from world truth, so the enemy live internals are not carried by the extended fields into the observer or the replay.",
       "outcome": "PROJECT_FIXTURE",
@@ -2014,7 +2073,63 @@
       "raw_evidence": [
         "docs/wt/continuation/COMBAT_DEEPEN01_CD015_EVIDENCE.md",
         "legacy and regression checks: run_observation_policy_checks.gd, run_optics_checks.gd, run_sight_ballistics_checks.gd and run_support_actions_checks.gd as confirmed under WT-CD-012, unchanged",
-        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 31 of 31)"
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 31 of 32)"
+      ],
+      "deviation_class": "declared_project_design_value"
+    },
+    {
+      "id": "BM-32-cd16-declared-manifest-expectation-v1",
+      "work_order_id": "WT-CD-016",
+      "status": "MEASURED_INTERNAL",
+      "evidence_level": "PROJECT_FIXTURE",
+      "evidence_level_reason": "the integration suite was driven after the migration and validates the packet own declared manifest: 54 checks with no failures",
+      "mechanic": "cd16-declared-manifest-expectation-v1 :: shell_catalog.shells, shell_catalog.default, shell_options, muzzle_velocity_mps, effect_policy",
+      "war_thunder": {
+        "game_build": "2.59.0.13",
+        "mode": "Ground Realistic Battles (normal mode)",
+        "vehicle_variant": null,
+        "shell": null,
+        "crew_or_modifications": null,
+        "source_url_or_capture_id": "local install E:/WarThunder, extracted with wt_ext_cli v0.6.6 (asset sha256 2e7593535f341ae88956583a9ba6aada3500d153f4c4a26196cae89ecdb685af); provenance in docs/wt/wt-reference/README.md",
+        "observed_at": "2026-09-19"
+      },
+      "mcthunder": {
+        "tested_sha": "fe1c8f4c7c7f73b573567e3eee1fabd215d97f46",
+        "sha_kind": "evidence_document_last_commit",
+        "package_sha256": null,
+        "rules_version": "cd16-declared-manifest-expectation-v1",
+        "rules_version_previous": "engineering_runtime_two_round_manifest_expectation",
+        "vehicle_id": "ussr_t_80b and germ_leopard_2a4",
+        "modes": "engineering_runtime_checks",
+        "shell_id": null,
+        "content_version": "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md"
+      },
+      "conditions": {
+        "distance_m": null,
+        "impact_angle_deg": null,
+        "target_part": null,
+        "target_pose": null,
+        "ammo_occupancy": null,
+        "damage_before": null,
+        "seed_set": [],
+        "note": "no external comparison condition was captured, so these are left null rather than filled from an internal run; the internal conditions of each row live in the referenced evidence document"
+      },
+      "sample_policy": {
+        "deterministic_cases": "按同一输入重复并比较；不声称跨平台逐bit一致",
+        "stochastic_cases": "先冻结seed集合/样本计划与统计容差，报告全样本；无足够样本保持NOT_COMPARED"
+      },
+      "metric": "Every declared round must be identified and must carry the family policy it declares (APFSDS long_rod, HEAT chemical, HE he_blast), the default must still be the APFSDS long-rod round, and the runtime option count must equal the packet own declaration instead of a literal.",
+      "expected_reference": null,
+      "reference_state": "NOT_COMPARED",
+      "reference_verdict": null,
+      "tolerance_predeclared": null,
+      "actual_project": "Measured after the migration: 54 checks, 0 failed. The T-80B declares three rounds and all three validate with their own policies; the Leopard declares two and both validate; the HEAT reload, both real launches and the reset restoration still pass for both vehicles.",
+      "outcome": "PROJECT_FIXTURE",
+      "limitation": "The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed. ; NO external capture exists, so the War Thunder layer of this row is NOT_COMPARED and no similarity is claimed.",
+      "raw_evidence": [
+        "docs/wt/continuation/COMBAT_DEEPEN01_CD016_EVIDENCE.md",
+        "legacy and regression checks: tests/run_engineering_runtime_checks.gd 54/0 after the migration; the same suite stood at 44/0 with the old two-round assertion on the 2026-09-17 clean build and at 26/1 at HEAD before the migration",
+        "docs/wt/continuation/COMBAT_DEEPEN01_RULE_MIGRATION.json (this row is migration entry 32 of 32)"
       ],
       "deviation_class": "declared_project_design_value"
     }
@@ -2149,6 +2264,10 @@
     {
       "source": "WT-CD-015/cd15-information-permission-v1",
       "item": "Precision, expiry and attenuation values remain declared project design initial values with comparison NOT_COMPARED, and thermal and radar remain explicitly unsupported states rather than a filter standing in for a sensor."
+    },
+    {
+      "source": "WT-CD-016/cd16-declared-manifest-expectation-v1",
+      "item": "The three-round manifest is a declared project content fact with comparison NOT_COMPARED; no real T-80B ammunition loadout is claimed."
     },
     {
       "source": "package",
