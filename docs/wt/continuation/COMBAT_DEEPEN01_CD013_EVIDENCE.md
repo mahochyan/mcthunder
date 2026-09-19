@@ -148,3 +148,23 @@ versioned attribution ledger and no contribution ledger class at all. That is ex
 build, so the remaining work is the implementation rather than any further harness repair.
 NO PRODUCTION CODE WAS CHANGED to reach this point, and no delivered expectation was edited at any point.
 ```
+
+## 6. The ledger exists, all six cases pass, and one of those passes is WEAK and is stated as such
+```
+scripts/battle/contribution_ledger.gd now exists with the shape the order names: identity completed by the service itself
+(match, entity, life, generation, shot, projectile, root effect, event id), five SEPARATE counters (contact, effective
+damage, shot fired, firing slot, kill) whose subject and dedup key are deliberately distinct, a frozen attribution rule
+(largest effective damage inside a declared assist window, ties broken by time then by subject id), named refusals for
+causes that must never become a kill (friendly fire, abandonment, environmental, an orphaned fire), sustained fire
+inheritance through a root effect, and settlement receipts. Two boundaries are written into the class itself: it RECORDS
+and is neither the death authority nor the ticket authority, so the runtime state death_notified gate and the ticket
+ledger stay exactly where they were.
+ALL SIX CASES NOW PASS. But T02 and T04 pass on the LEDGER EXISTING, not on its behaviour: the scenes ask whether a
+versioned attribution ledger is present, and it now is. Nothing yet drives its attribution rule, its assist window, its
+kill-credit refusal or its sustained fire inheritance, so those passes are WEAK in exactly the way the earlier rounds of
+this session have caught and removed more than once. It is recorded here rather than presented as a behavioural proof.
+One device fault of mine was also repeated and then named: ClassDB lists ENGINE classes only, so it never sees a script
+class, and my existence check reported false for a class that parses cleanly. That is the same mistake already recorded
+against CD12, and the check now references the ledger directly.
+NO PRODUCTION CODE WAS CHANGED apart from adding this new service, and no delivered expectation was edited.
+```

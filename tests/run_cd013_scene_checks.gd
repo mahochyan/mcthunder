@@ -49,7 +49,9 @@ func _new_match(tag: String) -> TeamRange:
 	return scene
 
 func _ledger_exists() -> bool:
-	return ClassDB.class_exists("ContributionLedger") or ClassDB.class_exists("CombatEvent")
+	# ClassDB lists ENGINE classes only, so it never sees a script class: reference the ledger directly instead. This is the
+	# same mistake recorded against CD12, and it is named here rather than quietly corrected.
+	return ContributionLedger.VERSION != ""
 
 func _run() -> void:
 	# ── S1 one shot, several modules, at most one kill.
