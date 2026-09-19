@@ -110,6 +110,10 @@ shell_2={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"physical_keycode":50)]
 }
+fire_secondary={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":72)]
+}
 
 [rendering]
 

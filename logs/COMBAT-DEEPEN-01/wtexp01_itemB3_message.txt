@@ -1,0 +1,18 @@
+WT-EXPANSION-01 item B step 3: the input action the secondary weapon needs now EXISTS, and nothing reads it yet.
+
+WHAT CHANGED: project.godot gains a `fire_secondary` action bound to physical keycode 72 (H), inserted beside the
+existing weapon bindings in the same format. It is a NEW action rather than a reuse, because the map already had
+fire on mouse left and shell_1 / shell_2 for the main gun selection and no third slot - and no existing binding
+changes meaning.
+
+WHAT IS NOT DONE AND IS NOT CLAIMED: no input handler calls the action yet, so pressing it does nothing today. The
+gunner channel answers a direct `try_fire_secondary` call, which the acceptance probe measures, but the path from
+the key to that call is the remaining piece of item B together with rendering the channels the HUD model now
+carries.
+
+MEASURED AFTER THE CHANGE: run_input_binding_checks (the suite that reads the input map), run_hud_checks,
+run_engineering_runtime_checks and run_feedback_checks all exit 0 with no failures. The binding was added BY A FILE
+rather than by an inline command, because the inline form produced a PowerShell quoting error for the fourth time
+this session - the same recorded lesson, finally applied to a one-line edit.
+
+NO MAIN GUN BEHAVIOUR CHANGED and no expectation was edited.
