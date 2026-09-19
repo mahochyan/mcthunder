@@ -1009,6 +1009,27 @@ suites print the Chinese summary and the runner reads the child's stdout in an e
 the per-check lines. That fallback works for passing suites and it does NOT affect the register, which is judged from
 `^\[FAIL\]` lines - but it is why a suite's recorded `checks` can be 0 while its own log shows 140.
 
+## 27. CD16's six acceptance designs, their exact reading, and the execution path for each - written before the package exists
+
+Re-read from the sub-order itself (`docs/wt/combat-deepen-01/original/03_ALL_WORK_ORDERS.md`, WT-CD-016 section), so
+the delivery is driven by the package's own text rather than by memory:
+
+| design | the sub-order's操作 / 预期 | status | how it is executed |
+|---|---|---|---|
+| **T01** version lock and evidence integrity | generate the package from a definite integrated commit and check every identity; source/content/rule/package identity traceable, UNKNOWN exit and script errors refused | **RUNNING NOW** - `build_release.ps1 -Candidate -ModernRiver -CommittedSnapshot` from `4a2c9744`; `fresh_import` passed, regression batch in progress | the build's own gates: `Run-Checked` refuses an unknown exit code, a timeout, a missing artefact, a `SCRIPT ERROR:`/`^ERROR:`/`[FAIL]` marker, and the register judges the known reds |
+| **T02** two-vehicle entry and loadout | normal UI selects T-80B and Leopard 2A4 into the river valley; actual vehicle/ammo/model/layout consistent, missing required resources must not downgrade | PENDING (needs the package) | `tests/run_modern_player_flow.ps1 -Executable <pkg exe> -SourceSha <40hex>` - it validates `BUILD_MANIFEST.json`: source sha, `modern_river_required`, and the sha256 of the exe and pck |
+| **T03** normal complete match, then another | normal play or a recordable AI completes a match under frozen rules and starts another; real tickets/damage/recovery/endgame, next round free of stale events | PENDING (needs the package) | `tests/run_player_flow_checks.ps1 -Executable <pkg exe> -SourceSha <40hex>` (also `run_modern_player_flow.ps1`) |
+| **T04** same-life live-fire re-sortie | the in-package controlled live-fire fixture produces player death and a normal click-through; death/ticket/new-life/drivable+fireable chain evidenced | PENDING (needs the package) | the package's own flow scripts; the in-package fixture is the one the sub-order names, not a source-tree shortcut |
+| **T05** history and open-compartment compatibility | run the old AP/APHE regression and a new HE representative scene; old rules not silently rewritten, new HE benchmarked per this version's declaration | the regression half is inside the running batch (`run_shell_checks`, `run_historical*`, the HE fixture suites) | suite evidence from the same build, not from an older package |
+| **T06** close, restart, independent path | launch from a new directory, save, close, restart in an independent process; loadout/research/settings restored per version and no resources read from the development directories | PENDING (needs the package) | the flow scripts' restart stage, run against the package directory outside the source tree |
+
+THE REJECTION CONDITIONS ARE KEPT IN VIEW, because three of them are easy to violate accidentally: file counts or
+PASS counts are never similarity; the project's own checker never certifies War Thunder agreement; a required
+engineering vehicle may not be swapped for a training vehicle when resources are missing; and the final package may
+never reuse an older package's evidence. Release state stays `release_ready=false`, `public_release=false`,
+`human=PENDING`, `performance=HOLD_BY_USER`.
+
+
 
 
 
