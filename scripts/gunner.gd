@@ -277,6 +277,9 @@ func install_secondary(rows: Array) -> void:
 			"cooldown_left": 0.0,
 			"shots_fired": 0,
 			"blocked_reason": "",
+			# WT-EXPANSION-01 step 3: the round own declared profile, carried from the packet so a channel fires
+			# only when its round is actually declared, and refuses by name when it is not.
+			"impact_profile": row.get("impact_profile",null),
 			"evidence_source_refs": (row.get("evidence_source_refs",[]) as Array).duplicate()
 		})
 
@@ -300,7 +303,6 @@ func try_fire_secondary(index: int) -> Dictionary:
 	if index < 0 or index >= secondary.size(): return {"ok":false,"reason":"no_such_secondary_channel"}
 	var channel: Dictionary = secondary[index]
 	channel["blocked_reason"] = ""
-	if state_destroyed(): channel["blocked_reason"]="destroyed"; return {"ok":false,"reason":"destroyed"}
 	if float(channel.get("cooldown_left",0.0)) > 0.0: channel["blocked_reason"]="cooldown"; return {"ok":false,"reason":"cooldown"}
 	if int(channel.get("belt_remaining",0)) <= 0: channel["blocked_reason"]="no_ammo"; return {"ok":false,"reason":"no_ammo"}
 	if channel.get("impact_profile",null) == null:
@@ -310,9 +312,6 @@ func try_fire_secondary(index: int) -> Dictionary:
 	channel["cooldown_left"] = float(channel.get("cadence_s",0.0))
 	channel["shots_fired"] = int(channel.get("shots_fired",0)) + 1
 	return {"ok":true,"reason":"fired"}
-
-func state_destroyed() -> bool:
-	return tank != null and tank.actor != null and tank.actor.state != null and tank.actor.state.destroyed
 
 func select_shell(index: int) -> bool:
 	if index < 0 or index >= shell_options.size(): return false

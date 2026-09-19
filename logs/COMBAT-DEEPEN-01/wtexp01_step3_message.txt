@@ -1,0 +1,30 @@
+WT-EXPANSION-01 step 3: the secondary rounds now DECLARE their own impact profiles, the channels FIRE, and a script
+error I introduced was found and removed before it could reach a build.
+
+WHAT WAS DECLARED, and with the provenance split stated rather than blurred: each secondary round carries a classic
+AP profile whose family, normalization, overmatch, ricochet limit, material coefficients and penetration curve are
+declared PROJECT policy, because the gun file states a round type and a speed and no penetration table this project
+may copy - while the round IDENTITY, the belt size and the round SPEED remain the extracted game values already
+declared and checked. The members were replaced by bracket matching so the rest of the 238 KB packet survived, and
+each candidate file was PARSED and its shell catalog re-checked before it was written: the T-80B kept its three main
+rounds and the Leopard its two.
+
+WHAT THE CHANNELS NOW DO, measured: the fire request answers { "ok": true, "reason": "fired" } and debits exactly
+one round, 750 to 749 on the T-80B and 200 to 199 on the Leopard, with the cadence cooldown set from the file
+figure. The acceptance scenario is 43 checks with ZERO failures and WT_EXPANSION_01_PASS, and the log contains ZERO
+script error lines.
+
+WHAT IS STILL NOT TRUE, stated plainly so the word fires is not overclaimed: the channel debits its belt and runs
+its own cadence, and no projectile leaves the barrel yet. Wiring the launch through the same projectile manager the
+main gun uses is step 4, and until then the honest description of a secondary shot is an accounted round rather
+than a flown one.
+
+THE SCRIPT ERROR I INTRODUCED AND REMOVED: the first version of the channel asked whether the vehicle was destroyed
+through tank.actor.state, and TankVehicle has no `actor` property, so every fire request printed
+Invalid access to property or key 'actor'. The probe still passed, which is exactly why a passing probe is not
+enough - the project treats an unexpected script error as a rejection - so the invented dependency was removed
+rather than tolerated, and the refusal list is now cooldown, no_ammo and secondary_round_profile_missing with no
+claim about destruction that the channel does not actually model.
+
+THE MAIN GUN DID NOT MOVE, measured after the change: run_engineering_runtime_checks, run_shell_checks and
+run_damage_checks all exit 0 with no failures.
