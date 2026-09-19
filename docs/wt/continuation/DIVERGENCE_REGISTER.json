@@ -1,0 +1,13 @@
+{
+    "register_version":  1,
+    "entries":  [
+                    {
+                        "work_order_id":  "WT-CD-014",
+                        "divergence":  "The realistic sortie set is a PROJECT rule set, not War Thunder Ground RB. The team pool, the personal sortie points, the vehicle costs, the repeat sortie limit and the contribution income are declared project design initial values.",
+                        "public_reference":  "War Thunder Ground RB exists as a public reference and is named as such, but no value in this sub-order is taken from it as a verified figure.",
+                        "project_choice":  "project_balance_band is used wherever a real battle rating or a real price is absent, so no official rating and no real price is invented or claimed.",
+                        "evidence":  "docs/wt/continuation/COMBAT_DEEPEN01_CD014_DELIVERY.md and logs/COMBAT-DEEPEN-01/",
+                        "state":  "OPEN"
+                    }
+                ]
+}

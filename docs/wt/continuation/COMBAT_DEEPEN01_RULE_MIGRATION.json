@@ -13,7 +13,8 @@
                             "WT-CD-010: an ammunition reaction profile by material, channel and compartment, with the legacy bustle rule kept",
                             "WT-CD-011: data declared per vehicle drive curves, and a bounded per vehicle recoil instead of one global kick",
                             "WT-CD-012: the observation, smoke and recon rules are confirmed in place and exercised by six scenes rather than replaced",
-                            "WT-CD-013: a single contribution ledger with separate counters, and a versioned attribution rule with named refusals"
+                            "WT-CD-013: a single contribution ledger with separate counters, and a versioned attribution rule with named refusals",
+                            "WT-CD-014: a realistic rule preset beside the old one, a personal sortie book, a four step sortie transaction, and a rule version interpreter"
                         ],
     "evidence_state":  {
                            "engineering_self_consistent":  true,
@@ -742,6 +743,130 @@
                         "migration":  "Ties inside the window are broken by earliest time and then by subject id, so the same inputs always decide the same way, which is what makes the version meaningful.",
                         "rollback":  "Remove the attribution rule; the ledger then records without deciding, and the director report is all that remains, exactly as before.",
                         "divergences":  "The assist window of twelve seconds and the key damage minimum are declared project design initial values with comparison NOT_COMPARED."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-014",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "single_team_match_preset_only",
+                        "new_rule_version":  "cd14-ground-rb-preset-v1",
+                        "affected_vehicles":  "every_vehicle",
+                        "affected_modes":  "live_match",
+                        "fields":  [
+                                       "start_tickets",
+                                       "time_limit_s",
+                                       "books",
+                                       "initial_sp",
+                                       "vehicle_cost",
+                                       "repeat_sortie_limit",
+                                       "contribution_income",
+                                       "sortie_rules"
+                                   ],
+                        "reason":  "The order requires a realistic sortie rule set to exist BESIDE the existing three hundred ticket preset, covering the four independent books, initial sortie points, per class vehicle cost, a repeat sortie limit, contribution income and the sortie transaction - while the rejection conditions forbid quietly changing the old mode.",
+                        "reference_sources":  [
+                                                  "R09",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "MatchRulePreset team_standard_300 is NOT touched: it keeps its id, its version, its three hundred tickets and its fingerprint, and the acceptance scenario re-reads all four to prove it.",
+                        "legacy_tests":  "run_match_rules_checks.gd 43/0 and run_match_event_checks.gd 11/0, both unchanged",
+                        "new_expected_declared_before_run":  "With the new preset declared, the old one must remain byte for byte explainable by its own fingerprint and the new one must carry its own id, its own books and its own transaction rules.",
+                        "independent_oracle":  "GroundRbLikePreset.snapshot() read directly, and the old preset snapshot read in the same scene.",
+                        "measured_before":  "Measured: only one preset existed, with id team_standard_300, version 1, three hundred tickets and fingerprint 1328a3e77a4cc431172d3ac1c5b083dbfb93ea2f8ba3ac2a9d380a3bcc4f77b6, and no book, sortie point or transaction concept existed anywhere.",
+                        "measured_after":  "Measured: the old preset still reports the same id, version, three hundred tickets and the SAME fingerprint, while the new preset reports id ground_rb_like_v1 with four books, initial SP 450, per class costs, a repeat limit of three, contribution income and the four transaction steps declared with release on failure and cancellation, an idempotent token and a never negative balance.",
+                        "migration":  "Where a real battle rating or price is absent the preset declares project_balance_band rather than inventing one, and switching the economy side off is refused unless it carries a divergence label.",
+                        "rollback":  "Delete the new preset file; the old preset is untouched and every existing behaviour is exactly as before.",
+                        "divergences":  "Every number is a declared project design initial value with comparison NOT_COMPARED, and no official battle rating or real price is claimed anywhere."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-014",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_personal_sortie_book",
+                        "new_rule_version":  "cd14-personal-sp-book-v1",
+                        "affected_vehicles":  "every_vehicle",
+                        "affected_modes":  "live_match",
+                        "fields":  [
+                                       "initial_sp",
+                                       "balance",
+                                       "lifetime_earned",
+                                       "lifetime_spent",
+                                       "entries"
+                                   ],
+                        "reason":  "The order names FOUR independent books and the rejection conditions forbid the team ticket pool being read as personal sortie points, so a personal book is required that is fed by committed events rather than by the team pool.",
+                        "reference_sources":  [
+                                                  "R09",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The ticket ledger remains the ONLY team pool authority and is not read by this book at all; the team count is never used as a personal balance.",
+                        "legacy_tests":  "run_match_rules_checks.gd and run_match_event_checks.gd, both unchanged",
+                        "new_expected_declared_before_run":  "With the book declared, a committed event must credit once, a replayed event must add nothing, and no balance in its history may ever be negative.",
+                        "independent_oracle":  "SortieService driven directly, including a duplicate event key and an unaffordable request.",
+                        "measured_before":  "Measured: the stored profile held research points, unlocked vehicles, the garage block and receipts, and NO personal sortie book of any kind, and the profile schema validates an exact key count so a book cannot simply be added as a key.",
+                        "measured_after":  "Measured: earning from a committed event credited 120 to a 450 balance for 570, the same event key again was refused as already_earned, and the book own check reports that no balance in its entry history ever went negative.",
+                        "migration":  "Income is keyed by the committed EVENT, not by the subject, which is the order requirement that income follow committed events and that the subject and the dedup key never be conflated.",
+                        "rollback":  "Remove the book; the team pool and everything else are unchanged.",
+                        "divergences":  "The income table is a declared project design initial value with comparison NOT_COMPARED."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-014",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "no_sortie_transaction",
+                        "new_rule_version":  "cd14-sortie-transaction-v1",
+                        "affected_vehicles":  "every_vehicle",
+                        "affected_modes":  "live_match",
+                        "fields":  [
+                                       "reservations",
+                                       "receipts",
+                                       "sortie_rules"
+                                   ],
+                        "reason":  "The order specifies the respawn request as validate, then reserve, then confirm the spawn, then commit the charge, with the reservation released when the spawn is blocked, fails or is cancelled, a repeat request idempotent, and the balance never negative. Before this sub-order respawn knew only how to search for a safe point.",
+                        "reference_sources":  [
+                                                  "R09",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "RespawnService.find_safe and the existing spawn provider are untouched: the safe point search still decides WHERE a hull appears, and this service only decides whether the request may be paid for.",
+                        "legacy_tests":  "check_live_fire_respawn.gd 17/0 and run_match_rules_checks.gd 43/0, both unchanged",
+                        "new_expected_declared_before_run":  "With the transaction declared, a blocked spawn and a cancellation must release with the balance untouched, a confirmed and committed sortie must charge once, a repeat token must be idempotent with zero charged, and an unaffordable request must be refused by name.",
+                        "independent_oracle":  "SortieService driven through all four steps in the acceptance scene.",
+                        "measured_before":  "Measured: no reservation bookkeeping existed at all, so a repeat token could not be made idempotent and a failure could not release anything.",
+                        "measured_after":  "Measured: a blocked spawn released with the balance still 300, a cancellation released as well, a confirmed and committed sortie charged once, the same token again returned idempotent with zero charged, and a request the balance could not cover was refused as insufficient_sp with the balance still never negative.",
+                        "migration":  "The reservation holds the cost WITHOUT moving the balance, which is what makes a release safe: nothing was ever charged, so nothing can be refunded twice.",
+                        "rollback":  "Remove the transaction; the safe point search and every existing spawn behaviour are unchanged.",
+                        "divergences":  "The steps and the release rules are declared project design initial values with comparison NOT_COMPARED."
+                    },
+                    {
+                        "work_order_id":  "WT-CD-014",
+                        "change_kind":  "new_rule",
+                        "old_rule_version":  "results_read_under_current_rules_only",
+                        "new_rule_version":  "cd14-rule-version-interpreter-v1",
+                        "affected_vehicles":  "every_stored_result",
+                        "affected_modes":  "live_match",
+                        "fields":  [
+                                       "rule_version",
+                                       "known_versions",
+                                       "migrated",
+                                       "action"
+                                   ],
+                        "reason":  "The order requires a historical result to be explained by ITS OWN rule version and an unknown version to be explicitly migrated or refused, rather than silently reinterpreted under today rules.",
+                        "reference_sources":  [
+                                                  "R09",
+                                                  "W07"
+                                              ],
+                        "old_reference_unchanged":  true,
+                        "legacy_behavior_retained":  true,
+                        "legacy_entry":  "The existing result entry point and the stored profile receipts are untouched; the interpreter adds an explanation layer and rewrites no history.",
+                        "legacy_tests":  "run_match_rules_checks.gd and run_save_lock_checks.gd 8/0, both unchanged",
+                        "new_expected_declared_before_run":  "With the interpreter declared, a known version must be explained by its own rules and an unknown version must be refused by name with an action, never read as if it were current.",
+                        "independent_oracle":  "RuleVersionInterpreter driven directly with a known and an unknown version.",
+                        "measured_before":  "Measured: no interpreter existed at all, so a stored result could not be read by the version that produced it and an unknown version had no handling path whatsoever.",
+                        "measured_after":  "Measured: version one is explained as team_standard_300 with nothing reinterpreted, and version 999 is refused with reason unknown_rule_version:999 and action refuse_or_migrate alongside the known version list.",
+                        "migration":  "The interpreter knows exactly two versions, migrates forward only where it declares it can, and never rewrites a stored result: the tag keeps the version it was written with.",
+                        "rollback":  "Remove the interpreter; stored results keep their versions and nothing else changes.",
+                        "divergences":  "The known version table is a declared project fact with comparison NOT_COMPARED."
                     }
                 ],
     "divergences":  [
@@ -768,9 +893,9 @@
                     ],
     "rollback_policy":  "Every change above is either declaration gated or confined to a code path that a declaration selects, so reverting the commit, or removing the declaration, restores the previous behaviour. Old records keep the version they were produced with and are never recomputed across versions.",
     "full_run_evidence":  {
-                              "before":  "CD13 start: run_match_event_checks 11/0, run_match_rules_checks 43/0, run_damage_checks 57/0, run_recovery_checks 64/0, run_ammo_compartment_checks 62/0.",
-                              "after":  "CD13 close: the same suites plus the ledger behaviour probe at 7/0, all green, with the six acceptance scenes reading met on behaviour rather than on existence.",
-                              "note":  "The ticket ledger and the runtime death gate were NOT replaced, and no delivered expectation was changed. Two of my own device faults and one weak pass are recorded in the delivery rather than hidden."
+                              "before":  "CD14 start: run_garage_checks 151/0, run_save_lock_checks 8/0, run_match_rules_checks 43/0, run_match_event_checks 11/0, run_damage_checks 57/0, run_recovery_checks 64/0.",
+                              "after":  "CD14 close: the same six suites at their exact baselines with 334 passes and no failures, and all six acceptance scenes reading met.",
+                              "note":  "team_standard_300, the ticket ledger and the runtime death gate were NOT replaced, and no delivered expectation was changed at any point."
                           },
     "cd07_evidence_state":  "engineering self-consistent version only; a publicly comparable version is NOT established, so no numeric agreement with any external title is claimed"
 }
