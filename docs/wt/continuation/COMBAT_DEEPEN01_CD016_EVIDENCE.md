@@ -188,3 +188,105 @@ STATE: the contract is written and verified; the package build and the six cases
 nothing in the contract is a result. release_ready=false, public_release=false, human=PENDING,
 performance=HOLD_BY_USER.
 ```
+## 9. Stage three BLOCKED: the package build ran to the register gate and STOPPED, and the gate found reds thirteen sub-order slices never saw
+
+```
+WHAT WAS RUN, verbatim
+   & .\tests\build_release.ps1 -Candidate -ModernRiver -CommittedSnapshot
+   from E:\AIprogram\mcthunder-cont at HEAD 6c945fb263b23b80b69ae1fa5124b0a5e213bbf0, with a clean tracked
+   tree, the fixed engine 4.7.2.stable.official.ed1daf0bf and the installed release template.
+   Raw output: logs/COMBAT-DEEPEN-01/c16pkg-build.txt ; run directory
+   backups/builds/031/6c945fb2.../20260919-122619-427 ; logs logs/031/6c945fb2.../build-20260919-122619-427.
+
+WHAT IT DID, IN ORDER
+   fresh_import                 exit 0, exit_known true, timed_out false, passed TRUE - the committed snapshot
+                                imports reproducibly from a clean source with no cache (143330 bytes of log)
+   committed-source.zip         522687403 bytes extracted into clean-source
+   regression                   53 recorded rows, run to completion, then the register gate
+   export_release               NEVER RAN
+   independent_* checks         NEVER RAN
+   package directory            EMPTY, zero files: THERE IS NO PACKAGE
+
+THE AUTHORITATIVE STOP MESSAGE (build_release.ps1:177)
+   Candidate build refuses an UNREGISTERED failing suite: run_checks - add it to the register only after the
+   failure is understood and recorded
+
+FIVE FAILING SUITES, COMPARED AGAINST TWO EARLIER CLEAN BUILDS RATHER THAN CALLED OLD OR NEW BY GUESS
+   suite                          this build         2026-09-17          2026-09-16
+   run_checks                     FAIL (1 [FAIL])    PASS (177 pass)     PASS (217 checks)
+   run_village_battle_checks      FAIL (1 [FAIL])    PASS (21 checks)    PASS (21 checks)
+   run_industrial_battle_checks   FAIL timed out     FAIL registered     FAIL registered
+   run_challenge_checks           FAIL registered    FAIL registered     FAIL registered
+   run_engineering_runtime_checks FAIL (1 [FAIL])    PASS (44 checks)    (suite added since)
+   Everything else passed, including all twelve modern river suites.
+
+THE FOUR DISTINCT CAUSES, EACH MEASURED AND EACH REPRODUCED IN THE WORKING TREE
+
+   1. IN SCOPE, AND CAUSED BY THIS PACKAGE - a stale manifest expectation:
+      [FAIL] ussr_t_80b: the packet carries exactly two authored rounds and a default
+      tests/run_engineering_runtime_checks.gd line 53 asserts shells.size()==2 for BOTH engineering packets and
+      returns early when it is not two, which is why the suite drops from 44 checks to 26.
+      MEASURED: the T-80B packet now declares THREE authored rounds -
+        eng_125_apfsds_v1 APFSDS long_rod (the default), eng_125_heat_v1 HEAT chemical, and
+        eng_125_he_v1 HE he_blast - while the Leopard still declares exactly two.
+      ATTRIBUTED: the HE round was added by commit 37afe1a9, "MCT-COMBAT-DEEPEN-01 CD07: the engineering HE is
+      landed and the tree is green, with the loadout consequence handled". CD07 migrated the LOADOUT consequence
+      (the edited_loadout_total expectation migration) but NOT this manifest assertion, and CD07 own green slice
+      never ran this suite, so the red survived every sub-order close and was caught only by the package gate.
+      This is the order own requirement working: new rules must be re-bound to the same source, content and
+      package verification, and a sub-order own fixtures are not the integration gate.
+      Reproduced in the working tree: exit 1, 26 checks, the same single failure, in 2 seconds.
+
+   2. NEW BEHAVIOURAL RED, CAUSE NOT YET ATTRIBUTED - village AI arrival:
+      [FAIL] all seven autonomous actors leave spawn and reach central approaches: ["A4", "B", "A3", "B4", "B2"]
+      21 checks, 1 failed; the same suite passed with 0 failures on 2026-09-17 and 2026-09-16.
+      Reproduced in the working tree: exit 1 after 319 s, identical failure and identical actor list.
+      NOT YET ATTRIBUTED, and the candidate causes are named rather than guessed: this package changed
+      scripts/ai/ai_perception.gd (CD004: the fire-lane prediction now integrates the profile-aware advance),
+      scripts/ai/ai_tank_controller.gd, scripts/drive/drive_profile.gd, scripts/tank.gd, scripts/gunner.gd and
+      scripts/battle/team_range.gd - nineteen production files in all between 15026f1a and HEAD. Whether the
+      arrival red comes from one of those or predates the package is the next measurement, by bisecting exactly
+      those files rather than by opinion.
+
+   3. NEW RED IN THE FLAGSHIP SUITE, WITH ITS OWN HISTORY NAMED IN THE BUILD SCRIPT:
+      [FAIL] R3-A near-target B1 stabilised convergence (first crossing = -1 frame, held 0.00 s, max error
+      58.55 degrees, end error 10.99 degrees)
+      run_checks prints 175 PASS and this ONE failure, then its own 90 second watchdog fires and force-quits, so
+      the suite never prints its final result line and the runner sees exit 2 with no evidence marker.
+      IMPORTANT AND MEASURED: THE WATCHDOG IS NORMAL ON THIS MACHINE AND IS NOT THE CAUSE. The 2026-09-17 log,
+      which was judged PASS, ends with the SAME watchdog line; the difference is that it had 177 passes and ZERO
+      failures. So the red is the R3-A check, not the timing.
+      The build script already carries a note about exactly this item: "The implementer-added R3-A exemption is
+      NOT in force... If R3-A appears again it is reported, fixed, or proposed as a separately bounded exception
+      - never silently tolerated." R3-A has now appeared again, and it is being reported here rather than
+      tolerated.
+      Reproduced in the working tree: exit 2 after 92 s, same single failure, same watchdog.
+
+   4. THE TWO PREVIOUSLY REGISTERED REDS, ONE OF WHICH CHANGED SHAPE:
+      run_challenge_checks failed with its registered signature, which the register allows.
+      run_industrial_battle_checks did NOT fail with its signature: it was KILLED at the 1500 second per-suite
+      cap (exit -1, timed_out true), so no [FAIL] line exists for the register to match. A timeout is not a
+      registered failure, and the build would have refused it on its own terms.
+
+WHAT IS *NOT* CLAIMED, AND WHAT THE STATE OF THIS SUB-ORDER IS
+   CD16-T01 is NOT met: the case asks for a package built from an explicit integration commit with every
+   identity traceable, and NO PACKAGE EXISTS to trace. T02 to T06 are therefore untouched. Nothing was
+   registered, no expectation was edited, no product or test file was modified, and the working tree is
+   unchanged at 6c945fb2 with zero tracked edits - the failure is a measurement, not a change.
+   The gate did exactly its job: it refused an internal candidate whose own integration suite carries reds, and
+   it refused to let a sub-order green slice stand in for a package-level verification.
+   The verification scripts written for this stage are kept even though they had nothing to verify:
+   logs/COMBAT-DEEPEN-01/verify_cd016_package.js (55 checks; dry-run against the 2026-09-17 package and it
+   found two real defects in ITSELF - a UTF-8 BOM that the build own Set-Content writes and a hardcoded project
+   version that the real project does not use - both fixed and both named), compare_build_rows.js,
+   read_suite_fails.js, classify_reds.js and read_build_failures.js.
+
+WHAT THIS STAGE NEEDS BEFORE IT CAN CONTINUE
+   item 1 is inside this package own change set and its remedy is a DECLARED new expectation under the
+   delivery protocol, not a loosened one: the suite must assert the manifest the packet actually declares,
+   including the HE round and its he_blast policy, while keeping every old assertion (APFSDS default with the
+   long-rod effect, HEAT with the chemical effect, the reset restoring the declared manifest), with the change
+   recorded as an expectation migration. items 2 and 3 are NEW behavioural reds that no sub-order delivered or
+   measured, and whether they belong to this package or predate it is the next measurement.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```

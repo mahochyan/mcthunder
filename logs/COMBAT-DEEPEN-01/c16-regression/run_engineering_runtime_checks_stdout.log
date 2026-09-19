@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[PASS] production catalog loads every packet, including the two engineering vehicles
+[PASS] no packet was rejected by the catalog
+[PASS] ussr_t_80b: the admitted packet resolves to a vehicle definition
+[PASS] ussr_t_80b: resolves as an admitted game-reference vehicle (profile/status preserved)
+[FAIL] ussr_t_80b: the packet carries exactly two authored rounds and a default
+[PASS] germ_leopard_2a4: the admitted packet resolves to a vehicle definition
+[PASS] germ_leopard_2a4: resolves as an admitted game-reference vehicle (profile/status preserved)
+[PASS] germ_leopard_2a4: the packet carries exactly two authored rounds and a default
+[PASS] germ_leopard_2a4: the second authored round is identified
+[PASS] germ_leopard_2a4: the default is the APFSDS main round with the long-rod terminal effect
+[PASS] germ_leopard_2a4: the second round is the HEAT round with the chemical terminal effect
+[PASS] germ_leopard_2a4: the real actor installs from the admitted packet
+[PASS] germ_leopard_2a4: both engineering rounds are installed and the rack ledger conserves stock (42 rounds)
+[PASS] germ_leopard_2a4: the installed inventory is keyed by the engineering round ids
+[PASS] germ_leopard_2a4: the APFSDS main round is chambered by default
+[PASS] germ_leopard_2a4: the HEAT round can be selected while the APFSDS is still in the chamber
+[PASS] germ_leopard_2a4: the chambered APFSDS fires through the real projectile manager
+[PASS] germ_leopard_2a4: the launch carries the APFSDS identity and long-rod effect
+[PASS] germ_leopard_2a4: the launch speed matches the authored engineering muzzle velocity (1650.0 m/s)
+[PASS] germ_leopard_2a4: the first launch debits exactly one round
+      [state] germ_leopard_2a4 natural reload finished after 362 physics frames (nominal reload 6.0 s)
+      [state] germ_leopard_2a4 cooldown=0.0 transfer= chamber=germ_leopard_2a4_eng_120_heat_v1 selected=germ_leopard_2a4_eng_120_heat_v1 blocked= counts={ "germ_leopard_2a4_shell": 29, "germ_leopard_2a4_eng_120_heat_v1": 12 } options=2
+[PASS] germ_leopard_2a4: the natural reload chambers the HEAT round without clearing any cooldown by hand
+[PASS] germ_leopard_2a4: the HEAT round fires through the real projectile manager
+[PASS] germ_leopard_2a4: the second launch carries the HEAT identity and chemical effect
+[PASS] germ_leopard_2a4: the HEAT curve is flat, as its constant chemical budget requires
+[PASS] germ_leopard_2a4: two real launches debit two rounds and conserve the rest
+[PASS] germ_leopard_2a4: reset restores the authored two-round manifest and the default chamber
+=== result: 26 checks, 1 failed ===
+ENGINEERING_RUNTIME_CHECKS_FAIL
