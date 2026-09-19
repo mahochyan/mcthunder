@@ -1,0 +1,1 @@
+99c966745944920535af5ddf201fdeb46631598b 2026-09-17T15:42:18 fix: recover AI aiming from persistent blocked surface choices

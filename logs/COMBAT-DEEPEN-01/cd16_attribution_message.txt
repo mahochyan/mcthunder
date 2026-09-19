@@ -1,0 +1,28 @@
+MCT-COMBAT-DEEPEN-01 CD16 attribution CONCLUDED for one red and REFUSED for the other, both by measurement.
+
+THE VILLAGE ARRIVAL RED IS ATTRIBUTED to 99c966745944920535af5ddf201fdeb46631598b, the commit titled "fix: recover
+AI aiming from persistent blocked surface choices", and the proof is a parent-against-child two point measurement:
+its immediate parent c164511e was judged GOOD in the same bisect run and it was judged BAD, with every one of the
+eight steps carrying a real verdict - the battle trace present and the full twenty one checks printed at each
+commit, so no step was a silent run. The commit changes the AI tank controller aim-stall and visible-sample logic
+plus build and test files.
+
+ITS SCOPE IS MEASURED, NOT ASSUMED: it is an ancestor of cacc1ed3, the first commit of the combat-deepen branch,
+so it belongs to the earlier continuation stream and NOT to any of the sixteen sub-orders and not to this package
+change set - and that stream own handover had already recorded a related traversal limitation. Under the user
+ruling this is the point to STOP AND REPORT, so nothing was changed for it.
+
+THE R3-A RED IS REFUSED BY THE SAME DISCIPLINE: four runs of the same suite show it is LOAD-DEPENDENT - FAIL with
+first_cross=-1 and end error 10.99 degrees twice while the machine was busy, then PASS with first_cross 142 and 143
+and end error 0.01 degrees when quiet, including once in the MAIN TREE with the same cache as the failing runs,
+which holds the tree, the commit family and the cache constant and changes only the load. An unstable verdict
+cannot name a commit, so the bisect for it was deliberately NOT run: its instrument was written, parse-checked and
+self-tested anyway, and it judges only the R3-A B1 convergence line rather than the suite exit status because
+run_checks carries its own ninety second watchdog in every build. The candidate mechanism is named instead of
+guessed: the suite runs without a fixed frame rate, the harness counts physics frames while the measured chain is
+fed from the render clock, and turret_rig states in its own comment that presentation never advances the
+authoritative axes. The build script own instruction about R3-A - reported, fixed, or proposed as a separately
+bounded exception, never silently tolerated - is satisfied by this report.
+
+The bisect logs, the trail and the first-bad-commit identity are preserved under
+logs/COMBAT-DEEPEN-01/c16-bisect4-evidence so the attribution is auditable rather than living in a worktree.

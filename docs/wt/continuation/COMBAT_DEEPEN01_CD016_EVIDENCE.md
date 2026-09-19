@@ -394,3 +394,61 @@ THE BISECT IS RUNNING, IN A SEPARATE WORKTREE, AND ITS RESULT IS NOT IN YET
    THE CAUSE OF ITEMS 2 AND 3 UNTIL THAT RESULT IS IN, and the earlier vacuous answer is explicitly NOT a result.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 12. The village red is ATTRIBUTED to a named pre-package commit, and the R3-A red is measured as load-dependent and therefore NOT attributable
+
+```
+THE VILLAGE BISECT CONCLUDED, and every step carried a real verdict: the battle trace was present and the suite
+printed its full twenty one checks at every commit it judged, so no step was a silent run.
+   BAD   8bc490fa   checks=21 traced=True   FAIL line = all seven autonomous actors ... ["A4","B","A3","B2","A2"]
+   BAD   15340ac0   checks=21 traced=True   same failure
+   BAD   cacc1ed3   checks=21 traced=True   same failure
+   GOOD  7f89c941   checks=21 traced=True   no failure
+   BAD   99c96674   checks=21 traced=True   same failure
+   GOOD  c81f599e   checks=21 traced=True   no failure
+   GOOD  0c2b4713   checks=21 traced=True   no failure
+   GOOD  c164511e   checks=21 traced=True   no failure
+   -> 99c966745944920535af5ddf201fdeb46631598b IS THE FIRST BAD COMMIT, and its IMMEDIATE PARENT c164511e was
+      measured GOOD in the same run, so this is a parent-against-child two point proof and not an inference.
+   WHAT THAT COMMIT IS: "fix: recover AI aiming from persistent blocked surface choices", 2026-09-17 15:42. It
+   changes scripts/ai/ai_tank_controller.gd (25 lines: an aim-stall timer, a visible-sample advance and its
+   resets), tests/build_release.ps1, tests/record_river_ai_match.gd and adds
+   tests/run_modern_ai_surface_checks.gd.
+   ITS SCOPE, MEASURED RATHER THAN ASSUMED: git merge-base --is-ancestor 99c96674 cacc1ed3 succeeds, and cacc1ed3
+   is the FIRST commit of the combat-deepen branch ("phase 1 baseline half ... on the new isolated branch
+   work/combat-deepen-01"), so this commit is an ANCESTOR OF THE BRANCH START. It belongs to the earlier
+   continuation stream, NOT to any of the sixteen sub-orders and NOT to the combat-deepen change set. That stream
+   had already recorded a related limitation in the handover it left behind: the traversal limitation that keeps
+   the player slot from reaching the enemy inside a bounded match.
+   UNDER THE USER RULING ("attribute first, then fix inside the package scope ... report before anything outside
+   them is touched") THIS IS THE POINT TO STOP AND REPORT: the cause is named and measured, and it lies OUTSIDE
+   the package own files, so nothing was changed for it.
+
+THE R3-A RED IS A DIFFERENT ANIMAL, AND THE MEASUREMENT SAYS SO
+   Four runs of tests/run_checks.gd, differing in how loaded the machine was:
+     at 6c945fb2, inside the candidate build clean-source regression (machine busy)  FAIL first_cross=-1, end error 10.99 deg
+     at 6c945fb2, working tree, while other work ran                                FAIL identical numbers
+     at 561a74f8, bisect worktree, fresh import, machine quiet                      PASS first_cross=142, end error 0.01 deg
+     at 92c1ddb6, MAIN TREE, same cache as the failing runs, machine quiet          PASS first_cross=143, end error 0.01 deg
+   The last one is decisive because it holds the tree, the commit family and the import cache constant and changes
+   only the load: the same check that failed twice now passes, converging in about 2.4 simulated seconds against a
+   harness window of nine hundred physics frames.
+   SO R3-A IS NOT ATTRIBUTABLE BY BISECTION: an unstable verdict cannot name a commit, and running the bisect
+   would have manufactured a boundary that means nothing. Its instrument was nevertheless written, parse-checked
+   and self-tested (logs/COMBAT-DEEPEN-01/bisect_r3a_test.ps1, which judges ONLY the R3-A B1 convergence line and
+   never the suite exit status, because run_checks carries its own ninety second watchdog in EVERY build), and it
+   is deliberately NOT run until the instability itself is understood.
+   THE CANDIDATE MECHANISM IS NAMED RATHER THAN GUESSED: the suite is launched WITHOUT a fixed frame rate, the
+   harness counts PHYSICS frames while the chain it measures is fed from the render clock, and turret_rig.gd states
+   in its own comment that presentation never advances the authoritative axes - so exactly where those two clocks
+   meet is the thing to instrument next. That is a focused investigation, not a bisect.
+
+WHAT IS TRUE AT THE END OF THIS ROUND
+   The village red: attributed to 99c96674, outside the package scope, reported and untouched.
+   The R3-A red: measured as load-dependent (two failures under load, two passes when quiet, same code), so it is
+   NOT a product regression that any commit can be blamed for on this evidence, and it is reported rather than
+   registered or papered over. The build script own instruction about R3-A - that a reappearance must be reported,
+   fixed or proposed as a separately bounded exception and never silently tolerated - is satisfied by this report.
+   The industrial timeout, the in-scope expectation migration and the still-missing package are unchanged from the
+   previous sections.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```
