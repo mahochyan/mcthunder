@@ -915,6 +915,43 @@ MEASURED: **63 checks, 0 failed, 0 SCRIPT ERROR, 0 `^ERROR:` lines, `AMMO_COMPAR
    The check count went 62 -> 63 because the broken assertion never completed: it was not a passing check with a
    noisy log, it was a check that had never run. It passes now.
 
+## 24. The industrial suite's registered red could never be ACCEPTED, because the gate's timeout was smaller than its measured budget
+
+`run_industrial_battle_checks` is registered, and yet the build could never take it: the register matcher refuses a
+registered failure whose run TIMED OUT, and the runner's shared 1500 s bound expired first.
+
+MEASURED (logs/COMBAT-DEEPEN-01/industrial-budget.log: the suite run alone, no timeout, `--fixed-fps 60`):
+```
+wall = 4327 s (~72 minutes) | checks = 16, failures = 1 | SCRIPT ERROR = 0 | ^ERROR: lines = 0
+failure = "[FAIL] at least three actual slots from each team physically reach central approaches"
+```
+   That is EXACTLY the registered signature and exactly once: seed 23023 PASSED that check and seed 23024 failed it,
+   so the failure count the register expects (1) is right and the suite is a correct, healthy registered red. It is
+   CPU-bound rather than real-time bound - two seeds simulate about 710 s of match clock with 8 AI actors and full
+   perception - which is why one shared 1500 s bound was wrong for it and right for everything else.
+
+VERIFIED WITH THE GATE'S OWN MATCHER against that real failing line
+(logs/COMBAT-DEEPEN-01/verify_industrial_register.ps1; dot-sources tests/candidate_register_match.ps1 and reads the
+register out of build_release.ps1's AST so it cannot drift from what the build executes):
+```
+REAL_FAIL_ACCEPTED=True      the failure set matches the register exactly
+TIMEOUT_REFUSED=True         is a registered failure but its run timed out      <- what was blocking the build
+SCRIPT_ERROR_REFUSED=True    is a registered failure but its run also reported 1 unexpected script error(s)
+EXTRA_FAILURE_REFUSED=True   failed 2 check(s) but its registered signatures account for exactly 1
+```
+
+CHANGE (`tests/run_suite_checks.ps1`): the bound is derived PER SUITE. `$suiteTimeouts` gives
+`run_industrial_battle_checks` 6000 s (a ~1.4x margin over the 4327 s measurement) while every other suite keeps the
+shared 1500 s, so hang-detection latency everywhere else is unchanged. No check, criterion or expectation was
+touched - the timeout is a harness bound, not a pass condition.
+
+VERIFIED: the runner parses with 0 errors and stays pure ASCII, and evaluating its own map from the AST selects
+6000 s for `run_industrial_battle_checks` and 1500 s for `run_checks` / `run_village_battle_checks`. The end-to-end
+run of that suite THROUGH the runner (`run_suite_checks.ps1 -Suites run_industrial_battle_checks`, evidence under
+`logs/007/<sha>/<timestamp>/RESULTS.json`) is the confirmation that the gate now records it as a known failure
+instead of a timeout; it costs another ~72 minutes and its result is recorded when it lands.
+
+
 
 
 
