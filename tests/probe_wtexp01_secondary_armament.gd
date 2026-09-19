@@ -93,6 +93,19 @@ func _run() -> void:
 		check(channels==(SECONDARY[id] as Array).size(),
 			"WT-EXPANSION-01 %s runtime exposes %d secondary firing channels" % [str(id),channels])
 		if channels==0: unmet += 1
+		# 3. THE FIRE REQUEST IS ANSWERED, never faked: with the channels installed the request must be answered
+		#    with either a real shot or a refusal BY NAME. Until the round own impact profile is declared the honest
+		#    answer is secondary_round_profile_missing, and a belt that was not debited proves no silent shot.
+		if channels > 0:
+			var belt_before: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
+			var answer: Dictionary = actor.gunner.try_fire_secondary(0)
+			var belt_after: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
+			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d)" % [str(id),str(answer),belt_before,belt_after])
+			check(answer.get("reason","")!="" ,"WT-EXPANSION-01 %s the secondary fire request is ANSWERED" % str(id))
+			if not bool(answer.get("ok",false)):
+				check(belt_after==belt_before,"WT-EXPANSION-01 %s a refused secondary shot debits NOTHING" % str(id))
+			else:
+				check(belt_after==belt_before-1,"WT-EXPANSION-01 %s a fired secondary shot debits exactly one round" % str(id))
 		actor.queue_free()
 	world.queue_free(); await _frames(2)
 	print("=== result: %d checks, %d failed, %d unmet-declaration legs ==="%[checks,fail,unmet])

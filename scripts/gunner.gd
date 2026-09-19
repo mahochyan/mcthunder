@@ -254,6 +254,66 @@ func configure_shell_loadout(options: Array[ShellDefinition], counts: Dictionary
 	_sync_chamber_shell()
 	return true
 
+## WT-EXPANSION-01 step 2: the SECONDARY firing channels. A secondary weapon is a separate channel with its own
+## belt ledger and its own cadence, declared in the packet from the extracted War Thunder data - never a bigger
+## magazine and never a change to the main gun. The channels are installed from the packet by the actor.
+var secondary: Array = []
+
+func install_secondary(rows: Array) -> void:
+	secondary.clear()
+	for row in rows:
+		if not row is Dictionary: continue
+		var cadence := float(row.get("cadence_rps",0.0))
+		secondary.append({
+			"group": str(row.get("group","")),
+			"gun": str(row.get("gun","")),
+			"caliber_mm": float(row.get("caliber_mm",0.0)),
+			"belt_capacity": int(row.get("belt",0)),
+			"belt_remaining": int(row.get("belt",0)),
+			"reload_s": float(row.get("reload_s",0.0)),
+			"cadence_s": (0.0 if cadence <= 0.0 else 1.0/cadence),
+			"round": str(row.get("round","")),
+			"speed_mps": float(row.get("speed_mps",0.0)),
+			"cooldown_left": 0.0,
+			"shots_fired": 0,
+			"blocked_reason": "",
+			"evidence_source_refs": (row.get("evidence_source_refs",[]) as Array).duplicate()
+		})
+
+func secondary_count() -> int:
+	return secondary.size()
+
+func secondary_channel(index: int) -> Dictionary:
+	if index < 0 or index >= secondary.size(): return {}
+	return secondary[index]
+
+func advance_secondary(delta: float) -> void:
+	if not is_finite(delta) or delta <= 0.0: return
+	for channel in secondary:
+		channel["cooldown_left"] = maxf(0.0, float(channel.get("cooldown_left",0.0))-delta)
+
+## A fire request is ANSWERED rather than faked: it debits the belt and starts the cadence only when the round can
+## actually be launched, and otherwise refuses BY NAME. Until the round's own impact profile is declared the launch
+## is refused as secondary_round_profile_missing, which is the honest state - an undeclared profile must never be
+## turned into a silent shot.
+func try_fire_secondary(index: int) -> Dictionary:
+	if index < 0 or index >= secondary.size(): return {"ok":false,"reason":"no_such_secondary_channel"}
+	var channel: Dictionary = secondary[index]
+	channel["blocked_reason"] = ""
+	if state_destroyed(): channel["blocked_reason"]="destroyed"; return {"ok":false,"reason":"destroyed"}
+	if float(channel.get("cooldown_left",0.0)) > 0.0: channel["blocked_reason"]="cooldown"; return {"ok":false,"reason":"cooldown"}
+	if int(channel.get("belt_remaining",0)) <= 0: channel["blocked_reason"]="no_ammo"; return {"ok":false,"reason":"no_ammo"}
+	if channel.get("impact_profile",null) == null:
+		channel["blocked_reason"]="secondary_round_profile_missing"
+		return {"ok":false,"reason":"secondary_round_profile_missing"}
+	channel["belt_remaining"] = int(channel["belt_remaining"]) - 1
+	channel["cooldown_left"] = float(channel.get("cadence_s",0.0))
+	channel["shots_fired"] = int(channel.get("shots_fired",0)) + 1
+	return {"ok":true,"reason":"fired"}
+
+func state_destroyed() -> bool:
+	return tank != null and tank.actor != null and tank.actor.state != null and tank.actor.state.destroyed
+
 func select_shell(index: int) -> bool:
 	if index < 0 or index >= shell_options.size(): return false
 	if not inventory.select_next(shell_options[index].id): return false

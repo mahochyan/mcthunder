@@ -131,6 +131,13 @@ func setup(defs: VehicleDefs, vehicle_id: String, entity_id: String, team_id: in
 	gunner.setup(tank, turret, weapon, shell)   # 003-R1：装填/射程唯一来源；006：弹种运动参数
 	gunner.vehicle_definition_id = definition.id
 	_configure_inventory(state._damage_layout)
+	# WT-EXPANSION-01 step 2: the secondary firing channels the packet declares, installed as SEPARATE channels so
+	# the main gun is never involved. Guarded, so a packet without the declaration (every historical vehicle for
+	# now) is untouched. The first attempt put this in _configure_inventory, where `defs` is not in scope, and the
+	# parse check refused it before anything ran - which is why the check is run before the suite, not after.
+	if defs != null and defs.content_packets.has(definition.id):
+		var secondary_rows: Array = defs.content_packets[definition.id].get("secondary_weapons",[])
+		if not secondary_rows.is_empty(): gunner.install_secondary(secondary_rows)
 	gunner.shooter_id = entity_id   # 003-R1：命中事件携带射手标识
 	tank.capabilities_provider = Callable(self,"capabilities")
 	tank.state_generation = state.generation

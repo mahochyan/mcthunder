@@ -1,0 +1,29 @@
+WT-EXPANSION-01 step 2: the secondary firing channels are IMPLEMENTED and the acceptance scenario passes in full.
+
+THE PRODUCT CHANGE, on the same production path rather than beside it: Gunner gains a `secondary` channel list
+installed from the packet declaration by VehicleActor, each channel holding the group, gun, calibre, belt capacity
+and remaining, reload, cadence, round name, round speed and its own cooldown and shot count. `advance_secondary`
+runs the cadence down, and `try_fire_secondary` ANSWERS a request rather than faking one: it refuses by name when
+the vehicle is destroyed, when the cadence is still running, when the belt is empty, and - the honest state today -
+when the round own impact profile is not declared, as `secondary_round_profile_missing`, with the belt NOT debited.
+The main gun is not involved: the secondary channel is a separate ledger, never a bigger magazine, and no main gun
+value, rule or projection was touched.
+
+MEASURED: the acceptance scenario is 43 checks with ZERO failures and WT_EXPANSION_01_PASS, up from 39 checks with
+the two runtime legs failing. For both vehicles the runtime now exposes two channels built from the declaration,
+and the fire request is measured rather than assumed: the T-80B answers
+{ "ok": false, "reason": "secondary_round_profile_missing" } with its belt unchanged at 750, and the Leopard the
+same with its belt unchanged at 200 - so a refused shot provably debits nothing and no undeclared profile can
+become a silent shot.
+
+THE PARSE CHECK EARNED ITS KEEP AGAIN AND BEFORE THE SUITE RAN: the first wiring attempt was placed in
+_configure_inventory, where `defs` is not in scope, and `--check-only --script` refused it with "Identifier defs not
+declared in the current scope" - so a broken edit never reached a test run and the tree never left a runnable
+state. The install moved to the setup path where the packet is genuinely in scope.
+
+THE MAIN GUN DID NOT MOVE, measured after the change: run_engineering_runtime_checks, run_shell_checks and
+run_damage_checks all exit 0 with no failures, and run_damage_checks was added to the slice deliberately because
+the edit touches the actor that installs every vehicle armament.
+
+Step 3 remains: the secondary rounds need their own declared impact profiles so the channels can actually fire, and
+the HUD and controls then need to select and fire them.
