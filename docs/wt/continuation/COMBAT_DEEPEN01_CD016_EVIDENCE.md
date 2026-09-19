@@ -155,3 +155,36 @@ STATE: the matrix is built and bound; the package, the two-vehicle entry, the fu
 the historical and open-top regression and the independent restart are NOT_RUN and are the remaining stages.
 release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 8. Stage two DONE: the contract is written BEFORE the package exists, and it is checkable
+
+```
+docs/wt/continuation/COMBAT_DEEPEN01_CD016_CONTRACT.md states, before anything is built:
+   the four deliverable classes the order names, each with the GATE that proves it and the FAILURE if it is absent;
+   the four rejection conditions, each with the check that must FAIL the package when it is violated;
+   the required content, with the rule that a missing required item is a recorded FAILURE and never a substitution;
+   the gate order G0 to G5 from the shortest gate to the independent restart, one line per case;
+   the identity binding, including that the evidence commit is SEPARATE from the tested commit and that the four
+   standing flags may not be flipped by this sub-order;
+   and the out-of-scope list, so that this sub-order integrates and delivers rather than inventing new rules.
+
+IT IS CHECKABLE RATHER THAN ASPIRATIONAL
+   logs/COMBAT-DEEPEN-01/check_cd016_contract.js verifies it against DISK and against the READ-ONLY packaged
+   order: 31 checks, all passing. It confirms that each of the six sections exists, that the twelve required
+   content paths really exist, that the two byte counts the contract quotes match the files on disk exactly, that
+   the four rejection conditions are quoted verbatim from the packaged order rather than paraphrased, that all
+   four packaged deliverables are named, that the four standing flags are declared and unchanged, and that the
+   six case ids appear in gate order.
+   A contract whose numbers do not match disk is worse than no contract, which is why the size check compares
+   against the filesystem rather than against the inventory note it was copied from.
+
+ONE CORRECTION IT CAUGHT, RECORDED BECAUSE IT IS THE POINT OF WRITING THE CHECK
+   The first run failed on one of its own assertions: the first deliverable was written as
+   "两车现代河谷内部开发包及 manifest/hashes" with a space inserted before the Latin word, while the packaged
+   order says "两车现代河谷内部开发包及manifest/hashes". The check compares against the packaged string, so the
+   contract now quotes the order verbatim. A paraphrased requirement is exactly the kind of quiet drift this
+   package keeps punishing.
+
+STATE: the contract is written and verified; the package build and the six cases are the remaining stages, and
+nothing in the contract is a result. release_ready=false, public_release=false, human=PENDING,
+performance=HOLD_BY_USER.
+```
