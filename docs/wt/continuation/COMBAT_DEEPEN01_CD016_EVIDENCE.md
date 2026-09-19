@@ -452,6 +452,46 @@ WHAT IS TRUE AT THE END OF THIS ROUND
    previous sections.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 14. The HE velocity was aligned, measured, REVERTED, and the measurement then corrected my own attribution
+
+```
+WHAT THE WAR THUNDER REFERENCE SAID (docs/wt/wt-reference/WT_AMMO_COMPARISON.json)
+   Our engineering HE round eng_125_he_v1 declares 700 m/s. The gun file 125mm_2a46_2_user_cannon.blk states
+   850 m/s for its 125mm_ussr_HE round (explosive a_ix_2, 3.402 kg) in the local build 2.59.0.13. Every other
+   round matches exactly: 1700 = 3BM42, 905 = 3BK12, 1650 = NATO APDS_FS, 1140 = NATO HEAT_FS.
+
+WHAT WAS DONE, IN THE ORDER IT WAS DONE
+   1. both declarations of the HE velocity in the T-80B packet - the shell_catalog entry and the evidence claim
+      value that must agree with it - were set to 850;
+   2. five suites were run: run_engineering_runtime_checks 54/0 PASS, run_shell_checks 193/0 PASS,
+      probe_cd007_he_runtime 19/0 PASS, probe_cd007_world_burst 15/0 PASS, probe_cd007_occlusion_target 13/0
+      PASS - and probe_cd007_he_landed came back 3 PASS / 4 FAIL;
+   3. I attributed that failure to the change and REVERTED the packet, because the goal says a failure returns
+      the tree to the last runnable state;
+   4. THE REVERT WAS THEN MEASURED, and it corrected me: with the packet byte-identical to the committed state
+      (tracked diff 0) the same probe still reports 3 PASS / 4 FAIL, with the SAME four failures and the same
+      messages. THE CHANGE DID NOT CAUSE THEM. I had attributed a failure from a single observation without
+      having measured the baseline first, which is exactly the mistake this session keeps recording.
+
+WHAT THE FOUR FAILURES ACTUALLY ARE, AND THEY ARE A NEW FINDING
+   [FAIL] CD07 HE L1 ussr_t_80b registers
+   [FAIL] CD07 HE L1 germ_leopard_2a4 registers
+   [FAIL] CD07 HE L1 the engineering HE is reachable on the vehicle that carries its gun: []
+   [FAIL] CD07 HE L1 and it is LIMITED rather than handed to every vehicle: 0 of 0 offer it
+   The probe own registration leg fails, so nothing is registered and the two downstream reachability checks then
+   report 0 of 0. It is VELOCITY-INDEPENDENT (identical in both states), it is PRE-EXISTING, and it was never in
+   any green slice - CD07 own evidence used run_shell_checks and other probes for the family claim, so this leg
+   was not re-run as the packets changed shape afterwards. It is recorded here as an open defect of a delivered
+   CD07 fixture, named rather than absorbed, and it needs its own round.
+
+STATE OF THE TREE AND OF THE ALIGNMENT
+   The packet is back at its committed value (700 m/s) and the tree has ZERO tracked changes, so the last
+   runnable state is restored. The alignment itself is NOT withdrawn as a finding: it is prepared and evidenced
+   (the file value, the five green suites, the measured impact list) and it becomes a declared behavior change
+   with its own migration entry once the fixture defect above is understood, because a rule change and a broken
+   fixture must not be fixed in the same breath.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```
 ## 13. The user ruled both boundary questions again, and the R3-A trace turns the instability from a suspicion into a mechanism
 
 ```

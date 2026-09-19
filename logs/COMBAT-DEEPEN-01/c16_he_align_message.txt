@@ -1,0 +1,29 @@
+MCT-COMBAT-DEEPEN-01: the HE velocity was aligned to the game file, measured across five suites, REVERTED on a
+failure - and the re-measurement then corrected my own attribution.
+
+The War Thunder reference states 850 m/s for the 125mm_ussr_HE round while our engineering HE declares 700, the
+one round of five that does not match (the other four are exact: 1700 = 3BM42, 905 = 3BK12, 1650 = NATO APDS_FS,
+1140 = NATO HEAT_FS).
+
+The alignment was made in both places the packet declares it - the shell_catalog entry AND the evidence claim
+value that must agree with it - and five suites were run. Four were green: run_engineering_runtime_checks 54/0,
+run_shell_checks 193/0, probe_cd007_he_runtime 19/0, probe_cd007_world_burst 15/0. probe_cd007_occlusion_target
+13/0. probe_cd007_he_landed came back 3 PASS / 4 FAIL.
+
+I attributed that failure to the change and reverted the packet, because a failure must return the tree to the
+last runnable state. THE REVERT WAS THEN MEASURED AND IT CORRECTED ME: with the packet byte-identical to the
+committed state and zero tracked changes, the same probe still reports the same 3 PASS / 4 FAIL with the SAME
+four failures, so the change did not cause them. I had attributed a failure from a single observation without
+measuring the baseline first - the exact mistake this session keeps recording, and it is written down rather than
+quietly dropped.
+
+The four failures are a NEW FINDING and they are the probe registration leg, not the round: the L1 registration
+fails for both engineering vehicles, so nothing registers and the two downstream reachability checks report 0 of
+0. It is velocity-independent, pre-existing, and was never in any green slice, because CD07 own evidence used
+run_shell_checks and other probes for its family claim and this leg was not re-run as the packets changed shape.
+It is recorded as an open defect of a delivered CD07 fixture and needs its own round.
+
+The packet is back at its committed value, the tree has ZERO tracked changes, and the alignment itself is NOT
+withdrawn as a finding: it is prepared and evidenced, and it becomes a declared behavior change with its own
+migration entry once the fixture defect is understood, because a rule change and a broken fixture must not be
+fixed in the same breath.
