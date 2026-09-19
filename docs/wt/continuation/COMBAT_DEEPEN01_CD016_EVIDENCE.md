@@ -348,3 +348,49 @@ THE ATTRIBUTION OF ITEMS 2 AND 3: THE MECHANISM IS NAMED AND THE DETERMINISM IS 
    NOTHING WAS FIXED FOR ITEMS 2 AND 3 IN THIS ROUND, and nothing outside the package own files was touched.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 11. The bisect instrument itself failed three times, and each failure is recorded because a wrong instrument is worse than no instrument
+
+```
+FAULT ONE - THE GOOD COMMIT WAS NOT AN ANCESTOR, SO THE RANGE WAS NOT A RANGE
+   I picked 15026f1a as the good end because its build recorded the village suite as PASS. `git bisect` refused and
+   said why: that commit is NOT an ancestor of HEAD, so the "range" I had been reasoning about was a diff between
+   two trees, not a linear history. The merge base a005b681 had to be tested and it is bad as well. The lesson is
+   recorded in the scan that replaced it: find_good_ancestor.js reads the village verdict out of every earlier
+   clean build's copied regression log AND asks git whether that build's commit is an ancestor of HEAD. It found
+   TWELVE ancestors where the suite passed, the newest being 69a83a9e on 2026-09-16, and ZERO ancestors where it
+   failed - so the real range is 69a83a9e..HEAD, 237 commits.
+
+FAULT TWO - A VACUOUS VERDICT, PRODUCED BY A STALE IMPORT CACHE AND AN ERROR-POLICY TRAP
+   The first bisect run finished in twenty three seconds over four commits and announced that a commit which
+   changed ONE DOCUMENTATION FILE was the first bad one. That verdict cannot be true, and it was refused rather
+   than reported. Two causes, both mine:
+     a) the test reused whatever import cache the worktree happened to hold, so the suite emitted a ONE-LINE log
+        containing no verdict at all - and a run with no verdict was read as a verdict;
+     b) the script ran under $ErrorActionPreference='Stop' with Godot stderr redirected through the pipeline,
+        which made PowerShell turn a NATIVE WARNING into a terminating error. The script therefore died BEFORE
+        printing its verdict and exited 1, and `git bisect` reads exit 1 as "this commit is bad" - for every step.
+   Both are fixed in the rewrite: the cache is deleted so each commit is imported from its own sources, the engine
+   is launched through a real process handle with redirected streams so a missing exit status is never mistaken
+   for zero, and any path that cannot produce a real verdict exits 125 so git SKIPS the commit instead of guessing.
+
+FAULT THREE - A CHINESE LITERAL IN A BOM-LESS .ps1 BROKE THE SCRIPT WITH A PARSE ERROR
+   The rewrite first read the suite's check count out of its Chinese result line, and Windows PowerShell reads a
+   BOM-less .ps1 as ANSI, so the literal was mangled and the whole script failed to parse - which is the exact trap
+   already documented in tests/package_doc_names.json after it broke packaging once. The count now comes from the
+   ASCII [PASS] and [FAIL] markers, the script contains ZERO non-ASCII bytes, and a parse check was added as its
+   own step: logs/COMBAT-DEEPEN-01/check_ps1_parse.ps1 asserts a script parses BEFORE any run is believed.
+
+THE INSTRUMENT IS NOW VALIDATED ON A KNOWN ANSWER BEFORE BEING TRUSTED
+   Self-test on the known-bad commit 561a74f8, with the engine run exactly as the bisect will run it:
+     BISECT_STEP commit=561a74f8 exit=1 checks=21 traced=True pass=False fail=True
+     line=[FAIL] all seven autonomous actors leave spawn and reach central approaches: ["A4","B","A3","B4","B2"]
+   Twenty one checks, the natural battle trace present, the same five approached actors as the working-tree
+   measurement, exit 1 as the bad end must be. Only then was the bisect started.
+
+THE BISECT IS RUNNING, IN A SEPARATE WORKTREE, AND ITS RESULT IS NOT IN YET
+   worktree E:\AIprogram\mcthunder-bisect, bad 561a74f8, good 69a83a9e, 237 commits, roughly seven to eight steps
+   at about eight minutes each, logs under logs/COMBAT-DEEPEN-01/c16-bisect4/. The main tree and every artifact
+   already committed stay untouched because the bisect checks out into its own directory. NOTHING IS CLAIMED ABOUT
+   THE CAUSE OF ITEMS 2 AND 3 UNTIL THAT RESULT IS IN, and the earlier vacuous answer is explicitly NOT a result.
+   release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
+```
