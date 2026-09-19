@@ -452,3 +452,44 @@ WHAT IS TRUE AT THE END OF THIS ROUND
    previous sections.
    release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER.
 ```
+## 13. The user ruled both boundary questions again, and the R3-A trace turns the instability from a suspicion into a mechanism
+
+```
+THE TWO RULINGS, RECORDED IN SUBSTANCE
+   RULING THREE on the village red: AUTHORISE A BOUNDED OUT-OF-PACKAGE FIX - repair that commit's AI aim and
+   visible-sample change, recorded as an out-of-package repair with its own evidence, so the integration gate can
+   pass. It touches one pre-package AI file and none of the sixteen sub-orders' rules.
+   RULING FOUR on R3-A: AUTHORISE THE FOCUSED CLOCK INVESTIGATION - instrument where the physics clock and the
+   render clock meet in the aim chain, prove the mechanism, and fix the harness or the driver only once the cause
+   is shown.
+
+WHAT THE TRACES ALREADY PROVE ABOUT R3-A, BEFORE ANY NEW RUN
+   The harness prints its own error trajectory every sixty frames, and the two logs differ in kind, not in degree:
+     FAIL, machine busy:   frame 0 = 58.060 deg, 60 = 35.552, 120 = 11.260, 180 = 10.987, and then 10.987 at
+                           240, 300, 360, 420 ... - THE MECHANISM STOPS ADVANCING ENTIRELY and the error freezes
+                           at a constant value, which is a stopped turret, not a slow one.
+     PASS, machine quiet:  frame 0 = 59.160 deg, 60 = 35.308, 120 = 2.602, 180 = 0.029, first crossing at 143.
+   A frozen residual is the signature of an aim point that stopped being refreshed: the barrel converges onto a
+   stale point and holds a constant offset from the live one. The chain that refreshes it is
+   vehicle_actor.advance_simulation_aim (which calls fire_control.advance, cam_rig.intent_point and
+   turret.set_aim_point) followed by advance_simulation_mechanism, both gated by simulation_step_valid and both
+   driven by the simulation phases rather than by rendering - and turret_rig states in its own comment that
+   rendering never advances the authoritative axes. So the remaining question is exactly one: WHY a physics-paced
+   step would stop refreshing the aim point when the machine is loaded, and the answer has to be measured rather
+   than asserted.
+   THE FIRST INSTRUMENT ATTEMPT WAS A DEAD END AND IS RECORDED AS ONE: vehicle_actor already prints a command
+   trace with Engine.get_physics_frames(), but it sits behind debug_command_trace and is therefore absent from
+   both logs (zero [cmd-trace] lines in each), so it could not measure the cadence. The next step is a counter
+   that is always on for this investigation - aim-phase steps against physics frames - not a guess about clocks.
+
+WHAT IS KNOWN ABOUT THE VILLAGE FIX BEFORE IT IS WRITTEN
+   The attributed commit changes scripts/ai/ai_tank_controller.gd by twenty five lines: it adds an aim-stall timer
+   (_aim_stall_since) with a visible-sample advance and its resets, and it replaces the inline preferred-sample
+   rotation after a shot with that helper. Nothing else in that commit touches driving, so the repair has to
+   explain how an AIM-side state change stalls the PATH DRIVER's hop - which is what the [unreached route] output
+   showed, hop=(inf, inf, inf) with the phase still reading "following" - before anything is changed.
+
+NOTHING WAS CHANGED FOR EITHER ITEM YET, and the two authorisations are recorded here so the next round starts
+from the rulings rather than from memory. release_ready=false, public_release=false, human=PENDING,
+performance=HOLD_BY_USER.
+```

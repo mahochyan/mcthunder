@@ -1,0 +1,27 @@
+MCT-COMBAT-DEEPEN-01 CD16: both boundary questions were ruled again and both rulings are recorded with the
+evidence that makes them actionable. The village red gets a BOUNDED OUT-OF-PACKAGE FIX, and R3-A gets the
+FOCUSED CLOCK INVESTIGATION.
+
+The R3-A traces already turn the instability from a suspicion into a mechanism, before any new run: the harness
+prints its own error trajectory every sixty frames and the failing log FREEZES - 58.060 degrees at frame 0,
+35.552 at 60, 11.260 at 120, and then 10.987 at 180, 240, 300, 360 and 420 - so the mechanism STOPS ADVANCING
+and the error holds a constant residual, which is a stopped turret rather than a slow one. The passing log runs
+59.160, 35.308, 2.602, 0.029 and crosses at frame 143. A frozen residual is the signature of an aim point that
+stopped being refreshed, and the chain that refreshes it is vehicle_actor.advance_simulation_aim followed by
+advance_simulation_mechanism, both simulation-phase gated and both stated by turret_rig to be the only things
+that advance the authoritative axes while rendering does not. The remaining question is exactly one - why a
+physics-paced step stops refreshing the aim point under load - and it will be measured rather than asserted.
+
+The first instrument attempt was a dead end and is recorded as one: vehicle_actor already prints a command trace
+carrying Engine.get_physics_frames(), but it sits behind debug_command_trace and is absent from both logs (zero
+[cmd-trace] lines each), so it could not measure the cadence. The next step is an always-on counter of aim-phase
+steps against physics frames.
+
+The attributed village commit is scoped before it is touched: it changes scripts/ai/ai_tank_controller.gd by
+twenty five lines - an aim-stall timer with a visible-sample advance and its resets, plus the replacement of the
+inline preferred-sample rotation after a shot - and nothing else in it touches driving, so the repair has to
+explain how an aim-side state change stalls the path driver hop, which the [unreached route] output showed as
+hop=(inf, inf, inf) with the phase still reading following, before anything is changed.
+
+Nothing was changed for either item yet. release_ready=false, public_release=false, human=PENDING,
+performance=HOLD_BY_USER.
