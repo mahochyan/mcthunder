@@ -53,7 +53,12 @@ const LEVEL = {
   'cd15-local-authority-v1': ['PROJECT_FIXTURE', 'one authority and two production clients run as three real processes'],
   'cd15-information-permission-v1': ['PROJECT_FIXTURE', 'the policy is driven with its guard and a real spectator projection'],
   'cd16-declared-manifest-expectation-v1': ['PROJECT_FIXTURE', 'the integration suite was driven after the migration and validates the packet own declared manifest: 54 checks with no failures'],
-  'cd16-he-velocity-850-v1': ['PROJECT_FIXTURE', 'the real ammunition and firing path was driven after the alignment across six suites (307 checks, no failures), and the reference itself is the local game file round definition']
+  'cd16-he-velocity-850-v1': ['PROJECT_FIXTURE', 'the real ammunition and firing path was driven after the alignment across six suites (307 checks, no failures), and the reference itself is the local game file round definition'],
+  // WT-EXPANSION-02: the two expectation migrations executed in the CD16 delivery round. Both are PROJECT_FIXTURE for the
+  // same reason as the two rows above - the packaged product is driven and compared against its own declared edit - and
+  // neither claims any external capture.
+  'cd16-modern-player-flow-derived-edit-v1': ['PROJECT_FIXTURE', 'the packaged player flow drives the real garage, deploy, match, next match and separate-process restart, and the spawn and the restored life are compared against the loadout the flow itself edits'],
+  'cd16-modern-life-fixture-derived-edit-v1': ['PROJECT_FIXTURE', 'the packaged live-round fixture drives a scripted enemy, the production damage and ticket rules and a real respawn click, with the seat resolved through the production station-to-role-to-person mapping and the new-life total derived from the fixture own edit']
 };
 
 // THE WAR THUNDER REFERENCE, measured in this session from the local install (docs/wt/wt-reference/).
