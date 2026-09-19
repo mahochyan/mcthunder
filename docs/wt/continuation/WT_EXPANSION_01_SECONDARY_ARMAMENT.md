@@ -42,13 +42,14 @@ B. the HUD and controls need to select and fire a secondary channel, so the feat
    the input action `fire_secondary` exists bound to physical keycode 72 (step 3), with the input, HUD, engineering
    runtime and feedback suites all green after each.
    NOT DONE - the overlay does not draw the rows yet, and NOTHING READS THE KEY YET.
-   THE WIRING POINT IS NOW LOCATED, which is the reason this note is worth updating rather than the edit being made
-   blind: scripts/player_controller.gd reads the fire action in several places, but it does not fire directly - it
-   sets a PENDING FLAG (`_fire_pending = true`) and the shot is issued by whatever consumes that flag later in the
-   same file. So the secondary call must be added at the CONSUMER, beside the main gun shot, and not at the read
-   site where the action names are matched - adding it at the read site would fire a round outside the pending
-   protocol every other weapon follows. The next step is therefore to read that consumer and add the secondary
-   branch there, then extend the acceptance to fire through the INPUT path rather than by calling the gunner.
+   THE CONSUMER IS NOW READ, and it changes what the wiring edit must be: scripts/player_controller.gd line 128 sets
+   `cmd.fire_requested = _fire_pending` and line 139 clears the flag, so the fire INTENT TRAVELS AS A FIELD OF THE
+   COMMAND into the simulation and is honoured there - not by calling the gunner from the controller. A secondary
+   fire therefore needs a COMMAND FIELD of its own (`secondary_fire_requested` or equivalent) set on the same line
+   beside the main one, plus the honouring branch in the same place the main gun shot is issued, plus the clear on
+   the same three cleanup paths. That is a three-site protocol change rather than a one-line call, and it is the
+   next step; doing it as a direct gunner call from the controller would put the second weapon outside the command
+   protocol that carries aim, owning vehicle, life and the pending/release rules for every other weapon.
    The entry points recorded earlier remain valid: `scripts/battle/simulation_snapshot.gd` (done),
    `scripts/ui/battle_ui.gd` line 192 (done) and the input map (done).
 C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and

@@ -1,0 +1,22 @@
+WT-EXPANSION-01 item B: the consumer is READ, and it changes the shape of the wiring edit - recorded instead of a
+one-line call that would have been wrong.
+
+WHAT line 128 of scripts/player_controller.gd shows: `cmd.fire_requested = _fire_pending`, with the flag cleared at
+line 139 and on three further cleanup paths. The fire INTENT therefore travels as a FIELD OF THE COMMAND into the
+simulation and is honoured there, and the controller never calls the gunner at all. A secondary fire must follow the
+same route: a command field of its own set on that same line beside the main one, the honouring branch in the same
+place the main gun shot is issued, and the clear on the same cleanup paths.
+
+WHY THAT MATTERS ENOUGH TO RECORD RATHER THAN RUSH: calling the gunner directly from the controller would put the
+second weapon outside the command protocol that carries the aim intent, the owning vehicle, the life id and the
+pending/release rules every other weapon obeys - a second weapon that ignores those would fire with stale aim or on
+the wrong life, which is exactly the class of fault this project keeps catching by measurement.
+
+NO CODE CHANGED THIS ROUND: the finding is a protocol shape, not a value, and it is the third time in this expansion
+that reading the gate changed the plan before an edit was made - the first two being the armour profile version the
+validator keys on and the record that is frozen only when a round terminates.
+
+STATE, unchanged otherwise: the snapshot carries the channels, the HUD model carries them as text rows and the input
+action fire_secondary exists on key 72, each with its suites green; the overlay still does not draw the rows and
+nothing reads the key yet. NEXT: the three-site command change above, then an acceptance leg that fires through the
+INPUT path.
