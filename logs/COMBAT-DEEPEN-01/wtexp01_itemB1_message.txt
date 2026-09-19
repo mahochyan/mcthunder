@@ -1,0 +1,22 @@
+WT-EXPANSION-01 item B step 1: the secondary firing channels now travel with the simulation snapshot, which is the
+layer the HUD reads.
+
+WHAT CHANGED: the per-vehicle row that simulation_snapshot.gd builds now carries a `secondary` entry alongside its
+ammunition, destroyed flag and capabilities, DEEP-COPIED so that a reader holding the snapshot can never mutate the
+live belt ledger. That is the first of the three entry points recorded last round (snapshot, then battle_ui.gd, then
+a new input binding), and it was done in that order deliberately: a UI that reads a value the snapshot does not
+carry would have to reach into the gunner behind the snapshot own back.
+
+MEASURED AFTER THE CHANGE, and the slice was chosen for what the snapshot feeds rather than for convenience: the
+HUD suite (which consumes the snapshot and builds the display), the engineering runtime suite (the vehicles that
+carry the new channels), the network authority suite (the same snapshot is the network per-vehicle row) and the
+feedback suite all exit 0 with no failures. A parse check ran before any of them, as it does for every script edit
+since the round a wrong-scope wiring was refused by exactly that check.
+
+NO MAIN GUN BEHAVIOUR CHANGED and no expectation was edited: this is an additive field on an existing row, so
+nothing that read the snapshot before can read it differently now.
+
+WHAT REMAINS FOR ITEM B: battle_ui.gd must show the channels, and a new input binding must let a player fire one -
+the input map has fire, shell_1 and shell_2 and no third slot, so this is a new action rather than a reuse - after
+which the acceptance must fire a secondary channel through the INPUT path instead of calling the gunner directly,
+because a feature a player cannot reach is not delivered.

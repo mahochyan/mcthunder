@@ -22,6 +22,9 @@ func _physics_process(_delta: float) -> void:
 			"observation_hold":actor.turret.observation_hold,
 			"shots_fired":actor.gunner.shots_fired,"cooldown":actor.gunner.cooldown_left,
 			"ammunition":actor.gunner.inventory.shell_counts().duplicate(true),"destroyed":actor.state.destroyed,
+			# WT-EXPANSION-01 item B step 1: the secondary firing channels travel with the snapshot so the HUD can
+			# show them. Deep-copied, so a reader can never mutate the live belt ledger by holding the snapshot.
+			"secondary":actor.gunner.secondary.duplicate(true),
 			"reactive_armor":actor.state.reactive_armor.duplicate(true),"capabilities":actor.capabilities().duplicate(true)})
 	vehicles.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return a.entity_id<b.entity_id)
 	var state := battle.director.state
