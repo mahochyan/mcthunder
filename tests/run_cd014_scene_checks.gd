@@ -49,29 +49,51 @@ func _run() -> void:
 		"the old rules and save semantics must be preserved, with new behaviour only in the new preset",
 		"the old preset is not intact, or no new versioned preset file exists beside it")
 
-	# ── S2 four independent books: the team pool exists as a file, and a personal book must be measurable in the profile.
+	# ── S2 four independent books, DRIVEN rather than looked for as a stored key: the profile schema validates an exact key
+	# count, so adding a key would be refused by design and a key probe could never see it. Behaviour is the point anyway.
 	var store := ProfileStore.new("user://profiles/cd014_probe")
 	var stored: Dictionary = store.snapshot()
 	var team_pool_present := _exists("res://scripts/battle/ticket_ledger.gd")
-	var personal_present := false
-	for key in ["sortie_points","sortie_balance","sp","sp_balance"]:
-		if stored.has(key): personal_present = true
-	print("[CD14] S2 team pool file=%s ; stored keys=%s ; personal book present=%s" % [
-		str(team_pool_present),str(stored.keys()),str(personal_present)])
+	var book := SortieService.new()
+	book.begin(450)
+	var earn1 := book.earn("shooter_A","kill","event:match1:kill:1")
+	var earn2 := book.earn("shooter_A","kill","event:match1:kill:1")
+	var personal_present := bool(earn1.get("ok",false)) and not bool(earn2.get("ok",true)) \
+		and int(book.balance) == 450 + int(SortieService.INCOME["kill"]) and book.balance_is_never_negative()
+	print("[CD14] S2 team pool file=%s ; earn ok=%s amount=%s ; duplicate ok=%s reason=%s ; balance=%d ; never negative=%s" % [
+		str(team_pool_present),str(earn1.get("ok",false)),str(earn1.get("amount",0)),str(earn2.get("ok",true)),
+		str(earn2.get("reason","")),book.balance,str(book.balance_is_never_negative())])
 	met("CD14-T02", team_pool_present and personal_present,
 		"the different resources must never share a balance, and income must follow committed events",
-		"the stored profile holds no personal sortie book, so the different resources cannot be shown to be separate")
+		"the personal book did not credit a committed event exactly once, or the balance went negative")
 
-	# ── S3 the sortie transaction: measured by whether a reservation can be held at all, beside the existing spawn search.
+	# ── S3 the sortie transaction, DRIVEN through all four named steps, with a blocked spawn, a cancellation and a repeat.
 	var respawn_present := RespawnService.new() != null
-	var reservation_present := false
-	for key in ["sortie_reserved","reserved_sortie","sortie_pending"]:
-		if stored.has(key): reservation_present = true
-	print("[CD14] S3 spawn search class present=%s ; reservation bookkeeping present=%s" % [
-		str(respawn_present),str(reservation_present)])
+	var tx := SortieService.new()
+	tx.begin(300)
+	var blocked := tx.request("shooter_A","ussr_t_80b",200,"tok_blocked",true)
+	var after_block := tx.balance
+	var ok1 := tx.request("shooter_A","ussr_t_80b",200,"tok_ok")
+	var cancelled := tx.release("tok_ok","cancelled")
+	var ok2 := tx.request("shooter_A","ussr_t_80b",200,"tok_ok")
+	var confirmed := tx.confirm("tok_ok")
+	var committed := tx.commit("tok_ok")
+	var again := tx.request("shooter_A","ussr_t_80b",200,"tok_ok")
+	var poor := SortieService.new()
+	poor.begin(50)
+	var poor_refused := poor.request("shooter_B","ussr_t_80b",200,"tok_poor")
+	var reservation_present := bool(blocked.get("released",false)) and int(after_block) == 300 \
+		and bool(cancelled.get("released",false)) and bool(ok2.get("ok",false)) \
+		and bool(confirmed.get("ok",false)) and bool(committed.get("ok",false)) \
+		and bool(again.get("idempotent",false)) and int(again.get("charged",-1)) == 0 \
+		and not bool(poor_refused.get("ok",true)) and poor.balance_is_never_negative()
+	print("[CD14] S3 tx: blocked released=%s balance=%d ; cancelled released=%s ; repeat idempotent=%s charged=%s ; poor refused=%s reason=%s ; never negative=%s" % [
+		str(blocked.get("released",false)),after_block,str(cancelled.get("released",false)),
+		str(again.get("idempotent",false)),str(again.get("charged",-1)),str(poor_refused.get("ok",true)),
+		str(poor_refused.get("reason","")),str(poor.balance_is_never_negative())])
 	met("CD14-T03", respawn_present and reservation_present,
 		"a blocked spawn, a cancellation and a repeated token must not double charge and must release the reservation",
-		"the spawn search exists but no reservation bookkeeping does, so a repeat token cannot be made idempotent")
+		"the transaction did not release on failure or cancellation, charged a repeat token again, or let a balance go negative")
 
 	# ── S4 line-up legality, which already exists and is exercised here.
 	var service := GarageService.new()
