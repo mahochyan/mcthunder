@@ -112,13 +112,27 @@ func _run() -> void:
 			var answer: Dictionary = actor.gunner.try_fire_secondary(0)
 			var belt_after: int = int(actor.gunner.secondary_channel(0).get("belt_remaining",0))
 			var pid: int = int(actor.gunner.secondary_channel(0).get("last_projectile_id",0))
+			# THE FLIGHT MUST BE ADVANCED FIRST: the manager freezes a shot record when the round TERMINATES
+			# (ShotRecordBuilder.freeze at the terminal path), not when it spawns. The previous round read records
+			# 0 -> 0 without flying the round and called that a product gap; it was this leg own gap, and this is
+			# the correction.
+			var space := world.get_world_3d().direct_space_state
+			var flight: ProjectileState = manager.get_projectile_state(pid)
+			var advanced := 0
+			if flight != null:
+				# The cap must EXCEED the round own flight age: 4 s at a 1/240 step is 960 steps, so the first
+				# version cap of 900 stopped the flight just short of its own expiry and the record never froze.
+				for i in 2400:
+					if flight.is_terminal(): break
+					manager.advance_projectile(flight,1.0/240.0,[],space)
+					advanced += 1
 			var records_after: int = manager.shot_records.count()
 			var identity_line := "none"
 			if records_after > records_before:
 				var record: Dictionary = manager.shot_records.get_record(records_after-1)
 				var ident: Dictionary = record.get("identity",{})
-				identity_line = "shell_id=%s shooter=%s shot=%s" % [str(ident.get("shell_id","")),str(ident.get("shooter_id","")),str(ident.get("shot_id",""))]
-			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d, projectile_id=%d, records %d -> %d)" % [str(id),str(answer),belt_before,belt_after,pid,records_before,records_after])
+				identity_line = "shell_id=%s shooter=%s shot=%s terminal=%s" % [str(ident.get("shell_id","")),str(ident.get("shooter_id","")),str(ident.get("shot_id","")),str(record.get("terminal_reason",""))]
+			print("[WT-EXPANSION-01] %s fire answer: %s (belt %d -> %d, projectile_id=%d, advanced=%d, records %d -> %d)" % [str(id),str(answer),belt_before,belt_after,pid,advanced,records_before,records_after])
 			print("[WT-EXPANSION-01] %s record identity: %s" % [str(id),identity_line])
 			check(records_after>records_before,"WT-EXPANSION-01 %s the secondary shot enters the SAME shot-record path the replay reads" % str(id))
 			check(answer.get("reason","")!="" ,"WT-EXPANSION-01 %s the secondary fire request is ANSWERED" % str(id))
@@ -126,8 +140,10 @@ func _run() -> void:
 				check(belt_after==belt_before,"WT-EXPANSION-01 %s a refused secondary shot debits NOTHING" % str(id))
 			else:
 				check(belt_after==belt_before-1,"WT-EXPANSION-01 %s a fired secondary shot debits exactly one round" % str(id))
-				check(pid!=0 and manager.get_projectile_state(pid)!=null,
-					"WT-EXPANSION-01 %s the secondary shot produced a REAL projectile (%d)" % [str(id),pid])
+				# The projectile is judged through its RECORD, because a terminated round is removed from the active
+				# states: asserting get_projectile_state after the flight is advanced tests the wrong moment.
+				check(pid!=0 and records_after>records_before,
+					"WT-EXPANSION-01 %s the launched round is a real projectile AND is recorded (%d / %d records)" % [str(id),pid,records_after])
 		actor.queue_free()
 	world.queue_free(); await _frames(2)
 	print("=== result: %d checks, %d failed, %d unmet-declaration legs ==="%[checks,fail,unmet])

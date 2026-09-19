@@ -1,0 +1,23 @@
+WT-EXPANSION-01 item A is DONE, and the previous round claim that the product had a gap is CORRECTED here: the gap
+was in my instrument, not in the game.
+
+THE MEASUREMENT, now that the leg flies the round properly: a secondary shot is frozen into the SAME ShotRecordStore
+the replay reads, carrying its own identity - records 0 to 1 with shell_id=ap_i_ball shooter=wtexp01_1 shot=1 on the
+T-80B and shell_id=ap_ball shooter=wtexp01_2 shot=1 on the Leopard 2A4. The acceptance scenario is 47 checks with
+ZERO failures and WT_EXPANSION_01_PASS, and the log contains zero script error lines.
+
+THE CORRECTION, stated plainly because the previous message is in history saying the opposite: that round reported
+"a secondary round does not reach the replay path today" as a product gap. It was not. The manager freezes a record
+when the round TERMINATES rather than when it spawns, and that leg never advanced the flight at all; once it did,
+its first cap of 900 steps was still shorter than the round own 4 s flight age, which is 960 steps at a 1/240 step,
+so the flight stopped just short of its own expiry and no record could freeze. Both were faults of my leg - the
+second one a plain arithmetic slip - and the record path had been working the whole time. The note now carries that
+correction next to the result so a reader cannot find the wrong claim without the right one beside it.
+
+TWO STALE ASSERTIONS IN MY OWN LEG WERE ALSO CORRECTED, and both were about reading the right moment: the projectile
+must be judged BEFORE the flight is advanced, because a terminated round is removed from the active states, so the
+leg now judges the launch through its record instead of asking for a projectile state that no longer exists.
+
+NO PRODUCT CODE CHANGED IN THIS ROUND: the only file touched is the acceptance probe, so the main-gun suites are
+unaffected - they were green after the last product change and nothing has moved since. Item B, the HUD and controls
+that let a player fire a secondary channel, remains open, and the expansion cannot be called complete without it.

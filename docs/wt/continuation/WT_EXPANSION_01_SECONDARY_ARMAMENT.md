@@ -27,14 +27,15 @@ passed with it present.
 ## What REMAINS
 
 ```
-A. the secondary rounds must enter the DAMAGE and REPLAY records the same way the main gun rounds do, which is the
-   consistency this package objective is about rather than a separate feature. NOW MEASURED AS A GAP, with numbers:
-   the leg is written against ShotRecordStore own interface (count() and get_record(index), with a record read as a
-   DICTIONARY rather than by property access - the first attempt did the latter and was reverted after three script
-   errors). The measurement is unambiguous: the channel answers { "ok": true, "reason": "fired" }, debits its belt
-   750 to 749 and 200 to 199, and the manager returns a REAL projectile - while the shot-record count stays 0 to 0,
-   so A SECONDARY ROUND DOES NOT REACH THE REPLAY PATH TODAY. The acceptance scenario therefore stands at 47 checks
-   with 2 failures until that is fixed, and the failures are exactly this gap.
+A. the secondary rounds must enter the DAMAGE and REPLAY records the same way the main gun rounds do - **DONE and
+   measured**. A secondary shot is frozen into the SAME ShotRecordStore the replay reads, carrying its own round
+   identity: the measurement reads `records 0 -> 1` with `shell_id=ap_i_ball shooter=wtexp01_1 shot=1` on the T-80B
+   and `shell_id=ap_ball shooter=wtexp01_2 shot=1` on the Leopard 2A4.
+   **AND THE PREVIOUS ROUND OWN CLAIM IS CORRECTED HERE:** that round reported "a secondary round does not reach the
+   replay path today" as a product gap. IT WAS NOT. The manager freezes a record when the round TERMINATES, and that
+   leg never flew the round - and when it did, its first cap of 900 steps was still shorter than the round own 4 s
+   flight age (960 steps at 1/240), so the flight stopped just short of its own expiry. Both were faults of the leg,
+   not of the product, and the record path had been working all along.
 B. the HUD and controls need to select and fire a secondary channel, so the feature is reachable by a player and
    not only by a probe;
 C. the main-gun suites must keep passing at every step, which they have: engineering runtime, shell, damage and
