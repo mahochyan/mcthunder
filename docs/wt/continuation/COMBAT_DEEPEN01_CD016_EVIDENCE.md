@@ -951,6 +951,41 @@ run of that suite THROUGH the runner (`run_suite_checks.ps1 -Suites run_industri
 `logs/007/<sha>/<timestamp>/RESULTS.json`) is the confirmation that the gate now records it as a known failure
 instead of a timeout; it costs another ~72 minutes and its result is recorded when it lands.
 
+## 25. The BUILD's own regression bound was also below the measured cost, and the slowdown is the simulation, not the scenario
+
+Fixing the per-suite bound exposed a second, larger one: `build_release.ps1` caps the WHOLE regression step at
+7200 s. Two measurements say that is no longer enough, and both are comparisons of the SAME suite against a real
+historical batch rather than estimates:
+
+```
+                        last game clock (seed 23023 / 23024)   wall time for the whole suite
+2026-09-15 batch        340.1 s / 333.4 s                       1146 s
+today                   367.0 s / 354.7 s                       4327 s
+```
+   The matches are only ~7% longer; the wall cost is **3.8x**. So what grew is the per-frame cost of the simulation
+   itself (the tree has gained many features since that batch), not the scenario the suite runs - which also means
+   the other 37 suites in the build's list are likely slower than their historical numbers, not only this one.
+
+THE BOUND, DERIVED FROM THE BUILD'S OWN LIST (38 suites, taken from its parameter block, not from a copied list):
+```
+historical cost of exactly those 38 suites = 3701 s   (heaviest: run_industrial_checks 1202 s,
+                                                       run_industrial_battle_checks 1146 s,
+                                                       run_village_battle_checks 254 s,
+                                                       run_challenge_checks 222 s)
+unchanged remainder (3701 - 1146)                          = 2555 s
++ today's industrial suite                                 = 4327 s
+                                                           --------
+estimated batch today                                      = 6882 s = 96% of the old 7200 s cap
+```
+   Before any `-ModernRiver` addition, and with the remainder assumed NOT to have slowed at all. A legitimate
+   regression would therefore have been killed as a timeout and reported as a build failure.
+
+CHANGE (`tests/build_release.ps1`): the regression step's bound is **14400 s**, a 2x margin over that estimate, with
+the derivation in the comment. It is a harness bound and not a pass condition - a genuinely hung batch is still
+killed, only later. Verified: the script stays pure ASCII, parses with 0 errors, and the register still holds its
+three entries (`run_industrial_battle_checks`, `run_challenge_checks`, `run_village_battle_checks`).
+
+
 
 
 
