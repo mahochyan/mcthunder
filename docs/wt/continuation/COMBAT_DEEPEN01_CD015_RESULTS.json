@@ -1,0 +1,68 @@
+{
+  "template_only": false,
+  "actual_game_test_executed": true,
+  "package_id": "MCT-COMBAT-DEEPEN-01",
+  "work_order_id": "WT-CD-015",
+  "base_sha": "39762ec96040f03a43117a6c269bbbec5d1ef1eb",
+  "implementation_sha": "38a6b4b3cb15fba2b8477fca9e93c8d2826bc882",
+  "tested_sha": "38a6b4b3cb15fba2b8477fca9e93c8d2826bc882",
+  "final_sha": "38a6b4b3cb15fba2b8477fca9e93c8d2826bc882",
+  "content_version": "tests/run_cd015_scene_checks.gd and tests/probe_cd015_feedback_behaviour.gd at 38a6b4b3cb15fba2b8477fca9e93c8d2826bc882, driving scripts/feedback/combat_feedback.gd, scripts/projectiles/projectile_manager.gd, scripts/battle/rule_version_interpreter.gd, scripts/replay/shot_record_codec.gd and shot_record_builder.gd, scripts/network/network_battle_server.gd, scripts/network/network_identity_policy.gd and scripts/battle/observation_policy.gd exactly as they already stood",
+  "rules_version": "cd15-presentation-consumer-v1 ; cd15-shell-family-effects-v1 ; cd15-record-interpretation-v1 ; cd15-local-authority-v1 ; cd15-information-permission-v1 (all five CONFIRM the rules they name; none replaces them)",
+  "engine_version": "Godot 4.7.2-stable win64 console, gl_compatibility",
+  "command": "Godot_v4.7.2-stable_win64_console.exe --headless --path <worktree> --fixed-fps 60 -s res://tests/<suite>.gd ; and tests/run_network_slice.ps1 -Port 19109 for the one-authority two-client three-process run",
+  "cwd": "E:\\AIprogram\\mcthunder-cont",
+  "started_at": "2026-09-19T11:35:50",
+  "ended_at": "2026-09-19T12:15:42",
+  "exit_code": 0,
+  "timed_out": false,
+  "case_ids_expected": [
+    "CD15-T01",
+    "CD15-T02",
+    "CD15-T03",
+    "CD15-T04",
+    "CD15-T05",
+    "CD15-T06"
+  ],
+  "case_ids_executed": [
+    "CD15-T01",
+    "CD15-T02",
+    "CD15-T03",
+    "CD15-T04",
+    "CD15-T05",
+    "CD15-T06"
+  ],
+  "status": "COMPLETE",
+  "failure_details": [],
+  "script_errors": "zero SCRIPT ERROR and zero Parse Error in the two CD15 runs and in all thirteen suites counted green; ONE pre-existing test-suite SCRIPT ERROR remains in tests/run_ammo_compartment_checks.gd at its own line 104, recorded in this package since the CD07 and CD10 rounds, outside the CD15 change set and therefore NOT counted green rather than hidden",
+  "test_kind": "rule_negative ; standard_fixture ; actual_actor_integration ; local_three_process_authority ; external_behaviour_not_compared ; human_not_signed",
+  "input_method": "headless scripted scenes over the real begun match range, the real projectile manager spawn gate, the rule version interpreter and the CD12 observation policy, plus tests/run_network_slice.ps1 launching one authority and two production clients as three real processes",
+  "injections_declared": [
+    "the scenes declare themselves fixtures; no production hook, no synthetic damage path and no client-authoritative value was added, and the transport in the three-process harness is only dropped and delayed inside the fixture"
+  ],
+  "raw_stdout": "logs/COMBAT-DEEPEN-01/c15f-run_cd015_scene_checks.log and c15f-probe_cd015_feedback_behaviour.log for the two CD15 runs; c15e-*.log for the seven baseline suites and c15g-*.log for eleven further chain suites including the three that need a window or an argument; logs/wt009/20260919-121531/ for the three-process authority harness. All kept unfiltered and never scanned away.",
+  "raw_stderr": "captured in the same per-run logs; the only content is the layout catalog warning and the shell wrapper around it",
+  "screenshots": [],
+  "events": [
+    "stopping the presentation layer leaves the same match with nine committed events and identical tickets 300/300",
+    "all FOUR declared shell families - kinetic, he_blast, internal_burst and long_rod - accepted through the real spawn gate, each carrying its own complete impact profile",
+    "an undeclared effect refused by name as invalid_effect_policy",
+    "a round that reaches nothing produces no burst at all",
+    "a stored record explained by its own rule version, and version 999 refused with unknown_rule_version:999 and the action refuse_or_migrate",
+    "one authority and two production clients finished three separate processes on the SAME final digest b7a1c492eae3dcb76994b6ea13bd6e6dd6b1d73a65dd6a9868c6ec5d244feebf",
+    "a spoofed entity identity, a stale sequence, an unknown message and a client claimed hit each refused by name with a counter",
+    "the four information classes read from the policy, the internal field guard refusing an internal field, and a real spectator projection produced from observer_visible rather than world truth"
+  ],
+  "not_run": [
+    "CD16-T01..CD16-T06: six cases, NOT_RUN; see COMBAT_DEEPEN01_CASE_COVERAGE.md",
+    "normal player flow and human playtest: NOT_RUN and PENDING. No screenshot and no recording is claimed, and the package asks for evidence this agent does not sign on the user behalf.",
+    "external behaviour against War Thunder: NOT_COMPARED. The evidence state stays the engineering self-consistent version only, so no numeric agreement with any external title is claimed.",
+    "performance: HOLD_BY_USER. No FPS, p95 or capacity measurement is made, and the transport fixture is not a performance probe.",
+    "run_feedback_battle_render and run_replay_player_checks refuse to run headless BY THEIR OWN GUARD, and run_network_view_checks needs a prepared argument file: all three are recorded as not run instead of being counted green.",
+    "run_ammo_compartment_checks prints 62 checks with no failures but carries the pre-existing script error named above; it is a test-suite fault outside this change set.",
+    "the three-process harness own aggregate flag reads false because it reads a NULL process exit code from its started processes; each process printed its PASS line, both clients report passed=true and all three digests are identical, so the instrument fault is recorded rather than smoothed over.",
+    "release_ready=false, public_release=false, human=PENDING, performance=HOLD_BY_USER."
+  ],
+  "package_hash": "read-only originals under docs/wt/combat-deepen-01/original/ unchanged; see REISSUE_MANIFEST.json",
+  "next_action": "CD16, the last sub-order of the package, whose prerequisites are now all fifteen earlier orders"
+}
