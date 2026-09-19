@@ -1,6 +1,10 @@
 extends SceneTree
-## PixelArmor 无窗口自动检查（工作单 §四）。
-## 运行: godot --headless --path <工程根> -s res://tests/run_checks.gd
+## WT-EXPANSION-02 MEASUREMENT FIXTURE, not a gate suite: byte-identical to tests/run_checks.gd except that the
+## watchdog is 900 s instead of 90 s, so the suite's REAL budget can be measured instead of inferred. The 90 s
+## watchdog is a GAME-TIME timer while the suite's waits are FRAME-based, and under --fixed-fps 60 one frame advances
+## 1/60 s of game time, so the watchdog fires at 5400 frames while the suite's own designed waits exceed that by
+## construction. This copy exists to answer one question with a number: how much game time and how many frames does
+## run_checks actually need, and does it pass when it is allowed to finish.
 ## 原则：测试全部调用游戏实际使用的逻辑——实例化真实主场景、真实输入动作、
 ##       真实射击/驾驶代码；失败时退出码非 0；不以退出码为唯一依据（全文输出留档）。
 
@@ -8,17 +12,9 @@ var fails: Array[String] = []
 var count := 0
 
 func _initialize() -> void:
-	# WT-EXPANSION-02 (measured, not guessed): this watchdog was 90 s of GAME TIME while the suite's waits are
-	# FRAME-based, and the suite measurably needs MORE than 90 s of game time - so the watchdog always expired before
-	# the suite could finish and the gate read an aborted run as a failing suite. Measured with
-	# tests/probe_run_checks_budget.gd, which is this file with only the watchdog raised: the suite completes with
-	# **217 checks, 0 failed, 0 SCRIPT ERROR, CHECKS_PASS** in 7876 physics frames = 131 s of game time (45 s wall under
-	# --fixed-fps 60). 240 s is 14400 frames at 60 Hz, a ~1.8x margin over the measured need, and it is the same in both
-	# invocation regimes the gate uses (run_suite_checks.ps1 runs this suite WITHOUT --fixed-fps, where game time tracks
-	# wall time). The hang this timer exists to catch is still caught: a stuck await cannot reach 240 s.
-	var wd := create_timer(240.0)
+	var wd := create_timer(900.0)
 	wd.timeout.connect(func() -> void:
-		print("[WATCHDOG] 240s 超时，强制退出（存在卡死/等待）")
+		print("[WATCHDOG] 900s 超时，强制退出（存在卡死/等待）")
 		quit(2))
 	call_deferred("_run") # Window initialization must precede configured headless viewport sizing.
 
@@ -1260,6 +1256,10 @@ func _ok(cond: bool, label: String) -> void:
 		fails.append(label)
 
 func _finish() -> void:
+	# The budget measurement: how much game time and how many frames the suite really needs, so a watchdog can be
+	# derived from it instead of guessed. Time.get_ticks_msec() is wall time, Engine.get_*_frames() are counts.
+	print("[BUDGET] seconds=%.1f physics_frames=%d process_frames=%d wall_ms=%d" % [
+		Time.get_ticks_msec()/1000.0,Engine.get_physics_frames(),Engine.get_process_frames(),Time.get_ticks_msec()])
 	print("=== 结果: %d 项检查, %d 失败 ===" % [count, fails.size()])
 	if fails.is_empty():
 		print("CHECKS_PASS")

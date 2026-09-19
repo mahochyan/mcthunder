@@ -1,0 +1,29 @@
+WT-EXPANSION-02: run_checks' watchdog was cutting a PASSING suite short, measured
+
+run_checks has been red in this package's evidence as "177 PASS / 0 FAIL then the 90 s watchdog", and the package
+build refuses it as an unregistered failing suite. The watchdog was never measuring a hang. It is a GAME-TIME timer
+while the suite's waits are FRAME-based, and the suite needs more game time than the timer allowed.
+
+MEASURED, not guessed: tests/probe_run_checks_budget.gd is tests/run_checks.gd byte-for-byte except that the
+watchdog is 900 s, so the suite can finish and report its own budget. Result: **217 checks, 0 failed, 0 SCRIPT ERROR,
+CHECKS_PASS** in **7876 physics frames = 131 s of game time** (45 s wall under --fixed-fps 60). The 90 s timer
+expired at 5400 frames, i.e. before the suite could finish, which is why the same 177 checks appeared every time.
+
+CHANGE: tests/run_checks.gd's watchdog is 240 s (14400 frames at 60 Hz, a ~1.8x margin over the measured 7876) with
+the measurement recorded in the comment. No check, expectation or threshold was touched; the check count goes from an
+ABORTED 177 to a COMPLETE 217, all passing. The hang the timer exists for is still caught: a stuck await cannot reach
+240 s.
+
+VERIFIED IN BOTH INVOCATION REGIMES:
+  * `--fixed-fps 60` (deterministic): 217 checks, 0 failed, 0 SCRIPT ERROR, CHECKS_PASS, exit 0, 45 to 58 s wall -
+    measured twice (the budget fixture and the suite itself).
+  * no `--fixed-fps` (which is how tests/run_suite_checks.ps1 runs this suite): 217 checks with **4 failures once**
+    (R2-B held-fire precondition, and T003-06 trial-hit counting lagging one shot: hits 0/1/2 against 1/2/3) and
+    **0 failures on the repeat run of the SAME build**. So the real-time regime is FLAKY for this suite, and the
+    flakiness is in exactly the trial-hit registration lag the suite's own _wait_trial_hits comment already documents.
+  * the untouched main tree in the real-time regime still aborts at 177 checks with its own 90 s watchdog, which is
+    the pre-existing baseline that made this look like a product regression.
+
+Nothing else changed. The next question, recorded rather than decided here, is whether the gate should run this
+suite in the deterministic regime (as its runner already does for 24 other suites) or whether the real-time
+flakiness is itself a defect to be fixed.
