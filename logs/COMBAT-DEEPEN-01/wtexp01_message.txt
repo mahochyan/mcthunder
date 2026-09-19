@@ -1,0 +1,24 @@
+WT-EXPANSION-01 secondary armament: SCENARIO FIRST, implementation deliberately not started.
+
+The user mandate of 2026-09-19 - raise this game completeness directly from the unpacked War Thunder data - is
+made concrete as an AUTHORISED EXPANSION BEYOND THE PACKAGE. It is named WT-EXPANSION-01 rather than WT-CD-017,
+and the note, the probe and this message all say so, so no reader can mistake it for package content or for one of
+the ninety-six cases.
+
+The contract is taken from the local game build 2.59.0.13 and is not invented: the T-80B coaxial 7.62 mm PKT with
+a 750 round belt, an 8 s reload, 11.66 rounds per second and ap_i_ball at 817.5 m/s; the T-80B anti-air 12.7 mm NSV
+with a 250 round belt, a 5 s reload and ap_i_t_ball at 865 m/s out to 3400 m; the Leopard 2A4 coaxial and hull
+7.92 mm MG3 with 200 round belts, an 8 s reload, 20 rounds per second and ap_ball at 853 m/s. Both real belts are
+ARMOUR PIERCING INCENDIARY rounds and the cadence difference between the two vehicles - about 700 rounds per minute
+against 1200 - is data this project has never had.
+
+tests/probe_wtexp01_secondary_armament.gd was written BEFORE any implementation, on the rule this package follows
+everywhere else, and its measured state today is 15 checks, 8 failed, 6 unmet-declaration legs,
+WT_EXPANSION_01_FAIL. The failing legs are exactly the declaration and runtime-channel ones, while the setup legs
+pass - the definitions load, both engineering packets are admitted, real actors install - so the probe fails
+because the feature is absent and not because the probe is broken. That is the honest scenario-first state, and
+the implementation order in the note is declaration, then runtime channel through the same production request path,
+then the acceptance re-run plus the main-gun suites unchanged to prove the first weapon did not move.
+
+Nothing was implemented this round, no existing behaviour was touched, and the main gun rules, values and
+projections are out of scope by construction.
