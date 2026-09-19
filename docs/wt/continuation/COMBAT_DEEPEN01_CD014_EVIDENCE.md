@@ -135,3 +135,21 @@ MISSING, and the table assets/localization/zh_CN.json is sixty thousand bytes wi
 key in question. So the text is not missing and the service is not the cause; the garbling is in how the captured output
 was decoded. That is recorded as a measurement, and no product fault is claimed from it.
 ```
+
+## 5. T05 traced to the very last link, and the mojibake settled
+```
+The registration path was followed link by link and each link was PRINTED rather than assumed:
+   register_match returns an EMPTY token unless the config mode is normal, which is its own first line;
+   bind_director with an empty token returns true immediately (its own early exit) and binds nothing;
+   apply_result_once with an empty token returns ok TRUE with ZERO points, which is its own designed early return.
+So the two calls both reporting success is not a double reward - it is two zero point returns from an empty token, and
+the acceptance case correctly refuses to call that a pass. The reason the token was empty is that MatchConfig.build
+REFUSED the config, reporting ok false with an EMPTY error list, so the next measurement is named and narrow: read what
+that builder returns besides errors, because it evidently reports its refusal through a different field.
+THE MOJIBAKE IS SETTLED. The localization service falls back to a bracketed key ONLY when a string is missing. The table
+assets/localization/zh_CN.json is sixty thousand bytes with no byte order mark and DOES hold the key, and the text that
+came back garbled is Chinese - it decodes to a sentence about training and free battles not counting research. So the
+string is present and correct in the source, the service is not at fault, and the garbling is in how captured console
+output was decoded. Recorded as a measurement with no product fault claimed from it.
+NO PRODUCTION CODE WAS CHANGED, and no delivered expectation was edited at any point.
+```

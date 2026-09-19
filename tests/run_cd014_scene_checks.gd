@@ -89,8 +89,13 @@ func _run() -> void:
 
 	# ── S5 the result is applied once and the store commits transactionally.
 	var progression := ProgressionService.new(store)
-	var registered := progression.register_match(MatchConfig.new())
-	var token := "cd014_match_1"
+	# register_match returns an EMPTY token unless the config mode is normal, which is what its own first line checks, so the
+	# scene must build a normal config and then use the token THE SERVICE ISSUED rather than one of its own invention.
+	var built := MatchConfig.build({"mode":"normal","selected_vehicle_id":str(line_up[0]),
+		"map":"hill_village","difficulty":"normal","lineup":line_up},service,stored.get("unlocked",[]))
+	var registered: Dictionary = progression.register_match(built.config) if built.ok else {"ok":false,"token":""}
+	print("[CD14] S5 config built=%s errors=%s mode=%s" % [str(built.get("ok",false)),str(built.get("errors",[])),str(built.get("config",null) != null and built.config.mode())])
+	var token := str(registered.get("token",""))
 	# apply_result_once needs a REGISTERED token whose director is bound and whose match has FINISHED with this exact result,
 	# which is what its own body gates on; without that it refuses as an unregistered match result, which is what the first pass met.
 	var director := TeamMatchDirector.new()
