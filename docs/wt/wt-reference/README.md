@@ -66,7 +66,54 @@ So the figures this project had previously copied from a dossier are the same fi
 two `unit not stated` rows are exactly the fields whose units the game file leaves empty; that remains an
 assumption and is not upgraded to a fact by this record.
 
-## What is now available that was not before
+## The second result: every armour figure this project declares is confirmed by the current build
+
+`WT_ARMOR_COMPARISON.json`, built by `logs/COMBAT-DEEPEN-01/compare_wt_armor.js`, pairs each `armor.*` fact with
+the real `DamageParts` of the installed build by a printed region rule. The T-80B unit file carries 95 armour
+parts and the Leopard 2A4 carries 116.
+
+```
+rows compared        34   (17 per vehicle: hull front/side/rear/roof/floor, turret front/side/rear/roof, gun shield)
+matched_exact        27   a real part carries exactly this thickness
+candidates_include   7   the value is present among that region parts (supported, not unique)
+matches_effective_max 0   none of our figures turns out to be an effective maximum rather than a plate
+no_candidate          0   NOT ONE of our armour figures is unsupported by the installed game files
+```
+
+Selected pairs, with the part they match:
+
+| our fact | mm | War Thunder part (2.59.0.13) |
+|---|---|---|
+| T-80B `hull_front_upper` / `_lower` | 80 | `hull/body_front_dm` = 80 |
+| T-80B `hull_sides_*` (four zones) | 80 | `hull/body_side_dm` = 80 |
+| T-80B `hull_roof_*` | 30 | `hull/body_top_dm` = 30 |
+| T-80B `hull_rear_*` | 60 | `hull/body_back_dm` = 60 |
+| T-80B `hull_floor_*` | 20 | `hull/body_bottom_dm` = 20 |
+| T-80B `turret_front` | 250 | `turret/turret_front_dm` and `turret/turret_01_front_dm` = 250 |
+| T-80B `turret_sides` | 157 | `turret/turret_side_dm` = 157 |
+| T-80B `turret_roof` | 90 | `turret/turret_03_top_dm` = 90 |
+| T-80B `gun_shield` | 50 | `turret/gun_mask_dm` and `gun_mask_01_dm` = 50 |
+| Leopard `hull_front_upper` | 400 | `hull_front_composite_armor/body_front_dm` = 400 |
+| Leopard `hull_front_lower` | 35 | `hull/superstructure_front_dm` = 35 |
+| Leopard `hull_roof_front` | 35 | `hull/superstructure_top_dm` = 35 |
+| Leopard `turret_front` | 250 | `turret/turret_09_front_dm` = 250 |
+| Leopard `turret_sides` | 160 | `turret/turret_07_side_dm` = 160 |
+| Leopard `gun_shield` | 50 | `mask/gun_mask_05_dm` = 50 |
+
+**And this is also a version check, not only a comparison.** Our packets record
+`source_refs: ["wt-2.57.1.137"]` - the figures were copied from an older build dossier - while the install here
+is **2.59.0.13**. All 34 figures are still present in the newer build, so the dossier values did not go stale
+across that version change. That is recorded because it is the honest form of the claim: the values are supported
+by the installed files, and the record names the build they were checked against.
+
+What the comparison adds beyond confirmation: the real *armour classes* (`RHA_tank_modern`, `CHA_tank_modern`,
+`RHAHH_tank`, `titanium_alloy_vt6`, `tank_textolite`, `t_80b_composite_armor`, `tank_structural_steel`), the real
+composite layer structure (T-80B textolite layers of 50/50 mm and a 60 mm superstructure front with a 1.2 generic
+quality), and per-part `genericArmorQuality` and `armorEffectiveThicknessMax` values that our material policy can
+be argued against instead of invented - while our `protection.zone.*` response profiles stay declared PROJECT
+policy, as they already say in their own notes.
+
+
 
 ```
 1. game_build: every benchmark matrix row can name War Thunder 2.59.0.13 instead of null, and every expected

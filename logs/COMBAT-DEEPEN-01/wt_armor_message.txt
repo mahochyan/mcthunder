@@ -1,0 +1,34 @@
+MCT-COMBAT-DEEPEN-01: the armour half of the comparison is done against the REAL game files, and the result is
+that every armour figure this project declares is supported by the installed build.
+
+docs/wt/wt-reference/WT_ARMOR_COMPARISON.json pairs each of our seventeen armor.* facts per vehicle with the
+actual DamageParts of the local War Thunder 2.59.0.13 unit files, by a region rule that is printed in the record
+next to every row rather than left implicit. The T-80B unit file carries 95 armour parts and the Leopard 2A4
+carries 116.
+
+THE OUTCOME, in full and without rounding up: 34 rows compared, 27 matched_exact (a real part carries exactly
+that thickness), 7 candidates_include_it (the value is present among that region parts - supported, not unique),
+ZERO matches_effective_max, and ZERO no_candidate. NOT ONE of our armour figures is unsupported by the installed
+game files. Examples: T-80B hull front 80 = hull/body_front_dm, hull sides 80 = hull/body_side_dm, hull roof 30 =
+hull/body_top_dm, hull rear 60 = hull/body_back_dm, hull floor 20 = hull/body_bottom_dm, turret front 250 =
+turret/turret_front_dm, turret sides 157 = turret/turret_side_dm, turret roof 90 = turret/turret_03_top_dm, gun
+shield 50 = turret/gun_mask_dm; Leopard hull front upper 400 = hull_front_composite_armor/body_front_dm, hull
+front lower 35 = hull/superstructure_front_dm, turret front 250 = turret/turret_09_front_dm, turret sides 160 =
+turret/turret_07_side_dm, gun shield 50 = mask/gun_mask_05_dm.
+
+IT IS ALSO A VERSION CHECK: our packets record source_refs ["wt-2.57.1.137"] - the figures were copied from an
+OLDER build dossier - while the install here is 2.59.0.13. All thirty four survive the version change, which is
+recorded as exactly that claim and no more: the values are supported by the installed files, and the record names
+the build they were checked against.
+
+WHAT THE COMPARISON ADDS BESIDES CONFIRMATION: the real armour classes (RHA_tank_modern, CHA_tank_modern,
+RHAHH_tank, titanium_alloy_vt6, tank_textolite, t_80b_composite_armor, tank_structural_steel), the real composite
+layer structure (T-80B textolite layers at 50/50 mm and a 60 mm superstructure front with a 1.2 generic quality),
+and per-part genericArmorQuality and armorEffectiveThicknessMax values that our material policy can now be argued
+against instead of invented - while our protection.zone.* response profiles remain declared PROJECT policy, as
+their own notes already state.
+
+This is the first external comparison this project has ever had: every earlier row was NOT_COMPARED by
+definition, and the armour rows now carry a named build, a real part and a real thickness. The boundary is
+unchanged and was checked again: the extracted game data and the tool live outside the repository, and only
+derived values and provenance were committed.

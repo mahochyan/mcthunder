@@ -1,0 +1,1614 @@
+{
+  "reference_kind": "armour_comparison_against_local_war_thunder",
+  "game_build": "2.59.0.13",
+  "our_declared_source": "our packets record origin=warthunder_reference and source_refs [\"wt-2.57.1.137\"], so this comparison is also a version check: the dossier value was copied from 2.57.1.137 and is now tested against 2.59.0.13",
+  "boundary": "derived values and provenance only; the extracted game data stays outside the repository",
+  "compared_at": "2026-09-19T07:22:15",
+  "outcome_legend": {
+    "matched_exact": "a real part in the current build carries exactly this thickness",
+    "matches_effective_max": "no part is that thick nominally, but a part armorEffectiveThicknessMax equals it - our figure came from the effective maximum rather than the plate",
+    "candidates_include_it": "the value appears among the region parts but not as a unique plate",
+    "no_candidate": "no part in that region carries this thickness - the figure is not supported by the current build"
+  },
+  "vehicles": [
+    {
+      "vehicle": "ussr_t_80b",
+      "unit_file": "gamedata/units/tankmodels/ussr_t_80b.blk",
+      "parts_total": 95,
+      "rows": [
+        {
+          "our_fact": "armor.gun_shield",
+          "our_value_mm": 50,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "gun shield: mask / shield / gun parts",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "gun_mask_dm",
+              "thickness": 50,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "gun_mask_01_dm",
+              "thickness": 50,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "gun_mask_02_dm",
+              "thickness": 90,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "gun_barrel_armor_dm",
+              "thickness": 200,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_01_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_02_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_03_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_04_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_05_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_06_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_07_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_08_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 12,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "turret/gun_mask_dm",
+            "turret/gun_mask_01_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_floor_front",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull floor: body_bottom / superstructure_bottom",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_bottom_dm",
+              "thickness": 20,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_bottom_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_bottom_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_floor_rear",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull floor: body_bottom / superstructure_bottom",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_bottom_dm",
+              "thickness": 20,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_bottom_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_bottom_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_front_lower",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull front: body_front / superstructure_front",
+          "candidate_parts": [
+            {
+              "section": "hull_composite_armor",
+              "part": "superstructure_front_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_front_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_front_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_front_upper",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull front: body_front / superstructure_front",
+          "candidate_parts": [
+            {
+              "section": "hull_composite_armor",
+              "part": "superstructure_front_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_front_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_front_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_rear_lower",
+          "our_value_mm": 60,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull rear: body_back / superstructure_back",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_back_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_back_dm",
+              "thickness": 50,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_back_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_rear_upper",
+          "our_value_mm": 60,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull rear: body_back / superstructure_back",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_back_dm",
+              "thickness": 60,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_back_dm",
+              "thickness": 50,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_back_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_roof_front",
+          "our_value_mm": 30,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull roof: body_top / superstructure_top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 30,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 20,
+              "armorClass": "titanium_alloy_vt6",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_top_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_roof_rear",
+          "our_value_mm": 30,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull roof: body_top / superstructure_top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 30,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 20,
+              "armorClass": "titanium_alloy_vt6",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_top_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_front",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 70,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_lower",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 70,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_lower_rear",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 70,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_rear",
+          "our_value_mm": 80,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 70,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 80,
+              "armorClass": null,
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.turret_front",
+          "our_value_mm": 250,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret front: any turret part named front",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_03_front_dm",
+              "thickness": 170,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 250
+            },
+            {
+              "section": "turret",
+              "part": "turret_01_front_dm",
+              "thickness": 250,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_front_dm",
+              "thickness": 250,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_front_dm",
+              "thickness": 45,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_front_dm",
+              "thickness": 30,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 5,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "turret/turret_01_front_dm",
+            "turret/turret_front_dm"
+          ],
+          "effective_max_parts": [
+            "turret/turret_03_front_dm (max 250)"
+          ]
+        },
+        {
+          "our_fact": "armor.turret_rear",
+          "our_value_mm": 90,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret rear: any turret part named back",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_01_back_dm",
+              "thickness": 65,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_back_dm",
+              "thickness": 65,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_back_dm",
+              "thickness": 90,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_09_back_dm",
+              "thickness": 30,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_10_back_dm",
+              "thickness": 120,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 5,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_back_dm"
+          ],
+          "effective_max_parts": [
+            "hull/turret_07_bottom_dm (max 90)"
+          ]
+        },
+        {
+          "our_fact": "armor.turret_roof",
+          "our_value_mm": 90,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret roof: any part named top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 30,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 20,
+              "armorClass": "titanium_alloy_vt6",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "turret_top_dm",
+              "thickness": 45,
+              "armorClass": null,
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "turret_04_top_dm",
+              "thickness": 10,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_03_top_dm",
+              "thickness": 90,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 180
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_top_dm",
+              "thickness": 65,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_06_top_dm",
+              "thickness": 60,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_07_top_dm",
+              "thickness": 140,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_top_dm",
+              "thickness": 30,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_top_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_09_top_dm",
+              "thickness": 45,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_10_top_dm",
+              "thickness": 45,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 12,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_03_top_dm"
+          ],
+          "effective_max_parts": [
+            "hull/turret_07_bottom_dm (max 90)"
+          ]
+        },
+        {
+          "our_fact": "armor.turret_sides",
+          "our_value_mm": 157,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret sides: any turret part named side",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_01_side_dm",
+              "thickness": 160,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 210
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_side_dm",
+              "thickness": 125,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 210
+            },
+            {
+              "section": "turret",
+              "part": "turret_04_side_dm",
+              "thickness": 90,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 180
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_side_dm",
+              "thickness": 70,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_side_dm",
+              "thickness": 157,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_06_side_dm",
+              "thickness": 80,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_side_dm",
+              "thickness": 5,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 7,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_side_dm"
+          ],
+          "effective_max_parts": []
+        }
+      ]
+    },
+    {
+      "vehicle": "germ_leopard_2a4",
+      "unit_file": "gamedata/units/tankmodels/germ_leopard_2a4.blk",
+      "parts_total": 116,
+      "rows": [
+        {
+          "our_fact": "armor.gun_shield",
+          "our_value_mm": 50,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "gun shield: mask / shield / gun parts",
+          "candidate_parts": [
+            {
+              "section": "mask",
+              "part": "gun_mask_dm",
+              "thickness": 16,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_mask_01_dm",
+              "thickness": 30,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_mask_02_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_trunnion_dm",
+              "thickness": 240,
+              "armorClass": "tank_structural_steel",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_mask_04_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_mask_05_dm",
+              "thickness": 50,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "mask",
+              "part": "gun_mask_06_dm",
+              "thickness": 25,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_01_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_02_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_03_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_04_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            },
+            {
+              "section": "gun",
+              "part": "gun_barrel_05_dm",
+              "thickness": 5,
+              "armorClass": "tank_barrel",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 15,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "mask/gun_mask_05_dm"
+          ],
+          "effective_max_parts": [
+            "hull/turret_07_bottom_dm (max 50)",
+            "inner_armor/firewall_armor_01_dm (max 50)",
+            "inner_armor/firewall_armor_02_dm (max 50)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_floor_front",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull floor: body_bottom / superstructure_bottom",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_bottom_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_bottom_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "hull/superstructure_bottom_dm",
+            "hull/body_bottom_dm"
+          ],
+          "effective_max_parts": [
+            "chassis/submodule (max 20)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_floor_rear",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull floor: body_bottom / superstructure_bottom",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_bottom_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_bottom_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "hull/superstructure_bottom_dm",
+            "hull/body_bottom_dm"
+          ],
+          "effective_max_parts": [
+            "chassis/submodule (max 20)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_front_lower",
+          "our_value_mm": 35,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull front: body_front / superstructure_front",
+          "candidate_parts": [
+            {
+              "section": "hull_front_composite_armor",
+              "part": "body_front_dm",
+              "thickness": 400,
+              "armorClass": "leopard_2a5_turret_nera",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_front_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/superstructure_front_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_front_upper",
+          "our_value_mm": 400,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull front: body_front / superstructure_front",
+          "candidate_parts": [
+            {
+              "section": "hull_front_composite_armor",
+              "part": "body_front_dm",
+              "thickness": 400,
+              "armorClass": "leopard_2a5_turret_nera",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "superstructure_front_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull_front_composite_armor/body_front_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_rear_lower",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull rear: body_back / superstructure_back",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_back_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_back_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "hull/superstructure_back_dm",
+            "hull/body_back_dm"
+          ],
+          "effective_max_parts": [
+            "chassis/submodule (max 20)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_rear_upper",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull rear: body_back / superstructure_back",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_back_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_back_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "hull/superstructure_back_dm",
+            "hull/body_back_dm"
+          ],
+          "effective_max_parts": [
+            "chassis/submodule (max 20)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_roof_front",
+          "our_value_mm": 35,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull roof: body_top / superstructure_top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/superstructure_top_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_roof_rear",
+          "our_value_mm": 20,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull roof: body_top / superstructure_top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 2,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_top_dm"
+          ],
+          "effective_max_parts": [
+            "chassis/submodule (max 20)"
+          ]
+        },
+        {
+          "our_fact": "armor.hull_sides_front",
+          "our_value_mm": 40,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 40,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_shield_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 3,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/superstructure_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_lower",
+          "our_value_mm": 35,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 40,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_shield_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 3,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_lower_rear",
+          "our_value_mm": 35,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 40,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_shield_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 3,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.hull_sides_rear",
+          "our_value_mm": 35,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "hull sides: body_side / superstructure_side / side screens",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_side_dm",
+              "thickness": 40,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_shield_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_side_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 3,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "hull/body_side_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.turret_front",
+          "our_value_mm": 250,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret front: any turret part named front",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_07_front_dm",
+              "thickness": 14,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_front_dm",
+              "thickness": 13,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_06_front_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_04_front_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_10_front_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_03_front_dm",
+              "thickness": 120,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_front_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_front_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_01_front_dm",
+              "thickness": 14,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_09_front_dm",
+              "thickness": 250,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 250
+            }
+          ],
+          "candidate_count": 10,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_09_front_dm"
+          ],
+          "effective_max_parts": [
+            "turret/turret_09_front_dm (max 250)"
+          ]
+        },
+        {
+          "our_fact": "armor.turret_rear",
+          "our_value_mm": 40,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret rear: any turret part named back",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_01_back_dm",
+              "thickness": 25,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_07_back_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_03_back_dm",
+              "thickness": 14,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_back_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_back_dm",
+              "thickness": 10,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_back_dm",
+              "thickness": 15,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_04_back_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_09_back_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 8,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_07_back_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.turret_roof",
+          "our_value_mm": 40,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret roof: any part named top",
+          "candidate_parts": [
+            {
+              "section": "hull",
+              "part": "superstructure_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "turret_06_top_dm",
+              "thickness": 30,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "body_top_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "turret_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "hull",
+              "part": "turret_10_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_07_top_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_top_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_04_top_dm",
+              "thickness": 35,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_01_top_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_03_top_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_top_dm",
+              "thickness": 40,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_top_dm",
+              "thickness": 20,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 13,
+          "outcome": "candidates_include_it",
+          "matched_parts": [
+            "turret/turret_07_top_dm",
+            "turret/turret_08_top_dm",
+            "turret/turret_01_top_dm",
+            "turret/turret_05_top_dm"
+          ],
+          "effective_max_parts": []
+        },
+        {
+          "our_fact": "armor.turret_sides",
+          "our_value_mm": 160,
+          "our_source_refs": [
+            "wt-2.57.1.137"
+          ],
+          "pairing_rule": "turret sides: any turret part named side",
+          "candidate_parts": [
+            {
+              "section": "turret",
+              "part": "turret_10_side_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_04_side_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_05_side_dm",
+              "thickness": 45,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_02_side_dm",
+              "thickness": 10,
+              "armorClass": "RHA_tank_modern",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_03_side_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_07_side_dm",
+              "thickness": 160,
+              "armorClass": "CHA_tank_modern",
+              "effectiveMax": 160
+            },
+            {
+              "section": "turret",
+              "part": "turret_06_side_dm",
+              "thickness": 35,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            },
+            {
+              "section": "turret",
+              "part": "turret_08_side_dm",
+              "thickness": 15,
+              "armorClass": "RHAHH_tank",
+              "effectiveMax": null
+            }
+          ],
+          "candidate_count": 8,
+          "outcome": "matched_exact",
+          "matched_parts": [
+            "turret/turret_07_side_dm"
+          ],
+          "effective_max_parts": [
+            "turret/turret_07_side_dm (max 160)"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "rows": 34,
+    "by_outcome": {
+      "candidates_include_it": 7,
+      "matched_exact": 27
+    }
+  }
+}
